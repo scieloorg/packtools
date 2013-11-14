@@ -3,6 +3,8 @@ import os
 import zipfile
 import itertools
 import logging
+import hashlib
+
 from lxml import etree
 
 from . import utils
@@ -149,16 +151,11 @@ class Xray(object):
             yield self._zip_pkg.open(filename, 'r')
 
     @property
-    def checksum(self, callable=None):
+    def checksum(self):
         """
-        Encapsulate the digest generation in order to avoid
-        things like secret key changes that could crash the
-        package identification.
-
-        :params callable: responsible for calculating the checksum.
+        Checksum the package file using sha1.
         """
-        callable = callable or utils.make_digest_file
-        return callable(self._filename)
+        return utils.checksum_file(self._filename, hashlib.sha1)
 
 
 class SPSPackage(SPSMixin, Xray):

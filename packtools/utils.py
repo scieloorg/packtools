@@ -7,15 +7,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def make_digest(message, secret='sekretz'):
+def _feed_hash(message, hash):
     """
-    Returns a digest for the message based on the given secret
-
-    ``message`` is the file object or byte string to be calculated
-    ``secret`` is a shared key used by the hash algorithm
+    Feeds `hash` with `message` in order to
+    generate a digest.
     """
-    hash = hmac.new(secret, '', hashlib.sha1)
-
     if hasattr(message, 'read'):
         while True:
             chunk = message.read(1024)
@@ -29,10 +25,21 @@ def make_digest(message, secret='sekretz'):
     else:
         raise TypeError('Unsupported type %s' % type(message))
 
+
+def authenticate_message(message, secret='sekretz'):
+    """
+    Returns a digest for the message based on the given secret
+
+    ``message`` is the file object or byte string to be calculated
+    ``secret`` is a shared key used by the hash algorithm
+    """
+    hash = hmac.new(secret, '', hashlib.sha1)
+    _feed_hash(message, hash)
+
     return hash.hexdigest()
 
 
-def make_digest_file(filepath):
+def checksum_file(filepath, callable):
     """
     Returns a digest for the filepath based on the given secret
 
@@ -40,7 +47,8 @@ def make_digest_file(filepath):
     ``secret`` is a shared key used by the hash algorithm
     """
     with open(filepath, 'rb') as f:
-        digest = make_digest(f, '')
+        hash = callable()
+        _feed_hash(f, hash)
 
-    return digest
+    return hash.hexdigest()
 
