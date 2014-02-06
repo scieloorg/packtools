@@ -378,13 +378,13 @@ class XrayTests(mocker.MockerTestCase):
 
         self.assertEquals(xray.get_ext('xml'), ['bar.xml'])
 
-    def test_get_ext_raises_ValueError_when_ext_doesnot_exist(self):
+    def test_get_ext_returns_empty_when_ext_doesnot_exist(self):
         arch = self._make_test_archive(
             [('bar.xml', b'<root><name>bar</name></root>')])
 
         xray = x_ray.Xray(arch.name)
 
-        self.assertRaises(ValueError, lambda: xray.get_ext('jpeg'))
+        self.assertEquals(xray.get_ext('jpeg'), [])
 
     def test_get_fps_returns_an_iterable(self):
         arch = self._make_test_archive(
@@ -422,4 +422,20 @@ class XrayTests(mocker.MockerTestCase):
             x_ray.Xray(arch1.name).checksum,
             x_ray.Xray(arch2.name).checksum
         )
+
+    def test_get_members(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.xml', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertEquals(xray.get_members(), ['bar.xml', 'jar.xml'])
+
+    def test_get_members_returns_empty(self):
+        arch = self._make_test_archive([])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertEquals(xray.get_members(), [])
 

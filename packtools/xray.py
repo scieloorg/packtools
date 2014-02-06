@@ -126,6 +126,17 @@ class Xray(object):
                 ext_node = self._pkg_names.setdefault(ext, [])
                 ext_node.append(filename)
 
+    def get_members(self):
+        """
+        Get a list of members.
+        """
+        members = []
+        for names in self._pkg_names.values():
+            for name in names:
+                members.append(name)
+
+        return members
+
     def get_ext(self, ext):
         """
         Get a list os members having ``ext`` as extension. Raises
@@ -135,16 +146,15 @@ class Xray(object):
         try:
             return self._pkg_names[ext]
         except KeyError:
-            raise ValueError("the package does not contain a '%s' file" % ext)
+            return []
 
     def get_fps(self, ext):
         """
         Get file objects for all members having ``ext`` as extension.
         If ``ext`` is not found in the archive, the iterator is empty.
         """
-        try:
-            filenames = self.get_ext(ext)
-        except ValueError:
+        filenames = self.get_ext(ext)
+        if not filenames:
             raise StopIteration()
 
         for filename in filenames:
