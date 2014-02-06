@@ -439,3 +439,22 @@ class XrayTests(mocker.MockerTestCase):
 
         self.assertEquals(xray.get_members(), [])
 
+    def test_get_fp(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.xml', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertIsInstance(xray.get_fp('bar.xml'),
+            zipfile.ZipExtFile)
+
+    def test_get_fp_nonexisting_members(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.xml', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertRaises(ValueError, lambda: xray.get_fp('foo.xml'))
+

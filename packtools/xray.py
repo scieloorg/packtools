@@ -160,6 +160,20 @@ class Xray(object):
         for filename in filenames:
             yield self._zip_pkg.open(filename, 'r')
 
+    def get_fp(self, member):
+        """
+        Get file object for member.
+
+        A complete list of members can be checked
+        calling get_members().
+
+        :param member: a zip member, e.g. 'foo.xml'
+        """
+        try:
+            return self._zip_pkg.open(member, 'r')
+        except KeyError:
+            raise ValueError('Missing member %s' % member)
+
     @property
     def checksum(self):
         """
