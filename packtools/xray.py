@@ -137,6 +137,12 @@ class Xray(object):
 
         return members
 
+    def get_classified_members(self):
+        """
+        Get a list of members classified by type.
+        """
+        return dict(self._pkg_names)
+
     def get_ext(self, ext):
         """
         Get a list os members having ``ext`` as extension. Raises

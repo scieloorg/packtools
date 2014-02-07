@@ -458,3 +458,12 @@ class XrayTests(mocker.MockerTestCase):
 
         self.assertRaises(ValueError, lambda: xray.get_fp('foo.xml'))
 
+    def test_get_classified_members(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.xml', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertEquals(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.xml']})
+
