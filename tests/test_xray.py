@@ -467,3 +467,50 @@ class XrayTests(mocker.MockerTestCase):
 
         self.assertEquals(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.xml']})
 
+    def test_get_ext_is_caseinsensitive(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.XML', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertEquals(xray.get_ext('xml'), ['bar.xml', 'jar.XML'])
+
+    def test_get_ext_arg_is_caseinsensitive(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.XML', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertEquals(xray.get_ext('XML'), ['bar.xml', 'jar.XML'])
+
+    def test_get_classified_members_is_caseinsensitive(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.XML', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+
+        self.assertEquals(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.XML']})
+
+    def test_get_fps_is_caseinsensitive(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.XML', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+        fps = xray.get_fps('xml')
+
+        self.assertEqual([fp.name for fp in fps], ['bar.xml', 'jar.XML'])
+
+    def test_get_fps_arg_is_caseinsensitive(self):
+        arch = self._make_test_archive(
+            [('bar.xml', b'<root><name>bar</name></root>'),
+             ('jar.XML', b'<root><name>bar</name></root>')])
+
+        xray = x_ray.Xray(arch.name)
+        fps = xray.get_fps('XML')
+
+        self.assertEqual([fp.name for fp in fps], ['bar.xml', 'jar.XML'])
+

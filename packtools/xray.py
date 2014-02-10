@@ -123,7 +123,7 @@ class Xray(object):
             # ignore directories and empty files
             if fileinfo.file_size:
                 _, ext = filename.rsplit('.', 1)
-                ext_node = self._pkg_names.setdefault(ext, [])
+                ext_node = self._pkg_names.setdefault(ext.lower(), [])
                 ext_node.append(filename)
 
     def get_members(self):
@@ -150,7 +150,7 @@ class Xray(object):
         the extension.
         """
         try:
-            return self._pkg_names[ext]
+            return self._pkg_names[ext.lower()]
         except KeyError:
             return []
 
