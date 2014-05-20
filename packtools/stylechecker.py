@@ -1,17 +1,11 @@
-"""
-Mensagens de error_log (linha, coluna - mensagem):
-
-4,0 - Element 'article', attribute 'dtd-version': [facet 'enumeration'] The value '3.0' is not an element of the set {'1.0'}.
-4,0 - Element 'article', attribute 'dtd-version': '3.0' is not a valid value of the local atomic type.
-824,0 - Element 'author-notes': This element is not expected. Expected is one of ( label, title, ack, app-group, bio, fn-group, glossary, ref-list, notes, sec ).
-6,0 - Element 'journal-title-group': This element is not expected. Expected is ( journal-id ).
-15,0 - Element 'contrib-group': This element is not expected. Expected is one of ( article-id, article-categories, title-group ).
-"""
 import re
 import os
-import copy
-from lxml import etree
 import logging
+
+from lxml import etree
+
+from packtools.utils import setdefault
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCHEMAS = {
@@ -30,18 +24,16 @@ def XMLSchema(schema_name):
     return xmlschema
 
 
-def setdefault(object, attribute, producer):
-    if not hasattr(object, attribute):
-        setattr(object, attribute, producer())
-
-    return getattr(object, attribute)
-
-
 class XML(object):
-    def __init__(self, filepath):
-        self.filepath = filepath
-        with open(filepath) as fp:
-            self.lxml = etree.parse(fp)
+    def __init__(self, file):
+        """
+        :param file: Path to the XML file or etree.
+        """
+        if isinstance(file, etree._ElementTree):
+            self.lxml = file
+        else:
+            self.lxml = etree.parse(file)
+
         self.xmlschema = XMLSchema('SciELO-journalpublishing1.xsd')
 
     def find(self, tagname, lineno):
@@ -57,8 +49,8 @@ class XML(object):
 
 
     def validate(self):
-        result = setdefault(self, '_validation_result', lambda: self.xmlschema.validate(self.lxml))
-        errors = setdefault(self, '_validation_errors', lambda: self.xmlschema.error_log)
+        result = setdefault(self, '__validation_result', lambda: self.xmlschema.validate(self.lxml))
+        errors = setdefault(self, '__validation_errors', lambda: self.xmlschema.error_log)
         return result, errors
 
     def annotate_errors(self):
@@ -86,6 +78,18 @@ class XML(object):
     def __str__(self):
         return etree.tostring(self.lxml, pretty_print=True,
             encoding='utf-8', xml_declaration=True)
+
+    def __unicode__(self):
+        return str(self).decode('utf-8')
+
+    def __repr__(self):
+        return '<packtools.stylechecker.XML xml=%s valid=%s>' % (self.lxml, self.validate()[0])
+
+    def read(self):
+        """
+        Read the XML contents as text.
+        """
+        return unicode(self)
 
 
 if __name__ == '__main__':

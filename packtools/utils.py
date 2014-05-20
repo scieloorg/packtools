@@ -52,3 +52,13 @@ def checksum_file(filepath, callable):
 
     return hash.hexdigest()
 
+
+def setdefault(object, attribute, producer):
+    """
+    Like dict().setdefault but for object attributes.
+    """
+    if not hasattr(object, attribute):
+        setattr(object, attribute, producer())
+
+    return getattr(object, attribute)
+
