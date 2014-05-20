@@ -92,7 +92,7 @@ class XML(object):
         return unicode(self)
 
 
-if __name__ == '__main__':
+def main():
     import argparse
     import sys
 
@@ -116,4 +116,8 @@ if __name__ == '__main__':
                 print '%s,%s\t%s' % (err.line, err.column, err.message)
         else:
             print 'Valid XML! ;)'
+
+
+if __name__ == '__main__':
+    main()
 
