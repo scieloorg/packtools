@@ -11,7 +11,7 @@ install_requires = [
 
 setup(
     name="packtools",
-    version='0.1',
+    version='0.2',
     description="Handle SPS packages like a breeze.",
     #long_description=open('README.md').read() + '\n\n' +
     #                 open('HISTORY.md').read(),
