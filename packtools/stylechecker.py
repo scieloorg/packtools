@@ -8,19 +8,22 @@ Mensagens de error_log (linha, coluna - mensagem):
 15,0 - Element 'contrib-group': This element is not expected. Expected is one of ( article-id, article-categories, title-group ).
 """
 import re
+import os
 import copy
 from lxml import etree
 import logging
 
-
-SCHEMAS = {'http://static.scielo.org/sps/schema/SciELO-journalpublishing1.xsd': '/Users/gustavofonseca/prj/github/packtools/packtools/sps_xsd/sps.xsd'}
+HERE = os.path.dirname(os.path.abspath(__file__))
+SCHEMAS = {
+    'SciELO-journalpublishing1.xsd': os.path.join(HERE, 'sps_xsd', 'sps.xsd'),
+}
 EXPOSE_ELEMENTNAME_PATTERN = re.compile(r"(?<=Element )'.*?'")
 
 logger = logging.getLogger(__name__)
 
 
-def XMLSchema(href):
-    with open(SCHEMAS[href]) as fp:
+def XMLSchema(schema_name):
+    with open(SCHEMAS[schema_name]) as fp:
         xmlschema_doc = etree.parse(fp)
 
     xmlschema = etree.XMLSchema(xmlschema_doc)
@@ -38,23 +41,23 @@ class XML(object):
     def __init__(self, filepath):
         self.filepath = filepath
         with open(filepath) as fp:
-            self.xml = etree.parse(fp)
-        self.xmlschema = XMLSchema('http://static.scielo.org/sps/schema/SciELO-journalpublishing1.xsd')
+            self.lxml = etree.parse(fp)
+        self.xmlschema = XMLSchema('SciELO-journalpublishing1.xsd')
 
     def find(self, tagname, lineno):
-        for elem in self.xml.findall('//' + tagname):
+        for elem in self.lxml.findall('//' + tagname):
             if elem.sourceline == lineno:
                 logger.debug('method *find*: hit a regular element: %s.' % tagname)
                 return elem
         else:
-            root = self.xml.getroot()
+            root = self.lxml.getroot()
             if root.tag == tagname:
                 logger.debug('method *find*: hit a root element.')
                 return root
 
 
     def validate(self):
-        result = setdefault(self, '_validation_result', lambda: self.xmlschema.validate(self.xml))
+        result = setdefault(self, '_validation_result', lambda: self.xmlschema.validate(self.lxml))
         errors = setdefault(self, '_validation_errors', lambda: self.xmlschema.error_log)
         return result, errors
 
@@ -81,23 +84,32 @@ class XML(object):
                 err_element.addprevious(etree.Comment('SPS-ERROR: %s' % error.message))
 
     def __str__(self):
-        return etree.tostring(self.xml, pretty_print=True,
+        return etree.tostring(self.lxml, pretty_print=True,
             encoding='utf-8', xml_declaration=True)
 
 
 if __name__ == '__main__':
+    import argparse
     import sys
-    xml_filepath = sys.argv[1]
-    xml = XML(xml_filepath)
+
+    parser = argparse.ArgumentParser(description='stylechecker cli utility.')
+    parser.add_argument('--annotated', action='store_true')
+    parser.add_argument('xmlpath', help='Absolute or relative path to the XML file.')
+
+    args = parser.parse_args()
+    xml = XML(args.xmlpath)
 
     is_valid, errors = xml.validate()
 
-    if is_valid:
-        print 'XML file is valid.'
-    else:
-        for err in errors:
-            print '%s,%s - %s' % (err.line, err.column, err.message)
-
+    if args.annotated:
         xml.annotate_errors()
-        sys.stderr.write(str(xml))
+        sys.stdout.write(str(xml))
+
+    else:
+        if not is_valid:
+            print 'Invalid XML! Found %s errors:' % len(errors)
+            for err in errors:
+                print '%s,%s\t%s' % (err.line, err.column, err.message)
+        else:
+            print 'Valid XML! ;)'
 
