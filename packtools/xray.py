@@ -8,20 +8,13 @@ import hashlib
 from lxml import etree
 
 from . import utils
+from . import stylechecker
 
 
 logger = logging.getLogger(__name__)
 
 
-def get_xmlschema(path):
-    xmlschema_doc = etree.parse(open(path, 'r'))
-    xmlschema = etree.XMLSchema(xmlschema_doc)
-    return xmlschema
-
-
 class SPSMixin(object):
-    xmlschema = get_xmlschema(os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 'sps_xsd', 'sps.xsd'))
 
     @property
     def xmls(self):
@@ -56,6 +49,13 @@ class SPSMixin(object):
 
         return dct_mta
 
+    def is_valid_schema(self):
+        """
+        Checks if the XML is valid against SPS XSD.
+        More info at: https://github.com/scieloorg/scielo_publishing_schema
+        """
+        return self.stylechecker.validate()[0]
+
     def is_valid_meta(self):
         """
         Checks if the minimum required data to identify a package is present.
@@ -64,13 +64,6 @@ class SPSMixin(object):
         return bool(meta['article_title'] and (
                     meta['journal_eissn'] or meta['journal_pissn']) and (
                     meta['issue_volume'] or meta['issue_number']))
-
-    def is_valid_schema(self):
-        """
-        Checks if the XML is valid against SPS XSD.
-        More info at: https://github.com/scieloorg/scielo_publishing_schema
-        """
-        return self.xmlschema.validate(self.xml)
 
     def is_valid_package(self):
         """
@@ -90,6 +83,10 @@ class SPSMixin(object):
         Performs all package validations sequentialy.
         """
         return self.is_valid_package() and self.is_valid_schema() and self.is_valid_meta()
+
+    @property
+    def stylechecker(self):
+        return utils.setdefault(self, '__stylechecker', lambda: stylechecker.XML(self.xml))
 
 
 class Xray(object):
