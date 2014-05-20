@@ -35,5 +35,8 @@ setup(
     tests_require=["mocker"],
     test_suite='tests',
     install_requires=install_requires,
-)
+    entry_points="""
+    [console_scripts]
+    stylechecker = packtools.stylechecker:main
+    """)
 
