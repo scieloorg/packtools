@@ -98,7 +98,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='stylechecker cli utility.')
     parser.add_argument('--annotated', action='store_true')
-    parser.add_argument('xmlpath', help='Absolute or relative path to the XML file.')
+    parser.add_argument('xmlpath', help='Filesystem path or URL to the XML file.')
 
     args = parser.parse_args()
     xml = XML(args.xmlpath)
