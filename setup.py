@@ -22,7 +22,6 @@ setup(
     license="BSD License",
     url="http://docs.scielo.org",
     packages=['packtools'],
-    package_data={'': ['LICENSE'], 'packtools': ['sps_xsd/*']},
     package_dir={'packtools': 'packtools'},
     include_package_data=True,
     classifiers=[
