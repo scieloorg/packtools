@@ -36,7 +36,13 @@ class XML(object):
 
         self.xmlschema = XMLSchema('SciELO-journalpublishing1.xsd')
 
-    def find(self, tagname, lineno):
+    def find_element(self, tagname, lineno):
+        """Find an element given a tagname and a line number.
+
+        If no element is found than the return value is None.
+        :param tagname: string of the tag name.
+        :param lineno: int if the line it appears on the original source file.
+        """
         for elem in self.lxml.findall('//' + tagname):
             if elem.sourceline == lineno:
                 logger.debug('method *find*: hit a regular element: %s.' % tagname)
@@ -49,9 +55,26 @@ class XML(object):
 
 
     def validate(self):
+        """Validate the source XML against the JATS Publishing Schema.
+
+        Returns a tuple comprising the validation status and the errors list.
+        """
         result = setdefault(self, '__validation_result', lambda: self.xmlschema.validate(self.lxml))
         errors = setdefault(self, '__validation_errors', lambda: self.xmlschema.error_log)
         return result, errors
+
+    def validate_tagset(self):
+        """Validate the source XML against the SPS Tagging guidelines.
+        """
+
+    def _annotate_error(self, element, error):
+        """Add an annotation prior to `element`, with `error` as the content.
+
+        The annotation is a <SPS-ERROR> element added prior to `element`.
+        If `element` is the root element, then the error is annotated as comment.
+        :param element: etree instance to be annotated.
+        :param error: string of the error.
+        """
 
     def annotate_errors(self):
         result, errors = self.validate()
@@ -63,7 +86,7 @@ class XML(object):
             else:
                 element_name = match.group(0).strip("'")
 
-            err_element = self.find(element_name, error.line)
+            err_element = self.find_element(element_name, error.line)
             if err_element is None:
                 raise ValueError('Could not locate the erratic element %s at line %s to annotate: %s.' % (element_name, error.line, error.message))
 
