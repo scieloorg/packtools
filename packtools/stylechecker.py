@@ -24,10 +24,29 @@ def XMLSchema(schema_name):
     return xmlschema
 
 
+def search_element_name(message):
+    """Try to locate in `message` the element name pointed as error.
+
+    :param message: is a lxml error log message.
+    """
+    match = EXPOSE_ELEMENTNAME_PATTERN.search(message)
+    if match is None:
+        raise ValueError('Could not locate the element name in %s.' % message)
+    else:
+        return match.group(0).strip("'")
+
+
 class XML(object):
     def __init__(self, file):
-        """
-        :param file: Path to the XML file or etree.
+        """Represents an XML under validation.
+
+        The XML can be retrieved given its filesystem path,
+        an URL, a file-object or an etree instance.
+
+        The XML is validated against the JATS Publishing tag set
+        and the SPS Style.
+
+        :param file: Path to the XML file, URL or etree.
         """
         if isinstance(file, etree._ElementTree):
             self.lxml = file
@@ -63,7 +82,7 @@ class XML(object):
         errors = setdefault(self, '__validation_errors', lambda: self.xmlschema.error_log)
         return result, errors
 
-    def validate_tagset(self):
+    def validate_style(self):
         """Validate the source XML against the SPS Tagging guidelines.
         """
 
@@ -75,28 +94,36 @@ class XML(object):
         :param element: etree instance to be annotated.
         :param error: string of the error.
         """
+        notice_element = etree.Element('SPS-ERROR')
+        notice_element.text = error
+        try:
+            element.addprevious(notice_element)
+        except TypeError:
+            # In case of a root element, a comment if added.
+            element.addprevious(etree.Comment('SPS-ERROR: %s' % error))
 
     def annotate_errors(self):
+        """Add notes on all elements that have errors.
+
+        The errors list is generated as a result of calling both :meth:`validate` and
+        :meth:`validate_style` methods.
+        """
         result, errors = self.validate()
 
         for error in errors:
-            match = EXPOSE_ELEMENTNAME_PATTERN.search(error.message)
-            if match is None:
-                raise ValueError('Could not locate the element name in %s.' % error.message)
-            else:
-                element_name = match.group(0).strip("'")
+            try:
+                element_name = search_element_name(error.message)
+            except ValueError:
+                # could not find the element name
+                logger.info('Could not locate the element name in: %s' % error.message)
+                continue
 
             err_element = self.find_element(element_name, error.line)
             if err_element is None:
-                raise ValueError('Could not locate the erratic element %s at line %s to annotate: %s.' % (element_name, error.line, error.message))
-
-            notice_element = etree.Element('SPS-ERROR')
-            notice_element.text = error.message
-            try:
-                err_element.addprevious(notice_element)
-            except TypeError:
-                # In case of a root element, a comment if added.
-                err_element.addprevious(etree.Comment('SPS-ERROR: %s' % error.message))
+                raise ValueError('Could not locate the erratic element %s at line %s to annotate: %s.' \
+                    % (element_name, error.line, error.message))
+            else:
+                self._annotate_error(err_element, error.message)
 
     def __str__(self):
         return etree.tostring(self.lxml, pretty_print=True,

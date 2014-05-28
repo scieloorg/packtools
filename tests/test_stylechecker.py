@@ -78,7 +78,7 @@ class XMLTests(unittest.TestCase):
         xml = stylechecker.XML(fp)
         xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
 
-        elem = xml.find('b', 2)
+        elem = xml.find_element('b', 2)
         self.assertEqual(elem.tag, 'b')
         self.assertEqual(elem.sourceline, 2)
 
@@ -87,7 +87,7 @@ class XMLTests(unittest.TestCase):
         xml = stylechecker.XML(fp)
         xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
 
-        elem = xml.find('a', 1)
+        elem = xml.find_element('a', 1)
         self.assertEqual(elem.tag, 'a')
         self.assertEqual(elem.sourceline, 1)
 
@@ -96,7 +96,7 @@ class XMLTests(unittest.TestCase):
         xml = stylechecker.XML(fp)
         xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
 
-        self.assertIsNone(xml.find('c', 2))
+        self.assertIsNone(xml.find_element('c', 2))
 
     def test_annotate_errors(self):
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
