@@ -84,6 +84,8 @@ class XML(object):
 
     def validate_style(self):
         """Validate the source XML against the SPS Tagging guidelines.
+
+        Returns a tuple comprising the validation status and the errors list.
         """
 
     def _annotate_error(self, element, error):
