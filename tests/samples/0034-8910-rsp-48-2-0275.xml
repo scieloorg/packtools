@@ -1,0 +1,2626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004934</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004934</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Necessidade de aprimoramento do atendimento à saúde no sistema carcerário</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Fernandes</surname>
+						<given-names>Luiz Henrique</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Alvarenga</surname>
+						<given-names>Carlos Willie</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Santos</surname>
+						<given-names>Luciane Loures dos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Pazin</surname>
+						<given-names>Antonio</given-names>
+						<suffix>Filho</suffix>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv1">Faculdade de Medicina de Ribeirão Preto</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Ribeirão Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Faculdade de Medicina de Ribeirão Preto. Universidade de São Paulo. Ribeirão Preto, SP, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv2">Departamento de Medicina Social</institution>
+				<institution content-type="orgdiv1">Faculdade de Medicina de Ribeirão Preto</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Ribeirão Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Medicina Social. Faculdade de Medicina de Ribeirão Preto. Universidade de São Paulo. Ribeirão Preto, SP, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv2">Departamento de Clínica Médica</institution>
+				<institution content-type="orgdiv1">Faculdade de Medicina de Ribeirão Preto</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Ribeirão Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Clínica Médica. Faculdade de Medicina de Ribeirão Preto. Universidade de São Paulo. Ribeirão Preto, SP, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Antonio Pazin-Filho  R. Bernardino de Campos, 1000  14015-130 Ribeirão Preto, SP, Brasil  E-mail: <email>apazin@fmrp.usp.br</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>275</fpage>
+			<lpage>283</lpage>
+			<history>
+				<date date-type="received">
+					<day>11</day>
+					<month>5</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>16</day>
+					<month>12</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Analisar a estrutura física, as condições de trabalho dos profissionais da saúde e o delineamento de processos estabelecidos em unidades prisionais.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Foram analisados 34 centros de detenção provisória e 69 unidades prisionais masculinas e seis femininas do Estado de São Paulo, Brasil, em 2009. Foi desenvolvido instrumento autoaplicativo para coleta de dados quantitativos sobre as características de estrutura, equipamento e pessoal para atendimento à saúde nas unidades prisionais. A análise de variância (ANOVA) ou equivalente não paramétrico e os testes de Qui-quadrado ou Fisher foram utilizados para comparação de variáveis contínuas ou categóricas, respectivamente, entre os grupos estudados.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>Os principais problemas foram o retardo nos resultados de exames laboratoriais e de imagem. Quanto às equipes, grande maioria apresentou condições próximas da proposta pela Comissão InterGestores Bipartite 2013, mas sem que isso se refletisse em melhoria dos indicadores. Com relação ao processo, observou-se que mais de 60,0% das unidades prisionais estão localizadas em cidades pequenas, sem condições estruturais de saúde para garantir o atendimento secundário ou terciário para continuidade do processo de tratamento.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>O perfil apresentado das unidades prisionais do País poderá ser utilizado para planejamento e acompanhamento de ações futuras para melhoria contínua das condições estruturais de saúde.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Prisões, organização &amp; administração</kwd>
+				<kwd>Planos e Programas de Saúde</kwd>
+				<kwd>Equipe de Assistência ao Paciente</kwd>
+				<kwd>Riscos Ocupacionais</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Fundação de Apoio, Pesquisa e Assistência</funding-source>
+					<award-id>FAEPA/HC-98/2009</award-id>
+				</award-group>
+				<funding-statement>Estudo financiado pela Fundação de Apoio, Pesquisa e Assistência (FAEPA) do Hospital das Clínicas da Faculdade de Medicina de Ribeirão Preto da Universidade de São Paulo (FAEPA/HC-98/2009) e pelo Programa Ensinar com Pesquisa da Universidade de São Paulo (PROEP/2009) (bolsa para os alunos da Faculdade de Medicina).</funding-statement>
+			</funding-group>
+			<counts>
+				<fig-count count="2"/>
+				<table-count count="6"/>
+				<ref-count count="10"/>
+				<page-count count="9"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>O planejamento e execução de programas de saúde para a população carcerária é preocupação mundial.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> Essa população apresenta elevados níveis de distúrbios mentais, de doenças crônicas e de uso de drogas, superiores aos das populações das quais os indivíduos tiveram origem.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> Adicionalmente, qualquer ambiente de concentração populacional é propício ao agravo de condições de saúde prévias, bem como ao desenvolvimento de novos agravos, como doenças sexualmente transmissíveis ou de transmissão aérea. O crescimento da população carcerária aumenta essa problemática observada em diversos países. No Brasil, essa preocupação dura mais de uma década.<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref>
+			</p>
+			<p>Muito embora diagnosticado, o problema é de difícil abordagem, pois a implantação de um programa de assistência ao detento defronta-se com inúmeros entraves: a variabilidade de agravos à saúde de acordo com as características da população carcerária; a capacidade instalada prevista e real para o atendimento; as características das equipes de saúde no que se refere à disponibilidade e capacitação; e a relação da unidade prisional com a hierarquia do Sistema Único de Saúde (SUS).</p>
+			<p>A população confinada no sistema penitenciário da região de Ribeirão Preto, SP, foi estimada em 4.698 indivíduos distribuídos em seis unidades prisionais (UP), sendo três no município de Ribeirão Preto (uma feminina, uma masculina e um centro de detenção provisória masculino) e três no município de Serra Azul (duas masculinas e um centro de detenção provisória masculino), em 2009. Essas unidades apresentaram taxa de ocupação entre 120,0% e 225,0% e número insuficiente de profissionais para a assistência da população encarcerada, produzindo intervenções pontuais de baixa resolubilidade, ações de pronto atendimento e necessidade elevada de deslocamento para serviços de saúde oferecidos fora das UP.</p>
+			<p>A sobrecarga de encaminhamentos para atendimento fora das UP gerou mais solicitações de escolta sem conseguir atender a todas as demandas. Tal dificuldade propiciou o início do diálogo entre os representantes das UP, mediados pela Coordenadoria da Saúde da Secretaria de Administração Presidiária e o Hospital das Clínicas da Faculdade de Medicina de Ribeirão Preto da Universidade de São Paulo. O intuito inicial foi o de facilitar o atendimento dos presidiários referendados para essa instituição de modo a reduzir o risco que a duração prolongada da escolta significa quanto a deixar a população em geral desguarnecida. Dessa iniciativa, identificou-se a necessidade de mapear a estrutura física, o processo de trabalho dos profissionais de saúde, as condições gerais de atendimento, bem como o perfil dos encarcerados das UP da região de Ribeirão Preto, posteriormente ampliado para todo o Estado de São Paulo.</p>
+			<p>Este trabalho teve como objetivo analisar a estrutura física, as condições de trabalho dos profissionais da saúde e o delineamento de processos estabelecidos em UP do Estado de São Paulo.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>O instrumento desenvolvido para coleta de dados das características estruturais e profissionais foi embasado no trabalho de Marshall et al<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> e da Organização Mundial de Saúde,<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> para favorecer comparação com outros estudos. Trata-se de questionário autoaplicativo, com dados quantitativos, a ser preenchido pelos gestores das UP, visando à generalização externa e possibilidade de reaplicação periódica para acompanhamento de processos futuros.</p>
+			<p>Esse questionário foi aplicado pelos pesquisadores em visitas <italic>in locu</italic> às seis UP do complexo Ribeirão Preto/Serra Azul em um projeto piloto e o instrumento foi aprimorado para ser aplicado junto aos gestores responsáveis pelo setor da saúde das UP do Estado de São Paulo.</p>
+			<p>O estudo envolveu 139 UP do Estado de São Paulo, mas a análise foi restrita a 34 centros de detenção provisória (CDP) e a 69 UP masculinas (UP-MASC) e seis femininas (UP-FEM), pois as demais instituições apresentam características diferentes de população carcerária. Para apresentação dos dados, a análise foi realizada utilizando-se esses grupos, apesar do número reduzido de UP-FEM para comparação absoluta. Foi realizada análise de sensibilidade com exclusão das UP-FEM quando os valores foram muito discrepantes sem alteração dos achados. A divisão nesses grupos procurou capturar a diferença esperada de comportamento entre o tipo de unidade prisional e o gênero.</p>
+			<p>A análise dos dados foi realizada utilizando o programa Stata versão 10 e o programa ArcGIS versão 9 para análise de geodistribuição. O projeto foi aprovado pelo Comitê de Ética em Pesquisa do HC-FMRP-USP (CAAE 2731.0.000.004-09), sendo respeitadas as necessidades de segurança recomendadas pela Secretaria da Administração Penitenciária do Estado de São Paulo. Por se tratar de dados administrativos, foi obtida a dispensa do termo de consentimento.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>Com relação às condições estruturais de atendimento, todas as unidades referiram dispor de local próprio, com prontuário médico e capacidade para solicitação de exames laboratoriais e de imagem. Quanto aos prontuários, todos os detentos possuíam prontuário clínico não informatizado, transferido com o presidiário no caso de mudança de unidade prisional. Observaram-se iniciativas variando entre 21,0% e 35,0% das unidades de informatização dos dados do prontuário, com o objetivo de facilitar o acompanhamento do processo de tratamento. No entanto, esses sistemas são variáveis e, por serem iniciativas locais não interconectam as diversas UP dispersas no Estado de São Paulo.</p>
+			<p>Quanto aos exames complementares, todos os entrevistados informaram que os exames laboratoriais eram colhidos na própria unidade e que havia demora da entrega desses resultados. Em relação aos exames de imagem, quanto maior a complexidade do exame, maior a dificuldade de ser realizado (9,0% em relação à radiografia e 71,0% nos casos de tomografia), e também havia demora para obtenção dos resultados. Os medicamentos disponíveis são previstos no programa Dose Certa,<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref> mas cerca de 60,0% das unidades refere falta de medicamentos, principalmente anti-inflamatórios e benzodiazepínicos.</p>
+			<p>A <xref ref-type="table" rid="t01">Tabela 1</xref> descreve as características dos profissionais de saúde envolvidos no atendimento. A <xref ref-type="table" rid="t02">Tabela 2</xref> mostra a prevalência das necessidades de saúde dos detentos e a eventual capacidade de resolução. Na <xref ref-type="table" rid="t03">Tabela 3</xref> encontra-se a interconexão das condições internas de atendimento com a hierarquia do SUS. A <xref ref-type="fig" rid="f01">Figura</xref> ilustra a concentração da população carcerária no Estado de São Paulo de acordo com o município, tanto em valores absolutos como relativos à população do município sede.</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Distribuição dos profissionais de acordo com o tipo de unidade prisional. São Paulo, 2009.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="12%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="left" style="font-weight:normal">Profissão</th>
+								<th style="font-weight:normal">N</th>
+								<th colspan="2" style="font-weight:normal">CDP (34)</th>
+								<th colspan="2" style="font-weight:normal">UP MASC (69)</th>
+								<th colspan="2" style="font-weight:normal">UP FEM (6)</th>
+							</tr>
+							<tr>
+								<th align="left" style="font-weight:normal"> </th>
+								<th align="left" style="font-weight:normal"> </th>
+								<th style="font-weight:normal">n<sup>c</sup>
+								</th>
+								<th style="font-weight:normal">%/IQ<sup>d</sup>
+								</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%/IQ</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%/IQ</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Médico</td>
+								<td align="center">Pelo menos 1 profissional<sup>a</sup>
+								</td>
+								<td align="center">21</td>
+								<td align="center">61,7</td>
+								<td align="center">54</td>
+								<td align="center">78,2</td>
+								<td align="center">5</td>
+								<td align="center">83,3</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">n/1.000 detentos<sup>b</sup>
+								</td>
+								<td align="center">0,8</td>
+								<td align="center">0;1,1</td>
+								<td align="center">1</td>
+								<td align="center">0,6;2,1</td>
+								<td align="center">1,1</td>
+								<td align="center">0,7;2,4</td>
+							</tr>
+							<tr>
+								<td>Odontologista</td>
+								<td align="center">Pelo menos 1 profissional</td>
+								<td align="center">28</td>
+								<td align="center">82,3</td>
+								<td align="center">58</td>
+								<td align="center">84,0</td>
+								<td align="center">5</td>
+								<td align="center">83,3</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">n/1.000 detentos</td>
+								<td align="center">1</td>
+								<td align="center">0,6;1,6</td>
+								<td align="center">0,9</td>
+								<td align="center">0,7;1,7</td>
+								<td align="center">1,1</td>
+								<td align="center">0,7;2,4</td>
+							</tr>
+							<tr>
+								<td>Psiquiatra</td>
+								<td align="center">Pelo menos 1 profissional</td>
+								<td align="center">12</td>
+								<td align="center">35,3</td>
+								<td align="center">36</td>
+								<td align="center">52,1</td>
+								<td align="center">6</td>
+								<td align="center">100</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">n/1.000 detentos</td>
+								<td align="center">0</td>
+								<td align="center">0;0,6</td>
+								<td align="center">0</td>
+								<td align="center">0;0,8</td>
+								<td align="center">1,1</td>
+								<td align="center">0,3;1,2</td>
+							</tr>
+							<tr>
+								<td>Enfermeiro</td>
+								<td align="center">Pelo menos 1 profissional</td>
+								<td align="center">23</td>
+								<td align="center">67,6</td>
+								<td align="center">47</td>
+								<td align="center">68,1</td>
+								<td align="center">4</td>
+								<td align="center">66,6</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">n/1.000 detentos</td>
+								<td align="center">0,8</td>
+								<td align="center">0;1,5</td>
+								<td align="center">1,01</td>
+								<td align="center">0;2,4</td>
+								<td align="center">0,9</td>
+								<td align="center">0;2,5</td>
+							</tr>
+							<tr>
+								<td>Auxiliar de enfermagem</td>
+								<td align="center">Pelo menos 1 profissional</td>
+								<td align="center">31</td>
+								<td align="center">91,2</td>
+								<td align="center">62</td>
+								<td align="center">89,8</td>
+								<td align="center">5</td>
+								<td align="center">83,3</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">n/1.000 detentos</td>
+								<td align="center">3,3</td>
+								<td align="center">2,7;5,0</td>
+								<td align="center">3,5</td>
+								<td align="center">2,5;4,9</td>
+								<td align="center">7,4</td>
+								<td align="center">4,4;11,1</td>
+							</tr>
+							<tr>
+								<td>Psicólogo</td>
+								<td align="center">Pelo menos 1 profissional</td>
+								<td align="center">22</td>
+								<td align="center">64,7</td>
+								<td align="center">55</td>
+								<td align="center">79,7</td>
+								<td align="center">4</td>
+								<td align="center">66,6</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">n/1.000 detentos</td>
+								<td align="center">0,71</td>
+								<td align="center">0;1,6</td>
+								<td align="center">1,4</td>
+								<td align="center">0,7;2,4</td>
+								<td align="center">1,8</td>
+								<td align="center">0;2,6</td>
+							</tr>
+							<tr>
+								<td>Assistente social</td>
+								<td align="center">Pelo menos 1 profissional</td>
+								<td align="center">25</td>
+								<td align="center">73,5</td>
+								<td align="center">60</td>
+								<td align="center">86,9</td>
+								<td align="center">5</td>
+								<td align="center">83,3</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">n/1.000 detentos</td>
+								<td align="center">0,9</td>
+								<td align="center">0,5;1,6</td>
+								<td align="center">1,6</td>
+								<td align="center">0,8;2,7</td>
+								<td align="center">2,9</td>
+								<td align="center">1,8;6,2</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>CDP: centro de detenção provisória; UP: unidade prisional; MASC: masculina; FEM: feminina</p>
+						<p>
+							<sup>a</sup> Número total de unidades com pelo menos um profissional disponível.</p>
+						<p>
+							<sup>b</sup> n/1.000 detentos = número de profissionais divididos pela população carcerária em 2009 e multiplicado por mil.</p>
+						<p>
+							<sup>c</sup> n = número absoluto dos parâmetros a e b.</p>
+						<p>
+							<sup>d</sup> %/IQ = Os valores referentes a pelo menos um profissional disponível são expressos em porcentagem, enquanto os valores referentes a n/1.000 detentos são expressos em intervalo interquartil.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Distribuição das categorias de atenção à saúde de acordo com o tipo de unidade prisional. São Paulo, 2009.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup>
+							<col width="40%"/>
+							<col width="10%"/>
+							<col width="10%"/>
+							<col width="10%"/>
+							<col width="10%"/>
+							<col width="10%"/>
+							<col width="10%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="left" colspan="1" rowspan="2" style="font-weight:normal">Categoria</th>
+								<th colspan="2" style="font-weight:normal">CDP (34)</th>
+								<th colspan="3" style="font-weight:normal">UP MASC (69)</th>
+								<th colspan="2" style="font-weight:normal">UP FEM (6)</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%/IQ<sup>a</sup>
+								</th>
+								<th colspan="2" style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%/IQ</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%/IQ</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>A - Doenças menores (e.g., dor de cabeça, resfriados, problemas de pele)</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2" rowspan="1"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não abordadas</td>
+								<td align="center">1</td>
+								<td align="center">3</td>
+								<td align="center" colspan="2">1</td>
+								<td align="center">1,5</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td> Parcialmente</td>
+								<td align="center">9</td>
+								<td align="center">27,2</td>
+								<td align="center" colspan="2">18</td>
+								<td align="center">26,8</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td> Totalmente</td>
+								<td align="center">23</td>
+								<td align="center">69,7</td>
+								<td align="center" colspan="2">48</td>
+								<td align="center">71,6</td>
+								<td align="center">6</td>
+								<td align="center">100</td>
+							</tr>
+							<tr>
+								<td>B - Outras doenças (e.g., doenças cardiovasculares, controle de fatores de risco, infecções)</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2" rowspan="1"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Doenças sexualmente transmissíveis</td>
+								<td align="center">1,07</td>
+								<td align="center">0,62;1,85</td>
+								<td align="center" colspan="2">1,41</td>
+								<td align="center">0,9;1,9</td>
+								<td align="center">12,9</td>
+								<td align="center">3,7;34,4</td>
+							</tr>
+							<tr>
+								<td> Hanseníase</td>
+								<td align="center">0</td>
+								<td align="center">0;0,7</td>
+								<td align="center" colspan="2">0</td>
+								<td align="center">0;0,07</td>
+								<td align="center">0</td>
+								<td align="center">0;0</td>
+							</tr>
+							<tr>
+								<td> Tuberculose</td>
+								<td align="center">0,64</td>
+								<td align="center">0,34;1,1</td>
+								<td align="center" colspan="2">0,9</td>
+								<td align="center">0,89;1,62</td>
+								<td align="center">0,15</td>
+								<td align="center">0,12;0,37</td>
+							</tr>
+							<tr>
+								<td> Hipertensão arterial sistêmica</td>
+								<td align="center">1,2</td>
+								<td align="center">0,09;2,70</td>
+								<td align="center" colspan="2">2,6</td>
+								<td align="center">1,4;4,1</td>
+								<td align="center">8,4</td>
+								<td align="center">7,5;16,0</td>
+							</tr>
+							<tr>
+								<td> Diabetes mellitus</td>
+								<td align="center">0,51</td>
+								<td align="center">0,21;0,87</td>
+								<td align="center" colspan="2">0,7</td>
+								<td align="center">0,47;1,07</td>
+								<td align="center">1,37</td>
+								<td align="center">0,86;2,25</td>
+							</tr>
+							<tr>
+								<td> Outros</td>
+								<td align="center">0</td>
+								<td align="center">0;0,16</td>
+								<td align="center" colspan="2">0</td>
+								<td align="center">0;0,33</td>
+								<td align="center">0,86</td>
+								<td align="center">0,25;1,64</td>
+							</tr>
+							<tr>
+								<td>C - Ginecologia e obstetrícia</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não abordadas</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td> Parcialmente</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> Totalmente</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td>D - Distúrbios mentais</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não abordadas</td>
+								<td align="center">2</td>
+								<td align="center">5,9</td>
+								<td align="center" colspan="2">4</td>
+								<td align="center">5,8</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td> Parcialmente</td>
+								<td align="center">18</td>
+								<td align="center">52,9</td>
+								<td align="center" colspan="2">32</td>
+								<td align="center">45,4</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> Totalmente</td>
+								<td align="center">14</td>
+								<td align="center">41,2</td>
+								<td align="center" colspan="2">33</td>
+								<td align="center">47,8</td>
+								<td align="center">2</td>
+								<td align="center">33,3</td>
+							</tr>
+							<tr>
+								<td>E - Álcool e drogas</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Álcool</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Não é problema - álcool proibido</td>
+								<td align="center">11</td>
+								<td align="center">61,1</td>
+								<td align="center" colspan="2">39</td>
+								<td align="center">83,0</td>
+								<td align="center">2</td>
+								<td align="center">66,6</td>
+							</tr>
+							<tr>
+								<td>  Só é problema na admissão</td>
+								<td align="center">15</td>
+								<td align="center">68,2</td>
+								<td align="center" colspan="2">12</td>
+								<td align="center">60,0</td>
+								<td align="center">3</td>
+								<td align="center">75,0</td>
+							</tr>
+							<tr>
+								<td>  Problema constante</td>
+								<td align="center">1</td>
+								<td align="center">2,9</td>
+								<td align="center" colspan="2">8</td>
+								<td align="center">11,6</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>  Abordagem admissional</td>
+								<td align="center">22</td>
+								<td align="center">66,6</td>
+								<td align="center" colspan="2">34</td>
+								<td align="center">50,0</td>
+								<td align="center">5</td>
+								<td align="center">83,3</td>
+							</tr>
+							<tr>
+								<td>  Tratamento oferecido</td>
+								<td align="center">10</td>
+								<td align="center">31,2</td>
+								<td align="center" colspan="2">15</td>
+								<td align="center">23,1</td>
+								<td align="center">2</td>
+								<td align="center">40,0</td>
+							</tr>
+							<tr>
+								<td> Drogas</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Totalmente</td>
+								<td align="center">4</td>
+								<td align="center">11,7</td>
+								<td align="center" colspan="2">2</td>
+								<td align="center">2,9</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td>  Parcialmente</td>
+								<td align="center">15</td>
+								<td align="center">44,1</td>
+								<td align="center" colspan="2">22</td>
+								<td align="center">31,9</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td>  Casos graves</td>
+								<td align="center">13</td>
+								<td align="center">38,2</td>
+								<td align="center" colspan="2">41</td>
+								<td align="center">59,4</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td>  Não responderam</td>
+								<td align="center">2</td>
+								<td align="center">5,9</td>
+								<td align="center" colspan="2">4</td>
+								<td align="center">5,8</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td>  Abordagem admissional</td>
+								<td align="center">25</td>
+								<td align="center">73,5</td>
+								<td align="center" colspan="2">46</td>
+								<td align="center">67,6</td>
+								<td align="center">5</td>
+								<td align="center">83,3</td>
+							</tr>
+							<tr>
+								<td>  Tratamento oferecido</td>
+								<td align="center">18</td>
+								<td align="center">56,2</td>
+								<td align="center" colspan="2">32</td>
+								<td align="center">49,2</td>
+								<td align="center">3</td>
+								<td align="center">60,0</td>
+							</tr>
+							<tr>
+								<td>F - Promoção de saúde</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Avaliação admissional</td>
+								<td align="center">31</td>
+								<td align="center">96,9</td>
+								<td align="center" colspan="2">61</td>
+								<td align="center">93,8</td>
+								<td align="center">5</td>
+								<td align="center">83,3</td>
+							</tr>
+							<tr>
+								<td>Tipo de avaliação</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Somente clínica</td>
+								<td align="center">13</td>
+								<td align="center">38,2</td>
+								<td align="center" colspan="2">32</td>
+								<td align="center">46,4</td>
+								<td align="center">2</td>
+								<td align="center">33,3</td>
+							</tr>
+							<tr>
+								<td> Clínica (complementada se indicado)</td>
+								<td align="center">18</td>
+								<td align="center">52,9</td>
+								<td align="center" colspan="2">30</td>
+								<td align="center">43,5</td>
+								<td align="center">2</td>
+								<td align="center">33,3</td>
+							</tr>
+							<tr>
+								<td> Clínica + laboratório + imagem</td>
+								<td align="center">3</td>
+								<td align="center">8,8</td>
+								<td align="center" colspan="2">7</td>
+								<td align="center">10,1</td>
+								<td align="center">2</td>
+								<td align="center">33,3</td>
+							</tr>
+							<tr>
+								<td> Vacinação de rotina na unidade</td>
+								<td align="center">31</td>
+								<td align="center">91,2</td>
+								<td align="center" colspan="2">64</td>
+								<td align="center">94,1</td>
+								<td align="center">4</td>
+								<td align="center">66,6</td>
+							</tr>
+							<tr>
+								<td> Tipos de vacinas aplicadas</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>SCR – Tríplice viral</td>
+								<td align="center">10</td>
+								<td align="center">29,4</td>
+								<td align="center" colspan="2">20</td>
+								<td align="center">29,0</td>
+								<td align="center">2</td>
+								<td align="center">33,3</td>
+							</tr>
+							<tr>
+								<td> Tétano</td>
+								<td align="center">6</td>
+								<td align="center">17,6</td>
+								<td align="center" colspan="2">8</td>
+								<td align="center">11,6</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td> Febre amarela</td>
+								<td align="center">18</td>
+								<td align="center">52,9</td>
+								<td align="center" colspan="2">18</td>
+								<td align="center">26,1</td>
+								<td align="center">2</td>
+								<td align="center">33,3</td>
+							</tr>
+							<tr>
+								<td> Influenza</td>
+								<td align="center">16</td>
+								<td align="center">47</td>
+								<td align="center" colspan="2">58</td>
+								<td align="center">84,0</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> H1N1</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+								<td align="center" colspan="2">4</td>
+								<td align="center">5,8</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td> Dupla</td>
+								<td align="center">17</td>
+								<td align="center">50,0</td>
+								<td align="center" colspan="2">29</td>
+								<td align="center">42,0</td>
+								<td align="center">2</td>
+								<td align="center">33,3</td>
+							</tr>
+							<tr>
+								<td> Hepatite</td>
+								<td align="center">14</td>
+								<td align="center">41,2</td>
+								<td align="center" colspan="2">39</td>
+								<td align="center">56,5</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> Convênios/Parcerias</td>
+								<td align="center">9</td>
+								<td align="center">27,7</td>
+								<td align="center" colspan="2">23</td>
+								<td align="center">33,8</td>
+								<td align="center">4</td>
+								<td align="center">66,6</td>
+							</tr>
+							<tr>
+								<td>Deficientes</td>
+								<td> </td>
+								<td> </td>
+								<td colspan="2"> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Cadeiras de rodas/Muleta</td>
+								<td align="center">26</td>
+								<td align="center">76,4</td>
+								<td align="center" colspan="2">53</td>
+								<td align="center">76,8</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> Visual</td>
+								<td align="center">13</td>
+								<td align="center">38,2</td>
+								<td align="center" colspan="2">35</td>
+								<td align="center">50,7</td>
+								<td align="center">4</td>
+								<td align="center">66,6</td>
+							</tr>
+							<tr>
+								<td> Auditivo</td>
+								<td align="center">13</td>
+								<td align="center">38,2</td>
+								<td align="center" colspan="2">18</td>
+								<td align="center">26,1</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> Fala</td>
+								<td align="center">12</td>
+								<td align="center">35,3</td>
+								<td align="center" colspan="2">15</td>
+								<td align="center">21,7</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>CDP: centro de detenção provisória; UP: unidade prisional; MASC: masculina; FEM: feminina</p>
+						<p>
+							<sup>a</sup> Porcentagem em relação ao total da coluna para todas as categorias, com exceção da categoria B, na qual estão expressos os intervalos interquartis.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Tabela 3</label>
+					<caption>
+						<title>Parâmetros de fluxo de internos ao longo do Sistema Único de Saúde. São Paulo, 2009.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="14%">
+							<col width="30%"/>
+							<col width="10%"/>
+							<col width="11%"/>
+							<col width="11%"/>
+							<col width="11%"/>
+							<col width="11%"/>
+							<col width="11%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="left" colspan="1" rowspan="2" style="font-weight:normal">Parâmetros de fluxo</th>
+								<th colspan="2" style="font-weight:normal">CDP (34)</th>
+								<th colspan="2" style="font-weight:normal">UP MASC (69)</th>
+								<th colspan="2" style="font-weight:normal">UP FEM (6)</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Atendimento à saúde</td>
+								<td align="center">33</td>
+								<td align="center">97,0</td>
+								<td align="center">98,5</td>
+								<td align="center">6,0</td>
+								<td align="center">6</td>
+								<td align="center">100</td>
+							</tr>
+							<tr>
+								<td>Referência secundária</td>
+								<td align="center">7</td>
+								<td align="center">20,6</td>
+								<td align="center">5</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>Referência terciária</td>
+								<td align="center">10</td>
+								<td align="center">29,4</td>
+								<td align="center">32</td>
+								<td align="center">2,0</td>
+								<td align="center">2</td>
+								<td align="center">23,3</td>
+							</tr>
+							<tr>
+								<td>Urgência</td>
+								<td align="center">25</td>
+								<td align="center">73,5</td>
+								<td align="center">50</td>
+								<td align="center">6,0</td>
+								<td align="center">6</td>
+								<td align="center">100</td>
+							</tr>
+							<tr>
+								<td>Via de encaminhamento</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Regulação</td>
+								<td align="center">15</td>
+								<td align="center">44,4</td>
+								<td align="center">43</td>
+								<td align="center">4,0</td>
+								<td align="center">4</td>
+								<td align="center">66,6</td>
+							</tr>
+							<tr>
+								<td> Contato direto</td>
+								<td align="center">16</td>
+								<td align="center">47,0</td>
+								<td align="center">34</td>
+								<td align="center">1,0</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td> Outras vias</td>
+								<td align="center">8</td>
+								<td align="center">23,5</td>
+								<td align="center">6</td>
+								<td align="center">1,0</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td>Satisfação com a via de encaminhamento</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">11</td>
+								<td align="center">32,3</td>
+								<td align="center">40</td>
+								<td align="center">4,0</td>
+								<td align="center">4</td>
+								<td align="center">66,7</td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">21</td>
+								<td align="center">61,7</td>
+								<td align="center">25</td>
+								<td align="center">1,0</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td> Não respondeu</td>
+								<td align="center">2</td>
+								<td align="center">5,9</td>
+								<td align="center">4</td>
+								<td align="center">1,0</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td>Problemas para encaminhamento</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Indisponibilidade de escolta</td>
+								<td align="center">21</td>
+								<td align="center">61,7</td>
+								<td align="center">53</td>
+								<td align="center">3,0</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> Indisponibilidade de ambulância</td>
+								<td align="center">5</td>
+								<td align="center">14,7</td>
+								<td align="center">20</td>
+								<td align="center">1,0</td>
+								<td align="center">1</td>
+								<td align="center">16,6</td>
+							</tr>
+							<tr>
+								<td> Indisponibilidade de unidade receptora</td>
+								<td align="center">5</td>
+								<td align="center">17,7</td>
+								<td align="center">22</td>
+								<td align="center">3,0</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+							<tr>
+								<td> Outros problemas de transferência</td>
+								<td align="center">6</td>
+								<td align="center">17,6</td>
+								<td align="center">12</td>
+								<td align="center">3,0</td>
+								<td align="center">3</td>
+								<td align="center">50,0</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>CDP: centro de detenção provisória; UP: unidade prisional; MASC: masculina; FEM: feminina</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>
+				<fig id="f01">
+					<label>Figura. </label>
+					<caption>
+						<title>(A) Mapa de distribuição da população de detentos nas unidades prisionais do Estado de São Paulo. (B) Mapa da área coberta pelo Departamento de Saúde XIII do Estado de São Paulo, municípios de Ribeirão Preto e Serra Azul (Microrregião administrativa de Ribeirão Preto) (B). Em I está destacado o número absoluto de detentos; em II a distribuição proporcional em relação à população do município.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0275-gf01"/>
+				</fig>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>O levantamento realizado permitiu observar que todas as UP tinham condições estruturais relativamente adequadas para atendimento clínico do detento, com condições de realização de exames laboratoriais e solicitação de exames de imagem, embora com demora no retorno dos resultados.</p>
+			<p>Quanto aos recursos humanos, os entrevistados informaram que existem equipes de profissionais disponíveis, mas o processo de atendimento é falho pela falta de equipes completas para o atendimento, sobretudo pela dificuldade na inclusão da população carcerária nas redes de atenção hierarquizadas do SUS. Essa realidade contradiz o modelo preconizado pela Portaria Interministerial nº 1777/03 que instituiu o Plano Nacional de Saúde no Sistema Penitenciário, destinado a prover a atenção integral à saúde da população prisional.<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> Recente portaria aprovada pela Comissão Intergestores Bipartite definiu que cada UP deveria conter uma equipe mínima composta por um médico (20h), um odontologista (20h), um enfermeiro (30h) e dois auxiliares de enfermagem (30h) para ser responsável por 500 a 1.200 detentos.<xref ref-type="fn" rid="fn4">
+					<sup>d</sup>
+				</xref> Essa mencionada Portaria está de acordo com o Plano Nacional de Saúde no sistema penitenciário, que prevê a instalação de equipes de saúde que tenha a mesma formação de uma equipe da Estratégia Saúde da Família (ESF) e que possa atender e resolver os problemas de saúde de nível primário, com resolutividade alta, diminuindo sobremaneira os encaminhamentos para outros níveis do sistema. Entretanto, quando necessário, a referência para os serviços de média e alta complexidade, inclusive as urgências, deve ser garantida.</p>
+			<p>Na <xref ref-type="table" rid="t01">Tabela 1</xref> as recomendações da Comissão Intergestores Bipartite já seriam atingidas numa proporção razoável de profissionais por UP. Contudo, o que se observou na avaliação <italic>in locu</italic> é que, apesar de muitas vezes existir um profissional de referência, esse não cumpria toda a jornada e exercia função mais de pronto atendimento do que de estruturação de serviço de saúde, baseado em ações de promoção, prevenção, cura e tratamento dos agravos mais comuns.<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref>
+			</p>
+			<p>Essa proposta defende que a equipe atenda seguindo a mesma lógica da ESF, tendo como atribuições fundamentais o planejamento das ações, o trabalho interdisciplinar em equipe e a priorização das ações de vigilância e promoção da saúde, como a vacinação, que são as ações da atenção básica, de fácil realização e baixo custo, mas que não atingem 100% das UP, conforme visto na <xref ref-type="table" rid="t02">Tabela 2</xref>.</p>
+			<p>Unidades prisionais são evitadas por profissionais de saúde, que as consideram de alta periculosidade. Isso faz com que, embora exista um contingente de profissionais previstos, este frequentemente não esteja completo e a reposição seja morosa e difícil. As condições de trabalho oferecidas aos profissionais de saúde nas UP também devem ser avaliadas. As necessidades de documentação médico legal, acesso informatizado à rede de prestadores, segurança, contrarreferência e incentivos financeiros são condições de trabalho que podem motivar o profissional.</p>
+			<p>Uma das possibilidades para essa questão talvez seja o incentivo e a formação de profissionais com perfil mais adequado a essa realidade. Em outros países, médicos de família têm atuado em UP e têm se especializado em medicina em prisões, com carga horária diferenciada e formação específica nas afecções mais prevalentes nas UP.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+			</p>
+			<p>Quanto à abordagem das condições nosológicas nas UP, observamos que a alta rotatividade dos detentos nos CDP dificulta ações de prevenção, promoção e de tratamento das condições mais prevalentes. Em 2009, a rotatividade foi de 120,0%, de acordo com os gerentes das UP, sendo impossível manter qualquer informação atualizada sobre a saúde se não houver um sistema de informatização que comunique as UP, além da aplicação de protocolos já estabelecidos. Outra questão que possibilitaria aumentar a resolutividade dos problemas de saúde da população encarcerada seria a implantação de protocolos clínicos e de regulação já disponíveis nos serviços públicos de saúde, que aumenta a resolutividade a um preço acessível e com medicações disponíveis na própria UP.</p>
+			<p>Algumas condições consideradas de suma importância em todos os complexos prisionais no mundo, como distúrbios mentais e uso de álcool e drogas, são reconhecidamente não identificadas ou abordadas apenas em situações complexas. Provavelmente, esse dado pode estar subestimado por receio dos gestores em informar uma situação sobre a qual não estejam tendo controle, levando à suspeita de que o problema seja ainda maior. O cuidado requerido para tratamento e prevenção desses problemas requer uma equipe multiprofissional, que tenha psicólogos, assistentes sociais, terapeutas ocupacionais e o médico de família. Os psicólogos e assistentes sociais são a maioria e, pelas visitas <italic>in locu</italic>, os verdadeiros responsáveis pelo funcionamento mínimo que se observa. Esses profissionais, se não ocupados por diferenciadas tarefas, poderiam ter mais tempo para auxiliar na identificação de problemas dessa natureza.</p>
+			<p>Outro indicador importante e de grande impacto para o bom funcionamento dos serviços de atenção à saúde refere-se à distribuição das UP do Estado de São Paulo e a representação proporcional em relação ao município em que estão alocadas. Como exemplo, observou-se que a população carcerária representa 40,0% ou mais da população total do município de Serra Azul. Considerando-se que o município é responsável pela atenção básica e que a instalação de recursos secundários e terciários de saúde é diretamente proporcional à população residente, não é de se estranhar que o maior problema relatado seja a continuidade do processo de atendimento para instâncias secundárias, terciárias ou em situação de emergência, pois em muitos desses municípios elas não estão disponíveis. Nesse sentido, seria importante que a política de implantação das UP levasse em conta a capacidade da rede de atenção à saúde do Sistema Único de Saúde (SUS), instalada no município, e que essa fosse integrada ao sistema referencial do SUS. No exemplo citado, todas as vezes que a população prisional de Serra Azul requer cuidado secundário ou terciário deve ser transferida para o município de Ribeirão Preto. Além de exigir a demanda de escolta, deve-se considerar que a população prisional também implica num aumento da “população flutuante” de familiares que acompanham o detento em suas transferências e que também poderá necessitar do sistema de saúde.</p>
+			<p>Em relação à prevalência de doenças crônicas, são escassos os estudos sobre tais doenças no âmbito das UP, dificultando comparações com outros serviços. Por ser tratar de estudo ecológico, onde o objeto do estudo foram UP e não os indivíduos, fica difícil estudar a efetividade das ações. Contudo, considerando-se a aparente desorganização do processo de trabalho e da integração com outros níveis do sistema de atenção à saúde, é esperado encontrar baixa resolutividade, além de certamente haver grande demanda reprimida.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+			</p>
+			<p>Pode-se observar que a tuberculose é ainda um problema nas UP, apesar de as taxas de tratamento alcançarem quase 100% com a instituição do tratamento supervisionado implantado. No entanto, enfrentam-se continuamente novas doenças de transmissão respiratória, como a H1N1, para as quais a taxa de contaminação é muito maior. Adicionalmente, a sobrelotação das UP pode implicar em situações de alto risco epidêmico. A medida de prevenção recomendada é a implantação de protocolos de triagem admissional mais estruturados que não estão disponíveis de forma adequada. Além de aprimorar o serviço de saúde prestado pela unidade prisional, ressalta-se a importância de garantir a referência com outros níveis da rede de atenção à saúde para que a ocorrência de surtos, como o observado em 2010 em cerca de 1.500 dos 3.000 detentos<xref ref-type="fn" rid="fn5">
+					<sup>e</sup>
+				</xref> de uma unidade prisional num município como Serra Azul, possa ser prevenida e combatida. As UP devem ser levadas em consideração na elaboração de planos de catástrofe em situações epidêmicas.</p>
+			<p>Para tanto, é necessário que outras medidas sejam tomadas em conjunto, como a capacitação de profissionais de saúde, principalmente os médicos, para atuar nas condições específicas do sistema penitenciário. Apesar de já ser demonstrado que esse ambiente pode ser cenário importante para a formação do médico, ainda são poucas as escolas médicas que incluem essa temática no currículo.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref> A Faculdade de Medicina de Ribeirão Preto da USP é pioneira ao incluir a RCG0480 – Medicina de Confinamento – Estrutura de Atendimento à Saúde, Risco Ocupacional e Nosocomial, onde os alunos estudam a epidemiologia do ambiente prisional e são levados ao presídio.<xref ref-type="fn" rid="fn6">
+					<sup>f</sup>
+				</xref> Também no curso de Ginecologia e Obstetrícia da mesma instituição está incluído o atendimento em UPC-FEM. Esse trabalho pode vir a despertar o profissional para esse campo de trabalho e desfazer mitos sobre as condições de atendimento no sistema penitenciário.</p>
+			<p>A iniciativa da Comissão Intergestores Bipartite do Estado de São Paulo visa novas formas de enfrentar o problema de implantação das equipes mínimas, a partir do estabelecimento de parcerias Estado/Municípios, voltadas à atenção à saúde da população privada de liberdade, previstas pela Deliberação CIB-62, de 6/9/2012. Mesmo com essa iniciativa, ainda não é esperado que todas as metas propostas sejam alcançadas, sobretudo no que concerne às atividades preventivas,<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> tendo em vista a complexidade do contexto prisional. Nesse sentido, iniciativas realizadas na penitenciária masculina “Mário de Moura e Albuquerque”, localizada no município de Franco da Rocha, com a formação de presos para atuarem como agentes promotores de saúde, coordenada por essa equipe instalada, e a intervenção das universidades de saúde podem ser estratégias muito importantes para melhoria da assistência à saúde no sistema prisional.</p>
+			<p>Outro ponto importante é o auxílio da informática. Observou-se no trabalho a iniciativa de diversas unidades em estabelecer um sistema de controle dos processos de saúde e tratamento. Entretanto, essas iniciativas dependem de pessoas isoladas e não intercomunicam as UP. A informatização em saúde é um avanço importante para melhoria dos processos internos e para os registros epidemiológicos. O estabelecimento de prontuário eletrônico, como a inclusão da população prisional nos sistemas de dados nacionais (Datasus), deve ser priorizado.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> Além do prontuário eletrônico, o sistema carcerário deve ser integrado ao sistema de regulação médica de emergências, para que as solicitações de vagas sejam facilitadas e documentadas.<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+			</p>
+			<p>Uma das dificuldades encontradas para análise dos questionários foram questões não respondidas. É possível que algumas perguntas não tenham sido claras para os gestores e eles optaram por não responder. Apesar do cuidado na elaboração de um instrumento que fosse autoaplicativo, com linguagem clara e acessível, algumas questões poderiam ser mais bem interpretadas e, consequentemente, as informações seriam mais fidedignas se a entrevista fosse feita <italic>in locu</italic>, o que não foi viável pelo número de unidades que teriam que ser visitadas e às limitações orçamentárias do projeto. Outros estudos são necessários para caracterizar a população prisional e delimitar políticas de saúde. Entretanto, diante desse panorama documentado, a aplicação regular do instrumento utilizado neste estudo pode servir como indicador do comportamento da saúde, importante tanto para as novas recomendações da Comissão Intergestores Bipartite como para avaliação e acompanhamento dos indicadores de saúde.</p>
+			<p>Este trabalho apresentou um perfil das unidades prisionais do País, que poderá ser utilizado para planejamento e acompanhamento de ações futuras para melhoria contínua do processo de saúde.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>AGRADECIMENTOS</title>
+			<p>À Secretaria da Administração Penitenciária do Estado de São Paulo, pelo apoio e aplicação dos questionários às UP do Estado de São Paulo.</p>
+			<p>Aos responsáveis pelo setor da saúde das unidades prisionais do Estado de São Paulo, em especial aos profissionais dos municípios de Ribeirão Preto e Serra Azul.</p>
+		</ack>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Adolfi Jr MS, Pallini FM, Pessotti H, Wolf CM, Patelli HT, Capeli RD,  et al. Emergency medical coordination using a web platform: a pilot study. <italic>Rev Saude Publica. </italic>2010;44(6):1063-71. DOI:10.1590/S0034-89102010000600011</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Adolfi</surname>
+							<given-names>MS</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Pallini</surname>
+							<given-names>FM</given-names>
+						</name>
+						<name>
+							<surname>Pessotti</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Wolf</surname>
+							<given-names>CM</given-names>
+						</name>
+						<name>
+							<surname>Patelli</surname>
+							<given-names>HT</given-names>
+						</name>
+						<name>
+							<surname>Capeli</surname>
+							<given-names>RD</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Emergency medical coordination using a web platform: a pilot study</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2010</year>
+					<volume>44</volume>
+					<issue>6</issue>
+					<fpage>1063</fpage>
+					<lpage>1071</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102010000600011</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Alemagno SA, Wilkinson M, Levy L. Medical education goes to prison: why? <italic>Acad Med. </italic>2004;79(2):123-7. DOI:10.1097/00001888-200402000-00005</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Alemagno</surname>
+							<given-names>SA</given-names>
+						</name>
+						<name>
+							<surname>Wilkinson</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Levy</surname>
+							<given-names>L</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Medical education goes to prison: why?</article-title>
+					<source>Acad Med</source>
+					<year>2004</year>
+					<volume>79</volume>
+					<issue>2</issue>
+					<fpage>123</fpage>
+					<lpage>127</lpage>
+					<pub-id pub-id-type="doi">10.1097/00001888-200402000-00005</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Anaraki S, Plugge E, Hill A. Delivering primary care in prison: the need to improve health information. <italic>Inform Prim Care.</italic> 2003;11(4):191-4.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Anaraki</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Plugge</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Hill</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Delivering primary care in prison: the need to improve health information</article-title>
+					<source>Inform Prim Care</source>
+					<year>2003</year>
+					<volume>11</volume>
+					<issue>4</issue>
+					<fpage>191</fpage>
+					<lpage>194</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Condon L, Hek G, Harris F, Powell J, Kemple T, Price S. Users’ views of prison health services: a qualitative study. <italic>J Adv Nurs</italic>. 2007;58(3):216-26.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Condon</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Hek</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Harris</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Powell</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Kemple</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Price</surname>
+							<given-names>S</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Users’ views of prison health services: a qualitative study</article-title>
+					<source>J Adv Nurs</source>
+					<year>2007</year>
+					<volume>58</volume>
+					<issue>3</issue>
+					<fpage>216</fpage>
+					<lpage>226</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Ginsburg P, Koretz D. Bed availability and hospital utilization: estimates of the “Roemer effect.”Heal. <italic>Health Care Financ Rev. </italic>1983;5(1):87-92.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ginsburg</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Koretz</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Bed availability and hospital utilization: estimates of the “Roemer effect.”Heal</article-title>
+					<source>Health Care Financ Rev</source>
+					<year>1983</year>
+					<volume>5</volume>
+					<issue>1</issue>
+					<fpage>87</fpage>
+					<lpage>92</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Marshall T, Simpson S, Stevens A. Health care needs assessment in prisons: a toolkit. <italic>J Public Health Med.</italic> 2001;23(3):198-204. DOI:10.1093/pubmed/23.3.198</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Marshall</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Simpson</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Stevens</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Health care needs assessment in prisons: a toolkit</article-title>
+					<source>J Public Health Med</source>
+					<year>2001</year>
+					<volume>23</volume>
+					<issue>3</issue>
+					<fpage>198</fpage>
+					<lpage>204</lpage>
+					<pub-id pub-id-type="doi">10.1093/pubmed/23.3.198</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Møller L, Stöver H, Jürgens R, Gatherer A, Nikogosian H. Health in prisons: a WHO guide to the essentials in prison health.Copenhagen: WHO Regional Office for Europe; 2007. p. 1-198.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Møller</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Stöver</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Jürgens</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Gatherer</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Nikogosian</surname>
+							<given-names>H</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Health in prisons: a WHO guide to the essentials in prison health</source>
+					<publisher-loc>Copenhagen</publisher-loc>
+					<publisher-name>WHO Regional Office for Europe</publisher-name>
+					<year>2007</year>
+					<fpage>1</fpage>
+					<lpage>198</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Pazin-Filho A, Soares CS, Ferrais ADSN, Oliveira e Castro PDT, Bellissimo-Rodrigues F, Nogueira JDA, et al. Tuberculosis among health care workers in a Brazilian tertiary hospital emergency unit. <italic>Am J Emerg Med.</italic> 2008;26(7):796-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pazin</surname>
+							<given-names>A</given-names>
+							<suffix>Filho</suffix>
+						</name>
+						<name>
+							<surname>Soares</surname>
+							<given-names>CS</given-names>
+						</name>
+						<name>
+							<surname>Ferrais</surname>
+							<given-names>ADSN</given-names>
+						</name>
+						<name>
+							<surname>Oliveira e Castro</surname>
+							<given-names>PDT</given-names>
+						</name>
+						<name>
+							<surname>Bellissimo-Rodrigues</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Nogueira</surname>
+							<given-names>JDA</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Tuberculosis among health care workers in a Brazilian tertiary hospital emergency unit</article-title>
+					<source>Am J Emerg Med</source>
+					<year>2008</year>
+					<volume>26</volume>
+					<issue>7</issue>
+					<fpage>796</fpage>
+					<lpage>798</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Sparrow N. Health care in secure environments. <italic>Br J Gen Pract.</italic> 2006;56(530):724-5.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sparrow</surname>
+							<given-names>N</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Health care in secure environments</article-title>
+					<source>Br J Gen Pract</source>
+					<year>2006</year>
+					<volume>56</volume>
+					<issue>530</issue>
+					<fpage>724</fpage>
+					<lpage>725</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Viggiani N. Unhealthy prisons: exploring structural determinants of prison health. <italic>Sociol Health Illn.</italic> 2007;29(1):115-35.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Viggiani</surname>
+							<given-names>N</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Unhealthy prisons: exploring structural determinants of prison health</article-title>
+					<source>Sociol Health Illn</source>
+					<year>2007</year>
+					<volume>29</volume>
+					<issue>1</issue>
+					<fpage>115</fpage>
+					<lpage>135</lpage>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Ferreira MCF, coordenador. Plano nacional de saúde no sistema penitenciário. Brasília (DF): Ministério da Saúde; 2004.</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> O Dose Certa é o Programa de Assistência Farmacêutica Básica da Secretaria da Saúde do Estado de São Paulo que fornece, gratuitamente, medicamentos para os municípios do Estado. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.saopaulo.sp.gov.br/acoesdegoverno/saude/#dose-certa">http://www.saopaulo.sp.gov.br/acoesdegoverno/saude/#dose-certa</ext-link>
+				</p>
+			</fn>
+			<fn id="fn3">
+				<label>c</label>
+				<p> Ministério da Saúde. Plano nacional de saúde no sistema penitenciário. Brasília (DF); 2005.</p>
+			</fn>
+			<fn id="fn4">
+				<label>d </label>
+				<p>São Paulo. Deliberação CIB – 62 de 6 de setembro de 2012. Diario Oficial Estado Sao Paulo. 07 set 2012; Seção 1:34.</p>
+			</fn>
+			<fn id="fn5">
+				<label>e</label>
+				<p> Informações prestadas pela Vigilância Sanitária do Departamento Regional de Saúde XIII do Estado de São Paulo.</p>
+			</fn>
+			<fn id="fn6">
+				<label>f</label>
+				<p> Pazin-Filho A, Macedo CSV, Barbosa HF. RCG0480 - Medicina de Confinamento - estrutura de atendimento à saúde, risco ocupacional e nosocomial. São Paulo: Universidade de São Paulo; 2013. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://titanita.cirp.usp.br/moodle/course/info.php?id=426">https://titanita.cirp.usp.br/moodle/course/info.php?id=426</ext-link>
+				</p>
+			</fn>
+			<fn fn-type="financial-disclosure">
+				<p>Estudo financiado pela Fundação de Apoio, Pesquisa e Assistência (FAEPA) do Hospital das Clínicas da Faculdade de Medicina de Ribeirão Preto da Universidade de São Paulo (FAEPA/HC-98/2009) e pelo Programa Ensinar com Pesquisa da Universidade de São Paulo (PROEP/2009) (bolsa para os alunos da Faculdade de Medicina).</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">The need to improve health care in prisons</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Antonio Pazin-Filho  R. Bernardino de Campos, 1000  14015-130 Ribeirão Preto, SP, Brasil  E-mail: <email>apazin@fmrp.usp.br</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To analyze physical structure, working conditions of health professionals and outline of the procedures established in prisons.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>We analyzed 34 provisional detention centers and 69 male and six female prison units in the state of Sao Paulo, Southeastern Brazil, in 2009. A self-applied instrument was developed to collect quantitative data on the characteristics of health care structure, equipment and personnel in prisons. Analysis of variance (ANOVA) or equivalent non-parametric tests and Chi-square or Fisher’s tests were used to compare categorical and continuous variables, respectively, between the groups.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>The main problems were delays in the results of laboratory tests and imaging. With respect to the teams, it was observed that a large majority were in conditions close to those proposed by the Bipartite Commission 2013 but without improvement being reflected in the indicators. With respect to the process, more than 60.0% of prisons located in small towns do not have the structural conditions to ensure secondary or tertiary health care for the continuity of treatment.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>This profile of prisons in the country can be used for planning and monitoring future actions for the continuous improvement of healthcare processes.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Prisons, organization &amp; administration</kwd>
+				<kwd>Health Programs and Plans</kwd>
+				<kwd>Patient Care Team</kwd>
+				<kwd>Occupational Risks</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Planning and executing health care programs for the prison population is a global concern.<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> This population has high levels of mental disorders, chronic disease and drug use, above those of their populations of origin.<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> What is more, any environment where the population is concentrated is conducive to aggravating pre-existing health conditions, as well as to the development of new health problems, such as sexually transmitted or airborne diseases. The increasing prison population increases this difficult issue, as observed in various countries. In Brazil, this has been of concern for over a decade.<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref>
+				</p>
+				<p>Even when the problem has been recognized, it is difficult to deal with, as implementing a care program for detainees is faced with countless obstacles: the variety of health problems according to characteristics of the prison population; forecast and actual capacity for health care; characteristics of the health care teams concerning availability and training; and the prison unit’s relationship with the Brazilian Unified Health System (SUS) hierarchy.</p>
+				<p>In 2009, the population confined in the penitentiary system in the Ribeirao Preto region of Sao Paulo state, Southeastern Brazil, was estimated at 4,698 individuals in six prison units (PU), three of which were in the municipality of Ribeirao Preto (one female, one male and one male remand center). These units had occupation rates between 120.0% and 225.0% and insufficient professionals to care for the imprisoned population, producing irregular interventions which performed poorly at meeting users’ needs, emergency care and elevated need to leave the prison in order to use health care services offered outside the prison.</p>
+				<p>The overload of referrals for appointments outside of the PU produced more requests for escorts without being able to meet all demands. This difficulty triggered a dialogue between PU representatives, mediated by the Health Care Coordinator of the Prison Service Administration Secretariat, and the <italic>Hospital das Clínicas</italic> of the Ribeirao Preto Medical School of the <italic>Universidade de São Paulo </italic>(HC-FMRP-USP). The initial intention was to facilitate appointments for prisoners referred to this institution so as to reduce the risk of prolonged absence escorting such prisoners leaving the general prison population unguarded. From this initiative, the need was identified to map the physical structure, the work processes of the health care professionals and general health care conditions, as well as the profile of the inmates of the PU in the Ribeirao Preto region, which was later increased to the whole state of Sao Paulo.</p>
+				<p>The aim of this study was to analyze the physical structure, working conditions for health care professionals and the outline of the processes established in PU in the state of Sao Paulo.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>The instrument developed to collect data on the structural characteristics and those of the professionals was based on the work by Marshall et al<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> and of the World Health Organization,<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> to facilitate comparison with other studies. It is a self-application questionnaire, with quantitative data, to be completed by the UP administrators, aiming for external generalization and enabling regular re-application to monitor future processes.</p>
+				<p>This questionnaire was applied by the researchers during on-site visits to the six PU in the Ribeirao Preto/Serra Azul complex in a pilot project and the instrument was improved to enable it to be completed by managers responsible for the health sector of PU in the state of Sao Paulo.</p>
+				<p>The study involved 139 PU in the state of Sao Paulo, but the analysis was restricted to 34 remand centers (RC) and 69 male (PU-MASC) and six female (PU-FEM) PU, as the other institutions had different prison population characteristics. To present the data, the analysis was conducted using these groups, despite the reduced number of PU-FEM for absolute comparison. Sensitivity analysis was performed, excluding the PU-FEM when there was much discrepancy in the values, without altering the findings. The division into these groups aimed to capture the expected difference in behavior between the type of prison unit and gender.</p>
+				<p>Data analysis was conducted using the Stata version 10 program and the ArcGIS program version 9 to analyze geo-distribution. The project was approved by the Research Ethics Committee of the HC-FMRP-USP (CAAE 2731.0.000.004-09), respecting all the security needs recommended by the state of Sao Paulo Prison Service Administration Secretariat. As the data were administrative in nature, need for consent form was waived.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>Regarding the structural conditions of health care, all units reported having their own location, with medical records and the capacity to request laboratory tests and imaging. As for the medical reports, all detainees had a non-computerized clinical record, transferred with them if they moved prison unit. Initiatives to computerize data, with the objective of facilitating monitoring treatment processes were observed in between 21.0% and 35.0% of units. However, these systems varied and, being local initiatives, did not inter-connect the various PU dispersed throughout the state of Sao Paulo.</p>
+				<p>Regarding complementary tests, all interviewees reported that laboratory tests were collected in the unit itself and that there was a delay in receiving results. With regards to imaging tests, the more complex the test, the more difficult it is to have it done (9.0% regarding radiography and 71.0% in cases of tomography) and there is also a delay in obtaining results. Available medication are provided through the <italic>Dose Certa</italic>
+					<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref> program, but around 60.0% of units reported a lack of medication, principally anti-inflammatories and benzodiazepines. <xref ref-type="table" rid="t01_en">Table 1</xref> shows the characteristics of the health care professionals involved in providing care. <xref ref-type="table" rid="t02_en">Table 2</xref> shows the prevalence of detainees’ health care needs and eventual capacity to meet these needs. In <xref ref-type="table" rid="t03_en">Table 3</xref> can be found the interconnection of internal conditions of care with the SUS hierarchy. The <xref ref-type="fig" rid="f01_en">Figure</xref> illustrates the prison population in the state of Sao Paulo according to municipality, both in absolute values and relative to the population of the municipality housing it.</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Distribution of professionals according to type of prison unit. Sao Paulo, SP, Southeastern Brazil, 2009.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="13%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" style="font-weight:normal">Profession</th>
+									<th align="left" style="font-weight:normal">N</th>
+									<th colspan="2" style="font-weight:normal">RC (34)</th>
+									<th colspan="2" style="font-weight:normal">PU MASC (69)</th>
+									<th colspan="2" style="font-weight:normal">PU FEM (6)</th>
+								</tr>
+								<tr>
+									<th align="left" colspan="2" rowspan="1" style="font-weight:normal"> </th>
+									<th style="font-weight:normal">n<sup>c</sup>
+									</th>
+									<th align="left" style="font-weight:normal">%/IQ<sup>d</sup>
+									</th>
+									<th style="font-weight:normal">n</th>
+									<th align="left" style="font-weight:normal">%/IQ</th>
+									<th style="font-weight:normal">n</th>
+									<th align="left" style="font-weight:normal">%/IQ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td align="left">Doctor</td>
+									<td align="left">At least 1 professional<sup>a</sup>
+									</td>
+									<td align="left">21</td>
+									<td align="left">61.7</td>
+									<td align="left">54</td>
+									<td align="left">78.2</td>
+									<td align="left">5</td>
+									<td align="left">83.3</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td>n/1,000 inmates<sup>b</sup>
+									</td>
+									<td align="center">0.8</td>
+									<td>0;1.1</td>
+									<td align="center">1</td>
+									<td>0.6;2.1</td>
+									<td align="center">1.1</td>
+									<td>0.7;2.4</td>
+								</tr>
+								<tr>
+									<td>Dental surgeon</td>
+									<td>At least 1 professional</td>
+									<td align="center">28</td>
+									<td>82.3</td>
+									<td align="center">58</td>
+									<td>84.0</td>
+									<td align="center">5</td>
+									<td>83.3</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td>n/1,000 inmates</td>
+									<td align="center">1</td>
+									<td>0.6;1.6</td>
+									<td align="center">0.9</td>
+									<td>0.7;1.7</td>
+									<td align="center">1.1</td>
+									<td>0.7;2.4</td>
+								</tr>
+								<tr>
+									<td>Psychiatrist</td>
+									<td>At least 1 professional</td>
+									<td align="center">12</td>
+									<td>35.3</td>
+									<td align="center">36</td>
+									<td>52.1</td>
+									<td align="center">6</td>
+									<td>100</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td>n/1,000 inmates</td>
+									<td align="center">0</td>
+									<td>0;0.6</td>
+									<td align="center">0</td>
+									<td>0;0.8</td>
+									<td align="center">1.1</td>
+									<td>0.3;1.2</td>
+								</tr>
+								<tr>
+									<td>Nurse</td>
+									<td>At least 1 professional</td>
+									<td align="center">23</td>
+									<td>67.6</td>
+									<td align="center">47</td>
+									<td>68.1</td>
+									<td align="center">4</td>
+									<td>66.6</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td>n/1,000 inmates</td>
+									<td align="center">0.8</td>
+									<td>0;1.5</td>
+									<td align="center">1.01</td>
+									<td>0;2.4</td>
+									<td align="center">0.9</td>
+									<td>0;2.5</td>
+								</tr>
+								<tr>
+									<td>Nursing assistant</td>
+									<td>At least 1 professional</td>
+									<td align="center">31</td>
+									<td>91.2</td>
+									<td align="center">62</td>
+									<td>89.8</td>
+									<td align="center">5</td>
+									<td>83.3</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td>n/1,000 inmates</td>
+									<td align="center">3.3</td>
+									<td>2.7;5.0</td>
+									<td align="center">3.5</td>
+									<td>2.5;4.9</td>
+									<td align="center">7.4</td>
+									<td>4.4;11.1</td>
+								</tr>
+								<tr>
+									<td>Psychologist</td>
+									<td>At least 1 professional</td>
+									<td align="center">22</td>
+									<td>64.7</td>
+									<td align="center">55</td>
+									<td>79.7</td>
+									<td align="center">4</td>
+									<td>66.6</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td>n/1,000 inmates</td>
+									<td align="center">0.71</td>
+									<td>0;1.6</td>
+									<td align="center">1.4</td>
+									<td>0.7;2.4</td>
+									<td align="center">1.8</td>
+									<td>0;2.6</td>
+								</tr>
+								<tr>
+									<td>Social worker</td>
+									<td>At least 1 professional</td>
+									<td align="center">25</td>
+									<td>73.5</td>
+									<td align="center">60</td>
+									<td>86.9</td>
+									<td align="center">5</td>
+									<td>83.3</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td>n/1,000 inmates</td>
+									<td align="center">0.9</td>
+									<td>0.5;1.6</td>
+									<td align="center">1.6</td>
+									<td>0.8;2.7</td>
+									<td align="center">2.9</td>
+									<td>1.8;6.2</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>RC: remand center; PU: prison unit; MASC: male; FEM: female</p>
+							<p>
+								<sup>a </sup>Total number of units with at least one professional available</p>
+							<p>
+								<sup>b</sup> n/1,000 inmates = number of professionals divided by the prison population in 2009 and multiplied by one thousand.</p>
+							<p>
+								<sup>c</sup> n = absolute number of parameters a and b.</p>
+							<p>
+								<sup>d</sup> %/IQ = values referring to at least one professional available expressed as a percentage, while values referring to N/1,000 inmates are expressed as interquartile range.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Distribution of categories of health care according to the type of prison facility. Sao Paulo, SP, Southeastern Brazill, 2009.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="13%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" style="font-weight:normal">   Category</th>
+									<th align="left" style="font-weight:normal"> </th>
+									<th colspan="2" style="font-weight:normal">RC (34)</th>
+									<th colspan="2" style="font-weight:normal">PU MASC (69)</th>
+									<th colspan="2" style="font-weight:normal">PU FEM (6)</th>
+								</tr>
+								<tr>
+									<th align="left" style="font-weight:normal"> </th>
+									<th align="left" style="font-weight:normal"> </th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">%/IQ<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">%/IQ</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">%/IQ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="8">A – Minor illness (e.g., headache, cold, skin problems)</td>
+								</tr>
+								<tr>
+									<td> Not covered</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td align="center">3</td>
+									<td align="center">1</td>
+									<td align="center">1.5</td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+								</tr>
+								<tr>
+									<td> Partially</td>
+									<td> </td>
+									<td align="center">9</td>
+									<td align="center">27.2</td>
+									<td align="center">18</td>
+									<td align="center">26.8</td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+								</tr>
+								<tr>
+									<td> Totally</td>
+									<td> </td>
+									<td align="center">23</td>
+									<td align="center">69.7</td>
+									<td align="center">48</td>
+									<td align="center">71.6</td>
+									<td align="center">6</td>
+									<td align="center">100</td>
+								</tr>
+								<tr>
+									<td colspan="8">B – Other diseases (e.g., cardiovascular disease, control of risk factors, infections)</td>
+								</tr>
+								<tr>
+									<td> Sexually transmitted diseases</td>
+									<td> </td>
+									<td align="center">1.07</td>
+									<td align="center">0.62;1.85</td>
+									<td align="center">1.41</td>
+									<td align="center">0.9;1.9</td>
+									<td align="center">12.9</td>
+									<td align="center">3.7;34.4</td>
+								</tr>
+								<tr>
+									<td> Leprosy</td>
+									<td> </td>
+									<td align="center">0</td>
+									<td align="center">0;0.7</td>
+									<td align="center">0</td>
+									<td align="center">0;0.07</td>
+									<td align="center">0</td>
+									<td align="center">0;0</td>
+								</tr>
+								<tr>
+									<td> Tuberculosis</td>
+									<td> </td>
+									<td align="center">0.64</td>
+									<td align="center">0.34;1.1</td>
+									<td align="center">0.9</td>
+									<td align="center">0.89;1.62</td>
+									<td align="center">0.15</td>
+									<td align="center">0.12;0.37</td>
+								</tr>
+								<tr>
+									<td> HAS</td>
+									<td> </td>
+									<td align="center">1.2</td>
+									<td align="center">0.09;2.70</td>
+									<td align="center">2.6</td>
+									<td align="center">1.4;4.1</td>
+									<td align="center">8.4</td>
+									<td align="center">7.5;16.0</td>
+								</tr>
+								<tr>
+									<td> DM</td>
+									<td> </td>
+									<td align="center">0.51</td>
+									<td align="center">0.21;0.87</td>
+									<td align="center">0.7</td>
+									<td align="center">0.47;1.07</td>
+									<td align="center">1.37</td>
+									<td align="center">0.86;2.25</td>
+								</tr>
+								<tr>
+									<td> Other</td>
+									<td> </td>
+									<td align="center">0</td>
+									<td align="center">0;0.16</td>
+									<td align="center">0</td>
+									<td align="center">0;0.33</td>
+									<td align="center">0.86</td>
+									<td align="center">0.25;1.64</td>
+								</tr>
+								<tr>
+									<td colspan="8">C - Obstetrics and gynecology</td>
+								</tr>
+								<tr>
+									<td> Not covered</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+								</tr>
+								<tr>
+									<td> Partially</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td> Totally</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td colspan="2">D – Mental disorders</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Not covered</td>
+									<td> </td>
+									<td align="center">2</td>
+									<td align="center">5.9</td>
+									<td align="center">4</td>
+									<td align="center">5.8</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td> Partially</td>
+									<td> </td>
+									<td align="center">18</td>
+									<td align="center">52.9</td>
+									<td align="center">32</td>
+									<td align="center">45.4</td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td> Totally</td>
+									<td> </td>
+									<td align="center">14</td>
+									<td align="center">41.2</td>
+									<td align="center">33</td>
+									<td align="center">47.8</td>
+									<td align="center">2</td>
+									<td align="center">33.3</td>
+								</tr>
+								<tr>
+									<td colspan="2">E – Alcohol and drug use</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Alcohol</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>  Alcohol prohibited – no problem exists</td>
+									<td> </td>
+									<td align="center">11</td>
+									<td align="center">61.1</td>
+									<td align="center">39</td>
+									<td align="center">83.0</td>
+									<td align="center">2</td>
+									<td align="center">66.6</td>
+								</tr>
+								<tr>
+									<td>  Only a problem upon admission</td>
+									<td> </td>
+									<td align="center">15</td>
+									<td align="center">68.2</td>
+									<td align="center">12</td>
+									<td align="center">60.0</td>
+									<td align="center">3</td>
+									<td align="center">75.0</td>
+								</tr>
+								<tr>
+									<td>  Constant problem</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td align="center">2.9</td>
+									<td align="center">8</td>
+									<td align="center">11.6</td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+								</tr>
+								<tr>
+									<td>  Assessed on admission</td>
+									<td> </td>
+									<td align="center">22</td>
+									<td align="center">66.6</td>
+									<td align="center">34</td>
+									<td align="center">50.0</td>
+									<td align="center">5</td>
+									<td align="center">83.3</td>
+								</tr>
+								<tr>
+									<td>  Treatment offered</td>
+									<td> </td>
+									<td align="center">10</td>
+									<td align="center">31.2</td>
+									<td align="center">15</td>
+									<td align="center">23.1</td>
+									<td align="center">2</td>
+									<td align="center">40.0</td>
+								</tr>
+								<tr>
+									<td> Drugs</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>  Totally</td>
+									<td> </td>
+									<td align="center">4</td>
+									<td align="center">11.7</td>
+									<td align="center">2</td>
+									<td align="center">2.9</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td>  Partially</td>
+									<td> </td>
+									<td align="center">15</td>
+									<td align="center">44.1</td>
+									<td align="center">22</td>
+									<td align="center">31.9</td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td>  Serious cases</td>
+									<td> </td>
+									<td align="center">13</td>
+									<td align="center">38.2</td>
+									<td align="center">41</td>
+									<td align="center">59.4</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td>  NR</td>
+									<td> </td>
+									<td align="center">2</td>
+									<td align="center">5.9</td>
+									<td align="center">4</td>
+									<td align="center">5.8</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td>  Assessed on admission</td>
+									<td> </td>
+									<td align="center">25</td>
+									<td align="center">73.5</td>
+									<td align="center">46</td>
+									<td align="center">67.6</td>
+									<td align="center">5</td>
+									<td align="center">83.3</td>
+								</tr>
+								<tr>
+									<td>  Treatment offered</td>
+									<td> </td>
+									<td align="center">18</td>
+									<td align="center">56.2</td>
+									<td align="center">32</td>
+									<td align="center">49.2</td>
+									<td align="center">3</td>
+									<td align="center">60.0</td>
+								</tr>
+								<tr>
+									<td colspan="2">F – Health promotion</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="2">  Assessed on admission</td>
+									<td align="center">31</td>
+									<td align="center">96.9</td>
+									<td align="center">61</td>
+									<td align="center">93.8</td>
+									<td align="center">5</td>
+									<td align="center">83.3</td>
+								</tr>
+								<tr>
+									<td colspan="2"> Type of evaluation</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>  Clinical only</td>
+									<td> </td>
+									<td align="center">13</td>
+									<td align="center">38.2</td>
+									<td align="center">32</td>
+									<td align="center">46.4</td>
+									<td align="center">2</td>
+									<td align="center">33.3</td>
+								</tr>
+								<tr>
+									<td>  clinical (complemented if indicated)</td>
+									<td> </td>
+									<td align="center">18</td>
+									<td align="center">52.9</td>
+									<td align="center">30</td>
+									<td align="center">43.5</td>
+									<td align="center">2</td>
+									<td align="center">33.3</td>
+								</tr>
+								<tr>
+									<td>  clinical + laboratory + imaging</td>
+									<td> </td>
+									<td align="center">3</td>
+									<td align="center">8.8</td>
+									<td align="center">7</td>
+									<td align="center">10.1</td>
+									<td align="center">2</td>
+									<td align="center">33.3</td>
+								</tr>
+								<tr>
+									<td colspan="2">  Routine vaccination in the unit</td>
+									<td align="center">31</td>
+									<td align="center">91.2</td>
+									<td align="center">64</td>
+									<td align="center">94.1</td>
+									<td align="center">4</td>
+									<td align="center">66.6</td>
+								</tr>
+								<tr>
+									<td colspan="2"> Types of vaccine administered</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>  MMR</td>
+									<td> </td>
+									<td align="center">10</td>
+									<td align="center">29.4</td>
+									<td align="center">20</td>
+									<td align="center">29.0</td>
+									<td align="center">2</td>
+									<td align="center">33.3</td>
+								</tr>
+								<tr>
+									<td>  Tetanus</td>
+									<td> </td>
+									<td align="center">6</td>
+									<td align="center">17.6</td>
+									<td align="center">8</td>
+									<td align="center">11.6</td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+								</tr>
+								<tr>
+									<td>  Yellow fever</td>
+									<td> </td>
+									<td align="center">18</td>
+									<td align="center">52.9</td>
+									<td align="center">18</td>
+									<td align="center">26.1</td>
+									<td align="center">2</td>
+									<td align="center">33.3</td>
+								</tr>
+								<tr>
+									<td>  Flu</td>
+									<td> </td>
+									<td align="center">16</td>
+									<td align="center">47.0</td>
+									<td align="center">58</td>
+									<td align="center">84.0</td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td>  H1N1</td>
+									<td> </td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+									<td align="center">4</td>
+									<td align="center">5.8</td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+								</tr>
+								<tr>
+									<td>  Tetanus + Diphtheria</td>
+									<td> </td>
+									<td align="center">17</td>
+									<td align="center">50.0</td>
+									<td align="center">29</td>
+									<td align="center">42.0</td>
+									<td align="center">2</td>
+									<td align="center">33.3</td>
+								</tr>
+								<tr>
+									<td>  Hepatitis</td>
+									<td> </td>
+									<td align="center">14</td>
+									<td align="center">41.2</td>
+									<td align="center">39</td>
+									<td align="center">56.5</td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td colspan="2">  Agreements/Partnerships</td>
+									<td align="center">9</td>
+									<td align="center">27.7</td>
+									<td align="center">23</td>
+									<td align="center">33.8</td>
+									<td align="center">4</td>
+									<td align="center">66.6</td>
+								</tr>
+								<tr>
+									<td> Disabled</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>  Wheelchairs/Crutches</td>
+									<td> </td>
+									<td align="center">26</td>
+									<td align="center">76.4</td>
+									<td align="center">53</td>
+									<td align="center">76.8</td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td>  Visual</td>
+									<td> </td>
+									<td align="center">13</td>
+									<td align="center">38.2</td>
+									<td align="center">35</td>
+									<td align="center">50.7</td>
+									<td align="center">4</td>
+									<td align="center">66.6</td>
+								</tr>
+								<tr>
+									<td>  Auditory</td>
+									<td> </td>
+									<td align="center">13</td>
+									<td align="center">38.2</td>
+									<td align="center">18</td>
+									<td align="center">26.1</td>
+									<td align="center">3</td>
+									<td align="center">50.0</td>
+								</tr>
+								<tr>
+									<td>  Speech</td>
+									<td> </td>
+									<td align="center">12</td>
+									<td align="center">35.3</td>
+									<td align="center">15</td>
+									<td align="center">21.7</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+				<p>
+					<table-wrap id="t03_en">
+						<label>Table 3</label>
+						<caption>
+							<title>Parameters of internal flow throughout the Brazilian Unified Health Care System. Sao Paulo, SP, Southeastern Brazill, 2009.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="14%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" rowspan="2" style="font-weight:normal">Flow parameters</th>
+									<th colspan="2" style="font-weight:normal">RC (34)</th>
+									<th colspan="2" style="font-weight:normal">PU MASC (69)</th>
+									<th colspan="2" style="font-weight:normal">PU FEM (6)</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> Health care</td>
+									<td align="center">33</td>
+									<td align="center">97,0</td>
+									<td align="center">98.5</td>
+									<td align="center">6,0</td>
+									<td align="center">6</td>
+									<td align="center">100</td>
+								</tr>
+								<tr>
+									<td> Secondary referral</td>
+									<td align="center">7</td>
+									<td align="center">20.6</td>
+									<td align="center">5</td>
+									<td align="center">0,0</td>
+									<td align="center">0</td>
+									<td align="center">0</td>
+								</tr>
+								<tr>
+									<td> Tertiary referral</td>
+									<td align="center">10</td>
+									<td align="center">29.4</td>
+									<td align="center">32</td>
+									<td align="center">2,0</td>
+									<td align="center">2</td>
+									<td align="center">23.3</td>
+								</tr>
+								<tr>
+									<td> Emergency</td>
+									<td align="center">25</td>
+									<td align="center">73.5</td>
+									<td align="center">50</td>
+									<td align="center">6,0</td>
+									<td align="center">6</td>
+									<td align="center">100</td>
+								</tr>
+								<tr>
+									<td colspan="7">Mode of referral</td>
+								</tr>
+								<tr>
+									<td> Regulation</td>
+									<td align="center">15</td>
+									<td align="center">44.4</td>
+									<td align="center">43</td>
+									<td align="center">4,0</td>
+									<td align="center">4</td>
+									<td align="center">66.6</td>
+								</tr>
+								<tr>
+									<td> Direct contact</td>
+									<td align="center">16</td>
+									<td align="center">47,0</td>
+									<td align="center">34</td>
+									<td align="center">1,0</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td> Other</td>
+									<td align="center">8</td>
+									<td align="center">23.5</td>
+									<td align="center">6</td>
+									<td align="center">1,0</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td colspan="7">Satisfaction with mode of referral</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">11</td>
+									<td align="center">32.3</td>
+									<td align="center">40</td>
+									<td align="center">4,0</td>
+									<td align="center">4</td>
+									<td align="center">66.7</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">21</td>
+									<td align="center">61.7</td>
+									<td align="center">25</td>
+									<td align="center">1,0</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td> No response</td>
+									<td align="center">2</td>
+									<td align="center">5.9</td>
+									<td align="center">4</td>
+									<td align="center">1,0</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td colspan="7">Problems in referral</td>
+								</tr>
+								<tr>
+									<td> No escort available</td>
+									<td align="center">21</td>
+									<td align="center">61.7</td>
+									<td align="center">53</td>
+									<td align="center">3,0</td>
+									<td align="center">3</td>
+									<td align="center">50,0</td>
+								</tr>
+								<tr>
+									<td> No ambulance available</td>
+									<td align="center">5</td>
+									<td align="center">14.7</td>
+									<td align="center">20</td>
+									<td align="center">1,0</td>
+									<td align="center">1</td>
+									<td align="center">16.6</td>
+								</tr>
+								<tr>
+									<td> No receiving unit available</td>
+									<td align="center">5</td>
+									<td align="center">17.7</td>
+									<td align="center">22</td>
+									<td align="center">3,0</td>
+									<td align="center">3</td>
+									<td align="center">50,0</td>
+								</tr>
+								<tr>
+									<td> Other transfer problems</td>
+									<td align="center">6</td>
+									<td align="center">17.6</td>
+									<td align="center">12</td>
+									<td align="center">3,0</td>
+									<td align="center">3</td>
+									<td align="center">50,0</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>RC: remand center; PU: prison unit; MASC: male; FEM: female</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure. </label>
+						<caption>
+							<title>(A) Map of the distribution of the prison population in prison units in the state of Sao Paulo. (B) Map of the area covered by the XIII Health Care Department of the state of Sao Paulo, municipalities of Ribeirao Preto and Serra Azul (Micro administrative region of Ribeirao Preto) (B). I highlights the absolute number of inmates; II shows proportional distribution in relation to the population of the municipality.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0275-gf01-en"/>
+					</fig>
+				</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>The survey enabled observed that all PU had structural conditions relatively adequate for the clinical care of the detainees, with conditions to perform laboratory tests and request imaging tests, although with delays in results being received.</p>
+				<p>Regarding human resources, the interviewees reported that there were teams of professionals available, but the care process was failing, due to the lack of complete care teams, and especially due to the difficulty in including the prison population into SUS hierarchized care networks. This reality contradicts the model advocated in Inter-Ministerial Ordinance 1777/03 which established the National Health Care Plan in the Penitentiary System, aiming to provide integrated health care to the prison population.<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref> An ordinance recently approved by the Bipartite Commission defined that each PU should have a team containing, at least, one doctor (20h), a dental surgeon (20h), a nurse (30h) and two nursing assistants (30h) responsible for between 500 and 1,200 detainees.<xref ref-type="fn" rid="fn4_en">
+						<sup>d</sup>
+					</xref> This ordinance is in accordance with the National Health Care Plan in the penitentiary system, providing for health care teams with the same formation as those of the Family Health Care Strategy (ESF) able to resolve primary level health care problems, with high ability to meet inmates’ needs, thus decreasing referrals to other levels of the system. However, referral to medium and high complexity services, including emergencies, should be guaranteed when necessary.</p>
+				<p>In <xref ref-type="table" rid="t01_en">Table 1</xref>, the recommendations of the Bipartite Commission would already be met in a reasonable proportion of professionals per prison unit. However, in the on-site observations, it was observed that although there was often a professional they did not work all of their hours and their function was more that of providing emergency care than structuring a health care service, based on actions promoting, preventing, curing and treating the most common health problems.<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref>
+				</p>
+				<p>This proposal argues that the team provides care following the same logic as the ESF, with basic attributes including planning actions, inter-disciplinary team work and prioritizing health surveillance and promotion actions, such as vaccination, these being easily performed, low cost primary care actions, but which are not achieved in 100% of PU, as seen in <xref ref-type="table" rid="t02_en">Table 2</xref>.</p>
+				<p>PU are avoided by health care professionals, who consider them to be highly dangerous. This means that, although there is a contingent of professionals provided, this is frequently incomplete and replacement is time consuming and difficult. Health care professionals’ working conditions within PU should also be evaluated. The needs for medico-legal documentation, informed access to the network of service providers, safety, counter-referrals and financial incentives are working conditions which could motivate the professional.</p>
+				<p>One possibility for this issue could be encouraging and training health care professionals with a profile more appropriate to this reality. In other countries, family doctors have worked in PU and specialized in medicine in prisons, with a differentiated workload, and with specific training in the health problems most prevalent in PU.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+				</p>
+				<p>As for addressing nosological conditions in PU, we observed that high inmate turnover in RC made it difficult to carry out actions of preventing, promoting and treating the most prevalent conditions. In 2009, turnover was 120.0% according to prison unit administrators, and it was impossible to maintain any up-to-date health information without a computerized system to communicate with the PU, as well as to apply already established protocols. Another issue which would enable more of the prison population’s health care problems to be resolved is implementing clinical and regulatory protocols which are already available in public health care services, increasing meeting users’ needs at an accessible price and with medications available in the PU itself.</p>
+				<p>Some conditions considered paramount in all prison complexes in the world, such as mental disorders and alcohol and drug use, are admittedly not identified or only addressed in complex situations. It is probable that this figure may be underestimated as the administrators are reluctant to admit to a situation of which they are not in control, leading to the suspicion that the problem is even greater than it appears. The care required to treat and prevent these problems calls for a multi-professional team including psychologists, social workers, occupational therapists and family doctors. Psychologists and social workers are in the majority and, from what was seen in on-site visits, those who were actually responsible for the minimal functioning that was observed. Were these professionals not occupied with different tasks, they would be freer to help identify problems of this nature.</p>
+				<p>Another important indicator, of great significance to the functioning of the health care services, refers to the distribution of PU in the state of Sao Paulo and to the proportional representation in relation to the municipalities housing them. For example, it was observed that the prison population represented 40.0% or more of the total population of Serra Azul. Considering that the municipality is responsible for primary health care and that installation of secondary and tertiary health care resources is in direct proportion to the resident population, it is no wonder that the most commonly related problem was continuity in the care process in secondary and tertiary instances, or in emergencies, as these are not available in many of these municipalities. Thus, it would be important for the implementation policy in PU to take into account the capacity of the Brazilian Unified Health System (SUS) network installed in the municipality, and for this to be integrated into the SUS reference system. In the example cited above, every time the prison population in Serra Azul required secondary or tertiary care they had to be transferred to the municipality of Ribeirao Preto. In addition to requiring an escort, it should also be borne in mind that the prison population also implies an increase in the “transient population” of relatives accompanying inmates in their transfers and who may also need to make use of the health care system.</p>
+				<p>Regarding the prevalence of chronic disease, there are few studies on such diseases within the PU environment, making comparisons with other services difficult. As this is an ecological study, in which the object of study were the PU rather than individuals, it is difficult to study the effectiveness of actions. However, considering the apparent disorganization of the work process and integration with other levels of the health care system, it is to be expected that users’ needs are poorly met, as well as their being a large suppressed demand.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+				</p>
+				<p>It was observed that tuberculosis is still a problem in PU, despite treatment rates reaching almost 100% with the establishment of supervised treatment. However, new air-borne diseases are continually being faced, such as H1N1, for which the contamination rate is much higher. Moreover, overcrowding in prisons may result in situations of high risk of epidemics. The recommended means of prevention is implementing more structured triage protocols on admission, which are not available in the appropriate form. In addition to improving services provided in the prison unit, we emphasize the importance of guaranteeing referral to other levels of health care attention in order to prevent and combat outbreaks, such as that affecting around 1,500 of the 3,000 detainees in a prison unit in a municipality such as Serra Azul in 2010.<xref ref-type="fn" rid="fn5_en">
+						<sup>e</sup>
+					</xref> PU should be taken into consideration when drawing up disaster plans for epidemics.</p>
+				<p>It is therefore necessary for other measures to be taken jointly, such as training health care professionals, especially doctors, to operate in conditions specific to the penitentiary system. Although it has already been shown that this environment could be a significant scenario for training doctors, there are still few medical schools which include this topic in their curriculum.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref> The Ribeirao Preto Medical School of the USP is pioneering by including RCG0480 Confinement Medicine – Structure of the Health Service, Occupational and Nosocomial Risk, in which students study the epidemiology of the prison environment and visit a prison.<xref ref-type="fn" rid="fn6_en">
+						<sup>f</sup>
+					</xref> The Gynecology and Obstetrics course at the same institution includes care in PU-FEM. This work may open health care professionals’ eyes to this field of work and do away with myths regarding the conditions of health care in the penitentiary system.</p>
+				<p>The initiative of the Sao Paulo State Bipartite Commission envisages new forms of dealing with the problem of implementing minimum health care teams, through establishing State/Municipal partnerships directed at health care for the incarcerated as provided for in CIB Resolution-62, of 6/9/2012. Even with this initiative, it is not expected that all proposed measures will be achieved, especially those concerning preventative activities<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> in view of the complexity of the prison context. Thus, initiatives taking place in the “Mário de Moura e Albuquerque” male penitentiary, located in Franco da Rocha, in which inmates are trained to act as health promoting agents, coordinated by the team installed there and by the intervention of health care universities may be very important strategies in improving health care in the prison system.</p>
+				<p>Another important point is computerized support. It was observed that various units took the initiative to establish a system controlling health and treatment processes. However, these initiatives depended on isolated individuals and there was no inter-communication between PU. Information technology in health care is an important step in improving internal processes and for epidemiological records. Setting up computerized medical records, such as including the prison population in the national information systems (DATASUS) should be a priority.<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> In addition to computerized medical records, the prison system should be integrated into the emergency medical regulation system so that job requests are facilitated and documented.<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+				</p>
+				<p>One of the difficulties found in analyzing the questionnaires were the questions which were not responded to. It is possible that some questions were unclear for the administrators and they therefore chose not to respond. Despite the care take in drawing up the instrument, with language that was clear and accessible, some questions could have been better interpreted and, consequently, more reliable information provided, if the interview had taken place on-site, something which was not viable given the number of units to be visited and the project’s budgetary limitations. Other studies are necessary to characterize the prison population and design health care policies. However, faced with the documented panorama, regular application of the instrument used in this study could serve as an indicator of health behavior, important both for new Bipartite Commission recommendations and for evaluating and monitoring health indicators.</p>
+				<p>This study presents a profile of PU which could be used in planning and monitoring future actions for the continuous improvement of health care processes.</p>
+			</sec>
+		</body>
+		<back>
+			<ack>
+				<title>ACKNOWLEDGEMENTS</title>
+				<p>Thanks to the State of Sao Paulo Prison Service Administration Secretariat for support and applying the questionnaires to PU in the state.</p>
+				<p>To those responsible for the health care sector in the PU in the state of Sao Paulo, especially to health care professionals in the municipalities of Ribeirao Preto and Serra Azul.</p>
+			</ack>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> Ferreira MCF, coordenador. Plano nacional de saúde no sistema penitenciário. Brasília (DF): Ministério da Saúde; 2004.</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b</label>
+					<p> Dose Certa is a Basic Pharmaceutical Assistance Program from the São Paulo State Health Care Secretariat, providing free medication to municipalities in the state. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.saopaulo.sp.gov.br/acoesdegoverno/saude/#dose-certa">http://www.saopaulo.sp.gov.br/acoesdegoverno/saude/#dose-certa</ext-link>
+					</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c </label>
+					<p>Ministério da Saúde. Plano nacional de saúde no sistema penitenciário. Brasília (DF); 2005.</p>
+				</fn>
+				<fn id="fn4_en">
+					<label>d </label>
+					<p>São Paulo. Deliberação CIB – 62 de 6 de setembro de 2012. Diario Oficial Estado Sao Paulo. 07 Set 2012; Seção1:34.</p>
+				</fn>
+				<fn id="fn5_en">
+					<label>e</label>
+					<p> Data provided by Health Surveillance of the XIII Regional Health Department of the state of Sao Paulo.</p>
+				</fn>
+				<fn id="fn6_en">
+					<label>f </label>
+					<p>Pazin-Filho A, Macedo CSV, Barbosa HF. RCG0480 - Medicina de Confinamento - estrutura de atendimento à saúde, risco ocupacional e nosocomial. São Paulo: Universidade de São Paulo; 2013. Available from: <ext-link ext-link-type="uri" xlink:href="https://titanita.cirp.usp.br/moodle/course/info.php?id=426">https://titanita.cirp.usp.br/moodle/course/info.php?id=426</ext-link>
+					</p>
+				</fn>
+				<fn fn-type="financial-disclosure">
+					<p>This study was supported by the <italic>Fundação de Apoio, Pesquisa e Assistência</italic> (FAEPA) of the <italic>Hospital das Clínicas</italic>, Ribeirao Preto Medical School of the <italic>Universidade de São Paulo</italic> (FAEPA/HC-98/2009) and by the <italic>Programa Ensinar com Pesquisa</italic> of the <italic>Universidade de São Paulo</italic> (PROEP/2009) (grants for students in Medicine School).</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

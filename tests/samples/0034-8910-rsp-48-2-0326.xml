@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="rapid-communication" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004940</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004940</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Comunicação Breve</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Poluição do ar e doenças respiratórias alérgicas em escolares</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Nicolussi</surname>
+						<given-names>Francine Heloisa</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Santos</surname>
+						<given-names>Ana Paula Milla dos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>André</surname>
+						<given-names>Sílvia Carla da Silva</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Veiga</surname>
+						<given-names>Tatiane Bonametti</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Takayanagui</surname>
+						<given-names>Angela Maria Magosso</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv2">Departamento de Enfermagem Materno-Infantil e Saúde Pública</institution>
+				<institution content-type="orgdiv1">Escola de Enfermagem de Ribeirão Preto</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Ribeirão Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Enfermagem Materno-Infantil e Saúde Pública. Escola de Enfermagem de Ribeirão Preto. Universidade de São Paulo. Ribeirão Preto, SP, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv2">Departamento de Engenharia Ambiental</institution>
+				<institution content-type="orgdiv1">Instituto de Ciências Tecnológicas e Exatas</institution>
+				<institution content-type="orgname">Universidade Federal do Triângulo Mineiro</institution>
+				<addr-line>
+					<named-content content-type="city">Uberaba</named-content>
+					<named-content content-type="state">MG</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Engenharia Ambiental. Instituto de Ciências Tecnológicas e Exatas. Universidade Federal do Triângulo Mineiro. Uberaba, MG, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv1">Escola de Enfermagem de Ribeirão Preto</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Ribeirão Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original"> Programa de Pós-Graduação em Enfermagem em Saúde Pública. Escola de Enfermagem de Ribeirão Preto. Universidade de São Paulo. Ribeirão Preto, SP, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Ana Paula Milla dos Santos  Av. Dr. Randolfo Borges Júnior, 1250  38064-200 Uberaba, MG, Brasil  E-mail: <email>ana.santos@icte.uftm.edu.br</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>326</fpage>
+			<lpage>330</lpage>
+			<history>
+				<date date-type="received">
+					<day>15</day>
+					<month>5</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>17</day>
+					<month>11</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<p>Estudo sobre a prevalência de doenças respiratórias alérgicas em escolares de seis a sete anos de idade, relacionadas com indicadores de poluição atmosférica. Questionário baseado no <italic>International Study of Asthma and Allergies in Childhood</italic> foi aplicado aos pais de alunos de escolas públicas, situadas em regiões urbanas diferentes, quanto ao fluxo de veículos. Houve correlação positiva entre frequência mensal de rinite e concentração de poluentes e negativa com a umidade relativa do ar. Resultados indicam que, mesmo com níveis de poluentes menores que os permitidos pela legislação, a prevalência de asma, rinite e sintomas associados tendeu a ser maior em alunos da escola da região central, onde há intenso tráfego veicular.</p>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Criança</kwd>
+				<kwd>Doenças Respiratórias, epidemiologia</kwd>
+				<kwd>Hipersensibilidade Respiratória, epidemiologia</kwd>
+				<kwd>Poluição do Ar, efeitos adversos</kwd>
+				<kwd>Saúde Ambiental</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Conselho Nacional de Desenvolvimento Científico e Tecnológico</funding-source>
+					<award-id>124647/2010-3</award-id>
+				</award-group>
+				<funding-statement>Trabalho financiado pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Processo 124647/2010-3 – bolsa de iniciação científica).</funding-statement>
+			</funding-group>
+			<counts>
+				<fig-count count="2"/>
+				<table-count count="2"/>
+				<ref-count count="6"/>
+				<page-count count="5"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>Exposição prolongada a poluentes emitidos sobretudo por veículos automotores está associada ao aumento de hospitalizações por morbidades cardiorrespiratórias e pode afetar negativamente o desenvolvimento cognitivo de crianças.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref> Essa situação se agrava no inverno devido ao aumento de inversões térmicas, que dificultam a dispersão de poluentes atmosféricos primários, provocando episódios agudos de poluição.</p>
+			<p>Maior atenção é dada à poluição atmosférica em metrópoles e regiões industriais; entretanto, vários estudos epidemiológicos têm revelado as consequências para a saúde, mesmo em níveis de poluição abaixo dos limites permitidos pela legislação brasileira.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+			</p>
+			<p>Entre pacientes com diagnóstico de asma e rinite alérgica, de 70,0% a 85,0% possuem algum tipo de sensibilização a aeroalérgenos, o que os torna mais propensos a desenvolverem eczema atópico.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> A prevalência da tríade atópica (eczema, rinite e asma) é maior em crianças e adolescentes, cujos sintomas se iniciam antes dos seis anos de idade, sendo mais evidentes entre famílias carentes que vivem em área urbana, o que pode elevar os custos e implicações socioeconômicas.</p>
+			<p>Nesse contexto, este estudo teve como objetivo determinar a prevalência de asma, rinite e eczema atópico entre escolares de seis a sete anos, buscando sua relação com indicadores de poluição do ar em região urbana.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Esta pesquisa foi realizada no município de Ribeirão Preto, SP, em 2010. Localizado no nordeste do estado, o município tem população aproximada de 650 mil habitantes e clima tropical úmido, caracterizado por verão chuvoso e inverno seco.<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref>
+			</p>
+			<p>Duas escolas estaduais foram selecionadas de acordo com sua localização geográfica: na região central (escola A) e em um bairro residencial da zona oeste do município (escola B); a intensidade do fluxo diário de veículos; e pelos alunos residirem próximo às escolas.</p>
+			<p>Os critérios de inclusão dos sujeitos fundamentaram-se na anuência dos pais ou responsáveis para participarem do estudo e na faixa etária das crianças (entre seis e sete anos), devido às doenças alérgicas serem agravadas no período de inicialização no ambiente escolar, em que há maior exposição às infecções respiratórias. Participaram desta pesquisa 78 alunos da escola A e 61 alunos da escola B.</p>
+			<p>Foi aplicado um questionário aos pais ou responsáveis pelas crianças, baseado no <italic>International Study of Asthma and Allergies in Childhood</italic> (ISAAC), em novembro de 2010. O instrumento consistiu em duas partes: a primeira identificou a criança, o respondente e a localização geográfica da moradia e vivência diária da criança; a segunda foi dividida em três módulos, que abrangeram informações sobre asma, rinite alérgica e eczema atópico, no que se refere a ocorrência, frequência, tempo e intensidade.</p>
+			<p>Para comparação entre os dados das escolas A e B, utilizou-se o teste do Qui-quadrado, com nível de significância de 5% (<xref ref-type="table" rid="t01">Tabela</xref>). As frequências também foram comparadas pelo cálculo da razão de prevalência (RP).</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela. </label>
+					<caption>
+						<title>Frequência de respostas afirmativas aos diagnósticos de asma, rinite alérgica, eczema atópico e sintomas respiratórios associados, entre escolares de seis a sete anos, em escolas públicas de Ribeirão Preto, SP, 2010. (N = 139)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="33%">
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Questão</th>
+								<th style="font-weight:normal" align="left">Escola A (n = 78) %</th>
+								<th style="font-weight:normal" align="left">Escola B (n = 61) %</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Diagnóstico de asma</td>
+								<td align="center">17,9</td>
+								<td align="center">9,8</td>
+							</tr>
+							<tr>
+								<td>Sibilos alguma vez na vida</td>
+								<td align="center">69,2</td>
+								<td align="center">65,6</td>
+							</tr>
+							<tr>
+								<td>Sibilos nos últimos 12 meses</td>
+								<td align="center">33,3</td>
+								<td align="center">29,5</td>
+							</tr>
+							<tr>
+								<td>Sibilos após exercícios</td>
+								<td align="center">9,0</td>
+								<td align="center">8,2</td>
+							</tr>
+							<tr>
+								<td>Tosse seca noturna</td>
+								<td align="center">61,5<sup>a</sup>
+								</td>
+								<td align="center">42,6</td>
+							</tr>
+							<tr>
+								<td>Diagnóstico de rinite alérgica</td>
+								<td align="center">48,7</td>
+								<td align="center">36,1</td>
+							</tr>
+							<tr>
+								<td>Espirro e coriza alguma vez na vida</td>
+								<td align="center">60,3</td>
+								<td align="center">52,5</td>
+							</tr>
+							<tr>
+								<td>Espirro e coriza nos últimos 12 meses</td>
+								<td align="center">53,8</td>
+								<td align="center">44,3</td>
+							</tr>
+							<tr>
+								<td>Sintomas oculares</td>
+								<td align="center">39,7<sup>a</sup>
+								</td>
+								<td align="center">23,0</td>
+							</tr>
+							<tr>
+								<td>Interferência nas atividades diárias</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Nenhuma vez</td>
+								<td align="center">24,4</td>
+								<td align="center">32,8</td>
+							</tr>
+							<tr>
+								<td> Pouca</td>
+								<td align="center">33,3<sup>a</sup>
+								</td>
+								<td align="center">18,0</td>
+							</tr>
+							<tr>
+								<td> Muita</td>
+								<td align="center">3,8</td>
+								<td align="center">3,3</td>
+							</tr>
+							<tr>
+								<td>Diagnóstico de eczema atópico</td>
+								<td align="center">24,4</td>
+								<td align="center">29,5</td>
+							</tr>
+							<tr>
+								<td> Manchas na pele alguma vez na vida</td>
+								<td align="center">20,5</td>
+								<td align="center">19,7</td>
+							</tr>
+							<tr>
+								<td> Manchas na pele nos últimos 12 meses</td>
+								<td align="center">16,7</td>
+								<td align="center">16,4</td>
+							</tr>
+							<tr>
+								<td>Idade de aparecimento das manchas</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> &lt; 2 anos</td>
+								<td align="center">5,1</td>
+								<td align="center">6,6</td>
+							</tr>
+							<tr>
+								<td> 2 a 4 anos</td>
+								<td align="center">9,0</td>
+								<td align="center">8,2</td>
+							</tr>
+							<tr>
+								<td> ≥ 5 anos</td>
+								<td align="center">6,4</td>
+								<td align="center">6,6</td>
+							</tr>
+							<tr>
+								<td>Desaparecimento completo das manchas nos últimos 12 meses</td>
+								<td align="center">19,2</td>
+								<td align="center">16,4</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>a</sup> p ≤ 0,05</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>A média mensal das concentrações diárias de partículas inaláveis (MP<sub>10</sub>), dióxido de nitrogênio (NO<sub>2</sub>), ozônio (O<sub>3</sub>) e da umidade relativa do ar (UR%) foi calculada no período de novembro de 2009 a outubro de 2010, com base em dados da estação de monitoramento da Companhia Ambiental do Estado de São Paulo (Cetesb), localizada na escola B. Esses dados foram relacionados às respostas da questão sobre a ocorrência de sintomas de rinite (espirro, coriza e obstrução nasal) nos últimos 12 meses, sem que os alunos estivessem resfriados, pelo cálculo do coeficiente de correlação linear de Pearson e pela análise de componentes principais.</p>
+			<p>Este estudo foi aprovado pelo Comitê de Ética em Pesquisa da Escola de Enfermagem de Ribeirão Preto, Universidade de São Paulo (Protocolo 1171/2010), e recebeu autorização da Diretoria Regional de Ensino.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>A maioria dos 139 alunos possuía sete anos de idade (72,7%), sendo 51,8% do sexo masculino e 61,8% não conviviam com fumantes em domicílio, segundo os respondentes.</p>
+			<p>Diagnóstico de asma foi relatado para 18,0% dos alunos da escola A, quase o dobro da frequência encontrada na escola B (RP = 1,8). A frequência de tosse noturna, que é considerada um dos sintomas de asma ativa, juntamente com a ocorrência de sibilos após exercícios, foi maior na escola A (RP = 1,4; χ<sup>2</sup> = 4,9; p ≤ 0,05) (<xref ref-type="table" rid="t01">Tabela</xref>).</p>
+			<p>Tanto a prevalência de rinite alérgica diagnosticada quanto a de sintomas associados (espirro e coriza alguma vez na vida, espirro e coriza nos últimos 12 meses, e sintomas oculares) foram mais frequentes entre os alunos da escola A (RP = 1,4; 1,1 e 1,2, respectivamente). A frequência de sintomas oculares foi 1,7 vez maior na escola A (χ<sup>2</sup> = 4,4; p ≤ 0,05) e, segundo os respondentes, 37,1% dos alunos dessa escola também tiveram suas atividades diárias pouco ou muito perturbadas por desconforto nasal (χ<sup>2</sup> = 4,1; p ≤ 0,05), sendo quase o dobro que na escola B (RR = 1,8) (<xref ref-type="table" rid="t01">Tabela</xref>).</p>
+			<p>A prevalência de eczema atópico diagnosticado e sintomas relacionados não apresentou diferenças significativas entre os alunos das duas escolas (<xref ref-type="table" rid="t01">Tabela</xref>).</p>
+			<p>A presença de tríade atópica (eczema, rinite e asma) foi relatada apenas para 3,6% dos alunos participantes desta pesquisa. Das três doenças estudadas, a rinite alérgica foi a mais frequente em alunos das duas escolas, relatada por 43,2% de todos os respondentes, sendo o diagnóstico de eczema atópico relatado por 26,6% e de asma, por 14,4%.</p>
+			<p>Os sintomas de rinite alérgica (espirro, coriza e obstrução nasal, sem que as crianças estivessem resfriadas) foram mais frequentes no terceiro trimestre de 2010, coincidindo com o aumento de MP<sub>10</sub> e NO<sub>2</sub>, e com o período mais seco do ano. A análise dos dados revelou forte correlação negativa entre sintomas de rinite e UR% (r = -0,91) e positiva com concentração de MP<sub>10</sub> e NO<sub>2</sub> (r = 0,89 e 0,88, respectivamente) (<xref ref-type="fig" rid="f01">Figura</xref>).</p>
+			<p>
+				<fig id="f01">
+					<label>Figura. </label>
+					<caption>
+						<title>Análise de componentes principais para variáveis ambientais e sintomas de rinite alérgica em escolares de seis a sete anos, em escolas públicas de Ribeirão Preto, SP, de novembro de 2009 a outubro de 2010.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0326-gf01"/>
+				</fig>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>Maior prevalência de diagnóstico médico para asma, rinite e sintomas associados foi encontrada entre os alunos que estudam na região central (escola A), onde há intenso tráfego de veículos e, portanto, maior concentração de gases poluentes. O comprometimento da qualidade do ar, como componente exógeno, juntamente com outros fatores biológicos, econômicos e/ou sociais, representa importantes agravantes para doenças alérgicas.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+			</p>
+			<p>As emissões veiculares constituem a mais importante fonte de poluição do ar em centros urbanos, devido à dificuldade de monitoramento e controle direto. Nos últimos anos, em Ribeirão Preto, SP, houve crescimento acelerado na frota de veículos, uma tendência no País. Segundo o Denatran, atualmente, há no município 1,4 veículo para cada dois habitantes.<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref> De acordo com a Cetesb, fontes móveis de poluição do ar como veículos pesados e motocicletas são responsáveis pela emissão anual de, aproximadamente, sete mil toneladas por ano de CO, quatro mil toneladas de NOx e 100 toneladas de material particulado em Ribeirão Preto. Essa realidade apresenta consequências imediatas para a carga de poluentes atmosféricos emitida e indiretas para a saúde, sobretudo de populações residentes em locais com maior tráfego.</p>
+			<p>A correlação positiva encontrada para sintomas de rinite (espirro, coriza e obstrução nasal) e concentração de MP<sub>10</sub> e NO<sub>2</sub> corrobora estudo realizado por Castro et al, no Rio de Janeiro, em 2009.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> De acordo com esses autores, foi possível verificar correlação positiva entre o aumento de poluentes atmosféricos e a diminuição da função respiratória de crianças.</p>
+			<p>Os sintomas de rinite alérgica foram mais frequentes durante os meses com pouca chuva, apresentando alta correlação negativa com UR%. Nesse período também aumenta o número de focos de queimadas, acidentais ou criminosos, mas, sobretudo, devido à queima da palha da cana-de-açúcar na pré-colheita. As partículas produzidas pela queima da biomassa podem possuir toxicidade similar ou maior que as emitidas por veículos, com relação à sua composição por metais pesados e hidrocarbonetos aromáticos policíclicos (HPA).<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+			</p>
+			<p>A região estudada é uma das principais do País para o setor sucroalcooleiro, com queimadas de abril a dezembro. A legislação<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> prevê o fim das queimadas no estado de São Paulo de forma gradativa até 2031, mas esse prazo foi antecipado para 2014 e 2017 para áreas mecanizáveis e não mecanizáveis, respectivamente, pelo Protocolo Agroambiental proposto pela Secretaria Estadual do Meio Ambiente,<xref ref-type="fn" rid="fn4">
+					<sup>d</sup>
+				</xref> em 2007. Apesar da crescente mecanização da colheita da cana-de-açúcar na região de Ribeirão Preto (acima de 70,0% na safra 2012-2013), as queimadas ainda representam um fator agravante para a poluição do ar, comprometendo a saúde de toda a população, principalmente nos meses de baixa UR%.</p>
+			<p>Segundo dados da Cetesb, a região de Ribeirão Preto possui níveis de poluição do ar abaixo dos limites permitidos pelos padrões nacionais. Contudo, os resultados mostraram possível interferência da poluição atmosférica na região central, com intenso tráfego de veículos, sobre a saúde de crianças, quanto à asma, rinite alérgica e aos sintomas associados.</p>
+			<p>Nesse sentido, com o grande número de pesquisas que vêm revelando novos conhecimentos sobre o impacto da poluição do ar na saúde humana em diversas fases do desenvolvimento, destaca-se a importância da adoção de padrões nacionais de qualidade do ar mais rigorosos, com base nas diretrizes da Organização Mundial da Saúde (OMS).<xref ref-type="fn" rid="fn5">
+					<sup>e</sup>
+				</xref>
+			</p>
+			<p>Deve-se considerar que os níveis de morbidade infantil por causas respiratórias podem ser prevenidos, desde que sejam garantidas mudanças nos aspectos legais e socioeconômicos, que possam interagir com a implementação de ações da saúde pública.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Castro HA, Cunha MF, Mendonça GAS, Junger WL, Cunha-Cruz J, Leon AP. Efeitos da poluição do ar na função respiratória de escolares, Rio de Janeiro, RJ. Rev Saude Publica. 2009;43(1):26-34. DOI:10.1590/S0034-89102009000100004</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Castro</surname>
+							<given-names>HA</given-names>
+						</name>
+						<name>
+							<surname>Cunha</surname>
+							<given-names>MF</given-names>
+						</name>
+						<name>
+							<surname>Mendonça</surname>
+							<given-names>GAS</given-names>
+						</name>
+						<name>
+							<surname>Junger</surname>
+							<given-names>WL</given-names>
+						</name>
+						<name>
+							<surname>Cunha-Cruz</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Leon</surname>
+							<given-names>AP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Efeitos da poluição do ar na função respiratória de escolares, Rio de Janeiro, RJ</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2009</year>
+					<volume>43</volume>
+					<issue>1</issue>
+					<fpage>26</fpage>
+					<lpage>34</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102009000100004</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Kempen E, Fischer P, Janssen N, Houthuijs D, Kampa I, Stansfeld S,  et al. Neurobehavioral effects of exposure to traffic-related air pollution and transportation noise in primary schoolchildren. Environ Res. 2012;115:18-25. DOI:10.1016/j.envres.2012.03.002</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kempen</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Fischer</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Janssen</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Houthuijs</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Kampa</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Stansfeld</surname>
+							<given-names>S</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Neurobehavioral effects of exposure to traffic-related air pollution and transportation noise in primary schoolchildren</article-title>
+					<source>Environ Res</source>
+					<year>2012</year>
+					<volume>115</volume>
+					<fpage>18</fpage>
+					<lpage>25</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.envres.2012.03.002</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Mazzoli-Rocha F, Magalhães CB, Malm O, Saldiva PHN, Zin WA, Faffe DS. Comparative respiratory toxicity of particles produced by traffic and sugar cane burning. Environ Res. 2008;108(1):35-41. DOI:10.1016/j.envres.2008.05.004</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mazzoli-Rocha</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Magalhães</surname>
+							<given-names>CB</given-names>
+						</name>
+						<name>
+							<surname>Malm</surname>
+							<given-names>O</given-names>
+						</name>
+						<name>
+							<surname>Saldiva</surname>
+							<given-names>PHN</given-names>
+						</name>
+						<name>
+							<surname>Zin</surname>
+							<given-names>WA</given-names>
+						</name>
+						<name>
+							<surname>Faffe</surname>
+							<given-names>DS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Comparative respiratory toxicity of particles produced by traffic and sugar cane burning</article-title>
+					<source>Environ Res</source>
+					<year>2008</year>
+					<volume>108</volume>
+					<issue>1</issue>
+					<fpage>35</fpage>
+					<lpage>41</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.envres.2008.05.004</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. McConnell R, Berhane K, Yao L, Jerrett M, Lurmann F, Gilliland F,  et al. Traffic, susceptibility and childhood asthma. Environ Health Perspect. 2006;114(5):766-72. DOI:10.1289/ehp.8594</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>McConnell</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Berhane</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Yao</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Jerrett</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Lurmann</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Gilliland</surname>
+							<given-names>F</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Traffic, susceptibility and childhood asthma</article-title>
+					<source>Environ Health Perspect</source>
+					<year>2006</year>
+					<volume>114</volume>
+					<issue>5</issue>
+					<fpage>766</fpage>
+					<lpage>772</lpage>
+					<pub-id pub-id-type="doi">10.1289/ehp.8594</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Olmo NRS, Saldiva PHN, Braga ALF, Lin CA, Santos UP, Pereira LAA. A review of low-level air pollution and adverse effects on human health: implications for epidemiological studies and public policy. Clinics. 2011;66(4):681-90. DOI:10.1590/S1807-59322011000400025.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Olmo</surname>
+							<given-names>NRS</given-names>
+						</name>
+						<name>
+							<surname>Saldiva</surname>
+							<given-names>PHN</given-names>
+						</name>
+						<name>
+							<surname>Braga</surname>
+							<given-names>ALF</given-names>
+						</name>
+						<name>
+							<surname>Lin</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>UP</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>LAA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A review of low-level air pollution and adverse effects on human health: implications for epidemiological studies and public policy</article-title>
+					<source>Clinics</source>
+					<year>2011</year>
+					<volume>66</volume>
+					<issue>4</issue>
+					<fpage>681</fpage>
+					<lpage>690</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1807-59322011000400025</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Wandalsen GF, Camelo-Nunes IC, Mello KC, Naspitz CK, Solé D. Risk factors for atopic eczema in school children. Rev Bras Saude Mater Infant. 2005;5(1):19-25. DOI:10.1590/S1519-3829200500010000</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wandalsen</surname>
+							<given-names>GF</given-names>
+						</name>
+						<name>
+							<surname>Camelo-Nunes</surname>
+							<given-names>IC</given-names>
+						</name>
+						<name>
+							<surname>Mello</surname>
+							<given-names>KC</given-names>
+						</name>
+						<name>
+							<surname>Naspitz</surname>
+							<given-names>CK</given-names>
+						</name>
+						<name>
+							<surname>Solé</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Risk factors for atopic eczema in school children</article-title>
+					<source>Rev Bras Saude Mater Infant</source>
+					<year>2005</year>
+					<volume>5</volume>
+					<issue>1</issue>
+					<fpage>19</fpage>
+					<lpage>25</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1519-3829200500010000</pub-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Instituto Brasileiro de Geografia e Estatística. Cidades [citado 2013 nov 12]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.ibge.gov.br/cidadesat/topwindow.htm?">http://www.ibge.gov.br/cidadesat/topwindow.htm?</ext-link>
+				</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> Departamento Nacional de Trânsito. Frota de veículos [citado 2013 nov 12]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.denatran.gov.br/frota2013.htm">http://www.denatran.gov.br/frota2013.htm</ext-link>
+				</p>
+			</fn>
+			<fn id="fn3">
+				<label>c</label>
+				<p> São Paulo. Lei Estadual nº 11.241/02. Dispõe sobre a eliminação gradativa da queima da palha da cana-de-açúcar e dá providências correlatas. São Paulo, 2002 [citado 2014 mar 5]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.iea.sp.gov.br/out/bioenergia/legislacao/2002_Lei_Est_11241.pdf">http://www.iea.sp.gov.br/out/bioenergia/legislacao/2002_Lei_Est_11241.pdf</ext-link>
+				</p>
+			</fn>
+			<fn id="fn4">
+				<label>d</label>
+				<p> São Paulo. Secretaria do Meio Ambiente. Protocolo Agro-ambiental do setor sucroalcooleiro paulista. São Paulo, 2007 [citado 2014 mar 5]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.ambiente.sp.gov.br/etanolverde/files/2011/10/protocoloAgroindustriais.pdf">http://www.ambiente.sp.gov.br/etanolverde/files/2011/10/protocoloAgroindustriais.pdf</ext-link>
+				</p>
+			</fn>
+			<fn id="fn5">
+				<label>e</label>
+				<p> World Health Organization. Air quality guidelines, WHO, 2006 [citado 2014 mar 5]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.euro.who.int/_data/assets/pdf_file/0005/78638/E90038.pdf">http://www.euro.who.int/_data/assets/pdf_file/0005/78638/E90038.pdf</ext-link>
+				</p>
+			</fn>
+			<fn fn-type="financial-disclosure">
+				<p>Trabalho financiado pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Processo 124647/2010-3 – bolsa de iniciação científica).</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Brief Communication</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Air pollution and respiratory allergic diseases in schoolchildren</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Ana Paula Milla dos Santos  Av. Dr. Randolfo Borges Júnior, 1250  38064-200 Uberaba, MG, Brasil  E-mail:<email> ana.santos@icte.uftm.edu.br</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<p>Study on the prevalence of allergic respiratory diseases in schoolchildren between six and seven years old, associated with indicators of air pollution. A questionnaire based on the International Study of Asthma and Allergies in Childhood was administered to parents of students from public schools, located in urban areas with differing vehicle flows. There was a positive correlation between monthly frequency of rhinitis and concentration of pollutants, and negative with relative air humidity. Even with levels of air pollutants below that allowed by law, the prevalence of asthma, rhinitis and associated symptoms tended to be higher in the central region school, where there is heavy vehicular traffic.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Child</kwd>
+				<kwd>Respiratory Tract Diseases, epidemiology</kwd>
+				<kwd>Respiratory Hypersensitivity, epidemiology</kwd>
+				<kwd>Air Pollution, adverse effects</kwd>
+				<kwd>Environmental Health</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Prolonged exposure to pollutants, especially those emitted by motor vehicles, is associated with increased levels of hospitalizations for cardiorespiratory morbidities and can negatively affect children’s cognitive development.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref> This situation is aggravated in winter due to the increase in thermal inversions which make it more difficult for primary air pollutants to disperse, provoking episodes of acute pollution.</p>
+				<p>Greater attention is paid to air pollution in cities and industrial regions; however, various epidemiological studies have revealed health consequences even when pollution levels are below the limits permitted by Brazilian legislation.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+				</p>
+				<p>Of patients diagnosed with asthma and allergic rhinitis, between 70.0% and 85.0% have some type of sensitivity to aeroallergens, making them more prone to developing atopic eczema.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> The prevalence of the atopic triad (eczema, rhinitis and asthma) is higher among children and adolescents, who experience onset of symptoms before six years of age, this being more evident in poorer families living in urban areas, which could increase socioeconomic costs and implications.</p>
+				<p>In this context, this study aimed to determine the prevalence of asthma, rhinitis and atopic eczema among schoolchildren aged six and seven, seeking to identify the relationship with urban region air pollution indicators.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>This research was conducted in Ribeirao Preto, SP, in 2010. The municipality is located in the northeast of the state and has a population of approximately 650 thousand inhabitants. The climate is tropical and humid, characterized by rains in summer and a dry winter.<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref>
+				</p>
+				<p>Two state schools were selected for their geographic location: in the central region (school A) and in a residential neighborhood in the east of the municipality (school B); the intensity of daily vehicle traffic; and because the pupils lived near the schools.</p>
+				<p>Inclusion criteria for subjects were based on parents or guardians giving permission and on age group (between six and seven years old), as allergic diseases are aggravated in the period of starting school, when there is more exposure to respiratory infections. From school A, 78 students participated in the study, and 61 from school B.</p>
+				<p>Parents and guardians were given a questionnaire to complete regarding the children, based on the International Study of Asthma and Allergies in Childhood (ISAAC), in November 2010. The instrument consists of two parts: the first identified the child, the respondent and the geographic location of the child’s residence and daily life; the second was divided into three parts, covering information on frequency, time and intensity of asthma, allergic rhinitis and atopic eczema.</p>
+				<p>Comparison between the data for schools A and B used the Chi-square test, with a 5% level of significance (<xref ref-type="table" rid="t01_en">Table</xref>). Frequencies were also compared to calculate prevalence ratios (PR).</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table. </label>
+						<caption>
+							<title>Frequency of affirmative responses to diagnoses of asthma, allergic rhinitis, atopic eczema and associated respiratory symptoms in six- and seven-year old pupils in public schools in Ribeirao Preto, SP, Southeastern Brazil, 2010. (N = 139)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="33%">
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left">Question</th>
+									<th style="font-weight:normal" align="left">School A (n = 78) %</th>
+									<th style="font-weight:normal" align="left">School B (n = 61) %</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Diagnosis of asthma</td>
+									<td align="center">17.9</td>
+									<td align="center">9.8</td>
+								</tr>
+								<tr>
+									<td>Wheezing at any point in life</td>
+									<td align="center">69.2</td>
+									<td align="center">65.6</td>
+								</tr>
+								<tr>
+									<td>Wheezing in preceding 12 months</td>
+									<td align="center">33.3</td>
+									<td align="center">29.5</td>
+								</tr>
+								<tr>
+									<td>Wheezing after exercise</td>
+									<td align="center">9.0</td>
+									<td align="center">8.2</td>
+								</tr>
+								<tr>
+									<td>Nocturnal dry cough</td>
+									<td align="center">61.5<sup>a</sup>
+									</td>
+									<td align="center">42.6</td>
+								</tr>
+								<tr>
+									<td>Diagnosis of allergic rhinitis</td>
+									<td align="center">48.7</td>
+									<td align="center">36.1</td>
+								</tr>
+								<tr>
+									<td>Sneezing and itching at any point in life</td>
+									<td align="center">60.3</td>
+									<td align="center">52.5</td>
+								</tr>
+								<tr>
+									<td>Sneezing and itching in preceding 12 months</td>
+									<td align="center">53.8</td>
+									<td align="center">44.3</td>
+								</tr>
+								<tr>
+									<td>Ocular symptoms</td>
+									<td align="center">39.7<sup>a</sup>
+									</td>
+									<td align="center">23.0</td>
+								</tr>
+								<tr>
+									<td>Effect on daily activities</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Never</td>
+									<td align="center">24.4</td>
+									<td align="center">32.8</td>
+								</tr>
+								<tr>
+									<td> A little</td>
+									<td align="center">33.3<sup>a</sup>
+									</td>
+									<td align="center">18.0</td>
+								</tr>
+								<tr>
+									<td> A lot</td>
+									<td align="center">3.8</td>
+									<td align="center">3.3</td>
+								</tr>
+								<tr>
+									<td>Diagnosis of atopic eczema</td>
+									<td align="center">24.4</td>
+									<td align="center">29.5</td>
+								</tr>
+								<tr>
+									<td>Marks on the skin at any point in life</td>
+									<td align="center">20.5</td>
+									<td align="center">19.7</td>
+								</tr>
+								<tr>
+									<td>Marks on the skin in preceding 12 months</td>
+									<td align="center">16.7</td>
+									<td align="center">16.4</td>
+								</tr>
+								<tr>
+									<td>Age at which marks appeared</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> &lt; 2 years old</td>
+									<td align="center">5.1</td>
+									<td align="center">6.6</td>
+								</tr>
+								<tr>
+									<td> 2 to 4 years old</td>
+									<td align="center">9.0</td>
+									<td align="center">8.2</td>
+								</tr>
+								<tr>
+									<td> ≥ 5 years old</td>
+									<td align="center">6.4</td>
+									<td align="center">6.6</td>
+								</tr>
+								<tr>
+									<td>Complete disappearance of marks in the preceding 12 months</td>
+									<td align="center">19.2</td>
+									<td align="center">16.4</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>a</sup> p ≤ 0.05</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>The monthly means of daily concentrations of inhalable particles (MP<sub>10</sub>), nitrogen dioxide (NO<sub>2</sub>), ozone (O<sub>3</sub>) and the relative air humidity (RH%) were calculated for the November 2009 to October 2010 period, based on seasonal monitoring data from the State of Sao Paulo Environmental Company (Cetesb), located in school B. These data were related to the responses to the question on occurrence of rhinitis symptoms (sneezing, itching and blocked nose) not caused by colds, in the preceding 12 months, calculating using Pearson’s coefficient of linear correlation and by analyzing the principal components.</p>
+				<p>This study was approved by the Research Ethics Committee of the Ribeirao Preto Nursing School, <italic>Universidade de São Paulo</italic> (Protocol 1171/2010), and was authorized by the Regional Director of Education.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>According to the responses, the majority of the 139 pupils were seven years old (72.7%), 51.8% were male and 61.8% did not live with smokers.</p>
+				<p>Diagnosis of asthma was reported by 18.0% of pupils in school A, almost double the frequency found in school B (PR = 1.8). The frequency of nocturnal coughing, considered one of the symptoms of active asthma, together with wheezing after exercise, was higher in schools A (PR = 1.4; χ<sup>2</sup> = 4.9; p ≤ 0.05) (<xref ref-type="table" rid="t01_en">Table</xref>).</p>
+				<p>Both the prevalence of diagnosed allergic rhinitis and associated symptoms (having experienced sneezing and itching at some point in life, sneezing and itching in the preceding 12 months and ocular symptoms) were more frequent in pupils in school A (PR = 1.4; 1.1 and 1.2, respectively). The frequency of ocular symptoms was 1.7 times higher in school A (χ<sup>2</sup> = 4.4; p ≤ 0.05) and, according to the responses, 37.1% of the pupils in this school also found their daily activities a little or very affected by nasal discomfort (χ<sup>2</sup> = 4.1; p ≤ 0.05), almost double that of school B (PR = 1.8) (<xref ref-type="table" rid="t01_en">Table</xref>).</p>
+				<p>There was no significant difference in diagnosed atopic eczema or associated symptoms between pupils at the two schools (<xref ref-type="table" rid="t01_en">Table</xref>).</p>
+				<p>Presence of the atopic triad (eczema, rhinitis and asthma) was reported by only 3.6% of pupils participating in this study. Of the three diseases studied, allergic rhinitis was the most frequent, in pupils from both schools, reported by 43.2% of all respondents, with diagnosed atopic eczema reported by 26.6% and asthma by 14.4%.</p>
+				<p>Symptoms of allergic rhinitis (sneezing, itching, blocked nose, not caused by a cold) were more frequent in the third trimester of 2010, coinciding with increased levels of MP<sub>10</sub> and NO<sub>2</sub>, and with the driest period of the year. Analysis of the data showed a strong negative correlation between symptoms of rhinitis and RH% (r = -0.91) and a positive correlation with MP<sub>10</sub> and NO<sub>2</sub> (r = 0.89 and 0.88, respectively) (<xref ref-type="fig" rid="f01_en">Figure</xref>).</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure. </label>
+						<caption>
+							<title>Analysis of the main components for environmental variables and symptoms of allergic rhinitis in six- and seven-year old pupils in public schools in Ribeirao Preto, SP, Southeastern Brazil, between November 2009 and October 2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0326-gf01-en"/>
+					</fig>
+				</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>A higher prevalence of medical diagnoses of asthma, rhinitis and associated symptoms was found among pupils at the school in the central region (school A), where there is heavy vehicle traffic and, therefore, a higher concentration of pollutants. Compromised air quality, as an exogenous component, together with other biological, economic and/or social factors, are significant aggravators of allergic diseases.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+				</p>
+				<p>Vehicular emissions are a significant source of air pollution in urban centers, due to the difficulty of direct monitoring and control. In recent years, in Ribeirao Preto, SP, there has been an accelerated increase in the number of vehicles, a trend reflected in the country as a whole. According to Denatran, there are 1.4 vehicles for every two inhabitants in the municipality.<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref> According to Cetesb, in Ribeirao Preto, mobile sources of air pollution, such as heavy goods vehicles and motorcycles, are responsible for the emission of around seven million tons of CO, one thousand tons of NOx and 100 tons of particulate matter annually. This has immediate consequences for the quantity of atmospheric pollutants emitted, and indirect consequences for health, especially that of residents in the busiest neighborhoods.</p>
+				<p>The positive correlation found between symptoms of rhinitis (sneezing, itching and blocked nose) and MP<sub>10</sub> and NO<sub>2</sub> concentrations corroborates a study conducted by Castro et al, in Rio de Janeiro, in 2009.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> According to these authors, a positive correlation between increased air pollutants and decreased respiratory function in children was verified.</p>
+				<p>Symptoms of allergic rhinitis were more frequent during months with low rainfall, showing negative correlation with RH%. It was also in this period that the number of fires increased, some accidental, some arson but most attributable to pre-harvest burning of sugar cane. The particulates produced from burning biomass may be similar or greater than those emitted by vehicles with regards their composition of heavy metals and polycyclic aromatic hydrocarbons (PAH).<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+				</p>
+				<p>The region studied is one of the principal sugar and ethanol sectors in the country, and burning takes place in April and December. Legislation<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref> provides for a gradual end to this practice in Sao Paulo by 2031, but this date was brought forward to 2014 and 2017 for mechanized and non-mechanized areas, respectively by the Agro-environmental Protocol proposed by the State Environmental Secretariat,<xref ref-type="fn" rid="fn4_en">
+						<sup>d</sup>
+					</xref> in 2007. Despite increasing mechanization of harvesting sugar cane in the Ribeirao Preto region (above 70.0% in the 2012-2013 harvest), burning cane still represents an aggravating factor for air pollution, affecting the population’s health, especially in months of low RH%.</p>
+				<p>According to Cetesb data, air pollution in the Ribeirao Preto region was below the limits set by national standards. However, the results show possible effects of air pollution in the central region, with heavy vehicle traffic, on children’s health with regards asthma, allergic rhinitis and associated symptoms.</p>
+				<p>Thus, given the large number of studies which are revealing new knowledge of the impact of air pollution on human health at diverse stages of development, the importance of adopting more rigorous national air quality standards, based on World Health Organization (WHO) directives,<xref ref-type="fn" rid="fn5_en">
+						<sup>e</sup>
+					</xref> is highlighted.</p>
+				<p>It should be considered that levels of infant morbidity from respiratory causes could be prevented if there were guaranteed changes in legal and socioeconomic aspects interacting with the implementation of public health actions.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> Instituto Brasileiro de Geografia e Estatística. Cidades [cited 2013 Nov 12]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.ibge.gov.br/cidadesat/topwindow.htm?">http://www.ibge.gov.br/cidadesat/topwindow.htm?</ext-link>
+					</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b</label>
+					<p> Departamento Nacional de Trânsito. Frota de veículos. Brasília (DF); 2013 [cited 2013 Nov 12]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.denatran.gov.br/frota2013.htm">http://www.denatran.gov.br/frota2013.htm</ext-link>
+					</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c</label>
+					<p> São Paulo. Lei Estadual nº 11.241, de 19 de setembro de 2002. Dispõe sobre a eliminação gradativa da queima da palha da cana-de-açúcar e dá providências correlatas [cited 2014 Mar 5]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.iea.sp.gov.br/out/bioenergia/legislacao/2002_Lei_Est_11241.pdf">http://www.iea.sp.gov.br/out/bioenergia/legislacao/2002_Lei_Est_11241.pdf</ext-link>
+					</p>
+				</fn>
+				<fn id="fn4_en">
+					<label>d</label>
+					<p> Secretaria do Meio Ambiente do Estado de São Paulo; Secretaria da Agricultura e Abastecimento do Estado de São Paulo; União da Agroindústria de São Paulo. Protocolo Agro-Ambiental do Setor Sucroalcooleiro Paulista. São Paulo; 2007 [cited 2014 Mar 5]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.ambiente.sp.gov.br/etanolverde/files/2011/10/protocoloAgroindustriais.pdf">http://www.ambiente.sp.gov.br/etanolverde/files/2011/10/protocoloAgroindustriais.pdf</ext-link>
+					</p>
+				</fn>
+				<fn id="fn5_en">
+					<label>e</label>
+					<p> World Health Organization, Regional Office for Europe. Air quality guidelines: global update 2005. Copenhagen; 2006 [cited 2014 Mar 5]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.euro.who.int/_data/assets/pdf_file/0005/78638/E90038.pdf">http://www.euro.who.int/_data/assets/pdf_file/0005/78638/E90038.pdf</ext-link>
+					</p>
+				</fn>
+				<fn fn-type="financial-disclosure">
+					<p>This study was supported by the Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Process 124647/2010-3 – scientific initiation grant).</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

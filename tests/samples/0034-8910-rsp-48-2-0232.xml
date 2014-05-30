@@ -1,0 +1,1623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048005044</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048005044</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Elaboração e validação de instrumento avaliador da adesão ao tratamento da hipertensão</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Rodrigues</surname>
+						<given-names>Malvina Thaís Pacheco</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Moreira</surname>
+						<given-names>Thereza Maria Magalhães</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Andrade</surname>
+						<given-names>Dalton Francisco de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv1">Colégio Técnico de Teresina</institution>
+				<institution content-type="orgname">Universidade Federal do Piauí</institution>
+				<addr-line>
+					<named-content content-type="city">Teresina</named-content>
+					<named-content content-type="state">PI</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Colégio Técnico de Teresina. Universidade Federal do Piauí. Teresina, PI, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgname">Universidade Estadual do Ceará</institution>
+				<addr-line>
+					<named-content content-type="city">Fortaleza</named-content>
+					<named-content content-type="state">CE</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Programa de Pós-Graduação em Saúde Coletiva. Universidade Estadual do Ceará. Fortaleza, CE, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+				<addr-line>
+					<named-content content-type="city">Florianópolis</named-content>
+					<named-content content-type="state">SC</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Programa de Pós-Graduação em Engenharia de Produção. Universidade Federal de Santa Catarina. Florianópolis, SC, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Malvina Thaís Pacheco Rodrigues  Colégio Técnico de Teresina  Universidade Federal do Piauí  Campus Universitário Ministro Petrônio Portela  64049-550 Teresina, PI, Brasil  E-mail: <email>malvinat@gmail.com</email>
+				</corresp>
+				<fn fn-type="other">
+					<p>Artigo baseado na tese de doutorado de Rodrigues MTP, intitulada: “Adesão ao tratamento da hipertensão arterial sistêmica: desenvolvimento de um instrumento avaliativo com base na Teoria da Resposta ao Item (TRI)”, apresentada à Universidade Estadual do Ceará (UECE), em 2012.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>232</fpage>
+			<lpage>240</lpage>
+			<history>
+				<date date-type="received">
+					<day>13</day>
+					<month>7</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>29</day>
+					<month>11</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Elaborar e validar instrumento de avaliação da adesão ao tratamento da hipertensão arterial sistêmica, com base na teoria da resposta ao item.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>O desenvolvimento do instrumento envolveu procedimentos teóricos, empíricos e analíticos. Os procedimentos teóricos compreenderam a definição do constructo adesão ao tratamento da hipertensão arterial sistêmica, identificação dos domínios intervenientes e a elaboração do instrumento, seguida da análise semântica e conceitual por peritos. O procedimento empírico englobou a aplicação do instrumento a 1.000 usuários com hipertensão arterial sistêmica, atendidos em um centro de referência em Fortaleza, CE, em 2012. A etapa analítica validou o instrumento por meio da análise psicométrica e dos procedimentos estatísticos. O modelo da teoria da resposta ao item usado na análise foi o da resposta gradual de Samejima.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>Doze dos 23 itens do instrumento inicial foram calibrados e permaneceram na versão final. O coeficiente alfa (α) de Cronbach foi de 0,81. Os itens referentes ao uso da medicação quando apresenta algum sintoma e o uso de gordura apresentaram bom desempenho, pois tiveram melhor poder de discriminar os indivíduos que aderem ao tratamento. Deixar de tomar a medicação alguma vez e o consumo de carnes brancas apresentaram menor poder de discriminação. Itens referentes à realização de exercício físico e ser rotina seguir o tratamento não medicamentoso tiveram maior dificuldade de resposta. O instrumento mostrou-se mais apropriado para medir a baixa adesão ao tratamento da hipertensão arterial sistêmica do que a alta adesão.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>O instrumento mostrou-se adequado para avaliar a adesão ao tratamento da hipertensão arterial sistêmica, pois consegue diferenciar os indivíduos com alta adesão daqueles com baixa adesão. Sua utilização pode facilitar a identificação e aferição do cumprimento à terapêutica prescrita, além de viabilizar o estabelecimento de metas a serem alcançadas.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Cooperação do Paciente</kwd>
+				<kwd>Anti-Hipertensivos, administração &amp; dosagem</kwd>
+				<kwd>Adesão à Medicação</kwd>
+				<kwd>Hipertensão, prevenção &amp; controle</kwd>
+				<kwd>Questionários</kwd>
+				<kwd>Estudos de Validação</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior</funding-source>
+					<award-id>034/2010</award-id>
+				</award-group>
+				<funding-statement>Trabalho financiado pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES – Edital 034/2010 – Programa de Formação Doutoral Docente).</funding-statement>
+			</funding-group>
+			<counts>
+				<fig-count count="2"/>
+				<table-count count="7"/>
+				<ref-count count="18"/>
+				<page-count count="9"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>A hipertensão arterial sistêmica (HAS) é reconhecida como importante problema de saúde pública diante do avanço na identificação de fatores de risco, diagnóstico precoce, emprego de vasta terapêutica medicamentosa e de ações educativas para as mudanças no estilo de vida. Apesar disso, é uma doença de difícil controle e a manutenção dos níveis pressóricos dentro do limite recomendado é insatisfatória. Isso evidencia a problemática da baixa adesão ao tratamento.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+			</p>
+			<p>Estima-se que cerca de 50,0% das pessoas que convivem com doenças crônicas não seguem seu tratamento adequadamente.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> Cerca de 44,2% dos usuários hipertensos seguiam adequadamente o tratamento medicamentoso na Malásia.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> No Chile, 21,6% dos usuários hipertensos maiores de 65 anos seguiam a terapêutica.<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> No Brasil, os valores de controle variaram de 10,1% em Tubarão, SC, em 2003, a 52,4% em São José do Rio Preto, SP, de 2004 a 2005, ao se considerarem estudos de base populacional com hipertensos sob tratamento, cujo critério de controle foi de pressão arterial &lt; 140/90 mmHg para sistólica e diastólica, respectivamente.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>A não adesão ocasiona desnecessário ajuste no regime terapêutico devido à falta de resposta positiva ao tratamento, aumento dos custos no cuidado à saúde com a elevação das taxas de hospitalizações e tratamento de complicações. Além disso, frustra os profissionais de saúde, pois os impede de alcançar os objetivos traçados na atenção à saúde do hipertenso.<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+			</p>
+			<p>Medir a adesão ao tratamento da HAS é uma tarefa complexa. Há diferentes métodos aplicados, diferentes pontos de corte e inexiste um método considerado padrão ouro e que represente as várias dimensões que envolvem o processo de adesão ao tratamento dessa síndrome.<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+			</p>
+			<p>A maioria dos métodos usados para avaliar a adesão ao tratamento da HAS é focada somente no tratamento farmacológico, aplicado também a outras doenças. Existe uma lacuna a ser preenchida.</p>
+			<p>Uma das alternativas para realizar essa medida está na teoria da resposta ao item (TRI). Essa teoria compreende um conjunto de modelos para variáveis latentes que se propõem a representar a relação entre a probabilidade de um respondente dar uma certa resposta a um item e seu traço latente (característica do indivíduo que não pode ser observada diretamente). Essa característica é mensurada por meio de variáveis secundárias que estejam a elas relacionadas.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+			</p>
+			<p>O objetivo deste estudo foi elaborar e validar o questionário de adesão ao tratamento da HAS (QATHAS), com base na TRI.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Estudo metodológico fundamentado na psicometria moderna (TRI) e que seguiu os três procedimentos para a construção de instrumentos de avaliação: teórico, empírico e analítico.<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref>
+			</p>
+			<p>Uma revisão integrativa foi construída na etapa teórica, buscando conhecer os fatores condicionantes específicos da adesão ao tratamento dessa síndrome. Foram descritas as definições constitutivas e operacionais, bem como elaborados os itens do instrumento de medida com base nos 12 critérios recomendados por Pasquali (amplitude, equilíbrio, comportamental, simplicidade, clareza, relevância, precisão, modalidade, tipicidade, objetividade, variedade e credibilidade).<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref>
+			</p>
+			<p>A primeira versão do instrumento foi submetida à análise semântica para verificar a compreensão dos itens. Trabalhou-se com dois grupos de quatro pessoas com diferentes níveis de escolaridade e idades, atendidos no Centro Integrado de Hipertensão e Diabetes (CIDH), em Fortaleza, CE, em 2012. Foram realizadas mudanças na redação de sete itens para corrigir falhas na sua compreensão.</p>
+			<p>A proposta do instrumento foi encaminhada para os juízes, que avaliaram a redação e compreensão dos itens, além da pertinência conceitual com relação à adesão ao tratamento da HAS. Concordaram em participar da pesquisa cinco juízes: um médico, dois enfermeiros, um nutricionista e um educador físico. Foi encaminhado um roteiro de avaliação do instrumento criado com 20 itens para cada um. As avaliações foram confrontadas e acatadas as sugestões com concordância mínima de 80%.<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> Alguns itens foram excluídos (2, 3, 4, 5, 14), outros reformulados (6, 7, 11, 12, 13, 15, 18) e outros incluídos (12, 13, 14). O QATHAS constou de 23 itens, após a avaliação dos juízes. Foi realizada a adequação dos itens em relação à redação e aos domínios.</p>
+			<p>O procedimento empírico englobou a aplicação do instrumento. O QATHAS foi aplicado a 1.000 usuários com HAS atendidos no CIDH.</p>
+			<p>Por se tratar de construção e validação de instrumentos usando a TRI, fez-se necessária amostra em tamanho suficiente para conseguir respondentes que cobrissem todo o traço latente estudado. Não existe consenso sobre o número ideal de respondentes.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> Entretanto, amostras grandes com número de respondentes ≥ 1.000 apresentam maior chance de cobrir todo o traço latente estudado.</p>
+			<p>A etapa analítica objetivou validar o instrumento por meio da análise psicométrica e dos procedimentos estatísticos para verificar a confiabilidade, validade, estimação dos parâmetros dos itens e do nível de adesão ao tratamento da HAS (parâmetros dos indivíduos) por meio de um modelo da TRI.</p>
+			<p>A consistência interna do conjunto de itens foi analisada pelo alfa (α) de Cronbach e foi usado o pacote <italic>psych</italic>
+				<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> do software livre R.<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref>
+			</p>
+			<p>Realizou-se análise fatorial de informação completa, baseada em modelos da teoria da resposta ao item multidimensional (TRIM)<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> para o entendimento dos traços latentes (ou fatores subjacentes) associados aos padrões de resposta do instrumento. É possível avaliar a correlação dos itens com possíveis traços latentes (ou fatores subjacentes) por essa análise, o que possibilita verificar se todos os itens pertencem a um modelo de dimensão única ou se há subconjuntos de itens que justificam outras dimensões. Esta análise foi realizada usando o pacote <italic>mirt</italic>
+				<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref> do software livre R.<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref>
+			</p>
+			<p>Os parâmetros dos itens (<italic>a</italic> e <italic>b</italic>) foram estimados utilizando o software Multilog<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> na fase de calibração dos itens. Observou-se se houve convergência do algoritmo usado para aplicação do método de estimação. O modelo de resposta gradual de Samejima<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> foi empregado na análise dos itens.</p>
+			<p>A proficiência (θ) dos respondentes foi estimada utilizando o método da máxima verossimilhança marginal (MVM) em duas etapas: os parâmetros das habilidades foram integrados separadamente e os parâmetros dos itens foram estimados. Com os parâmetros dos itens estimados, previu-se a adesão ao tratamento da HAS (parâmetros dos indivíduos).</p>
+			<p>Procedeu-se à criação da escala para esse traço latente. Os itens âncora foram definidos. Um item é âncora para o nível Z se ele satisfizer simultaneamente a três condições, para Y &lt; Z:<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+			</p>
+			<disp-formula>
+				<graphic xlink:href="0034-8910-rsp-48-2-0232-ee01"/>
+			</disp-formula>
+			<p>Pela dificuldade em satisfazer todas essas condições, optou-se por flexibilizar esses critérios e considerar nível âncora aquele que apresentasse duas das condições de classificação descritas, além de considerar a probabilidade &gt; 60,0% em determinado nível âncora da escala.</p>
+			<p>Os valores dos parâmetros dos itens (<italic>a, b</italic>) e dos escores de adesão ao tratamento da HAS foram estimados na mesma métrica na escala com média 0 e desvio padrão (DP) 1,0. Esses valores foram transformados utilizando média 100 e DP 10, i.e., escala (100, 10), para melhorar a compreensão dos resultados.</p>
+			<p>O estudo recebeu aprovação do Comitê de Ética em Pesquisa da Universidade Estadual do Ceará (UECE), Processo 11517971-2. Todos os participantes assinaram termo de consentimento livre e esclarecido.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>Foi possível construir a explicitação teórica e a definição do domínio do constructo a partir de uma revisão integrativa sobre os domínios que interferem na adesão ao tratamento da HAS (<xref ref-type="table" rid="t01">Tabela 1</xref>). Os 20 itens iniciais do QATHAS foram elaborados a partir dessa definição.</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Teoria sobre o constructo da adesão ao tratamento da hipertensão arterial sistêmica (HAS), sumarização a partir de revisão integrativa. Fortaleza, CE, 2012.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="50%">
+							<col width="30%"/>
+							<col width="70%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Conceito adotado</th>
+								<th style="font-weight:normal">Dimensionalidade</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="5" valign="top">O grau de coincidência entre o comportamento do usuário e a prescrição dos profissionais de saúde, que envolve medidas farmacológicas e comportamentais, sendo todos os envolvidos no processo responsáveis pelo tratamento.</td>
+								<td>A adesão ao tratamento da HAS é um fenômeno multidimensional determinado pela junção de quatro dimensões: usuário; doença/tratamento; serviço de saúde e ambiente.</td>
+							</tr>
+							<tr>
+								<td>Usuário: refere-se à pessoa em tratamento anti-hipertensivo. Engloba as variáveis sociodemográficas e econômicas, conhecimentos, atitudes, crenças, percepções, expectativas, uso de álcool e cigarro.</td>
+							</tr>
+							<tr>
+								<td>Doença e tratamento: engloba as variáveis relacionadas à presença de doenças associadas e fatores de risco cardiovasculares, aos medicamentos, ao tempo de convívio com a doença, valores alterados da PA, dieta, atividade física e ao uso de terapias alternativas.</td>
+							</tr>
+							<tr>
+								<td>Serviço de saúde: representa o local onde é realizado o tratamento da HAS e está relacionado às variáveis sobrevindas da relação profissional de saúde-usuário, qualidade da prestação de serviços, acesso, atividades educativas, fornecimento de medicamentos.</td>
+							</tr>
+							<tr>
+								<td>Ambiente: refere-se ao espaço mais amplo em que o usuário está inserido. Engloba as variáveis relacionadas à interação com o meio, apoio familiar e social, controle do meio externo.</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>PA: pressão arterial</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>O QATHAS apresentou alfa (α) de Cronbach de 0,81.</p>
+			<p>O primeiro fator explicou 22,4% da variância total, constatando um fator dominante.</p>
+			<p>O instrumento inicial com 23 itens foi submetido a calibração. Entretanto, os algoritmos desses itens não convergiam e foi necessário realizar alterações nas categorias de respostas e exclusões de itens.</p>
+			<p>Os itens referentes ao uso da medicação, sal, gordura, doce e exercício físico permaneceram com as mesmas categorias de respostas inicialmente propostas. Os itens referentes à dose e ao horário da medicação ficaram com quatro categorias de respostas enquanto aquele referente ao consumo de carne branca ficou com duas categorias de respostas.</p>
+			<p>Os itens referentes ao uso de remédios caseiros, cigarro, drogas ilícitas, álcool, ao consumo de frutas e verduras, ao peso, valor da pressão arterial, comparecimento às consultas, estresse, à presença de complicação e ocorrência de internação durante o tratamento foram excluídos da análise final. Suas presenças não permitiram a convergência do algoritmo de estimação, além do valor do parâmetro <italic>a </italic>(parâmetro de discriminação ser muito baixo, i.e, não discriminar os hipertensos que apresentam baixa adesão ao tratamento da HAS daqueles que apresentam alta adesão (Anexo<xref ref-type="fn" rid="fn4">
+					<sup>d</sup>
+				</xref>)).</p>
+			<p>A <xref ref-type="table" rid="t02">Tabela 2</xref> apresenta as estimativas dos parâmetros dos itens, discriminando as dimensões de análise, os 12 itens do QATHAS e os parâmetros <italic>a </italic>(parâmetro de discriminação), <italic>b</italic>
+				<sub>2</sub>
+				<italic>, b</italic>
+				<sub>3, </sub>
+				<italic>b</italic>
+				<sub>4 </sub>e <italic>b</italic>
+				<sub>5 </sub>(parâmetros de dificuldade) para a categoria 2, 3, 4 e 5 da escala Likert. Assumiu-se que os dados seguem distribuição normal, com μ = 0 e s = 1, i.e., escala (0,1) para a determinação inicial dos parâmetros.</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Estimativa dos parâmetros dos itens do instrumento de avaliação da adesão ao tratamento da hipertensão arterial sistêmica. Fortaleza, CE, 2012.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="14%">
+							<col width="30%"/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Itens</th>
+								<th style="font-weight:normal">
+									<italic>a</italic>
+								</th>
+								<th style="font-weight:normal">
+									<italic>b</italic>
+									<sub>
+										<italic>2</italic>
+									</sub>
+								</th>
+								<th style="font-weight:normal">
+									<italic>b</italic>
+									<sub>
+										<italic>3</italic>
+									</sub>
+								</th>
+								<th style="font-weight:normal">
+									<italic>b</italic>
+									<sub>
+										<italic>4</italic>
+									</sub>
+								</th>
+								<th style="font-weight:normal">
+									<italic>b</italic>
+									<sub>
+										<italic>5</italic>
+									</sub>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>01 – Uso da medicação</td>
+								<td align="center">0,698</td>
+								<td align="center">-4,816</td>
+								<td align="center">-2,186</td>
+								<td align="center">-0,687</td>
+								<td align="center">0,250</td>
+							</tr>
+							<tr>
+								<td>02 – Dose da medicação</td>
+								<td align="center">0,939</td>
+								<td align="center">-4,510</td>
+								<td align="center">-2,807</td>
+								<td align="center">-2,005</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>03 – Horário da medicação</td>
+								<td align="center">0,882</td>
+								<td align="center">-3,805</td>
+								<td align="center">-1,729</td>
+								<td align="center">-1,045</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>04 – Sintoma</td>
+								<td align="center">1,910</td>
+								<td align="center">-2,842</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>05 – Rotina tratamento medicamentoso</td>
+								<td align="center">1,507</td>
+								<td align="center">-2,560</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>06 – Uso do sal</td>
+								<td align="center">1,436</td>
+								<td align="center">-2,378</td>
+								<td align="center">-1,653</td>
+								<td align="center">-0,207</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>07 – Uso da gordura</td>
+								<td align="center">1,770</td>
+								<td align="center">-2,300</td>
+								<td align="center">-1,627</td>
+								<td align="center">-0,465</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>08 – Consumo de carnes brancas</td>
+								<td align="center">0,768</td>
+								<td align="center">-3,301</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>09 – Consumo de doces e bebidas com açúcar</td>
+								<td align="center">1,163</td>
+								<td align="center">-2,777</td>
+								<td align="center">-1,985</td>
+								<td align="center">-0,556</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>10 – Exercício físico</td>
+								<td align="center">0,715</td>
+								<td align="center">0,736</td>
+								<td align="center">1,347</td>
+								<td align="center">4,602</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>11 – Rotina tratamento não medicamentoso</td>
+								<td align="center">0,956</td>
+								<td align="center">0,126</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>12 – Comparecimento às consultas</td>
+								<td align="center">1,173</td>
+								<td align="center">-3,510</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>O QATHAS apresentou erro alto (curva tracejada em vermelho) a partir do nível 0,5 da escala, quando comparado com a curva da informação (<xref ref-type="fig" rid="f01">Figura</xref>).</p>
+			<p>
+				<fig id="f01">
+					<label>Figura. </label>
+					<caption>
+						<title>Curva total da informação do instrumento de adesão ao tratamento da hipertensão arterial sistêmica. Fortaleza, CE, 2012.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0232-gf01"/>
+				</fig>
+			</p>
+			<p>A escala baseou-se em dez dos doze itens do QATHAS com base nos níveis âncora descritos anteriormente. O instrumento inicial apresentava itens que contemplavam todas as dimensões envolvidas. O item referente à dimensão ambiente foi excluído durante a calibração por não permitir a convergência das estimativas dos itens. Estiveram contemplados na escala os itens referentes a três domínios: doença/tratamento, usuário e serviço de saúde.</p>
+			<p>Ao responder o QATHAS, diferentemente dos questionários que utilizam a teoria clássica dos testes, o resultado não é obtido ao somar pontos ou escores. O calculo é realizado por fórmula matemática utilizando os valores dos parâmetros dos itens (<italic>a</italic> e <italic>b)</italic> e de uma constante. Foi criado e disponibilizado endereço eletrônico livre e gratuito<xref ref-type="fn" rid="fn5">
+					<sup>e</sup>
+				</xref> com acesso ao instrumento e ao resultado. Nesse endereço, cada profissional pode digitar as respostas dos usuários atendidos e visualizar o nível da escala (<xref ref-type="table" rid="t03">Tabela 3</xref>) em que cada respondente está situado. O nível de adesão varia de 60 a 110, i.e., os hipertensos com menor adesão atingem 60, enquanto os mais aderentes situam-se no nível 110.</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Tabela 3</label>
+					<caption>
+						<title>Escala de adesão ao tratamento da hipertensão arterial sistêmica Fortaleza, CE, 2012.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="50%">
+							<col width="20%"/>
+							<col width="80%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Nível da Escala</th>
+								<th style="font-weight:normal">Descrição</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>60</td>
+								<td align="center">Neste nível, os hipertensos não tomam o anti-hipertensivo, ao menos uma vez por semana. E também não o tomam na dose prescrita, ao menos uma vez por semana.</td>
+							</tr>
+							<tr>
+								<td>70</td>
+								<td align="center">Os hipertensos posicionados neste nível deixam de tomar a medicação para hipertensão nos horários estabelecidos, ao menos uma vez por semana, e comparecem às consultas agendadas.</td>
+							</tr>
+							<tr>
+								<td>80</td>
+								<td align="center">Ao atingirem este nível, os hipertensos deixam de tomar a medicação conforme a dose prescrita ao menos uma vez por mês e fazem uso da medicação independentemente de apresentar algum sintoma, seguem o tratamento medicamentoso rotineiramente e reduzem a terça parte do sal, da gordura, e de doces e bebidas com açúcar.</td>
+							</tr>
+							<tr>
+								<td>90</td>
+								<td align="center">Os hipertensos localizados neste nível deixam de tomar a medicação, nos horários estabelecidos, ao menos uma vez por mês; reduzem à metade o sal, gordura e doces, e bebidas com açúcar.</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td align="center">Neste nível, os hipertensos deixam de tomar a medicação para hipertensão, ao menos uma vez por ano, e praticamente não consomem gordura, doces e bebidas com açúcar.</td>
+							</tr>
+							<tr>
+								<td>110</td>
+								<td align="center">A partir deste nível, os hipertensos não deixam de tomar a medicação para hipertensão, comem praticamente sem sal e seguem o tratamento não medicamentoso rotineiramente.</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>O agrupamento de categorias de respostas e a exclusão de alguns itens na calibração mostram a dificuldade na construção de itens com parâmetros de discriminação altos. Os itens foram construídos seguindo metodologia científica rigorosa, com base no conhecimento teórico do traço latente estudado e cumprindo os critérios básicos de sua construção.<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> Apesar disso, alguns deles apresentaram baixo poder de discriminação e, consequentemente, precisaram ser eliminados. A elaboração de instrumentos requer atenção na construção de itens, clareza da abrangência e foco no traço latente para potencializar o poder de discriminação e produzir itens com parâmetros <italic>a </italic>elevados.</p>
+			<p>A não convergência pode decorrer dos seguintes fatores: o item foi mal elaborado, o número de respondentes é baixo, o item não discrimina pessoas que aderem ao tratamento da hipertensão daquelas que não aderem, o item não é compatível com essa dimensão de análise ou uma combinação desses fatores.</p>
+			<p>Os itens relacionados ao tratamento não medicamentoso (6 a 11) tiveram destaque na exclusão. Uma alternativa para esse resultado é a reformulação dos itens para que sejam mais bem discriminados, i.e., que possuam maior quantidade de informação psicométrica e melhor discriminação.</p>
+			<p>Um achado curioso e aparentemente contraditório foi a exclusão do item referente ao valor da pressão arterial (PA), já que seu valor é uma maneira direta de saber se esta está controlada (resposta clínica). Isso pode ser justificado por ser uma medida isolada, o que representa apenas um momento. Além disso, o procedimento de medida da PA é vulnerável ao erro, visto que deve ser feito de maneira adequada, e.g., preparo adequado do paciente, uso de técnica padronizada e equipamento calibrado.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+			</p>
+			<p>A maioria dos respondentes não fazia uso de remédios caseiros, cigarro, drogas ilícitas e álcool, não permitindo a convergência do algoritmo de estimação. Uma alternativa para a convergência seria aplicar esses itens para usuários com hipertensão que fizessem uso dessas substâncias e ter respondentes para todas as categorias de respostas.</p>
+			<p>Em relação à interpretação do parâmetro<italic> a</italic>, discriminação do item, são aceitáveis valores &gt; 0,6. Quanto maior o valor de <italic>a</italic>, maior será o poder de discriminação do item.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> Nenhum deles apresentou valor inferior ao aceitável para esse parâmetro (<xref ref-type="table" rid="t02">Tabela 2</xref>), o que sugere que os itens que permaneceram no instrumento final conseguem discriminar os indivíduos com maior adesão ao tratamento da HAS daqueles com menor adesão.</p>
+			<p>Houve bom desempenho dos itens referentes ao uso da medicação somente quando sente algum sintoma (4) e ao uso de gordura (7), pois tiveram melhor poder de discriminar os indivíduos que aderem ao tratamento da HAS em relação àqueles que não o fazem.</p>
+			<p>Assim, muitos usuários com hipertensão só fazem uso da medicação quando apresentam sintomas de uma elevação pressórica. Logo, não aderem ao tratamento de maneira satisfatória, visto que o medicamento anti-hipertensivo deve ser tomado de maneira contínua, independentemente do aparecimento de sintomas. Para aqueles com hipertensão que apresentam satisfatório nível de adesão ao tratamento, o medicamento é ingerido diariamente sem nenhuma associação com o aparecimento de sintoma. Esse contexto justifica o melhor poder de discriminação desse item. Leão e Silva et al<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> (2013) constataram que a baixa adesão está associada a não apresentar sintomas, pois o “sentir nada” é compreendido como ausência de doença sendo desnecessário o uso regular da medicação.</p>
+			<p>É recomendável o uso de alimentos com baixa densidade calórica e baixo teor de gorduras saturadas, colesterol e gordura total, além do consumo de uma dieta rica em frutas e vegetais. Isso porque tem impacto importante na redução da PA, além de reduzir biomarcadores de risco cardiovascular.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> Entretanto, seguir uma alimentação com esse padrão é difícil em decorrência da facilidade de aquisição de alimentos de preparo rápido, que geralmente vêm acompanhados de alto valor calórico. O contexto cultural em que esses hipertensos estão inseridos também interfere na aquisição de alimentos com alto teor de gordura. São poucos aqueles que conseguem abandonar os alimentos gordurosos e seguir a dieta recomendada para hipertensos, representando um item com boa discriminação.</p>
+			<p>Os itens com menor poder de discriminação foram os referentes a alguma vez deixar de tomar a medicação (1) e o consumo de carnes brancas (8). A expressão “alguma vez” do item 1 remete tanto a um episódio isolado como a uma prática frequente. Pode-se deixar de fazer uso da medicação “alguma vez” até entre os mais aderentes, o que justifica o menor poder de discriminação desse item.</p>
+			<p>Os hipertensos relataram dois motivos para o maior consumo de carne branca: preço inferior ao da carne vermelha e preferência alimentar. Exceções abordaram o fato de a carne branca ser mais saudável. Isso pode justificar a baixa discriminação.</p>
+			<p>A medida da dificuldade do item se dá pelo parâmetro<italic> b</italic>, que indica a posição na escala em que o item tem maior informação. Quanto maior o valor do parâmetro <italic>b</italic>, maior a dificuldade desse item. Os itens com maior dificuldade de resposta foram aqueles quanto à realização de exercício físico (10) e ser rotina seguir o tratamento não medicamentoso (11), referentes ao tratamento não medicamentoso. Por serem os itens mais “difíceis” de serem respondidos satisfatoriamente, tendem a ser mais representativos dos indivíduos com maior adesão ao tratamento.</p>
+			<p>A realização de exercícios físicos aeróbios (sobretudo os isotônicos), que devem ser complementados pelos resistidos, promovem reduções de PA e são indicados para a prevenção e o tratamento da HAS. A recomendação é habituar-se à prática regular de atividade física aeróbica, como caminhadas por pelo menos 30 minutos por dia, três vezes/semana para prevenção e, diariamente, para tratamento.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> Uma particularidade da HAS é atingir indivíduos predominantemente idosos, como mostrado neste estudo: 66,1% das pessoas entrevistadas tinham 60 anos ou mais, o que ocasiona limitações impostas pela idade. Muitos hipertensos possuem outros problemas de saúde, incluindo sequelas de outras doenças que impedem a realização de exercício físico.</p>
+			<p>A violência urbana foi apontada como fator que dificulta a realização do exercício físico regular, mesmo em praças públicas ou áreas no entorno de sua residência.</p>
+			<p>Apesar da mudança do estilo de vida que vem ocorrendo na população brasileira, ainda ocorre o predomínio de hábitos de vida prejudiciais à saúde, como o sedentarismo, entre os usuários com hipertensão.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> A prática regular da atividade física é uma barreira para a adesão ao tratamento da HAS.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref>
+			</p>
+			<p>Outro item com maior dificuldade de resposta satisfatória foi ser rotina seguir o tratamento não medicamentoso (11). Esse item é bem amplo e abrange todas as medidas não farmacológicas recomendadas para o tratamento da HAS: controle do peso, padrão alimentar, moderação do consumo do álcool e tabagismo, exercício físico e controle do estresse. Por englobar muitas mudanças no estilo de vida, torna-se um item com maior dificuldade em ser cumprido. Estudos mostram a dificuldade em seguir o tratamento não medicamentoso.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>Os itens referentes ao uso do sal (6), consumo de doces e bebidas com açúcar (9) e o comparecimento às consultas (12) apresentaram valores dos parâmetros <italic>a</italic> e <italic>b </italic>intermediários quando comparados aos outros itens do QATHAS, com nível médio de discriminação e dificuldade.</p>
+			<p>Nem todos os domínios propostos puderam permanecer no instrumento final. Alguns itens foram excluídos porque suas estimativas não convergiram e por apresentarem valor do parâmetro <italic>a </italic>muito baixo, i.e., por não discriminarem os hipertensos que apresentam baixa adesão ao tratamento da hipertensão daqueles que apresentam alta adesão. Persiste a necessidade de criação e validação de itens que contemplem todos os domínios que envolvem a adesão ao tratamento da HAS.</p>
+			<p>O QATHAS mostrou-se melhor para medir a baixa adesão ao tratamento do que a alta adesão. Este estudo contribui com o atual contexto brasileiro e mundial, caracterizado por elevadas taxas de baixa adesão ao tratamento da HAS. É fundamental a existência de um instrumento que identifique melhor os usuários com baixa adesão ao tratamento, já que são esses que precisam modificar seu comportamento e melhorar sua adesão ao tratamento da HAS.</p>
+			<p>A criação de um plano de metas para o paciente, conforme seu escore individual, representa inovação desse instrumento. Paciente no nível 70 da escala sabe que terá que ser mais rigoroso com o cumprimento dos horários estabelecidos no uso da medicação para poder subir para o nível 80 da escala. Isso facilita o entendimento do paciente e melhora o grau de controle e a tomada de decisão do profissional de saúde. A equipe de saúde pode usar diversas estratégias para apresentar os resultados ao paciente, bem como reforçá-lo positivamente em seus ganhos na escala para melhorar sua adesão.</p>
+			<p>O paciente e o profissional de saúde percebem os avanços no tratamento com maior clareza, pois facilita a detecção e aferição do cumprimento à terapêutica prescrita, além de viabilizar o estabelecimento de metas a serem alcançadas. Esse diferencial foi possível com o uso da TRI, que, diferente da teoria clássica dos testes (TCT), utiliza a habilidade (θ) construída item a item, e não somente a soma dos itens corretamente acertados.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Andrade DF, Tavares HR, Valle RC. Teoria da Resposta ao Item: conceitos e aplicações. São Paulo: Associação Brasileira de Estatística; 2000.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Andrade</surname>
+							<given-names>DF</given-names>
+						</name>
+						<name>
+							<surname>Tavares</surname>
+							<given-names>HR</given-names>
+						</name>
+						<name>
+							<surname>Valle</surname>
+							<given-names>RC</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Teoria da Resposta ao Item: conceitos e aplicações</source>
+					<publisher-loc>São Paulo</publisher-loc>
+					<publisher-name>Associação Brasileira de Estatística</publisher-name>
+					<year>2000</year>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Carvalho ALM, Leopoldino RWD, Silva JEG, Cunha CP. Adesão ao tratamento medicamentoso em usuários cadastrados no Programa Hiperdia no município de Teresina (PI). Cienc Saude Coletiva. 2012;17(7):1885-92. DOI:10.1590/S1413-81232012000700028</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Carvalho</surname>
+							<given-names>ALM</given-names>
+						</name>
+						<name>
+							<surname>Leopoldino</surname>
+							<given-names>RWD</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>JEG</given-names>
+						</name>
+						<name>
+							<surname>Cunha</surname>
+							<given-names>CP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Adesão ao tratamento medicamentoso em usuários cadastrados no Programa Hiperdia no município de Teresina (PI)</article-title>
+					<source>Cienc Saude Coletiva</source>
+					<year>2012</year>
+					<volume>17</volume>
+					<issue>7</issue>
+					<fpage>1885</fpage>
+					<lpage>1892</lpage>
+					<issue-id pub-id-type="doi">10.1590/S1413-81232012000700028</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Chalmers RP. Mirt: a Multidimensional Item Response Theory Package for the R Environment. J Stat Softw. 2012;48(6):1-29.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Chalmers</surname>
+							<given-names>RP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Mirt: a Multidimensional Item Response Theory Package for the R Environment</article-title>
+					<source>J Stat Softw</source>
+					<year>2012</year>
+					<volume>48</volume>
+					<issue>6</issue>
+					<fpage>1</fpage>
+					<lpage>29</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Damasceno PDL, Lima NM, Lucena LS, Vasconcelos SMM, Moreira TMM. Estudo da adesão ao tratamento farmacológico da hipertensão arterial. Rev Eletronica Pesq Med. 2008;2(4):41-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Damasceno</surname>
+							<given-names>PDL</given-names>
+						</name>
+						<name>
+							<surname>Lima</surname>
+							<given-names>NM</given-names>
+						</name>
+						<name>
+							<surname>Lucena</surname>
+							<given-names>LS</given-names>
+						</name>
+						<name>
+							<surname>Vasconcelos</surname>
+							<given-names>SMM</given-names>
+						</name>
+						<name>
+							<surname>Moreira</surname>
+							<given-names>TMM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Estudo da adesão ao tratamento farmacológico da hipertensão arterial</article-title>
+					<source>Rev Eletronica Pesq Med</source>
+					<year>2008</year>
+					<volume>2</volume>
+					<issue>4</issue>
+					<fpage>41</fpage>
+					<lpage>48</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. DiMatteo MR. Variations in patient’s adherence to medical recommendations: a quantitative review of 50 years of research. Med Care. 2004;42(3):200-9. DOI:10.1097/01.mlr.0000114908.90348.f9</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>DiMatteo</surname>
+							<given-names>MR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Variations in patient’s adherence to medical recommendations: a quantitative review of 50 years of research</article-title>
+					<source>Med Care</source>
+					<year>2004</year>
+					<volume>42</volume>
+					<issue>3</issue>
+					<fpage>200</fpage>
+					<lpage>209</lpage>
+					<issue-id pub-id-type="doi">10.1097/01.mlr.0000114908.90348.f9</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Diretrizes brasileira de hipertensão arterial. Rev Bras Hiper. 2010;17(1):4-63.</mixed-citation>
+				<element-citation publication-type="journal">
+					<article-title xml:lang="pt">Diretrizes brasileira de hipertensão arterial</article-title>
+					<source>Rev Bras Hiper</source>
+					<year>2010</year>
+					<volume>17</volume>
+					<issue>1</issue>
+					<fpage>4</fpage>
+					<lpage>63</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Guedes MVC, Araújo TL, Lopes MVO, Silva LF, Freitas MC, Almeida PC. Barreiras ao tratamento da hipertensão arterial. Rev Bras Enferm. 2011;64(6):1038-42. DOI:10.1590/S0034-71672011000600008</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Guedes</surname>
+							<given-names>MVC</given-names>
+						</name>
+						<name>
+							<surname>Araújo</surname>
+							<given-names>TL</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>MVO</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>LF</given-names>
+						</name>
+						<name>
+							<surname>Freitas</surname>
+							<given-names>MC</given-names>
+						</name>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>PC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Barreiras ao tratamento da hipertensão arterial</article-title>
+					<source>Rev Bras Enferm</source>
+					<year>2011</year>
+					<volume>64</volume>
+					<issue>6</issue>
+					<fpage>1038</fpage>
+					<lpage>1042</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0034-71672011000600008</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Hassan NB, Hasanah CI, Foong K, Naing L, Awang R, Ismail SB,  et al. Identification of psychosocial factors of noncompliance in hypertensive patients. J Hum Hypertens. 2006;20(1):23-9. DOI:10.1038/sj.jhh.1001930</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hassan</surname>
+							<given-names>NB</given-names>
+						</name>
+						<name>
+							<surname>Hasanah</surname>
+							<given-names>CI</given-names>
+						</name>
+						<name>
+							<surname>Foong</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Naing</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Awang</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Ismail</surname>
+							<given-names>SB</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Identification of psychosocial factors of noncompliance in hypertensive patients</article-title>
+					<source>J Hum Hypertens</source>
+					<year>2006</year>
+					<volume>20</volume>
+					<issue>1</issue>
+					<fpage>23</fpage>
+					<lpage>29</lpage>
+					<issue-id pub-id-type="doi">10.1038/sj.jhh.1001930</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Leão e Silva LO, Soares MM, Oliveira MA, Rodrigues SM, Machado CJ, Dias CA. “Tô sentindo nada”: percepções de pacientes idosos sobre o tratamento da hipertensão arterial sistêmica. Physis. 2013;23(1):227-42. DOI:10.1590/S0103-73312013000100013</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Leão e Silva</surname>
+							<given-names>LO</given-names>
+						</name>
+						<name>
+							<surname>Soares</surname>
+							<given-names>MM</given-names>
+						</name>
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Rodrigues</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Machado</surname>
+							<given-names>CJ</given-names>
+						</name>
+						<name>
+							<surname>Dias</surname>
+							<given-names>CA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">“Tô sentindo nada”: percepções de pacientes idosos sobre o tratamento da hipertensão arterial sistêmica</article-title>
+					<source>Physis</source>
+					<year>2013</year>
+					<volume>23</volume>
+					<issue>1</issue>
+					<fpage>227</fpage>
+					<lpage>242</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0103-73312013000100013</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Mendoza-Parra S, Muñoz PM, Merino EJM, Barriga OA. Determinant factors of therapeutic compliance in elderly hypertensive patients. Rev Med Chil. 2006;134(1):65-71.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Mendoza-Parra</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Muñoz</surname>
+							<given-names>PM</given-names>
+						</name>
+						<name>
+							<surname>Merino</surname>
+							<given-names>EJM</given-names>
+						</name>
+						<name>
+							<surname>Barriga</surname>
+							<given-names>OA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Determinant factors of therapeutic compliance in elderly hypertensive patients</article-title>
+					<source>Rev Med Chil</source>
+					<year>2006</year>
+					<volume>134</volume>
+					<issue>1</issue>
+					<fpage>65</fpage>
+					<lpage>71</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Miranzi SSC, Ferreira FS, Iwamoto HH, Pereira GA, Miranzi MAS. Qualidade de vida de indivíduos com Diabetes Mellitus e Hipertensão acompanhados por uma equipe de saúde da família. Texto Contexto Enferm. 2008;17(4):672-9. DOI:10.1590/S0104-07072008000400007</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Miranzi</surname>
+							<given-names>SSC</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>FS</given-names>
+						</name>
+						<name>
+							<surname>Iwamoto</surname>
+							<given-names>HH</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>GA</given-names>
+						</name>
+						<name>
+							<surname>Miranzi</surname>
+							<given-names>MAS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Qualidade de vida de indivíduos com Diabetes Mellitus e Hipertensão acompanhados por uma equipe de saúde da família</article-title>
+					<source>Texto Contexto Enferm</source>
+					<year>2008</year>
+					<volume>17</volume>
+					<issue>4</issue>
+					<fpage>672</fpage>
+					<lpage>679</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0104-07072008000400007</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Piccini RX, Facchini LA, Tomasi E, Siqueira FV, Silveira DS, Thumé E,  et al. Promoção, prevenção e cuidado da hipertensão arterial no Brasil. Rev Saude Publica. 2012;46(3):543-50. DOI:10.1590/S0034-89102012005000027</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Piccini</surname>
+							<given-names>RX</given-names>
+						</name>
+						<name>
+							<surname>Facchini</surname>
+							<given-names>LA</given-names>
+						</name>
+						<name>
+							<surname>Tomasi</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Siqueira</surname>
+							<given-names>FV</given-names>
+						</name>
+						<name>
+							<surname>Silveira</surname>
+							<given-names>DS</given-names>
+						</name>
+						<name>
+							<surname>Thumé</surname>
+							<given-names>E</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">Promoção, prevenção e cuidado da hipertensão arterial no Brasil</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2012</year>
+					<volume>46</volume>
+					<issue>3</issue>
+					<fpage>543</fpage>
+					<lpage>550</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0034-89102012005000027</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Pinho NA, Pierin AMG. Hypertension control in brazilian publications. Arq Bras Cardiol. 2013;101(3):65-73. DOI:10.5935/abc.20130173</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Pinho</surname>
+							<given-names>NA</given-names>
+						</name>
+						<name>
+							<surname>Pierin</surname>
+							<given-names>AMG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hypertension control in brazilian publications</article-title>
+					<source>Arq Bras Cardiol</source>
+					<year>2013</year>
+					<volume>101</volume>
+					<issue>3</issue>
+					<fpage>65</fpage>
+					<lpage>73</lpage>
+					<issue-id pub-id-type="doi">10.5935/abc.20130173</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Pasquali L, Primi R. Fundamentos da Teoria da Resposta ao Item – TRI. Avalial Psicol. 2003;2(2):99-110.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Pasquali</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Primi</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Fundamentos da Teoria da Resposta ao Item – TRI</article-title>
+					<source>Avalial Psicol</source>
+					<year>2003</year>
+					<volume>2</volume>
+					<issue>2</issue>
+					<fpage>99</fpage>
+					<lpage>110</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Pasquali L. Psicometria: Teoria dos testes na psicologia e na educação. São Paulo: Vozes; 2009.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Pasquali</surname>
+							<given-names>L</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Psicometria: Teoria dos testes na psicologia e na educação</source>
+					<publisher-loc>São Paulo</publisher-loc>
+					<publisher-name>Vozes</publisher-name>
+					<year>2009</year>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Samejima FA. Estimation of latent ability using a response pattern of graded scores. Psychometrika. 1970;35:139.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Samejima</surname>
+							<given-names>FA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Estimation of latent ability using a response pattern of graded scores</article-title>
+					<source>Psychometrika</source>
+					<year>1970</year>
+					<volume>35</volume>
+					<size units="pages">139</size>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Santa Helena ET, Nemes MIB, Eluf-Neto J. Desenvolvimento e validação de questionário multidimensional para medir não-adesão ao tratamento com medicamentos. Rev Saude Publica. 2008;42(4):764-7. DOI:10.1590/S0034-89102008000400025</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Santa Helena</surname>
+							<given-names>ET</given-names>
+						</name>
+						<name>
+							<surname>Nemes</surname>
+							<given-names>MIB</given-names>
+						</name>
+						<name>
+							<surname>Eluf</surname>
+							<given-names>J</given-names>
+							<suffix>Neto</suffix>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Desenvolvimento e validação de questionário multidimensional para medir não-adesão ao tratamento com medicamentos</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2008</year>
+					<volume>42</volume>
+					<issue>4</issue>
+					<fpage>764</fpage>
+					<lpage>767</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0034-89102008000400025</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Wirth RJ, Edwards MC. Item factor analysis: current approaches and future directions. Psychological Methods. 2007;12(1):58-79. DOI:10.1037/1082-989X.12.1.58</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Wirth</surname>
+							<given-names>RJ</given-names>
+						</name>
+						<name>
+							<surname>Edwards</surname>
+							<given-names>MC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Item factor analysis: current approaches and future directions</article-title>
+					<source>Psychological Methods</source>
+					<year>2007</year>
+					<volume>12</volume>
+					<issue>1</issue>
+					<fpage>58</fpage>
+					<lpage>79</lpage>
+					<issue-id pub-id-type="doi">10.1037/1082-989X.12.1.58</issue-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Revelle W. Psych: procedures for psychological, psychometric, and personality research. Evanston; 2010[citado 2012 Maio 24]. Disponível em: http://cran.univ-lyon1.fr/web/packages/psych/</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> R Development Core Team. R: a language and environment for statistical computing. Version 2.13.2.Vienna: R Foundation for Statistical Computing; 2011.</p>
+			</fn>
+			<fn id="fn3">
+				<label>c</label>
+				<p> Thissen D, Chen W, Bock R. Multilog, version 7 [computer software]. Lincolnwood: Scientific Software International; 2003.</p>
+			</fn>
+			<fn id="fn4">
+				<label>d</label>
+				<p> Anexo apresentado na versão online do artigo, disponível em: www.scielo.br/rsp</p>
+			</fn>
+			<fn id="fn5">
+				<label>e</label>
+				<p> Rodrigues MTP, Moreira TMM. Questionário de adesão ao tratamento da hipertensão arterial sistêmica. Fortaleza, 2012. Disponível em: www.qathas.com.br</p>
+			</fn>
+			<fn fn-type="financial-disclosure">
+				<p>Trabalho financiado pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES – Edital 034/2010 – Programa de Formação Doutoral Docente).</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" xml:lang="en" id="TRen">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Elaboration and validation of instrument to assess adherence to hypertension treatment</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Malvina Thaís Pacheco Rodrigues  Colégio Técnico de Teresina  Universidade Federal do Piauí  Campus Universitário Ministro Petrônio Portela  64049-550 Teresina, PI, Brasil  E-mail: <email>malvinat@gmail.com</email>
+				</corresp>
+				<fn fn-type="other">
+					<p>Article based on the doctoral thesis of Rodrigues MTP, entitled: “Adesão ao tratamento da hipertensão arterial sistêmica: desenvolvimento de um instrumento avaliativo com base na Teoria da Resposta ao Item (TRI)”, presented to the <italic>Universidade Estadual do Ceará</italic> (UECE), in 2012.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To elaborate and validate an instrument of adherence to treatment for systemic arterial hypertension, based on Item Response Theory.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>The process of developing this instrument involved theoretical, empirical and analytical procedures. The theoretical procedures included defining the construct of adherence to systemic arterial hypertension treatment, identifying areas involved and preparing the instrument. The instrument underwent semantic and conceptual analysis by experts. The empirical procedure involved the application of the instrument to 1,000 users with systemic arterial hypertension treated at a referral center in Fortaleza, CE, Northeastern Brazil, in 2012.. The analytical phase validated the instrument through psychometric analysis and statistical procedures. The Item Response Theory model used in the analysis was the Samejima Gradual Response model.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>Twelve of the 23 items of the original instrument were calibrated and remained in the final version. Cronbach’s alpha coefficient (α) was 0.81. Items related to the use of medication when presenting symptoms and the use of fat showed good performance as they were more capable of discriminating individuals who adhered to treatment. To ever stop taking the medication and the consumption of white meat showed less power of discrimination. Items related to physical exercise and routinely following the non-pharmacological treatment had most difficulty to respond. The instrument was more suitable for measuring low adherence to hypertension treatment than high.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>The instrument proved to be an adequate tool to assess adherence to treatment for systemic arterial hypertension since it manages to differentiate individuals with high from those with low adherence. Its use could facilitate the identification and verification of compliance to prescribed therapy, besides allowing the establishment of goals to be achieved.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Patient Compliance</kwd>
+				<kwd>Antihypertensive Agents, administration &amp; dosage</kwd>
+				<kwd>Medication Adherence</kwd>
+				<kwd>Hypertension, prevention &amp; control</kwd>
+				<kwd>Questionnaires</kwd>
+				<kwd>Validation Studies</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Systemic hypertension (SH) is recognized as a significant public health problem with advances in identifying risk factors, early diagnosis, use of extensive drug treatments and educational campaigns to change lifestyles. In spite of this, it is a disease which is difficult to control and maintaining pressure within the recommended limits is not satisfactory. This evinces the problem of poor adherence to treatment.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+				</p>
+				<p>It is estimated that around 50.0% of individuals living with chronic disease do not follow their treatment properly.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> In Malaysia, around 44.2% of hypertensive individuals followed their medical treatment properly.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> In Chile, 21.6% of hypertensive individuals aged over 65 followed treatment.<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> In Brazil, the figures for control varied from 10.1% in Tubarao, SC, Southern Brazil, in 2003, to 52.4% in Sao José do Rio Preto, SP, Southeastern Brazil, from 2004 to 2005, considering population based studies of hypertensive individuals undergoing treatment, the control criteria of which were systolic and diastolic blood pressure levels of &lt; 140/90 mmHg, respectively.<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+				</p>
+				<p>Non-adherence occasions unnecessary adjustments to treatment regimens due to lack of positive response to treatment, increasing health care costs with higher rates of hospitalizations and treating complications. Moreover, it frustrates the efforts of health care professionals as it impedes their achieving objectives outlined for the health care of hypertensive individuals.<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+				</p>
+				<p>Measuring adherence to SH treatment is a complex task. Different methods have been applied, there are different cutoff points and there is no method considered to be the gold standard and which represents the various dimensions involved in the process of adherence to treatment for this syndrome.<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+				</p>
+				<p>The majority of methods used to evaluate adherence to SH treatment focus only on pharmacological treatment, and are also applied to other diseases. There is a gap to be filled.</p>
+				<p>One alternative for this measurement lies in item response theory (IRT). This theory includes a set of models for latent variables which propose to represent the relationship between the probability of a respondent giving a certain response to an item and their latent trait (characteristic of the individual which cannot be directly observed). This characteristic is measured using secondary variables related to it.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+				</p>
+				<p>The aim of this study was to draw up and validate a questionnaire on adherence to SH (QATSH) treatment based on IRT.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>Methodological study based on modern psychometrics (IRT) following the three procedures for constructing evaluation instruments: theoretical, empirical and analytical.<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref>
+				</p>
+				<p>At the theoretical stage, an integrative revision was constructed seeking to discover conditioning factors specific to the treatment of this syndrome. The constitutive and operational definitions were described and items drawn up for the measuring instrument based on the 12 criteria recommended by Pasquali (breadth, balance, behavior, simplicity, clarity, relevance, accuracy, modality, typicality, objectivity, variety and credibility).<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref>
+				</p>
+				<p>The first version of the instrument underwent semantic analysis to verify understanding of the items. Two groups of four individuals with different levels of schooling and of different ages were formed from individuals attending the <italic>Centro Integrado de Hipertensão e Diabetes</italic> (CIDH - Integrated Center for Hypertension and Diabetes) in Fortaleza, CE, Northeastern Brazil, in 2012. Changes were made to the phrasing of seven items to correct misunderstanding.</p>
+				<p>The proposal for the instrument was sent to a panel of experts for the phrasing and understanding of the items to be assessed, along with its conceptual pertinence regarding adherence to SH treatment. Five experts agreed to participate in the research: one doctor, two nurses, a nutritionist and a physical education professional. Each received a 20-item guide to evaluating the instrument. Evaluations were compared and suggestions with agreement of 80.0% or over were included.<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> Several items were excluded (2, 3, 4, 5, 14), others were reformulated (6, 7, 11, 12, 13, 15, 18) and new items included (12, 13, 14). After evaluation by the expert panel, QATSH consisted of 23 items, which were standardized regarding wording and domain.</p>
+				<p>The empirical procedure encompassed applying the instrument. QATSH was applied to 1,000 individuals with SH under treatment in the CIDH.</p>
+				<p>As this concerns constructing and validating an instrument using IRT, it was necessary to have a sample large enough to ensure respondents covering all the latent traits studied. There is no consensus on the ideal number of respondents.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> However, large samples with ≥ 1,000 respondents have a greater chance of covering all latent traits studied.</p>
+				<p>The analytical stage aimed to validate the instrument using psychometric analysis and statistical procedures to verify the reliability, validity, estimated parameters of the items and level of adherence to SH treatment (parameters of the individuals) through an IRT model.</p>
+				<p>The internal consistency of the set of items was analyzed using Cronbach’s alpha (α) and the <italic>psych</italic>
+					<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> package of free software R<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref> was used.</p>
+				<p>Factor analysis of the complete information was conducted based on response theory models to a multi-dimensional item (MIRT)<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> to understand the latent traits (or subjacent factors) associated with the instrument’s response patterns. It is possible to evaluate correlation between the items and possible latent traits (or subjacent factors) through this analysis, enabling it to be verified whether all items belong to a one-dimensional model or whether there are subsets of items justifying other dimensions. This analysis was conducted using the <italic>mirt</italic>
+					<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref> package of free software R.<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref>
+				</p>
+				<p>The parameters of the items (<italic>a</italic> and <italic>b</italic>) were estimated using Multilog software<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref> at the stage of calibrating the items. It was observed that there was convergence of the algorithm used in applying the estimation method. The Samejima<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> gradual response model was used to analyze the items.</p>
+				<p>The proficiency (θ) of the respondents was estimated using the marginal maximum likelihood (MML) method in two stages: parameters of abilities were separately integrated and the item parameters were estimated. When the item parameters were estimated, adherence to SH treatment (parameters of the individuals) were predicted.</p>
+				<p>Next, a scale was created for these latent traits. The anchor items were defined. An item is an anchor for level Z if it meets three conditions for Y&lt; Z:<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> simultaneously</p>
+				<disp-formula>
+					<graphic xlink:href="0034-8910-rsp-48-2-0232-ee01-en"/>
+				</disp-formula>
+				<p>Given the difficulty in meeting all of these conditions, it was decided to be more flexible with these criteria and consider the anchor level that which met two conditions of those described above, as well as considering probability of &gt; 60.0% in determining the anchor level of the scale.</p>
+				<p>The values for the item parameters (<italic>a, b</italic>) and for scores for adherence to SH treatment were estimated on the same metric in the scale with mean 0 and standard deviation (SD) 1.0. These values were transformed using mean 100 and SD 10, i.e., scale (100,10) to improve the comprehensibility of the results.</p>
+				<p>The study was approved by the Research Ethics Committee of the <italic>Universidade Estadual do Ceará </italic>(UECE), Process 11517971-2. All participants signed an informed consent form.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>It was possible to construct a theoretical explanation and definition of the domain of the construct from an integrative review of the domains that influence adherence to SH treatment (<xref ref-type="table" rid="t01_en">Table 1</xref>). The 20 initial QATSH items were drawn up based on this definition.</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Theory of the construct of adherence to systemic hypertension treatment, summary based on integrative review. Fortaleza, CE, Northeastern Brazil, 2012.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="50%">
+								<col width="30%"/>
+								<col width="70%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left"> Concept adopted </th>
+									<th style="font-weight:normal"> Dimensionality </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td rowspan="5" valign="top"> The degree of matching between user behavior and the prescription of health care professionals, involving both pharmacological and behavioral measures, with everyone involved in the process responsible for treatment. </td>
+									<td> Adherence to SH treatment is a multi-dimensional phenomenon determined by the junction between four dimensions: user; disease/treatment; health care service and environment. </td>
+								</tr>
+								<tr>
+									<td> User: refers to the individual being treated for hypertension. Encompasses sociodemographic and economic variables, knowledge, attitudes, beliefs, perceptions, expectations and alcohol and cigarette use. </td>
+								</tr>
+								<tr>
+									<td> Disease and treatment: encompasses variables related to the presence of diseases associated with cardiovascular risk factors, medications, time since onset of the disease, altered blood presure values, diet, physical activity and use of alternative therapies. </td>
+								</tr>
+								<tr>
+									<td> Health care services: represent the place where systemic hypertension treatment takes place and is related to variables concerning health care professional-user relationship, quality of service provided, access, educational activities, provision of medication. </td>
+								</tr>
+								<tr>
+									<td> Environment: refers to the wider context in which the users find themselves. Encompasses variables related to interaction with the environment, familial and social support and control over the external environment. </td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+				<p>The QATHAS had Cronbach’s alpha (α) of 0.81.</p>
+				<p>The first factor explained 22.4% of total variance, evidencing a dominant factor.</p>
+				<p>The initial 23-item instrument underwent calibration. However, the algorithms of these items did not converge and alterations were necessary in response categories and items were excluded.</p>
+				<p>Items referring to medication, salt, fat, sweets and physical exercise remained in the initially proposed response categories. Items referring to medication dosage and times remained with four response categories, whereas that referring to white meat intake remained with two response categories.</p>
+				<p>Items referring to homemade remedies, cigarettes, illegal drugs, alcohol, fruit and vegetable consumption, weight, attending appointments, stress, complications and hospitalization during treatment were excluded from the final analysis. Their presence did not permit convergence of the estimation algorithm, as well as having low parameter <italic>a</italic> values (parameter of discrimination being very low, i.e., not discriminating hypertensive individuals with low adherence to SH treatment from those with high (<xref ref-type="app" rid="app01">Annex</xref>)).</p>
+				<p>
+					<xref ref-type="table" rid="t02_en">Table 2</xref> shows estimates of the parameters of the items, discriminating the dimensions of analysis, the 12 QATSH items and the <italic>a </italic>parameters (parameter of discrimination), <italic>b</italic>
+					<sub>2</sub>
+					<italic>, b</italic>
+					<sub>3, </sub>
+					<italic>b</italic>
+					<sub>4 </sub>and <italic>b</italic>
+					<sub>5 </sub>(parameters of difficulty) for categories 2, 3, 4 and 5 of the Likert scale. It is assumed that the data follow normal distribution, with μ = 0 and s = 1, i.e., scale (0.1) for initial determination of the parameters.</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Estimation of the parameters of the instrument items assessing adherence to systemic hypertension treatment. Fortaleza, CE, Northeastern Brazil, 2012.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="17%">
+								<col width="25%"/>
+								<col width="15%"/>
+								<col width="15%"/>
+								<col width="15%"/>
+								<col width="15%"/>
+								<col width="15%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left"> Items </th>
+									<th style="font-weight:normal">
+										<italic>a</italic>
+									</th>
+									<th style="font-weight:normal">
+										<italic>b</italic>
+										<sub>2</sub>
+									</th>
+									<th style="font-weight:normal">
+										<italic>b</italic>
+										<sub>3</sub>
+									</th>
+									<th style="font-weight:normal">
+										<italic>b</italic>
+										<sub>4</sub>
+									</th>
+									<th style="font-weight:normal">
+										<italic>b</italic>
+										<sub>5</sub>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> 01 – Medication use </td>
+									<td align="center"> 0.698 </td>
+									<td align="center"> -4.816 </td>
+									<td align="center"> -2.186 </td>
+									<td align="center"> -0.687 </td>
+									<td align="center"> 0.250 </td>
+								</tr>
+								<tr>
+									<td> 02 – Medication dose </td>
+									<td align="center"> 0.939 </td>
+									<td align="center"> -4.510 </td>
+									<td align="center"> -2.807 </td>
+									<td align="center"> -2.005 </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 03 – Medication time </td>
+									<td align="center"> 0.882 </td>
+									<td align="center"> -3.805 </td>
+									<td align="center"> -1.729 </td>
+									<td align="center"> -1.045 </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 04 – Symptom </td>
+									<td align="center"> 1.910 </td>
+									<td align="center"> -2.842 </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 05 – Routine pharmacological treatment </td>
+									<td align="center"> 1.507 </td>
+									<td align="center"> -2.560 </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 06 – Salt intake </td>
+									<td align="center"> 1.436 </td>
+									<td align="center"> -2.378 </td>
+									<td align="center"> -1.653 </td>
+									<td align="center"> -0.207 </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 07 – Fat intake </td>
+									<td align="center"> 1.770 </td>
+									<td align="center"> -2.300 </td>
+									<td align="center"> -1.627 </td>
+									<td align="center"> -0.465 </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 08 – White meat consumption </td>
+									<td align="center"> 0.768 </td>
+									<td align="center"> -3.301 </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 09 – Sweets and sugary drink consumption </td>
+									<td align="center"> 1.163 </td>
+									<td align="center"> -2.777 </td>
+									<td align="center"> -1.985 </td>
+									<td align="center"> -0.556 </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 10 – Physical exercise </td>
+									<td align="center"> 0.715 </td>
+									<td align="center"> 0.736 </td>
+									<td align="center"> 1.347 </td>
+									<td align="center"> 4.602 </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 11 – Routine non-pharmacological treatment </td>
+									<td align="center"> 0.956 </td>
+									<td align="center"> 0.126 </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 12 – Attending appointments </td>
+									<td align="center"> 1.173 </td>
+									<td align="center"> -3.510 </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+				<p>The QATSH was shown to have high error (curve in red) from level 0.5 of the scale onwards, compared with the information curve (<xref ref-type="fig" rid="f01_en">Figure</xref>).</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure. </label>
+						<caption>
+							<title>Full information curve of the instrument of adherence to systemic hypertension treatment. Fortaleza, CE, Northeastern Brazil, 2012.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0232-gf01-en"/>
+					</fig>
+				</p>
+				<p>The scale is based on ten of the twelve QATSH items based on the previously described anchor levels. The initial instrument had items including all of the dimensions involved. The item referring to the environmental dimension was excluded during calibration as it did not allow convergence of estimates of items. The scale included items referring to three domains: disease/treatment, user and health care services.</p>
+				<p>When responding to the QATSH, in contrast to questionnaires using classical test theory, the result is not obtained from adding up points or scores. The calculation is made using a mathematical formula which uses the values of the parameters of the items (<italic>a</italic> and <italic>b)</italic> and of a constant. A free web site was set up and made available<xref ref-type="fn" rid="fn4_en">
+						<sup>d</sup>
+					</xref> containing access to the instrument and to the results. On this site, each health care professional can enter the responses of users examined and see the level of the scale (<xref ref-type="table" rid="t03_en">Table 3</xref>) at which each respondent is situated. Levels of adherence vary between 60 and 110, i.e., hypertensive individuals with lower adherence reach 60, while those who adhere more are located at level 110.</p>
+				<p>
+					<table-wrap id="t03_en">
+						<label>Table 3</label>
+						<caption>
+							<title>Scale of adherence to systemic hypertension treatment. Fortaleza, CE, Northeastern Brazil, 2012.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="20%"/>
+								<col width="80%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left"> Level on the scale </th>
+									<th style="font-weight:normal"> Description </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> 60 </td>
+									<td align="center"> At this level, hypertensive individuals do not take hypertension medication at least once a week. Nor do they take the prescribed dose at least once a week. </td>
+								</tr>
+								<tr>
+									<td> 70 </td>
+									<td align="center"> Hypertensive individuals at this level neglect to take their hypertension medication at the correct time at least once a week. They attend appointments. </td>
+								</tr>
+								<tr>
+									<td> 80 </td>
+									<td align="center"> At this level, hypertensive individuals neglect to take the prescribed dose at least once a month. They take their medication irrespective of having symptoms or not, routinely follow medical treatment and reduce salt and fat intake and sweets and sugary drink consumption by a third. </td>
+								</tr>
+								<tr>
+									<td> 90 </td>
+									<td align="center"> Hypertensive individuals at this level neglect to take their medication at the correct time at least once a month: they reduce salt, fat and sweets and sugary drinks by half. </td>
+								</tr>
+								<tr>
+									<td> 100 </td>
+									<td align="center"> At this level, hypertensive individuals neglect to take their hypertension medication at least once a year and consume practically no fat, sweets or sugary drinks. </td>
+								</tr>
+								<tr>
+									<td> 110 </td>
+									<td align="center"> From this level upwards, hypertensive individuals do not neglect to take their hypertension medication, eat practically no salt and routinely follow non-pharmacological treatments. </td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>The grouping of the response categories and the exclusion of certain items during calibration show the difficulty of constructing items with high parameters of discrimination. The items were constructed following rigorous scientific methodology, based on theoretical knowledge of the latent trait studied and meeting basic construction criteria.<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> In spite of this, some of them had poor discriminatory power and had to be eliminated. Drawing up instruments requires paying attention to the construction of the items, clarity of approach and focus on the latent trait to strengthen discriminatory power and produce items with high <italic>a</italic> parameters.</p>
+				<p>The lack of convergence may be due to the following factors: the item being poorly drawn up, low number of respondents, not discriminating those who adhered to treatment from those who did not, the item being incompatible with the dimension of analysis or a combination of these factors.</p>
+				<p>Items related to non-medical treatment (6 to 11) stood out in the exclusion. An alternative for this result is reformulating the items to make them more discriminatory, i.e., possessing a greater quantity of psychometric information and better discrimination.</p>
+				<p>A curious, and apparently contradictory, finding was the exclusion of the item referring to the figure for blood pressure (BP), as this value is a direct way of knowing if it is being controlled (clinical response). This may be explained by it being an isolated measure, representing just one moment in time. Moreover, the procedure for measuring AP is vulnerable to error, as it should be done properly, e.g., with the patient appropriately prepared, using a standardized technique and calibrated equipment.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref>
+				</p>
+				<p>The majority of respondents did not use homemade remedies, cigarettes, illegal drugs or alcohol, meaning there was no convergence of the estimation algorithm. An alternative for convergence would be to apply these items to hypertensive users who did use these substances and have respondents for all response categories.</p>
+				<p>Regarding the interpretation of the <italic>a</italic> parameter, discrimination of the item, values of &gt; 0.6 are acceptable. The higher the <italic>a</italic> value, the higher the item’s discriminatory power.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> None of them had values inferior to the acceptable value for this parameter (<xref ref-type="table" rid="t02_en">Table 2</xref>), suggesting that the items remaining in the final instrument were able to discriminate individuals with better adherence to SH treatment from those with poorer adherence.</p>
+				<p>Items referring to medication performed well when some kind of symptom was felt (4) and for fat intake (7), as they were better at discriminating individuals adhering to SH treatment compared to those who did not.</p>
+				<p>Many hypertensive users only used their medication when they had symptoms of high pressure. Thus, they did not adhere satisfactorily to treatment, as anti-hypertension medicine should be taken continuously, whether there are symptoms or not. For those hypertensive individuals with a satisfactory level of adherence to treatment, medication was taken daily, without being associated with the appearance of any symptom. This context explains the higher discriminatory power of this item. Leão &amp; Silva et al<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> (2013) stated that poor adherence was associated with not having symptoms, as “not feeling anything” is understood to be absence of illness, making regular medication use unnecessary.</p>
+				<p>Low calorie food with low saturated fat, cholesterol and total fat content is recommended, as is eating a diet rich in fruit and vegetables. This has a significant impact on reducing AP, as well as reducing biomarkers of cardiovascular disease.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> However, it can be difficult to follow this kind of diet, given the availability of ready prepared foods, generally with high calorie content. The cultural context in which hypertensive individuals find themselves also affects the intake of food with a high fat content. There are few individuals who manage to abandon fatty foods and follow the diet recommended for hypertensive individuals, so this is an item with good discrimination.</p>
+				<p>Items with lower power of discrimination were those concerning having neglected to take medication at some point (1) and white meat intake (8). The expression “have you ever” in item 1 can refer to an isolated episode or to a frequent practice. Even those with the best adherence can neglect to take their medicine at some point, explaining the poorer discriminatory power of this item.</p>
+				<p>Hypertensive individuals reported two reasons for high white meat consumption: it being cheaper than red meat and preference. Mentioning the fact that white meat was healthier was the exception, and this explains the poor discriminatory power of this item.</p>
+				<p>The difficulty of the item was measured by parameter <italic>b</italic>, indicating the position on the scale at which the item has the greatest information. The higher the value of parameter <italic>b</italic>, the greater the difficulty of the item. The items which were most difficult to respond to were those regarding doing physical exercise (10) and routinely following non-pharmacological treatments (11), referring to non-pharmacological treatment. As they are the items to which it is most difficult to respond satisfactorily, they tend to be more representative of individuals who adhere to treatment.</p>
+				<p>Doing aerobic exercise (especially isotonic), which should be complemented by resistance exercises, helps to lower AP and is recommended for preventing and treating SH. The recommendation is to develop the habit of doing regular aerobic exercise, such as walking for 30 minutes a day, three times/week for prevention, and daily for treatment.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> A peculiarity of SH is that it mainly affects older adults, as shown in this study: 66.1% of those interviewed were aged 60 or over, leading to limitations imposed by age. Many hypertensive individuals also suffer from other health problems, including sequelae of other diseases impeding them from doing exercise.</p>
+				<p>Urban violence was mentioned as a factor that makes it more difficult to do regular physical activity in public areas or areas near the home.</p>
+				<p>Despite the lifestyle changes occurring in the Brazilian population, habits that are harmful to health, such as sedentarism, still predominate among users with hypertension.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> Regular physical activity is an obstacle to adherence to SH treatment.<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref>
+				</p>
+				<p>Another item to which it was difficult to respond satisfactorily was routinely following non-pharmacological treatment (11). This is a very broad item and covers all non-pharmacological measures recommended for treating SH: weight control, eating patterns, moderate alcohol and tobacco consumption, physical exercise and controlling stress. As it covers many changes in lifestyle, it is an item which is more difficult to fulfill. Studies have shown the difficulty in following non-pharmacological treatment.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+				</p>
+				<p>Items referring to salt intake (6), consumption of sweets and sugary drinks (9) and attending appointments (12) had intermediate <italic>b</italic> parameter values compared with other items in the QATSH, with a medium level of discrimination and difficulty.</p>
+				<p>Not all of the proposed domains were kept in the final instrument. Some items were excluded as the estimates did not converge, or for having very low <italic>a</italic> parameter values, i.e., for not discriminating hypertensive individuals with poor adherence to treatment from those with high adherence. The need remains to create and validate items which include all domains involving adherence to SH treatment.</p>
+				<p>The QATSH was shown to be better at measuring poor adherence to treatment than high adherence. This study contributes to the current Brazilian and world context, characterized by high rates of poor adherence to SH treatment. It is essential that there is an instrument to better identify users with low adherence to treatment, as they are the ones who need to modify their behavior and improve adherence to SH treatment.</p>
+				<p>Drawing up a list of goals with the patient, according to their individual score, is an innovation of this instrument. Patients at level 70 on the scale know that they need to be more rigorous in taking their medication on time in order to ascend to level 80 on the scale. This facilitates patients’ understanding and improves the health care professional’s degree of control and decision making. The health care team can make use of a variety of strategies to present the results to the patient, as well as the positive reinforcement of being able to demonstrate improvements in adherence on the scale.</p>
+				<p>Both the patient and the health care professional perceive advances in treatment with greater clarity, as it facilitates detecting and measuring fulfillment of prescribed treatment, as well as making it viable to establish goals to be achieved. This differential was possible through the use of IRT which, in contrast to the classical test teory (TCT), uses (θ) constructed item by item, rather than only the sum of correct items.</p>
+			</sec>
+		</body>
+		<back>
+			<app-group>
+				<app id="app01">
+					<label>Annex</label>
+					<title>Questionnaire on adherence to treatment of systemic hypertension (QATSH). Fortaleza, CE, Northeastern Brazil, 2012.</title>
+					<graphic xlink:href="0034-8910-rsp-48-2-0232-app01"/>
+				</app>
+			</app-group>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> Revelle W. Psych: procedures for psychological, psychometric, and personality research. Evanston; 2010 [cited 2012 May 24]. Available from: http://cran.univ-lyon1.fr/web/packages/psych</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b</label>
+					<p> R Development Core Team. R: a language and environment for statistical computing. Version 2.13.2.Vienna: R Foundation for Statistical Computing; 2011.</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c</label>
+					<p> Thissen D, Chen W, Bock R. Multilog, version 7 [computer software]. Lincolnwood: Scientific Software International; 2003.</p>
+				</fn>
+				<fn id="fn4_en">
+					<label>d</label>
+					<p> Rodrigues MTP, Moreira TMM. Questionário de adesão ao tratamento da hipertensão arterial sistêmica. Fortaleza, 2012. Available from: www.qathas.com.br</p>
+				</fn>
+				<fn fn-type="financial-disclosure">
+					<p>This study was supported by the <italic>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior</italic> (CAPES – Edital 034/2010 – Doctoral Lecturer Training Program).</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

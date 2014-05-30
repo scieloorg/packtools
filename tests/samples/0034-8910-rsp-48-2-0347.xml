@@ -1,0 +1,2365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004923</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004923</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Revisão</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Proposta conceitual de telessaúde no modelo da pesquisa translacional</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Silva</surname>
+						<given-names>Angélica Baptista</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Morel</surname>
+						<given-names>Carlos Médicis</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Moraes</surname>
+						<given-names>Ilara Hämmerli Sozzi de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv2">Laboratório de Telessaúde</institution>
+				<institution content-type="orgdiv1">Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernandes Figueira</institution>
+				<institution content-type="orgname">Fundação Oswaldo Cruz</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Laboratório de Telessaúde. Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernandes Figueira. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv1">Centro de Desenvolvimento Tecnológico em Saúde</institution>
+				<institution content-type="orgname">Fundação Oswaldo Cruz</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Centro de Desenvolvimento Tecnológico em Saúde. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv2">Departamento de Ciências Sociais</institution>
+				<institution content-type="orgdiv1">Escola Nacional de Saúde Pública Sergio Arouca</institution>
+				<institution content-type="orgname">Fundação Oswaldo Cruz</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Ciências Sociais. Escola Nacional de Saúde Pública Sergio Arouca. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Angélica Baptista Silva  Laboratório de Telessaúde do IFF  Av. Rui Barbosa, 716 Prédio Anexo 5º andar Flamengo  22250-020 Rio de Janeiro, RJ, Brasil  E-mail: <email>angelica.silva@iff.fiocruz.br</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+				<fn fn-type="other">
+					<p>Artigo baseado na tese de doutorado de Silva AB, intitulada: “Política pública, educação, tecnologia e saúde articuladas: como a telessaúde pode contribuir para fortalecer o SUS?”, apresentada à Escola Nacional de Saúde Pública Sergio Arouca/Fiocruz, em 2013.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>347</fpage>
+			<lpage>356</lpage>
+			<history>
+				<date date-type="received">
+					<day>3</day>
+					<month>5</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>17</day>
+					<month>10</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Rever relação conceitual entre telessaúde e pesquisa translacional.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Realizou-se busca bibliográfica sobre telessaúde nas bases Scopus, Cochrane BVS, Lilacs e Medline com a finalidade de encontrar experiências de telessaúde conjugadas com a discussão da pesquisa translacional em saúde. A busca recuperou oito estudos, que basearam a análise dos modelos das cinco etapas da pesquisa translacional com os múltiplos fluxos de política pública no contexto brasileiro da telessaúde. Esses modelos foram aplicados às atividades de telessaúde da Rede de Bancos de Leite Humano, na Rede Universitária de Telemedicina.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>O ciclo da pesquisa translacional do leite humano coletado, armazenado e distribuído apresentou iniciativas de telessaúde integradas, tais como videoconferências, softwares e portais de síntese do conhecimento, compondo elementos de um ecossistema de informação, mediado por tecnologias da informação e comunicação no sistema de saúde.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>A telessaúde deve ser compreendida como conjunto de atividades em rede mediadas por computação e que promovem a translação do conhecimento entre pesquisa e serviços de saúde.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Pesquisa Médica Translacional</kwd>
+				<kwd>Pesquisa nos Serviços de Saúde</kwd>
+				<kwd>Política de Pesquisa em Saúde</kwd>
+				<kwd>Bancos de Leite</kwd>
+				<kwd>Aleitamento Materno</kwd>
+				<kwd>Revisão</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="8"/>
+				<ref-count count="51"/>
+				<page-count count="10"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>A telessaúde tem sido aplicada em diferentes países com escopo abrangente, relacionado de modo direto à miríade de práticas da saúde.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> Entretanto, os significados de telessaúde oscilam segundo ênfases: ora tendem para a discussão tecnológica, ora para a de campo de investigação, ou ainda para sua dimensão cibercultural na saúde, ou gestão de programas. Essa multiplicidade pode ser explicada pelo papel da telessaúde que se pretende destacar.</p>
+			<p>Em termos de ação programática e executiva no Brasil, telessaúde e pesquisa translacional são de responsabilidade de setores governamentais, incluindo os Ministérios da Ciência, Tecnologia e Inovação, Saúde e Educação. O marco inaugural do conceito de telessaúde foi a formação da Rede Universitária de Telemedicina (RUTE), da Rede Nacional de Ensino e Pesquisa do Ministério da Ciência, Tecnologia e Inovação, em 2005. A RUTE concentrou suas atividades em universidades públicas em sua primeira fase (2006-2008), pois tais instituições formam profissionais de saúde e são lócus da pesquisa clínica e translacional no País, além de principais responsáveis pelos programas de educação permanente regionais do sistema único de saúde (SUS).<xref ref-type="bibr" rid="B44">
+					<sup>44</sup>
+				</xref>
+			</p>
+			<p>Segundo Schmittdiel et al<xref ref-type="bibr" rid="B42">
+					<sup>42</sup>
+				</xref> (2010), pesquisa translacional (PT) em saúde é uma modalidade de pesquisa que surgiu principalmente para diminuir a distância entre a produção do conhecimento nos laboratórios e seu efetivo uso na prática cotidiana da medicina nos serviços por meio de intervenções inovadoras para a população. Este estudo busca contribuir para o entendimento da especificidade da experiência brasileira, agregando a dimensão da telessaúde relacionada à pesquisa translacional tanto ao conceito clássico de telessaúde<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> quanto às definições que ampliam o escopo da telessaúde a outras atividades relacionadas à saúde.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+			</p>
+			<p>O conceito de translação do conhecimento tem origem na teoria ator-rede de Latour et al (1994),<xref ref-type="bibr" rid="B30">
+					<sup>30</sup>
+				</xref> em que traduzir ou transladar significa deslocar objetivos, interesses, dispositivos e seres humanos. Em sua etnografia dos laboratórios, transladar conhecimento implica desvio de rota, invenção de um elo entre atores antes inexistente e que, de alguma maneira, modifica os elementos envolvidos.<xref ref-type="bibr" rid="B29">
+					<sup>29</sup>
+				</xref>
+			</p>
+			<p>A inovação em saúde está ligada, em princípio, à produção de novos medicamentos. Entretanto, em concepção mais ampla, inovação abrange todo o processo de implementação de novas ideias, produtos, serviços, processos, práticas e políticas,<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref> assim como inclui aprendizado e construção de competências em diferentes níveis de agregação, configurando pressupostos de pesquisa translacional.<xref ref-type="bibr" rid="B35">
+					<sup>35</sup>
+				</xref>
+			</p>
+			<p>A pesquisa translacional apresenta dois momentos:</p>
+			<list list-type="bullet">
+				<list-item>
+					<p> PT1 – transferência de novos conhecimentos adquiridos no laboratório sobre os mecanismos da doença para o desenvolvimento de novos métodos de diagnóstico, terapia e prevenção, bem como seus primeiros testes em humanos, e</p>
+				</list-item>
+				<list-item>
+					<p> PT2 – tradução dos resultados de estudos clínicos na prática clínica diária e na tomada de decisão em saúde.<xref ref-type="bibr" rid="B46">
+							<sup>46</sup>
+						</xref>
+						<sup>,</sup>
+						<xref ref-type="bibr" rid="B51">
+							<sup>51</sup>
+						</xref>
+					</p>
+				</list-item>
+			</list>
+			<p>Os cientistas envolvidos com pesquisa clínica criaram subdivisões para delimitar a PT1, que envolve: pré-descoberta de pesquisa; descoberta pré-clínica; estágio inicial de desenvolvimento; estágio final de desenvolvimento; aprovação da aplicação e estudos da Fase IV.<xref ref-type="bibr" rid="B25">
+					<sup>25</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref>
+			</p>
+			<p>Nos modelos apresentados de análise da pesquisa translacional mais aplicados em países com alto grau de industrialização e maior produto interno bruto (PIB) <italic>per capita</italic>, a indústria farmacêutica está presente no momento inicial da PT1. No entanto, há outros importantes atores atuantes nas fases citadas. A universidade caminha <italic>pari passu</italic> nas três primeiras subdivisões da PT1, como, por exemplo, a intensa disputa no consórcio internacional de governos de mais de 18 países coordenada por Francis Collins e a empresa Celera Genomics, de Craig Venter, para concluir primeiro o mapeamento genômico humano.</p>
+			<p>A Fase IV, conhecida como farmacovigilância, é o limite tênue para PT2, que é desdobrada em várias pesquisas translacionais pelo modelo proposto por Khoury &amp; Gwinn et al,<xref ref-type="bibr" rid="B26">
+					<sup>26</sup>
+				</xref> denominado modelo das cinco etapas da pesquisa translacional (MCEPT). A produção de nova droga, o último ponto para a pesquisa translacional “da bancada ao leito” (PT1), que no Brasil seria equivalente à aprovação da Agência Nacional de Vigilância Sanitária (Anvisa), é apenas o ponto inicial da segunda fase (PT2) da translação.<xref ref-type="bibr" rid="B27">
+					<sup>27</sup>
+				</xref>
+			</p>
+			<p>A epidemiologia é apresentada no MCEPT como fundamento da pesquisa translacional, que usa exemplos do campo dos estudos do genoma. Sob esse enfoque, as cinco fases desta pesquisa são:</p>
+			<list list-type="bullet">
+				<list-item>
+					<p> PT0 – descoberta científica pela pesquisa;</p>
+				</list-item>
+				<list-item>
+					<p> PT1 – da descoberta à escolha de sua aplicação;</p>
+				</list-item>
+				<list-item>
+					<p> PT2 – etapa em que surgem os projetos pilotos localizados, prevendo a escala no serviço de saúde. Compreende da adequação da aplicação candidata (medicamento, intervenção clínica, entre outras) até a consolidação da política para sua adoção ou, mesmo, a recomendação baseada em evidências;</p>
+				</list-item>
+				<list-item>
+					<p> PT3 – etapa que dissemina efetivamente a política ou recomendação da aplicação prática dos programas no sistema de saúde e seus controles;</p>
+				</list-item>
+				<list-item>
+					<p> PT4 – etapa que aborda a prática da pesquisa translacional e eu impacto na população, envolvendo de modo direto as práticas de monitoramento de programas de saúde.</p>
+				</list-item>
+			</list>
+			<p>Há ainda a fase que liga PT4 à PT0, fechando, assim, o ciclo da pesquisa translacional, em que as pesquisas solidificam futuras linhas de pesquisa para o cuidado em saúde.</p>
+			<p>No centro do modelo está a síntese de conhecimento, entendida como abordagem sistemática e imprescindível em todas as fases da pesquisa translacional (<xref ref-type="fig" rid="f01">Figura 1</xref>) para rever a evidência sobre o conhecimento de determinado assunto pelos pares.<xref ref-type="bibr" rid="B26">
+					<sup>26</sup>
+				</xref>
+			</p>
+			<p>
+				<fig id="f01">
+					<label>Figura 1</label>
+					<caption>
+						<title>Modelo das cinco etapas da pesquisa translacional.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0347-gf01"/>
+				</fig>
+			</p>
+			<p>Os métodos de síntese de conhecimento, tais como a metanálise, começam a se tornar padrão no desenvolvimento de recomendação baseada em evidências para a prática (PT2) e podem ser vistas na Colaboração Cochrane<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> e em grupos independentes, como US <italic>Preventive Services Task Force</italic>
+				<xref ref-type="fn" rid="fn4">
+					<sup>d</sup>
+				</xref> e <italic>Human Genome Epidemiology Network</italic> (HuGENet),<xref ref-type="fn" rid="fn5">
+					<sup>e</sup>
+				</xref> que sintetizam informações sobre pesquisa genômica.</p>
+			<p>No âmbito da ciência contemporânea, o paradigma da prática do cuidado em saúde tem sido modificado a partir do mapeamento do genoma humano e da descoberta da engenharia genética.<xref ref-type="bibr" rid="B37">
+					<sup>37</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B38">
+					<sup>38</sup>
+				</xref> Além disso, o desenvolvimento das tecnologias da informação e da comunicação é responsável pela maior disseminação do conhecimento científico.<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref> A biologia tornou-se uma ciência informacional em vez de taxonômica, pois o rápido processamento das máquinas vem permitindo aos cientistas criar e aplicar algoritmos para contemplar modelos explicativos da complexidade.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn6">
+					<sup>f</sup>
+				</xref> Estudos de genômica, genética das populações e genética quantitativa que compõem a chamada epidemiologia genética<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> necessitam de ampla colaboração de trabalho multidisciplinar e em rede para sua consecução. As novas questões que essa dinâmica da investigação científica apresenta dinamizam a bioética<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> e foi nessas tendências que o grupo de Khoury se inspirou para sistematizar o MCEPT.</p>
+			<p>O objetivo deste artigo foi rever o conceito de telessaúde à luz dos processos que envolvem a pesquisa translacional nos serviços de saúde, visto que há uma lacuna na literatura quanto à relação entre prática de pesquisa translacional em saúde e telessaúde. Para demonstrar a telessaúde no serviço de saúde, aplicou-se o referencial teórico das etapas da pesquisa translacional na observação das atividades da Rede de Bancos de Leite Humano (RBLH) como grupo da Rede Universitária de Telemedicina, com vasta abrangência nacional e internacional.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>O estudo se desenvolveu em dois momentos: revisão narrativa e crítica sobre telessaúde e pesquisa translacional; observação participante em campo para teste do modelo de etapas da PT integrado ao de múltiplos fluxos de políticas.</p>
+			<p>A revisão crítica apresentou a finalidade de identificar elementos conceituais da telessaúde na comunidade científica, aliados à discussão da pesquisa translacional em saúde no período de 2009 a 2012. Foi estabelecida a estratégia de busca, bem como foram selecionadas quatro bases de dados bibliográficas: Scopus, em virtude de sua abrangência multidisciplinar; Cochrane Library pela Biblioteca Virtual em Saúde (Cochrane BVS), a fim de identificar estudos e revisões; Lilacs (Literatura Latinoamericana e do Caribe em ciências da saúde); e a Medline. Três palavras-chave foram selecionadas: “telemedicine” OR “telehealth” AND “translational”.</p>
+			<p>Na base Scopus, recuperaram-se 20 trabalhos, sendo sete artigos, quatro revisões, três resumos de conferências, duas comunicações breves, um livro, um capítulo de livro, um editorial e uma nota. Já na Cochrane BVS, 45 estudos foram recuperados, todos revisões sistemáticas. Na Lilacs, a busca foi realizada pelo descritor de assunto telemedicina e retornou sete artigos de periódicos e um objeto de aprendizagem. Na Medline, recuperaram-se 11 artigos indexados em periódicos científicos.</p>
+			<p>Foram eliminados artigos em duplicidade, sem resumos ou com hiperlinks ausentes. Do total de 83 estudos recuperados, 28 foram avaliados quanto à pertinência em relação ao tema e oito foram utilizados para a segunda parte da pesquisa. Privilegiaram-se as revisões sistemáticas, pois elas em geral abrangem discussão prévia de terminologia e objetivo delimitado de eliminação ou terapêutica de um determinado agravo à saúde ou doença.</p>
+			<p>A segunda etapa deste trabalho envolveu estudo analítico-conceitual fundamentado na identificação das características do ciclo da pesquisa translacional em ação governamental de telessaúde, a RUTE. O objetivo foi investigar aspectos da possível relação entre telessaúde e pesquisa translacional, além da análise bibliográfica. Para a análise, utilizou-se o MCEPT como referência, com o auxílio do modelo de múltiplos fluxos de análise das políticas públicas, nos moldes definidos por Kingdon<xref ref-type="bibr" rid="B28">
+					<sup>28</sup>
+				</xref> (2002).</p>
+			<p>A RUTE, campo de observação do estudo, surgiu em 2005 como ação para implantar infraestrutura de interconexão nos hospitais universitários e unidades de ensino de saúde no Brasil. A RUTE vem fortalecendo projetos de telessaúde, até o momento incipientes, de modo a facilitar o intercâmbio entre grupos de pesquisas nacionais por rede de conexão com alta velocidade. Além disso, fornece equipamentos para grupos de pesquisa das instituições participantes e apoia operacionalmente núcleos multi-institucionais de discussão, os <italic>Special Interest Groups</italic> (SIGs).<xref ref-type="bibr" rid="B43">
+					<sup>43</sup>
+				</xref>
+			</p>
+			<p>No universo da RUTE, selecionou-se a iniciativa coordenada pelo Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernandes Figueira (IFF/Fiocruz), por sua abrangência. O IFF/Fiocruz reúne 30 pontos da Rede Brasileira de Bancos de Leite Humano e 23 países do Programa Ibero-americano de Bancos de Leite Humano, a maior rede do mundo dedicada ao tema.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> A rede de bancos de leite executa ações de telessaúde, estimulando troca de conhecimento e educação permanente a fim de garantir que toda criança recém-nascida tenha acesso ao leite materno.<xref ref-type="fn" rid="fn7">
+					<sup>g</sup>
+				</xref>
+			</p>
+			<p>Nesse contexto, foi aplicado o MCEPT para observar qual é a funcionalidade da telessaúde no caminho do leite materno na rede de saúde pública, da mãe doadora ao receptor, inclusive bebês de muito baixo peso, com longas internações em unidades de terapia intensiva neonatais.</p>
+			<p>O MCEPT é um sistema fechado e cíclico. No caso da pesquisa clínica, as PT2, PT3 e PT4, identificadas com facilidade nos serviços de saúde, conectam-se com as PT0 e PT1, denominadas pré-inovação, que abrangem da pré-descoberta ao licenciamento do novo medicamento. Nas práticas do cuidado oferecido pelo sistema de saúde, esse processo também pode ser observado e sistematizado em todo o ciclo da pesquisa translacional.</p>
+			<p>Antes de identificar mais conexões que associem telessaúde à pesquisa translacional, é importante enfatizar uma crítica ao MCEPT. Para Hiatt<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref> (2010), o referido modelo divide a pesquisa translacional em muitas etapas, as quais podem causar confusão na escolha de seus indicadores de monitoramento e avaliação. Ele, porém, postula que o problema central da pesquisa em saúde é a necessidade de pôr em prática, no menor tempo possível, intervenções testadas e eficientes, baseadas em evidências. Outra preocupação apontada é a possibilidade de fragmentar o processo da ciência translacional no campo da saúde. Ressalta-se, ainda, a necessidade de uma abordagem transdisciplinar para resolver essa divisão.</p>
+			<p>A proposta de modelo global de avaliação de telessaúde da Organização Mundial da Saúde (OMS), aliada à União Internacional de Telecomunicações (2012),<xref ref-type="bibr" rid="B50">
+					<sup>50</sup>
+				</xref> delimita interlocutores protagonistas em cada processo para planejar e executar ações de monitoramento e avaliação. Por outro lado, governos<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> utilizam adaptações do MCEPT para aperfeiçoar suas redes de atenção e sistemas de informação em saúde.</p>
+			<p>A proposta de Hiatt<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref> de um olhar transdisciplinar para o MCEPT, com decisiva contribuição dos estudos de política pública, pode delimitar espaços políticos e atores, detalhar microprocessos das etapas e criar recorte estruturado para entender a telessaúde como pesquisa translacional no contexto das redes de atenção à saúde do SUS.</p>
+			<p>O modelo analítico de múltiplos fluxos de Kingdon tem sido útil para investigar a inclusão de determinados temas na agenda de políticas governamentais<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> e foi utilizado neste estudo a fim de responder às lacunas do MCEPT destacadas pela crítica propositiva de Hiatt. O modelo divide a análise de políticas em três fluxos: dos problemas, das alternativas e das políticas. Cada fluxo segue caminho específico, em especial o fluxo político, que, a despeito do problema e da escolha das alternativas disponíveis, segue sua própria dinâmica e regras.</p>
+			<p>Para o reconhecimento do problema, três dimensões são relevantes: os indicadores sobre a questão em pauta, a opinião pública e a viabilidade econômica. Na construção de alternativas, a centralidade das ideias é fundamental para incluir sua persuasão e difusão. Já no fluxo político, as coalizões são construídas em processo de negociações e barganhas. Assim, o modelo procura abordar o processo de formação de políticas públicas de forma abrangente, identificando e estudando esses três fluxos de maneira diferenciada.<xref ref-type="bibr" rid="B44">
+					<sup>44</sup>
+				</xref>
+			</p>
+			<p>No caso do MCEPT, a identificação de grupos de interesse predominantes durante a transição de uma etapa para outra pode contribuir para o entendimento do ciclo da pesquisa translacional no serviço de saúde (<xref ref-type="fig" rid="f02">Figura 2</xref>).</p>
+			<p>
+				<fig id="f02">
+					<label>Figura 2</label>
+					<caption>
+						<title>Grupos de interesse nas cinco etapas da pesquisa translacional, conjugados aos múltiplos fluxos.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0347-gf02"/>
+				</fig>
+			</p>
+			<p>A comunidade científica, interagindo com a indústria, é protagonista na passagem de PT0 para PT1. Predominantemente, cientistas e gestores compõem o grupo de interesses em PT1 para PT2. Profissionais de saúde lidam com os gestores na passagem de PT2 para PT3. A população interage de diversos modos (como usuária do SUS, no controle social e nas pesquisas e avaliações) com os profissionais de saúde em PT3 e em PT4.</p>
+			<p>Na saúde, essa interação alimenta as pesquisas de avaliação que integram cientistas sociais, epidemiologistas e pesquisadores de disciplinas variadas. Os resultados obtidos oferecem subsídios aos gestores e à própria comunidade científica para novas descobertas, fechando-se o ciclo de PT4 para PT0.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>Na conceituação de telessaúde foi observada uma grande polissemia no emprego da palavra na área da saúde. Ao finalizar a busca nas quatro bases com as palavras-chave “telehealth” e “translational research” e o descritor “telemedicine”, oito trabalhos foram recuperados. Estudos que citam a pesquisa translacional em saúde analisaram a tele-educação para combater problemas específicos na saúde pública, como, e.g., a prevalência diabetes tipo 2 em minorias étnicas,<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref> o monitoramento à distância do uso de medicação da população idosa<xref ref-type="bibr" rid="B39">
+					<sup>39</sup>
+				</xref> e o auxílio a familiares, cuidadores e portadores de demência.<xref ref-type="bibr" rid="B34">
+					<sup>34</sup>
+				</xref> Três artigos versaram justamente sobre o contexto em que o MCEPT estava sendo concebido: a discussão sobre o papel dos institutos nacionais no sistema de saúde.<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B47">
+					<sup>47</sup>
+				</xref>
+			</p>
+			<p>Ao aplicar o MCEPT, conjugado aos atores identificados nos múltiplos fluxos, foi possível identificar o problema (mortalidade infantil), alternativas (conservação de leite humano doado e estímulo à amamentação) e políticas (construção, regulamentação de BLH em hospitais de alta complexidade, próximos a UTI neonatais) no âmbito do SUS.</p>
+			<p>Vale esclarecer que o objeto de atenção da Rede BLH é a prática do aleitamento materno, o leite humano e o conhecimento de suas propriedades por parte da sociedade em geral, pois cada uma reflete o cumprimento das exigências nutricionais e particularidades fisiológicas do metabolismo da criança, tornando indubitável a administração exclusiva como alimento nos seis primeiros meses de vida dos bebês.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+			</p>
+			<p>Mesmo já naturalizados pelo senso comum, convém destacar vantagens desse alimento: melhor digestibilidade; composição química balanceada; ausência de princípios alergênicos; proteção de infecções ao organismo da criança; favorecimento do desenvolvimento do quociente de inteligência do bebê e custo ínfimo. Em síntese, amamentação é a melhor maneira de alimentar o bebê, constituindo base para efeitos biológicos e emocionais no desenvolvimento da criança.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+			</p>
+			<p>Estratégias de saúde pública têm sido desenvolvidas em várias partes do mundo para mães que, por diferentes motivos, não amamentam seus bebês, destacando-se o modelo brasileiro de bancos de leite humano (BLH).<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> Nesse modelo, BLH operam com tecnologias alternativas que permitem aliar o baixo custo operacional ao rigor técnico capaz de assegurar qualidade ao leite humano coletado, armazenado e distribuído.<xref ref-type="bibr" rid="B36">
+					<sup>36</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B45">
+					<sup>45</sup>
+				</xref> Esse leite é obtido de doadoras, nutrizes sadias que apresentam secreção lática superior às exigências de seu filho e que se dispõem a doar o excedente espontaneamente e sem remuneração. Ele é destinado a bebês prematuros, de baixo peso ou hospitalizados em UTI neonatais. Estudo recuperado na revisão conclui que a telemedicina estimula a pesquisa translacional especificamente na neonatologia.<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref>
+			</p>
+			<p>A Rede BLH tem estado presente em 23 países e utilizado a RUTE desde 2009. Para o intercâmbio de saberes e práticas, utilizaram-se webconferência, videoconferência e outros aparatos de telessaúde, entre os quais esteve o suporte de vários sistemas de informação em saúde síncronos e assíncronos. Houve crescente escala de uso de serviços de telessaúde, e.g., a necessidade de comparação de amostras microbiológicas do leite humano de laboratórios de diferentes localidades.<xref ref-type="fn" rid="fn8">
+					<sup>h</sup>
+				</xref>
+			</p>
+			<p>Foi possível aplicar o MCEPT aos múltiplos fluxos para contextualizá-lo na rede de atenção à saúde do SUS. Foram observados alguns processos de telessaúde integrados nesse ciclo (<xref ref-type="fig" rid="f04">Figura 4</xref>).</p>
+			<p>
+				<fig id="f03">
+					<label>Figura 3</label>
+					<caption>
+						<title>Modelo das Cinco Etapas da Pesquisa Translacional no contexto dos múltiplos fluxos aplicado à Rede de Bancos de Leite Humano.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0347-gf03"/>
+				</fig>
+			</p>
+			<p>
+				<fig id="f04">
+					<label>Figura 4</label>
+					<caption>
+						<title>Diagrama do processo de seleção de artigos para revisão crítica de literatura (2009-2012).</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0347-gf04"/>
+				</fig>
+			</p>
+			<p>A PT0 é uma descoberta científica que vem sendo aperfeiçoada há mais de 50 anos: o leite humano pode ser guardado, conservado em suas propriedades e purificado da manipulação nas fases de coleta, armazenamento e distribuição, a baixo custo, pelo processo de pasteurização.<xref ref-type="bibr" rid="B31">
+					<sup>31</sup>
+				</xref> A telessaúde está presente nessa fase, ao proporcionar registro audiovisual das técnicas utilizadas no banco de leite e disseminá-las pela rede de tecnologias de informação e comunicação para fins de educação permanente.</p>
+			<p>Na etapa PT1, o modelo da aplicação candidata da RBLH, do Centro de Referência Nacional de Banco de Leite Humano do IFF/Fiocruz, foi reconhecido pela Anvisa,<xref ref-type="fn" rid="fn9">
+					<sup>i</sup>
+				</xref> que estabeleceu o BLH como serviço especializado vinculado a hospital de atenção materna e/ou infantil. O BLH era responsável por ações de promoção, proteção e apoio ao aleitamento materno, além de execução de atividades de coleta do leite materno, seleção, classificação, processamento, controle de qualidade e distribuição, sendo proibida a comercialização dos produtos por ele distribuídos.<xref ref-type="fn" rid="fn10">
+					<sup>j</sup>
+				</xref> A OMS<xref ref-type="fn" rid="fn11">
+					<sup>k</sup>
+				</xref> recomenda o aleitamento exclusivo até os seis meses de vida e a ingestão de leite humano em bebês com até dois anos de idade (PT2). A política ou diretriz baseada em evidências de fornecer leite humano para bebês, inclusive prematuros, vem sendo considerada como estratégia de segurança alimentar e nutricional para alcançar o Objetivo de Desenvolvimento do Milênio (ODM) de reduzir em dois terços o coeficiente de mortalidade infantil em menores de cinco anos de 1990 até 2015.<xref ref-type="fn" rid="fn12">
+					<sup>l</sup>
+				</xref>
+			</p>
+			<p>Atividades de saúde que envolviam a coleta, o controle de qualidade e a distribuição do leite humano (PT3) tinham como elemento fundamental a educação permanente e continuada dos profissionais de saúde e da população. Contudo, a análise microbiológica das amostras de leite humano, a definição de rotas de coleta, a manutenção da cadeia de frio<xref ref-type="fn" rid="fn13">
+					<sup>m</sup>
+				</xref> durante o transporte da casa de doadoras e dos postos de coleta até o BLH seriam potencialmente objeto de aplicações de telessaúde, com respeito ao controle de qualidade do alimento destinado aos bebês.</p>
+			<p>O ODM foi alcançado em quase todo o território brasileiro. Mortalidade e morbidade diminuíram e o estado de saúde da população infantil melhorou (PT4) com contribuição decisiva da promoção do aleitamento materno pelos serviços de saúde.<xref ref-type="bibr" rid="B49">
+					<sup>49</sup>
+				</xref>
+			</p>
+			<p>Todavia, houve muitas possibilidades científicas inexploradas em relação a esse alimento, como a descoberta por pesquisadores de universidade pública brasileira<xref ref-type="fn" rid="fn14">
+					<sup>n</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn15">
+					<sup>o</sup>
+				</xref> de técnica de multiplicação de células-tronco encontradas no leite humano,<xref ref-type="bibr" rid="B40">
+					<sup>40</sup>
+				</xref> facilitada pelo contexto de doação de leite humano e pela presença de BLH integrados à rede de atenção à saúde do SUS (PT4-PT0).</p>
+			<p>A síntese do conhecimento se materializou no portal RBLH na Internet. O dispositivo reúne como principal referência da comunidade da RBLH várias atividades relacionadas à telessaúde e à pesquisa translacional, tais como: acesso facilitado a revisões sistemáticas, ensaios clínicos; normas técnicas; gestão da rede internacional; comunidade virtual; listagem de grupos de pesquisa; memória das videoconferências; salas de webconferência; sistemas de informação sobre a produção de leite humano e um canal direto com a população de acordo com a tendência da mudança de paradigma do cuidado observada na revisão, que enfatiza os aspectos formais de modelagem e implementação da telessaúde com ubiquidade e a integração multidisciplinar para oferta de uma saúde personalizada.<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>Os modelos conjugados das cinco etapas da pesquisa translacional e de múltiplos fluxos ressaltam o papel estratégico dos coordenadores nos BLH em hospitais da RUTE, pois são cientistas ou gestores e formam os profissionais que irão para o SUS.</p>
+			<p>Exemplo foi a sessão “Leite Humano em Debate”, em 2011, na videoconferência da RBLH com conferencistas no Hospital Universitário da Universidade de São Paulo (USP), em que foram expostos para a comunidade, antes da publicação em periódicos, os resultados da pesquisa sobre mineralização óssea em recém-nascidos alimentados com leite humano.</p>
+			<p>Por outro lado, os processos que envolvem a passagem de PT3 para PT4 exigem uma participação social para além do papel usuário-paciente, priorizado na maioria dos estudos epidemiológicos primários. A pesquisa básica só se caracteriza como translacional quando seu grau de efetividade no sistema de saúde é alto e as melhorias previstas na saúde são efetivamente atingidas. Para aferir o grau de efetividade de uma pesquisa translacional no sistema de saúde, é preciso documentar o desempenho real (monitoramento do sistema), tanto quanto o desempenho que a ciência e a tecnologia do cuidado à saúde em condições “ideais” podem alcançar (a eficácia da aplicação gerada pela pesquisa). Esse cálculo comparativo é denominado de efetividade relativa.<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref>
+			</p>
+			<p>A partir da visão de efetividade relativa, conceito adotado no Programa de Avaliação do SUS,<xref ref-type="bibr" rid="B48">
+					<sup>48</sup>
+				</xref> é preciso observar como os processos de telessaúde no SUS podem ser facilitadores fundamentais para realizar as etapas da pesquisa translacional. As fases PT2, PT3 e PT4 no triângulo de evidência proposto por Glasgow (2012)<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> extrapolam os meios científicos e contam com a intervenção de atores de diversos segmentos da sociedade para sua concretização. A telessaúde pode, inclusive, ajudar na realimentação do ciclo, pelo retorno à PT0, pois a tecnologia de acesso remoto aos bancos de dados produzidos por suas respectivas plataformas, bem planejada e interoperável, pode ser uma grande aliada para a vigilância em saúde e a gestão do cuidado. Nesse sentido, destaca-se o amplo serviço de telecardiologia que cobre mais de 800 localidades em Minas Gerais.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+			</p>
+			<p>A estratégia de articular os centros de excelência mundiais para pesquisar a cura das doenças promotoras de pobreza é também outro exemplo de pesquisa que mobiliza cientistas, gestores e entidades civis organizadas.<xref ref-type="bibr" rid="B32">
+					<sup>32</sup>
+				</xref>
+			</p>
+			<p>Com o aporte das ciências sociais, há expectativa de que essa ressignificação da telessaúde possa colaborar na escolha de indicadores de qualidade para o monitoramento e a avaliação dos sistemas de saúde. A telessaúde promove e organiza a síntese de conhecimento de maneira mais veloz, facilita o intercâmbio de conhecimento e acelera a implementação da inovação na rede de atenção à saúde.</p>
+		</sec>
+		<sec sec-type="conclusions">
+			<title>CONCLUSÃO</title>
+			<p>Telessaúde não é sinônimo de uso de videoconferência,<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref> dispositivos sem fio<xref ref-type="bibr" rid="B33">
+					<sup>33</sup>
+				</xref> ou componente organizacional para implantar tecnologias de informação e comunicação e redes em unidades de saúde.<xref ref-type="bibr" rid="B41">
+					<sup>41</sup>
+				</xref> Por isso, não compete com outros termos na literatura, como telemedicine, <italic>ehealth</italic> ou <italic>mhealth</italic>. A partir da análise do MCEPT, conjugado ao modelo de múltiplos fluxos, vislumbra-se oportunidade de conceituar a telessaúde como toda atividade em rede e mediada por computação que promove a translação de conhecimento entre a pesquisa e os serviços de saúde. Emerge, assim, um conceito amplo e estruturado no contexto de um sistema de saúde qualificado pelo avanço tecnológico.</p>
+			<p>Ao buscar ampliar o conceito de telessaúde da Associação Médica Mundial e OMS, que se resume em tecnologias de informação e comunicação para a saúde, propomos ressignificar telessaúde como uma das práticas e saberes da atenção à saúde que, por mediações tecnológicas, se materializa no ecossistema de informação e conhecimento em saúde.<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> Com efeito, a telessaúde se aproxima cada vez mais do processo da pesquisa translacional à medida que permite conectar pessoas que fazem ciência para beneficiar aquelas que estão nos serviços de saúde. Agrega-se, assim, essa dimensão ao arcabouço cultural e institucional: a cibercultura em saúde.</p>
+			<p>Identificar conexões e processos ciberculturais desse ecossistema que ambienta as fases da pesquisa pode ajudar a avaliar a telessaúde e sinalizar melhores práticas para os sistemas de saúde.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Alkmim MB, Figueira RM, Marcolino MS, Cardoso CS, Abreu MP, Cunha LR,  et al. Improving patient access to specialized health care: the Telehealth Network of Minas Gerais, Brazil. Geneva: World Health Organization; 2012.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Alkmim</surname>
+							<given-names>MB</given-names>
+						</name>
+						<name>
+							<surname>Figueira</surname>
+							<given-names>RM</given-names>
+						</name>
+						<name>
+							<surname>Marcolino</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Cardoso</surname>
+							<given-names>CS</given-names>
+						</name>
+						<name>
+							<surname>Abreu</surname>
+							<given-names>MP</given-names>
+						</name>
+						<name>
+							<surname>Cunha</surname>
+							<given-names>LR</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<source xml:lang="en">Improving patient access to specialized health care: the Telehealth Network of Minas Gerais, Brazil</source>
+					<publisher-loc>Geneva</publisher-loc>
+					<publisher-name>World Health Organization</publisher-name>
+					<year>2012</year>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Almeida JAG, Maia PRS, Novak FR, Sydronio K. Bancos de leche humana y promoción de políticas públicas favorables a la salud materno-infantil. Rev Cubana Salud Pública [revista en la Internet]. 2006 Sep [citado 2014 Mar 17] ; 32(3). Disponible en: http://scielo.sld.cu/scielo.php?script=sci_arttext&amp;pid=S0864-34662006000300012&amp;lng=es</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>JAG</given-names>
+						</name>
+						<name>
+							<surname>Maia</surname>
+							<given-names>PRS</given-names>
+						</name>
+						<name>
+							<surname>Novak</surname>
+							<given-names>FR</given-names>
+						</name>
+						<name>
+							<surname>Sydronio</surname>
+							<given-names>K</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="es">Bancos de leche humana y promoción de políticas públicas favorables a la salud materno-infantil</article-title>
+					<source>Rev Cubana Salud Pública</source>
+					<comment>revista en la Internet</comment>
+					<year>2006</year>
+					<month>Sep</month>
+					<date-in-citation content-type="access-date">2014 Mar 17</date-in-citation>
+					<volume>32</volume>
+					<issue>3</issue>
+					<ext-link ext-link-type="uri" xlink:href="http://scielo.sld.cu/scielo.php?script=sci_arttext&amp;pid=S0864-34662006000300012&amp;lng=es">http://scielo.sld.cu/scielo.php?script=sci_arttext&amp;pid=S0864-34662006000300012&amp;lng=es</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Almeida JAG. Breastfeeding: a nature-culture hybrid. Rio de Janeiro: Editora Fiocruz; 2001.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>JAG</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Breastfeeding: a nature-culture hybrid</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Editora Fiocruz</publisher-name>
+					<year>2001</year>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Almeida Filho N. Epidemiologia e modelos de complexidade: perspectivas metodológicas. In: Almeida Filho N, Barreto ML, coordenadores. Epidemiologia e saúde: fundamentos, métodos, aplicações. Rio de Janeiro: Guanabara Koogan; 2012. p.291-306.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>N</given-names>
+							<suffix>Filho</suffix>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="pt">Epidemiologia e modelos de complexidade: perspectivas metodológicas</chapter-title>
+					<person-group>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>N</given-names>
+							<suffix>Filho</suffix>
+						</name>
+						<name>
+							<surname>Barreto</surname>
+							<given-names>ML</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Epidemiologia e saúde: fundamentos, métodos, aplicações</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Guanabara Koogan</publisher-name>
+					<year>2012</year>
+					<fpage>291</fpage>
+					<lpage>306</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Bashshur R, Shannon G, Krupinski E, Grigsby J. The taxonomy of telemedicine. Telemed J E Health. 2011;17(6):484-94. DOI:10.1089/tmj.2011.0103</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bashshur</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Shannon</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Krupinski</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Grigsby</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The taxonomy of telemedicine</article-title>
+					<source>Telemed J E Health</source>
+					<year>2011</year>
+					<volume>17</volume>
+					<issue>6</issue>
+					<fpage>484</fpage>
+					<lpage>494</lpage>
+					<pub-id pub-id-type="doi">10.1089/tmj.2011.0103</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Bergel SD. Bioética, genética y derechos humanos: la declaración de la Unesco. Rev Bioética. 1999;7(2):165-78.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bergel</surname>
+							<given-names>SD</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="es">Bioética, genética y derechos humanos: la declaración de la Unesco</article-title>
+					<source>Rev Bioética</source>
+					<year>1999</year>
+					<volume>7</volume>
+					<issue>2</issue>
+					<fpage>165</fpage>
+					<lpage>178</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Blanton RE, Silva LK, Melo PRS. Epidemiologia genética. In: Almeida Filho N, Barreto ML, coordenadores. Epidemiologia e saúde: fundamentos, métodos, aplicações. Rio de Janeiro: Guanabara; 2011. p.342-9.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Blanton</surname>
+							<given-names>RE</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>LK</given-names>
+						</name>
+						<name>
+							<surname>Melo</surname>
+							<given-names>PRS</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="pt">Epidemiologia genética</chapter-title>
+					<person-group>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>N</given-names>
+							<suffix>Filho</suffix>
+						</name>
+						<name>
+							<surname>Barreto</surname>
+							<given-names>ML</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Epidemiologia e saúde: fundamentos, métodos, aplicações</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Guanabara</publisher-name>
+					<year>2011</year>
+					<fpage>342</fpage>
+					<lpage>349</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Cánepa MA. Un modelo de cooperación horizontal: la Red Iberoamericana de Bancos de Leche Humana (BLH). Madrid: OPAS; 2011.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Cánepa</surname>
+							<given-names>MA</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="es">Un modelo de cooperación horizontal: la Red Iberoamericana de Bancos de Leche Humana (BLH)</source>
+					<publisher-loc>Madrid</publisher-loc>
+					<publisher-name>OPAS</publisher-name>
+					<year>2011</year>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Capella AC. Perspectivas teóricas sobre o processo de formulação de políticas públicas. In: Hochman G, Arretche M, Marques E, organizadores. Políticas públicas no Brasil. Rio de Janeiro: Editora Fiocruz; 2007. p.87-124.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Capella</surname>
+							<given-names>AC</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="pt">Perspectivas teóricas sobre o processo de formulação de políticas públicas</chapter-title>
+					<person-group>
+						<name>
+							<surname>Hochman</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Arretche</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Marques</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Políticas públicas no Brasil</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Editora Fiocruz</publisher-name>
+					<year>2007</year>
+					<fpage>87</fpage>
+					<lpage>124</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Carroll M, James JA, Lardiere MR, Proser M, Rhee K, Sayre MH,  et al. Innovation networks for improving access and quality across the healthcare ecosystem. Telemed J E Health. 2010;16(1):107-11. DOI:10.1089/tmj.2009.0157</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Carroll</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>James</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Lardiere</surname>
+							<given-names>MR</given-names>
+						</name>
+						<name>
+							<surname>Proser</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Rhee</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Sayre</surname>
+							<given-names>MH</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Innovation networks for improving access and quality across the healthcare ecosystem</article-title>
+					<source>Telemed J E Health</source>
+					<year>2010</year>
+					<volume>16</volume>
+					<issue>1</issue>
+					<fpage>107</fpage>
+					<lpage>111</lpage>
+					<pub-id pub-id-type="doi">10.1089/tmj.2009.0157</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Castells M. A Galáxia Internet: reflexões sobre a Internet, negócios e a sociedade. Rio de Janeiro: Jorge Zahar; 2003.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Castells</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">A Galáxia Internet: reflexões sobre a Internet, negócios e a sociedade</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Jorge Zahar</publisher-name>
+					<year>2003</year>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Cordell HJ, Clayton DG. Genetic association studies. Lancet. 2005;366(9491):1121-31. DOI:10.1016/S0140-6736(05)67424-7</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Cordell</surname>
+							<given-names>HJ</given-names>
+						</name>
+						<name>
+							<surname>Clayton</surname>
+							<given-names>DG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Genetic association studies</article-title>
+					<source>Lancet</source>
+					<year>2005</year>
+					<volume>366</volume>
+					<issue>9491</issue>
+					<fpage>1121</fpage>
+					<lpage>1131</lpage>
+					<pub-id pub-id-type="doi">10.1016/S0140-6736(05)67424-7</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Devlin B, Roeder K. Genomic control for association studies. Biometrics. 1999;55(4):997-1004.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Devlin</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Roeder</surname>
+							<given-names>K</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Genomic control for association studies</article-title>
+					<source>Biometrics</source>
+					<year>1999</year>
+					<volume>55</volume>
+					<issue>4</issue>
+					<fpage>997</fpage>
+					<lpage>1004</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Doarn CR, Portilla LM, Sayre MH. NIH conference on the future of telehealth: essential tools and technologies for clinical research and care: a summary. Telemed J E Health. 2010;16(1):89-92. DOI:10.1089/tmj.2009.0151</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Doarn</surname>
+							<given-names>CR</given-names>
+						</name>
+						<name>
+							<surname>Portilla</surname>
+							<given-names>LM</given-names>
+						</name>
+						<name>
+							<surname>Sayre</surname>
+							<given-names>MH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">NIH conference on the future of telehealth: essential tools and technologies for clinical research and care: a summary</article-title>
+					<source>Telemed J E Health</source>
+					<year>2010</year>
+					<volume>16</volume>
+					<issue>1</issue>
+					<fpage>89</fpage>
+					<lpage>92</lpage>
+					<pub-id pub-id-type="doi">10.1089/tmj.2009.0151</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Donabedian A, Bashshur R. An introduction to quality assurance in health care. New York : Oxford University Press; 2003.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Donabedian</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Bashshur</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">An introduction to quality assurance in health care</source>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>Oxford University Press</publisher-name>
+					<year>2003</year>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Eysenbach G. What is e-health? J Med Internet Res. 2001;3(2):E20. DOI:10.2196/jmir.3.2.e20</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Eysenbach</surname>
+							<given-names>G</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">What is e-health?</article-title>
+					<source>J Med Internet Res</source>
+					<year>2001</year>
+					<volume>3</volume>
+					<issue>2</issue>
+					<size units="pages">E20</size>
+					<pub-id pub-id-type="doi">10.2196/jmir.3.2.e20</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Gardner CA, Acharya T, Yach D. Technological and social innovation: a unifying new paradigm for global health. Health Aff (Millwood). 2007;26(4):1052-61. DOI:10.1377/hlthaff.26.4.1052</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Gardner</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Acharya</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Yach</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Technological and social innovation: a unifying new paradigm for global health</article-title>
+					<source>Health Aff</source>
+					<publisher-loc>Millwood</publisher-loc>
+					<year>2007</year>
+					<volume>26</volume>
+					<issue>4</issue>
+					<fpage>1052</fpage>
+					<lpage>1061</lpage>
+					<pub-id pub-id-type="doi">10.1377/hlthaff.26.4.1052</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Giugliani ERJ. Rede Nacional de Bancos de Leite Humano do Brasil: tecnologia para exportar. J Pediatria (Rio J). 2002;78(3):183-4. DOI:10.1590/S0021-75572002000300001</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Giugliani</surname>
+							<given-names>ERJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Rede Nacional de Bancos de Leite Humano do Brasil: tecnologia para exportar</article-title>
+					<source>J Pediatria</source>
+					<publisher-loc>Rio J</publisher-loc>
+					<year>2002</year>
+					<volume>78</volume>
+					<issue>3</issue>
+					<fpage>183</fpage>
+					<lpage>184</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0021-75572002000300001</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Glasgow RE, Green LW, Taylor MV, Stange KC. An evidence integration triangle for aligning science with policy and practice. Am J Prev Med. 2012;42(6):646-54. DOI:10.1016/j.amepre.2012.02.016</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Glasgow</surname>
+							<given-names>RE</given-names>
+						</name>
+						<name>
+							<surname>Green</surname>
+							<given-names>LW</given-names>
+						</name>
+						<name>
+							<surname>Taylor</surname>
+							<given-names>MV</given-names>
+						</name>
+						<name>
+							<surname>Stange</surname>
+							<given-names>KC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">An evidence integration triangle for aligning science with policy and practice</article-title>
+					<source>Am J Prev Med</source>
+					<year>2012</year>
+					<volume>42</volume>
+					<issue>6</issue>
+					<fpage>646</fpage>
+					<lpage>654</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.amepre.2012.02.016</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Hall JA, Blobel B. Paradigm changes in health lead to paradigm changes in pathology. Stud Health Technol Inform. 2012;179:38-50. DOI:10.3233/978-1-61499-086-4-38</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hall</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Blobel</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Paradigm changes in health lead to paradigm changes in pathology</article-title>
+					<source>Stud Health Technol Inform</source>
+					<year>2012</year>
+					<volume>179</volume>
+					<fpage>38</fpage>
+					<lpage>50</lpage>
+					<pub-id pub-id-type="doi">10.3233/978-1-61499-086-4-38</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Hall RW, Hall-Barrow J, Garcia-Rill E. Neonatal regionalization through telemedicine using a community-based research and education core facility. Ethn Dis. 2010;20(1 Suppl 1):S1-136-40.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hall</surname>
+							<given-names>RW</given-names>
+						</name>
+						<name>
+							<surname>Hall-Barrow</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Garcia-Rill</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Neonatal regionalization through telemedicine using a community-based research and education core facility</article-title>
+					<source>Ethn Dis</source>
+					<year>2010</year>
+					<volume>20</volume>
+					<issue>1</issue>
+					<supplement>1</supplement>
+					<fpage>136</fpage>
+					<lpage>140</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Hawthorne K, Robles Y, Cannings-John R, Edwards AGK. Culturally appropriate health education for type 2 diabetes mellitus in ethnic minority groups. Cochrane Database Syst Rev. 2008;(3):CD006424. DOI:10.1002/14651858.CD006424.pub2</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hawthorne</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Robles</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Cannings-John</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Edwards</surname>
+							<given-names>AGK</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Culturally appropriate health education for type 2 diabetes mellitus in ethnic minority groups</article-title>
+					<source>Cochrane Database Syst Rev</source>
+					<year>2008</year>
+					<issue>3</issue>
+					<elocation-id>CD006424</elocation-id>
+					<pub-id pub-id-type="doi">10.1002/14651858.CD006424.pub2</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>. Hiatt RA. Invited commentary: the epicenter of translational science. Am J Epidemiol. 2010:172 (5):525-7. DOI:10.1093/aje/kwq212</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hiatt</surname>
+							<given-names>RA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Invited commentary: the epicenter of translational science</article-title>
+					<source>Am J Epidemiol</source>
+					<year>2010</year>
+					<volume>172</volume>
+					<issue>5</issue>
+					<fpage>525</fpage>
+					<lpage>527</lpage>
+					<pub-id pub-id-type="doi">10.1093/aje/kwq212</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>. Kailas A, Ingram MA. Wireless aspects of telehealth. Wireless Pers Commun. 2009;51(4):673-86. DOI:10.1007/s1277-009-9763-7</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Kailas</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Ingram</surname>
+							<given-names>MA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Wireless aspects of telehealth</article-title>
+					<source>Wireless Pers Commun</source>
+					<year>2009</year>
+					<volume>51</volume>
+					<issue>4</issue>
+					<fpage>673</fpage>
+					<lpage>686</lpage>
+					<pub-id pub-id-type="doi">10.1007/s1277-009-9763-7</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>. Kaitin KI. Deconstructing the drug development process: the new face of innovation. Clin Pharmacol Ther. 2010 Mar;87(3):356-61. DOI: 10.1038/clpt.2009.293. Epub 2010 Feb 3. Review. Erratum in: Clin Pharmacol Ther. 2011 Jan;89(1):148.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Kaitin</surname>
+							<given-names>KI</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Deconstructing the drug development process: the new face of innovation</article-title>
+					<source>Clin Pharmacol Ther</source>
+					<year>2010</year>
+					<month>Mar</month>
+					<volume>87</volume>
+					<issue>3</issue>
+					<fpage>356</fpage>
+					<lpage>361</lpage>
+					<pub-id pub-id-type="doi">10.1038/clpt.2009.293</pub-id>
+					<comment>Epub 2010 Feb 3. Review. Erratum in: Clin Pharmacol Ther. 2011 Jan;89(1):148</comment>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>. Khoury MJ, Gwinn M, Ioannidis JPA. The emergence of translational epidemiology: from scientific discovery to population health impact. Am J Epidemiol. 2010;172(5):517-24. DOI:10.1093/aje/kwq211</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Khoury</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Gwinn</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Ioannidis</surname>
+							<given-names>JPA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The emergence of translational epidemiology: from scientific discovery to population health impact</article-title>
+					<source>Am J Epidemiol</source>
+					<year>2010</year>
+					<volume>172</volume>
+					<issue>5</issue>
+					<fpage>517</fpage>
+					<lpage>524</lpage>
+					<pub-id pub-id-type="doi">10.1093/aje/kwq211</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>. Khoury MJ, Gwinn M, Ioannidis JPA. Khoury et al. respond to “The epicenter of translational science”: crossing all the T’s. Am J Epidemiol. 2010;172(5):528-9.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Khoury</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Gwinn</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Ioannidis</surname>
+							<given-names>JPA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Khoury et al respond to “The epicenter of translational science”: crossing all the T’s</article-title>
+					<source>Am J Epidemiol</source>
+					<year>2010</year>
+					<volume>172</volume>
+					<issue>5</issue>
+					<fpage>528</fpage>
+					<lpage>529</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<label>28</label>
+				<mixed-citation>. Kingdon JW. Agendas, alternatives, and public policies. 2.ed. New York: Longman Publishing Group; 2002. (Longman Classics in Political Science).</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Kingdon</surname>
+							<given-names>JW</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Agendas, alternatives, and public policies</source>
+					<edition>2</edition>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>Longman Publishing Group</publisher-name>
+					<year>2002</year>
+					<comment>Longman Classics in Political Science</comment>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<label>29</label>
+				<mixed-citation>. Latour B. Ciência em ação: como seguir cientistas e engenheiros sociedade afora. São Paulo: Editora UNESP; 2000.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Latour</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Ciência em ação: como seguir cientistas e engenheiros sociedade afora</source>
+					<publisher-loc>São Paulo</publisher-loc>
+					<publisher-name>Editora UNESP</publisher-name>
+					<year>2000</year>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<label>30</label>
+				<mixed-citation>. Latour B. Jamais fomos modernos: ensaio de antropologia simétrica. Rio de Janeiro: Editora 34; 1994.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Latour</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Jamais fomos modernos: ensaio de antropologia simétrica</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Editora 34</publisher-name>
+					<year>1994</year>
+				</element-citation>
+			</ref>
+			<ref id="B31">
+				<label>31</label>
+				<mixed-citation>. Maia PRS, Novak FR, Almeida JAG, Silva DA. Bases conceituais para uma estratégia de gestão: o caso da Rede Nacional de Bancos de Leite Humano. Cad Saude Publica. 2004;20(6):1700-8. DOI:10.1590/S0102-311X2004000600029</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Maia</surname>
+							<given-names>PRS</given-names>
+						</name>
+						<name>
+							<surname>Novak</surname>
+							<given-names>FR</given-names>
+						</name>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>JAG</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>DA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Bases conceituais para uma estratégia de gestão: o caso da Rede Nacional de Bancos de Leite Humano</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2004</year>
+					<volume>20</volume>
+					<issue>6</issue>
+					<fpage>1700</fpage>
+					<lpage>1708</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2004000600029</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B32">
+				<label>32</label>
+				<mixed-citation>. Manderson L, Aagaard-Hansen J, Allotey P, Gyapong M, Sommerfeld J. Social research on neglected diseases of poverty: continuing and emerging themes. PLoS Negl Trop Dis. 2009;3(2):e332. DOI:10.1371/journal.pntd.0000332</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Manderson</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Aagaard-Hansen</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Allotey</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Gyapong</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Sommerfeld</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Social research on neglected diseases of poverty: continuing and emerging themes</article-title>
+					<source>PLoS Negl Trop Dis</source>
+					<year>2009</year>
+					<volume>3</volume>
+					<issue>2</issue>
+					<elocation-id>e332</elocation-id>
+					<pub-id pub-id-type="doi">10.1371/journal.pntd.0000332</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B33">
+				<label>33</label>
+				<mixed-citation>. Masi C, Hamlish T, Davis A, Bordenave K, Brown S, Perea B,  et al. Using an established telehealth model to train urban primary care providers on hypertension management. J Clin Hypertens (Greenwich). 2012;14(1):45-50. DOI:10.1111/j.1751-7176.2011.00559.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Masi</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Hamlish</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Davis</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Bordenave</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Brown</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Perea</surname>
+							<given-names>B</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Using an established telehealth model to train urban primary care providers on hypertension management</article-title>
+					<source>J Clin Hypertens</source>
+					<publisher-loc>Greenwich</publisher-loc>
+					<year>2012</year>
+					<volume>14</volume>
+					<issue>1</issue>
+					<fpage>45</fpage>
+					<lpage>50</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1751-7176.2011.00559.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B34">
+				<label>34</label>
+				<mixed-citation>. Moniz Cook ED, Swif K, James I, Malouf R, De Vugt M, Verhey F. Functional analysis-based interventions for challenging behaviour in dementia. Cochrane Database Syst Rev. 2012;2:CD006929. DOI:10.1002/14651858.CD006929.pub2</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Moniz Cook</surname>
+							<given-names>ED</given-names>
+						</name>
+						<name>
+							<surname>Swif</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>James</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Malouf</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>De Vugt</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Verhey</surname>
+							<given-names>F</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Functional analysis-based interventions for challenging behaviour in dementia</article-title>
+					<source>Cochrane Database Syst Rev</source>
+					<year>2012</year>
+					<volume>2</volume>
+					<elocation-id>CD006929</elocation-id>
+					<pub-id pub-id-type="doi">10.1002/14651858.CD006929.pub2</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B35">
+				<label>35</label>
+				<mixed-citation>. Morel CM. Inovação em saúde e doenças negligenciadas [editorial]. Cad Saude Publica. 2006;22(8):1522-3. DOI:10.1590/S0102-311X2006000800001</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Morel</surname>
+							<given-names>CM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Inovação em saúde e doenças negligenciadas [editorial]</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2006</year>
+					<volume>22</volume>
+					<issue>8</issue>
+					<fpage>1522</fpage>
+					<lpage>1523</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2006000800001</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B36">
+				<label>36</label>
+				<mixed-citation>. Novak FR, Almeida JAG. Teste alternativo para detecção de coliformes em leite humano ordenhado. J Pediatria (Rio J). 2002;78(3):193-6. DOI:10.1590/S0021-75572002000300005</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Novak</surname>
+							<given-names>FR</given-names>
+						</name>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>JAG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Teste alternativo para detecção de coliformes em leite humano ordenhado</article-title>
+					<source>J Pediatria</source>
+					<publisher-loc>Rio J</publisher-loc>
+					<year>2002</year>
+					<volume>78</volume>
+					<issue>3</issue>
+					<fpage>193</fpage>
+					<lpage>196</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0021-75572002000300005</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B37">
+				<label>37</label>
+				<mixed-citation>. Oda L. Mudança de paradigma científico. Hist Cienc Saude Manguinhos. 2000;7(2):515-7. DOI:10.1590/S0104-59702000000300022</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Oda</surname>
+							<given-names>L</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Mudança de paradigma científico</article-title>
+					<source>Hist Cienc Saude Manguinhos</source>
+					<year>2000</year>
+					<volume>7</volume>
+					<issue>2</issue>
+					<fpage>515</fpage>
+					<lpage>517</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0104-59702000000300022</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B38">
+				<label>38</label>
+				<mixed-citation>. Offit K. Personalized medicine: new genomics, old lessons. Hum Genet. 2011;130(1):3-14. DOI:10.1007/s00439-011-1028-3</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Offit</surname>
+							<given-names>K</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Personalized medicine: new genomics, old lessons</article-title>
+					<source>Hum Genet</source>
+					<year>2011</year>
+					<volume>130</volume>
+					<issue>1</issue>
+					<fpage>3</fpage>
+					<lpage>14</lpage>
+					<pub-id pub-id-type="doi">10.1007/s00439-011-1028-3</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B39">
+				<label>39</label>
+				<mixed-citation>. Patterson SM, Hughes C, Kerse N, Cardwell CR, Bradley MC. Interventions to improve the appropriate use of polypharmacy for older people. Cochrane Database Syst Rev. 2012;5:CD008165. DOI:10.1002/14651858.CD008165.pub2</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Patterson</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Hughes</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Kerse</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Cardwell</surname>
+							<given-names>CR</given-names>
+						</name>
+						<name>
+							<surname>Bradley</surname>
+							<given-names>MC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Interventions to improve the appropriate use of polypharmacy for older people</article-title>
+					<source>Cochrane Database Syst Rev</source>
+					<year>2012</year>
+					<volume>5</volume>
+					<elocation-id>CD008165</elocation-id>
+					<pub-id pub-id-type="doi">10.1002/14651858.CD008165.pub2</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B40">
+				<label>40</label>
+				<mixed-citation>. Patki S, Kadam S, Chandra V, Bhonde R. Human breast milk is a rich source of multipotent mesenchymal stem cells. Hum Cell. 2010;23(2):35-40. DOI:10.1111/j.1749-0774.2010.00083.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Patki</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Kadam</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Chandra</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Bhonde</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Human breast milk is a rich source of multipotent mesenchymal stem cells</article-title>
+					<source>Hum Cell</source>
+					<year>2010</year>
+					<volume>23</volume>
+					<issue>2</issue>
+					<fpage>35</fpage>
+					<lpage>40</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1749-0774.2010.00083.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B41">
+				<label>41</label>
+				<mixed-citation>. Schmeida M, McNeal R. The telehealth divide: disparities in searching public health information online. J Health Care Poor Underserved. 2007;18(3):637-47. DOI:10.1353/hpu.2007.0068</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Schmeida</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>McNeal</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The telehealth divide: disparities in searching public health information online</article-title>
+					<source>J Health Care Poor Underserved</source>
+					<year>2007</year>
+					<volume>18</volume>
+					<issue>3</issue>
+					<fpage>637</fpage>
+					<lpage>647</lpage>
+					<pub-id pub-id-type="doi">10.1353/hpu.2007.0068</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B42">
+				<label>42</label>
+				<mixed-citation>. Schmittdiel JA, Grumbach K, Selby JV. System-based participatory research in health care: an approach for sustainable translational research and quality improvement. Ann Fam Med. 2010;8(3):256-9. DOI:10.1370/afm.1117</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Schmittdiel</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Grumbach</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Selby</surname>
+							<given-names>JV</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">System-based participatory research in health care: an approach for sustainable translational research and quality improvement</article-title>
+					<source>Ann Fam Med</source>
+					<year>2010</year>
+					<volume>8</volume>
+					<issue>3</issue>
+					<fpage>256</fpage>
+					<lpage>259</lpage>
+					<pub-id pub-id-type="doi">10.1370/afm.1117</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B43">
+				<label>43</label>
+				<mixed-citation>. Silva AB, Amorim AC. A Brazilian educational experiment: teleradiology on web TV. J Telemed Telecare. 2009;15(7):373-6. DOI:10.1258/jtt.2009.090204</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Silva</surname>
+							<given-names>AB</given-names>
+						</name>
+						<name>
+							<surname>Amorim</surname>
+							<given-names>AC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A Brazilian educational experiment: teleradiology on web TV</article-title>
+					<source>J Telemed Telecare</source>
+					<year>2009</year>
+					<volume>15</volume>
+					<issue>7</issue>
+					<fpage>373</fpage>
+					<lpage>376</lpage>
+					<pub-id pub-id-type="doi">10.1258/jtt.2009.090204</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B44">
+				<label>44</label>
+				<mixed-citation>. Silva AB; Moraes, IHS. O caso da Rede Universitária de Telemedicina: análise da entrada da telessaúde na agenda política brasileira. Physis. 2012;22(3):1211-35. DOI:10.1590/S0103-73312012000300019</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Silva</surname>
+							<given-names>AB</given-names>
+						</name>
+						<name>
+							<surname>Moraes</surname>
+							<given-names>IHS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">O caso da Rede Universitária de Telemedicina: análise da entrada da telessaúde na agenda política brasileira</article-title>
+					<source>Physis</source>
+					<year>2012</year>
+					<volume>22</volume>
+					<issue>3</issue>
+					<fpage>1211</fpage>
+					<lpage>1235</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0103-73312012000300019</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B45">
+				<label>45</label>
+				<mixed-citation>. Sousa PPR, Silva JA. Monitoramento da qualidade do leite humano ordenhado e distribuído em banco de leite de referência. Rev Inst Adolfo Lutz. 2010;69(1):7-14.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Sousa</surname>
+							<given-names>PPR</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>JA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Monitoramento da qualidade do leite humano ordenhado e distribuído em banco de leite de referência</article-title>
+					<source>Rev Inst Adolfo Lutz</source>
+					<year>2010</year>
+					<volume>69</volume>
+					<issue>1</issue>
+					<fpage>7</fpage>
+					<lpage>14</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B46">
+				<label>46</label>
+				<mixed-citation>. Sung NS, Crowley Jr WF, Genel M, Salber P, Sandy L, Sherwood LM,  et al. Central challenges facing the national clinical research enterprise. JAMA. 2003;289(10):1278-87. DOI:10.1001/jama.289.10.1278</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Sung</surname>
+							<given-names>NS</given-names>
+						</name>
+						<name>
+							<surname>Crowley</surname>
+							<given-names>WF</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Genel</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Salber</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Sandy</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Sherwood</surname>
+							<given-names>LM</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Central challenges facing the national clinical research enterprise</article-title>
+					<source>JAMA</source>
+					<year>2003</year>
+					<volume>289</volume>
+					<issue>10</issue>
+					<fpage>1278</fpage>
+					<lpage>1287</lpage>
+					<pub-id pub-id-type="doi">10.1001/jama.289.10.1278</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B47">
+				<label>47</label>
+				<mixed-citation>. Topol EJ, Schork NJ, Smith JM. Digital medicine and the Scripps Translational Science Institute. Clin Transl Sci. 2011;4(1):8-9. DOI:10.1111/j.1752-8062.2010.00256.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Topol</surname>
+							<given-names>EJ</given-names>
+						</name>
+						<name>
+							<surname>Schork</surname>
+							<given-names>NJ</given-names>
+						</name>
+						<name>
+							<surname>Smith</surname>
+							<given-names>JM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Digital medicine and the Scripps Translational Science Institute</article-title>
+					<source>Clin Transl Sci</source>
+					<year>2011</year>
+					<volume>4</volume>
+					<issue>1</issue>
+					<fpage>8</fpage>
+					<lpage>9</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1752-8062.2010.00256.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B48">
+				<label>48</label>
+				<mixed-citation>. Viacava F, Ugá MAD, Porto S, Laguardia J, Moreira RS. Avaliação de desempenho de sistemas de saúde: um modelo de análise. Cienc Saude Coletiva. 2012;17(4):921-34. DOI:10.1590/S1413-81232012000400014</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Viacava</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Ugá</surname>
+							<given-names>MAD</given-names>
+						</name>
+						<name>
+							<surname>Porto</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Laguardia</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Moreira</surname>
+							<given-names>RS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Avaliação de desempenho de sistemas de saúde: um modelo de análise</article-title>
+					<source>Cienc Saude Coletiva</source>
+					<year>2012</year>
+					<volume>17</volume>
+					<issue>4</issue>
+					<fpage>921</fpage>
+					<lpage>934</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1413-81232012000400014</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B49">
+				<label>49</label>
+				<mixed-citation>. Victora CG, Aquino EML, Leal MC, Monteiro CA, Barros FC, Szwarcwald C. Maternal and child health in Brazil: progress and challenges. Lancet. 2011;377(9780):1863-76. DOI:10.1016/S0140-6736(11)60138-4</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Victora</surname>
+							<given-names>CG</given-names>
+						</name>
+						<name>
+							<surname>Aquino</surname>
+							<given-names>EML</given-names>
+						</name>
+						<name>
+							<surname>Leal</surname>
+							<given-names>MC</given-names>
+						</name>
+						<name>
+							<surname>Monteiro</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Barros</surname>
+							<given-names>FC</given-names>
+						</name>
+						<name>
+							<surname>Szwarcwald</surname>
+							<given-names>C</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Maternal and child health in Brazil: progress and challenges</article-title>
+					<source>Lancet</source>
+					<year>2011</year>
+					<volume>377</volume>
+					<issue>9780</issue>
+					<fpage>1863</fpage>
+					<lpage>1876</lpage>
+					<pub-id pub-id-type="doi">10.1016/S0140-6736(11)60138-4</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B50">
+				<label>50</label>
+				<mixed-citation>. World Health Organization. National eHealth Strategy Toolkit: overview.  Geneva; 2012.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<collab>World Health Organization</collab>
+					</person-group>
+					<source xml:lang="en">National eHealth Strategy Toolkit: overview</source>
+					<publisher-loc> Geneva</publisher-loc>
+					<year>2012</year>
+				</element-citation>
+			</ref>
+			<ref id="B51">
+				<label>51</label>
+				<mixed-citation>. Woolf SH. The meaning of translational research and why it matters. JAMA. 2008;299(2):211-3. DOI:10.1001/jama.2007.26</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Woolf</surname>
+							<given-names>SH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The meaning of translational research and why it matters</article-title>
+					<source>JAMA</source>
+					<year>2008</year>
+					<volume>299</volume>
+					<issue>2</issue>
+					<fpage>211</fpage>
+					<lpage>213</lpage>
+					<pub-id pub-id-type="doi">10.1001/jama.2007.26</pub-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Segundo a Associação Médica Mundial – AMM e a Organização Mundial da Saúde – OMS, telessaúde é o uso de Tecnologias de Informação e Comunicação – TIC para oferecer serviços e cuidados em saúde a distância. Cf. <ext-link ext-link-type="uri" xlink:href="www.wma.net/en/30publications/10policies/t5/index.html">www.wma.net/en/30publications/10policies/t5/index.html</ext-link> e <ext-link ext-link-type="uri" xlink:href="www.who.int/kms/initiatives/ehealth/en/">www.who.int/kms/initiatives/ehealth/en/</ext-link>
+				</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> A pesquisa clínica de medicamentos em seres humanos em geral é classificada em quatro fases: I a IV. Em resumo, na fase I testa-se o medicamento em pequenos grupos de indivíduos saudáveis; na fase II o grupo aumenta e sofre da doença que o medicamento combate; na fase III estudos multicêntricos, com milhares de pacientes, podem levar à aprovação do medicamento pelo órgão governamental responsável; e, finalmente, na fase IV, há acompanhamento do uso comercial e massivo da droga.</p>
+			</fn>
+			<fn id="fn3">
+				<label>c</label>
+				<p> The Cochrane Collaboration [Internet]. Oxford (UK); c2014 [citado 2014 mar 14]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.cochrane.org/">http://www.cochrane.org/</ext-link>
+				</p>
+			</fn>
+			<fn id="fn4">
+				<label>d</label>
+				<p> U.S. Preventive Service Task Force [Internet]. Rockville, MD; 2010 [citado 2014 mar 14]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.uspreventiveservicestaskforce.org/">http://www.uspreventiveservicestaskforce.org/</ext-link>
+				</p>
+			</fn>
+			<fn id="fn5">
+				<label>e</label>
+				<p> Centers for Disease Control and Prevention, Office of Public Health Genomics. Population Research: Human Genome Epidemiology Network - HuGENET [Internet]. Atlanta, GA; [atualizado 2013 jan 29; citado 2014 mar 14]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.cdc.gov/genomics/hugenet/">http://www.cdc.gov/genomics/hugenet/</ext-link>
+				</p>
+			</fn>
+			<fn id="fn6">
+				<label>f</label>
+				<p> O objeto complexo é um objeto-modelo sistêmico, não linear e multifacetado. Faz parte de um sistema de totalidades parciais e pode ser compreendido também como um sistema, uma vez que incorpora totalidades parciais de nível hierárquico inferior. Esse objeto pode ser apreendido em múltiplos níveis de existência, dado que opera em distintos níveis da realidade e é fonte de múltiplos discursos, extravasando os recortes disciplinares da ciência. Para construí-lo como referência são necessárias operações de síntese, produzindo modelos sintéticos com o cruzamento de distintos discursos disciplinares.</p>
+			</fn>
+			<fn id="fn7">
+				<label>g</label>
+				<p> Silva AB, Souza KS. Estratégia de telessaúde do núcleo RUTE do IFF reúne países em prol da diminuição da mortalidade infantil prevista no Objetivo de Desenvolvimento do Milênio. In: Anais do 5º Congresso Brasileiro e Internacional de Telemedicina e Telessaúde Inovação e Sustentabilidade; 2011 nov 19-22; Manaus. São Paulo: USP; 2011.</p>
+			</fn>
+			<fn id="fn8">
+				<label>h</label>
+				<p> Segundo o Centro de Referência Nacional da RBLH, dúvidas chegam de estados e países em razão de equipamentos, que, em geral, não estão programados para identificar bactérias típicas da ecologia microbiana do LH e acusam impurezas. Ações de telessaúde, como configurações remotas, podem responder a esta questão no controle de qualidade do LH.</p>
+			</fn>
+			<fn id="fn9">
+				<label>i</label>
+				<p> Agência Nacional de Vigilância Sanitária, Diretoria Colegiada. Resolução de Diretoria Colegiada – RDC nº 171, de 4 de setembro de 2006. Dispõe sobre o Regulamento Técnico para o funcionamento de Bancos de Leite Humano. [citado 2014 jan 14]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://portal.anvisa.gov.br/wps/wcm/connect/d02994804745973f9fa1df3fbc4c6735/RDC+N%C2%BA.+DE+171-2006.pdf?MOD=AJPERES">http://portal.anvisa.gov.br/wps/wcm/connect/d02994804745973f9fa1df3fbc4c6735/RDC+N%C2%BA.+DE+171-2006.pdf?MOD=AJPERES</ext-link>
+				</p>
+			</fn>
+			<fn id="fn10">
+				<label>j</label>
+				<p> Silva DA. Ensaios de proficiência para bancos de leite humano: formulação e avaliação de uma proposta para a Rede Brasileira de Bancos de Leite Humano [tese de doutorado]. Rio de Janeiro: Instituto Fernandes Figueira/Fiocruz; 2009.</p>
+			</fn>
+			<fn id="fn11">
+				<label>k</label>
+				<p> World Health Organization. The WHO´s infant feeding recommendation. Geneva; 2002 [citado 2014 jan 14]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.who.int/nutrition/topics/infantfeeding_recommendation/en/index.html">http://www.who.int/nutrition/topics/infantfeeding_recommendation/en/index.html</ext-link>
+				</p>
+			</fn>
+			<fn id="fn12">
+				<label>l</label>
+				<p>Ban Ki-Moon. Children and the Millennium Development Goals: progress towards a world fit for children. New York: UNICEF;2007 [citado 2014 jan 14]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.unicef.org/publications/files/Children_and_the_MDGs.pdf">http://www.unicef.org/publications/files/Children_and_the_MDGs.pdf</ext-link>
+				</p>
+			</fn>
+			<fn id="fn13">
+				<label>m</label>
+				<p> Manutenção da temperatura de transporte de forma que o produto permaneça congelado do local de origem até o destino sem que haja modificações capazes de causar não conformidades microbiológicas e fisico químicas.</p>
+			</fn>
+			<fn id="fn14">
+				<label>n</label>
+				<p> Motta C. Cientistas obtêm células-tronco de leite materno. <italic>O Globo</italic>. 2011 out 10 [citado 2014 jan 17]; Ciência. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://oglobo.globo.com/ciencia/mat/2011/10/25/cientistas-obtem-celulas-tronco-de-leite-materno-925660765.asp">http://oglobo.globo.com/ciencia/mat/2011/10/25/cientistas-obtem-celulas-tronco-de-leite-materno-925660765.asp</ext-link>
+				</p>
+			</fn>
+			<fn id="fn15">
+				<label>o</label>
+				<p> Cryopraxis: Banco de Sangue de Cordão Umbilical. Rio de Janeiro; c2012 [citado 2014 jan 17]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.cryopraxis.com.br/home">http://www.cryopraxis.com.br/home</ext-link>
+				</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Review</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Proposal for a telehealth concept in the translational research model</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>: Angélica Baptista Silva Laboratório de Telessaúde do IFF Av. Rui Barbosa, 716 Prédio Anexo 5º andar Flamengo 22250-020 Rio de Janeiro, RJ, Brasil E-mail: <email>angelica.silva@iff.fiocruz.br</email>
+				</corresp>
+				<fn fn-type="other">
+					<p>Article based on the doctoral thesis of Silva AB, entitled: “Política pública, educação, tecnologia e saúde articuladas: como a telessaúde pode contribuir para fortalecer o SUS?”, presented to the <italic>Escola Nacional de Saúde Pública Sergio Arouca/Fiocruz</italic>, in 2013.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To review the conceptual relationship between telehealth and translational research.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>Bibliographical search on telehealth was conducted in the Scopus, Cochrane BVS, LILACS and MEDLINE databases to find experiences of telehealth in conjunction with discussion of translational research in health. The search retrieved eight studies based on analysis of models of the five stages of translational research and the multiple strands of public health policy in the context of telehealth in Brazil. The models were applied to telehealth activities concerning the Network of Human Milk Banks, in the Telemedicine University Network.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p> The translational research cycle of human milk collected, stored and distributed presents several integrated telehealth initiatives, such as video conferencing, and software and portals for synthesizing knowledge, composing elements of an information ecosystem, mediated by information and communication technologies in the health system.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p> Telehealth should be composed of a set of activities in a computer mediated network promoting the translation of knowledge between research and health services.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd> Translational Medical Research</kwd>
+				<kwd>Research in Health Services Health Research Policy</kwd>
+				<kwd>Milk Banks</kwd>
+				<kwd>Breast Feeding</kwd>
+				<kwd>Review</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Telehealth has been used with a broad scope in different countries, directly related to the myriad of health care practices.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> However, the meanings of telehealth vary according to emphasis: sometimes they tend toward technological discussion, sometimes towards the field of investigation or even towards the cyber-cultural dimension of health care, or program management. This multiplicity can be explained by the role of telehealth that is being highlighted.</p>
+				<p>In terms of programmatic and executive actions in Brazil, telehealth and translational research are the responsibility of government departments, including the Ministries of Science, Technology and Innovation, Health and Education. The inaugural landmark of the concept was the establishment of the Telemedicine University Network (RUTE), by the Ministry of Science, Technology and Innovation National Teaching and Research Network, in 2005. RUTE’s activities were, during the first stage (2006-2008), concentrated in public universities, as these institutions train health care professionals and are the locus of clinical and translational research in this country, as well as being those mainly responsible for regional permanent education in the Brazilian Unified Health System (SUS).<xref ref-type="bibr" rid="B44">
+						<sup>44</sup>
+					</xref>
+				</p>
+				<p>According to Schmittdiel et al<xref ref-type="bibr" rid="B42">
+						<sup>42</sup>
+					</xref> (2010), translational research in health care is a type of research that appeared mainly in order to decrease the distance between production of knowledge in laboratories and its effective use in the daily practice of medicine in health care services by innovative interventions for that population.</p>
+				<p>This study aims to contribute to understanding the specificity of the Brazilian experience, adding both the classic telehealth concept,<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> as well as definitions that broaden the telehealth scope to other health-related activities<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> to the dimension of telehealth related to translational research.</p>
+				<p>The concept of translating knowledge originated in the actor-network theory of Latour et al (1994),<xref ref-type="bibr" rid="B30">
+						<sup>30</sup>
+					</xref> in which translating or transferring means moving objectives, interests, devices and human beings. In its ethnography of laboratories, translating knowledge implies diversions from the route, inventing a thread between previously inexistent actors and, in some way, modifying the elements involved.<xref ref-type="bibr" rid="B29">
+						<sup>29</sup>
+					</xref>
+				</p>
+				<p>Innovation in health care is, in principle, linked to producing new medicines. However, in a wider concept, innovation covers the whole process of implementing new ideas, products, services, processes, practice and policies,<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref> as well as including learning and constructing skills at different levels of aggregation, configuring assumptions of translational research.<xref ref-type="bibr" rid="B35">
+						<sup>35</sup>
+					</xref>
+				</p>
+				<p>Translational research (TR) has two stages:</p>
+				<list list-type="bullet">
+					<list-item>
+						<p> TR1 – transferring new laboratory acquired knowledge on disease mechanisms in order to develop new methods of diagnosis, treatment and prevention, as well as first tests in humans, and</p>
+					</list-item>
+					<list-item>
+						<p> TR2 – translating the results of these clinical studies into daily clinical practice and decision making in health.<xref ref-type="bibr" rid="B46">
+								<sup>46</sup>
+							</xref>
+							<sup>,</sup>
+							<xref ref-type="bibr" rid="B51">
+								<sup>51</sup>
+							</xref>
+						</p>
+					</list-item>
+				</list>
+				<p>Scientists involved in clinical research create subdivisions to define TR1, involving: pre-discovery of the research; preclinical discovery; initial development stage; final development stage; stage IV approval of application and studies.<xref ref-type="bibr" rid="B25">
+						<sup>25</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref>
+				</p>
+				<p>In the presented models of analysis of the translational research most often applied in highly industrialized countries with high <italic>per capita</italic> gross domestic product (GDP), the pharmaceutical industry is present at the start of TR1. However, there are other important actors who are absent during the above mentioned stages. The university accompanies the first three subdivisions of TR1 such as, for example, the intense debate within the international consortium of governments of more than 18 countries coordinated by Francis Collins and the Celera Genomics company, by Craig Venter to conclude the first mapping of the human genome.</p>
+				<p>Stage IV, known as pharmacovigilance or drug safety, is the tenuous limit of TR2, which is developed in various pieces of translational research using the model proposed by Khoury &amp; Gwinn et al,<xref ref-type="bibr" rid="B26">
+						<sup>26</sup>
+					</xref> the so-called five stage model of translational research (FSMTR). Producing a new drug, the last point for “from workbench to hospital bed” translational research (TR1), in Brazil, the equivalent of gaining National Health Surveillance Agency (Anvisa) approval, is only the starting point of the second stage (TR2) of translation.<xref ref-type="bibr" rid="B27">
+						<sup>27</sup>
+					</xref>
+				</p>
+				<p>In FSMTR, epidemiology is presented as the basis of translational research, using examples from the field of genome studies. From this focus, the five stages of this research are:</p>
+				<list list-type="bullet">
+					<list-item>
+						<p> TR0 – scientific discovery from the research.</p>
+					</list-item>
+					<list-item>
+						<p> TR1 – from discovery to choice of application.</p>
+					</list-item>
+					<list-item>
+						<p> TR2 – the stage at which localized pilot studies are conducted, providing for the scale of the health care service. It includes ensuring the appropriateness of the candidate application (medication, clinical intervention, among others) until the policy for its adoption or, even, an evidence-based recommendation is consolidated.</p>
+					</list-item>
+					<list-item>
+						<p> TR3 – stage at which the policy or recommendation of the practical application of the programs is effectively disseminated in health care system and their controls.</p>
+					</list-item>
+					<list-item>
+						<p> TR4 – the stage covering the practice of the translational research and its impact on the population, directly involving health care program monitoring practices.</p>
+					</list-item>
+				</list>
+				<p>There is one more stage that links TR4 to TR0, thus closing the translational research cycle, in which the research solidifies future lines of health care research.</p>
+				<p>Central to the model is synthesis of knowledge, understood as a systematic and indispensable approach at all stages of translational research (<xref ref-type="fig" rid="f01_en">Figure 1</xref>) to review evidence concerning peer knowledge of specific topics.<xref ref-type="bibr" rid="B26">
+						<sup>26</sup>
+					</xref>
+				</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure 1</label>
+						<caption>
+							<title>Model of the five stages of translational research.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0347-gf01-en"/>
+					</fig>
+				</p>
+				<p>The methods of synthesizing knowledge, such as meta-analysis, begin to become standardized in the development of evidence-based recommendation for practice (TR2) and can be seen in the Cochrane Collaboration<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref> and in independent groups such as the US Preventive Services Task Force<xref ref-type="fn" rid="fn4_en">
+						<sup>d</sup>
+					</xref> and the Human Genome Epidemiology Network (HuGENet),<xref ref-type="fn" rid="fn5_en">
+						<sup>e</sup>
+					</xref> which synthesize data on genome research.</p>
+				<p>In the ambit of contemporary science, the health care practice paradigm has been modified based on human genome mapping and the discovery of genetic engineering.<xref ref-type="bibr" rid="B37">
+						<sup>37</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B38">
+						<sup>38</sup>
+					</xref> Moreover, the development of information and communication technologies is responsible for greater dissemination of scientific knowledge.<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref> Biology has become an informational, rather than taxonomic science, as rapid processing machines means scientists can create and apply algorithms to include models to explain complexity.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn6_en">
+						<sup>f</sup>
+					</xref> Genome studies, population genetics and quantitative genetics, making up the so-called genetic epidemiology<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> require broad collaboration and multi-disciplinary and network teamwork. The new questions posed by this dynamic of scientific investigation bring dynamism into bioethics<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> and it was these trends that inspired the Khoury group to systemize FSMTR.</p>
+				<p>The aim of this article was to review the telehealth concept in light of processes involving translational research in health care services, as there is a gap in the literature regarding the relationship between translational research practice in health and telehealth. To demonstrate telehealth in health care services, the theoretical framework of the stages of translational research was applied in observing Network of Human Milk Banks (HMBN) activities as part of the Telemedicine University Network with broad national and international coverage.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>The study had two different phases: a detailed, narrative review of telehealth and translational research; participant observation in the field to test the model of TR stages including multiple policy streams.</p>
+				<p>The detailed review aimed to identify conceptual elements of telehealth in the scientific community, linked to discussion of translational research in health care during the 2009 to 2012 period. A search strategy was established and the following four bibliographic databases were selected: Scopus, for its multi-disciplinary coverage; Cochrane Library for the Virtual Health Library (Cochrane VHL), in order to identify studies and reviews; LILACS (Latin American and Caribbean Literature on health sciences) and Medline. Three search terms were used: “telemedicine” OR “telehealth” AND “translational”.</p>
+				<p>In Scopus, 20 works were recovered, seven of which were articles, four reviews, three conference summaries, two brief communications, one book, one chapter of a book, an editorial and a note. In the Cochrane VHL, 45 studies were found, all systematic reviews. In LILACS, the search was conducted using the key work telemedicine and it returned seven journal articles and one learning object. The Medline search retrieved 11 articles indexed in scientific journals.</p>
+				<p>Articles that were duplicated, without abstracts or missing hyperlinks were eliminated. Of the 83 studies found, 28 were assessed regarding their relevance to the topic and eight were used in the second part of the research. Systematic reviews were privileged, as in general they included previous discussion of terminology and an outlined objective for elimination of treatment of a specific health problem.</p>
+				<p>The second stage of this work involved an analyticaconceptual study based on identifying characteristics of the translational research cycle in government telehealth actions, the RUTE. The aim was to investigate aspects of possible relationships between telehealth and translational research, as well as the bibliographical analysis. For the analysis, the FSMTR was used as a reference to support the model analyzing the multiple streams framework in the manner established by Kingdon<xref ref-type="bibr" rid="B28">
+						<sup>28</sup>
+					</xref> (2002).</p>
+				<p>RUTE, the field of observation in this study, was established in 2005 as an action aiming to implement and interconnected infrastructure between university hospitals and health care education units in Brazil. The RUTE has been strengthened by, still incipient, telehealth projects facilitating exchange between national groups of researchers by a high speed network connection. Moreover, it provides equipment to research groups in participating institutions and operationally supports multi-institutional discussion hubs, Special Interest Groups (SIG).<xref ref-type="bibr" rid="B43">
+						<sup>43</sup>
+					</xref>
+				</p>
+				<p>In the RUTE universe, the initiative coordinated by the <italic>Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernandes Figueira</italic> (IFF/Fiocruz –Fernandes Figueira National Institute for Women’s, Children’s and Adolescents’ Health), was selected for its coverage. The IFF/Fiocruz brings together 30 points in the Network of Human Milk Banks and 23 countries in the Ibero-American Human Milk Bank Program, the world’s largest such network.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> The human milk bank network uses telehealth actions, stimulating the exchange of knowledge and permanent education so as to guarantee that all newborns have access to breast milk.<xref ref-type="fn" rid="fn7_en">
+						<sup>g</sup>
+					</xref>
+				</p>
+				<p>In this context, the FSMTR was applied to observe the functionality of telehealth in the passage of breast milk in the public health network, from the donating to the recipient mother, including babies with low birth weight and with long hospitalizations in neonatal intensive care units.</p>
+				<p>FSMTR is a closed, cyclical system. In the case of clinical research, TR2, TR3 and TR4, easily identified in health care services, are connected to TR0 and TR1, so-called pre-innovation, which cover the pre-discovery to licensing stages of new medications. In the care practices provided by the health care system, this process can also be observed and systematized in the whole translational research cycle.</p>
+				<p>Before identifying more connections linking telehealth to translational research, it is important to emphasize one criticism of the FSMTR. For Hiatt<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref> (2010), the above mentioned model divides translational research into many stages, which may cause confusion in choosing monitoring and evaluation indicators. He therefore postulates that the central problem of health research is the need to put tested and efficient evidence-based interventions into practice in the shortest time possible. Another concern highlighted is the possibility of fragmenting the translational science process in the field of health care. The need for a trans-disciplinary approach to resolve this division is also highlighted.</p>
+				<p>The World Health Organization (WHO), allied to the International Telecommunication Union (2012),<xref ref-type="bibr" rid="B50">
+						<sup>50</sup>
+					</xref> proposal of a global model to evaluate telehealth outlines the interlocutors involved in planning and executing monitoring and evaluation activities in each process. On the other hand, governments<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> use adaptations of FSMTR to perfect their health care and health information system networks.</p>
+				<p>Hiatt’s<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref> proposal for a trans-disciplinary view of FSMTR, with the decisive contribution of studies of public policy, outlines political spaces and actors, detail micro-processes of stages and create a structured outline in order to understand telehealth as translational research in the context of SUS health care networks.</p>
+				<p>Kingdon’s multiple streams framework has been useful in investigation including specific themes in government policy agendas<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> and, in this study, was used to respond to gaps in FSMTR highlighted by Hiatt’s criticism. The model divides analysis of policies into three streams: that of problems, that of alternatives and that of policies. Each stream follows a specific path, especially that of policy which, despite problems and available alternatives, follows its own dynamic and rules.</p>
+				<p>To recognize the problem, there are three relevant dimensions: indicators referring to the issue in question, public opinion and economic viability. When constructing alternatives, centrality of ideas is fundamental to including persuasion and diffusion. In the political stream, coalitions are constructed in the negotiation and bargaining process. Thus, the model seeks to comprehensively cover this process of drawing up public policies, identifying and studying these three streams in a differentiated manner.<xref ref-type="bibr" rid="B44">
+						<sup>44</sup>
+					</xref>
+				</p>
+				<p>In the case of FSMTR, identifying the predominant interest groups during the transition from one stage to another could contribute to understanding the translational research cycle in health care services (<xref ref-type="fig" rid="f02_en">Figure 2</xref>).</p>
+				<p>
+					<fig id="f02_en">
+						<label>Figure 2</label>
+						<caption>
+							<title>Interest groups at the five stages of translational research, together with the multiple streams framework.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0347-gf02-en"/>
+					</fig>
+				</p>
+				<p>The scientific community, interacting with industry, is the protagonist in the passage from TR0 to TR1. In TR1 to TR2, the interest groups are predominantly made up of scientists and administrators. Health care professionals deal with administrators in the passage from TR2 to TR3. The population interact with health care professionals in diverse ways (as SUS users, by social control and in research and evaluations) in TR3 and in TR4.</p>
+				<p>In health, this interaction feeds into evaluation research in which social scientists, epidemiologists and researchers from a variety of disciplines interact. The results obtained support administrators and the scientific community itself in new discoveries, moving from TR4 to TR0 and closing the cycle.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>Much polysemy was observed in the telehealth concept in the way the word was used in the area of health. When searching the four databases using the key words “telehealth” and “translational research” and the descriptor “telemedicine”, eight works were recovered. Studies citing translational research in health care analyzed tele-education in combatting specific public health problems such as, e.g., the prevalence of type 2 diabetes in ethnic minorities,<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref> distance monitoring of medication use by the elderly population<xref ref-type="bibr" rid="B39">
+						<sup>39</sup>
+					</xref> and support for family members and carers of those suffering from dementia.<xref ref-type="bibr" rid="B34">
+						<sup>34</sup>
+					</xref> Three articles dealt with the context in which FSMTR was conceived: discussion of the role of national institutes in the health care system.<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B47">
+						<sup>47</sup>
+					</xref>
+				</p>
+				<p>When applying FSMTR, combined with the actors identified in the multiple streams, it was possible to identify the problem (infant mortality), alternatives (preserve donated human milk and stimulate breastfeeding) and policies (constructing and regulating the HMB in high complexity hospitals, close to neonatal ICU) within the SUS.</p>
+				<p>It is worth explaining that the objective of the HMB network is the practice of breastfeeding, human milk and awareness of its properties by society in general as it meets the child’s nutritional needs and peculiarities of metabolism, with the value of exclusive breastfeeding for the first six months in no doubt.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+				</p>
+				<p>Even though they are common sense, it is worth highlighting the advantages of breast milk: better digestibility; balanced chemical composition; lack of principal allergens; protects child’s organism against infection; encourages babies’ IQ development and costs nothing. To summarize, breastfeeding is the best way to feed the baby, being the basis for biological and emotional effects in the child’s development.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+				</p>
+				<p>In various parts of the world, public health care strategies have been developed for mothers who, for one reason or another, do not breastfeed their child, including the Brazilian model of human milk banks (HMB).<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> In this model, HMB operate using alternative technology, enabling low operational cost to be allied with technical rigor to ensure the quality of the human milk collected, stored and distributed.<xref ref-type="bibr" rid="B36">
+						<sup>36</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B45">
+						<sup>45</sup>
+					</xref> This milk is obtained from donors, healthy lactating women who produce more milk than needed for their own child and are willing to donate the surplus, without receiving any remuneration. This is passed on to premature babies, those with low birth weight and those hospitalized in neonatal ICU. One study reviewed concluded that telemedicine stimulated translational research, especially in neonatology.<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref>
+				</p>
+				<p>The HMB network exists in 23 countries and has used the RUTE since 2009. Web conferencing and video conferencing and other telehealth devices, including support of synchronous and asynchronous health information systems, are used to exchange knowledge and practice. The scale of telehealth service use, e.g., the need to compare microbiological samples of human milk from laboratories in different locations,<xref ref-type="fn" rid="fn8_en">
+						<sup>h</sup>
+					</xref> has increased.</p>
+				<p>It was possible to apply FSMTR to the multiple streams in order to contextualize it in the SUS health care network. Some telehealth processes were observed integrated in this cycle (<xref ref-type="fig" rid="f04_en">Figure 4</xref>).</p>
+				<p>
+					<fig id="f03_en">
+						<label>Figure 3</label>
+						<caption>
+							<title>Model of the five stages of translational research in the context of multiple streams framework applied to the Human Milk Bank Network.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0347-gf03-en"/>
+					</fig>
+				</p>
+				<p>
+					<fig id="f04_en">
+						<label>Figure 4</label>
+						<caption>
+							<title>Flow chart of the process of selecting articles for detalied literature review (2009-2012).</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0347-gf04-en"/>
+					</fig>
+				</p>
+				<p>TR0 is a scientific discovery that has been perfected over a period of more than 50 years: the pasteurization process means human milk can, at low cost, be stored, conserving its properties, and purified of manipulation from the collection, storing and distribution stages.<xref ref-type="bibr" rid="B31">
+						<sup>31</sup>
+					</xref> Telehealth is present at this stage as it provides audio-visual records of the techniques used in the milk bank and disseminates them via the information and technology networks for permanent education purposes.</p>
+				<p>At stage TR1, the IFF/Fiocruz Human Milk Bank National Reference Centre candidate application of the HMBN, was recognized by Anvisa,<xref ref-type="fn" rid="fn9_en">
+						<sup>i</sup>
+					</xref> which established HMB as a specialized service linked to maternity and children’s hospitals. The HMB was responsible for actions promoting, protecting and supporting breastfeeding, as well as collecting milk and selecting, classifying and processing, quality control and distribution activities, with commercialization of the products distributed being strictly prohibited.<xref ref-type="fn" rid="fn10_en">
+						<sup>j</sup>
+					</xref> The WHO<xref ref-type="fn" rid="fn11_en">
+						<sup>k</sup>
+					</xref> recommends exclusive breastfeeding for the first six months and continuing to breastfeed until two years of age (TR2). The evidence-based policy or directive providing human milk to babies, including premature babies, is considered a food security strategy aimed at achieving the UN Millennium Development Goal of reducing the 1990 infant mortality rate in under-five children by two thirds by 2015.<xref ref-type="fn" rid="fn12_en">
+						<sup>l</sup>
+					</xref>
+				</p>
+				<p>Permanent and continuous education of health care professionals, and of the population, is an essential element in health activities involving collection, quality control and distribution of human milk (TR3). However, microbiological analysis of samples of human milk, definition of collection rounds, maintaining the cold chain<xref ref-type="fn" rid="fn13_en">
+						<sup>m</sup>
+					</xref> during transportation from donor’s house to the HMB, are potential objects of telehealth applications regarding quality control.</p>
+				<p>That UN Millennium Development Goal has been met in almost the whole of Brazil. Mortality and morbidity have decreased and the infant population’s state of health improved (TR4) with the health care services’ promotion of breastfeeding being a decisive contribution.<xref ref-type="bibr" rid="B49">
+						<sup>49</sup>
+					</xref>
+				</p>
+				<p>There are many scientific possibilities that remain to be explored in relation to human milk, such as the discovery of a technique for multiplying stem cells found in human milk,<xref ref-type="bibr" rid="B40">
+						<sup>40</sup>
+					</xref> made by researchers at a Brazilian public university,<xref ref-type="fn" rid="fn14_en">
+						<sup>n</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn15_en">
+						<sup>o</sup>
+					</xref> facilitated by the context of donated human milk and by the presence of HMB integrated into the SUS health care network (TR4 – TR0).</p>
+				<p>Synthesis of knowledge appears in the HMBN internet portal. This is the principal reference for the HMBN community and brings together various activities related to telehealth and translational research, such as: facilitated access to systematic reviews, clinical trials; technical norms; international network management; virtual community; listings of research groups; minutes of video conferences; web conference rooms; information systems on the production of human milk and a direct channel to the population according to the trends of change in the care paradigm observed in the review, which emphasizes the formal aspects of modelling and implementing telehealth ubiquitously and multi-discipline integration to provide personalized health care.<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+				</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>The models of the five stages of translational research and the multiple streams emphasize the strategic role of HMB coordinators in RUTE hospitals, as they are scientists or administrators who train professionals who will work in the SUS.</p>
+				<p>An example is the “Human Milk Debate” session, in 2011, a HMBN video conference in the <italic>Hospital Universitário</italic> of the <italic>Universidade de São Paulo</italic> (USP), in which the results of research on bone mineralization in newborns fed on human milk were presented to the community before journal publication.</p>
+				<p>On the other hand, the processes involved in the passage from TR3 to TR4 require social participation beyond the user-patient role, prioritized in the majority of primary epidemiological studies. The basic research is only characterized as translational when it has a high degree of effectiveness in the health care system and predicted improvements in health are achieved. To measure the degree of effectiveness of translational research in the health care system, its real performance (monitoring the system) needs to be documented, as well as the performance that health care science and technology can achieve in “ideal” conditions (efficacy of application generated by research). This comparative calculation is known as relative effectiveness.<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref>
+				</p>
+				<p>It is necessary to see how telehealth processes in the SUS could be essential facilitators in conducting the stages of translational research from the point of view of relative effectiveness, the concept adopted in the SUS Evaluation Program.<xref ref-type="bibr" rid="B48">
+						<sup>48</sup>
+					</xref> Stages TR2, TR3 and TR4, in the triangle proposed by Glasgow<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> (2012), extrapolate scientific means and rely on the intervention of different segments of society to become reality. Telehealth could even help in the cycle’s feedback loop, returning to TR0, as remote access technology to the databases produced by their respective platforms, when well-planned and interoperable, can be of great service to health surveillance and health care management. In this sense, the widespread tele-cardiology service covering more than 800 locations in Minas Gerais stands out.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+				</p>
+				<p>The strategy of coordinating centers of excellence all over the world to research cures for poverty-related disease is another example of research that mobilizes scientists, administrators and civil society organizations.<xref ref-type="bibr" rid="B32">
+						<sup>32</sup>
+					</xref>
+				</p>
+				<p>With the support of social sciences, it is expected that the redefinition of telehealth can support choices of quality indicators for monitoring and evaluating health care systems. Telehealth encourages more rapid organization and synthesis of knowledge, facilitates knowledge exchange and accelerates implementation of innovations in the health care network.</p>
+			</sec>
+			<sec sec-type="conclusions">
+				<title>CONCLUSION</title>
+				<p>Telehealth is not a synonym of video conferencing,<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref> wireless technology<xref ref-type="bibr" rid="B33">
+						<sup>33</sup>
+					</xref> or an organizational component to establish information and communication technology or networks in health care units.<xref ref-type="bibr" rid="B41">
+						<sup>41</sup>
+					</xref> Thus, it does not compete with other terms in the literature, such as telemedicine, <italic>ehealth</italic> or <italic>mhealth</italic>. Based on analysis of FSMTR, together with the multi-streams model, the opportunity to view telehealth as all computer-mediated network activity promoting translation of knowledge between research and health care services appears. Thus, a wide and structured concept emerges in the context of a health care system qualified by technological advances.</p>
+				<p>Seeking to broaden the World Medical Association and WHO concept of telehealth, which can be summarized as information and communication technology in health care, we propose redefining telehealth as health care practice and knowledge that, by mediation of technology, materializes in the health care information and knowledge ecosystem.<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> In effect, telehealth grows ever closer to the translational research process as it enables individuals doing science to benefit those in health care services. Thus, this dimension is added to the cultural and institutional framework: cyberculture in health.</p>
+				<p>Identifying the cybercultural connections and processes of this ecosystem processes in which the research stages occur may help in evaluating telehealth and indicate better practice for health care systems.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> According to the World Medical Association – WMA and the World Health Organization – WHO, telehealth is the use of information and communication technologies – ICT to offer health care and services at a distance. Cf. <ext-link ext-link-type="uri" xlink:href="www.wma.net/en/30publications/10policies/t5/index.html">www.wma.net/en/30publications/10policies/t5/index.html</ext-link> and <ext-link ext-link-type="uri" xlink:href="www.who.int/kms/initiatives/ehealth/en/">www.who.int/kms/initiatives/ehealth/en/</ext-link>
+					</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b</label>
+					<p> Clinical research involving human beings is, in general, classified into four stages: I to IV. In short, in stage I the medication is tested in small groups of healthy individuals; stage II involves a larger group suffering from the disease the medication is designed to combat; stage III involves multi-centric studies with thousands of patients and can lead to the medication being approved by the responsible government body; and, finally, stage IV in which commercial mass use of the drug is monitored</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c</label>
+					<p> The Cochrane Collaboration [Internet]. Oxford (UK); c2014 [cited 2014 Mar 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.cochrane.org/">http://www.cochrane.org/</ext-link>
+					</p>
+				</fn>
+				<fn id="fn4_en">
+					<label>d</label>
+					<p> U.S. Preventive Service Task Force [Internet]. Rockville, MD; 2010 [cited 2014 Mar 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.uspreventiveservicestaskforce.org/">http://www.uspreventiveservicestaskforce.org/</ext-link>
+					</p>
+				</fn>
+				<fn id="fn5_en">
+					<label>e</label>
+					<p> Centers for Disease Control and Prevention, Office of Public Health Genomics. Population Research: Human Genome Epidemiology Network - HuGENET [Internet]. Atlanta, GA; [updated 2013 Jan 29; cited 2014 Mar 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.cdc.gov/genomics/hugenet/">http://www.cdc.gov/genomics/hugenet/</ext-link>
+					</p>
+				</fn>
+				<fn id="fn6_en">
+					<label>f</label>
+					<p> The complex object is a non-linear and multi-faceted systemic-model object. It forms part of the system of partial totalities and can be understood as a system, as it incorporates partial totalities from the lower hierarchical level. This object can be understood at multiple levels of existence, as it operates at different levels of reality and is the source of multiple discourses, spilling over from the disciplinary outlines of science. For it to be constructed as a reference requires synthesis, producing synthetic models in which different discipline discourses intersect.</p>
+				</fn>
+				<fn id="fn7_en">
+					<label>g</label>
+					<p> Silva AB, Souza KS. Estratégia de telessaúde do núcleo RUTE do IFF reúne países em prol da diminuição da mortalidade infantil prevista no Objetivo de Desenvolvimento do Milênio. In: Anais do 5º Congresso Brasileiro e Internacional de Telemedicina e Telessaúde Inovação e Sustentabilidade; 19-22 Nov 2011; Manaus. São Paulo: USP; 2011.</p>
+				</fn>
+				<fn id="fn8_en">
+					<label>h</label>
+					<p> According to HMB National Reference Center, doubts come from states and countries regarding equipment which, in general, are not programmed to identify bacteria typical to the microbe ecology of HM and are concerned about impurities. Telehealth actions, such as remote configurations, can respond to these issues of HM quality control.</p>
+				</fn>
+				<fn id="fn9_en">
+					<label>i</label>
+					<p> Agência Nacional de Vigilância Sanitária, Diretoria Colegiada. Resolução de Diretoria Colegiada – RDC nº 171, de 4 de setembro de 2006. Dispõe sobre o Regulamento Técnico para o funcionamento de Bancos de Leite Humano. [cited 2014 Jan 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://portal.anvisa.gov.br/wps/wcm/connect/d02994804745973f9fa1df3fbc4c6735/RDC+N%C2%BA.+DE+171-2006.pdf?MOD=AJPERESS">http://portal.anvisa.gov.br/wps/wcm/connect/d02994804745973f9fa1df3fbc4c6735/RDC+N%C2%BA.+DE+171-2006.pdf?MOD=AJPERESS</ext-link>
+					</p>
+				</fn>
+				<fn id="fn10_en">
+					<label>j</label>
+					<p> Silva DA. Ensaios de proficiência para bancos de leite humano: formulação e avaliação de uma proposta para a Rede Brasileira de Bancos de Leite Humano [doctoral thesis]. Rio de Janeiro: Instituto Fernandes Figueira/Fiocruz; 2009.</p>
+				</fn>
+				<fn id="fn11_en">
+					<label>k</label>
+					<p> World Health Organization. The WHO´s infant feeding recommendation. Geneva; 2002 [cited 2014 Jan 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.who.int/nutrition/topics/infantfeeding_recommendation/en/index.html">http://www.who.int/nutrition/topics/infantfeeding_recommendation/en/index.html</ext-link>
+					</p>
+				</fn>
+				<fn id="fn12_en">
+					<label>l</label>
+					<p> Ban Ki-Moon. Children and the Millennium Development Goals: progress towards a world fit for children. New York: UNICEF;2007 [cited 2014 Jan 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.unicef.org/publications/files/Children_and_the_MDGs.pdf">http://www.unicef.org/publications/files/Children_and_the_MDGs.pdf</ext-link>
+					</p>
+				</fn>
+				<fn id="fn13_en">
+					<label>m</label>
+					<p> Maintaining the temperature of the transport so the product remains frozen between the point of origin and the destination, with no changes in temperature which would cause microbiological or physicochemical non-compliance.</p>
+				</fn>
+				<fn id="fn14_en">
+					<label>n</label>
+					<p> Motta C. Cientistas obtêm células-tronco de leite materno. <italic>O Globo</italic>. 2011 out 10 [cited 2014 Jan 14]; Ciência. Available from: <ext-link ext-link-type="uri" xlink:href="http://oglobo.globo.com/ciencia/mat/2011/10/25/cientistas-obtem-celulas-tronco-de-leite-materno-925660765.asp">http://oglobo.globo.com/ciencia/mat/2011/10/25/cientistas-obtem-celulas-tronco-de-leite-materno-925660765.asp</ext-link>
+					</p>
+				</fn>
+				<fn id="fn15_en">
+					<label>o</label>
+					<p> Cryopraxis: Banco de Sangue de Cordão Umbilical. Rio de Janeiro; c2012 [cited 2014 Jan 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.cryopraxis.com.br/home">http://www.cryopraxis.com.br/home</ext-link>
+					</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

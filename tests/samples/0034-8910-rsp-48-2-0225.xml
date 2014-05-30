@@ -1,0 +1,1868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004798</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004798</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Impacto do estresse na saúde de cortadores de cana</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Priuli</surname>
+						<given-names>Roseana Mara Aredes</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Moraes</surname>
+						<given-names>Maria Silvia de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Chiaravalloti</surname>
+						<given-names>Rafael Morais</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv1">Departamento de Epidemiologia e Saúde Coletiva</institution>
+				<institution content-type="orgname">Faculdade de Medicina de São José do Rio Preto</institution>
+				<addr-line>
+					<named-content content-type="city">São José do Rio Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Epidemiologia e Saúde Coletiva. Faculdade de Medicina de São José do Rio Preto. São José do Rio Preto, SP, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv1">Departamento de Enfermagem</institution>
+				<institution content-type="orgname">União das Instituições Educacionais de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Mirassol</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Enfermagem. União das Instituições Educacionais de São Paulo. Mirassol, SP, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv1">Faculty of Social and Historical Sciences</institution>
+				<institution content-type="orgname">University College London</institution>
+				<addr-line>
+					<named-content content-type="city">London</named-content>
+				</addr-line>
+				<country>United Kingdon</country>
+				<institution content-type="original">Post-Graduate Program in Anthropology. Faculty of Social and Historical Sciences. University College London. London, United Kingdon</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Roseana Mara Aredes Priuli  Av. Juscelino Kubistcheck de Oliveira, 1220, Jardim Panorama, Condomínio Recanto Real Rua 4, 440  15021-450 São José do Rio Preto, SP, Brasil  E-mail: <email>roseanap@gmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>225</fpage>
+			<lpage>231</lpage>
+			<history>
+				<date date-type="received">
+					<day>26</day>
+					<month>2</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>11</day>
+					<month>11</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Analisar os níveis de estresse e a prevalência de sintomas físicos e psíquicos em trabalhadores do corte de cana antes e depois da safra.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Foram estudados 114 cortadores de cana, 109 trabalhadores urbanos na pré-safra, 102 cortadores de cana e 81 trabalhadores urbanos na pós-safra, na cidade de Mendonça, SP, em 2009. A análise dos dados baseou-se na frequência e porcentagem dos avaliados com sintomas de estresse, tendo sido utilizado o Inventário de Sintomas de Estresse para Adultos de Lipp-ISSL. Os dados gerais coletados foram analisados segundo estatística descritiva. Utilizou-se o teste Exato de Fisher para comparar a variável categórica representada pelo estresse pré e pós-safra nos grupos cortadores de cana e trabalhadores urbanos. Foram considerados significativos os valores de p menor que 0,05.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>O estresse aumentou nos cortadores de cana após a safra (34,2% na pré-safra e 46,1% na pós-safra); nos trabalhadores urbanos, o estresse diminuiu de 44,0% na pré-safra para 42,0% na pós-safra. Houve predominância da fase de resistência do estresse para ambos os grupos, com sinais mais evidentes da fase de quase-exaustão e de exaustão para os cortadores de cana. Após a safra, houve tendência a aumentar o número de cortadores de cana com sintomas de quase-exaustão (6,4%) e exaustão (10,6%), bem como aumento na proporção de cortadores de cana com sintomas físicos (de 20,5% para 25,5%) e psicológicos (de 64,1% para 70,2%). Para os dois grupos, os sintomas psicológicos foram elevados nas duas fases (70,2% e 64,7%, respectivamente).</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>O processo produtivo de trabalho do cortador de cana pode provocar estresse. Fatores individuais, como a percepção cognitiva da experiência, crenças de autoeficácia e expectativas do trabalhador quanto ao seu desempenho, podem influenciar o entendimento sobre as reações em seu corpo diante do trabalho.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Trabalhadores Rurais</kwd>
+				<kwd>Doenças dos Trabalhadores Agrícolas, epidemiologia</kwd>
+				<kwd>Estresse Fisiológico</kwd>
+				<kwd>Transtornos de Estresse por Calor</kwd>
+				<kwd>Esgotamento Profissional</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Conselho Nacional de Desenvolvimento Científico e Tecnológico</funding-source>
+					<award-id>402195/2008</award-id>
+				</award-group>
+				<funding-statement>Estudo financiado pelo Projeto de Pesquisa Ministério de Ciência e Tecnologia (MCT), Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Edital MCT-CNPq/CT – Saúde 021/2008 – Processo 402195/2008).</funding-statement>
+			</funding-group>
+			<counts>
+				<table-count count="8"/>
+				<ref-count count="23"/>
+				<page-count count="7"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>A saúde dos trabalhadores é condicionada por fatores sociais, econômicos, tecnológicos e organizacionais relacionados ao perfil de produção e consumo, além de por fatores de risco físicos, químicos, biológicos, mecânicos e ergonômicos presentes nos processos de trabalho.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> No Brasil, as relações entre trabalho e a saúde-doença dos trabalhadores compõem um mosaico no qual coexistem diferentes estágios de incorporação tecnológica e de formas de organização, bem como gestão das atividades produtivas com repercussões sobre o viver, o adoecer e o morrer dos trabalhadores.</p>
+			<p>Os trabalhadores do corte de cana convivem com métodos modernos de trabalho, mas em condições semelhantes à escravidão, que podem interferir nas condições de sua saúde.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> A ocorrência de uma série de mortes súbitas em trabalhadores do corte de cana foi atribuída ao excesso de trabalho.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref>
+			</p>
+			<p>O processo de reestruturação produtiva do País a partir da década de 1990, decorrente da globalização econômica, repercutiu sobre a atividade rural, agravando situações de exploração e desigualdade historicamente construídas. Assim, a inovação tecnológica facilitou a intensificação do trabalho, que se expressou em doenças fisiológicas e psico-cognitivas nos trabalhadores. Essa transformação no mundo do trabalho provocou a exclusão social e a deterioração das condições de saúde.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+			</p>
+			<p>Há que se considerar ainda, como fator de risco à saúde, o processo de migração por que passam os trabalhadores do corte de cana. Estudos revelam que o fenômeno da migração pode desencadear doenças, uma vez que requer do organismo um processo de adaptação diante de mudanças do ambiente,<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+				<sup>,23,</sup>
+				<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> exigindo do organismo o uso de suas reservas de energia adaptativa, o que em certas circunstâncias pode enfraquecer a resistência física e mental, acarretando inúmeras doenças psicofisiológicas que se originam no estresse excessivo.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref>
+			</p>
+			<p>O modelo quadrifásico concebe o estresse como uma reação do organismo com componentes psicológicos, físicos, mentais e hormonais, que ocorre quando surge a necessidade de uma adaptação grande a um evento ou situação de importância. Esse evento pode ter um sentido negativo ou positivo. O estresse positivo é o da fase inicial de alerta, quando o organismo produz adrenalina, a qual dá energia e faz a pessoa produzir mais e ser mais criativa. O estresse negativo é gerado pelo excesso, ocorrendo quando a pessoa ultrapassa seus limites e esgota a sua capacidade de adaptação. Nessa fase, a de resistência, o organismo busca resistir aos estressores e ao desgaste total das energias. Há a produção de cortisol e a produtividade cai muito. Quando a tensão excede o limite do gerenciável, é a fase de quase-exaustão; a resistência física e emocional começa a se quebrar; há muita ansiedade nessa etapa porque a pessoa experimenta momentos de desconforto intercalados com momentos de lucidez e de tomada de decisões. Por último, na quarta fase, a de exaustão, a mais negativa do estresse, a patológica, ocorre um desequilíbrio interior muito grande, podendo surgir doenças graves.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+			</p>
+			<p>Para além dessa concepção psicofísica do estresse, Rodrigues &amp; Gasparini<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> afirmam que o estresse está relacionado com a interpretação que o sujeito faz da sua experiência de viver e cujo controle está intimamente relacionado com a capacitação individual do sujeito para a percepção de seu corpo e de suas reações emocionais. Assim, dependendo do nível de autopercepção que possui, a pessoa será capaz de identificar, com mais ou menos acuidade, suas reações físicas e emocionais provocadas por uma situação de estresse.</p>
+			<p>O objetivo deste estudo foi analisar os níveis de estresse e a prevalência de sintomas físicos e psíquicos em trabalhadores do corte de cana antes e depois da safra.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Estima-se que no ano de 2009 havia em torno de 400 indivíduos nordestinos oriundos dos estados da Paraíba e de Pernambuco trabalhando em usinas de açúcar e álcool na zona rural do município de Novo Horizonte, SP, dos quais 183 migravam anualmente para a cidade de Mendonça, SP, para trabalhar no corte da cana. No período pré-safra, participaram do estudo 114 trabalhadores rurais do corte de cana-de-açúcar da cidade de Mendonça, SP, e 102 trabalhadores urbanos residentes na mesma cidade. No período pós-safra, participaram 109 cortadores de cana e 81 trabalhadores urbanos.</p>
+			<p>Foram selecionados cortadores de cana que atendiam aos seguintes critérios de inclusão: homens de 20 a 40 anos, não fumantes e sem doenças cardiorrespiratórias referidas.</p>
+			<p>Os trabalhadores urbanos, moradores da cidade, foram selecionados de acordo com os mesmos critérios estabelecidos para os cortadores de cana, desde que não trabalhassem nessa lavoura.</p>
+			<p>Para avaliação do nível de estresse foi utilizado o Inventário de Sintomas de Estresse para Adultos de Lipp (ISSL),<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref> aplicado tanto no grupo de cortadores de cana como no grupo de trabalhadores urbanos, nas duas fases (1 e 2).</p>
+			<p>O Lipp-ISSL tem o objetivo de responder a três questões fundamentais: se a pessoa está estressada; caso positivo, em qual fase (alerta, resistência, quase-exaustão ou exaustão); e se há prevalência de sintomas físicos ou psicológicos. Esse instrumento é composto por três sessões, sendo a primeira referente aos sintomas experimentados pelo indivíduo nas últimas 24 horas, a segunda, aos sintomas da última semana, e a terceira, aos sintomas do último mês.</p>
+			<p>O ISSL lista sintomas físicos (e.g., boca seca, tensão muscular, formigamento das extremidades) e psicológicos (e.g., dúvida quanto a si mesmo, aumento súbito de motivação, perda do senso de humor) divididos em três quadros. Baseia-se no modelo trifásico de Selye,<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> em que cada quadro corresponde a uma fase de estresse. Primeiro, o respondente indica quais os sintomas do primeiro quadro que experienciou nas últimas 24 horas. A seguir, assinala os sintomas na última semana dentre os apresentados no segundo quadro e, então, assinala quais experimentou no último mês dentre os sintomas físicos e psicológicos apresentados no terceiro quadro. O ISSL permite diagnosticar se a pessoa tem estresse, em que fase do processo se encontra (alerta, resistência, exaustão e quase-exaustão) e se há prevalência de sintomas físicos ou psicológicos. Já o Lipp-ISSL é um modelo quadrifásico do estresse que introduz um novo estágio identificado entre as fases de resistência e exaustão, nomeado de “fase de quase-exaustão”.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+			</p>
+			<p>A análise dos resultados foi efetuada segundo critérios de participação dos candidatos cortadores de cana e trabalhadores urbanos em qualquer um dos períodos, i.e., no período da pré-safra ou no da pós-safra, ou em ambos. Como não foi realizado pareamento dos participantes, nenhum indivíduo foi eliminado, não havendo perdas. Foram avaliados 114 cortadores de cana no período da pré-safra e 102 no período da pós-safra; e 109 trabalhadores urbanos no período da pré-safra e 81 no período da pós-safra.</p>
+			<p>Para a análise geral dos resultados, os dados coletados foram avaliados segundo estatística descritiva. Utilizou-se o teste Exato de Fisher (software GraphPad Prisma 4.0) para comparar a variável categórica representada pelo estresse pré e pós-safra nos grupos cortadores de cana e de trabalhadores urbanos (<xref ref-type="table" rid="t01">Tabela 1</xref>). Para tanto, foram considerados significativos os valores de p menor que 0,05.</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Distribuição dos trabalhadores urbanos e cortadores de cana nos períodos pré-safra e pós-safra quanto à presença do estresse.<xref ref-type="fn" rid="fn1">
+								<sup>a</sup>
+							</xref>
+						</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="20%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Período</th>
+								<th style="font-weight:normal">População</th>
+								<th style="font-weight:normal">Amostra (n)</th>
+								<th style="font-weight:normal">Com estresse (n)</th>
+								<th style="font-weight:normal">Com estresse (%)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Pré-safra</td>
+								<td align="center">Trabalhadores urbanos</td>
+								<td align="center">109</td>
+								<td align="center">48</td>
+								<td align="center">44,0</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">Cortadores de cana</td>
+								<td align="center">114</td>
+								<td align="center">39</td>
+								<td align="center">34,2</td>
+							</tr>
+							<tr>
+								<td>Pós-safra</td>
+								<td align="center">Trabalhadores urbanos</td>
+								<td align="center">81</td>
+								<td align="center">34</td>
+								<td align="center">41,9</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td align="center">Cortadores de cana</td>
+								<td align="center">102</td>
+								<td align="center">47</td>
+								<td align="center">46,1</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>a</sup> p de Fisher para trabalhadores urbanos = 1,00 e p de Fisher para cortadores de cana = 0,25.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Este estudo foi aprovado pela Comissão de Ética em Pesquisa do Hospital das Clínicas da Faculdade de Medicina da Universidade de São Paulo sob o protocolo 0282/09. Todos os participantes assinaram termo de consentimento livre e esclarecido.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>A <xref ref-type="table" rid="t01">Tabela 1</xref> mostra que os sintomas de estresse foram manifestados tanto pela população dos cortadores de cana (período pré-safra = 34,2%; período pós-safra = 46,1%) quanto pelos trabalhadores urbanos (período pré-safra = 44,0%; período pós-safra = 41,1%). Entretanto, nos cortadores de cana, o estresse teve maior prevalência no período pós-safra, ao passo que, nos trabalhadores urbanos, se manteve constante, independente do período (p de Fisher de 0,25 e 1,00, respectivamente).</p>
+			<p>Os dados mostram (<xref ref-type="table" rid="t02">Tabela 2</xref>) que a população de cortadores de cana com estresse apresentou predominância da fase de resistência tanto antes (84,6%) como depois do período da safra (83,0%). Entretanto, após o período da safra, houve tendência de aumento de indivíduos com sintomas de quase-exaustão (6,4%) e exaustão (10,7%). Por outro lado, o grupo dos trabalhadores urbanos, embora também revelasse predominância da fase de resistência tanto no período pré (93,8%) como no período pós-safra (97,1%), apresentou menos exaustão (4,2% no período pré-safra contra 0,0% no pós-safra) (<xref ref-type="table" rid="t02">Tabela 2</xref>).</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Distribuição dos trabalhadores urbanos e cortadores de cana nos períodos pré- e pós-safra quanto às fases do estresse.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="10%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th colspan="2" style="font-weight:normal">Fases do estresse</th>
+								<th colspan="2" style="font-weight:normal">Alerta</th>
+								<th colspan="2" style="font-weight:normal">Resistência</th>
+								<th colspan="2" style="font-weight:normal">Quase-exaustão</th>
+								<th colspan="2" style="font-weight:normal">Exaustão</th>
+							</tr>
+							<tr>
+								<th colspan="10" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal" align="left">Período</th>
+								<th style="font-weight:normal">População</th>
+								<th style="font-weight:normal">Frequência</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">Frequência</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">Frequência</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">Frequência</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="2">Pré-safra</td>
+								<td align="center">Trabalhadores urbanos (N = 48)</td>
+								<td align="center">1</td>
+								<td align="center">2,0</td>
+								<td align="center">45</td>
+								<td align="center">93,75</td>
+								<td align="center">0</td>
+								<td align="center">0,0</td>
+								<td align="center">2</td>
+								<td align="center">4,1</td>
+							</tr>
+							<tr>
+								<td align="center">Cortadores de cana (N = 39)</td>
+								<td align="center">2</td>
+								<td align="center">5,1</td>
+								<td align="center">33</td>
+								<td align="center">84,6</td>
+								<td align="center">2</td>
+								<td align="center">5,1</td>
+								<td align="center">2</td>
+								<td align="center">5,1</td>
+							</tr>
+							<tr>
+								<td rowspan="2">Pós-safra</td>
+								<td align="center">Trabalhadores urbanos (N = 34)</td>
+								<td align="center">1</td>
+								<td align="center">2,9</td>
+								<td align="center">33</td>
+								<td align="center">97,0</td>
+								<td align="center">0</td>
+								<td align="center">0,0</td>
+								<td align="center">0</td>
+								<td align="center">0,0</td>
+							</tr>
+							<tr>
+								<td align="center">Cortadores de cana (N = 47)</td>
+								<td align="center">0</td>
+								<td align="center">0,0</td>
+								<td align="center">39</td>
+								<td align="center">82,9</td>
+								<td align="center">3</td>
+								<td align="center">6,3</td>
+								<td align="center">5</td>
+								<td align="center">10,6</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>Comparando-se os períodos pré e pós-safra, houve tendência a aumento da proporção de cortadores de cana (<xref ref-type="table" rid="t03">Tabela 3</xref>) com sintomas físicos (de 20,5% para 25,5%) e psicológicos (de 64,1% para 70,2%), enquanto no grupo de trabalhadores urbanos (<xref ref-type="table" rid="t03">Tabela 3</xref>) a tendência foi de diminuição dos sintomas físicos (de 29,2% para 23,5%) e de aumento dos sintomas psicológicos no período pós-safra (de 62,5% para 64,7%). Em ambos os grupos, os sintomas psicológicos foram os mais frequentes nos dois períodos, sendo mais evidente nos cortadores de cana.</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Tabela 3</label>
+					<caption>
+						<title>Distribuição dos trabalhadores urbanos e cortadores de cana nos períodos pré-safra e pós-safra conforme a predominância dos sintomas.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="12%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th colspan="2" style="font-weight:normal">Fases do estresse</th>
+								<th colspan="2" style="font-weight:normal">Físicos</th>
+								<th colspan="2" style="font-weight:normal">Psicológicos</th>
+								<th colspan="2" style="font-weight:normal">Físicos e Psicológicos</th>
+							</tr>
+							<tr>
+								<th colspan="8" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal" align="left">Período</th>
+								<th style="font-weight:normal">População</th>
+								<th style="font-weight:normal">Frequência</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">Frequência</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">Frequência</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="2">Pré-safra</td>
+								<td align="center">Trabalhadores urbanos (N = 48)</td>
+								<td align="center">14</td>
+								<td align="center">29,1</td>
+								<td align="center">30</td>
+								<td align="center">62,5</td>
+								<td align="center">4</td>
+								<td align="center">8,3</td>
+							</tr>
+							<tr>
+								<td align="center">Cortadores de cana (N = 39)</td>
+								<td align="center">8</td>
+								<td align="center">20,5</td>
+								<td align="center">25</td>
+								<td align="center">64,1</td>
+								<td align="center">6</td>
+								<td align="center">15,3</td>
+							</tr>
+							<tr>
+								<td rowspan="2">Pós-safra</td>
+								<td align="center">Trabalhadores urbanos (N = 34)</td>
+								<td align="center">8</td>
+								<td align="center">23,5</td>
+								<td align="center">22</td>
+								<td align="center">64,7</td>
+								<td align="center">4</td>
+								<td align="center">11,7</td>
+							</tr>
+							<tr>
+								<td align="center">Cortadores de cana (N = 47)</td>
+								<td align="center">12</td>
+								<td align="center">25,5</td>
+								<td align="center">33</td>
+								<td align="center">70,2</td>
+								<td align="center">2</td>
+								<td align="center">4,2</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>Quanto aos sintomas de estresse específicos (<xref ref-type="table" rid="t04">Tabela 4</xref>), no período pós-safra, verificou-se nos cortadores de cana: aumento de problemas dermatológicos (de 10,1% para 25,3%), cansaço constante (de 20,3% para 30,3%), irritabilidade excessiva (nervosismo) (de 11,3% para 29,3%), problemas dermatológicos prolongados (de 11,3% para 23,6%) e cansaço excessivo (de 19,2% para 37,3%).</p>
+			<p>
+				<table-wrap id="t04">
+					<label>Tabela 4</label>
+					<caption>
+						<title>Distribuição dos trabalhadores urbanos e cortadores de cana nos períodos pré-safra e pós-safra quanto à presença dos sintomas de estresse (p de Fisher).</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="20%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left"> </th>
+								<th colspan="2" style="font-weight:normal">Pré-safra (Fase 1)</th>
+								<th colspan="2" style="font-weight:normal">Pós-safra (Fase 2)</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal" align="left">Sintomas</th>
+								<th colspan="4" rowspan="1" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal" align="left"> </th>
+								<th style="font-weight:normal">Cortadores de cana (%)</th>
+								<th style="font-weight:normal">Trabalhadores urbanos (%)</th>
+								<th style="font-weight:normal">Cortadores de cana (%)</th>
+								<th style="font-weight:normal">Trabalhadores urbanos (%)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Mudança de apetite</td>
+								<td align="center">55,2</td>
+								<td align="center">17,7</td>
+								<td align="center">52,5</td>
+								<td align="center">23,3</td>
+							</tr>
+							<tr>
+								<td>Aumento súbito de motivação</td>
+								<td align="center">55,2</td>
+								<td align="center">35,4</td>
+								<td align="center">42,4</td>
+								<td align="center">19,2</td>
+							</tr>
+							<tr>
+								<td>Problemas dermatológicos</td>
+								<td align="center">10,1</td>
+								<td align="center">23,2</td>
+								<td align="center">25,2</td>
+								<td align="center">10,1</td>
+							</tr>
+							<tr>
+								<td>Cansaço constante</td>
+								<td align="center">20,2</td>
+								<td align="center">21,8</td>
+								<td align="center">30,2</td>
+								<td align="center">20,2</td>
+							</tr>
+							<tr>
+								<td>Sensibilidade emotiva excessiva</td>
+								<td align="center">30,4</td>
+								<td align="center">47,7</td>
+								<td align="center">29,2</td>
+								<td align="center">31,4</td>
+							</tr>
+							<tr>
+								<td>Pensar em um só assunto</td>
+								<td align="center">51,8</td>
+								<td align="center">47,7</td>
+								<td align="center">49,4</td>
+								<td align="center">37,5</td>
+							</tr>
+							<tr>
+								<td>Irritabilidade excessiva</td>
+								<td align="center">11,2</td>
+								<td align="center">23,2</td>
+								<td align="center">29,2</td>
+								<td align="center">17,2</td>
+							</tr>
+							<tr>
+								<td>Mudança extrema de apetite</td>
+								<td align="center">36,1</td>
+								<td align="center">19,0</td>
+								<td align="center">40,3</td>
+								<td align="center">18,2</td>
+							</tr>
+							<tr>
+								<td>Problema dermatológico prolongado</td>
+								<td align="center">11,2</td>
+								<td align="center">25,9</td>
+								<td align="center">23,5</td>
+								<td align="center">12,1</td>
+							</tr>
+							<tr>
+								<td>Dúvida quanto a si próprio</td>
+								<td align="center">57,5</td>
+								<td align="center">39,5</td>
+								<td align="center">39,3</td>
+								<td align="center">24,3</td>
+							</tr>
+							<tr>
+								<td>Cansaço excessivo</td>
+								<td align="center">19,1</td>
+								<td align="center">25,9</td>
+								<td align="center">37,3</td>
+								<td align="center">20,2</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>No grupo dos trabalhadores urbanos, a frequência dos sintomas de estresse diminuiu no período pós-safra, exceto para o sintoma “mudança de apetite” (<xref ref-type="table" rid="t04">Tabela 4</xref>).</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>Este estudo revela a manifestação do estresse em quase metade dos trabalhadores do corte de cana avaliados no ano de 2009 no município de Mendonça, SP, após o período da safra. O estresse está presente tanto nos trabalhadores do corte de cana como em trabalhadores urbanos residentes, o que estudos anteriores confirmam.<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> Esses resultados nos levam a refletir sobre o impacto da organização e dos processos de trabalho na saúde desses trabalhadores. Em se tratando de trabalhadores do corte de cana, os dados mostram que o grupo é mais vulnerável à manifestação do estresse após intenso e contínuo trabalho de corte da cana ao longo de um período de oito meses. Com relação à intensidade do estresse, ocorreu aumento após o período da safra (<xref ref-type="table" rid="t02">Tabela 2</xref>). Isso significa que em ambos os grupos, nos participantes que apresentaram sintomas de estresse, o organismo apresentou um desgaste generalizado com dificuldades de memória e vulnerabilidade a infecções por microorganismos, com produção de cortisol e queda na produtividade numa tentativa de restabelecer o equilíbrio interno.<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> Porém, diferentemente para ambos os grupos, constata-se maior proporção de participantes cortadores de cana que apresentaram a fase de quase-exaustão e exaustão após o período da safra, indicando que o trabalho do corte pode provocar aumento de desgaste físico e mental, o que não ocorreu nos trabalhadores urbanos que exercem atividades que exigem habilidades cognitivas mais do que esforço físico. As consequências do estresse excessivo podem ser desde a gastrite (fator de risco para desenvolvimento de úlcera gástrica), problemas dermatológicos (herpes, dermatites, urticária, psoríase e vitiligo), hipertensão arterial, envelhecimento precoce, depressão, ansiedade e, em casos raros, até a morte súbita.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref> Nesse sentido, esses resultados apontam para a relação entre estresse e os casos de morte súbita em cortadores de cana.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+			</p>
+			<p>Embora a fase de resistência tenha aparecido na maioria dos trabalhadores com estresse antes e após a safra, verificou-se mais casos de trabalhadores com níveis intoleráveis de estresse (quase-exaustão e exaustão) após a safra. Esses resultados mostram potencial associação com o relato de óbitos não esclarecidos nesse grupo de trabalhadores.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> Os resultados revelaram também a predominância dos sintomas psicológicos sobre os sintomas físicos nos grupos de trabalhadores do corte de cana e de trabalhadores urbanos (<xref ref-type="table" rid="t03">Tabela 3</xref>). Isso caracteriza reações emocionais como irritabilidade excessiva (nervosismo), pensamento fixo e dúvidas quanto a si próprio. Eles também evidenciam os prejuízos que o processo produtivo do setor causa na saúde dos trabalhadores do corte de cana, como sintomas de cansaço excessivo, irritabilidade excessiva (nervosismo), problemas dermatológicos prolongados, entre outros (<xref ref-type="table" rid="t04">Tabela 4</xref>). O monitoramento da saúde dos trabalhadores do corte de cana e a prevenção de agravos deverão levar em conta fatores biopsicológicos implicados nos processos produtivos de trabalho.</p>
+			<p>Este estudo provoca questionamento importante que vai além da questão da percepção de sintomas de estresse que os trabalhadores do corte de cana apresentam no seu dia a dia de trabalho intenso. Para pessoas que optam por esse tipo de vida, é importante direcionar nossa análise quanto à percepção que esse trabalhador possui para sua maior ou menor capacidade de lidar com os eventos que excedem seu limite, que são os estressores do seu cotidiano de trabalho. Isso remete ao que no campo da psicologia é chamado de crenças de autoeficácia.</p>
+			<p>Segundo Bandura,<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> essas crenças têm diversos efeitos sobre o funcionamento humano: regulam aspirações, influenciam o curso de ação para escolher, o esforço a ser colocado em suas tentativas, os padrões de pensamento (autoajuda ou autoimpedimento), quanto estresse ou depressão as pessoas podem experimentar ao enfrentarem demandas acima de sua capacidade. Perceber-se capaz ou não de lidar com a situação estressante parece ser um aspecto crítico para o enfrentamento. As crenças de autoeficácia afetam o impacto dos estressores organizacionais sobre a saúde e a vida emocional dos empregados. O que será experienciado como estressor depende em parte do nível de autoeficácia. Trabalhadores com baixo senso de autoeficácia são estressados pela sobrecarga de trabalho e pelas responsabilidades inerentes a seu papel. Aqueles com alto senso de autoeficácia são frustrados e estressados pelas limitadas oportunidades de aproveitamento de seus talentos.</p>
+			<p>Este estudo evidencia não apenas a importância de interpretar as condições de trabalho de corte da cana como sendo ameaçadora ou não, mas da autopercepção da capacidade de controlá-la efetivamente, sobretudo em trabalhos de natureza periculosa, como o corte da cana. Essa autopercepção constitui o fator crítico para a prevenção do estresse. Sugerimos, em pesquisas futuras, que a avaliação cognitiva do estresse inclua questões que avaliem o grau de controle que o trabalhador julga ter sobre o evento, pois isso determinará a sua capacidade de lidar ou não com o estresse.</p>
+			<p>A crença de ser capaz de realizar o trabalho durante todo o período da safra, receber o salário, adquirir o poder de compra e garantir novo contrato na safra seguinte possibilita ao trabalhador acreditar que conseguirá gerenciar os estímulos perturbadores no trabalho e diminuir sua ansiedade e estresse.<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> Segundo Bandura,<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> as crenças de autoeficácia têm valor adaptativo tanto para o bem-estar emocional como para a ação e a motivação. Com isso, a teoria social cognitiva vem atribuir valor crucial para a determinação do comportamento humano, deduzindo-se disso que o sucesso ou insucesso de um desempenho depende muito mais do que se acredita a respeito dele do que de seu efetivo resultado. Quanto aos trabalhadores cortadores de cana, a autopercepção da capacidade de suportar a carga de trabalho no período da safra é mais importante para conseguir atender a demanda do que o resultado final. Isso porque, segundo Bandura,<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> as pessoas se automotivam e guiam seu desempenho através do pensamento antecipatório, i.e., da sua capacidade de prever cenários positivos para os esforços que serão despendidos. Conclui-se que o monitoramento da saúde do trabalhador do corte de cana perpassa por questões tanto de ordem subjetiva, referente à percepção cognitiva que ele tem sobre o seu estado de saúde, quanto por amplo espectro de fatores sociais, ambientais, econômicos, políticos e culturais. Iglesias &amp; Araújo<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref> afirmam que a saúde não é mais tomada como um conceito exato, padronizado para todas as pessoas, mas se vincula a muitos outros fatores, como os mencionados. É o que Medeiros Neto et al<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref> mostram em análise da percepção da fadiga, estresse e ansiedade em trabalhadores de uma indústria de calçados. Esses autores afirmam que a carga de trabalho físico, a ausência de controle e a grande demanda de trabalho a que os profissionais do setor de produção estão expostos não acarretaram escores superiores de ansiedade, fadiga e estresse comparados aos dos trabalhadores administrativos. Entretanto, no estudo foi observada forte correlação positiva entre o traço de ansiedade e percepção da fadiga e estresse laboral, sugerindo que o impacto dessas variáveis pode ser modulado por características individuais, sociais e culturais.</p>
+			<p>Não é apenas o trabalho pesado realizado pelo cortador de cana que pode causar estresse, como esperavam os pesquisadores deste estudo. Há uma teia de implicações no nível individual, subjetivo, envolvendo a percepção cognitiva da experiência, a história de vida do trabalhador com suas crenças de autoeficácia e suas expectativas a respeito do seu desempenho, os quais irão compor o tecido que irá permear seu entendimento sobre as reações provocadas em seu corpo diante dos desafios do trabalho.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+			</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>AGRADECIMENTOS</title>
+			<p>À Pastoral de Migrantes de Mendonça, SP, pela colaboração na seleção dos cortadores de cana.</p>
+		</ack>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Alessi NP, Navarro VL. Saúde e trabalho rural: o caso dos trabalhadores da cultura canavieira na região de Ribeirão Preto, São Paulo, Brasil. Cad Saude Publica. 1997;13(Supl 2):S111-21. DOI:10.1590/S0102-311X1997000600010</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Alessi</surname>
+							<given-names>NP</given-names>
+						</name>
+						<name>
+							<surname>Navarro</surname>
+							<given-names>VL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Saúde e trabalho rural: o caso dos trabalhadores da cultura canavieira na região de Ribeirão Preto, São Paulo, Brasil</article-title>
+					<source>Cad Saude Publica</source>
+					<year>1997</year>
+					<volume>13</volume>
+					<supplement>2</supplement>
+					<fpage>S111</fpage>
+					<lpage>S121</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X1997000600010</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Alves F. Por que morrem os cortadores de cana? Saude Soc. 2006;15(3):90-8. DOI:10.1590/S0104-12902006000300008</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Alves</surname>
+							<given-names>F</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Por que morrem os cortadores de cana?</article-title>
+					<source>Saude Soc</source>
+					<year>2006</year>
+					<volume>15</volume>
+					<issue>3</issue>
+					<fpage>90</fpage>
+					<lpage>98</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0104-12902006000300008</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Arbex MA, Cançado JED, Pereira LAA, Braga ALF, Saldiva PHN. Queima de biomassa e efeitos sobre a saúde. J Bras Pneumol. 2004;30(2):158-75. DOI:10.1590/S1806-37132004000200015</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Arbex</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Cançado</surname>
+							<given-names>JED</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>LAA</given-names>
+						</name>
+						<name>
+							<surname>Braga</surname>
+							<given-names>ALF</given-names>
+						</name>
+						<name>
+							<surname>Saldiva</surname>
+							<given-names>PHN</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Queima de biomassa e efeitos sobre a saúde</article-title>
+					<source>J Bras Pneumol</source>
+					<year>2004</year>
+					<volume>30</volume>
+					<issue>2</issue>
+					<fpage>158</fpage>
+					<lpage>175</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1806-37132004000200015</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Arbex MA, Martins LC, Oliveira RC, Pereira LAA, Arbex FF, Cançado JED,  et al. Air pollution form biomass burning and asthma hospital admissions in a sugar cane plantation area in Brazil. J Epidemiol Community Health. 2007;61(5):395-400. DOI:10.1136/jech.2005.044743</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Arbex</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Martins</surname>
+							<given-names>LC</given-names>
+						</name>
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>RC</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>LAA</given-names>
+						</name>
+						<name>
+							<surname>Arbex</surname>
+							<given-names>FF</given-names>
+						</name>
+						<name>
+							<surname>Cançado</surname>
+							<given-names>JED</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Air pollution form biomass burning and asthma hospital admissions in a sugar cane plantation area in Brazil</article-title>
+					<source>J Epidemiol Community Health</source>
+					<year>2007</year>
+					<volume>61</volume>
+					<issue>5</issue>
+					<fpage>395</fpage>
+					<lpage>400</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Bandura A. Perceived self-efficacy in cognitive development and functioning. Educ Psychol. 1993;28(2):117-48.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bandura</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Perceived self-efficacy in cognitive development and functioning</article-title>
+					<source>Educ Psychol</source>
+					<year>1993</year>
+					<volume>28</volume>
+					<issue>2</issue>
+					<fpage>117</fpage>
+					<lpage>148</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Bandura A. Self- efficacy: the exercise of control. New York: Worth Publishers; 1997.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Bandura</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Self- efficacy: the exercise of control</source>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>Worth Publishers</publisher-name>
+					<year>1997</year>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Bandura A. Social cognitive theory: an agentic perspective. Ann Rev Psychol. 2001;52:1-26. DOI:10.1146/annurev.psych.52.1.1</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bandura</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Social cognitive theory: an agentic perspective</article-title>
+					<source>Ann Rev Psychol</source>
+					<year>2001</year>
+					<volume>52</volume>
+					<fpage>1</fpage>
+					<lpage>26</lpage>
+					<pub-id pub-id-type="doi">10.1146/annurev.psych.52.1.1</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Borges H, Martins A. Migração e sofrimento psíquico do trabalhador da construção civil: uma leitura psicanalítica. Physis Rev Saude Coletiva. 2004;14(1):129-46. DOI:10.1590/S0103-73312004000100008</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Borges</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Martins</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Migração e sofrimento psíquico do trabalhador da construção civil: uma leitura psicanalítica</article-title>
+					<source>Physis Rev Saude Coletiva</source>
+					<year>2004</year>
+					<volume>14</volume>
+					<issue>1</issue>
+					<fpage>129</fpage>
+					<lpage>146</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0103-73312004000100008</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Dias EC. A organização da atenção à saúde do trabalhador. In: Ferreira Filho M, organizador. Saúde no trabalho. São Paulo: Rocca; 2000. p.1-23.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Dias</surname>
+							<given-names>EC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">A organização da atenção à saúde do trabalhador</article-title>
+					<person-group>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>M</given-names>
+							<suffix>Filho</suffix>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Saúde no trabalho</source>
+					<publisher-loc>São Paulo</publisher-loc>
+					<publisher-name>Rocca</publisher-name>
+					<year>2000</year>
+					<fpage>1</fpage>
+					<lpage>23</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Hovey JD, Magaña CG. Exploring the mental health of Mexican migrant farm workers in the Midwest: psychosocial predictors of psychological distress and suggestions for prevention and treatment. J Psychol. 2002;136(5):493-513. DOI:10.1080/00223980209605546</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hovey</surname>
+							<given-names>JD</given-names>
+						</name>
+						<name>
+							<surname>Magaña</surname>
+							<given-names>CG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Exploring the mental health of Mexican migrant farm workers in the Midwest: psychosocial predictors of psychological distress and suggestions for prevention and treatment</article-title>
+					<source>J Psychol</source>
+					<year>2002</year>
+					<volume>136</volume>
+					<issue>5</issue>
+					<fpage>493</fpage>
+					<lpage>513</lpage>
+					<pub-id pub-id-type="doi">10.1080/00223980209605546</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Iglesias A, Dalbello-Araújo M. As concepções de promoção da saúde e suas implicações. Cad Saude Coletiva. 2011;19(3):291-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Iglesias</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Dalbello-Araújo</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">As concepções de promoção da saúde e suas implicações</article-title>
+					<source>Cad Saude Coletiva</source>
+					<year>2011</year>
+					<volume>19</volume>
+					<issue>3</issue>
+					<fpage>291</fpage>
+					<lpage>298</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Kim-Godwin YS, Bechtel GA. Stress among migrant and seasonal farmworkers in rural southeast North Carolina. J Rural Health. 2004;20(3):271-8. DOI:10.1111/j.1748-0361.2004.tb00039.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Kim-Godwin</surname>
+							<given-names>YS</given-names>
+						</name>
+						<name>
+							<surname>Bechtel</surname>
+							<given-names>GA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Stress among migrant and seasonal farmworkers in rural southeast North Carolina</article-title>
+					<source>J Rural Health</source>
+					<year>2004</year>
+					<volume>20</volume>
+					<issue>3</issue>
+					<fpage>271</fpage>
+					<lpage>278</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1748-0361.2004.tb00039.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Lipp MEN. O modelo quadrifásico do estresse. In:Lipp MEN, organizador. Mecanismos neuropsicofisiológicos do estresse: teoria e aplicações clínicas. São Paulo: Casa do Psicólogo; 2003. p.17-22.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Lipp</surname>
+							<given-names>MEN</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="pt">O modelo quadrifásico do estresse</chapter-title>
+					<person-group>
+						<name>
+							<surname>Lipp</surname>
+							<given-names>MEN</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Mecanismos neuropsicofisiológicos do estresse: teoria e aplicações clínicas</source>
+					<publisher-loc>São Paulo</publisher-loc>
+					<publisher-name>Casa do Psicólogo</publisher-name>
+					<year>2003</year>
+					<fpage>17</fpage>
+					<lpage>22</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Lipp MEN. Manual do inventário de sintomas de estresse para adultos de LIPP. São Paulo; Casa do Psicólogo; 2005.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Lipp</surname>
+							<given-names>MEN</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Manual do inventário de sintomas de estresse para adultos de LIPP</source>
+					<publisher-loc>São Paulo</publisher-loc>
+					<publisher-name>Casa do Psicólogo</publisher-name>
+					<year>2005</year>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Medeiros Neto CF, Almeida GA, Ramos BC, Costa SKP, Silva HPA, Sousa MBC. Análise da percepção da fadiga, estresse e ansiedade em trabalhadores de uma indústria de calçados. J Bras Psiquiatr. 2012;61(3):133-8. DOI:10.1590/S0047-20852012000300003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Medeiros</surname>
+							<given-names>CF</given-names>
+							<suffix>Neto</suffix>
+						</name>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>GA</given-names>
+						</name>
+						<name>
+							<surname>Ramos</surname>
+							<given-names>BC</given-names>
+						</name>
+						<name>
+							<surname>Costa</surname>
+							<given-names>SKP</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>HPA</given-names>
+						</name>
+						<name>
+							<surname>Sousa</surname>
+							<given-names>MBC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Análise da percepção da fadiga, estresse e ansiedade em trabalhadores de uma indústria de calçados</article-title>
+					<source>J Bras Psiquiatr</source>
+					<year>2012</year>
+					<volume>61</volume>
+					<issue>3</issue>
+					<fpage>133</fpage>
+					<lpage>138</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0047-20852012000300003</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Moraes MS, Priuli RMA. Migração e saúde: os trabalhadores do corte da cana de açúcar. Rev Inter Mob Hum. 2011;19(37):231-45.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Moraes</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Priuli</surname>
+							<given-names>RMA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Migração e saúde: os trabalhadores do corte da cana de açúcar</article-title>
+					<source>Rev Inter Mob Hum</source>
+					<year>2011</year>
+					<volume>19</volume>
+					<issue>37</issue>
+					<fpage>231</fpage>
+					<lpage>245</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Ribeiro H. Queimadas de cana-de-açúcar no Brasil: efeitos à saúde respiratória. Rev Saude Publica. 2008;42(2):370-6. DOI:10.1590/S0034-89102008005000009</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Ribeiro</surname>
+							<given-names>H</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Queimadas de cana-de-açúcar no Brasil: efeitos à saúde respiratória</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2008</year>
+					<volume>42</volume>
+					<issue>2</issue>
+					<fpage>370</fpage>
+					<lpage>376</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102008005000009</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Ribeiro H, Ficarelli TRA. Queimadas nos canaviais e perspectivas dos cortadores de cana-de-açúcar em Macatuba, São Paulo. Saude Soc. 2010;19(1):48-63. DOI:10.1590/S0104-12902010000100005.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Ribeiro</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Ficarelli</surname>
+							<given-names>TRA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Queimadas nos canaviais e perspectivas dos cortadores de cana-de-açúcar em Macatuba, São Paulo</article-title>
+					<source>Saude Soc</source>
+					<year>2010</year>
+					<volume>19</volume>
+					<issue>1</issue>
+					<fpage>48</fpage>
+					<lpage>63</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0104-12902010000100005</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Rodrigues AL, Gasparini ACLF. Uma perspectiva psicossocial em psicossomática: via estresse e trabalho. In: Mello Filho J, organizador. Psicossomática hoje. Porto Alegre: Artes Médicas; 1992. p.111-134.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Rodrigues</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Gasparini</surname>
+							<given-names>ACLF</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="pt">Uma perspectiva psicossocial em psicossomática: via estresse e trabalho</chapter-title>
+					<person-group>
+						<name>
+							<surname>Mello</surname>
+							<given-names>J</given-names>
+							<suffix>Filho</suffix>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Psicossomática hoje</source>
+					<publisher-loc>Porto Alegre</publisher-loc>
+					<publisher-name>Artes Médicas</publisher-name>
+					<year>1992</year>
+					<fpage>111</fpage>
+					<lpage>134</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Rodrigues N, Myers HF, Mira CB, Flores T, Hernandez LG. Development of the Multidimensional Acculturative Stress Inventory for adults of Mexican origin. Psychol Assess. 2003;14(4):451-61. DOI:10.1037//1040-3590.14.4.451</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Rodrigues</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Myers</surname>
+							<given-names>HF</given-names>
+						</name>
+						<name>
+							<surname>Mira</surname>
+							<given-names>CB</given-names>
+						</name>
+						<name>
+							<surname>Flores</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Hernandez</surname>
+							<given-names>LG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Development of the Multidimensional Acculturative Stress Inventory for adults of Mexican origin</article-title>
+					<source>Psychol Assess</source>
+					<year>2003</year>
+					<volume>14</volume>
+					<issue>4</issue>
+					<fpage>451</fpage>
+					<lpage>461</lpage>
+					<pub-id pub-id-type="doi">10.1037//1040-3590.14.4.451</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Selye H. A syndrome produced by diverse nocuous agents. Nature. 1936;138(3479):32. DOI:10.1038/138032a0</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Selye</surname>
+							<given-names>H</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A syndrome produced by diverse nocuous agents</article-title>
+					<source>Nature</source>
+					<year>1936</year>
+					<volume>138</volume>
+					<issue>3479</issue>
+					<size units="pages">32</size>
+					<pub-id pub-id-type="doi">10.1038/138032a0</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Silva MAM. Trabalho e trabalhadores na região do “Mar de Cana e do Rio de Álcool”. Agraria. 2005;(2):2-39. DOI:10.11606/agr.v0i2.103</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Silva</surname>
+							<given-names>MAM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Trabalho e trabalhadores na região do “Mar de Cana e do Rio de Álcool”</article-title>
+					<source>Agraria</source>
+					<year>2005</year>
+					<issue>2</issue>
+					<fpage>2</fpage>
+					<lpage>39</lpage>
+					<pub-id pub-id-type="doi">10.11606/agr.v0i2.103</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>. Silva MAM, Queiroz MS. Somatização em migrantes de baixa renda no Brasil. Psicol Soc. 2006;18(1):31-9. DOI:10.1590/S0102-71822006000100005</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Silva</surname>
+							<given-names>MAM</given-names>
+						</name>
+						<name>
+							<surname>Queiroz</surname>
+							<given-names>MS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Somatização em migrantes de baixa renda no Brasil</article-title>
+					<source>Psicol Soc</source>
+					<year>2006</year>
+					<volume>18</volume>
+					<issue>1</issue>
+					<fpage>31</fpage>
+					<lpage>39</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-71822006000100005</pub-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Silva MAM. Migração e adoecimento: a cultura e o espaço de simbolização da doença [tese de doutorado]. Campinas (SP): Faculdade de Ciências Médicas da Universidade de Campinas; 2004.</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> Fontes AP. O enfrentamento do estresse no trabalho na idade adulta [dissertação de mestrado]. Campinas (SP): Faculdade de Educação da Universidade de Campinas; 2006.</p>
+			</fn>
+			<fn id="fn3">
+				<label>c </label>
+				<p>Guimarães LAM, Mac Fadden MAJ. Validação para o Brasil do SWS Survey: questionário sobre estresse, saúde mental e trabalho. In: Guimarães LAM, Grubits S, organizadores. Série Saúde mental e trabalho. São Paulo: Casa do Psicólogo; 1999. v.1, p.153-169.</p>
+			</fn>
+			<fn id="fn4" fn-type="financial-disclosure">
+				<p>Estudo financiado pelo Projeto de Pesquisa Ministério de Ciência e Tecnologia (MCT), Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Edital MCT-CNPq/CT – Saúde 021/2008 – Processo 402195/2008).</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<title-group>
+				<article-title xml:lang="en">The impact of stress on the health of sugar cane cutters</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Roseana Mara Aredes Priuli  Av. Juscelino Kubistcheck de Oliveira, 1220, Jardim Panorama, Condomínio Recanto Real Rua 4, 440  15021-450 São José do Rio Preto, SP, Brasil  E-mail: <email>roseanap@gmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>Evaluate the impact of stress on sugar cane cutters and the prevalence of physical and psychological symptoms before and after harvest.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>We studied 114 sugarcane cutters and 109 urban workers in the pre-harvest and 102 sugar cane cutters and 81 urban workers in the post-harvest period in the city of Mendonça, SP, Southeastern Brazil, in 2009. Data analysis was based on the frequency and percentage of the assessed symptoms of stress, using the Lipp-ISSL test (Symptoms of Stress for Adults). The data were analyzed using descriptive statistics. The Fisher Test was used to compare the variable of stress between pre- and post-harvest within the sugar cane cutter and urban worker groups. P values below 0.05 were considered significant.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>Stress in sugar cane cutters increased after harvesting (34.2% pre-harvest and 46.1% post-harvest); in urban workers, stress decreased from 44.0% pre-harvest to 42.0% post-harvest. There was prevalence of the phase of resistance to stress for both groups with signs more apparent from the near-exhaustion and exhaustion phases for sugar cane cutters. After harvest, there was a tendency for the number of sugar cane cutters with symptoms of near-exhaustion (6.4%) and exhaustion (10.6%) to increase. After harvest there was a trend for the number of sugar cane cutters with physical symptoms (pre-harvest = 20.5%, post-harvest = 25.5%) and psychological symptoms (pre-harvest = 64.1%; post-harvest = 70.2%) to increase. For both groups, predominantly psychological symptoms occurred in both phases (70.2% <italic>versus</italic> 64.7%).</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>The work process of cutting cane can cause stress. Individual factors such as cognitive perception of the experience, self-efficacy beliefs and expectations of the employee regarding their performance can influence the understanding of the reactions in their body in face of the work.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Rural Workers</kwd>
+				<kwd>Agricultural Workers’ Diseases, epidemiology</kwd>
+				<kwd>Stress, Physiological</kwd>
+				<kwd>Heat Stress Disorders</kwd>
+				<kwd>Burnout, Professional</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Sugar cane cutters’ health is conditioned by social, economic, technological and organizational factors related to the profile of production and consumption, as well as by physical, biological, mechanical and ergonomic risk factors existing in the work processes.<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> In Brazil, the relationship between work and the workers’ health-disease is a mosaic in which different stages of technical incorporation and forms of organization coexist, as well as the management of production activities which impact on the life, sickness and deaths of the workers.</p>
+				<p>Sugar cane cutters live with modern work methods but in slavery-like conditions, which can affect their health.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> A series of sudden deaths among sugar cane cutters was attributed to overwork.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref>
+				</p>
+				<p>The restructuration of the country’s production processes from the 1990s onwards, due to the globalization of the economy, had repercussions for rural activities, exacerbating historically constructed situations of exploitation and inequality. Thus, technological innovation enabled work to be intensified, expressed in physiological and psycho-cognitive diseases among the workers. This transformation in the world of work led to social exclusion and deteriorating health conditions.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+				</p>
+				<p>The migration process undergone by sugar cane cutters should also be considered as a risk factor for health. Studies have shown that the migration phenomenon can trigger illness, as it requires the organism to adapt to changes in the environment,<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>,<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref>,<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> obliging the organism to use its reserves of energy, which can, in certain circumstances, lead to weakened physical and mental resistance, and this can result in psycho-physiological diseases originating in excessive stress.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B23">23</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref>
+				</p>
+				<p>The four-stage model conceives stress as the organism’s reaction to psychological, physical, mental and hormonal components occurring when the need for a significant adaptation to an event or situation appears. This event could be perceived as positive or negative. Positive stress is that of the initial phase of alert, when the organism produces adrenaline, providing energy and making the individual both more productive and more creative. Negative stress is produced by excess, occurring when the individual exceeds their limits and exhausts their capacity to adapt. In this phase, resistance, the organism seeks to resist the stressors and total exhaustion of energy. Cortisol is produced and productivity falls drastically. When the tension exceeds manageable limits, this is the near exhaustion phase; physical and emotional resistance begin to breakdown; in this phase, there is great anxiety as the individual experiences moments of discomfort interspersed with moments of lucidity and decision making. Finally, in the fourth phase, exhaustion, the most negative, pathological, stress leads to significant internal imbalance, which can lead to serious illness.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref>
+				</p>
+				<p>Going beyond this psycho-physical concept of stress, Rodrigues &amp; Gasparini<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> state that stress is related to the subject’s interpretation of their experience of living, control of which is closely related to the subject’s ability to perceive their own body and emotional reactions. Thus, depending on their self-perception, an individual can be capable of identifying, more or less accurately, their physical and emotional reactions stemming from a stressful situation.</p>
+				<p>The aim of this study was to analyze stress levels and prevalence of physical and psychological symptoms in sugar cane cutters in the pre- and post-harvest periods.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>In 2009, it was estimated that there were around 400 individuals from the Northeast of Brazil, from the states of Paraíba and Pernambuco, working in sugar and alcohol plants in the rural area of Novo Horizonte, SP, Southeastern Brazil, of which 183 migrated annually to the city of Mendonça, SP, to work cutting sugar cane. In the pre-harvest period, 114 rural sugar cane cutters and 102 urban residents in Mendonça participated in the study. In the post-harvest period, 109 sugar cane cutters and 81 urban workers participated.</p>
+				<p>Sugar cane cutters meeting the following inclusion criteria were selected: males aged between 20 and 40, non-smokers and with no reported cardiorespiratory disease.</p>
+				<p>The urban workers, residents in the city, were selected according to the same criteria established for the sugar cane cutters, provided they did not work in this crop.</p>
+				<p>Stress levels were evaluated in the groups of cane cutters and in the group of urban workers in both stages (1 and 2) using Lipp’s Inventory of Symptoms of Stress for Adults (ISSL).<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+				</p>
+				<p>The Lipp-ISSL aims to answer three basic questions: whether the individual is stressed; if so, in which phase (alert, resistance, near exhaustion or exhaustion); and whether physical or psychological symptoms are prevalent. The instrument is composed of three sessions, the first referring to symptoms the individual has experienced in the preceding 24 hours, the second concerning symptoms from the preceding week and the third symptoms from the preceding month.</p>
+				<p>The ISSL lists physical (e.g., dry mouth, tense muscles, tingling extremities) and psychological (e.g., self-doubt, sudden surges in motivation, lost sense of humor) symptoms, divided into three areas. It is based on Selye’s<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref> three stage model, in which each area corresponds to a phase of stress. First, the respondent indicates which of the symptoms in the first area had been experienced in the preceding 24 hours. Next, they indicate symptoms from the second area which they had noted in the preceding week, and then those which had affected them in the preceding month, from the physical and psychological symptoms presented in the third area. The ISSL can diagnose whether the individual is stressed, at which stage of the process (alert, resistance, near exhaustion or exhaustion) and whether physical or psychological symptoms are prevalent. The Lipp-ISSL is a four-stage model of stress that introduces a new phase between those of resistance and exhaustion, namely the “near exhaustion phase”.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+				</p>
+				<p>The results were analyzed according to criteria of the sugar cane cutters and urban workers having participated in either of the two periods, i.e., in the pre- or in the post-harvest period, or in both. As the participants were not paired, no individuals were eliminated, and there were therefore no losses. In total, 114 sugar cane cutters were evaluated in the pre-harvest and 102 in the post-harvest period; and 109 urban workers in the pre-harvest and 81 in the post-harvest period.</p>
+				<p>The data collected were analyzed using descriptive statistics. Fisher’s Exact test (GraphPad Prisma 4.0 software) was used to compare the categorical variable, represented by pre- and post-harvest stress in the groups of cane cutters and urban workers (<xref ref-type="table" rid="t01_en">Table 1</xref>). P values below 0.05 were considered significant.</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Distribution of urban workers and sugar cane cutters in the pre- and post-harvest periods according to presence of stress.a </title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="10%"/>
+								<col width="30%"/>
+								<col width="20%"/>
+								<col width="20%"/>
+								<col width="20%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left">Period</th>
+									<th style="font-weight:normal">Population</th>
+									<th style="font-weight:normal">Sample (n)</th>
+									<th style="font-weight:normal">With stress (n)</th>
+									<th style="font-weight:normal">With stress (%)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Pre-harvest</td>
+									<td align="center">Urban workers</td>
+									<td align="center">109</td>
+									<td align="center">48</td>
+									<td align="center">44.0</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td align="center">Sugar cane cutters</td>
+									<td align="center">114</td>
+									<td align="center">39</td>
+									<td align="center">34.2</td>
+								</tr>
+								<tr>
+									<td>Post-harvest</td>
+									<td align="center">Urban workers</td>
+									<td align="center">81</td>
+									<td align="center">34</td>
+									<td align="center">41.9</td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td align="center">Sugar cane cutters</td>
+									<td align="center">102</td>
+									<td align="center">47</td>
+									<td align="center">46.1</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>a </sup>p of Fisher test for urban workers = 1.00 and p of Fisher test for sugar cane cutters = 0.25.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>The study was approved by the Research Ethics Commission of the Hospital das Clínicas of the <italic>Faculdade de Medicina</italic> of the <italic>Universidade de São Paulo</italic> (Protocol 0282/09). All participants signed an informed consent form.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>
+					<xref ref-type="table" rid="t01_en">Table 1</xref> shows the symptoms of stress which manifested themselves in both the sugar cane cutter (pre-harvest period = 34.2%; post-harvest = 46.1%) and the urban worker population (pre-harvest period = 44.0%; post-harvest = 41.1%). However, in sugar cane cutters, stress was more prevalent in the post-harvest period, whereas it remained constant for the urban workers, irrespective of the period (p of the Fisher test 0.25 and 1.00, respectively).</p>
+				<p>The data show (<xref ref-type="table" rid="t02_en">Table 2</xref>), that the sugar cane cutter population with stress were predominantly in the resistance phase, both before (84.6%) and after (83.0%) the harvest. However, in the post-harvest period, there was a trend for the number of individuals with symptoms of near exhaustion (6.4%) and exhaustion (10.7%) to increase. On the other hand, in the urban worker group, although the predominant phase was that of resistance, in both the pre- (93.8%) and post-harvest (97.1%) periods, there was less exhaustion (4.2% in the pre-harvest period, versus 0.0% in the post- harvest period) (Table 2).</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Distribution of urban workers and sugar cane cutters in the pre- and post-harvest periods according to phase of stress.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="5%"/>
+								<col width="20%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th colspan="2" style="font-weight:normal">Phase of stress</th>
+									<th colspan="2" style="font-weight:normal">Alert</th>
+									<th colspan="2" style="font-weight:normal">Resistance</th>
+									<th colspan="2" style="font-weight:normal">Near exhaustion</th>
+									<th colspan="2" style="font-weight:normal">Exhaustion</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal" align="left">Period</th>
+									<th style="font-weight:normal">Population</th>
+									<th style="font-weight:normal">Frequency</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">Frequency</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">Frequency</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">Frequency</th>
+									<th style="font-weight:normal">%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td rowspan="2">Pre-harvest</td>
+									<td align="center">Urban workers (N = 48)</td>
+									<td align="center">1</td>
+									<td align="center">2.0</td>
+									<td align="center">45</td>
+									<td align="center">93.75</td>
+									<td align="center">0</td>
+									<td align="center">0.0</td>
+									<td align="center">2</td>
+									<td align="center">4.1</td>
+								</tr>
+								<tr>
+									<td align="center">Sugar cane cutters (N = 39)</td>
+									<td align="center">2</td>
+									<td align="center">5.1</td>
+									<td align="center">33</td>
+									<td align="center">84.6</td>
+									<td align="center">2</td>
+									<td align="center">5.1</td>
+									<td align="center">2</td>
+									<td align="center">5.1</td>
+								</tr>
+								<tr>
+									<td rowspan="2">Post-harvest</td>
+									<td align="center">Urban workers (N = 34)</td>
+									<td align="center">1</td>
+									<td align="center">2.9</td>
+									<td align="center">33</td>
+									<td align="center">97.0</td>
+									<td align="center">0</td>
+									<td align="center">0.0</td>
+									<td align="center">0</td>
+									<td align="center">0.0</td>
+								</tr>
+								<tr>
+									<td align="center">Sugar cane cutters (N = 47)</td>
+									<td align="center">0</td>
+									<td align="center">0.0</td>
+									<td align="center">39</td>
+									<td align="center">82.9</td>
+									<td align="center">3</td>
+									<td align="center">6.3</td>
+									<td align="center">5</td>
+									<td align="center">10.6</td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+				<p>When comparing the pre- and post-harvest data, a tendency for the proportion of sugar cane cutters with physical (20.5% to 25.5%) and psychological (from 64.1% to 70.2%) symptoms to increase was observed, whereas for the urban workers (<xref ref-type="table" rid="t03_en">Table 3</xref>) the trend was for physical symptoms to decrease (from 29.2% to 23.5%) and psychological symptoms to increase (from 62.5% to 64.7%) in the post-harvest period. In both groups, psychological symptoms were less frequent in both periods, with this being more evident in the sugar cane cutters.</p>
+				<p>
+					<table-wrap id="t03_en">
+						<label>Table 3</label>
+						<caption>
+							<title>Distribution of urban workers and sugar cane cutters in the pre- and post-harvest periods according to predominance of symptoms.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="15%"/>
+								<col width="25%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th colspan="2" style="font-weight:normal">Phase of stress</th>
+									<th colspan="2" style="font-weight:normal">Physical</th>
+									<th colspan="2" style="font-weight:normal">Psychological</th>
+									<th colspan="2" style="font-weight:normal">Physical and Psychological</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal" align="left">Period</th>
+									<th style="font-weight:normal">Population</th>
+									<th style="font-weight:normal">Frequency</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">Frequency</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">Frequency</th>
+									<th style="font-weight:normal">%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td rowspan="2">Pre-harvest</td>
+									<td align="center">Urban workers (N = 48)</td>
+									<td align="center">14</td>
+									<td align="center">29.1</td>
+									<td align="center">30</td>
+									<td align="center">62.5</td>
+									<td align="center">4</td>
+									<td align="center">8.3</td>
+								</tr>
+								<tr>
+									<td align="center">Sugar cane cutters (N = 39)</td>
+									<td align="center">8</td>
+									<td align="center">20.5</td>
+									<td align="center">25</td>
+									<td align="center">64.1</td>
+									<td align="center">6</td>
+									<td align="center">15.3</td>
+								</tr>
+								<tr>
+									<td rowspan="2">Post-harvest</td>
+									<td align="center">Urban workers (N = 34)</td>
+									<td align="center">8</td>
+									<td align="center">23.5</td>
+									<td align="center">22</td>
+									<td align="center">64.7</td>
+									<td align="center">4</td>
+									<td align="center">11.7</td>
+								</tr>
+								<tr>
+									<td align="center">Sugar cane cutters (N = 47)</td>
+									<td align="center">12</td>
+									<td align="center">25.5</td>
+									<td align="center">33</td>
+									<td align="center">70.2</td>
+									<td align="center">2</td>
+									<td align="center">4.2</td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+				<p>Regarding specific symptoms of stress (<xref ref-type="table" rid="t04_en">Table 4</xref>), in the post-harvest period, it was noted that sugar cane cutters had: increased dermatological problems (from 10.1% to 25.3%), constant fatigue (from 20.3% to 30.3%), excessive irritability (from 11.3% to 29.3%), prolonged dermatological problems (from 11.3% to 23.6%) and excessive fatigue (from 19.2% to 37.3%).</p>
+				<p>
+					<table-wrap id="t04_en">
+						<label>Table 4</label>
+						<caption>
+							<title>Distribution of urban workers and sugar cane cutters in the pre- and post-harvest periods according to presence of symptoms of stress (p of Fisher test).</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="40%"/>
+								<col width="15%"/>
+								<col width="15%"/>
+								<col width="15%"/>
+								<col width="15%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="2" style="font-weight:normal" align="left">Symptoms</th>
+									<th colspan="2" style="font-weight:normal">Pre-harvest (Phase 1)</th>
+									<th colspan="2" style="font-weight:normal">Post-harvest (Phase 2)</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">Sugar cane cutters (%)</th>
+									<th style="font-weight:normal">Urban workers (%)</th>
+									<th style="font-weight:normal">Sugar cane cutters (%)</th>
+									<th style="font-weight:normal">Urban workers (%)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Changes in appetite</td>
+									<td align="center">55.2</td>
+									<td align="center">17.7</td>
+									<td align="center">52.5</td>
+									<td align="center">23.3</td>
+								</tr>
+								<tr>
+									<td>Surge of motivation</td>
+									<td align="center">55.2</td>
+									<td align="center">35.4</td>
+									<td align="center">42.4</td>
+									<td align="center">19.2</td>
+								</tr>
+								<tr>
+									<td>Dermatological problems</td>
+									<td align="center">10.1</td>
+									<td align="center">23.2</td>
+									<td align="center">25.2</td>
+									<td align="center">10.1</td>
+								</tr>
+								<tr>
+									<td>Constant fatigue</td>
+									<td align="center">20.2</td>
+									<td align="center">21.8</td>
+									<td align="center">30.2</td>
+									<td align="center">20.2</td>
+								</tr>
+								<tr>
+									<td>Excessive emotional sensitivity</td>
+									<td align="center">30.4</td>
+									<td align="center">47.7</td>
+									<td align="center">29.2</td>
+									<td align="center">31.4</td>
+								</tr>
+								<tr>
+									<td>Thinking about only one subject</td>
+									<td align="center">51.8</td>
+									<td align="center">47.7</td>
+									<td align="center">49.4</td>
+									<td align="center">37.5</td>
+								</tr>
+								<tr>
+									<td>Excessive irritability</td>
+									<td align="center">11.2</td>
+									<td align="center">23.2</td>
+									<td align="center">29.2</td>
+									<td align="center">17.2</td>
+								</tr>
+								<tr>
+									<td>Extreme changes in appetite</td>
+									<td align="center">36.1</td>
+									<td align="center">19.0</td>
+									<td align="center">40.3</td>
+									<td align="center">18.2</td>
+								</tr>
+								<tr>
+									<td>Prolonged dermatological problems</td>
+									<td align="center">11.2</td>
+									<td align="center">25.9</td>
+									<td align="center">23.5</td>
+									<td align="center">12.1</td>
+								</tr>
+								<tr>
+									<td>Self-doubt</td>
+									<td align="center">57.5</td>
+									<td align="center">39.5</td>
+									<td align="center">39.3</td>
+									<td align="center">24.3</td>
+								</tr>
+								<tr>
+									<td>Excessive fatigue</td>
+									<td align="center">19.1</td>
+									<td align="center">25.9</td>
+									<td align="center">37.3</td>
+									<td align="center">20.2</td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+				<p>In the group of urban workers, the frequency of symptoms of stress decreased in the post-harvest period, with the exception of “changes in appetite” (Table 4).</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>This study reveals that stress manifested itself in almost half of assessed sugar cane cutters in the municipality of Mendonça, SP, in the pre- and post-harvest periods of 2009. Both cane cutters and urban workers suffered from stress, as confirmed in previous studies.<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref> These results lead us to reflect on the impact of the organization of work processes on the health of these workers. Concerning the sugar cane cutters, the data show that this group are more vulnerable to stress manifesting itself after the intense and continuous work of cutting sugar cane over an eight-month period. Regarding the intensity of the stress suffered, there was an increase in the post-harvest period (<xref ref-type="table" rid="t02_en">Table 2</xref>). This means that in both groups, our participants showed signs of stress, the organism presenting generalized attrition with problems with memory and vulnerability to infection by microorganisms, cortisol production and falls in productivity denoting attempts to re-establish internal balance.<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref> However, the two groups differed in that a higher proportion of sugar cane cutters were in the near exhaustion and exhaustion phases in the post-harvest period, indicating that their work may produce increased physical and mental attrition, which was not the case for the urban workers, exercising functions which required cognitive abilities rather than physical effort. The consequences of excessive stress range from gastritis (risk factor in developing gastric ulcers), dermatological problems (herpes, dermatitis, urticaria psoriasis and vitiligo), arterial hypertension, early ageing, depression anxiety and, in rare cases, sudden death.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref> In this sense, these results indicate the relationship between stress and cases of sudden death in sugar cane cutters.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+				</p>
+				<p>Although the majority of workers with stress in the pre- and post-harvest periods were in the resistance phase, more cases of workers with unacceptable levels of stress (near exhaustion and exhaustion) were noted after the harvest. These results show a potential association between reports of sudden, unexplained deaths in this group of workers.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> The results also show the predominance of psychological symptoms over physical symptoms on the groups of sugar cane cutters and urban workers (<xref ref-type="table" rid="t03_en">Table 3</xref>). This is characterized by emotional reactions such as excessive irritability, fixed thinking and self-doubt. They also show evidence of the damage the production process in this sector causes to the health of sugar cane cutters, such as symptoms of excessive fatigue, excessive irritability and prolonged dermatological problems, among others (Table 4). Monitoring sugar cane workers’ health and preventing health problems should take into account bio-psycho-social factors implicated in the production processes of the work.</p>
+				<p>This study raises important issues beyond that of the perception of symptoms of stress suffered by sugar cane cutters in their intense day-to-day work. For those who opt for this kind of life, it is important that our analysis is aimed at the worker’s perception of their capacity to deal with events exceeding their limits, which are the stressors in their daily work. This refers to what psychologists call self-efficacy beliefs.</p>
+				<p>According to Bandura,<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> these beliefs have diverse effects on the way humans function: they regulate aspirations, influence the course of action to choose from, the effort put into attempts, thought patterns (self-help and self-impeding), as the stress or depression experienced when dealing with demands that exceed capability. Perceiving oneself as capable, or otherwise, of dealing with stressful situations appears to be a critical aspect in facing them. Self-efficacy beliefs affect the impact of organizational stressors on the health and emotional life of employees. What is experienced as a stressor partly depends on the level of self-efficacy. Workers with a poor sense of self-efficacy become stressed with overwork and the responsibilities inherent to their role. Those with high sense of self-efficacy are frustrated and stressed by limited opportunities to make use of their talents.</p>
+				<p>This study shows that it is important not only to interpret the sugar cane cutters’ working conditions as threatening or otherwise, but to assess self-perception of capacity to effectively control them, especially in work of a dangerous nature, such as cutting sugar cane. This self-perception is a critical factor in preventing stress. We suggest that, in future research, evaluation of stress include questions evaluating the degree of control the worker judges he has over the event, as he determines his capacity to deal with stress, or otherwise.</p>
+				<p>Believing oneself capable of carrying out the work throughout the entire harvest period, receive a salary, acquire spending power and guarantee a new contract for the next harvest enables the worker to believe they will manage to balance worrying stimuli at work and decrease anxiety and stress.<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> According to Bandura,<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> self-efficacy beliefs have adaptive power not only for emotional well-being, but also for action and motivation. Thus, cognitive social theory attributes crucial value to determining human behavior, deducing from this that success, or lack of, it depends much more on the beliefs held concerning it than on the effective result. Regarding sugar cane cutters, self-perception of their capacity to bear the harvest time workload is more important to meeting the demands of the work than the final result. According to Bandura,<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> this is because individuals self-motivate themselves and guide their performance through anticipatory thinking, i.e., their capacity to foresee positive situations for the forces which will be expended. It can be concluded that monitoring the health of sugar cane cutters is permeated by subjective issues concerning the cognitive perception they have of their state of health, as well as by a wide range of social, environmental, economic, political and cultural factors. Iglesias &amp; Araújo<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref> state that health is no longer seen as an exact concept, standardized for everyone, but rather, as something linked to many other factors, such as those mentioned above. This is demonstrated by Medeiros Neto et al<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref> in their analysis of perceptions of fatigue, stress and anxiety in workers in the shoe industry. These authors state that the physical workload, the lack of control and the demanding work to which professionals in this sector are exposed do not lead to higher scores for anxiety, fatigue or stress compared with administrative workers. However, the study observed a strong positive correlation between the presence of anxiety, perception of fatigue and stress at work, suggesting that the impact of these variables may be modified through individual, social and cultural characteristics.</p>
+				<p>It is not only the heavy physical work of cane cutting which can cause stress, as the researchers of this study expected. There is a web of individual and subjective implications, involving the cognitive perception of experience, the worker’s life history with self-efficacy beliefs and their expectations of their own performance which will make up the fabric that will permeate their understanding of their bodily reactions to the challenges of work.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref>
+				</p>
+			</sec>
+		</body>
+		<back>
+			<ack>
+				<title>ACKNOWLEDGEMENTS</title>
+				<p>To the Pastoral de Migrantes, Mendonça, SP, for collaboration in selecting the sugar cane cutters.</p>
+			</ack>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> Silva MAM. Migração e adoecimento: a cultura e o espaço de simbolização da doença [doctoral thesis]. Campinas (SP): Faculdade de Ciências Médicas da Universidade de Campinas; 2004.</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b</label>
+					<p> Fontes AP. O enfrentamento do estresse no trabalho na idade adulta [Mater’s dissertation]. Campinas (SP): Faculdade de Educação da Universidade de Campinas; 2006.</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c</label>
+					<p> Guimarães LAM, Mac Fadden MAJ. Validação para o Brasil do SWS Survey: questionário sobre estresse, saúde mental e trabalho. In: Guimarães LAM, Grubits S, organizadores. Série Saúde mental e trabalho. São Paulo: Casa do Psicólogo; 1999. v.1, p.153-169.</p>
+				</fn>
+				<fn id="fn4_en" fn-type="financial-disclosure">
+					<p>This study was supported by the Research Project, Ministério de Ciência e Tecnologia (MCT), Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Edital MCT-CNPq/CT – Saúde 021/2008 – Process 402195/2008).</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

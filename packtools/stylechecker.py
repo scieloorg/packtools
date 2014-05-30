@@ -1,10 +1,12 @@
 import re
 import os
 import logging
+import itertools
 
 from lxml import etree
 
 from packtools.utils import setdefault
+from packtools.checks import StyleCheckingPipeline
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -54,24 +56,35 @@ class XML(object):
             self.lxml = etree.parse(file)
 
         self.xmlschema = XMLSchema('SciELO-journalpublishing1.xsd')
+        self.ppl = StyleCheckingPipeline()
 
-    def find_element(self, tagname, lineno):
+    def find_element(self, tagname, lineno=None, fallback=True):
         """Find an element given a tagname and a line number.
 
         If no element is found than the return value is None.
         :param tagname: string of the tag name.
         :param lineno: int if the line it appears on the original source file.
+        :param fallback: fallback to root element when `element` is not found.
         """
         for elem in self.lxml.findall('//' + tagname):
-            if elem.sourceline == lineno:
+            if lineno is None:
+                return elem
+
+            elif elem.sourceline == lineno:
                 logger.debug('method *find*: hit a regular element: %s.' % tagname)
                 return elem
+
+            else:
+                continue
         else:
             root = self.lxml.getroot()
-            if root.tag == tagname:
+            if fallback:
+                return root
+            elif root.tag == tagname:
                 logger.debug('method *find*: hit a root element.')
                 return root
-
+            else:
+                raise ValueError("Could not find element '%s'." % tagname)
 
     def validate(self):
         """Validate the source XML against the JATS Publishing Schema.
@@ -87,6 +100,9 @@ class XML(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
+        errors = next(self.ppl.run(self.lxml, rewrap=True))
+        result = not bool(errors)
+        return result, errors
 
     def _annotate_error(self, element, error):
         """Add an annotation prior to `element`, with `error` as the content.
@@ -110,9 +126,13 @@ class XML(object):
         The errors list is generated as a result of calling both :meth:`validate` and
         :meth:`validate_style` methods.
         """
-        result, errors = self.validate()
+        v_result, v_errors = self.validate()
+        s_result, s_errors = self.validate_style()
 
-        for error in errors:
+        if not v_result and not s_result:
+            return None
+
+        for error in itertools.chain(v_errors, s_errors):
             try:
                 element_name = search_element_name(error.message)
             except ValueError:
@@ -120,12 +140,12 @@ class XML(object):
                 logger.info('Could not locate the element name in: %s' % error.message)
                 continue
 
-            err_element = self.find_element(element_name, error.line)
-            if err_element is None:
-                raise ValueError('Could not locate the erratic element %s at line %s to annotate: %s.' \
-                    % (element_name, error.line, error.message))
+            if error.line is None:
+                err_element = self.find_element(element_name)
             else:
-                self._annotate_error(err_element, error.message)
+                err_element = self.find_element(element_name, lineno=error.line)
+
+            self._annotate_error(err_element, error.message)
 
     def __str__(self):
         return etree.tostring(self.lxml, pretty_print=True,
@@ -156,6 +176,7 @@ def main():
     xml = XML(args.xmlpath)
 
     is_valid, errors = xml.validate()
+    style_is_valid, style_errors = xml.validate_style()
 
     if args.annotated:
         xml.annotate_errors()
@@ -169,6 +190,12 @@ def main():
         else:
             print 'Valid XML! ;)'
 
+        if not style_is_valid:
+            print 'Invalid SPS Style! Found %s errors:' % len(style_errors)
+            for err in style_errors:
+                print err.message
+        else:
+            print 'Valid SPS Style! ;)'
 
 if __name__ == '__main__':
     main()

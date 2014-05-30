@@ -1,0 +1,1557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="en">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004719</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004719</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">
+					<italic>Trypanosoma cruzi</italic> strains from triatomine collected in Bahia and Rio Grande do Sul, Brazil</article-title>
+				<trans-title-group xml:lang="pt">
+					<trans-title>
+						<italic>Trypanosoma cruzi</italic> isolado de triatomíneos coletados na Bahia e Rio Grande do Sul</trans-title>
+				</trans-title-group>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Ribeiro</surname>
+						<given-names>Aline Rimoldi</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Mendonça</surname>
+						<given-names>Vagner José</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Alves</surname>
+						<given-names>Renata Tomé</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Martinez</surname>
+						<given-names>Isabel</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Araújo</surname>
+						<given-names>Renato Freitas de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff4">
+						<sup>IV</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Mello</surname>
+						<given-names>Fernanda</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff5">
+						<sup>V</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Rosa</surname>
+						<given-names>João Aristeu da</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv2">Departamento de Parasitologia</institution>
+				<institution content-type="orgdiv1">Instituto de Biologia</institution>
+				<institution content-type="orgname">Universidade Estadual de Campinas</institution>
+				<addr-line>
+					<named-content content-type="city">Campinas</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Parasitologia. Instituto de Biologia. Universidade Estadual de Campinas. Campinas, SP, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv2">Departamento de Ciências Biológicas</institution>
+				<institution content-type="orgdiv1">Faculdade de Ciências Farmacêuticas</institution>
+				<institution content-type="orgname">Universidade Estadual Júlio de Mesquita Filho</institution>
+				<addr-line>
+					<named-content content-type="city">Araraquara</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Ciências Biológicas. Faculdade de Ciências Farmacêuticas. Universidade Estadual Júlio de Mesquita Filho. Araraquara, SP, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv2">Departamento de Análises Clínicas Toxicológicas e Bromatológicas</institution>
+				<institution content-type="orgdiv1">Faculdade de Ciências Farmacêuticas</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Ribeirão Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Análises Clínicas Toxicológicas e Bromatológicas. Faculdade de Ciências Farmacêuticas. Universidade de São Paulo. Ribeirão Preto, SP, Brasil</institution>
+			</aff>
+			<aff id="aff4">
+				<label>IV</label>
+				<institution content-type="orgname">Secretaria Estadual de Saúde da Bahia</institution>
+				<addr-line>
+					<named-content content-type="city">Salvador</named-content>
+					<named-content content-type="state">BA</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Secretaria Estadual de Saúde da Bahia. Salvador, BA, Brasil</institution>
+			</aff>
+			<aff id="aff5">
+				<label>V</label>
+				<institution content-type="orgname">Secretaria de Saúde do Estado do Rio Grande do Sul</institution>
+				<addr-line>
+					<named-content content-type="city">Porto Alegre</named-content>
+					<named-content content-type="state">RS</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Secretaria de Saúde do Estado do Rio Grande do Sul. Porto Alegre, RS, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>: João Aristeu da Rosa Faculdade de Ciências Farmacêuticas – Campus de Araraquara Rodovia Araraquara-Jaú Km 1 14801-902 Araraquara, SP, Brasil E-mail: <email>rosaja@fcfar.unesp.br</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>295</fpage>
+			<lpage>302</lpage>
+			<history>
+				<date date-type="received">
+					<day>28</day>
+					<month>1</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>11</day>
+					<month>7</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>Collection of triatomines in domestic, peridomestic and sylvatic environments in states of Bahia and Rio Grande do Sul, Northeastern and Southern Brazil respectively, and isolation of <italic>Trypanosoma cruzi</italic> strains.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>First, the captured triatomines were identified using insect identification keys, then their intestinal content was examined by abdominal compression, and the samples containing trypanosomatid forms were inoculated in LIT medium and <italic>Swiss </italic>mice.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>Six triatomine species were collected in cities in Bahia, namely <italic>Panstrongylus geniculatus </italic>(01), <italic>Triatoma melanocephala</italic> (11), <italic>T. lenti </italic>(94), <italic>T. pseudomaculata </italic>(02), <italic>T. sherlocki</italic> (26) and <italic>T. sordida </italic>(460), and two in cities in Rio Grande do Sul, namely <italic>T. circummaculata </italic>(11) and <italic>T. rubrovaria</italic> (115). Out of the specimens examined, <italic>T. cruzi</italic> was isolated from 28 triatomine divided into four different species: <italic>T. melanocephala </italic>(one), <italic>T. lenti </italic>(one), <italic>T. rubrovaria</italic> (16) and <italic>T. sordida </italic>(10). Their index of natural infection by <italic>T. cruzi</italic> was 6.4%.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>The isolation of <italic>T. cruzi</italic> strains from triatomines found in domestic and peridomestic areas shows the potential risk of transmission of Chagas disease in the studied cities. The maintenance of those <italic>T. cruzi</italic> strains in laboratory is intended to promote studies that facilitate the understanding of the parasite-vector-host relationship.</p>
+				</sec>
+			</abstract>
+			<trans-abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Isolar cepas de <italic>Trypanosoma cruzi</italic> em triatomíneos capturados nos ambientes domiciliar, peridomiciliar e silvestre da Bahia e do Rio Grande do Sul.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Os triatomíneos capturados nos estados da Bahia e Rio Grande do Sul foram identificados por meio de chaves entomológicas. O conteúdo intestinal foi examinado por compressão abdominal e as amostras que continham formas de <italic>Trypanosomatidae</italic> foram inoculadas em meio de cultura Liver Infusion Tryptose e em camundongos Swiss.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>Foram identificadas seis espécies de triatomíneos nas coletas realizadas em municípios do Estado da Bahia: <italic>Panstrongylus geniculatus</italic> (01), <italic>Triatoma melanocephala</italic> (11), <italic>T. lenti</italic> (94), <italic>T. pseudomaculata</italic> (02), <italic>T. sherlocki</italic> (26) e <italic>T. sordida</italic> (460), e duas no Estado do Rio Grande do Sul: <italic>T. circummaculata</italic> (11) e <italic>T. rubrovaria</italic> (115). Dos exemplares examinados, <italic>T. cruzi</italic> foi isolado de 28 triatomíneos pertencentes a quatro espécies: <italic>T. melanocephala</italic> (uma), <italic>T. lenti</italic> (uma), <italic>T. rubrovaria</italic> (16) e <italic>T. sordida</italic> (10). O índice de infecção natural de triatomíneos por <italic>T. cruzi</italic> foi de 6,4%.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>O isolamento de cepas de <italic>T. cruzi</italic> em triatomíneos encontrados no intra e peridomicílio reflete o potencial risco de transmissão da doença de Chagas nos municípios estudados.</p>
+				</sec>
+			</trans-abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Chagas Disease, transmission</kwd>
+				<kwd>Triatominae, <italic>Trypanosoma cruzi</italic>, isolation</kwd>
+				<kwd>Communicable Diseases, epidemiology</kwd>
+			</kwd-group>
+			<kwd-group xml:lang="pt">
+				<kwd>Doença de Chagas, transmissão</kwd>
+				<kwd>Triatominae, <italic>Trypanosoma cruzi</italic>, isolamento</kwd>
+				<kwd>Doenças Transmissíveis, epidemiologia</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Programa de Apoio ao Desenvolvimento Cientifico (PADC) of the Faculdade de Ciências Farmacêuticas of the Campus de Araraquara of the Universidade Estadual Paulista “Júlio de Mesquita Filho” (UNESP) </funding-source>
+					<award-id>2013/26-III</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>Fundação para o Desenvolvimento da UNESP (Fundunesp) of the Faculdade de Ciências Farmacêuticas of the Campus de Araraquara of the UNESP</funding-source>
+					<award-id>00066/06</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>Fundação de Amparo à Pesquisa do Estado de São Paulo</funding-source>
+					<award-id>13/08826-5</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior</funding-source>
+					<award-id>23038.005285/2011-12</award-id>
+				</award-group>
+				<funding-statement>This study was supported by the Programa de Apoio ao Desenvolvimento Cientifico (PADC) of the Faculdade de Ciências Farmacêuticas of the Campus de Araraquara of the Universidade Estadual Paulista “Júlio de Mesquita Filho” (UNESP) (Process 2013/26-III), by the Fundação para o Desenvolvimento da UNESP (Fundunesp) of the Faculdade de Ciências Farmacêuticas of the Campus de Araraquara of the UNESP (Process 00066/06), by the Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP) (Process 13/08826-5), and by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES – Process 23038.005285/2011-12).</funding-statement>
+			</funding-group>
+			<counts>
+				<fig-count count="1"/>
+				<table-count count="3"/>
+				<ref-count count="22"/>
+				<page-count count="8"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUCTION</title>
+			<p>Chagas disease is estimated to affect around 10 million people worldwide and 25 million people in Latin America are at risk of infection.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+			</p>
+			<p>In relation to the epidemiology of Chagas disease in Brazil, in 1996 the Chagas Disease Control Program, of the National Foundation for Health/Brazilian Ministry of Health (FNS/MS), collected 290,576 triatomines, of which 201,156 (69.2%) were captured in the Northeast region, where more attention and care are required in view of the presence of sylvatic species that are potentially invasive and difficult to control.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+			</p>
+			<p>In 1975, the Superintendency for Public Health Campaigns (SUCAM) implemented the Chagas Disease Control Program in the state of Rio Grande do Sul, Southern Brazil. This program was responsible for methodological standardization, supply regulation and rationalization of the activities that provided a basis for vector control.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> Almeida et al<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> (2009) reported the presence of <italic>Triatoma rubrovaria</italic> naturally infected by <italic>T. cruzi</italic> in domestic and peridomestic areas of Rio Grande do Sul, where Rosa et al<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> (2000) collected both <italic>T. rubrovaria</italic> and <italic>Triatoma circummaculata</italic> also naturally infected by the parasite. Pena et al<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> (2011) isolated <italic>T. cruzi</italic> strains that came from patients, reservoirs and vectors during an outbreak of acute Chagas disease in the city of Navegantes, state of Santa Catarina, Southern Brazil, which shows the persistence of transmission of the disease in that region.</p>
+			<p>Silveira &amp; Pinto Dias<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> (2011) reported the control activities exercised on a regular basis in Brazil, using systematic methodology and epidemiological, entomological and serological surveys. These actions led to depletion of the main vector species, <italic>Triatoma infestans</italic>, allochthonous and domestic only, and control of household colonization species that are important in transmission. Transmission is now residual in native species such as <italic>Triatoma brasiliensis</italic> and <italic>Triatoma pseudomaculata</italic>. There is a risk of domestication of species, previously considered of wild behavior, such as <italic>Panstrongylus lutzi</italic> and <italic>T. rubrovaria</italic>, beyond the possibility of human infections, directly related to the zoonotic transmission cycle. Therefore, it is still essential to maintain strict entomological surveillance.<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+			</p>
+			<p>The ecological history of the distribution of the several strains of <italic>T. cruzi</italic> is marked by important changes starting from the migration of mammals in the Americas, habitat expansion, and destruction and urbanization of the environment by humans.<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref>
+			</p>
+			<p>Collecting species, studying geographic distribution and infection of triatomines by <italic>T. cruzi</italic> can contribute to the reporting of bugs and surveillance measures.</p>
+			<p>This study aimed to isolate <italic>Trypanosoma cruzi</italic> strains from triatomines in domestic, peridomestic and sylvatic environments in states of Bahia and Rio Grande do Sul, Brazil.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>METHODS</title>
+			<p>In Rio Grande do Sul, triatomines were collected in sylvatic environments in fourteen sites in six cities (<xref ref-type="fig" rid="f01">Figure</xref>) in the period between 2002 and 2003. In the state of Bahia, triatomines were captured in sylvatic, peridomestic and domestic areas in nine sites of five cities in 2003, 2006, 2008 and 2009 (<xref ref-type="table" rid="t01">Table 1</xref>). The Bahia and Rio Grande do Sul State Departments of Health cooperated in the collection activities. The cities were chosen according to the report against triatomine by the health departments of Bahia and Rio Grande do Sul.</p>
+			<p>
+				<fig id="f01">
+					<label>Figure. </label>
+					<caption>
+						<title>Cities in Bahia and Rio Grande do Sul where triatomines were collected, 2002-2009.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0296-gf01"/>
+				</fig>
+			</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Table 1</label>
+					<caption>
+						<title>Locality, collected species, year and environment of collection. Brazil, 2002-2009.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="20%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">State</th>
+								<th style="font-weight:normal">Locality</th>
+								<th style="font-weight:normal">Triatominae</th>
+								<th style="font-weight:normal">Year</th>
+								<th style="font-weight:normal">Ecotope</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="6">Rio Grande do Sul</td>
+								<td align="center">Sao Sepé</td>
+								<td align="center">T. rubrovaria</td>
+								<td align="center">2002</td>
+								<td align="center">S</td>
+							</tr>
+							<tr>
+								<td align="center">Caçapava do Sul</td>
+								<td align="center">T. rubrovaria/T. circummaculata</td>
+								<td align="center">2002</td>
+								<td align="center">S</td>
+							</tr>
+							<tr>
+								<td align="center">Lavras</td>
+								<td align="center">T. rubrovaria/T. circummaculata</td>
+								<td align="center">2002</td>
+								<td align="center">S</td>
+							</tr>
+							<tr>
+								<td align="center">Alegrete</td>
+								<td align="center">T. rubrovaria</td>
+								<td align="center">2002</td>
+								<td align="center">S</td>
+							</tr>
+							<tr>
+								<td align="center">Quaraí</td>
+								<td align="center">T. rubrovaria</td>
+								<td align="center">2002</td>
+								<td align="center">S</td>
+							</tr>
+							<tr>
+								<td align="center">Sta. Livramento</td>
+								<td align="center">T. rubrovaria</td>
+								<td align="center">2003</td>
+								<td align="center">S</td>
+							</tr>
+							<tr>
+								<td rowspan="5">Bahia</td>
+								<td align="center">Santo Inácio</td>
+								<td align="center">T. sordida/T. sherlocki</td>
+								<td align="center">2003</td>
+								<td align="center">P/S</td>
+							</tr>
+							<tr>
+								<td align="center">Santo Inácio</td>
+								<td align="center">T. sordida/T. sherlocki/ T. pseudomaculata</td>
+								<td align="center">2006</td>
+								<td align="center">P/D</td>
+							</tr>
+							<tr>
+								<td align="center">Macaúbas</td>
+								<td align="center">T. lenti/T. sordida/T. pseudomaculata</td>
+								<td align="center">2008</td>
+								<td align="center">P/D</td>
+							</tr>
+							<tr>
+								<td align="center">Macaúbas</td>
+								<td align="center">T. lenti/T. sordida/T. pseudomaculata/P. geniculatus</td>
+								<td align="center">2009</td>
+								<td align="center">P/D</td>
+							</tr>
+							<tr>
+								<td align="center">Poções/Jequié/Bom Jesus da Serra</td>
+								<td align="center">T. melanocephala</td>
+								<td align="center">2009</td>
+								<td align="center">P</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>S: Sylvatic; P: Peridomestic; D: Domestic</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Environments of domestic units closed by doors, i.e., houses and annexes, were considered domestic ecotopes. Triatomines were found sheltering in cracks in those environments, under beds or behind objects placed along the walls. The studied peridomestic ecotopes were in a radius of 50 m from the houses, where domestic animals sleep or are bred. In the active researches, triatomines were collected manually with tweezers and placed in individual flasks labeled with information on the place of collection.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>The captured triatomines were taken to the Triatominae Insectarium of the <italic>Faculdade de Ciências Farmacêuticas</italic> of the <italic>Universidade Estadual Paulista “Júlio de Mesquista Filho”</italic> (FCF/UNESP) at Araraquara, SP, Southeastern Brazil, where they were identified according to morphological characters present in insect identification keys<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> and kept under controlled temperature and humidity (27±2ºC and 60±3% RH). This species are maintained in the colony with controlled conditions in the Laboratory of Parasitology. The capture was conducted by a group containing guides, researchers, and department of health employees and lasted around ten days. The study took place during the day, but there were nocturnal collections that stayed in the environment overnight and used white cloth to attract the insects. Triatominae samples were sought in trees, stones and their attachments.</p>
+			<p>Natural infection of triatomines by trypanosomatid forms was analyzed in feces obtained by abdominal compression. The natural infection index was obtained from the ratio between the number of infected triatomines and the number of examined triatomines.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>In order to isolate and confirm the parasite, samples tested positive for trypanosomatids were diluted with 0.9% saline and examined between slide and coverslip under optical microscopy. Then 0.3 mL was intraperitoneally injected into Swiss mice aged 23 and 35 days, and another 0.3 mL was inoculated in Liver Infusion Tryptose medium. Around 15 days following the inoculation, the peripheral blood of the mice was checked for flagellate forms and the regular growth of the parasite in LIT medium was verified.<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref> The 28 strains of <italic>T. cruzi</italic> are in study by molecular techniques and biological assays such as cellular infection, growth kinetics in LIT medium and parasitemia curve in BALB/c mice. In the present work these data were not included because some trials are ongoing in the laboratory and will be published later.</p>
+			<p>All the procedures were reported to and approved by the Ethical Committee for Animal Experimentation of the <italic>Universidade Estadual Paulista “Júlio de Mesquita Filho”</italic> – Araraquara (Protocol 13/2012).</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTS</title>
+			<p>In Rio Grande do Sul, two triatomine species were collected: <italic>Triatoma circummaculata</italic>, which tested negative for <italic>T. cruzi </italic>in all 11 samples taken, and <italic>Triatoma rubrovaria</italic>, with 20 specimens (of the 115) testing positive for <italic>T. cruzi</italic> (<xref ref-type="table" rid="t02">Table 2</xref>, <xref ref-type="fig" rid="f01">Figure</xref>).</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Table 2</label>
+					<caption>
+						<title>Natural ecotopes investigated in cities in the states of Bahia and Rio Grande do Sul, indicating Triatominae foci, 2002-2009.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="20%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Species</th>
+								<th style="font-weight:normal">Locality</th>
+								<th style="font-weight:normal">Triatominae examined</th>
+								<th style="font-weight:normal">Positive</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>T. circummaculata</td>
+								<td align="center">Caçapava do Sul, RS</td>
+								<td align="center">8</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. circummaculata</td>
+								<td align="center">Lavras, RS</td>
+								<td align="center">3</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. sherlocki</td>
+								<td align="center">Santo Inácio, BA</td>
+								<td align="center">26</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. pseudomaculata</td>
+								<td align="center">Santo Inácio, BA</td>
+								<td align="center">1</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. pseudomaculata</td>
+								<td align="center">Macaúbas, BA</td>
+								<td align="center">1</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>P. geniculatus</td>
+								<td align="center">Macaúbas, BA</td>
+								<td align="center">1</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. sordida</td>
+								<td align="center">Santo Inácio, BA</td>
+								<td align="center">1</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. sordida</td>
+								<td align="center">Macaúbas, BA</td>
+								<td align="center">324</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. rubrovaria</td>
+								<td align="center">Lavras, RS</td>
+								<td align="center">36</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+							<tr>
+								<td>T. rubrovaria</td>
+								<td align="center">Quaraí, RS</td>
+								<td align="center">53</td>
+								<td align="center">2</td>
+								<td align="center">3.7</td>
+							</tr>
+							<tr>
+								<td>T. lenti</td>
+								<td align="center">Macaúbas, BA</td>
+								<td align="center">90</td>
+								<td align="center">4</td>
+								<td align="center">4.4</td>
+							</tr>
+							<tr>
+								<td>T. sordida</td>
+								<td align="center">Macaúbas, BA</td>
+								<td align="center">100</td>
+								<td align="center">6</td>
+								<td align="center">6.1</td>
+							</tr>
+							<tr>
+								<td>T. melanocephala</td>
+								<td align="center">Poções, Jequié, Bom Jesus da Serra, BA</td>
+								<td align="center">11</td>
+								<td align="center">1</td>
+								<td align="center">9.0</td>
+							</tr>
+							<tr>
+								<td>T. sordida</td>
+								<td align="center">Santo Inácio, BA</td>
+								<td align="center">35</td>
+								<td align="center">12</td>
+								<td align="center">34.0</td>
+							</tr>
+							<tr>
+								<td>T. rubrovaria</td>
+								<td align="center">Santana do Livramento, RS</td>
+								<td align="center">5</td>
+								<td align="center">3</td>
+								<td align="center">60.0</td>
+							</tr>
+							<tr>
+								<td>T. rubrovaria</td>
+								<td align="center">Quaraí, RS</td>
+								<td align="center">21</td>
+								<td align="center">15</td>
+								<td align="center">71.0</td>
+							</tr>
+							<tr>
+								<td>T. lenti</td>
+								<td align="center">Macaúbas, BA</td>
+								<td align="center">4</td>
+								<td align="center">3</td>
+								<td align="center">75.0</td>
+							</tr>
+							<tr>
+								<td>Total</td>
+								<td align="center">–</td>
+								<td align="center">720</td>
+								<td align="center">46</td>
+								<td align="center">6.4</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>In Bahia, six species were collected: <italic>Panstrongylus geniculatus, Triatoma melanocephala, Triatoma lenti, Triatoma pseudomaculata, Triatoma sherlocki</italic> and <italic>Triatoma sordida</italic>, summing up 594 captured specimens, 4.4% of them naturally infected (<xref ref-type="table" rid="t02">Table 2</xref>, <xref ref-type="fig" rid="f01">Figure</xref>).</p>
+			<p>From the examined specimens (720) a total of 28 <italic>T. cruzi </italic>strains were isolated: one from the vector <italic>T. melanocephala</italic>, one from<italic> T. lenti</italic>, 16 from <italic>T. rubrovaria</italic>, and 10 from <italic>T. sordida </italic>with the SIGR<sub>3</sub> strain was isolated in 2006 by cat xenodiagnosis in a peridomestic area of Santo Inácio, Bahia.<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref> (<xref ref-type="table" rid="t03">Table 3</xref>).</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Table 3</label>
+					<caption>
+						<title>Strains of <italic>Trypanosoma cruzi </italic>isolated and maintained in laboratory.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="33%">
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Species</th>
+								<th style="font-weight:normal">Strain</th>
+								<th style="font-weight:normal">Year of collection</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="16">T. rubrovaria</td>
+								<td align="center">QG1</td>
+								<td align="center">2002</td>
+							</tr>
+							<tr>
+								<td align="center">QG2</td>
+								<td align="center">2002</td>
+							</tr>
+							<tr>
+								<td align="center">JI</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">JIII</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">QBI</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">QMM1</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM2</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM3</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM4</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM5</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM6</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM7</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM9</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM10</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM11</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td align="center">QMM12</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td rowspan="10">T. sordida</td>
+								<td align="center">SI1</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SI2</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SI3</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SI5</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SI7</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SI8</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SI9</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SI11</td>
+								<td align="center">2003</td>
+							</tr>
+							<tr>
+								<td align="center">SIGR3<sup>a</sup>
+								</td>
+								<td align="center">2006</td>
+							</tr>
+							<tr>
+								<td align="center">SIGR5<sup>a</sup>
+								</td>
+								<td align="center">2006</td>
+							</tr>
+							<tr>
+								<td>T. lenti</td>
+								<td align="center">T. lenti</td>
+								<td align="center">2008</td>
+							</tr>
+							<tr>
+								<td>T. melanocephala</td>
+								<td align="center">Tm</td>
+								<td align="center">2009</td>
+							</tr>
+							<tr>
+								<td>Total</td>
+								<td align="center">28</td>
+								<td align="center">–</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>a</sup> Strains isolated from cats by xenodiagnosis.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>
+				<italic>Triatoma melanocephala </italic>specimens were collected in the cities of Jequié, Poções and Bom Jesus da Serra, BA, and only one specimen provided a <italic>T. cruzi </italic>strain, named “Tm”.</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSION</title>
+			<p>Epidemiological studies on Chagas disease and vector capture have been conducted in both endemic and non-endemic areas.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> In areas where vector-borne transmission was controlled by measures against the main vector of the disease, namely <italic>Triatoma infestans</italic>, invasion and colonization by secondary vectors can be observed, and they were sometimes captured inside the houses. Species like <italic>T. sordida</italic> and <italic>P. megistus</italic> in Sao Paulo (Southeastern Brazil), <italic>T. rubrovaria </italic>in Rio Grande do Sul,<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref> Southtern Brasil, and <italic>T. brasiliensis</italic> in Northeastern Brazil<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref> are examples of that situation.</p>
+			<p>Originally, sylvatic specimens of triatomine can adapt to peridomestic and domestic environments occupying the ecological niche of primary species. In this sense, the gathering of the<italic> T. sherlocki</italic> in sylvatic and domestic environment may indicate that sylvatic populations have invaded and colonized localities, thus the importance of entomological surveys. The presence of triatomines inside houses represents a risk of vector-borne transmission of Chagas disease to humans.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref> In Brazil, there are 52 species, but five of them – <italic>Panstrongylus megistus, Triatoma brasiliensis, T. infestans, T. pseudomaculata</italic> and <italic>T. sordida</italic> – have considerable epidemiological importance.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+				<italic>Triatoma sordida </italic>is one of the most captured species in Brazil and is regarded as mostly peridomiciliary, whereupon it can be found naturally infected by <italic>T. cruzi</italic>. Therefore, that species has an important role in the maintenance and transmission of Chagas disease.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+			</p>
+			<p>In order to have a better understanding of the response of that triatomine to the control activities, research was carried out in 12 rural localities in the city of Porteirinha, MG, Southeastern Brazil.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> A total of 772 specimens of <italic>T. sordida </italic>were captured, of which 3.6% were infected by <italic>T. cruzi</italic>. Of the 406 domiciliary units researched, 34.9% were infested. Of the 695 peridomiciliary ecotopes, 27.6% had <italic>T. sordida. Triatoma rubrovaria</italic> is distributed in a wide area comprehending Argentina, Uruguay and Southern Brazil<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> and it lives in holes and cracks in rocky places in fields. It can be captured in domiciles in rural areas next to sylvatic ecotopes, which explains its epidemiological importance.<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> Almeida et al<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> (2000) reported the presence of that species in a domiciliary environment, confirming its ability to invade and colonize houses.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+			</p>
+			<p>
+				<italic>Trypanosoma cruzi</italic> has genetically different strains for which more than 100 mammalian species can serve as reservoirs.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> Geographic distribution in the Americas depends on the interaction of the parasite with the vector, and natural infection can only take place when the trypanosomatid-triatomine system is balanced.<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref> So far, there are six groups of parasite – Discrete Typing Units (DTU): TcI, TcII, TcIII, TcIV, TcV and TcVI<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref> and biological differences among strains are pointed out by researchers.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> Martins et al<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> (2008) performed the molecular and biological characterization of five isolates obtained from <italic>T. rubrovaria</italic> collected in Rio Grande do Sul wherein 1.6% of the collected specimens were positive for <italic>T. cruzi. </italic>Rimoldi et al<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref> (2012) showed the biological diversity of strains isolated from <italic>T. sordida</italic> and a domestic cat in Santo Inácio, Bahia.</p>
+			<p>Freitas et al<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> (2005) collected 921 specimens of <italic>T. pseudomaculata </italic>in cities in the state of Ceará, Northeastern Brazil. Even though they tested negative for <italic>T. cruzi</italic>, the presence of that vector in that region is clear. In 1980 Sherlock &amp; Guitton<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> (1980) collected 12 samples of <italic>T. lenti</italic> in Bahia and all of them were positive for <italic>T. cruzi</italic>. The fact that the specimens tested positive shows the importance of that vector in the transmission of Chagas disease in the state. Few studies related to <italic>T. lenti</italic> and <italic>T. melanocephala </italic>are found in the literature and in this sense this work can contribute.</p>
+			<p>Chagas disease can be controlled by interruption of the transmission mechanisms, improvement of dwellings and adjacent areas, education, basic sanitation for exposed populations, and treatment. To make control successful, it is essential to completely prevent contact between triatomines and humans in areas surrounding habitations, which could be achieved by the use of residual insecticides, improvement of dwellings, and repair of crevices in walls using plaster, preventing triatomines from having a place to hide.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+			</p>
+			<p>In view of the 28 strains of <italic>T. cruzi</italic> collected from species regarded as “secondary”, such as <italic>T. sordida</italic> and <italic>T. rubrovaria</italic>, it is necessary to continue entomological surveillance and health education actions in order to minimize the chances of triatomines colonizing domestic and peridomestic areas in cities in the states of Bahia and Rio Grande do Sul. This study continues with biological, morphological and molecular approaches under development.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>ACKNOWLEDGMENTS</title>
+			<p>To Julio César Rente Ferreira Filho, who collected <italic>Triatoma lenti</italic>, Eliane Góes Nascimento, from the Health Department of the State of Bahia/SESAB – Entomology Division, for sending specimens of <italic>Triatoma melanocephala</italic>.</p>
+		</ack>
+		<ref-list>
+			<title>REFERENCES</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Almeida CE, Vinhaes MC, Almeida JR, Silveira AC, Costa J. Monitoring the domiciliary and peridomiciliary invasion process of Triatoma rubrovaria in the State of Rio Grande do Sul, Brazil. Mem Inst Oswaldo Cruz. 2000;95(6):761-8. DOI:10.1590/S0074-02762000000600003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>CE</given-names>
+						</name>
+						<name>
+							<surname>Vinhaes</surname>
+							<given-names>MC</given-names>
+						</name>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Silveira</surname>
+							<given-names>AC</given-names>
+						</name>
+						<name>
+							<surname>Costa</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Monitoring the domiciliary and peridomiciliary invasion process of Triatoma rubrovaria in the State of Rio Grande do Sul, Brazil</article-title>
+					<source>Mem Inst Oswaldo Cruz</source>
+					<year>2000</year>
+					<volume>95</volume>
+					<issue>6</issue>
+					<fpage>761</fpage>
+					<lpage>768</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0074-02762000000600003</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Almeida CE, Pacheco RS, Haag K, Dupas S, Dotson EM, Costa J. Inferring from the Cyt B gene the Triatoma brasiliensis Neiva, 1911 (Hemiptera: Reduviidae: Triatominae) genetic structure and domiciliary infestation in the Sstate of Paraíba, Brazil. Am J Trop Med Hyg. 2008;78(5):791-802.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>CE</given-names>
+						</name>
+						<name>
+							<surname>Pacheco</surname>
+							<given-names>RS</given-names>
+						</name>
+						<name>
+							<surname>Haag</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Dupas</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Dotson</surname>
+							<given-names>EM</given-names>
+						</name>
+						<name>
+							<surname>Costa</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Inferring from the Cyt B gene the Triatoma brasiliensis Neiva, 1911 (Hemiptera: Reduviidae: Triatominae) genetic structure and domiciliary infestation in the Sstate of Paraíba, Brazil</article-title>
+					<source>Am J Trop Med Hyg</source>
+					<year>2008</year>
+					<volume>78</volume>
+					<issue>5</issue>
+					<fpage>791</fpage>
+					<lpage>802</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Araújo CAC, Waniek PJ, Jansen AM. An overview of Chagas disease and the role of triatomines on its distribution in Brazil. Vector Borne Zoonotic Dis. 2009;9(3):227-34. DOI:10.1089/vbz.2008.0185</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Araújo</surname>
+							<given-names>CAC</given-names>
+						</name>
+						<name>
+							<surname>Waniek</surname>
+							<given-names>PJ</given-names>
+						</name>
+						<name>
+							<surname>Jansen</surname>
+							<given-names>AM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">An overview of Chagas disease and the role of triatomines on its distribution in Brazil</article-title>
+					<source>Vector Borne Zoonotic Dis</source>
+					<year>2009</year>
+					<volume>9</volume>
+					<issue>3</issue>
+					<fpage>227</fpage>
+					<lpage>234</lpage>
+					<issue-id pub-id-type="doi">10.1089/vbz.2008.0185</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Bedin C, Mello F, Wilhelms TS, Torres MA, Estima C, Ferreira CF,  et al. Vigilância ambiental: doença de Chagas no Rio Grande do Sul. Bol Epidemiol CEVS/RS. 2009;11(3):1- 8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bedin</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Mello</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Wilhelms</surname>
+							<given-names>TS</given-names>
+						</name>
+						<name>
+							<surname>Torres</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Estima</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>CF</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">Vigilância ambiental: doença de Chagas no Rio Grande do Sul</article-title>
+					<source>Bol Epidemiol CEVS/RS</source>
+					<year>2009</year>
+					<volume>11</volume>
+					<issue>3</issue>
+					<fpage>1</fpage>
+					<lpage>8</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Chagas C. Nova tripanozomiaze humana: estudos sobre a morfolojia e o ciclo evolutivo do Schizotrypanum cruzi n.gen. n.sp., ajente etiolojico de nova entidade morbida do homem. Mem Inst Oswaldo Cruz. 1909;1(2):159-218. DOI:10.1590/S0074-02761909000200008</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Chagas</surname>
+							<given-names>C</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Nova tripanozomiaze humana: estudos sobre a morfolojia e o ciclo evolutivo do Schizotrypanum cruzi n.gen. n.sp., ajente etiolojico de nova entidade morbida do homem</article-title>
+					<source>Mem Inst Oswaldo Cruz</source>
+					<year>1909</year>
+					<volume>1</volume>
+					<issue>2</issue>
+					<fpage>159</fpage>
+					<lpage>218</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0074-02761909000200008</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Coura JR, Dias JCP. Epidemiology, control and surveillance of Chagas disease: 100 years after its discovery. Mem Inst Oswaldo Cruz. 2009;104(1):31-40. DOI:10.1590/S0074-02762009000900006</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Coura</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Dias</surname>
+							<given-names>JCP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Epidemiology, control and surveillance of Chagas disease: 100 years after its discovery</article-title>
+					<source>Mem Inst Oswaldo Cruz</source>
+					<year>2009</year>
+					<volume>104</volume>
+					<issue>1</issue>
+					<fpage>31</fpage>
+					<lpage>40</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0074-02762009000900006</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Coura JR, Viñas PA. Chagas disease: a new worldwide challenge. Nature. 2010;465(7301)S6-7. DOI:10.1038/nature09221</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Coura</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Viñas</surname>
+							<given-names>PA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Chagas disease: a new worldwide challenge</article-title>
+					<source>Nature</source>
+					<year>2010</year>
+					<volume>465</volume>
+					<issue>7301</issue>
+					<fpage>S6</fpage>
+					<lpage>S7</lpage>
+					<issue-id pub-id-type="doi">10.1038/nature09221</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Dias JCP, Machado EMM, Fernandes AL, Vinhaes MC. Esboço geral e perspectivas da doença de Chagas no Nordeste do Brasil. Cad Saude Publica. 2000;16(Supl 2):S13-34. DOI:10.1590/S0102-311X2000000800003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Dias</surname>
+							<given-names>JCP</given-names>
+						</name>
+						<name>
+							<surname>Machado</surname>
+							<given-names>EMM</given-names>
+						</name>
+						<name>
+							<surname>Fernandes</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Vinhaes</surname>
+							<given-names>MC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Esboço geral e perspectivas da doença de Chagas no Nordeste do Brasil</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2000</year>
+					<volume>16</volume>
+					<issue>2</issue>
+					<fpage>S13</fpage>
+					<lpage>S34</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2000000800003</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Diotaiuti L, Azeredo BVM, Busek SCU, Fernandes AJ. Controle do Triatoma sordida no peridomicílio rural do município de Porteirinha, Minas Gerais, Brasil. Rev Panam Salud Publica. 1998;3(1):21-5. DOI:10.1590/S1020-49891998000100004</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Diotaiuti</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Azeredo</surname>
+							<given-names>BVM</given-names>
+						</name>
+						<name>
+							<surname>Busek</surname>
+							<given-names>SCU</given-names>
+						</name>
+						<name>
+							<surname>Fernandes</surname>
+							<given-names>AJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Controle do Triatoma sordida no peridomicílio rural do município de Porteirinha, Minas Gerais, Brasil</article-title>
+					<source>Rev Panam Salud Publica</source>
+					<year>1998</year>
+					<volume>3</volume>
+					<issue>1</issue>
+					<fpage>21</fpage>
+					<lpage>25</lpage>
+					<issue-id pub-id-type="doi">10.1590/S1020-49891998000100004</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Freitas SPC, Lorosa ES, Rodrigues DCS, Freitas ALC, Gonçalves TCM. Fontes alimentares de Triatoma pseudomaculata no Estado do Ceará, Brasil. Rev Saude Publica. 2005;39(1):27-32. DOI:10.1590/S0034-89102005000100004</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Freitas</surname>
+							<given-names>SPC</given-names>
+						</name>
+						<name>
+							<surname>Lorosa</surname>
+							<given-names>ES</given-names>
+						</name>
+						<name>
+							<surname>Rodrigues</surname>
+							<given-names>DCS</given-names>
+						</name>
+						<name>
+							<surname>Freitas</surname>
+							<given-names>ALC</given-names>
+						</name>
+						<name>
+							<surname>Gonçalves</surname>
+							<given-names>TCM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Fontes alimentares de Triatoma pseudomaculata no Estado do Ceará, Brasil</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2005</year>
+					<volume>39</volume>
+					<issue>1</issue>
+					<fpage>27</fpage>
+					<lpage>32</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0034-89102005000100004</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Garcia ES, Ratcliffe NA, Whitten MM, Gonzales MS, Azambuja P. Exploring the role of insect host factors in the dynamics of Trypanosoma cruzi - Rhodnius prolixus interactions. J Insect Physiol. 2007;53(1):11-21. DOI:10.1016/j.jinsphys.2006.10.006</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Garcia</surname>
+							<given-names>ES</given-names>
+						</name>
+						<name>
+							<surname>Ratcliffe</surname>
+							<given-names>NA</given-names>
+						</name>
+						<name>
+							<surname>Whitten</surname>
+							<given-names>MM</given-names>
+						</name>
+						<name>
+							<surname>Gonzales</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Azambuja</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Exploring the role of insect host factors in the dynamics of Trypanosoma cruzi - Rhodnius prolixus interactions</article-title>
+					<source>J Insect Physiol</source>
+					<year>2007</year>
+					<volume>53</volume>
+					<issue>1</issue>
+					<fpage>11</fpage>
+					<lpage>21</lpage>
+					<issue-id pub-id-type="doi">10.1016/j.jinsphys.2006.10.006</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Gurgel-Gonçalves R, Pereira FCA, Lima IP, Cavalcante RR. Distribuição geográfica, infestação domiciliar e infecção natural de triatomíneos (Hemiptera: Reduviidae) no Estado do Piauí, Brasil, 2008. Rev Pan-Amaz Saude. 2010;1(4):57-64.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Gurgel-Gonçalves</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>FCA</given-names>
+						</name>
+						<name>
+							<surname>Lima</surname>
+							<given-names>IP</given-names>
+						</name>
+						<name>
+							<surname>Cavalcante</surname>
+							<given-names>RR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Distribuição geográfica, infestação domiciliar e infecção natural de triatomíneos (Hemiptera: Reduviidae) no Estado do Piauí, Brasil, 2008</article-title>
+					<source>Rev Pan-Amaz Saude</source>
+					<year>2010</year>
+					<volume>1</volume>
+					<issue>4</issue>
+					<fpage>57</fpage>
+					<lpage>64</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Lent H, Wygodzinsky PW. Revision of the Triatominae (Hemiptera, Reduviidae) and their significance as vectors of Chagas’ Disease. Bull Am Mus Nat History. 1979;163(article 3):123-529.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Lent</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Wygodzinsky</surname>
+							<given-names>PW</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Revision of the Triatominae (Hemiptera, Reduviidae) and their significance as vectors of Chagas’ Disease</article-title>
+					<source>Bull Am Mus Nat History</source>
+					<year>1979</year>
+					<volume>163</volume>
+					<comment>article 3</comment>
+					<fpage>123</fpage>
+					<lpage>529</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Lewis MD, Jonathan MA, Carrasco HJ, Llewellyn MS, Miles MA. Genotyping of Trypanosoma cruzi: systematic selection of assays allowing rapid and accurate discrimination of all know lineages. Am J Trop Med Hyg. 2009;81(6):1041-9. DOI:10.4269/ajtmh.2009.09-0305</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Lewis</surname>
+							<given-names>MD</given-names>
+						</name>
+						<name>
+							<surname>Jonathan</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Carrasco</surname>
+							<given-names>HJ</given-names>
+						</name>
+						<name>
+							<surname>Llewellyn</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Miles</surname>
+							<given-names>MA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Genotyping of Trypanosoma cruzi: systematic selection of assays allowing rapid and accurate discrimination of all know lineages</article-title>
+					<source>Am J Trop Med Hyg</source>
+					<year>2009</year>
+					<volume>81</volume>
+					<issue>6</issue>
+					<fpage>1041</fpage>
+					<lpage>1049</lpage>
+					<issue-id pub-id-type="doi">10.4269/ajtmh.2009.09-0305</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Martins LPA, Marcili A, Castanho REP, Therezo ALS, Oliveira JCP, Suzuki RB,  et al. Rural Triatoma rubrovaria from Southern Brazil harbors Trypanosoma cruzi of Lineage IIc. Am J Trop Med Hyg. 2008;79(3):427-34.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Martins</surname>
+							<given-names>LPA</given-names>
+						</name>
+						<name>
+							<surname>Marcili</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Castanho</surname>
+							<given-names>REP</given-names>
+						</name>
+						<name>
+							<surname>Therezo</surname>
+							<given-names>ALS</given-names>
+						</name>
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>JCP</given-names>
+						</name>
+						<name>
+							<surname>Suzuki</surname>
+							<given-names>RB</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Rural Triatoma rubrovaria from Southern Brazil harbors Trypanosoma cruzi of Lineage IIc</article-title>
+					<source>Am J Trop Med Hyg</source>
+					<year>2008</year>
+					<volume>79</volume>
+					<issue>3</issue>
+					<fpage>427</fpage>
+					<lpage>434</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Pena DA, Eger I, Nogueira L, Heck N, Menin A, Báfica A,  et al. Selection of TcII Trypanosoma cruzi population following macrophage infection. J Infect Dis. 2011;204(3):478-86. DOI:10.1093/infdis/jir292</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Pena</surname>
+							<given-names>DA</given-names>
+						</name>
+						<name>
+							<surname>Eger</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Nogueira</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Heck</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Menin</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Báfica</surname>
+							<given-names>A</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Selection of TcII Trypanosoma cruzi population following macrophage infection</article-title>
+					<source>J Infect Dis</source>
+					<year>2011</year>
+					<volume>204</volume>
+					<issue>3</issue>
+					<fpage>478</fpage>
+					<lpage>486</lpage>
+					<issue-id pub-id-type="doi">10.1093/infdis/jir292</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Rimoldi A, Alves RT, Ambrósio DL, Fernandes MZT, Martinez I, Araújo RF,  et al. Morphological, biological and molecular characterization of three strains of Trypanosoma cruzi Chagas, 1909 (Kinetoplastida, Trypanosomatidae) isolated from Triatoma sordida (Stal) 1859 (Hemiptera, Reduviidae) and a domestic cat. Parasitology. 2012;139(1):37-44. DOI:10.1017/S0031182011001697</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Rimoldi</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>RT</given-names>
+						</name>
+						<name>
+							<surname>Ambrósio</surname>
+							<given-names>DL</given-names>
+						</name>
+						<name>
+							<surname>Fernandes</surname>
+							<given-names>MZT</given-names>
+						</name>
+						<name>
+							<surname>Martinez</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Araújo</surname>
+							<given-names>RF</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Morphological, biological and molecular characterization of three strains of Trypanosoma cruzi Chagas, 1909 (Kinetoplastida, Trypanosomatidae) isolated from Triatoma sordida (Stal) 1859 (Hemiptera, Reduviidae) and a domestic cat</article-title>
+					<source>Parasitology</source>
+					<year>2012</year>
+					<volume>139</volume>
+					<issue>1</issue>
+					<fpage>37</fpage>
+					<lpage>44</lpage>
+					<issue-id pub-id-type="doi">10.1017/S0031182011001697</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Rosa JA, Barata JMS, Santos JLF, Cilense M. Morfologia de ovos de Triatoma circummaculata e Triatoma rubrovaria (Hemiptera, Reduviidae). Rev Saude Publica. 2000;34(5):538-42. DOI:10.1590/S0034-89102000000500015</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Rosa</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Barata</surname>
+							<given-names>JMS</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>JLF</given-names>
+						</name>
+						<name>
+							<surname>Cilense</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Morfologia de ovos de Triatoma circummaculata e Triatoma rubrovaria (Hemiptera, Reduviidae)</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2000</year>
+					<volume>34</volume>
+					<issue>5</issue>
+					<fpage>538</fpage>
+					<lpage>542</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0034-89102000000500015</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Sherlock IA, Guitton N. Fauna Triatominae do Estado da Bahia Brasil III: notas sobre ecótopos silvestres e o gênero Psammolestes. Mem Inst Oswaldo Cruz. 1974;72(1-2):91-101. DOI:10.1590/S0074-02761974000100011</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Sherlock</surname>
+							<given-names>IA</given-names>
+						</name>
+						<name>
+							<surname>Guitton</surname>
+							<given-names>N</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Fauna Triatominae do Estado da Bahia Brasil III: notas sobre ecótopos silvestres e o gênero Psammolestes</article-title>
+					<source>Mem Inst Oswaldo Cruz</source>
+					<year>1974</year>
+					<volume>72</volume>
+					<issue>1-2</issue>
+					<fpage>91</fpage>
+					<lpage>101</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0074-02761974000100011</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Silveira AC, Dias JCP. O controle da transmissão vetorial. Rev Soc Bras Med Trop. 2011;44(Suppl 2):52-63. DOI:10.1590/S0037-86822011000800009</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Silveira</surname>
+							<given-names>AC</given-names>
+						</name>
+						<name>
+							<surname>Dias</surname>
+							<given-names>JCP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">O controle da transmissão vetorial</article-title>
+					<source>Rev Soc Bras Med Trop</source>
+					<year>2011</year>
+					<volume>44</volume>
+					<issue>2</issue>
+					<fpage>52</fpage>
+					<lpage>63</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0037-86822011000800009</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Zingales B, Andrade SG, Briones MRS, Campbell DA, Chiari E, Fernandes O,  et al. A new consensus for Trypanosoma cruzi intraspecific nomenclature: second revision meeting recommends TcI to TcVI. Mem Inst Oswaldo Cruz. 2009;104(7):1051-4. DOI:10.1590/S0074-02762009000700021</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Zingales</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Andrade</surname>
+							<given-names>SG</given-names>
+						</name>
+						<name>
+							<surname>Briones</surname>
+							<given-names>MRS</given-names>
+						</name>
+						<name>
+							<surname>Campbell</surname>
+							<given-names>DA</given-names>
+						</name>
+						<name>
+							<surname>Chiari</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Fernandes</surname>
+							<given-names>O</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">A new consensus for Trypanosoma cruzi intraspecific nomenclature: second revision meeting recommends TcI to TcVI</article-title>
+					<source>Mem Inst Oswaldo Cruz</source>
+					<year>2009</year>
+					<volume>104</volume>
+					<issue>7</issue>
+					<fpage>1051</fpage>
+					<lpage>1054</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0074-02762009000700021</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Zingales B, Miles MA, Campbell DA, Tibayrenc M, Macedo AM, Teixeira MMG,  et al. The revised Trypanosoma cruzi subspecific nomenclature: rationale, epidemiological relevance and research applications. Infect Genet Evol. 2012;12(2):240-53. DOI:10.1016/j.meegid.2011.12.009</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Zingales</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Miles</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Campbell</surname>
+							<given-names>DA</given-names>
+						</name>
+						<name>
+							<surname>Tibayrenc</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Macedo</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Teixeira</surname>
+							<given-names>MMG</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">The revised Trypanosoma cruzi subspecific nomenclature: rationale, epidemiological relevance and research applications</article-title>
+					<source>Infect Genet Evol</source>
+					<year>2012</year>
+					<volume>12</volume>
+					<issue>2</issue>
+					<fpage>240</fpage>
+					<lpage>253</lpage>
+					<issue-id pub-id-type="doi">10.1016/j.meegid.2011.12.009</issue-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn fn-type="financial-disclosure">
+				<p>This study was supported by the Programa de Apoio ao Desenvolvimento Cientifico (PADC) of the Faculdade de Ciências Farmacêuticas of the Campus de Araraquara of the Universidade Estadual Paulista “Júlio de Mesquita Filho” (UNESP) (Process 2013/26-III), by the Fundação para o Desenvolvimento da UNESP (Fundunesp) of the Faculdade de Ciências Farmacêuticas of the Campus de Araraquara of the UNESP (Process 00066/06), by the Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP) (Process 13/08826-5), and by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES – Process 23038.005285/2011-12).</p>
+			</fn>
+			<fn fn-type="other">
+				<label>HIGHLIGHTS</label>
+				<p>The transmission of Chagas disease by vectors was considered to be under control in certain regions of Brazil. This work shows that some species of triatominae, such as <italic>Panstrongylus geniculatus, Triatoma melanocephala, Triatoma lenti, Triatoma pseudomaculata, Triatoma sherlocki, Triatoma sordida, Triatoma circummaculata </italic>and<italic> Triatoma rubrovaria</italic> can be found in municipalities in the states of Bahia and Rio Grande do Sul. Some of the specimens studied tested positive for <italic>Trypanosoma cruzi</italic>, calling for extra attention to be paid, as during the capture period (2002-2009) infected vertebrate reservoirs were found in household, peridomestic and wild environments.</p>
+				<p>Of the specimens examined, <italic>T. cruzi</italic> was isolated in 28 triatominae from four different species: <italic>T. melanocephala, T. lenti, T. rubrovaria</italic> and <italic>T. sordida</italic>, presenting a natural infection rate of 6.4%.</p>
+				<p>Isolating strains of <italic>T. cruzi</italic> from the triatominae captured in the intra and peridomestic environments reflects the potential risk of Chagas disease transmission in the municipalities studied. This work contributes to increasing knowledge of the distribution of triatominae, as well as encouraging effective control of Chagas infection, as it presents data on natural infection and the distribution of vectors in the states of Bahia and Rio Grande do Sul.</p>
+				<p>Professor Rita de Cássia Barradas Barata Scientific Editor</p>
+			</fn>
+		</fn-group>
+	</back>
+</article>

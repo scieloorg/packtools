@@ -1,0 +1,2691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004635</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004635</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Prevalência e fatores associados aos comportamentos sedentários em adolescentes</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Dias</surname>
+						<given-names>Paula Jaudy Pedroso</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Domingos</surname>
+						<given-names>Isabela Prado</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Ferreira</surname>
+						<given-names>Márcia Gonçalves</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Muraro</surname>
+						<given-names>Ana Paula</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Sichieri</surname>
+						<given-names>Rosely</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Gonçalves-Silva</surname>
+						<given-names>Regina Maria Veras</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgname">Universidade Federal de Mato Grosso</institution>
+				<addr-line>
+					<named-content content-type="city">Cuiabá</named-content>
+					<named-content content-type="state">MT</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original"> Programa de Pós-graduação em Biociências. Universidade Federal de Mato Grosso. Cuiabá, MT, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv2">Instituto de Saúde Coletiva</institution>
+				<institution content-type="orgdiv1">Departamento de Saúde Coletiva</institution>
+				<institution content-type="orgname">Universidade Federal de Mato Grosso</institution>
+				<addr-line>
+					<named-content content-type="city">Cuiabá</named-content>
+					<named-content content-type="state">MT</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Instituto de Saúde Coletiva. Departamento de Saúde Coletiva. Universidade Federal de Mato Grosso. Cuiabá, MT, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv2">Departamento de Epidemiologia</institution>
+				<institution content-type="orgdiv1">Instituto de Medicina Social</institution>
+				<institution content-type="orgname">Universidade do Estado do Rio de Janeiro</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Epidemiologia. Instituto de Medicina Social. Universidade do Estado do Rio de Janeiro. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Paula Jaudy Pedroso Dias  Rua Alfenas, 355 Casa 1 Residencial Alfenas  78040-600 Cuiabá, MT, Brasil  E-mail: <email>paulajaudy@hotmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>266</fpage>
+			<lpage>274</lpage>
+			<history>
+				<date date-type="received">
+					<day>12</day>
+					<month>11</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>3</day>
+					<month>2</month>
+					<year>2014</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Analisar a prevalência e fatores associados aos comportamentos sedentários em adolescentes.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Estudo transversal com adolescentes de 10 a 17 anos de idade, de ambos os sexos, pertencentes a uma coorte de nascimentos entre 1994-1999 na cidade de Cuiabá, Mato Grosso, Brasil. Para o levantamento dos dados, foi utilizado um questionário contendo informações sociodemográficas, econômicas e de estilo de vida e aferição de dados antropométricos. Determinou-se como comportamento sedentário o uso de televisão e/ou computador/vídeo games por um tempo igual ou superior a 4 horas/dia. Avaliou-se a associação de comportamentos sedentários com o índice de massa corporal, tanto na infância quanto na adolescência, e com variáveis sociodemográficas e comportamentais por meio de regressão logística hierarquizada.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>A prevalência global de comportamentos sedentários foi de 58,1%. Dos 1.716 adolescentes estudados, 50,7% (n = 870) eram do sexo masculino. Na análise multivariada, após ajuste para fatores de confusão, as variáveis que permaneceram associadas com os comportamentos sedentários foram: idade (14 anos ou mais) (OR = 3,51; IC95% 2,19;5,60); classe econômica elevada (OR = 3,83; IC95% 2,10;7,01); maior nível de escolaridade da mãe (OR = 1,81; IC95% 1,09;3,01); residir no interior (OR = 0,49; IC95% 0,30;0,81); atividade física insuficiente (OR = 1,25; IC95% 1,02;1,53); experimentação de bebidas alcoólicas (OR = 1,34; IC95% 1,08;1,66) e excesso de peso na adolescência (OR = 1,33; IC95% 1,06;1,68).</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>A elevada proporção de adolescentes em atividades sedentárias e a não associação dessas atividades na adolescência com o excesso de peso na infância indicam a necessidade de intervenções para redução de vários comportamentos de risco. O incentivo à prática de atividade física como forma de reduzir os comportamentos sedentários e consequentemente o excesso de peso entre os jovens torna-se fundamental.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Adolescente</kwd>
+				<kwd>Estilo de Vida Sedentário</kwd>
+				<kwd>Estilo de Vida</kwd>
+				<kwd>Fatores Socioeconômicos</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Fundação de Amparo à Pesquisa do Estado de Mato Grosso</funding-source>
+					<award-id>446298/2009</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>Conselho Nacional de Desenvolvimento Científico e Tecnológico</funding-source>
+					<award-id>471063/2009-6</award-id>
+				</award-group>
+				<funding-statement>Pesquisa financiada pela Fundação de Amparo à Pesquisa do Estado de Mato Grosso (FAPEMAT – Processo 446298/2009) e pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Processo 471063/2009-6).</funding-statement>
+			</funding-group>
+			<counts>
+				<table-count count="4"/>
+				<ref-count count="27"/>
+				<page-count count="9"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>A prevalência de excesso de peso na infância e adolescência tem aumentado em países de baixa e média renda, sendo em grande parte impulsionado pelo crescimento econômico e pela rápida urbanização.<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref> O processo de urbanização pode estar associado a limitação da prática de atividades fora de casa, visto que com o aumento da violência, crianças e adolescentes estão substituindo as atividades cotidianas e brincadeiras de rua por atividades sedentárias.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> Adicionalmente, os avanços tecnológicos e as facilidades obtidas decorrentes da modernização parecem ter favorecido a modificação de hábitos de vida dos indivíduos, sobretudo no que se refere à adoção de estilo de vida sedentário.<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref>
+			</p>
+			<p>Os comportamentos sedentários envolvem atividades de baixa intensidade com gasto energético reduzido, tais como assistir televisão, jogar vídeo games ou usar o computador.<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref> Estes comportamentos têm sido associado a outros comportamentos prejudiciais à saúde das crianças e adolescentes, como experimentação de bebidas alcóolicas e tabagismo.<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> Adicionalmente, o hábito de assistir televisão pode influenciar as escolhas alimentares dos adolescentes, uma vez que a maioria dos alimentos veiculados pela mídia é de alta densidade energética, contribuindo para o aumento da obesidade entre eles.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+			</p>
+			<p>Estudos têm mostrado forte associação entre o aumento de comportamentos sedentários e o excesso de peso em adolescentes.<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref> Entretanto, não está claro se crianças com excesso de peso na infância têm maior chance de apresentar comportamentos sedentários na adolescência.</p>
+			<p>A prática regular de atividade física é um dos fatores que podem estar inversamente associados ao tempo de atividades sedentárias.<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref> Entretanto, alguns autores referem que as atividades sedentárias independem da prática de atividade física, sendo que o declínio de uma, não promove a elevação da outra.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>Dessa forma, o objetivo deste estudo foi analisar a prevalência e fatores associados aos comportamentos sedentários em adolescentes.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Estudo transversal, com adolescentes entre 10 e 17 anos de idade, de ambos os sexos, matriculados em escolas públicas e privadas de ensino fundamental e médio, pertencentes a uma coorte de crianças nascidas entre 1994 e 1999. O estudo de base foi realizado no período de agosto de 1999 a janeiro de 2000, em postos de saúde sorteados na cidade de Cuiabá, MT, sendo avaliadas 2.405 crianças menores de cinco anos de idade, conforme descrito por Gonçalves-Silva et al<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> Para a realização deste estudo, essas crianças, agora adolescentes, foram localizadas por meio do EducaCenso, entre os anos de 2009 e 2011, nas escolas públicas e privadas de Cuiabá e cidades do interior de Mato Grosso, além de outras cinco capitais do país (Brasília, São Paulo, Rio de Janeiro, Goiânia e Campo Grande). Foram entrevistados 1.716 adolescentes, representando uma taxa de seguimento de 71,4%. Informações detalhadas sobre a estratégia de busca desses adolescentes encontram-se descritas em Gonçalves-Silva et al<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> (2012).</p>
+			<p>Para o levantamento dos dados desta segunda fase do seguimento, foi utilizado questionário contendo informações sociodemográficas, econômicas e de estilo de vida e aferidos peso e estatura dos adolescentes. O questionário foi previamente testado com 114 adolescentes sorteados em uma escola pública e uma particular de Cuiabá, com a finalidade de corrigir as possíveis falhas e padronizar o instrumento para a coleta dos dados. As entrevistas e a antropometria foram realizadas nas escolas por entrevistadores treinados e padronizados.</p>
+			<p>A avaliação antropométrica foi realizada de acordo com as técnicas preconizadas por Gordon et al<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> (1988). A estatura foi mensurada em duplicata, admitindo-se variação máxima de 0,5 cm entre as duas medidas, repetindo-se o procedimento no caso de ultrapassar essa variação, sendo considerada a média dos valores para análise. Estas medidas foram realizadas com o adolescente descalço, usando roupas leves e em posição ortostática com a cabeça posicionada, respeitando-se o plano de Frankfurt.</p>
+			<p>A cor da pele autorreferida foi classificada em cinco categorias: branca, preta, parda, amarela e indígena. Para a análise dos dados, a cor amarela e a indígena foram agrupadas na categoria “outros”, por apresentar baixa frequência. A idade dos adolescentes foi definida em anos, sendo categorizadas em: 10, 11, 12, 13 e ≥ 14. A idade de 14 anos ou mais foi agrupada devido à baixa frequência de indivíduos nas categorias 15, 16 e 17 anos.</p>
+			<p>Para análise do nível socioeconômico das famílias, utilizou-se a classificação preconizada pela Associação Brasileira de Empresas de Pesquisa,<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> que tem como base a acumulação de bens materiais existentes no domicilio, condições de moradia, número de empregados domésticos mensalistas e a escolaridade do chefe da família. As categorias variaram do nível A (mais elevado) até o E (mais baixo). Apenas um indivíduo foi classificado como pertencente à classe E. Dessa forma, as categorias D e E foram agrupadas para análise de dados.</p>
+			<p>Em relação à escolaridade dos pais, considerou-se o número de anos completos de estudo, sendo classificada em quatro categorias: 0 a 4, 5 a 8, 9 a 11 e 12 anos ou mais. Entre as outras variáveis avaliadas, estão o tipo de escola (pública ou privada) e os locais de residência, categorizados em capital e interior, sendo o grupo da capital formado por Cuiabá e Várzea Grande (cidade integrada geográfica e economicamente a Cuiabá), além das outras cinco capitais incluídas no estudo.</p>
+			<p>O IMC na infância (zero a cinco anos) e na adolescência foi avaliado segundo sexo e idade, expresso em escore z da curva de referência da Organização Mundial de Saúde (OMS).<xref ref-type="bibr" rid="B25">
+					<sup>25</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B26">
+					<sup>26</sup>
+				</xref> Para a sua classificação foram adotadas as recomendações da OMS,<sup>30</sup> sendo considerado com IMC baixo os indivíduos que apresentaram IMC/idade &lt; -2 escores-z, IMC adequado aqueles que apresentaram IMC/idade ≥ -2 e ≤ +1 escores-z, com sobrepeso os que apresentaram IMC/idade &gt; +1 e ≤ +2 escores-z e com obesidade aqueles que apresentaram IMC/idade &gt; +2 escores-z. Para a análise múltipla, os indivíduos foram classificados em duas categorias: sem excesso de peso (baixo IMC para idade e IMC adequado) e com excesso de peso (sobrepeso e obesidade).</p>
+			<p>O nível de atividade física dos adolescentes foi avaliado por meio de questões que englobavam atividades de deslocamentos para escola, atividades de lazer e realização das aulas de educação física na escola, quantificando a duração e a frequência dessas atividades.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> Para fins de análise, os indivíduos foram classificados como ativos (os que praticaram 300 min ou mais de atividade física moderada a vigorosa por semana) ou insuficientemente ativos (os que praticaram menos de 300 min de atividade física moderada a vigorosa por semana).</p>
+			<p>Quanto ao consumo de bebida alcoólica, foi considerado experimentação, o adolescente que relatou ter ingerido pelo menos um gole de qualquer bebida alcoólica na vida. Quanto ao uso de tabaco, foi considerado experimentação quando o adolescente afirmou já ter fumado cigarro pelo menos uma vez na vida.</p>
+			<p>Para avaliação do padrão de consumo de refeições, foi calculado um escore adaptado de Estima et al<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> (2009), em que os adolescentes receberam pontuação de acordo com a frequência com que consumiam o desjejum, almoço e jantar, sendo realizada da seguinte forma: 0 pontos (cinco vezes na semana até diariamente), um ponto (três a quatro vezes na semana), dois pontos (uma a duas vezes na semana) e três pontos (nunca ou quase nunca). Esta variável foi categorizada em satisfatória (soma dos pontos menor ou igual a um) e insatisfatória (soma dos pontos maiores do que um).</p>
+			<p>Em relação aos comportamentos sedentários (horas por dia assistindo televisão, jogando vídeo game ou usando o computador), os adolescentes responderam a duas questões objetivas: “Em um dia de semana comum, quantas horas por dia você assiste TV?” e “Em um dia de semana comum, quantas horas por dia você fica no computador e/ou vídeo game?”. A Organização Mundial de Saúde recomenda que crianças e adolescentes não passem mais que duas horas/dia em frente à televisão e vídeo game.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> No entanto, neste estudo, determinou-se como comportamento sedentário o uso de TV e/ou computador/vídeo games por um tempo igual ou superior a quatro horas/dia, devido à elevada frequência de adolescentes na categoria de duas horas/dia ou mais de comportamentos sedentários, não tendo poder discriminatório do desfecho.<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref>
+			</p>
+			<p>Na análise bivariada, calculou-se a prevalência e a razão de prevalência de comportamentos sedentários (variável dependente), com seus respectivos intervalos de confiança de 95%, segundo as variáveis independentes. O teste do Qui-quadrado foi empregado para testar a diferença entre as proporções. Para avaliar a linearidade das associações utilizou-se o teste do Qui-quadrado. A seguir, as variáveis que apresentaram p-valor ≤ 0,20 na análise bivariada foram selecionadas para a análise de regressão logística múltipla hierarquizada.<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref> Dessa forma, as variáveis foram incluídas em blocos, sendo que os fatores mais distais (sociodemográficos e econômicos – nível um) foram os primeiros a ingressarem na análise, seguidos daquelas relacionadas ao estilo de vida (nível dois), e no nível mais proximal foi incluída a variável IMC para idade na infância e na adolescência (nível três). As variáveis do nível distal foram mantidas no modelo e entraram no ajuste do nível seguinte. O mesmo procedimento foi utilizado para o nível dois, i.e., as variáveis introduzidas neste nível foram mantidas para o nível três. Permaneceram no modelo todas as variáveis que apresentaram nível de significância menor ou igual a 5% para as categorias, com exceção da variável IMC na infância que foi mantida no modelo por ser considerada importante para o ajuste.</p>
+			<p>As análises estatísticas foram realizadas pelo software <italic>Statistical Package for the Social Sciences</italic> (SPSS), versão 17.0 para Windows (SPSS Inc., Chicago, IL, EUA) e EpiInfo<sup>™</sup> 7 versão 7.0.9.3.4.</p>
+			<p>O projeto foi aprovado pelo Comitê de Ética do Hospital Universitário Júlio Muller, da Universidade Federal de Mato Grosso (Protocolo 651/CEPHUJM/2009). Os pais ou responsáveis que permitiram a participação do adolescente na pesquisa assinaram o termo de consentimento livre e esclarecido.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>Dos 1.716 adolescentes estudados, 50,7% eram do sexo masculino. A prevalência global de comportamentos sedentários foi de 58,1% (n = 997), sendo a proporção maior entre aqueles que pertenciam à classe econômica “A” (68,6%), que estudavam em escola privada (65,9%), que residiam na capital (58,7%) e aqueles com mães com escolaridade igual ou superior a 12 anos de estudo (63,7%). A prevalência de comportamentos sedentários aumentou com a idade. Não foi encontrada diferença estatisticamente significante de comportamentos sedentários segundo sexo, cor da pele e escolaridade do pai (<xref ref-type="table" rid="t01">Tabela 1</xref>).</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Prevalência (%), razão de prevalência (RP) e intervalo de confiança de 95% (IC95%) de comportamentos sedentários segundo as variáveis sociodemográficas, econômicas, de estilo de vida e índice de massa corporal (IMC) de adolescentes de 10 a 17 anos, 2009 a 2011.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="14%">
+							<col width="30%"/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th rowspan="3" style="font-weight:normal" align="left">Variável</th>
+								<th colspan="4" style="font-weight:normal">Comportamentos sedentários (≥ 4 horas/dia)</th>
+							</tr>
+							<tr>
+								<th colspan="4" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">RP</th>
+								<th style="font-weight:normal">IC95%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Sexo</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Masculino</td>
+								<td align="center">870</td>
+								<td align="center">56,8</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Feminino</td>
+								<td align="center">846</td>
+								<td align="center">59,5</td>
+								<td align="center">1,04</td>
+								<td align="center">0,96;1,13</td>
+							</tr>
+							<tr>
+								<td>Idade<sup>a</sup>
+								</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 10</td>
+								<td align="center">105</td>
+								<td align="center">40,0</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 11</td>
+								<td align="center">603</td>
+								<td align="center">52,6</td>
+								<td align="center">1,31</td>
+								<td align="center">1,02;1,68</td>
+							</tr>
+							<tr>
+								<td> 12</td>
+								<td align="center">443</td>
+								<td align="center">59,8</td>
+								<td align="center">1,49</td>
+								<td align="center">1,17;1,91</td>
+							</tr>
+							<tr>
+								<td> 13</td>
+								<td align="center">236</td>
+								<td align="center">63,6</td>
+								<td align="center">1,59</td>
+								<td align="center">1,23;2,04</td>
+							</tr>
+							<tr>
+								<td> ≥ 14</td>
+								<td align="center">329</td>
+								<td align="center">67,8</td>
+								<td align="center">1,69</td>
+								<td align="center">1,32;2,16</td>
+							</tr>
+							<tr>
+								<td>Cor</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Branca</td>
+								<td align="center">371</td>
+								<td align="center">56,6</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Preta</td>
+								<td align="center">259</td>
+								<td align="center">57,9</td>
+								<td align="center">1,02</td>
+								<td align="center">0,89;1,17</td>
+							</tr>
+							<tr>
+								<td> Parda</td>
+								<td align="center">1.005</td>
+								<td align="center">59,0</td>
+								<td align="center">1,04</td>
+								<td align="center">0,94;1,15</td>
+							</tr>
+							<tr>
+								<td> Outros</td>
+								<td align="center">81</td>
+								<td align="center">54,3</td>
+								<td align="center">0,96</td>
+								<td align="center">0,77;1,19</td>
+							</tr>
+							<tr>
+								<td>Classe econômica<sup>a,b</sup>
+								</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> A</td>
+								<td align="center">86</td>
+								<td align="center">68,6</td>
+								<td align="center">2,33</td>
+								<td align="center">1,57;3,46</td>
+							</tr>
+							<tr>
+								<td> B</td>
+								<td align="center">603</td>
+								<td align="center">62,5</td>
+								<td align="center">2,12</td>
+								<td align="center">1,46;3,08</td>
+							</tr>
+							<tr>
+								<td> C</td>
+								<td align="center">959</td>
+								<td align="center">56,4</td>
+								<td align="center">1,92</td>
+								<td align="center">1,32;2,78</td>
+							</tr>
+							<tr>
+								<td> D e E</td>
+								<td align="center">68</td>
+								<td align="center">29,4</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Tipo de escola</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Pública</td>
+								<td align="center">1.357</td>
+								<td align="center">56,1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Privada</td>
+								<td align="center">358</td>
+								<td align="center">65,9</td>
+								<td align="center">1,17</td>
+								<td align="center">1,07;1,28</td>
+							</tr>
+							<tr>
+								<td>Escolaridade da mãe (anos)<sup>a,c</sup>
+								</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0 a 4</td>
+								<td align="center">103</td>
+								<td align="center">43,7</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 5 a 8</td>
+								<td align="center">460</td>
+								<td align="center">56,3</td>
+								<td align="center">1,29</td>
+								<td align="center">1,02;1,62</td>
+							</tr>
+							<tr>
+								<td> 9 a 11</td>
+								<td align="center">841</td>
+								<td align="center">59,2</td>
+								<td align="center">1,35</td>
+								<td align="center">1,08;1,70</td>
+							</tr>
+							<tr>
+								<td> ≥ 12</td>
+								<td align="center">259</td>
+								<td align="center">63,7</td>
+								<td align="center">1,46</td>
+								<td align="center">1,15;1,85</td>
+							</tr>
+							<tr>
+								<td>Escolaridade do pai (anos)<sup>d</sup>
+								</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0 a 4</td>
+								<td align="center">128</td>
+								<td align="center">57,8</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 5 a 8</td>
+								<td align="center">490</td>
+								<td align="center">60,2</td>
+								<td align="center">1,04</td>
+								<td align="center">0,88;1,22</td>
+							</tr>
+							<tr>
+								<td> 9 a 11</td>
+								<td align="center">665₢</td>
+								<td align="center">57,4</td>
+								<td align="center">0,99</td>
+								<td align="center">0,84;1,17</td>
+							</tr>
+							<tr>
+								<td> ≥ 12</td>
+								<td align="center">226</td>
+								<td align="center">61,5</td>
+								<td align="center">1,06</td>
+								<td align="center">0,88;1,27</td>
+							</tr>
+							<tr>
+								<td>Local de residência</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Capital</td>
+								<td align="center">1.641</td>
+								<td align="center">58,7</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Interior</td>
+								<td align="center">75</td>
+								<td align="center">45,3</td>
+								<td align="center">0,77</td>
+								<td align="center">0,60;0,99</td>
+							</tr>
+							<tr>
+								<td>Atividade física</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> &lt; 300 min/semana</td>
+								<td align="center">852</td>
+								<td align="center">61,9</td>
+								<td align="center">1,13</td>
+								<td align="center">1,05;1,23</td>
+							</tr>
+							<tr>
+								<td> ≥ 300 min/semana</td>
+								<td align="center">864</td>
+								<td align="center">54,4</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Padrão de consumo de refeições</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Insatisfatório</td>
+								<td align="center">586</td>
+								<td align="center">61,6</td>
+								<td align="center">1,09</td>
+								<td align="center">1,01;1,19</td>
+							</tr>
+							<tr>
+								<td> Satisfatório</td>
+								<td align="center">1.130</td>
+								<td align="center">56,3</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Experimentação de bebidas alcoólicas</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">668</td>
+								<td align="center">63,3</td>
+								<td align="center">1,15</td>
+								<td align="center">1,07;1,25</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">1.048</td>
+								<td align="center">54,8</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Experimentação de cigarro</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">65</td>
+								<td align="center">69,2</td>
+								<td align="center">1,20</td>
+								<td align="center">1,01;1,42</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">1.651</td>
+								<td align="center">57,7</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Classificação do IMC/Idade na infância</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Baixo IMC</td>
+								<td align="center">41</td>
+								<td align="center">68,3</td>
+								<td align="center">1,18</td>
+								<td align="center">0,95;1,46</td>
+							</tr>
+							<tr>
+								<td> IMC adequado</td>
+								<td align="center">1.325</td>
+								<td align="center">57,8</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sobrepeso</td>
+								<td align="center">270</td>
+								<td align="center">54,8</td>
+								<td align="center">0,94</td>
+								<td align="center">0,84;1,06</td>
+							</tr>
+							<tr>
+								<td> Obesidade</td>
+								<td align="center">80</td>
+								<td align="center">68,8</td>
+								<td align="center">1,19</td>
+								<td align="center">1,02;1,39</td>
+							</tr>
+							<tr>
+								<td>Classificação do IMC/Idade na adolescência</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Baixo IMC</td>
+								<td align="center">56</td>
+								<td align="center">48,2</td>
+								<td align="center">0,85</td>
+								<td align="center">0,64;1,12</td>
+							</tr>
+							<tr>
+								<td> IMC adequado</td>
+								<td align="center">1.185</td>
+								<td align="center">56,8</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sobrepeso</td>
+								<td align="center">315</td>
+								<td align="center">65,1</td>
+								<td align="center">1,14</td>
+								<td align="center">1,04;1,26</td>
+							</tr>
+							<tr>
+								<td> Obesidade</td>
+								<td align="center">160</td>
+								<td align="center">57,5</td>
+								<td align="center">1,01</td>
+								<td align="center">0,88;1,16</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>
+								<bold>a</bold>
+							</sup> p da tendência linear &lt; 0,01.</p>
+						<p>
+							<sup>
+								<bold>b</bold>
+							</sup> Classificação segundo a Associação Brasileira de Empresas de Pesquisa (ABEP, 2008).</p>
+						<p>
+							<sup>
+								<bold>c</bold>
+							</sup> Dados ausentes para 53 indivíduos.</p>
+						<p>
+							<sup>
+								<bold>d</bold>
+							</sup> Dados ausentes para 207 indivíduos.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>As variáveis relacionadas ao estilo de vida e classificação do IMC para idade dos adolescentes estão apresentadas na <xref ref-type="table" rid="t02">Tabela 2</xref>. A prevalência de comportamentos sedentários foi elevada entre os adolescentes que praticavam menos de 300 min de atividade física por semana e entre os que referiram já ter experimentado bebidas alcoólicas e/ou cigarro pelo menos uma vez na vida. Houve maior prevalência de comportamentos sedentários entre adolescentes com padrão de consumo de refeições insatisfatório em relação àqueles que apresentaram um padrão satisfatório. Quanto à classificação do IMC/idade dos indivíduos, no que se refere ao excesso de peso, tanto na infância quanto na adolescência, houve uma associação estatisticamente significante com os comportamentos sedentários.</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Regressão logística múltipla hierarquizada para as variáveis sociodemográficas e econômicas (nível 1), de estilo de vida (nível 2) e índice de massa corporal (nível 3) de adolescentes de 10 a 17 anos, 2009 a 2011.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="25%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Variável</th>
+								<th style="font-weight:normal">OR<sub>bruta</sub>
+									<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">OR<sub>ajustada</sub>
+									<sup>b</sup>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Nível 1</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Idade (anos)</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  10</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  11</td>
+								<td align="center">1,66</td>
+								<td align="center">1,63</td>
+								<td align="center">1,06;2,51</td>
+							</tr>
+							<tr>
+								<td>  12</td>
+								<td align="center">2,23</td>
+								<td align="center">2,34</td>
+								<td align="center">1,50;3,65</td>
+							</tr>
+							<tr>
+								<td>  13</td>
+								<td align="center">2,61</td>
+								<td align="center">2,74</td>
+								<td align="center">1,69;4,44</td>
+							</tr>
+							<tr>
+								<td>  ≥ 14</td>
+								<td align="center">3,15</td>
+								<td align="center">3,51</td>
+								<td align="center">2,19;5,60</td>
+							</tr>
+							<tr>
+								<td> Classe econômica</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  A, B</td>
+								<td align="center">3,10</td>
+								<td align="center">3,83</td>
+								<td align="center">2,10;7,01</td>
+							</tr>
+							<tr>
+								<td>  C</td>
+								<td align="center">4,13</td>
+								<td align="center">3,01</td>
+								<td align="center">1,68;5,38</td>
+							</tr>
+							<tr>
+								<td>  D, E</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Escolaridade da mãe (anos)</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  0 a 4</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  5 a 8</td>
+								<td align="center">1,66</td>
+								<td align="center">1,59</td>
+								<td align="center">1,02;2,48</td>
+							</tr>
+							<tr>
+								<td>  9 a 11</td>
+								<td align="center">1,87</td>
+								<td align="center">1,66</td>
+								<td align="center">1,07;2,56</td>
+							</tr>
+							<tr>
+								<td>  ≥ 12</td>
+								<td align="center">2,26</td>
+								<td align="center">1,81</td>
+								<td align="center">1,09;3,01</td>
+							</tr>
+							<tr>
+								<td> Local de residência</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Capital</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Interior</td>
+								<td align="center">0,58</td>
+								<td align="center">0,49</td>
+								<td align="center">0,30;0,81</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<hr/>
+								</td>
+							</tr>
+							<tr>
+								<td>Nível 2</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Atividade física</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  &lt; 300 min/semana</td>
+								<td align="center">1,36</td>
+								<td align="center">1,25</td>
+								<td align="center">1,02;1,53</td>
+							</tr>
+							<tr>
+								<td>  ≥ 300 min/semana</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Experimentação de bebidas alcoólicas</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Sim</td>
+								<td align="center">1,42</td>
+								<td align="center">1,34</td>
+								<td align="center">1,08;1,66</td>
+							</tr>
+							<tr>
+								<td>  Não</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<hr/>
+								</td>
+							</tr>
+							<tr>
+								<td>Nível 3</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Classificação do IMC/Idade na infância</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Sem excesso</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Com excesso</td>
+								<td align="center">0,99</td>
+								<td align="center">0,88</td>
+								<td align="center">0,69;1,14</td>
+							</tr>
+							<tr>
+								<td> Classificação do IMC/Idade na adolescência</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Sem excesso</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Com excesso</td>
+								<td align="center">1,29</td>
+								<td align="center">1,33</td>
+								<td align="center">1,06;1,68</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>a</sup>
+							<italic>Odds ratio</italic> não ajustado.</p>
+						<p>
+							<sup>b</sup>
+							<italic>Odds ratio</italic> ajustado pelas demais variáveis incluídas no modelo.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>No modelo final obtido por regressão logística hierarquizada, as variáveis sociodemográficas e econômicas que se mantiveram associadas ao desfecho foram idade, classe econômica, escolaridade da mãe e local de residência. Entre as variáveis de estilo de vida, observou-se que os adolescentes que praticavam menos atividade física obtiveram chance 25,0% maior de apresentar comportamentos sedentários, quando comparados aos mais ativos (OR = 1,25; IC95% 1,02;1,53). Da mesma forma, a variável experimentação de bebidas alcoólicas permaneceu associada aos comportamentos sedentários, mostrando que os adolescentes que experimentavam bebidas alcoólicas tinham maior chance de apresentar comportamentos sedentários quando comparados àqueles que não o experimentavam. No entanto, padrão de consumo de refeições e experimentação de cigarro não se mantiveram associados aos comportamentos sedentários (<xref ref-type="table" rid="t01">Tabela 1</xref>).</p>
+			<p>A experimentação de cigarro e de bebidas alcoólicas são variáveis correlacionadas, com 84,6% dos adolescentes tendo experimentado ambos, o que poderia explicar a não associação de experimentação de cigarro no modelo final. Contudo, em análise adicional, excluindo a experimentação de bebidas alcoólicas e incluindo a experimentação de cigarro, também não foi observada associação estatisticamente significante (p = 0,14). Além disso, análise similar foi conduzida para o IMC, já que provavelmente adolescentes com sobrepeso foram mais frequentemente crianças com sobrepeso, sendo verificado neste estudo valor de 44,3%. Dessa forma, a análise incluindo somente sobrepeso na infância também não foi estatisticamente significativa (p = 0,67).</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>Ser mais velho, pertencer às classes econômicas mais elevadas, não praticar atividade física e ter excesso de peso exerceram efeito independente sobre os comportamentos sedentários dos adolescentes. Morar no interior apresentou efeito protetor sobre esses comportamentos. A prevalência de comportamentos sedentários observada (58,1%) foi maior do que a observada por Silva et al<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref> (2009), entre estudantes de 15 a 19 anos, no Estado de Santa Catarina. Os adolescentes de classe mais elevada, assim como os de escolas privadas, apresentaram uma chance maior de ter comportamentos sedentários, o que corrobora com os resultados encontrados por Oliveira et al<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> (2010). É provável que adolescentes de escolas privadas tenham maior facilidade de acesso aos meios tecnológicos, principalmente no que se refere ao uso de computador e vídeo games. Da mesma forma, pais com elevada escolaridade têm maior poder de compra e, com isso, maior facilidade para adquirir aparelhos eletrônicos para os filhos, aumentando assim a prevalência de comportamentos sedentários entre eles.<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref>
+			</p>
+			<p>Adolescentes que residem no interior mostraram-se protegidos dos comportamentos sedentários em comparação àqueles que moram nas capitais. É provável que os jovens residentes nas grandes cidades tenham maior acesso aos aparelhos eletrônicos, enquanto que crianças e adolescentes que residem no interior podem ter maior possibilidade de participar de atividades com gasto energético, como andar de bicicleta e brincadeiras de ruas. Resultado similar a este foi encontrado por Silva et al<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref> (2009), onde a prevalência de comportamentos sedentários foi mais frequente nos adolescentes que residiam na área urbana.</p>
+			<p>Quanto à faixa etária dos adolescentes, os mais velhos mostraram maior prevalência de comportamentos sedentários. Especula-se que os adolescentes mais velhos não se sintam muito atraídos por outras atividades, inclusive à prática de exercícios físicos, considerando-os sem importância para suas expectativas e os substituem pelos comportamentos sedentários. Segundo Mathews et al<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> (2008), adolescentes mais velhos gastam aproximadamente 60,0% do tempo livre com as atividades sedentárias, em comparação com os adolescentes mais novos. Oliveira et al<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> (2010) constataram que os adolescentes mais novos dedicam menos tempo às atividades sedentárias.</p>
+			<p>Alguns autores mostraram que a relação das atividades sedentárias com a prática de atividade física é independente,<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> visto que um indivíduo pode praticar as atividades sedentárias e seguir as recomendações de atividade física simultaneamente. Entretanto, este estudo mostrou que os adolescentes insuficientemente ativos fisicamente tinham maior chance de apresentar comportamentos sedentários em relação aos ativos. Tais divergências podem ocorrer devido à dificuldade e variabilidade de mensuração e classificação de ambos os parâmetros. No entanto, a diminuição do tempo gasto com as atividades sedentárias parece ser uma estratégia para reduzir a inatividade física.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> Diversos estudos mostram que o baixo nível de atividade física entre crianças e adolescentes têm sido atribuído ao maior tempo dedicado em frente à televisão, computador e vídeo games<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> o que explicaria também a associação entre nível de atividade física e aumento da obesidade.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+			</p>
+			<p>Os adolescentes com excesso de peso apresentaram chance maior de ter comportamentos sedentários, achado condizente com diversos levantamentos epidemiológicos.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref> É provável que o tempo gasto em atividades sedentárias possa afetar tanto o nível de atividade física como os hábitos alimentares dos indivíduos, podendo aumentar a prevalência de excesso de peso entre eles.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+			</p>
+			<p>Um dos objetivos desta pesquisa foi verificar se o IMC na infância estaria associado aos comportamentos sedentários na adolescência, isto é, se o jovem que apresentou excesso de peso, quando criança, teria maior chance de adquirir comportamentos sedentários na adolescência. Os resultados mostram que na análise bivariada houve associação entre comportamentos sedentários e a obesidade na infância, porém, após ajustes para fatores de confusão na análise múltipla, esta associação não se manteve.</p>
+			<p>Comportamento sedentário associou-se a outros comportamentos considerados de risco, como experimentação de bebidas alcoólicas e de cigarro e padrão de consumo de refeições insatisfatório. Entretanto, após ajustes para variáveis sociodemográficas e econômicas, apenas a experimentação de bebidas alcoólicas se manteve associada. Verificou-se que o adolescente que referiu já ter experimentado bebidas alcoólicas apresentou chance maior de ter comportamentos sedentários em relação ao que referiu não ter experimentado. Entre outros fatores, a frequente veiculação de bebidas alcoólicas nos meios de comunicação, através de comerciais, filmes, novelas, músicas,<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> fazem com que os adolescentes que gastam mais tempo em atividades sedentárias sejam mais estimulados a consumirem bebidas alcoólicas.</p>
+			<p>Esta pesquisa foi originada de um estudo de coorte, permitindo analisar variáveis do inicio da infância com as variáveis da adolescência, sendo este um ponto positivo do estudo. No entanto, por ser um estudo com análises transversais, uma limitação é o fato de não permitir inferir causalidade na associação entre comportamentos sedentários e as variáveis investigadas, pois fatores de risco e desfecho são vistos em um único momento. Adicionalmente, as informações sobre os fatores de risco avaliados como experimentação de bebida alcoólica, tabagismo e prática de atividade física foram obtidas por meio de questionário, podendo haver erros de classificação pelo relato equivocado do adolescente, que tendem a omitir experiências com álcool e outras drogas assim como dificuldades de recordar todas as suas atividades.</p>
+			<p>Concluindo, foi observada elevada proporção de adolescentes em atividades sedentárias, principalmente entre aqueles de maior nível socioeconômico e em idades mais elevadas. A associação inversa das atividades sedentárias com a prática de atividade física sugere a necessidade de estratégias de intervenção para esta população, como ações educativas, por meio dos familiares, das instituições escolares e dos profissionais da área da saúde. Essas intervenções, sobretudo no que se refere ao incentivo à prática de atividades com gasto energético, reduzem os comportamentos sedentários e, consequentemente, o excesso de peso entre os jovens.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Al-Hazzaa HM, Abahussain NA, Al-Sobayel HI, Qahwaji DM, Musaiger AO. Physical activity, sedentary behaviors and dietary habits among Saudi adolescents relative to age, gender and region. <italic>Int J Behav Nutr Phys Act</italic>. 2011;8:140. DOI:10.1186/1479-5868-8-140</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Al-Hazzaa</surname>
+							<given-names>HM</given-names>
+						</name>
+						<name>
+							<surname>Abahussain</surname>
+							<given-names>NA</given-names>
+						</name>
+						<name>
+							<surname>Al-Sobayel</surname>
+							<given-names>HI</given-names>
+						</name>
+						<name>
+							<surname>Qahwaji</surname>
+							<given-names>DM</given-names>
+						</name>
+						<name>
+							<surname>Musaiger</surname>
+							<given-names>AO</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Physical activity, sedentary behaviors and dietary habits among Saudi adolescents relative to age, gender and region</article-title>
+					<source>Int J Behav Nutr Phys Act</source>
+					<year>2011</year>
+					<volume>8</volume>
+					<size units="pages">140</size>
+					<pub-id pub-id-type="doi">10.1186/1479-5868-8-140</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Almeida SS, Nascimento PCBD, Quaioti TCB. Quantidade e qualidade de produtos alimentícios anunciados na televisão brasileira. <italic>Rev Saude Publica</italic>. 2002;36(3):353-5. DOI:10.1590/S0034-89102002000300016</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Almeida</surname>
+							<given-names>SS</given-names>
+						</name>
+						<name>
+							<surname>Nascimento</surname>
+							<given-names>PCBD</given-names>
+						</name>
+						<name>
+							<surname>Quaioti</surname>
+							<given-names>TCB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Quantidade e qualidade de produtos alimentícios anunciados na televisão brasileira</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2002</year>
+					<volume>36</volume>
+					<issue>3</issue>
+					<fpage>353</fpage>
+					<lpage>355</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102002000300016</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Boulos R, Vikre EK, Oppenheimer S, Chang H, Kanarek RB. ObesiTV: how television is influencing the obesity epidemic. <italic>Physiol Behav. </italic>2012;107(1):146-53. DOI:10.1016/j.physbeh.2012.05.022</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Boulos</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Vikre</surname>
+							<given-names>EK</given-names>
+						</name>
+						<name>
+							<surname>Oppenheimer</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Chang</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Kanarek</surname>
+							<given-names>RB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">ObesiTV: how television is influencing the obesity epidemic</article-title>
+					<source>Physiol Behav</source>
+					<year>2012</year>
+					<volume>107</volume>
+					<issue>1</issue>
+					<fpage>146</fpage>
+					<lpage>153</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.physbeh.2012.05.022</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Caroli M, Argentieri L, Cardonei M, Masi A. Role of television in childhood obesity prevention. <italic>Int J Obes Relat Metab Disord. </italic>2004;28(Suppl 3):S104-8. DOI:10.1038/sj.ijo.0802802</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Caroli</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Argentieri</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Cardonei</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Masi</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Role of television in childhood obesity prevention</article-title>
+					<source>Int J Obes Relat Metab Disord</source>
+					<year>2004</year>
+					<volume>28</volume>
+					<supplement>3</supplement>
+					<fpage>S104</fpage>
+					<lpage>S108</lpage>
+					<pub-id pub-id-type="doi">10.1038/sj.ijo.0802802</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Craemer M, Decker E, Bourdeaudhuiji I, Vereecken C, Deforche B, Manios Y,  et al. Correlates of energy balance-related behaviours in preschool children: a systematic review. <italic>Obes Rev</italic>. 2012;13(Suppl 1):13-28. DOI:10.1111/j.1467-789X.2011.00941.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Craemer</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Decker</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Bourdeaudhuiji</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Vereecken</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Deforche</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Manios</surname>
+							<given-names>Y</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Correlates of energy balance-related behaviours in preschool children: a systematic review</article-title>
+					<source>Obes Rev</source>
+					<year>2012</year>
+					<volume>13</volume>
+					<supplement>1</supplement>
+					<fpage>13</fpage>
+					<lpage>28</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1467-789X.2011.00941.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Currie C, Roberts C, Morgan A, Smith R, Settertobulte W, Samdal O,  et al, editors. Young people’s health in context : Health Behaviour in Schoolaged Children (HBSC) study: international report from the 2001/2002 survey. Copenhagen: WHO; 2004. p.237. (Health Policy for Children and Adolescents, 4).</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="editor">
+						<name>
+							<surname>Currie</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Roberts</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Morgan</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Smith</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Settertobulte</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Samdal</surname>
+							<given-names>O</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<source xml:lang="en">Young people’s health in context : Health Behaviour in Schoolaged Children (HBSC) study: international report from the 2001/2002 survey</source>
+					<publisher-loc>Copenhagen</publisher-loc>
+					<publisher-name>WHO</publisher-name>
+					<year>2004</year>
+					<size units="pages">237</size>
+					<series>Health Policy for Children and Adolescents</series>
+					<volume>4</volume>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Estima CCP, Costa RS, Sichieri R, Pereira RA, Veiga GV. Meal consumption patterns and anthropometric measurements in adolescents from a low socioeconomic neighborhood in the metropolitan area of Rio de Janeiro, Brazil. <italic>Appetite. </italic>2009;52(3):735-9. DOI:10.1016/j.appet.2009.03.017</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Estima</surname>
+							<given-names>CCP</given-names>
+						</name>
+						<name>
+							<surname>Costa</surname>
+							<given-names>RS</given-names>
+						</name>
+						<name>
+							<surname>Sichieri</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>RA</given-names>
+						</name>
+						<name>
+							<surname>Veiga</surname>
+							<given-names>GV</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Meal consumption patterns and anthropometric measurements in adolescents from a low socioeconomic neighborhood in the metropolitan area of Rio de Janeiro, Brazil</article-title>
+					<source>Appetite</source>
+					<year>2009</year>
+					<volume>52</volume>
+					<issue>3</issue>
+					<fpage>735</fpage>
+					<lpage>739</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.appet.2009.03.017</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Gonçalves-Silva RMV, Valente JG, Lemos-Santos MGF, Sichieri R. Tabagismo domiciliar em famílias com crianças menores de 5 anos no Brasil. <italic>Rev Panam Salud Publica. </italic>2005;17(3):163-9. DOI:10.1590/S1020-49892005000300003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gonçalves-Silva</surname>
+							<given-names>RMV</given-names>
+						</name>
+						<name>
+							<surname>Valente</surname>
+							<given-names>JG</given-names>
+						</name>
+						<name>
+							<surname>Lemos-Santos</surname>
+							<given-names>MGF</given-names>
+						</name>
+						<name>
+							<surname>Sichieri</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Tabagismo domiciliar em famílias com crianças menores de 5 anos no Brasil</article-title>
+					<source>Rev Panam Salud Publica</source>
+					<year>2005</year>
+					<volume>17</volume>
+					<issue>3</issue>
+					<fpage>163</fpage>
+					<lpage>169</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1020-49892005000300003</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Gonçalves-Silva RMV, Sichieri R, Ferreira MG, Pereira RA, Muraro AP, Moreira NF,  et al. O censo escolar como estratégia de busca de crianças e adolescentes em estudos epidemiológicos. <italic>Cad Saude Publica. </italic>2012;28(2):400-4. DOI:10.1590/S0102-311X2012000200019</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gonçalves-Silva</surname>
+							<given-names>RMV</given-names>
+						</name>
+						<name>
+							<surname>Sichieri</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>MG</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>RA</given-names>
+						</name>
+						<name>
+							<surname>Muraro</surname>
+							<given-names>AP</given-names>
+						</name>
+						<name>
+							<surname>Moreira</surname>
+							<given-names>NF</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">O censo escolar como estratégia de busca de crianças e adolescentes em estudos epidemiológicos</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2012</year>
+					<volume>28</volume>
+					<issue>2</issue>
+					<fpage>400</fpage>
+					<lpage>404</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2012000200019</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Gordon CC, Chumlea WC, Roche AF. Stature, recumbent length, and weight. In: Lohman TG, Roche AF, Martorell R. Anthropometric standardization reference manual. Champaign:(Ill): Human Kinetics Books;1988. p.3-8.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gordon</surname>
+							<given-names>CC</given-names>
+						</name>
+						<name>
+							<surname>Chumlea</surname>
+							<given-names>WC</given-names>
+						</name>
+						<name>
+							<surname>Roche</surname>
+							<given-names>AF</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="en">Stature, recumbent length, and weight</chapter-title>
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lohman</surname>
+							<given-names>TG</given-names>
+						</name>
+						<name>
+							<surname>Roche</surname>
+							<given-names>AF</given-names>
+						</name>
+						<name>
+							<surname>Martorell</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Anthropometric standardization reference manual</source>
+					<publisher-loc>Champaign:(Ill)</publisher-loc>
+					<publisher-name>Human Kinetics Books</publisher-name>
+					<year>1988</year>
+					<fpage>3</fpage>
+					<lpage>8</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Hancox RJ, Poulton R. Watching television is associated with childhood obesity: but is it clinically important? <italic>Int J Obes (Lond). </italic>2006;30(1):171-5. DOI:10.1038/sj.ijo.0803071</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hancox</surname>
+							<given-names>RJ</given-names>
+						</name>
+						<name>
+							<surname>Poulton</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Watching television is associated with childhood obesity: but is it clinically important?</article-title>
+					<source>Int J Obes (Lond)</source>
+					<year>2006</year>
+					<volume>30</volume>
+					<issue>1</issue>
+					<fpage>171</fpage>
+					<lpage>175</lpage>
+					<pub-id pub-id-type="doi">10.1038/sj.ijo.0803071</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Horst KVD, Paw MJCA, Twisk JWR, Mechelen W. A brief review on correlates of physical activity and sedentariness in youth. <italic>Med Sci Sports Exerc. </italic>2007;39(8):1241-50. DOI:10.1249/mss.0b013e318059bf35</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Horst</surname>
+							<given-names>KVD</given-names>
+						</name>
+						<name>
+							<surname>Paw</surname>
+							<given-names>MJCA</given-names>
+						</name>
+						<name>
+							<surname>Twisk</surname>
+							<given-names>JWR</given-names>
+						</name>
+						<name>
+							<surname>Mechelen</surname>
+							<given-names>W</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A brief review on correlates of physical activity and sedentariness in youth</article-title>
+					<source>Med Sci Sports Exerc</source>
+					<year>2007</year>
+					<volume>39</volume>
+					<issue>8</issue>
+					<fpage>1241</fpage>
+					<lpage>1250</lpage>
+					<pub-id pub-id-type="doi">10.1249/mss.0b013e318059bf35</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Koekuza N, Koo M, Alisson KR, Adlaf EM, Dwyer JJM, Faulkner G,  et al. The relationship between sedentary activities and physical inactivity among adolescents: results from the Canadian Community Health Survey<italic>. J Adolesc Health. </italic>2006;39(4):515-22. DOI:10.1016/j.jadohealth.2006.02.005</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Koekuza</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Koo</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Alisson</surname>
+							<given-names>KR</given-names>
+						</name>
+						<name>
+							<surname>Adlaf</surname>
+							<given-names>EM</given-names>
+						</name>
+						<name>
+							<surname>Dwyer</surname>
+							<given-names>JJM</given-names>
+						</name>
+						<name>
+							<surname>Faulkner</surname>
+							<given-names>G</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">The relationship between sedentary activities and physical inactivity among adolescents: results from the Canadian Community Health Survey</article-title>
+					<source>J Adolesc Health</source>
+					<year>2006</year>
+					<volume>39</volume>
+					<issue>4</issue>
+					<fpage>515</fpage>
+					<lpage>522</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.jadohealth.2006.02.005</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Malik VS, Willett WC, Hu FB. Global obesity: trends, risk factors and policy implications. <italic>Nat Rev Endocrinol. </italic>2013;9(1):13-27. DOI:10.1038/nrendo.2012.199</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Malik</surname>
+							<given-names>VS</given-names>
+						</name>
+						<name>
+							<surname>Willett</surname>
+							<given-names>WC</given-names>
+						</name>
+						<name>
+							<surname>Hu</surname>
+							<given-names>FB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Global obesity: trends, risk factors and policy implications</article-title>
+					<source>Nat Rev Endocrinol</source>
+					<year>2013</year>
+					<volume>9</volume>
+					<issue>1</issue>
+					<fpage>13</fpage>
+					<lpage>27</lpage>
+					<pub-id pub-id-type="doi">10.1038/nrendo.2012.199</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Malta DC, Sardinha LMV, Mendes I, Barreto SM, Giatti L, Castro IRR,  et al. Prevalência de fatores de risco e proteção de doenças crônicas não transmissíveis em adolescentes: resultados da Pesquisa Nacional de Saúde do Escolar (PeNSE), Brasil, 2009. <italic>Cienc Saude Coletiva. </italic>2010;15(Supl 2):3009-19. DOI:10.1590/S1413-81232010000800002</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Malta</surname>
+							<given-names>DC</given-names>
+						</name>
+						<name>
+							<surname>Sardinha</surname>
+							<given-names>LMV</given-names>
+						</name>
+						<name>
+							<surname>Mendes</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Barreto</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Giatti</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Castro</surname>
+							<given-names>IRR</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">Prevalência de fatores de risco e proteção de doenças crônicas não transmissíveis em adolescentes: resultados da Pesquisa Nacional de Saúde do Escolar (PeNSE), Brasil, 2009</article-title>
+					<source>Cienc Saude Coletiva</source>
+					<year>2010</year>
+					<volume>15</volume>
+					<supplement>2</supplement>
+					<fpage>3009</fpage>
+					<lpage>3019</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1413-81232010000800002</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Matthews CE, Chen KY, Freedson PS, Buchowski MS, Beech BM, Pate RR,  et al. Amount of time spent in sedentary behaviors in the United States, 2003-2004. <italic>Am J Epidemiol. </italic>2008;167(7):875-81. DOI:10.1093/aje/kwm390</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Matthews</surname>
+							<given-names>CE</given-names>
+						</name>
+						<name>
+							<surname>Chen</surname>
+							<given-names>KY</given-names>
+						</name>
+						<name>
+							<surname>Freedson</surname>
+							<given-names>PS</given-names>
+						</name>
+						<name>
+							<surname>Buchowski</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Beech</surname>
+							<given-names>BM</given-names>
+						</name>
+						<name>
+							<surname>Pate</surname>
+							<given-names>RR</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Amount of time spent in sedentary behaviors in the United States, 2003-2004</article-title>
+					<source>Am J Epidemiol</source>
+					<year>2008</year>
+					<volume>167</volume>
+					<issue>7</issue>
+					<fpage>875</fpage>
+					<lpage>881</lpage>
+					<pub-id pub-id-type="doi">10.1093/aje/kwm390</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Mello ED, Luft VC, Meyer, F. Obesidade infantil: como podemos ser eficazes? <italic>J Pediatr (Rio J). </italic>2004;80(3):173-82. DOI:10.2223/JPED.1180</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mello</surname>
+							<given-names>ED</given-names>
+						</name>
+						<name>
+							<surname>Luft</surname>
+							<given-names>VC</given-names>
+						</name>
+						<name>
+							<surname>Meyer</surname>
+							<given-names>F</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Obesidade infantil: como podemos ser eficazes?</article-title>
+					<source>J Pediatr (Rio J)</source>
+					<year>2004</year>
+					<volume>80</volume>
+					<issue>3</issue>
+					<fpage>173</fpage>
+					<lpage>182</lpage>
+					<pub-id pub-id-type="doi">10.2223/JPED.1180</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Oliveira TC, Silva AAM, Santos CJN, Silva JS, Conceição SIO. Atividade física e sedentarismo em escolares da rede pública e privada de ensino em São Luís. <italic>Rev Saude Publica. </italic>2010;44(6):996-1004. DOI:10.1590/S0034-89102010000600003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>TC</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>AAM</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>CJN</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>JS</given-names>
+						</name>
+						<name>
+							<surname>Conceição</surname>
+							<given-names>SIO</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Atividade física e sedentarismo em escolares da rede pública e privada de ensino em São Luís</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2010</year>
+					<volume>44</volume>
+					<issue>6</issue>
+					<fpage>996</fpage>
+					<lpage>1004</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102010000600003</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Pedrosa AAS, Camacho LAB, Passos SRL, Oliveira RVC. Consumo de álcool entre estudantes universitários. <italic>Cad Saude Publica. </italic>2011;27(8):1611-21. DOI:10.1590/S0102-311X2011000800016</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pedrosa</surname>
+							<given-names>AAS</given-names>
+						</name>
+						<name>
+							<surname>Camacho</surname>
+							<given-names>LAB</given-names>
+						</name>
+						<name>
+							<surname>Passos</surname>
+							<given-names>SRL</given-names>
+						</name>
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>RVC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Consumo de álcool entre estudantes universitários</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2011</year>
+					<volume>27</volume>
+					<issue>8</issue>
+					<fpage>1611</fpage>
+					<lpage>1621</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2011000800016</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Saffer H. Alcohol advertising and youth. <italic>J Stud Alcohol</italic>. 2002;(Suppl 14):173-81.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Saffer</surname>
+							<given-names>H</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Alcohol advertising and youth</article-title>
+					<source>J Stud Alcohol</source>
+					<year>2002</year>
+					<supplement>14</supplement>
+					<fpage>173</fpage>
+					<lpage>181</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Sallis JF, Glanz K. The role of built environments in physical activity, eating, and obesity in childhood. <italic>Future Child</italic>. 2006;16(1):89-108.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sallis</surname>
+							<given-names>JF</given-names>
+						</name>
+						<name>
+							<surname>Glanz</surname>
+							<given-names>K</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The role of built environments in physical activity, eating, and obesity in childhood</article-title>
+					<source>Future Child</source>
+					<year>2006</year>
+					<volume>16</volume>
+					<issue>1</issue>
+					<fpage>89</fpage>
+					<lpage>108</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Silva KS, Lopes AS, Silva FM. Comportamentos sedentários associados ao excesso de peso corporal. <italic>Rev Bras Educ Fis Esp. </italic>2007;21(2):135-41. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Silva</surname>
+							<given-names>KS</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>FM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Comportamentos sedentários associados ao excesso de peso corporal</article-title>
+					<source>Rev Bras Educ Fis Esp</source>
+					<year>2007</year>
+					<volume>21</volume>
+					<issue>2</issue>
+					<fpage>135</fpage>
+					<lpage>141</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>. Silva KS, Nahas MV, Peres KG, Lopes AS. Fatores associados à atividade física, comportamento sedentário e participação na Educação Física em estudantes do Ensino Médio em Santa Catarina, Brasil. <italic>Cad Saude Publica. </italic>2009;25(10):2187-200. DOI:10.1590/S0102-311X2009001000010</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Silva</surname>
+							<given-names>KS</given-names>
+						</name>
+						<name>
+							<surname>Nahas</surname>
+							<given-names>MV</given-names>
+						</name>
+						<name>
+							<surname>Peres</surname>
+							<given-names>KG</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>AS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Fatores associados à atividade física, comportamento sedentário e participação na Educação Física em estudantes do Ensino Médio em Santa Catarina, Brasil</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2009</year>
+					<volume>25</volume>
+					<issue>10</issue>
+					<fpage>2187</fpage>
+					<lpage>2200</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2009001000010</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>. Victora CG, Huttly SR, Fuchs SC, Olinto MTA. The role of conceptual frameworks in epidemiological analysis: a hierarchical approach<italic>. Int J Epidemiol.</italic>1997;26(1):224-7. DOI:10.1093/ije/26.1.224</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Victora</surname>
+							<given-names>CG</given-names>
+						</name>
+						<name>
+							<surname>Huttly</surname>
+							<given-names>SR</given-names>
+						</name>
+						<name>
+							<surname>Fuchs</surname>
+							<given-names>SC</given-names>
+						</name>
+						<name>
+							<surname>Olinto</surname>
+							<given-names>MTA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The role of conceptual frameworks in epidemiological analysis: a hierarchical approach</article-title>
+					<source>Int J Epidemiol</source>
+					<year>1997</year>
+					<volume>26</volume>
+					<issue>1</issue>
+					<fpage>224</fpage>
+					<lpage>227</lpage>
+					<pub-id pub-id-type="doi">10.1093/ije/26.1.224</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>. World Health Organization, Multicentre Growth Reference Study Group. WHO child growth standards: length/height-for-age, weight-for-age, weight-for-length, weight-for-height and body mass index-for-age: methods and development. Geneva; 2006.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<collab>World Health Organization, Multicentre Growth Reference Study Group</collab>
+					</person-group>
+					<source xml:lang="en">WHO child growth standards: length/height-for-age, weight-for-age, weight-for-length, weight-for-height and body mass index-for-age: methods and development</source>
+					<publisher-loc>Geneva</publisher-loc>
+					<year>2006</year>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>. World Health Organization. Growth reference data for 5-19 years: body mass index-for-age, length/height-for-age and weight-for-height. Geneva; 2007.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<collab>World Health Organization</collab>
+					</person-group>
+					<source xml:lang="en">Growth reference data for 5-19 years: body mass index-for-age, length/height-for-age and weight-for-height</source>
+					<publisher-loc>Geneva</publisher-loc>
+					<year>2007</year>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>. World Health Organization. Physical status: the use and interpretation of anthropometry. Geneva; 1995. (WHO Technical Report Series, 854).</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<collab>World Health Organization</collab>
+					</person-group>
+					<source xml:lang="en">Physical status: the use and interpretation of anthropometry</source>
+					<publisher-loc>Geneva</publisher-loc>
+					<year>1995</year>
+					<series>WHO Technical Report Series</series>
+					<volume>854</volume>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a </label>
+				<p>Associação Brasileira de Empresas de Pesquisa. Códigos e guias: CCEB – Critério de Classificação Econômica Brasil. São Paulo: ABEP; 2008 [citado 2010 out 10]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.abep.org/novo/Content.aspx?ContentID">http://www.abep.org/novo/Content.aspx?ContentID</ext-link>
+				</p>
+			</fn>
+			<fn fn-type="supplementary-material">
+				<p>Artigo baseado na dissertação de mestrado de Dias PJP, intitulada: “Prevalência e fatores associados aos comportamentos sedentários em adolescentes”, apresentada à Faculdade de Nutrição da Universidade Federal de Mato Grosso, em 2013.</p>
+			</fn>
+			<fn fn-type="financial-disclosure">
+				<p>Pesquisa financiada pela Fundação de Amparo à Pesquisa do Estado de Mato Grosso (FAPEMAT – Processo 446298/2009) e pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – Processo 471063/2009-6).</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Prevalence and factors associated with sedentary behavior in adolescents</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Paula Jaudy Pedroso Dias  Rua Alfenas, 355 Casa 1 Residencial Alfenas  78040-600 Cuiabá, MT, Brasil  E-mail:<email> paulajaudy@hotmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To analyze the prevalence of sedentary behavior and associated factors in adolescents.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>A cross-sectional study with adolescents aged 10 to 17 years, of both sexes, belonging to a 1994-1999 birth cohort in the city of Cuiabá, MT, Central Western Brazil. Data were collected using a questionnaire containing sociodemographic, economic, lifestyle and anthropometric variables. Sedentary behavior was determined as using television and/or computer/video games for a time greater than or equal to 4 hours/day. Associations with sedentary behavior were evaluated using body mass index in childhood and adolescence and sociodemographic and behavioral variables using hierarchical logistic regression.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>The overall prevalence of sedentary behavior was 58.1%. Of the 1,716 adolescents evaluated, 50.7% (n = 870) were male. In multivariate analysis, after adjustment for confounding factors, the variables that remained associated with sedentary behavior were: age (14 and over) (OR = 3.51, 95%CI 2.19;5.60); higher socioeconomic class (OR = 3.83, 95%CI 2.10;7.01), higher level of maternal education (OR = 1.81, 95%CI 1.09;3.01); living in the country (OR = 0.49, 95%CI 0.30;0.81); insufficient physical activity (OR = 1.25, 95%CI 1.02;1.53); experimentation with alcoholic beverages (OR = 1.34, 95%CI 1.08;1.66) and being overweight in adolescence (OR = 1.33, 95%CI 1.06;1.68).</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>The high proportion of adolescents in sedentary activities and the lack of association with being overweight in childhood, indicates the need for educational initiatives to reduce multiple risk behaviors. Encouraging physical activity in young people as a way of reducing sedentary behavior and, consequently, being overweight is fundamental.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Adolescent</kwd>
+				<kwd>Sedentary Lifestyle</kwd>
+				<kwd>Life Style</kwd>
+				<kwd>Socioeconomic Factors</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>In low and medium income countries, the prevalence of being overweight in childhood and adolescence has increased, largely driven by economic growth and rapid urbanization.<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref> The process of urbanization, often accompanied by increased levels of violence, can be associated with limitations to doing activities outside of the home, leading children and adolescents to substitute outdoor games and playing in the street with sedentary activities.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> Moreover, technological advances and facilities resulting from modernization seem to favor modifications to individuals’ habits, especially concerning the adoption of a sedentary lifestyle.<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref>
+				</p>
+				<p>Sedentary behavior involves low intensity activities with reduced energy expenditure, such as watching television, playing video games or using the computer.<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref> This type of behavior has also been associated with other habits damaging to child and adolescent health, such as experimentation with alcohol and smoking.<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref> Moreover, the habit of watching television may influence adolescents’ food choices, as the majority of foods appearing in the media are of high energy density, contributing to increased obesity among adolescents.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+				</p>
+				<p>Studies have shown a strong association between increased sedentary behavior and being overweight in adolescents.<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref> However, it is not clear whether children who are overweight in childhood have a greater chance of presenting sedentary behavior in adolescence.</p>
+				<p>Regular physical activity is one of the factors which may be inversely associated with time spent doing sedentary activities.<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref> However, some authors have reported sedentary activities irrespective of doing physical activity, with a decline in one not encouraging an increased level of the other.<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+				</p>
+				<p>Thus, the aim of this study was to analyze the prevalence of factors associated with sedentary behavior in adolescents.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>Cross-sectional study with adolescents from a birth cohort born between 1994 and 1999, aged from 10 to 17 years, of both sexes, attending public and private elementary and high schools. The baseline study was conducted between August 1999 and January 2000, in health care centers around the city of Cuiabá, MT, Central Western Brazil, and 2,405 children under 5 years were assessed, as described by Gonçalves-Silva et al.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> To conduct the current study, these children, now adolescents, were located using the EducaCenso, between 2009 and 2011, in public and private schools in Cuiabá and other cities in the interior of the state of Mato Grosso, as well as in another five Brazilian state capitals (Brasília, Sao Paulo, Rio de Janeiro, Goiânia and Campo Grande). A total of 1,716 adolescents were interviewed, representing a follow up rate of 71.4%. Details on the strategies used to find these adolescents can be found in Gonçalves-Silva et al<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> (2012).</p>
+				<p>The data for this second stage were collected using a questionnaire on sociodemographic, economic and lifestyle data, and the adolescents’ weight and height were measured. The questionnaire had been previously tested with 114 adolescents randomly selected from a public and private school in Cuiabá, with the aim of correcting possible errors and to standardize the data collection instrument. The interviews and anthropometry were conducted in the schools by trained interviewers.</p>
+				<p>The anthropometric assessment was conducted according to the techniques standardized by Gordon et al<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> (1988). Height was measured twice, with a maximum variation of 0.5 cm permitted between the two measurements, with the procedure repeated if this variation was exceeded, and the mean of the two measurements was considered as the value for analysis. These measurements were taken barefoot and using light clothing, in a standing position with the head positioned respecting the Frankfurt plan.</p>
+				<p>Self-reported skin color was classified into five categories: white, black, mixed race, Asiatic and Indigenous. For data analysis purposes, Asiatic and Indigenous were grouped into the category “other” due to their low frequency. The adolescents’ age was defined in years, categorized into: 10, 11, 12, 13 and ≥ 14. The 14 and over age group was formed due to the low frequency of individuals in the 15, 16 and 17 years old category.</p>
+				<p>The classification recommended by the Brazilian Association of Research Companies,<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> based on the accumulation of consumer goods in the household, living conditions, number of domestic employees and head of household’s level of schooling was used to analyze the families’ socioeconomic levels. The categories vary from A (the highest) to E (the lowest). Only one individual was classed as belonging to class E, thus, for purposes of data analysis, categories D and E were combined.</p>
+				<p>Parents’ level of schooling was defined using the number of completed years of study, which were classified into four categories: 0 to 4, 5 to 8, 9 to 11 and 12 or more years. Among other variables, type of school (public or private) and place of residence, categorized as state capital (which included Cuiabá and Várzea Grande – a city geographically and economically integrated with Cuiabá – as well as the other five state capitals included in the study) or interior, were evaluated.</p>
+				<p>BMI in childhood (zero to five years old) and in adolescence was assessed according to sex and age, expressed as a z score on the World Health Organization (WHO) reference curve.<xref ref-type="bibr" rid="B25">
+						<sup>25</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B26">
+						<sup>26</sup>
+					</xref> They were classified according to WHO recommendations,<sup>30</sup> with individuals with BMI/age &lt; -2 z-scores classed as having low BMI, overweight individuals those with BMI/age between &gt; +1 and ≤ +2 z-scores and obese individuals those with BMI/age &gt; +2 z-scores. For the multiple analysis, individuals were classified into two categories: not overweight (low and appropriate BMI for age) and overweight (overweight and obese).</p>
+				<p>The adolescents’ physical activity was assessed using questions covering travelling to school, leisure activities and school PE classes, quantified according to duration and frequency of the activity.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> For purposes of analysis, the individuals were classified as active (those who did 300 min or more of moderate to vigorous physical activity per week) or insufficiently active (those who did less than 300 min of moderate to vigorous physical activity per week).</p>
+				<p>Regarding alcoholic drinks, adolescents who reported having ever drunk at least a mouthful of any alcoholic drink were classed as having tried alcohol. Adolescents who reported having smoked a cigarette at least once in their life were classed as having tried smoking.</p>
+				<p>To assess eating patterns, a score adapted from Estima et al<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> (2009) was calculated, in which adolescents scored points according to the frequency with which they consumed breakfast, lunch and dinner, in the following way: 0 points (five times a week to daily), one point (three or four times a week), two points (once or twice a week) and three points (never or almost never). This variable was categorized as satisfactory (total points of one or less) and unsatisfactory (total points greater than one).</p>
+				<p>Regarding sedentary behavior (hours per day watching television, playing video games or using the computer), the adolescents responded to two objective questions: “On a normal weekday, how many hours do you spend watching television?” and “On a normal weekday, how many hours do you spend on the computer or playing video games?”. The World Health organization recommends that children and adolescents do not spend more than two hours/day in front of the television or a video game.<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> However, in this study, sedentary behavior was defined as four hours or more/day spent watching television and/or on the computer/video games as the high frequency of adolescents in the two hours or more/day of sedentary behavior category meant there was no power to discriminate the outcome.<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref>
+				</p>
+				<p>In the bivariate analysis, the prevalence and prevalence ratio of sedentary behavior (dependent variable) were calculated with their respective 95% confidence intervals, according to the independent variables. The Chi-square test was used to test differences between proportions. Linearity of associations was assessed using the Chi-square test. The variables which had p-values ≤ 0.20 in the bivariate analysis were then selected for the hierarchized multiple logistic regression analysis.<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref> In this way, the variables were included in blocks, with more distal factors (sociodemographic and economic – level one) being the first to be included in the analysis, followed by those related to lifestyle (level two) and, in the most proximal level, the variable BMI for age in childhood and adolescence (level three). The variables in the distal level were kept in the model and were included in the adjustment for the next level. The same procedure was used for level two, i.e., variables introduced at this level were kept in level three. All variables with a level of significance less than or equal to 5% for the categories remained in the model, with the exception of BMI in childhood, which was kept in the model as it was deemed important for the fit.</p>
+				<p>The statistical analyses were performed using Statistical Package for the Social Sciences (SPSS) software, version 17.0 for Windows (SPSS Inc., Chicago, IL, EUA) and EpiInfo™ 7 version 7.0.9.3.4.</p>
+				<p>The project was approved by the Ethics Committee of the <italic>Hospital Universitário Júlio Muller </italic>of the <italic>Universidade Federal de Mato Grosso</italic> (Protocol 651/CEPHUJM/2009). Parents or guardians consented to the adolescents’ participation in the research and signed an informed consent form.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>Of the 1,716 adolescents studied, 50.7% were male. Overall prevalence of sedentary behavior was 58.1% (n = 997), with a higher proportion in those belonging to economic class “A” (68.6%), those attending private schools (65.9%), living in a state capital (58.7%) and those whose mothers had 12 or more years of schooling (63.7%). The prevalence of sedentary behavior increased with age. No statistically significant difference in sedentary behavior according to sex, skin color or fathers’ level of schooling was found (<xref ref-type="table" rid="t01_en">Table 1</xref>).</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Prevalence (%), Prevalence ratio (PR) and 95% confidence interval (95%CI) of sedentary behavior according to sociodemographic, economic, lifestyle and body mass index (BMI) variables of adolescents aged from 10 to 17, 2009 to 2011.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="20%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" rowspan="2" style="font-weight:normal"> Variables </th>
+									<th rowspan="2" style="font-weight:normal"> n </th>
+									<th colspan="3" style="font-weight:normal"> Sedentary behavior (≥ 4 hours/day) <hr/>   </th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal"> % </th>
+									<th style="font-weight:normal"> PR </th>
+									<th style="font-weight:normal"> 95%CI </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="5"> Sex </td>
+								</tr>
+								<tr>
+									<td>  Male </td>
+									<td align="center"> 870 </td>
+									<td align="center"> 56.8 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  Female </td>
+									<td align="center"> 846 </td>
+									<td align="center"> 59.5 </td>
+									<td align="center"> 1.04 </td>
+									<td align="center"> 0.96;1.13 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Age<sup>a</sup>
+									</td>
+								</tr>
+								<tr>
+									<td>  10 </td>
+									<td align="center"> 105 </td>
+									<td align="center"> 40.0 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  11 </td>
+									<td align="center"> 603 </td>
+									<td align="center"> 52.6 </td>
+									<td align="center"> 1.31 </td>
+									<td align="center"> 1.02;1.68 </td>
+								</tr>
+								<tr>
+									<td>  12 </td>
+									<td align="center"> 443 </td>
+									<td align="center"> 59.8 </td>
+									<td align="center"> 1.49 </td>
+									<td align="center"> 1.17;1.91 </td>
+								</tr>
+								<tr>
+									<td>  13 </td>
+									<td align="center"> 236 </td>
+									<td align="center"> 63.6 </td>
+									<td align="center"> 1.59 </td>
+									<td align="center"> 1.23;2.04 </td>
+								</tr>
+								<tr>
+									<td>  ≥ 14 </td>
+									<td align="center"> 329 </td>
+									<td align="center"> 67.8 </td>
+									<td align="center"> 1.69 </td>
+									<td align="center"> 1.32;2.16 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Skin color </td>
+								</tr>
+								<tr>
+									<td>  White </td>
+									<td align="center"> 371 </td>
+									<td align="center"> 56.6 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  Black </td>
+									<td align="center"> 259 </td>
+									<td align="center"> 57.9 </td>
+									<td align="center"> 1.02 </td>
+									<td align="center"> 0.89;1.17 </td>
+								</tr>
+								<tr>
+									<td>  Mixed race </td>
+									<td align="center"> 1,005 </td>
+									<td align="center"> 59.0 </td>
+									<td align="center"> 1.04 </td>
+									<td align="center"> 0.94;1.15 </td>
+								</tr>
+								<tr>
+									<td>  Other </td>
+									<td align="center"> 81 </td>
+									<td align="center"> 54.3 </td>
+									<td align="center"> 0.96 </td>
+									<td align="center"> 0.77;1.19 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Economic class<sup>a,b</sup>
+									</td>
+								</tr>
+								<tr>
+									<td>  A </td>
+									<td align="center"> 86 </td>
+									<td align="center"> 68.6 </td>
+									<td align="center"> 2.33 </td>
+									<td align="center"> 1.57;3.46 </td>
+								</tr>
+								<tr>
+									<td>  B </td>
+									<td align="center"> 603 </td>
+									<td align="center"> 62.5 </td>
+									<td align="center"> 2.12 </td>
+									<td align="center"> 1.46;3.08 </td>
+								</tr>
+								<tr>
+									<td>  C </td>
+									<td align="center"> 959 </td>
+									<td align="center"> 56.4 </td>
+									<td align="center"> 1.92 </td>
+									<td align="center"> 1.32;2.78 </td>
+								</tr>
+								<tr>
+									<td>  D and E </td>
+									<td align="center"> 68 </td>
+									<td align="center"> 29.4 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Type of school </td>
+								</tr>
+								<tr>
+									<td>  Public </td>
+									<td align="center"> 1,357 </td>
+									<td align="center"> 56.1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  Private </td>
+									<td align="center"> 358 </td>
+									<td align="center"> 65.9 </td>
+									<td align="center"> 1.17 </td>
+									<td align="center"> 1.07;1.28 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Maternal schooling (years)<sup>a,c</sup>
+									</td>
+								</tr>
+								<tr>
+									<td>  0 to 4 </td>
+									<td align="center"> 103 </td>
+									<td align="center"> 43.7 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  5 to 8 </td>
+									<td align="center"> 460 </td>
+									<td align="center"> 56.3 </td>
+									<td align="center"> 1.29 </td>
+									<td align="center"> 1.02;1.62 </td>
+								</tr>
+								<tr>
+									<td>  9 to 11 </td>
+									<td align="center"> 841 </td>
+									<td align="center"> 59.2 </td>
+									<td align="center"> 1.35 </td>
+									<td align="center"> 1.08;1.70 </td>
+								</tr>
+								<tr>
+									<td>  ≥ 12 </td>
+									<td align="center"> 259 </td>
+									<td align="center"> 63.7 </td>
+									<td align="center"> 1.46 </td>
+									<td align="center"> 1.15;1.85 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Paternal schooling (years)<sup>d</sup>
+									</td>
+								</tr>
+								<tr>
+									<td>  0 to 4 </td>
+									<td align="center"> 128 </td>
+									<td align="center"> 57.8 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  5 to 8 </td>
+									<td align="center"> 490 </td>
+									<td align="center"> 60.2 </td>
+									<td align="center"> 1.04 </td>
+									<td align="center"> 0.88;1.22 </td>
+								</tr>
+								<tr>
+									<td>  9 to 11 </td>
+									<td align="center"> 665 </td>
+									<td align="center"> 57.4 </td>
+									<td align="center"> 0.99 </td>
+									<td align="center"> 0.84;1.17 </td>
+								</tr>
+								<tr>
+									<td>  ≥ 12 </td>
+									<td align="center"> 226 </td>
+									<td align="center"> 61.5 </td>
+									<td align="center"> 1.06 </td>
+									<td align="center"> 0.88;1.27 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Place of residence </td>
+								</tr>
+								<tr>
+									<td>  State Capital </td>
+									<td align="center"> 1,641 </td>
+									<td align="center"> 58.7 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  Interior </td>
+									<td align="center"> 75 </td>
+									<td align="center"> 45.3 </td>
+									<td align="center"> 0.77 </td>
+									<td align="center"> 0.60;0.99 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Physical activity </td>
+								</tr>
+								<tr>
+									<td>  &lt; 300 min/week </td>
+									<td align="center"> 852 </td>
+									<td align="center"> 61.9 </td>
+									<td align="center"> 1.13 </td>
+									<td align="center"> 1.05;1.23 </td>
+								</tr>
+								<tr>
+									<td>  ≥ 300 min/week </td>
+									<td align="center"> 864 </td>
+									<td align="center"> 54.4 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Eating pattern </td>
+								</tr>
+								<tr>
+									<td>  Unsatisfactory </td>
+									<td align="center"> 586 </td>
+									<td align="center"> 61.6 </td>
+									<td align="center"> 1.09 </td>
+									<td align="center"> 1.01;1.19 </td>
+								</tr>
+								<tr>
+									<td>  Satisfactory </td>
+									<td align="center"> 1,130 </td>
+									<td align="center"> 56.3 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Tried alcohol </td>
+								</tr>
+								<tr>
+									<td>  Yes </td>
+									<td align="center"> 668 </td>
+									<td align="center"> 63.3 </td>
+									<td align="center"> 1.15 </td>
+									<td align="center"> 1.07;1.25 </td>
+								</tr>
+								<tr>
+									<td>  No </td>
+									<td align="center"> 1,048 </td>
+									<td align="center"> 54.8 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Tried smoking </td>
+								</tr>
+								<tr>
+									<td>  Yes </td>
+									<td align="center"> 65 </td>
+									<td align="center"> 69.2 </td>
+									<td align="center"> 1.20 </td>
+									<td align="center"> 1.01;1.42 </td>
+								</tr>
+								<tr>
+									<td>  No </td>
+									<td align="center"> 1,651 </td>
+									<td align="center"> 57.7 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Childhood BMI/Age classification </td>
+								</tr>
+								<tr>
+									<td>  Low BMI </td>
+									<td align="center"> 41 </td>
+									<td align="center"> 68.3 </td>
+									<td align="center"> 1.18 </td>
+									<td align="center"> 0.95;1.46 </td>
+								</tr>
+								<tr>
+									<td>  Appropriate BMI </td>
+									<td align="center"> 1,325 </td>
+									<td align="center"> 57.8 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  Overweight </td>
+									<td align="center"> 270 </td>
+									<td align="center"> 54.8 </td>
+									<td align="center"> 0.94 </td>
+									<td align="center"> 0.84;1.06 </td>
+								</tr>
+								<tr>
+									<td> Obese </td>
+									<td align="center"> 80 </td>
+									<td align="center"> 68.8 </td>
+									<td align="center"> 1.19 </td>
+									<td align="center"> 1.02;1.39 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Adolescence BMI/Age classification </td>
+								</tr>
+								<tr>
+									<td>  Low BMI </td>
+									<td align="center"> 56 </td>
+									<td align="center"> 48.2 </td>
+									<td align="center"> 0.85 </td>
+									<td align="center"> 0.64;1.12 </td>
+								</tr>
+								<tr>
+									<td>  Appropriate BMI </td>
+									<td align="center"> 1,185 </td>
+									<td align="center"> 56.8 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>  Overweight </td>
+									<td align="center"> 315 </td>
+									<td align="center"> 65.1 </td>
+									<td align="center"> 1.14 </td>
+									<td align="center"> 1.04;1.26 </td>
+								</tr>
+								<tr>
+									<td>  Obese </td>
+									<td align="center"> 160 </td>
+									<td align="center"> 57.5 </td>
+									<td align="center"> 1.01 </td>
+									<td align="center"> 0.88;1.16 </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>
+									<bold>a</bold>
+								</sup> p of linear trend &lt; 0.01.</p>
+							<p>
+								<sup>
+									<bold>b</bold>
+								</sup> Classification according to Brazilian Association of Research Companies (ABEP, 2008).</p>
+							<p>
+								<sup>
+									<bold>c</bold>
+								</sup> Data for 53 individuals missing.</p>
+							<p>
+								<sup>
+									<bold>d</bold>
+								</sup> Data for 207 individuals missing.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>Variables related to the adolescents’ lifestyle and BMI for age classification are shown in <xref ref-type="table" rid="t02_en">Table 2</xref>. The prevalence of sedentary behavior was high among adolescents who did less than 300 min of physical activity per week and among those who reported having tried alcohol and/or cigarettes at least once in their life. There was a higher prevalence of sedentary behavior in adolescents with unsatisfactory eating patterns compared with those with satisfactory patterns. As for individuals’ BMI/age classification, regarding being overweight, there was a statistically significant association with sedentary behavior in both childhood and adolescence.</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Hierarchized multiple logistic regression for sociodemographic and economic (level 1), lifestyle (level 2) and body mass index (level 3) variables for adolescents aged 10 to 17, 2009 to 2011.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="25%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" style="font-weight:normal"> Variable </th>
+									<th style="font-weight:normal"> OR<sub>adjusted</sub>
+										<sup>a</sup>
+									</th>
+									<th style="font-weight:normal"> OR<sub>adjusted</sub>
+										<sup>b</sup>
+									</th>
+									<th style="font-weight:normal"> 95%CI </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4"> Level 1 </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Age (years) </td>
+								</tr>
+								<tr>
+									<td>   10 </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>   11 </td>
+									<td align="center"> 1.66 </td>
+									<td align="center"> 1.63 </td>
+									<td align="center"> 1.06;2.51 </td>
+								</tr>
+								<tr>
+									<td>   12 </td>
+									<td align="center"> 2.23 </td>
+									<td align="center"> 2.34 </td>
+									<td align="center"> 1.50;3.65 </td>
+								</tr>
+								<tr>
+									<td>   13 </td>
+									<td align="center"> 2.61 </td>
+									<td align="center"> 2.74 </td>
+									<td align="center"> 1.69;4.44 </td>
+								</tr>
+								<tr>
+									<td>   ≥ 14 </td>
+									<td align="center"> 3.15 </td>
+									<td align="center"> 3.51 </td>
+									<td align="center"> 2.19;5.60 </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Economic class </td>
+								</tr>
+								<tr>
+									<td>   A, B </td>
+									<td align="center"> 3.10 </td>
+									<td align="center"> 3.83 </td>
+									<td align="center"> 2.10;7.01 </td>
+								</tr>
+								<tr>
+									<td>   C </td>
+									<td align="center"> 4.13 </td>
+									<td align="center"> 3.01 </td>
+									<td align="center"> 1.68;5.38 </td>
+								</tr>
+								<tr>
+									<td>   D, E </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Maternal schooling (years) </td>
+								</tr>
+								<tr>
+									<td>   0 to 4 </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>   5 to 8 </td>
+									<td align="center"> 1.66 </td>
+									<td align="center"> 1.59 </td>
+									<td align="center"> 1.02;2.48 </td>
+								</tr>
+								<tr>
+									<td>   9 to 11 </td>
+									<td align="center"> 1.87 </td>
+									<td align="center"> 1.66 </td>
+									<td align="center"> 1.07;2.56 </td>
+								</tr>
+								<tr>
+									<td>   ≥ 12 </td>
+									<td align="center"> 2.26 </td>
+									<td align="center"> 1.81 </td>
+									<td align="center"> 1.09;3.01 </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Place of residence </td>
+								</tr>
+								<tr>
+									<td>   Capital </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>   Interior </td>
+									<td align="center"> 0.58 </td>
+									<td align="center"> 0.49 </td>
+									<td align="center"> 0.30;0.81 </td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<hr/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4"> Level 2 </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Physical activity </td>
+								</tr>
+								<tr>
+									<td>   &lt; 300 min/week </td>
+									<td align="center">1.36</td>
+									<td align="center">1.25</td>
+									<td align="center">1.02;1.53</td>
+								</tr>
+								<tr>
+									<td>   ≥ 300 min/week </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+									<td align="center">   </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Tried alcohol </td>
+								</tr>
+								<tr>
+									<td>   Yes </td>
+									<td align="center"> 1.42 </td>
+									<td align="center"> 1.34 </td>
+									<td align="center"> 1.08;1.66 </td>
+								</tr>
+								<tr>
+									<td>   No </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<hr/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4"> Level 3 </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Childhood classification of BMI/Age </td>
+								</tr>
+								<tr>
+									<td>   Not overweight </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>   Overweight </td>
+									<td align="center"> 0.99 </td>
+									<td align="center"> 0.88 </td>
+									<td align="center"> 0.69;1.14 </td>
+								</tr>
+								<tr>
+									<td colspan="4">  Adolescence classification of BMI/Age </td>
+								</tr>
+								<tr>
+									<td>   Not overweight </td>
+									<td align="center"> 1 </td>
+									<td align="center"> 1 </td>
+								</tr>
+								<tr>
+									<td>   Overweight </td>
+									<td align="center"> 1.29 </td>
+									<td align="center"> 1.33 </td>
+									<td align="center"> 1.06;1.68 </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>a </sup>Unadjusted odds ratio.</p>
+							<p>
+								<sup>b </sup>Odds ratio adjusted for the other variables included in the model.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>In the final model obtained by hierarchized logistic regression, the sociodemographic and economic variables which remained associated with the outcome were age, economic class, maternal schooling and place of residence. Of the lifestyle variables, it was observed that those adolescents who did less physical activity had a 25.0% greater chance of demonstrating sedentary behavior compared with those who were more active (OR = 1.25; 95%CI 1.02;1.53). In the same way, the trying alcohol variable remained associated with sedentary behavior, showing that adolescents who had tried alcoholic drinks had a higher chance of demonstrating sedentary behavior than those who had not. However, eating patterns and trying smoking ceased to be associated with sedentary behavior (<xref ref-type="table" rid="t01_en">Table 1</xref>).</p>
+				<p>Having tried smoking or alcohol were co-related variables, with 84.6% of adolescents having tried both, which could explain the lack of association with having tried smoking in the final model. However, additional analysis, excluding trying alcohol and including trying smoking did not show a statistically significant association either (p = 0.14). Similar analysis was performed for BMI as adolescents who were overweight were probably more frequently overweight in childhood, this being verified in the study value of 44.3%. Thus, analysis which only included being overweight in childhood was not statistically significant either (p = 0.67).</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>Being older, belonging to a higher economic class, not doing physical activity and being overweight all had an independent effect on sedentary behavior in adolescents. Living in the interior had a protective effect on this behavior. The prevalence of sedentary behavior observed (58.1%) was higher than that observed by Silva et al<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref> (2009), in students aged 15 to 19 in the state of Santa Catarina, Southern Brazil. Adolescents from higher economic classes, as well as those at private schools, had a higher chance of sedentary behavior, which corroborates the results found by Oliveira et al<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> (2010). It is probable that adolescents attending private schools have more access to technology, especially those related to computers and video games. In the same way, parents with higher levels of schooling have higher purchasing power and, therefore, more facility in acquiring electronic apparatus for their children, thus increasing the prevalence of sedentary behavior among them.<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref>
+				</p>
+				<p>Adolescents living in the interior were shown to be protected from sedentary behavior compared with their peers in the state capitals. Young big city residents probably have greater access to electronic devices, whereas children and adolescents living in the interior may have more chances to participate in activities which expend energy, such as riding a bicycle and playing in the streets. A similar result was found by Silva et al<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref> (2009), with the prevalence of sedentary behavior being more frequent in adolescents living in urban areas.</p>
+				<p>As regards the adolescents’ age groups, the older ones showed a higher prevalence of sedentary behavior. It can be speculated that older adolescents are not very attracted to other activities, including doing physical exercise, deeming them unimportant for their expectations and substituting them for sedentary behavior. According to Mathews et al<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> (2008), older adolescents spend approximately 60% of their free time in sedentary activities, compared with younger adolescents. Oliveira et al<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> (2010) state that younger adolescents spend less time doing sedentary activities.</p>
+				<p>Some authors have shown that the relationship between sedentary activities and doing physical activity is independent,<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> as an individual may do sedentary activities yet still follow recommendations for physical activity. However, this study showed that insufficiently active adolescents had a higher chance of sedentary behavior compared with active ones. Such divergences may occur due to the difficulty and variability in measuring and classifying both parameters. However, the decreased amount of time spent on sedentary activities seems to be a strategy for reducing physical inactivity.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> Different studies have shown that low levels of physical activity in children and adolescents has been attributed to more time spent in front of the television, computer or video games<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> which would also explain the association between level of physical activity and increased obesity.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+				</p>
+				<p>Overweight adolescents have a greater chance of sedentary behavior, a finding in agreement with various epidemiological surveys.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref> It is probable that time spent on sedentary activities may affect both level of physical activity and eating habits of the individual, possibly increasing the prevalence of being overweight.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+				</p>
+				<p>One of the aims of this research was to verify whether BMI in childhood was associated with sedentary behavior in adolescence, in other words, whether a young person who was overweight in childhood had a higher chance of acquiring sedentary behavior in adolescence. The results of the bivariate analysis show that there was an association between sedentary behavior and obesity in childhood, although, after adjusting for confounding factors in the multiple analysis, they ceased to be associated.</p>
+				<p>Sedentary behavior was associated with other behavior deemed to be risky such as trying alcohol and smoking, and unsatisfactory eating patterns. However, after adjusting for sociodemographic and economic variables, only having tried alcohol remained associated. It was verified that adolescents who reported having tried alcohol had a higher chance of sedentary behavior compared with those who reported not having tried alcohol. Among other factors, alcoholic drinks are frequently shown in the media through advertising, films, soap operas and music,<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> meaning that adolescents who spend more time in sedentary activities are more encouraged to consume alcoholic drinks.</p>
+				<p>This research originated from a cohort study, which allowed variables from early childhood to be evaluated with the variables from adolescence, which was a positive point of this study. However, as it is a cross-sectional study, a limitation is that causality cannot be inferred in the association between sedentary behavior and the variables investigated, as risk factors and outcomes are seen at one single moment. Moreover, the data on risk factors evaluated, such as trying alcohol or smoking and doing physical activity were obtained through a questionnaire and there may have been errors in classification from the adolescents’ statements, which tend to omit experiences with alcohol and other drugs as well as difficulties in remembering their activities.</p>
+				<p>To conclude, a high proportion of adolescents with sedentary behavior was observed, especially among older adolescents and those with a higher socioeconomic level. The inverse association of sedentary activities and physical activity suggests the need for intervention strategies for this population, with educational actions, through the family, schools and health care professionals. These interventions, especially concerning encouraging doing activities which burn energy, should reduce sedentary behavior and, consequently, excess weight among young people.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a </label>
+					<p>Associação Brasileira de Empresas de Pesquisa. Códigos e guias: CCEB – Critério de Classificação Econômica Brasil. São Paulo: ABEP; 2008 [cited 2010 Oct 10]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.abep.org/novo/Content.aspx?ContentID">http://www.abep.org/novo/Content.aspx?ContentID</ext-link>
+					</p>
+				</fn>
+				<fn fn-type="supplementary-material">
+					<p>Article based on the master’s dissertation of Dias PJP, entitled: “Prevalência e fatores associados aos comportamentos sedentários em adolescentes”, presented to the <italic>Faculdade de Nutrição</italic>, <italic>Universidade Federal de Mato Grosso</italic>, in 2013.</p>
+				</fn>
+				<fn fn-type="financial-disclosure">
+					<p>This study was supported by the <italic>Fundação de Amparo à Pesquisa do Estado do Mato Grosso</italic> (FAPEMAT – Process 446298/2009) and by the <italic>Conselho Nacional de Desenvolvimento Científico e Tecnológico</italic> (CNPq – Process 471063/2009-6).</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

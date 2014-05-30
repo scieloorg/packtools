@@ -1,5 +1,19 @@
 #coding: utf-8
+import re
+import logging
+
 import plumber
+
+
+logger = logging.getLogger(__name__)
+
+
+class StyleError(object):
+    def __init__(self):
+        self.line = None
+        self.column = None
+        self.message = None
+
 
 # --------------------------------
 # Basic functionality
@@ -26,12 +40,64 @@ def teardown(message):
 def StyleCheckingPipeline():
     """Factory for style checking pipelines.
     """
-    return plumber.Pipeline(setup, teardown)
+    return plumber.Pipeline(setup, funding_group, teardown)
 
 
 # --------------------------------
 # Funding Group check
 # --------------------------------
+_AWARDID_PATTERN_LIST = (
+    # ENSP prefixed
+    r'\bENSP[A-Z\d-]+\d\b',
+    # FAEPA
+    r'\bFAEPA[A-Z\d/-]+\d\b',
+
+    # general purpose award-id matching
+    r'\b\d[\d./-]+\d\b',
+    )
+
+
+_AWARDID_FALSE_POSITIVES = (
+    # Year in format yyyy
+    r'^[12]\d{3}$',
+    )
+
+
+AWARDID_PATTERN = re.compile(r'|'.join(_AWARDID_PATTERN_LIST), flags=re.L)
+AWARDID_FALSE_POSITIVES = re.compile(r'|'.join(_AWARDID_FALSE_POSITIVES), flags=re.L)
+
+
+def _find_contract_numbers(text,
+                           pattern=AWARDID_PATTERN,
+                           fpos_pattern=AWARDID_FALSE_POSITIVES):
+    """Look for patterns that look like contract numbers.
+
+    Assuming many false-positives are matched, `fpos_pattern` accepts a
+    compiled regex pattern to fine-tune the result.
+    """
+    pre_result = pattern.findall(text)
+    return [number for number in pre_result if not fpos_pattern.match(number)]
+
+
+def find_contract_numbers(et):
+    """Try to find the contract numbers insinde the elements <fn> and <ack>.
+
+      - The actual text resides on <p> elements of each <fn> or <ack> occurence.
+    :param et: an instance of etree.
+    """
+    fn_occs = et.findall('//fn[@fn-type="financial-disclosure"]/p')
+    ack_occs = et.findall('//ack/p')
+
+    found_contracts = {}
+    for occ in fn_occs:
+        res_element = found_contracts.setdefault('fn', [])
+        res_element += _find_contract_numbers(occ.text)
+    for occ in ack_occs:
+        res_element = found_contracts.setdefault('ack', [])
+        res_element += _find_contract_numbers(occ.text)
+
+    return found_contracts
+
 @plumber.pipe
 def funding_group(message):
     """Validate the Funding Group element
@@ -55,7 +121,7 @@ def funding_group(message):
       - Fn is the set of all contract-ids in <fn fn-type="financial-disclosure">
         element.
 
-      - PROPOSITION1: ∀Article[ HasExplicitContract(Article) => HasFundingGroup(Article) ]
+      - PROPOSITION1: ∀Article[ HasExplicitContract(Article) <=> HasFundingGroup(Article) ]
       - PROPOSITION2: ∀Article[ PROPOSITION1 => ( ∃S1 ∃S2[ Funds(Article, S1) v Funds(Article, S2) ] ) ]
       - PROPOSITION3: PROPOSITION2 => (
             ∀ContractNo<fn> [ Registered(FundingGroup, ContractNo) ] ^
@@ -64,5 +130,43 @@ def funding_group(message):
             )
     """
     et, err_list = message
+
+    found_contracts = find_contract_numbers(et)
+
+    has_explicit_contract = bool(found_contracts)
+    has_funding_group = bool(et.findall('//funding-group'))
+
+    if has_explicit_contract != has_funding_group:
+        err = StyleError()
+        err.message = "Element 'funding-group': This element is not expected or not filled-in correctly."
+        err_list.append(err)
+
+    elif has_explicit_contract:
+        funding_group_ids_set = set(elem.text for elem in et.findall('//funding-group/award-group/award-id'))
+        fn_set = set(found_contracts.get('fn', []))
+        ack_set = set(found_contracts.get('ack', []))
+
+        if fn_set.issubset(funding_group_ids_set):
+
+            if ack_set.issubset(funding_group_ids_set):
+
+                if funding_group_ids_set != fn_set.union(ack_set):
+                    err = StyleError()
+                    err.message = "Element 'funding-group': This element has occurrences not declared in fn or ack."
+                    err_list.append(err)
+
+            else:
+                err = StyleError()
+                err.message = "Element 'ack': This element has occurrences not declared in funding-group."
+                err_list.append(err)
+
+        else:
+            err = StyleError()
+            err.message = "Element 'fn-group': This element has occurrences not declared in funding-group."
+            err_list.append(err)
+
+    else:
+        logger.debug('No contract numbers found in %s.' % et)
+
     return message
 

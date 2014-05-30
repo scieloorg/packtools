@@ -96,7 +96,16 @@ class XMLTests(unittest.TestCase):
         xml = stylechecker.XML(fp)
         xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
 
-        self.assertIsNone(xml.find_element('c', 2))
+        # missing elements fallback to the root element
+        self.assertEquals(xml.find_element('c', 2), fp.getroot())
+
+    def test_find_missing_without_fallback(self):
+        fp = etree.parse(StringIO(b'<a>\n<b>bar</b>\n</a>'))
+        xml = stylechecker.XML(fp)
+        xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
+
+        # missing elements fallback to the root element
+        self.assertRaises(ValueError, lambda: xml.find_element('c', 2, fallback=False))
 
     def test_annotate_errors(self):
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
