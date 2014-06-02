@@ -1,0 +1,1687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004971</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004971</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Fatores de atraso na alta hospitalar em hospitais de ensino</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Silva</surname>
+						<given-names>Soraia Aparecida da</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Valácio</surname>
+						<given-names>Reginaldo Aparecido</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Botelho</surname>
+						<given-names>Flávia Carvalho</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Amaral</surname>
+						<given-names>Carlos Faria Santos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgname">Hospital Odilon Behrens</institution>
+				<addr-line>
+					<named-content content-type="city">Belo Horizonte</named-content>
+					<named-content content-type="state">MG</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Hospital Odilon Behrens. Belo Horizonte, MG, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv1">Faculdade de Medicina</institution>
+				<institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+				<addr-line>
+					<named-content content-type="city">Belo Horizonte</named-content>
+					<named-content content-type="state">MG</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv1">Faculdade de Medicina</institution>
+				<institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+				<addr-line>
+					<named-content content-type="city">Belo Horizonte</named-content>
+					<named-content content-type="state">MG</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Programa de Pós-Graduação em Ciências Aplicadas à Saúde do Adulto. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Soraia Aparecida da Silva  Av. Bernardo Vasconcelos, 2350 apto. 404 Ipiranga  31160-440 Belo Horizonte, MG, Brasil  E-mail: <email>soraiaapsilva@yahoo.com.br</email>
+				</corresp>
+				<fn fn-type="other">
+					<p>Artigo baseado na dissertação de mestrado de Silva SA, intitulada “Fatores de atraso na alta hospitalar de dois hospitais públicos da cidade de Belo Horizonte – Minas Gerais”, apresentada à Universidade Federal de Minas Gerais, em 2011.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>314</fpage>
+			<lpage>321</lpage>
+			<history>
+				<date date-type="received">
+					<day>2</day>
+					<month>6</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>9</day>
+					<month>12</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Analisar os motivos de atraso na alta hospitalar de pacientes internados em enfermarias de clínica médica.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Foram analisados 395 prontuários de pacientes consecutivos das enfermarias de clínica médica de dois hospitais públicos de ensino: Hospital das Clínicas da Universidade Federal de Minas Gerais e Hospital Odilon Behrens. Foi utilizado o <italic>Appropriateness Evaluation Protocol</italic> para definir o momento a partir do qual as anotações do prontuário permitiam concluir que a permanência no hospital não mais era adequada. O intervalo entre esse momento e a data da alta hospitalar efetivada definiu o total de dias de atraso na alta hospitalar. Foi utilizado, sistematicamente, instrumento para categorizar os motivos de atraso da alta hospitalar, tendo sido realizada análise de frequências.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>O atraso na alta hospitalar ocorreu em 60,0% das 207 internações do Hospital das Clínicas e em 58,0% das 188 internações do Hospital Odilon Behrens. O atraso por paciente foi em média de 4,5 dias no primeiro e 4,1 dias no segundo, o que corresponde à taxa de ocupação de 23,0% e 28,0% em cada hospital, respectivamente. Os principais motivos de atraso nos dois hospitais foram, respectivamente: espera para realização de exames complementares (30,6% e 34,7%) ou para liberação dos laudos dos exames (22,4% e 11,9%) e os relacionados à responsabilidade médica (36,2% e 26,1%), compreendendo a demora na discussão do caso clínico e na tomada de decisão clínica e dificuldades nas interconsultas, respectivamente (20,4% e 9,1%).</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>Foi constatado percentual elevado de atraso na alta hospitalar nos dois hospitais. O atraso foi devido principalmente a fatores relacionados a processos, que podem ser melhorados por intervenções da equipe assistencial e dos gestores. O impacto na média de permanência hospitalar e na taxa de ocupação foi expressivo e preocupante, num cenário de relativa escassez de leitos e longas esperas por internação.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Alta do Paciente</kwd>
+				<kwd>Tempo de Internação</kwd>
+				<kwd>Ocupação de Leitos</kwd>
+				<kwd>Hospitais de Ensino</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="6"/>
+				<ref-count count="30"/>
+				<page-count count="8"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>A permanência hospitalar acima do tempo necessário é uma preocupação antiga, contribuindo para redução da qualidade da assistência e aumento dos custos.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> Adicionalmente, mantém o usuário do sistema de saúde longe do convívio familiar e da comunidade, além de expô-lo a riscos evitáveis, como infecção hospitalar, depressão, perda de condicionamento físico, trombose venosa profunda e quedas.</p>
+			<p>Atrasos na alta hospitalar (AH) ocorrem na maioria dos hospitais (taxas de 13,5% a 62,0%).<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+			</p>
+			<p>A preocupação com os custos da inadequada utilização dos leitos hospitalares destinados ao cuidado agudo surgiu no final do século passado.<xref ref-type="bibr" rid="B25">
+					<sup>25</sup>
+				</xref> Estudo de 1991<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> mostrou aumento da permanência hospitalar no Canadá e nos Estados Unidos, atribuído ao crescente número de pacientes crônicos dependentes de cuidados não hospitalares ocupando leitos destinados ao cuidado de pacientes agudos.</p>
+			<p>A preocupação em detectar os motivos do atraso na AH deve existir em toda internação. A identificação do problema é a primeira etapa na busca de soluções. Mudanças nos processos de trabalho podem resultar em diminuição no atraso da AH, sem necessidade de investimentos financeiros estruturais.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+			</p>
+			<p>Estudos identificaram as causas, mediram os dias de atraso na AH<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> e propuseram métodos para quantificar os dias de internação hospitalar desnecessários.</p>
+			<p>O instrumento mais amplamente testado e validado em diversos países para mensurar a adequação da internação e da permanência hospitalar é o <italic>Appropriateness Evaluation Protocol</italic> (AEP).<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B27">
+					<sup>27</sup>
+				</xref> O instrumento mostrou-se confiável e com boa concordância inter e intraobservador.<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+			</p>
+			<p>Apesar da importância de identificar e minimizar os fatores que prolongam desnecessariamente a permanência hospitalar, poucos estudos categorizam os fatores que impedem a AH de pacientes com quadro clínico estabilizado.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref>
+			</p>
+			<p>Este estudo teve como objetivo analisar os motivos de atraso na alta hospitalar de pacientes internados em enfermarias de clínica médica.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Estudo realizado em dois hospitais públicos de ensino de grande porte que atendem exclusivamente pacientes do Sistema Único de Saúde provenientes da cidade de Belo Horizonte, MG, e região metropolitana. Os locais estudados foram: Hospital das Clínicas da Universidade Federal de Minas Gerais (HC), hospital universitário que recebe para internação pacientes do seu pronto socorro. Por ser um hospital de referência para alta complexidade com várias especialidades, recebe também pacientes de outras instituições após avaliação da central de regulação de leitos. E Hospital Odilon Behrens (HOB), que é uma autarquia municipal com importante papel na rede municipal, principalmente por seu serviço de urgência e emergência, de onde provém a maior parte dos pacientes internados. Os dois hospitais possuem ambulatórios de especialidades que servem para continuidade do cuidado pós-alta.</p>
+			<p>Estudo piloto foi feito para avaliar a concordância na aplicação do AEP entre os pesquisadores, utilizando prontuários de pacientes que tiveram AH a partir de 01/01/2010, consecutivamente até atingir o n calculado para essa finalidade (30 pacientes). Esses prontuários não foram utilizados na etapa seguinte do estudo.</p>
+			<p>Durante o projeto piloto, houve concordância na aplicação do AEP com Kappa de 0,53; 0,59 e 0,66.</p>
+			<p>Considerou-se a ocorrência de atraso na AH em 20,0% dos prontuários em ambos os hospitais para o cálculo amostral do estudo. Foi calculada amostra de 174 prontuários a serem analisados em cada hospital para nível de confiança de 90% e limites de confiança de 5%.</p>
+			<p>Os prontuários de pacientes consecutivos que tiveram alta hospitalar entre 1/1/2010 e 19/3/2010 foram avaliados por três pesquisadores.</p>
+			<p>Foram selecionados os prontuários de pacientes cuja especialidade médica responsável diretamente pelo cuidado foi a clínica médica.</p>
+			<p>Analisaram-se 207 prontuários de pacientes internados no HC e 188 no HOB, após exclusão de 21 e 9 prontuários, respectivamente. Os motivos mais frequentes de exclusão no HC e no HOB foram, respectivamente, a atuação da clínica médica principalmente como interconsultora (28,6% e 55,5%), análise do mesmo prontuário mais de uma vez por erros de arquivamento (47,6% e 11,1%) e o prontuário com data anterior ao período de início do estudo (4,8% e 33,4%).</p>
+			<p>O instrumento utilizado para identificar o momento a partir do qual o atraso na alta hospitalar teve início foi a versão do AEP validada para o idioma português em Portugal.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B29">
+					<sup>29</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B30">
+					<sup>30</sup>
+				</xref>
+			</p>
+			<p>O AEP consiste em um formulário dividido em duas partes. Na primeira, avalia-se o estado clínico do paciente (dados vitais, alterações neurológicas de início agudo com paralisias de qualquer parte do corpo, alterações de consciência e de visão ou audição). São também analisadas alterações em exames complementares, como eletrocardiograma e ionograma. Na segunda, avalia-se a necessidade de cuidados clínicos, como administração de medicações endovenosas, monitorização de dados vitais a cada duas horas e uso de medicação por via intramuscular a cada oito horas.</p>
+			<p>Foram definidos critérios de exceção (critérios não contemplados no AEP original, mas que justificavam a internação), considerando a realidade local. Tais critérios são previstos no próprio instrumento e devem ser utilizados para evitar que dificuldades regionais interfiram no resultado da aplicação do instrumento.</p>
+			<p>Os critérios de exceção foram: dispneia de etiologia indefinida com saturação de oxigênio &lt; 92,0% em ar ambiente, necessidade de micronebulização em intervalos ≤ 4 horas e a presença de lesões cutâneas extensas (Síndrome de Steven Johnson e úlceras de pressão).</p>
+			<p>A permanência hospitalar foi considerada adequada quando qualquer critério relacionado no AEP ou critério de exceção estivesse presente.</p>
+			<p>A alta hospitalar foi considerada possível quando o paciente não preenchia mais nenhum critério do AEP, inclusive os critérios de exceção.</p>
+			<p>A alta foi considerada efetivada no dia em que o paciente deixou o hospital e o leito ficou disponível para ser ocupado por outro paciente.</p>
+			<p>Óbitos e transferências para outros setores ou outros hospitais foram considerados altas hospitalares da clínica médica.</p>
+			<p>Os dias de atraso na alta hospitalar foram calculados pela diferença entre a data da efetivação da alta hospitalar e a data em que a alta hospitalar foi considerada possível.</p>
+			<p>O formulário com os motivos do atraso na AH foi preenchido com base nas categorias elaboradas por Selker et al em 1989:<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref> pacientes aguardando realização de exames complementares; pacientes aguardando resultado de exames complementares; pacientes aguardando procedimentos cirúrgicos; pacientes aguardando interconsulta de outra clínica; atraso relacionado à responsabilidade médica (pacientes internados para realizar exames complementares, alta hospitalar dependendo da discussão com a equipe assistente/preceptoria para tomada de decisão clínica e existência de tratamento ambulatorial); atraso relacionado à falta de planejamento de alta ou da programação de atendimento extra-hospitalar; nível de cuidado apropriado inviável ou recursos extra-hospitalares não disponíveis, incluindo a disponibilidade de leitos de cuidado prolongado/cuidado paliativo ou para reabilitação, pacientes aguardando transferência para CTI ou para programas de internação, ou atendimento domiciliar, ou aguardando transferência para outras clínicas dentro do mesmo hospital. Nesta última categoria também está incluído o suporte familiar inadequado.</p>
+			<p>O teste Qui-quadrado de Pearson e os testes não paramétricos de Mann-Whitney e Kruskal-Wallis foram utilizados para análise estatística.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref>
+			</p>
+			<p>A reamostragem de <italic>bootstrap</italic>
+				<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> foi utilizada para cálculo dos intervalos de confiança dos dias de atraso na AH, média de permanência hospitalar e taxa de ocupação devido a atraso na AH. Os programas de software utilizados foram Excel 2010, SPSS 15,0 e R 2.7.1.</p>
+			<p>O projeto de pesquisa foi aprovado pelos Comitês de Ética em Pesquisa da Universidade Federal de Minas Gerais e do HOB (HOB FR - 300143, de 11 de fevereiro de 2010; UFMG Parecer ETIC 0536.0.203.000-09, de 8 de abril de 2011).</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>As características das amostras dos dois hospitais foram semelhantes. A idade dos pacientes do HC variou de 13 a 92 anos. A média de idade foi de 55,9 anos (desvio padrão – DP: 19,2 anos) com mediana de 57 anos (a idade não foi anotada em cinco pacientes), 58,0% eram do sexo feminino e 42,0% do sexo masculino. Trinta e dois pacientes evoluíram para o óbito, com taxa de mortalidade de 16,0% (IC95% 9,0;23,0). A média e mediana para a idade no HOB foram semelhantes às do HC (58,1 anos, DP: 18,5 anos e 58 anos, respectivamente), com idade variando de 13 a 95 anos; 37,5% eram do sexo feminino e 62,5% eram do sexo masculino. Dezesseis pacientes evoluíram para o óbito, com taxa de mortalidade de 9,0% (IC95% 2,0;16,0).</p>
+			<p>Alguns pacientes foram internados mais de uma vez no período do estudo, o que fez com que o número de internações fosse maior que o número de pacientes.</p>
+			<p>Alguns pacientes apresentaram mais de um motivo para justificar a permanência hospitalar, segundo o AEP (<xref ref-type="fig" rid="f01">Figura 1</xref>).</p>
+			<p>
+				<fig id="f01">
+					<label>Figura 1</label>
+					<caption>
+						<title>Justificativas para permanência hospitalar em enfermarias de clínica médica dos dois hospitais públicos de ensino. Minas Gerais, janeiro a março de 2010.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0314-gf01"/>
+				</fig>
+			</p>
+			<p>Foi encontrado atraso na AH no HC em 60,0% (IC95% 53,0;67,0) das internações, o que corresponde a 23,0% (IC95% 18,0;27,0) da taxa de ocupação. Este último dado foi estimado por meio da reamostragem de <italic>bootstrap</italic>,<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> uma vez que os dados (dias de atraso) não possuíam distribuição normal. Dos 117 pacientes que experimentaram atraso na AH, 33,4% teve um motivo de atraso, 46,1% mais de um motivo e 20,5% apresentou de quatro a seis motivos para atraso na AH. As 196 internações analisadas correspondiam a 190 pacientes, uma vez que seis pacientes foram internados na clínica médica por mais de uma vez no período.</p>
+			<p>O total de dias de internação no HC foi de 3.869, dos quais 22,3 foram de atraso.</p>
+			<p>O tempo médio de permanência hospitalar no HC foi de 20,4 dias (IC95% 17,2;23,3), mas teria sido de 15,9 dias (IC95% 12,9;18,5) se fosse descontada a média de atraso de 4,5 dias (IC95% 3,5;5,5).</p>
+			<p>Foi encontrada porcentagem de atraso na AH de 58,0% (IC95% 51,0;65,0) no HOB, utilizando a distribuição binomial dos pacientes, o que corresponde a 28,0% da taxa de ocupação (IC95% 22,0;34,0), intervalo construído pela reamostragem de <italic>bootstrap</italic>.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> Dos 102 pacientes com atraso na AH, 34,3% tiveram um motivo de atraso, 55,9% apresentavam mais de um motivo e 9,8% apresentavam quatro ou cinco motivos para atraso da AH.</p>
+			<p>O total de dias de internação na amostra avaliada no HOB foi de 2.567, tendo sido encontrado atraso na AH em 28,3% dos dias.</p>
+			<p>O tempo médio de permanência hospitalar no HOB sem computar os dias de atraso foi de 10,5 dias (IC95% 8,4;12,9). Computando a média de atraso de 4,1 dias (IC95% 3,2;5,1), o tempo médio de permanência aumentou para 14,6 dias.</p>
+			<p>As causas de atraso na AH foram apresentadas na <xref ref-type="fig" rid="f02">Figura 2</xref>. A somatória foi maior que 100%, uma vez que alguns pacientes experimentaram mais de um motivo de atraso.</p>
+			<p>
+				<fig id="f02">
+					<label>Figura 2</label>
+					<caption>
+						<title>Fatores de atraso na alta hospitalar em enfermarias de clínica médica de dois hospitais públicos de ensino. Minas Gerais, janeiro a março de 2010.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0314-gf02"/>
+				</fig>
+			</p>
+			<p>Não houve associação entre a idade dos pacientes e o número de dias de atraso na AH nos dois hospitais analisados.</p>
+			<p>A <xref ref-type="fig" rid="f03">Figura 3</xref> mostra a média de dias de atraso segundo o motivo de atraso.</p>
+			<p>
+				<fig id="f03">
+					<label>Figura 3</label>
+					<caption>
+						<title>Média de dias de atraso na alta hospitalar em enfermarias de clínica médica dos dois hospitais públicos de ensino, segundo motivo de atraso. Minas Gerais, janeiro a março de 2010.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0314-gf03"/>
+				</fig>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>Este estudo, em que pela primeira vez foi utilizado o AEP em nosso meio para analisar a adequação da permanência hospitalar, mostrou expressiva taxa de atraso na AH (&gt; 50,0%) nos dois hospitais analisados. Esse atraso equivaleu a 23,0% (HC) e 28,0% (HOB) da taxa de ocupação. Essas taxas de atraso encontram-se entre as mais elevadas da literatura.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+			</p>
+			<p>A prescrição de medicação endovenosa foi a principal justificativa para a permanência hospitalar. De acordo com a orientação para aplicação do AEP,<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> o uso de soroterapia para manter acesso venoso não foi considerado critério de adequação para permanência hospitalar. Entretanto, observou-se a prescrição de hidratação venosa para pacientes hidratados, normotensos, sem distúrbios hidroeletrolíticos e com via oral ou enteral estabelecida. Essas indicações inapropriadas para hidratação venosa foram consideradas critério de permanência hospitalar adequada. O percentual de atraso na AH nos dois hospitais teria sido ainda maior se tivessem sido computadas como permanência inadequada, o que aumentaria a relevância do problema.</p>
+			<p>Alguns motivos de atraso na AH, como espera por adequado nível de cuidado extra-hospitalar e por procedimentos cirúrgicos, não foram frequentes, mas geraram vários dias de atraso quando ocorreram. A inadequada articulação entre os pontos de atenção da rede pode explicar esses atrasos. Atrasos na realização de exames complementares e na liberação de laudos desses exames motivaram poucos dias de atraso, mas ocorreram com grande frequência. Para diminuir os dias de internação hospitalar desnecessários, é preciso abordar não somente os processos internos de trabalho, mas também os relacionados com outros segmentos de atenção das redes assistenciais.</p>
+			<p>Alguns pacientes experimentaram vários motivos para atraso na AH, tornando a abordagem multiprofissional prioritária.</p>
+			<p>Três motivos de atraso na AH, representados pelo tempo de espera para realização de exames complementares, para liberação dos resultados dos exames e para aguardar a decisão do preceptor/equipe assistencial quanto à conduta clínica, foram responsáveis pela maioria dos dias de atraso na AH. Esses resultados diferem dos encontrados em estudos conduzidos em outros países,<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B26">
+					<sup>26</sup>
+				</xref> em que os motivos mais frequentes para atraso na alta hospitalar foram relacionados a dificuldades para conseguir locais para continuidade do cuidado do paciente em ambiente extra-hospitalar e a problemas sociais como insuficiência familiar. Essa diferença pode ser explicada por infraestrutura e processos mais eficazes para realização de exames complementares nas instituições participantes dos estudos citados.</p>
+			<p>O Brasil possui graves problemas sociais, parte expressiva da população vive em condição de miséria e o acesso aos serviços de saúde é limitado. A dificuldade para prover os cuidados após a alta hospitalar poderia ser motivo significativo de atraso na AH. O registro inadequado em prontuário médico dessas situações pode ter minimizado o impacto das questões de cunho social como motivo de atraso na AH.</p>
+			<p>Atraso relacionado à educação, treinamento ou pesquisa não é mais adotado por orientação de Selker et al,<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref> idealizadores das categorias de atraso na AH. Os pesquisadores argumentam que tais pacientes não têm sido mais internados devido às atuais pressões financeiras. Essas situações ainda são encontradas, sobretudo em hospitais de ensino, e possivelmente foram subestimadas neste estudo por terem sido incluídas na categoria de pacientes aguardando exames complementares.</p>
+			<p>A comparação entre o HOB e o HC mostra a importância de cada instituição conhecer os seus motivos de atraso na AH. Apesar de a porcentagem de atraso ser semelhante nas duas instituições, o impacto que cada motivo representou para o atraso na AH foi distinto, com priorização de diferentes ações corretivas a serem adotadas para cada hospital.</p>
+			<p>A realidade dos hospitais de ensino é distinta dos demais hospitais públicos e privados do País. Os dados deste estudo podem não encontrar equivalência nas demais instituições de saúde brasileiras, mas confirmam a constatação internacional de que existe atraso na AH e que os motivos são distintos para cada hospital.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B26">
+					<sup>26</sup>
+				</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B28">
+					<sup>28</sup>
+				</xref> Isso faz com que esse tipo de estudo seja útil para subsidiar a tomada de decisão pelos gestores.</p>
+			<p>O AEP ainda não foi validado no Brasil, o que pode representar uma limitação deste estudo. O uso dos critérios de exceção minimiza as questões relacionadas às particularidades locais, mas esses critérios também foram usados pela primeira vez nos hospitais analisados e foram baseados na opinião de médicos experientes. O estudo foi feito em dois hospitais de ensino que podem implicar em viés de seleção.</p>
+			<p>O atraso deveu-se principalmente a fatores relacionados a processos (realização e liberação de exames complementares) que podem ser melhorados por intervenções da equipe assistencial e dos gestores, sem necessidade de investimentos financeiros significativos. Os resultados pretendidos são o aumento na capacidade de atendimento, a redução dos custos e diminuição da exposição do paciente a riscos relacionados à permanência hospitalar desnecessária.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Agresti A. Categorical Data Analisys. New Jersey: John Wiley and Sons; 2002.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Agresti</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Categorical Data Analisys</source>
+					<publisher-loc>New Jersey</publisher-loc>
+					<publisher-name>John Wiley and Sons</publisher-name>
+					<year>2002</year>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Anderson P, Meara J, Brodhurst S, Attwood S, Timbrell M, Gatherer A. Use of hospital beds: a cohort study of admissions to a provincial teaching hospital. BMJ. 1998;297(6653):910-2.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Anderson</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Meara</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Brodhurst</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Attwood</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Timbrell</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Gatherer</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Use of hospital beds: a cohort study of admissions to a provincial teaching hospital</article-title>
+					<source>BMJ</source>
+					<year>1998</year>
+					<volume>297</volume>
+					<issue>6653</issue>
+					<fpage>910</fpage>
+					<lpage>912</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Apolone G, Fellin G, Tampieri A, Bonanoni E, Crosti PF, Lanzi E,  et al. Appropriateness of hospital use. Report from an Italian study. Eur J Public Health. 1997;7(1):34-9. DOI:10.1093/eurpub/7.1.34</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Apolone</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Fellin</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Tampieri</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Bonanoni</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Crosti</surname>
+							<given-names>PF</given-names>
+						</name>
+						<name>
+							<surname>Lanzi</surname>
+							<given-names>E</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Appropriateness of hospital use. Report from an Italian study</article-title>
+					<source>Eur J Public Health</source>
+					<year>1997</year>
+					<volume>7</volume>
+					<issue>1</issue>
+					<fpage>34</fpage>
+					<lpage>39</lpage>
+					<issue-id pub-id-type="doi">10.1093/eurpub/7.1.34</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Carey MR, Sheth H, Braithwaite S. A prospective study of reasons for prolonged hospitalizations on a general medicine teaching service. J Gen Intern Med. 2005:20(2):108-15. DOI:10.1111/j.1525-1497.2005.40269.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Carey</surname>
+							<given-names>MR</given-names>
+						</name>
+						<name>
+							<surname>Sheth</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Braithwaite</surname>
+							<given-names>S</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A prospective study of reasons for prolonged hospitalizations on a general medicine teaching service</article-title>
+					<source>J Gen Intern Med</source>
+					<year>2005</year>
+					<volume>20</volume>
+					<issue>2</issue>
+					<fpage>108</fpage>
+					<lpage>115</lpage>
+					<issue-id pub-id-type="doi">10.1111/j.1525-1497.2005.40269.x</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Chopard P, Perneger TV, Gaspoz JM, Lovis C, Gousset D, Rouillard C,  et al. Predictors of inappropriate hospital days in a department of internal medicine. Int J Epidemiol. 1998;27(3):513-9.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Chopard</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Perneger</surname>
+							<given-names>TV</given-names>
+						</name>
+						<name>
+							<surname>Gaspoz</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Lovis</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Gousset</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Rouillard</surname>
+							<given-names>C</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Predictors of inappropriate hospital days in a department of internal medicine</article-title>
+					<source>Int J Epidemiol</source>
+					<year>1998</year>
+					<volume>27</volume>
+					<issue>3</issue>
+					<fpage>513</fpage>
+					<lpage>519</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Cordero A, Áquila A, Massalana A, Escoto V, Susano R. Adequação dos internamentos num serviço de medicina-Aplicação da escala Appropriateness Evaluation Protocol. Acta Med Port. 2004;17(2):113-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Cordero</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Áquila</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Massalana</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Escoto</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Susano</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Adequação dos internamentos num serviço de medicina-Aplicação da escala Appropriateness Evaluation Protocol</article-title>
+					<source>Acta Med Port</source>
+					<year>2004</year>
+					<volume>17</volume>
+					<issue>2</issue>
+					<fpage>113</fpage>
+					<lpage>118</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Efron B. Booststrap methods:another look at the Jakkinife. Ann Stat.1979;7(1):1-235. DOI:10.1214/aos/1176344552</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Efron</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Booststrap methods:another look at the Jakkinife</article-title>
+					<source>Ann Stat</source>
+					<year>1979</year>
+					<volume>7</volume>
+					<issue>1</issue>
+					<fpage>1</fpage>
+					<lpage>235</lpage>
+					<issue-id pub-id-type="doi">10.1214/aos/1176344552</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Gertman PM, Restuccia JD. The appropriateness evaluation protocol: a technique for assessing unnecessary days of hospital care. Med Care. 1981;19(8):855-71. DOI:10.1097/00005650-198108000-00005</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Gertman</surname>
+							<given-names>PM</given-names>
+						</name>
+						<name>
+							<surname>Restuccia</surname>
+							<given-names>JD</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The appropriateness evaluation protocol: a technique for assessing unnecessary days of hospital care</article-title>
+					<source>Med Care</source>
+					<year>1981</year>
+					<volume>19</volume>
+					<issue>8</issue>
+					<fpage>855</fpage>
+					<lpage>871</lpage>
+					<issue-id pub-id-type="doi">10.1097/00005650-198108000-00005</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Jasinarachchi KH, Ibrahim IR, Keegan BC, Mathialagan R, McGourty JC, Phillips JRN,  et al. Delayed transfer of care from NHS secondary care to primary care in England: its determinants, effect on hospital bed days, prevalence of acute medical conditions an deaths during delay, in older adults aged 65 years and over. BMC Geriatr. 2009;9:4. DOI:10.1186/1471-2318-4-9</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Jasinarachchi</surname>
+							<given-names>KH</given-names>
+						</name>
+						<name>
+							<surname>Ibrahim</surname>
+							<given-names>IR</given-names>
+						</name>
+						<name>
+							<surname>Keegan</surname>
+							<given-names>BC</given-names>
+						</name>
+						<name>
+							<surname>Mathialagan</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>McGourty</surname>
+							<given-names>JC</given-names>
+						</name>
+						<name>
+							<surname>Phillips</surname>
+							<given-names>JRN</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Delayed transfer of care from NHS secondary care to primary care in England: its determinants, effect on hospital bed days, prevalence of acute medical conditions an deaths during delay, in older adults aged 65 years and over</article-title>
+					<source>BMC Geriatr</source>
+					<year>2009</year>
+					<volume>9</volume>
+					<size units="pages">4</size>
+					<issue-id pub-id-type="doi">10.1186/1471-2318-4-9</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Kossovsky MP, Chopard P, Bolla F, Sarasin P, Louis-Simonet M, Allaz AF,  et al. Evaluation of quality improvement interventions to reduce inappropriate hospital use. Int J Qual Health Care. 2002;14(3)227-32. DOI:10.1093/oxfordjournals.intqhc.a002614</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Kossovsky</surname>
+							<given-names>MP</given-names>
+						</name>
+						<name>
+							<surname>Chopard</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Bolla</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Sarasin</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Louis-Simonet</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Allaz</surname>
+							<given-names>AF</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Evaluation of quality improvement interventions to reduce inappropriate hospital use</article-title>
+					<source>Int J Qual Health Care</source>
+					<year>2002</year>
+					<volume>14</volume>
+					<issue>3</issue>
+					<fpage>227</fpage>
+					<lpage>232</lpage>
+					<issue-id pub-id-type="doi">10.1093/oxfordjournals.intqhc.a002614</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Lambert J, Panis GG, Verheggen FWSM, Pop P. To stay or not stay. The assessment of appropriate hospital stay: a Dutch report. Int J Qual Health Care. 2002;14(1)55-67. DOI:10.1093/intqhc/14.1.55</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Lambert</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Panis</surname>
+							<given-names>GG</given-names>
+						</name>
+						<name>
+							<surname>Verheggen</surname>
+							<given-names>FWSM</given-names>
+						</name>
+						<name>
+							<surname>Pop</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">To stay or not stay. The assessment of appropriate hospital stay: a Dutch report</article-title>
+					<source>Int J Qual Health Care</source>
+					<year>2002</year>
+					<volume>14</volume>
+					<issue>1</issue>
+					<fpage>55</fpage>
+					<lpage>67</lpage>
+					<issue-id pub-id-type="doi">10.1093/intqhc/14.1.55</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Lehmam EL, Abrera HJ. Nonparametrics: statistical methods based on ranks. New Jersey: Prentice Hall; 1998.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Lehmam</surname>
+							<given-names>EL</given-names>
+						</name>
+						<name>
+							<surname>Abrera</surname>
+							<given-names>HJ</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Nonparametrics: statistical methods based on ranks</source>
+					<publisher-loc>New Jersey</publisher-loc>
+					<publisher-name>Prentice Hall</publisher-name>
+					<year>1998</year>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Lim SC, Doshi V, Castasus B, Lim JKH. Factors causing delay in discharge of elderly patients in a acute care hospital. Ann Acad Med Singapore. 2006;35(1):27-32.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Lim</surname>
+							<given-names>SC</given-names>
+						</name>
+						<name>
+							<surname>Doshi</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Castasus</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Lim</surname>
+							<given-names>JKH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Factors causing delay in discharge of elderly patients in a acute care hospital</article-title>
+					<source>Ann Acad Med Singapore</source>
+					<year>2006</year>
+					<volume>35</volume>
+					<issue>1</issue>
+					<fpage>27</fpage>
+					<lpage>32</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Magalhães MN, Lima A. Noções de probabilidade e estatística. São Paulo: Edusp; 2002.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Magalhães</surname>
+							<given-names>MN</given-names>
+						</name>
+						<name>
+							<surname>Lima</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Noções de probabilidade e estatística</source>
+					<publisher-loc>São Paulo</publisher-loc>
+					<publisher-name>Edusp</publisher-name>
+					<year>2002</year>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Maguire PA, Taylor IC, Stout R. Elderly patients in acute medical wards: factors predicting length of stay in hospital. Br Med J (Clin Res Ed). 1986;292(6530):1251-3. DOI:10.1136/bmj.292.6530.1251</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Maguire</surname>
+							<given-names>PA</given-names>
+						</name>
+						<name>
+							<surname>Taylor</surname>
+							<given-names>IC</given-names>
+						</name>
+						<name>
+							<surname>Stout</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Elderly patients in acute medical wards: factors predicting length of stay in hospital</article-title>
+					<source>Br Med J</source>
+					<comment>Clin Res Ed</comment>
+					<year>1986</year>
+					<volume>292</volume>
+					<issue>6530</issue>
+					<fpage>1251</fpage>
+					<lpage>1253</lpage>
+					<issue-id pub-id-type="doi">10.1136/bmj.292.6530.1251</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. McClaran J, Tover-Berglas R, Glass KC. Chronic status patients in a university hospital: bed-day utilization and length of stay. CMAJ. 1991;145(10):1259-65.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>McClaran</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Tover-Berglas</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Glass</surname>
+							<given-names>KC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Chronic status patients in a university hospital: bed-day utilization and length of stay</article-title>
+					<source>CMAJ</source>
+					<year>1991</year>
+					<volume>145</volume>
+					<issue>10</issue>
+					<fpage>1259</fpage>
+					<lpage>1265</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. McDonagh SM, Smith DH, Goddard M. Measuring appropriate use of acute beds: a systematic review of methods and results. Health Policy. 2000;53(3):157-84. DOI:10.1016/S0168-8510(00)00092-0</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>McDonagh</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Smith</surname>
+							<given-names>DH</given-names>
+						</name>
+						<name>
+							<surname>Goddard</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Measuring appropriate use of acute beds: a systematic review of methods and results</article-title>
+					<source>Health Policy</source>
+					<year>2000</year>
+					<volume>53</volume>
+					<issue>3</issue>
+					<fpage>157</fpage>
+					<lpage>184</lpage>
+					<issue-id pub-id-type="doi">10.1016/S0168-8510(00)00092-0</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Montgomery DC. Design and analysis of experiments. New York: John Wiley &amp; Sons; 2001.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Montgomery</surname>
+							<given-names>DC</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Design and analysis of experiments</source>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>John Wiley &amp; Sons</publisher-name>
+					<year>2001</year>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Navarro G, Prat-Marin A, Asenjo MA, Menacho A, Trilla A, Salleras LL. Review of utilization of a university hospital in Barcelona (Spain): evolution 1992-1996. Eur J Epidemiol. 2001;17(7):679-84. DOI:10.1023/A:1015563618836</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Navarro</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Prat-Marin</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Asenjo</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Menacho</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Trilla</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Salleras</surname>
+							<given-names>LL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Review of utilization of a university hospital in Barcelona (Spain): evolution 1992-1996</article-title>
+					<source>Eur J Epidemiol</source>
+					<year>2001</year>
+					<volume>17</volume>
+					<issue>7</issue>
+					<fpage>679</fpage>
+					<lpage>684</lpage>
+					<issue-id pub-id-type="doi">10.1023/A:1015563618836</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Panis LJGG, Gooskens M, Verheggen FWSM, Pop P, Prins MH. Predictors of inappropriate hospital stay: a clinical case study. Int J Qual Health Care. 2003;15(1)57-65. DOI:10.1093/intqhc/15.1.57</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Panis</surname>
+							<given-names>LJGG</given-names>
+						</name>
+						<name>
+							<surname>Gooskens</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Verheggen</surname>
+							<given-names>FWSM</given-names>
+						</name>
+						<name>
+							<surname>Pop</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Prins</surname>
+							<given-names>MH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Predictors of inappropriate hospital stay: a clinical case study</article-title>
+					<source>Int J Qual Health Care</source>
+					<year>2003</year>
+					<volume>15</volume>
+					<issue>1</issue>
+					<fpage>57</fpage>
+					<lpage>65</lpage>
+					<issue-id pub-id-type="doi">10.1093/intqhc/15.1.57</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Rodriquez-Vera J. Appropriateness Evaluation Protocol 1997-2007: experiência em dois países. Barvalento Med. 2008;1(1):8-18.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Rodriquez-Vera</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Appropriateness Evaluation Protocol 1997-2007: experiência em dois países</article-title>
+					<source>Barvalento Med</source>
+					<year>2008</year>
+					<volume>1</volume>
+					<issue>1</issue>
+					<fpage>8</fpage>
+					<lpage>18</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Selker HP, Beshansky JR, Pauker SG, Kassirer JP. The epidemiology of delays in a teaching hospital. The development and use of a tool that detects unnecessary hospital days. Med Care. 1989;27(2):112-29. DOI:10.1097/00005650-198902000-00003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Selker</surname>
+							<given-names>HP</given-names>
+						</name>
+						<name>
+							<surname>Beshansky</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Pauker</surname>
+							<given-names>SG</given-names>
+						</name>
+						<name>
+							<surname>Kassirer</surname>
+							<given-names>JP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The epidemiology of delays in a teaching hospital. The development and use of a tool that detects unnecessary hospital days</article-title>
+					<source>Med Care</source>
+					<year>1989</year>
+					<volume>27</volume>
+					<issue>2</issue>
+					<fpage>112</fpage>
+					<lpage>129</lpage>
+					<issue-id pub-id-type="doi">10.1097/00005650-198902000-00003</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>. Semke J, VanDer Weele T, Weatherley R. Delayed discharge for medical and surgical patients in an acute care hospital. Soc Work Health Care. 1989;14(1):15-31. DOI:10.1300/J010v14n01_02</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Semke</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>VanDer Weele</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Weatherley</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Delayed discharge for medical and surgical patients in an acute care hospital</article-title>
+					<source>Soc Work Health Care</source>
+					<year>1989</year>
+					<volume>14</volume>
+					<issue>1</issue>
+					<fpage>15</fpage>
+					<lpage>31</lpage>
+					<issue-id pub-id-type="doi">10.1300/J010v14n01_02</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>. Simonet ML, Kossovsky MP, Chopard P, Siud P, Perneg TV, Gospoz JM. A predictive score to identify hospitalized patients risk of discharge to a post-acute care facility. BMC Health Serv Res. 2008;8:154. DOI:10.1186/1472-6963-8-154</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Simonet</surname>
+							<given-names>ML</given-names>
+						</name>
+						<name>
+							<surname>Kossovsky</surname>
+							<given-names>MP</given-names>
+						</name>
+						<name>
+							<surname>Chopard</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Siud</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Perneg</surname>
+							<given-names>TV</given-names>
+						</name>
+						<name>
+							<surname>Gospoz</surname>
+							<given-names>JM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A predictive score to identify hospitalized patients risk of discharge to a post-acute care facility</article-title>
+					<source>BMC Health Serv Res</source>
+					<year>2008</year>
+					<volume>8</volume>
+					<size units="pages">154</size>
+					<issue-id pub-id-type="doi">10.1186/1472-6963-8-154</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>. Smeets PMJH, Verheggen FWSM, Pop P, Panis LJGG, Carpay JJ. Assessing the necessity of hospital stay by means of Appropriateness Evaluation Protocol: how strong is the evidence to proceed? Int J Qual Health Care. 2000;12(6):483-93. DOI:10.1093/intqhc/12.6.483</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Smeets</surname>
+							<given-names>PMJH</given-names>
+						</name>
+						<name>
+							<surname>Verheggen</surname>
+							<given-names>FWSM</given-names>
+						</name>
+						<name>
+							<surname>Pop</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Panis</surname>
+							<given-names>LJGG</given-names>
+						</name>
+						<name>
+							<surname>Carpay</surname>
+							<given-names>JJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Assessing the necessity of hospital stay by means of Appropriateness Evaluation Protocol: how strong is the evidence to proceed?</article-title>
+					<source>Int J Qual Health Care</source>
+					<year>2000</year>
+					<volume>12</volume>
+					<issue>6</issue>
+					<fpage>483</fpage>
+					<lpage>493</lpage>
+					<issue-id pub-id-type="doi">10.1093/intqhc/12.6.483</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>. VanStraten A, van der Meulen JHP, van der Bos GAM. Lenght of hospital stay and discharge delay in stroke patients. Stroke. 1997;28(1):137-40. DOI:10.1161/01.STR.28.1.137</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>VanStraten</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>van der Meulen</surname>
+							<given-names>JHP</given-names>
+						</name>
+						<name>
+							<surname>van der Bos</surname>
+							<given-names>GAM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Lenght of hospital stay and discharge delay in stroke patients</article-title>
+					<source>Stroke</source>
+					<year>1997</year>
+					<volume>28</volume>
+					<issue>1</issue>
+					<fpage>137</fpage>
+					<lpage>140</lpage>
+					<issue-id pub-id-type="doi">10.1161/01.STR.28.1.137</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>. Vetter N. Inappropriately delayed discharge from hospital: What do we know? BMJ. 2003;326(7395):927-8. DOI:10.1136/bmj.326.7395.927</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Vetter</surname>
+							<given-names>N</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Inappropriately delayed discharge from hospital: What do we know?</article-title>
+					<source>BMJ</source>
+					<year>2003</year>
+					<volume>326</volume>
+					<issue>7395</issue>
+					<fpage>927</fpage>
+					<lpage>928</lpage>
+					<issue-id pub-id-type="doi">10.1136/bmj.326.7395.927</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<label>28</label>
+				<mixed-citation>. Victor CR, Healy J, Thomas A, Seargeant J. Older patients and delayed discharge from hospital. Health Soc Care. 2000;8(6):443-52. DOI:10.1046/j.1365-2524.2000.00270.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Victor</surname>
+							<given-names>CR</given-names>
+						</name>
+						<name>
+							<surname>Healy</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Thomas</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Seargeant</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Older patients and delayed discharge from hospital</article-title>
+					<source>Health Soc Care</source>
+					<year>2000</year>
+					<volume>8</volume>
+					<issue>6</issue>
+					<fpage>443</fpage>
+					<lpage>452</lpage>
+					<issue-id pub-id-type="doi">10.1046/j.1365-2524.2000.00270.x</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<label>29</label>
+				<mixed-citation>. Vieira NB, Rodriguez-Vera J, Ferrão E, Taveira T, Monteiro L, Grade MJ,  et al. Adequação do internamento num serviço de medicina interna utilizando o Appropriateness Evaluation Protocol (AEP). Acta Med Port. 2006;19(1):67-70.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Vieira</surname>
+							<given-names>NB</given-names>
+						</name>
+						<name>
+							<surname>Rodriguez-Vera</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Ferrão</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Taveira</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Monteiro</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Grade</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">Adequação do internamento num serviço de medicina interna utilizando o Appropriateness Evaluation Protocol (AEP)</article-title>
+					<source>Acta Med Port</source>
+					<year>2006</year>
+					<volume>19</volume>
+					<issue>1</issue>
+					<fpage>67</fpage>
+					<lpage>70</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<label>30</label>
+				<mixed-citation>. Vieira NB, Rodriguez-Vera J, Grade MJ, Arez L, Santos RTC. Adequação das admissões hospitalares num serviço de medicina interna utilizando o Appropriateness Evaluation Protocol (AEP) durante o ano de 2004. Med Interna. 2006;131(41):235-40.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Vieira</surname>
+							<given-names>NB</given-names>
+						</name>
+						<name>
+							<surname>Rodriguez-Vera</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Grade</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Arez</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>RTC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Adequação das admissões hospitalares num serviço de medicina interna utilizando o Appropriateness Evaluation Protocol (AEP) durante o ano de 2004</article-title>
+					<source>Med Interna</source>
+					<year>2006</year>
+					<volume>131</volume>
+					<issue>41</issue>
+					<fpage>235</fpage>
+					<lpage>240</lpage>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn fn-type="other">
+				<label>DESTAQUES</label>
+				<p>Foram estudados os motivos da permanência do paciente hospitalizado quando este já se encontra em condição clínica estável, aumentando custos e o risco de eventos adversos relacionados a uma internação hospitalar desnecessária.</p>
+				<p>Nos dois hospitais analisados, o atraso na alta deveu-se principalmente a fatores relacionados à espera para realização de exames complementares (30,6% x 34,7%) ou para liberação dos laudos dos exames (22,4% x 11,9%) e àqueles relacionados à responsabilidade médica (36,2% x 26,1%), compreendendo a demora na discussão do caso clínico e na tomada de decisão clínica e dificuldades nas interconsultas (20,4% x 9,1%). Esses processos podem ser melhorados por intervenções da equipe assistencial e dos gestores, sem necessidade de investimentos financeiros significativos. Os resultados pretendidos são aumento na capacidade de atendimento, redução dos custos e diminuição da exposição do paciente a riscos relacionados à permanência hospitalar desnecessária.</p>
+				<p>Foi encontrado expressivo atraso nas altas hospitalares (58,0% e 60,0%). O atraso médio foi de 4,1 dias em um dos hospitais e 4,5 dias no outro.</p>
+				<p>Prof<sup>a</sup>. Rita de Cássia Barradas Barata Editora Científica</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Public Health Practice Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Reasons for discharge delays in teaching hospitals</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Soraia Aparecida da Silva  Av. Bernardo Vasconcelos, 2350 apto. 404 Ipiranga  31160-440 Belo Horizonte, MG, Brasil  E-mail: <email>soraiaapsilva@yahoo.com.br</email>
+				</corresp>
+				<fn fn-type="other">
+					<p>Article based on the master’s dissertation of Silva SA, entitled: “Fatores de atraso na alta hospitalar de dois hospitais públicos da cidade de Belo Horizonte, Minas Gerais”, presented to the Universidade Federal de Minas Gerais, in 2011.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To analyze the causes of delay in hospital discharge of patients admitted to internal medicine wards.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>We reviewed 395 medical records of consecutive patients admitted to internal medicine wards of two public teaching hospitals: <italic>Hospital das Clínicas</italic> of the <italic>Universidade Federal de Minas Gerais</italic> and <italic>Hospital Odilon Behrens</italic>. The Appropriateness Evaluation Protocol was used to define the moment at which notes in the medical records indicated hospital stay was no longer appropriate and patients could be discharged. The interval between this estimated time and actual discharge was defined as the total number of days of delay in hospital discharge. An instrument was used to systematically categorize reasons for delay in hospital discharge and frequencies were analyzed.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>Delays in discharge occurred in 60.0% of 207 hospital admissions in the <italic>Hospital das Clínicas</italic> and in 58.0% of 188 hospital admissions in the <italic>Hospital Odilon Behrens</italic>. Mean delay per patient was 4.5 days in the former and 4.1 days in the latter, corresponding to 23.0% and 28.0% of occupancy rates in each hospital, respectively. The main reasons for delay in the two hospitals were, respectively, waiting for complementary tests (30.6% <italic>versus</italic> 34.7%) or for results of performed tests to be released (22.4% <italic>versus</italic> 11.9%) and medical-related accountability (36.2% <italic>versus </italic>26.1%) which comprised delays in discussing the clinical case and in clinical decision making and difficulties in providing specialized consultation (20.4% <italic>versus</italic> 9.1%).</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>Both hospitals showed a high percentage of delay in hospital discharge. The delays were mainly related to processes that could be improved by interventions by care teams and managers. The impact on mean length of stay and hospital occupancy rates was significant and troubling in a scenario of relative shortage of beds and long waiting lists for hospital admission.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Patient Discharge</kwd>
+				<kwd>Length of Stay</kwd>
+				<kwd>Bed Occupancy</kwd>
+				<kwd>Hospitals, Teaching</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Remaining in hospital beyond the necessary time has long been a concern, contributing, as it does, to reduced care quality and increased costs.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> Moreover, keeping the user within the health care system keeps them away from family and community life, as well as exposing them to avoidable risks such as hospital infection, depression, loss of physical conditioning, deep vein thrombosis and falls.</p>
+				<p>Delays in hospital discharge (HD) occur in the majority of hospitals (rates vary between 13.5% and 62.0%).<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+				</p>
+				<p>Concern with the costs resulting from inappropriate use of hospital beds designated for acute care appeared at the end of the last century.<xref ref-type="bibr" rid="B25">
+						<sup>25</sup>
+					</xref> A study in 1991<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> showed an increase in hospital stays in Canada and in the United States, attributed to the growing number of chronic patients dependent on non-hospital care occupying beds that should have been used for the care of acute patients.</p>
+				<p>There should be concern to discover the reasons for delayed HD for every hospitalization. Identifying the problem is the first stage in seeking a solution. Changes in work processes may result in decreased HD delays, with no need for financial investments in structure.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+				</p>
+				<p>Studies have identified causes and measured days of delay in HD<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref> and proposed methods for quantifying the number of unnecessary days of hospitalization.</p>
+				<p>The instrument that has been most widely tested and validated in various countries for measuring the appropriateness of hospitalizations and hospital stays is the Appropriateness Evaluation Protocol (AEP).<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B27">
+						<sup>27</sup>
+					</xref> This instrument has been shown to be reliable and to have good inter- and intra-observer concordance.<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+				</p>
+				<p>Despite the importance of identifying and minimizing the factors that unnecessarily prolong hospital stays, there are few studies categorizing the factors that prevent the HD of patients with a stabilized clinical situation.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref>
+				</p>
+				<p>The aim of this study was to analyze the causes of delays in hospital discharge for patients admitted to internal medicine wards.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>The study was conducted in two large public teaching hospitals that only treated patients from the Brazilian Unified Health System, in the city and metropolitan area of Belo Horizonte, MG Southeastern Brazil. The hospitals studied were: <italic>Hospital das Clínicas da Universidade Federal de Minas Gerais</italic> (HC), a university hospital which admits patients from its ER and, as it is a high complexity reference hospital with various specialties, it also takes patients from other institutions after evaluation by the central bed regulator; and the Hospital Odilon Behrens – HOB), which is a local authority hospital, the emergency services of which play an important role in the municipal network and which refers the majority of patients admitted. Both hospitals have specialist outpatient departments that provide continuity of care post-discharge.</p>
+				<p>A pilot study was conducted to assess concordance in application of the AEP between researchers, using medical records of patients who had been discharged from January 1, 2010 onwards, consecutively, until the n calculated for this end (30 patients) was reached. These medical records were not used in the following stage of the study.</p>
+				<p>During the pilot project, there was concordance in the application of the AEP, with kappa of 0.53, 0.59 and 0.66.</p>
+				<p>In both hospitals, a rate of 20.0% delay in HD was considered when calculating the sample size. Thus, a sample of 174 medical records per hospital was calculated, with a 90% confidence level and 5% limits of confidence.</p>
+				<p>The consecutive medical records of patients discharged from hospital between January 1, 2010 and March 19, 2010 were evaluated by three researchers.</p>
+				<p>We selected the medical records of patients for whom internal medicine was the responsible medical specialty.</p>
+				<p>There were 207 medical records analyzed for patients admitted to the HC and 188 from the HOB, after exclusion of 21 and 9 medical records, respectively. The most common reasons for exclusion in the HC and the HOB were, respectively, the activities of internal medicine classified as consultation (28.6% and 55.5%), the same medical record being analyzed more than once, due to filing errors (47.6% and 11.1%) and the medical record being dated before the start period of the study (4.8% and 33.4%).</p>
+				<p>The instrument used to identify the moment at which delays in hospital discharge begin was the Portuguese version of the AEP, validated for Portugal.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B29">
+						<sup>29</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B30">
+						<sup>30</sup>
+					</xref>
+				</p>
+				<p>The AEP is a form divided into two parts. The first part assesses the patient’s clinical state (vital signs, neurological alterations with acute onset of paralysis in any part of the body, alterations in consciousness, vision or hearing). Changes in complementary tests such as electrocardiograms and ion determinations are also analyzed. The second part assesses need for clinical care, such as administering intravenous medication, monitoring vital data every two hours or administering intra-muscular medication every eight hours.</p>
+				<p>Exception criteria (criteria not included in the original AEP, but justifying hospitalization) were defined, considering the local situation. Such criteria are provided for in the instrument itself and should be used to avoid regional difficulties interfering with the application of the instrument.</p>
+				<p>The exception criteria were: dyspnea of unknown etiology with oxygen saturation &lt; 92.0% in room air, need for micronebulization at ≤ 4 hour intervals or the presence of extensive skin lesions (Steven Johnson Syndrome and pressure ulcers).</p>
+				<p>Hospital stay was considered appropriate when any criteria from the AEP or in the exception criteria were present.</p>
+				<p>HD was deemed possible when the patient no longer met any of the AEP criteria or the exception criteria.</p>
+				<p>Discharge was deemed to take place on the day the patient left the hospital and the bed became available for occupation by another patient.</p>
+				<p>Deaths and transfers to other departments or hospitals were considered medical hospital discharge.</p>
+				<p>The days of delay in hospital discharge were calculated as the difference between the date of hospital discharge taking place and the day on which it had been deemed possible.</p>
+				<p>The form with the reasons for HD delays was completed based on the categories drawn up by Selker et al in 1989:<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref> patients awaiting complementary tests; patients awaiting the results of complementary tests; patients awaiting surgical procedures; patients awaiting specialist consultations; delays concerning medical-related accountability (patients hospitalized for complementary tests to be performed, HD depending on discussion with the care team/preceptor for a clinical decision to be made and the existence of outpatient care); delays related to poor planning for discharge or to awaiting extra-hospital care to be arranged; non-viable level of appropriate care or unavailable extra-hospital resources, including availability of long-term or palliative care beds or rehabilitation, patients awaiting transfer to intensive care or admission to another program or in-home care or awaiting transfer to other departments within the same hospital. This last category also included inadequate family support.</p>
+				<p>Pearson’s Chi-square test and Mann-Whitney and Kruskal-Wallis non-parametric tests were used in the statistical analysis.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref>
+				</p>
+				<p>Bootstrap resampling<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> was used to calculate the confidence intervals of days of delay in HD, mean hospital stay and occupation rate due to HD delays. The software programs used were Excel 2010, SPSS 15.0 and R 2.7.1.</p>
+				<p>The research project was approved by the Research Ethics Committees of the <italic>Universidade Federal de Minas Gerais</italic> and the HOB (HOB FR - 300143, on February 11, 2010; UFMG Record ETIC 0536.0.203.000-09, April 8, 2011).</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>The characteristics of the samples from the two hospitals were similar. The age of the patients in HC ranged between 13 and 92. Mean age was 55.9 (SD: 19.2 years) with a median of 57 (age was not noted for five patients), 58.0% were female and 42.0% male. Thirty-two patients died, the mortality rate was 16.0% (95%CI 9.0;23.0). The mean and median ages at HOB were similar to those at HC (58.1, SD: 18.5 years and 58 years old, respectively), with ages ranging between 13 and 95; 37.5% were female and 62.5% male. Sixteen patients died, the mortality rate was 9.0% (95%CI 2.0;16.0).</p>
+				<p>Some patients were admitted more than once during the study period, which meant that the number of hospitalizations was greater than the number of patients.</p>
+				<p>Some patients had more than one reason, according to the AEP, justifying their hospital stay (<xref ref-type="fig" rid="f01_en">Figure 1</xref>).</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure 1</label>
+						<caption>
+							<title>Reasons for hospital stay in internal medicine care wards in two public teaching hospitals. Minas Gerais, Southeastern Brazil, January to March 2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0314-gf01-en"/>
+					</fig>
+				</p>
+				<p>HD delays were found in 60.0% of HC hospitalizations (95%CI 53.0;67.0), corresponding to 23.0% (95%CI 18.0;27.0) of the occupation rate. This latter figure was estimated using bootstrap resampling,<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> as the data (days of delay) did not have normal distribution. Of the 117 patients who experienced a delay in HD, there was one cause of delay in 33.4% cases, 46.1% had more than one cause and 20.5% between four and six causes. The 196 hospitalization analyzed corresponded to 190 patients, as six patients were hospitalized more than once during the period.</p>
+				<p>The total days of hospitalization in HC was 3,869, of which 22.3% were because of delays.</p>
+				<p>The mean hospital stay in HC was 20.4 days (95%CI 17.2;23.3), but would be 15.9 days (95%CI 12.9;18.5) if the mean delay of 4.5 days (95%CI 3.5;5.5) were discounted.</p>
+				<p>A 58.0% (95%CI 51.0;65.0) percentage of delay in HD was found in HOB, using binomial distribution of the patients, corresponding to a 28.0% occupation rate (95%CI 22.0;34.0), interval constructed using bootstrap resampling.<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> Of the 102 patients who experienced a delay in HD, 34.3% had one cause, 55.9% more than one cause and 9.8% had four or five causes.</p>
+				<p>The total days of hospitalization of the HOB sample was 2,567 and HD delays were found in 28.35% of days.</p>
+				<p>Mean hospital stay in the HOB, without calculating delays, was 10.5 days (95%CI 8.4;12.9). A mean delay of 4.1 days (95%CI 3.2;5.1) was calculated and the mean stay increased to 14.6 days.</p>
+				<p>The causes for delays in HD are shown in <xref ref-type="fig" rid="f02_en">Figure 2</xref>. It adds up to more than 100% because some patients experienced more than one cause of delay.</p>
+				<p>
+					<fig id="f02_en">
+						<label>Figure 2</label>
+						<caption>
+							<title>Delay factors in hospital discharge in internal medicine wards of two public teaching hospitals. Minas Gerais, Southeastern Brazil, January to March 2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0314-gf02-en"/>
+					</fig>
+				</p>
+				<p>There was no association between patient’s age and the number of days of delay in HD in either of the hospitals analyzed.</p>
+				<p>
+					<xref ref-type="fig" rid="f03_en">Figure 3</xref> shows mean days of delay according to reason for delay.</p>
+				<p>
+					<fig id="f03_en">
+						<label>Figure 3</label>
+						<caption>
+							<title>Mean days of delay in hospital discharge in internal medicine wards of two public teaching hospitals, according to cause of delay. Minas Gerais, Southeastern Brazil, January to March 2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0314-gf03-en"/>
+					</fig>
+				</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>This study was the first time the AEP was used in this environment to analyze appropriateness of hospital stays, and it found a significant rate of HD delay (&gt; 50.0%) in both of the hospitals analyzed. This delay was equivalent to 23.0% (HC) and 28.0% (HOB) of the occupation rate. These rates of delay are among the highest found in the literature.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+				</p>
+				<p>The main reason for hospital stays was prescription of intravenous medication. According to the guidelines for using the AEP,<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> the use of intravenous infusions to maintain venous access was not considered criteria of appropriateness for hospital stay. However, it was observed that intravenous hydration was prescribed for hydrated, normotensive patients without electrolyte disturbances and with established oral or enteral routes. Such inappropriate recommendations for intravenous hydration were deemed appropriate criteria for hospital stay. The percentage of delays in HD in both hospitals would have been even higher if these situations were classified as inappropriate stay, which increases still more the relevance of this problem.</p>
+				<p>Some causes of delays in HD, such as waiting for appropriate extra-hospital care to be set up, or for surgical procedures, were infrequent but, when they occurred, led to several days of delay. Inadequate coordination between points of the care network may explain these delays. Delays in performing complementary tests and in releasing test results led to small delays, but were very common. To decrease days of unnecessary hospitalization, the approach needs to cover not only internal work processes but also those related to other segments of the care network.</p>
+				<p>Some patients experienced various causes of delays in HD, making a multi-professional approach a priority.</p>
+				<p>Three causes of delays in HD, represented by time awaiting complementary tests, awaiting the results of tests and waiting for the preceptor/care team to make clinical decisions, were responsible for the majority of days of delay in HD. These results differ from those of studies conducted in other countries,<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B26">
+						<sup>26</sup>
+					</xref> in which the causes of delays in HD were most frequently related to difficulty in organizing continuity of care for the patient in an extra-hospital environment and to social problems such as lack of family support. This difference may be explained by more efficient infrastructure and processes for performing complementary tests in the institutions participating in the cited studies.</p>
+				<p>Brazil has serious social problems, a significant part of the population live in extreme poverty with limited access to health care services. Difficulties in providing post hospital discharge care may be a significant cause of HD delays. Inadequate recording of such situations on the medical record may have minimized the impact of social issues as a cause of HD delays.</p>
+				<p>Delays related to education, training or research are no longer adopted in Selker et al,<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref> guidelines setting out categories of HD delays. Researchers argue that such patients are no longer hospitalized due to current financial pressures. These situations are still found, above all in teaching hospitals, and may have been underestimated in this study, being included in the category of patients awaiting complementary tests.</p>
+				<p>Comparison between HOB and HC shows the importance of each institution being aware of its causes of HD delays. Despite the percentage of delays being similar in the two hospitals, the impact of each cause of HD delay was different, requiring the prioritization of different actions to be taken in each hospital.</p>
+				<p>The reality within a teaching hospital is different to that of other public and private hospitals in the country. The data from this study may not be applicable to other Brazilian health care institutions, although they do confirm the international fact that HD delays exist and that the causes differ from hospital to hospital.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B26">
+						<sup>26</sup>
+					</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B28">
+						<sup>28</sup>
+					</xref> This means that this type of study is useful in supporting administrators’ decision making.</p>
+				<p>The AEP has not yet been validated for use in Brazil, which may be a limitation of this study. The use of the exception criteria minimize issues related to local peculiarities, but these criteria were also used for the first time in the hospitals analyzed and were based on the opinions of experienced doctors. The study was conducted in two teaching hospitals, which may imply selection bias.</p>
+				<p>Delays were mainly due to process-related factors (performing and releasing results of complementary tests) which could be improved by interventions by the care and management teams, without requiring significant financial investment. The desired results are increased care capacity and reduced costs and exposure of patients to risks related to unnecessary hospital stay.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn fn-type="other">
+					<label>HIGHLIGHTS</label>
+					<p>This article studied the reasons for hospitalized patients in stable clinical conditions remaining in hospital, increasing costs and the risk of adverse events related to unnecessary hospitalization.</p>
+					<p>In the two hospitals analyzed, delays in discharge were mainly due to process related factors (conducting complementary tests or releasing test results) which could be improved through care team or management interventions, with no need for significant financial investment. The desired results would be increased care capacity, reduced costs and decreased exposure of patients to risks related to unnecessary hospitalization.</p>
+					<p>Significant delays in hospital discharges (58.0% and 60.0%) were found. Mean delays were 4.1 days in one hospital and 4.5 days in the other.</p>
+					<p>The principle reasons for delays in both hospitals were: waiting for complementary tests to be done (30.6% x 34.7%) or for test results to be released (22.4% x 11.9%) and related to medical liability (36.2% x 26.1%), including delays discussing clinical cases and making clinical decisions and in providing specialized consultation (20.4% x 9.1%).</p>
+					<p>Professor Rita de Cássia Barradas Barata Scientific Editor</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

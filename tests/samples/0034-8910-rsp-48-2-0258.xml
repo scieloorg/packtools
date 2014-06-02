@@ -1,0 +1,2000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004765</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004765</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Atividade física de mulheres no climatério: comparação entre auto-relato e pedômetro</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Colpani</surname>
+						<given-names>Verônica</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Spritzer</surname>
+						<given-names>Poli Mara</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Lodi</surname>
+						<given-names>Ana Paula</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Dorigo</surname>
+						<given-names>Guilherme Gustavo</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Miranda</surname>
+						<given-names>Isabela Albuquerque Severo de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Hahn</surname>
+						<given-names>Laiza Beck</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Palludo</surname>
+						<given-names>Luana Pedroso</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Pietroski</surname>
+						<given-names>Rafaela Lazzari</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Oppermann</surname>
+						<given-names>Karen</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv2">Unidade de Endocrinologia Ginecológica</institution>
+				<institution content-type="orgdiv1">Serviço de Endocrinologia</institution>
+				<institution content-type="orgname">Hospital de Clinicas de Porto Alegre</institution>
+				<addr-line>
+					<named-content content-type="city">Porto Alegre</named-content>
+					<named-content content-type="state">RS</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Unidade de Endocrinologia Ginecológica. Serviço de Endocrinologia. Hospital de Clinicas de Porto Alegre. Porto Alegre, RS, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv1">Faculdade de Medicina</institution>
+				<institution content-type="orgname">Universidade de Passo Fundo</institution>
+				<addr-line>
+					<named-content content-type="city">Passo Fundo</named-content>
+					<named-content content-type="state">RS</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Faculdade de Medicina. Universidade de Passo Fundo. Passo Fundo, RS, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgname">Hospital São Vicente de Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Passo Fundo</named-content>
+					<named-content content-type="state">RS</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Hospital São Vicente de Paulo. Passo Fundo, RS, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Karen Oppermann  Rua Teixeira Soares 885/704  99010-081 Passo Fundo, RS, Brasil  E-mail: <email>karenoppermann@gmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>258</fpage>
+			<lpage>265</lpage>
+			<history>
+				<date date-type="received">
+					<day>6</day>
+					<month>2</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>16</day>
+					<month>12</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Comparar dois métodos de avaliação de atividade física entre mulheres na pré, transição e pós-menopausa.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Estudo transversal aninhado à coorte de mulheres na pré, peri e pós-menopausa em uma cidade do sul do Brasil. As participantes responderam a um questionário com dados sociodemográficos e clínicos. A atividade física foi avaliada utilizando-se o Questionário Internacional de Atividade Física – versão curta e a contagem do número de passos com o uso de pedômetro. As participantes foram classificadas em estratos de atividade física de acordo com o instrumento utilizado. Para análise estatística foram realizados os testes de correlação de Spearman, índice de Kappa, coeficiente de concordância e análise das medidas contínuas de Bland-Altman.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>A concordância (k = 0,110; p = 0,007) e a correlação (rho = 0,136; p = 0,02) entre o Questionário Internacional de Atividade Física – versão curta e o pedômetro foram fracas. No gráfico de Bland-Altman, observou-se que as diferenças se afastam do valor zero tanto quanto a atividade física é mínima ou mais intensa. Comparando-se os dois métodos, a frequência de mulheres inativas é maior quando avaliadas pelo pedômetro do que pelo Questionário Internacional de Atividade Física. O oposto ocorre entre as ativas.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>A concordância entre os métodos foi fraca. Embora de fácil aplicação, o Questionário Internacional de Atividade Física superestima a atividade física em relação à avaliação por pedômetro.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Climatério</kwd>
+				<kwd>Atividade Motora</kwd>
+				<kwd>Caminhada</kwd>
+				<kwd>Questionários, utilização</kwd>
+				<kwd>Estudos Transversais</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>CNPq/INCT</funding-source>
+					<award-id>573747/2008-3</award-id>
+				</award-group>
+				<funding-statement>Pesquisa parcialmente financiada pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) e pelos Institutos Nacionais de Ciência e Tecnologia (INCT) de Hormônios e Saúde da Mulher (CNPq/INCT 573747/2008-3).</funding-statement>
+			</funding-group>
+			<counts>
+				<fig-count count="2"/>
+				<table-count count="6"/>
+				<ref-count count="22"/>
+				<page-count count="8"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>O sedentarismo tem sido reconhecido como um fator independente de risco para o desenvolvimento de doença cardiovascular (DCV), diabetes tipo 2, síndrome metabólica e alguns tipos de câncer.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> A falta de atividade física (AF) é considerada importante causa evitável de morte por doenças crônicas não transmissíveis.</p>
+			<p>Existem diferentes instrumentos disponíveis para avaliar a AF e o gasto energético. Dentre os métodos e técnicas, os questionários têm sido bastante empregados. Dois deles foram traduzidos e validados para a língua portuguesa. O Questionário Internacional de Atividade Física, versão longa (IPAQ-LF) e versão curta (IPAQ-SF), é o que apresenta as melhores condições para ser aplicado, com boa reprodutibilidade, embora apresente baixa validade.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+			</p>
+			<p>Outra forma de avaliação da AF é pelo uso de pedômetro, um contador mecânico que registra movimentos realizados em resposta à aceleração vertical do corpo. Ele é preso na cintura do indivíduo, contando o número de passos dados em um intervalo de tempo. Possibilita a medição cumulativa das atividades ocupacionais, de lazer, domésticas e de transporte, sendo um método objetivo e sensível para a quantificação da AF do indivíduo.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+			</p>
+			<p>Há poucos estudos com mulheres de meia idade comparando a avaliação da AF habitual através do IPAQ-SF e pedômetro.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> O objetivo deste estudo foi comparar métodos de avaliação de atividade física entre mulheres na pré, transição e pós-menopausa.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Estudo transversal, de base populacional, aninhado a uma coorte de mulheres na pré, peri e pós-menopausa, da cidade de Passo Fundo, RS, realizado de 2010 a 2011.</p>
+			<p>Essa coorte iniciou-se em 1995, quando foram randomizadas 298 mulheres, e avaliou a prevalência de sintomas climatéricos, níveis hormonais e medidas ecográficas pélvicas.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> Em 2001, realizou-se o segundo seguimento, no qual as participantes da amostra anterior foram localizadas. Tendo em vista as perdas da amostra e o aumento populacional, foram incluídas novas participantes, randomizadas da mesma forma,<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> totalizando amostra de 358 mulheres, com idade entre 36 e 62 anos, na pré, peri e pós-menopausa.</p>
+			<p>Em 2010, para o conhecimento do atual estado de saúde e risco cardiovascular das participantes, iniciou-se o terceiro seguimento. As participantes foram localizadas através dos endereços, telefones, registros hospitalares, endereços de parentes, rádio e televisão local, tendo sido contatadas 301 mulheres. Destas, 292 tiveram dados de nível de AF completos para realização deste estudo e nove foram excluídas devido a dificuldades cognitivas (4), analfabetismo (1) e erro no registro do número de passos (4).<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+			</p>
+			<p>Foram coletados dados sociodemográficos, como idade, educação (anos de permanência na escola), sintomas climatéricos e uso de terapia hormonal (TH) através de um questionário previamente testado.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> A variável trabalho foi avaliada pela pergunta: “Você está trabalhando atualmente?”. O status menopáusico foi definido com base nas características do ciclo menstrual e tempo de amenorreia: pré-menopausa foi definida como ciclicidade menstrual normal no momento do estudo; perimenopausa foi definida como alterações na frequência do ciclo menstrual imediatamente antes do estudo; e pós-menopausa foi definido como 12 ou mais meses de amenorreia natural ou por ooforectomia bilateral. A categoria “histerectomia” foi criada para as mulheres que haviam sido previamente histerectomizadas, sem ooforectomia bilateral, e cujo status menopáusico não pôde ser classificado. O consumo de álcool foi determinado com base no autorrelato das participantes em relação à ingesta alcoólica (não consome, consumia, consome).<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> As participantes também foram categorizadas para tabagismo conforme autorrelato em: fumantes, ex-fumantes e não fumantes. Os dados antropométricos foram coletados em duplicata e incluíram peso, altura, circunferência da cintura e razão cintura-quadril.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+			</p>
+			<p>A AF foi avaliada utilizando-se o questionário IPAQ-SF e a contagem do número de passos através do pedômetro. Para o IPAQ-SF, a AF foi classificada de duas formas: conforme a quantidade de minutos de AF realizada na semana (inativas &lt; 150 min de AF/semana e ativas ≥ 150 min de AF/semana)<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> e também pelo equivalente metabólico minuto por semana (inativa &lt; 600 MET/min/semana, moderado de 600 a 1.499 MET/min/semana e ativa ≥ 1.500 MET/min/semana).<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+			</p>
+			<p>O pedômetro digital (modelo BP 148 TECHLINE) foi usado durante sete dias consecutivos. As participantes foram instruídas quanto ao uso adequado do sensor e a não alterar suas atividades típicas durante o estudo. Ao final de cada dia foram orientadas a anotar em um diário o número de passos. Calculou-se a média dos passos pela razão entre a soma diária de passos e o número de dias de uso do pedômetro.</p>
+			<p>Por essas medidas, as mulheres foram classificadas em inativas (número de passos diário &lt; 6.000) e ativas (número de passos diários ≥ 6.000),<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> e ainda como ativas (número de passos ≥ 10.000), moderadamente ativas (número de passos entre 5.000 e 9.999 passos) e inativas (número de passos &lt; 4.999).<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> Foram empregadas essas duas classificações para efetuar diferentes análises. Os dados foram comparados em 150 min/semana (amplamente usada e preconizada pela Organização Mundial da Saúde) <italic>versus</italic> ≥ 6.000 passos/dia (categorização já usada nessa mesma população em estudo prévio)<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> para análise dicotômica. Avaliou-se a correlação entre os gastos em MET/min/sem (unidade de medida descrita nas Diretrizes para Processamento e Análise de Dados do IPAQ) <italic>versus</italic> as três categorias (sedentária, moderadamente ativa e ativa) usadas na população em geral.<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref>
+			</p>
+			<p>Para análise dos dados, foram elaboradas estatísticas descritivas por cálculo das médias e desvio padrão, ou frequências relativas (%) e absolutas (n). Comparou-se a porcentagem de mulheres classificadas como ativas, moderadamente ativas e inativas entre os dois métodos, pelo teste do Qui-quadrado de McNemar, verificando-se a igualdade entre as proporções de respostas do nível de AF. Foi criada uma variável dicotômica referente à concordância entre os dois instrumentos e avaliou-se sua associação com idade, status menopáusico e anos de escolaridade através do teste de Qui-quadrado. A análise paramétrica de Spearman (rho) foi utilizada como outra medida de associação entre média de número de passos, minutos de AF/semana e MET/min/sem. O valor estatístico Kappa (k), o coeficiente de concordância (CC, %) e a análise das medidas contínuas usando a metodologia proposta por Bland-Altman<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref> foram utilizados para análise da concordância entre o IPAQ-SF e o pedômetro. Essa plotagem permite avaliar a concordância entre duas variáveis (X, Y) e é possível avaliar o viés (quanto as diferenças se afastam do valor zero), o erro (a dispersão dos pontos das diferenças ao redor das médias), <italic>outliers </italic>e tendência.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>Para empregar o teste de Bland-Altman, calculou-se o escore Z em ambos os instrumentos a fim de anular as unidades, tendo em vista que o pedômetro usa passos/dia e o IPAQ-SF o MET/min/sem. A equação para o cálculo do escore Z foi: Z = (X-μ)/S.D., em que Z = escore Z; X = escore bruto individual; μ = média da variável; S.D. = desvio padrão da variável. Excluíram-se 18 participantes para essa análise pois elas não realizavam mais de 10 min contínuos de AF, não completando os dados necessários para calcular os MET/min/sem. Em todas as análises foi considerado nível de significância de 5%. Utilizou-se o <italic>Statistical Package for the Social Sciences</italic> SPSS 20.0 e Stata 7.0.</p>
+			<p>Este trabalho teve aprovação do Comitê de Ética e Pesquisa da Faculdade de Medicina da Universidade de Passo Fundo e do Hospital São Vicente de Paulo (Processo 2010/16929). As participantes do estudo assinaram termo de consentimento livre e esclarecido.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>A amostra foi composta por mulheres com média de idade de 57,11 anos (DP = 5,36), cujo número médio de anos na escola foi 8,74 (DP = 4,48), das quais 20,0% referia menos de quatro anos de estudo. Dentre estas com baixa escolaridade, mais de 70,0% estavam no grupo das inativas. Quanto ao status menopáusico, 7,2% das pacientes estavam na pré-menopausa, 8,6% na perimenopausa, 78,4% na pós-menopausa e 5,8% eram histerectomizadas. A prevalência de pacientes tabagistas foi 19,2%, e 18,0% das participantes estavam em uso de TH. O índice de massa corporal foi 28,3 kg/m<sup>2 </sup>(DP = 7,1), e a maioria da amostra apresentava sobrepeso ou obesidade (<xref ref-type="table" rid="t01">Tabela 1</xref>). Não houve associação entre escolaridade, status menopáusico e idade e a concordância entre os dois instrumentos (p = 0,191, p = 0,268 e p = 0,619, respectivamente).</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Características demográficas e antropométricas das participantes do estudo. Passo Fundo, RS, Brasil, 2010. (N = 292)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="20%">
+							<col width="20%"/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Variável</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">Média</th>
+								<th style="font-weight:normal">DP</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Idade (anos)</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+								<td align="center">57,11</td>
+								<td align="center">5,36</td>
+							</tr>
+							<tr>
+								<td>Estudo (anos)</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0 a 4</td>
+								<td align="center">58</td>
+								<td align="center">19,9</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> 5 a 8</td>
+								<td align="center">91</td>
+								<td align="center">31,2</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> 9 a 11</td>
+								<td align="center">85</td>
+								<td align="center">29,1</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> ≥ 12</td>
+								<td align="center">58</td>
+								<td align="center">19,9</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>Trabalho (sim)</td>
+								<td align="center">129</td>
+								<td align="center">44,2</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>Terapia hormonal (sim)</td>
+								<td align="center">48</td>
+								<td align="center">18,0</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>Status menopáusico</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Pré-menopausa</td>
+								<td align="center">21</td>
+								<td align="center">7,2</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Perimenopausa</td>
+								<td align="center">25</td>
+								<td align="center">8,6</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Pós-menopausa</td>
+								<td align="center">229</td>
+								<td align="center">78,4</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Histerectomia</td>
+								<td align="center">17</td>
+								<td align="center">5,8</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>Estado civil</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Casada</td>
+								<td align="center">150</td>
+								<td align="center">51,4</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Solteira</td>
+								<td align="center">51</td>
+								<td align="center">17,5</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Separada/Divorciada</td>
+								<td align="center">91</td>
+								<td align="center">31,1</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>Uso de álcool</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Usuária</td>
+								<td align="center">96</td>
+								<td align="center">32,9</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Ex-usuária</td>
+								<td align="center">19</td>
+								<td align="center">6,5</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Não usuária</td>
+								<td align="center">177</td>
+								<td align="center">60,6</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>Tabagismo</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Tabagista</td>
+								<td align="center">56</td>
+								<td align="center">19,2</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Ex-tabagista</td>
+								<td align="center">67</td>
+								<td align="center">22,9</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td> Não tabagista</td>
+								<td align="center">169</td>
+								<td align="center">57,9</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>Sobrepeso/obesidade (sim)</td>
+								<td align="center">198</td>
+								<td align="center">68,3</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+							</tr>
+							<tr>
+								<td>IMC (kg/m<sup>2</sup>)</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+								<td align="center">28,3</td>
+								<td align="center">7,0</td>
+							</tr>
+							<tr>
+								<td>Cintura (cm)</td>
+								<td align="center">–</td>
+								<td align="center">–</td>
+								<td align="center">91,3</td>
+								<td align="center">13,7</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>IMC: índice de massa corpórea</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>A concordância entre os dois instrumentos, avaliada pelo coeficiente de Kappa, foi fraca (passos/dia e min de AF/sem, k = 0,110; p = 0,007 e passos/dia e MET/min/sem, k = 0,075; p = 0,013). O CC foi 47,0% (número de passos e min de AF/sem) e 32,0% (número de passos e MET/min/sem), resultando um valor intermediário, considerado de baixa concordância (<xref ref-type="table" rid="t02">Tabela 2</xref>).</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Estrato de atividade física de mulheres na pré, peri e pós -menopausa, em relação ao IPAQ-SF e pedômetro, MET/min/sem <italic>versus</italic> passos por dia. (N = 292)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="13%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="5" style="font-weight:normal" align="left">Variável</th>
+								<th colspan="2" style="font-weight:normal">Inativa</th>
+								<th colspan="2" style="font-weight:normal">Moderada</th>
+								<th colspan="2" style="font-weight:normal">Ativa</th>
+								<th colspan="1" rowspan="4" style="font-weight:normal">Kappa<sup>a</sup>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="2" style="font-weight:normal"> &lt; 4.999 passos/dia;</th>
+								<th colspan="2" style="font-weight:normal"> 5.000 a 9.999 passos/dia;</th>
+								<th colspan="2" style="font-weight:normal">≥ 10.000 passos/dia;</th>
+							</tr>
+							<tr>
+								<th colspan="2" style="font-weight:normal"> &lt; 600 MET/min/sem</th>
+								<th colspan="2" style="font-weight:normal"> 600 a 1.499 MET/min/sem</th>
+								<th colspan="2" style="font-weight:normal">  ≥ 1.500 MET/min/sem</th>
+							</tr>
+							<tr>
+								<th colspan="6" rowspan="1" style="font-weight:normal" align="left">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal"> </th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Número de passos (pedômetro)</td>
+								<td align="center">199</td>
+								<td align="center">68,2</td>
+								<td align="center">72</td>
+								<td align="center">24,7</td>
+								<td align="center">21</td>
+								<td align="center">7,2</td>
+								<td align="center">0,075</td>
+							</tr>
+							<tr>
+								<td>MET/min/sem (IPAQ-SF)</td>
+								<td align="center">59</td>
+								<td align="center">20,2</td>
+								<td align="center">133</td>
+								<td align="center">45,5</td>
+								<td align="center">100</td>
+								<td align="center">34,2</td>
+								<td> </td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>IPAQ-SF: Questionário Internacional de Atividade Física – versão curta</p>
+						<p>Teste de Qui-quadrado de McNemar, p ≤ 0,001</p>
+						<p>a Coeficiente de Kappa p ≤ 0,05</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>A correlação, avaliada pelo teste de Spearman, foi significativa, porém fraca (média de passos/dia e MET/min/sem, rho = 0,113; p = 0,025) (<xref ref-type="fig" rid="f01">Figura A</xref>). A <xref ref-type="fig" rid="f01">Figura (B)</xref> apresenta o gráfico de Bland-Altman, onde se verifica que a maior parte das observações encontra-se dentro do nível de concordância de 95% (± 1,96 DP) e que a diferença média do escore Z de ambos os testes foi próxima de zero. No entanto, observa-se que as diferenças se afastam do valor zero tanto quanto a AF é mínima ou mais intensa.</p>
+			<p>
+				<fig id="f01">
+					<label>Figura. </label>
+					<caption>
+						<title>Análise de correlação e concordância de medidas de atividade física entre o Questionário Internacional de Atividade Física – versão curta e pedômetro.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0258-gf01"/>
+				</fig>
+			</p>
+			<p>As <xref ref-type="table" rid="t02">Tabelas 2</xref> e <xref ref-type="table" rid="t03">3</xref> descrevem as frequências de participantes em cada estrato de AF de acordo com os dois instrumentos utilizados. Houve diferença significativa entre as mulheres classificadas em diferentes estratos de AF, com coeficientes de Kappa de 0,075 e 0,110, respectivamente.</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Tabela 3</label>
+					<caption>
+						<title>Estrato de atividade física de mulheres na pré, peri e pós-menopausa, em relação ao IPAQ-SF e pedômetro, min/sem <italic>versus</italic> passos por dia. (N = 292)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="17%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="5" style="font-weight:normal" align="left">Variável</th>
+								<th colspan="2" style="font-weight:normal">Inativa</th>
+								<th colspan="2" style="font-weight:normal">Ativa </th>
+								<th colspan="1" rowspan="5" style="font-weight:normal">Kappa<sup>a</sup>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="2" style="font-weight:normal">&lt; 6.000 passos/dia;</th>
+								<th colspan="2" style="font-weight:normal">≥ 6.000 passos/dia;</th>
+							</tr>
+							<tr>
+								<th colspan="2" style="font-weight:normal">  &lt; 150 min/sem</th>
+								<th colspan="2" style="font-weight:normal"> ≥ 150 min/sem</th>
+							</tr>
+							<tr>
+								<th colspan="4" rowspan="1" style="font-weight:normal" align="left">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Número de passos (pedômetro)</td>
+								<td align="center">199</td>
+								<td align="center">68,2</td>
+								<td align="center">93</td>
+								<td align="center">31,8</td>
+								<td align="center">0,110</td>
+							</tr>
+							<tr>
+								<td>Min/sem (IPAQ-SF)</td>
+								<td align="center">75</td>
+								<td align="center">26,0</td>
+								<td align="center">214</td>
+								<td align="center">74,0</td>
+								<td> </td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>IPAQ-SF: Questionário Internacional de Atividade Física – versão curta</p>
+						<p>Teste de Qui-quadrado de McNemar, p ≤ 0,001</p>
+						<p>a Coeficiente de Kappa p ≤ 0,05</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>O número de mulheres consideradas ativas foi pelo menos duas vezes maior quando classificadas pelo IPAQ-SF em comparação à avaliação do pedômetro, tanto pelo critério MET/min/sem como por min de AF/sem.</p>
+			<p>Os resultados apresentados mostram que informações referentes ao estrato de AF obtidas através do IPAQ-SF não são semelhante às avaliadas de forma objetiva, pelo uso do pedômetro. Os achados do Bland-Altman corroboram com as <xref ref-type="table" rid="t02">Tabelas 2</xref> e <xref ref-type="table" rid="t03">3</xref>, mostrando que a frequência de mulheres inativas é maior quando avaliadas pelo pedômetro do que pelo IPAQ-SF e o oposto ocorre entre as ativas. Os dados indicam uma superestimação do IPAQ-SF em relação ao pedômetro, principalmente na categoria ativa.</p>
+			<p>Recente revisão sistemática sobre validade do IPAQ-SF mostrou estudos com populações de faixa etária semelhante à deste trabalho e que reportaram de baixa a moderada correlação entre os dois métodos.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> Destacam-se os estudos que compararam o uso de pedômetro e o IPAQ-SF como o de De Cocker et al,<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> realizado com 310 adultos saudáveis, que reportou uma baixa a moderada correlação (AF total rho = 0,28), e o estudo de Deng et al,<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> com uma amostragem da população chinesa com idade média de 65 anos, e uma correlação moderada (AF total rho = 0,33; p &lt; 0,001) entre os dois métodos.</p>
+			<p>Estudo brasileiro com 21 mulheres pós-menopáusicas, portadoras de osteoporose, avaliou a concordância entre o IPAQ-versão longa e o pedômetro. De acordo com o IPAQ, 71,4% das participantes foram classificadas como ativas e 28,6%, sedentárias. A concordância entre o IPAQ e o pedômetro, considerando-se o número de passos, teve Kappa de 0,21.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> Apesar de o estudo ter envolvido uma amostra de mulheres essencialmente pós-menopáusicas e utilizado o IPAQ versão longa, também encontrou correlação fraca entre a AF referida e a avaliação direta com pedômetro. Este estudo confirma esses achados com uso do IPAQ-SF, porém, com amostra maior e representativa de mulheres na pré, peri e pós-menopausa.</p>
+			<p>A maioria das mulheres da amostra estudada encontrava-se na meia-idade, não trabalhava, apresentava sobrepeso ou obesidade, adiposidade central, hipertensão e era predominantemente inativa quando avaliada pelo pedômetro.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> Esse perfil de risco cardiovascular está fortemente associado ao sedentarismo e reforça que a avaliação da AF realizada pelo pedômetro pode ter sido apropriada. Por outro lado, as participantes que caminhavam ≥ 6.000 passos/dia apresentaram menor deposição central de gordura, síndrome metabólica e diabetes.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+			</p>
+			<p>Neste estudo utilizou-se o pedômetro durante sete dias consecutivos e constatou-se diferença no número de passos em relação ao dia da semana, sendo maior durante os dias úteis e no verão.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> Estudos sugerem que o uso do pedômetro por menos dias, desde que incluído o sábado ou o domingo, apresenta a mesma confiabilidade do uso semanal.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> O uso de pedômetro no seguimento de pacientes poderia ser realizado dessa forma, aumentando a aderência devido à facilidade de uso e menor tempo de intervenção. De qualquer forma, o uso do mesmo instrumento é recomendado na avaliação longitudinal da AF para facilitar a comparação dos resultados.</p>
+			<p>A variabilidade observada no nível educacional da amostra estudada não interferiu na associação e concordância entre pedômetro e IPAQ-SF. Fato diferente do observado em outro estudo, em que a correlação entre os dois métodos se tornou pouco maior após o ajuste para sexo, idade e escolaridade.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+			</p>
+			<p>Com relação aos instrumentos utilizados, os questionários de autorrelato são mais acessíveis e permitem estimar a intensidade e modalidade de AF realizada. Seu uso pode ser preferencial nos estudos longos e de seguimento com um número grande de participantes. Por outro lado, é um método subjetivo e recordatório, o que pode aumentar as chances de erro. Os conceitos de sessão de 10 min e os erros de percepção da intensidade podem corroborar para erros de interpretação e resposta do IPAQ-SF,<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> porém a utilização de entrevistadores para aplicá-lo ajuda a diminuir esse viés. A confiabilidade do IPAQ-SF permite seu uso com cautela nos estudos de medidas repetidas; porém, não há evidências corroborando seu uso como medida de AF absoluta ou relativa.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+			</p>
+			<p>O pedômetro é um método de avaliação objetivo de AF. Entretanto, embora seja uma ferramenta valiosa para estimar e incentivar AF, habitual e diária, esse instrumento não quantifica o deslocamento no plano horizontal e superior.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref> Ele é adequado para avaliar deslocamento (passos/dia) pelas oscilações verticais do corpo, mas incapaz de avaliar atividades como ciclismo e qualquer atividade na água, não discriminando a intensidade e o tipo de AF.</p>
+			<p>Os indivíduos aceleram, desaceleram, param e sentam diversas vezes ao longo de um dia enquanto estão usando um pedômetro e isso pode interferir na avaliação de gasto energético e nível de AF. Adultos norte-americanos apresentam uma variação no tempo de repouso ou na cadência (passos/minuto) ao longo de um dia. Existe uma forte relação entre essa cadência e velocidade da caminhada e podem-se considerar 100 passos/min uma estimativa apropriada de uma atividade de 3 MET. Essas estimativas, porém, não podem ser consideradas como valores fixos de gasto total de energia em um dia. No presente estudo a cadência não foi medida individualmente; portanto, não se pode utilizar o gasto em MET como unidade de medida do pedômetro.<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref> O uso do acelerômetro seria melhor alternativa para a comparação e conversão do gasto energético avaliado pelo IPAQ-SF e a distância percorrida pela participante. Alguns estudos mostraram correlação, moderada a forte, entre a contagem do acelerômetro e MET, em adultos,<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> dado discordante em outros estudos.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> O acelerômetro é um método mais caro, também não distingue atividades estáticas (e.g., musculação), aquáticas e ciclismo, e ainda há falhas da indústria para correta e fácil conversão e interpretação dos dados brutos gerados pelo instrumento.<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref>
+			</p>
+			<p>Uma limitação deste estudo foi o fato de que os dois instrumentos apresentaram unidades de medida diferentes, o que poderia limitar as análises de Bland-Altman. Entretanto, o cálculo do escore Z possibilitou a análise concorrente entre esses testes.</p>
+			<p>Este é o primeiro estudo brasileiro de base populacional que investiga esses dois métodos de avaliação da AF e os relaciona com o status menopausal e anos de escolaridade. Pelo delineamento do estudo, é possível transpor seus resultados para populações semelhantes.</p>
+			<p>Considerando-se que a AF habitual é um comportamento facilmente adotável para prevenção de risco cardiovascular, é fundamental que se utilizem métodos acurados de estimativa da AF e que eles possam ser considerados instrumentos auxiliares na intervenção de modificações comportamentais, estimulando a AF.</p>
+			<p>Em conclusão, a concordância entre IPAQ-SF e pedômetro foi fraca na amostra de mulheres climatéricas avaliadas. Embora de fácil aplicação, o questionário IPAQ-SF superestima a AF quanto à avaliação por pedômetro.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Bastos CA, Oppermann K, Fuchs SC, Donato GB, Spritzer PM. Determinants of ovarian volume in pre-, menopausal transition, and post-menopausal women: a population-based study. Maturitas. 2006;53(4):405-12. DOI:10.1016/j.maturitas.2005.07.002</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bastos</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Oppermann</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Fuchs</surname>
+							<given-names>SC</given-names>
+						</name>
+						<name>
+							<surname>Donato</surname>
+							<given-names>GB</given-names>
+						</name>
+						<name>
+							<surname>Spritzer</surname>
+							<given-names>PM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Determinants of ovarian volume in pre-, menopausal transition, and post-menopausal women: a population-based study</article-title>
+					<source>Maturitas</source>
+					<year>2006</year>
+					<volume>53</volume>
+					<issue>4</issue>
+					<fpage>405</fpage>
+					<lpage>412</lpage>
+					<issue-id pub-id-type="doi">10.1016/j.maturitas.2005.07.002</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Bland JM, Altman DG. Statistical methods for assessing agreement between two methods of clinical measurement. Lancet. 1986;327(8476):307-10. DOI:10.1016/S0140-6736(86)90837-8</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bland</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Altman</surname>
+							<given-names>DG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Statistical methods for assessing agreement between two methods of clinical measurement</article-title>
+					<source>Lancet</source>
+					<year>1986</year>
+					<volume>327</volume>
+					<issue>8476</issue>
+					<fpage>307</fpage>
+					<lpage>310</lpage>
+					<issue-id pub-id-type="doi">10.1016/S0140-6736(86)90837-8</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Butte NF, Ekelund U, Westerterp KR. Assessing physical activity using wearable monitors: measures of physical activity. Med Sci Sports Exerc. 2012;44(1 Suppl 1):S5-12. DOI:10.1249/MSS.0b013e3182399c0e</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Butte</surname>
+							<given-names>NF</given-names>
+						</name>
+						<name>
+							<surname>Ekelund</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Westerterp</surname>
+							<given-names>KR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Assessing physical activity using wearable monitors: measures of physical activity</article-title>
+					<source>Med Sci Sports Exerc</source>
+					<year>2012</year>
+					<volume>44</volume>
+					<issue>1 Suppl 1</issue>
+					<fpage>S5</fpage>
+					<lpage>12</lpage>
+					<issue-id pub-id-type="doi">10.1249/MSS.0b013e3182399c0e</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Colpani V, Oppermann K, Spritzer PM. Association between habitual physical activity and lower cardiovascular risk in premenopausal, perimenopausal, and postmenopausal women: a population-based study. Menopause. 2013;20(5):525-31. DOI:10.1097/GME.0b013e318271b388</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Colpani</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Oppermann</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Spritzer</surname>
+							<given-names>PM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Association between habitual physical activity and lower cardiovascular risk in premenopausal, perimenopausal, and postmenopausal women: a population-based study</article-title>
+					<source>Menopause</source>
+					<year>2013</year>
+					<volume>20</volume>
+					<issue>5</issue>
+					<fpage>525</fpage>
+					<lpage>531</lpage>
+					<issue-id pub-id-type="doi">10.1097/GME.0b013e318271b388</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Dallanezi GC, Corrrente JE, Freire BF, Mazeto GMFS. Concordância do International Physical Activity Questionnaire com o pedômetro, em mulheres pós-menopausadas portadoras de osteoporose. Rev Soc Bras Clin Med. 2011;9(2):93-6.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Dallanezi</surname>
+							<given-names>GC</given-names>
+						</name>
+						<name>
+							<surname>Corrrente</surname>
+							<given-names>JE</given-names>
+						</name>
+						<name>
+							<surname>Freire</surname>
+							<given-names>BF</given-names>
+						</name>
+						<name>
+							<surname>Mazeto</surname>
+							<given-names>GMFS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Concordância do International Physical Activity Questionnaire com o pedômetro, em mulheres pós-menopausadas portadoras de osteoporose</article-title>
+					<source>Rev Soc Bras Clin Med</source>
+					<year>2011</year>
+					<volume>9</volume>
+					<issue>2</issue>
+					<fpage>93</fpage>
+					<lpage>96</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. De Cocker KA, De Bourdeaudhuij IM, Cardon GM. What do pedometer counts represent? A comparison between pedometer data and data from four different questionnaires. Public Health Nutr. 2009;12(1):74-81. DOI:10.1017/S1368980008001973</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Cocker</surname>
+							<given-names>KA</given-names>
+						</name>
+						<name>
+							<surname>Bourdeaudhuij</surname>
+							<given-names>IM</given-names>
+						</name>
+						<name>
+							<surname>Cardon</surname>
+							<given-names>GM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">What do pedometer counts represent? A comparison between pedometer data and data from four different questionnaires</article-title>
+					<source>Public Health Nutr</source>
+					<year>2009</year>
+					<volume>12</volume>
+					<issue>1</issue>
+					<fpage>74</fpage>
+					<lpage>81</lpage>
+					<issue-id pub-id-type="doi">10.1017/S1368980008001973</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Deng HB, Macfarlane DJ, Thomas GN, Lao XQ, Cheng KK, Lam TH. Reliability and validity of the IPAQ-Chinese: the Guangzhou Biobank Cohort study. Med Sci Sports Exerc. 2008;40(2):303-7. DOI:10.1249/mss.0b013e31815b0db5</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Deng</surname>
+							<given-names>HB</given-names>
+						</name>
+						<name>
+							<surname>Macfarlane</surname>
+							<given-names>DJ</given-names>
+						</name>
+						<name>
+							<surname>Thomas</surname>
+							<given-names>GN</given-names>
+						</name>
+						<name>
+							<surname>Lao</surname>
+							<given-names>XQ</given-names>
+						</name>
+						<name>
+							<surname>Cheng</surname>
+							<given-names>KK</given-names>
+						</name>
+						<name>
+							<surname>Lam</surname>
+							<given-names>TH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Reliability and validity of the IPAQ-Chinese: the Guangzhou Biobank Cohort study</article-title>
+					<source>Med Sci Sports Exerc</source>
+					<year>2008</year>
+					<volume>40</volume>
+					<issue>2</issue>
+					<fpage>303</fpage>
+					<lpage>307</lpage>
+					<issue-id pub-id-type="doi">10.1249/mss.0b013e31815b0db5</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Donato GB, Fuchs SC, Oppermann K, Bastos C, Spritzer PM. Association between menopause status and central adiposity measured at different cutoffs of waist circumference and waist-to-hip ratio. Menopause. 2006;13(2):280-5. DOI:10.1097/01.gme.0000177907.32634.ae</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Donato</surname>
+							<given-names>GB</given-names>
+						</name>
+						<name>
+							<surname>Fuchs</surname>
+							<given-names>SC</given-names>
+						</name>
+						<name>
+							<surname>Oppermann</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Bastos</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Spritzer</surname>
+							<given-names>PM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Association between menopause status and central adiposity measured at different cutoffs of waist circumference and waist-to-hip ratio</article-title>
+					<source>Menopause</source>
+					<year>2006</year>
+					<volume>13</volume>
+					<issue>2</issue>
+					<fpage>280</fpage>
+					<lpage>285</lpage>
+					<issue-id pub-id-type="doi">10.1097/01.gme.0000177907.32634.ae</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Graff SK, Alves BC, Toscani MK, Spritzer PM. Benefits of pedometer-measured habitual physical activity in healthy women. Appl Physiol Nutr Metab. 2012;37(1):149-56. DOI:10.1139/h11-145</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Graff</surname>
+							<given-names>SK</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>BC</given-names>
+						</name>
+						<name>
+							<surname>Toscani</surname>
+							<given-names>MK</given-names>
+						</name>
+						<name>
+							<surname>Spritzer</surname>
+							<given-names>PM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Benefits of pedometer-measured habitual physical activity in healthy women</article-title>
+					<source>Appl Physiol Nutr Metab</source>
+					<year>2012</year>
+					<volume>37</volume>
+					<issue>1</issue>
+					<fpage>149</fpage>
+					<lpage>156</lpage>
+					<issue-id pub-id-type="doi">10.1139/h11-145</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Hallal PC, Gomez LF, Parra DC, Lobelo F, Mosquera J, Florindo AA,  et al. Lessons learned after 10 years of IPAQ use in Brazil and Colombia. J Phys Act Health. 2010;7(Suppl 2):S259-64.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hallal</surname>
+							<given-names>PC</given-names>
+						</name>
+						<name>
+							<surname>Gomez</surname>
+							<given-names>LF</given-names>
+						</name>
+						<name>
+							<surname>Parra</surname>
+							<given-names>DC</given-names>
+						</name>
+						<name>
+							<surname>Lobelo</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Mosquera</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Florindo</surname>
+							<given-names>AA</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Lessons learned after 10 years of IPAQ use in Brazil and Colombia</article-title>
+					<source>J Phys Act Health</source>
+					<year>2010</year>
+					<volume>7</volume>
+					<issue>Suppl 2</issue>
+					<fpage>S259</fpage>
+					<lpage>S264</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Hart TL, Swartz AM, Cashin SE, Strath SJ. How many days of monitoring predict physical activity and sedentary behaviour in older adults? Int J Behav Nutr Phys Act. 2011;8:62. DOI:10.1186/1479-5868-8-62</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hart</surname>
+							<given-names>TL</given-names>
+						</name>
+						<name>
+							<surname>Swartz</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Cashin</surname>
+							<given-names>SE</given-names>
+						</name>
+						<name>
+							<surname>Strath</surname>
+							<given-names>SJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">How many days of monitoring predict physical activity and sedentary behaviour in older adults?</article-title>
+					<source>Int J Behav Nutr Phys Act</source>
+					<year>2011</year>
+					<volume>8</volume>
+					<size units="pages">62</size>
+					<issue-id pub-id-type="doi">10.1186/1479-5868-8-62</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Hirakata VN CS. Análise de concordância entre métodos de Bland-Altman. Rev HCPA. 2009;29(3):261-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hirakata</surname>
+							<given-names>VN CS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Análise de concordância entre métodos de Bland-Altman</article-title>
+					<source>Rev HCPA</source>
+					<year>2009</year>
+					<volume>29</volume>
+					<issue>3</issue>
+					<fpage>261</fpage>
+					<lpage>268</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Lee PH, Macfarlane DJ, Lam TH, Stewart SM. Validity of the International Physical Activity Questionnaire Short Form (IPAQ-SF): a systematic review. Int J Behav Nutr Phys Act. 2011;8:115. DOI:10.1186/1479-5868-8-115</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Lee</surname>
+							<given-names>PH</given-names>
+						</name>
+						<name>
+							<surname>Macfarlane</surname>
+							<given-names>DJ</given-names>
+						</name>
+						<name>
+							<surname>Lam</surname>
+							<given-names>TH</given-names>
+						</name>
+						<name>
+							<surname>Stewart</surname>
+							<given-names>SM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Validity of the International Physical Activity Questionnaire Short Form (IPAQ-SF): a systematic review</article-title>
+					<source>Int J Behav Nutr Phys Act</source>
+					<year>2011</year>
+					<volume>8</volume>
+					<size units="pages">115</size>
+					<issue-id pub-id-type="doi">10.1186/1479-5868-8-115</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Matthew CE. Calibration of accelerometer output for adults. Med Sci Sports Exerc. 2005;37(11 Suppl):S512-22. DOI:10.1249/01.mss.0000185659.11982.3d</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Matthew</surname>
+							<given-names>CE</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Calibration of accelerometer output for adults</article-title>
+					<source>Med Sci Sports Exerc</source>
+					<year>2005</year>
+					<volume>37</volume>
+					<issue>11 Suppl</issue>
+					<fpage>S512</fpage>
+					<lpage>S522</lpage>
+					<issue-id pub-id-type="doi">10.1249/01.mss.0000185659.11982.3d</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Murphy SL. Review of physical activity measurement using accelerometers in older adults: considerations for research design and conduct. Prev Med. 2009;48(2):108-14. DOI:10.1016/j.ypmed.2008.12.001</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Murphy</surname>
+							<given-names>SL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Review of physical activity measurement using accelerometers in older adults: considerations for research design and conduct</article-title>
+					<source>Prev Med</source>
+					<year>2009</year>
+					<volume>48</volume>
+					<issue>2</issue>
+					<fpage>108</fpage>
+					<lpage>114</lpage>
+					<issue-id pub-id-type="doi">10.1016/j.ypmed.2008.12.001</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Oppermann K, Fuchs SC, Spritzer PM. Ovarian volume in pre- and perimenopausal women: a population-based study. Menopause. 2003;10(3):209-13.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Oppermann</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Fuchs</surname>
+							<given-names>SC</given-names>
+						</name>
+						<name>
+							<surname>Spritzer</surname>
+							<given-names>PM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Ovarian volume in pre- and perimenopausal women: a population-based study</article-title>
+					<source>Menopause</source>
+					<year>2003</year>
+					<volume>10</volume>
+					<issue>3</issue>
+					<fpage>209</fpage>
+					<lpage>213</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Ramirez-Marrero FA, Rivera-Brown AM, Nazario CM, Rodriguez-Orengo JF, Smit E, Smith BA. Self-reported physical activity in Hispanic adults living with HIV: comparison with accelerometer and pedometer. J Assoc Nurses AIDS Care. 2008;19(4):283-94. DOI:10.1016/j.jana.2008.04.003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Ramirez-Marrero</surname>
+							<given-names>FA</given-names>
+						</name>
+						<name>
+							<surname>Rivera-Brown</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Nazario</surname>
+							<given-names>CM</given-names>
+						</name>
+						<name>
+							<surname>Rodriguez-Orengo</surname>
+							<given-names>JF</given-names>
+						</name>
+						<name>
+							<surname>Smit</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Smith</surname>
+							<given-names>BA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Self-reported physical activity in Hispanic adults living with HIV: comparison with accelerometer and pedometer</article-title>
+					<source>J Assoc Nurses AIDS Care</source>
+					<year>2008</year>
+					<volume>19</volume>
+					<issue>4</issue>
+					<fpage>283</fpage>
+					<lpage>294</lpage>
+					<issue-id pub-id-type="doi">10.1016/j.jana.2008.04.003</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Trost SG, McIver KL, Pate RR. Conducting accelerometer-based activity assessments in field-based research. Med Sci Sports Exerc. 2005;37(11 Suppl):S531-43. DOI:10.1249/01.mss.0000185657.86065.98</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Trost</surname>
+							<given-names>SG</given-names>
+						</name>
+						<name>
+							<surname>McIver</surname>
+							<given-names>KL</given-names>
+						</name>
+						<name>
+							<surname>Pate</surname>
+							<given-names>RR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Conducting accelerometer-based activity assessments in field-based research</article-title>
+					<source>Med Sci Sports Exerc</source>
+					<year>2005</year>
+					<volume>37</volume>
+					<issue>11 Suppl</issue>
+					<fpage>S531</fpage>
+					<lpage>S543</lpage>
+					<issue-id pub-id-type="doi">10.1249/01.mss.0000185657.86065.98</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Tudor-Locke C, Bassett DR Jr. How many steps/day are enough? Preliminary pedometer indices for public health. Sports Med. 2004;34(1):1-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Tudor-Locke</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Bassett</surname>
+							<given-names>DR</given-names>
+							<suffix>Jr</suffix>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">How many steps/day are enough? Preliminary pedometer indices for public health</article-title>
+					<source>Sports Med</source>
+					<year>2004</year>
+					<volume>34</volume>
+					<issue>1</issue>
+					<fpage>1</fpage>
+					<lpage>8</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Tudor-Locke C, Burkett L, Reis JP, Ainsworth BE, Macera CA, Wilson DK. How many days of pedometer monitoring predict weekly physical activity in adults? Prev Med. 2005;40(3):293-8. DOI:10.1016/j.ypmed.2004.06.003</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Tudor-Locke</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Burkett</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Reis</surname>
+							<given-names>JP</given-names>
+						</name>
+						<name>
+							<surname>Ainsworth</surname>
+							<given-names>BE</given-names>
+						</name>
+						<name>
+							<surname>Macera</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Wilson</surname>
+							<given-names>DK</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">How many days of pedometer monitoring predict weekly physical activity in adults?</article-title>
+					<source>Prev Med</source>
+					<year>2005</year>
+					<volume>40</volume>
+					<issue>3</issue>
+					<fpage>293</fpage>
+					<lpage>298</lpage>
+					<issue-id pub-id-type="doi">10.1016/j.ypmed.2004.06.003</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Tudor-Locke C, Craig CL, Brown WJ, Clemes SA, De Crocker K, Giles-Corti B,  et al. How many steps/day are enough? For adults. Int J Behav Nutr Phys Act. 2011;8:79. DOI:10.1186/1479-5868-8-79</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Tudor-Locke</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Craig</surname>
+							<given-names>CL</given-names>
+						</name>
+						<name>
+							<surname>Brown</surname>
+							<given-names>WJ</given-names>
+						</name>
+						<name>
+							<surname>Clemes</surname>
+							<given-names>SA</given-names>
+						</name>
+						<name>
+							<surname>Crocker</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Giles-Corti</surname>
+							<given-names>B</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">How many steps/day are enough? For adults</article-title>
+					<source>Int J Behav Nutr Phys Act</source>
+					<year>2011</year>
+					<volume>8</volume>
+					<size units="pages">79</size>
+					<issue-id pub-id-type="doi">10.1186/1479-5868-8-79</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Tudor-Locke C, Rowe DA. Using cadence to study free-living ambulatory behaviour. Sports Med. 2012;42(5):381-98. DOI:10.2165/11599170-000000000-00000</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Tudor-Locke</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Rowe</surname>
+							<given-names>DA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Using cadence to study free-living ambulatory behaviour</article-title>
+					<source>Sports Med</source>
+					<year>2012</year>
+					<volume>42</volume>
+					<issue>5</issue>
+					<fpage>381</fpage>
+					<lpage>398</lpage>
+					<issue-id pub-id-type="doi">10.2165/11599170-000000000-00000</issue-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn fn-type="financial-disclosure">
+				<p>Pesquisa parcialmente financiada pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) e pelos Institutos Nacionais de Ciência e Tecnologia (INCT) de Hormônios e Saúde da Mulher (CNPq/INCT 573747/2008-3).</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Physical activity in climacteric women: comparison between self-reporting and pedometer</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Karen Oppermann  Rua Teixeira Soares 885/704  99010-081 Passo Fundo, RS, Brasil  E-mail: <email>karenoppermann@gmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To compare two methods of assessing physical activity in pre-, peri- and postmenopausal women.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>Cross-sectional study nested in a cohort of pre-, peri- and postmenopausal women in a city in Southern Brazil. The participants completed a questionnaire that included sociodemographic and clinical data. Physical activity was assessed using a digital pedometer and the International Physical Activity Questionnaire, short version. The participants were classified into strata of physical activity according to the instrument used. For statistical analysis, the Spearman correlation test, Kappa index, concordance coefficient and Bland-Altman plots were used.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>The concordance (k = 0110; p = 0.007) and the correlation (rho = 0.136, p = 0.02) between the International Physical Activity Questionnaire, short version, and pedometer were weak. In Bland-Altman plots, it was observed that differences deviate from zero value whether the physical activity is minimal or more intense. Comparing the two methods, the frequency of inactive women is higher when assessed by pedometer than by the International Physical Activity Questionnaire - short version, and the opposite occurs in active women.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>Agreement between the methods was weak. Although easy to use, Physical Activity Questionnaire - short version overestimates physical activity compared with assessment by pedometer.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Climacteric</kwd>
+				<kwd>Menopause</kwd>
+				<kwd>Motor Activity</kwd>
+				<kwd>Walking</kwd>
+				<kwd>Questionnaires, utilization</kwd>
+				<kwd>Cross-Sectional Studies</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Being sedentary has been recognized as a significant risk factor in developing cardiovascular disease (CVD), type 2 diabetes, metabolic syndrome and some types of cancer.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> The lack of physical activity (PA) is an important cause of avoidable death from non-communicable chronic disease.</p>
+				<p>Different instruments are available to evaluate PA and energy expenditure. Of the methods and techniques available, questionnaires are often used. Two such have been translated and validated in Portuguese. The International Physical activity Questionnaire – long form (IPAQ-LF) and short form (IPAQ-SF), are those with the best conditions to be used, with good reproducibility, although validity has been shown to be low.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+				</p>
+				<p>Another way of assessing PA is using a pedometer, a mechanical counter that records movement in response to the body’s vertical acceleration. It is attached to the individual’s waist, counting the number of steps taken. It enables occupational, leisure, domestic and transport activities to be measured cumulatively, and is a sensitive and objective method for quantifying an individual’s PA.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+				</p>
+				<p>There are few studies of middle-aged women comparing habitual PA as measured using the IPAQ-SF or a pedometer.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> The aim of this study is to compare methods of assessing physical activity in pre-, peri- and post-menopausal women.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>This was a population-based cross-sectional study, nesting a cohort of pre-, peri- and post-menopausal women in the city of Passo Fundo, RS, Southern Brazil, from 2010 to 2011.</p>
+				<p>This cohort began in 1995, when 298 women were randomly selected to evaluate the prevalence of menopause symptoms, hormone levels and ultrasound pelvic measurements.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> In 2001, a second follow up was conducted, locating participants in the previous sample. Bearing in mind sample losses and population increase, new participants were included, randomly selected in the same way,<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> giving a total sample of 358 pre-, peri- and post-menopausal women aged between 36 and 62.</p>
+				<p>In 2010, to discover the participants’ current state of health and cardiovascular risk, a third follow up was conducted. Participants were located using addresses, telephone numbers, hospital records, addresses of relatives and local radio and television, resulting in 301 women being contacted. Of these, complete data on PA level was obtained for 292, with nine being excluded due to cognitive difficulties (4), illiteracy (1) and errors recording the number of steps (4).<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+				</p>
+				<p>Sociodemographic data, such as age, schooling (years at school), menopausal symptoms and hormone therapy (HT) were collected using a previously tested questionnaire.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> The work variable was evaluated using the question: “Are you currently in work?”. Menopausal status was defined based on menstrual cycle characteristics and length of time of amenorrhea: pre-menopausal was defined as having a normal menstrual cycle at the time of the study; peri-menopausal was defined as experiencing changes in menstrual cycle frequency or flow in the 12 months before the study, and post-menopausal was defined as 12 months or more of natural or bilateral oophorectomy amenorrhea. A category called “hysterectomy” was created for women who had undergone hysterectomies without bilateral oophorectomy, and whose menopausal status could not be classified. Alcohol consumption was determined based on participant self-reporting of alcohol intake (do not drink, used to drink, drink).<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> Participants also self-reported smoking habits categorized as: smoker, ex-smoker and non-smoker. Anthropometric data were collected in duplicate and included weight, height, waist circumference and waist to hip ratio.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+				</p>
+				<p>PA was evaluated using the IPAQ-SF questionnaire and counting number of steps taken according to the pedometer. In the IPAQ-SF, PA was classified in two ways: according to the number of minutes of PA in the week (inactive &lt; 150 min PA/week and active ≥ 150 min PA/week)<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> and also by metabolic equivalent minutes per week (inactive &lt; 600 MET/min/week, moderate from 600 to 1,499 MET/min/week and active ≥ 1,500 MET/min/week).<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+				</p>
+				<p>The digital pedometer (model BP 148 TECHLINE) was used for seven consecutive days. Participants were instructed how to use the sensor properly and not to alter their typical activities during the study. They were instructed to note the number of steps in a diary at the end of each day. The mean number of steps was calculated by the ratio between the sum of the daily totals and the number of days the pedometer was used.</p>
+				<p>Using these measurements, the women were classified as inactive (&lt; 6,000 steps daily) and active (≥ 6,000 steps daily)<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> and the women were further classified as active (≥ 10,000 steps daily), moderately active (between 5,000 and 9,999 steps daily) and inactive or sedentary (&lt; 4,999 steps daily).<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> These two classifications were used in different analyses. The data were compared in 150 min/week (widely used and recommended by the World Health Organization) <italic>versus</italic> ≥ 6,000 steps/day (categorization already used with the same population in the previous study)<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> for dichotomous analysis. Correlation between energy expended in MET/min/week (unit of measurement described in the IPAQ Directives for Processing and Analyzing Data) <italic>versus</italic> the three categories (sedentary, moderately active and active) used in the general population.<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref>
+				</p>
+				<p>The data analysis was performed using descriptive statistics to calculate the means, standard deviation and relative (%) and absolute (n) frequencies. The percentage of women classified as active, moderately active and inactive using the two methods was compared using McNemar’s Chi-square test to verify equality between the percentages of responses to level of physical activity. A dichotomous variable referring to concordance between the two instruments was created and the association between age, menopausal status and years of schooling was assessed using the Chi-square test. Spearman’s rho was also used to analyze association between the mean number of steps, minutes of PA/week and MET/min/week. The Kappa (k) value, coefficient of concordance (CC, %) and analysis of continuous measures using the methodology proposed by Bland-Altman<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref> were used to analyze concordance between the IPAQ-SF and the pedometer. This plotting enabled concordance between the two variables (X, Y) to be evaluated and to evaluate bias (by how much the differences are distant from zero), error (dispersion of the points of difference around the means), outliers and trends.<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+				</p>
+				<p>To use the Bland-Altman test, Z scores were calculated in both instruments so as to annul units, as the pedometer uses steps/day and the IPAQ-SF MET/min/week. The equation for calculating the Z score was: Z = (X–μ)/S.D, in which Z = Z score; X = unadjusted individual score; μ = mean of the variables; S.D. = standard deviation of the variable. At this point, 18 individuals were excluded from analysis as they had not done more than 10 continuous minutes of PA and did not have the complete data necessary to calculate MET/min/week. The level of significance was 5% in all analyses. The Statistical Package for the Social Sciences SPSS 20.0 and Stata 7.0 were used for the analyses.</p>
+				<p>This study was approved by the Research Ethics Committee of the Faculty of Medicine, <italic>Universidade de Passo Fundo</italic> and of the <italic>Hospital São Vicente de Paulo</italic> (Process 2010/16929). Participants signed an informed consent form.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>The sample was composed of middle-aged women, with a mean age of 57.11 (SD = 5.36), and a mean 8.74 years of schooling (SD = 4.48), 20.0% of whom reported having fewer than four years of schooling. Of those with low levels of schooling, more than 70.0% were in the inactive group. Regarding menopausal symptoms, 7.2% of patients were in the pre-menopause, 8.6% in the peri-menopause, 78.4% were post-menopausal and 5.8% had had hysterectomies. The prevalence of smokers was 19.2%, and 18.0% were using HT. Body mass index was 28.3 kg/m<sup>2 </sup>(SD = 7.1), with the majority of the sample being overweight or obese (<xref ref-type="table" rid="t01_en">Table 1</xref>). There was no association between schooling, menopausal status and age and concordance between the two instruments (p = 0.191, p = 0.268 and p = 0.619, respectively).</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Demographic and anthropometric characteristics of study participants in Passo Fundo, RS, Southern Brazil, 2010. (N = 292)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="20%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left"> Variable </th>
+									<th style="font-weight:normal"> n </th>
+									<th style="font-weight:normal"> % </th>
+									<th style="font-weight:normal"> Mean </th>
+									<th style="font-weight:normal"> SD </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> Age (years) </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+									<td align="center"> 57.11 </td>
+									<td align="center"> 5.36 </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Schooling (years) </td>
+								</tr>
+								<tr>
+									<td>  0 to 4 </td>
+									<td align="center"> 58 </td>
+									<td align="center"> 19.9 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  5 to 8 </td>
+									<td align="center"> 91 </td>
+									<td align="center"> 31.2 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  9 to 11 </td>
+									<td align="center"> 85 </td>
+									<td align="center"> 29.1 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  ≥ 12 </td>
+									<td align="center"> 58 </td>
+									<td align="center"> 19.9 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td> In work (yes) </td>
+									<td align="center"> 129 </td>
+									<td align="center"> 44.2 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td> Hormone therapy (yes) </td>
+									<td align="center"> 48 </td>
+									<td align="center"> 18.0 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Menopausal status </td>
+								</tr>
+								<tr>
+									<td>  Pre-menopause </td>
+									<td align="center"> 21 </td>
+									<td align="center"> 7.2 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Peri-menopause </td>
+									<td align="center"> 25 </td>
+									<td align="center"> 8.6 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Post-menopause </td>
+									<td align="center"> 229 </td>
+									<td align="center"> 78.4 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Hysterectomy </td>
+									<td align="center"> 17 </td>
+									<td align="center"> 5.8 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Marital status </td>
+								</tr>
+								<tr>
+									<td>  Married </td>
+									<td align="center"> 150 </td>
+									<td align="center"> 51.4 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Single </td>
+									<td align="center"> 51 </td>
+									<td align="center"> 17.5 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Separated/Divorced </td>
+									<td align="center"> 91 </td>
+									<td align="center"> 31.1 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Alcohol consumption </td>
+								</tr>
+								<tr>
+									<td>  Drinks alcohol </td>
+									<td align="center"> 96 </td>
+									<td align="center"> 32.9 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Used to drink </td>
+									<td align="center"> 19 </td>
+									<td align="center"> 6.5 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Does not drink </td>
+									<td align="center"> 177 </td>
+									<td align="center"> 60.6 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td colspan="5"> Smoking </td>
+								</tr>
+								<tr>
+									<td>  Smoker </td>
+									<td align="center"> 56 </td>
+									<td align="center"> 19.2 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Ex-smoker </td>
+									<td align="center"> 67 </td>
+									<td align="center"> 22.9 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td>  Non smoker </td>
+									<td align="center"> 169 </td>
+									<td align="center"> 57.9 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td> Overweight/obese (yes) </td>
+									<td align="center"> 198 </td>
+									<td align="center"> 68.3 </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+								</tr>
+								<tr>
+									<td> BMI (kg/m2) </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+									<td align="center"> 28.3 </td>
+									<td align="center"> 7.0 </td>
+								</tr>
+								<tr>
+									<td> Waist (cm) </td>
+									<td align="center"> – </td>
+									<td align="center"> – </td>
+									<td align="center"> 91.3 </td>
+									<td align="center"> 13.7 </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>BMI: body mass index</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>Concordance between the two instruments, evaluated using the Kappa coefficient, was poor (steps/day and PA min/week, k = 0.110; p = 0.007 and steps/day and MET/min/week, k = 0.075; p = 0.013). The CC as 47.0% (number of steps and PA min/week) and 32.0% (number of steps and MET/min/week), resulting in an intermediate value, considered poor concordance (<xref ref-type="table" rid="t02_en">Table 2</xref>).</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Strata of physical activity in pre-, peri- and post-menopausal women, using the IPAQ-SF and pedometer, MET/min/week <italic>versus</italic> steps per day. (N = 292)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="13%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="5" style="font-weight:normal" align="left"> Variable </th>
+									<th colspan="2" style="font-weight:normal"> Inactive </th>
+									<th colspan="2" style="font-weight:normal"> Moderate </th>
+									<th colspan="2" style="font-weight:normal"> Active </th>
+									<th rowspan="5" style="font-weight:normal"> Kappa<sup>a</sup>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2" style="font-weight:normal">&lt; 4,999 steps/day;</th>
+									<th colspan="2" style="font-weight:normal">5,000 to 9,999 steps/day</th>
+									<th colspan="2" style="font-weight:normal">≥ 10,000 steps/day; ≥</th>
+								</tr>
+								<tr>
+									<th colspan="2" style="font-weight:normal">&lt; 600 MET/min/week</th>
+									<th colspan="2" style="font-weight:normal">600 to 1,499 MET/min/week</th>
+									<th colspan="2" style="font-weight:normal">1,500 MET/min/week</th>
+								</tr>
+								<tr>
+									<th colspan="6" rowspan="1" style="font-weight:normal">
+										<hr/>
+									</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal"> n </th>
+									<th style="font-weight:normal"> % </th>
+									<th style="font-weight:normal"> n </th>
+									<th style="font-weight:normal"> % </th>
+									<th style="font-weight:normal"> n </th>
+									<th style="font-weight:normal"> % </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> Number of steps (pedometer) </td>
+									<td align="center"> 199 </td>
+									<td align="center"> 68.2 </td>
+									<td align="center"> 72 </td>
+									<td align="center"> 24.7 </td>
+									<td align="center"> 21 </td>
+									<td align="center"> 7.2 </td>
+									<td align="center"> 0.075 </td>
+								</tr>
+								<tr>
+									<td> MET/min/week (IPAQ-SF) </td>
+									<td align="center"> 59 </td>
+									<td align="center"> 20.2 </td>
+									<td align="center"> 133 </td>
+									<td align="center"> 45.5 </td>
+									<td align="center"> 100 </td>
+									<td align="center"> 34.2 </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>IPAQ-SF: International Physical Activity Questionnaire – short form</p>
+							<p>McNemar’s Chi-square test, p ≤ 0.001</p>
+							<p>
+								<sup>a</sup> Kappa coefficient p ≤ 0.05</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>Correlation, evaluated using Spearman’s test, was significant, although weak (mean steps/day and MET/min/week, rho = 0.113; p = 0.025) (<xref ref-type="fig" rid="f01_en">Figure, A</xref>). <xref ref-type="fig" rid="f01_en">Figure (B)</xref> shows the Bland-Altman graph, in which it can be seen that the majority of observations are within the 95% concordance level (± 1.96 SD) and that the mean difference in the Z score of both tests was close to zero. However, it was observed that the differences were distant from zero both when PA was minimal and when it was more intense.</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure. </label>
+						<caption>
+							<title>Analysis of correlation and concordance in measures of physical activity between the International Physical Activity Questionnaire – short form and pedometer.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0258-gf01-en"/>
+					</fig>
+				</p>
+				<p>
+					<xref ref-type="table" rid="t02_en">Tables 2</xref> and <xref ref-type="table" rid="t03_en">3</xref> show the frequency of participants in each strata of PA according to the two instruments used. There was a significant difference between the women classified in different strata of PA, with Kappa coefficients of 0.075 and 0.110, respectively.</p>
+				<p>
+					<table-wrap id="t03_en">
+						<label>Table 3</label>
+						<caption>
+							<title>Strata of physical activity in pre-, peri- and post-menopausal women, using the IPAQ-SF and pedometer, MET/min/week <italic>versus</italic> steps per day. (N = 292)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="17%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="4" style="font-weight:normal" align="left"> Variable </th>
+									<th colspan="2" style="font-weight:normal"> Inactive </th>
+									<th colspan="2" style="font-weight:normal"> Active </th>
+									<th rowspan="4" style="font-weight:normal"> Kappa<sup>a</sup>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2" style="font-weight:normal">&lt; 6,000 steps/day;</th>
+									<th colspan="2" style="font-weight:normal">≥ 6,000 steps/day;</th>
+								</tr>
+								<tr>
+									<th colspan="2" style="font-weight:normal">&lt; 150 min/week</th>
+									<th colspan="2" style="font-weight:normal">≥ 150 min/week</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal"> n </th>
+									<th style="font-weight:normal"> % </th>
+									<th style="font-weight:normal"> n </th>
+									<th style="font-weight:normal"> % </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> Number of steps (pedometer) </td>
+									<td align="center"> 199 </td>
+									<td align="center"> 68.2 </td>
+									<td align="center"> 93 </td>
+									<td align="center"> 31.8 </td>
+									<td align="center"> 0.110 </td>
+								</tr>
+								<tr>
+									<td> Min/week (IPAQ-SF) </td>
+									<td align="center"> 75 </td>
+									<td align="center"> 26.0 </td>
+									<td align="center"> 214 </td>
+									<td align="center"> 74.0 </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>IPAQ-SF: International Physical Activity Questionnaire – short form</p>
+							<p>McNemar’s Chi-square test, p ≤ 0.001</p>
+							<p>
+								<sup>a</sup> Kappa coefficient p ≤ 0.05</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>The number of women classed as active was at least twice as high when classified by the IPAQ-SF compared with when evaluated using a pedometer, for both the MET/min/week and the PA/week criteria.</p>
+				<p>The results show that data referring to the PA strata obtained using the IPAQ-SF are not similar to those assessed in an objective way, using a pedometer. The Bland-Altman findings corroborate<xref ref-type="table" rid="t02_en">Tables 2</xref> and <xref ref-type="table" rid="t03_en">3</xref>, showing the frequency of inactive women is greater when assessed using a pedometer than using the IPAQ-SF, and the opposite is true for active women. The data indicate that the IPAQ-SF overestimates compared with the pedometer, principally in the active category.</p>
+				<p>A recent systematic review of the IPAQ-SF validity showed studies in populations in a similar age range to that of this study and which reported low to moderate correlation between the two methods.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> Studies comparing pedometer use and the IPAQ-SF stand out, such as that by De Cocker et al,<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> with 310 healthy adults, reporting low to moderate correlation (PA total rho = 0.28), and the study by Deng et al,<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> with a sample of the Chinese population with a mean age of 65, and moderate correlation (PA total rho = 0.33; p &lt; 0.001) between the two methods.</p>
+				<p>A Brazilian study of 21 post-menopausal women with osteoporosis assessed concordance between the IPAQ-LF and the pedometer. According to the IPAQ, 71.4% of participants were classified as active and 28.6% sedentary. The concordance between the IPAQ and the pedometer had a Kappa of 0.21.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> Although the study sample used post-menopausal women and the long form IPAQ, it also found poor correlation between reported PA and direct evaluation using the pedometer. This study confirms these findings using the IPAQ-SF, although with a larger, representative sample of pre-, peri- and post-menopausal women.</p>
+				<p>The majority of women studied were middle-aged, did not work, were overweight or obese, had central adiposity, high blood pressure and were predominantly inactive when assessed using the pedometer.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> This profile of cardiovascular risk is strongly linked to sedentarism and reinforces that evaluating PA using a pedometer may be appropriate, on the other hand. Participants who walked more than ≥ 6,000 steps/day had less central adiposity, metabolic syndrome or diabetes.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+				</p>
+				<p>In this study, pedometers were used for seven consecutive days, and a difference was noted in the number of steps taken according to the day of the week, with more steps taken on working days and in the summer.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> Studies suggest that using a pedometer for fewer days, as long as Saturday or Sunday are included, is as reliable s weekly use.<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref> Using a pedometer to monitor patients can take this form, increasing adherence due to ease of use and shorter intervention. Regardless, when evaluating PA longitudinally the use of the same instrument facilitates comparison of results.</p>
+				<p>The variability seen in the sample’s level of schooling did not interfere in association or concordance between the pedometer and the IPAQ-SF, in contrast to what has been observed in another study, in which correlation between the two methods was a little greater after adjusting for sex, age and schooling.<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref>
+				</p>
+				<p>Regarding the instruments used, questionnaires are more accessible and allow the intensity and type of PA to be estimated. Their use may be preferred in long studies or those monitoring a large number of participants. On the other hand, it is a subjective method relying on memory, which may increase the chance of error. The concept of the 10 minute session and errors in perceiving intensity may lead to errors in interpreting and responding to the IPAQ-SF,<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> although using interviewers to apply it helps to decrease this bias. The reliability of the IPAQ-SF means it can be used, with caution, in repetitive measure studies, there is no evidence corroborating its use as an absolute or relative measure of PA.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+				</p>
+				<p>The pedometer is an objective method of evaluating PA. However, although it is a valuable tool in estimating and encouraging habitual and daily PA, it does not quantify movement on the horizontal and superior plane.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref> It is appropriate for measuring travel (steps/day) through the body’s vertical oscillations, but it is not capable of evaluating activities such as cycling or any activity in water, and it does not discriminate type or intensity of PA.</p>
+				<p>Individuals accelerate, decelerate, stop and sit down many times in the course of a day while using a pedometer, and this may affect evaluation of energy expended and level of PA. North American adults show a variation in the time of repose or in the cadence (steps/min) throughout the day. There is a close relationship between cadence and walking speed, and 100 steps/min can be considered an appropriate estimate of a 3 MET activity. These estimates, however, cannot be considered as fixed values for total energy expenditure in a day. In this study, cadence was not measured individually, therefore, energy expenditure in MET cannot be used as a unit of measurement of the pedometer.<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref> Using an accelerometer would be a better alternative for comparing and converting energy expenditure evaluated by the IPAQ-SF and the distance covered by each participant. Some studies have shown moderate and strong correlation between figures obtained from the accelerometer and MET in adults,<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> in contrast to other studies.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> The accelerometer method is more expensive and it is also unable to distinguish static activities (e.g., weight training), water sports or cycling, and there are still faults in correct and easy conversion and interpretation of the raw data produced from this instrument.<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref>
+				</p>
+				<p>A limitation of this study was the fact that the two instruments give results using different measures, which may limit the Bland-Altman analyses. However, calculating the Z score enables analysis between the tests.</p>
+				<p>This is the first Brazilian population-based study investigating these two methods of evaluating PA and relating them to menopausal status and schooling. The study design means the results can be transposed to similar populations.</p>
+				<p>Considering that habitual PA is an easily adopted behavior to prevent cardiovascular risk, it is essential that accurate methods of estimating it are used and that the instruments used can be considered of use in behavior modifying interventions encouraging PA.</p>
+				<p>To conclude, concordance between the IPAQ-SF and the pedometer was poor in the sample of menopausal women evaluated. Although easy to apply, the IPAQ-SF questionnaire overestimates PA compared to when assessed using a pedometer.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn fn-type="financial-disclosure">
+					<p>This study was partially supported by the <italic>Conselho Nacional de Desenvolvimento Científico e Tecnológico</italic> (CNPq) and by the <italic>Institutos Nacionais de Ciência e Tecnologia</italic> (INCT) <italic>de Hormônios e Saúde da Mulher</italic> (CNPq/INCT 573747/2008-3).</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

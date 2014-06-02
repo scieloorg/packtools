@@ -1,0 +1,3729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004633</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004633</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Comparação de modelos de assistência ao parto em hospitais públicos</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Vogt</surname>
+						<given-names>Sibylle Emilie</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Silva</surname>
+						<given-names>Kátia Silveira da</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Dias</surname>
+						<given-names>Marcos Augusto Bastos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv1">Departamento de Enfermagem</institution>
+				<institution content-type="orgname">Universidade Estadual de Montes Claros</institution>
+				<addr-line>
+					<named-content content-type="city">Montes Claros</named-content>
+					<named-content content-type="state">MG</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Enfermagem. Universidade Estadual de Montes Claros. Montes Claros, MG, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv1">Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernandes Figueira</institution>
+				<institution content-type="orgname">Fundação Oswaldo Cruz</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernandes Figueira. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>: Sibylle Emilie Vogt Rua Santa Clotilde, 100 Casa F1 39400-129 Montes Claros, MG, Brasil E-mail: <email>sibyllecampos@hotmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>304</fpage>
+			<lpage>313</lpage>
+			<history>
+				<date date-type="received">
+					<day>7</day>
+					<month>11</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>16</day>
+					<month>12</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Comparar os modelos colaborativo e tradicional na assistência ao parto e nascimento.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Estudo transversal realizado com 655 primíparas em quatro hospitais do sistema único de saúde em Belo Horizonte, MG, em 2011 (333 mulheres do modelo colaborativo e 322 do modelo tradicional, incluindo aquelas com trabalho de parto induzido e prematuro). Os dados foram coletados em entrevistas e levantamento de prontuários. Foram aplicados os testes Qui-quadrado para comparação e regressão logística múltipla para determinar associação entre o modelo e os desfechos analisados.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>Houve diferenças significativas entre os modelos em relação ao nível de escolaridade e trabalho remunerado. No modelo colaborativo houve menor utilização da ocitocina (50,2% no modelo colaborativo <italic>versus</italic> 65,5% no modelo tradicional; p &lt; 0,001), da ruptura artificial das membranas (54,3% no modelo colaborativo <italic>versus</italic> 65,9% no modelo tradicional; p = 0,012) e da taxa de episiotomia (16,1% no modelo colaborativo <italic>versus</italic> 85,2% no modelo tradicional; p &lt; 0,001), e maior utilização de métodos não farmacológicos para alívio da dor (85,0% no modelo colaborativo <italic>versus</italic> 78,9% no modelo tradicional; p = 0,042). A associação entre o modelo colaborativo e a redução no uso da ocitocina, da ruptura artificial das membranas e da episiotomia manteve-se após o ajuste para fatores de confundimento. O modelo assistencial não esteve associado a complicações neonatais ou maternas nem à utilização de analgesia de condução.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>Os resultados sugerem que o modelo colaborativo poderá reduzir as intervenções na assistência ao trabalho de parto e parto com resultados perinatais semelhantes.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Tocologia</kwd>
+				<kwd>Assistência Perinatal</kwd>
+				<kwd>Serviços de Saúde Materno-Infantil</kwd>
+				<kwd>Avaliação de Resultados (Cuidados de Saúde)</kwd>
+				<kwd>Sistema Único de Saúde</kwd>
+				<kwd>Estudos Transversais</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>FAPEMIG/UNIMONTES – Programa de Capacitação de Recursos Humanos</funding-source>
+					<award-id>90508-11</award-id>
+				</award-group>
+				<funding-statement>Estudo financiado pela Fundação de Amparo à Pesquisa do Estado de Minas Gerais e Universidade Estadual de Montes Claros (FAPEMIG/UNIMONTES – Programa de Capacitação de Recursos Humanos – Processo 90508-11 – Bolsa doutorado de Sibylle Emilie Vogt).</funding-statement>
+			</funding-group>
+			<counts>
+				<table-count count="10"/>
+				<ref-count count="25"/>
+				<page-count count="10"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>A assistência obstétrica no modelo colaborativo (MC) na assistência hospitalar significa a integração do médico e da enfermeira obstétrica na equipe, além de outros profissionais, como a doula. A enfermeira obstétrica assume a assistência das mulheres de risco habitual, assegurada a possibilidade de referência imediata ao médico obstetra em casos de complicações. Ambos trabalham em estreita colaboração no atendimento às mulheres com alguma patologia.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> Os benefícios são atribuídos à presença contínua do profissional enfermeira obstétrica/obstetriz, que atua com enfoque nos aspectos fisiológicos e emocionais da parturição, e à possibilidade de atendimento imediato pelo médico para os casos de risco.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> A participação da enfermeira obstétrica/obstetriz pode favorecer o equilíbrio entre as intervenções necessárias e o processo fisiológico da parturição, mesmo para as mulheres que necessitam de atendimento de maior complexidade.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+			</p>
+			<p>Existem evidências do potencial do atendimento autônomo da obstetriz ou enfermeira obstétrica (<italic>midwife-led care</italic>) na redução das intervenções na assistência às mulheres de risco habitual, desde que os profissionais sejam devidamente qualificados e trabalhem com protocolos e diretrizes.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref> A literatura que avalia o uso de intervenções na assistência compartilhada, comparando-a com o modelo centrado no médico como provedor único na atenção secundária, é limitada, embora o MC constitua a forma predominante de organização da assistência obstétrica em países industrializados, como a Inglaterra, Alemanha, Países Escandinavos, Nova Zelândia, Canadá e Austrália.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+			</p>
+			<p>Estudo de coorte norte-americano avaliou explicitamente o MC e encontrou associação positiva com o parto vaginal espontâneo em mulheres de risco habitual, bem como interação entre o modelo e a dilatação cervical na admissão.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref> Estudo ecológico nos Países Baixos observou aumento concomitante da participação de obstetrizes na atenção secundária de 8,3% para 26,1% e redução do parto vaginal assistido de 44,0% para 39,0%. Entretanto, o estudo não permite conclusões sobre possível associação entre o aumento da participação desses profissionais na atenção e os resultados.<xref ref-type="bibr" rid="B25">
+					<sup>25</sup>
+				</xref>
+			</p>
+			<p>O modelo predominante e tradicional da assistência obstétrica no Brasil é centrado no médico obstetra e na atenção hospitalar. O Ministério da Saúde incentiva a incorporação da enfermeira obstétrica nas equipes hospitalares e aposta na sua contribuição para redução no uso das intervenções e das cesáreas desnecessárias, que caracterizam a assistência obstétrica no País. A incorporação da enfermeira obstétrica em algumas maternidades públicas da cidade do Rio de Janeiro, RJ, a partir de 1998, foi a primeira iniciativa tomada por instâncias governamentais nessa direção.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> A organização da assistência no MC constitui-se uma exceção, com participação desse profissional na assistência estimada em território nacional em 10,0% a 15,0%.<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> Não houve ainda uma avaliação dos resultados do MC no contexto brasileiro.</p>
+			<p>O estudo teve como objetivo comparar os modelos colaborativo e tradicional nas intervenções utilizadas na assistência ao parto.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Estudo de delineamento transversal realizado em quatro das sete maternidades vinculadas ao sistema único de saúde (SUS), de Belo Horizonte, MG, entre março e julho de 2011. Essas maternidades foram selecionadas devido à semelhança na sua estrutura, protocolos clínicos e nas características da sua clientela, sendo eles responsáveis por cerca de 72,0% dos partos em primíparas ocorridos no SUS de Belo Horizonte em 2008. A inclusão das parturientes seguiu o fluxo do atendimento nas quatro maternidades, regionalizado de acordo com a residência das parturientes.</p>
+			<p>Apenas uma das unidades trabalhava com o MC. A enfermeira obstétrica acompanhava, junto com o médico, o trabalho de parto de todas as mulheres de acordo com a evolução documentada no partograma, monitorizava o batimento cardiofetal, realizava cardiotocografias e utilizava métodos não farmacológicos para o alivio da dor. Toda assistência obstétrica era guiada por protocolo institucional de conhecimento de ambos os profissionais, que regulamenta não somente as condutas clínicas, mas também o trabalho interdisciplinar.</p>
+			<p>Participaram da pesquisa 689 primíparas, que pertenciam aos grupos 1, 2 e 10 de Robson.<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> Destas, 333 foram atendidas na instituição com MC e 322 nas instituições com MT. Houve 13 perdas no grupo do MC e 18 perdas no grupo do MT – três por recusa e 28 por alta hospitalar antes da entrevista. Três mulheres com distúrbios psiquiátricos foram excluídas (duas no MT e uma no MC), resultando na coleta de dados de 655 mulheres.</p>
+			<p>O atendimento ao trabalho de parto e ao parto foram realizados exclusivamente pelo médico obstetra nas outras três maternidades, definido como MT. Todos os quatro hospitais atendiam mulheres de risco habitual e de alto risco, dispondo de unidade de tratamento intensivo neonatal ou materno ou de ambas. O hospital do MC atendeu 4.774 primíparas em 2008, enquanto as outras três instituições realizaram juntos 4.555 partos em primíparas. Calculou-se amostra com nível de confiança de 95%, poder de teste de 80,0% e valores de prevalência de 75,0% no modelo colaborativo e de 65,0% no modelo tradicional para o parto vaginal. Calculou-se amostra mínima necessária de 325 parturientes em cada grupo, garantida a mesma distribuição proporcional dos partos nas quatro maternidades observada em 2008.</p>
+			<p>A coleta dos dados ocorreu consecutivamente, incluindo mulheres primíparas com idade gestacional &gt; 22 semanas, gestação única e fetos vivos em apresentação cefálica no momento da admissão hospitalar. Os dados foram obtidos a partir de entrevistas com as puérperas e complementados com informações dos prontuários que cobriram o período até 48 horas após o parto.</p>
+			<p>O Qui-quadrado de Pearson foi utilizado para a descrição comparativa dos grupos. Foram levantados dados socioeconômicos; condições biológicas e clínicas (antecedentes clínicos, intercorrências gestacionais e classificação de acordo com o sistema de Robson);<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref> informações a respeito da assistência no pré-natal; características do trabalho de parto; presença do acompanhante e de doula. Foram utilizadas cinco intervenções para a comparação de ambos os modelos, descritas pelas seguintes variáveis: uso de ocitocina, da ruptura artificial das membranas, da episiotomia, de métodos não farmacológicos para o alívio da dor e da analgesia de condução. Resultados neonatais descritos pelas variáveis (Apgar no primeiro minuto de vida, internação em unidade neonatal e reanimação com pressão positiva) e complicações maternas durante o trabalho de parto, parto e no pós-parto foram considerados para avaliar possíveis repercussões negativas da assistência.</p>
+			<p>Os antecedentes clínicos e os fatores de risco gestacionais foram definidos de acordo com os critérios do <italic>National Institute for Health and Clinical Excellence</italic> (NICE).<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref> As complicações durante o trabalho de parto, parto e no pós-parto (distócia de ombro, prolapso de cordão, hemorragias com necessidade de tratamento, eclâmpsia, histerectomia pós-parto, ruptura de útero e reanimação cardiorrespiratória) foram incluídas numa única variável, por serem eventos raros. A variável “parto sem intervenção” incluiu os partos sem uso de ocitocina, amniotomia, episiotomia, analgesia e sem terminação cirúrgica ou instrumental entre as mulheres que entraram em trabalho de parto espontaneamente.</p>
+			<p>O sistema de classificação de Robson<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> classifica as mulheres em dez grupos. O grupo um inclui primíparas com gestação única a termo, apresentação cefálica e admitidas em trabalho de parto espontâneo, enquanto no grupo dois estão as primíparas com gestação à termo e apresentação cefálica, mas submetidas à indução ou cesárea eletiva. O grupo dez refere-se a mulheres de qualquer paridade, com idade gestacional &lt; 37 semanas e apresentação cefálica. A categorização segundo os grupos de Robson permite estratificação de acordo com as diferenças nas condições clínicas, que determinam a condução do trabalho do parto.</p>
+			<p>As cinco intervenções foram consideradas para análise da associação entre o modelo de parto e as intervenções realizadas. A associação do modelo com os resultados neonatais referidos também foi avaliada.</p>
+			<p>Foi realizada análise bivariada das intervenções com as características socioeconômicas, clínico-obstétricas, do pré-natal e do trabalho de parto. Variáveis com significância até 0,20 foram incluídas na regressão logística múltipla, que estimou a <italic>odds ratio</italic> (OR) com intervalo de confiança de 95% (IC95%) da associação do modelo com cada uma das cinco intervenções, ajustado para os fatores de confundimento. O nível de significância foi de 0,05 no modelo múltiplo final. O mesmo procedimento foi utilizado para os resultados neonatais. As variáveis testadas foram idade materna &lt; 18 anos, escolaridade da mãe, intercorrências na gestação. Além das variáveis com significância até 0,20 na bivariada, o modelo múltiplo final foi ajustado pela idade gestacional e peso ao nascer.</p>
+			<p>Utilizou-se software SPSS versão 17 para análise estatística. O estudo foi aprovado pelos Comitês de Ética em Pesquisa de todas as instituições envolvidas (Santa Casa de Misericórdia de Belo Horizonte – Processo 009/2011; Fundação Hospitalar do Estado de Minas Gerais – Processo 0022-B/2011, relacionado a dois dos quatro hospitais; Hospital Sofia Feldman – Processo 02/2011). As puérperas participantes, bem como os representantes legais em caso de adolescentes, assinaram termo de consentimento livre e esclarecido antes de serem entrevistadas.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>A distribuição das parturientes entre os modelos assistenciais em relação às características sociodemográficas apresentou diferenças significativas para o trabalho remunerado e escolaridade. Houve significância limítrofe em relação ao local da assistência pré-natal (<xref ref-type="table" rid="t01">Tabela 1</xref>). A distribuição das condições clínicas, da obesidade, do tabagismo e do uso de álcool foi semelhante nos modelos, assim como a distribuição das características do trabalho de parto e da presença do acompanhante e da doula (<xref ref-type="table" rid="t02">Tabela 2</xref>).</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Aspectos sociodemográficos de primíparas atendidas segundo o modelo assistencial. Belo Horizonte, MG, 2011.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="13%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th rowspan="3" style="font-weight:normal" align="left">Característica</th>
+								<th rowspan="3" style="font-weight:normal">p</th>
+								<th colspan="2" style="font-weight:normal">Modelo colaborativo</th>
+								<th colspan="2" style="font-weight:normal">Modelo tradicional</th>
+								<th colspan="2" style="font-weight:normal">Total</th>
+							</tr>
+							<tr>
+								<th colspan="6" rowspan="1" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Idade (anos) (N = 655)</td>
+								<td align="center">0,951</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> &lt; 18</td>
+								<td> </td>
+								<td align="center">68</td>
+								<td align="center">20,4</td>
+								<td align="center">66</td>
+								<td align="center">20,5</td>
+								<td align="center">134</td>
+								<td align="center">20,5</td>
+							</tr>
+							<tr>
+								<td> 18 a 35</td>
+								<td> </td>
+								<td align="center">259</td>
+								<td align="center">77,8</td>
+								<td align="center">249</td>
+								<td align="center">77,3</td>
+								<td align="center">508</td>
+								<td align="center">77,6</td>
+							</tr>
+							<tr>
+								<td> &gt; 35</td>
+								<td> </td>
+								<td align="center">6</td>
+								<td align="center">1,8</td>
+								<td align="center">7</td>
+								<td align="center">2,2</td>
+								<td align="center">13</td>
+								<td align="center">2</td>
+							</tr>
+							<tr>
+								<td>Escolaridade (anos) (N = 655)</td>
+								<td align="center">0,043</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Ensino Fundamental incompleto</td>
+								<td> </td>
+								<td align="center">63</td>
+								<td align="center">18,9</td>
+								<td align="center">63</td>
+								<td align="center">19,6</td>
+								<td align="center">126</td>
+								<td align="center">19,2</td>
+							</tr>
+							<tr>
+								<td> Ensino Fundamental completo</td>
+								<td> </td>
+								<td align="center">126</td>
+								<td align="center">37,8</td>
+								<td align="center">149</td>
+								<td align="center">46,3</td>
+								<td align="center">275</td>
+								<td align="center">42,0</td>
+							</tr>
+							<tr>
+								<td> Ensino Médio completo</td>
+								<td> </td>
+								<td align="center">144</td>
+								<td align="center">43,2</td>
+								<td align="center">110</td>
+								<td align="center">34,2</td>
+								<td align="center">254</td>
+								<td align="center">38,8</td>
+							</tr>
+							<tr>
+								<td>Situação conjugal (N = 655)</td>
+								<td align="center">0,143</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Com relação estável</td>
+								<td> </td>
+								<td align="center">229</td>
+								<td align="center">68,8</td>
+								<td align="center">204</td>
+								<td align="center">63,4</td>
+								<td align="center">433</td>
+								<td align="center">66,1</td>
+							</tr>
+							<tr>
+								<td> Sem relação estável</td>
+								<td> </td>
+								<td align="center">104</td>
+								<td align="center">31,2</td>
+								<td align="center">118</td>
+								<td align="center">36,6</td>
+								<td align="center">222</td>
+								<td align="center">33,9</td>
+							</tr>
+							<tr>
+								<td>Trabalho remunerado (N = 655)</td>
+								<td align="center">0,008</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td> </td>
+								<td align="center">116</td>
+								<td align="center">34,8</td>
+								<td align="center">145</td>
+								<td align="center">45,0</td>
+								<td align="center">261</td>
+								<td align="center">39,8</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td> </td>
+								<td align="center">217</td>
+								<td align="center">65,2</td>
+								<td align="center">177</td>
+								<td align="center">55,0</td>
+								<td align="center">394</td>
+								<td align="center">60,2</td>
+							</tr>
+							<tr>
+								<td>Classe econômica (N = 655)</td>
+								<td align="center">0,582</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> A2, B1, B2</td>
+								<td> </td>
+								<td align="center">34</td>
+								<td align="center">10,2</td>
+								<td align="center">27</td>
+								<td align="center">8,4</td>
+								<td align="center">61</td>
+								<td align="center">9,3</td>
+							</tr>
+							<tr>
+								<td> C</td>
+								<td> </td>
+								<td align="center">220</td>
+								<td align="center">66,1</td>
+								<td align="center">224</td>
+								<td align="center">69,6</td>
+								<td align="center">444</td>
+								<td align="center">67,8</td>
+							</tr>
+							<tr>
+								<td> D, E</td>
+								<td> </td>
+								<td align="center">79</td>
+								<td align="center">23,7</td>
+								<td align="center">71</td>
+								<td align="center">22,0</td>
+								<td align="center">150</td>
+								<td align="center">22,9</td>
+							</tr>
+							<tr>
+								<td>Cor autodeterminada (N = 655)</td>
+								<td align="center">0,115</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Branca</td>
+								<td> </td>
+								<td align="center">56</td>
+								<td align="center">16,8</td>
+								<td align="center">49</td>
+								<td align="center">15,2</td>
+								<td align="center">105</td>
+								<td align="center">16,1</td>
+							</tr>
+							<tr>
+								<td> Negra</td>
+								<td> </td>
+								<td align="center">52</td>
+								<td align="center">15,6</td>
+								<td align="center">72</td>
+								<td align="center">22,4</td>
+								<td align="center">124</td>
+								<td align="center">18,9</td>
+							</tr>
+							<tr>
+								<td> Parda</td>
+								<td> </td>
+								<td align="center">206</td>
+								<td align="center">61,9</td>
+								<td align="center">178</td>
+								<td align="center">55,3</td>
+								<td align="center">384</td>
+								<td align="center">58,6</td>
+							</tr>
+							<tr>
+								<td> Outros</td>
+								<td> </td>
+								<td align="center">19</td>
+								<td align="center">5,7</td>
+								<td align="center">23</td>
+								<td align="center">7,1</td>
+								<td align="center">42</td>
+								<td align="center">6,4</td>
+							</tr>
+							<tr>
+								<td>Pré-natal</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Consulta pré-natal (N = 647)</td>
+								<td align="center">0,543</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  1 a 5</td>
+								<td> </td>
+								<td align="center">80</td>
+								<td align="center">24,2</td>
+								<td align="center">70</td>
+								<td align="center">22,2</td>
+								<td align="center">150</td>
+								<td align="center">23,2</td>
+							</tr>
+							<tr>
+								<td>  ≥ 6</td>
+								<td> </td>
+								<td align="center">251</td>
+								<td align="center">75,8</td>
+								<td align="center">246</td>
+								<td align="center">77,8</td>
+								<td align="center">497</td>
+								<td align="center">76,8</td>
+							</tr>
+							<tr>
+								<td> Local do pré-natal (N = 653)</td>
+								<td align="center">0,051</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>  Sistema único de saúde</td>
+								<td> </td>
+								<td align="center">300</td>
+								<td align="center">90,6</td>
+								<td align="center">276</td>
+								<td align="center">85,7</td>
+								<td align="center">576</td>
+								<td align="center">88,2</td>
+							</tr>
+							<tr>
+								<td>  Plano/Privado</td>
+								<td> </td>
+								<td align="center">31</td>
+								<td align="center">9,4</td>
+								<td align="center">46</td>
+								<td align="center">14,3</td>
+								<td align="center">77</td>
+								<td align="center">11,8</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>a</sup> O n amostral não inclui os valores ignorados.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Aspectos clínico-obstétricos de primíparas atendidas segundo o modelo assistencial. Belo Horizonte, MG, 2011.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="13%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th rowspan="3" style="font-weight:normal" align="left">Característica</th>
+								<th rowspan="3" style="font-weight:normal">p</th>
+								<th colspan="2" style="font-weight:normal">Modelo colaborativo</th>
+								<th colspan="2" style="font-weight:normal">Modelo tradicional</th>
+								<th colspan="2" style="font-weight:normal">Total</th>
+							</tr>
+							<tr>
+								<th colspan="6" rowspan="1" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="8">Fatores de risco gestacionais <hr/>
+								</td>
+							</tr>
+							<tr>
+								<td>Grupo de Robson (N = 655)</td>
+								<td align="center">0,312</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Grupo 1</td>
+								<td> </td>
+								<td align="center">173</td>
+								<td align="center">52,0</td>
+								<td align="center">180</td>
+								<td align="center">55,9</td>
+								<td align="center">353</td>
+								<td align="center">53,9</td>
+							</tr>
+							<tr>
+								<td> Grupo 2</td>
+								<td> </td>
+								<td align="center">121</td>
+								<td align="center">36,3</td>
+								<td align="center">115</td>
+								<td align="center">35,7</td>
+								<td align="center">236</td>
+								<td align="center">36,0</td>
+							</tr>
+							<tr>
+								<td> Grupo 10</td>
+								<td> </td>
+								<td align="center">39</td>
+								<td align="center">11,7</td>
+								<td align="center">27</td>
+								<td align="center">8,4</td>
+								<td align="center">66</td>
+								<td align="center">10,1</td>
+							</tr>
+							<tr>
+								<td>Antecedentes clínicos (N = 655)</td>
+								<td align="center">0,640</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td> </td>
+								<td align="center">14</td>
+								<td align="center">4,2</td>
+								<td align="center">16</td>
+								<td align="center">5,0</td>
+								<td align="center">30</td>
+								<td align="center">4,6</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td> </td>
+								<td align="center">319</td>
+								<td align="center">95,8</td>
+								<td align="center">306</td>
+								<td align="center">95,0</td>
+								<td align="center">625</td>
+								<td align="center">95,4</td>
+							</tr>
+							<tr>
+								<td>Intercorrências na gestação (N = 655)</td>
+								<td align="center">0,217</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td> </td>
+								<td align="center">80</td>
+								<td align="center">24,0</td>
+								<td align="center">91</td>
+								<td align="center">28,3</td>
+								<td align="center">171</td>
+								<td align="center">26,1</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td> </td>
+								<td align="center">253</td>
+								<td align="center">76,0</td>
+								<td align="center">231</td>
+								<td align="center">71,7</td>
+								<td align="center">484</td>
+								<td align="center">73,9</td>
+							</tr>
+							<tr>
+								<td>Hábito de fumar (N = 655)</td>
+								<td align="center">0,660</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td> </td>
+								<td align="center">29</td>
+								<td align="center">8,7</td>
+								<td align="center">25</td>
+								<td align="center">7,8</td>
+								<td align="center">54</td>
+								<td align="center">8,2</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td> </td>
+								<td align="center">304</td>
+								<td align="center">91,3</td>
+								<td align="center">297</td>
+								<td align="center">92,2</td>
+								<td align="center">601</td>
+								<td align="center">91,8</td>
+							</tr>
+							<tr>
+								<td>Uso de álcool (N = 655)</td>
+								<td align="center">0,476</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td> </td>
+								<td align="center">54</td>
+								<td align="center">16,2</td>
+								<td align="center">59</td>
+								<td align="center">18,3</td>
+								<td align="center">113</td>
+								<td align="center">17,3</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td> </td>
+								<td align="center">279</td>
+								<td align="center">83,8</td>
+								<td align="center">263</td>
+								<td align="center">81,7</td>
+								<td align="center">542</td>
+								<td align="center">82,7</td>
+							</tr>
+							<tr>
+								<td>Índice de massa corporal (N = 635)</td>
+								<td align="center">0,762</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> IMC &gt; 30</td>
+								<td> </td>
+								<td align="center">21</td>
+								<td align="center">6,4</td>
+								<td align="center">18</td>
+								<td align="center">5,8</td>
+								<td align="center">39</td>
+								<td align="center">6,1</td>
+							</tr>
+							<tr>
+								<td> IMC ≤ 30</td>
+								<td> </td>
+								<td align="center">306</td>
+								<td align="center">93,6</td>
+								<td align="center">290</td>
+								<td align="center">94,2</td>
+								<td align="center">596</td>
+								<td align="center">93,9</td>
+							</tr>
+							<tr>
+								<td colspan="8">
+									<hr/>Características do trabalho de parto <hr/>
+								</td>
+							</tr>
+							<tr>
+								<td>Membranas amnióticas<sup>b</sup> (N = 655)</td>
+								<td align="center">0,190</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Rotas</td>
+								<td> </td>
+								<td align="center">112</td>
+								<td align="center">33,6</td>
+								<td align="center">93</td>
+								<td align="center">28,9</td>
+								<td align="center">205</td>
+								<td align="center">31,3</td>
+							</tr>
+							<tr>
+								<td> Íntegras</td>
+								<td> </td>
+								<td align="center">221</td>
+								<td align="center">66,4</td>
+								<td align="center">229</td>
+								<td align="center">71,1</td>
+								<td align="center">450</td>
+								<td align="center">68,7</td>
+							</tr>
+							<tr>
+								<td>Dilatação cervical (cm)<sup>b</sup> (N = 655)</td>
+								<td align="center">0,763</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0 a 3</td>
+								<td> </td>
+								<td align="center">158</td>
+								<td align="center">47,4</td>
+								<td align="center">149</td>
+								<td align="center">46,3</td>
+								<td align="center">307</td>
+								<td align="center">46,9</td>
+							</tr>
+							<tr>
+								<td> 4 a 10</td>
+								<td> </td>
+								<td align="center">175</td>
+								<td align="center">52,6</td>
+								<td align="center">173</td>
+								<td align="center">53,7</td>
+								<td align="center">348</td>
+								<td align="center">52,6</td>
+							</tr>
+							<tr>
+								<td>Presença de mecônio<sup>c</sup> (N = 655)</td>
+								<td align="center">0,612</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td> </td>
+								<td align="center">58</td>
+								<td align="center">17,4</td>
+								<td align="center">61</td>
+								<td align="center">18,9</td>
+								<td align="center">119</td>
+								<td align="center">18,2</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td> </td>
+								<td align="center">275</td>
+								<td align="center">82,5</td>
+								<td align="center">261</td>
+								<td align="center">81,1</td>
+								<td align="center">536</td>
+								<td align="center">81,8</td>
+							</tr>
+							<tr>
+								<td>Estado fetal não tranquilizador<sup>c</sup> (N = 654)</td>
+								<td align="center">0,095</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td> </td>
+								<td align="center">51</td>
+								<td align="center">15,3</td>
+								<td align="center">35</td>
+								<td align="center">10,9</td>
+								<td align="center">86</td>
+								<td align="center">13,1</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td> </td>
+								<td align="center">282</td>
+								<td align="center">84,7</td>
+								<td align="center">286</td>
+								<td align="center">89,1</td>
+								<td align="center">568</td>
+								<td align="center">86,9</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>IMC: índice de massa corporal</p>
+						<p>
+							<sup>a</sup> O n amostral não inclui os valores ignorados.</p>
+						<p>
+							<sup>b</sup> No momento da admissão.</p>
+						<p>
+							<sup>c</sup> Durante o trabalho de parto.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Houve diferenças significativas entre os modelos na assistência ao trabalho de parto, com exceção no uso da analgesia (<xref ref-type="table" rid="t03">Tabela 3</xref>). O MC manteve-se associado à redução do uso da ocitocina e da ruptura artificial das membranas, após o ajuste para os possíveis fatores de confundimento, segundo a análise múltipla. O uso de métodos não farmacológicos, embora maior no MC, tornou-se limítrofe (p = 0,052) após o ajuste, enquanto o modelo assistencial permaneceu no modelo como único fator associado à episiotomia (<xref ref-type="table" rid="t04">Tabela 4</xref>).</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Tabela 3</label>
+					<caption>
+						<title>Intervenções utilizadas no trabalho de parto de primíparas segundo o modelo assistencial. Belo Horizonte, MG, 2011.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="13%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th rowspan="3" style="font-weight:normal" align="left">Intervenção no trabalho de parto</th>
+								<th rowspan="3" style="font-weight:normal">p</th>
+								<th colspan="2" style="font-weight:normal">Modelo colaborativo</th>
+								<th colspan="2" style="font-weight:normal">Modelo tradicional</th>
+								<th colspan="2" style="font-weight:normal">Total</th>
+							</tr>
+							<tr>
+								<th colspan="6" rowspan="1" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+								<th style="font-weight:normal">n<sup>a</sup>
+								</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Ocitocina (N = 655)</td>
+								<td align="center">&lt; 0,001</td>
+								<td align="center">167</td>
+								<td align="center">50,2</td>
+								<td align="center">211</td>
+								<td align="center">65,5</td>
+								<td align="center">378</td>
+								<td align="center">57,7</td>
+							</tr>
+							<tr>
+								<td>Ruptura artificial das membranas<sup>b</sup> (N = 450)</td>
+								<td align="center">0,012</td>
+								<td align="center">120</td>
+								<td align="center">54,3</td>
+								<td align="center">151</td>
+								<td align="center">65,9</td>
+								<td align="center">271</td>
+								<td align="center">60,2</td>
+							</tr>
+							<tr>
+								<td>Analgesia de condução<sup>c</sup> (N = 592)</td>
+								<td align="center">0,196</td>
+								<td align="center">125</td>
+								<td align="center">41,4</td>
+								<td align="center">105</td>
+								<td align="center">36,2</td>
+								<td align="center">230</td>
+								<td align="center">38,9</td>
+							</tr>
+							<tr>
+								<td>Método não farmacológico (N = 655)</td>
+								<td align="center">0,042</td>
+								<td align="center">283</td>
+								<td align="center">85,0</td>
+								<td align="center">254</td>
+								<td align="center">78,9</td>
+								<td align="center">537</td>
+								<td align="center">82,0</td>
+							</tr>
+							<tr>
+								<td>Episiotomia<sup>d</sup>
+								</td>
+								<td align="center">&lt; 0,001</td>
+								<td align="center">40</td>
+								<td align="center">16,1</td>
+								<td align="center">196</td>
+								<td align="center">85,2</td>
+								<td align="center">236</td>
+								<td align="center">49,4</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>a</sup> O n amostral não inclui os valores ignorados.</p>
+						<p>
+							<sup>b</sup> O n amostral inclui mulheres admitidas com membranas íntegras.</p>
+						<p>
+							<sup>c</sup> O n amostral inclui somente mulheres na fase ativa do trabalho de parto.</p>
+						<p>
+							<sup>d </sup>O n amostral inclui somente mulheres com parto vaginal.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>
+				<table-wrap id="t04">
+					<label>Tabela 4</label>
+					<caption>
+						<title>Modelo multivariado para cada intervenção utilizada na assistência ao trabalho de parto em primíparas. Belo Horizonte, MG, 2011.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="9%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th colspan="11" style="font-weight:normal"> Intervenções <hr/>   </th>
+							</tr>
+							<tr>
+								<th rowspan="3" style="font-weight:normal" align="left">Variável</th>
+								<th colspan="2" style="font-weight:normal">Ocitocina</th>
+								<th colspan="2" style="font-weight:normal">Ruptura artificial</th>
+								<th colspan="2" style="font-weight:normal">Analgesia</th>
+								<th colspan="2" style="font-weight:normal">Episiotomia</th>
+								<th colspan="2" style="font-weight:normal">Métodos não farmacológicos</th>
+							</tr>
+							<tr>
+								<th colspan="10" rowspan="1" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Estado conjugal/União estável</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td align="center">1,65</td>
+								<td align="center">1,08;2,53</td>
+							</tr>
+							<tr>
+								<td>Classe econômica</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>C</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>D, E</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,77</td>
+								<td align="center">0,51;1,17</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>A, B</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,47</td>
+								<td align="center">0,24;0,92</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Grupo de Robson</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Grupo 1</td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Grupo 2</td>
+								<td align="center">1,73</td>
+								<td align="center">1,19;2,51</td>
+								<td align="center">0,24</td>
+								<td align="center">0,11;0,53</td>
+								<td align="center">1,28</td>
+								<td align="center">0,88;1,84</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Grupo10</td>
+								<td align="center">0,44</td>
+								<td align="center">0,21;0,90</td>
+								<td align="center">0,96</td>
+								<td align="center">0,52;1,80</td>
+								<td align="center">0,36</td>
+								<td align="center">0,16;0,80</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Bolsa rota na admissão</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,58</td>
+								<td align="center">0,40;0,86</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Estado fetal não tranquilizador</td>
+								<td align="center">0,52</td>
+								<td align="center">0,32;0,83</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,37</td>
+								<td align="center">0,22;0,63</td>
+							</tr>
+							<tr>
+								<td>Intercorrências na gestação</td>
+								<td align="center">0,61</td>
+								<td align="center">0,38;0,96</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,36</td>
+								<td align="center">0,24;0,56</td>
+							</tr>
+							<tr>
+								<td>Dilatação cervical (4 cm a 10 cm)</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">1,88</td>
+								<td align="center">1,05;3,36</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Mecônium</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">1,75</td>
+								<td align="center">1,02;2,99</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Modelo colaborativo</td>
+								<td align="center">0,52</td>
+								<td align="center">0,37;0,72</td>
+								<td align="center">0,61</td>
+								<td align="center">0,40;0,91</td>
+								<td align="center">1,31</td>
+								<td align="center">0,92;1,87</td>
+								<td align="center">0,03</td>
+								<td align="center">0,02;0,05</td>
+								<td align="center">1,52</td>
+								<td align="center">1,00;2,31</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>OR<sub>aj</sub>: <italic>odds ratio</italic> ajustado</p>
+						<p>O modelo multivariado final de cada intervenção inclui as variáveis significativas (p &lt; 0,05).</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>As diferenças entre os modelos para mulheres do grupo um e com trabalho de parto espontâneo foram acentuadas: o uso da ocitocina diminuiu para 43,9% no MC e aumentou para 71,7% no MT. Houve diferença na prevalência da assistência sem intervenção de 24,0% para o MC e 1,0% para o MT (dados não apresentados na tabela).</p>
+			<p>As internações em unidade neonatal totalizaram 54 crianças (8,2%), com taxa de internação de 7,5% para o MC e 9,0% para o MT. Um valor de Apgar no primeiro minuto entre zero e seis foi atribuído a 28 recém-nascidos (8,4%) no MC e a 37 (11,5%) no MT, totalizando 65 crianças (9,9%). Os recém-nascidos do MC apresentaram peso e idade gestacional menor do que os recém-nascidos do MT (dados não apresentados). Não foram observadas diferenças significativas na análise bivariada da idade da mãe e escolaridade com os desfechos neonatais (p &gt; 0,20). O modelo assistencial não esteve associado com a ocorrência da internação neonatal, Apgar baixo e reanimação com ventilação com pressão positiva na análise ajustada (<xref ref-type="table" rid="t05">Tabela 5</xref>).</p>
+			<p>
+				<table-wrap id="t05">
+					<label>Tabela 5</label>
+					<caption>
+						<title>Modelos multivariados dos resultados neonatais de primíparas. Belo Horizonte, MG, 2011.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="14%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th rowspan="3" style="font-weight:normal" align="left">Variável</th>
+								<th colspan="2" style="font-weight:normal">Apgar no 1º minuto 0-6</th>
+								<th colspan="2" style="font-weight:normal">Reanimação com VPP</th>
+								<th colspan="2" style="font-weight:normal">Internação em unidade neonatal</th>
+							</tr>
+							<tr>
+								<th colspan="6" rowspan="1" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">OR<sub>aj</sub>
+								</th>
+								<th style="font-weight:normal">IC95%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Peso &gt; 2.500 g</td>
+								<td align="center">0,45</td>
+								<td align="center">0,20;1,06</td>
+								<td align="center">0,35</td>
+								<td align="center">0,16;0,77</td>
+								<td align="center">0,27</td>
+								<td align="center">0,12;0,62</td>
+							</tr>
+							<tr>
+								<td>Idade gestacional ≤ 36 semanas</td>
+								<td align="center">0,55</td>
+								<td align="center">0,19;1,60</td>
+								<td align="center">1,52</td>
+								<td align="center">0,65;3,56</td>
+								<td align="center">6,78</td>
+								<td align="center">2,15;21,32</td>
+							</tr>
+							<tr>
+								<td>Intercorrências na gestação</td>
+								<td align="center">1,23</td>
+								<td align="center">0,63;2,40</td>
+								<td align="center">1,04</td>
+								<td align="center">0,50;2,16</td>
+								<td align="center">0,86</td>
+								<td align="center">0,31;2,35</td>
+							</tr>
+							<tr>
+								<td>Modelo colaborativo</td>
+								<td align="center">0,71</td>
+								<td align="center">0,42;1,19</td>
+								<td align="center">0,65</td>
+								<td align="center">0,38;1,10</td>
+								<td align="center">0,61</td>
+								<td align="center">0,32;1,16</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>VPP: ventilação com pressão positiva; OR<sub>aj</sub>: <italic>odds ratio</italic> ajustado</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Foram observadas complicações durante o trabalho de parto, parto e no pós-parto em 11 mulheres em cada modelo, 3,4% no MT e 3,3% no MC (dados não apresentados).</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>As amostras em ambos os modelos foram constituídas por cerca de 35,0% das mulheres do grupo dois de Robson com indicação para o uso de métodos para interferir no processo da parturição. Ainda assim, houve redução no uso da ocitocina e da ruptura artificial das membranas no MC, mesmo após o ajuste para possíveis fatores de confundimento. Esse resultado pode ser considerado positivo e aponta para o potencial do MC na redução das intervenções, ainda que a complexidade da assistência obstétrica envolva outros fatores.</p>
+			<p>Além de idade, paridade, diabete, tempo prolongado de ruptura das membranas ovulares e presença de mecônio,<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref> a infusão de ocitocina, amniotomia e a analgesia peridural podem estar associadas à prevalência do parto cirúrgico.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> Estratégias para a redução desses partos devem abranger o controle do uso das práticas intervencionistas e não recomendadas. Além de causarem desconforto para as mulheres, seu uso sem indicação pode levar a complicações.</p>
+			<p>Estudos observaram prevalência menor da analgesia medicamentosa e da amniotomia,<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> uso mais frequente de métodos não farmacológicos para o alívio da dor (88,1%), da deambulação (68,4%) e da possibilidade de ingesta líquida (96,9%) durante o trabalho de parto, assim como do parto vaginal espontâneo<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> para enfermeiras obstétricas ou obstetrizes no MC quando comparados com profissionais médicos. Entretanto, no Brasil, também são observadas práticas intervencionistas na assistência de enfermeiras obstétricas.<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> Fatores institucionais, culturais e referentes à organização do sistema de saúde brasileiro, bem como sua própria postura diante da medicalização da assistência em curso, facilitam ou dificultam uma prática menos intervencionista desse profissional.<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref>
+			</p>
+			<p>A redução da taxa da ocitocina para as mulheres admitidas em franco trabalho de parto (Grupo 1 de Robson) no MC e seu aumento no MT indica uso mais consciente e seletivo naquele serviço. O uso cauteloso da ocitocina faz parte das recomendações na assistência ao parto, mas proporções &lt; 30,0% são alcançadas somente nos Centros de Parto Normal entre mulheres de risco habitual.<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref> Seu uso em hospitais varia entre 39,3% e 64,4% no Brasil.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+			</p>
+			<p>Inquérito inglês<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref> com 62.253 mulheres assistidas por obstetrizes e na maioria de risco habitual mostra gradiente decrescente das intervenções entre unidades hospitalares, que operam no MC nesse país, e parto domiciliar, passando pelos Centros de Parto Normal (CPN) peri-hospitalares e independentes. A influência do ambiente hospitalar parece se diluir na medida em que aumenta a distância entre o hospital e o local do parto. A frequência das intervenções nas unidades hospitalares foi menor do que em nosso estudo (23,5% na unidade hospitalar para o uso da ocitocina em mulheres admitidas em franco trabalho de parto e 30,7% para a analgesia peridural). Isso sugere um contexto específico nacional, caracterizado pela excessiva medicalização da assistência, que influencia todos os profissionais.</p>
+			<p>A amniotomia é prática frequente nos hospitais. Estudo brasileiro mostra prevalências entre 40,5% e 87,8% no Rio de Janeiro<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> e taxas de 65,3% e 71,1% em primíparas nos CPN.<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref> Embora a regressão tenha mostrado associação do MC com a redução desse procedimento, as frequências em ambos os modelos aponta uso rotineiro. Ela deve ser utilizada com indicação correta, como qualquer intervenção no trabalho de parto, pois aumenta as contrações e contribui para a demanda de outras intervenções subsequentes, que poderiam ter sido evitadas sem o seu uso.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+			</p>
+			<p>As diferenças nas intervenções entre os modelos refletem-se na maior prevalência do parto vaginal sem intervenção no MC. A formação do médico obstetra, voltada para complicações e gestações de risco, molda sua preferência para a tecnologia e intervenção, mesmo quando se trata de mulheres de risco habitual e em trabalho de parto espontâneo.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> A diferença encontrada entre os dois modelos sugere a atuação autônoma da enfermeira obstétrica na equipe como fator de limitação das intervenções, uma vez que assiste as mulheres sem intercorrências durante o trabalho de parto sem supervisão do médico.</p>
+			<p>Os métodos não farmacológicos para o alívio da dor, a oferta de líquidos e a deambulação oferecem conforto para as mulheres, facilitando uma vivência menos traumática do trabalho de parto. A frequência do uso de métodos não farmacológicos para alívio da dor foi maior em ambos os modelos do que a observada em estudo de 12 maternidades no interior de São Paulo com MT com 11,9%,<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> mas favorece o MC. Esses métodos fazem parte do cuidado obstétrico da enfermeira obstétrica ou da obstetriz, embora não estejam restrito a ele.<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> Sem apresentar riscos, ele demanda orientação, incentivo e suporte emocional, que pode ser oferecido por esse profissional, quando este faz parte da equipe e sua presença contínua com a parturiente é garantida.</p>
+			<p>A analgesia de condução foi utilizada em ambos os modelos sem diferenças significativas e a prevalência é maior do que a observada em hospitais no Rio de Janeiro há 15 anos e recentemente em Goiânia, GO.<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> A demanda alcançou mais de 1/3 das primíparas, mesmo com o uso considerável de métodos não farmacológicos para o alívio da dor para ambos os modelos. Embora associado ao parto vaginal assistido e à cesárea por sofrimento fetal,<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref> é um método efetivo para o alívio da dor e pode contribuir para a vivência positiva da parturição. O alívio da dor no trabalho de parto, seja pelo incentivo do uso de métodos não farmacológicos e da analgesia de condução, seja pela restrição aos casos necessários das intervenções na condução do trabalho de parto, constitui enfoque importante na política da humanização da assistência ao parto no âmbito do SUS.</p>
+			<p>O estudo aponta para um papel importante do modelo assistencial na redução da prevalência da episiotomia. A frequência observada no MC é menor do que na maioria dos países da Europa, onde as taxas variam entre 4,9% na Dinamarca e 72,9% em Portugal.<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> A baixa prevalência da episiotomia é comum nos estudos que envolvem a assistência de profissional não médico. Na Inglaterra, varia entre 19,3% na unidade hospitalar com MC e 8,6% no CPN com <italic>midwife-led care.</italic>
+				<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref> Estudo norte-americano encontrou diferença significativa na prática assistencial de enfermeira e médico obstetra para 865 mulheres de risco habitual, com taxas de 32,1% e 50,9%, respectivamente.<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> Além da frequência maior para a integridade perineal (22,5% para enfermeira obstetra e 12,1% para o médico), a chance da ocorrência de lacerações maiores foi menor no grupo das mulheres atendidas pelas enfermeiras. Dados nacionais para primíparas atendidas por enfermeira obstétrica mostram taxas de episiotomia entre 30,6% em ambiente hospitalar<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> e 7,2% em Centro de Parto normal.<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref> Outros estudos nacionais, realizados em instituições com MT, mostram taxas de episiotomia entre 70,1% e 85,2%.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+			</p>
+			<p>A semelhança dos resultados neonatais e da taxa das complicações maternas sugere que o MC não interfere de forma negativa na qualidade da assistência quando comparada com um modelo com atuação exclusive do médico obstetra, mesmo na presença de mulheres com complicações, do trabalho de parto induzido, prematuro ou sob analgesia medicamentosa.</p>
+			<p>As limitações do estudo se referem à possível heterogeneidade dos hospitais, apesar de a seleção ter considerado aqueles com maior semelhança na infraestrutura, nos protocolos clínicos e no perfil da clientela. A falta da padronização da atuação da enfermeira obstétrica limita a validade externa do estudo. A restrição do atendimento e transferência de parte das parturientes devido à falta de pediatras na época da coleta em um dos hospitais do MT pode ter levado a um viés de seleção.</p>
+			<p>A inclusão de mulheres dos três grupos de Robson, que implicam utilização de intervenções em grau diferenciados, pode ter influenciado os resultados, embora a distribuição de mulheres nos grupos de Robson seja semelhante entre os modelos. Por outro lado, esse <italic>case-mix</italic> de parturientes na amostra reflete a realidade assistencial das maternidades de nível de atenção secundária e a viabilidade do MC.</p>
+			<p>A permanência de confundimento residual não pode ser excluída por tratar-se de estudo observacional. A distribuição das parturientes entre os modelos ocorreu conforme a regionalização da assistência obstétrica em Belo Horizonte e houve período curto para a coleta de dados. Ambos podem ter levado à inclusão de variações sazonais e locais. Entretanto, a taxa de cesárea na amostra é semelhante à de 2011 (27,0% e 26,6%, respectivamente) nos hospitais participantes da pesquisa, bem como a distribuição dos partos entre os modelos (50,8% alocados no MC na amostra e 52,3% no ano 2011). A taxa de prematuridade foi mais alta durante 2011 (14,9% <italic>versus</italic> 10,1% na amostra). Os autores não pretendiam alcançar representatividade populacional, mas queriam analisar o MC nas suas condições reais de operacionalização. Inferências e conclusões devem considerar as limitações do estudo.</p>
+			<p>O MC é pouco explorado como estratégia para qualificação da assistência ao parto no contexto brasileiro. Mais estudos para o cenário nacional são necessários, já que o enfoque na literatura internacional é a comparação entre os níveis de atenção e entre a atenção hospitalar e as modalidades de assistência exclusivas pela enfermeira obstétrica ou por obstetrizes. A avaliação do impacto do não médico na equipe pode ser importante para países com modelo predominantemente centrado no médico e que buscam estratégias para transformar as práticas obstétricas em curso.</p>
+			<p>Dificuldades metodológicas para avaliar uma atuação multiprofissional devem ser consideradas em estudos futuros. A efetividade dos modelos depende da colaboração entre os atores, que varia em cada contexto institucional e sistêmico. A atribuição dos resultados ao grau e qualidade da colaboração na equipe deve ser discutida com cautela, considerando a complexidade da assistência obstétrica.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Angulo-Tuesta A, Giffin K, Gama AS, D’Orsi E, Barbosa GP. Saberes e práticas de enfermeiros e obstetras: cooperação e conflitos na assistência ao parto. Cad Saude Publica. 2003;19(5):1425-36. DOI: 10.1590/S0102-311X2003000500021</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Angulo-Tuesta</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Giffin</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Gama</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>D’Orsi</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Barbosa</surname>
+							<given-names>GP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Saberes e práticas de enfermeiros e obstetras: cooperação e conflitos na assistência ao parto</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2003</year>
+					<volume>19</volume>
+					<issue>5</issue>
+					<fpage>1425</fpage>
+					<lpage>1436</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2003000500021</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Behruzi R, Hatem M, Goulet L, Fraser W, Leduc N, Misago C. Humanized birth in high risk pregnancy: barriers and facilitating factors. Med Health Care Philos. 2010;13(1):49-58. DOI: 10.1007/s11019-009-9220-0</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Behruzi</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Hatem</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Goulet</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Fraser</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Leduc</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Misago</surname>
+							<given-names>C</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Humanized birth in high risk pregnancy: barriers and facilitating factors</article-title>
+					<source>Med Health Care Philos</source>
+					<year>2010</year>
+					<volume>13</volume>
+					<issue>1</issue>
+					<fpage>49</fpage>
+					<lpage>58</lpage>
+					<pub-id pub-id-type="doi">10.1007/s11019-009-9220-0</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Birthplace in England Collaborative Group. Perinatal and maternal outcomes by planned place of birth for healthy women with low risk pregnancies: the Birthplace in England national prospective cohort study. BMJ. 2011;343:d7400. DOI: 10.1136/bmj.d7400</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<collab>Birthplace in England Collaborative Group</collab>
+					</person-group>
+					<article-title xml:lang="en">Perinatal and maternal outcomes by planned place of birth for healthy women with low risk pregnancies: the Birthplace in England national prospective cohort study</article-title>
+					<source>BMJ</source>
+					<year>2011</year>
+					<volume>343</volume>
+					<elocation-id>d7400</elocation-id>
+					<pub-id pub-id-type="doi">10.1136/bmj.d7400</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Cragin L, Kennedy HP. Linking obstetric and midwifery practice with optimal outcomes. J Obstet Gynecol Neonatal Nurs. 2006;35(6):779-85. DOI: 10.1111/j.1552-6909.2006.00106.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cragin</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Kennedy</surname>
+							<given-names>HP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Linking obstetric and midwifery practice with optimal outcomes</article-title>
+					<source>J Obstet Gynecol Neonatal Nurs</source>
+					<year>2006</year>
+					<volume>35</volume>
+					<issue>6</issue>
+					<fpage>779</fpage>
+					<lpage>785</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1552-6909.2006.00106.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Dahlen HG, Tracy S, Tracy M, Bisits A, Brown C, Thornton C. Rates of obstetric interventions among low-risk women giving birth in private and public hospitals in NSW: a population-based descriptive study. BMJ Open. 2012;2(5):e001723. DOI: 10.1136/bmjopen-2012-001723</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Dahlen</surname>
+							<given-names>HG</given-names>
+						</name>
+						<name>
+							<surname>Tracy</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Tracy</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Bisits</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Brown</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Thornton</surname>
+							<given-names>C</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Rates of obstetric interventions among low-risk women giving birth in private and public hospitals in NSW: a population-based descriptive study</article-title>
+					<source>BMJ Open</source>
+					<year>2012</year>
+					<volume>2</volume>
+					<issue>5</issue>
+					<elocation-id>e001723</elocation-id>
+					<pub-id pub-id-type="doi">10.1136/bmjopen-2012-001723</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Dias MAB, Domingues RMSM. Desafios na implantação de uma política de humanização da assistência hospitalar ao parto. Cienc Saude Coletiva. 2005;10(3):699-705. DOI: 10.1590/S1413-81232005000300026</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Dias</surname>
+							<given-names>MAB</given-names>
+						</name>
+						<name>
+							<surname>Domingues</surname>
+							<given-names>RMSM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Desafios na implantação de uma política de humanização da assistência hospitalar ao parto</article-title>
+					<source>Cienc Saude Coletiva</source>
+					<year>2005</year>
+					<volume>10</volume>
+					<issue>3</issue>
+					<fpage>699</fpage>
+					<lpage>705</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1413-81232005000300026</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Downe S, Finlayson K, Fleming A. Creating a collaborative culture in maternity care. J Midwifery Womens Health. 2010;55(3):250-4. DOI: 10.1016/j.jmwh.2010.01.004</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Downe</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Finlayson</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Fleming</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Creating a collaborative culture in maternity care</article-title>
+					<source>J Midwifery Womens Health</source>
+					<year>2010</year>
+					<volume>55</volume>
+					<issue>3</issue>
+					<fpage>250</fpage>
+					<lpage>254</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.jmwh.2010.01.004</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. D’Orsi E, Chor D, Giffin K, Angulo-Tuesta A, Barbosa GP, Gama AS,  et al. Qualidade da atenção ao parto em maternidades do Rio de Janeiro. Rev Saude Publica. 2005;39(4):645-54. DOI: 10.1590/S0034-89102005000400020</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>D’Orsi</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Chor</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Giffin</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Angulo-Tuesta</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Barbosa</surname>
+							<given-names>GP</given-names>
+						</name>
+						<name>
+							<surname>Gama</surname>
+							<given-names>AS</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">Qualidade da atenção ao parto em maternidades do Rio de Janeiro</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2005</year>
+					<volume>39</volume>
+					<issue>4</issue>
+					<fpage>645</fpage>
+					<lpage>654</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102005000400020</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Figueiredo GS, Santos TTR, Reis CSC, Mouta RJO, Progianti JM, Vargens OMC. Ocorrência de episiotomia em partos acompanhados por enfermeiros obstetras em ambiente hospitalar. Rev Enferm UERJ. 2011;19(2):181-5.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Figueiredo</surname>
+							<given-names>GS</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>TTR</given-names>
+						</name>
+						<name>
+							<surname>Reis</surname>
+							<given-names>CSC</given-names>
+						</name>
+						<name>
+							<surname>Mouta</surname>
+							<given-names>RJO</given-names>
+						</name>
+						<name>
+							<surname>Progianti</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Vargens</surname>
+							<given-names>OMC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Ocorrência de episiotomia em partos acompanhados por enfermeiros obstetras em ambiente hospitalar</article-title>
+					<source>Rev Enferm UERJ</source>
+					<year>2011</year>
+					<volume>19</volume>
+					<issue>2</issue>
+					<fpage>181</fpage>
+					<lpage>185</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Giglio MRP, França E, Lamounier JA. Avaliação da qualidade da assistência ao parto normal. Rev Bras Ginecol Obstet. 2011;33(10):297-304. DOI: 10.1590/S0100-72032011001000005</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Giglio</surname>
+							<given-names>MRP</given-names>
+						</name>
+						<name>
+							<surname>França</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Lamounier</surname>
+							<given-names>JA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Avaliação da qualidade da assistência ao parto normal</article-title>
+					<source>Rev Bras Ginecol Obstet</source>
+					<year>2011</year>
+					<volume>33</volume>
+					<issue>10</issue>
+					<fpage>297</fpage>
+					<lpage>304</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0100-72032011001000005</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Hatem M, Sandall J, Devane D, Soltani H, Gates S. Midwife-led versus other models of care for childbearing women. Cochrane Database Syst Rev. 2008;(4):CD004667. DOI: 10.1002/14651858.CD004667.pub2</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hatem</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Sandall</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Devane</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Soltani</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Gates</surname>
+							<given-names>S</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Midwife-led versus other models of care for childbearing women</article-title>
+					<source>Cochrane Database Syst Rev</source>
+					<year>2008</year>
+					<issue>4</issue>
+					<elocation-id>CD004667</elocation-id>
+					<pub-id pub-id-type="doi">10.1002/14651858.CD004667.pub2</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Jackson DJ, Lang JM, Ecker J, Swartz WH, Heeren T. Impact of collaborative management and early admission in labor on method of delivery. J Obstet Gynecol Neonatal Nurs. 2003;32(2):147-57. DOI: 10.1177/0884217503252045</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Jackson</surname>
+							<given-names>DJ</given-names>
+						</name>
+						<name>
+							<surname>Lang</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Ecker</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Swartz</surname>
+							<given-names>WH</given-names>
+						</name>
+						<name>
+							<surname>Heeren</surname>
+							<given-names>T</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Impact of collaborative management and early admission in labor on method of delivery</article-title>
+					<source>J Obstet Gynecol Neonatal Nurs</source>
+					<year>2003</year>
+					<volume>32</volume>
+					<issue>2</issue>
+					<fpage>147</fpage>
+					<lpage>157</lpage>
+					<pub-id pub-id-type="doi">10.1177/0884217503252045</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Janssen PA, Ryan EM, Etches DJ, Klein MC, Reime B. Outcomes of planned hospital birth attended by midwives compared with physicians in British Columbia. Birth. 2007;34(2):140-7. DOI: 10.1111/j.1523-536X.2007.00160.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Janssen</surname>
+							<given-names>PA</given-names>
+						</name>
+						<name>
+							<surname>Ryan</surname>
+							<given-names>EM</given-names>
+						</name>
+						<name>
+							<surname>Etches</surname>
+							<given-names>DJ</given-names>
+						</name>
+						<name>
+							<surname>Klein</surname>
+							<given-names>MC</given-names>
+						</name>
+						<name>
+							<surname>Reime</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Outcomes of planned hospital birth attended by midwives compared with physicians in British Columbia</article-title>
+					<source>Birth</source>
+					<year>2007</year>
+					<volume>34</volume>
+					<issue>2</issue>
+					<fpage>140</fpage>
+					<lpage>147</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1523-536X.2007.00160.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Jones L, Othman M, Dowswell T, Alfirevic Z, Gates S, Newburn M,  et al. Pain management for women in labour: an overview of systematic reviews. Cochrane Database Syst Rev. 2012;(3):CD009234. DOI: 10.1002/14651858.CD009234.pub3</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Jones</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Othman</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Dowswell</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Alfirevic</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Gates</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Newburn</surname>
+							<given-names>M</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Pain management for women in labour: an overview of systematic reviews</article-title>
+					<source>Cochrane Database Syst Rev</source>
+					<year>2012</year>
+					<issue>3</issue>
+					<elocation-id>CD009234</elocation-id>
+					<pub-id pub-id-type="doi">10.1002/14651858.CD009234.pub3</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Low LK, Seng JS, Murtland TL, Oakley D. Clinician-specific episiotomy rates: impact on perineal outcomes. J Midwifery Women’s Health. 2000;45(2):87-93. DOI: 10.1016/S1526-9523(00)00003-9</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Low</surname>
+							<given-names>LK</given-names>
+						</name>
+						<name>
+							<surname>Seng</surname>
+							<given-names>JS</given-names>
+						</name>
+						<name>
+							<surname>Murtland</surname>
+							<given-names>TL</given-names>
+						</name>
+						<name>
+							<surname>Oakley</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Clinician-specific episiotomy rates: impact on perineal outcomes</article-title>
+					<source>J Midwifery Women’s Health</source>
+					<year>2000</year>
+					<volume>45</volume>
+					<issue>2</issue>
+					<fpage>87</fpage>
+					<lpage>93</lpage>
+					<pub-id pub-id-type="doi">10.1016/S1526-9523(00)00003-9</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Malott AM, Davis BM, McDonald H, Hutton E. Midwifery care in eight industrialized countries: how does Canadian midwifery compare? J Obstet Gynaecol Can. 2009;31(10):974-9.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Malott</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Davis</surname>
+							<given-names>BM</given-names>
+						</name>
+						<name>
+							<surname>McDonald</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Hutton</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Midwifery care in eight industrialized countries: how does Canadian midwifery compare?</article-title>
+					<source>J Obstet Gynaecol Can</source>
+					<year>2009</year>
+					<volume>31</volume>
+					<issue>10</issue>
+					<fpage>974</fpage>
+					<lpage>979</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. McIntyre MJ. Safety of non-medically led primary maternity care models: a critical review of the international literature. Aust Health Rev. 2012;36(2):140-7. DOI: 10.1071/AH11039</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>McIntyre</surname>
+							<given-names>MJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Safety of non-medically led primary maternity care models: a critical review of the international literature</article-title>
+					<source>Aust Health Rev</source>
+					<year>2012</year>
+					<volume>36</volume>
+					<issue>2</issue>
+					<fpage>140</fpage>
+					<lpage>147</lpage>
+					<pub-id pub-id-type="doi">10.1071/AH11039</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Narchi NZ. Atenção ao parto por enfermeiros na Zona Leste do município de São Paulo. Rev Bras Enferm. 2009;62(4):546-51. DOI: 10.1590/S0034-71672009000400009</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Narchi</surname>
+							<given-names>NZ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Atenção ao parto por enfermeiros na Zona Leste do município de São Paulo</article-title>
+					<source>Rev Bras Enferm</source>
+					<year>2009</year>
+					<volume>62</volume>
+					<issue>4</issue>
+					<fpage>546</fpage>
+					<lpage>551</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-71672009000400009</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Parada CMGL, Carvalhaes MABL. Childbirth care: contributing to the debate on human development. Rev Latino-Am Enferm. 2007;15(Spec Nº):792-8. DOI: 10.1590/S0104-11692007000700013</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Parada</surname>
+							<given-names>CMGL</given-names>
+						</name>
+						<name>
+							<surname>Carvalhaes</surname>
+							<given-names>MABL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Childbirth care: contributing to the debate on human development</article-title>
+					<source>Rev Latino-Am Enferm</source>
+					<year>2007</year>
+					<volume>15</volume>
+					<issue>Spec</issue>
+					<fpage>792</fpage>
+					<lpage>798</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0104-11692007000700013</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Progianti JM, Mouta RJO. A enfermeira obstétrica: agente estratégico na implantação de práticas do modelo humanizado em maternidades. Rev Enferm UERJ. 2009;17(2):165-9.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Progianti</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Mouta</surname>
+							<given-names>RJO</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">A enfermeira obstétrica: agente estratégico na implantação de práticas do modelo humanizado em maternidades</article-title>
+					<source>Rev Enferm UERJ</source>
+					<year>2009</year>
+					<volume>17</volume>
+					<issue>2</issue>
+					<fpage>165</fpage>
+					<lpage>169</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Robson MS. Can we reduce the caesarean section rate? Best Pract Res Clin Obstet Gynaecol. 2001;15(1):179-94. DOI: 10.1053/beog.2000.0156</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Robson</surname>
+							<given-names>MS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Can we reduce the caesarean section rate?</article-title>
+					<source>Best Pract Res Clin Obstet Gynaecol</source>
+					<year>2001</year>
+					<volume>15</volume>
+					<issue>1</issue>
+					<fpage>179</fpage>
+					<lpage>194</lpage>
+					<pub-id pub-id-type="doi">10.1053/beog.2000.0156</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Schneck CA, Riesco MLG, Bonadio IC, Diniz CSG, Oliveira SMJV. Resultados maternos e neonatais em centro de parto normal peri-hospitalar e hospital. Rev Saude Publica. 2012;46(1):77-86. DOI:10.1590/S0034-89102012000100010</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Schneck</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Riesco</surname>
+							<given-names>MLG</given-names>
+						</name>
+						<name>
+							<surname>Bonadio</surname>
+							<given-names>IC</given-names>
+						</name>
+						<name>
+							<surname>Diniz</surname>
+							<given-names>CSG</given-names>
+						</name>
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>SMJV</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Resultados maternos e neonatais em centro de parto normal peri-hospitalar e hospital</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2012</year>
+					<volume>46</volume>
+					<issue>1</issue>
+					<fpage>77</fpage>
+					<lpage>86</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102012000100010</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>. Schuit E, Kwee A, Wetwrhuis ME, Van Dessel HJ, Graziosi GC, Van Lith JM,  et al. A clinical prediction model to assess the risk of operative delivery. BJOG. 2012;119(8):915-23. DOI: 10.1111/j1471-0528.2012.03334.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Schuit</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Kwee</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Wetwrhuis</surname>
+							<given-names>ME</given-names>
+						</name>
+						<name>
+							<surname>Van Dessel</surname>
+							<given-names>HJ</given-names>
+						</name>
+						<name>
+							<surname>Graziosi</surname>
+							<given-names>GC</given-names>
+						</name>
+						<name>
+							<surname>Van Lith</surname>
+							<given-names>JM</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">A clinical prediction model to assess the risk of operative delivery</article-title>
+					<source>BJOG</source>
+					<year>2012</year>
+					<volume>119</volume>
+					<issue>8</issue>
+					<fpage>915</fpage>
+					<lpage>923</lpage>
+					<pub-id pub-id-type="doi">10.1111/j1471-0528.2012.03334.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>. Vogt SE, Diniz SG, Tavares CM, Santos NCP, Zorzam B,  et al. Características da assistência ao trabalho de parto e parto em três modelos de atenção no SUS, no Município de Belo Horizonte, Minas Gerais, Brasil. Cad Saude Publica. 2011;27(9):1789-800. DOI: 10.1590/S0102-311X2011000900012</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Vogt</surname>
+							<given-names>SE</given-names>
+						</name>
+						<name>
+							<surname>Diniz</surname>
+							<given-names>SG</given-names>
+						</name>
+						<name>
+							<surname>Tavares</surname>
+							<given-names>CM</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>NCP</given-names>
+						</name>
+						<name>
+							<surname>Zorzam</surname>
+							<given-names>B</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">Características da assistência ao trabalho de parto e parto em três modelos de atenção no SUS, no Município de Belo Horizonte, Minas Gerais, Brasil</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2011</year>
+					<volume>27</volume>
+					<issue>9</issue>
+					<fpage>1789</fpage>
+					<lpage>1800</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2011000900012</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>. Wiegers TA, Hukkelhoven CW. The role of hospital midwives in the Netherlands. BMC Pregnancy Childbirth. 2010;10:80. DOI: 10.1186/1471-2393-10-80</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wiegers</surname>
+							<given-names>TA</given-names>
+						</name>
+						<name>
+							<surname>Hukkelhoven</surname>
+							<given-names>CW</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The role of hospital midwives in the Netherlands</article-title>
+					<source>BMC Pregnancy Childbirth</source>
+					<year>2010</year>
+					<volume>10</volume>
+					<size units="pages">80</size>
+					<pub-id pub-id-type="doi">10.1186/1471-2393-10-80</pub-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Ministério da Saúde, Secretaria de Atenção a Saúde, Departamento de Ações Programáticas Estratégicas. Relatório de Gestão 2003 a 2006: Política Nacional de Atenção Integral à Saúde da Mulher. Brasília (DF); 2007 [citado 2014 fev 11]. (Série C. Projetos, Programas e Relatórios). Disponível em: <ext-link ext-link-type="uri" xlink:href="http://bvsms.saude.gov.br/bvs/publicacoes/relatorio_2003a2006_politica_saude_mulher.pdf">http://bvsms.saude.gov.br/bvs/publicacoes/relatorio_2003a2006_politica_saude_mulher.pdf</ext-link>
+				</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> National Institute for Health and Clinical Excellence –NICE; National Collaborating Centre for Women’s and Children’s Health. Intrapartum care care of healthy women and their babies during childbirth. London: RCOG Press; 2008 [citado 2011 abr 5]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://guidance.nice.org.uk/CG55/Guidance/pdf/English">http://guidance.nice.org.uk/CG55/Guidance/pdf/English</ext-link>
+				</p>
+			</fn>
+			<fn id="fn3">
+				<label>c</label>
+				<p> European Perinatal Health Report. Health and care of pregnant women and babies in Europe in 2010 [citado 2013 jul 14]. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://europeristat.com/images/doc/Peristat%202013%20V2.pdf">http://europeristat.com/images/doc/Peristat%202013%20V2.pdf</ext-link>
+				</p>
+			</fn>
+			<fn fn-type="financial-disclosure">
+				<p>Estudo financiado pela Fundação de Amparo à Pesquisa do Estado de Minas Gerais e Universidade Estadual de Montes Claros (FAPEMIG/UNIMONTES – Programa de Capacitação de Recursos Humanos – Processo 90508-11 – Bolsa doutorado de Sibylle Emilie Vogt).</p>
+			</fn>
+			<fn fn-type="supplementary-material">
+				<p>Artigo baseado em tese de doutorado de Vogt SE, intitulada: “Resultados maternos e neonatais de nulíparas: comparação do modelo de assistência obstétrica colaborativo e tradicional de maternidades do SUS em Belo Horizonte”, apresentada ao Instituto Nacional Fernandes Figueira/Fiocruz, em 2014.</p>
+			</fn>
+			<fn fn-type="other">
+				<label>DESTAQUES</label>
+				<p>A organização tradicional da assistência ao trabalho de parto no Brasil, centrada no médico, contribui para altas taxas de intervenções durante parto e trabalho de parto, enquanto práticas recomendadas pela OMS, que favorecem o parto normal, ainda são pouco utilizadas entre os profissionais de saúde. A construção do modelo colaborativo com a incorporação da enfermeira obstétrica ou da obstetriz na assistência direta ao parto, a exemplo de outros países, poderá contribuir na mudança do modelo tecnicista vigente e na melhoria da qualidade da assistência.</p>
+				<p>As altas taxas de cesariana e outras intervenções comprometem a qualidade e aumentam o custo da assistência, além de repercutir negativamente na morbimortalidade materna e neonatal, ainda em patamares inadmissíveis. A mudança do modelo tecnicista é uma importante meta da política nacional de saúde e, portanto, experiências exitosas e inovadoras nesse sentido são valiosas contribuições para subsidiá-la.</p>
+				<p>O modelo colaborativo que possibilita a atuação direta da enfermeira obstétrica ou da obstetriz favoreceu a redução do uso da ocitocina, da realização de amniotomia, da episiotomia e o incremento do uso de métodos não farmacológicos para o alívio da dor, sem causar maior morbidade materna ou neonatal.</p>
+				<p>Prof<sup>a</sup>. Rita de Cássia Barradas Barata Editora Científica</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Comparison of childbirth care models in public hospitals, Brazil</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Sibylle Emilie Vogt  Rua Santa Clotilde, 100 Casa F1  39400-129 Montes Claros, MG, Brasil  E-mail: sibyllecampos@hotmail.com </corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To compare collaborative and traditional childbirth care models.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>Cross-sectional study with 655 primiparous women in four public health system hospitals in Belo Horizonte, MG, Southeastern Brazil, in 2011 (333 women for the collaborative model and 322 for the traditional model, including those with induced or premature labor). Data were collected using interviews and medical records. The Chi-square test was used to compare the outcomes and multivariate logistic regression to determine the association between the model and the interventions used.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>Paid work and schooling showed significant differences in distribution between the models. Oxytocin (50.2% collaborative model and 65.5% traditional model; p &lt; 0.001), amniotomy (54.3% collaborative model and 65.9% traditional model; p = 0.012) and episiotomy (collaborative model 16.1% and traditional model 85.2%; p &lt; 0.001) were less used in the collaborative model with increased application of non-pharmacological pain relief (85.0% collaborative model and 78.9% traditional model; p = 0.042). The association between the collaborative model and the reduction in the use of oxytocin, artificial rupture of membranes and episiotomy remained after adjustment for confounding. The care model was not associated with complications in newborns or mothers neither with the use of spinal or epidural analgesia.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>The results suggest that collaborative model may reduce interventions performed in labor care with similar perinatal outcomes.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Midwifery</kwd>
+				<kwd>Perinatal Care</kwd>
+				<kwd>Maternal-Child Health Services</kwd>
+				<kwd>Outcome Assessment (Health Care)</kwd>
+				<kwd>Unified Health System</kwd>
+				<kwd>Cross-Sectional Studies</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Obstetric care in the collaborative model (CM) of hospital care means integrating doctor and obstetric nurse, as well as other health care professionals, such as the doula, into the team. The obstetric nurse looks after women at low risk, with the possibility of immediate referral to an obstetrician in case of complications. Both work closely together in caring for women with some type of pathology.<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> The benefits are attributable to the continued presence of a professional obstetric nurse/midwife, focusing on the physiological and emotional aspects of giving birth, and the possibility of the immediate presence of a doctor in cases of risk.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> The participation of the obstetric nurse/midwife may favor finding the balance between necessary interventions and the physiological process of giving birth, even for women needing more complex care.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+				</p>
+				<p>There is evidence of the potential of midwife-led care to reduce interventions in the care of women at low risk, as long as the health care professionals are duly qualified and follow protocols and directives.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref> There is limited literature evaluating interventions in shared care, comparing it with the doctor-centered model as the sole care provider in secondary care, although the CM is the predominant form of organization in obstetric care in industrialized countries such as England, Germany, the Scandinavian countries, New Zealand, Canada and Australia.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref>
+				</p>
+				<p>A study of a North American cohort evaluated CM and found a positive association with spontan,eous vaginal delivery in women of low risk, as well as interaction between the model and cervical dilation upon admission.<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref> An ecological study in the Netherlands observed an increase from 8.3% to 26.1% concomitant with the participation of obstetricians in secondary care and a reduction in assisted vaginal delivery from 44.0% to 39.0%. However, conclusions could not be drawn from the study on the association between the increased participation of these health care professionals and the results.<xref ref-type="bibr" rid="B25">
+						<sup>25</sup>
+					</xref>
+				</p>
+				<p>The predominant and traditional model of obstetric care in Brazil is obstetrician- and hospital-centered. The Brazilian Ministry of Health encourages incorporating obstetric nurses into hospital teams and counts on their contribution to reduce the unnecessary interventions and cesarean deliveries that characterize obstetric care in this country. Incorporating an obstetric nurse into several public maternity wards in the city of Rio de Janeiro, RJ, Southeastern Brazil, from 1998 onwards, was the first initiative taken by the government in this direction.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> Organizing CM care is the exception, with the share of this type of care estimated at between 10.0% and 15.0%.<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> As yet, there have been no assessments of the results of the CM in the Brazilian context.</p>
+				<p>The aim of this study was to compare collaborative and traditional models of childbirth care.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>This was a cross-sectional study conducted in four of the seven maternity hospitals connected to the Brazilian Unified Health System (SUS) in Belo Horizonte, MG, Southeastern Brazil, between March and July 2011. These maternity hospitals were selected for similarities in their structures and clinical protocols and in the characteristics of their clientele, and were responsible for around 72.0% of births to first time mothers in the SUS in Belo Horizonte in 2008.</p>
+				<p>The inclusion of pregnant women followed the flow of care in the four maternity hospitals, regionalized according to their addresses.</p>
+				<p>Only one of the units worked with the CM. The obstetric nurse, together with the doctor, accompanied all of the women’s labor according to the evolution documented in the partograph, monitoring fetal heartbeat, conducting cardiotocography and using non-pharmacological methods to relieve pain. All obstetric care was directed by institutional protocol, known to both professionals, regulating not only clinical conduct but also inter-disciplinary teamwork.</p>
+				<p>A total of 689 first time mothers, belonging to groups 1, 2 and 10 according to Robson, participated. Of these, 333 were in the institution with the CM and 322 in institutions with TM. There were 13 losses in the CM group, and 18 in the TM group – three refused to participate and 28 were discharged before they could be interviewed. Three women with psychiatric disorders were excluded (two in the TM and one in the CM), resulting in data for 655 women being collected.</p>
+				<p>In the other three maternity hospitals, defined as TM, the women were cared for exclusively by obstetricians during labor and delivery. All four hospitals cared for women with low and high risk and a neonatal or maternal intensive care unit, or both, was available in all. The hospital with the CM cared for 4,774 first time mothers in 2008, while the other three institutions, together, cared for 4,555 deliveries to first time mothers. A sample size was calculated with 95% confidence interval, power of 80.0% and 75.0% and 65.0% levels of prevalence in the collaborative and traditional models, respectively, for vaginal deliveries. The minimum sample necessary was calculated as 325 first time mothers in each group, guaranteeing the same proportional distribution of births in the four hospitals as observed in 2008.</p>
+				<p>Data were collected consecutively, including first time mothers with a gestational age of &gt; 22 weeks, single pregnancy and live fetus in cephalic presentation upon admission. The data were obtained using interviews with the mothers and complemented with information from medical records covering up to 48 hours after delivery.</p>
+				<p>Pearson’s Chi-square test was used for the comparative description of the two groups. The following data were collected: socioeconomic data; biological and clinical conditions (medical history, pregnancy complications and classification according to the Robson system);<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref> information concerning antenatal care; characteristics of the labor; presence of companion and of a doula. Five interventions were compared between the two models, described using the following variables: use of oxytocin, amniotomy, episiotomy, non-pharmacological methods of pain relief and epidural analgesia. Neonatal results were described (Apgar score in the first minute of life, admittance to a neonatal unit and resuscitation with positive pressure), and maternal complications during labor and delivery and postpartum were considered in evaluating possible negative repercussions of the care model.</p>
+				<p>Medical history and gestational risk factors were defined according to National Institute for Health and Clinical Excellence (NICE) criteria.<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref> Complications during labor and delivery and postpartum (shoulder dystocia, cord prolapse, hemorrhage requiring treatment, eclampsia, postpartum hysterectomy, uterine rupture and cardiopulmonary resuscitation) were included as one single variable, as they were rare events. The variable “intervention free delivery”, in women who went into labor spontaneously, included deliveries without oxytocin, amniotomy, episiotomy or pain relief and without ending in surgical or instrumental intervention.</p>
+				<p>The Robson classification system<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref> classifies women into ten groups. Group one includes first time mothers with single, full term pregnancies, cephalic presentation and admitted after spontaneous onset of labor, while group two consists of first time mothers with full term pregnancy and cephalic presentation, but with induced labor or elective cesarean. Group ten refers to women of any parity, with gestational age &lt; 37 weeks and cephalic presentation. According to Robson, this categorization enables stratification according to differences in clinical conditions determining how the labor is managed.</p>
+				<p>The five interventions were considered to analyze the association between the childbirth care model used and the interventions realized. Associations between the model and neonatal results were also evaluated.</p>
+				<p>Bivariate analysis was performed, analyzing the interventions and socioeconomic, clinical obstetric, antenatal and labor characteristics. Variables with significance below 0.20 were included in the multiple logistic regression model that estimated the odds ratio (OR) with 95% confidence interval of the association of the model with each of the five interventions, adjusted for confounding factors. The level of significance in the final multiple model was 0.05. The same procedure was used for neonatal results. The variables tested were maternal age &lt; 18, maternal schooling and complications during pregnancy. In addition to the variables with up to 0.20 significance in the bivariate, the final multiple model was adjusted for gestational age and for birth weight.</p>
+				<p>SPSS version 17 software was used in the statistical analysis. The study was approved by the Research Ethics Committee of all institutions involved (<italic>Santa Casa de Misericórdia de Belo Horizonte </italic>– Process 009/2011; <italic>Fundação Hospitalar do Estado de Minas Gerais</italic> – Process 0022-B/2011, covering two of the four hospitals; <italic>Hospital Sofia Feldman</italic> – Process 02/2011). The women who participated and legal representatives, in the case of adolescents, signed an informed consent form before being interviewed.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>The distribution of the women between the care models with regards sociodemographic characteristics showed significant differences for paid work and schooling. The place where antenatal care took place was borderline significant (<xref ref-type="table" rid="t01_en">Table 1</xref>). The distribution of clinical conditions, obesity, smoking and alcohol use were similar in the models, as was the distribution of characteristics of the labor and the presence of a companion or of a doula (<xref ref-type="table" rid="t02_en">Table 2</xref>).</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Sociodemographic aspects of first-time mothers according to care model. Belo Horizonte, MG, Southeastern Brazil, 2011.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="13%"/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="2" style="font-weight:normal" align="left">Characteristic</th>
+									<th rowspan="2" style="font-weight:normal">p</th>
+									<th colspan="2" style="font-weight:normal">Collaborative model</th>
+									<th colspan="2" style="font-weight:normal">Traditional model</th>
+									<th colspan="2" style="font-weight:normal">Total</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Age (years) (N = 655)</td>
+									<td align="center">0.951</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> &lt; 18</td>
+									<td> </td>
+									<td align="center">68</td>
+									<td align="center">20.4</td>
+									<td align="center">66</td>
+									<td align="center">20.5</td>
+									<td align="center">134</td>
+									<td align="center">20.5</td>
+								</tr>
+								<tr>
+									<td> 18 to 35</td>
+									<td> </td>
+									<td align="center">259</td>
+									<td align="center">77.8</td>
+									<td align="center">249</td>
+									<td align="center">77.3</td>
+									<td align="center">508</td>
+									<td align="center">77.6</td>
+								</tr>
+								<tr>
+									<td> &gt; 35</td>
+									<td> </td>
+									<td align="center">6</td>
+									<td align="center">1.8</td>
+									<td align="center">7</td>
+									<td align="center">2.2</td>
+									<td align="center">13</td>
+									<td align="center">2</td>
+								</tr>
+								<tr>
+									<td>Schooling (N = 655)</td>
+									<td align="center">0.043</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Elementary education - incomplete</td>
+									<td> </td>
+									<td align="center">63</td>
+									<td align="center">18.9</td>
+									<td align="center">63</td>
+									<td align="center">19.6</td>
+									<td align="center">126</td>
+									<td align="center">19.2</td>
+								</tr>
+								<tr>
+									<td> Elementary education - completed</td>
+									<td> </td>
+									<td align="center">126</td>
+									<td align="center">37.8</td>
+									<td align="center">149</td>
+									<td align="center">46.3</td>
+									<td align="center">275</td>
+									<td align="center">42.0</td>
+								</tr>
+								<tr>
+									<td> High school - completed</td>
+									<td> </td>
+									<td align="center">144</td>
+									<td align="center">43.2</td>
+									<td align="center">110</td>
+									<td align="center">34.2</td>
+									<td align="center">254</td>
+									<td align="center">38.8</td>
+								</tr>
+								<tr>
+									<td>Marital status (N = 655)</td>
+									<td align="center">0.143</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> In stable relationship</td>
+									<td> </td>
+									<td align="center">229</td>
+									<td align="center">68.8</td>
+									<td align="center">204</td>
+									<td align="center">63.4</td>
+									<td align="center">433</td>
+									<td align="center">66.1</td>
+								</tr>
+								<tr>
+									<td> Not in stable relationship</td>
+									<td> </td>
+									<td align="center">104</td>
+									<td align="center">31.2</td>
+									<td align="center">118</td>
+									<td align="center">36.6</td>
+									<td align="center">222</td>
+									<td align="center">33.9</td>
+								</tr>
+								<tr>
+									<td>In paid work (N = 655)</td>
+									<td align="center">0.008</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td> </td>
+									<td align="center">116</td>
+									<td align="center">34.8</td>
+									<td align="center">145</td>
+									<td align="center">45.0</td>
+									<td align="center">261</td>
+									<td align="center">39.8</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td> </td>
+									<td align="center">217</td>
+									<td align="center">65.2</td>
+									<td align="center">177</td>
+									<td align="center">55.0</td>
+									<td align="center">394</td>
+									<td align="center">60.2</td>
+								</tr>
+								<tr>
+									<td>Economic class (N = 655)</td>
+									<td align="center">0.582</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> A2, B1, B2</td>
+									<td> </td>
+									<td align="center">34</td>
+									<td align="center">10.2</td>
+									<td align="center">27</td>
+									<td align="center">8.4</td>
+									<td align="center">61</td>
+									<td align="center">9.3</td>
+								</tr>
+								<tr>
+									<td> C</td>
+									<td> </td>
+									<td align="center">220</td>
+									<td align="center">66.1</td>
+									<td align="center">224</td>
+									<td align="center">69.6</td>
+									<td align="center">444</td>
+									<td align="center">67.8</td>
+								</tr>
+								<tr>
+									<td> D, E</td>
+									<td> </td>
+									<td align="center">79</td>
+									<td align="center">23.7</td>
+									<td align="center">71</td>
+									<td align="center">22.0</td>
+									<td align="center">150</td>
+									<td align="center">22.9</td>
+								</tr>
+								<tr>
+									<td>Self-reported skin color (N = 655)</td>
+									<td align="center">0.115</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> White</td>
+									<td> </td>
+									<td align="center">56</td>
+									<td align="center">16.8</td>
+									<td align="center">49</td>
+									<td align="center">15.2</td>
+									<td align="center">105</td>
+									<td align="center">16.1</td>
+								</tr>
+								<tr>
+									<td> Black</td>
+									<td> </td>
+									<td align="center">52</td>
+									<td align="center">15.6</td>
+									<td align="center">72</td>
+									<td align="center">22.4</td>
+									<td align="center">124</td>
+									<td align="center">18.9</td>
+								</tr>
+								<tr>
+									<td> Mixed race</td>
+									<td> </td>
+									<td align="center">206</td>
+									<td align="center">61.9</td>
+									<td align="center">178</td>
+									<td align="center">55.3</td>
+									<td align="center">384</td>
+									<td align="center">58.6</td>
+								</tr>
+								<tr>
+									<td> Other</td>
+									<td> </td>
+									<td align="center">19</td>
+									<td align="center">5.7</td>
+									<td align="center">23</td>
+									<td align="center">7.1</td>
+									<td align="center">42</td>
+									<td align="center">6.4</td>
+								</tr>
+								<tr>
+									<td>Antenatal</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Antenatal appointments (N = 647)</td>
+									<td align="center">0.543</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 1 to 5</td>
+									<td> </td>
+									<td align="center">80</td>
+									<td align="center">24.2</td>
+									<td align="center">70</td>
+									<td align="center">22.2</td>
+									<td align="center">150</td>
+									<td align="center">23.2</td>
+								</tr>
+								<tr>
+									<td> ≥ 6</td>
+									<td> </td>
+									<td align="center">251</td>
+									<td align="center">75.8</td>
+									<td align="center">246</td>
+									<td align="center">77.8</td>
+									<td align="center">497</td>
+									<td align="center">76.8</td>
+								</tr>
+								<tr>
+									<td>Antenatal care (N = 653)</td>
+									<td align="center">0.051</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Unified Health System</td>
+									<td> </td>
+									<td align="center">300</td>
+									<td align="center">90.6</td>
+									<td align="center">276</td>
+									<td align="center">85.7</td>
+									<td align="center">576</td>
+									<td align="center">88.2</td>
+								</tr>
+								<tr>
+									<td> Plan/Private</td>
+									<td> </td>
+									<td align="center">31</td>
+									<td align="center">9.4</td>
+									<td align="center">46</td>
+									<td align="center">14.3</td>
+									<td align="center">77</td>
+									<td align="center">11.8</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>a</sup>The sample n does not include unknown values.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Clinical obstetric aspects of first-time mothers according to care model. Belo Horizonte. Belo Horizonte, MG, Southeastern Brazil, 2011.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="13%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="2" style="font-weight:normal" align="left">Characteristic</th>
+									<th rowspan="2" style="font-weight:normal">p</th>
+									<th colspan="2" style="font-weight:normal">Collaborative model</th>
+									<th colspan="2" style="font-weight:normal">Traditional model</th>
+									<th colspan="2" style="font-weight:normal">Total</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Gestational risk factors</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Robson group (N = 655)</td>
+									<td align="center">0.312</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Group 1</td>
+									<td> </td>
+									<td align="center">173</td>
+									<td align="center">52.0</td>
+									<td align="center">180</td>
+									<td align="center">55.9</td>
+									<td align="center">353</td>
+									<td align="center">53.9</td>
+								</tr>
+								<tr>
+									<td> Group 2</td>
+									<td> </td>
+									<td align="center">121</td>
+									<td align="center">36.3</td>
+									<td align="center">115</td>
+									<td align="center">35.7</td>
+									<td align="center">236</td>
+									<td align="center">36.0</td>
+								</tr>
+								<tr>
+									<td> Group 10</td>
+									<td> </td>
+									<td align="center">39</td>
+									<td align="center">11.7</td>
+									<td align="center">27</td>
+									<td align="center">8.4</td>
+									<td align="center">66</td>
+									<td align="center">10.1</td>
+								</tr>
+								<tr>
+									<td>Medical history (N = 655)</td>
+									<td align="center">0.640</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td> </td>
+									<td align="center">14</td>
+									<td align="center">4.2</td>
+									<td align="center">16</td>
+									<td align="center">5.0</td>
+									<td align="center">30</td>
+									<td align="center">4.6</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td> </td>
+									<td align="center">319</td>
+									<td align="center">95.8</td>
+									<td align="center">306</td>
+									<td align="center">95.0</td>
+									<td align="center">625</td>
+									<td align="center">95.4</td>
+								</tr>
+								<tr>
+									<td>Complications during pregnancy (N = 655)</td>
+									<td align="center">0.217</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td> </td>
+									<td align="center">80</td>
+									<td align="center">24</td>
+									<td align="center">91</td>
+									<td align="center">28.3</td>
+									<td align="center">171</td>
+									<td align="center">26.1</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td> </td>
+									<td align="center">253</td>
+									<td align="center">76</td>
+									<td align="center">231</td>
+									<td align="center">71.7</td>
+									<td align="center">484</td>
+									<td align="center">73.9</td>
+								</tr>
+								<tr>
+									<td>Smoking (N = 655)</td>
+									<td align="center">0.660</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td> </td>
+									<td align="center">29</td>
+									<td align="center">8.7</td>
+									<td align="center">25</td>
+									<td align="center">7.8</td>
+									<td align="center">54</td>
+									<td align="center">8.2</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td> </td>
+									<td align="center">304</td>
+									<td align="center">91.3</td>
+									<td align="center">297</td>
+									<td align="center">92.2</td>
+									<td align="center">601</td>
+									<td align="center">91.8</td>
+								</tr>
+								<tr>
+									<td>Alcohol use (N = 655)</td>
+									<td align="center">0.476</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td> </td>
+									<td align="center">54</td>
+									<td align="center">16.2</td>
+									<td align="center">59</td>
+									<td align="center">18.3</td>
+									<td align="center">113</td>
+									<td align="center">17.3</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td> </td>
+									<td align="center">279</td>
+									<td align="center">83.8</td>
+									<td align="center">263</td>
+									<td align="center">81.7</td>
+									<td align="center">542</td>
+									<td align="center">82.7</td>
+								</tr>
+								<tr>
+									<td>Body mass index (N = 635)</td>
+									<td align="center">0.762</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> IMC &gt; 30</td>
+									<td> </td>
+									<td align="center">21</td>
+									<td align="center">6.4</td>
+									<td align="center">18</td>
+									<td align="center">5.8</td>
+									<td align="center">39</td>
+									<td align="center">6.1</td>
+								</tr>
+								<tr>
+									<td> IMC ≤ 30</td>
+									<td> </td>
+									<td align="center">306</td>
+									<td align="center">93.6</td>
+									<td align="center">290</td>
+									<td align="center">94.2</td>
+									<td align="center">596</td>
+									<td align="center">93.9</td>
+								</tr>
+								<tr>
+									<td colspan="8">
+										<hr/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" rowspan="1">Characteristics of the labor</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="8">
+										<hr/>
+									</td>
+								</tr>
+								<tr>
+									<td>Amniotic membranes<sup>b</sup> (N = 655)</td>
+									<td align="center">0.190</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Broken</td>
+									<td> </td>
+									<td align="center">112</td>
+									<td align="center">33.6</td>
+									<td align="center">93</td>
+									<td align="center">28.9</td>
+									<td align="center">205</td>
+									<td align="center">31.3</td>
+								</tr>
+								<tr>
+									<td> Unbroken</td>
+									<td> </td>
+									<td align="center">221</td>
+									<td align="center">66.4</td>
+									<td align="center">229</td>
+									<td align="center">71.1</td>
+									<td align="center">450</td>
+									<td align="center">68.7</td>
+								</tr>
+								<tr>
+									<td>Cervical dilation (cm)<sup>b</sup> (N = 655)</td>
+									<td align="center">0.763</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 0 to 3</td>
+									<td> </td>
+									<td align="center">158</td>
+									<td align="center">47.4</td>
+									<td align="center">149</td>
+									<td align="center">46.3</td>
+									<td align="center">307</td>
+									<td align="center">46.9</td>
+								</tr>
+								<tr>
+									<td> 4 to 10</td>
+									<td> </td>
+									<td align="center">175</td>
+									<td align="center">52.6</td>
+									<td align="center">173</td>
+									<td align="center">53.7</td>
+									<td align="center">348</td>
+									<td align="center">52.6</td>
+								</tr>
+								<tr>
+									<td>Meconium<sup>c</sup> (N = 655)</td>
+									<td align="center">0.612</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td> </td>
+									<td align="center">58</td>
+									<td align="center">17.4</td>
+									<td align="center">61</td>
+									<td align="center">18.9</td>
+									<td align="center">119</td>
+									<td align="center">18.2</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td> </td>
+									<td align="center">275</td>
+									<td align="center">82.5</td>
+									<td align="center">261</td>
+									<td align="center">81.1</td>
+									<td align="center">536</td>
+									<td align="center">81.8</td>
+								</tr>
+								<tr>
+									<td>Non-reassuring fetal status<sup>c</sup> (N = 654)</td>
+									<td align="center">0.095</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td> </td>
+									<td align="center">51</td>
+									<td align="center">15.3</td>
+									<td align="center">35</td>
+									<td align="center">10.9</td>
+									<td align="center">86</td>
+									<td align="center">13.1</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td> </td>
+									<td align="center">282</td>
+									<td align="center">84.7</td>
+									<td align="center">286</td>
+									<td align="center">89.1</td>
+									<td align="center">568</td>
+									<td align="center">86.9</td>
+								</tr>
+								<tr>
+									<td>BMI: body mass index</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>a</sup> The sample n does not include unknown values.</p>
+							<p>
+								<sup>b</sup> On admission.</p>
+							<p>
+								<sup>c</sup> During the labor.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>There were significant differences between the care models concerning labor, with the exception of analgesic use (<xref ref-type="table" rid="t03_en">Table 3</xref>). According to the multiple analysis, the CM remained associated with lower oxytocin and amniotomy use after adjusting for possible confounding factors. Although the use of non-pharmacological methods was higher in the CM, it was borderline (p = 0.052) after adjustment, whereas the care model remained in the model as the only factor associated with episiotomy (<xref ref-type="table" rid="t04_en">Table 4</xref>).</p>
+				<p>
+					<table-wrap id="t03_en">
+						<label>Table 3</label>
+						<caption>
+							<title>Interventions used in the labor for first-time mothers according to care model. Belo Horizonte, MG, Southeastern Brazil, 2011.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="13%">
+								<col width="30%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="2" style="font-weight:normal" align="left">Intervention in labor</th>
+									<th rowspan="2" style="font-weight:normal">p</th>
+									<th colspan="2" style="font-weight:normal">Collaborative model</th>
+									<th colspan="2" style="font-weight:normal">Traditional model</th>
+									<th colspan="2" style="font-weight:normal">Total</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+									<th style="font-weight:normal">n<sup>a</sup>
+									</th>
+									<th style="font-weight:normal">%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Oxytocin (N = 655)</td>
+									<td align="center">&lt; 0.001</td>
+									<td align="center">167</td>
+									<td align="center">50.2</td>
+									<td align="center">211</td>
+									<td align="center">65.5</td>
+									<td align="center">378</td>
+									<td align="center">57.7</td>
+								</tr>
+								<tr>
+									<td>Amniotomy<sup>b</sup> (N = 450)</td>
+									<td align="center">0.012</td>
+									<td align="center">120</td>
+									<td align="center">54.3</td>
+									<td align="center">151</td>
+									<td align="center">65.9</td>
+									<td align="center">271</td>
+									<td align="center">60.2</td>
+								</tr>
+								<tr>
+									<td>Epidural<sup>c </sup>(N = 592)</td>
+									<td align="center">0.196</td>
+									<td align="center">125</td>
+									<td align="center">41.4</td>
+									<td align="center">105</td>
+									<td align="center">36.2</td>
+									<td align="center">230</td>
+									<td align="center">38.9</td>
+								</tr>
+								<tr>
+									<td>Non-pharmacological (N = 655)</td>
+									<td align="center">0.042</td>
+									<td align="center">283</td>
+									<td align="center">85.0</td>
+									<td align="center">254</td>
+									<td align="center">78.9</td>
+									<td align="center">537</td>
+									<td align="center">82.0</td>
+								</tr>
+								<tr>
+									<td>Episiotomy<sup>d</sup>
+									</td>
+									<td align="center">&lt; 0.001</td>
+									<td align="center">40</td>
+									<td align="center">16.1</td>
+									<td align="center">196</td>
+									<td align="center">85.2</td>
+									<td align="center">236</td>
+									<td align="center">49.4</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>a </sup>The sample n does not include unknown values.</p>
+							<p>
+								<sup>b </sup>The sample n includes women admitted with intact membranes.</p>
+							<p>
+								<sup>c </sup>The sample n only includes women in active labor.</p>
+							<p>
+								<sup>d </sup>The sample n only includes women with vaginal delivery.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>
+					<table-wrap id="t04_en">
+						<label>Table 4</label>
+						<caption>
+							<title>Multivariate model for each intervention used during first-time mothers’ labor. Belo Horizonte, MG, Southeastern Brazil, 2011.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="20%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+								<col width="8%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left"> </th>
+									<th colspan="2" style="font-weight:normal" align="left"> </th>
+									<th colspan="2" style="font-weight:normal" align="left"> </th>
+									<th colspan="2" style="font-weight:normal">Interventions</th>
+									<th colspan="2" style="font-weight:normal" align="left"> </th>
+									<th colspan="2" style="font-weight:normal" align="left"> </th>
+								</tr>
+								<tr>
+									<th rowspan="2" style="font-weight:normal" align="left">Variable</th>
+									<th colspan="2" style="font-weight:normal">Oxytocin</th>
+									<th colspan="2" style="font-weight:normal">Artificial rupture</th>
+									<th colspan="2" style="font-weight:normal">Analgesia</th>
+									<th colspan="2" style="font-weight:normal">Episiotomy</th>
+									<th colspan="2" style="font-weight:normal">Non-pharmacological methods</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Marital status/Stable relationship</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">1.65</td>
+									<td align="center">1.08;2.53</td>
+								</tr>
+								<tr>
+									<td>Economic class</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>C</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>D, E</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.77</td>
+									<td align="center">0.51;1.17</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>A, B</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.47</td>
+									<td align="center">0.24;0.92</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Robson Group</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Group 1</td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Group 2</td>
+									<td align="center">1.73</td>
+									<td align="center">1.19;2.51</td>
+									<td align="center">0.24</td>
+									<td align="center">0.11;0.53</td>
+									<td align="center">1.28</td>
+									<td align="center">0.88;1.84</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Group10</td>
+									<td align="center">0.44</td>
+									<td align="center">0.21;0.90</td>
+									<td align="center">0.96</td>
+									<td align="center">0.52;1.80</td>
+									<td align="center">0.36</td>
+									<td align="center">0.16;0.80</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Waters broken on admission</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.58</td>
+									<td align="center">0.40;0.86</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Non-reassuring fetal status</td>
+									<td align="center">0.52</td>
+									<td align="center">0.32;0.83</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.37</td>
+									<td align="center">0.22;0.63</td>
+								</tr>
+								<tr>
+									<td>Complications during pregnancy</td>
+									<td align="center">0.61</td>
+									<td align="center">0.38;0.96</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.36</td>
+									<td align="center">0.24;0.56</td>
+								</tr>
+								<tr>
+									<td>Cervical dilation (4 cm to 10 cm)</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">1.88</td>
+									<td align="center">1.05;3.36</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Meconium</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">1.75</td>
+									<td align="center">1.02;2.99</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Collaborative model</td>
+									<td align="center">0.52</td>
+									<td align="center">0.37;0.72</td>
+									<td align="center">0.61</td>
+									<td align="center">0.40;0.91</td>
+									<td align="center">1.31</td>
+									<td align="center">0.92;1.87</td>
+									<td align="center">0.03</td>
+									<td align="center">0.02;0.05</td>
+									<td align="center">1.52</td>
+									<td align="center">1.00;2.31</td>
+								</tr>
+								<tr>
+									<td>OR<sup>aj</sup>: adjusted odds ratio</td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>The final multivariate model for each intervention includes significant variables (p &lt; 0.05).</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>For the women in group one and with spontaneous onset of labor, the differences between the models were accentuated: oxytocin use fell to 43.9% in the CM and increased to 71.7% in the TM. There was a difference in the prevalence of intervention-free care of 24.0% in the CM and 1.0% in the TM (data not shown).</p>
+				<p>Admission to the neonatal unit totaled 54 children (8.2%) with a rate of 7.5% for the CM and 9.0% for the TM. There were 28 newborns (8.4%) in the CM and 37 (11.5%) in the TM who were given an Apgar score of between zero and six in the first minute of life. Newborns in the CM had lower birth weight and gestational age than those of the TM (data not shown). In the bivariate analysis, no significant differences were observed between mother’s age or schooling and neonatal outcomes (p &gt; 0.20). The care model was not associated with neonatal hospitalization, low Apgar scores or resuscitation with positive pressure ventilation in the adjusted analysis (<xref ref-type="table" rid="t05_en">Table 5</xref>).</p>
+				<p>
+					<table-wrap id="t05_en">
+						<label>Table 5</label>
+						<caption>
+							<title>Odds ratio (OR) of neonatal results for first-time mothers, adjusted for gestational age and birth weight. Belo Horizonte, MG, Southeastern Brazil, 2011.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup>
+								<col width="22%"/>
+								<col width="13%"/>
+								<col width="13%"/>
+								<col width="13%"/>
+								<col width="13%"/>
+								<col width="13%"/>
+								<col width="13%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="2" style="font-weight:normal" align="left">Variable</th>
+									<th colspan="2" style="font-weight:normal">Apgar in 1<sup>st</sup> minute 0-6</th>
+									<th colspan="2" style="font-weight:normal">Resuscitation with VPP</th>
+									<th colspan="2" style="font-weight:normal">Admitted to neonatal unit</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+									<th style="font-weight:normal">OR<sub>aj</sub>
+									</th>
+									<th style="font-weight:normal">IC95%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Weight &gt; 2,500 g</td>
+									<td align="center">0.45</td>
+									<td align="center">020;1.06</td>
+									<td align="center">0.35</td>
+									<td align="center">0.16;0.77</td>
+									<td align="center">0.27</td>
+									<td align="center">0.12;0.62</td>
+								</tr>
+								<tr>
+									<td>Gestational age ≤ 36 weeks</td>
+									<td align="center">0.55</td>
+									<td align="center">0.19;1.60</td>
+									<td align="center">1.52</td>
+									<td align="center">065;3.56</td>
+									<td align="center">6.78</td>
+									<td align="center">2.15;21.32</td>
+								</tr>
+								<tr>
+									<td>Complications during pregnancy</td>
+									<td align="center">1.23</td>
+									<td align="center">0.63;2.40</td>
+									<td align="center">1.04</td>
+									<td align="center">0.50;2.16</td>
+									<td align="center">0.86</td>
+									<td align="center">0.31;2.35</td>
+								</tr>
+								<tr>
+									<td>Collaborative model</td>
+									<td align="center">0.71</td>
+									<td align="center">0.42;1.19</td>
+									<td align="center">0.65</td>
+									<td align="center">0.38;1.10</td>
+									<td align="center">0.61</td>
+									<td align="center">0.32;1.16</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>VPP: Ventilation using positive pressure; OR<sub>aj</sub>: adjusted odds ratio</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>In 11 women in each model, 3.4% in the TM and 3.3% in the CM, complications were observed during the labor or delivery or postpartum (data not shown).</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>The samples for both models contained around 35.0% of women from group two of the Robson classification, with intervention in the birth process recommended. Even so, there was reduced oxytocin and amniotomy use in the CM, even after adjusting for possible confounding factors. This can be viewed as a positive result and indicates the potential of CM to reduce interventions, although the complexity of obstetric care also involves other factors.</p>
+				<p>In addition to age, parity, diabetes, prolonged rupture of membranes and meconium,<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref> infusion of oxytocin, amniotomy and epidural analgesia may be associated with the prevalence of surgical delivery.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> Strategies to reduce these deliveries should cover control of the use of non-recommended interventionist practices. In addition to causing the women discomfort, their use without recommendation may lead to complications.</p>
+				<p>Studies have observed a lower prevalence of pain relieving medication and amniotomy,<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> more frequent use of non-pharmacological pain relief methods (88.1%), of ambulation (68.4%) and the possibility of ingesting liquids (96.9%) during the labor, as well as spontaneous vaginal delivery<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> for obstetric nurses in the CM compared with doctors. However, in Brazil, interventionist practices have also been observed in care provided by obstetric nurses.<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> Institutional, cultural and other factors concerning the organization of the Brazilian health system, as well as its position regarding the ongoing medicalization of health care, facilitate or make it more difficult for this professional to provide less interventionist practice.<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref>
+				</p>
+				<p>Reduced rates of oxytocin in women admitted already in labor (Group 1 of the Robson classification) in the CM and increased rates in the TM indicate more conscientious and selective use in the former service. Careful use of oxytocin is part of the recommendations for childbirth care, but percentages of &lt; 30.0% are only achieved in birthing centers in women at low risk.<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref> Its use in hospitals varies between 39.3% and 64.4% in Brazil.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+				</p>
+				<p>An English survey<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref> of 62,253 women cared for by obstetricians, the majority of whom had low risk, showed a decreasing gradient of intervention between hospital units, operating using the CM in that country, and home births, passing through peri-hospital and independent birthing centers. The hospital environment influence appears to diminish as the distance between the hospital and the place of birth increases, the frequency of interventions in the hospital units was lower than that of our study (23.5% for oxytocin use in women admitted to the hospital unit in labor and 30.7% for epidural). This suggests a specific national context, characterized by excessive medicalization, influencing all professionals.</p>
+				<p>Amniotomy is frequent practice in hospitals. A Brazilian study showed prevalence rates of between 40.5% and 87.8% in Rio de Janeiro<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> and rates of 65.3% and 71.1% in first time mothers in birthing centers.<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref> Although the regression showed an association between CM and a decrease in this procedure, the frequencies in both models indicate routine use. The procedure should be used with correct indications, as with any intervention in labor, as it increases contractions and contributes to the need for subsequent interventions that could be avoided if it were not used.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+				</p>
+				<p>The differences in interventions between models are reflected in the higher prevalence of intervention-free vaginal delivery in the CM. Obstetrician training, directed towards complications and higher risk pregnancies, shapes preferences for technology and intervention, even with women of low risk and in spontaneous labor.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> The difference between the two models suggests that an obstetric nurse acting autonomously is a factor that limits interventions, as they care for women during complication-free labor without the supervision of a doctor.</p>
+				<p>Non-pharmacological pain relief methods, offering liquids and ambulation offer comfort to the women, facilitating a less traumatic experience of giving birth. The frequency with which non-pharmacological pain relief methods are used was higher, for both groups, than that observed in a study of 12 maternity hospitals in the interior of Sao Paulo, Southeastern Brazil, with TM at 11.9%,<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> but favored the CM. Its use is part of, although not restricted to, obstetric care provided by the obstetric nurse or midwife.<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref> Without presenting risks, it requires guidance, encouragement and emotional support, which can be offered by this professional if they form part of the team and if their continuous presence at the side of the woman is guaranteed.</p>
+				<p>Epidurals were used in both models, with no significant differences, and the prevalence was greater than that observed in hospitals in Rio de Janeiro, Southeastern Brazil, 15 years ago, and recently in Goiânia, GO, Central Western Brazil.<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> Demand reached 1/3 of first time mothers in both models, even when considerable use was made of non-pharmacological pain relief methods. Although it is associated with assisted vaginal delivery and cesarean for fetal suffering,<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref> it is an effective pain relief method and may contribute to the woman having a positive experience of childbirth. Pain relief during labor, either in the context of encouragement to use non-pharmacological methods or an epidural or of it being restricted to cases in need of intervention during the labor, is an important focus for the humanization policy of childbirth care within the SUS.</p>
+				<p>The study indicates the important role played by the care model in reducing the prevalence of episiotomy. The frequency observed in the CM is lower than in the majority of European countries, where rates vary from 4.9% in Denmark to 72.9% in Portugal.<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref> The low prevalence of episiotomy is common in studies involving care given by a non-doctor. In England, it varied between 19.3% in the hospital unit with the CM and 8.6% in the birthing center with midwife-led care<italic>.</italic>
+					<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref> A North American study found significant differences in the care practices of the obstetric nurse and obstetrician for 865 women of low risk, with rates of 32.1% and 50.9%, respectively.<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> In addition to the higher frequency of perineal integrity (22.5% for the obstetric nurse and 12.1% for the doctor), the chance of larger lacerations occurring was lower in the group of women cared for by the nurses. National data on first time mothers cared for by an obstetric nurse show episiotomy rates of between 30.6% in a hospital environment<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> and 7.2% in a normal Birthing Center.<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref> Other national studies conducted in institutions with TM showed episiotomy rates of between 70.1% and 85.2%.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+				</p>
+				<p>The similarity of neonatal results and the rate of maternal complications suggest that the CM does not negatively affect care quality compared with the model in which only an obstetrician operates, even in the presence of women with complications, induced or premature labor or using analgesic medication.</p>
+				<p>Limitations of this study refer to the possible heterogeneity of the hospitals, despite selecting those considered to have the greatest similarity in infra-structure, clinical protocols and clientele characteristics. The lack of standardization in the operations of the obstetric nurse limits the external validity of the study. During the period of data collection there were restrictions on care and transfers for women giving birth in one of the TM hospitals due to a lack of pediatricians, which could have led to selection bias.</p>
+				<p>Including women from the three Robson category groups, implying the use of different levels of interventions, may have influenced the results, although their distribution into groups was similar in both models. On the other hand, this case-mix of women in the sample reflects the realities of care in the maternity hospitals at the secondary care level and the viability of the CM.</p>
+				<p>The continued presence of confounding residuals cannot be ruled out, as this is an observational study. The distribution of the women between the models occurred according to regionalization of obstetric care in Belo Horizonte and the period during which data were collected was short. Both may have led to the inclusion of seasonal or location bias. However, the cesarean rate in the sample is similar to that of the hospitals participating in the research in 2011 (27.0% and 26.6%, respectively), as is the distribution of deliveries between the models (50.8% in the CM in the sample and 52.3% in 2011). The rate of premature births was higher during 2011 (14.9% <italic>versus</italic> 10.1% in the sample). The authors did not intend to achieve population representation, but rather to analyze the CM in its actual operating conditions. Inferences and conclusions drawn should consider the limitations of the study.</p>
+				<p>The CM has not been widely exploited as a strategy for qualifying childbirth care in the Brazilian context. More studies concerning the national scenario are necessary, as the focus of international literature is comparing the two levels of care and between hospital care and other types provided exclusively by obstetric nurses or midwives. Evaluating the impact of non-doctors on the team could be important for countries in which the doctor-centered model still predominates and which are seeking strategies to transform the obstetric practices in effect.</p>
+				<p>Methodological difficulties in evaluating multi-professional performance should be considered in future studies. The effectiveness of the models depends on collaboration between those involved, which varies in each institutional and systemic context. Attributing results to the degree and quality of collaboration in the team should be discussed with caution given the complexity of obstetric care.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> Ministério da Saúde, Secretaria de Atenção a Saúde, Departamento de Ações Programáticas Estratégicas. Relatório de Gestão 2003 a 2006: Política Nacional de Atenção Integral à Saúde da Mulher. Brasília (DF); 2007 [cited 2014 Feb 11]. (Série C. Projetos, Programas e Relatórios). Available from: <ext-link ext-link-type="uri" xlink:href="http://bvsms.saude.gov.br/bvs/publicacoes/relatorio_2003a2006_politica_saude_mulher.pdf">http://bvsms.saude.gov.br/bvs/publicacoes/relatorio_2003a2006_politica_saude_mulher.pdf</ext-link>
+					</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b</label>
+					<p> National Institute for Health and Clinical Excellence –NICE; National Collaborating Centre for Women’s and Children’s Health. Intrapartum care of healthy women and their babies during childbirth. London: RCOG Press; 2008 [cited 2011 Apr 5]. Available from: <ext-link ext-link-type="uri" xlink:href="http://guidance.nice.org.uk/CG55/Guidance/pdf/English">http://guidance.nice.org.uk/CG55/Guidance/pdf/English</ext-link>
+					</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c</label>
+					<p> European Perinatal Health Report. Health and care of pregnant women and babies in Europe in 2010 [cited 2013 Jul 14]. Available from: <ext-link ext-link-type="uri" xlink:href="http://europeristat.com/images/doc/Peristat%202013%20V2.pdf">http://europeristat.com/images/doc/Peristat%202013%20V2.pdf</ext-link>
+					</p>
+				</fn>
+				<fn fn-type="financial-disclosure">
+					<p>This study was supported by the <italic>Fundação de Amparo à Pesquisa do Estado de Minas Gerais </italic>and the<italic> Universidade Estadual de Montes Claros</italic> (FAPEMIG/UNIMONTES – <italic>Programa de Capacitação de Recursos Humanos</italic> – Process 90508-11 – Doctoral grant to Sibylle Emilie Vogt).</p>
+				</fn>
+				<fn fn-type="supplementary-material">
+					<p>Article based on the doctoral thesis of Vogt SE, entitled: “Resultados maternos e neonatais de nulíparas: comparação do modelo de assistência obstétrica colaborativo e tradicional de maternidades do SUS em Belo Horizonte”, presented to the <italic>Instituto Nacional Fernandes Figueira/Fiocruz</italic>, in 2014.</p>
+				</fn>
+				<fn fn-type="other">
+					<label>HIGHLIGHTS</label>
+					<p>In Brazil, the traditional organization of care during childbirth, centered on the physician, contributes to high rates of intervention during labor, while WHO recommended practices favoring normal delivery are still little used by health care professionals. The creation of a collaborative model incorporating an obstetric nurse or midwife in childbirth care, as in other countries, may contribute to changing the current technical model and to improving quality of care.</p>
+					<p>High rates of cesareans and other interventions compromise quality and increase the cost of care, as well as having unacceptable levels of repercussion on maternal and neonatal morbidity and mortality. Changing the technical model is an important goal of national health care policy and, therefore, successful and innovative experiences in this sense are valuable contributions supporting this.</p>
+					<p>The collaborative model, enabling the direct action by the obstetric nurse or midwife, encourages reductions in the use of oxytocin, in performing amniotomy and episiotomy and increased use of non-pharmacological methods of pain relief without causing higher maternal or neonatal morbidity</p>
+					<p>Professor Rita de Cássia Barradas Barata Scientific Editor</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

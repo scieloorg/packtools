@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="rapid-communication" xml:lang="es">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048005091</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048005091</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Comunicação Breve</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="es">Brote de faringo-amigdalítis por estreptococo β-hemolítico grupo A</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Culqui</surname>
+						<given-names>Dante R</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Manzanares-Laya</surname>
+						<given-names>Sandra</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Van Der Sluis</surname>
+						<given-names>Sarah Lafuente</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Fanlo</surname>
+						<given-names>Albert Anton</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Comas</surname>
+						<given-names>Rosa Bartolomé</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff4">
+						<sup>IV</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Rossi</surname>
+						<given-names>Marcello</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff6">
+						<sup>VI</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Caylá</surname>
+						<given-names>Joán A</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+					<xref ref-type="aff" rid="aff5">
+						<sup>V</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv1">Centro Nacional de Epidemiología</institution>
+				<institution content-type="orgname">Instituto de Salud Carlos III</institution>
+				<addr-line>
+					<named-content content-type="city">Madrid</named-content>
+				</addr-line>
+				<country>España</country>
+				<institution content-type="original">Centro Nacional de Epidemiología. Instituto de Salud Carlos III. Madrid, España</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv1">Servicio de Epidemiología</institution>
+				<institution content-type="orgname">Agencia de Salud Pública de Barcelona</institution>
+				<addr-line>
+					<named-content content-type="city">Barcelona</named-content>
+				</addr-line>
+				<country>España</country>
+				<institution content-type="original">Servicio de Epidemiología. Agencia de Salud Pública de Barcelona. Barcelona, España</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv1">Instituto de Seguridad Alimentaria</institution>
+				<institution content-type="orgname">Agencia de Salud Pública de Barcelona</institution>
+				<addr-line>
+					<named-content content-type="city">Barcelona</named-content>
+				</addr-line>
+				<country>España</country>
+				<institution content-type="original">Instituto de Seguridad Alimentaria. Agencia de Salud Pública de Barcelona. Barcelona, España</institution>
+			</aff>
+			<aff id="aff4">
+				<label>IV</label>
+				<institution content-type="orgdiv1">Servicio de Microbiología</institution>
+				<institution content-type="orgname">Hospital Universitario Vall de Hebrón</institution>
+				<addr-line>
+					<named-content content-type="city">Barcelona</named-content>
+				</addr-line>
+				<country>España</country>
+				<institution content-type="original">Servicio de Microbiología. Hospital Universitario Vall de Hebrón. Barcelona, España</institution>
+			</aff>
+			<aff id="aff5">
+				<label>V</label>
+				<institution content-type="orgname">Centro de Investigación Biomédica en Red de Epidemiología y Salud Pública</institution>
+				<country>España</country>
+				<institution content-type="original">Centro de Investigación Biomédica en Red de Epidemiología y Salud Pública. España</institution>
+			</aff>
+			<aff id="aff6">
+				<label>VI</label>
+				<institution content-type="orgdiv2">Laboratorio de Arbovirus y Enfermedades Víricas Importadas</institution>
+				<institution content-type="orgdiv1">Centro Nacional de Microbiología</institution>
+				<institution content-type="orgname">Instituto de Salud Carlos III</institution>
+				<addr-line>
+					<named-content content-type="city">Madrid</named-content>
+				</addr-line>
+				<country>España</country>
+				<institution content-type="original">Laboratorio de Arbovirus y Enfermedades Víricas Importadas. Centro Nacional de Microbiología. Instituto de Salud Carlos III. Majadahoda, Madrid, España</institution>
+			</aff>
+			<aff id="aff7">
+				<label>VII</label>
+				<institution content-type="orgname">Universidad Autónoma de Madrid</institution>
+				<addr-line>
+					<named-content content-type="city">Madrid</named-content>
+				</addr-line>
+				<country>España</country>
+				<institution content-type="original"> Programa de Pos-Graduación en Medicina Preventiva y Salud Pública, Universidad Autónoma de Madrid. Madrid, España.</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondencia | Correspondence</label>:  Dante Culqui Lévano  Plaza Verín 4, 8vo 1<sup>era</sup>  Código Postal 28029, Madrid, España  E-mail: <email>danteroger@hotmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Los autores declaran no haber conflicto de intereses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>322</fpage>
+			<lpage>325</lpage>
+			<history>
+				<date date-type="received">
+					<day>19</day>
+					<month>8</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>9</day>
+					<month>12</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="es">
+				<p>El objetivo fue describir un brote de faringo-amigdalitis causado por estreptococos β-hemolíticos del grupo A (EGA) en profesionales de la salud. El estudio que se transmite de persona-persona o por vía alimentaria. El estudio transversal descriptivo se realizó en 17 clientes, localizados en la misma mesa, que participaron de una cena en restaurante de Barcelona, España, en julio de 2012. Se analizaron, la frecuencia de síntomas de los afectados, el tiempo y la severidad de los síntomas, variables demográficas y alimentos ingeridos, entre otros factores. La tasa de ataque (TA) en los comensales fue del 58,8% (10/17). El 60,0% (6/10) de los comensales fueron positivos para EGA. El 46,2% (6/13) de los manipuladores de alimentos suministrados en la cena presentaron síntomas. No se identificó asociación con los alimentos ingeridos. Existen evidencias epidemiológicas de la transmisión alimentaria del EGA, pero no podría descartarse la transmisión respiratoria.</p>
+			</abstract>
+			<kwd-group xml:lang="es">
+				<kwd>Infecciones Estreptocócicas, epidemiologia</kwd>
+				<kwd>Tonsilitis</kwd>
+				<kwd>Faringitis</kwd>
+				<kwd>Contaminación de Alimentos</kwd>
+				<kwd>Brotes de Enfermedades</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="2"/>
+				<ref-count count="5"/>
+				<page-count count="4"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUCCIÓN</title>
+			<p>Los estreptococos β-hemolíticos son microorganismos Gram (+) que forman parte de la flora respiratoria y digestiva del ser humano.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> La faringitis estreptocócica por estreptococos β-hemolíticos del grupo A (EGA) es más frecuente en la infancia y suele transmitirse por contacto directo a través de secreciones nasales o la saliva.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> Aunque con menos frecuencia, se han documentado epidemias explosivas debidas a la trasmisión por alimentos o agua.<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> La mayoría de los brotes de EGA en los que se ha demostrado la transmisión persona-persona suele ocurrir en centros sanitarios de la tercera edad.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+			</p>
+			<p>La mayor parte de los brotes de infección toxico-alimentaria por EGA están relacionados con la contaminación de los alimentos en su lugar de origen o por manipuladores de alimentos, enfermos o portadores de infecciones respiratorias o infecciones cutáneas en las manos.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> También han sido notificados estos brotes en bases militares, plantas industriales,<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref> restaurantes, prisiones<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref> y en reuniones familiares.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+			</p>
+			<p>Las infecciones por EGA tienen gran importancia en salud pública.</p>
+			<p>Este estudio tuvo por objetivo describir un brote de faringo-amigdalitis en un grupo de comensales de un restaurante en Barcelona, España.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Estudio transversal descriptivo de un brote de faringo-amigdalitis que afectó a 17 comensales, ubicados en una misma mesa, que asistió a una cena en un restaurante, de Barcelona, España, el 13 de julio de 2012, siendo notificado a la Agencia de Salud Pública de Barcelona el 17 de julio del mismo año.</p>
+			<p>Entre los 17 comensales, 16 eran personal de salud (médicos, enfermeras, psicólogas, médicos residentes y otros trabajadores), además de una niña de tres años que asistió como acompañante a la cena. El cuadro clínico fue de aparición abrupta y se caracterizó por amigdalitis pultácea, fiebre, odinofagia severa y malestar general. La sintomatología también se presentó en seis de los 13 manipuladores de alimentos que prepararon y sirvieron la cena. El día 11 de julio (dos días antes del brote) el jefe de cocina enfermó y no trabajó el día de la cena presentando la misma sintomatología que el resto de los afectados. No se identificaron pacientes sintomáticos respiratorios entre los contactos del personal de salud.</p>
+			<p>Fue caso sospechoso aquel paciente que participó como comensal o como manipulador en los dos días previos y durante la cena del día 13 de julio, en el restaurante implicado, presentando cuadro de faringo-amigdalitis. Fueron casos probables aquellos sospechosos con amigdalitis pultácea, fiebre, odinofagia y/o malestar general, sin confirmación por estudios bacteriológicos. Los casos confirmados fueron constituidos por el grupo de afectados que, presentando el cuadro clínico antes expuesto, contaban con confirmación de EGA por estudios bacteriológicos. Se consideró como período de incubación el tiempo transcurrido desde la primera hora posterior a la cena hasta el cuarto día, para la búsqueda de casos y para la declaración del período infectante.</p>
+			<p>Se analizó la frecuencia de la sintomatología de los afectados, el tiempo y severidad de los síntomas, variables demográficas (media de edad, sexo o profesión), alimentos ingeridos y antecedentes de contactos con personas enfermas (incluyendo pacientes del personal de salud afectado), entre otros factores. Se tomó como variable dependiente el tener la enfermedad (caso) y como variable independiente, el consumo de cada alimento, para realizar el análisis estadístico de los resultados. Se calculó la tasa de ataque y se valoró asociaciones con el test de Chi-cuadrado, con nivel de significación estadística p &lt; 0,05 utilizando el programa estadístico SPSS 18.0.</p>
+			<p>Se realizó la inspección del restaurante verificando los planes genéricos de control de peligro: control de agua y de temperaturas, proveedores, plagas, limpieza, alérgenos, formación de los manipuladores de alimentos y mantenimiento, entre otros.</p>
+			<p>Se tomaron muestras de frotis nasal y faríngeo de manipuladores de alimentos (n = 13) y de pacientes afectados (n = 10). Se realizaron cultivos en agar sangre y agar sangre-ácido nalidixico y colistina. La identificación de las colonias se realizó por la pruebas de β-hemolisis y metabólicas y, mediante la determinación del grupo A de Lancefield por la técnica de aglutinación facilitada en látex. No se realizaron estudios de sensibilidad antibiótica a las cepas aisladas debido a la gran sensibilidad de <italic>Streptococcus pyogenes</italic> a las penicilinas.</p>
+			<p>Se brindó tratamiento antibiótico a todos los casos confirmados y se realizó búsqueda activa de casos así como educación acerca de EGA en los afectados y manipuladores, como medidas de control.</p>
+			<p>Se cumplió con los criterios de la declaración de Helsinsky en toda la investigación. Se contó con el consentimiento informado de los participantes.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>Diez de los 17 comensales enfermaron, con tasa de ataque del 58,8% y edad mediana de 33 (tres a 48) años. Nueve eran mujeres. No se identificaron contactos (familiares, amigos, pacientes) con enfermedad respiratoria relacionados con los comensales, ni se presentaron casos secundarios en su entorno.</p>
+			<p>Los síntomas en los comensales se iniciaron entre el 14 y 15 de julio, presentándose cuatro casos el día 14 y seis el día 15, con período de incubación promedio de 30,4 (cuatro a 45) horas. El período de seguridad para considerar el brote cerrado se estableció el día 23 de julio, equivalente a dos veces el tiempo de incubación, (ocho días después de la comunicación del último caso) (<xref ref-type="fig" rid="f01">Figura</xref>).</p>
+			<p>
+				<fig id="f01">
+					<label>Figura. </label>
+					<caption>
+						<title>Distribución de casos según la fecha de inicio de los síntomas en un brote de faringo-amigdalítis pultácea por faringitis estreptocócica por estreptococos β-hemolíticos del grupo A (EGA) que afectó a un grupo de comensales en un restaurante. Barcelona, España, julio de 2012.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0322-gf01"/>
+				</fig>
+			</p>
+			<p>Diez de los 17 casos sospechosos fueron clasificados como probables y, de éstos, siete presentaron amigdalitis pultácea, ocho fiebre &gt; 38<sup>o</sup>C y todos odinofagia severa (muy dolorosa). Se identificó la presencia de EGA, mediante pruebas bacteriológicas, en seis de los 10 casos sospechosos, siendo cinco adultos y uno menor de edad (niña); ésta último había presentado sintomatología previa de otitis y estaba finalizando tratamiento con amoxicilina en el día de la cena.</p>
+			<p>De los 13 manipuladores de alimentos encuestados, seis presentaron sintomatología relacionada con faringo-amigdalítis pultácea; uno estaba sintomático el día previo a la cena (jefe de cocina), otro durante la cena (ayudante) y cuatro posteriormente: una camarera presentó síntomas de fiebre y odinofagia, el responsable de la preparación de las ensaladas tenía odinofagia y los otros dos trabajadores, solo presentaron síntomas respiratorios.</p>
+			<p>En el momento de la toma de la muestra, todos los manipuladores sintomáticos habían recibido tratamiento antibiótico con amoxicilina o macrólidos; sin embargo, ninguno había recibido antibióticos el día de la cena. Siete de los 13 manipuladores resultaron negativos, incluyendo el jefe de cocina y su ayudante principal.</p>
+			<p>El ayudante sintomático la noche de la cena, además de manipular el postre (pastel tiramisú) y servirlo en una mesa a temperatura ambiente, sirvió otros platos sin utilizar mascarilla durante sus actividades. No se pudieron recoger muestras de los alimentos, por no existir testimonio de los mismos. Los cuatro alimentos consumidos con mayor frecuencia entre los afectados fueron: ensalada (62,5%; p = 0,811), paella (62,5%; p = 0,811), calamares a la romana (62,5%; p = 0,811) y pastel tiramisú (62,5%; p = 0,811). No se detectó asociación estadística entre los alimentos y las variables analizadas.</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSIÓN</title>
+			<p>Existen evidencias epidemiológicas de la transmisión alimentaria del EGA, sin descartarse la transmisión respiratoria.</p>
+			<p>Los brotes epidémicos de EGA transmitidos por alimentos son poco frecuentes.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> La transmisión respiratoria con período de incubación tan corto (todos los casos en menos de 48 horas), con tasa de ataque tan alta, con cuadro clínico tan abrupto y con nexo epidemiológico evidente entre los casos (60,0% de los comensales afectados presentaron EGA) es poco frecuente desde el punto de vista epidemiológico. Aunado a ello, uno de los manipuladores estaba enfermo durante la cena y presentó la misma sintomatología de los comensales. Aunque no hubo diferencias significativas entre los diferentes alimentos consumidos, podría pensarse que probablemente actuaron como vehículo para la transmisión de la infección. Alimentos como la ensalada y aquellos que contienen huevo,<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref> como el tiramisú, tienen alta posibilidad de participar en la transmisión del EGA. El tiramisú estuvo expuesto a latemperatura ambiente (mes deJulio, verano en Europa) y al calor de la cocina, lo que pudo haber facilitado la transmisión del EGA.</p>
+			<p>La investigación realizada presentó limitaciones, como la ausencia de muestras de los alimentos servidos y consumidos en la cena y la no detección de estreptococos en los cultivos de las muestras tomadas en los manipuladores, debido a que estaban tomando antibióticos previo a la realización del cultivo. Por tales razones, no podemos excluir la transmisión respiratoria (persona a persona), especialmente habiendo entre los comensales una niña finalizando tratamiento para otitis. Hubiera sido útil realizar análisis de las muestras a través de técnicas moleculares para determinar el EGA, en manipuladores, niña y otros afectados.</p>
+			<p>Este brote fue detectado a tiempo, debido a que los afectados eran personal sanitario, contribuyendo en la notificación de la enfermedad y en una rápida intervención.</p>
+			<p>A pesar de las limitaciones de nuestro estudio, consideramos importante comunicar estos resultados, que pueden ser útiles en la comunidad médica, a fin de considerar la posibilidad de transmisión alimentaria y poder caracterizar mejor este tipo de brotes.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>AGRADECIMIENTOS</title>
+			<p>A la enfermera Sonia Gil Simón de la Agencia de Salud Pública de Barcelona y a la socióloga Ana Ayuso Álvarez, del Programa de Epidemiología de Campo del Instituto de Salud Carlos III por su contribución en el desarrollo de la presente investigación.</p>
+		</ack>
+		<ref-list>
+			<title>REFERENCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Levy M, Jhonson CG, Kraa E. Tonsillopharyngitis caused by foodborne group A streptococcus: a prison based outbreak. Clin Infect Dis. 2003;36(2):175-82. DOI:10.1086/345670</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Levy</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Jhonson</surname>
+							<given-names>CG</given-names>
+						</name>
+						<name>
+							<surname>Kraa</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Tonsillopharyngitis caused by foodborne group A streptococcus: a prison based outbreak</article-title>
+					<source>Clin Infect Dis</source>
+					<year>2003</year>
+					<volume>36</volume>
+					<issue>2</issue>
+					<fpage>175</fpage>
+					<lpage>182</lpage>
+					<pub-id pub-id-type="doi">10.1086/345670</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Nieto Vera J, Figueroa Murillo E, Cruz Calderón MV, Aránzazu Pérez A. Brote de faringoamigdalitis de origen alimentario por estreptococo betahemolítico A. Rev Esp Salud Publica. 2011;85(4):383-90. DOI:10.1590/S1135-57272011000400007</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Nieto Vera</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Figueroa Murillo</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Cruz Calderón</surname>
+							<given-names>MV</given-names>
+						</name>
+						<name>
+							<surname>Aránzazu Pérez</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="es">Brote de faringoamigdalitis de origen alimentario por estreptococo betahemolítico A</article-title>
+					<source>Rev Esp Salud Publica</source>
+					<year>2011</year>
+					<volume>85</volume>
+					<issue>4</issue>
+					<fpage>383</fpage>
+					<lpage>390</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1135-57272011000400007</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Rufo KL, Bisno AL, Clasificación de los Estreptococos. In: Mandell GL, Bennett JE, Dolin R, editores. Mandell, Douglas and Bennett´s principles and practice of infectious diseases. 7. ed. Philadelphia: Elsevier; 2012. p. 2595-6.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Rufo</surname>
+							<given-names>KL</given-names>
+						</name>
+						<name>
+							<surname>Bisno</surname>
+							<given-names>AL</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="es">Clasificación de los Estreptococos</chapter-title>
+					<person-group person-group-type="editor">
+						<name>
+							<surname>Mandell</surname>
+							<given-names>GL</given-names>
+						</name>
+						<name>
+							<surname>Bennett</surname>
+							<given-names>JE</given-names>
+						</name>
+						<name>
+							<surname>Dolin</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Mandell, Douglas and Bennett´s principles and practice of infectious diseases</source>
+					<edition>7. ed</edition>
+					<publisher-loc>Philadelphia</publisher-loc>
+					<publisher-name>Elsevier</publisher-name>
+					<year>2012</year>
+					<fpage>2595</fpage>
+					<lpage>2596</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Thigpen MC, Thomas DM, Gloss D, Park SY, Khan AJ, Fogelman VL,  et al. Nursing home outbreak of invasive group A streptococcal infections caused by 2 distinct strains. Infect Control Hosp Epidemiol. 2007;28(1):68-74.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Thigpen</surname>
+							<given-names>MC</given-names>
+						</name>
+						<name>
+							<surname>Thomas</surname>
+							<given-names>DM</given-names>
+						</name>
+						<name>
+							<surname>Gloss</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Park</surname>
+							<given-names>SY</given-names>
+						</name>
+						<name>
+							<surname>Khan</surname>
+							<given-names>AJ</given-names>
+						</name>
+						<name>
+							<surname>Fogelman</surname>
+							<given-names>VL</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Nursing home outbreak of invasive group A streptococcal infections caused by 2 distinct strains</article-title>
+					<source>Infect Control Hosp Epidemiol</source>
+					<year>2007</year>
+					<volume>28</volume>
+					<issue>1</issue>
+					<fpage>68</fpage>
+					<lpage>74</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Yoshpe-Purer Y, Bergner-Rabinowitz S, Horetzky H, Melamed Z. Food-induced outbreak of streptococcal pharyngitis. Harefuah. 1976;91(8):248-50</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yoshpe-Purer</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Bergner-Rabinowitz</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Horetzky</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Melamed</surname>
+							<given-names>Z</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Food-induced outbreak of streptococcal pharyngitis</article-title>
+					<source>Harefuah</source>
+					<year>1976</year>
+					<volume>91</volume>
+					<issue>8</issue>
+					<fpage>248</fpage>
+					<lpage>250</lpage>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn fn-type="supported-by">
+				<p>Este estudio fue financiado por la Agencia de Salud Pública de Barcelona y por el Programa de Epidemiología de Campo PEAC Instituto de Salud Carlos III.</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Brief Comunnication</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Group A β-hemolytic streptococcal pharyngotonsillitis outbreak</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Dante Culqui Lévano  Plaza Verín 4, 8vo 1<sup>era</sup>  Código Postal 28029, Madrid, España  E-mail: <email>danteroger@hotmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<p>The aim was to describe an outbreak of group A β-hemolytic streptococcal pharyngotonsillitis in health care professionals. This is a cross-sectional descriptive study of 17 clients who dined at the same table in a restaurant in Barcelona in July 2012. The frequency, timing and severity of symptoms were analyzed, as were demographic variables and others concerning the food ingested. The attack rate was 58.8%. Six of the 10 clients were positive for group A β-hemolytic streptococcal. Six of the 13 individuals who handled the food involved in the dinner had symptoms. No association was identified with the food consumed. There is epidemiological evidence of foodborne group A β-hemolytic streptococcal transmission, but respiratory transmission could not be ruled out.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Streptococcal Infections, epidemiology</kwd>
+				<kwd>Tonsillitis</kwd>
+				<kwd>Pharyngitis</kwd>
+				<kwd>Food Contamination</kwd>
+				<kwd>Disease Outbreaks</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Β-hemolytic streptococci are Gram (+) microorganisms which form part of humans’ respiratory and digestive flora.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> Group A β-hemolytic streptococcal pharyngotonsillitis (GABHS) is more common in childhood and is usually transmitted by direct contact with nasal secretions or saliva.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> Although less common, epidemics due to food- or water-based transmission have also been documented.<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> Most GABHS outbreaks in which person-person transmission has been verified occur in health centers for older adults.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+				</p>
+				<p>The majority of food poisoning outbreaks caused by GABHS are related to food contaminated at origin or by food handlers who are ill or carriers of respiratory infections or of skin infections on the hands.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> There have also been reports of outbreaks in military bases, industrial plants,<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref> restaurants, prisons<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> and at family get-togethers.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+				</p>
+				<p>GABHS infections are of great significance to public health.</p>
+				<p>This study aimed to describe an outbreak of pharyngotonsillitis in a group of diners at a restaurant in Barcelona, Spain.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>This was a descriptive cross-sectional study of a pharyngotonsillitis outbreak affecting 17 individuals dining together in a restaurant in Barcelona, Spain, on July 13, 2012 and notified to the Barcelona Public Health Agency on July 17 of the same year.</p>
+				<p>Of the 17 diners, 16 were health care professionals (doctors, nurses, psychologists, medical residents and other workers), as well as a three-year old girl who was also present. The clinical presentation was of abrupt onset characterized by pultaceous tonsillitis, fever, severe odynophagia and general illness. These symptoms were also present in six of the 13 food handlers who prepared and served the meal. On the July 11 (two days before the outbreak) the head chef fell ill and did not work on the day of the dinner, presenting the same symptoms as the others affected. No patients with respiratory symptoms were identified among those with whom the health care professionals had had contact.</p>
+				<p>A case was marked suspect if the patient had participated in the dinner or as a food handler on preceding days or during the dinner on July 13 in the restaurant involved and presented signs of pharyngotonsillitis. Probable cases are suspect cases with pultaceous tonsillitis, fever, severe odynophagia and/or general illness, but not confirmed by bacteriological studies. Confirmed cases were constituted by the groups of those affected presenting clinical signs before exposure, and with GABHS confirmed by bacteriological studies. For purposes of seeking cases and to declare the infectious period, the incubation period was deemed to be the time between one hour after the dinner and the fourth day after.</p>
+				<p>The frequency, time and severity of symptoms in those affected were analyzed, as were demographic variables (mean age, sex or profession), food consumed and history of contact with sick individuals (including patients of the health care professionals affected), among other factors. The dependent variable was having the disease (case) and the independent variable was consumption of each dish, in order to perform statistical analysis of the results. The attack rate was calculated and associations evaluated using the Chi-square test, with p &lt; 0.05 as the level of significance, using the SPSS 18.0 statistical program.</p>
+				<p>The restaurant was inspected, verifying the generic hazard control plans: controlling water and temperature, suppliers, pests, hygiene, allergens, food handler training and maintenance, among others.</p>
+				<p>Samples of nasal and pharyngeal swabs were taken from the food handlers (n = 13) and the patients affected (n = 10). Cultures in blood agar and blood agar nalidixic acid and colistin. Colonies were identified using β-hemolysis and metabolism tests and through determining group A by Lancefield latex grouping. No studies of antibiotic sensitivity were conducted on the isolated strains, as <italic>Streptococcus pyogenes </italic>is highly sensitive to penicillin.</p>
+				<p>All confirmed cases were given antibiotics and an active search for cases was conducted as well as education on GABHS being given to those affected and to the food handlers as a control measure.</p>
+				<p>All criteria of the Declaration of Helsinki were met throughout the investigation. All participants gave their informed consent.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>Ten of the 17 diners fell ill, with an attack rate of 58.8% and mean age of 33 (three to 48) years old. Nine were female. No contacts (relatives, friends, patients) related to the diners were identified as having respiratory disease, nor were there secondary cases in their environment.</p>
+				<p>The diners’ symptoms began between the July 14 and 15, with four and six cases, respectively, with an average incubation period of 30.4 (four to 45) hours. The safety period for considering the outbreak over was set as the July 23, equivalent to two times the incubation period (eight days after the last case was reported) (<xref ref-type="fig" rid="f01_en">Figure</xref>).</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure. </label>
+						<caption>
+							<title>Distribution of cases according to the date of onset of symptoms in an outbreak of pultaceous group A β-hemolytic streptococcal pharyngotonsillitis (GABHS) affecting a group of diners in a restaurant. Barcelona, Spain, July 2012.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0322-gf01-en"/>
+					</fig>
+				</p>
+				<p>Ten of the 17 suspected cases were classified as probable and, of these, seven had pultaceous tonsillitis, eight had a fever &gt; 38<sup>o</sup>C, all had severe (very painful) odynophagia. GABHS was identified through bacteriological studies, in six of the 10 suspected cases, five being adults and one a minor (the three year old girl). The latter had previously shown symptoms of otitis and was finishing a course of amoxicillin on the day of the dinner.</p>
+				<p>Of the 13 food handlers studied, six had symptoms related to pultaceous pharyngotonsillitis. One had symptoms the day before the dinner (the head chef), another during the dinner (assistant) and four later: A waiter had symptoms of fever and odynophagia, the worker in charge of preparing salads had odynophagia and another two workers had respiratory symptoms.</p>
+				<p>At the time of taking the samples, all symptomatic food handlers had been treated with amoxicillin or macrolides. However, on the day of the meal, none of them had taken antibiotics. Seven of the 13 food handlers tested negative, including the head chef and the principal assistant.</p>
+				<p>The server with symptoms on the night of the dinner not only handled the dessert (tiramisu) and served it to a table at room temperature but also served other dishes without using a mask during his activities. No samples of the food could be taken as there were none available. The four dishes most consumed by those affected were salad (62.5%; p = 0.811), <italic>paella</italic> (62.5%; p = 0.811), <italic>calamares a la romana</italic> (62.5%; p = 0.811) and <italic>tiramisu</italic> (62.5%; p = 0.811). No statistical association was found between the dishes and the variables analyzed.</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>There is epidemiological evidence of food based transmission of GABHS, without being able to rule out airborne transmission.</p>
+				<p>Epidemic outbreaks of GABHS transmitted via food are not common.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> Respiratory transmission with such a short incubation period (all cases within 48 hours) such a high attack rate and such an abrupt clinical presentation and evident epidemiological connection between cases (60.0% of diners affected showed GABHS) is, from an epidemiological point of view, uncommon. Added to this, one of the food handlers was ill during the meal and had the same symptoms as the diners. Although there were no significant differences between the different dishes consumed, it could be supposed that they probably acted as the vehicle of transmission for the infection. Dishes such as salad and those containing eggs,<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref> such as tiramisu, have a high possibility of participating in the transmission of GABHS. The tiramisu was exposed to room temperature (in July, European summer) and to heat in the kitchen, which may have facilitated the transmission of GABHS.</p>
+				<p>There were limitations to the investigation, such as the lack of samples of the dishes served and consumed at the dinner and in no streptococci being detected in the cultures of samples taken from the food handlers, as they started taking antibiotics before the cultures were performed. For such reasons, we cannot rule out respiratory (person to person) transmission, especially as there was a child finishing treatment for otitis among the diners. It would have been useful to have conducted analysis of samples using molecular techniques to determine GABHS in food handlers, the child and other affected individuals.</p>
+				<p>This outbreak was detected in time due to those affected being health care workers, contributing to notification of the disease and to rapid intervention.</p>
+				<p>Despite the study’s limitations, we consider it important to communicate the results, which may be useful to the medical community as it considers the possibility of food based transmission and may aid in characterizing this type of outbreak.</p>
+			</sec>
+		</body>
+		<back>
+			<ack>
+				<title>ACKNOWLEDGEMENTS</title>
+				<p>To nurse Sonia Gil Simón from the <italic>Agencia de Salud Pública de Barcelona</italic> and to the sociologist Ana Ayuso Álvarez, from the <italic>Programa de Epidemiología de Campo </italic>of the<italic> Instituto de Salud Carlos III</italic> for contributions in developing this investigation.</p>
+			</ack>
+			<fn-group>
+				<fn fn-type="supported-by">
+					<p>This study was supported by the <italic>Agencia de Salud Pública de Barcelona</italic> and the <italic>Programa de Epidemiología de Campo of the Instituto de Salud Carlos III</italic>.</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

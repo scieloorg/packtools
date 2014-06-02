@@ -1,0 +1,2438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004935</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004935</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Características contextuais de vizinhança e atividade física de lazer: Estudo Pró-Saúde</article-title>
+				<trans-title-group xml:lang="en">
+					<trans-title>Neighborhood contextual characteristics and leisure-time physical activity: <italic>Pró-Saúde</italic> Study</trans-title>
+				</trans-title-group>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Boclin</surname>
+						<given-names>Karine de Lima Sírio</given-names>
+					</name>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Faerstein</surname>
+						<given-names>Eduardo</given-names>
+					</name>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Leon</surname>
+						<given-names>Antônio Carlos Monteiro Ponce de</given-names>
+					</name>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<institution content-type="orgdiv2">Departamento de Epidemiologia</institution>
+				<institution content-type="orgdiv1">Instituto de Medicina Social</institution>
+				<institution content-type="orgname">Universidade do Estado do Rio de Janeiro</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Epidemiologia. Instituto de Medicina Social. Universidade do Estado do Rio de Janeiro. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>249</fpage>
+			<lpage>257</lpage>
+			<history>
+				<date date-type="received">
+					<day>12</day>
+					<month>5</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>7</day>
+					<month>11</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Estimar a associação entre variáveis contextuais de vizinhança e prática de atividade física de lazer.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Foram analisados dados de 2.674 participantes adultos de estudo longitudinal no Rio de Janeiro, RJ, em 1999. A atividade física de lazer, avaliada de forma dicotômica, referiu-se às duas semanas prévias à pesquisa. Sexo, idade, renda, escolaridade e situação conjugal foram analisados como variáveis individuais. Características contextuais referentes às vizinhanças (bairros) foram índice de desenvolvimento social, índice de Theil e proporção de área de parques, praças e jardins, categorizadas em quintis. Foram estimadas razões de chances brutas e ajustadas e intervalos de confiança de 95% por meio de regressão logística multinível.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>As prevalências de atividade física de lazer foram maiores entre residentes de bairros com maiores índices de desenvolvimento social (entre 32,3% e 55,4%) e proporção de área de parques, praças e jardins (entre 35,8% e 53,1%). Para o índice de desenvolvimento social, quando comparados aos residentes de bairros do primeiro quintil, as razões de chances ajustadas de atividade física de lazer para variáveis individuais foram 1,22 (IC95% 0,93;1,61), 1,44 (IC95% 1,09;1,89), 1,75 (IC95% 1,31;2,34) e 2,25 (IC95% 1,70; 3,00) entre residentes de bairros do segundo, terceiro, quarto e quinto quintis. As razões de chances relativas à proporção de área de parques, praças e jardins foram 0,90 (IC95% 0,69;1,19), 1,41 (IC95% 1,04;1,90), 1,63 (IC95% 1,24;2,14) e 1,05 (IC95% 0,80;1,38) entre residentes de bairros dos segundo, terceiro, quarto e quinto quintis. Após ajuste para as demais variáveis contextuais, somente o índice de desenvolvimento social permaneceu associado à atividade física de lazer, com razões de chances de 1,41 (IC95% 1,02;1,95), 1,54 (IC95% 1,12;2,12); 1,65 (IC95% 1,14;2,39) e 2,13 (IC95% 1,40;3,25) para residentes de bairros dos segundo, terceiro, quarto e quinto quintis.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>A atividade física de lazer foi mais frequente entre residentes de bairros com maiores índices de desenvolvimento social. Não foram observadas associações com acesso a espaços de lazer e desigualdade de renda.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Atividades Cotidianas</kwd>
+				<kwd>Atividades de Lazer</kwd>
+				<kwd>Estilo de Vida Sedentário</kwd>
+				<kwd>Atividade Motora</kwd>
+				<kwd>Áreas Verdes</kwd>
+				<kwd>Saúde Ambiental</kwd>
+				<kwd>Análise Multinível</kwd>
+			</kwd-group>
+			<counts>
+				<table-count count="6"/>
+				<ref-count count="24"/>
+				<page-count count="9"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>Os efeitos benéficos da atividade física à saúde estão bastante documentados na literatura científica.<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> Entretanto, observa-se, de modo geral, padrão decrescente nos níveis populacionais de atividade física nas últimas décadas, em decorrência do aumento da mecanização dos processos de trabalho e de atividades cotidianas. Dessa forma, a atividade física de lazer vem assumindo papel crescente no cumprimento das necessidades diárias do gasto calórico.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref>
+			</p>
+			<p>Além da influência de fatores individuais, como sexo, idade, escolaridade e outros, as características do contexto onde os indivíduos estão inseridos, como seus locais de moradias ou vizinhanças, também podem influenciar a prática de atividade física de lazer.<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+			</p>
+			<p>Apesar de não haver consenso sobre uma definição operacional, abordagens que utilizem as vizinhanças como unidade de análise apresentam crescimento expressivo em estudos epidemiológicos.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref> De modo geral, vizinhanças são entendidas como espaços geográficos delimitados, onde, além de características físicas, seus residentes compartilham circunstâncias políticas, culturais e econômicas.<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> Florey et al (2007) definem vizinhanças como qualquer agregação geográfica que tenha esse significado para seus residentes locais.<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref>
+			</p>
+			<p>Estudos sobre a influência de características de vizinhanças em desfechos de saúde mostram que os comportamentos em saúde e estilos de vida individuais não são distribuídos aleatoriamente em regiões e populações, ocorrendo interações dinâmicas e complexas entre indivíduos e seus contextos.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> As análises multiníveis, que incluem múltiplos níveis hierárquicos para a avaliação de desfechos do nível individual, são as mais indicadas para esses estudos, pois possibilitam a estimação mais refinada tanto da contribuição de variáveis relacionadas ao individuo quanto do contexto, além de fornecerem inferências não enviesadas devido à melhor estimação do erro-padrão dos parâmetros que pretendem ser estimados.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref>
+			</p>
+			<p>Apesar do crescimento expressivo de pesquisas em saúde incluindo vizinhança como unidade de análise e que utilizam a abordagem multinível para suas investigações, pesquisas sobre a influência de fatores do contexto sobre a prática de atividade física de lazer ainda são escassas.</p>
+			<p>O objetivo deste estudo foi estimar a associação entre características contextuais de vizinhança e a prática de atividade física de lazer.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>O Estudo Pró-Saúde, com delineamento longitudinal, foi realizado com trabalhadores técnico-administrativos de universidade no Rio de Janeiro, RJ, com foco principal nos determinantes sociais da saúde e de comportamentos em saúde.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> A população elegível foi constituída por 4.459 funcionários, dos quais 4.030 (90,4%) participaram da fase 1 do estudo em 1999. Entre esses participantes, 3.141 residiam no município do Rio de Janeiro, RJ. Nas análises apresentadas neste estudo foram incluídos dados relativos a 2.674 residentes em 144 vizinhanças (bairros), após exclusão daqueles com dados não fornecidos (endereço residencial: 97; atividade física de lazer: 307) e de 63 indivíduos impedidos de realizar alguma de suas atividades habituais por motivo de saúde no período de referência.</p>
+			<p>Dados individuais foram coletados por meio de questionários autopreenchidos no local de trabalho. Métodos para garantir a qualidade da informação e processamento de dados, como estudo piloto, confiabilidade do instrumento (teste-reteste) e procedimentos de dupla digitação independente, foram utilizados.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref>
+			</p>
+			<p>A atividade física de lazer foi avaliada de forma dicotômica e autorreferida pelos participantes por meio da pergunta: “Nas últimas duas semanas você praticou alguma atividade física para melhorar sua saúde, condição física ou com objetivo estético ou de lazer?”. Outras variáveis individuais consideradas foram sexo, idade em anos (&lt; 30, 31-40, 41-50, &gt; 50); renda familiar per capita em salários mínimos (SM), equivalente na época: R$ 136,00 e US$ 77.71 (&lt; 3 SM, 3 a 6 SM, &gt; 6 SM); escolaridade (até ensino fundamental completo, ensino médio completo, ensino superior completo ou mais) e situação conjugal (solteiro(a), com união conjugal estável, separado(a)/viúvo(a)).</p>
+			<p>Para a construção das variáveis contextuais dos bairros de residência, foram utilizados dados da Fundação Parques e Jardins<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref> e do Censo Demográfico de 2000 realizado pelo Instituto Brasileiro de Geografia e Estatística (IBGE). As variáveis analisadas e categorizadas em quintis foram: índice de desenvolvimento social em 2000, índice de Theil em 2000 e proporção de área de parques, praças e jardins em 1999.</p>
+			<p>O índice de desenvolvimento social é um indicador conceitualmente semelhante ao Índice de Desenvolvimento Humano (IDH). É construído a partir de indicadores que abarcam quatro dimensões: acesso a saneamento básico, qualidade habitacional, grau de escolaridade do chefe de família e disponibilidade de renda. Quanto maior o índice, maior o desenvolvimento social de determinada área. O índice de Theil mede a desigualdade da distribuição de renda domiciliar per capita. Seu cálculo é feito a partir do logaritmo da razão entre as médias aritmética e geométrica das rendas individuais. Quanto maior o seu valor, maior a concentração de renda. A proporção de área de parques, praças e jardins foi um indicador idealizado no presente estudo com a finalidade de estimar condições ambientais favoráveis à prática de atividade física de lazer, como a proporção (%) da área de cada bairro ocupada por parques urbanos, praças e jardins.</p>
+			<p>A interdependência entre indivíduos que residiam em um mesmo bairro foi considerada, adotando-se modelos hierárquicos com indivíduos aninhados nos bairros. Foram estimadas razões de chances (RC) e seus respectivos intervalos de confiança de 95%, brutas e ajustadas, por variáveis individuais e contextuais com a utilização de três grupos de modelos de regressão logística multinível com intercepto aleatório. No grupo de modelos 1, foram estimadas as RC brutas; no grupo de modelos 2, cada variável contextual foi ajustada, em separado, pelas variáveis individuais; e no modelo 3 foram mutuamente ajustadas. Foram utilizados o algoritmo <italic>Restricted Iterative Generalized Least Squares</italic> e o método de estimação <italic>Penalized Quasilikelihood</italic> de segunda ordem.</p>
+			<p>Após o ajuste dos modelos, foram calculados os coeficientes de partição de variância para o modelo vazio e modelo final (modelo 3) segundo o método de simulação proposto por Goldstein et al<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref> A adequação dos modelos foi analisada via diagnósticos dos resíduos nos dois níveis de análise. Todos os procedimentos foram realizados no programa MLWin versão 2.02.</p>
+			<p>O número de indivíduos por bairro variou entre 1 e 214, com média de 17,3 indivíduos. A população do estudo foi formada, predominantemente, por funcionários do sexo feminino, com idade entre 31 e 40 anos, nível superior completo, renda familiar per capita maior que seis salários mínimos e com união conjugal estável (<xref ref-type="table" rid="t01">Tabela 1</xref>).</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Distribuição das variáveis individuais entre participantes do Estudo Pró-Saúde. Rio de Janeiro, RJ, 1999.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="33%">
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Variável</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Atividade física de lazer<sup>a</sup>
+								</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">1.148</td>
+								<td align="center">42,9</td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">1.526</td>
+								<td align="center">57,1</td>
+							</tr>
+							<tr>
+								<td>Sexo</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Masculino</td>
+								<td align="center">1.136</td>
+								<td align="center">42,5</td>
+							</tr>
+							<tr>
+								<td> Feminino</td>
+								<td align="center">1.538</td>
+								<td align="center">57,5</td>
+							</tr>
+							<tr>
+								<td>Idade (anos)</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 20 a 30</td>
+								<td align="center">427</td>
+								<td align="center">16,0</td>
+							</tr>
+							<tr>
+								<td> 31 a 40</td>
+								<td align="center">1.086</td>
+								<td align="center">40,6</td>
+							</tr>
+							<tr>
+								<td> 41 a 50</td>
+								<td align="center">874</td>
+								<td align="center">32,7</td>
+							</tr>
+							<tr>
+								<td> &gt; 50</td>
+								<td align="center">286</td>
+								<td align="center">10,7</td>
+							</tr>
+							<tr>
+								<td>Escolaridade</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Até Ensino Fundamental completo</td>
+								<td align="center">491</td>
+								<td align="center">18,4</td>
+							</tr>
+							<tr>
+								<td> Ensino Médio completo</td>
+								<td align="center">955</td>
+								<td align="center">35,7</td>
+							</tr>
+							<tr>
+								<td> Ensino Superior completo ou mais</td>
+								<td align="center">1.207</td>
+								<td align="center">45,1</td>
+							</tr>
+							<tr>
+								<td>Renda per capita familiar (SM)</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> &lt; 3</td>
+								<td align="center">572</td>
+								<td align="center">22,5</td>
+							</tr>
+							<tr>
+								<td> 3 a 6</td>
+								<td align="center">954</td>
+								<td align="center">37,6</td>
+							</tr>
+							<tr>
+								<td> &gt; 6</td>
+								<td align="center">1.014</td>
+								<td align="center">39,9</td>
+							</tr>
+							<tr>
+								<td>Situação conjugal</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Solteiro(a)</td>
+								<td align="center">593</td>
+								<td align="center">22,8</td>
+							</tr>
+							<tr>
+								<td> Com união conjugal estável</td>
+								<td align="center">1.535</td>
+								<td align="center">57,4</td>
+							</tr>
+							<tr>
+								<td> Separado(a) ou viúvo(a)</td>
+								<td align="center">474</td>
+								<td align="center">17,7</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>SM: Salário mínimo</p>
+						<p>
+							<sup>a</sup> Nas duas semanas prévias à pesquisa.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>A prevalência de atividade física de lazer foi estimada em 42,9%, sendo maior entre homens, com nível superior completo e renda familiar per capita maior que seis salários mínimos. Também foram encontradas maiores prevalências entre indivíduos residentes em bairros com maiores índices de Theil, de desenvolvimento social e proporções de área de parques, praças e jardins (<xref ref-type="table" rid="t02">Tabela 2</xref>).</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Prevalência de atividade física de lazer segundo variáveis individuais e contextuais de bairro de residência. Rio de Janeiro, RJ, 1999.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="33%">
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Variável</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">Prevalência (%)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Sexo</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Masculino</td>
+								<td align="center">550</td>
+								<td align="center">48,4</td>
+							</tr>
+							<tr>
+								<td> Feminino</td>
+								<td align="center">598</td>
+								<td align="center">38,9</td>
+							</tr>
+							<tr>
+								<td>Idade (anos)</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 20 a 30</td>
+								<td align="center">174</td>
+								<td align="center">40,7</td>
+							</tr>
+							<tr>
+								<td> 31 a 40</td>
+								<td align="center">472</td>
+								<td align="center">43,5</td>
+							</tr>
+							<tr>
+								<td> 41 a 50</td>
+								<td align="center">385</td>
+								<td align="center">44,1</td>
+							</tr>
+							<tr>
+								<td> &gt; 50</td>
+								<td align="center">117</td>
+								<td align="center">40,8</td>
+							</tr>
+							<tr>
+								<td>Escolaridade</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Até Ensino Fundamental completo</td>
+								<td align="center">176</td>
+								<td align="center">35,8</td>
+							</tr>
+							<tr>
+								<td> Ensino Médio completo</td>
+								<td align="center">383</td>
+								<td align="center">40,1</td>
+							</tr>
+							<tr>
+								<td> Ensino Superior completo ou mais</td>
+								<td align="center">580</td>
+								<td align="center">48,1</td>
+							</tr>
+							<tr>
+								<td>Renda per capita familiar (SM)</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> &lt; 3</td>
+								<td align="center">197</td>
+								<td align="center">34,4</td>
+							</tr>
+							<tr>
+								<td> 3 a 6</td>
+								<td align="center">368</td>
+								<td align="center">38,6</td>
+							</tr>
+							<tr>
+								<td> &gt; 6</td>
+								<td align="center">519</td>
+								<td align="center">51,2</td>
+							</tr>
+							<tr>
+								<td>Situação conjugal</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Solteiro(a)</td>
+								<td align="center">257</td>
+								<td align="center">43,3</td>
+							</tr>
+							<tr>
+								<td> Com união conjugal estável</td>
+								<td align="center">671</td>
+								<td align="center">43,7</td>
+							</tr>
+							<tr>
+								<td> Separado(a) ou viúvo(a)</td>
+								<td align="center">182</td>
+								<td align="center">38,4</td>
+							</tr>
+							<tr>
+								<td>Índice de Theil (quintis)</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0,26-0,36</td>
+								<td align="center">177</td>
+								<td align="center">41,6</td>
+							</tr>
+							<tr>
+								<td> 0,37-0,40</td>
+								<td align="center">221</td>
+								<td align="center">39,4</td>
+							</tr>
+							<tr>
+								<td> 0,41-0,45</td>
+								<td align="center">186</td>
+								<td align="center">35,6</td>
+							</tr>
+							<tr>
+								<td> 0,46-0,51</td>
+								<td align="center">256</td>
+								<td align="center">46,0</td>
+							</tr>
+							<tr>
+								<td> 0,52-1,11</td>
+								<td align="center">308</td>
+								<td align="center">50,6</td>
+							</tr>
+							<tr>
+								<td>Índice de desenvolvimento social (quintis)</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0,37-0,54</td>
+								<td align="center">172</td>
+								<td align="center">32,3</td>
+							</tr>
+							<tr>
+								<td> 0,55-0,60</td>
+								<td align="center">187</td>
+								<td align="center">35,9</td>
+							</tr>
+							<tr>
+								<td> 0,61-0,65</td>
+								<td align="center">227</td>
+								<td align="center">42,0</td>
+							</tr>
+							<tr>
+								<td> 0,66-0,72</td>
+								<td align="center">221</td>
+								<td align="center">47,2</td>
+							</tr>
+							<tr>
+								<td> 0,73-0,85</td>
+								<td align="center">341</td>
+								<td align="center">55,4</td>
+							</tr>
+							<tr>
+								<td>Proporção (%) de área de parques, praças e jardins (quintis)</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0-0,15</td>
+								<td align="center">195</td>
+								<td align="center">36,9</td>
+							</tr>
+							<tr>
+								<td> 0,16-0,747</td>
+								<td align="center">186</td>
+								<td align="center">35,8</td>
+							</tr>
+							<tr>
+								<td> 0,76-2,97</td>
+								<td align="center">205</td>
+								<td align="center">48,2</td>
+							</tr>
+							<tr>
+								<td> 3,05-7,37</td>
+								<td align="center">350</td>
+								<td align="center">53,1</td>
+							</tr>
+							<tr>
+								<td> 7,41-74,87</td>
+								<td align="center">212</td>
+								<td align="center">39,2</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>SM: Salário mínimo</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>A pesquisa foi aprovada pelo Comitê de Ética em Pesquisa do Hospital Universitário Pedro Ernesto (Registro 224/1999). Foram esclarecidos o caráter voluntário da participação e a natureza confidencial das informações aos funcionários. Todos os participantes assinaram termo de consentimento livre e esclarecido.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>Nos modelos brutos (modelos 1), indivíduos dos bairros do quarto e quinto quintis do índice de Theil, terceiro, quarto e quinto quintis do índice de desenvolvimento social e terceiro e quarto quintis da proporção de área de parques, praças e jardins possuíram chances significativamente maiores de praticar atividade física de lazer comparados aos que residiam em bairros do primeiro quintil dessas variáveis. Com a inclusão de variáveis individuais (modelos 2), as associações entre índice de desenvolvimento social, proporção de área de parques, praças e jardins e atividade física de lazer ficaram atenuadas, porém permaneceram significativas. Já a associação entre o índice de Theil e a atividade física de lazer perdeu significância estatística (<xref ref-type="table" rid="t03">Tabela 3</xref>).</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Tabela 3</label>
+					<caption>
+						<title>Razões de chances (RC) brutas e ajustadas por variáveis sociodemográficas individuais e contextuais de bairro de residência. Rio de Janeiro, RJ, 1999.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup width="14%">
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left"> </th>
+								<th colspan="2" style="font-weight:normal">Modelos 1<sup>a</sup>
+								</th>
+								<th colspan="2" style="font-weight:normal">Modelos 2<sup>b</sup>
+								</th>
+								<th colspan="2" style="font-weight:normal">Modelo 3<sup>c</sup>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="7" style="font-weight:normal" align="left">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal" align="left">Variável</th>
+								<th style="font-weight:normal">RC</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">RC</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">RC</th>
+								<th style="font-weight:normal">IC95%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="2">Índice de Theil (quintil)</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0,26-0,36</td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0,37-0,40</td>
+								<td align="center">1,00</td>
+								<td align="center">0,68;1,43</td>
+								<td align="center">1,00</td>
+								<td align="center">0,73;1,40</td>
+								<td align="center">1,17</td>
+								<td align="center">0,85;1,62</td>
+							</tr>
+							<tr>
+								<td> 0,41-0,45</td>
+								<td align="center">0,76</td>
+								<td align="center">0,53;1,10</td>
+								<td align="center">0,78</td>
+								<td align="center">0,56;1,09</td>
+								<td align="center">0,86</td>
+								<td align="center">0,63;1,18</td>
+							</tr>
+							<tr>
+								<td> 0,46-0,51</td>
+								<td align="center">1,15</td>
+								<td align="center">1,02;1,66</td>
+								<td align="center">1,13</td>
+								<td align="center">0,81;1,56</td>
+								<td align="center">1,11</td>
+								<td align="center">0,81;1,52</td>
+							</tr>
+							<tr>
+								<td> 0,52-1,11</td>
+								<td align="center">1,51</td>
+								<td align="center">1,02;2,26</td>
+								<td align="center">1,35</td>
+								<td align="center">0,95;1,93</td>
+								<td align="center">1,17</td>
+								<td align="center">0,86;1,59</td>
+							</tr>
+							<tr>
+								<td colspan="3">Índice de desenvolvimento social (quintil)</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0,37-0,54</td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0,55-0,60</td>
+								<td align="center">1,19</td>
+								<td align="center">0,91;1,57</td>
+								<td align="center">1,22</td>
+								<td align="center">0,93;1,61</td>
+								<td align="center">1,41</td>
+								<td align="center">1,02;1,95</td>
+							</tr>
+							<tr>
+								<td> 0,61-0,65</td>
+								<td align="center">1,53</td>
+								<td align="center">1,17;2,02</td>
+								<td align="center">1,44</td>
+								<td align="center">1,09;1,89</td>
+								<td align="center">1,54</td>
+								<td align="center">1,12;2,12</td>
+							</tr>
+							<tr>
+								<td> 0,66-0,72</td>
+								<td align="center">1,91</td>
+								<td align="center">1,41;2,57</td>
+								<td align="center">1,75</td>
+								<td align="center">1,31;2,34</td>
+								<td align="center">1,65</td>
+								<td align="center">1,14;2,39</td>
+							</tr>
+							<tr>
+								<td> 0,73-0,85</td>
+								<td align="center">2,75</td>
+								<td align="center">2,08;3,63</td>
+								<td align="center">2,25</td>
+								<td align="center">1,70;3,00</td>
+								<td align="center">2,13</td>
+								<td align="center">1,40;3,25</td>
+							</tr>
+							<tr>
+								<td colspan="4">Proporção (%) de área de parques, praças e jardins (quintil)</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0-0,15</td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+								<td align="center">1</td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 0,16-0,747</td>
+								<td align="center">1,00</td>
+								<td align="center">0,72;1,30</td>
+								<td align="center">0,90</td>
+								<td align="center">0,69;1,19</td>
+								<td align="center">0,87</td>
+								<td align="center">0,65;1,16</td>
+							</tr>
+							<tr>
+								<td> 0,76-2,97</td>
+								<td align="center">1,60</td>
+								<td align="center">1,14;2,26</td>
+								<td align="center">1,41</td>
+								<td align="center">1,04;1,90</td>
+								<td align="center">1,20</td>
+								<td align="center">0,90;1,69</td>
+							</tr>
+							<tr>
+								<td> 3,05-7,37</td>
+								<td align="center">2,02</td>
+								<td align="center">1,49;2,74</td>
+								<td align="center">1,63</td>
+								<td align="center">1,24;2,14</td>
+								<td align="center">1,11</td>
+								<td align="center">0,76;1,62</td>
+							</tr>
+							<tr>
+								<td> 7,41-74,87</td>
+								<td align="center">1,19</td>
+								<td align="center">0,88;1,61</td>
+								<td align="center">1,05</td>
+								<td align="center">0,80;1,38</td>
+								<td align="center">1,09</td>
+								<td align="center">0,79;1,47</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>
+							<sup>a</sup> RC brutas.</p>
+						<p>
+							<sup>b</sup> RC ajustadas por sexo, idade, renda familiar per capita, escolaridade e situação conjugal.</p>
+						<p>
+							<sup>c</sup> RC ajustadas por sexo, idade, renda familiar per capita, escolaridade, situação conjugal e demais variáveis contextuais.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>No modelo 3, que incluiu todas as variáveis individuais e contextuais, somente o índice de desenvolvimento social permaneceu associado à atividade física de lazer, apresentando aumento na razão de chance com o aumento dos quintis. Assim, os residentes de bairros do quinto quintil de índice de desenvolvimento social apresentaram chance duas vezes maior (RC = 2,13; IC95% 1,40;3,25) de praticar atividade física de lazer comparados aos residentes de bairros do primeiro quintil (<xref ref-type="table" rid="t03">Tabela 3</xref>).</p>
+			<p>Os percentuais da variância não explicada atribuível a diferenças entre as vizinhanças foram 3,6% no modelo vazio e 0,03% para indivíduos nas categorias de referências das variáveis incluídas no modelo 3 (homens jovens, solteiros, com maior renda e escolaridade; e residentes de bairros com menores índices de Theil, maiores índices de desenvolvimento social e maiores proporções de área de parques, praças e jardins). A análise dos resíduos, tanto do primeiro quanto do segundo nível, apresentou distribuição normal.</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>O Rio de Janeiro apresenta grandes contrastes econômicos e sociais. Enquanto alguns bairros possuem valores elevados de índice de desenvolvimento social, outros apresentam níveis bem inferiores à média municipal. Por outro lado, a cidade possui ampla orla marítima e muitos parques e praças, propiciando condições favoráveis à prática de atividade física de lazer. Entretanto, o acesso populacional a essas condições ambientais não é homogêneo.</p>
+			<p>Neste estudo, a prática de atividade física de lazer variou significativamente segundo bairros de residência. A atividade física de lazer foi mais prevalente entre residentes de bairros com melhores condições sociais e de acesso a áreas públicas de lazer, independentemente de seus atributos individuais. No entanto, quando ajustadas de forma simultânea, as características socioambientais agrupadas no índice de desenvolvimento social mostraram-se mais importantes que as físicas na determinação da prática de atividade física de lazer. O índice de Theil associado à atividade física nos modelos brutos perdeu significância estatística ao ser ajustado pelas variáveis individuais, sugerindo que a desigualdade de renda não está associada à prática de atividade física de lazer.</p>
+			<p>As informações sobre os padrões de atividade física de lazer dos brasileiros são bastante escassas, porém vão ao encontro dos resultados apresentados neste estudo. Dados do Sistema de Vigilância de Doenças Crônicas por Inquérito Telefônico (Vigitel) relativos a 2011 indicam prevalência de atividade física de lazer de 30,0% nas capitais, sendo maior entre homens (40,0%) em comparação a mulheres (22,0%), e com aumento conforme escolaridade em ambos os sexos.<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref>
+			</p>
+			<p>As prevalências mais elevadas observadas no presente estudo (42,9%) podem ser explicadas por características da população estudada (economicamente ativa e com nível de escolaridade mais elevado). Além disso, foram classificados como ativos os indivíduos que relataram ter praticado atividade física de lazer nas duas semanas prévias à pesquisa; em contraste, em inquéritos como o Vigitel<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> indivíduos ativos no lazer foram aqueles que praticavam atividades leves ou moderadas em cinco dias ou mais da semana por pelo menos 30 min e/ou atividades vigorosas em três dias ou mais na semana por pelo menos 20 min. Assim, foram classificados como ativos os indivíduos que praticavam atividade física de lazer de forma mais esporádica e em menor intensidade, gerando, portanto, prevalências de atividade física de lazer mais elevadas.</p>
+			<p>Tradicionalmente, iniciativas de promoção da saúde de incentivo à prática de atividade física são baseadas em medidas educativas que enfatizam mudanças de comportamento individuais. No entanto, essa abordagem focada exclusivamente no indivíduo tem se mostrado insuficiente para o incremento populacional da atividade física de lazer. Atenção crescente vem sendo concedida ao papel de mudanças profundas ocorridas nas características dos ambientes físicos, sociais e construídos pelo homem – variando desde espaços como edifícios e parques até infraestrutura de bairros e cidades, tais como abastecimento de água ou redes de energia – com influências potencialmente fortes sobre os padrões populacionais de atividade física, podendo-se afirmar que o crescente sedentarismo não está restrito à esfera das escolhas individuais.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref>
+			</p>
+			<p>Sob essa perspectiva ampliada, estudos internacionais, realizados sobretudo desde 2000 nos Estados Unidos, Austrália e países europeus, mostram que algumas características contextuais da região de moradia estão consistentemente associadas à atividade física de lazer. Há maior chance de ser fisicamente ativo entre residentes de vizinhanças com: acesso a locais propícios à prática de atividade física de lazer, melhores condições de trânsito, calçadas, ciclovias e trilhas; segurança, iluminação das vias urbanas; facilidades de deslocamento, presença de árvores e paisagens agradáveis; proximidade de parques, áreas de lazer, orla marítima e áreas verdes.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> Por outro lado, residentes de vizinhanças que privilegiam o acúmulo de rodovias e a utilização de automóveis, ou que tornem a prática de atividade física insegura – em decorrência da falta de calçadas e faixas de pedestres ou devido a taxas elevadas de violência –, possuem chances aumentadas de serem sedentários.<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref>
+			</p>
+			<p>Apesar de escassos, de forma geral, os estudos brasileiros apresentam associações entre atividade física de lazer e características contextuais de vizinhanças. Dados da população adulta das capitais brasileiras para o ano de 2006 coletados pelo Vigitel<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> mostraram associações diretas entre prática de atividade física de lazer e proximidade da residência dos respondentes com locais que propiciam a atividade física de lazer.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> Em outro estudo,<xref ref-type="bibr" rid="B22">
+					<sup>22</sup>
+				</xref> realizado com população idosa do município de São Paulo, SP, a atividade física de lazer esteve associada, entre os homens, à percepção de segurança, presença de quadras e academias e proximidade de agências bancárias ou posto de saúde. Para mulheres, morar próximo a igrejas e a presença de praças e academias na área de residência foram associados ao aumento da atividade física de lazer. Por outro lado, estudo realizado com população adulta de São Paulo participante do Vigitel<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref> não encontrou associação entre densidade de parques e instalações/equipamentos públicos para prática de atividade física nas áreas de moradia e atividade física de lazer.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>Em estudo realizado em 11 países (Bélgica, Brasil, Canadá, Colômbia, China, Estados Unidos, Japão, Lituânia, Noruega, Nova Zelândia e Suécia) com métodos padronizados de captação da informação sobre atividade física e características da vizinhança, cinco entre sete variáveis sobre o contexto foram associadas à atividade física em todos os países, permitindo a generalização dos resultados em países economicamente privilegiados para outros de renda média e baixa.<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> A variável contextual que mais esteve associada com a prática de atividade física foi a presença de calçadas na maior parte das ruas da vizinhança.<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> Esse resultado reforça a ideia de que estratégias simples e não onerosas podem estimular diversas atividades relacionadas ao lazer e ao deslocamento, como caminhada, corrida, patinação e ciclismo.<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+				<sup>, </sup>
+				<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref>
+			</p>
+			<p>Em relação especificamente às áreas verdes e parques públicos, quando localização, acesso e condições de manutenção e de segurança são convenientes, os estudos revelam associações diretas com atividade física de lazer devido ao baixo (ou nenhum) custo, presença de espaços agradáveis ligados à natureza, compartilhamento do espaço com outras pessoas fisicamente ativas e maior interação e coesão social. Além disso, locais onde há mais árvores e áreas verdes estão associados à menor frequência de crimes, agressão e violência.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref>
+			</p>
+			<p>A presença de parques na vizinhança está associada a benefícios que vão além da saúde física e mental. Associa-se também a benefícios sociais (e.g., ampliação da interação social), econômicos (e.g., ampliação de restaurantes e lojas nas proximidades) e ambientais (e.g., redução da poluição do ar).<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref> Por outro lado, o acesso a esses espaços não é igualitário: nos Estados Unidos, minorias raciais, pobres, idosos e mulheres têm menos acesso a espaços que propiciem a prática de atividade física de lazer.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> Diez-Roux et al encontraram associação entre acesso a áreas de lazer e prática de atividade física de lazer entre indivíduos afro-americanos e latinos, porém não houve associação entre brancos,<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> o que mostra a complexidade das interações entre o contexto e os comportamentos individuais. Essas desigualdades de acesso poderiam explicar achados relacionados à desigualdade de raça/etnia e socioeconômica a respeito, e.g., da obesidade.<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref>
+			</p>
+			<p>Algumas limitações podem ter influenciado os resultados encontrados neste estudo. Primeiro, a escolha pelo bairro de moradia por pessoas fisicamente ativas pode ter sido influenciada pela constatação da facilidade de seu acesso a ambientes favoráveis à atividade física de lazer. Segundo, apesar de a proporção de área de parques, praças e jardins servir como marcadora de acesso a ambientes de lazer, espaços relacionados à atividade física de lazer como praias e ciclovias não fizeram parte das análises por não integrarem os bancos de dados disponíveis, o que pode ter diluído a associação entre essa variável e a atividade física de lazer. Terceiro, como os bairros do Rio de Janeiro são muito heterogêneos, a capacidade de distinguir diferenças “interbairros” ficou diminuída, como indicado pelo coeficiente de partição de variância do modelo vazio. No entanto, a escolha por unidades menores de análise e, portanto, mais homogêneas faria com que o número de indivíduos ficasse muito reduzido dentro de cada unidade. Finalmente, o período a que a variável atividade física de lazer se refere – somente duas semanas prévias à pesquisa – não garante que se trate de hábito constante; além disso, a análise não incorporou outras dimensões, como tipo, frequência, intensidade e duração da atividade física de lazer. Por outro lado, a experiência de população residente em região heterogênea e com contrastes econômicos, étnico/raciais e sociais permitiu a ampliação do entendimento da interação existente entre comportamentos em saúde e efeitos do ambiente na determinação da atividade física de lazer.</p>
+			<p>Em síntese, os dados sugerem que a ampliação do acesso a espaços públicos de lazer é importante medida de promoção à saúde em nível coletivo. Contudo, melhores condições sociais podem influenciar mais fortemente a possibilidade de indivíduos praticarem atividade física de lazer, independentemente de seus atributos individuais e do acesso potencial que esses indivíduos possuam a espaços de lazer. Esses resultados vão ao encontro de teorias sobre interação dinâmica entre indivíduos e o contexto onde vivem, que postulam que a maioria dos comportamentos e desfechos em saúde não são distribuídos aleatoriamente em regiões ou populações.<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+			</p>
+			<p>No caso da atividade física de lazer, componentes contextuais mostraram-se tão ou mais determinantes para sua prática que os individuais. Assim, conclui-se que o enfoque para um estilo de vida ativo, ainda muito baseado em ações educacionais no nível do indivíduo, precisa ser direcionado também a melhorias de aspectos contextuais como dos ambientes urbanos, sobretudo as condições sociais.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Bedimo-Rung AL, Mowen AJ, Cohen DA. The significance of parks to physical activity and public health: a conceptual model. Am J Prev Med. 2005;28(2Suppl2):159-68. DOI:10.1016/j.amepre.2004.10.024</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bedimo-Rung</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Mowen</surname>
+							<given-names>AJ</given-names>
+						</name>
+						<name>
+							<surname>Cohen</surname>
+							<given-names>DA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The significance of parks to physical activity and public health: a conceptual model</article-title>
+					<source>Am J Prev Med</source>
+					<year>2005</year>
+					<volume>28</volume>
+					<issue>2</issue>
+					<supplement>2</supplement>
+					<fpage>159</fpage>
+					<lpage>168</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.amepre.2004.10.024</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Blakely T, Subramanian, SV. Multilevel studies. In: Oakes JM, Kaufman JS, editors. Methods in social epidemiology. San Francisco: Jossey-Bass; 2006. p. 316-40.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Blakely</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Subramanian</surname>
+							<given-names>SV</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="en">Multilevel studies</chapter-title>
+					<person-group>
+						<name>
+							<surname>Oakes</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Kaufman</surname>
+							<given-names>JS</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Methods in social epidemiology</source>
+					<publisher-loc>San Francisco</publisher-loc>
+					<publisher-name>Jossey-Bass</publisher-name>
+					<year>2006</year>
+					<fpage>316</fpage>
+					<lpage>340</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Diez-Roux AV. Multilevel analysis in public health research. Annu Rev Public Health. 2000;21:171-92. DOI:10.1146/annurev.publhealth.21.1.171</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Diez-Roux</surname>
+							<given-names>AV</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Multilevel analysis in public health research</article-title>
+					<source>Annu Rev Public Health</source>
+					<year>2000</year>
+					<volume>21</volume>
+					<fpage>171</fpage>
+					<lpage>192</lpage>
+					<pub-id pub-id-type="doi">10.1146/annurev.publhealth.21.1.171</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Diez-Roux AV, Evenson KR, McGinn AP, Brown DG, Moore L, Brines S,  et al. Availability of recreational resources and physical activity in adults. Am J Public Health. 2007;97(3):493-9. DOI:10.2105/AJPH.2006.087734</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Diez-Roux</surname>
+							<given-names>AV</given-names>
+						</name>
+						<name>
+							<surname>Evenson</surname>
+							<given-names>KR</given-names>
+						</name>
+						<name>
+							<surname>McGinn</surname>
+							<given-names>AP</given-names>
+						</name>
+						<name>
+							<surname>Brown</surname>
+							<given-names>DG</given-names>
+						</name>
+						<name>
+							<surname>Moore</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Brines</surname>
+							<given-names>S</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Availability of recreational resources and physical activity in adults</article-title>
+					<source>Am J Public Health</source>
+					<year>2007</year>
+					<volume>97</volume>
+					<issue>3</issue>
+					<fpage>493</fpage>
+					<lpage>499</lpage>
+					<pub-id pub-id-type="doi">10.2105/AJPH.2006.087734</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Faerstein E, Lopes CS, Valente K, Plá MAS, Ferreira MB. Pré-testes e um questionário multidimensional autopreenchível: a experiência do Estudo Pró-Saúde UERJ. Physis. 1999;9(2):117-30. DOI:10.1590/S0103-73311999000200007</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Faerstein</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>CS</given-names>
+						</name>
+						<name>
+							<surname>Valente</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Plá</surname>
+							<given-names>MAS</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>MB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Pré-testes e um questionário multidimensional autopreenchível: a experiência do Estudo Pró-Saúde UERJ</article-title>
+					<source>Physis</source>
+					<year>1999</year>
+					<volume>9</volume>
+					<issue>2</issue>
+					<fpage>117</fpage>
+					<lpage>130</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0103-73311999000200007</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Faerstein E, Chor D, Lopes CS, Werneck GL. Estudo Pró-Saúde: características gerais e aspectos metodológicos Rev Bras Epidemiol. 2005;8(4):454-66. DOI:10.1590/S1415-790X2005000400014</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Faerstein</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Chor</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>CS</given-names>
+						</name>
+						<name>
+							<surname>Werneck</surname>
+							<given-names>GL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Estudo Pró-Saúde: características gerais e aspectos metodológicos</article-title>
+					<source>Rev Bras Epidemiol</source>
+					<year>2005</year>
+					<volume>8</volume>
+					<issue>4</issue>
+					<fpage>454</fpage>
+					<lpage>466</lpage>
+					<pub-id pub-id-type="doi">10.1590/S1415-790X2005000400014</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Florey LS, Galea S, Wilson ML. Macrosocial Determinants of population health in the context of globalization. In: Galea S, editor. Macrosocial determinants of population health. New York: Springer; 2007. p. 15-51.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Florey</surname>
+							<given-names>LS</given-names>
+						</name>
+						<name>
+							<surname>Galea</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Wilson</surname>
+							<given-names>ML</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="en">Macrosocial Determinants of population health in the context of globalization</chapter-title>
+					<person-group>
+						<name>
+							<surname>Galea</surname>
+							<given-names>S</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Macrosocial determinants of population health</source>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>Springer</publisher-name>
+					<year>2007</year>
+					<fpage>15</fpage>
+					<lpage>51</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Florindo AA, Hallal PC, Moura EC, Malta DC. Prática de atividade física e fatores associados em adultos, Brasil, 2006. Rev Saude Publica. 2009;43(Suppl 2):65-73. DOI:10.1590/S0034-89102009000900009</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Florindo</surname>
+							<given-names>AA</given-names>
+						</name>
+						<name>
+							<surname>Hallal</surname>
+							<given-names>PC</given-names>
+						</name>
+						<name>
+							<surname>Moura</surname>
+							<given-names>EC</given-names>
+						</name>
+						<name>
+							<surname>Malta</surname>
+							<given-names>DC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Prática de atividade física e fatores associados em adultos, Brasil, 2006</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2009</year>
+					<volume>43</volume>
+					<supplement>2</supplement>
+					<fpage>65</fpage>
+					<lpage>73</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102009000900009</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Galea S. Integrative chapter: macrosocial determinants of population health. In: Galea S, editor. Macrosocial determinants of population health. New York: Springer; 2007. p. 295-7.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Galea</surname>
+							<given-names>S</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="en">Integrative chapter: macrosocial determinants of population health</chapter-title>
+					<person-group>
+						<name>
+							<surname>Galea</surname>
+							<given-names>S</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Macrosocial determinants of population health</source>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>Springer</publisher-name>
+					<year>2007</year>
+					<fpage>295</fpage>
+					<lpage>297</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Garber CE, Blissmer B, Deschenes MR, Franklin BA, Lamonte MJ, Lee IM,  et al. Quantity and quality of exercise for developing and maintaining cardiorespiratory, musculoskeletal, and neuromotor fitness in apparently healthy adults: guidance for prescribing exercise. Med Sci Sports Exerc. 2011;43(7):1334-59. DOI:10.1249/MSS.0b013e318213fefb</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Garber</surname>
+							<given-names>CE</given-names>
+						</name>
+						<name>
+							<surname>Blissmer</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Deschenes</surname>
+							<given-names>MR</given-names>
+						</name>
+						<name>
+							<surname>Franklin</surname>
+							<given-names>BA</given-names>
+						</name>
+						<name>
+							<surname>Lamonte</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>IM</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Quantity and quality of exercise for developing and maintaining cardiorespiratory, musculoskeletal, and neuromotor fitness in apparently healthy adults: guidance for prescribing exercise</article-title>
+					<source>Med Sci Sports Exerc</source>
+					<year>2011</year>
+					<volume>43</volume>
+					<issue>7</issue>
+					<fpage>1334</fpage>
+					<lpage>1359</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Goldstein H, Browne WJ, Rasbash J. Partitioning variation in multilevel models. Underst Stat. 2002;1(4):223-31. DOI:10.1207/S15328031US0104_02</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Goldstein</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Browne</surname>
+							<given-names>WJ</given-names>
+						</name>
+						<name>
+							<surname>Rasbash</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Partitioning variation in multilevel models</article-title>
+					<source>Underst Stat</source>
+					<year>2002</year>
+					<volume>1</volume>
+					<issue>4</issue>
+					<fpage>223</fpage>
+					<lpage>231</lpage>
+					<pub-id pub-id-type="doi">10.1207/S15328031US0104_02</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Jaime PC, Duran AC, Sarti FM, Lock K. Investigating environmental determinants of diet, physical activity, and overweight among adults in São Paulo, Brazil. J Urban Health. 2011;88(3):567-81.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Jaime</surname>
+							<given-names>PC</given-names>
+						</name>
+						<name>
+							<surname>Duran</surname>
+							<given-names>AC</given-names>
+						</name>
+						<name>
+							<surname>Sarti</surname>
+							<given-names>FM</given-names>
+						</name>
+						<name>
+							<surname>Lock</surname>
+							<given-names>K</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Investigating environmental determinants of diet, physical activity, and overweight among adults in São Paulo, Brazil</article-title>
+					<source>J Urban Health</source>
+					<year>2011</year>
+					<volume>88</volume>
+					<issue>3</issue>
+					<fpage>567</fpage>
+					<lpage>581</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Kaczynski AT, Potwarka LR, Saelens BE. Association of park size, distance, and features with physical activity in neighborhood parks. Am J Public Health. 2008;98(8):1451-6. DOI:10.2105/AJPH.2007.129064</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Kaczynski</surname>
+							<given-names>AT</given-names>
+						</name>
+						<name>
+							<surname>Potwarka</surname>
+							<given-names>LR</given-names>
+						</name>
+						<name>
+							<surname>Saelens</surname>
+							<given-names>BE</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Association of park size, distance, and features with physical activity in neighborhood parks</article-title>
+					<source>Am J Public Health</source>
+					<year>2008</year>
+					<volume>98</volume>
+					<issue>8</issue>
+					<fpage>1451</fpage>
+					<lpage>1456</lpage>
+					<pub-id pub-id-type="doi">10.2105/AJPH.2007.129064</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Lee ACK, Maheswaran R. The health benefits of urban green spaces: a review of the evidence. J Public Health. 2011;33(2):212-22. DOI:10.1093/pubmed/fdq068</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Lee</surname>
+							<given-names>ACK</given-names>
+						</name>
+						<name>
+							<surname>Maheswaran</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The health benefits of urban green spaces: a review of the evidence</article-title>
+					<source>J Public Health</source>
+					<year>2011</year>
+					<volume>33</volume>
+					<issue>2</issue>
+					<fpage>212</fpage>
+					<lpage>222</lpage>
+					<pub-id pub-id-type="doi">10.1093/pubmed/fdq068</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Messes LC, Kaufman JS. Using Census Data to approximate neighborhood. In: Oakes JM, Kaufman JS, editors. Methods in social epidemiology. San Francisco: Jossey-Bass; 2006. p. 209-38.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Messes</surname>
+							<given-names>LC</given-names>
+						</name>
+						<name>
+							<surname>Kaufman</surname>
+							<given-names>JS</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="en">Using Census Data to approximate neighborhood</chapter-title>
+					<person-group>
+						<name>
+							<surname>Oakes</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Kaufman</surname>
+							<given-names>JS</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Methods in social epidemiology</source>
+					<publisher-loc>San Francisco</publisher-loc>
+					<publisher-name>Jossey-Bass</publisher-name>
+					<year>2006</year>
+					<fpage>209</fpage>
+					<lpage>238</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. O’ Campo P, Caughy MO. Measures of residential community contexts In: Oakes JM, Kaufman JS, editors. Methods in social epidemiology. San Francisco: Jossey-Bass; 2006. p. 193-208.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>O’ Campo</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Caughy</surname>
+							<given-names>MO</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="en">Measures of residential community contexts</chapter-title>
+					<person-group>
+						<name>
+							<surname>Oakes</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Kaufman</surname>
+							<given-names>JS</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Methods in social epidemiology</source>
+					<publisher-loc>San Francisco</publisher-loc>
+					<publisher-name>Jossey-Bass</publisher-name>
+					<year>2006</year>
+					<fpage>193</fpage>
+					<lpage>208</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Popkin BM, Duffey K, Gordon-Larsen P. Environmental influences on food choice, physical activity and energy balance. Physiol Behav. 2005;86(5):603-13. DOI:10.1016/j.physbeh.2005.08.051</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Popkin</surname>
+							<given-names>BM</given-names>
+						</name>
+						<name>
+							<surname>Duffey</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Gordon-Larsen</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Environmental influences on food choice, physical activity and energy balance</article-title>
+					<source>Physiol Behav</source>
+					<year>2005</year>
+					<volume>86</volume>
+					<issue>5</issue>
+					<fpage>603</fpage>
+					<lpage>613</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.physbeh.2005.08.051</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Sallis, JF, Cervero RB, Ascher W, Henderson KA, Kraft MH, Kerr J. An ecological approach to creating active living communities. Annu Rev Public Health. 2006;27:297-322. DOI:10.1146/annurev.publhealth.27.021405.102100</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Sallis</surname>
+							<given-names>JF</given-names>
+						</name>
+						<name>
+							<surname>Cervero</surname>
+							<given-names>RB</given-names>
+						</name>
+						<name>
+							<surname>Ascher</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Henderson</surname>
+							<given-names>KA</given-names>
+						</name>
+						<name>
+							<surname>Kraft</surname>
+							<given-names>MH</given-names>
+						</name>
+						<name>
+							<surname>Kerr</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">An ecological approach to creating active living communities</article-title>
+					<source>Annu Rev Public Health</source>
+					<year>2006</year>
+					<volume>27</volume>
+					<fpage>297</fpage>
+					<lpage>322</lpage>
+					<pub-id pub-id-type="doi">10.1146/annurev.publhealth.27.021405.102100</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Sallis JF, Glanz K. Physical activity and food environments: solutions to the obesity epidemic. Milbank Q. 2009;87(1):123-54. DOI:10.1111/j.1468-0009.2009.00550.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Sallis</surname>
+							<given-names>JF</given-names>
+						</name>
+						<name>
+							<surname>Glanz</surname>
+							<given-names>K</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Physical activity and food environments: solutions to the obesity epidemic</article-title>
+					<source>Milbank Q</source>
+					<year>2009</year>
+					<volume>87</volume>
+					<issue>1</issue>
+					<fpage>123</fpage>
+					<lpage>154</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1468-0009.2009.00550.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Sallis JF. Measuring physical activity environments a brief history. Am J Prev Med. 2009;36(4Suppl):86-92.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Sallis</surname>
+							<given-names>JF</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Measuring physical activity environments a brief history</article-title>
+					<source>Am J Prev Med</source>
+					<year>2009</year>
+					<volume>36</volume>
+					<issue>4</issue>
+					<fpage>86</fpage>
+					<lpage>92</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Sallis JF, Bowles RH, Bauman A, Ainsworth BE, Bull FC, Craig CL. Neighborhood environments and physical activity among adults in 11 countries. Am J Prev Med. 2009;36(6):484-90. DOI:10.1016/j.amepre.2009.01.031</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Sallis</surname>
+							<given-names>JF</given-names>
+						</name>
+						<name>
+							<surname>Bowles</surname>
+							<given-names>RH</given-names>
+						</name>
+						<name>
+							<surname>Bauman</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Ainsworth</surname>
+							<given-names>BE</given-names>
+						</name>
+						<name>
+							<surname>Bull</surname>
+							<given-names>FC</given-names>
+						</name>
+						<name>
+							<surname>Craig</surname>
+							<given-names>CL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Neighborhood environments and physical activity among adults in 11 countries</article-title>
+					<source>Am J Prev Med</source>
+					<year>2009</year>
+					<volume>36</volume>
+					<issue>6</issue>
+					<fpage>484</fpage>
+					<lpage>490</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.amepre.2009.01.031</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Salvador EP, Florindo AA, Reis RS, Costa EF. Percepção do ambiente e prática de atividade física no lazer entre idosos. Rev Saude Publica. 2009;43(6):972-80. DOI:10.1590/S0034-89102009005000082</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Salvador</surname>
+							<given-names>EP</given-names>
+						</name>
+						<name>
+							<surname>Florindo</surname>
+							<given-names>AA</given-names>
+						</name>
+						<name>
+							<surname>Reis</surname>
+							<given-names>RS</given-names>
+						</name>
+						<name>
+							<surname>Costa</surname>
+							<given-names>EF</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Percepção do ambiente e prática de atividade física no lazer entre idosos</article-title>
+					<source>Rev Saude Publica</source>
+					<year>2009</year>
+					<volume>43</volume>
+					<issue>6</issue>
+					<fpage>972</fpage>
+					<lpage>980</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0034-89102009005000082</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>. Santos SM, Chor D, Werneck GL, Coutinho ESF. Associação entre fatores contextuais e auto-avaliação de saúde: uma revisão sistemática de estudos multinível. Cad Saude Publica. 2007;23(11):2533-54. DOI:10.1590/S0102-311X2007001100002</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Santos</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Chor</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Werneck</surname>
+							<given-names>GL</given-names>
+						</name>
+						<name>
+							<surname>Coutinho</surname>
+							<given-names>ESF</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Associação entre fatores contextuais e auto-avaliação de saúde: uma revisão sistemática de estudos multinível</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2007</year>
+					<volume>23</volume>
+					<issue>11</issue>
+					<fpage>2533</fpage>
+					<lpage>2554</lpage>
+					<pub-id pub-id-type="doi">10.1590/S0102-311X2007001100002</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>. Stanis, SAW, Schneider IE, Pereira MA. Parks and health: differences in constraints ad negotiation strategies for park-based leisure time physical activity by stage of change. J Phys Act Health. 2010;7(2):273-84.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Stanis</surname>
+							<given-names>SAW</given-names>
+						</name>
+						<name>
+							<surname>Schneider</surname>
+							<given-names>IE</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>MA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Parks and health: differences in constraints ad negotiation strategies for park-based leisure time physical activity by stage of change</article-title>
+					<source>J Phys Act Health</source>
+					<year>2010</year>
+					<volume>7</volume>
+					<issue>2</issue>
+					<fpage>273</fpage>
+					<lpage>284</lpage>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Committee on Physical Activity, Health, Transportation and Land Use. Does the built environment influence physical activity? Examing the evidence – special report. Washington (DC); 2005.</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> Governo do Estado do Rio de Janeiro. Fundação Parques e Jardins - Diretoria de Planejamento, Julho de 1999, Tabela 1199. Rio de Janeiro; 1999 [citado 2013 Mar 17]. Disponível em: http://www.armazemdedados.rio.rj.gov.br/</p>
+			</fn>
+			<fn id="fn3">
+				<label>c</label>
+				<p> Ministério da Saúde. Secretaria de Vigilância em Saúde. Vigitel Brasil 2011: vigilância de fatores de risco e proteção para doenças crônicas por inquérito telefônico. Brasília (DF); 2012. p. 132.</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Neighborhood contextual characteristics and leisure-time physical activity: <italic>Pró-Saúde</italic> Study</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
+				</corresp>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To estimate the association between neighborhood contextual variables and leisure-time physical activity.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>Data were analyzed for 2,674 adults from Rio de Janeiro, RJ, Southeastern Brazil, participating in the longitudinal study in 1999. Leisure-time physical activity in the two preceding weeks was assessed dichotomously. Sex, age, income, education and marital status were analyzed as individual variables. Neighborhood contextual characteristics were the social development index, the Theil index and the proportion of the area occupied by parks, squares and gardens, categorized in quintiles. The unadjusted and adjusted odds ratios and 95% confidence intervals were estimated using multilevel logistic regression.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>The prevalence of leisure-time physical activity was higher in residents in neighborhoods with higher indices of social development (between 32.3% and 53.1%) and a greater proportion of parks, squares and gardens (between 35.8% and 53.1%). Regarding the social development index, the adjusted odds ratios for physical activity were 1.22 (95%CI 0.93;1.61), 1.44 (95%CI 1.09;1.89), 1.75 (95%CI 1.31;2.34) and 2.25 (95%CI 1.70;3.00) for residents in neighborhoods in the second, third, fourth and fifth quintiles, respectively, compared with residents in neighborhoods in the first quintile. The odds ratios for the proportion of parks, squares and gardens were 0.90 (95%CI 0.69;1.19), 1.41 (95%CI 1.04;1.90), 1.63 (95%CI 1.24;2.14) and 1.05 (95%CI 0.80;1.38) for residents in neighborhoods in the second, third, fourth and fifth quintiles. After adjusting for the other variables, only the social development index continued to be associated with leisure-time physical activity, with odds ratios of 1.41 (95%CI 1.02;1.95); 1.54 (95%CI 1.12;2.12); 1.65 (95%CI 1.14;2.39) and 2.13 (95%CI 1.40;3.25) for residents in neighborhoods in the second, third, fourth and fifth quintiles.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>Leisure-time physical activity was more common in residents in neighborhoods with higher social development indices. No association was observed between access to leisure areas and income inequality.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Activities of Daily Living</kwd>
+				<kwd>Leisure Activities</kwd>
+				<kwd>Sedentary Lifestyle</kwd>
+				<kwd>Motor Activity</kwd>
+				<kwd>Green Areas</kwd>
+				<kwd>Environmental Health</kwd>
+				<kwd>Multilevel Analysis</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>The beneficial effects of physical activity on health are well documented in scientific literature.<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> However, a pattern of generally decreasing levels of physical activity in the population has been observed in recent decades, due to increased mechanization of work processes and daily activities. Thus, leisure-time physical activity has come to play an increased role in meeting daily needs for calorie expenditure.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref>
+				</p>
+				<p>In addition to the influence of individual factors such as age, sex, schooling and others, characteristics of the context in which individuals finds themselves, such as the places in which they live and their neighborhoods, can also influence the practice of leisure-time physical activities.<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+				</p>
+				<p>Although there is no consensus on a working definition, approaches using neighborhoods as a unit of analysis are increasingly being used in epidemiological studies.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref> In general, neighborhoods are understood as geographically demarcated spaces where, in addition to its physical characteristics, residents share political, cultural and economic circumstances.<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> Florey et al (2007) define neighborhoods as any geographical aggregate which has this meaning for the local residents.<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref>
+				</p>
+				<p>Studies on the influence of neighborhood characteristics on health outcomes show how individual health and life style related behavior is not randomly distributed among regions and populations, that there are dynamic and complex interactions between individuals and their contexts.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> Multilevel analyses, including multiple hierarchical levels to evaluate outcomes at an individual level, are more appropriate for these types of studies, as they provide a more refined estimate not only of the contribution of variables related to the individual but also those of the context, as well as enabling unforeseen inferences due to better estimation of standard error of the parameters to be estimated.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref>
+				</p>
+				<p>Despite the significant increase in health research including the neighborhood as a unit of analysis and using a multilevel approach, there is little research on the influence of context factors on leisure-time physical activity.</p>
+				<p>The aim of this study was to estimate the association between contextual characteristics of the neighborhood and the practice of leisure-time physical activity.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>The Pró-Saúde study, with a longitudinal design, was conducted with university technical-administrative workers in Rio de Janeiro, RJ, Southeastern Brazil, and focused mainly on social determinants of health and health-related behavior.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> The eligible population was 4,459 workers, of whom 4,030 (90.4%) had participated in the first phase of the study in 1999. Of these participants, 3,141 resided in the municipality of Rio de Janeiro, RJ. In the analyses presented in this study, data relating to 2,674 residents in 144 neighborhoods are included, after excluding those participants for whom data were not provided (home address: 97; leisure-time physical activity: 307) and another 63 who, for health-related reasons, were unable to do some of their regular activities during the period.</p>
+				<p>Individual data were collected using questionnaires which the workers completed themselves at their workplace. Data and process quality were guaranteed using methods such as a pilot study, instrument reliability (test-retest) and independent double entry procedures.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref>
+				</p>
+				<p>Leisure-time physical activity was evaluated dichotomously and self-reported by participants using the question: “In the last two weeks have you done some kind of physical activity to improve your health, physical condition or with aesthetic or leisure objectives?” Other individual variables considered were sex, age in years (&lt; 30, 31-40, 41-50, &gt; 50); <italic>per capita</italic> household income in minimum wages (MW), at the time: R$ 136 and US$ 77.71 (&lt; 3 SM, 3 to 6 SM, &gt; 6 SM); schooling (up to completed elementary education, completed high school, completed higher education or above) and marital status (single, in a stable relationship, separated/widowed).</p>
+				<p>Data from the Parks and Gardens Foundation<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref> and the 2000 Demographic Census, conducted by the Brazilian Institute of Geography and Statistics (IBGE), were used to construct the contextual variables of the neighborhoods. The variables analyzed and categorized into quintiles were: social development index in 2000, Theil index in 2000, and proportion of the area occupied by parks, squares and gardens in 1999.</p>
+				<p>The social development index is an index conceptually similar to the Human Development Index (HDI). It is composed based on indicators covering four dimensions: access to basic sanitation, housing quality, head of household’s level of schooling and available income. The higher the index, the higher the social development in the specific area. The Theil index measures inequality in <italic>per capita</italic> household income distribution. It is calculated based on the logarithm of the ratio between arithmetic and geometric means of individual income. The higher the value, the greater the concentration of income. The proportion of the area occupied by parks, squares and gardens was in indicator created for this study in order to estimate environmental conditions favoring doing leisure-time physical activity through the proportion (%) of each neighborhood occupied by urban parks, squares and gardens.</p>
+				<p>Interdependence between individuals residing in the same neighborhood was considered, hierarchical models were adopted with individuals nested in the neighborhoods. The adjusted and unadjusted Likelihood ratios (LR) and their respective 95% confidence intervals were estimated for individual and contextual variables using three groups of multilevel logistic regression models with random intercept. In group 1 models, unadjusted LR were estimated; in group 2, each contextual variable was adjusted, separately, for the individual variables; and in model 3 they were mutually adjusted. The Restricted Iterative Generalized Least Squares algorithm and second order Penalized Quasi-likelihood method of estimation were used.</p>
+				<p>After adjusting the models, the variance partition coefficients were calculated for the blank and the final model (model 3), according to the simulation method proposed by Goldstein et al.<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref> Fit was analyzed by diagnosing residues at the two levels of analysis. All procedures were carried out using the MLWin program, version 2.02.</p>
+				<p>The number of individuals per neighborhood varied between 1 and 214, with a mean of 17.3 individuals. The population studied was predominantly made up of female workers, aged between 31 and 40, having completed higher education, <italic>per capita</italic> household income above six minimum wages and in stable relationships (<xref ref-type="table" rid="t01_en">Table 1</xref>).</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Distribution of individual variables between participants in the Pró-Saúde study. Rio de Janeiro, RJ, Southeastern Brazil, 1999.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="33%">
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left">Variable</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3">Leisure-time physical activity<sup>a</sup>
+									</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">1,148</td>
+									<td align="center">42.9</td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">1,526</td>
+									<td align="center">57.1</td>
+								</tr>
+								<tr>
+									<td colspan="3">Sex</td>
+								</tr>
+								<tr>
+									<td> Male</td>
+									<td align="center">1,136</td>
+									<td align="center">42.5</td>
+								</tr>
+								<tr>
+									<td> Female</td>
+									<td align="center">1,538</td>
+									<td align="center">57.5</td>
+								</tr>
+								<tr>
+									<td colspan="3">Age (years)</td>
+								</tr>
+								<tr>
+									<td> 20 to 30</td>
+									<td align="center">427</td>
+									<td align="center">16.0</td>
+								</tr>
+								<tr>
+									<td> 31 to 40</td>
+									<td align="center">1,086</td>
+									<td align="center">40.6</td>
+								</tr>
+								<tr>
+									<td> 41 to 50</td>
+									<td align="center">874</td>
+									<td align="center">32.7</td>
+								</tr>
+								<tr>
+									<td> &gt; 50</td>
+									<td align="center">286</td>
+									<td align="center">10.7</td>
+								</tr>
+								<tr>
+									<td colspan="3">Schooling</td>
+								</tr>
+								<tr>
+									<td> Up to elementary education completed</td>
+									<td align="center">491</td>
+									<td align="center">18.4</td>
+								</tr>
+								<tr>
+									<td> Completed high school</td>
+									<td align="center">955</td>
+									<td align="center">35.7</td>
+								</tr>
+								<tr>
+									<td> Completed higher education or more</td>
+									<td align="center">1,207</td>
+									<td align="center">45.1</td>
+								</tr>
+								<tr>
+									<td colspan="3">Per capita household income (MW)</td>
+								</tr>
+								<tr>
+									<td> &lt; 3 MW</td>
+									<td align="center">572</td>
+									<td align="center">22.5</td>
+								</tr>
+								<tr>
+									<td> 3 to 6 MW</td>
+									<td align="center">954</td>
+									<td align="center">37.6</td>
+								</tr>
+								<tr>
+									<td> &gt; 6 MW</td>
+									<td align="center">1,014</td>
+									<td align="center">39.9</td>
+								</tr>
+								<tr>
+									<td colspan="3">Marital status</td>
+								</tr>
+								<tr>
+									<td> Single</td>
+									<td align="center">593</td>
+									<td align="center">22.8</td>
+								</tr>
+								<tr>
+									<td> In a stable relationship</td>
+									<td align="center">1,535</td>
+									<td align="center">57.4</td>
+								</tr>
+								<tr>
+									<td> Separated or widowed</td>
+									<td align="center">474</td>
+									<td align="center">17.7</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>MW: minimum wage</p>
+							<p>
+								<sup>a</sup> In the two weeks preceding the study.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>The prevalence of leisure-time physical activity was estimated at 42.9%, being higher among men, those having completed higher education and those with <italic>per capita</italic> household income above six minimum wages. Higher prevalence was also found in individuals residing in neighborhoods with higher Theil and social development indices and with greater proportions occupied by parks, squares and gardens (<xref ref-type="table" rid="t02_en">Table 2</xref>).</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Prevalence of leisure-time physical activity according to individual and contextual variables of the neighborhood. Rio de Janeiro, RJ, Southeastern Brazil, 1999.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="33%">
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th style="font-weight:normal" align="left">Variable</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">Prevalence (%)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3">Sex</td>
+								</tr>
+								<tr>
+									<td> Male</td>
+									<td align="center">550</td>
+									<td align="center">48.4</td>
+								</tr>
+								<tr>
+									<td> Female</td>
+									<td align="center">598</td>
+									<td align="center">38.9</td>
+								</tr>
+								<tr>
+									<td colspan="3">Age (years)</td>
+								</tr>
+								<tr>
+									<td> 20 to 30</td>
+									<td align="center">174</td>
+									<td align="center">40.7</td>
+								</tr>
+								<tr>
+									<td> 31 to 40</td>
+									<td align="center">472</td>
+									<td align="center">43.5</td>
+								</tr>
+								<tr>
+									<td> 41 to 50</td>
+									<td align="center">385</td>
+									<td align="center">44.1</td>
+								</tr>
+								<tr>
+									<td> &gt; 50</td>
+									<td align="center">117</td>
+									<td align="center">40.8</td>
+								</tr>
+								<tr>
+									<td colspan="3">Schooling</td>
+								</tr>
+								<tr>
+									<td> Up to elementary education completed</td>
+									<td align="center">176</td>
+									<td align="center">35.8</td>
+								</tr>
+								<tr>
+									<td> Completed high school</td>
+									<td align="center">383</td>
+									<td align="center">40.1</td>
+								</tr>
+								<tr>
+									<td> Completed higher education or more</td>
+									<td align="center">580</td>
+									<td align="center">48.1</td>
+								</tr>
+								<tr>
+									<td colspan="3">Per capita household income (MW)</td>
+								</tr>
+								<tr>
+									<td> &lt; 3</td>
+									<td align="center">197</td>
+									<td align="center">34.4</td>
+								</tr>
+								<tr>
+									<td> 3 to 6</td>
+									<td align="center">368</td>
+									<td align="center">38.6</td>
+								</tr>
+								<tr>
+									<td> &gt; 6</td>
+									<td align="center">519</td>
+									<td align="center">51.2</td>
+								</tr>
+								<tr>
+									<td colspan="3">Marital status</td>
+								</tr>
+								<tr>
+									<td> Single</td>
+									<td align="center">257</td>
+									<td align="center">43.3</td>
+								</tr>
+								<tr>
+									<td> In a stable relationship</td>
+									<td align="center">671</td>
+									<td align="center">43.7</td>
+								</tr>
+								<tr>
+									<td> Separated or widowed</td>
+									<td align="center">182</td>
+									<td align="center">38.4</td>
+								</tr>
+								<tr>
+									<td colspan="3">Theil index (quintiles)</td>
+								</tr>
+								<tr>
+									<td> 0.26-0.36</td>
+									<td align="center">177</td>
+									<td align="center">41.6</td>
+								</tr>
+								<tr>
+									<td> 0.37-0.40</td>
+									<td align="center">221</td>
+									<td align="center">39.4</td>
+								</tr>
+								<tr>
+									<td> 0.41-0.45</td>
+									<td align="center">186</td>
+									<td align="center">35.6</td>
+								</tr>
+								<tr>
+									<td> 0.46-0.51</td>
+									<td align="center">256</td>
+									<td align="center">46.0</td>
+								</tr>
+								<tr>
+									<td> 0.52-1.11</td>
+									<td align="center">308</td>
+									<td align="center">50.6</td>
+								</tr>
+								<tr>
+									<td colspan="3">Social development index (quintiles)</td>
+								</tr>
+								<tr>
+									<td> 0.37-0.54</td>
+									<td align="center">172</td>
+									<td align="center">32.3</td>
+								</tr>
+								<tr>
+									<td> 0.55-0.60</td>
+									<td align="center">187</td>
+									<td align="center">35.9</td>
+								</tr>
+								<tr>
+									<td> 0.61-0.65</td>
+									<td align="center">227</td>
+									<td align="center">42.0</td>
+								</tr>
+								<tr>
+									<td> 0.66-0.72</td>
+									<td align="center">221</td>
+									<td align="center">47.2</td>
+								</tr>
+								<tr>
+									<td> 0.73-0.85</td>
+									<td align="center">341</td>
+									<td align="center">55.4</td>
+								</tr>
+								<tr>
+									<td colspan="3">Proportion (%) of area occupied by parks, squares and gardens (quintiles)</td>
+								</tr>
+								<tr>
+									<td> 0-0.15</td>
+									<td align="center">195</td>
+									<td align="center">36.9</td>
+								</tr>
+								<tr>
+									<td> 0.16-0.747</td>
+									<td align="center">186</td>
+									<td align="center">35.8</td>
+								</tr>
+								<tr>
+									<td> 0.76-2.97</td>
+									<td align="center">205</td>
+									<td align="center">48.2</td>
+								</tr>
+								<tr>
+									<td> 3.05-7.37</td>
+									<td align="center">350</td>
+									<td align="center">53.1</td>
+								</tr>
+								<tr>
+									<td> 7.41-74.87</td>
+									<td align="center">212</td>
+									<td align="center">39.2</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>MW: Minimum wage</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>The research was approved by the Research Ethics Committee of the <italic>Hospital Universitário Pedro Ernesto</italic> (Record 224/1999). Participation was voluntary and all information was confidential, as was explained to participants before they signed the informed consent form.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>In the unadjusted models (group 1 models), individuals in neighborhoods in the fourth and fifth quintiles of the social development index, and in the third and fourth quintiles of the proportion of area occupied by parks, squares and gardens had a significantly higher chance of doing leisure-time physical activity, compared to those residing in neighborhoods in the first quintile of these variables. When individual variables were included (group 2 models), associations between the social development index, proportion of area occupied by parks, squares and gardens and leisure-time physical activity decreased, although they remained significant. The association between the Theil index and leisure-time physical activity lost statistical significance (<xref ref-type="table" rid="t03_en">Table 3</xref>).</p>
+				<p>
+					<table-wrap id="t03_en">
+						<label>Table 3</label>
+						<caption>
+							<title>Adjusted and unadjusted likelihood ratios (LR) for individual sociodemographic variables and contextual variables of the neighborhood de chances. Rio de Janeiro, RJ, Southeastern Brazil, 1999.</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="14%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="3" style="font-weight:normal" align="left">Variable</th>
+									<th colspan="2" style="font-weight:normal">Models 1<sup>a</sup>
+									</th>
+									<th colspan="2" style="font-weight:normal">Models 2<sup>b</sup>
+									</th>
+									<th colspan="2" style="font-weight:normal">Models 3<sup>c</sup>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="6" rowspan="1" style="font-weight:normal">
+										<hr/>
+									</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">LR</th>
+									<th style="font-weight:normal">95%CI</th>
+									<th style="font-weight:normal">LR</th>
+									<th style="font-weight:normal">95%CI</th>
+									<th style="font-weight:normal">LR</th>
+									<th style="font-weight:normal">95%CI</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="7">Theil index (quintile)</td>
+								</tr>
+								<tr>
+									<td> 0.26-0.36</td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 0.37-0.40</td>
+									<td align="center">1.00</td>
+									<td align="center">0.68;1.43</td>
+									<td align="center">1.00</td>
+									<td align="center">0.73;1.40</td>
+									<td align="center">1.17</td>
+									<td align="center">0.85;1.62</td>
+								</tr>
+								<tr>
+									<td> 0.41-0.45</td>
+									<td align="center">0.76</td>
+									<td align="center">0.53;1.10</td>
+									<td align="center">0.78</td>
+									<td align="center">0.56;1.09</td>
+									<td align="center">0.86</td>
+									<td align="center">0.63;1.18</td>
+								</tr>
+								<tr>
+									<td> 0.46-0.51</td>
+									<td align="center">1.15</td>
+									<td align="center">1.02;1.66</td>
+									<td align="center">1.13</td>
+									<td align="center">0.81;1.56</td>
+									<td align="center">1.11</td>
+									<td align="center">0.81;1.52</td>
+								</tr>
+								<tr>
+									<td> 0.52-1.11</td>
+									<td align="center">1.51</td>
+									<td align="center">1.02;2.26</td>
+									<td align="center">1.35</td>
+									<td align="center">0.95;1.93</td>
+									<td align="center">1.17</td>
+									<td align="center">0.86;1.59</td>
+								</tr>
+								<tr>
+									<td colspan="7">Social development index (quintile)</td>
+								</tr>
+								<tr>
+									<td> 0.37-0.54</td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 0.55-0.60</td>
+									<td align="center">1.19</td>
+									<td align="center">0.91;1.57</td>
+									<td align="center">1.22</td>
+									<td align="center">0.93;1.61</td>
+									<td align="center">1.41</td>
+									<td align="center">1.02;1.95</td>
+								</tr>
+								<tr>
+									<td> 0.61-0.65</td>
+									<td align="center">1.53</td>
+									<td align="center">1.17;2.02</td>
+									<td align="center">1.44</td>
+									<td align="center">1.09;1.89</td>
+									<td align="center">1.54</td>
+									<td align="center">1.12;2.12</td>
+								</tr>
+								<tr>
+									<td> 0.66-0.72</td>
+									<td align="center">1.91</td>
+									<td align="center">1.41;2.57</td>
+									<td align="center">1.75</td>
+									<td align="center">1.31;2.34</td>
+									<td align="center">1.65</td>
+									<td align="center">1.14;2.39</td>
+								</tr>
+								<tr>
+									<td> 0.73-0.85</td>
+									<td align="center">2.75</td>
+									<td align="center">2.08;3.63</td>
+									<td align="center">2.25</td>
+									<td align="center">1.70;3.00</td>
+									<td align="center">2.13</td>
+									<td align="center">1.40;3.25</td>
+								</tr>
+								<tr>
+									<td colspan="7">Proportion (%) of the area occupied by parks, squares and gardens (quintile)</td>
+								</tr>
+								<tr>
+									<td> 0-0.15</td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+									<td align="center">1</td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 0.16-0.747</td>
+									<td align="center">1.00</td>
+									<td align="center">0.72;1.30</td>
+									<td align="center">0.90</td>
+									<td align="center">0.69;1.19</td>
+									<td align="center">0.87</td>
+									<td align="center">0.65;1.16</td>
+								</tr>
+								<tr>
+									<td> 0.76-2.97</td>
+									<td align="center">1.60</td>
+									<td align="center">1.14;2.26</td>
+									<td align="center">1.41</td>
+									<td align="center">1.04;1.90</td>
+									<td align="center">1.20</td>
+									<td align="center">0.90;1.69</td>
+								</tr>
+								<tr>
+									<td> 3.05-7.37</td>
+									<td align="center">2.02</td>
+									<td align="center">1.49;2.74</td>
+									<td align="center">1.63</td>
+									<td align="center">1.24;2.14</td>
+									<td align="center">1.11</td>
+									<td align="center">0.76;1.62</td>
+								</tr>
+								<tr>
+									<td> 7.41-74.87</td>
+									<td align="center">1.19</td>
+									<td align="center">0.88;1.61</td>
+									<td align="center">1.05</td>
+									<td align="center">0.80;1.38</td>
+									<td align="center">1.09</td>
+									<td align="center">0.79;1.47</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>
+								<sup>a</sup> Unadjusted LR.</p>
+							<p>
+								<sup>b</sup> LR adjusted for sex, age, per capita household income, schooling and marital status.</p>
+							<p>
+								<sup>c</sup> LR adjusted for sex, age, per capita household income, schooling, marital status and other contextual variables.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>In model 3, which included all of the individual and contextual variables, only the social development index remained associated with leisure-time physical activity, showing an increase in the likelihood ratio with increase in the quintile. Thus, residents in neighborhoods in the fifth quintile of the social development index are twice as likely (LR = 2.13; 95%CI 1.40;3.25) to do leisure-time physical activity as those residing in neighborhoods in the first quintile (<xref ref-type="table" rid="t03_en">Table 3</xref>).</p>
+				<p>The percentages of unexplained variance attributable to differences between neighborhoods were 3.6% in the blank model, and 0.03% for individuals in the reference categories of the variables included in model 3 (young, male, single, higher levels of income and of schooling; and residing in neighborhoods with lower Theil indices, higher social development indices and higher proportions of areas occupied by parks, squares and gardens). Residue analysis, at both the first and second levels, showed normal distribution.</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>Great economic and social contrasts exist in Rio de Janeiro. Whereas some neighborhoods have high social development indices, others have levels well below the municipal mean. On the other hand, the city has plentiful seafront and many parks and squares, providing conditions favorable to doing leisure-time physical activity. However, the access of the population to such environmental conditions is not homogeneous.</p>
+				<p>In this study, doing leisure-time physical activity varied significantly according to neighborhood. It was more prevalent among residents in neighborhoods with better social conditions and access to public areas of leisure, regardless of individual attributes. However, after simultaneous adjustment, socio-environmental characteristics grouped in the social development index were shown to be more important than physical characteristics in determining the practice of leisure-time physical activity. The Theil index, associated with physical activity in the unadjusted models, lost its statistical significance after adjusting for individual variables, suggesting that inequality in income distribution is not associated with doing leisure-time physical activity.</p>
+				<p>There is relatively little data on Brazilians’ leisure-time physical activity, although what there is agrees with the findings presented in this study. Data from the 2011 Surveillance System for Chronic Disease Telephone Survey (VIGITEL) indicate a prevalence of 30.0% for leisure-time physical activity in the state capitals, with this being higher among men (40.0%) compared with women (22.0%) and increasing as level of schooling increased, in both sexes.<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref>
+				</p>
+				<p>The highest levels of prevalence observed in this study (42.9%) may be explained by characteristics of the population studied (economically active and with higher levels of schooling). Moreover, individuals who reported having done leisure-time physical activity in the two weeks preceding the study were classed as active; in contrast, in surveys such as VIGITEL<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref>, individuals classed as active in leisure-time were those who did at least 30 minutes of mild or moderate activities five days a week or more and/or at least 20 minutes of vigorous activities three days a week or more. Thus, individuals who practice leisure-time physical activity more sporadically and at lower intensities were classified as active, therefore producing higher levels of prevalence of physical activity in leisure-time.</p>
+				<p>Traditionally, initiatives promoting health by encouraging physical activity have been based on educational measures which emphasize changes in the behavior of the individual. This approach, however, focused exclusively on the individual, has been shown to be insufficient to increase the population’s levels of leisure-time physical activity. Increasing attention is now being paid to the role of profound changes in characteristics of physical, social and manmade environments – varying from spaces such as buildings and parks to the infrastructure of neighborhoods and cities, such as water supply or energy grids – with especially strong influence on patterns of the population’s physical activity, it being recognized that increasing sedentarism is not restricted to the sphere of individual choices.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref>
+				</p>
+				<p>From this broader perspective, international studies, especially those conducted in the United States, Australia and European countries from 2000 onwards, have shown that some contextual characteristics of the region in which the individual lives have been consistently associated with doing leisure-time physical activity. Residents of neighborhoods with: access to places appropriate for doing leisure-time physical activity, better traffic conditions, pavements, cycle lanes and trails; security, illumination; transport facilities, trees and pleasant landscapes; parks, leisure areas, boardwalks and green areas in close proximity are more likely to be physical active.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref> On the other hand, residents in neighborhoods which prioritize the accumulation of motorways and automobile use, which makes doing physical activity unsafe – due to the lack of pavements and pedestrian crossings or due to high rates of violence –, have a greater chance of being sedentary.<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref>
+				</p>
+				<p>Although they are scarce, in general, Brazilian studies show associations between leisure-time physical activity and contextual characteristics of the neighborhood. Data on the adult population of the Brazilian capitals for 2006, collected by VIGITEL<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref>, show direct association between doing leisure-time physical activity and the proximity of the respondent’s residence to places propitiating leisure-time physical activity.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> Another study,<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref> conducted with the elderly in Sao Paulo, SP, Southeastern Brazil, showed that leisure-time physical activity was associated, among men, with the perception of safety, the presence of courts and gyms and the proximity of banks or health centers. For women, living close to churches and the presence of squares and gyms in the area of the residence was associated with increased leisure-time physical activity. On the other hand, a study with the adult population in Sao Paulo who participated in VIGITEL<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref> did not find an association between the density of parks and public facilities/equipment for doing physical activity in the area of residence and leisure-time physical activity.<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+				</p>
+				<p>In a study conducted in 11 countries (Belgium, Brazil, Canada, Columbia, China, the United States, Japan, Lithuania, Norway, New Zealand and Sweden) using standardized methods for collecting information on physical activity and characteristics of the neighborhood, five of seven variables on the context were associated with physical activity in all of the countries, meaning that the results from economically advantaged countries could be generalized for those with mid or low income.<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref> The contextual variable most strongly associated with doing leisure-time physical activity was the presence of pavements in the majority of streets in the nieghborhood.<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref> This result reinforces the idea that simple, non-onerous strategies may stimulate diverse leisure activities such as walking, running, skating and cycling.<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+					<sup>, </sup>
+					<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref>
+				</p>
+				<p>Regarding green areas and public parks in particular, when location, access and maintenance and security are convenient, studies show direct associations with leisure-time physical activity due to low (or no) cost. The presence of pleasant, natural spaces, sharing the space with other physical active individuals and greater social interaction and cohesion. Moreover, places where there are more trees and green areas are associated with lower levels of crime, assault and violence.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref>
+				</p>
+				<p>The presence of parks in the neighborhood is linked to benefits which go beyond physical and mental health. It is also related to social (e.g., increasing social interaction), economic (e.g., increased number of near-by restaurants and shops) and environmental (e.g., reduced air pollution) benefits.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref> On the other hand, access to such spaces is not egalitarian: in the United States, racial minorities, the poor, elderly and women have less access to spaces which propitiate leisure-time physical activity.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> Diez-Roux et al found an association between access to leisure areas and doing leisure-time physical activity among Afro-American and Latinos, although there was no association found for Whites,<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> showing the complexity of interactions between context and individual behavior. Inequalities in access may explain findings related to racial/ethnic and socioeconomic inequality in this respect, e.g., obesity.<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref>
+				</p>
+				<p>Certain limitations may have influenced the results of this study. First, the choice of neighborhood by physically active people may have been influenced by facility of access to environments favorable to doing leisure-time physical activity. Second, although the proportion of the area occupied by parks, squares and gardens serves as a marker of access to leisure environments, other spaces related to leisure-time physical activity such as beaches and cycle lanes were not analyzed, as they were not included in the available databases, which may have weakened the association between this variable and leisure-time physical activity. Third,, as the neighborhoods in Rio de Janeiro are so heterogeneous, the capacity to distinguish “inter-neighborhood” differences was decreased, as indicated by the variance partition coefficients in the blank model. However, choosing to use smaller, and therefore more homogeneous, units of analysis would mean a much reduced number of individuals within each unit. Finally, the period to which leisure-time physical activity referred – only the two weeks preceding the study – does not guarantee that it was a consistent habit; moreover, the analysis did not incorporate analysis of type, frequency, intensity or duration of leisure-time physical activity. On the other hand, the experience of a population residing in a heterogeneous region and with economic, ethnic-racial and social contrasts provided a wider understanding of interaction existing between health-related behavior and environmental effects in determining leisure-time physical activity.</p>
+				<p>To sum up, the data suggest that increasing access to public leisure spaces is an important measure in promoting health at the collective level. However, better social conditions can have a stronger influence on an individual’s possibility of doing leisure-time physical activity, irrespective of individual attributes and their potential access to leisure spaces. These results are in agreement with theories on the dynamic interaction between individuals and the context in which they live, which postulate that the majority of health-related behaviors and outcomes are not randomly distributed among regions or populations.<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+				</p>
+				<p>In the case of leisure-time physical activity, contextual components were shown to be just as, if not more, determining as individual components. Thus, it can be concluded that the focus on an active lifestyle, although very much based on educational actions at an individual level, needs also to be aimed at improving contextual aspects such as urban environments and, above all, social conditions.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> Committee on Physical Activity, Health, Transportation and Land Use. Does the built environment influence physical activity? Examining the evidence – special report. Washington (DC); 2005.</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b</label>
+					<p> Governo do Estado do Rio de Janeiro. Fundação Parques e Jardins - Diretoria de Planejamento, Julho de 1999, Tabela 1199. Rio de Janeiro; 1999 [cited 2013 Mar 17]. Available from: http://www.armazemdedados.rio.rj.gov.br/</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c</label>
+					<p> Ministério da Saúde. Secretaria de Vigilância em Saúde. Vigitel Brasil 2011: vigilância de fatores de risco e proteção para doenças crônicas por inquérito telefônico. Brasília (DF); 2012. p. 132.</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

@@ -1,0 +1,1534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004852</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004852</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Integralidade no cuidado ao câncer do colo do útero: avaliação do acesso</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Brito-Silva</surname>
+						<given-names>Keila</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Bezerra</surname>
+						<given-names>Adriana Falangola Benjamin</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Chaves</surname>
+						<given-names>Lucieli Dias Pedreschi</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">
+						<sup>III</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Tanaka</surname>
+						<given-names>Oswaldo Yoshimi</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff4">
+						<sup>IV</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv1">Centro Acadêmico de Vitória</institution>
+				<institution content-type="orgname">Universidade Federal de Pernambuco</institution>
+				<addr-line>
+					<named-content content-type="city">Vitória de Santo Antão</named-content>
+					<named-content content-type="state">PE</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Centro Acadêmico de Vitória. Universidade Federal de Pernambuco. Vitória de Santo Antão, PE, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv2">Departamento de Medicina Social</institution>
+				<institution content-type="orgdiv1">Centro de Ciências da Saúde</institution>
+				<institution content-type="orgname">Universidade Federal de Pernambuco</institution>
+				<addr-line>
+					<named-content content-type="city">Recife</named-content>
+					<named-content content-type="state">PE</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Medicina Social. Centro de Ciências da Saúde. Universidade Federal de Pernambuco. Recife, PE, Brasil</institution>
+			</aff>
+			<aff id="aff3">
+				<label>III</label>
+				<institution content-type="orgdiv2">Departamento de Enfermagem Geral e Especializada</institution>
+				<institution content-type="orgdiv1">Escola de Enfermagem de Ribeirão Preto</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">Ribeirão Preto</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Enfermagem Geral e Especializada. Escola de Enfermagem de Ribeirão Preto. Universidade de São Paulo. Ribeirão Preto, SP, Brasil</institution>
+			</aff>
+			<aff id="aff4">
+				<label>IV</label>
+				<institution content-type="orgdiv2">Departamento de Prática de Saúde Pública</institution>
+				<institution content-type="orgdiv1">Faculdade de Saúde Pública</institution>
+				<institution content-type="orgname">Universidade de São Paulo</institution>
+				<addr-line>
+					<named-content content-type="city">São Paulo</named-content>
+					<named-content content-type="state">SP</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Prática de Saúde Pública. Faculdade de Saúde Pública. Universidade de São Paulo. São Paulo, SP, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Keila Silene de Brito e Silva  Rua Major Nereu Guerra, 87/202 Casa Amarela  52070-300 Recife, PE, Brasil  E-mail: <email>britokeila@hotmail.com</email>
+				</corresp>
+				<fn fn-type="other">
+					<p>Artigo baseado na tese de doutorado de Brito-Silva KS, intitulada: “Avaliação da integralidade no cuidado ao câncer de colo uterino: uso da condição marcadora em um estudo misto”, apresentada à Faculdade de Saúde Pública da Universidade de São Paulo, em 2013.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>240</fpage>
+			<lpage>248</lpage>
+			<history>
+				<date date-type="received">
+					<day>25</day>
+					<month>3</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>9</day>
+					<month>12</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Avaliar integralidade na dimensão do acesso aos serviços de prevenção, diagnóstico e tratamento do câncer de colo do útero.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>A condição traçadora foi analisada utilizando metodologia quanti-qualitativa. A abordagem quantitativa foi feita com base em dados secundários analisando as citologias e biópsias realizadas entre 2008 e 2010 em mulheres de 25 a 59 anos em município de grande porte populacional e com tecnologia disponível. Os dados foram obtidos no Sistema de Informação em Saúde e no Sistema de Informação do Câncer de Colo Uterino Regional. Os testes estatísticos foram realizados no software PASW <italic>statistic</italic> 17.0. Na abordagem qualitativa, foram realizadas entrevistas semiestruturadas com gestores, profissionais e usuárias dos serviços. Para a análise de conteúdo dos dados primários foi utilizado o software NVivo 9.0.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>Houve baixa cobertura do exame de Papanicolau, possivelmente devido à busca ativa insuficiente e à dificuldade de agendamento das consultas na atenção básica. O número de biópsias realizadas foi equivalente à quantidade de citologias alteradas, o que pode ser favorecido pelo fácil acesso a serviços especializados. A cobertura do exame foi maior entre mulheres mais jovens. Os diagnósticos mais graves, tanto de citologias quanto de biópsias, prevaleceram em mulheres com idade mais avançada.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>A cobertura insuficiente da citologia oncótica associada ao relato dos entrevistados permite compreender as dificuldades de acesso na atenção primária, bem como a fragilidade na busca ativa de casos.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Neoplasias do Colo do Útero, prevenção &amp; controle</kwd>
+				<kwd>Serviços de Saúde da Mulher</kwd>
+				<kwd>Integralidade em Saúde Qualidade, Acesso e Avaliação da Assistência à Saúde</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Conselho Nacional de Desenvolvimento Científico e Tecnológico</funding-source>
+					<award-id>200741/2011-0</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>Pesquisa do Estado de São Paulo</funding-source>
+					<award-id>2009/08844-8</award-id>
+				</award-group>
+				<funding-statement>A autora foi bolsista pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes) durante o doutorado e teve bolsa do Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) durante o período do doutorado Sandwich no Exterior (SWE – Processo 200741/2011-0).</funding-statement>
+			</funding-group>
+			<counts>
+				<fig-count count="8"/>
+				<ref-count count="29"/>
+				<page-count count="9"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>Acompanhando a tendência mundial, os tipos de câncer entre mulheres mais recorrentes no Brasil são os de mama e de colo do útero (CCU). Conforme projeções do Instituto Nacional do Câncer do Ministério da Saúde,<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> o CCU é responsável pelo óbito de aproximadamente 230 mil mulheres por ano. Quando comparado aos países mais desenvolvidos, sua incidência é aproximadamente duas vezes maior em países menos desenvolvidos. Ao mesmo tempo, é um dos tipos de câncer que apresenta maior potencial de prevenção e cura quando diagnosticado precocemente.</p>
+			<p>O alto potencial de prevenção e cura se justifica pela evolução lenta da doença, com etapas bem definidas e facilidade de detectar precocemente as alterações, viabilizando diagnóstico rápido e tratamento eficaz.</p>
+			<p>A efetividade da detecção precoce do CCU, por meio do exame Papanicolau, associado ao tratamento da lesão intraepitelial, pode reduzir em 90,0% a incidência desse tipo de câncer, impactando significativamente na diminuição das taxas de morbimortalidade.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> Entretanto, essa redução depende do padrão de qualidade e cobertura de rastreamento de, no mínimo, 80,0% da população alvo (25 a 59 anos), segundo recomendação da Organização Mundial da Saúde (OMS).<xref ref-type="bibr" rid="B28">
+					<sup>28</sup>
+				</xref> Programas de rastreamento eficazes podem auxiliar na redução das taxas de incidência e, consequentemente, de mortalidade por CCU.<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+			</p>
+			<p>Apesar da melhora na cobertura do exame citológico no Brasil, esta ainda é considerada insuficiente para reduzir a mortalidade por CCU no País.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> Ademais, a qualidade dos exames e o estadiamento nos quais os casos são diagnosticados são outros fatores que podem influenciar esse cenário.<xref ref-type="bibr" rid="B24">
+					<sup>24</sup>
+				</xref>
+			</p>
+			<p>O diagnóstico tardio dificulta o acesso aos serviços e revela, sobretudo, carência na quantidade e qualidade de serviços oncológicos fora das grandes capitais.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> Outros aspectos que podem contribuir para o diagnóstico tardio são: a baixa capacitação profissional na atenção oncológica, a incapacidade das unidades de saúde em absorver a demanda e as dificuldades dos gestores municipais e estaduais em definir e estabelecer um fluxo nos diversos níveis assistenciais.<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref>
+			</p>
+			<p>O acesso da população aos diferentes níveis assistenciais é um dos sentidos atribuídos à integralidade. Embora o acesso universal, garantido constitucionalmente, tenha derrubado barreiras formais, dificuldades no acesso e na continuidade da atenção permanecem,<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> tanto na atenção básica quanto nos serviços especializados.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B26">
+					<sup>26</sup>
+				</xref>
+			</p>
+			<p>Buscando combater a doença de maneira efetiva, o Programa Nacional de Controle do CCU no Brasil prevê o acesso aos diferentes serviços para enfrentar cada fase da doença. A detecção precoce (rastreamento) do CCU em mulheres assintomáticas é a iniciativa primordial do citado programa, sendo essencial: a definição da população-alvo, método e intervalo de rastreamento; meta de cobertura; infraestrutura nos três níveis assistenciais e garantia da qualidade das ações.<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref>
+			</p>
+			<p>O desenvolvimento de estudos avaliativos acerca da integralidade no cuidado ao CCU pode favorecer a identificação desse contexto, possibilitando identificar pontos de estrangulamento nos distintos níveis de atenção.</p>
+			<p>Utilizar condições marcadoras, também entendidas como traçadoras, é uma das estratégias indicadas no desenvolvimento de pesquisas avaliativas.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B23">
+					<sup>23</sup>
+				</xref> O uso dessa técnica facilita a definição dos focos e permite abranger múltiplos pontos de atenção envolvidos na integração dos serviços.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>O CCU é condição apontada como traçadora<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> por ser uma enfermidade que atende a requisitos essenciais: evento prevalente, com etiologia, diagnóstico, terapia e prevenção bem definidos cientificamente; existência de programa nacional consolidado, envolvendo todos os níveis assistenciais; doença de evolução lenta e tratamento eficaz.</p>
+			<p>Considerando que a integralidade abrange diferentes dimensões,<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> o objetivo deste estudo foi avaliar a integralidade na dimensão do acesso aos serviços de prevenção, diagnóstico e tratamento do câncer do colo do útero.</p>
+		</sec>
+		<sec>
+			<title>PROCEDIMENTOS METODOLÓGICOS</title>
+			<p>Foi desenvolvida pesquisa avaliativa com base no método misto sequencial. Foram utilizados dados quantitativos e, posteriormente, dados qualitativos. Tal combinação visa possibilitar melhor entendimento do problema de pesquisa por convergir tendências numéricas da abordagem quantitativa e detalhes da qualitativa.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+			</p>
+			<p>A tipologia escolhida foi o estudo de caso. O local estudado está entre as cidades brasileiras com maior número de estabelecimentos de saúde cadastrados e disponibilidade de profissionais, sendo o maior centro de referência em saúde do nordeste paulista. Este corresponde a um caso significativo<xref ref-type="bibr" rid="B29">
+					<sup>29</sup>
+				</xref> pela sua abrangência e capacidade de oferta do cuidado ao CCU, bem como seu processo histórico e político de investimento e avanço na estruturação do SUS local. Considerando tais particularidades, o local foi denominado no presente estudo como município-chave.</p>
+			<p>Apesar da oferta de serviços de saúde, assim como em outros grandes centros urbanos, o local estudado apresenta limitações quanto a qualidade e capacidade de resposta nos diferentes níveis de atenção.<xref ref-type="bibr" rid="B26">
+					<sup>26</sup>
+				</xref> Ainda que conte com equipamentos de saúde em quantidade suficiente para viabilizar a integralidade da atenção no cuidado ao CCU, o local de estudo reflete a realidade brasileira no que concerne à mortalidade por esse tipo de câncer, com taxa de 4,5 óbitos para cada 100 mil mulheres, em 2008.</p>
+			<p>O foco do estudo foi identificar os estrangulamentos funcionais no processo de prevenção, diagnóstico e tratamento ao CCU, tendo como parâmetro a capacidade de oferta local de serviços nos distintos níveis de complexidade tecnológica na busca da integralidade do cuidado.</p>
+			<p>A primeira etapa da investigação consistiu na formulação das seguintes hipóteses:</p>
+			<list list-type="order">
+				<list-item>
+					<p>é insuficiente a cobertura de Papanicolau no município-chave;</p>
+				</list-item>
+				<list-item>
+					<p>existe dificuldade no acesso aos níveis de maior densidade tecnológica (biópsia e tratamento).</p>
+				</list-item>
+			</list>
+			<p>Para investigar tais hipóteses, foram estudados distintos níveis assistenciais visando conhecer quantitativamente a capacidade de acesso das mulheres aos diferentes serviços, bem como sua resolutividade.</p>
+			<p>Os dados trabalhados foram levantados mediante o acesso ao Hygiaweb e Siscolo regional. O Hygia é o sistema de informação oficial da Secretaria de Saúde do município-chave onde são registrados os procedimentos realizados nas unidades de saúde sob gestão municipal. Os dados foram gerados em planilhas do Excel, permitindo o levantamento de informações dos exames citopatológicos, diagnósticos e possíveis encaminhamentos realizados em mulheres de 25 a 59 anos e registrados no sistema entre janeiro de 2008 e junho de 2010.</p>
+			<p>Para complementar os dados obtidos no Hygia, foi acessada a base de dados do XIII Departamento Regional de Saúde da Secretaria de Saúde do Estado de São Paulo (SES/SP), acerca dos procedimentos de prevenção e diagnóstico do CCU, realizados em serviços sob gestão estadual no município-chave. Os dados disponíveis na esfera estadual e municipal foram organizados em um único banco, permitindo visualizar em uma única base de dados os procedimentos que abrangem o sistema de saúde local.</p>
+			<p>Os dados secundários foram analisados utilizando o software PASW statistic 17.0 para distribuição de frequências e análise das variáveis envolvidas no estudo.</p>
+			<p>As variáveis estudadas em relação às citologias (realizadas e alteradas) e às biópsias foram: ano de realização dos exames, faixa etária, tipo de alteração (diagnóstico), tipo de gestão dos serviços (estadual/municipal).</p>
+			<p>Partindo dessas variáveis, foram identificadas a cobertura de citologias no município-chave por ano e faixa etária, as alterações que mais acometem as mulheres do estudo e a cobertura de biópsia para os casos necessários.</p>
+			<p>Em relação aos dados referentes ao tratamento, foi identificada a insuficiência de registros junto ao sistema de informação em saúde local.</p>
+			<p>Para a abordagem qualitativa foram escolhidos os dois distritos de saúde (DS 3 e DS 4) que mais realizaram exames citológicos durante o período estudado, por refletirem maior possibilidade de oferta e, consequentemente, maior cobertura das atividades para a atenção à condição traçadora. Os informantes-chave selecionados foram: profissionais da atenção básica e/ou especializada envolvidos em ações de promoção, prevenção, diagnóstico e/ou tratamento de mulheres com CCU; usuárias de 25 a 59 anos, cadastradas na unidade básica de saúde e que necessitaram de encaminhamento para outros níveis de atenção decorrente de alterações no exame citológico. Além dos profissionais envolvidos diretamente na atenção, foram entrevistados os representantes da gestão municipal com atribuições identificadas como relevantes nas demais entrevistas.</p>
+			<p>Foram realizadas entrevistas individuais e semiestruturadas com dez profissionais de saúde dos diferentes níveis de atenção do sistema, dez usuárias e dois representantes da gestão. Os dados primários foram transcritos e submetidos à análise de conteúdo.<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref> A categorização dos dados foi realizada utilizando o software NVivo 9.0.</p>
+			<p>Ainda que os achados qualitativos tenham contemplado diferentes dimensões da integralidade, os resultados aqui apresentados referem-se, exclusivamente, à dimensão do acesso, dialogando com os achados quantitativos da pesquisa.</p>
+			<p>Nesse sentido, as categorias apresentadas são: acesso com brevidade para serviços especializados, dificuldade no agendamento das consultas e atenção baseada na demanda espontânea na atenção básica.</p>
+			<p>Visando garantir a confidencialidade dos participantes foram criados nomes fictícios. As usuárias receberam “Maria” como primeiro nome e aos representantes da gestão e profissionais foram atribuídos nomes relacionados à atividade da tecelagem.</p>
+		</sec>
+		<sec>
+			<title>ANÁLISE DOS RESULTADOS E DISCUSSÃO</title>
+			<sec>
+				<title>A prevenção do câncer do colo do útero</title>
+				<p>Considerando que a população feminina com idade entre 25 e 59 anos no município-chave corresponde a um total de 146.868 mulheres e à realização anual de cerca de 30 mil citologias nos serviços do SUS para essa população, tem-se uma cobertura de, aproximadamente, 20,0% ao ano, conforme observado na <xref ref-type="fig" rid="f01">Figura 1</xref>.</p>
+				<p>
+					<fig id="f01">
+						<label>Figura 1</label>
+						<caption>
+							<title>Cobertura anual de exames citológicos realizados em mulheres de 25 a 59 anos. Município-chave, SP, 2008-2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0240-gf01"/>
+					</fig>
+				</p>
+				<p>A cobertura de Papanicolau obtida no município-chave é, portanto, inferior ao recomendado pela OMS (80,0%) para obter um impacto significativo na morbimortalidade por esse tipo de câncer.<xref ref-type="bibr" rid="B28">
+						<sup>28</sup>
+					</xref> Contudo, a cobertura observada no município-chave supera o realizado na maioria dos estados brasileiros, os quais apresentaram cobertura abaixo de 20,0% de 2008 a 2009 entre mulheres de mesma faixa etária.<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref>
+				</p>
+				<p>O rastreamento por meio do Papanicolau é a abordagem considerada mais efetiva para o controle do CCU. Estudos epidemiológicos mostram risco elevado no desenvolvimento dessa doença entre mulheres que nunca realizaram o exame e um aumento no risco proporcional ao tempo decorrido desde o último Papanicolau.<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+				</p>
+				<p>Hipóteses podem ser elencadas acerca da baixa cobertura no município-chave, entre as quais estão: subnotificação dos exames realizados, percentual de mulheres realizando o procedimento em serviços privados, oferta insuficiente de serviços/recursos humanos, dificuldade de acesso aos serviços de atenção básica e/ou busca ativa insuficiente.</p>
+				<p>Especificamente em relação à possibilidade de utilização de serviços privados não conveniados ao SUS, constatou-se nas entrevistas que muitas usuárias utilizam outros meios de acesso aos serviços de saúde além do SUS, a exemplo dos planos de saúde.</p>
+				<p>Além dessas hipóteses, são considerados também os achados de Brenna et al<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> acerca dos fatores associados à baixa adesão de mulheres ao exame Papanicolau que incluem: desmotivação, vergonha, distância, dificuldades para deixar filhos ou parentes, não poder deixar o trabalho, além de dificuldades financeiras e com transportes.</p>
+				<p>Dentre as hipóteses elencadas, a dificuldade de acesso aos serviços de atenção básica e a busca ativa insuficiente foram relatadas nas entrevistas.</p>
+				<disp-quote>
+					<p>“É um dia só que se marca consulta no posto. Dia primeiro é dia de marcar. Quando chega no dia, é tanta coisa na minha cabeça que a gente esquece. Quando lembra, já passou”. (Maria de Nazaré)</p>
+					<p>“O difícil é o acesso pra unidade básica (...). As usuárias demoram pra conseguir. (...) em algumas unidades isso é muito rígido. O eventual é só aquilo que for urgentíssimo. Se não é, não encaixa”. (Algodão)</p>
+					<p>“A partir do momento que tomou essa postura de ponto digital, eu diminuí 30,0% meu atendimento (...). Hoje em dia eu não encaixo. Encaixo só urgência. Faltou? Não é problema meu”. (Tecido)</p>
+				</disp-quote>
+				<p>A partir das entrevistas, pode-se afirmar que a dificuldade no acesso à atenção básica relaciona-se, sobretudo, à baixa flexibilidade no agendamento de consultas. São restrições colocadas pela dinâmica do atendimento e sua burocratização que contribuem para dificultar e desmotivar a busca do serviço pelas mulheres, retardando a realização do Papanicolau, como observado na <xref ref-type="fig" rid="f01">Figura 1</xref>.</p>
+				<p>Há diferentes estudos que apontam uma realidade semelhante à observada no município-chave. Andrade et al<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref> (2007) indicam situações críticas de acesso à unidade de saúde da família em município baiano, onde a chegada na unidade de saúde, de madrugada e sem garantia de atendimento, era prática comum. Cunha &amp; Vieira-da-Silva<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> reforçam a dificuldade de acesso à atenção básica em cidades do Nordeste do País, tanto em unidades tradicionais quanto de saúde da família, enfatizando o processo de agendamento de consulta como importante obstáculo para utilização do serviço.</p>
+				<p>Falas como a de <italic>Tecido </italic>e o relato de <italic>Algodão</italic> retratam o descaso do profissional que se coloca numa posição de espectador, sem se responsabilizar pela situação e ignorando o direito das usuárias.</p>
+				<p>Com relação à política de entrada das usuárias no sistema, representantes dos três grupos entrevistados confirmam estar baseada na lógica da demanda espontânea:</p>
+				<disp-quote>
+					<p>“Fazia uns 20 anos que eu não fazia (<italic>sic</italic>) [Papanicolau] (...). Ninguém nunca me procurou. Fiz agora porque resolvi me cuidar”. (Maria de Nazaré)</p>
+					<p>“A nossa unidade é muito passiva. Ela espera as pessoas chegarem (...) a gente atende quem chega e não tem ideia de quem tá precisando”. (Fibra)</p>
+					<p>“Unidades que não têm agente comunitária não têm esse tipo de foco: a pessoa faltou? Encaixa o que está lá e ninguém vai atrás<italic> pra</italic> saber”. (Urdume)</p>
+				</disp-quote>
+				<p>O modo de organização dos serviços de saúde para o rastreamento do câncer pode ser estruturado com base em uma oferta organizada ou espontânea.<xref ref-type="bibr" rid="B27">
+						<sup>27</sup>
+					</xref>
+				</p>
+				<p>No tipo organizado, existem estrutura e recursos adequados para realização periódica do teste de rastreamento, bem como para o tratamento de lesões suspeitas. Mecanismos para recrutamento da população alvo estão disponíveis e o acompanhamento sistemático das pessoas com testes de rastreamento positivos é prática habitual.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+				</p>
+				<p>No tipo espontâneo, o teste de rastreamento não é aplicado de forma sistemática na rotina dos serviços de saúde, restringindo-se à população que busca ocasionalmente os serviços de saúde por diferentes razões, não desenvolvendo ações para busca ativa de casos, resultando em desigualdades no acesso e uso ineficiente de recursos.<xref ref-type="bibr" rid="B27">
+						<sup>27</sup>
+					</xref>
+				</p>
+				<p>A organização baseada na demanda espontânea é característica básica do modelo assistencial privatista, tradicionalmente encontrado nos serviços de saúde no País.</p>
+				<p>Em relação à prevenção do CCU, diferentes estudos<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B25">
+						<sup>25</sup>
+					</xref> mostram que a realização do exame de Papanicolaou está associada, predominantemente, à busca espontânea das mulheres, reafirmando os relatos das entrevistadas apresentados e resultando em situações como a de Maria de Nazaré, que refere ter ficado mais de 20 anos sem realizar o exame.</p>
+				<p>Vale et al<xref ref-type="bibr" rid="B25">
+						<sup>25</sup>
+					</xref> ressaltam a relação entre atenção baseada na demanda espontânea e baixa cobertura de exames. A maior frequência de eventos em mulheres mais jovens, como gravidez, necessidade de métodos anticoncepcionais e tratamento de leucorreias, influencia que elas busquem mais os ginecologistas que as de maior idade.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> Assim, a cobertura, além de insuficiente, concentra-se nas mulheres mais jovens, não alcançando mulheres de 50 a 60 anos, grupo com maior risco para o câncer. A prática da busca ativa de casos, associada ao monitoramento da realização dos exames, são ações que podem favorecer o aumento da cobertura do Papanicolau, especialmente entre as mulheres acima de 50 anos.</p>
+				<p>Como pode ser observado na <xref ref-type="fig" rid="f02">Figura 2</xref>, houve tendência decrescente na cobertura, de acordo com a faixa etária no município-chave. A partir dos 40 anos, a cobertura não atingiu 15,0%.</p>
+				<p>
+					<fig id="f02">
+						<label>Figura 2</label>
+						<caption>
+							<title>Citologias realizadas por faixa etária entre mulheres de 25 a 59 anos. Município-chave, SP, 2008-2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0240-gf02"/>
+					</fig>
+				</p>
+				<p>A reduzida busca de mulheres, com idade entre 40 e 59 anos, por consultas ginecológicas resulta em uma baixa frequência de realização do Papanicolau e, consequentemente, em diagnósticos mais graves do que observado em mulheres mais jovens. A concentração de exames citopatológicos em mulheres com idade inferior a 35 anos é uma realidade comumente observada no Brasil.</p>
+				<p>Amorim et al<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref> consideram fundamental aproveitar a demanda de mulheres mais velhas por serviços de saúde em decorrência de outros agravos para realizarem o Papanicolau. Parada et al<xref ref-type="bibr" rid="B21">
+						<sup>21</sup>
+					</xref> sugerem a reorganização da recepção nas unidades básicas de saúde mediante implementação de estratégias como: atendimento sem necessidade de agendamento prévio, horários alternativos (noturno ou fim de semana), busca ativa das mulheres na faixa etária do programa, principalmente as que nunca realizaram exame colpocitológico, buscando ampliar e facilitar o acesso das mulheres a esses serviços.</p>
+				<p>A urgência em captar usuárias com mais de 50 anos de idade pode ser observada na <xref ref-type="fig" rid="f03">Figura 3</xref>, que apresenta a predominância de alterações malignas entre mulheres acima de 50 anos. As alterações malignas (adenocarcinoma, carcinoma) foram diagnosticadas, principalmente, em mulheres com idade entre 50 e 59 anos, enquanto as alterações benignas e as pré-malignas foram concentradas entre as mulheres mais jovens (25-39 anos) (<xref ref-type="fig" rid="f03">Figura 3</xref>).</p>
+				<p>
+					<fig id="f03">
+						<label>Figura 3</label>
+						<caption>
+							<title>Diagnóstico de citologias realizadas por faixa etária. Município-chave, SP, 2008-2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0240-gf03"/>
+					</fig>
+				</p>
+				<p>Ribeiro et al<xref ref-type="bibr" rid="B22">
+						<sup>22</sup>
+					</xref> identificaram em mulheres de 46 a 74 anos que o exame ginecológico é visto por muitas como uma experiência dolorosa, embaraçosa e desagradável. Essa perspectiva, segundo essas autoras, se justifica por elas fazerem parte de uma geração que sofreu repressão sexual intensamente, além de experiências negativas durante exames ginecológicos efetuados sem esclarecimento, de forma fria e descuidada, contribuindo, significativamente, para a resistência dessas mulheres na busca do autocuidado.</p>
+				<p>Incorporar orientação sobre o papel do exame preventivo na atenção às mulheres no climatério pela equipe de saúde é fundamental para incentivar sua realização, contribuindo para reduzir a incidência e mortalidade nessa população.</p>
+			</sec>
+		</sec>
+		<sec>
+			<title>DIAGNÓSTICO E TRATAMENTO DO CÂNCER DO COLO DO ÚTERO</title>
+			<p>Para os diagnósticos obtidos nos exames de Papanicolau, o Ministério da Saúde<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> preconiza as seguintes condutas: citologia normal e alterações benignas devem seguir a rotina de rastreamento citológico (anual); para alterações pré-malignas recomenda-se a repetição da citologia em seis meses; para alterações malignas, a colposcopia é imediatamente indicada e, apresentando lesão na colposcopia, recomenda-se a biópsia.</p>
+			<p>Nesse sentido, buscou-se identificar existência de cobertura equivalente entre o número de biópsias realizadas e o número de exames Papanicolau alterados que demandavam sua realização, por ano e faixa etária.</p>
+			<p>Na <xref ref-type="fig" rid="f04">Figura 4</xref> observa-se um número de biópsias equivalente aos exames citológicos que apresentaram alteração. O ano de 2008 apresentou menor equivalência; entretanto, foi de aproximadamente 80,0%. Os anos de 2009 e 2010 apresentaram equivalência de 116,7% e 119,3%, respectivamente. Esse achado pode ser justificado tanto pelo encaminhamento inadequado de casos que não necessitariam da biópsia, como referido em entrevistas por profissionais do serviço especializado, quanto pelo encaminhamento de mulheres que realizaram o Papanicolau no setor privado e foram encaminhadas para realizar a biópsia no serviço público.</p>
+			<p>
+				<fig id="f04">
+					<label>Figura 4</label>
+					<caption>
+						<title>Cobertura de biópsias por citologias alteradas. Município-chave, SP, 2008-2010.</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0240-gf04"/>
+				</fig>
+			</p>
+			<disp-quote>
+				<p>“Observo que os colegas têm dificuldade de seguir o fluxo que o próprio Ministério orienta. Por exemplo, ao chegar uma citologia NIC 1, eles imediatamente encaminham essa paciente, quando deveriam repetir o exame em seis meses (...). No meu ambulatório, cerca de 50,0% são encaminhamentos inadequados”. (Navete)</p>
+			</disp-quote>
+			<p>Os dados qualitativos confirmam que os casos que necessitam de biópsia são referenciados a serviços especializados. Observa-se no relato dos entrevistados que o acesso à média complexidade ocorre brevemente, o que pode favorecer o resultado obtido.</p>
+			<p>De acordo com as entrevistas, a entrada no nível secundário de atenção varia entre uma e duas semanas quando identificada alguma alteração na citologia que demande exames mais complexos: o período entre agendamento da consulta e resultado é de 15 a 20 dias.</p>
+			<disp-quote>
+				<p>“Não demorou não. Era bem rápido. Coisa de 20 dias”. (Maria da Conceição)</p>
+				<p>“É em torno de uma semana, no máximo. A própria UBS (unidade básica de saúde) liga e agenda. Em uma semana o paciente tá com consulta agendada”. (Agulha)</p>
+			</disp-quote>
+			<p>Não foi possível obter informações quantitativas sobre tratamento das usuárias. De acordo com dados do Sistema de Informação do CCU,<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> o município-chave não tem registro de seguimento de 99,98% dos casos, como proposto pelo Siscolo. Entretanto, a abordagem qualitativa identificou questões como a viabilização do acesso ao nível terciário que ocorre em um intervalo curto de tempo:</p>
+			<disp-quote>
+				<p>“Ah! Lá foi muito rápido. Na mesma semana fui encaminhada”. (Maria das Graças)</p>
+				<p>“Quando precisa encaminhar pro HU, em torno de 15, 20 dias, já<italic> tá</italic> com consulta agendada<italic> pra</italic> iniciar o tratamento”. (Agulha)</p>
+				<p>“Não tem dificuldade de agendamento no HU para casos de câncer de colo. Isso não existe”. (Tear)</p>
+			</disp-quote>
+			<p>O acesso facilitado aos níveis secundário e terciário de atenção não é uma realidade comumente observada no País. Segundo Parada et al,<xref ref-type="bibr" rid="B21">
+					<sup>21</sup>
+				</xref> a garantia de ações adequadas para diagnóstico e tratamento do CCU é um ponto crítico para a organização da linha de cuidado.</p>
+			<p>Cecílio &amp; Merhy<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> afirmam que “a linha de cuidado pensada de forma plena atravessa inúmeros serviços de saúde”. Segundo os autores, não há integralidade radical sem a transversalidade no sistema. O CCU, especificamente, depende da união de diferentes tecnologias para avançar no cuidado das mulheres, considerando os diferentes níveis de evolução da doença.</p>
+			<p>A realidade observada no município-chave justifica-se pela priorização do encaminhamento imediato das usuárias aos serviços de referência quando necessário. A facilidade do acesso a serviços especializados caracteriza um investimento relevante na prevenção secundária e terciária do CCU.</p>
+			<p>A utilização do CCU como traçadora para avaliar a integralidade na dimensão do acesso permitiu conhecer as principais fragilidades e potencialidades dos diferentes níveis assistenciais para o cuidado dessa enfermidade.</p>
+			<p>A cobertura ainda insuficiente da citologia oncótica, principalmente para as mulheres em idade avançada, reflete problemas no acesso à atenção básica por parte das usuárias e fragilidade na busca ativa de casos.</p>
+			<p>O nível secundário não apresenta problemas no acesso, contemplando um número de mulheres superior ao esperado. Por outro lado, retrata, além do encaminhamento de casos do setor privado, a possível insegurança do profissional diante dos resultados obtidos no Papanicolau, fazendo-o encaminhar casos nem sempre suspeitos à biópsia.</p>
+			<p>Quanto ao seguimento dos casos positivos para tratamento, encontramos problemas no registro dos dados, impedindo uma avaliação quantitativa do acesso a esse nível de atenção. A limitação encontrada nos sistemas de informação em saúde consultados retrata um problema comumente enfrentado pelos pesquisadores que trabalham com dados secundários obtidos por meio dessa ferramenta.</p>
+			<p>Dificilmente os sistemas de informação em saúde são consultados para o planejamento e avaliação das ações, sendo subutilizado como instrumento de tomada de decisão. A subutilização desses sistemas resulta em dados frequentemente alimentados de modo incompleto, pouco fidedigno e desatualizado, dificultando o seu uso tanto em estudos científicos quanto na prática da gestão. Na medida em que a gestão compreender a utilidade desses dados na tomada de decisão, ocorrerá uma melhoria paulatina no seu registro.</p>
+		</sec>
+		<sec sec-type="conclusions">
+			<title>CONCLUSÃO</title>
+			<p>Os achados deste estudo atendem à expectativa de avaliar a integralidade na dimensão do acesso na atenção ao CCU. Identificar os pontos de estrangulamentos no SUS favorece a tomada de decisão pelos gestores visando à melhoria da qualidade na atenção ao CCU, bem como a outros problemas de saúde da população. Entretanto, para que haja avanços na integralidade do SUS, há necessidade de exploração complementar dessa dinâmica da atenção.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Amorim VMSL, Barros MBA, César CLG, Carandina L, Goldbaum M. Fatores associados à não realização do exame de Papanicolaou: um estudo de base populacional no Município de Campinas, São Paulo, Brasil. Cad Saude Publica. 2006;22(11):2329-38. DOI:10.1590/S0102-311X2006001100007</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Amorim</surname>
+							<given-names>VMSL</given-names>
+						</name>
+						<name>
+							<surname>Barros</surname>
+							<given-names>MBA</given-names>
+						</name>
+						<name>
+							<surname>César</surname>
+							<given-names>CLG</given-names>
+						</name>
+						<name>
+							<surname>Carandina</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Goldbaum</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Fatores associados à não realização do exame de Papanicolaou: um estudo de base populacional no Município de Campinas, São Paulo, Brasil</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2006</year>
+					<volume>22</volume>
+					<issue>11</issue>
+					<fpage>2329</fpage>
+					<lpage>2338</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2006001100007</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Andrade CS, Franco TB, Ferreira VSC. Acolhimento: uma experiência de pesquisa-ação na mudança do processo de trabalho em saúde. Rev APS. 2007;10(2):106-15.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Andrade</surname>
+							<given-names>CS</given-names>
+						</name>
+						<name>
+							<surname>Franco</surname>
+							<given-names>TB</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>VSC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Acolhimento: uma experiência de pesquisa-ação na mudança do processo de trabalho em saúde</article-title>
+					<source>Rev APS</source>
+					<year>2007</year>
+					<volume>10</volume>
+					<issue>2</issue>
+					<fpage>106</fpage>
+					<lpage>115</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Bastos EA. Estimativa da efetividade do programa de rastreamento do câncer do colo do útero no Estado do Rio de Janeiro [dissertação de mestrado]. Rio de Janeiro: Universidade Federal do Rio de Janeiro; 2011</mixed-citation>
+				<element-citation publication-type="thesis">
+					<person-group>
+						<name>
+							<surname>Bastos</surname>
+							<given-names>EA</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Estimativa da efetividade do programa de rastreamento do câncer do colo do útero no Estado do Rio de Janeiro</source>
+					<comment>dissertação de mestrado</comment>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Universidade Federal do Rio de Janeiro</publisher-name>
+					<year>2011</year>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Bottari CMS, Vasconcellos MM, Mendonça MHM. Câncer cérvico-uterino como condição marcadora: uma proposta de avaliação da atenção básica. Cad Saude Publica. 2008;24(Supl 1):S111-22. DOI:10.1590/S0102-311X2008001300016</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Bottari</surname>
+							<given-names>CMS</given-names>
+						</name>
+						<name>
+							<surname>Vasconcellos</surname>
+							<given-names>MM</given-names>
+						</name>
+						<name>
+							<surname>Mendonça</surname>
+							<given-names>MHM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Câncer cérvico-uterino como condição marcadora: uma proposta de avaliação da atenção básica</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2008</year>
+					<volume>24</volume>
+					<issue>Supl 1</issue>
+					<fpage>S111</fpage>
+					<lpage>S122</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2008001300016</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Brenna SMF, Hardy E, Zeferino LC, Namura I. Conhecimento, atitude e prática do exame de Papanicolaou em mulheres com câncer de colo uterino. Cad Saude Publica. 2001;17(4):909-14. DOI:10.1590/S0102-311X2001000400024</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Brenna</surname>
+							<given-names>SMF</given-names>
+						</name>
+						<name>
+							<surname>Hardy</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Zeferino</surname>
+							<given-names>LC</given-names>
+						</name>
+						<name>
+							<surname>Namura</surname>
+							<given-names>I</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Conhecimento, atitude e prática do exame de Papanicolaou em mulheres com câncer de colo uterino</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2001</year>
+					<volume>17</volume>
+					<issue>4</issue>
+					<fpage>909</fpage>
+					<lpage>914</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2001000400024</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Brito-Silva K, Bezerra AFB, Tanaka OY. Direito à saúde e integralidade: uma discussão sobre os desafios e caminhos para sua efetivação. Interface (Botucatu). 2012;16(40):249-60. DOI:10.1590/S1414-32832012005000014</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Brito-Silva</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Bezerra</surname>
+							<given-names>AFB</given-names>
+						</name>
+						<name>
+							<surname>Tanaka</surname>
+							<given-names>OY</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Direito à saúde e integralidade: uma discussão sobre os desafios e caminhos para sua efetivação</article-title>
+					<source>Interface (Botucatu)</source>
+					<year>2012</year>
+					<volume>16</volume>
+					<issue>40</issue>
+					<fpage>249</fpage>
+					<lpage>260</lpage>
+					<issue-id pub-id-type="doi">10.1590/S1414-32832012005000014</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Cecilio LCO, Merhy EE. A integralidade do cuidado como eixo da gestão hospitalar. In: Pinheiro R, Mattos RA, organizadores. Construção da integralidade: cotidiano, saberes e práticas em saúde. Rio de Janeiro: IMS/ABRASCO; 2003. p.197-210.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Cecilio</surname>
+							<given-names>LCO</given-names>
+						</name>
+						<name>
+							<surname>Merhy</surname>
+							<given-names>EE</given-names>
+						</name>
+					</person-group>
+					<chapter-title xml:lang="pt">A integralidade do cuidado como eixo da gestão hospitalar</chapter-title>
+					<person-group>
+						<name>
+							<surname>Pinheiro</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Mattos</surname>
+							<given-names>RA</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Construção da integralidade: cotidiano, saberes e práticas em saúde</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>IMS/ABRASCO</publisher-name>
+					<year>2003</year>
+					<fpage>197</fpage>
+					<lpage>210</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Creswell JW. Projeto de pesquisa: métodos qualitativo, quantitativo e misto. 2.ed. Porto Alegre: Artmed; 2007.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Creswell</surname>
+							<given-names>JW</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Projeto de pesquisa: métodos qualitativo, quantitativo e misto</source>
+					<edition>2</edition>
+					<publisher-loc>Porto Alegre</publisher-loc>
+					<publisher-name>Artmed</publisher-name>
+					<year>2007</year>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Cunha ABO, Vieira da Silva LM. Acessibilidade aos serviços de saúde em um município do Estado da Bahia, Brasil, em gestão plena do sistema. Cad Saude Publica. 2010;26(4):725-37. DOI:10.1590/S0102-311X2010000400015</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Cunha</surname>
+							<given-names>ABO</given-names>
+						</name>
+						<name>
+							<surname>Vieira da Silva</surname>
+							<given-names>LM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Acessibilidade aos serviços de saúde em um município do Estado da Bahia, Brasil, em gestão plena do sistema</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2010</year>
+					<volume>26</volume>
+					<issue>4</issue>
+					<fpage>725</fpage>
+					<lpage>737</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2010000400015</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Ferreccio C, Bratti MC, Sherman ME, Herrero R, Wacholder S, Hildesheim A,  et al. A comparison of single and combined visual, cytologic and virologic tests as screening strategies in a region at high risk of cervical cancer. Cancer Epidemiol Biomarkers Prev. 2003;12(9):815-23.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Ferreccio</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Bratti</surname>
+							<given-names>MC</given-names>
+						</name>
+						<name>
+							<surname>Sherman</surname>
+							<given-names>ME</given-names>
+						</name>
+						<name>
+							<surname>Herrero</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Wacholder</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Hildesheim</surname>
+							<given-names>A</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">A comparison of single and combined visual, cytologic and virologic tests as screening strategies in a region at high risk of cervical cancer</article-title>
+					<source>Cancer Epidemiol Biomarkers Prev</source>
+					<year>2003</year>
+					<volume>12</volume>
+					<issue>9</issue>
+					<fpage>815</fpage>
+					<lpage>823</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Flick U. Uma introdução à pesquisa qualitativa. 2.ed. Porto Alegre: Bookman; 2004.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Flick</surname>
+							<given-names>U</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Uma introdução à pesquisa qualitativa</source>
+					<edition>2</edition>
+					<publisher-loc>Porto Alegre</publisher-loc>
+					<publisher-name>Bookman</publisher-name>
+					<year>2004</year>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Hartz ZMA, Contandriopoulos AP. Integralidade da atenção e integração de serviços de saúde: desafios para avaliar a implantação de um “sistema sem muros”. Cad Saude Publica. 2004;20(Supl 2):S331-6. DOI:10.1590/S0102-311X2004000800026</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hartz</surname>
+							<given-names>ZMA</given-names>
+						</name>
+						<name>
+							<surname>Contandriopoulos</surname>
+							<given-names>AP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Integralidade da atenção e integração de serviços de saúde: desafios para avaliar a implantação de um “sistema sem muros”</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2004</year>
+					<volume>20</volume>
+					<issue>Supl 2</issue>
+					<fpage>S331</fpage>
+					<lpage>S336</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2004000800026</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Kessner DM, Kalk CE, Singer J. Assessing health quality: the case for tracers. N Engl J Med. 1973;288(4):189-94. DOI:10.1056/NEJM197301252880406</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Kessner</surname>
+							<given-names>DM</given-names>
+						</name>
+						<name>
+							<surname>Kalk</surname>
+							<given-names>CE</given-names>
+						</name>
+						<name>
+							<surname>Singer</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Assessing health quality: the case for tracers</article-title>
+					<source>N Engl J Med</source>
+					<year>1973</year>
+					<volume>288</volume>
+					<issue>4</issue>
+					<fpage>189</fpage>
+					<lpage>194</lpage>
+					<issue-id pub-id-type="doi">10.1056/NEJM197301252880406</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Martins LFL, Thuler LCS, Valente JG. Cobertura do exame de Papanicolaou no Brasil e seus fatores determinantes: uma revisão sistemática da literatura. Rev Bras Ginecol Obstet. 2005;27(8):485-92. DOI:10.1590/S0100-72032005000800009</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Martins</surname>
+							<given-names>LFL</given-names>
+						</name>
+						<name>
+							<surname>Thuler</surname>
+							<given-names>LCS</given-names>
+						</name>
+						<name>
+							<surname>Valente</surname>
+							<given-names>JG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Cobertura do exame de Papanicolaou no Brasil e seus fatores determinantes: uma revisão sistemática da literatura</article-title>
+					<source>Rev Bras Ginecol Obstet</source>
+					<year>2005</year>
+					<volume>27</volume>
+					<issue>8</issue>
+					<fpage>485</fpage>
+					<lpage>492</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0100-72032005000800009</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Mattos RA. A integralidade na prática (ou sobre a prática da integralidade). Cad Saude Publica. 2004;20(5):1411-6. DOI:10.1590/S0102-311X2004000500037</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Mattos</surname>
+							<given-names>RA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">A integralidade na prática (ou sobre a prática da integralidade)</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2004</year>
+					<volume>20</volume>
+					<issue>5</issue>
+					<fpage>1411</fpage>
+					<lpage>1416</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2004000500037</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Mendonça VG, Lorenzato FRB, Mendonça JG, Menezes TC, Guimarães MJB. Mortalidade por câncer do colo do útero: características sociodemográficas das mulheres residentes na cidade de Recife, Pernambuco. Rev Bras Ginecol Obstet. 2008;30(5):248-55. DOI:10.1590/S0100-72032008000500007</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Mendonça</surname>
+							<given-names>VG</given-names>
+						</name>
+						<name>
+							<surname>Lorenzato</surname>
+							<given-names>FRB</given-names>
+						</name>
+						<name>
+							<surname>Mendonça</surname>
+							<given-names>JG</given-names>
+						</name>
+						<name>
+							<surname>Menezes</surname>
+							<given-names>TC</given-names>
+						</name>
+						<name>
+							<surname>Guimarães</surname>
+							<given-names>MJB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Mortalidade por câncer do colo do útero: características sociodemográficas das mulheres residentes na cidade de Recife, Pernambuco</article-title>
+					<source>Rev Bras Ginecol Obstet</source>
+					<year>2008</year>
+					<volume>30</volume>
+					<issue>5</issue>
+					<fpage>248</fpage>
+					<lpage>255</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0100-72032008000500007</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Ministério da Saúde. Instituto Nacional de Câncer. Plano de ação para redução da incidência e mortalidade por câncer do colo do útero: sumário executivo. Rio de Janeiro: INCA; 2010 [citado 2011 jul 12]. Disponível em: http://www1.inca.gov.br/inca/Arquivos/Livro_DARAO_utero.pdf</mixed-citation>
+				<element-citation publication-type="web">
+					<person-group>
+						<collab>Ministério da Saúde</collab>
+						<collab>Instituto Nacional de Câncer</collab>
+					</person-group>
+					<source xml:lang="pt">Plano de ação para redução da incidência e mortalidade por câncer do colo do útero: sumário executivo</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>INCA</publisher-name>
+					<year>2010</year>
+					<date-in-citation content-type="access-date">
+						<year>2011</year>
+						<month>jul</month>
+						<day>12</day>
+					</date-in-citation>
+					<ext-link ext-link-type="uri" xlink:href="http://www1.inca.gov.br/inca/Arquivos/Livro_DARAO_utero.pdf">http://www1.inca.gov.br/inca/Arquivos/Livro_DARAO_utero.pdf</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Ministério da Saúde. Instituto Nacional de Câncer. Plano de ação para redução da incidência e mortalidade por câncer do colo do útero: sumário executivo. Rio de Janeiro: INCA; 2010 [citado 2011 jul 12]. Disponível em: http://www1.inca.gov.br/inca/Arquivos/Livro_DARAO_utero.pdf</mixed-citation>
+				<element-citation publication-type="web">
+					<person-group>
+						<collab>Ministério da Saúde</collab>
+						<collab>Instituto Nacional de Câncer</collab>
+					</person-group>
+					<source xml:lang="pt">Plano de ação para redução da incidência e mortalidade por câncer do colo do útero: sumário executivo</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>INCA</publisher-name>
+					<year>2010</year>
+					<date-in-citation content-type="access-date">
+						<year>2011</year>
+						<month>jul</month>
+						<day>12</day>
+					</date-in-citation>
+					<ext-link ext-link-type="uri" xlink:href="http://www1.inca.gov.br/inca/Arquivos/Livro_DARAO_utero.pdf">http://www1.inca.gov.br/inca/Arquivos/Livro_DARAO_utero.pdf</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Ministério da Saúde. Instituto Nacional de Câncer. Estimativa 2010: incidência de câncer no Brasil. Rio de Janeiro: INCA; 2009 [citado 2011 jul 12]. Disponível em: http://www.inca.gov.br/estimativa/2010/</mixed-citation>
+				<element-citation publication-type="web">
+					<person-group>
+						<collab>Ministério da Saúde</collab>
+						<collab>Instituto Nacional de Câncer</collab>
+					</person-group>
+					<source xml:lang="pt">Estimativa 2010: incidência de câncer no Brasil</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>INCA</publisher-name>
+					<year>2009</year>
+					<date-in-citation content-type="access-date">
+						<year>2011</year>
+						<month>jul</month>
+						<day>12</day>
+					</date-in-citation>
+					<ext-link ext-link-type="uri" xlink:href="http://www.inca.gov.br/estimativa/2010/">http://www.inca.gov.br/estimativa/2010/</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Ministério da Saúde. Instituto Nacional de Câncer. Nomenclatura Brasileira para Laudos Cervicais e Condutas Preconizadas: recomendações para profissionais de saúde. J Bras Patol Med Lab. 2006;42(5):351-73. DOI:10.1590/S1676-24442006000500008</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<collab>Ministério da Saúde</collab>
+						<collab>Instituto Nacional de Câncer</collab>
+					</person-group>
+					<article-title xml:lang="pt">Nomenclatura Brasileira para Laudos Cervicais e Condutas Preconizadas: recomendações para profissionais de saúde</article-title>
+					<source>J Bras Patol Med Lab</source>
+					<year>2006</year>
+					<volume>42</volume>
+					<issue>5</issue>
+					<fpage>351</fpage>
+					<lpage>373</lpage>
+					<issue-id pub-id-type="doi">10.1590/S1676-24442006000500008</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>. Parada R, Assis M, Silva RCF, Abreu MF, Silva MAF, Dias MBK,  et al. A política nacional de atenção oncológica e o papel da atenção básica na prevenção e controle do câncer. Rev APS. 2008;11(2):199-206.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Parada</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Assis</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>RCF</given-names>
+						</name>
+						<name>
+							<surname>Abreu</surname>
+							<given-names>MF</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>MAF</given-names>
+						</name>
+						<name>
+							<surname>Dias</surname>
+							<given-names>MBK</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="pt">A política nacional de atenção oncológica e o papel da atenção básica na prevenção e controle do câncer</article-title>
+					<source>Rev APS</source>
+					<year>2008</year>
+					<volume>11</volume>
+					<issue>2</issue>
+					<fpage>199</fpage>
+					<lpage>206</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>. Ribeiro MGM, Santos SMR, Teixeira MTB. Itinerário terapêutico de mulheres com câncer do colo do útero: uma abordagem focada na prevenção. Rev Bras Cancerol. 2011;57(4):483-91.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Ribeiro</surname>
+							<given-names>MGM</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>SMR</given-names>
+						</name>
+						<name>
+							<surname>Teixeira</surname>
+							<given-names>MTB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Itinerário terapêutico de mulheres com câncer do colo do útero: uma abordagem focada na prevenção</article-title>
+					<source>Rev Bras Cancerol</source>
+					<year>2011</year>
+					<volume>57</volume>
+					<issue>4</issue>
+					<fpage>483</fpage>
+					<lpage>491</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>. Tanaka OY, Espírito Santo ACG. Avaliação da qualidade da atenção básica utilizando a doença respiratória da infância como traçador, em um distrito sanitário do município de São Paulo. Rev Bras Saude Mater Infant. 2008;8(3):325-32. DOI:10.1590/S1519-38292008000300012</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Tanaka</surname>
+							<given-names>OY</given-names>
+						</name>
+						<name>
+							<surname>Espírito Santo</surname>
+							<given-names>ACG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Avaliação da qualidade da atenção básica utilizando a doença respiratória da infância como traçador, em um distrito sanitário do município de São Paulo</article-title>
+					<source>Rev Bras Saude Mater Infant</source>
+					<year>2008</year>
+					<volume>8</volume>
+					<issue>3</issue>
+					<fpage>325</fpage>
+					<lpage>332</lpage>
+					<issue-id pub-id-type="doi">10.1590/S1519-38292008000300012</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>. Thuler LCS. Mortalidade por câncer do colo do útero no Brasil. Rev Bras Ginecol Obstet. 2008;30(5):216-8. DOI:10.1590/S0100-72032008000500002</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Thuler</surname>
+							<given-names>LCS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Mortalidade por câncer do colo do útero no Brasil</article-title>
+					<source>Rev Bras Ginecol Obstet</source>
+					<year>2008</year>
+					<volume>30</volume>
+					<issue>5</issue>
+					<fpage>216</fpage>
+					<lpage>218</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0100-72032008000500002</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>. Vale DBAP, Morais SS, Pimenta AL, Zeferino LC. Avaliação do rastreamento do câncer do colo do útero na Estratégia Saúde da Família no Município de Amparo, São Paulo, Brasil. Cad Saude Publica. 2010;26(2):383-90. DOI:10.1590/S0102-311X2010000200017</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Vale</surname>
+							<given-names>DBAP</given-names>
+						</name>
+						<name>
+							<surname>Morais</surname>
+							<given-names>SS</given-names>
+						</name>
+						<name>
+							<surname>Pimenta</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Zeferino</surname>
+							<given-names>LC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Avaliação do rastreamento do câncer do colo do útero na Estratégia Saúde da Família no Município de Amparo, São Paulo, Brasil</article-title>
+					<source>Cad Saude Publica</source>
+					<year>2010</year>
+					<volume>26</volume>
+					<issue>2</issue>
+					<fpage>383</fpage>
+					<lpage>390</lpage>
+					<issue-id pub-id-type="doi">10.1590/S0102-311X2010000200017</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>. Viana ALA, Rocha JSY, Elias PE, Ibañez N, Novaes MHD. Modelos de atenção básica nos grandes municípios paulistas: efetividade, eficácia, sustentabilidade e governabilidade. Cienc Saude Coletiva. 2006;11(3):577-606. DOI:10.1590/S1413-81232006000300009</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Viana</surname>
+							<given-names>ALA</given-names>
+						</name>
+						<name>
+							<surname>Rocha</surname>
+							<given-names>JSY</given-names>
+						</name>
+						<name>
+							<surname>Elias</surname>
+							<given-names>PE</given-names>
+						</name>
+						<name>
+							<surname>Ibañez</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Novaes</surname>
+							<given-names>MHD</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Modelos de atenção básica nos grandes municípios paulistas: efetividade, eficácia, sustentabilidade e governabilidade</article-title>
+					<source>Cienc Saude Coletiva</source>
+					<year>2006</year>
+					<volume>11</volume>
+					<issue>3</issue>
+					<fpage>577</fpage>
+					<lpage>606</lpage>
+					<issue-id pub-id-type="doi">10.1590/S1413-81232006000300009</issue-id>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>. World Health Organization. Cancer control: knowledge into action: WHO guide for effective programmes: early detection. Geneva; 2007 [citado 2012 set 6]. Disponível em: http://www.who.int/cancer/modules/Early%20Detection%20Module%203.pdf</mixed-citation>
+				<element-citation publication-type="web">
+					<person-group>
+						<collab>World Health Organization</collab>
+					</person-group>
+					<source xml:lang="en">Cancer control: knowledge into action: WHO guide for effective programmes: early detection</source>
+					<publisher-loc>Geneva</publisher-loc>
+					<year>2007</year>
+					<date-in-citation content-type="access-date">
+						<year>2012</year>
+						<month>set</month>
+						<day>6</day>
+					</date-in-citation>
+					<ext-link ext-link-type="uri" xlink:href="http://www.who.int/cancer/modules/Early%20Detection%20Module%203.pdf">http://www.who.int/cancer/modules/Early%20Detection%20Module%203.pdf</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<label>28</label>
+				<mixed-citation>. World Health Organization. National cancer control programmes: policies and managerial guidelines. 2.ed. Geneva; 2002.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<collab>World Health Organization</collab>
+					</person-group>
+					<source xml:lang="en">National cancer control programmes: policies and managerial guidelines</source>
+					<edition>2</edition>
+					<publisher-loc>Geneva</publisher-loc>
+					<year>2002</year>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<label>29</label>
+				<mixed-citation>. Yin RK. Estudo de caso: planejamento e métodos. Porto Alegre: Bookman; 2005.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group>
+						<name>
+							<surname>Yin</surname>
+							<given-names>RK</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="pt">Estudo de caso: planejamento e métodos</source>
+					<publisher-loc>Porto Alegre</publisher-loc>
+					<publisher-name>Bookman</publisher-name>
+					<year>2005</year>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Ministério da Saúde, DATASUS. Siscolo - Sistema de Informação do Câncer do Colo do Útero. [citado 2011 nov 5]. Disponível em: http://w3.datasus.gov.br/siscam/index.php?area=0401</p>
+			</fn>
+			<fn fn-type="financial-disclosure">
+				<p>A autora foi bolsista pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes) durante o doutorado e teve bolsa do Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) durante o período do doutorado Sandwich no Exterior (SWE – Processo 200741/2011-0).</p>
+			</fn>
+			<fn fn-type="financial-disclosure">
+				<p>Trabalho financiado pela Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP – Processo 2009/08844-8).</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Integrality in cervical cancer care: evaluation of access</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Keila Silene de Brito e Silva  Rua Major Nereu Guerra, 87/202 Casa Amarela  52070-300 Recife, PE, Brasil  E-mail: britokeila@hotmail.com </corresp>
+				<fn fn-type="other">
+					<p>Article based on the doctoral thesis of Brito-Silva KS, entitled: “Avaliação da integralidade no cuidado ao câncer de colo uterino: uso da condição marcadora em um estudo misto”, presented to the Faculdade de Saúde Pública of the Universidade de São Paulo, in 2013.</p>
+					<p>The authors declare that there is no conflict of interest</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To evaluate integrity of access to uterine cervical cancer prevention, diagnosis and treatment services.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>The tracer condition was analyzed using a mixed quantitative and qualitative approach. The quantitative approach was based on secondary data from the analysis of cytology and biopsy exams performed between 2008 and 2010 on 25 to 59 year-old women in a municipality with a large population and with the necessary technological resources. Data were obtained from the Health Information System and the Regional Cervical Cancer Information System. Statistical analysis was performed using PASW statistic 17.0 software. The qualitative approach involved semi-structured interviews with service managers, health care professionals and users. NVivo 9.0 software was used for the content analysis of the primary data.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>Pap smear coverage was low, possible due to insufficient screening and the difficulty of making appointments in primary care. The numbers of biopsies conducted are similar to those of abnormal cytologies, reflecting easy access to the specialized services. There was higher coverage among younger women. More serious diagnoses, for both cytologies and biopsies, were more prevalent in older women.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>Insufficient coverage of cytologies, reported by the interviewees allows us to understand access difficulties in primary care, as well as the fragility of screening strategies.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Uterine Cervical Neoplasms, prevention &amp; control</kwd>
+				<kwd>Women’s Health Services</kwd>
+				<kwd>Integrality in Health</kwd>
+				<kwd>Health Care Quality, Access, and Evaluation</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>In step with worldwide trends, the most common types of cancer in Brazilian women are breast cancer and uterine cervical cancer (UCC). According to Brazilian Ministry of Health National Cancer Institute figures,<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> UCC is responsible for the deaths of around 230 thousand women annually. In developing countries, incidence is around two times higher than in more developed countries. At the same time, it is a type of cancer with higher potential for prevention and for cure if diagnosed early.</p>
+				<p>The high prevention and cure potential is explained by the of the disease, with well-defined stages, and the ease of early detection of changes, making quick diagnosis and efficacious treatment viable.</p>
+				<p>Effective early UCC detection, through Pap smear tests, associated with treating squamous intraepithelial lesions, can reduce the incidence of such cancers by 90.0%, with significant impact on morbidity and mortality rates.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> However, such a reduction depends on quality screening covering at least 80.0% of the target population (25 to 59 years old). As recommended by the World Health Organization (WHO).<xref ref-type="bibr" rid="B28">
+						<sup>28</sup>
+					</xref> Effective screening programs can help to reduce incidence rates and, consequently, mortality from UCC.<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+				</p>
+				<p>Despite improvements in the coverage of cytological testing in Brazil, it is still deemed insufficient to reduce UCC mortality.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> Moreover, the quality of testing and the stages at which cases are diagnosed are other factors influencing this situation.<xref ref-type="bibr" rid="B24">
+						<sup>24</sup>
+					</xref>
+				</p>
+				<p>Delayed diagnosis makes it more difficult to access services and, above all, reveals a lack of quantity and quality oncological services outside of the larger state capitals.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> Other aspects which may contribute to delayed diagnosis are: poor professional training in oncological care, inability of health care units to meet demand and municipal and state administration difficulties in defining and establishing flow at different care levels.<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref>
+				</p>
+				<p>In one sense, integrality can refer to the population’s access to different levels of care. Although universal access is a constitutional right and this has broken down formal barriers, difficulties in access to, and continuity of, care remain,<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> both in primary care and in more specialized services.<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B26">
+						<sup>26</sup>
+					</xref>
+				</p>
+				<p>Seeking to combat the disease effectively, the National UCC Control Program in Brazil provides access to different services for dealing with each phase of the illness. Early detection (screening) of UCC in asymptomatic women is this program’s paramount initiative, with the following essential elements: defining the target population and screening method and interval; coverage goals; infrastructure in the three levels of care and guaranteed quality of the actions.<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref>
+				</p>
+				<p>Developing evaluative studies regarding UCC care integrality may encourage identification of this context, enabling bottle necks in the different levels of care to be identified.</p>
+				<p>Using tracers is one of the recommended strategies in developing evaluative research.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B23">
+						<sup>23</sup>
+					</xref> Using this technique enables foci to be more easily defined and means multiple care points involved in integrating services can be covered.<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref>
+				</p>
+				<p>UCC is a tracer<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> as it is a disease which meets the requisites: frequent event with scientifically well-defined etiology, diagnosis, treatment and prevention; the existence of a consolidated national program involving all levels of care; a disease that evolves slowly and for which there is an effective treatment.</p>
+				<p>Considering that integrality covers different dimensions,<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> the aim of this study was to evaluate integrality in the dimension of access to prevention, diagnosis and treatment services for uterine cervical cancer.</p>
+			</sec>
+			<sec>
+				<title>METHODOLOGICAL PROCEEDINGS</title>
+				<p>Evaluative research was conducted based on the sequential mixed methods design. Quantitative data were used, followed by qualitative data. This combination aimed to enable better understanding of the research problem by converging numeric trends from a quantitative approach and qualitative details.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+				</p>
+				<p>It was decided to use a case study. The location studied is one of the Brazilian cities with the highest number of registered health care establishments and available health care professionals, being the biggest health care reference center in the northeast of Sao Paulo state. It is a significant case <xref ref-type="bibr" rid="B29">
+						<sup>29</sup>
+					</xref> due to its coverage and capacity to provide UCC care, as well as for historical and political investment processes and advances in local SUS structuration. Given these details, this study denominated the location as a key-municipality.</p>
+				<p>As in other large urban centers, despite the provision of health care services, the location studied has limitations concerning the quality and capacity of responses at different care levels.<xref ref-type="bibr" rid="B26">
+						<sup>26</sup>
+					</xref> Although there are sufficient health care facilities to make integrality of UCC care viable, the place studied reflects the Brazilian reality of mortality from this type of cancer, with a rate of 4.5 deaths per 100 thousand women in 2008.</p>
+				<p>The focus of the study identified functional bottle necks in the UCC prevention, diagnosis and treatment process, using the capacity to provide services at different levels of technological complexity as a parameter in the search for integrality in care.</p>
+				<p>The first stage of investigation consisted of formulating the following hypotheses:</p>
+				<list list-type="order">
+					<list-item>
+						<p>Pap smear coverage is insufficient in the key municipality;</p>
+					</list-item>
+					<list-item>
+						<p>There are difficulties in accessing levels of more technological density (biopsy and treatment).</p>
+					</list-item>
+				</list>
+				<p>To investigate these hypotheses, the different care levels were studied, aiming to quantitatively understand women’s capacity to access different services, as well as their ability to meet users’ needs.</p>
+				<p>The data were taken from Hygiaweb and the regional Siscolo. Hygia is the key municipality’s health care secretariat’s official information system in which procedures performed in municipal health care units are recorded. The data were generated in Excel spreadsheets, enabling access to cytopathology tests, diagnoses and possible referrals for women aged 25 to 59 and recorded in the system between January 2008 and June 2010.</p>
+				<p>To complement the data obtained from Hygia, the XIII Regional Health Department of the Sao Paulo State Health Secretariat (SES/SP) database was accessed regarding the UCC prevention diagnosis procedures that occurred under state administration in the key municipality. The data available in the state and municipal sphere were organized in a single database, enabling the procedures covering the local health care system to be visualized together in one place.</p>
+				<p>Secondary data were analyzed using PASW statistic 17.0 software to analyze frequency distribution and the study variables.</p>
+				<p>The variables studied concerning cytology (performed and with changes) and biopsies were: year test was performed, age group, type of change (diagnostic), health care service administration (state/municipal).</p>
+				<p>From these variables, cytology coverage in the key municipality was identified by year and age group as were the changes that most affected the women in the study and biopsy coverage where necessary.</p>
+				<p>Regarding data concerning treatment, a lack of records in the local health care information system was identified.</p>
+				<p>The qualitative approach involved selecting the two health districts (HD 3 and HD 4) that conducted the most cytological tests in the period studied, these having the greatest provision and, consequently, the greatest coverage of care activities for the condition traced. The key informants selected were: primary and/or specialist health care professionals involved in activities promoting, preventing, diagnosing and/or treating women with UCC; users aged between 25 and 59, registered with the health care unit and in need of referral to other levels of care due to changes detected in their cytology tests. In addition to the health care professionals directly involved, representatives of municipal administration with attributes identified as being relevant in the other interviews were also interviewed.</p>
+				<p>Individual, semi-structured interviews were conducted with ten health care professionals operating at different levels of the health care system; ten users and two representatives of the administration. The primary data were transcribed and underwent content analysis.<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref> the data were categorized using NVivo 9.0 software.</p>
+				<p>Although the qualitative findings covered different dimensions of integrality, the results shown here only refer to the dimension of access, in dialogue with the quantitative findings of the research.</p>
+				<p>Thus, the categories presented are: rapid access to specialist services; difficulty in making appointments; and primary care spontaneous demand based care.</p>
+				<p>Names were changed to maintain participants’ confidentiality. Users were given the first name “Maria” and administration representatives and health care professionals were given names related to weaving.</p>
+			</sec>
+			<sec>
+				<title>ANALYSIS OF RESULTS AND DISCUSSION</title>
+				<sec>
+					<title>Preventing uterine cervical cancer</title>
+					<p>In the key municipality, the female population aged between 25 and 29 corresponded to a total of 146,868 women and the 30 thousand smear tests performed annually by SUS services for this population means coverage of around 20.0% per year, as can be seen in Figure 1.</p>
+					<p>Smear test coverage in the key municipality is, therefore, lower than WHO recommendations (80.0%) to have significant impact on morbidity and mortality rates for this kind of cancer.<xref ref-type="bibr" rid="B28">
+							<sup>28</sup>
+						</xref> However, the coverage observed in the key municipality exceeded that in the majority of Brazilian states, where the coverage was below 20.0% in 2008-2009 for women in the same age range.<xref ref-type="bibr" rid="B19">
+							<sup>19</sup>
+						</xref>
+					</p>
+					<p>Pap smear screening is deemed to be the most effective approach for controlling UCC. Epidemiological studies have shown a higher risk of the disease in women who have never had the test done and a proportional rise in risk according to the time elapsed since the most recent smear test.<xref ref-type="bibr" rid="B10">
+							<sup>10</sup>
+						</xref>
+						<sup>,</sup>
+						<xref ref-type="bibr" rid="B14">
+							<sup>14</sup>
+						</xref>
+					</p>
+					<p>Hypotheses regarding poor coverage in the key municipality include: underreporting of tests actually performed, the percentage of women having the test done in private health care services, insufficient supply of services/human resources making access to primary care services more difficult and/or insufficient active searching.</p>
+					<p>On the topic of private health care service use, it was noted in the interviews that many users used means of accessing health care other than the SUS, such as health care plans.</p>
+					<p>In addition to these hypotheses, the findings of Brenna et al<xref ref-type="bibr" rid="B5">
+							<sup>5</sup>
+						</xref> on factors associated with poor adherence to having a smear test done should also be taken into account; these include: embarrassment, distance, difficulty leaving children or dependents, getting time off work, as well as financial or transport-related difficulties.</p>
+					<p>Of the hypotheses listed above, difficulty in accessing primary care and insufficient active search were reported in the interviews.</p>
+					<disp-quote>
+						<p>“In the health care center, there is only one day on which you can make appointments. It’s the first of the month. When that day comes round, there are so many things going on that you end up forgetting. When you remember, it’s too late”. (Maria de Nazaré)</p>
+						<p>“It is difficult to access the primary care unit (...). It takes users a long time to manage it. (...) in some units they are very strict about it. In the end, they only do what is very urgent. If not, no time is made for it”. (Cotton)</p>
+						<p>“From the moment I became strict about punctuality, the patients I saw dropped by 30.0% (...). Today, I don’t squeeze them in. I only make room for emergencies. Miss your appointment? It’s not my problem”. (Fabric)</p>
+					</disp-quote>
+					<p>Based on the interviews, it can be stated that difficulty in accessing primary care is, above all, related to lack of flexibility in making appointments. The dynamic of attendance is restricted and bureaucracy contributes to making it difficult and to discouraging women from seeking to use the service, delaying them having a smear test done, as can be seen in Figure 1.</p>
+					<p>There are different studies that indicate a similar situation to that observed in the key municipality. Andrade et al<xref ref-type="bibr" rid="B2">
+							<sup>2</sup>
+						</xref> (2007) indicate critical access situations in family health care units in a municipality in Bahia, Northeastern Brazil, where it was common to arrive at the unit in the early hours of the morning and even then not be guaranteed an appointment. Cunha &amp; Vieira-da-Silva<xref ref-type="bibr" rid="B9">
+							<sup>9</sup>
+						</xref> highlighted difficulties in accessing primary care in cities in the Northeast of Brazil, in both traditional units and family health care units, emphasizing the appointment making process as a significant obstacle to using the service.</p>
+					<p>Statements such as those of Fabric and Cotton portray the indifference of professionals who see themselves as spectators, without taking responsibility for the situation and ignoring users’ rights.</p>
+					<p>Regarding the entrance policy for users, representatives from the three groups interviewed confirmed it was based on the logic of spontaneous demand:</p>
+					<disp-quote>
+						<p>“I hadn’t had one [smear test] for 20 years (...).</p>
+						<p>Nobody ever talked to me about it. I did it now because I decided to look after myself”. (Maria de Nazaré)</p>
+						<p>“Our unit is very passive. It waits for people to come to it (...) we deal with whoever shows up and we have no idea who needs to have it done”. (Fiber)</p>
+						<p>“Units that don’t have a community health worker don’t have that type of focus: someone missed their appointment? Deal with the user who is there and no one looks into it any further”. (Warp)</p>
+					</disp-quote>
+					<p>The way in which the health care services are organized to screen for cancer can be based on either organized or spontaneous provision.<xref ref-type="bibr" rid="B27">
+							<sup>27</sup>
+						</xref>
+					</p>
+					<p>In the organized model, there are appropriate structure and resources to perform screening tests regularly, as well as to treat suspicious lesions. There are mechanisms to recruit the target population and systematic monitoring of individuals whose test results are positive.<xref ref-type="bibr" rid="B3">
+							<sup>3</sup>
+						</xref>
+					</p>
+					<p>In the spontaneous model, screening is not a systematic part of the routine of health care services and is restricted to those who occasionally seek the health care service for different reasons, with no actions developed to actively seek cases, resulting in inequalities in access and inefficient use of resources.<xref ref-type="bibr" rid="B27">
+							<sup>27</sup>
+						</xref>
+					</p>
+					<p>Organization based on spontaneous demand is a basic characteristic of the privatized care model traditionally found in health care services in this country.</p>
+					<p>Regarding prevention of UCC, various studies<xref ref-type="bibr" rid="B21">
+							<sup>21</sup>
+						</xref>
+						<sup>,</sup>
+						<xref ref-type="bibr" rid="B25">
+							<sup>25</sup>
+						</xref> have shown that having a Pap smear test done is predominantly associated with the women themselves seeking this, reaffirming what was stated above in the interviews and resulting in situations such as that of Maria de Nazaré, who reported not having the test done for more than 20 years.</p>
+					<p>Vale et al<xref ref-type="bibr" rid="B25">
+							<sup>25</sup>
+						</xref> emphasize the relationship between primary care based on spontaneous demand and poor coverage. Higher frequency of events, such as pregnancy, need for contraceptive methods or treating discharge, in younger women, means that they see the gynecologist more often than older women.<xref ref-type="bibr" rid="B1">
+							<sup>1</sup>
+						</xref> Thus, in addition to being insufficient, coverage is also concentrated on younger women and does not reach those in their 50s and 60s, the group with the highest cancer risk. Actively seeking cases, associated with monitoring and performing tests, are actions which could encourage increased Pap smear coverage, especially in women over 50.</p>
+					<p>As can be seen in Figure 2, in the key municipality, there is a trend for coverage to decrease with age group. Over the age of 40, coverage is below 15.0%.</p>
+					<p>The fact that women between 40 and 59 visit the gynecologist less often results in low frequency of having Pap smear tests and, consequently, in diagnoses being more serious than those observed in younger women. The concentration of cytopathology tests in women aged under 35 is a commonly observed situation in Brazil.</p>
+					<p>Amorim et al<xref ref-type="bibr" rid="B1">
+							<sup>1</sup>
+						</xref> deem it essential that health care services take advantage of older women using them for other health problems to perform a Pap smear.</p>
+					<p>Parada et al<xref ref-type="bibr" rid="B21">
+							<sup>21</sup>
+						</xref> suggest reorganizing reception in primary health care units using strategies such as: consultations without appointments, alternative opening hours (during the night or the weekend), actively seeking women within the program’s age range, especially those who have never had a smear test, seeking to increase and facilitate women’s access to these services.</p>
+					<p>The urgent need to capture users aged over 50 can be seen in Figure 3, which shows the predominance of malignant changes in women aged over 50. Malignant changes (adenocarcinoma, carcinoma) were mainly diagnosed in women aged between 50 and 59, whereas benign and pre-malignant changes were concentrated in younger women (25-39) (Figure 3).</p>
+					<p>Ribeiro et al<xref ref-type="bibr" rid="B22">
+							<sup>22</sup>
+						</xref> identified that, for women aged between 46 and 74, gynecological examination is seen by many as a painful, embarrassing and disagreeable experience. According to the authors, this perspective is explained as they form part of a generation which suffered intense sexual repression, as well as having undergone negative experiences during impersonal, careless gynecological examinations without any explanation of the process given, which contributes significantly to these women’s refusal to seek this form of caring for themselves.</p>
+					<p>Incorporating guidance by the health care team on the preventative role of the test in menopausal women’s health is essential in encouraging it, contributing to reducing incidence and mortality in this population.</p>
+				</sec>
+				<sec>
+					<title>Diagnosing and treating uterine cervical cancer</title>
+					<p>The Brazilian Ministry of Health<xref ref-type="bibr" rid="B20">
+							<sup>20</sup>
+						</xref> recommends the following procedures for diagnoses obtained from Pap smear tests: normal cytology and benign changes should follow routine (annual) cytological screening: for pre-malignant changes, it is recommended that cytology is repeated every six months; in case of malignant changes, a colposcopy is immediately performed and, if lesions are found, a biopsy is recommended.</p>
+					<p>Thus, the aim is to identify equivalent coverage between the number of biopsies performed and the number of Pap smear results with changes that led to them being performed, by year and age group.</p>
+					<p>In Figure 4, it can be seen that the number of biopsies is equivalent to the number of cytological tests showing changes. In 2008, however, this was not the case, with the rate being around 80.0%. The years 2009 and 2010 had rates of 116.7% and 119.3%, respectively. This finding can be explained both by inappropriate referral in cases that did not require a biopsy, as reported by health care professionals from the specialist service, and by women having the smear test done in the private sector and then referred to have the biopsy done in the public sector.</p>
+					<disp-quote>
+						<p>“I see that my colleagues have difficulty following the ministry guidelines. For example, when an NIC 1 cytology appears, they immediately refer this patient, when they should repeat the test after 6 months (…). In my outpatients’ unit, around 50.0% of referrals are not appropriate”. (Shuttle)</p>
+					</disp-quote>
+					<p>The qualitative data confirm that cases requiring a biopsy are referred to specialist services. From the interviews, it was observed that access to medium complexity care occurs quickly, which may favor the observed result.</p>
+					<p>According to the interviewees, it varies between one and two weeks to enter secondary level care when some change requiring more complex tests is identified in the cytology: the period between making an appointment and the result is between 15 and 20 days.</p>
+					<disp-quote>
+						<p>“It didn’t take long. It was really quick. Around 20 days”. (Maria da Conceição)</p>
+						<p>“It’s around a week, at the most. The PHC (primary health care unit) itself calls and makes an appointment. In a week, the patient has an appointment scheduled”. (Needle)</p>
+					</disp-quote>
+					<p>It was not possible to obtain qualitative data on users’ treatment. According to data from the UCC Information System,<xref ref-type="fn" rid="fn1_en">
+							<sup>a</sup>
+						</xref> the key municipality did not have follow up records of 99.98% of cases, as proposed by Siscolo. However, the qualitative approach identified issues such as making access to tertiary level care within a short space of time more viable:</p>
+					<disp-quote>
+						<p>“Ah! It was really quick there. I was referred the same week”. (Maria das Graças)</p>
+						<p>“When someone needs to be referred to the university hospital, they have an appointment made to start treatment within 15 or 20 days”. (Needle)</p>
+						<p>“There is no difficulty making appointments with the university hospital for cervical cancer cases. None at all”. (Loom)</p>
+					</disp-quote>
+					<p>Facilitated access to secondary and tertiary levels of care is not a commonly observed situation in this country. According to Parada,<xref ref-type="bibr" rid="B21">
+							<sup>21</sup>
+						</xref> guaranteeing appropriate actions in diagnosing and treating UCC is a key point in the organization of the care flow.</p>
+					<p>Cecílio &amp; Merhy<xref ref-type="bibr" rid="B7">
+							<sup>7</sup>
+						</xref> state that “the care flow, thought of as a whole, crosses through countless health care services”. According to these authors, there is no radical integrality without transversality within the system. UCC, specifically, depends on uniting different technologies to advance women’s health care, considering the disease’s different levels of evolution.</p>
+					<p>The situation observed in the key municipality is explained by the prioritization of immediate referral of service users when necessary. Ease of access to specialized services is a relevant investment in preventing secondary and tertiary UCC.</p>
+					<p>Using UCC as a tracer to assess integrality in the dimension of access enabled the principal strengths and weaknesses of the different care levels for this disease to be identified.</p>
+					<p>Ongoing insufficient cytological coverage, especially among older women, reflects users’ problems in accessing primary care and the fragility of active searching for cases.</p>
+					<p>There are no access problems in the secondary level, which includes a higher number of women than expected. On the other hand, as well as portraying referrals from the private sector, professional insecurity concerning Pap smear results may mean that not all the cases they refer for biopsy are suspicious.</p>
+					<p>Regarding following up of positive cases, we found problems recording data, impeding a quantitative assessment of access to this level of care. The limitations found in the health care information systems consulted portrays a problem researchers often face when working with secondary data obtained using these tools.</p>
+					<p>It is difficult to find health care information systems being consulted in planning and assessing actions, with this instrument being underused in decision making. This underuse frequently results in incomplete, unreliable and out of date data, making their use for scientific studies or administration difficult. As administrators come to better understand the use of such data in decision making, their recording will gradually improve.</p>
+				</sec>
+			</sec>
+			<sec sec-type="conclusions">
+				<title>CONCLUSION</title>
+				<p>The findings of this study met the expectation to assess integrality in access to UCC care. Identifying bottle necks in the SUS encourages decision making by administrators aiming to improve UCC care quality as well as other health problems. However, in order for advances in SUS integrality to take place, complementary exploration of this care dynamic is needed.</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure 1</label>
+						<caption>
+							<title>Annual coverage of cytological tests for women aged 25 to 59. Key municipality, SP, Southeastern Brazil, 2008-2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0240-gf01-en"/>
+					</fig>
+				</p>
+				<p>
+					<fig id="f02_en">
+						<label>Figure 2</label>
+						<caption>
+							<title>Cytology in women aged 25 to 59 by age group. Key municipality, SP, Southeastern Brazil, 2008-2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0240-gf02-en"/>
+					</fig>
+				</p>
+				<p>
+					<fig id="f03_en">
+						<label>Figure 3</label>
+						<caption>
+							<title>Diagnoses of cytology by age group. Key municipality, SP, Southeastern Brazil, 2008-2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0240-gf03-en"/>
+					</fig>
+				</p>
+				<p>
+					<fig id="f04_en">
+						<label>Figure 4</label>
+						<caption>
+							<title>Coverage of biopsy by cytology with changes. Key municipality, SP, Southeastern Brazil, 2008-2010.</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0240-gf04-en"/>
+					</fig>
+				</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a</label>
+					<p> Ministério da Saúde, DATASUS. Siscolo - Sistema de Informação do Câncer do Colo do Útero. [cited 2011 Nov 5]. Available from: http://w3.datasus.gov.br/siscam/index.php?area=0401</p>
+				</fn>
+				<fn fn-type="financial-disclosure">
+					<p>The author received a grant from the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes) during the doctorate and from the Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) during the Sandwich PhD abroad (SWE – Process 200741/2011-0).</p>
+				</fn>
+				<fn fn-type="financial-disclosure">
+					<p>This study was supported by the Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP – Process 2009/08844-8).</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>

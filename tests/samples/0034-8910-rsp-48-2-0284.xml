@@ -1,0 +1,3474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+			<journal-title-group>
+				<journal-title>Revista de Saúde Pública</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0034-8910</issn>
+			<issn pub-type="epub">1518-8787</issn>
+			<publisher>
+				<publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0034-8910.2014048004799</article-id>
+			<article-id pub-id-type="doi">10.1590/S0034-8910.2014048004799</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigos Originais</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="pt">Fatores associados à persistência à terapia hormonal em mulheres com câncer de mama</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Brito</surname>
+						<given-names>Cláudia</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Portela</surname>
+						<given-names>Margareth Crisóstomo</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">
+						<sup>I</sup>
+					</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Vasconcellos</surname>
+						<given-names>Mauricio Teixeira Leite de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">
+						<sup>II</sup>
+					</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>I</label>
+				<institution content-type="orgdiv2">Departamento de Administração e Planejamento em Saúde</institution>
+				<institution content-type="orgdiv1">Escola Nacional de Saúde Pública Sergio Arouca</institution>
+				<institution content-type="orgname">Fundação Oswaldo Cruz</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Departamento de Administração e Planejamento em Saúde. Escola Nacional de Saúde Pública Sergio Arouca. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<aff id="aff2">
+				<label>II</label>
+				<institution content-type="orgdiv1">Escola Nacional de Ciências Estatísticas</institution>
+				<institution content-type="orgname">Instituto Brasileiro de Geografia e Estatística</institution>
+				<addr-line>
+					<named-content content-type="city">Rio de Janeiro</named-content>
+					<named-content content-type="state">RJ</named-content>
+				</addr-line>
+				<country>Brasil</country>
+				<institution content-type="original">Escola Nacional de Ciências Estatísticas. Instituto Brasileiro de Geografia e Estatística. Rio de Janeiro, RJ, Brasil</institution>
+			</aff>
+			<author-notes>
+				<corresp>
+					<label>Correspondência</label>:  Cláudia Brito  Av. Leopoldo Bulhões, 1480 sala 717 Manguinhos  21041-210 Rio de Janeiro, RJ, Brasil  E-mail: <email>cbrito@ensp.fiocruz.br</email>
+				</corresp>
+				<fn fn-type="other">
+					<p>Artigo baseado na tese de doutorado de Brito C, intitulada: “Adesão e persistência à terapia endócrina para o câncer de mama, fatores preditores e resultados relacionados”, apresentada à Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz, em 2011.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>Os autores declaram não haver conflito de interesses.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<month>04</month>
+				<year>2014</year>
+			</pub-date>
+			<volume>48</volume>
+			<issue>2</issue>
+			<fpage>284</fpage>
+			<lpage>295</lpage>
+			<history>
+				<date date-type="received">
+					<day>26</day>
+					<month>2</month>
+					<year>2013</year>
+				</date>
+				<date date-type="accepted">
+					<day>25</day>
+					<month>10</month>
+					<year>2013</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="pt">
+				<sec>
+					<title>OBJETIVO</title>
+					<p>Analisar os fatores associados à persistência à hormonioterapia para câncer de mama visando à melhoria da qualidade do cuidado prestado.</p>
+				</sec>
+				<sec>
+					<title>MÉTODOS</title>
+					<p>Estudo longitudinal a partir de dados secundários. Foi analisada uma coorte de 5.861 mulheres com câncer de mama registradas em diferentes bancos de dados do Instituto Nacional de Câncer e do Sistema Único de Saúde. Todas as pacientes foram tratadas nesse hospital, que dispensa a medicação gratuitamente, e o período de seguimento foi de janeiro de 2004 a outubro de 2010. Variáveis sociodemográficas, comportamentais, clínicas, de estilos de vida e de aspectos do serviço de saúde integraram-se à análise para testar associação com a persistência ao tratamento hormonal, pelo método de Kaplan-Meier e Riscos Proporcionais de Cox.</p>
+				</sec>
+				<sec>
+					<title>RESULTADOS</title>
+					<p>A persistência geral à hormonioterapia foi de 79,0% ao final do primeiro ano e 31,0% em cinco anos de tratamento. O risco de descontinuidade à hormonioterapia mostrou-se maior entre mulheres com idade inferior a 35 anos, com estadiamento mais grave (III e IV), usuárias de álcool, que realizaram quimioterapia, e para cada hospitalização, cada exame e cada mês, entre o diagnóstico e o início do tratamento adicional. Na direção oposta, o risco de descontinuidade mostrou-se menor entre as mulheres com nível médio e superior de escolaridade, com companheiro, com história familiar de câncer, submetidas à cirurgia e que tiveram consultas com mastologista e com oncologista clínico.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSÕES</title>
+					<p>Das mulheres com câncer de mama, 69,0% não persistiram ao término de cinco anos do tratamento hormonal, aumentando o risco de uma resposta clínica inadequada. Os resultados mostram aspectos do cuidado que podem conduzir a melhores respostas ao tratamento.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="pt">
+				<kwd>Neoplasias da mama</kwd>
+				<kwd>Pacientes Desistentes do Tratamento</kwd>
+				<kwd>Quimioterapia</kwd>
+				<kwd> Antineoplásicos Hormonais, administração &amp; dosagem</kwd>
+				<kwd>Fator de risco</kwd>
+				<kwd>Garantia da Qualidade dos cuidados de saúde</kwd>
+				<kwd>Saúde da mulher</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="2"/>
+				<table-count count="8"/>
+				<ref-count count="20"/>
+				<page-count count="12"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUÇÃO</title>
+			<p>A terapia endócrina ou hormonioterapia para o câncer de mama consiste no uso de substâncias semelhantes a ou supressoras de hormônios para inibir o crescimento do tumor<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> e, há décadas, está associada à melhoria da sobrevida livre da doença e da taxa de mortalidade.<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref> Constitui-se em tratamento de longa duração, com efeitos adversos importantes,<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref> representando a supressão dos hormônios femininos, para algumas mulheres, uma mutilação adicional sobre a sua imagem feminina, depois da mastectomia.<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref>
+			</p>
+			<p>O interesse acerca da adesão e da persistência no uso do tratamento hormonal para o câncer de mama decorre não somente das dificuldades relacionadas a um tratamento longo e com muitos efeitos adversos. Além disso, pode decorrer das implicações do uso incorreto dos medicamentos, resultando no aumento da mortalidade, morbidade,<xref ref-type="bibr" rid="B18">
+					<sup>18</sup>
+				</xref> demanda de recursos assistenciais e dos custos.<xref ref-type="bibr" rid="B1">
+					<sup>1</sup>
+				</xref>
+			</p>
+			<p>A hormonioterapia somente está indicada após a avaliação positiva dos receptores hormonais de estrogênio e progesterona do tumor mamário.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> A recomendação é o uso diário de um comprimido oral durante cinco anos.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> Há evidência de que mulheres que usaram tamoxifeno (tipo de hormonioterapia mais usado mundialmente) por período menor tiveram aumento significativo da taxa de recorrência e mortalidade por câncer de mama.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref>
+			</p>
+			<p>Na população feminina brasileira, o câncer de mama é o tumor mais incidente (estimativa de 52.830 casos novos em 2013) e a primeira causa de morte por câncer (12.852 óbitos em 2010).<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref>
+			</p>
+			<p>Apesar dos potenciais resultados e disponibilidade da hormonioterapia pelo Sistema Único de Saúde (SUS), pouco se conhece no País acerca da adesão e persistência em mulheres com câncer de mama ao tratamento e resultados clínicos decorrentes. A <italic>International Society for Pharmacoeconomics and Outcome Research</italic>
+				<xref ref-type="bibr" rid="B4">
+					<sup>4</sup>
+				</xref> diferencia os conceitos de adesão e persistência, sendo a definição de persistência, objeto deste artigo, o tempo desde o início até a descontinuidade do tratamento.</p>
+			<p>Os fatores associados à adesão e persistência à hormonioterapia para o câncer de mama têm sido amplamente estudados, mas vários resultados são contraditórios ou não significativos.<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> Os resultados mais consistentes indicam a associação de piores índices de adesão e persistência com idades extremas (mais idosas ou mais novas), aumento nos gastos orçamentários, acompanhamento por clínico geral (<italic>versus</italic> oncologista), tratamento com mudança do medicamento (troca para o inibidor de aromatase após tratamento com tamoxifeno) e efeitos colaterais da terapia. Na direção oposta, tomar mais medicamentos, encaminhamento para um oncologista e menor tempo de diagnóstico foram positivamente associados com adesão e persistência.<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref>
+			</p>
+			<p>Para Murphy et al,<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> muitos estudos têm focado em fatores não modificáveis, tornando necessárias novas pesquisas com inclusão de fatores modificáveis associados à adesão e persistência à hormonioterapia. Nesse sentido, mudanças na organização do cuidado podem ser pertinentes para auxiliar pacientes a cumprir o tratamento pelo período recomendado.</p>
+			<p>O presente estudo teve por objetivo analisar os fatores associados à persistência à hormonioterapia para câncer de mama visando à melhoria da qualidade do cuidado prestado.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>MÉTODOS</title>
+			<p>Realizou-se estudo longitudinal com base em dados secundários de mulheres com câncer mamário e prescrição de hormonioterapia, tratadas no Instituto Nacional do Câncer (INCA), centro de referência do Ministério da Saúde para a definição de políticas de atenção ao câncer no Brasil.<xref ref-type="fn" rid="fn4">
+					<sup>d</sup>
+				</xref> O INCA é o maior prestador para tratamento do câncer de mama no Estado do Rio de Janeiro, onde se verifica a maior incidência da doença no País.<xref ref-type="fn" rid="fn3">
+					<sup>c</sup>
+				</xref>
+			</p>
+			<p>O estudo considerou todas as mulheres com câncer de mama presentes no Registro Hospitalar de Câncer (RHC) entre 2002 e 2008, que iniciaram tratamento hormonal (tamoxifeno e/ou os inibidores de aromatase lestrozol ou anastrozol) a partir de janeiro de 2004, segundo dados do banco do Setor de Farmácia do INCA, e que tiveram medicamento dispensado mais de uma vez até outubro de 2010.</p>
+			<p>Procedeu-se à integração e análise de informações dispostas nos seguintes bancos de dados:</p>
+			<list list-type="alpha-lower">
+				<list-item>
+					<p>Banco de dispensação do Setor de Farmácia do INCA – dados acerca da dispensação de medicamentos, incluindo data, tipo de medicamento (tamoxifeno, lestrozol e anastrozol) e quantidade. Foram considerados somente pacientes com início da hormonioterapia a partir de 1/1/2004, levando-se em conta que o referido banco foi criado em outubro de 2003, incluindo pacientes com tratamento já em curso. A última data de dispensação contemplada foi 29/10/2010.</p>
+				</list-item>
+				<list-item>
+					<p>RHC – Utilizado para a obtenção de variáveis sociodemográficas, clínicas e de óbito das pacientes. O critério de inclusão no estudo de pacientes matriculadas por tumor de mama entre 2002 e 2008 decorreu da disponibilidade de dados no momento de realização do estudo. O RHC é organizado por tumor, o que significava que um único paciente com mais de um tumor maligno primário (excluindo recidiva ou metástase) pode ser registrado mais de uma vez. Para pacientes registradas com tumores múltiplos, utilizou-se observação mais completa, observação com o estadiamento mais elevado se as datas de diagnóstico foram as mesmas ou a primeira observação se as datas de diagnóstico foram diferentes.</p>
+				</list-item>
+				<list-item>
+					<p>Sistema Hospitalar Integrado (SHI) e Sistema Absolute do INCA – foram utilizados para captar os procedimentos prestados às mulheres com câncer de mama. O SHI foi implantado em 1998 e ficou em uso, no INCA, até 2004, tendo sido substituído pelo sistema Absolute a partir daquele ano. O período de informações considerado foi de 1º de janeiro de 2002 a 29 de outubro de 2010. Na exploração do Absolute, observou-se nível de desagregação de categorias maior do que o do SHI, requerendo trabalho de compatibilização.</p>
+				</list-item>
+				<list-item>
+					<p>Sistema de Informação sobre Mortalidade (SIM) – utilizado para complementação da informação de óbito disponível no RHC.</p>
+				</list-item>
+				<list-item>
+					<p>Para a integração dos bancos de dados utilizou-se o número de matrícula (prontuário) das mulheres atendidas no INCA, iniciando a junção, de forma hierárquica, pelos bancos de dados da Farmácia e do RHC e, posteriormente, agregando os demais.</p>
+				</list-item>
+			</list>
+			<p>Após a junção dos bancos de dados, obteve-se a diferença entre o início da hormonioterapia e o diagnóstico de câncer de mama, verificando-se a ocorrência de 198 casos com valores negativos, provavelmente decorrentes de erro de digitação. A correção considerou os seguintes procedimentos: (1) quando a data inicial do tratamento de hormonioterapia diferia negativamente da data do diagnóstico em até três meses, o tempo entre o diagnóstico e início do tratamento hormonal foi considerado coincidente – diferença igual a zero; (2) no caso de diferença negativa superior a três meses entre o início da hormonioterapia e o diagnóstico e consistência da segunda data de dispensação do medicamento com a data do diagnóstico, desconsiderou-se a primeira data de dispensação, substituindo-a pela segunda data subtraída da quantidade dispensada na data descartada. Com tais procedimentos foi possível manter na análise 185 casos, havendo perda de 13 mulheres, por total falta de consistência nos dados. Ademais, foram excluídas 220 mulheres com apenas uma data de retirada de medicação.</p>
+			<p>Assim, permaneceram para análise dados relativos a 5.861 mulheres, pressupondo-se baixa a probabilidade de as exclusões motivadas por questões operacionais terem introduzido vieses no estudo, dada a sua não associação sistemática com variáveis de interesse.</p>
+			<p>Este estudo adotou a recomendação de um comprimido diário de hormonioterapia por cinco anos. Os medicamentos distribuídos gratuitamente pelo INCA são o tamoxifeno (TMX) e os inibidores de aromatase (IAS).</p>
+			<p>Como medida da persistência, considerou-se o tempo entre o início da hormonioterapia até o seu abandono ou descontinuidade por 60 dias ou mais, contabilizando o último suprimento de medicamento obtido. A avaliação da sensibilidade da medida ao arbítrio de 30 dias de descontinuidade não indicou resultados muito diferentes, endossando a opção pelos 60 dias.</p>
+			<p>Foram consideradas persistentes (sem descontinuidade no tratamento) aquelas mulheres que foram a óbito, chegaram ao fim do estudo ou concluíram o tratamento de 1.825 dias (cinco anos), sem interrupção maior ou igual a 60 dias. As mulheres que interromperam o tratamento por 60 dias ou mais e não dispunham de informação de óbito foram consideradas não persistentes (com descontinuidade no tratamento). Todas as mulheres da coorte iniciaram a hormonioterapia a partir de 1/1/2004, não havendo censura à esquerda nas observações contempladas.</p>
+			<p>Mulheres com quantitativo de comprimidos dispensados maior do que o correspondente a um comprimido diário por 1.825 dias (cinco anos) ou em uso de hormonioterapia por mais de cinco anos tiveram seus dados truncados ao período sob observação (1.825 dias).</p>
+			<p>As variáveis independentes de interesse foram: (1) sociodemográficas (RHC) – idade no diagnóstico, escolaridade, estado conjugal; (2) clínicas (RHC) – tipo histológico do tumor, estadiamento (sendo curável os estadiamentos 0, I e II, e não curável os estadiamentos III e IV), lateralidade, história familiar de câncer, consumo de álcool e consumo de tabaco; e (3) assistenciais (SHI/ABSOLUTE) – tipo de hormonioterapia (<italic>somente </italic>TMX; <italic>somente </italic>IAS – letrozol ou anastrozol; <italic>ambos –</italic> TMX e posteriormente IAS), cirurgia, quimioterapia, radioterapia, internações, consultas com mastologista, oncologista clínico e outros médicos, psicoterapia, apoio terapêutico multiprofissional (ATM), incluindo atendimento ambulatorial de enfermagem, nutrição, fisioterapia, fonoaudiologia, psicologia, assistente social, odontólogo ou farmacêutico, serviço de apoio diagnóstico e terapêutico (SADT) e tempo entre diagnóstico e início de tratamento hormonal.</p>
+			<p>Para verificação dos fatores associados à persistência no tratamento hormonal, utilizaram-se as técnicas estatísticas de análise de sobrevivência. As análises bivariadas foram baseadas na técnica de Kaplan-Meier, buscando-se identificar diferenças no comportamento das curvas de ocorrência de descontinuidade, no decorrer do tempo, entre os diversos estratos das variáveis independentes. Os testes de Wilcoxon e de <italic>log-rank</italic> foram empregados no sentido de testar a hipótese nula de não diferença entre as curvas.</p>
+			<p>Para apreender o efeito independente das variáveis explicativas sobre o tempo até descontinuidade, foi utilizado o modelo multivariado de riscos proporcionais de Cox, com inclusão de variáveis relacionadas a um valor de p igual ou inferior a 0,10. Realizou-se o teste de proporcionalidade do risco instantâneo de descontinuidade, corrigindo-se violações a tal pressuposto com a inclusão no modelo de termos de interação das variáveis explicativas com o tempo de persistência estatisticamente significantes (p ≤ 0,05). As análises foram realizadas com o sistema estatístico SAS<sup>®</sup>, versão 9.1.</p>
+			<p>O estudo foi aprovado pelo Comitê de Ética em Pesquisa do INCA, sob o protocolo 84/2010.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTADOS</title>
+			<p>Em termos gerais, a idade das mulheres no momento do diagnóstico variou entre 21 e 103 anos, com média de 57,5 (desvio padrão 3,6) anos, e mediana de 56,6 anos. Aproximadamente 50,0% das mulheres tinham entre 40 e 59 anos, e a minoria (8,9%) tinha menos de 40 anos.</p>
+			<p>Metade das mulheres apresentou baixa escolaridade (analfabeta ou elementar incompleto); 10,0% possuía nível superior. Do total, 55,5% das mulheres tinham história familiar prévia de câncer, 46,5% tinham companheiro no momento do diagnóstico, 27,4% faziam uso de álcool, 34,7% eram tabagistas, 40,5% fizeram o diagnóstico em estádios avançados e 64,4% fizeram tratamento com o TMX isoladamente.</p>
+			<p>Assumindo-se margem adicional de três meses ao período de cinco anos, 712 (12,15%) mulheres excederam o tempo recomendado de tratamento. Desse total, 57,6% fizeram uso de TMX e IAS, 39,6% fizeram uso exclusivo de TMX e 2,8%, uso isolado de IAS.</p>
+			<p>A persistência geral das mulheres tratadas com hormonioterapia para o câncer de mama foi de 79,0% ao final do primeiro ano, 69,0% em dois anos, 60,0% em três anos, 49,0% em quatro anos e 31,0% em cinco anos de tratamento (<xref ref-type="fig" rid="f01">Figura</xref>).</p>
+			<p>
+				<fig id="f01">
+					<label>Figura</label>
+					<caption>
+						<title>Probabilidade de persistência ao tratamento hormonal para o câncer de mama de uma coorte de mulheres. Rio de Janeiro, RJ, 2004 a 2010. (N = 5.861)</title>
+					</caption>
+					<graphic xlink:href="0034-8910-rsp-48-2-0284-gf01"/>
+				</fig>
+			</p>
+			<p>As <xref ref-type="table" rid="t01">Tabelas 1</xref>, <xref ref-type="table" rid="t02">2</xref> e <xref ref-type="table" rid="t03">3</xref> apresentam diferenças significativas (p ≤ 0,05) entre as curvas de persistência no decorrer do tempo, relativas às categorias contempladas das variáveis: idade no momento do diagnóstico, escolaridade, situação conjugal, consumo de álcool e consumo de tabaco, estadiamento, tipo de hormonioterapia, cirurgia, quimioterapia (exceto hormonioterapia), radioterapia, combinação terapêutica, frequência de quimioterapia, frequência de internação, consulta com mastologista, consulta com oncologista clínico, consulta com outros médicos, psicoterapia, consulta de apoio terapêutico e SADT.</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Tabela 1</label>
+					<caption>
+						<title>Persistência à hormonioterapia, segundo características sociodemográficas, de mulheres com câncer de mama. Rio de Janeiro, RJ, 2004 a 2010. (N = 5.861)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup>
+							<col width="30%"/>
+							<col width="15%"/>
+							<col width="25%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Características sociodemográficas</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">Prob. (%) de persistência ao final da observação</th>
+								<th style="font-weight:normal">
+									<italic>Log-rank </italic>(p)</th>
+								<th style="font-weight:normal">Wilcoxon (p)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Idade (anos)</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> &lt; 40</td>
+								<td align="center">519</td>
+								<td align="center">38,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 40 a 49</td>
+								<td align="center">1.414</td>
+								<td align="center">49,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 50 a 59</td>
+								<td align="center">1.500</td>
+								<td align="center">49,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 60 a 69</td>
+								<td align="center">1.202</td>
+								<td align="center">50,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 70</td>
+								<td align="center">1.226</td>
+								<td align="center">49,5</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Escolaridade</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,0048</td>
+								<td align="center">0,0263</td>
+							</tr>
+							<tr>
+								<td> Analfabeta/1º grau incompleto</td>
+								<td align="center">2.943</td>
+								<td align="center">47,5</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 1º grau completo</td>
+								<td align="center">1.032</td>
+								<td align="center">46,1</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 2º grau completo</td>
+								<td align="center">1.259</td>
+								<td align="center">50,9</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Nível superior</td>
+								<td align="center">580</td>
+								<td align="center">52,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem informação</td>
+								<td align="center">47</td>
+								<td align="center">53,2</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Situação conjugal</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,0009</td>
+								<td align="center">0,0081</td>
+							</tr>
+							<tr>
+								<td> Com companheiro</td>
+								<td align="center">2.725</td>
+								<td align="center">50,1</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem companheiro</td>
+								<td align="center">3.098</td>
+								<td align="center">46,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem informação</td>
+								<td align="center">38</td>
+								<td align="center">47,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>
+				<table-wrap id="t02">
+					<label>Tabela 2</label>
+					<caption>
+						<title>Persistência à hormonioterapia, segundo características clínicas e estilo de vida, de mulheres com câncer de mama. Rio de Janeiro, RJ, 2004 a 2010. (N = 5.861)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup>
+							<col width="30%"/>
+							<col width="15%"/>
+							<col width="25%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Características clínicas</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">Prob. (%) de persistência ao final da observação</th>
+								<th style="font-weight:normal">
+									<italic>Log-rank </italic>(p)</th>
+								<th style="font-weight:normal">Wilcoxon (p)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>História familiar de câncer</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,1610</td>
+								<td align="center">0,0632</td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">3.251</td>
+								<td align="center">50,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">2.426</td>
+								<td align="center">46,9</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem informação</td>
+								<td align="center">184</td>
+								<td align="center">47,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Consumo de álcool</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,0017</td>
+								<td align="center">0,0137</td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">1.605</td>
+								<td align="center">48,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">4.088</td>
+								<td align="center">48,5</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem informação</td>
+								<td align="center">168</td>
+								<td align="center">47,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Consumo de tabaco</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,0622</td>
+								<td align="center">0,0035</td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">2.033</td>
+								<td align="center">47,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">3.734</td>
+								<td align="center">49,2</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem informação</td>
+								<td align="center">94</td>
+								<td align="center">45,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td colspan="2">Tipo histológico do tumor</td>
+								<td> </td>
+								<td align="center">0,1853</td>
+								<td align="center">0,2702</td>
+							</tr>
+							<tr>
+								<td> CDI</td>
+								<td align="center">4.678</td>
+								<td align="center">48,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Outros tumores</td>
+								<td align="center">1.183</td>
+								<td align="center">49,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Lateralidade</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,0772</td>
+								<td align="center">0,1688</td>
+							</tr>
+							<tr>
+								<td> Unilateral</td>
+								<td align="center">5.618</td>
+								<td align="center">48,5</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Bilateral</td>
+								<td align="center">236</td>
+								<td align="center">49,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem informação</td>
+								<td align="center">7</td>
+								<td align="center">14,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Estadiamento</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Curável (0, I, II)</td>
+								<td align="center">3.286</td>
+								<td align="center">55,5</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não curável (III e IV)</td>
+								<td align="center">2.371</td>
+								<td align="center">39,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Sem informação</td>
+								<td align="center">204</td>
+								<td align="center">41,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>
+				<table-wrap id="t03">
+					<label>Tabela 3</label>
+					<caption>
+						<title>Persistência à hormonioterapia, segundo características relativas à assistência, de mulheres com câncer de mama. Rio de Janeiro, RJ, 2004 a 2010. (N = 5.861)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup>
+							<col width="30%"/>
+							<col width="15%"/>
+							<col width="25%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th style="font-weight:normal" align="left">Características relativas à assistência</th>
+								<th style="font-weight:normal">n</th>
+								<th style="font-weight:normal">Prob. (%) de persistência ao final da observação</th>
+								<th style="font-weight:normal">
+									<italic>Log-rank</italic> (p)</th>
+								<th style="font-weight:normal">Wilcoxon (p)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Tipo de hormonioterapia</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Só tamoxifeno</td>
+								<td align="center">3.776</td>
+								<td align="center">52,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Só inibidores de aromatase</td>
+								<td align="center">339</td>
+								<td align="center">47,8</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Ambos</td>
+								<td align="center">1.746</td>
+								<td align="center">41,1</td>
+								<td> </td>
+								<td align="center">₢</td>
+							</tr>
+							<tr>
+								<td>Cirurgia</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">3.495</td>
+								<td align="center">52,8</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">2.366</td>
+								<td align="center">42,1</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Quimioterapia</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">3.531</td>
+								<td align="center">44,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">2.330</td>
+								<td align="center">54,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Radioterapia</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">0,0005</td>
+								<td align="center">0,0074</td>
+							</tr>
+							<tr>
+								<td> Sim</td>
+								<td align="center">2.772</td>
+								<td align="center">44,2</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Não</td>
+								<td align="center">3.089</td>
+								<td align="center">52,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Combinação terapêutica</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Só HT</td>
+								<td align="center">552</td>
+								<td align="center">54,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> HT e Cirurgia</td>
+								<td align="center">899</td>
+								<td align="center">58,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> HT e QT</td>
+								<td align="center">579</td>
+								<td align="center">41,5</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> HT e RT</td>
+								<td align="center">503</td>
+								<td align="center">40,2</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> HT, QT e cirurgia</td>
+								<td align="center">1.059</td>
+								<td align="center">52,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> HT, RT e cirurgia</td>
+								<td align="center">376</td>
+								<td align="center">63,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> HT, QT e RT</td>
+								<td align="center">732</td>
+								<td align="center">34,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> HT, QT, RT e cirurgia</td>
+								<td align="center">1.161</td>
+								<td align="center">45,8</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td colspan="2">Frequência à quimioterapia</td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Nenhum procedimento</td>
+								<td align="center">2.330</td>
+								<td align="center">54,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 1 a 3 procedimento</td>
+								<td align="center">690</td>
+								<td align="center">45,9</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 4 a 6 procedimento</td>
+								<td align="center">1.777</td>
+								<td align="center">56,8</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 7 procedimento</td>
+								<td align="center">1.064</td>
+								<td align="center">23,8</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Frequência de internação</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Nenhuma</td>
+								<td align="center">961</td>
+								<td align="center">63,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Uma</td>
+								<td align="center">2.794</td>
+								<td align="center">51,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Duas</td>
+								<td align="center">1.182</td>
+								<td align="center">45,9</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 3</td>
+								<td align="center">924</td>
+								<td align="center">28,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Mastologia (consulta)</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Nenhuma</td>
+								<td align="center">617</td>
+								<td align="center">23,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 1 a 4 consultas</td>
+								<td align="center">1.001</td>
+								<td align="center">20,2</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 5 a 13 consultas</td>
+								<td align="center">2.971</td>
+								<td align="center">60,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 14 consultas</td>
+								<td align="center">1.272</td>
+								<td align="center">56,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td colspan="2">Oncologia clínica (consulta)</td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">0,0018</td>
+							</tr>
+							<tr>
+								<td> Nenhuma</td>
+								<td align="center">1.257</td>
+								<td align="center">66,8</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 1 a 4 consultas</td>
+								<td align="center">1.674</td>
+								<td align="center">57,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 5 a 12 consultas</td>
+								<td align="center">1.510</td>
+								<td align="center">33,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 13 consultas</td>
+								<td align="center">1.420</td>
+								<td align="center">37,9</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td colspan="2">Outros médicos (consulta)</td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> ≤ 9 consultas</td>
+								<td align="center">604</td>
+								<td align="center">27,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 10 a 22 consultas</td>
+								<td align="center">2.158</td>
+								<td align="center">49,9</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 23 a 34 consultas</td>
+								<td align="center">1.635</td>
+								<td align="center">55,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 35 consultas</td>
+								<td align="center">1.464</td>
+								<td align="center">47,0</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Psicoterapia (consulta)</td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Nenhuma</td>
+								<td align="center">3.331</td>
+								<td align="center">39,1</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 1 a 3 consultas</td>
+								<td align="center">1.971</td>
+								<td align="center">59,9</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 4 consultas</td>
+								<td align="center">559</td>
+								<td align="center">64,6</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>Apoio terapêutico (consulta)</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Nenhuma</td>
+								<td align="center">1.404</td>
+								<td align="center">40,2</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 1 a 3 consultas</td>
+								<td align="center">2.010</td>
+								<td align="center">42,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 4 a 7 consultas</td>
+								<td align="center">1.130</td>
+								<td align="center">53,5</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 8 consultas</td>
+								<td align="center">1.317</td>
+								<td align="center">62,3</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td>SADT (exames)</td>
+								<td> </td>
+								<td> </td>
+								<td align="center">&lt; 0,0001</td>
+								<td align="center">&lt; 0,0001</td>
+							</tr>
+							<tr>
+								<td> Nenhuma</td>
+								<td align="center">1.112</td>
+								<td align="center">39,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 1 exame</td>
+								<td align="center">2.007</td>
+								<td align="center">51,8</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> 2 a 3 exames</td>
+								<td align="center">1.816</td>
+								<td align="center">52,4</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> ≥ 4 exames</td>
+								<td align="center">926</td>
+								<td align="center">44,7</td>
+								<td> </td>
+								<td> </td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>Os resultados do modelo bivariado mostram comportamentos menos favoráveis das curvas de persistência à hormonioterapia para mulheres: com idade inferior a 40 anos; com menor grau de escolaridade; sem companheiro; sem história familiar de câncer; usuárias de álcool; tabagistas; de estadiamento não curável; com uso combinado de hormonioterapia (TMX e IAS); não submetidas à cirurgia; tratadas com quimioterapia; submetidas à radioterapia; e com mais internações (<xref ref-type="table" rid="t01">Tabelas 1</xref>, <xref ref-type="table" rid="t02">2</xref> e <xref ref-type="table" rid="t03">3</xref>).</p>
+			<p>Destacam-se ainda, como fatores que se associam com a descontinuidade do tratamento: a realização de nenhuma ou poucas consultas com mastologista e de apoio terapêutico, e não realização de psicoterapia.</p>
+			<p>No teste do pressuposto de proporcionalidade do risco instantâneo no modelo multivariado de Cox (<xref ref-type="table" rid="t04">Tabela 4</xref>), as variáveis estadiamento III, consumo de álcool, quimioterapia e mastologia apresentaram interações estatisticamente significativas em relação ao tempo e foram a ela incorporadas.</p>
+			<p>
+				<table-wrap id="t04">
+					<label>Tabela 4</label>
+					<caption>
+						<title>Análise multivariada de fatores associados à descontinuidade à hormonioterapia de mulheres com câncer de mama. Rio de Janeiro, RJ, 2004 a 2010. (N = 5.861)</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<colgroup>
+							<col width="30%"/>
+							<col width="17,5%"/>
+							<col width="17,5%"/>
+							<col width="17,5%"/>
+							<col width="17,5%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th rowspan="3" style="font-weight:normal" align="left">Variável</th>
+								<th colspan="2" style="font-weight:normal">Razão de risco instantâneo não ajustado</th>
+								<th colspan="2" style="font-weight:normal">Razão de risco instantâneo ajustado</th>
+							</tr>
+							<tr>
+								<th colspan="4" rowspan="1" style="font-weight:normal">
+									<hr/>
+								</th>
+							</tr>
+							<tr>
+								<th style="font-weight:normal">Estimativa</th>
+								<th style="font-weight:normal">IC95%</th>
+								<th style="font-weight:normal">Estimativa</th>
+								<th style="font-weight:normal">IC95%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Tempo entre diagnóstico e início da HT (em meses)</td>
+								<td align="center">1,00</td>
+								<td align="center">1,00;1,00</td>
+								<td align="center">1,00</td>
+								<td align="center">1,00;1,00</td>
+							</tr>
+							<tr>
+								<td>Idade &lt; 40 anos</td>
+								<td align="center">1,36</td>
+								<td align="center">1,21;1,53</td>
+								<td align="center">1,25</td>
+								<td align="center">1,11;1,41</td>
+							</tr>
+							<tr>
+								<td>2<sup>o</sup> grau completo</td>
+								<td align="center">0,95</td>
+								<td align="center">0,87;1,04</td>
+								<td align="center">0,91</td>
+								<td align="center">0,83;0,99</td>
+							</tr>
+							<tr>
+								<td>Nível superior</td>
+								<td align="center">0,87</td>
+								<td align="center">0,77;0,99</td>
+								<td align="center">0,88</td>
+								<td align="center">0,77;1,00</td>
+							</tr>
+							<tr>
+								<td>Com companheiro</td>
+								<td align="center">0,89</td>
+								<td align="center">0,83;0,96</td>
+								<td align="center">0,92</td>
+								<td align="center">0,85;0,99</td>
+							</tr>
+							<tr>
+								<td>Estadiamento III</td>
+								<td align="center">1,45</td>
+								<td align="center">1,35;1,56</td>
+								<td align="center">2,36</td>
+								<td align="center">2,08;2,67</td>
+							</tr>
+							<tr>
+								<td>Estadiamento IV</td>
+								<td align="center">3,03</td>
+								<td align="center">2,71;3,40</td>
+								<td align="center">3,21</td>
+								<td align="center">2,82;3,64</td>
+							</tr>
+							<tr>
+								<td>Consumo de álcool (sim)</td>
+								<td align="center">1,12</td>
+								<td align="center">1,03;1,21</td>
+								<td align="center">1,29</td>
+								<td align="center">1,15;1,46</td>
+							</tr>
+							<tr>
+								<td>Cirurgia (sim)</td>
+								<td align="center">0,83</td>
+								<td align="center">0,77;0,89</td>
+								<td align="center">0,80</td>
+								<td align="center">0,74;0,87</td>
+							</tr>
+							<tr>
+								<td>Quimioterapia (sim)</td>
+								<td align="center">1,18</td>
+								<td align="center">1,10;1,28</td>
+								<td align="center">1,29</td>
+								<td align="center">1,14;1,46</td>
+							</tr>
+							<tr>
+								<td>Internações (número)</td>
+								<td align="center">1,18</td>
+								<td align="center">1,15;1,21</td>
+								<td align="center">1,12</td>
+								<td align="center">1,09;1,15</td>
+							</tr>
+							<tr>
+								<td>História familiar câncer (sim)</td>
+								<td align="center">0,99</td>
+								<td align="center">0,96;1,01</td>
+								<td align="center">0,96</td>
+								<td align="center">0,94;0,99</td>
+							</tr>
+							<tr>
+								<td>Mastologia (sim)</td>
+								<td align="center">0,30</td>
+								<td align="center">0,26;0,32</td>
+								<td align="center">0,44</td>
+								<td align="center">0,39;0,51</td>
+							</tr>
+							<tr>
+								<td>Oncologia clínica (sim)</td>
+								<td align="center">1,17</td>
+								<td align="center">1,05;1,30</td>
+								<td align="center">0,82</td>
+								<td align="center">0,74;0,92</td>
+							</tr>
+							<tr>
+								<td>SADT (número de exames)</td>
+								<td align="center">1,01</td>
+								<td align="center">1,01;1,01</td>
+								<td align="center">1,01</td>
+								<td align="center">1,00;1,01</td>
+							</tr>
+							<tr>
+								<td>Tempo x estadiamento III</td>
+								<td align="center">1,00</td>
+								<td align="center">1,00;1,01</td>
+								<td align="center">0,98</td>
+								<td align="center">0,98;0,99</td>
+							</tr>
+							<tr>
+								<td>Tempo x Consumo de álcool</td>
+								<td align="center">1,00</td>
+								<td align="center">1,00;1,00</td>
+								<td align="center">0,99</td>
+								<td align="center">0,99;1,00</td>
+							</tr>
+							<tr>
+								<td>Tempo x Quimioterapia</td>
+								<td align="center">1,00</td>
+								<td align="center">1,00;1,00</td>
+								<td align="center">0,99</td>
+								<td align="center">0,99;1,00</td>
+							</tr>
+							<tr>
+								<td>Tempo x Mastologia</td>
+								<td align="center">0,97</td>
+								<td align="center">0,96;0,97</td>
+								<td align="center">0,98</td>
+								<td align="center">0,98;0,99</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<p>HT: hormonioterapia; SADT: serviço de apoio diagnóstico e terapêutico</p>
+						<p>Categorias de referência das variáveis categorizadas: idade ≥ 40 anos; escolaridade: analfabeta, 1º grau incompleto, 1º grau completo, sem informação; situação conjugal: sem companheiro e sem informação; estadiamento: estadiamento 0, I, II e sem informação; consumo de álcool: não; cirurgia: não; quimioterapia: não; história familiar de câncer: não; mastologia: sem consulta de mastologia; oncologia clínica: sem consulta de oncologia clínica.</p>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>As estimativas do modelo múltiplo indicam que o risco instantâneo de descontinuidade do tratamento é 25,0% maior entre mulheres com idade inferior a 40 anos e 221,0% maior entre mulheres com estadiamento IV, comparadas com estadiamento 0, I, II e ignorado (<xref ref-type="table" rid="t04">Tabela 4</xref>).</p>
+			<p>Com diminuição do efeito ao longo do tempo, indicado pelo termo de interação, observa-se risco instantâneo de descontinuidade 136,0% maior entre mulheres com estadiamento III, em referência às mulheres com estadiamento 0, I, II e ignorado, 29,0% maior entre alcoolistas e 29,0% maior entre as mulheres que realizaram quimioterapia.</p>
+			<p>O risco instantâneo de descontinuidade aumenta em 12 pontos percentuais a cada internação a mais da paciente, e aproximadamente 1 ponto percentual para cada exame a mais realizado.</p>
+			<p>Na direção oposta, o risco instantâneo de descontinuidade mostrou-se 8,0% menor entre mulheres com companheiro, 9,0% e 12,0% menores entre mulheres com segundo grau completo e nível superior, respectivamente, comparadas àquelas de escolaridade mais baixa, 4,0% menor entre as mulheres com história familiar de câncer, comparadas àquelas sem história, e 20,0% menor entre pacientes submetidas à cirurgia, quando comparadas àquelas não submetidas ao procedimento cirúrgico (<xref ref-type="table" rid="t04">Tabela 4</xref>).</p>
+			<p>A <xref ref-type="table" rid="t04">Tabela 4</xref> mostra que ter consulta com oncologista clínico diminuiu o risco instantâneo de descontinuidade em 18,0% e ter consulta com mastologista diminuiu em 56,0%, destacando-se que, para esta variável, o efeito se reduz ao longo do tempo.</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSÃO</title>
+			<p>A estimativa de descontinuidade da hormonioterapia para câncer de mama ao final do primeiro ano encontrada neste estudo corrobora os resultados de outros estudos com uso de TMX e IAS.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B20">
+					<sup>20</sup>
+				</xref> A estimativa aos cinco anos de tratamento aproxima-se dos 73,0% encontrados por Nekhlyudov et al<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> e é superior aos 62,7% estimados por Guth et al.<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> Há dificuldade de relacionar os diversos estudos disponíveis pelas diferenças na definição de persistência (intervalo de 60, 90, 120 e 180 dias), nos critérios de elegibilidade (pacientes com tumores precoces, apenas jovens, apenas idosas e outros), no método de análise (regressão logística, Kaplan-Meyer, entre outros), no período total de seguimento (1, 3 e 1/2, 4 e 1/2 ou 5 anos) e no uso do medicamento (apenas TMX ou IAS ou com ambos).</p>
+			<p>Ainda em relação às estimativas de persistência, faz-se necessária a relativização dos resultados, uma vez que o conceito adotado corresponde à interrupção no tratamento maior ou igual a 60 dias. As mulheres consideradas não persistentes podem ter retornado para completar o tratamento pelo período recomendado após o episódio de descontinuidade. Contudo, mulheres que experimentam lacunas no tratamento endócrino para o câncer de mama no primeiro ano não reiniciam o tratamento, e esses percentuais sobem nos anos subsequentes.<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref>
+			</p>
+			<p>Por outro lado, o método utilizado neste e em outros estudos considera a retirada da medicação na farmácia como uma variável <italic>proxy</italic> do uso do medicamento, o que pode levar a uma superestimação dos níveis de persistência. Assume-se, entretanto, que tal viés é atenuado em estimativas feitas a partir de bases de dados secundários que incorporam grandes populações.<xref ref-type="fn" rid="fn5">
+					<sup>e</sup>
+				</xref>
+			</p>
+			<p>A hormonioterapia para o câncer de mama está indicada somente para pacientes com tumores comprovadamente sensíveis aos hormônios estrogênio ou progesterona. Entretanto, não foi objeto deste estudo avaliar a adequação da indicação da terapia hormonal.</p>
+			<p>Outro limite é a falta de informação individual sobre os efeitos colaterais, podendo influenciar as estimativas de persistência em hormonioterapia,<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref> uma vez que a supressão do hormônio provoca menopausa precoce e afeta a sexualidade em algumas mulheres. Além disso, pode estar associada significativamente ao aumento no risco de câncer de endométrio, embolia pulmonar, trombose venosa, artralgia, fraturas e eventos cardíacos.<xref ref-type="bibr" rid="B3">
+					<sup>3</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B9">
+					<sup>9</sup>
+				</xref>
+			</p>
+			<p>Em relação às variáveis sociodemográficas, este estudo corrobora a observação de que mulheres mais jovens são menos persistentes<xref ref-type="bibr" rid="B2">
+					<sup>2</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> ao tratamento, ainda que, no outro extremo,<xref ref-type="bibr" rid="B15">
+					<sup>15</sup>
+				</xref> mulheres idosas não se tenham diferenciado daquelas em idade intermediária. A não persistência em pacientes jovens pode ser explicada pelos efeitos adversos do medicamento na sexualidade da mulher.</p>
+			<p>Situação conjugal também tem mostrado associação com persistência, mas com resultados ora concordantes<xref ref-type="bibr" rid="B10">
+					<sup>10</sup>
+				</xref> com os encontrados, ora opostos.<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> A situação conjugal pode se relacionar à ideia de dispor de apoio social, variável que se tem mostrado positivamente associada à persistência ao tratamento em vários estudos.<xref ref-type="bibr" rid="B12">
+					<sup>12</sup>
+				</xref>
+			</p>
+			<p>Acerca da escolaridade, há dificuldade em comparar com resultados internacionais, por causa da não correspondência dos estratos de escolaridade entre países e da ausência de estudos nacionais sobre o assunto. Apesar disso, acredita-se na plausibilidade de maior persistência entre pacientes com maior escolaridade.</p>
+			<p>Não foram encontrados estudos relatando a relação entre persistência e história familiar de câncer, consumo de álcool e consumo de tabaco, embora associações dessas variáveis com adesão à hormonioterapia, nas mesmas direções, já tenham sido identificadas.<xref ref-type="bibr" rid="B14">
+					<sup>14</sup>
+				</xref>
+			</p>
+			<p>A relação entre estadiamento e persistência é também de difícil comparação entre estudos, pois muito deles restringem-se a tumores precoces. Em concordância com os resultados deste estudo, houve maior descontinuidade entre mulheres com mais linfonódulos envolvidos.<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> Entretanto, Kimmick et al<xref ref-type="bibr" rid="B13">
+					<sup>13</sup>
+				</xref> estimaram maior persistência entre mulheres com estágio local (<italic>versus</italic> regional), e Nekhlyudov et al<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> não encontraram associação significativa.</p>
+			<p>Os resultados desta pesquisa mostraram tendência de ocorrência de menores índices de persistência entre mulheres submetidas a mais procedimentos, exceto no que tange à cirurgia e ao cuidado multiprofissional. Outros estudos também mostram associação entre maior descontinuidade e ter realizado quimioterapia,<xref ref-type="bibr" rid="B5">
+					<sup>5</sup>
+				</xref> ter tido mais consultas ao oncologista e maior número de dias de internação/ano,<xref ref-type="bibr" rid="B16">
+					<sup>16</sup>
+				</xref> em contraponto com outros que estimam maior persistência entre mulheres que receberam quimioterapia<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref> e radioterapia.<xref ref-type="bibr" rid="B11">
+					<sup>11</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B17">
+					<sup>17</sup>
+				</xref>
+			</p>
+			<p>Achado consistente, tanto no modelo bivariado quanto no multivariado, foi a associação entre maior persistência e ter tido consulta com mastologista e ter realizado cirurgia (<italic>versus</italic> não). A cirurgia e, portanto, a consulta com mastologista estão indicadas para pacientes com estadiamento mais precoce, que se mostrou associado com comportamento mais persistente. Dessa forma, o estadiamento precoce é uma vantagem adicional no enfrentamento do câncer de mama, visto que aumenta a probabilidade de a mulher persistir a um tratamento associado a melhores resultados.</p>
+			<p>Observou-se pior persistência entre mulheres sem consulta de psicoterapia e de apoio terapêutico multiprofissional. De alguma forma, acredita-se que esses resultados refletem a relação entre depressão e menor persistência,<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> e estão em consonância com as recomendações<xref ref-type="fn" rid="fn2">
+					<sup>b</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="fn" rid="fn4">
+					<sup>d</sup>
+				</xref> sobre a necessidade de tratar o câncer sob a perspectiva integral e multiprofissional, uma vez que esse diagnóstico tem impacto multifatorial. Ele afeta a vida cotidiana, a aparência física, a autoestima, a feminilidade e a saúde psíquica, trazendo limitações laborais para algumas mulheres.</p>
+			<p>As indicações aos medicamentos abordados neste estudo, baseadas em consensos e diretrizes atualizadas, recomendam para mulheres na pré-menopausa com tumor endócrino-positivo o uso do TMX por cinco anos como tratamento padrão.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> Para esse grupo está contraindicado o uso dos IAS,<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> salvo se a paciente tem história trombofílica.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+			</p>
+			<p>Para mulheres na pós-menopausa, anteriormente, havia indicação por parte de um grupo de especialistas de trocar para o IAS após dois a três anos de uso do TMX,<xref ref-type="bibr" rid="B7">
+					<sup>7</sup>
+				</xref> a depender de avaliação da densidade óssea, devido ao aumento do risco de perda óssea associado ao tratamento.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> Entretanto, como essa estratégia comparada ao TMX isolado não parece ser tão extensa, atualmente 50,0% dos especialistas ainda preferem prescrever o IAS (se disponível e não contraindicado) em algum período do tratamento, sendo mais favorável a indicação do IAS na presença de envolvimento dos linfonodos.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> A maioria acredita que determinados pacientes poderiam ser tratadas com TMX isoladamente, e que pacientes em tratamento com IAS poderiam ser comutadas para o TMX, se intolerantes aos IAS.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+			</p>
+			<p>Respaldado por diretrizes mais recentes,<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref> mostrando que a vantagem do tratamento combinado (TMX após IAS) não é tão extensa, o uso isolado do TMX na população estudada trouxe o benefício adicional de aumentar a probabilidade de persistir ao tratamento e melhorar os resultados esperados.</p>
+			<p>A menor probabilidade de persistência entre mulheres com uso de ambos (TMX e IAS) não sugere uma troca da medicação pela indicação decorrente de efeito colateral da medicação inicial.</p>
+			<p>Em relação ao tempo de tratamento, anteriormente, a maioria de especialistas apoiava o uso adicional de IAS por um período, no caso de pacientes na pós-menopausa e gânglios linfáticos positivos, após completar o tratamento com TMX.<xref ref-type="bibr" rid="B6">
+					<sup>6</sup>
+				</xref> As recomendações brasileiras sempre foram de cinco anos, de forma independente do esquema utilizado.<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> Em período mais recente, os especialistas consideraram que cinco anos de IAS era uma duração suficiente, e a maioria opôs-se a sua extensão, mesmo nos casos de presença de nódulos positivos e entre pacientes jovens na pós-menopausa (&lt; 55 anos de idade).<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+			</p>
+			<p>Constatou-se o uso do tratamento hormonal por um período maior do que cinco anos, indicação não concordante com as recomendações nacionais<xref ref-type="fn" rid="fn1">
+					<sup>a</sup>
+				</xref> e internacionais.<xref ref-type="bibr" rid="B8">
+					<sup>8</sup>
+				</xref>
+			</p>
+			<p>A persistência é entendida como comportamento sensível a fatores de dimensões socioeconômica, clínica, do regime do tratamento, da doença, da relação paciente-profissional de saúde e da organização dos serviços de saúde.<xref ref-type="bibr" rid="B19">
+					<sup>19</sup>
+				</xref> O presente artigo centra o seu interesse na perspectiva de ressaltar alguns aspectos do cuidado que contribuem nessa direção. Ações que favoreçam diagnóstico e tratamento precoce, abordagem multiprofissional, oferta de psicoterapia, incentivo ao suporte social e coordenação do cuidado para o subgrupo de mulheres de maior risco de abandono são práticas já recomendadas, mas que devem ser reforçadas no tratamento do câncer de mama.</p>
+			<p>Este estudo mostrou que 69,0% das mulheres com câncer de mama não persistem ao término do tratamento hormonal e apresentam fatores associados à descontinuidade em contexto brasileiro. Tais fatores podem nortear reformulações no cuidado com intuito de aumentar os índices de persistência e, consequentemente, diminuir o risco de piores resultados neste subgrupo de mulheres e contribuir para a diminuição de gastos desnecessários.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERÊNCIAS</title>
+			<ref id="B1">
+				<label>1</label>
+				<mixed-citation>. Avorn J, Monette J, Lacour A, Bohn RL, Monane M, Mogun H,  et al. Persistence of use of lipid-lowering medications: a cross-national study. JAMA. 1998;279(18):1458-62. DOI:10.1001/jama.279.18.1458</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Avorn</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Monette</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Lacour</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Bohn</surname>
+							<given-names>RL</given-names>
+						</name>
+						<name>
+							<surname>Monane</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Mogun</surname>
+							<given-names>H</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Persistence of use of lipid-lowering medications: a cross-national study</article-title>
+					<source>JAMA</source>
+					<year>1998</year>
+					<volume>279</volume>
+					<issue>18</issue>
+					<fpage>1458</fpage>
+					<lpage>1462</lpage>
+					<pub-id pub-id-type="doi">10.1001/jama.279.18.1458</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<label>2</label>
+				<mixed-citation>. Barron TI, Connolly R, Bennett K, Feely J, Kennedy MJ. Early discontinuation of tamoxifen: a lesson for oncologists. Cancer. 2007;109(5):832-9. DOI:10.1002/cncr.22485</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Barron</surname>
+							<given-names>TI</given-names>
+						</name>
+						<name>
+							<surname>Connolly</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Bennett</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Feely</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Kennedy</surname>
+							<given-names>MJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Early discontinuation of tamoxifen: a lesson for oncologists</article-title>
+					<source>Cancer</source>
+					<year>2007</year>
+					<volume>109</volume>
+					<issue>5</issue>
+					<fpage>832</fpage>
+					<lpage>839</lpage>
+					<pub-id pub-id-type="doi">10.1002/cncr.22485</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<label>3</label>
+				<mixed-citation>. Breast International Group (BIG) 1-98 Collaborative Group, Thürlimann B, Keshaviah A, Coates AS, Mouridsen H, Mauriac L, Forbes JF, et al. A comparison of letrozole and tamoxifen in postmenopausal women with early breast cancer. N Engl J Med. 2005;353(26):2747-57. DOI:10.1056/NEJMoa052258</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<collab>Breast International Group (BIG) 1-98 Collaborative Group</collab>
+						<name>
+							<surname>Thürlimann</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Keshaviah</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Coates</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>Mouridsen</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Mauriac</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Forbes</surname>
+							<given-names>JF</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">A comparison of letrozole and tamoxifen in postmenopausal women with early breast cancer</article-title>
+					<source>N Engl J Med</source>
+					<year>2005</year>
+					<volume>353</volume>
+					<issue>26</issue>
+					<fpage>2747</fpage>
+					<lpage>2757</lpage>
+					<pub-id pub-id-type="doi">10.1056/NEJMoa052258</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<label>4</label>
+				<mixed-citation>. Cramer JA, Roy A, Burrell A, Fairchild CJ, Fuldeore MJ, Ollendorf DA,  et al. Medication compliance and persistence: terminology and definitions. Value Health. 2008;11(1):44-7. DOI:10.1111/j.1524-4733.2007.00213.x</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Cramer</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Roy</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Burrell</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Fairchild</surname>
+							<given-names>CJ</given-names>
+						</name>
+						<name>
+							<surname>Fuldeore</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Ollendorf</surname>
+							<given-names>DA</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Medication compliance and persistence: terminology and definitions</article-title>
+					<source>Value Health</source>
+					<year>2008</year>
+					<volume>11</volume>
+					<issue>1</issue>
+					<fpage>44</fpage>
+					<lpage>47</lpage>
+					<pub-id pub-id-type="doi">10.1111/j.1524-4733.2007.00213.x</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<label>5</label>
+				<mixed-citation>. Fink AK, Gurwitz J, Rakowski W, Guadagnoli W, Silliman RA. Patient beliefs and tamoxifen discontinuance in older women with estrogen receptor – positive breast cancer. J Clin Oncol. 2004;22(16):3309-15. DOI:10.1200/jco.2004.11.064</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Fink</surname>
+							<given-names>AK</given-names>
+						</name>
+						<name>
+							<surname>Gurwitz</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Rakowski</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Guadagnoli</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Silliman</surname>
+							<given-names>RA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Patient beliefs and tamoxifen discontinuance in older women with estrogen receptor – positive breast cancer</article-title>
+					<source>J Clin Oncol</source>
+					<year>2004</year>
+					<volume>22</volume>
+					<issue>16</issue>
+					<fpage>3309</fpage>
+					<lpage>3315</lpage>
+					<pub-id pub-id-type="doi">10.1200/jco.2004.11.064</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<label>6</label>
+				<mixed-citation>. Goldhirsch A, Wood WC, Gelber RD, Coates AS, Thürlimann B, Senn H-J. Progress and promise: highlights of the International Expert Consensus on the Primary Therapy of Early Breast Cancer 2007. Ann Oncol. 2007;18(7):1133-1144. DOI:10.1093/annonc/mdm271</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Goldhirsch</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Wood</surname>
+							<given-names>WC</given-names>
+						</name>
+						<name>
+							<surname>Gelber</surname>
+							<given-names>RD</given-names>
+						</name>
+						<name>
+							<surname>Coates</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>Thürlimann</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Senn</surname>
+							<given-names>H-J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Progress and promise: highlights of the International Expert Consensus on the Primary Therapy of Early Breast Cancer 2007</article-title>
+					<source>Ann Oncol</source>
+					<year>2007</year>
+					<volume>18</volume>
+					<issue>7</issue>
+					<fpage>1133</fpage>
+					<lpage>1144</lpage>
+					<pub-id pub-id-type="doi">10.1093/annonc/mdm271</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<label>7</label>
+				<mixed-citation>. Goldhirsch A, Ingle JN, Gelber RD, Coates AS, Thürlimann B, Senn HJ; Panel members. Thresholds for therapies: highlights of the St. Gallen International Expert Consensus on the Primary Therapy of Early Breast Cancer 2009. Ann Oncol. 2009;20(8):1319-29. DOI:10.1093/annonc/mdp322</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Goldhirsch</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Ingle</surname>
+							<given-names>JN</given-names>
+						</name>
+						<name>
+							<surname>Gelber</surname>
+							<given-names>RD</given-names>
+						</name>
+						<name>
+							<surname>Coates</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>Thürlimann</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Senn</surname>
+							<given-names>HJ</given-names>
+						</name>
+					</person-group>
+					<comment>Panel members</comment>
+					<article-title xml:lang="en">Thresholds for therapies: highlights of the St. Gallen International Expert Consensus on the Primary Therapy of Early Breast Cancer 2009</article-title>
+					<source>Ann Oncol</source>
+					<year>2009</year>
+					<volume>20</volume>
+					<issue>8</issue>
+					<fpage>1319</fpage>
+					<lpage>1329</lpage>
+					<pub-id pub-id-type="doi">10.1093/annonc/mdp322</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<label>8</label>
+				<mixed-citation>. Goldhirsch A, Wood WC, Coates AS, Gelber RD, Thürlimann B, Senn HJ; Panel members. Strategies for subtypes--dealing with the diversity of breast cancer: highlights of the St. Gallen International Expert Consensus on the Primary Therapy of Early Breast Cancer 2011. Ann Oncol. 2011;22(8):1736-47. DOI:10.1093/annonc/mdr304</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Goldhirsch</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Wood</surname>
+							<given-names>WC</given-names>
+						</name>
+						<name>
+							<surname>Coates</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>Gelber</surname>
+							<given-names>RD</given-names>
+						</name>
+						<name>
+							<surname>Thürlimann</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Senn</surname>
+							<given-names>HJ</given-names>
+						</name>
+					</person-group>
+					<comment>Panel members</comment>
+					<article-title xml:lang="en">Strategies for subtypes--dealing with the diversity of breast cancer: highlights of the St. Gallen International Expert Consensus on the Primary Therapy of Early Breast Cancer 2011</article-title>
+					<source>Ann Oncol</source>
+					<year>2011</year>
+					<volume>22</volume>
+					<issue>8</issue>
+					<fpage>1736</fpage>
+					<lpage>1747</lpage>
+					<pub-id pub-id-type="doi">10.1093/annonc/mdr304</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<label>9</label>
+				<mixed-citation>. Güth U, Myrick ME, Schötzau A, Kilic N, Schmid SM. Drug switch because of treatment-related adverse side effects in endocrine adjuvant breast cancer therapy: how often and how often does it work? Breast Cancer Res Treat. 2011;129(3):799-807. DOI:10.1007/s10549-011-1668-y</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Güth</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Myrick</surname>
+							<given-names>ME</given-names>
+						</name>
+						<name>
+							<surname>Schötzau</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Kilic</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Schmid</surname>
+							<given-names>SM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Drug switch because of treatment-related adverse side effects in endocrine adjuvant breast cancer therapy: how often and how often does it work?</article-title>
+					<source>Breast Cancer Res Treat</source>
+					<year>2011</year>
+					<volume>129</volume>
+					<issue>3</issue>
+					<fpage>799</fpage>
+					<lpage>807</lpage>
+					<pub-id pub-id-type="doi">10.1007/s10549-011-1668-y</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>. Hershman DL, Kushi LH, Shao T, Buono D, Kershenbaum A, Tsai WY,  et al. Early discontinuation and nonadherence to adjuvant hormonal therapy in a cohort of 8.769 early-stage breast cancer patients. J Clin Oncol. 2010;28(27):4120-8. DOI:10.1200/JCO.2009.25.9655</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hershman</surname>
+							<given-names>DL</given-names>
+						</name>
+						<name>
+							<surname>Kushi</surname>
+							<given-names>LH</given-names>
+						</name>
+						<name>
+							<surname>Shao</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Buono</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Kershenbaum</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Tsai</surname>
+							<given-names>WY</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Early discontinuation and nonadherence to adjuvant hormonal therapy in a cohort of 8.769 early-stage breast cancer patients</article-title>
+					<source>J Clin Oncol</source>
+					<year>2010</year>
+					<volume>28</volume>
+					<issue>27</issue>
+					<fpage>4120</fpage>
+					<lpage>4128</lpage>
+					<pub-id pub-id-type="doi">10.1200/JCO.2009.25.9655</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>. Hershman DL, Shao T, Kushi LH, Buono D, Tsai WY, Fehrenbacher L,  et al. Early discontinuation and non-adherence to adjuvant hormonal therapy are associated with increased mortality in women with breast cancer. Breast Cancer Res Treat. 2011;126(2):529-37. DOI:10.1007/s10549-010-1132-4</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Hershman</surname>
+							<given-names>DL</given-names>
+						</name>
+						<name>
+							<surname>Shao</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Kushi</surname>
+							<given-names>LH</given-names>
+						</name>
+						<name>
+							<surname>Buono</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Tsai</surname>
+							<given-names>WY</given-names>
+						</name>
+						<name>
+							<surname>Fehrenbacher</surname>
+							<given-names>L</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Early discontinuation and non-adherence to adjuvant hormonal therapy are associated with increased mortality in women with breast cancer</article-title>
+					<source>Breast Cancer Res Treat</source>
+					<year>2011</year>
+					<volume>126</volume>
+					<issue>2</issue>
+					<fpage>529</fpage>
+					<lpage>537</lpage>
+					<pub-id pub-id-type="doi">10.1007/s10549-010-1132-4</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>. Huiart L, Bouknik A, Rey D, Tarpin C, Cluze C, Bendiane MK,  et al. Early discontinuation of tamoxifen intake in younger women with breast cancer: is it time to rethink the way it is prescribed? Eur J Cancer. 2012;48(13):1939-46. DOI:10.1016/j.ejca.2012.03.004</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Huiart</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Bouknik</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Rey</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Tarpin</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Cluze</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Bendiane</surname>
+							<given-names>MK</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Early discontinuation of tamoxifen intake in younger women with breast cancer: is it time to rethink the way it is prescribed?</article-title>
+					<source>Eur J Cancer</source>
+					<year>2012</year>
+					<volume>48</volume>
+					<issue>13</issue>
+					<fpage>1939</fpage>
+					<lpage>1946</lpage>
+					<pub-id pub-id-type="doi">10.1016/j.ejca.2012.03.004</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>. Kimmick G, Anderson R, Camacho F, Bhosle, M, Hwang W, Balkrishnan R. Adjuvant hormonal therapy use among insured, low-income women with breast cancer. J Clin Oncol. 2009;27(21):3445-51. DOI:10.1200/JCO.2008.19.2419</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Kimmick</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Anderson</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Camacho</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Bhosle</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Hwang</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Balkrishnan</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Adjuvant hormonal therapy use among insured, low-income women with breast cancer</article-title>
+					<source>J Clin Oncol</source>
+					<year>2009</year>
+					<volume>27</volume>
+					<issue>21</issue>
+					<fpage>3445</fpage>
+					<lpage>3451</lpage>
+					<pub-id pub-id-type="doi">10.1200/JCO.2008.19.2419</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>. Lin JH, Zhang SM, Manson JE. Predicting adherence to tamoxifen for breast cancer adjuvant therapy and prevention. Cancer Prev Res (Phila). 2011;4(9):1360-5. DOI:10.1158/1940-6207.CAPR-11-0380</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Lin</surname>
+							<given-names>JH</given-names>
+						</name>
+						<name>
+							<surname>Zhang</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Manson</surname>
+							<given-names>JE</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Predicting adherence to tamoxifen for breast cancer adjuvant therapy and prevention</article-title>
+					<source>Cancer Prev Res</source>
+					<comment>Phila</comment>
+					<year>2011</year>
+					<volume>4</volume>
+					<issue>9</issue>
+					<fpage>1360</fpage>
+					<lpage>1365</lpage>
+					<pub-id pub-id-type="doi">10.1158/1940-6207.CAPR-11-0380</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>. Murphy CC, Bartholomew LK, Carpentier MY, Bluethmann SM, Vernon SW. Adherence to adjuvant hormonal therapy among breast cancer survivors in clinical practice: a systematic review. Breast Cancer Res Treat. 2012;134(2):459-78. DOI:10.1007/s10549-012-2114-5</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Murphy</surname>
+							<given-names>CC</given-names>
+						</name>
+						<name>
+							<surname>Bartholomew</surname>
+							<given-names>LK</given-names>
+						</name>
+						<name>
+							<surname>Carpentier</surname>
+							<given-names>MY</given-names>
+						</name>
+						<name>
+							<surname>Bluethmann</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Vernon</surname>
+							<given-names>SW</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Adherence to adjuvant hormonal therapy among breast cancer survivors in clinical practice: a systematic review</article-title>
+					<source>Breast Cancer Res Treat</source>
+					<year>2012</year>
+					<volume>134</volume>
+					<issue>2</issue>
+					<fpage>459</fpage>
+					<lpage>478</lpage>
+					<pub-id pub-id-type="doi">10.1007/s10549-012-2114-5</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>. Nekhlyudov L, Li L, Ross-Degnan D, Wagner AK. Five-year patterns of adjuvant hormonal therapy use, persistence, and adherence among insured women with early-stage breast cancer. Breast Cancer Res Treat. 2011;130(2):681-9. DOI:10.1007/s10549-011-1703-z</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Nekhlyudov</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Li</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Ross-Degnan</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Wagner</surname>
+							<given-names>AK</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Five-year patterns of adjuvant hormonal therapy use, persistence, and adherence among insured women with early-stage breast cancer</article-title>
+					<source>Breast Cancer Res Treat</source>
+					<year>2011</year>
+					<volume>130</volume>
+					<issue>2</issue>
+					<fpage>681</fpage>
+					<lpage>689</lpage>
+					<pub-id pub-id-type="doi">10.1007/s10549-011-1703-z</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>. Owusu C, Buist DS, Field TS, Lash TL, Thwin SS, Geiger AM,  et al. Predictors of tamoxifen discontinuation among older women with estrogen receptor-positive breast cancer. J Clin Oncol. 2008;26(4):549-55. DOI:10.1200/JCO.2006.10.1022</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Owusu</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Buist</surname>
+							<given-names>DS</given-names>
+						</name>
+						<name>
+							<surname>Field</surname>
+							<given-names>TS</given-names>
+						</name>
+						<name>
+							<surname>Lash</surname>
+							<given-names>TL</given-names>
+						</name>
+						<name>
+							<surname>Thwin</surname>
+							<given-names>SS</given-names>
+						</name>
+						<name>
+							<surname>Geiger</surname>
+							<given-names>AM</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Predictors of tamoxifen discontinuation among older women with estrogen receptor-positive breast cancer</article-title>
+					<source>J Clin Oncol</source>
+					<year>2008</year>
+					<volume>26</volume>
+					<issue>4</issue>
+					<fpage>549</fpage>
+					<lpage>555</lpage>
+					<pub-id pub-id-type="doi">10.1200/JCO.2006.10.1022</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>. Pellegrini I, Sarradon-Eck A, Soussan PB, Lacour AC, Largillier R, Tallet A,  et al. Women’s perceptions and experience of adjuvant tamoxifen therapy account for their adherence: breast cancer patients’ point of view. Psychooncology. 2010;19(5):472-9. DOI:10.1002/pon.1593</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Pellegrini</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Sarradon-Eck</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Soussan</surname>
+							<given-names>PB</given-names>
+						</name>
+						<name>
+							<surname>Lacour</surname>
+							<given-names>AC</given-names>
+						</name>
+						<name>
+							<surname>Largillier</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Tallet</surname>
+							<given-names>A</given-names>
+						</name>
+						<etal>et al</etal>
+					</person-group>
+					<article-title xml:lang="en">Women’s perceptions and experience of adjuvant tamoxifen therapy account for their adherence: breast cancer patients’ point of view</article-title>
+					<source>Psychooncology</source>
+					<year>2010</year>
+					<volume>19</volume>
+					<issue>5</issue>
+					<fpage>472</fpage>
+					<lpage>479</lpage>
+					<pub-id pub-id-type="doi">10.1002/pon.1593</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>. Ruddy K, Mayer E, Partridge A. Patient adherence and persistence with oral anticancer treatment. CA Cancer J Clin. 2009;59(1):56-66. DOI:10.3322/caac.20004</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Ruddy</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Mayer</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Partridge</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Patient adherence and persistence with oral anticancer treatment</article-title>
+					<source>CA Cancer J Clin</source>
+					<year>2009</year>
+					<volume>59</volume>
+					<issue>1</issue>
+					<fpage>56</fpage>
+					<lpage>66</lpage>
+					<pub-id pub-id-type="doi">10.3322/caac.20004</pub-id>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>. Weaver KE, Camacho F, Hwang W, Anderson R, Kimmick G. Adherence to adjuvant hormonal therapy and its relationship to breast cancer recurrence and survival among low-income women. Am J Clin Oncol. 2013;36(2):181-7. DOI:10.1097/coc.0b013e3182436ec1</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group>
+						<name>
+							<surname>Weaver</surname>
+							<given-names>KE</given-names>
+						</name>
+						<name>
+							<surname>Camacho</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Hwang</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Anderson</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Kimmick</surname>
+							<given-names>G</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Adherence to adjuvant hormonal therapy and its relationship to breast cancer recurrence and survival among low-income women</article-title>
+					<source>Am J Clin Oncol</source>
+					<year>2013</year>
+					<volume>36</volume>
+					<issue>2</issue>
+					<fpage>181</fpage>
+					<lpage>187</lpage>
+					<pub-id pub-id-type="doi">10.1097/coc.0b013e3182436ec1</pub-id>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1">
+				<label>a</label>
+				<p> Barner JC. Medication adherence: focus on secondary database analysis: ISPOR Student Forum Presentation, 2010 [citado 2012 mar 20]. Disponível em: http://www.ispor.org/student/teleconferences/ISPORStudentForumPresentation022410.pdf</p>
+			</fn>
+			<fn id="fn2">
+				<label>b</label>
+				<p> Ministério da Saúde, Secretaria de Atenção à Saúde. Portaria nº 741, de 19 de dezembro de 2005. Definir as unidades de assistência de alta complexidade em oncologia, os centros de assistência de alta complexidade em oncologia (CACON) e os centros de referência de alta complexidade em oncologia e suas aptidões e qualidades. Diario Oficial Uniao. 23 dez 2005 [citado 2012 dez 12]. Disponível em: http://bvsms.saude.gov.br/bvs/saudelegis/sas/2005/prt0741_19_12_2005.html</p>
+			</fn>
+			<fn id="fn3">
+				<label>c</label>
+				<p> Ministério da Saúde, Secretaria de Atenção à Saúde, Departamento de Regulação, Avaliação e Controle, Coordenação Geral de Sistemas de Informação. SIA/SUS Sistema de Informações Ambulatoriais. Oncologia: manual de bases técnicas. Brasília (DF); 2011 [citado 2013 jan 6]. Disponível em: http://www1.inca.gov.br/inca/Arquivos/manual_oncologia_13edicao_agosto_2011.pdf</p>
+			</fn>
+			<fn id="fn4">
+				<label>d</label>
+				<p> Ministério da Saúde, Secretaria de Atenção à Saúde, Departamento de Regulação, Avaliação e Controle, Coordenação Geral de Sistemas de Informação. SIA/SUS Sistema de Informações Ambulatoriais. Oncologia: manual de bases técnicas. Brasília (DF); 2011 [citado 2013 jan 6]. Disponível em: http://www1.inca.gov.br/inca/Arquivos/manual_oncologia_13edicao_agosto_2011.pdf₢</p>
+			</fn>
+			<fn id="fn5">
+				<label>e</label>
+				<p> World Health Organization. National cancer control programmes: policies and managerial guidelines. 2.ed. Geneva; 2002 [citado 2011 mai 15]. Disponível em: http://whqlibdoc.who.int/hq/2002/9241545577.pdf</p>
+			</fn>
+			<fn fn-type="other" id="fn6">
+				<label>DESTAQUES</label>
+				<p>O tratamento hormonal para o câncer de mama está associado à melhoria da taxa de mortalidade e da sobrevida livre da doença. O foco desta pesquisa foi estudar os fatores relacionados à persistência no tratamento hormonal, com vistas a contribuir para a melhoria da assistência recebida pelas mulheres com câncer de mama.</p>
+				<p>Este estudo teve o diferencial de incluir fatores modificáveis, sublinhando como mudanças na organização do cuidado podem auxiliar pacientes a cumprir o tratamento pelo período recomendado.</p>
+				<p>Espera-se que esses resultados possam contribuir para reorientações práticas sobre a assistência oncológica e controle do câncer no País. Eles apontam para a introdução de novas racionalidades na política nacional de atenção ao câncer.</p>
+				<p>Os resultados mostram diferenças na persistência de mulheres recebendo hormonioterapia para o câncer de mama relacionada às características sociodemográficas e clínicas das pacientes e às intervenções aplicadas, além de ter estimado quantitativo expressivo de mulheres (69,0%) que não persistem até o final do tratamento hormonal para o câncer de mama, pondo em risco uma resposta clínica adequada aos padrões esperados.</p>
+				<p>O tratamento de doenças crônicas exige mudanças comportamentais dos pacientes, e isso pode afetar o cumprimento ao tratamento prescrito. Por outro lado, aspectos dos serviços de saúde (relação profissional-paciente, gestão dos efeitos colaterais, entre outros) podem atenuar ou agravar o problema do abandono em tratamentos de longa duração. Esses fatores podem causar a interrupção temporária ou definitiva do tratamento, inclusive para as pacientes com bom prognóstico.</p>
+				<p>Profª. Rita de Cássia Barradas Barata Editora Científica</p>
+			</fn>
+		</fn-group>
+	</back>
+	<sub-article article-type="translation" id="TRen" xml:lang="en">
+		<front-stub>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Public Health Practice Original Articles</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Factors associated to persistence with hormonal therapy in women with breast cancer</article-title>
+			</title-group>
+			<author-notes>
+				<corresp>
+					<label>Correspondence</label>:  Cláudia Brito  Av. Leopoldo Bulhões, 1480 sala 717 Manguinhos  21041-210 Rio de Janeiro, RJ, Brasil  E-mail: cbrito@ensp.fiocruz.br </corresp>
+				<fn fn-type="other">
+					<p>Article based on the doctoral thesis of Brito C, entitled: “Adesão e persistência à terapia endócrina para o câncer de mama, fatores preditores e resultados relacionados”, presented to the <italic>Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz</italic>, in 2011.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>The authors declare that there is no conflict of interest.</p>
+				</fn>
+			</author-notes>
+			<abstract xml:lang="en">
+				<sec>
+					<title>OBJECTIVE</title>
+					<p>To analyze factors associated with persistence to breast cancer hormone therapy in order to contribute to the quality of care improvement.</p>
+				</sec>
+				<sec>
+					<title>METHODS</title>
+					<p>Retrospective longitudinal study, based on secondary data. A cohort of 5,861 women with breast cancer registered in different datasets of the Brazilian National Cancer Institute and the Brazilian Unified Health System were analyzed. All women were treated at this hospital, which provides free medication, and the follow-up period was from January 2004 to October 2010. Sociodemographic, behavioral, and clinical variables, as well as aspects of lifestyle and health care, were considered in the explanation of variations in the persistence to hormone therapy, applying the Kaplan-Meier method and the Cox proportional hazard model.</p>
+				</sec>
+				<sec>
+					<title>RESULTS</title>
+					<p>Overall persistence to hormone therapy was 79.0% at the end of the first year, and 31.0% in five years of treatment. The risk of discontinuing hormone therapy was higher among women under 35 years old, with more advanced disease (stages III and IV), alcohol drinkers, those undergoing chemotherapy, and for each additional hospitalization, exam performed, and month between diagnosis and beginning of treatment. In the opposite direction, the risk of discontinuity was lower among women who had at least finished high school, those with partner, with a family history of cancer, those who had undergone breast surgery, and who had outpatient visits to a Mastologist, and a Clinical Oncologist.</p>
+				</sec>
+				<sec>
+					<title>CONCLUSIONS</title>
+					<p>The majority of the women with breast cancer (69.0%) do not persist with hormone treatment for the five years recommended, increasing the risk of inadequate clinical results. The results show aspects of care that can provide better results.</p>
+				</sec>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Breast Neoplasms</kwd>
+				<kwd>Patient Dropouts</kwd>
+				<kwd>Drug Therapy</kwd>
+				<kwd>Antineoplastic Agents, Hormonal, administration &amp; dosage</kwd>
+				<kwd>Risk Factors</kwd>
+				<kwd>Health care</kwd>
+				<kwd>Women’s Health</kwd>
+			</kwd-group>
+		</front-stub>
+		<body>
+			<sec sec-type="intro">
+				<title>INTRODUCTION</title>
+				<p>Endocrine or hormone therapy for breast cancer consists of using substances similar to hormones, or substances which suppress hormones in order to inhibit the tumor’s growth<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> and has, for decades, been associated with improved cancer free survival rates and mortality rates.<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref> The treatment is long-term, with significant adverse effects,<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref> as the suppression of female hormones means, for some women, an additional mutilation of the image as a woman in addition to the mastectomy.<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref>
+				</p>
+				<p>There is interest in adherence and persistence to hormone treatment for breast cancer not only because of the difficulties related to long term treatment with many side effects. In addition to this, incorrect use of the medications could result in increased mortality and morbidity,<xref ref-type="bibr" rid="B18">
+						<sup>18</sup>
+					</xref> and consequent increased demand for care resources, meaning increased costs.<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>
+				</p>
+				<p>Hormone therapy is only recommended after the breast tumor is assessed as estrogen and progesterone receptor positive.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> It is recommended that a daily hormone therapy pill be taken for five years.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> There is evidence that women who take tamoxifen (the most commonly used type of hormone therapy globally) for a shorter period of time have a significantly increased risk of the cancer coming back or of mortality from breast cancer.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref>
+				</p>
+				<p>Breast cancer is the most common tumor in the female population of Brazil (an estimated 52,830 new cases in 2013) and the primary cause of death from cancer (12,852 deaths in 2010).<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref>
+				</p>
+				<p>Despite its potential results, and although hormone therapy is available in the Brazilian Unified Health System (SUS), little is known in this country about women with breast cancer’s adherence and persistence to the treatment and the resulting clinical results. The International Society for Pharmacoeconomics and Outcome Research<xref ref-type="bibr" rid="B4">
+						<sup>4</sup>
+					</xref> differentiates between the concepts of adherence and persistence, with persistence, the object of this article, defined as the time from starting until discontinuing the treatment.</p>
+				<p>The factors associated with adherence and persistence to hormone therapy for breast cancer have been widely studied, but with various contradictory or non-significant results.<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> The most consistent results indicate an association between the worst rates of adherence and persistence with extremes of age (the oldest and youngest patients), increased budgetary costs, monitoring by general practitioner (<italic>versus</italic> by an oncologist), treatment in which the medication changes (switching to the aromatase inhibitor after treatment with tamoxifen) and side effects of the therapy. On the other hand, taking more medications, being referred to an oncologist and shorter diagnosis time were positively associated with adherence and persistence.<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref>
+				</p>
+				<p>For Murphy et al,<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> many studies have focused on non-modifiable factors, making new research into modifiable factors associated with adherence and persistence to hormone therapy necessary. Thus, changes in the way care is organized may be relevant to helping patients follow their treatment for the recommended period.</p>
+				<p>The objective of this study was to analyze factors associated with persistence to hormone therapy for breast cancer, in order to improve care quality.</p>
+			</sec>
+			<sec sec-type="methods">
+				<title>METHODS</title>
+				<p>This was a longitudinal study based on secondary data of women with breast cancer who had been prescribed hormone therapy. The women were all treated in the National Cancer Institute (INCA), a reference center for the Brazilian Ministry of Health in defining cancer health care policies in Brazil.<xref ref-type="fn" rid="fn4_en">
+						<sup>d</sup>
+					</xref> INCA is the largest provider of breast cancer treatment in the state of Rio de Janeiro (Southeastern Brazil), which has the highest incidence of the disease in the country.<xref ref-type="fn" rid="fn3_en">
+						<sup>c</sup>
+					</xref>
+				</p>
+				<p>The study considers all women with breast cancer in the Hospital Cancer Register (RHC) between 2002 and 2008 and who started hormone treatment (tamoxifen and/or aromatase inhibitors anastrozole or letrozole) from January 2004 onwards, according to the INCA Pharmacy Department database, and to whom medication was dispensed at least twice until October 2010.</p>
+				<p>Integration and analysis of the information found in the following databases were performed as follows:</p>
+				<list list-type="order">
+					<list-item>
+						<p>a. INCA Pharmacy Department dispensing database – data on medications dispensed including date, type of medication (tamoxifen letrozole and anastrozole) and quantity. Only patients who started hormone therapy after January 1, 2004 were considered as this database was only created in October 2003, including patients already undergoing treatment. The final date included for dispensing medication was October 29, 2010.</p>
+					</list-item>
+					<list-item>
+						<p>b. RHC – used to obtain sociodemographic and clinical variables of patients, as well as deaths. The inclusion criterion for the study of patients registered with a breast tumor between 2002 and 2008 was due to the availability of data at the time the study was carried out. The RHC is organized by tumor, meaning that patients with more than one primary malignant tumor (excluding recurrence or metastasis) may be registered more than once. For patients registered with multiple tumors, the most complete observation was used: the observation with the highest disease stage if the dates of diagnosis were the same or the first observation if the dates of diagnosis were different.</p>
+					</list-item>
+					<list-item>
+						<p>c. INCA Integrated Hospital System (SHI) and Absolute System – were used to identify the procedures undergone by the women with breast cancer. The SHI was established in 1998 and was used by INCA until 2004, when it was substituted by the Absolute System. The period considered was January 1, 2002 to October 29, 2010. While exploring the Absolute System, greater disaggregation of categories was observed than that of the SHI, requiring them to be made compatible.</p>
+					</list-item>
+					<list-item>
+						<p>d. Mortality Information System (SIM) – used to complement the information on deaths available in the RHC.</p>
+					</list-item>
+				</list>
+				<p>The registration number (from the medical record) of the women treated at INCA was used to integrate the databases, which was done hierarchically, beginning with the data from the Pharmacy and the RHC, with the others added later.</p>
+				<p>After uniting the databases, the difference between the start date of hormone therapy and the breast cancer diagnosis was found, with 198 cases with negative values verified, probably due to typing errors. Correction consisted of the following procedures: (1) when the date of starting treatment differed negatively from the diagnosis by fewer than three months, diagnosis and starting hormone treatment was considered to coincide – with a difference equal to zero; (2) if the negative difference between diagnosis and starting hormone therapy was more than three months and the second date of dispensing medication was consistent with the date of diagnosis, the first date on which medication was dispensed, and the quantity of medication dispensed on that occasion, was excluded and substituted with the second date. Using such procedures, it was possible to retain 185 of the cases for analysis, with a loss of 13 women due to complete lack of consistency in the data. A further 220 women were excluded as there was only one recorded date on which medication was collected.</p>
+				<p>Thus, data referring to 5,861 women remained in the analysis, making it unlikely that the exclusions for operational issues had introduced bias into the study given the non-systematic association with the variables in question.</p>
+				<p>This study adopted the recommendation of one pill taken daily for a period of five years. The medications, distributed without charge by INCA, were tamoxifen (TMX) and aromatase inhibitors (AIS).</p>
+				<p>Persistence was measured considering the time between starting hormone therapy and discontinuing or abandoning it for 60 days or more, counting from the last supply obtained. The results of assessing the sensitivity of this measure using 30 days of discontinuity did not differ greatly, justifying the choice of 60 days.</p>
+				<p>Women were classed as persistent (without discontinuing treatment) if they died, reached the end of the study or concluded 1,825 days (five years) of treatment without an interruption greater than 60 days. Those who interrupted treatment for 60 days or more, and for whom no information of death was obtained, were considered non-persistent (discontinued treatment). All of the women in the cohort began hormone therapy after January 1, 2004, with no left censoring in the observations included.</p>
+				<p>In the case of women for whom the quantity of pills dispensed corresponded to more than one per day for 1,825 days (five years) or who underwent hormone therapy for more than five years, the data were truncated to the observation period (1,825 days).</p>
+				<p>The independent variables in question were: (1) sociodemographic (RHC) – age at diagnosis, schooling, marital status; (2) clinical (RHC) – histological type of tumor, stage (stages 0, I and II being curable and III and IV incurable), laterality, family history of cancer, alcohol and tobacco consumption; and (3) health care related (SHI/ABSOLUTE) – type of hormone therapy (<italic>only </italic>TMX; <italic>only </italic>AIS – letrozole or anastrozole; <italic>both –</italic> TMX followed by AIS), surgery, chemotherapy, radiotherapy, hospitalizations, consultations with mastologist, clinical oncologist and other doctors, psychotherapy, multi-professional treatment support (MTS), including outpatient and nursing care, nutrition, physiotherapy, speech therapy, psychology, social, orthodontic or pharmaceutical care, diagnosis and therapeutic services (DTS) and time between diagnosis and the initiation of hormone treatment.</p>
+				<p>Statistical techniques to analyze survival were used to verify the factors associated with persistence to hormone treatment. Bivariate analysis based on the Kaplan-Meier technique was used in order to identify differences in the occurrence of discontinuity curves, over time, among the different strata of the independent variables. The Wilcoxon and log-rank tests were used to test the null hypothesis of there being no difference between the curves.</p>
+				<p>To discover the independent effect of the explanatory variables on time until discontinuity, Cox’s multivariate proportional hazard model was used, including variables related to p equal to or lower than 0.10. The proportional hazard assumption was tested by adding the model interaction terms of the explanatory variables and time, and those which were statistically significant (p ≤ 0.05) were incorporated to correct the assumption violation. The analyses were conducted using the SAS<sup>®</sup> statistic system, version 9.1.</p>
+				<p>The study was approved by the INCA Research Ethics Committee, Protocol 84/2010.</p>
+			</sec>
+			<sec sec-type="results">
+				<title>RESULTS</title>
+				<p>The women’s age at time of diagnosis varied between 21 and 103, with a mean age of 57.5 (standard deviation 3.6 years) and a median age of 56.6. Approximately 50.0% of the women were aged between 40 and 59 years old, and a minority (8.9%) were under 40.</p>
+				<p>Half of the women had low levels of education (illiterate or had incomplete elementary education); 10.0% had higher education. Of the total, 55.5% of the women had a family history of cancer, 46.5% had a partner at time of diagnosis, 27.4% consumed alcohol, 34.7% smoked, 40.5% were diagnosed at an advanced stage and 64.4% were treated with TMX alone.</p>
+				<p>Assuming an additional three month margin, added to the five-year period, 712 (12.15%) of the women exceeded the recommended treatment period. Of this total, 57.6% took TMX and AIS, 39.6% took only TMX and 2.8% only AIS.</p>
+				<p>Overall persistence of women treated with hormone therapy for breast cancer was 79.0% at the end of the first year, 69.0% after two years, 60.0% after three years, 49.0% after four years and 31.0% after five years of treatment (<xref ref-type="fig" rid="f01_en">Figure</xref>).</p>
+				<p>
+					<fig id="f01_en">
+						<label>Figure. </label>
+						<caption>
+							<title>Probability of persistence in hormone treatment for breast cancer in a cohort of women. Rio de Janeiro, RJ, Southeastern Brazil, 2004 to 2010. (N = 5,861)</title>
+						</caption>
+						<graphic xlink:href="0034-8910-rsp-48-2-0284-gf01-en"/>
+					</fig>
+				</p>
+				<p>
+					<xref ref-type="table" rid="t01_en">Tables 1</xref>, <xref ref-type="table" rid="t02_en">2</xref> and <xref ref-type="table" rid="t03_en">3</xref> show significant difference (p ≤ 0.05) between the curves of persistence over time relative to the categories included in the variables: age at time of diagnosis, education, marital status, alcohol and tobacco consumption, stage, type of hormone therapy, surgery, chemotherapy (excluding hormone therapy), radiotherapy, treatment combination, frequency of chemotherapy, frequency of hospitalization, consultation with mastologist, consultation with oncologist, consultation with other doctors, psychotherapy, consultation with treatment support and DTS.</p>
+				<p>
+					<table-wrap id="t01_en">
+						<label>Table 1</label>
+						<caption>
+							<title>Persistence with hormone therapy, according to sociodemographic characteristics for women with breast cancer. Rio de Janeiro, RJ, Southeastern Brazil, 2004 to 2010. (N = 5,861)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="20%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" style="font-weight:normal">Sociodemographic characteristics</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">Prob. (%) of persistence until end of observation</th>
+									<th style="font-weight:normal">Log-rank (p)</th>
+									<th style="font-weight:normal">Wilcoxon (p)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Age (years)</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> &lt; 40</td>
+									<td align="center">519</td>
+									<td align="center">38.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 40 to 49</td>
+									<td align="center">1,414</td>
+									<td align="center">49.7</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 50 to 59</td>
+									<td align="center">1,500</td>
+									<td align="center">49.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 60 to 69</td>
+									<td align="center">1,202</td>
+									<td align="center">50.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 70</td>
+									<td align="center">1,226</td>
+									<td align="center">49.5</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Education</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.0048</td>
+									<td align="center">0.0263</td>
+								</tr>
+								<tr>
+									<td> Illiterate/Incomplete elementary schoolchool</td>
+									<td align="center">2,943</td>
+									<td align="center">47.5</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Complete elementary school</td>
+									<td align="center">1,032</td>
+									<td align="center">46.1</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Complete secondary school</td>
+									<td align="center">1,259</td>
+									<td align="center">50.9</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Higher education</td>
+									<td align="center">580</td>
+									<td align="center">52.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No information</td>
+									<td align="center">47</td>
+									<td align="center">53.2</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Marital status</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.0009</td>
+									<td align="center">0.0081</td>
+								</tr>
+								<tr>
+									<td> Partner</td>
+									<td align="center">2,725</td>
+									<td align="center">50.1</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No partner</td>
+									<td align="center">3,098</td>
+									<td align="center">46.6</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No information</td>
+									<td align="center">38</td>
+									<td align="center">47.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+							</tbody>
+						</table>
+					</table-wrap>
+				</p>
+				<p>
+					<table-wrap id="t02_en">
+						<label>Table 2</label>
+						<caption>
+							<title>Persistence with hormone therapy in women with breast cancer according to clinical and lifestyle characteristics. Rio de Janeiro, RJ, Southeastern Brazil, 2004 to 2010. (N = 5,861)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="20%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" style="font-weight:normal">Clinical characteristics</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal">Prob. (%) of persistence until end of observation</th>
+									<th style="font-weight:normal">Log-rank (p)</th>
+									<th style="font-weight:normal">Wilcoxon (p)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Family history of cancer</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.1610</td>
+									<td align="center">0.0632</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">3,251</td>
+									<td align="center">50.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">2,426</td>
+									<td align="center">46.9</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No information</td>
+									<td align="center">184</td>
+									<td align="center">47.3</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Alcohol</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.0017</td>
+									<td align="center">0.0137</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">1,605</td>
+									<td align="center">48.6</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">4,088</td>
+									<td align="center">48.5</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No information</td>
+									<td align="center">168</td>
+									<td align="center">47.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Smoker</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.0622</td>
+									<td align="center">0.0035</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">2,033</td>
+									<td align="center">47.3</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">3,734</td>
+									<td align="center">49.2</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No information</td>
+									<td align="center">94</td>
+									<td align="center">45.7</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="2">Histological type of tumor</td>
+									<td> </td>
+									<td align="center">0.1853</td>
+									<td align="center">0.2702</td>
+								</tr>
+								<tr>
+									<td> IDC</td>
+									<td align="center">4,678</td>
+									<td align="center">48.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Other</td>
+									<td align="center">1,183</td>
+									<td align="center">49.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Laterality</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">0.0772</td>
+									<td align="center">0.1688</td>
+								</tr>
+								<tr>
+									<td> Unilateral</td>
+									<td align="center">5,618</td>
+									<td align="center">48.5</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Bilateral</td>
+									<td align="center">236</td>
+									<td align="center">49.6</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No informaiton</td>
+									<td align="center">7</td>
+									<td align="center">14.3</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Stage</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> Curable (0, I, II)</td>
+									<td align="center">3,286</td>
+									<td align="center">55.5</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Non curable (III and IV)</td>
+									<td align="center">2,371</td>
+									<td align="center">39.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No information</td>
+									<td align="center">204</td>
+									<td align="center">41.7</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>IDC: infiltrating ductal carcinoma</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>
+					<table-wrap id="t03_en">
+						<label>Table 3</label>
+						<caption>
+							<title>Persistence with hormone therapy in women with breast cancer according to care-related characteristics. Rio de Janeiro, RJ, Southeastern Brazil, 2004 to 2010. (N = 5,861)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="20%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" style="font-weight:normal">Care-related characteristics</th>
+									<th style="font-weight:normal">n</th>
+									<th style="font-weight:normal"> Prob. (%) of persistence until end of observation </th>
+									<th style="font-weight:normal">Log-rank (p)</th>
+									<th style="font-weight:normal">Wilcoxon (p)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3" rowspan="1">Type of hormone therapy</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> Only tamoxifen</td>
+									<td align="center">3,776</td>
+									<td align="center">52.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Only aromatase inhibitors</td>
+									<td align="center">339</td>
+									<td align="center">47.8</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Both</td>
+									<td align="center">1,746</td>
+									<td align="center">41.1</td>
+									<td> </td>
+									<td align="center"> </td>
+								</tr>
+								<tr>
+									<td colspan="3" rowspan="1">Surgery</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">3,495</td>
+									<td align="center">52.8</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">2,366</td>
+									<td align="center">42.1</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="3" rowspan="1">Chemotherapy</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">3,531</td>
+									<td align="center">44.7</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">2,330</td>
+									<td align="center">54.3</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="3" rowspan="1">Radiotherapy</td>
+									<td align="center">0.0005</td>
+									<td align="center">0.0074</td>
+								</tr>
+								<tr>
+									<td> Yes</td>
+									<td align="center">2,772</td>
+									<td align="center">44.2</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> No</td>
+									<td align="center">3,089</td>
+									<td align="center">52.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Therapy combination</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> Only HT</td>
+									<td align="center">552</td>
+									<td align="center">54.7</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> HT and surgery</td>
+									<td align="center">899</td>
+									<td align="center">58.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> HT and CT</td>
+									<td align="center">579</td>
+									<td align="center">41.5</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> HT and RT</td>
+									<td align="center">503</td>
+									<td align="center">40.2</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> HT, CT and surgery</td>
+									<td align="center">1,059</td>
+									<td align="center">52.3</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> HT, RT and surgery</td>
+									<td align="center">376</td>
+									<td align="center">63.6</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> HT, CT and RT</td>
+									<td align="center">732</td>
+									<td align="center">34.6</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> HT, CT, RT and surgery</td>
+									<td align="center">1,161</td>
+									<td align="center">45.8</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="3" rowspan="1">Frequency of chemotherapy</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> None</td>
+									<td align="center">2,330</td>
+									<td align="center">54.3</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 1 to 3 procedures</td>
+									<td align="center">690</td>
+									<td align="center">45.9</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 4 to 6 procedures</td>
+									<td align="center">1,777</td>
+									<td align="center">56.8</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 7 procedures</td>
+									<td align="center">1,064</td>
+									<td align="center">23.8</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="3" rowspan="1">Frequency of hospitalization</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> None</td>
+									<td align="center">961</td>
+									<td align="center">63.6</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> One</td>
+									<td align="center">2,794</td>
+									<td align="center">51.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> Two</td>
+									<td align="center">1,182</td>
+									<td align="center">45.9</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 3</td>
+									<td align="center">924</td>
+									<td align="center">28.6</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="3" rowspan="1">Mastology (consultation)</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> None</td>
+									<td align="center">617</td>
+									<td align="center">23.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 1 to 4 consultations</td>
+									<td align="center">1,001</td>
+									<td align="center">20.2</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 5 to13 consultations</td>
+									<td align="center">2,971</td>
+									<td align="center">60.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 14 consultations</td>
+									<td align="center">1,272</td>
+									<td align="center">56.3</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="3" rowspan="1">Clinical oncology (consultation)</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">0.0018</td>
+								</tr>
+								<tr>
+									<td> None</td>
+									<td align="center">1,257</td>
+									<td align="center">66.8</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 1 to 4 consultations</td>
+									<td align="center">1,674</td>
+									<td align="center">57.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 5 to 12 consultations</td>
+									<td align="center">1,510</td>
+									<td align="center">33.4</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 13 consultations</td>
+									<td align="center">1,420</td>
+									<td align="center">37.9</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="2">Other doctors (consultation)</td>
+									<td> </td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> ≤ 9 consultations</td>
+									<td align="center">604</td>
+									<td align="center">27.7</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 10 to 22 consultations</td>
+									<td align="center">2,158</td>
+									<td align="center">49.9</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 23 to 34 consultations</td>
+									<td align="center">1,635</td>
+									<td align="center">55.7</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 35 consultations</td>
+									<td align="center">1,464</td>
+									<td align="center">47.0</td>
+									<td> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>Psychotherapy (consultation)</td>
+									<td> </td>
+									<td> </td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt;0.0001</td>
+								</tr>
+								<tr>
+									<td> None</td>
+									<td align="center">3,331</td>
+									<td align="center" rowspan="1">39.1</td>
+									<td align="center" rowspan="1"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 1 to 3 consultations</td>
+									<td align="center">1,971</td>
+									<td align="center" rowspan="1">59.9</td>
+									<td align="center" rowspan="1"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 4 consultations</td>
+									<td align="center">559</td>
+									<td align="center" rowspan="1">64.6</td>
+									<td align="center" rowspan="1"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="3">Support treatment(consultation)</td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt;0.0001</td>
+								</tr>
+								<tr>
+									<td> None</td>
+									<td align="center">1,404</td>
+									<td align="center">40.2</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 1 to 3 consultations</td>
+									<td align="center">2,010</td>
+									<td align="center">42.4</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 4 to 7 consultations</td>
+									<td align="center">1,130</td>
+									<td align="center">53.5</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 8 consultations</td>
+									<td align="center">1,317</td>
+									<td align="center">62.3</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td colspan="2">DTS (tests)</td>
+									<td> </td>
+									<td align="center">&lt; 0.0001</td>
+									<td align="center">&lt; 0.0001</td>
+								</tr>
+								<tr>
+									<td> None</td>
+									<td align="center">1,112</td>
+									<td align="center">39.4</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 1 test</td>
+									<td align="center">2,007</td>
+									<td align="center">51.8</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> 2 to 3 tests</td>
+									<td align="center">1,816</td>
+									<td align="center">52.4</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> ≥ 4 tests</td>
+									<td align="center">926</td>
+									<td align="center">44.7</td>
+									<td align="center"> </td>
+									<td> </td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>HT: hormone therapy; CT: chemotherapy; RT: radiotherapy; DTS: diagnosis and therapeutic services</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>The results of the bivariate model show less favorable curves of persistence to hormone therapy in women: aged under 40; with lower levels of education; single, with no family history of cancer; who consume alcohol; smokers; at non-curable stage; with combined hormone therapy (TMX and AIS); who did not have surgery; treated with chemotherapy; who had radiotherapy; and with more hospitalizations (<xref ref-type="table" rid="t01_en">Tables 1</xref>, <xref ref-type="table" rid="t02_en">2</xref> and <xref ref-type="table" rid="t03_en">3</xref>).</p>
+				<p>The factors associated with discontinuing treatment also stand out: having no or few consultations with a mastologist or therapy support, and not having psychotherapy.</p>
+				<p>When testing the assumptions of proportionality of immediate risk in Cox’s multivariate model (<xref ref-type="table" rid="t04_en">Table 4</xref>), the variables stage III, alcohol consumption, chemotherapy and mastology show statistically significant interactions in relation to time, and were incorporated.</p>
+				<p>
+					<table-wrap id="t04_en">
+						<label>Table 4</label>
+						<caption>
+							<title>Multivariate analysis of factors associated with discontinuity in hormone therapy in women with breast cancer. Rio de Janeiro, RJ, Southeastern Brazil, 2004 to 2010. (N = 5,861)</title>
+						</caption>
+						<table frame="hsides" rules="groups">
+							<colgroup width="20%">
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+								<col/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th align="left" rowspan="3" style="font-weight:normal">Variable</th>
+									<th colspan="2" style="font-weight:normal">Unadjusted immediate risk ratio</th>
+									<th colspan="2" style="font-weight:normal">Adjusted immediate risk ratio</th>
+								</tr>
+								<tr>
+									<th colspan="4" rowspan="1" style="font-weight:normal">
+										<hr/>
+									</th>
+								</tr>
+								<tr>
+									<th style="font-weight:normal">Estimate</th>
+									<th style="font-weight:normal">95%CI</th>
+									<th style="font-weight:normal">Estimate</th>
+									<th style="font-weight:normal">95%CI</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Time between diagnosis and initiation HT (months)</td>
+									<td align="center">1.00</td>
+									<td align="center">1.00;1.00</td>
+									<td align="center">1.00</td>
+									<td align="center">1.00;1.00</td>
+								</tr>
+								<tr>
+									<td>Age &lt; 40</td>
+									<td align="center">1.36</td>
+									<td align="center">1.21;1.53</td>
+									<td align="center">1.25</td>
+									<td align="center">1.11;1.41</td>
+								</tr>
+								<tr>
+									<td>Complete secondary school</td>
+									<td align="center">0.95</td>
+									<td align="center">0.87;1.04</td>
+									<td align="center">0.91</td>
+									<td align="center">0.83;0.99</td>
+								</tr>
+								<tr>
+									<td>Higher education</td>
+									<td align="center">0.87</td>
+									<td align="center">0.77;0.99</td>
+									<td align="center">0.88</td>
+									<td align="center">0.77;1.00</td>
+								</tr>
+								<tr>
+									<td>With partner</td>
+									<td align="center">0.89</td>
+									<td align="center">0.83;0.96</td>
+									<td align="center">0.92</td>
+									<td align="center">0.85;0.99</td>
+								</tr>
+								<tr>
+									<td>Stage III</td>
+									<td align="center">1.45</td>
+									<td align="center">1.35;1.56</td>
+									<td align="center">2.36</td>
+									<td align="center">2.08;2.67</td>
+								</tr>
+								<tr>
+									<td>Stage IV</td>
+									<td align="center">3.03</td>
+									<td align="center">2.71;3.40</td>
+									<td align="center">3.21</td>
+									<td align="center">2.82;3.64</td>
+								</tr>
+								<tr>
+									<td>Consume alcohol (yes)</td>
+									<td align="center">1.12</td>
+									<td align="center">1.03;1.21</td>
+									<td align="center">1.29</td>
+									<td align="center">1.15;1.46</td>
+								</tr>
+								<tr>
+									<td>Surgery (yes)</td>
+									<td align="center">0.83</td>
+									<td align="center">0.77;0.89</td>
+									<td align="center">0.80</td>
+									<td align="center">0.74;0.87</td>
+								</tr>
+								<tr>
+									<td>Chemotherapy (yes)</td>
+									<td align="center">1.18</td>
+									<td align="center">1.10;1.28</td>
+									<td align="center">1.29</td>
+									<td align="center">1.14;1.46</td>
+								</tr>
+								<tr>
+									<td>Hospitalizations (number)</td>
+									<td align="center">1.18</td>
+									<td align="center">1.15;1.21</td>
+									<td align="center">1.12</td>
+									<td align="center">1.09;1.15</td>
+								</tr>
+								<tr>
+									<td>Family history of cancer (yes)</td>
+									<td align="center">0.99</td>
+									<td align="center">0.96;1.01</td>
+									<td align="center">0.96</td>
+									<td align="center">0.94;0.99</td>
+								</tr>
+								<tr>
+									<td>Mastologist consultation (yes)</td>
+									<td align="center">0.30</td>
+									<td align="center">0.26;0.32</td>
+									<td align="center">0.44</td>
+									<td align="center">0.39;0.51</td>
+								</tr>
+								<tr>
+									<td>Oncologist consultation (yes)</td>
+									<td align="center">1.17</td>
+									<td align="center">1.05;1.30</td>
+									<td align="center">0.82</td>
+									<td align="center">0.74;0.92</td>
+								</tr>
+								<tr>
+									<td>DTS (number of tests)</td>
+									<td align="center">1.01</td>
+									<td align="center">1.01;1.01</td>
+									<td align="center">1.01</td>
+									<td align="center">1.00;1.01</td>
+								</tr>
+								<tr>
+									<td>Time x Stage III</td>
+									<td align="center">1.00</td>
+									<td align="center">1.00;1.01</td>
+									<td align="center">0.98</td>
+									<td align="center">0.98;0.99</td>
+								</tr>
+								<tr>
+									<td>Time x Consume alcohol</td>
+									<td align="center">1.00</td>
+									<td align="center">1.00;1.00</td>
+									<td align="center">0.99</td>
+									<td align="center">0.99;1.00</td>
+								</tr>
+								<tr>
+									<td>Time x Chemotherapy</td>
+									<td align="center">1.00</td>
+									<td align="center">1.00;1.00</td>
+									<td align="center">0.99</td>
+									<td align="center">0.99;1.00</td>
+								</tr>
+								<tr>
+									<td>Time x Mastology</td>
+									<td align="center">0.97</td>
+									<td align="center">0.96;0.97</td>
+									<td align="center">0.98</td>
+									<td align="center">0.98;0.99</td>
+								</tr>
+							</tbody>
+						</table>
+						<table-wrap-foot>
+							<p>HT: hormone therapy; DTS: diagnosis and therapeutic services</p>
+							<p>Reference categories of the variables categorized: age ≥ 40; education: illiterate, incomplete elementary school, complete elementary school, no information; marital status: no partner and no information; stage: stage 0, I, II and no information; alcohol consumption: no; surgery: no; chemotherapy: no; family history of cancer: no; mastology: no consultation; oncologist: no consultation.</p>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>The multiple model estimates indicate that immediate risk of discontinuing treatment is 25.0% higher among women aged under 40, and 22.0% higher in women with stage IV cancer, compared with stages 0, I and II and no information (<xref ref-type="table" rid="t04_en">Table 4</xref>).</p>
+				<p>With the effect diminishing over time, indicated by the term of interaction, it was observed that the hazard of discontinuity was 136.0% higher among women with stage III cancer, compared with those with stage 0, I, II and no information, 29.0% greater among those who consumed alcohol and 29.0% higher in women who had had chemotherapy.</p>
+				<p>The patient’s hazard of discontinuing treatment increased by 12 percentage points with each hospitalization and by approximately 1 percentage point for each extra test conducted.</p>
+				<p>On the other hand, the hazard of discontinuing was shown to be 8.0% lower in women with a partner and 9.0% and 12.0% lower among those who had completed secondary and further education, respectively, compared with those with lower levels of education. It was 4.0% lower among those with a family history of cancer, compared with those with no such history, and 20.0% lower in patients who had undergone surgery, compared with those who had not (Table 4).</p>
+				<p>Table 4 shows that consulting a clinical oncologist decreased hazard of discontinuing by 18.0% and consulting a mastologist decreased it by 56.0%, although it should be noted that, for this variables, the effect decreases over time.</p>
+			</sec>
+			<sec sec-type="discussion">
+				<title>DISCUSSION</title>
+				<p>In this study, the estimate of discontinuity in hormone therapy for breast cancer at the end of the first year corroborates the results of other studies on TMX and AIS use.<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B20">
+						<sup>20</sup>
+					</xref> The estimate after five years of treatment was close to the 73.0% found by Nekhlyudov et al<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> and higher than the 62.7% estimated by Guth et al.<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> It is difficult to compare the diverse studies available due to differing definitions of persistence (intervals of 60, 90, 120 and 180 days), eligibility criteria (patients with early tumors, only the young, only the older adults and others), in the method of analysis (logistic regression, Kaplan-Meyer, among others), in the total period of following (1, 3<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>/<sub>2</sub>, 4<xref ref-type="bibr" rid="B1">
+						<sup>1</sup>
+					</xref>/<sub>2 </sub>or 5 years) and medication use (only TMX or AIS or both).</p>
+				<p>Regarding the persistence estimates, it is necessary to relativize the results, as the concept adopted corresponds to interrupting treatment for 60 days or more. The women classed as non-persistent may return to complete the treatment for the recommended period after the episode of discontinuity. However, women who have gaps in the first year of their endocrine breast cancer treatment do not re-start treatment and these percentages climb in subsequent years.<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref>
+				</p>
+				<p>On the other hand, the method used in this and other studies considers collecting medication from the pharmacy as a proxy variable for medication use, which could lead to overestimating levels of persistence. It is, however, assumed that such a bias is mitigated in estimates made based on secondary data incorporating large populations.<xref ref-type="fn" rid="fn5_en">
+						<sup>e</sup>
+					</xref>
+				</p>
+				<p>Hormone therapy for breast cancer is only recommended for patients with tumors that have proved sensitive to estrogen or progesterone. However, it was not part of this study’s objective to evaluate appropriate indication of hormone therapy.</p>
+				<p>Another limitation is the lack of individual data on side effects, which may affect estimates of persistence with hormone therapy,<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref> as suppressing the hormones brings on early menopause and affects sexuality in some women. Moreover, it can be associated with a significantly increased risk of endometrial cancer, pulmonary embolism, venous thrombosis, arthralgia, fractures and cardiac events.<xref ref-type="bibr" rid="B3">
+						<sup>3</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B9">
+						<sup>9</sup>
+					</xref>
+				</p>
+				<p>Regarding the sociodemographic variables, this study corroborated the observation that younger women are less persistent<xref ref-type="bibr" rid="B2">
+						<sup>2</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> in treatment, although, at the other extreme,<xref ref-type="bibr" rid="B15">
+						<sup>15</sup>
+					</xref> there was no difference between middle-aged and older adult women. Non-persistence in younger patients may be explained by the side effects of the medication on women’s sexuality.</p>
+				<p>Marital status was also shown to be associated with persistence, although with results that sometimes agree<xref ref-type="bibr" rid="B10">
+						<sup>10</sup>
+					</xref> and sometimes disagree<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> with the findings. Marital status could be related to the idea of having social support, a variable that various studies<xref ref-type="bibr" rid="B12">
+						<sup>12</sup>
+					</xref> have shown to be positively associated with persistence in treatment.</p>
+				<p>Concerning education, it is difficult to compare international results, as school levels in different countries do not correspond and there is a lack of national data on the topic. Despite this, it is plausible that there is greater persistence among patients with higher education.</p>
+				<p>No studies were found associating persistence with family history of cancer, alcohol consumption and smoking, although these variables have been associated with adherence to hormone treatment.<xref ref-type="bibr" rid="B14">
+						<sup>14</sup>
+					</xref>
+				</p>
+				<p>The relationship between persistence and stage tumor is also difficult to compare between studies, as many of them are restricted to early tumors. In concordance with the results of this study, there was greater discontinuity among women with more lymph nodes involved.<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> However, Kimmick et al<xref ref-type="bibr" rid="B13">
+						<sup>13</sup>
+					</xref> estimated greater persistence in women with local (<italic>versus</italic> regional) stage cancer, and Nekhlyudov et al<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> found no significant association.</p>
+				<p>The results of this research show a trend for lower rates of persistence among women who undergo more procedures, except those concerning surgery and multi-professional care. Other studies also show an association between greater discontinuity and having chemotherapy,<xref ref-type="bibr" rid="B5">
+						<sup>5</sup>
+					</xref> having had more oncologist consultations and more days of hospitalization/year,<xref ref-type="bibr" rid="B16">
+						<sup>16</sup>
+					</xref> in contrast to other, which estimate higher persistence in women who receive chemotherapy<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref> and radiotherapy.<xref ref-type="bibr" rid="B11">
+						<sup>11</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B17">
+						<sup>17</sup>
+					</xref>
+				</p>
+				<p>A finding which was consistent in both the bi- and multivariate analysis was the link between greater persistence and having seen a mastologist and having had surgery (<italic>versus</italic> not). Surgery and consulting a mastologist are recommended for patients whose cancer is at an early stage, which has been shown to be associated with more persistent behavior. Thus, the early stage is an additional advantage in facing the treatment of breast cancer, as it increases the probability of the women persisting with a treatment associated with better results.</p>
+				<p>Worse persistence was observed in women who did not see a psychotherapist or multi-professional support team. It is believed that these results reflect to some extent the relationship between depression and lower persistence,<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> and are in consonance with the recommendations<xref ref-type="fn" rid="fn2_en">
+						<sup>b</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="fn" rid="fn4_en">
+						<sup>d</sup>
+					</xref> on the need to treat cancer from an integrated and multi-professional perspective as this diagnosis has a multi-faceted impact. It affects daily life, physical appearance and self-esteem, femininity and psychological health, and also imposes work limitations on some women.</p>
+				<p>The indications for the medications dealt with in this study are based on consensus and on updated clinical guidelines, recommending the use of TMX for a five-year period as the standard treatment for pre-menopausal women with endocrine-positive tumors.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> AIS is contraindicated for this group,<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> unless the patient has a history of thrombophilia.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+				</p>
+				<p>For post-menopausal women, previously, some specialists recommended changing to AIS after two to three years taking TMX,<xref ref-type="bibr" rid="B7">
+						<sup>7</sup>
+					</xref> depending on bone density assessments, due to the increased risk of losing bone density with this treatment.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> However, this strategy, compared with TMX alone, does not appear to be so widespread, at the moment, 50.0% of specialists still prefer to prescribe AIS (when available and not contraindicated) at some point in the treatment, being more in favor of indicating AIS when lymph nodes are involved.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> Most believe that specific patients can be treated with TMX alone, and that those receiving AIS can be switch to TMX if intolerant to AIS.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+				</p>
+				<p>Backed up by more recent clinical guidelines,<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref> showing that the advantages of combined treatment (TMX followed by AIS) are not so great, in the population studied TMX used alone had the additional benefit of increasing the probability of persisting with treatment and improving expected results.</p>
+				<p>The lower probability of persistence on the part of women who took both (TMX and AIS) does not suggest that switching medication due to side effects of the initial medication.</p>
+				<p>Regarding the length of treatment, the majority of specialists previously supported additional use of AIS for a period, in the case of post-menopausal patients and those with positive lymph nodes, after completing TMX treatment.<xref ref-type="bibr" rid="B6">
+						<sup>6</sup>
+					</xref> Brazilian recommendations have always been five years of treatment, regardless of the scheme used.<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> In more recent times, specialists have deemed five years of AIS as sufficient, and the majority are opposed to extending this, even in cases with positive lymph nodes and in younger post-menopausal patients (&lt; 55 years of age).<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+				</p>
+				<p>It was found that hormone treatment was used for periods of more than five years, which is not in concordance with national<xref ref-type="fn" rid="fn1_en">
+						<sup>a</sup>
+					</xref> and international recommendations.<xref ref-type="bibr" rid="B8">
+						<sup>8</sup>
+					</xref>
+				</p>
+				<p>Persistence is understood as behavior that is sensitive to factors of socioeconomic and clinical dimensions, of the treatment regime, of the disease, of the patient-health care professional relationship and of the organization of the health care services.<xref ref-type="bibr" rid="B19">
+						<sup>19</sup>
+					</xref> This article concentrates on the perspective of highlighting some aspects of care that contribute to this. Actions that encourage early diagnosis and treatment, a multi-professional approach, provision of psychotherapy, encouraging social support and coordinating care for the subgroup of women at higher risk of abandoning treatment are recommended practices, but should be reinforced in the treatment of breast cancer.</p>
+				<p>This study shows that 69.0% of women with breast cancer do not persist with hormone treatment until the end and presents factors associated with discontinuity in the Brazilian context. Such factors may guide reformulations in care, aiming to increase rates of persistence and, consequently decrease the risk of worse results for this subgroup of women and contribute to decreasing unnecessary spending.</p>
+			</sec>
+		</body>
+		<back>
+			<fn-group>
+				<fn id="fn1_en">
+					<label>a </label>
+					<p>Barner JC. Medication adherence: focus on secondary database analysis: ISPOR Student Forum Presentation, 2010 [cited 2012 Mar 20]. Available from: http://www.ispor.org/student/teleconferences/ISPORStudentForumPresentation022410.pdf</p>
+				</fn>
+				<fn id="fn2_en">
+					<label>b </label>
+					<p>Ministério da Saúde, Secretaria de Atenção à Saúde. Portaria nº 741, de 19 de dezembro de 2005. Definir as unidades de assistência de alta complexidade em oncologia, os centros de assistência de alta complexidade em oncologia (CACON) e os centros de referência de alta complexidade em oncologia e suas aptidões e qualidades. Diario Oficial Uniao. 23 dez 2005 [cited 2012 Dec 12]. Available from: http://bvsms.saude.gov.br/bvs/saudelegis/sas/2005/prt0741_19_12_2005.html</p>
+				</fn>
+				<fn id="fn3_en">
+					<label>c </label>
+					<p>Ministério da Saúde, Secretaria de Atenção à Saúde, Departamento de Regulação, Avaliação e Controle, Coordenação Geral de Sistemas de Informação. SIA/SUS Sistema de Informações Ambulatoriais. Oncologia: manual de bases técnicas. Brasília (DF); 2011 [cited 2013 Jan 6]. Available from: http://www1.inca.gov.br/inca/Arquivos/manual_oncologia_13edicao_agosto_2011.pdf</p>
+				</fn>
+				<fn id="fn4_en">
+					<label>d </label>
+					<p>Ministério da Saúde, Instituto Nacional do Câncer José Alencar Gomes da Silva. Estimativa 2012: incidência de câncer no Brasil. Rio de Janeiro: INCA; 2011 [cited 2012 Nov 10]. Available from: http://www.inca.gov.br/estimativa/2012/estimativa20122111.pdf</p>
+				</fn>
+				<fn id="fn5_en">
+					<label>e </label>
+					<p>World Health Organization. National cancer control programs: policies and managerial guidelines. 2.ed. Geneva; 2002 [cited 2011 May 15]. Available from: http://whqlibdoc.who.int/hq/2002/9241545577.pdf</p>
+				</fn>
+				<fn fn-type="other" id="fn6_en">
+					<label>HIGHLIGHTS</label>
+					<p>Hormonal treatment for breast cancer is associated with improved mortality and cancer-free survival rates. The focus of this research was to study factors related to persistence in hormonal treatment, aiming to contribute to improved care for women suffering from breast cancer.</p>
+					<p>The differential of this study was that it included modifiable factors, underlining how changes in the way care is organized can help patients complete their treatment for the recommended period.</p>
+					<p>It is hoped that these results may contribute to reorienting oncological care and cancer control practices in Brazil. They indicate the introduction of new rationalities in national cancer care policies.</p>
+					<p>The results show differences in the persistence of women receiving hormone treatment for breast cancer related to sociodemographic and clinical characteristics and to the interventions applied, as well as estimating the significant quantity of women (69.0%) who did not complete their hormonal treatment for breast cancer, jeopardizing a clinical response appropriate to the expected patterns.</p>
+					<p>Treating chronic disease requires changes in patients’ behavior, and this can affect whether they complete the prescribed treatment. On the other hand, aspects of the health care service (professional-patient relationship and management of side effects, among others) can attenuate or aggravate the problem of abandoning long-term treatment. These factors can cause temporary or definitive interruptions to treatment, including in patients with a good prognosis.</p>
+					<p>Professor Rita de Cássia Barradas Barata Scientific Editor</p>
+				</fn>
+			</fn-group>
+		</back>
+	</sub-article>
+</article>
