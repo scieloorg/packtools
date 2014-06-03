@@ -100,8 +100,10 @@ class XML(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        errors = next(self.ppl.run(self.lxml, rewrap=True))
-        result = not bool(errors)
+        errors = setdefault(self, '__style_validation_result',
+            lambda: next(self.ppl.run(self.lxml, rewrap=True)))
+        result = setdefault(self, '__style_validation_errors',
+            lambda: not bool(errors))
         return result, errors
 
     def _annotate_error(self, element, error):
