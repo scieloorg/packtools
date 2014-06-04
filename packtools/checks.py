@@ -138,8 +138,13 @@ def funding_group(message):
     has_funding_group = bool(et.findall('//funding-group'))
 
     if has_explicit_contract != has_funding_group:
+        if has_explicit_contract:
+            info = 'This element is not filled-in correctly.'
+        else:
+            info = 'This element is not expected.'
+
         err = StyleError()
-        err.message = "Element 'funding-group': This element is not expected or not filled-in correctly."
+        err.message = "Element 'funding-group': %s" % info
         err_list.append(err)
 
     elif has_explicit_contract:
