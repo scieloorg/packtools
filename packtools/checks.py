@@ -13,6 +13,7 @@ class StyleError(object):
         self.line = None
         self.column = None
         self.message = None
+        self.level_name = None
 
 
 # --------------------------------
