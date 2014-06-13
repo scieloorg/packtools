@@ -3,15 +3,16 @@ import os
 import logging
 import itertools
 
-from lxml import etree
+from lxml import etree, isoschematron
 
 from packtools.utils import setdefault
-from packtools.checks import StyleCheckingPipeline
+from packtools.checks import StyleCheckingPipeline, StyleError
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCHEMAS = {
     'SciELO-journalpublishing1.xsd': os.path.join(HERE, 'sps_xsd', 'sps.xsd'),
+    'sps.sch': os.path.join(HERE, 'sps.sch'),
 }
 EXPOSE_ELEMENTNAME_PATTERN = re.compile(r"(?<=Element )'.*?'")
 
@@ -24,6 +25,14 @@ def XMLSchema(schema_name):
 
     xmlschema = etree.XMLSchema(xmlschema_doc)
     return xmlschema
+
+
+def XMLSchematron(schema_name):
+    with open(SCHEMAS[schema_name]) as fp:
+        xmlschema_doc = etree.parse(fp)
+
+    schematron = isoschematron.Schematron(xmlschema_doc)
+    return schematron
 
 
 def search_element_name(message):
@@ -56,6 +65,7 @@ class XML(object):
             self.lxml = etree.parse(file)
 
         self.xmlschema = XMLSchema('SciELO-journalpublishing1.xsd')
+        self.schematron = XMLSchematron('sps.sch')
         self.ppl = StyleCheckingPipeline()
 
     def find_element(self, tagname, lineno=None, fallback=True):
@@ -95,15 +105,31 @@ class XML(object):
         errors = setdefault(self, '__validation_errors', lambda: self.xmlschema.error_log)
         return result, errors
 
+    def _validate_sch(self):
+        """Validate the source XML against the SPS Schematron.
+
+        Returns a tuple comprising the validation status and the errors list.
+        """
+        def make_error_log():
+            err_log = self.schematron.error_log
+            return [StyleError.from_schematron_errlog(err) for err in err_log]
+
+        result = setdefault(self, '__sch_validation_result', lambda: self.schematron.validate(self.lxml))
+        errors = setdefault(self, '__sch_validation_errors', make_error_log)
+        return result, errors
+
     def validate_style(self):
         """Validate the source XML against the SPS Tagging guidelines.
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        errors = setdefault(self, '__style_validation_result',
-            lambda: next(self.ppl.run(self.lxml, rewrap=True)))
-        result = setdefault(self, '__style_validation_errors',
-            lambda: not bool(errors))
+        def make_error_log():
+            errors = next(self.ppl.run(self.lxml, rewrap=True))
+            errors += self._validate_sch()[1]
+            return errors
+
+        errors = setdefault(self, '__style_validation_result', make_error_log)
+        result = setdefault(self, '__style_validation_errors', lambda: not bool(errors))
         return result, errors
 
     def _annotate_error(self, element, error):
@@ -131,7 +157,7 @@ class XML(object):
         v_result, v_errors = self.validate()
         s_result, s_errors = self.validate_style()
 
-        if not v_result and not s_result:
+        if v_result and s_result:
             return None
 
         for error in itertools.chain(v_errors, s_errors):
