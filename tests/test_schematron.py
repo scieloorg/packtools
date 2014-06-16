@@ -24,15 +24,15 @@ class JournalIdTests(unittest.TestCase):
         presence(@nlm-ta) v presence(@publisher-id) is True
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
-			              <journal-id journal-id-type="nlm-ta">
+                      <front>
+                        <journal-meta>
+                          <journal-id journal-id-type="nlm-ta">
                             Rev Saude Publica
                           </journal-id>
                           <journal-id journal-id-type="publisher-id">
                             RSP
                           </journal-id>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -47,12 +47,12 @@ class JournalIdTests(unittest.TestCase):
         presence(@nlm-ta) v presence(@publisher-id) is True
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
-			              <journal-id journal-id-type="nlm-ta">
+                      <front>
+                        <journal-meta>
+                          <journal-id journal-id-type="nlm-ta">
                             Rev Saude Publica
                           </journal-id>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -67,12 +67,12 @@ class JournalIdTests(unittest.TestCase):
         presence(@nlm-ta) v presence(@publisher-id) is True
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
-			              <journal-id journal-id-type="publisher-id">
+                      <front>
+                        <journal-meta>
+                          <journal-id journal-id-type="publisher-id">
                             RSP
                           </journal-id>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -87,12 +87,12 @@ class JournalIdTests(unittest.TestCase):
         presence(@nlm-ta) v presence(@publisher-id) is False
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <journal-id journal-id-type='doi'>
                             123.plin
                           </journal-id>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -110,9 +110,9 @@ class JournalTitleGroupTests(unittest.TestCase):
 
     def test_journal_title_group_is_absent(self):
         sample = """<article>
-	                  <front>
-		                <journal-meta>
-		                </journal-meta>
+                      <front>
+                        <journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -128,8 +128,8 @@ class JournalTitleGroupTests(unittest.TestCase):
         A ^ B is True
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <journal-title-group>
                             <journal-title>
                               Revista de Saude Publica
@@ -138,7 +138,7 @@ class JournalTitleGroupTests(unittest.TestCase):
                               Rev. Saude Publica
                             </abbrev-journal-title>
                           </journal-title-group>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -153,14 +153,14 @@ class JournalTitleGroupTests(unittest.TestCase):
         A ^ B is False
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <journal-title-group>
                             <journal-title>
                               Revista de Saude Publica
                             </journal-title>
                           </journal-title-group>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -175,14 +175,14 @@ class JournalTitleGroupTests(unittest.TestCase):
         A ^ B is False
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <journal-title-group>
                             <abbrev-journal-title abbrev-type='publisher'>
                               Rev. Saude Publica
                             </abbrev-journal-title>
                           </journal-title-group>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -197,11 +197,11 @@ class JournalTitleGroupTests(unittest.TestCase):
         A ^ B is False
         """
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <journal-title-group>
                           </journal-title-group>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -219,10 +219,10 @@ class ISSNTests(unittest.TestCase):
 
     def test_epub_is_absent(self):
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <issn>0959-8138</issn>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -232,10 +232,10 @@ class ISSNTests(unittest.TestCase):
 
     def test_epub_is_present(self):
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <issn pub-type='epub'>0959-8138</issn>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -253,12 +253,12 @@ class PublisherTests(unittest.TestCase):
 
     def test_publisher_is_present(self):
         sample = """<article>
-	                  <front>
-		                <journal-meta>
+                      <front>
+                        <journal-meta>
                           <publisher>
                             <publisher-name>British Medical Journal</publisher-name>
                           </publisher>
-		                </journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
@@ -268,9 +268,9 @@ class PublisherTests(unittest.TestCase):
 
     def test_publisher_is_absent(self):
         sample = """<article>
-	                  <front>
-		                <journal-meta>
-		                </journal-meta>
+                      <front>
+                        <journal-meta>
+                        </journal-meta>
                       </front>
                     </article>
                  """
