@@ -11,8 +11,8 @@ from packtools.checks import StyleCheckingPipeline, StyleError
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCHEMAS = {
-    'SciELO-journalpublishing1.xsd': os.path.join(HERE, 'sps_xsd', 'sps.xsd'),
-    'sps.sch': os.path.join(HERE, 'sps.sch'),
+    'SciELO-journalpublishing1.xsd': os.path.join(HERE, 'sps', 'xsd', 'sps.xsd'),
+    'sps.sch': os.path.join(HERE, 'sps', 'sps.sch'),
 }
 EXPOSE_ELEMENTNAME_PATTERN = re.compile(r"(?<=Element )'.*?'")
 
