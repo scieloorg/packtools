@@ -3,7 +3,7 @@ import unittest
 from StringIO import StringIO
 from tempfile import NamedTemporaryFile
 
-from lxml import etree
+from lxml import etree, isoschematron
 
 from packtools import stylechecker
 
@@ -19,6 +19,18 @@ sample_xsd = StringIO('''\
   </xsd:sequence>
 </xsd:complexType>
 </xsd:schema>
+''')
+
+
+sample_sch = StringIO('''\
+<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+  <pattern id="sum_equals_100_percent">
+    <title>Sum equals 100%.</title>
+    <rule context="Total">
+      <assert test="sum(//Percent)=100">Element 'Total': Sum is not 100%.</assert>
+    </rule>
+  </pattern>
+</schema>
 ''')
 
 
@@ -113,17 +125,38 @@ class XMLTests(unittest.TestCase):
         xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
 
         xml.annotate_errors()
-        self.assertIn("<SPS-ERROR>Element 'c': This element is not expected. Expected is ( b ).</SPS-ERROR>", str(xml))
+        xml_text = xml.read()
 
-    def test_annotate_errors(self):
-        fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
+        self.assertIn("<SPS-ERROR>Element 'c': This element is not expected. Expected is ( b ).</SPS-ERROR>", xml_text)
+        self.assertTrue(isinstance(xml_text, unicode))
+
+    def test_validation_schematron(self):
+        fp = etree.parse(StringIO(b'<Total><Percent>70</Percent><Percent>30</Percent></Total>'))
         xml = stylechecker.XML(fp)
-        xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
+        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
+
+        result, errors = xml._validate_sch()
+        self.assertTrue(result)
+        self.assertFalse(errors)
+
+    def test_invalid_schematron(self):
+        fp = etree.parse(StringIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
+        xml = stylechecker.XML(fp)
+        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
+
+        result, errors = xml._validate_sch()
+        self.assertFalse(result)
+        self.assertTrue(errors)
+
+    def test_annotate_errors_schematron(self):
+        fp = etree.parse(StringIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
+        xml = stylechecker.XML(fp)
+        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
 
         xml.annotate_errors()
         xml_text = xml.read()
 
-        self.assertIn("<SPS-ERROR>Element 'c': This element is not expected. Expected is ( b ).</SPS-ERROR>", xml_text)
+        self.assertIn("<!--SPS-ERROR: Element 'Total': Sum is not 100%.-->", xml_text)
         self.assertTrue(isinstance(xml_text, unicode))
 
 

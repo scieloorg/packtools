@@ -15,6 +15,17 @@ class StyleError(object):
         self.message = None
         self.level_name = None
 
+    @classmethod
+    def from_schematron_errlog(cls, errlog):
+        try:
+            text = re.search(r"<svrl:text>(.*)</svrl:text>", errlog.message, re.DOTALL).group(1)
+        except AttributeError:
+            raise ValueError('Cannot get the message from %s.' % errlog)
+
+        instance = cls()
+        instance.message = text.strip()
+        return instance
+
 
 # --------------------------------
 # Basic functionality
