@@ -49,5 +49,9 @@ Obs.: Para validar XMLs disponíveis via http, é necessário delimitar a URL co
 ```bash
 $ stylechecker "http://192.168.1.162:7000/api/v1/article?code=S1516-635X2014000100012&format=xmlrsps"
 Valid XML! ;)
+Invalid SPS Style! Found 3 errors:
+Element 'journal-meta': Missing element journal-id of type "nlm-ta" or "publisher-id".
+Element 'journal-title-group': Missing element abbrev-journal-title of type "publisher".
+Element 'journal-meta': Missing element issn of type "epub".
 ```
 
