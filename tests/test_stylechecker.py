@@ -127,7 +127,7 @@ class XMLTests(unittest.TestCase):
         xml.annotate_errors()
         xml_text = xml.read()
 
-        self.assertIn("<SPS-ERROR>Element 'c': This element is not expected. Expected is ( b ).</SPS-ERROR>", xml_text)
+        self.assertIn("<!--SPS-ERROR: Element 'c': This element is not expected. Expected is ( b ).-->", xml_text)
         self.assertTrue(isinstance(xml_text, unicode))
 
     def test_validation_schematron(self):
