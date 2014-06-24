@@ -36,6 +36,10 @@
     <active pattern="publisher"/>
   </phase>
 
+  <phase id="phase.article-categories">
+    <active pattern="article_categories"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -77,6 +81,14 @@
     <rule context="article/front/journal-meta">
       <assert test="publisher">
         Element 'journal-meta': Missing element publisher.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="article_categories">
+    <rule context="article/front/article-meta">
+      <assert test="article-categories">
+        Element 'article-meta': Missing element article-categories.
       </assert>
     </rule>
   </pattern>
