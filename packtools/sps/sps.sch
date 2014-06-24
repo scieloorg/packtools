@@ -40,6 +40,10 @@
     <active pattern="article_categories"/>
   </phase>
 
+  <phase id="phase.fpage_or_elocation-id">
+    <active pattern="fpage_or_elocation_id"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -89,6 +93,14 @@
     <rule context="article/front/article-meta">
       <assert test="article-categories">
         Element 'article-meta': Missing element article-categories.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="fpage_or_elocation_id">
+    <rule context="article/front/article-meta">
+      <assert test="fpage or elocation-id">
+        Element 'article-meta': Missing elements fpage or elocation-id.
       </assert>
     </rule>
   </pattern>
