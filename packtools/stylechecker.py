@@ -142,11 +142,7 @@ class XML(object):
         """
         notice_element = etree.Element('SPS-ERROR')
         notice_element.text = error
-        try:
-            element.addprevious(notice_element)
-        except TypeError:
-            # In case of a root element, a comment if added.
-            element.addprevious(etree.Comment('SPS-ERROR: %s' % error))
+        element.addprevious(etree.Comment('SPS-ERROR: %s' % error))
 
     def annotate_errors(self):
         """Add notes on all elements that have errors.
