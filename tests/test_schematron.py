@@ -210,40 +210,6 @@ class JournalTitleGroupTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ISSNTests(unittest.TestCase):
-    """Tests for article/front/journal-meta/issn elements.
-    """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.issn')
-        return schematron.validate(etree.parse(sample))
-
-    def test_epub_is_absent(self):
-        sample = """<article>
-                      <front>
-                        <journal-meta>
-                          <issn>0959-8138</issn>
-                        </journal-meta>
-                      </front>
-                    </article>
-                 """
-        sample = StringIO(sample)
-
-        self.assertFalse(self._run_validation(sample))
-
-    def test_epub_is_present(self):
-        sample = """<article>
-                      <front>
-                        <journal-meta>
-                          <issn pub-type='epub'>0959-8138</issn>
-                        </journal-meta>
-                      </front>
-                    </article>
-                 """
-        sample = StringIO(sample)
-
-        self.assertTrue(self._run_validation(sample))
-
-
 class PublisherTests(unittest.TestCase):
     """Tests for article/front/journal-meta/publisher elements.
     """

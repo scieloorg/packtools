@@ -28,10 +28,6 @@
     <active pattern="has_journal-title_and_abbrev-journal-title"/>
   </phase>
 
-  <phase id="phase.issn">
-    <active pattern="issn_type_epub"/>
-  </phase>
-
   <phase id="phase.publisher">
     <active pattern="publisher"/>
   </phase>
@@ -69,14 +65,6 @@
       </assert>
       <assert test="abbrev-journal-title[@abbrev-type='publisher']">
         Element 'journal-title-group': Missing element abbrev-journal-title of type "publisher".
-      </assert>
-    </rule>
-  </pattern>
-
-  <pattern id="issn_type_epub">
-    <rule context="article/front/journal-meta">
-      <assert test="issn[@pub-type='epub']">
-        Element 'journal-meta': Missing element issn of type "epub".
       </assert>
     </rule>
   </pattern>
