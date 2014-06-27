@@ -560,3 +560,121 @@ class ArticleIdTests(unittest.TestCase):
             sample = StringIO(sample)
             self.assertTrue(self._run_validation(sample))
 
+
+class SubjGroupTests(unittest.TestCase):
+    """Tests for article/front/article-meta/article-categories/subj-group elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.subj-group')
+        return schematron.validate(etree.parse(sample))
+
+    def test_subj_group_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-categories>
+                          </article-categories>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_without_heading_type(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-categories>
+                            <subj-group subj-group-type="kwd">
+                              <subject content-type="neurosci">
+                                Cellular and Molecular Biology
+                              </subject>
+                              <subj-group>
+                                <subject content-type="neurosci">
+                                  Blood and brain barrier
+                                </subject>
+                              </subj-group>
+                            </subj-group>
+                          </article-categories>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_with_heading_type(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-categories>
+                            <subj-group subj-group-type="heading">
+                              <subject>
+                                Cellular and Molecular Biology
+                              </subject>
+                              <subj-group>
+                                <subject content-type="neurosci">
+                                  Blood and brain barrier
+                                </subject>
+                              </subj-group>
+                            </subj-group>
+                          </article-categories>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_with_heading_type_in_the_deep(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-categories>
+                            <subj-group>
+                              <subject>
+                                Cellular and Molecular Biology
+                              </subject>
+                              <subj-group subj-group-type="heading">
+                                <subject>
+                                  Blood and brain barrier
+                                </subject>
+                              </subj-group>
+                            </subj-group>
+                          </article-categories>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_with_many_heading_type(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-categories>
+                            <subj-group subj-group-type="heading">
+                              <subject>
+                                Cellular and Molecular Biology
+                              </subject>
+                            </subj-group>
+                            <subj-group subj-group-type="heading">
+                              <subject>
+                                Blood and brain barrier
+                              </subject>
+                            </subj-group>
+                          </article-categories>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
