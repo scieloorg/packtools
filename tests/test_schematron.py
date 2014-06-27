@@ -454,3 +454,109 @@ class ISSNTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ArticleIdTests(unittest.TestCase):
+    """Tests for article/front/article-meta/article-id elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.article-id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_article_id_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+
+    def test_pub_id_type_doi_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-id>
+                            10.1590/1414-431X20143434
+                          </article-id>
+                          <article-id pub-id-type='other'>
+                            10.1590/1414-431X20143435
+                          </article-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_pub_id_type_doi(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-id pub-id-type='doi'>
+                            10.1590/1414-431X20143434
+                          </article-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_invalid_pub_id_type(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-id pub-id-type='unknown'>
+                            10.1590/1414-431X20143434
+                          </article-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_invalid_pub_id_type_case2(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-id pub-id-type='unknown'>
+                            10.1590/1414-431X20143434
+                          </article-id>
+                          <article-id pub-id-type='doi'>
+                            10.1590/1414-431X20143434
+                          </article-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_valid_pub_id_type_values(self):
+        for typ in ['art-access-id', 'arxiv', 'doaj', 'doi', 'isbn', 'pmcid',
+                    'pmid', 'publisher-id', 'publisher-manuscript', 'sici', 'other']:
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <article-id pub-id-type='%s'>
+                                10.1590/1414-431X20143433
+                              </article-id>
+                              <article-id pub-id-type='doi'>
+                                10.1590/1414-431X20143434
+                              </article-id>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % typ
+            sample = StringIO(sample)
+            self.assertTrue(self._run_validation(sample))
+
