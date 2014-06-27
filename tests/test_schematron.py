@@ -364,3 +364,93 @@ class fpage_OR_elocationTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+class ISSNTests(unittest.TestCase):
+    """Tests for article/front/journal-meta/issn elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.issn')
+        return schematron.validate(etree.parse(sample))
+
+    def test_case1(self):
+        """
+        A: @pub-type='epub' is True
+        B: @pub-type='ppub' is True
+        A v B is True
+        """
+        sample = """<article>
+                      <front>
+                        <journal-meta>
+                          <issn pub-type="epub">
+                            0959-8138
+                          </issn>
+                          <issn pub-type="ppub">
+                            0959-813X
+                          </issn>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_case2(self):
+        """
+        A: @pub-type='epub' is True
+        B: @pub-type='ppub' is False
+        A v B is True
+        """
+        sample = """<article>
+                      <front>
+                        <journal-meta>
+                          <issn pub-type="epub">
+                            0959-8138
+                          </issn>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_case3(self):
+        """
+        A: @pub-type='epub' is False
+        B: @pub-type='ppub' is True
+        A v B is True
+        """
+        sample = """<article>
+                      <front>
+                        <journal-meta>
+                          <issn pub-type="ppub">
+                            0959-813X
+                          </issn>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_case4(self):
+        """
+        A: @pub-type='epub' is False
+        B: @pub-type='ppub' is False
+        A v B is False
+        """
+        sample = """<article>
+                      <front>
+                        <journal-meta>
+                          <issn>
+                            0959-813X
+                          </issn>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+

@@ -40,6 +40,10 @@
     <active pattern="fpage_or_elocation_id"/>
   </phase>
 
+  <phase id="phase.issn">
+    <active pattern="issn_pub_type_epub_or_ppub"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -89,6 +93,14 @@
     <rule context="article/front/article-meta">
       <assert test="fpage or elocation-id">
         Element 'article-meta': Missing elements fpage or elocation-id.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="issn_pub_type_epub_or_ppub">
+    <rule context="article/front/journal-meta">
+      <assert test="issn[@pub-type='epub'] or issn[@pub-type='ppub']">
+        Element 'journal-meta': Missing element issn of type "epub" or "ppub".
       </assert>
     </rule>
   </pattern>
