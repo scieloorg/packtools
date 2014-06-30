@@ -678,3 +678,96 @@ class SubjGroupTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class AbstractLangTests(unittest.TestCase):
+    """Tests for article/front/article-meta/abstract elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.abstract_lang')
+        return schematron.validate(etree.parse(sample))
+
+    def test_is_present(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <abstract>
+                            <p>Differing socioeconomic positions in...</p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_is_present_with_lang(self):
+        sample = """<?xml version="1.0" encoding="UTF-8"?>
+                    <article>
+                      <front>
+                        <article-meta>
+                          <abstract xml:lang="en">
+                            <p>Differing socioeconomic positions in...</p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class ArticleTitleLangTests(unittest.TestCase):
+    """Tests for article/front/article-meta/title-group/article-title elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.article-title_lang')
+        return schematron.validate(etree.parse(sample))
+
+    def test_is_present(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <title-group>
+                            <article-title>
+                              Systematic review of day hospital care...
+                            </article-title>
+                          </title-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_is_present_with_lang(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <title-group>
+                            <article-title xml:lang="en">
+                              Systematic review of day hospital care...
+                            </article-title>
+                          </title-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+

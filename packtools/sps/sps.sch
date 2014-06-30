@@ -54,6 +54,14 @@
     <active pattern="subj_group"/>
   </phase>
 
+  <phase id="phase.abstract_lang">
+    <active pattern="abstract"/>
+  </phase>
+
+  <phase id="phase.article-title_lang">
+    <active pattern="article-title"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -152,4 +160,26 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="abstract">
+    <rule context="article/front/article-meta">
+      <assert test="abstract">
+        Element 'article-meta': Missing element abstract.
+      </assert>
+    </rule>
+    <rule context="article/front/article-meta/abstract">
+      <assert test="not(@xml:lang)">
+        Element 'abstract': Unexpected attribute xml:lang.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="article-title">
+    <rule context="article/front/article-meta/title-group/article-title">
+      <assert test="not(@xml:lang)">
+        Element 'article-title': Unexpected attribute xml:lang.
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
