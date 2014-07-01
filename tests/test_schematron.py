@@ -771,3 +771,273 @@ class ArticleTitleLangTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+@unittest.skip('not implemented')
+class KwdGroupLangTests(unittest.TestCase):
+    """Tests for article/front/article-meta/kwd-group elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.kwd-group_lang')
+        return schematron.validate(etree.parse(sample))
+
+    def test_single_occurence(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <kwd-group>
+                            <kwd>gene expression</kwd>
+                          </kwd-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_many_occurencies(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <kwd-group>
+                            <kwd>gene expression</kwd>
+                          </kwd-group>
+                          <kwd-group xml:lang="pt">
+                            <kwd>expressao do gene</kwd>
+                          </kwd-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_many_occurencies_without_lang(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <kwd-group>
+                            <kwd>gene expression</kwd>
+                          </kwd-group>
+                          <kwd-group>
+                            <kwd>expressao do gene</kwd>
+                          </kwd-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class AffContentTypeTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/contrib-group
+      - article/front/article-meta
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.aff_contenttypes')
+        return schematron.validate(etree.parse(sample))
+
+    def test_original_is_present(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_original_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution>
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_many_original(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <institution content-type="original">
+                              Galera de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_original_is_present_and_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                          <aff>
+                            <institution>
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_original_is_present_and_present(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_allowed_orgdiv1(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <institution content-type="orgdiv1">
+                              Instituto de Matematica e Estatistica
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_allowed_orgdiv2(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <institution content-type="orgdiv2">
+                              Instituto de Matematica e Estatistica
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_allowed_orgdiv3(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <institution content-type="orgdiv3">
+                              Instituto de Matematica e Estatistica
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_orgdiv4(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <institution content-type="orgdiv4">
+                              Instituto de Matematica e Estatistica
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_orgname_inside_contrib_group(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+                            <aff>
+                              <institution content-type="original">
+                                Grupo de ...
+                              </institution>
+                              <institution content-type="orgname">
+                                Instituto de Matematica e Estatistica
+                              </institution>
+                            </aff>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

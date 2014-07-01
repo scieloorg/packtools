@@ -62,6 +62,11 @@
     <active pattern="article-title"/>
   </phase>
 
+  <phase id="phase.aff_contenttypes">
+    <active pattern="aff_contenttypes"/>
+    <active pattern="aff_contenttypes_contribgroup"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -181,5 +186,31 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern abstract="true" id="aff_contenttypes_base">
+    <rule context="$base_context/aff">
+      <assert test="count(institution[@content-type='original']) = 1">
+        Element 'article-meta': Must have exactly one element institution with content-type="original".
+      </assert>
+    </rule>
+    <rule context="$base_context/aff/institution">
+      <assert test="@content-type='original' or 
+                    @content-type='orgname' or
+                    @content-type='orgdiv1' or
+                    @content-type='orgdiv2' or
+                    @content-type='orgdiv3'">
+        Element 'article-meta', attribute content-type: Invalid value "<value-of select="@content-type"/>". 
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern is-a="aff_contenttypes_base" id="aff_contenttypes">
+    <param name="base_context" value="article/front/article-meta"/>
+  </pattern>
+
+  <pattern is-a="aff_contenttypes_base" id="aff_contenttypes_contribgroup">
+    <param name="base_context" value="article/front/article-meta/contrib-group"/>
+  </pattern>
+
 
 </schema>
