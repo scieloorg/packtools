@@ -188,18 +188,18 @@
   </pattern>
 
   <pattern abstract="true" id="aff_contenttypes_base">
-    <rule context="$base_context/aff">
-      <assert test="count(institution[@content-type='original']) = 1">
-        Element 'article-meta': Must have exactly one element institution with content-type="original".
-      </assert>
-    </rule>
     <rule context="$base_context/aff/institution">
       <assert test="@content-type='original' or 
                     @content-type='orgname' or
                     @content-type='orgdiv1' or
                     @content-type='orgdiv2' or
                     @content-type='orgdiv3'">
-        Element 'article-meta', attribute content-type: Invalid value "<value-of select="@content-type"/>". 
+        Element '<name/>', attribute content-type: Invalid value "<value-of select="@content-type"/>". 
+      </assert>
+    </rule>
+    <rule context="$base_context/aff">
+      <assert test="count(institution[@content-type='original']) = 1">
+        Element '<name/>': Must have exactly one element institution with content-type="original".
       </assert>
     </rule>
   </pattern>
