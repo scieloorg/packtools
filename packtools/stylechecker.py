@@ -1,6 +1,7 @@
 #coding: utf-8
 import logging
 import itertools
+from copy import deepcopy
 
 from lxml import etree, isoschematron
 
@@ -27,29 +28,47 @@ def XMLSchematron(schema_name):
     return schematron
 
 
-class XML(object):
+def XML(file, no_network=True, load_dtd=True):
+    """Parses `file` to produce an etree instance.
+
+    The DTD is loaded during parse time, unless when provided as an
+    argument. The XML can be retrieved given its filesystem path,
+    an URL or a file-object.
+
+    :param file: Path to the XML file, URL or file-object.
+    :param no_network: (optional) prevent network access for external DTD.
+    :param load_dtd: (optional) load DTD during parse-time.
+    """
+    parser = etree.XMLParser(remove_blank_text=True,
+                             load_dtd=load_dtd,
+                             no_network=no_network)
+    xml = etree.parse(file, parser)
+
+    return xml
+
+
+class XMLValidator(object):
     allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS)
 
-    def __init__(self, file, no_network=True, dtd=None, no_doctype=False):
-        """Represents an SPS article XML.
+    def __init__(self, lxml, dtd=None, no_doctype=False):
+        """Adapter that performs SPS validations.
 
-        The XML can be retrieved given its filesystem path,
-        an URL, a file-object or an etree instance.
+        SPS validation stages are:
+          - JATS 1.0 or PMC 3.0 (as bound by the doctype declaration or passed
+            explicitly)
+          - SciELO Style - ISO Schematron
+          - SciELO Style - Python based pipeline
 
-        The XML is validated against the JATS Publishing tag set
-        and the SPS Style.
-
-        :param file: Path to the XML file, URL or etree.
-        :param no_network: (optional) prevent network access for external DTD.
-        :param dtd: (optional) etree.DTD instance. if not provided, we try to guess.
+        :param lxml: lxml's etree instance.
+        :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
         :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
         """
-        if isinstance(file, etree._ElementTree):
-            self.lxml = file
+        if isinstance(lxml, etree._ElementTree):
+            self.lxml = lxml
         else:
-            parser = etree.XMLParser(remove_blank_text=True,
-                                     load_dtd=True, no_network=no_network)
-            self.lxml = etree.parse(file, parser)
+            self.lxml = XML(lxml)
+
+        self.dtd = dtd or self.lxml.docinfo.externalDTD
 
         self.doctype = self.lxml.docinfo.doctype
         if no_doctype is False:
@@ -60,7 +79,6 @@ class XML(object):
             raise ValueError('Unsuported DOCTYPE public id')
 
         self.public_id = self.lxml.docinfo.public_id
-        self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.schematron = XMLSchematron('scielo-style.sch')
         self.ppl = StyleCheckingPipeline()
 
@@ -109,11 +127,33 @@ class XML(object):
         result = not bool(errors)
         return result, errors
 
+    def validate_all(self, fail_fast=False):
+        """Runs all validations.
+
+        :param fail_fast: (optional) raise TypeError if the dtd have not been loaded.
+        """
+        try:
+            v_result, v_errors = self.validate()
+
+        except TypeError:
+            if fail_fast:
+                raise
+            else:
+                v_result = None
+                v_errors = []
+
+        s_result, s_errors = self.validate_style()
+
+        val_status = False if s_result is False else v_result
+        val_errors = v_errors + s_errors
+
+        return val_status, val_errors
+
     def _annotate_error(self, element, error):
         """Add an annotation prior to `element`, with `error` as the content.
 
-        The annotation is a <SPS-ERROR> element added prior to `element`.
-        If `element` is the root element, then the error is annotated as comment.
+        The annotation is a comment added prior to `element`.
+
         :param element: etree instance to be annotated.
         :param error: string of the error.
         """
@@ -127,31 +167,23 @@ class XML(object):
         The errors list is generated as a result of calling both :meth:`validate` and
         :meth:`validate_style` methods.
 
-        :param fail_fast: (optional) raise TypeError if the dtd have not been loaded.
         """
-        try:
-            v_result, v_errors = self.validate()
+        status, errors = self.validate_all(fail_fast=fail_fast)
+        mutating_xml = deepcopy(self.lxml)
 
-        except TypeError:
-            if fail_fast:
-                raise
-            else:
-                v_result = True
-                v_errors = []
+        if status == True:
+            return mutating_xml
 
-        s_result, s_errors = self.validate_style()
-
-        if v_result and s_result:
-            return None
-
-        for error in itertools.chain(v_errors, s_errors):
+        for error in errors:
             try:
-                err_element = error.get_apparent_element(self.lxml)
+                err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
                 logger.info('Could not locate the element name in: %s' % error.message)
-                err_element = self.lxml.getroot()
+                err_element = mutating_xml.getroot()
 
             self._annotate_error(err_element, error.message)
+
+        return mutating_xml
 
     def __str__(self):
         return etree.tostring(self.lxml, pretty_print=True,
@@ -161,7 +193,12 @@ class XML(object):
         return str(self).decode('utf-8')
 
     def __repr__(self):
-        return '<packtools.stylechecker.XML xml=%s valid=%s>' % (self.lxml, self.validate()[0])
+        try:
+            is_valid = self.validate_all()[0]
+        except TypeError:
+            is_valid = None
+
+        return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml, is_valid)
 
     def read(self):
         """
@@ -201,8 +238,9 @@ def main():
     style_is_valid, style_errors = xml.validate_style()
 
     if args.annotated:
-        xml.annotate_errors()
-        sys.stdout.write(str(xml))
+        err_xml = xml.annotate_errors()
+        sys.stdout.write(etree.tostring(err_xml, pretty_print=True,
+            encoding='utf-8', xml_declaration=True))
 
     else:
         if not is_valid:
