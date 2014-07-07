@@ -1,22 +1,36 @@
-<!--
-*******************************************************************************
- THINGS TO BE SURE BEFORE EDITING THIS FILE!
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://purl.oclc.org/dsdl/schematron"
+        queryBinding="xslt"
+        xml:lang="en">
+  <p>
+  *******************************************************************************
+   THINGS TO BE SURE BEFORE EDITING THIS FILE!
 
- The implementation of the schematron patterns comes with the idea of SPS as a
- set of constraints on top of JATS' Publishing Tag Set (JPTS). To keep
- consistency, please make sure:
+   The spec used is ISO-Schematron. 
+   
+   Some useful info:
+     - The query language used is the extended version of XPath specified in XSLT.
+     - The rule context is interpreted according to the Production 1 of XSLT. 
+       The rule context may be the root node, elements, attributes, comments and 
+       processing instructions. 
+     - The assertion test is interpreted according to Production 14 of XPath, as 
+       returning a Boolean value.
 
-   - DTD/XSD constraints are not duplicated here
-   - There is an issue at http://git.io/5EcR4Q with status `Aprovada`
-   - PMC-Style compatibility is maintained
-
- Always double-check the JPTS and PMC-Style before editing.
- http://jats.nlm.nih.gov/publishing/tag-library/1.0/
- https://www.ncbi.nlm.nih.gov/pmc/pmcdoc/tagging-guidelines/article/tags.html
-*******************************************************************************
--->
-
-<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+   For more info, refer to the official ISO/IEC 19757-3:2006(E) standard.
+  
+   The implementation of the schematron patterns comes with the idea of SPS as a
+   set of constraints on top of JATS' Publishing Tag Set v1.0 (JPTS)[1]. To keep
+   consistency, please make sure:
+  
+     - DTD/XSD constraints are not duplicated here
+     - There is an issue at http://git.io/5EcR4Q with status `Aprovada`
+     - PMC-Style compatibility is maintained[2]
+  
+   Always double-check the JPTS and PMC-Style before editing.
+   [1] http://jats.nlm.nih.gov/publishing/tag-library/1.0/
+   [2] https://www.ncbi.nlm.nih.gov/pmc/pmcdoc/tagging-guidelines/article/tags.html
+  *******************************************************************************
+  </p>
 
   <!--
    Phases - sets of patterns.
@@ -65,6 +79,14 @@
   <phase id="phase.aff_contenttypes">
     <active pattern="aff_contenttypes"/>
     <active pattern="aff_contenttypes_contribgroup"/>
+  </phase>
+
+  <phase id="phase.kwd-group_lang">
+      <active pattern="kwdgroup_lang"/>
+  </phase>
+
+  <phase id="phase.counts">
+      <active pattern="counts"/>
   </phase>
 
 
@@ -212,5 +234,41 @@
     <param name="base_context" value="article/front/article-meta/contrib-group"/>
   </pattern>
 
+  <pattern id="kwdgroup_lang">
+    <title>
+      Make sure all kwd-group elements have xml:lang attribute.
+    </title>
+
+    <rule context="article/front/article-meta/kwd-group">
+      <assert test="@xml:lang">
+        Element 'kwd-group': Missing attribute xml:lang.
+      </assert>  
+    </rule>
+  </pattern>
+
+  <pattern id="counts">
+    <title>
+      Make sure the total number of tables, figures, equations and pages are present.
+    </title>
+
+    <rule context="article">
+      <assert test="front/article-meta/counts/table-count/@count = count(//table)">
+        Element 'counts': Missing element or wrong value in table-count.
+      </assert>
+      <assert test="front/article-meta/counts/ref-count/@count = count(//ref)">
+        Element 'counts': Missing element or wrong value in ref-count.
+      </assert>
+      <assert test="front/article-meta/counts/fig-count/@count = count(//fig)">
+        Element 'counts': Missing element or wrong value in fig-count.
+      </assert>
+      <assert test="front/article-meta/counts/equation-count/@count = count(//disp-formula)">
+        Element 'counts': Missing element or wrong value in equation-count.
+      </assert>
+      <assert test="front/article-meta/counts/page-count/@count = front/article-meta/lpage - front/article-meta/fpage">
+        Element 'counts': Missing element or wrong value in page-count.
+      </assert>
+    </rule>
+  </pattern>
 
 </schema>
+

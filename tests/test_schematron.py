@@ -772,7 +772,6 @@ class ArticleTitleLangTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-@unittest.skip('not implemented')
 class KwdGroupLangTests(unittest.TestCase):
     """Tests for article/front/article-meta/kwd-group elements.
     """
@@ -793,13 +792,13 @@ class KwdGroupLangTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertTrue(self._run_validation(sample))
+        self.assertFalse(self._run_validation(sample))
 
     def test_many_occurencies(self):
         sample = """<article>
                       <front>
                         <article-meta>
-                          <kwd-group>
+                          <kwd-group xml:lang="en">
                             <kwd>gene expression</kwd>
                           </kwd-group>
                           <kwd-group xml:lang="pt">
@@ -1033,6 +1032,311 @@ class AffContentTypeTests(unittest.TestCase):
                               </institution>
                             </aff>
                           </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class CountsTests(unittest.TestCase):
+    """Tests for article/front/article-meta/counts elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.counts')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_table_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_ref_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_fig_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_equation_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_page_is_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_zeroes_if_elements_are_missing(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_tables(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="1"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                      <body>
+                        <sec>
+                          <p>
+                            <table frame="hsides" rules="groups">
+                              <colgroup width="25%"><col/><col/><col/><col/></colgroup>
+                              <thead>
+                                <tr>
+                                  <th style="font-weight:normal" align="left">Modelo</th>
+                                  <th style="font-weight:normal">Estrutura</th>
+                                  <th style="font-weight:normal">Processos</th>
+                                  <th style="font-weight:normal">Resultados</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td valign="top">SIPA<sup>1,2</sup></td>
+                                  <td valign="top">Urgência e hospitalar.</td>
+                                  <td valign="top">Realiza triagem para fragilidade.</td>
+                                  <td valign="top">Maior gasto comunitário, menor gasto.</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_ref(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="1"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                      <back>
+                        <ref-list>
+                          <title>REFERÊNCIAS</title>
+	                      <ref id="B1">
+                            <label>1</label>
+                            <mixed-citation>
+                              Béland F, Bergman H, Lebel P, Clarfield AM, Tousignant P, ...
+                            </mixed-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_fig(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="1"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                      <body>
+                        <sec>
+                          <p>
+                            <fig id="f01">
+                              <label>Figura 1</label>
+                              <caption>
+                                <title>Modelo das cinco etapas da pesquisa translacional.</title>
+                              </caption>
+                              <graphic xlink:href="0034-8910-rsp-48-2-0347-gf01"/>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_equation(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="1"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                      <body>
+                        <sec>
+                          <disp-formula>
+                            <tex-math id="M1">
+                            </tex-math>
+                          </disp-formula>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_page(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="10"/>
+                          </counts>
+                          <fpage>140</fpage>
+                          <lpage>150</lpage>
                         </article-meta>
                       </front>
                     </article>
