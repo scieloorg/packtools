@@ -711,7 +711,7 @@ class AbstractLangTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_is_present_with_lang(self):
         sample = """<?xml version="1.0" encoding="UTF-8"?>
@@ -728,6 +728,64 @@ class AbstractLangTests(unittest.TestCase):
         sample = StringIO(sample)
 
         self.assertFalse(self._run_validation(sample))
+
+    def test_missing_for_research_article(self):
+        sample = """<?xml version="1.0" encoding="UTF-8"?>
+                    <article article-type="research-article">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_research_article(self):
+        sample = """<?xml version="1.0" encoding="UTF-8"?>
+                    <article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <abstract>
+                            <p>Differing socioeconomic positions in...</p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_for_review_article(self):
+        sample = """<?xml version="1.0" encoding="UTF-8"?>
+                    <article article-type="review-article">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_review_article(self):
+        sample = """<?xml version="1.0" encoding="UTF-8"?>
+                    <article article-type="review-article">
+                      <front>
+                        <article-meta>
+                          <abstract>
+                            <p>Differing socioeconomic positions in...</p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
 
 
 class ArticleTitleLangTests(unittest.TestCase):

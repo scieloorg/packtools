@@ -189,8 +189,8 @@
   </pattern>
 
   <pattern id="abstract">
-    <rule context="article/front/article-meta">
-      <assert test="abstract">
+    <rule context="article[@article-type='research-article'] | article[@article-type='review-article']">
+      <assert test="count(front/article-meta/abstract) > 0">
         Element 'article-meta': Missing element abstract.
       </assert>
     </rule>
