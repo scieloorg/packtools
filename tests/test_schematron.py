@@ -1152,8 +1152,6 @@ class CountsTests(unittest.TestCase):
                             <fig-count count="0"/>
                             <equation-count count="0"/>
                           </counts>
-                          <fpage>0</fpage>
-                          <lpage>0</lpage>
                         </article-meta>
                       </front>
                     </article>
@@ -1333,7 +1331,7 @@ class CountsTests(unittest.TestCase):
                             <ref-count count="0"/>
                             <fig-count count="0"/>
                             <equation-count count="0"/>
-                            <page-count count="10"/>
+                            <page-count count="11"/>
                           </counts>
                           <fpage>140</fpage>
                           <lpage>150</lpage>

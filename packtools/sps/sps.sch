@@ -264,7 +264,11 @@
       <assert test="front/article-meta/counts/equation-count/@count = count(//disp-formula)">
         Element 'counts': Missing element or wrong value in equation-count.
       </assert>
-      <assert test="front/article-meta/counts/page-count/@count = front/article-meta/lpage - front/article-meta/fpage">
+      <assert test="(front/article-meta/lpage = 0 and
+                     front/article-meta/fpage = 0 and
+                     front/article-meta/counts/page-count and
+                     front/article-meta/counts/page-count/@count = 0) or 
+                    ((front/article-meta/lpage - front/article-meta/fpage) + 1)">
         Element 'counts': Missing element or wrong value in page-count.
       </assert>
     </rule>
