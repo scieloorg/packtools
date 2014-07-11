@@ -93,6 +93,11 @@
       <active pattern="author-notes_fn_types"/>
   </phase>
 
+  <phase id="phase.pub-date">
+      <active pattern="pub-date_pub_type"/>
+  </phase>
+
+
   <!--
    Patterns - sets of rules.
   -->
@@ -278,7 +283,9 @@
   </pattern>
 
   <pattern id="author-notes_fn_types">
-    <title></title>
+    <title>
+      Restrict the valid values of fn[@fn-type].
+    </title>
 
     <rule context="article/front/article-meta/author-notes/fn">
       <assert test="@fn-type = 'author' or 
@@ -297,6 +304,21 @@
                     @fn-type = 'other'">
         
         Element 'fn', attribute fn-type: Invalid value "<value-of select="@fn-type"/>".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_pub_type">
+    <title>
+      Restrict the valid values of pub-date[@pub-type].
+    </title>
+
+    <rule context="article/front/article-meta/pub-date">
+      <assert test="@pub-type = 'epub' or
+                    @pub-type = 'ppub' or
+                    @pub-type = 'epub-ppub' or
+                    @pub-type = 'collection'">
+        Element 'pub-date', attribute pub-type: Invalid value "<value-of select="@fn-type"/>".
       </assert>
     </rule>
   </pattern>

@@ -1447,3 +1447,63 @@ class AuthorNotesTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class PubDateTests(unittest.TestCase):
+    """Tests for article/front/article-meta/pub-date elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.pub-date')
+        return schematron.validate(etree.parse(sample))
+
+    def test_pub_type_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <pub-date>
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_pub_type_allowed_values(self):
+        for pub_type in ['epub', 'epub-ppub', 'ppub', 'collection']:
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <pub-date pub-type="%s">
+                                <day>17</day>
+                                <month>03</month>
+                                <year>2014</year>
+                              </pub-date>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % pub_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_pub_type_disallowed_value(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <pub-date pub-type="wtf">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
