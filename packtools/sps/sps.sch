@@ -89,6 +89,9 @@
       <active pattern="counts"/>
   </phase>
 
+  <phase id="phase.author-notes">
+      <active pattern="author-notes_fn_types"/>
+  </phase>
 
   <!--
    Patterns - sets of rules.
@@ -274,5 +277,28 @@
     </rule>
   </pattern>
 
+  <pattern id="author-notes_fn_types">
+    <title></title>
+
+    <rule context="article/front/article-meta/author-notes/fn">
+      <assert test="@fn-type = 'author' or 
+                    @fn-type = 'con' or
+                    @fn-type = 'conflict' or 
+                    @fn-type = 'corresp' or
+                    @fn-type = 'current-aff' or
+                    @fn-type = 'deceased' or
+                    @fn-type = 'edited-by' or
+                    @fn-type = 'equal' or
+                    @fn-type = 'on-leave' or
+                    @fn-type = 'participating-researchers' or
+                    @fn-type = 'present-address' or 
+                    @fn-type = 'previously-at' or 
+                    @fn-type = 'study-group-members' or
+                    @fn-type = 'other'">
+        
+        Element 'fn', attribute fn-type: Invalid value "<value-of select="@fn-type"/>".
+      </assert>
+    </rule>
+  </pattern>
 </schema>
 

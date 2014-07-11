@@ -1401,3 +1401,49 @@ class CountsTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class AuthorNotesTests(unittest.TestCase):
+    """Tests for article/front/article-meta/author-notes elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.author-notes')
+        return schematron.validate(etree.parse(sample))
+
+    def test_allowed_fn_types(self):
+        for fn_type in ['author', 'con', 'conflict', 'corresp', 'current-aff',
+                'deceased', 'edited-by', 'equal', 'on-leave', 'participating-researchers',
+                'present-address', 'previously-at', 'study-group-members', 'other']:
+
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <author-notes>
+                                <fn fn-type="%s">
+                                  <p>foobar</p>
+                                </fn>
+                              </author-notes>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % fn_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_fn_types(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <author-notes>
+                            <fn fn-type="wtf">
+                              <p>foobar</p>
+                            </fn>
+                          </author-notes>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
