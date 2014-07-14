@@ -1637,3 +1637,51 @@ class SupplementTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ElocationIdTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/elocation-id
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.elocation-id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_with_fpage(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <elocation-id>E27</elocation-id>
+                          <fpage>12</fpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_without_fpage(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <elocation-id>E27</elocation-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

@@ -109,6 +109,10 @@
     <active pattern="supplement"/>
   </phase>
 
+  <phase id="phase.elocation-id">
+    <active pattern="elocation-id"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -375,6 +379,18 @@
     <rule context="article/front/article-meta">
       <assert test="not(supplement)">
         Element 'article-meta': Unexpected element supplement.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="elocation-id">
+    <title>
+      Allow elocation-id to be present only when fpage is absent.
+    </title>
+
+    <rule context="article/front/article-meta/elocation-id">
+      <assert test="parent::*[not(fpage)]">
+        Element 'article-meta': Unexpected element elocation-id.
       </assert>
     </rule>
   </pattern>
