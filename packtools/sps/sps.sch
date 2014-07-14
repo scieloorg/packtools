@@ -187,11 +187,8 @@
 
   <pattern id="subj_group">
     <rule context="article/front/article-meta/article-categories">
-      <assert test="//subj-group[@subj-group-type='heading']">
-        Element 'article-categories': Missing element subj-group with subj-group-type="heading".
-      </assert>
       <assert test="count(//subj-group[@subj-group-type='heading']) = 1">
-        Element 'article-categories': Many elements subj-group with subj-group-type="heading".
+        Element 'article-categories': There must be only one element subj-group with subj-group-type="heading".
       </assert>
     </rule>
   </pattern>
