@@ -1555,3 +1555,51 @@ class VolumeTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class IssueTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/issue
+      - article/back/ref-list/ref/element-citation/issue
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.issue')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent_in_front(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_present_but_empty_in_front(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <issue></issue>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_present_in_front(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <issue>10</issue>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

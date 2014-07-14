@@ -100,6 +100,10 @@
   <phase id="phase.volume">
     <active pattern="volume"/>
   </phase>
+  
+  <phase id="phase.issue">
+    <active pattern="issue"/>
+  </phase>
 
 
   <!--
@@ -324,7 +328,9 @@
   </pattern>
 
   <pattern id="volume">
-    <title></title>
+    <title>
+      Make sure the volume is present and is not empty.
+    </title>
 
     <rule context="article/front/article-meta">
       <assert test="count(volume) = 1">
@@ -335,6 +341,24 @@
     <rule context="article/front/article-meta/volume">
       <assert test="string-length(.) > 0">
         Element 'volume': Element cannot be empty.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="issue">
+    <title>
+      Make sure the issue is present and is not empty.
+    </title>
+
+    <rule context="article/front/article-meta">
+      <assert test="count(issue) = 1">
+        Element 'article-meta': Missing element issue.
+      </assert>
+    </rule>
+
+    <rule context="article/front/article-meta/issue">
+      <assert test="string-length(.) > 0">
+        Element 'issue': Element cannot be empty.
       </assert>
     </rule>
   </pattern>
