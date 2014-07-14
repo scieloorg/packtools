@@ -1473,7 +1473,7 @@ class PubDateTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_pub_type_allowed_values(self):
-        for pub_type in ['epub', 'epub-ppub', 'ppub', 'collection']:
+        for pub_type in ['epub', 'epub-ppub', 'collection']:
             sample = """<article>
                           <front>
                             <article-meta>

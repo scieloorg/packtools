@@ -316,7 +316,6 @@
 
     <rule context="article/front/article-meta/pub-date">
       <assert test="@pub-type = 'epub' or
-                    @pub-type = 'ppub' or
                     @pub-type = 'epub-ppub' or
                     @pub-type = 'collection'">
         Element 'pub-date', attribute pub-type: Invalid value "<value-of select="@fn-type"/>".
