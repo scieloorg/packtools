@@ -388,8 +388,8 @@
       Allow elocation-id to be present only when fpage is absent.
     </title>
 
-    <rule context="article/front/article-meta/elocation-id">
-      <assert test="parent::*[not(fpage)]">
+    <rule context="article/front/article-meta/elocation-id | article/back/ref-list/ref/element-citation/elocation-id">
+      <assert test="not(following-sibling::fpage)">
         Element 'article-meta': Unexpected element elocation-id.
       </assert>
     </rule>

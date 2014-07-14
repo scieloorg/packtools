@@ -1641,6 +1641,7 @@ class SupplementTests(unittest.TestCase):
 class ElocationIdTests(unittest.TestCase):
     """Tests for:
       - article/front/article-meta/elocation-id
+      - article/back/ref-list/ref/element-citation/elocation-id
     """
     def _run_validation(self, sample):
         schematron = isoschematron.Schematron(SCH, phase='phase.elocation-id')
@@ -1684,4 +1685,78 @@ class ElocationIdTests(unittest.TestCase):
         sample = StringIO(sample)
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_absent_back(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_with_fpage_back(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <elocation-id>E27</elocation-id>
+                              <fpage>12</fpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_without_fpage_back(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <elocation-id>E27</elocation-id>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_with_and_without_fpage_back(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <elocation-id>E27</elocation-id>
+                              <fpage>12</fpage>
+                            </element-citation>
+                          </ref>
+                          <ref>
+                            <element-citation>
+                              <elocation-id>E27</elocation-id>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
 
