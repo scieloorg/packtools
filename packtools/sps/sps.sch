@@ -82,19 +82,23 @@
   </phase>
 
   <phase id="phase.kwd-group_lang">
-      <active pattern="kwdgroup_lang"/>
+    <active pattern="kwdgroup_lang"/>
   </phase>
 
   <phase id="phase.counts">
-      <active pattern="counts"/>
+    <active pattern="counts"/>
   </phase>
 
   <phase id="phase.author-notes">
-      <active pattern="author-notes_fn_types"/>
+    <active pattern="author-notes_fn_types"/>
   </phase>
 
   <phase id="phase.pub-date">
-      <active pattern="pub-date_pub_type"/>
+    <active pattern="pub-date_pub_type"/>
+  </phase>
+
+  <phase id="phase.volume">
+    <active pattern="volume"/>
   </phase>
 
 
@@ -316,6 +320,22 @@
                     @pub-type = 'epub-ppub' or
                     @pub-type = 'collection'">
         Element 'pub-date', attribute pub-type: Invalid value "<value-of select="@fn-type"/>".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="volume">
+    <title></title>
+
+    <rule context="article/front/article-meta">
+      <assert test="count(volume) = 1">
+        Element 'article-meta': Missing element volume.
+      </assert>
+    </rule>
+
+    <rule context="article/front/article-meta/volume">
+      <assert test="string-length(.) > 0">
+        Element 'volume': Element cannot be empty.
       </assert>
     </rule>
   </pattern>

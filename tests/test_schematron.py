@@ -1507,3 +1507,51 @@ class PubDateTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class VolumeTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/volume
+      - article/back/ref-list/ref/element-citation/volume
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.volume')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent_in_front(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_present_but_empty_in_front(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <volume></volume>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_present_in_front(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <volume>10</volume>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
