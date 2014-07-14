@@ -1603,3 +1603,37 @@ class IssueTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class SupplementTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/supplement
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.supplement')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <supplement>Suppl 2</supplement>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+

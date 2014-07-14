@@ -105,6 +105,10 @@
     <active pattern="issue"/>
   </phase>
 
+  <phase id="phase.supplement">
+    <active pattern="supplement"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -359,6 +363,18 @@
     <rule context="article/front/article-meta/issue">
       <assert test="string-length(.) > 0">
         Element 'issue': Element cannot be empty.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="supplement">
+    <title>
+      Make sure the supplement is not present.
+    </title>
+
+    <rule context="article/front/article-meta">
+      <assert test="not(supplement)">
+        Element 'article-meta': Unexpected element supplement.
       </assert>
     </rule>
   </pattern>
