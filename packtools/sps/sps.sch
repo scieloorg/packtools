@@ -117,6 +117,10 @@
     <active pattern="history"/>
   </phase>
 
+  <phase id="phase.product">
+    <active pattern="product"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -409,6 +413,19 @@
                     @date-type = 'accepted' or
                     @date-type = 'rev-recd'">
         Element 'date', attribute date-type: Invalid value "<value-of select="@date-type"/>".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="product">
+    <title>
+      Allow product to be present only when article-type is book-review or product-review.
+    </title>
+
+    <rule context="article/front/article-meta/product">
+      <assert test="/article[@article-type='book-review'] or
+                    /article[@article-type='product-review']">
+        Element 'article-meta': Unexpected element product.
       </assert>
     </rule>
   </pattern>

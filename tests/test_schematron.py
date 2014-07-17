@@ -1856,3 +1856,119 @@ class HistoryTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class ProductTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/product
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.product')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_absent_allowed_types(self):
+        for art_type in ['book-review', 'product-review']:
+            sample = """<article article-type="%s">
+                          <front>
+                            <article-meta>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % art_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_allowed_types(self):
+        for art_type in ['book-review', 'product-review']:
+            sample = """<article article-type="%s">
+                          <front>
+                            <article-meta>
+                              <product product-type="book">
+                                <person-group person-group-type="author">
+                                  <name>
+                                    <surname>Sobrenome do autor</surname>
+                                    <given-names>Prenomes do autor</given-names>
+                                  </name>
+                                </person-group>
+                                <source>Título do livro</source>
+                                <year>Ano de publicação</year>
+                                <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                                <publisher-loc>Local de publicação</publisher-loc>
+                                <page-count count="total de paginação do livro (opcional)"/>
+                                <isbn>ISBN do livro, se houver</isbn>
+                                <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                              </product>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % art_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_types(self):
+        sample = """<article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <product product-type="book">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_no_type(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <product product-type="book">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
