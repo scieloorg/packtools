@@ -432,8 +432,8 @@
                     /article[@article-type='product-review']">
         Element 'article-meta': Unexpected element product.
       </assert>
-      <assert test="@product-type = 'book'">
-        Element 'product', attribute product-type: Invalid value "<value-of select="@product-type"/>".
+      <assert test="@product-type">
+        Element 'product': Missing attribute product-type.
       </assert>
     </rule>
   </pattern>
