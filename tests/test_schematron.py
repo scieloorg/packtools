@@ -1760,3 +1760,99 @@ class ElocationIdTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class HistoryTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/history
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.history')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_date_type_allowed_values(self):
+        for pub_type in ['received', 'accepted', 'rev-recd']:
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <history>
+                                <date date-type="%s">
+                                  <day>17</day>
+                                  <month>03</month>
+                                  <year>2014</year>
+                                </date>
+                              </history>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % pub_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_date_type_disallowed_values(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <history>
+                            <date date-type="invalid">
+                              <day>17</day>
+                              <month>03</month>
+                              <year>2014</year>
+                            </date>
+                          </history>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_allowed_values_multi(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <history>
+                            <date date-type="received">
+                              <day>17</day>
+                              <month>03</month>
+                              <year>2014</year>
+                            </date>
+                            <date date-type="accepted">
+                              <day>17</day>
+                              <month>03</month>
+                              <year>2014</year>
+                            </date>
+                          </history>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

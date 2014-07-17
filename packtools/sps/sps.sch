@@ -113,6 +113,10 @@
     <active pattern="elocation-id"/>
   </phase>
 
+  <phase id="phase.history">
+    <active pattern="history"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -391,6 +395,20 @@
     <rule context="article/front/article-meta/elocation-id | article/back/ref-list/ref/element-citation/elocation-id">
       <assert test="not(following-sibling::fpage)">
         Element 'article-meta': Unexpected element elocation-id.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="history">
+    <title>
+      Restrict the valid values of history/date/[@date-type].
+    </title>
+
+    <rule context="article/front/article-meta/history/date">
+      <assert test="@date-type = 'received' or 
+                    @date-type = 'accepted' or
+                    @date-type = 'rev-recd'">
+        Element 'date', attribute date-type: Invalid value "<value-of select="@date-type"/>".
       </assert>
     </rule>
   </pattern>
