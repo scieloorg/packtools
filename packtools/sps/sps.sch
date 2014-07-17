@@ -420,12 +420,16 @@
   <pattern id="product">
     <title>
       Allow product to be present only when article-type is book-review or product-review.
+      Also, make sure product[@product-type='book'].
     </title>
 
     <rule context="article/front/article-meta/product">
       <assert test="/article[@article-type='book-review'] or
                     /article[@article-type='product-review']">
         Element 'article-meta': Unexpected element product.
+      </assert>
+      <assert test="@product-type = 'book'">
+        Element 'product', attribute product-type: Invalid value "<value-of select="@product-type"/>".
       </assert>
     </rule>
   </pattern>
