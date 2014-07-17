@@ -121,6 +121,10 @@
     <active pattern="product"/>
   </phase>
 
+  <phase id="phase.sectitle">
+    <active pattern="sectitle"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -433,5 +437,18 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="sectitle">
+    <title>
+      Make sure all sections have a title element.
+    </title>
+
+    <rule context="article/body/sec">
+      <assert test="string-length(title) > 0">
+        Element 'sec': Missing element title.
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
 

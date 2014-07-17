@@ -1999,3 +1999,53 @@ class ProductTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class SecTitleTests(unittest.TestCase):
+    """Tests for:
+      - article/body/sec/title
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.sectitle')
+        return schematron.validate(etree.parse(sample))
+
+    def test_absent(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>Foo bar</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_has_title(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Introduction</title>
+                          <p>Foo bar</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_has_empty_title(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title></title>
+                          <p>Foo bar</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
