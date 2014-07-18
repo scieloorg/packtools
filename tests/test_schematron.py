@@ -1303,7 +1303,7 @@ class CountsTests(unittest.TestCase):
                       <back>
                         <ref-list>
                           <title>REFERÊNCIAS</title>
-	                      <ref id="B1">
+                          <ref id="B1">
                             <label>1</label>
                             <mixed-citation>
                               Béland F, Bergman H, Lebel P, Clarfield AM, Tousignant P, ...
@@ -2456,6 +2456,66 @@ class TableWrapFootTests(unittest.TestCase):
                           </p>
                         </sec>
                       </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class XrefRidTests(unittest.TestCase):
+    """Tests for //xref[@rid]
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.rid_integrity')
+        return schematron.validate(etree.parse(sample))
+
+    def test_mismatching_rid(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+                            <contrib>
+                              <xref ref-type="aff" rid="aff1">
+                                <sup>I</sup>
+                              </xref>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_matching_rid(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+                            <contrib>
+                              <xref ref-type="aff" rid="aff1">
+                                <sup>I</sup>
+                              </xref>
+                            </contrib>
+                          </contrib-group>
+                          <aff id="aff1">
+                            <label>I</label>
+                            <institution content-type="orgname">
+                              Secretaria Municipal de Saude de Belo Horizonte
+                            </institution>
+                            <addr-line>
+                              <named-content content-type="city">Belo Horizonte</named-content>
+                              <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country>Brasil</country>
+                            <institution content-type="original">
+                              Secretaria Municipal de Saude de Belo Horizonte. Belo Horizonte, MG, Brasil
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
                     </article>
                  """
         sample = StringIO(sample)

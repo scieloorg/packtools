@@ -141,6 +141,10 @@
     <active pattern="id_table-wrap-foot"/>
   </phase>
 
+  <phase id="phase.rid_integrity">
+    <active pattern="rid_integrity"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -519,5 +523,18 @@
     <param name="base_context" value="//table-wrap-foot/fn"/>
     <param name="prefix" value="TFN"/>
   </pattern>
+
+  <pattern id="rid_integrity">
+    <title>
+      Make sure all references to identifiers are reachable.
+    </title>
+
+    <rule context="//xref[@rid]">
+      <assert test="@rid = //*/@id">
+        Element '<name/>', attribute rid: Mismatching id value '<value-of select="@rid"/>'.
+      </assert>
+    </rule>
+  </pattern>
 </schema>
+
 
