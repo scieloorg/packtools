@@ -125,6 +125,14 @@
     <active pattern="sectitle"/>
   </phase>
 
+  <phase id="phase.paragraph">
+    <active pattern="paragraph"/>
+  </phase>
+
+  <phase id="phase.disp-formula">
+    <active pattern="disp-formula"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -446,6 +454,31 @@
     <rule context="article/body/sec">
       <assert test="string-length(title) > 0">
         Element 'sec': Missing element title.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="paragraph">
+    <title>
+      Make sure paragraphs have no id attr.
+    </title>
+
+    <rule context="//p">
+      <assert test="not(@id)">
+        Element 'p': Unexpected attribute id.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="disp-formula">
+    <title></title>
+
+    <rule context="//disp-formula">
+      <assert test="starts-with(@id, 'e')">
+        Element 'disp-formula', attribute id: Wrong id prefix.    
+      </assert>
+      <assert test="count(//disp-formula[@id=current()/@id]) = 1">
+        Element 'disp-formula', attribute id: Duplicated id value.
       </assert>
     </rule>
   </pattern>

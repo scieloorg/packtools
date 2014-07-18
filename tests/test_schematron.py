@@ -2049,3 +2049,177 @@ class SecTitleTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ParagraphTests(unittest.TestCase):
+    """Tests for //p
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.paragraph')
+        return schematron.validate(etree.parse(sample))
+
+    def test_sec_without_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>Foo bar</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_sec_with_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p id="p01">Foo bar</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_body_without_id(self):
+        sample = """<article>
+                      <body>
+                        <p>Foo bar</p>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_body_with_id(self):
+        sample = """<article>
+                      <body>
+                        <p id="p01">Foo bar</p>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class ParagraphTests(unittest.TestCase):
+    """Tests for //disp-formula
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.disp-formula')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <disp-formula>
+                              <tex-math id="M1">
+                              </tex-math>
+                            </disp-formula>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <disp-formula id="x01">
+                              <tex-math id="M1">
+                              </tex-math>
+                            </disp-formula>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <disp-formula id="e01">
+                              <tex-math id="M1">
+                              </tex-math>
+                            </disp-formula>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <disp-formula id="e01">
+                              <tex-math id="M1">
+                              </tex-math>
+                            </disp-formula>
+                            <disp-formula id="e01">
+                              <tex-math id="M2">
+                              </tex-math>
+                            </disp-formula>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <disp-formula id="e01">
+                              <tex-math id="M1">
+                              </tex-math>
+                            </disp-formula>
+                            <disp-formula id="e02">
+                              <tex-math id="M2">
+                              </tex-math>
+                            </disp-formula>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
