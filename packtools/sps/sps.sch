@@ -470,18 +470,21 @@
     </rule>
   </pattern>
 
-  <pattern id="disp-formula">
+  <pattern abstract="true" id="id_uniqueness_and_prefix">
     <title></title>
 
-    <rule context="//disp-formula">
+    <rule context="$base_context">
       <assert test="starts-with(@id, 'e')">
         Element 'disp-formula', attribute id: Wrong id prefix.    
       </assert>
-      <assert test="count(//disp-formula[@id=current()/@id]) = 1">
+      <assert test="count($base_context[@id=current()/@id]) = 1">
         Element 'disp-formula', attribute id: Duplicated id value.
       </assert>
     </rule>
   </pattern>
 
+  <pattern is-a="id_uniqueness_and_prefix" id="disp-formula">
+    <param name="base_context" value="//disp-formula"/>
+  </pattern>
 </schema>
 
