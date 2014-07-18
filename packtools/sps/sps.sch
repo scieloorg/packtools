@@ -130,7 +130,15 @@
   </phase>
 
   <phase id="phase.disp-formula">
-    <active pattern="disp-formula"/>
+    <active pattern="id_disp-formula"/>
+  </phase>
+
+  <phase id="phase.table-wrap">
+    <active pattern="id_table-wrap"/>
+  </phase>
+
+  <phase id="phase.table-wrap-foot">
+    <active pattern="id_table-wrap-foot"/>
   </phase>
 
 
@@ -471,20 +479,45 @@
   </pattern>
 
   <pattern abstract="true" id="id_uniqueness_and_prefix">
-    <title></title>
+    <title>
+      Abstract pattern to check ids uniqueness and prefix.
+    </title>
 
     <rule context="$base_context">
-      <assert test="starts-with(@id, 'e')">
-        Element 'disp-formula', attribute id: Wrong id prefix.    
+      <assert test="starts-with(@id, '$prefix')">
+        Element 'disp-formula', attribute id: Wrong id prefix at '<value-of select="@id"/>'.    
       </assert>
       <assert test="count($base_context[@id=current()/@id]) = 1">
-        Element 'disp-formula', attribute id: Duplicated id value.
+        Element 'disp-formula', attribute id: Duplicated id value '<value-of select="current()/@id"/>'.
       </assert>
     </rule>
   </pattern>
 
-  <pattern is-a="id_uniqueness_and_prefix" id="disp-formula">
+  <pattern is-a="id_uniqueness_and_prefix" id="id_disp-formula">
+    <title>
+      Element disp-formula must have unique ids, prefixed with `e`.
+    </title>
+
     <param name="base_context" value="//disp-formula"/>
+    <param name="prefix" value="e"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_table-wrap">
+    <title>
+      Element table-wrap must have unique ids, prefixed with `t`.
+    </title>
+
+    <param name="base_context" value="//table-wrap"/>
+    <param name="prefix" value="t"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_table-wrap-foot">
+    <title>
+      Element table-wrap-foot/fn must have unique ids, prefixed with `TFN`.
+    </title>
+
+    <param name="base_context" value="//table-wrap-foot/fn"/>
+    <param name="prefix" value="TFN"/>
   </pattern>
 </schema>
 

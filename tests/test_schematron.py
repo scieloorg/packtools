@@ -2108,7 +2108,7 @@ class ParagraphTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ParagraphTests(unittest.TestCase):
+class DispFormulaTests(unittest.TestCase):
     """Tests for //disp-formula
     """
     def _run_validation(self, sample):
@@ -2214,6 +2214,245 @@ class ParagraphTests(unittest.TestCase):
                               <tex-math id="M2">
                               </tex-math>
                             </disp-formula>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class TableWrapTests(unittest.TestCase):
+    """Tests for //table-wrap
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.table-wrap')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap>
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap id="x01">
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap id="t01">
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap id="t01">
+                            </table-wrap>
+                            <table-wrap id="t01">
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap id="t01">
+                            </table-wrap>
+                            <table-wrap id="t02">
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class TableWrapFootTests(unittest.TestCase):
+    """Tests for //table-wrap-foot/fn
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.table-wrap-foot')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn>
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn id="KCF01">
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn id="TFN01">
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn id="TFN01">
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn id="TFN01">
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn id="TFN01">
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn id="TFN02">
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
                           </p>
                         </sec>
                       </body>
