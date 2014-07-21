@@ -62,7 +62,8 @@ class XML(object):
         if isinstance(file, etree._ElementTree):
             self.lxml = file
         else:
-            self.lxml = etree.parse(file)
+            parser = etree.XMLParser(remove_blank_text=True)
+            self.lxml = etree.parse(file, parser)
 
         self.xmlschema = XMLSchema('SciELO-journalpublishing1.xsd')
         self.schematron = XMLSchematron('sps.sch')
@@ -197,7 +198,10 @@ def main():
     parser.add_argument('xmlpath', help='Filesystem path or URL to the XML file.')
 
     args = parser.parse_args()
-    xml = XML(args.xmlpath)
+    try:
+        xml = XML(args.xmlpath)
+    except IOError:
+        sys.exit('Error reading %s. Make sure it is a valid file-path or URL.' % args.xmlpath)
 
     is_valid, errors = xml.validate()
     style_is_valid, style_errors = xml.validate_style()
