@@ -6,6 +6,7 @@ from tempfile import NamedTemporaryFile
 from lxml import etree, isoschematron
 
 from packtools import stylechecker
+from packtools.errors import StyleError
 
 
 # valid: <a><b></b></a>
@@ -83,41 +84,8 @@ class XMLTests(unittest.TestCase):
         xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
 
         _, errors = xml.validate()
-        self.assertIsInstance(errors, etree._ListErrorLog)
-
-    def test_find(self):
-        fp = etree.parse(StringIO(b'<a>\n<b>bar</b>\n</a>'))
-        xml = stylechecker.XML(fp)
-        xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
-
-        elem = xml.find_element('b', 2)
-        self.assertEqual(elem.tag, 'b')
-        self.assertEqual(elem.sourceline, 2)
-
-    def test_find_root_element(self):
-        fp = etree.parse(StringIO(b'<a>\n<b>bar</b>\n</a>'))
-        xml = stylechecker.XML(fp)
-        xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
-
-        elem = xml.find_element('a', 1)
-        self.assertEqual(elem.tag, 'a')
-        self.assertEqual(elem.sourceline, 1)
-
-    def test_find_missing(self):
-        fp = etree.parse(StringIO(b'<a>\n<b>bar</b>\n</a>'))
-        xml = stylechecker.XML(fp)
-        xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
-
-        # missing elements fallback to the root element
-        self.assertEquals(xml.find_element('c', 2), fp.getroot())
-
-    def test_find_missing_without_fallback(self):
-        fp = etree.parse(StringIO(b'<a>\n<b>bar</b>\n</a>'))
-        xml = stylechecker.XML(fp)
-        xml.xmlschema = etree.XMLSchema(etree.parse(sample_xsd))
-
-        # missing elements fallback to the root element
-        self.assertRaises(ValueError, lambda: xml.find_element('c', 2, fallback=False))
+        for error in errors:
+            self.assertIsInstance(error, StyleError)
 
     def test_annotate_errors(self):
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
@@ -158,29 +126,4 @@ class XMLTests(unittest.TestCase):
 
         self.assertIn("<!--SPS-ERROR: Element 'Total': Sum is not 100%.-->", xml_text)
         self.assertTrue(isinstance(xml_text, unicode))
-
-
-class ElementNamePatternTests(unittest.TestCase):
-    pattern = stylechecker.EXPOSE_ELEMENTNAME_PATTERN
-
-    def test_case1(self):
-        message = "Element 'article', attribute 'dtd-version': [facet 'enumeration'] The value '3.0' is not an element of the set {'1.0'}."
-        self.assertEqual(self.pattern.search(message).group(0), "'article'")
-
-
-    def test_case2(self):
-        message = "Element 'article', attribute 'dtd-version': '3.0' is not a valid value of the local atomic type."
-        self.assertEqual(self.pattern.search(message).group(0), "'article'")
-
-    def test_case3(self):
-        message = "Element 'author-notes': This element is not expected. Expected is one of ( label, title, ack, app-group, bio, fn-group, glossary, ref-list, notes, sec )."
-        self.assertEqual(self.pattern.search(message).group(0), "'author-notes'")
-
-    def test_case4(self):
-        message = "Element 'journal-title-group': This element is not expected. Expected is ( journal-id )."
-        self.assertEqual(self.pattern.search(message).group(0), "'journal-title-group'")
-
-    def test_case5(self):
-        message = "Element 'contrib-group': This element is not expected. Expected is one of ( article-id, article-categories, title-group )."
-        self.assertEqual(self.pattern.search(message).group(0), "'contrib-group'")
 

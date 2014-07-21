@@ -1,4 +1,3 @@
-import re
 import os
 import logging
 import itertools
@@ -6,7 +5,8 @@ import itertools
 from lxml import etree, isoschematron
 
 from packtools.utils import setdefault
-from packtools.checks import StyleCheckingPipeline, StyleError
+from packtools.checks import StyleCheckingPipeline
+from packtools.errors import SchematronStyleError, SchemaStyleError
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -14,7 +14,6 @@ SCHEMAS = {
     'SciELO-journalpublishing1.xsd': os.path.join(HERE, 'sps', 'xsd', 'sps.xsd'),
     'sps.sch': os.path.join(HERE, 'sps', 'sps.sch'),
 }
-EXPOSE_ELEMENTNAME_PATTERN = re.compile(r"(?<=Element )'.*?'")
 
 logger = logging.getLogger(__name__)
 
@@ -33,18 +32,6 @@ def XMLSchematron(schema_name):
 
     schematron = isoschematron.Schematron(xmlschema_doc)
     return schematron
-
-
-def search_element_name(message):
-    """Try to locate in `message` the element name pointed as error.
-
-    :param message: is a lxml error log message.
-    """
-    match = EXPOSE_ELEMENTNAME_PATTERN.search(message)
-    if match is None:
-        raise ValueError('Could not locate the element name in %s.' % message)
-    else:
-        return match.group(0).strip("'")
 
 
 class XML(object):
@@ -69,41 +56,16 @@ class XML(object):
         self.schematron = XMLSchematron('sps.sch')
         self.ppl = StyleCheckingPipeline()
 
-    def find_element(self, tagname, lineno=None, fallback=True):
-        """Find an element given a tagname and a line number.
-
-        If no element is found than the return value is None.
-        :param tagname: string of the tag name.
-        :param lineno: int if the line it appears on the original source file.
-        :param fallback: fallback to root element when `element` is not found.
-        """
-        for elem in self.lxml.findall('//' + tagname):
-            if lineno is None:
-                return elem
-
-            elif elem.sourceline == lineno:
-                logger.debug('method *find*: hit a regular element: %s.' % tagname)
-                return elem
-
-            else:
-                continue
-        else:
-            root = self.lxml.getroot()
-            if fallback:
-                return root
-            elif root.tag == tagname:
-                logger.debug('method *find*: hit a root element.')
-                return root
-            else:
-                raise ValueError("Could not find element '%s'." % tagname)
-
     def validate(self):
         """Validate the source XML against the JATS Publishing Schema.
 
         Returns a tuple comprising the validation status and the errors list.
         """
+        def make_error_log():
+            return [SchemaStyleError(err) for err in self.xmlschema.error_log]
+
         result = setdefault(self, '__validation_result', lambda: self.xmlschema.validate(self.lxml))
-        errors = setdefault(self, '__validation_errors', lambda: self.xmlschema.error_log)
+        errors = setdefault(self, '__validation_errors', make_error_log)
         return result, errors
 
     def _validate_sch(self):
@@ -113,7 +75,7 @@ class XML(object):
         """
         def make_error_log():
             err_log = self.schematron.error_log
-            return [StyleError.from_schematron_errlog(err) for err in err_log]
+            return [SchematronStyleError(err) for err in err_log]
 
         result = setdefault(self, '__sch_validation_result', lambda: self.schematron.validate(self.lxml))
         errors = setdefault(self, '__sch_validation_errors', make_error_log)
@@ -159,16 +121,10 @@ class XML(object):
 
         for error in itertools.chain(v_errors, s_errors):
             try:
-                element_name = search_element_name(error.message)
+                err_element = error.get_apparent_element(self.lxml)
             except ValueError:
-                # could not find the element name
                 logger.info('Could not locate the element name in: %s' % error.message)
-                continue
-
-            if error.line is None:
-                err_element = self.find_element(element_name)
-            else:
-                err_element = self.find_element(element_name, lineno=error.line)
+                err_element = self.lxml.getroot()
 
             self._annotate_error(err_element, error.message)
 
