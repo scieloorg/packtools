@@ -2590,3 +2590,125 @@ class CaptionTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class LicenseTests(unittest.TestCase):
+    """Tests for article/front/article-meta/permissions/license element.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.license')
+        return schematron.validate(etree.parse(sample))
+
+    def test_missing_permissions_elem(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_license(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_allowed_license_type(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_license_type(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="closed-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_allowed_license_href(self):
+        allowed_licenses = [
+            'http://creativecommons.org/licenses/by-nc/4.0/',
+            'http://creativecommons.org/licenses/by-nc/3.0/',
+            'http://creativecommons.org/licenses/by/4.0/',
+            'http://creativecommons.org/licenses/by/3.0/',
+        ]
+
+        for license in allowed_licenses:
+            sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <front>
+                            <article-meta>
+                              <permissions>
+                                <license license-type="open-access"
+                                         xlink:href="%s">
+                                  <license-p>
+                                    This is an open-access article distributed under the terms...
+                                  </license-p>
+                                </license>
+                              </permissions>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % license
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_license_href(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://opensource.org/licenses/MIT">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+

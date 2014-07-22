@@ -2,6 +2,7 @@
 <schema xmlns="http://purl.oclc.org/dsdl/schematron"
         queryBinding="xslt"
         xml:lang="en">
+  <ns uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
   <p>
   *******************************************************************************
    THINGS TO BE SURE BEFORE EDITING THIS FILE!
@@ -147,6 +148,10 @@
 
   <phase id="phase.caption">
     <active pattern="caption_title"/>
+  </phase>
+
+  <phase id="phase.license">
+    <active pattern="license"/>
   </phase>
 
 
@@ -548,6 +553,37 @@
     <rule context="//caption">
       <assert test="title and string-length(title) > 0">
         Element 'caption': Missing element title.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="license">
+    <title>
+      Make sure the document has a permissions element, and a valid
+      license (represented as a known href).
+
+      Valid licenses are:
+        - http://creativecommons.org/licenses/by-nc/4.0/
+        - http://creativecommons.org/licenses/by-nc/3.0/
+        - http://creativecommons.org/licenses/by/4.0/
+        - http://creativecommons.org/licenses/by/3.0/
+    </title>
+
+    <rule context="article/front/article-meta">
+      <assert test="permissions">
+        Element 'article-meta': Missing element permissions.
+      </assert>
+    </rule>
+
+    <rule context="article/front/article-meta/permissions">
+      <assert test="license/@license-type = 'open-access'">
+        Element 'license', attribute license-type: Invalid value '<value-of select="license/@license-type"/>'.
+      </assert>
+      <assert test="license/@xlink:href = 'http://creativecommons.org/licenses/by-nc/4.0/' or 
+                    license/@xlink:href = 'http://creativecommons.org/licenses/by-nc/3.0/' or
+                    license/@xlink:href = 'http://creativecommons.org/licenses/by/4.0/' or
+                    license/@xlink:href = 'http://creativecommons.org/licenses/by/3.0/'">
+        Element 'license', attribute xlink:href: Invalid value '<value-of select="license/@xlink:href"/>'.
       </assert>
     </rule>
   </pattern>
