@@ -366,7 +366,7 @@
       <assert test="@pub-type = 'epub' or
                     @pub-type = 'epub-ppub' or
                     @pub-type = 'collection'">
-        Element 'pub-date', attribute pub-type: Invalid value "<value-of select="@fn-type"/>".
+        Element 'pub-date', attribute pub-type: Invalid value "<value-of select="@pub-type"/>".
       </assert>
     </rule>
   </pattern>
