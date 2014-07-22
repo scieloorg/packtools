@@ -2,6 +2,7 @@ import hmac
 import types
 import hashlib
 import logging
+import functools
 
 
 logger = logging.getLogger(__name__)
@@ -61,4 +62,21 @@ def setdefault(object, attribute, producer):
         setattr(object, attribute, producer())
 
     return getattr(object, attribute)
+
+
+def cachedmethod(wrappee):
+    """Caches method calls within known arguments.
+    """
+    @functools.wraps(wrappee)
+    def wrapper(self, *args, **kwargs):
+        key = (args, tuple(kwargs.items()))
+        cache_attrname = '__' + wrappee.__name__
+
+        cache = setdefault(self, cache_attrname, lambda: {})
+        if key not in cache:
+            cache[key] = wrappee(self, *args, **kwargs)
+
+        return cache[key]
+
+    return wrapper
 

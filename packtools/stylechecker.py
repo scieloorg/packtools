@@ -4,7 +4,7 @@ import itertools
 
 from lxml import etree, isoschematron
 
-from packtools.utils import setdefault
+from packtools.utils import cachedmethod
 from packtools.checks import StyleCheckingPipeline
 from packtools.errors import SchematronStyleError, SchemaStyleError
 
@@ -56,6 +56,7 @@ class XML(object):
         self.schematron = XMLSchematron('sps.sch')
         self.ppl = StyleCheckingPipeline()
 
+    @cachedmethod
     def validate(self):
         """Validate the source XML against the JATS Publishing Schema.
 
@@ -64,10 +65,11 @@ class XML(object):
         def make_error_log():
             return [SchemaStyleError(err) for err in self.xmlschema.error_log]
 
-        result = setdefault(self, '__validation_result', lambda: self.xmlschema.validate(self.lxml))
-        errors = setdefault(self, '__validation_errors', make_error_log)
+        result = self.xmlschema.validate(self.lxml)
+        errors = make_error_log()
         return result, errors
 
+    @cachedmethod
     def _validate_sch(self):
         """Validate the source XML against the SPS Schematron.
 
@@ -77,10 +79,11 @@ class XML(object):
             err_log = self.schematron.error_log
             return [SchematronStyleError(err) for err in err_log]
 
-        result = setdefault(self, '__sch_validation_result', lambda: self.schematron.validate(self.lxml))
-        errors = setdefault(self, '__sch_validation_errors', make_error_log)
+        result = self.schematron.validate(self.lxml)
+        errors = make_error_log()
         return result, errors
 
+    @cachedmethod
     def validate_style(self):
         """Validate the source XML against the SPS Tagging guidelines.
 
@@ -91,8 +94,8 @@ class XML(object):
             errors += self._validate_sch()[1]
             return errors
 
-        errors = setdefault(self, '__style_validation_result', make_error_log)
-        result = setdefault(self, '__style_validation_errors', lambda: not bool(errors))
+        errors = make_error_log()
+        result = not bool(errors)
         return result, errors
 
     def _annotate_error(self, element, error):
