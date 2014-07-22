@@ -576,14 +576,20 @@
     </rule>
 
     <rule context="article/front/article-meta/permissions">
-      <assert test="license/@license-type = 'open-access'">
-        Element 'license', attribute license-type: Invalid value '<value-of select="license/@license-type"/>'.
+      <assert test="license">
+        Element 'permissions': Missing element license.
       </assert>
-      <assert test="license/@xlink:href = 'http://creativecommons.org/licenses/by-nc/4.0/' or 
-                    license/@xlink:href = 'http://creativecommons.org/licenses/by-nc/3.0/' or
-                    license/@xlink:href = 'http://creativecommons.org/licenses/by/4.0/' or
-                    license/@xlink:href = 'http://creativecommons.org/licenses/by/3.0/'">
-        Element 'license', attribute xlink:href: Invalid value '<value-of select="license/@xlink:href"/>'.
+    </rule>
+
+    <rule context="article/front/article-meta/permissions/license">
+      <assert test="@license-type = 'open-access'">
+        Element 'license', attribute license-type: Invalid value '<value-of select="@license-type"/>'.
+      </assert>
+      <assert test="@xlink:href = 'http://creativecommons.org/licenses/by-nc/4.0/' or 
+                    @xlink:href = 'http://creativecommons.org/licenses/by-nc/3.0/' or
+                    @xlink:href = 'http://creativecommons.org/licenses/by/4.0/' or
+                    @xlink:href = 'http://creativecommons.org/licenses/by/3.0/'">
+        Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
       </assert>
     </rule>
   </pattern>
