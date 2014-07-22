@@ -2522,3 +2522,71 @@ class XrefRidTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class CaptionTests(unittest.TestCase):
+    """Tests for //caption
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.caption')
+        return schematron.validate(etree.parse(sample))
+
+    def test_with_title(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <fig id="f03">
+                          <label>Figura 3</label>
+                          <caption>
+                            <title>
+                              Percentual de atividade mitocondrial.
+                            </title>
+                          </caption>
+                          <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                        </fig>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_without_title(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <fig id="f03">
+                          <label>Figura 3</label>
+                          <caption>
+                            <label>
+                              Percentual de atividade mitocondrial.
+                            </label>
+                          </caption>
+                          <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                        </fig>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_with_title_and_more(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <fig id="f03">
+                          <label>Figura 3</label>
+                          <caption>
+                            <title>
+                              Percentual de atividade mitocondrial.
+                            </title>
+                            <label>
+                              Percentual de atividade mitocondrial.
+                            </label>
+                          </caption>
+                          <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                        </fig>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

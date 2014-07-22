@@ -145,6 +145,10 @@
     <active pattern="rid_integrity"/>
   </phase>
 
+  <phase id="phase.caption">
+    <active pattern="caption_title"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -532,6 +536,18 @@
     <rule context="//xref[@rid]">
       <assert test="@rid = //*/@id">
         Element '<name/>', attribute rid: Mismatching id value '<value-of select="@rid"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="caption_title">
+    <title>
+      Make sure all captions have a title element.
+    </title>
+
+    <rule context="//caption">
+      <assert test="title and string-length(title) > 0">
+        Element 'caption': Missing element title.
       </assert>
     </rule>
   </pattern>
