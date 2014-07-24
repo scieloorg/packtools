@@ -6,7 +6,7 @@ from tempfile import NamedTemporaryFile
 from lxml import etree, isoschematron
 
 from packtools import stylechecker
-from packtools.errors import StyleError
+from packtools.adapters import StyleError
 
 
 # valid: <a><b></b></a>

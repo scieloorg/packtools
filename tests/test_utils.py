@@ -3,6 +3,7 @@ import unittest
 
 from packtools import utils
 
+
 class CachedMethodTests(unittest.TestCase):
     def test_without_params(self):
 

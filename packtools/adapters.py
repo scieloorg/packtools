@@ -1,10 +1,11 @@
+#coding: utf-8
 import re
 import logging
 from StringIO import StringIO
 
 from lxml import etree
 
-from packtools.utils import setdefault
+from .utils import setdefault
 
 
 logger = logging.getLogger(__name__)

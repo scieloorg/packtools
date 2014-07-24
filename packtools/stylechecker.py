@@ -1,3 +1,4 @@
+#coding: utf-8
 import os
 import logging
 import itertools
@@ -6,7 +7,7 @@ from lxml import etree, isoschematron
 
 from packtools.utils import cachedmethod
 from packtools.checks import StyleCheckingPipeline
-from packtools.errors import SchematronStyleError, SchemaStyleError
+from packtools.adapters import SchematronStyleError, SchemaStyleError
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
