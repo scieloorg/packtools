@@ -226,17 +226,9 @@
     </rule>
 
     <rule context="article/front/article-meta/article-id">
-      <assert test="@pub-id-type='art-access-id' or
-                    @pub-id-type='arxiv' or 
-                    @pub-id-type='doaj' or 
-                    @pub-id-type='doi' or 
-                    @pub-id-type='isbn' or 
-                    @pub-id-type='pmcid' or 
-                    @pub-id-type='pmid' or 
-                    @pub-id-type='publisher-id' or 
-                    @pub-id-type='publisher-manuscript' or 
-                    @pub-id-type='sici' or 
-                    @pub-id-type='other'">
+        <assert test="@pub-id-type='doi' or 
+                      @pub-id-type='other' or 
+                      @pub-id-type='publisher-id'">
         Element 'article-id', attribute pub-id-type: Invalid value "<value-of select="@pub-id-type"/>".
       </assert>
     </rule>

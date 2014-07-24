@@ -542,8 +542,7 @@ class ArticleIdTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_valid_pub_id_type_values(self):
-        for typ in ['art-access-id', 'arxiv', 'doaj', 'doi', 'isbn', 'pmcid',
-                    'pmid', 'publisher-id', 'publisher-manuscript', 'sici', 'other']:
+        for typ in ['doi', 'publisher-id', 'other']:
             sample = """<article>
                           <front>
                             <article-meta>
