@@ -306,7 +306,7 @@
     </title>
 
     <rule context="article">
-      <assert test="front/article-meta/counts/table-count/@count = count(//table)">
+      <assert test="front/article-meta/counts/table-count/@count = count(//table-wrap)">
         Element 'counts': Missing element or wrong value in table-count.
       </assert>
       <assert test="front/article-meta/counts/ref-count/@count = count(//ref)">

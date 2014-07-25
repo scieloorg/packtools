@@ -1256,25 +1256,59 @@ class CountsTests(unittest.TestCase):
                       <body>
                         <sec>
                           <p>
-                            <table frame="hsides" rules="groups">
-                              <colgroup width="25%"><col/><col/><col/><col/></colgroup>
-                              <thead>
-                                <tr>
-                                  <th style="font-weight:normal" align="left">Modelo</th>
-                                  <th style="font-weight:normal">Estrutura</th>
-                                  <th style="font-weight:normal">Processos</th>
-                                  <th style="font-weight:normal">Resultados</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td valign="top">SIPA<sup>1,2</sup></td>
-                                  <td valign="top">Urgência e hospitalar.</td>
-                                  <td valign="top">Realiza triagem para fragilidade.</td>
-                                  <td valign="top">Maior gasto comunitário, menor gasto.</td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <table-wrap>
+                              <table frame="hsides" rules="groups">
+                                <colgroup width="25%"><col/><col/><col/><col/></colgroup>
+                                <thead>
+                                  <tr>
+                                    <th style="font-weight:normal" align="left">Modelo</th>
+                                    <th style="font-weight:normal">Estrutura</th>
+                                    <th style="font-weight:normal">Processos</th>
+                                    <th style="font-weight:normal">Resultados</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td valign="top">SIPA<sup>1,2</sup></td>
+                                    <td valign="top">Urgência e hospitalar.</td>
+                                    <td valign="top">Realiza triagem para fragilidade.</td>
+                                    <td valign="top">Maior gasto comunitário, menor gasto.</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_tables_as_graphic(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="1"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="0"/>
+                          </counts>
+                          <fpage>0</fpage>
+                          <lpage>0</lpage>
+                        </article-meta>
+                      </front>
+                      <body>
+                        <sec>
+                          <p>
+                            <table-wrap id="t01">
+                              <graphic mimetype="image"
+                                       xlink:href="1414-431X-bjmbr-1414-431X20142875-gt001">
+                              </graphic>
+                            </table-wrap>
                           </p>
                         </sec>
                       </body>
