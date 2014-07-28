@@ -86,10 +86,18 @@ def find_contract_numbers(et):
     found_contracts = {}
     for occ in fn_occs:
         res_element = found_contracts.setdefault('fn', [])
-        res_element += _find_contract_numbers(occ.text)
+        try:
+            res_element += _find_contract_numbers(occ.text)
+        except TypeError:
+            # skip when occ.text is None
+            pass
     for occ in ack_occs:
         res_element = found_contracts.setdefault('ack', [])
-        res_element += _find_contract_numbers(occ.text)
+        try:
+            res_element += _find_contract_numbers(occ.text)
+        except TypeError:
+            # skip when occ.text is None
+            pass
 
     return found_contracts
 
