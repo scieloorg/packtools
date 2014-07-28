@@ -161,6 +161,10 @@
     <active pattern="ack"/>
   </phase>
 
+  <phase id="phase.element-citation">
+    <active pattern="element-citation"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -623,6 +627,23 @@
     </rule>
   </pattern>
 
+  <pattern id="element-citation">
+    <title>
+      Make sure name, etal and collab are not child of element-citation.
+    </title>
+
+    <rule context="article/back/ref-list/ref/element-citation">
+      <assert test="not(name)">
+        Element '<name/>': Unexpected element name.
+      </assert>
+      <assert test="not(etal)">
+        Element '<name/>': Unexpected element etal.
+      </assert>
+      <assert test="not(collab)">
+        Element '<name/>': Unexpected element collab.
+      </assert>
+    </rule>
+  </pattern>
 </schema>
 
 
