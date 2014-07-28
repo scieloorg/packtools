@@ -2967,3 +2967,49 @@ class ElementCitationTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class PersonGroupTests(unittest.TestCase):
+    """Tests for article/back/ref-list/ref/element-citation/person-group element.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.person-group')
+        return schematron.validate(etree.parse(sample))
+
+    def test_missing_type(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <person-group>
+                                <name>Foo</name>
+                              </person-group>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_with_type(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <person-group person-group-type="author">
+                                <name>Foo</name>
+                              </person-group>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

@@ -165,6 +165,10 @@
     <active pattern="element-citation"/>
   </phase>
 
+  <phase id="phase.person-group">
+    <active pattern="person-group"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -641,6 +645,18 @@
       </assert>
       <assert test="not(collab)">
         Element '<name/>': Unexpected element collab.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="person-group">
+    <title>
+      Make sure person-group-type is present.
+    </title>
+
+    <rule context="article/back/ref-list/ref/element-citation/person-group">
+      <assert test="@person-group-type">
+        Element 'person-group': Missing attribute person-group-type.
       </assert>
     </rule>
   </pattern>
