@@ -3013,3 +3013,44 @@ class PersonGroupTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class PersonGroupTests(unittest.TestCase):
+    """Tests for article/back/ref-list/ref/element-citation/person-group element.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.person-group')
+        return schematron.validate(etree.parse(sample))
+
+    def test_allowed_fn_types(self):
+        for fn_type in ['abbr', 'com', 'financial-disclosure', 'supported-by',
+                'presented-at', 'supplementary-material', 'other']:
+
+            sample = """<article>
+                          <back>
+                            <fn-group>
+                              <fn fn-type="%s">
+                                <p>foobar</p>
+                              </fn>
+                            </fn-group>
+                          </back>
+                        </article>
+                     """ % fn_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_fn_types(self):
+        sample = """<article>
+                      <back>
+                        <fn-group>
+                          <fn fn-type="invalid">
+                            <p>foobar</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
