@@ -169,6 +169,10 @@
     <active pattern="person-group"/>
   </phase>
 
+  <phase id="phase.fn-group">
+    <active pattern="fn-group"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -657,6 +661,24 @@
     <rule context="article/back/ref-list/ref/element-citation/person-group">
       <assert test="@person-group-type">
         Element 'person-group': Missing attribute person-group-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="fn-group">
+    <title>
+      Make sure fn-type is valid against a white list.
+    </title>
+
+    <rule context="article/back/fn-group/fn">
+      <assert test="@fn-type = 'abbr' or
+                    @fn-type = 'com' or 
+                    @fn-type = 'financial-disclosure' or
+                    @fn-type = 'supported-by' or
+                    @fn-type = 'presented-at' or
+                    @fn-type = 'supplementary-material' or
+                    @fn-type = 'other'">
+        Element 'fn', attribute fn-type: Invalid value '<value-of select="@fn-type"/>'.
       </assert>
     </rule>
   </pattern>

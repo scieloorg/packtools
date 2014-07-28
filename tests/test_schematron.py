@@ -3014,11 +3014,11 @@ class PersonGroupTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class PersonGroupTests(unittest.TestCase):
-    """Tests for article/back/ref-list/ref/element-citation/person-group element.
+class FNGroupTests(unittest.TestCase):
+    """Tests for article/back/fn-group/fn element.
     """
     def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.person-group')
+        schematron = isoschematron.Schematron(SCH, phase='phase.fn-group')
         return schematron.validate(etree.parse(sample))
 
     def test_allowed_fn_types(self):
