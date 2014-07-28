@@ -511,10 +511,10 @@
 
     <rule context="$base_context">
       <assert test="starts-with(@id, '$prefix')">
-        Element 'disp-formula', attribute id: Wrong id prefix at '<value-of select="@id"/>'.    
+        Element '<name/>', attribute id: Wrong id prefix at '<value-of select="@id"/>'.    
       </assert>
       <assert test="count($base_context[@id=current()/@id]) = 1">
-        Element 'disp-formula', attribute id: Duplicated id value '<value-of select="current()/@id"/>'.
+        Element '<name/>', attribute id: Duplicated id value '<value-of select="current()/@id"/>'.
       </assert>
     </rule>
   </pattern>
