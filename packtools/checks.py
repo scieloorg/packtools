@@ -128,7 +128,8 @@ def funding_group(message):
 
     found_contracts = find_contract_numbers(et)
 
-    has_explicit_contract = bool(found_contracts)
+    has_explicit_contract = bool(found_contracts.get('fn', None) or
+                                 found_contracts.get('ack', None))
     has_funding_group = bool(et.findall('//funding-group'))
 
     if has_explicit_contract != has_funding_group:

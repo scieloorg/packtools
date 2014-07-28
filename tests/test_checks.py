@@ -207,6 +207,20 @@ class AwardIdMatchingTests(unittest.TestCase):
         # Trying to eliminate false positives.
         self.assertEqual(checks._find_contract_numbers(text), [expected])
 
+    @unittest.skip('# should not be part of the contract number. waiting for confirmation.')
+    def test_case12(self):
+        """Appears in <ack> element.
+        """
+        text = u'Research supported by FAPESP (#2000/08755-0), CNPq (#301483/2006-0) and FUNDECT (#0248/12).'
+        expected = ['#2000/08755-0', '#301483/2006-0', '#0248/12']
+
+        matches = self.pattern.findall(text)
+        self.assertEqual(len(matches), 3)
+        self.assertEqual(sorted(matches), sorted(expected))
+
+        # Trying to eliminate false positives.
+        self.assertEqual(checks._find_contract_numbers(text), expected)
+
 
 class FindContractNumbersTests(unittest.TestCase):
     def test_contract_numbers_in_fn_element(self):

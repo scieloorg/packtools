@@ -162,6 +162,8 @@ def main():
         xml = XML(args.xmlpath)
     except IOError:
         sys.exit('Error reading %s. Make sure it is a valid file-path or URL.' % args.xmlpath)
+    except etree.XMLSyntaxError as e:
+        sys.exit('Error reading %s. Syntax error: %s' % (args.xmlpath, e.message))
 
     is_valid, errors = xml.validate()
     style_is_valid, style_errors = xml.validate_style()
