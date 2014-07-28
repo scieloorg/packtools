@@ -67,6 +67,9 @@
 
   <phase id="phase.subj-group">
     <active pattern="subj_group"/>
+    <active pattern="subj_group_subarticle_pt"/>
+    <active pattern="subj_group_subarticle_es"/>
+    <active pattern="subj_group_subarticle_en"/>
   </phase>
 
   <phase id="phase.abstract_lang">
@@ -234,12 +237,30 @@
     </rule>
   </pattern>
 
-  <pattern id="subj_group">
-    <rule context="article/front/article-meta/article-categories">
-      <assert test="count(//subj-group[@subj-group-type='heading']) = 1">
-        Element 'article-categories': There must be only one element subj-group with subj-group-type="heading".
+  <pattern abstract="true" id="subj_group_base">
+    <title>
+      Make sure only one heading is provided per language, in subj-group.
+    </title>
+
+    <rule context="$base_context">
+      <assert test="count(subj-group[@subj-group-type='heading'] | subj-group//subj-group[@subj-group-type='heading']) = 1">
+        Element '<name/>': There must be only one element subj-group with subj-group-type="heading".
       </assert>
     </rule>
+  </pattern>
+
+  <pattern is-a="subj_group_base" id="subj_group">
+    <param name="base_context" value="article/front/article-meta/article-categories"/>
+  </pattern>
+
+  <pattern is-a="subj_group_base" id="subj_group_subarticle_pt">
+    <param name="base_context" value="article/sub-article[@xml:lang='pt']/front-stub/article-categories"/>
+  </pattern>
+  <pattern is-a="subj_group_base" id="subj_group_subarticle_es">
+    <param name="base_context" value="article/sub-article[@xml:lang='es']/front-stub/article-categories"/>
+  </pattern>
+  <pattern is-a="subj_group_base" id="subj_group_subarticle_en">
+    <param name="base_context" value="article/sub-article[@xml:lang='en']/front-stub/article-categories"/>
   </pattern>
 
   <pattern id="abstract">

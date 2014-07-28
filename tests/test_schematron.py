@@ -629,6 +629,75 @@ class SubjGroupTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_with_heading_in_subarticle_pt(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-categories>
+                            <subj-group subj-group-type="heading">
+                              <subject>
+                                Original Article
+                              </subject>
+                              <subj-group>
+                                <subject content-type="neurosci">
+                                  Blood and brain barrier
+                                </subject>
+                              </subj-group>
+                            </subj-group>
+                          </article-categories>
+                        </article-meta>
+                      </front>
+                      <sub-article xml:lang="pt" article-type="translation" id="S01">
+                        <front-stub>
+                          <article-categories>
+                            <subj-group subj-group-type="heading">
+                              <subject>Artigos Originais</subject>
+                            </subj-group>
+                          </article-categories>
+                        </front-stub>
+                      </sub-article>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_with_many_heading_in_subarticle_pt(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <article-categories>
+                            <subj-group subj-group-type="heading">
+                              <subject>
+                                Original Article
+                              </subject>
+                              <subj-group>
+                                <subject content-type="neurosci">
+                                  Blood and brain barrier
+                                </subject>
+                              </subj-group>
+                            </subj-group>
+                          </article-categories>
+                        </article-meta>
+                      </front>
+                      <sub-article xml:lang="pt" article-type="translation" id="S01">
+                        <front-stub>
+                          <article-categories>
+                            <subj-group subj-group-type="heading">
+                              <subject>Artigos Originais</subject>
+                            </subj-group>
+                            <subj-group subj-group-type="heading">
+                              <subject>Artigos Piratas</subject>
+                            </subj-group>
+                          </article-categories>
+                        </front-stub>
+                      </sub-article>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_with_heading_type_in_the_deep(self):
         sample = """<article>
                       <front>
