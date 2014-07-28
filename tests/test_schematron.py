@@ -2814,3 +2814,40 @@ class LicenseTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class AckTests(unittest.TestCase):
+    """Tests for article/back/ack element.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.ack')
+        return schematron.validate(etree.parse(sample))
+
+    def test_with_sec(self):
+        sample = """<article>
+                      <back>
+                        <ack>
+                          <sec>
+                            <p>Some</p>
+                          </sec>
+                        </ack>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_without_sec(self):
+        sample = """<article>
+                      <back>
+                        <ack>
+                          <title>Acknowledgment</title>
+                          <p>Some text</p>
+                        </ack>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

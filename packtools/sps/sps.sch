@@ -157,6 +157,10 @@
     <active pattern="license"/>
   </phase>
 
+  <phase id="phase.ack">
+    <active pattern="ack"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -606,6 +610,19 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="ack">
+    <title>
+      Ack elements cannot be organized as sections (sec).
+    </title>
+
+    <rule context="article/back/ack">
+      <assert test="not(sec)">
+          Element 'ack': Unexpected element sec.
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
 
 
