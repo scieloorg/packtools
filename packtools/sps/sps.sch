@@ -173,6 +173,10 @@
     <active pattern="fn-group"/>
   </phase>
 
+  <phase id="phase.xhtml-table">
+    <active pattern="xhtml-table"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -682,6 +686,22 @@
                     @fn-type = 'supplementary-material' or
                     @fn-type = 'other'">
         Element 'fn', attribute fn-type: Invalid value '<value-of select="@fn-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="xhtml-table">
+    <title>
+      Tables should be fully tagged. tr elements are not supposed to be declared
+      upon the toplevel.
+    </title>
+
+    <rule context="//table">
+      <assert test="not(tr)">
+        Element 'table': Unexpected element tr.
+      </assert>
+      <assert test="not(tbody//th)">
+        Element 'table': Unexpected element th.
       </assert>
     </rule>
   </pattern>

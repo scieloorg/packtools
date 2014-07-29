@@ -3054,3 +3054,91 @@ class FNGroupTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class XHTMLTableTests(unittest.TestCase):
+    """Tests for //table elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.xhtml-table')
+        return schematron.validate(etree.parse(sample))
+
+    def test_valid_toplevel(self):
+        for elem in ['caption', 'summary', 'col', 'colgroup', 'thead', 'tfoot', 'tbody']:
+
+            sample = """<article>
+                          <body>
+                            <sec>
+                              <p>
+                                <table>
+                                  <%s></%s>
+                                </table>
+                              </p>
+                            </sec>
+                          </body>
+                        </article>
+                     """ % (elem, elem)
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_invalid_toplevel(self):
+        for elem in ['tr']:
+
+            sample = """<article>
+                          <body>
+                            <sec>
+                              <p>
+                                <table>
+                                  <%s></%s>
+                                </table>
+                              </p>
+                            </sec>
+                          </body>
+                        </article>
+                     """ % (elem, elem)
+            sample = StringIO(sample)
+
+            self.assertFalse(self._run_validation(sample))
+
+    def test_th_upon_tbody(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <table>
+                              <tbody>
+                                <tr>
+                                  <th>Foo</th>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_th_upon_thead(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>Foo</th>
+                                </tr>
+                              </thead>
+                            </table>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
