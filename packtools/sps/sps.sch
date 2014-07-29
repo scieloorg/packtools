@@ -278,6 +278,9 @@
   <pattern is-a="subj_group_base" id="subj_group_subarticle_en">
     <param name="base_context" value="article/sub-article[@xml:lang='en']/front-stub/article-categories"/>
   </pattern>
+  <pattern is-a="subj_group_base" id="subj_group_subarticle_fr">
+    <param name="base_context" value="article/sub-article[@xml:lang='fr']/front-stub/article-categories"/>
+  </pattern>
 
   <pattern id="abstract">
     <rule context="article[@article-type='research-article'] | article[@article-type='review-article']">
