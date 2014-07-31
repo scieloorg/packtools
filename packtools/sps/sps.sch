@@ -145,6 +145,30 @@
     <active pattern="id_table-wrap-foot"/>
   </phase>
 
+  <phase id="phase.fig">
+    <active pattern="id_fig"/>
+  </phase>
+
+  <phase id="phase.app">
+    <active pattern="id_app"/>
+  </phase>
+
+  <phase id="phase.aff_id">
+    <active pattern="id_aff"/>
+  </phase>
+
+  <phase id="phase.supplementary-material_id">
+    <active pattern="id_supplementary-material"/>
+  </phase>
+
+  <phase id="phase.ref_id">
+    <active pattern="id_ref"/>
+  </phase>
+  
+  <phase id="phase.def-list_id">
+    <active pattern="id_def-list"/>
+  </phase>
+
   <phase id="phase.rid_integrity">
     <active pattern="rid_integrity"/>
   </phase>
@@ -177,6 +201,9 @@
     <active pattern="xhtml-table"/>
   </phase>
 
+  <phase id="phase.supplementary-material">
+    <active pattern="supplementary-material_mimetype"/>
+  </phase>
 
   <!--
    Patterns - sets of rules.
@@ -569,6 +596,60 @@
     <param name="prefix" value="TFN"/>
   </pattern>
 
+  <pattern is-a="id_uniqueness_and_prefix" id="id_fig">
+    <title>
+      Element fig must have unique ids, prefixed with `f`.
+    </title>
+
+    <param name="base_context" value="//fig"/>
+    <param name="prefix" value="f"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_app">
+    <title>
+      Element app must have unique ids, prefixed with `app`.
+    </title>
+
+    <param name="base_context" value="//app"/>
+    <param name="prefix" value="app"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_aff">
+    <title>
+      Element aff must have unique ids, prefixed with `aff`.
+    </title>
+
+    <param name="base_context" value="//aff"/>
+    <param name="prefix" value="aff"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_supplementary-material">
+    <title>
+      Element supplementary-material must have unique ids, prefixed with `suppl`.
+    </title>
+
+    <param name="base_context" value="//supplementary-material"/>
+    <param name="prefix" value="suppl"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_ref">
+    <title>
+      Element ref must have unique ids, prefixed with `B`.
+    </title>
+
+    <param name="base_context" value="//ref"/>
+    <param name="prefix" value="B"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_def-list">
+    <title>
+      Element def-list must have unique ids, prefixed with `d`.
+    </title>
+
+    <param name="base_context" value="//def-list"/>
+    <param name="prefix" value="d"/>
+  </pattern>
+
   <pattern id="rid_integrity">
     <title>
       Make sure all references to identifiers are reachable.
@@ -702,6 +783,21 @@
       </assert>
       <assert test="not(tbody//th)">
         Element 'table': Unexpected element th.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="supplementary-material_mimetype">
+    <title>
+      The attributes mimetype and mime-subtype are required.
+    </title>
+
+    <rule context="article//supplementary-material">
+      <assert test="@mimetype">
+        Element 'supplementary-material': Missing attribute mimetype.
+      </assert>
+      <assert test="@mime-subtype">
+        Element 'supplementary-material': Missing attribute mime-subtype.
       </assert>
     </rule>
   </pattern>

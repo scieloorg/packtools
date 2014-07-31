@@ -3142,3 +3142,726 @@ class XHTMLTableTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class SupplementaryMaterialMimetypeTests(unittest.TestCase):
+    """Tests for article//supplementary-material elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.supplementary-material')
+        return schematron.validate(etree.parse(sample))
+
+    def test_case1(self):
+        """mimetype is True
+           mime-subtype is True
+           mimetype ^ mime-subtype is True
+        """
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material id="S1"
+                                                xlink:title="local_file"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_case2(self):
+        """mimetype is True
+           mime-subtype is False
+           mimetype ^ mime-subtype is False
+        """
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material id="S1"
+                                                xlink:title="local_file"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_case3(self):
+        """mimetype is False
+           mime-subtype is True
+           mimetype ^ mime-subtype is False
+        """
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material id="S1"
+                                                xlink:title="local_file"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_case4(self):
+        """mimetype is False
+           mime-subtype is False
+           mimetype ^ mime-subtype is False
+        """
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material id="S1"
+                                                xlink:title="local_file"
+                                                xlink:href="1471-2105-1-1-s1.pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class FigTests(unittest.TestCase):
+    """Tests for //fig elements
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.fig')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            <fig>
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            <fig id="I01">
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            <fig id="f01">
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            <fig id="f01">
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                          <p>
+                            <fig id="f01">
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            <fig id="f01">
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                          <p>
+                            <fig id="f02">
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class AppTests(unittest.TestCase):
+    """Tests for //app elements
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.app')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <back>
+                        <app-group>
+                          <app>
+                            <label>Appendix 1</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                          </app>
+                        </app-group>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <back>
+                        <app-group>
+                          <app id="a01">
+                            <label>Appendix 1</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                          </app>
+                        </app-group>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <back>
+                        <app-group>
+                          <app id="app01">
+                            <label>Appendix 1</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                          </app>
+                        </app-group>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <back>
+                        <app-group>
+                          <app id="app01">
+                            <label>Appendix 1</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                          </app>
+                          <app id="app01">
+                            <label>Appendix 1</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                          </app>
+                        </app-group>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <back>
+                        <app-group>
+                          <app id="app01">
+                            <label>Appendix 1</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                          </app>
+                          <app id="app02">
+                            <label>Appendix 2</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app02.tif"/>
+                          </app>
+                        </app-group>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class AffIdTests(unittest.TestCase):
+    """Tests for //app elements
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.aff_id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff id="h01">
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff id="aff01">
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff id="aff01">
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                          <aff id="aff01">
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff id="aff01">
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                          <aff id="aff02">
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class SupplementaryMaterialIdTests(unittest.TestCase):
+    """Tests for article//supplementary-material elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.supplementary-material_id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material xlink:title="local_file"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material xlink:title="local_file"
+                                                id="S01"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material xlink:title="local_file"
+                                                id="suppl01"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material xlink:title="local_file"
+                                                id="suppl01"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                        <supplementary-material xlink:title="local_file"
+                                                id="suppl01"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material xlink:title="local_file"
+                                                id="suppl01"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                        <supplementary-material xlink:title="local_file"
+                                                id="suppl02"
+                                                xlink:href="1471-2105-1-1-s2.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class RefIdTests(unittest.TestCase):
+    """Tests for article/back/ref-list/ref elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.ref_id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref id="C1">
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref id="B1">
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref id="B1">
+                          </ref>
+                          <ref id="B1">
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref id="B1">
+                          </ref>
+                          <ref id="B2">
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class DefListIdTests(unittest.TestCase):
+    """Tests for article/back/glossary/def-list elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.def-list_id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <back>
+                        <def-list>
+                        </def-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <back>
+                        <def-list id="X01">
+                        </def-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <back>
+                        <def-list id="d01">
+                        </def-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <back>
+                        <def-list id="d01">
+                        </def-list>
+                        <def-list id="d01">
+                        </def-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <back>
+                        <def-list id="d01">
+                        </def-list>
+                        <def-list id="d02">
+                        </def-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
