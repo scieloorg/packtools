@@ -7,7 +7,7 @@ from lxml import etree, isoschematron
 from packtools.utils import cachedmethod
 from packtools.checks import StyleCheckingPipeline
 from packtools.adapters import SchematronStyleError, SchemaStyleError
-from packtools.catalogs import SCHEMAS
+from packtools.catalogs import SCHEMAS, XML_CATALOG
 
 
 logger = logging.getLogger(__name__)
@@ -143,6 +143,9 @@ class XML(object):
 def main():
     import argparse
     import sys
+    import os
+
+    os.environ['XML_CATALOG_FILES'] = XML_CATALOG
 
     parser = argparse.ArgumentParser(description='stylechecker cli utility.')
     parser.add_argument('--annotated', action='store_true')
