@@ -4,10 +4,10 @@ from StringIO import StringIO
 
 from lxml import isoschematron, etree
 
-from packtools import stylechecker
+from packtools.catalogs import SCHEMAS
 
 
-SCH = etree.parse(stylechecker.SCHEMAS['sps.sch'])
+SCH = etree.parse(SCHEMAS['scielo-style.sch'])
 
 
 class JournalIdTests(unittest.TestCase):

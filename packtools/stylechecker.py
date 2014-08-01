@@ -1,5 +1,4 @@
 #coding: utf-8
-import os
 import logging
 import itertools
 
@@ -8,23 +7,10 @@ from lxml import etree, isoschematron
 from packtools.utils import cachedmethod
 from packtools.checks import StyleCheckingPipeline
 from packtools.adapters import SchematronStyleError, SchemaStyleError
+from packtools.catalogs import SCHEMAS
 
-
-HERE = os.path.dirname(os.path.abspath(__file__))
-SCHEMAS = {
-    'SciELO-journalpublishing1.xsd': os.path.join(HERE, 'sps', 'xsd', 'sps.xsd'),
-    'sps.sch': os.path.join(HERE, 'sps', 'sps.sch'),
-}
 
 logger = logging.getLogger(__name__)
-
-
-def XMLSchema(schema_name):
-    with open(SCHEMAS[schema_name]) as fp:
-        xmlschema_doc = etree.parse(fp)
-
-    xmlschema = etree.XMLSchema(xmlschema_doc)
-    return xmlschema
 
 
 def XMLSchematron(schema_name):
@@ -36,8 +22,8 @@ def XMLSchematron(schema_name):
 
 
 class XML(object):
-    def __init__(self, file):
-        """Represents an XML under validation.
+    def __init__(self, file, no_network=True):
+        """Represents an SPS article XML.
 
         The XML can be retrieved given its filesystem path,
         an URL, a file-object or an etree instance.
@@ -46,15 +32,17 @@ class XML(object):
         and the SPS Style.
 
         :param file: Path to the XML file, URL or etree.
+        :param no_network: (optional) prevent network access for external DTD.
         """
         if isinstance(file, etree._ElementTree):
             self.lxml = file
         else:
-            parser = etree.XMLParser(remove_blank_text=True)
+            parser = etree.XMLParser(remove_blank_text=True,
+                                     load_dtd=True, no_network=no_network)
             self.lxml = etree.parse(file, parser)
 
-        self.xmlschema = XMLSchema('SciELO-journalpublishing1.xsd')
-        self.schematron = XMLSchematron('sps.sch')
+        self.struct_validator = self.lxml.docinfo.externalDTD
+        self.schematron = XMLSchematron('scielo-style.sch')
         self.ppl = StyleCheckingPipeline()
 
     @cachedmethod
@@ -63,10 +51,13 @@ class XML(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        def make_error_log():
-            return [SchemaStyleError(err) for err in self.xmlschema.error_log]
+        if self.struct_validator is None:
+            raise TypeError('The DTD/XSD could not be loaded.')
 
-        result = self.xmlschema.validate(self.lxml)
+        def make_error_log():
+            return [SchemaStyleError(err) for err in self.struct_validator.error_log]
+
+        result = self.struct_validator.validate(self.lxml)
         errors = make_error_log()
         return result, errors
 
@@ -155,11 +146,12 @@ def main():
 
     parser = argparse.ArgumentParser(description='stylechecker cli utility.')
     parser.add_argument('--annotated', action='store_true')
+    parser.add_argument('--nonetwork', action='store_true')
     parser.add_argument('xmlpath', help='Filesystem path or URL to the XML file.')
 
     args = parser.parse_args()
     try:
-        xml = XML(args.xmlpath)
+        xml = XML(args.xmlpath, no_network=args.nonetwork)
     except IOError:
         sys.exit('Error reading %s. Make sure it is a valid file-path or URL.' % args.xmlpath)
     except etree.XMLSyntaxError as e:

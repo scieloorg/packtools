@@ -1,7 +1,7 @@
 scielo.packtools
 ================
 
-Canivete suiço para a inspeção de pacotes SPS e rSPS.
+Canivete suiço para a inspeção de pacotes SPS.
 
 
 Instalação
@@ -22,6 +22,23 @@ python setup.py install
 ```
 
 
+Configuração do Catálogo XML
+----------------------------
+
+Um Catálogo XML é um mecanismo de *lookup* que pode ser utilizado para evitar que requisições de 
+rede sejam realizadas para carregar DTDs externas. 
+
+Por questões de desempenho e segurança, as instâncias de `stylechecker.XML` não realizam 
+conexões de rede, portanto é extremamente recomendável que seja configurado um Catálogo XML,
+que traduz ids públicos para uris de arquivos locais.
+
+O `packtools` já apresenta um catálogo padrão, que para ser utilizado basta definir a
+variável de ambiente `XML_CATALOG_FILES` com o caminho absoluto para 
+`packtools/catalogs/scielo-publishing-schema.xml`.
+
+Mais informações em http://xmlsoft.org/catalog.html#Simple
+
+
 Utilitário `stylechecker`
 -------------------------
 
@@ -32,16 +49,17 @@ cópia do XML em validação, por meio do argumento opcional `--annotated`.
 
 ```bash
 $ stylechecker -h
-usage: stylechecker [-h] [--annotated] xmlpath
+usage: stylechecker [-h] [--annotated] [--nonetwork] xmlpath
 
 stylechecker cli utility.
 
 positional arguments:
-  xmlpath      Filesystema path or URL to the XML file.
+  xmlpath      Filesystem path or URL to the XML file.
 
 optional arguments:
   -h, --help   show this help message and exit
   --annotated
+  --nonetwork
 ```
 
 Obs.: Para validar XMLs disponíveis via http, é necessário delimitar a URL com aspas ou apóstrofo. e.g.: 
