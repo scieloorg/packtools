@@ -43,9 +43,12 @@ Utilitário `stylechecker`
 -------------------------
 
 Após a instalação, o programa `stylechecker` deverá estar disponível no seu emulador de terminal. 
-Esse programa realiza a validação de um determinado XML no formato SPS contra o seu XML Schema, e 
+Esse programa realiza a validação de um determinado XML no formato SPS contra a DTD, e 
 apresenta uma lista dos erros encontrados. Também é possível *anotar* os erros encontrados em uma
 cópia do XML em validação, por meio do argumento opcional `--annotated`.
+
+O utilitário `stylechecker` tenta carregar a DTD externa, especificada na declaração DOCTYPE do 
+XML. Para evitar esse comportamento, utilize a opção `--nonetwork`.
 
 ```bash
 $ stylechecker -h
