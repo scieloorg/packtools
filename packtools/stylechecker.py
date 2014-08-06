@@ -22,7 +22,7 @@ def XMLSchematron(schema_name):
 
 
 class XML(object):
-    def __init__(self, file, no_network=True):
+    def __init__(self, file, no_network=True, dtd=None):
         """Represents an SPS article XML.
 
         The XML can be retrieved given its filesystem path,
@@ -33,6 +33,7 @@ class XML(object):
 
         :param file: Path to the XML file, URL or etree.
         :param no_network: (optional) prevent network access for external DTD.
+        :param dtd: (optional) etree.DTD instance. if not provided, we try to guess.
         """
         if isinstance(file, etree._ElementTree):
             self.lxml = file
@@ -41,7 +42,7 @@ class XML(object):
                                      load_dtd=True, no_network=no_network)
             self.lxml = etree.parse(file, parser)
 
-        self.struct_validator = self.lxml.docinfo.externalDTD
+        self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.schematron = XMLSchematron('scielo-style.sch')
         self.ppl = StyleCheckingPipeline()
 
@@ -51,13 +52,13 @@ class XML(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        if self.struct_validator is None:
+        if self.dtd is None:
             raise TypeError('The DTD/XSD could not be loaded.')
 
         def make_error_log():
-            return [SchemaStyleError(err) for err in self.struct_validator.error_log]
+            return [SchemaStyleError(err) for err in self.dtd.error_log]
 
-        result = self.struct_validator.validate(self.lxml)
+        result = self.dtd.validate(self.lxml)
         errors = make_error_log()
         return result, errors
 
@@ -102,13 +103,24 @@ class XML(object):
         notice_element.text = error
         element.addprevious(etree.Comment('SPS-ERROR: %s' % error))
 
-    def annotate_errors(self):
+    def annotate_errors(self, fail_fast=False):
         """Add notes on all elements that have errors.
 
         The errors list is generated as a result of calling both :meth:`validate` and
         :meth:`validate_style` methods.
+
+        :param fail_fast: (optional) raise TypeError if the dtd have not been loaded.
         """
-        v_result, v_errors = self.validate()
+        try:
+            v_result, v_errors = self.validate()
+
+        except TypeError:
+            if fail_fast:
+                raise
+            else:
+                v_result = True
+                v_errors = []
+
         s_result, s_errors = self.validate_style()
 
         if v_result and s_result:

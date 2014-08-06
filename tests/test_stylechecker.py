@@ -63,7 +63,7 @@ class XMLTests(unittest.TestCase):
     def test_validation(self):
         fp = etree.parse(StringIO(b'<a><b>bar</b></a>'))
         xml = stylechecker.XML(fp)
-        xml.struct_validator = etree.XMLSchema(etree.parse(sample_xsd))
+        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         result, errors = xml.validate()
         self.assertTrue(result)
@@ -72,7 +72,7 @@ class XMLTests(unittest.TestCase):
     def test_invalid(self):
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
         xml = stylechecker.XML(fp)
-        xml.struct_validator = etree.XMLSchema(etree.parse(sample_xsd))
+        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         result, _ = xml.validate()
         self.assertFalse(result)
@@ -81,7 +81,7 @@ class XMLTests(unittest.TestCase):
         # Default lxml error log.
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
         xml = stylechecker.XML(fp)
-        xml.struct_validator = etree.XMLSchema(etree.parse(sample_xsd))
+        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         _, errors = xml.validate()
         for error in errors:
@@ -90,7 +90,7 @@ class XMLTests(unittest.TestCase):
     def test_annotate_errors(self):
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
         xml = stylechecker.XML(fp)
-        xml.struct_validator = etree.XMLSchema(etree.parse(sample_xsd))
+        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         xml.annotate_errors()
         xml_text = xml.read()
@@ -120,7 +120,7 @@ class XMLTests(unittest.TestCase):
         fp = etree.parse(StringIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
         xml = stylechecker.XML(fp)
         xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
-        xml.struct_validator = etree.XMLSchema(etree.parse(sample_xsd))
+        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         xml.annotate_errors()
         xml_text = xml.read()
