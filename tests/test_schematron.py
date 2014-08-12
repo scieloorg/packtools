@@ -3100,7 +3100,7 @@ class XHTMLTableTests(unittest.TestCase):
 
             self.assertFalse(self._run_validation(sample))
 
-    def test_th_upon_tbody(self):
+    def test_tbody_upon_th(self):
         sample = """<article>
                       <body>
                         <sec>
@@ -3121,7 +3121,7 @@ class XHTMLTableTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
-    def test_th_upon_thead(self):
+    def test_thead_upon_th(self):
         sample = """<article>
                       <body>
                         <sec>
@@ -3142,7 +3142,7 @@ class XHTMLTableTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-    def test_td_upon_thead(self):
+    def test_thead_upon_td(self):
         sample = """<article>
                       <body>
                         <sec>

@@ -774,7 +774,7 @@
   <pattern id="xhtml-table">
     <title>
       Tables should be fully tagged. tr elements are not supposed to be declared
-      upon the toplevel.
+      at toplevel.
     </title>
 
     <rule context="//table">
