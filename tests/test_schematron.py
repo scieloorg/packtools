@@ -3142,6 +3142,27 @@ class XHTMLTableTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_td_upon_thead(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <td>Foo</td>
+                                </tr>
+                              </thead>
+                            </table>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class SupplementaryMaterialMimetypeTests(unittest.TestCase):
     """Tests for article//supplementary-material elements.

@@ -782,7 +782,10 @@
         Element 'table': Unexpected element tr.
       </assert>
       <assert test="not(tbody//th)">
-        Element 'table': Unexpected element th.
+        Element 'table': Unexpected element th inside tbody.
+      </assert>
+      <assert test="not(thead//td)">
+        Element 'table': Unexpected element td inside thead.
       </assert>
     </rule>
   </pattern>
