@@ -2624,6 +2624,68 @@ class XrefRidTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_mismatching_reftype(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <table-wrap id="t01">
+                          </table-wrap>
+                        </sec>
+                        <sec>
+                          <p>
+                            <xref ref-type="aff" rid="t01">table 1</xref>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class XrefRefTypeTests(unittest.TestCase):
+    """Tests for //xref[@ref-type]
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.xref_reftype_integrity')
+        return schematron.validate(etree.parse(sample))
+
+    def test_allowed_ref_types(self):
+        for reftype in ['aff', 'app', 'author-notes', 'bibr', 'contrib',
+                        'corresp', 'disp-formula', 'fig', 'fn', 'sec',
+                        'supplementary-material', 'table', 'table-fn']:
+            sample = """<article>
+                          <body>
+                            <sec>
+                              <p>
+                                <xref ref-type="%s">foo</xref>
+                              </p>
+                            </sec>
+                          </body>
+                        </article>
+                     """ % reftype
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_ref_types(self):
+        for reftype in ['boxed-text', 'chem', 'kwd', 'list', 'other', 'plate'
+                        'scheme', 'statement']:
+            sample = """<article>
+                          <body>
+                            <sec>
+                              <p>
+                                <xref ref-type="%s">foo</xref>
+                              </p>
+                            </sec>
+                          </body>
+                        </article>
+                     """ % reftype
+            sample = StringIO(sample)
+
+            self.assertFalse(self._run_validation(sample))
+
 
 class CaptionTests(unittest.TestCase):
     """Tests for //caption
