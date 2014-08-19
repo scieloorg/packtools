@@ -168,6 +168,10 @@
   <phase id="phase.def-list_id">
     <active pattern="id_def-list"/>
   </phase>
+  
+  <phase id="phase.corresp_id">
+    <active pattern="id_corresp"/>
+  </phase>
 
   <phase id="phase.rid_integrity">
     <active pattern="xref-reftype-integrity-aff"/>
@@ -652,6 +656,15 @@
 
     <param name="base_context" value="//def-list"/>
     <param name="prefix" value="d"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_corresp">
+    <title>
+      Element corresp must have unique ids, prefixed with `c`.
+    </title>
+
+    <param name="base_context" value="//corresp"/>
+    <param name="prefix" value="c"/>
   </pattern>
 
   <!-- start-block: xref @ref-type integrity -->

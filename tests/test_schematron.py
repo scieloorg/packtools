@@ -3948,3 +3948,78 @@ class DefListIdTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class CorrespIdTests(unittest.TestCase):
+    """Tests for article/back/glossary/def-list elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.corresp_id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <corresp>&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <corresp id="x1">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <corresp id="c01">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <corresp id="c01">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                          <corresp id="c01">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <corresp id="c01">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                          <corresp id="c02">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
