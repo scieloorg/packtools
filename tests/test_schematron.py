@@ -4023,3 +4023,91 @@ class CorrespIdTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+class FnIdTests(unittest.TestCase):
+    """Tests for article/front/article-meta/author-notes/fn elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.fn_id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <fn fn-type="conflict">
+                            <p>Nao ha conflito de interesse entre os autores do artigo.</p>
+                          </fn>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <fn fn-type="conflict" id="x01">
+                            <p>Nao ha conflito de interesse entre os autores do artigo.</p>
+                          </fn>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <fn fn-type="conflict" id="fn01">
+                            <p>Nao ha conflito de interesse entre os autores do artigo.</p>
+                          </fn>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <fn fn-type="conflict" id="fn01">
+                            <p>Nao ha conflito de interesse entre os autores do artigo.</p>
+                          </fn>
+                          <fn fn-type="equal" id="fn01">
+                            <p>Todos os autores tiveram contribuicao igualitaria na criacao do artigo.</p>
+                          </fn>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <fn fn-type="conflict" id="fn01">
+                            <p>Nao ha conflito de interesse entre os autores do artigo.</p>
+                          </fn>
+                          <fn fn-type="equal" id="fn02">
+                            <p>Todos os autores tiveram contribuicao igualitaria na criacao do artigo.</p>
+                          </fn>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

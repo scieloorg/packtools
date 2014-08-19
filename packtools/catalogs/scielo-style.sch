@@ -173,6 +173,10 @@
     <active pattern="id_corresp"/>
   </phase>
 
+  <phase id="phase.fn_id">
+    <active pattern="id_fn"/>
+  </phase>
+
   <phase id="phase.rid_integrity">
     <active pattern="xref-reftype-integrity-aff"/>
   </phase>
@@ -571,7 +575,7 @@
       <assert test="starts-with(@id, '$prefix')">
         Element '<name/>', attribute id: Wrong id prefix at '<value-of select="@id"/>'.    
       </assert>
-      <assert test="count($base_context[@id=current()/@id]) = 1">
+      <assert test="count(//*[@id=current()/@id]) = 1">
         Element '<name/>', attribute id: Duplicated id value '<value-of select="current()/@id"/>'.
       </assert>
     </rule>
@@ -665,6 +669,15 @@
 
     <param name="base_context" value="//corresp"/>
     <param name="prefix" value="c"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_fn">
+    <title>
+      Element fn must have unique ids, prefixed with `fn`.
+    </title>
+
+    <param name="base_context" value="//author-notes/fn[@id] | //fn-group/fn[@id]"/>
+    <param name="prefix" value="fn"/>
   </pattern>
 
   <!-- start-block: xref @ref-type integrity -->
