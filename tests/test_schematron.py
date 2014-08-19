@@ -4175,3 +4175,88 @@ class MediaIdTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+class SecIdTests(unittest.TestCase):
+    """Tests for article/body/sec elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.sec_id')
+        return schematron.validate(etree.parse(sample))
+
+    def test_without_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec sec-type="methods">
+                          <title>Methodology</title>
+                          <p>Each patient underwent a brief physical examination...</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_wrong_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec sec-type="methods" id="x01">
+                          <title>Methodology</title>
+                          <p>Each patient underwent a brief physical examination...</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_id_prefix(self):
+        sample = """<article>
+                      <body>
+                        <sec sec-type="methods" id="sec01">
+                          <title>Methodology</title>
+                          <p>Each patient underwent a brief physical examination...</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_repeated_id(self):
+        sample = """<article>
+                      <body>
+                        <sec sec-type="methods" id="sec01">
+                          <title>Methodology</title>
+                          <p>Each patient underwent a brief physical examination...</p>
+                        </sec>
+                        <sec sec-type="methods" id="sec01">
+                          <title>Foo</title>
+                          <p>foobar...</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_unique_id(self):
+        sample = """<article>
+                      <body>
+                        <sec sec-type="methods" id="sec01">
+                          <title>Methodology</title>
+                          <p>Each patient underwent a brief physical examination...</p>
+                        </sec>
+                        <sec sec-type="methods" id="sec02">
+                          <title>Foo</title>
+                          <p>foobar...</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+

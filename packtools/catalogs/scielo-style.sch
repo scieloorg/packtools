@@ -181,6 +181,10 @@
     <active pattern="id_media"/>
   </phase>
 
+  <phase id="phase.sec_id">
+    <active pattern="id_sec"/>
+  </phase>
+
   <phase id="phase.rid_integrity">
     <active pattern="xref-reftype-integrity-aff"/>
   </phase>
@@ -691,6 +695,15 @@
 
     <param name="base_context" value="//media[@id]"/>
     <param name="prefix" value="m"/>
+  </pattern>
+
+  <pattern is-a="id_uniqueness_and_prefix" id="id_sec">
+    <title>
+      Element sec must have unique ids, prefixed with `sec`.
+    </title>
+
+    <param name="base_context" value="//sec[@id]"/>
+    <param name="prefix" value="sec"/>
   </pattern>
 
   <!-- start-block: xref @ref-type integrity -->
