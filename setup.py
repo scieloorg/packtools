@@ -6,13 +6,13 @@ except ImportError:
 
 
 install_requires = [
-    'lxml',
-    'picles.plumber',
+    'lxml >= 3.3.5',
+    'picles.plumber >= 0.10',
 ]
 
 setup(
     name="packtools",
-    version='0.3',
+    version='0.4',
     description="Handle SPS packages like a breeze.",
     #long_description=open('README.md').read() + '\n\n' +
     #                 open('HISTORY.md').read(),
