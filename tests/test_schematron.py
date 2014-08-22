@@ -2235,7 +2235,7 @@ class DispFormulaTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
         sample = """<article>
@@ -2456,7 +2456,7 @@ class TableWrapFootTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
         sample = """<article>
@@ -3484,7 +3484,7 @@ class AppTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
         sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -3894,7 +3894,7 @@ class DefListIdTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
         sample = """<article>
@@ -3967,7 +3967,7 @@ class CorrespIdTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
         sample = """<article>

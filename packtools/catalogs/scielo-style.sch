@@ -594,7 +594,7 @@
       Element disp-formula must have unique ids, prefixed with `e`.
     </title>
 
-    <param name="base_context" value="//disp-formula"/>
+    <param name="base_context" value="//disp-formula[@id]"/>
     <param name="prefix" value="e"/>
   </pattern>
 
@@ -612,7 +612,7 @@
       Element table-wrap-foot/fn must have unique ids, prefixed with `TFN`.
     </title>
 
-    <param name="base_context" value="//table-wrap-foot/fn"/>
+    <param name="base_context" value="//table-wrap-foot/fn[@id]"/>
     <param name="prefix" value="TFN"/>
   </pattern>
 
@@ -630,7 +630,7 @@
       Element app must have unique ids, prefixed with `app`.
     </title>
 
-    <param name="base_context" value="//app"/>
+    <param name="base_context" value="//app[@id]"/>
     <param name="prefix" value="app"/>
   </pattern>
 
@@ -666,7 +666,7 @@
       Element def-list must have unique ids, prefixed with `d`.
     </title>
 
-    <param name="base_context" value="//def-list"/>
+    <param name="base_context" value="//def-list[@id]"/>
     <param name="prefix" value="d"/>
   </pattern>
 
@@ -675,7 +675,7 @@
       Element corresp must have unique ids, prefixed with `c`.
     </title>
 
-    <param name="base_context" value="//corresp"/>
+    <param name="base_context" value="//corresp[@id]"/>
     <param name="prefix" value="c"/>
   </pattern>
 
