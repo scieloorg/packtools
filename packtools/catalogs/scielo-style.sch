@@ -580,6 +580,9 @@
     </title>
 
     <rule context="$base_context">
+      <assert test="number(substring(@id, string-length('$prefix') + 1)) = substring(@id, string-length('$prefix') + 1)">
+        Element '<name/>', attribute id: Integer value is required after the prefix '<value-of select="'$prefix'"/>'.
+      </assert>
       <assert test="starts-with(@id, '$prefix')">
         Element '<name/>', attribute id: Wrong id prefix at '<value-of select="@id"/>'.    
       </assert>

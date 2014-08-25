@@ -2257,6 +2257,26 @@ class DispFormulaTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <disp-formula id="e0j">
+                              <tex-math id="M1">
+                              </tex-math>
+                            </disp-formula>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article>
                       <body>
@@ -2369,6 +2389,24 @@ class TableWrapTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap id="t0j">
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article>
                       <body>
@@ -2468,6 +2506,29 @@ class TableWrapFootTests(unittest.TestCase):
                             <table-wrap>
                               <table-wrap-foot>
                                 <fn id="KCF01">
+                                  <p>Data not available for 1 trial.</p>
+                                </fn>
+                              </table-wrap-foot>
+                            </table-wrap>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            Foo bar
+                            <table-wrap>
+                              <table-wrap-foot>
+                                <fn id="TFN0j">
                                   <p>Data not available for 1 trial.</p>
                                 </fn>
                               </table-wrap-foot>
@@ -3377,6 +3438,28 @@ class FigTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <title>Intro</title>
+                          <p>
+                            <fig id="f0j">
+                              <label>FIGURE 1</label>
+                              <caption>
+                                <title>Título da figura</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
@@ -3503,6 +3586,23 @@ class AppTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <back>
+                        <app-group>
+                          <app id="app0j">
+                            <label>Appendix 1</label>
+                            <title>Questionnaire for SciELO</title>
+                            <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                          </app>
+                        </app-group>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <back>
@@ -3577,6 +3677,23 @@ class AffIdTests(unittest.TestCase):
                       <front>
                         <article-meta>
                           <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff id="aff0j">
                             <institution content-type="original">
                               Grupo de ...
                             </institution>
@@ -3714,6 +3831,26 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <supplementary-material xlink:title="local_file"
+                                                id="suppl0j"
+                                                xlink:href="1471-2105-1-1-s1.pdf"
+                                                mimetype="application"
+                                                mime-subtype="pdf">
+                          <label>Additional material</label>
+                          <caption>
+                            <p>Supplementary PDF file supplied by authors.</p>
+                          </caption>
+                        </supplementary-material>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
@@ -3830,6 +3967,20 @@ class RefIdTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref id="Bj">
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article>
                       <back>
@@ -3900,6 +4051,18 @@ class DefListIdTests(unittest.TestCase):
         sample = """<article>
                       <back>
                         <def-list id="X01">
+                        </def-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <back>
+                        <def-list id="d0j">
                         </def-list>
                       </back>
                     </article>
@@ -3982,6 +4145,19 @@ class CorrespIdTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <corresp id="cj">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article>
                       <article-meta>
@@ -4050,6 +4226,21 @@ class FnIdTests(unittest.TestCase):
                       <article-meta>
                         <author-notes>
                           <fn fn-type="conflict" id="x01">
+                            <p>Nao ha conflito de interesse entre os autores do artigo.</p>
+                          </fn>
+                        </author-notes>
+                      </article-meta>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <article-meta>
+                        <author-notes>
+                          <fn fn-type="conflict" id="fn0j">
                             <p>Nao ha conflito de interesse entre os autores do artigo.</p>
                           </fn>
                         </author-notes>
@@ -4140,6 +4331,17 @@ class MediaIdTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_wrong_id_suffix(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <p><media id="m0j" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_id_prefix(self):
         sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
@@ -4200,6 +4402,20 @@ class SecIdTests(unittest.TestCase):
         sample = """<article>
                       <body>
                         <sec sec-type="methods" id="x01">
+                          <title>Methodology</title>
+                          <p>Each patient underwent a brief physical examination...</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_wrong_id_suffix(self):
+        sample = """<article>
+                      <body>
+                        <sec sec-type="methods" id="sec0j">
                           <title>Methodology</title>
                           <p>Each patient underwent a brief physical examination...</p>
                         </sec>
