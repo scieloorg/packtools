@@ -4522,3 +4522,58 @@ class AuthorNotesFNTests(unittest.TestCase):
         sample = StringIO(sample)
 
         self.assertFalse(self._run_validation(sample))
+
+
+class ArticleAttributesTests(unittest.TestCase):
+    """Tests for article element.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.article-attrs')
+        return schematron.validate(etree.parse(sample))
+
+    def test_allowed_article_types(self):
+        for art_type in ['research-article', 'letter', 'article-commentary',
+                'brief-report', 'editorial', 'in-brief', 'case-report', 'report',
+                'note', 'correction', 'obituary', 'abstract', 'review-article',
+                'book-review', 'product-review', 'clinical-trial', 'retraction',
+                'collection']:
+
+            sample = """<article article-type="%s" xml:lang="en" dtd-version="1.0">
+                        </article>
+                     """ % art_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_article_type(self):
+        sample = """<article article-type="invalid" dtd-version="1.0">
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_article_type(self):
+        sample = """<article xml:lang="en" dtd-version="1.0">
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_xmllang(self):
+        sample = """<article article-type="research-article" dtd-version="1.0">
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_dtdversion(self):
+        sample = """<article article-type="research-article" xml:lang="en">
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+

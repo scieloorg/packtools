@@ -225,6 +225,11 @@
     <active pattern="xref-reftype-values"/>
   </phase>
 
+  <phase id="phase.article-attrs">
+    <active pattern="article_attributes"/>
+    <active pattern="article_article-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -969,6 +974,53 @@
       </assert>
       <assert test="@mime-subtype">
         Element 'supplementary-material': Missing attribute mime-subtype.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="article_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article">
+      <assert test="@article-type">
+        Element 'article': Missing attribute article-type.
+      </assert>
+      <assert test="@xml:lang">
+        Element 'article': Missing attribute xml:lang.
+      </assert>
+      <assert test="@dtd-version">
+        Element 'article': Missing attribute dtd-version.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="article_article-type-values">
+    <title>
+      Allowed values for article/@article-type
+    </title>
+
+    <rule context="article[@article-type]">
+      <assert test="@article-type = 'research-article' or
+                    @article-type = 'letter' or 
+                    @article-type = 'article-commentary' or 
+                    @article-type = 'brief-report' or 
+                    @article-type = 'editorial' or
+                    @article-type = 'in-brief' or 
+                    @article-type = 'case-report' or 
+                    @article-type = 'report' or 
+                    @article-type = 'note' or 
+                    @article-type = 'correction' or
+                    @article-type = 'obituary' or
+                    @article-type = 'abstract' or 
+                    @article-type = 'review-article' or 
+                    @article-type = 'book-review' or 
+                    @article-type = 'product-review' or 
+                    @article-type = 'clinical-trial' or 
+                    @article-type = 'retraction' or 
+                    @article-type = 'collection'">
+        Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
       </assert>
     </rule>
   </pattern>
