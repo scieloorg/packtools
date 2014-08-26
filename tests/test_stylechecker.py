@@ -52,17 +52,17 @@ class XMLTests(unittest.TestCase):
 
     @setup_tmpfile
     def test_initializes_with_filepath(self):
-        self.assertTrue(stylechecker.XML(self.valid_tmpfile.name))
+        self.assertTrue(stylechecker.XML(self.valid_tmpfile.name, no_doctype=True))
 
     def test_initializes_with_etree(self):
         fp = StringIO(b'<a><b>bar</b></a>')
         et = etree.parse(fp)
 
-        self.assertTrue(stylechecker.XML(et))
+        self.assertTrue(stylechecker.XML(et, no_doctype=True))
 
     def test_validation(self):
         fp = etree.parse(StringIO(b'<a><b>bar</b></a>'))
-        xml = stylechecker.XML(fp)
+        xml = stylechecker.XML(fp, no_doctype=True)
         xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         result, errors = xml.validate()
@@ -71,7 +71,7 @@ class XMLTests(unittest.TestCase):
 
     def test_invalid(self):
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
-        xml = stylechecker.XML(fp)
+        xml = stylechecker.XML(fp, no_doctype=True)
         xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         result, _ = xml.validate()
@@ -80,7 +80,7 @@ class XMLTests(unittest.TestCase):
     def test_invalid_errors(self):
         # Default lxml error log.
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
-        xml = stylechecker.XML(fp)
+        xml = stylechecker.XML(fp, no_doctype=True)
         xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         _, errors = xml.validate()
@@ -89,7 +89,7 @@ class XMLTests(unittest.TestCase):
 
     def test_annotate_errors(self):
         fp = etree.parse(StringIO(b'<a><c>bar</c></a>'))
-        xml = stylechecker.XML(fp)
+        xml = stylechecker.XML(fp, no_doctype=True)
         xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
         xml.annotate_errors()
@@ -100,7 +100,7 @@ class XMLTests(unittest.TestCase):
 
     def test_validation_schematron(self):
         fp = etree.parse(StringIO(b'<Total><Percent>70</Percent><Percent>30</Percent></Total>'))
-        xml = stylechecker.XML(fp)
+        xml = stylechecker.XML(fp, no_doctype=True)
         xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
 
         result, errors = xml._validate_sch()
@@ -109,7 +109,7 @@ class XMLTests(unittest.TestCase):
 
     def test_invalid_schematron(self):
         fp = etree.parse(StringIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
-        xml = stylechecker.XML(fp)
+        xml = stylechecker.XML(fp, no_doctype=True)
         xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
 
         result, errors = xml._validate_sch()
@@ -118,7 +118,7 @@ class XMLTests(unittest.TestCase):
 
     def test_annotate_errors_schematron(self):
         fp = etree.parse(StringIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
-        xml = stylechecker.XML(fp)
+        xml = stylechecker.XML(fp, no_doctype=True)
         xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
         xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
 
@@ -127,4 +127,16 @@ class XMLTests(unittest.TestCase):
 
         self.assertIn("<!--SPS-ERROR: Element 'Total': Sum is not 100%.-->", xml_text)
         self.assertTrue(isinstance(xml_text, unicode))
+
+    def test_fails_without_doctype_declaration(self):
+        fp = StringIO(b'<a><b>bar</b></a>')
+        et = etree.parse(fp)
+
+        self.assertRaises(ValueError, lambda: stylechecker.XML(et, no_doctype=False))
+
+    def test_checks_allowed_doctype_public_ids(self):
+        fp = StringIO(b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd"><a><b>bar</b></a>')
+        et = etree.parse(fp)
+
+        self.assertTrue(stylechecker.XML(et, no_doctype=False))
 

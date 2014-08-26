@@ -10,6 +10,12 @@ from packtools.adapters import SchematronStyleError, SchemaStyleError
 from packtools.catalogs import SCHEMAS, XML_CATALOG
 
 
+ALLOWED_PUBLIC_IDS = (
+    '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
+    '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',
+)
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -22,7 +28,9 @@ def XMLSchematron(schema_name):
 
 
 class XML(object):
-    def __init__(self, file, no_network=True, dtd=None):
+    allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS)
+
+    def __init__(self, file, no_network=True, dtd=None, no_doctype=False):
         """Represents an SPS article XML.
 
         The XML can be retrieved given its filesystem path,
@@ -34,6 +42,7 @@ class XML(object):
         :param file: Path to the XML file, URL or etree.
         :param no_network: (optional) prevent network access for external DTD.
         :param dtd: (optional) etree.DTD instance. if not provided, we try to guess.
+        :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
         """
         if isinstance(file, etree._ElementTree):
             self.lxml = file
@@ -42,6 +51,15 @@ class XML(object):
                                      load_dtd=True, no_network=no_network)
             self.lxml = etree.parse(file, parser)
 
+        self.doctype = self.lxml.docinfo.doctype
+        if no_doctype is False:
+            if not self.doctype:
+                raise ValueError('Missing DOCTYPE declaration')
+
+        if self.doctype and self.lxml.docinfo.public_id not in self.allowed_public_ids:
+            raise ValueError('Unsuported DOCTYPE public id')
+
+        self.public_id = self.lxml.docinfo.public_id
         self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.schematron = XMLSchematron('scielo-style.sch')
         self.ppl = StyleCheckingPipeline()
@@ -171,6 +189,8 @@ def main():
         sys.exit('Error reading %s. Make sure it is a valid file-path or URL.' % args.xmlpath)
     except etree.XMLSyntaxError as e:
         sys.exit('Error reading %s. Syntax error: %s' % (args.xmlpath, e.message))
+    except ValueError as e:
+        sys.exit('Error reading %s. %s.' % (args.xmlpath, e.message))
 
     is_valid, errors = xml.validate()
     style_is_valid, style_errors = xml.validate_style()
