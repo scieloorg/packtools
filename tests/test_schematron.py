@@ -4577,3 +4577,62 @@ class ArticleAttributesTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+class NamedContentTests(unittest.TestCase):
+    """Tests for article/front/article-meta/aff/addr-line/named-content elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.named-content_attrs')
+        return schematron.validate(etree.parse(sample))
+
+    def test_missing_contenttype(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <addr-line>
+                              <named-content>Foo</named-content>
+                            </addr-line>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_allowed_contenttype(self):
+        for ctype in ['city', 'state']:
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <aff>
+                                <addr-line>
+                                  <named-content content-type="%s">Foo</named-content>
+                                </addr-line>
+                              </aff>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % ctype
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_contenttype(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <addr-line>
+                              <named-content content-type="invalid">Foo</named-content>
+                            </addr-line>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+

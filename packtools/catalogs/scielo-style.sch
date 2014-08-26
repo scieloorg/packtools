@@ -230,6 +230,11 @@
     <active pattern="article_article-type-values"/>
   </phase>
 
+  <phase id="phase.named-content_attrs">
+    <active pattern="named-content_attributes"/>
+    <active pattern="named-content_content-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1024,6 +1029,30 @@
       </assert>
     </rule>
   </pattern>
-</schema>
 
+  <pattern id="named-content_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article/front/article-meta/aff/addr-line/named-content">
+      <assert test="@content-type">
+        Element 'named-content': Missing attribute content-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="named-content_content-type-values">
+    <title>
+      Allowed values for named-content/@content-type
+    </title>
+
+    <rule context="article/front/article-meta/aff/addr-line/named-content[@content-type]">
+      <assert test="@content-type = 'city' or
+                    @content-type = 'state'">
+        Element 'named-content', attribute content-type: Invalid value '<value-of select="@content-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+</schema>
 
