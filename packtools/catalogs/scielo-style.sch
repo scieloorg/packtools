@@ -194,6 +194,7 @@
   </phase>
 
   <phase id="phase.license">
+    <active pattern="license_attributes"/>
     <active pattern="license"/>
   </phase>
 
@@ -834,6 +835,21 @@
     </rule>
   </pattern>
 
+  <pattern id="license_attributes">
+    <title>
+      Make sure all mandatory attributes are present
+    </title>
+
+    <rule context="article/front/article-meta/permissions/license">
+      <assert test="@license-type">
+        Element 'license': Missing attribute license-type.
+      </assert>
+      <assert test="@xlink:href">
+        Element 'license': Missing attribute xlink:href.
+      </assert>
+    </rule>
+  </pattern>
+
   <pattern id="license">
     <title>
       Make sure the document has a permissions element, and a valid
@@ -858,7 +874,7 @@
       </assert>
     </rule>
 
-    <rule context="article/front/article-meta/permissions/license">
+    <rule context="article/front/article-meta/permissions/license[@license-type and @xlink:href]">
       <assert test="@license-type = 'open-access'">
         Element 'license', attribute license-type: Invalid value '<value-of select="@license-type"/>'.
       </assert>
