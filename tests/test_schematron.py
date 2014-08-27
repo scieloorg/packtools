@@ -4577,6 +4577,7 @@ class ArticleAttributesTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
 class NamedContentTests(unittest.TestCase):
     """Tests for article/front/article-meta/aff/addr-line/named-content elements.
     """
@@ -4628,6 +4629,77 @@ class NamedContentTests(unittest.TestCase):
                               <named-content content-type="invalid">Foo</named-content>
                             </addr-line>
                           </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class MonthTests(unittest.TestCase):
+    """Tests for //month elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.month')
+        return schematron.validate(etree.parse(sample))
+
+    def test_range_1_12(self):
+        for month in range(1, 13):
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <pub-date>
+                                <month>%s</month>
+                              </pub-date>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % month
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_range_01_12(self):
+        for month in range(1, 13):
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <pub-date>
+                                <month>%02d</month>
+                              </pub-date>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % month
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_out_of_range(self):
+        for month in [0, 13]:
+            sample = """<article>
+                          <front>
+                            <article-meta>
+                              <pub-date>
+                                <month>%s</month>
+                              </pub-date>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % month
+            sample = StringIO(sample)
+
+            self.assertFalse(self._run_validation(sample))
+
+    def test_must_be_integer(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <pub-date>
+                            <month>January</month>
+                          </pub-date>
                         </article-meta>
                       </front>
                     </article>

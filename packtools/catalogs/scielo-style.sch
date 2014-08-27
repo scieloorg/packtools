@@ -236,6 +236,10 @@
     <active pattern="named-content_content-type-values"/>
   </phase>
 
+  <phase id="phase.month">
+    <active pattern="month"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1067,6 +1071,29 @@
       <assert test="@content-type = 'city' or
                     @content-type = 'state'">
         Element 'named-content', attribute content-type: Invalid value '<value-of select="@content-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="month">
+    <title>
+      Only integers between 1 and 12.
+    </title>
+
+    <rule context="//month">
+      <assert test="current() = '1' or current() = '01' or
+                    current() = '2' or current() = '02' or
+                    current() = '3' or current() = '03' or
+                    current() = '4' or current() = '04' or
+                    current() = '5' or current() = '05' or
+                    current() = '6' or current() = '06' or
+                    current() = '7' or current() = '07' or
+                    current() = '8' or current() = '08' or
+                    current() = '9' or current() = '09' or
+                    current() = '10' or
+                    current() = '11' or
+                    current() = '12'">
+        Element 'month': Invalid value '<value-of select="current()"/>'.
       </assert>
     </rule>
   </pattern>
