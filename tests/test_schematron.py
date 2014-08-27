@@ -2101,6 +2101,62 @@ class ProductTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_allowed_product_types(self):
+        for prod_type in ['book', 'software', 'article', 'issue', 'website',
+                          'film', 'hardware']:
+            sample = """<article article-type="book-review">
+                          <front>
+                            <article-meta>
+                              <product product-type="%s">
+                                <person-group person-group-type="author">
+                                  <name>
+                                    <surname>Sobrenome do autor</surname>
+                                    <given-names>Prenomes do autor</given-names>
+                                  </name>
+                                </person-group>
+                                <source>Título do livro</source>
+                                <year>Ano de publicação</year>
+                                <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                                <publisher-loc>Local de publicação</publisher-loc>
+                                <page-count count="total de paginação do livro (opcional)"/>
+                                <isbn>ISBN do livro, se houver</isbn>
+                                <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                              </product>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % prod_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_product_types(self):
+        sample = """<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="invalid">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class SecTitleTests(unittest.TestCase):
     """Tests for:

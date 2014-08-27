@@ -123,6 +123,7 @@
 
   <phase id="phase.product">
     <active pattern="product"/>
+    <active pattern="product_product-type_values"/>
   </phase>
 
   <phase id="phase.sectitle">
@@ -561,6 +562,24 @@
       </assert>
       <assert test="@product-type">
         Element 'product': Missing attribute product-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="product_product-type_values">
+    <title>
+      Make sure the supplied values are valid.
+    </title>
+
+    <rule context="article/front/article-meta/product[@product-type]">
+      <assert test="@product-type = 'book' or
+                    @product-type = 'software' or
+                    @product-type = 'article' or
+                    @product-type = 'issue' or
+                    @product-type = 'website' or
+                    @product-type = 'film' or
+                    @product-type = 'hardware'">
+        Element 'product', attribute product-type: Invalid value "<value-of select="@product-type"/>".
       </assert>
     </rule>
   </pattern>
