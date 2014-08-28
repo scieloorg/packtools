@@ -1508,7 +1508,7 @@ class AuthorNotesTests(unittest.TestCase):
     """Tests for article/front/article-meta/author-notes elements.
     """
     def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.author-notes')
+        schematron = isoschematron.Schematron(SCH, phase='phase.fn-group')
         return schematron.validate(etree.parse(sample))
 
     def test_allowed_fn_types(self):

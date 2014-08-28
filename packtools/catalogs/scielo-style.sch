@@ -93,10 +93,6 @@
     <active pattern="counts"/>
   </phase>
 
-  <phase id="phase.author-notes">
-    <active pattern="author-notes_fn_types"/>
-  </phase>
-
   <phase id="phase.pub-date">
     <active pattern="pub-date_pub_type"/>
   </phase>
@@ -213,6 +209,7 @@
 
   <phase id="phase.fn-group">
     <active pattern="fn-group"/>
+    <active pattern="fn_attributes"/>
   </phase>
 
   <phase id="phase.xhtml-table">
@@ -436,32 +433,6 @@
                      front/article-meta/counts/page-count/@count = 0) or 
                     ((front/article-meta/lpage - front/article-meta/fpage) + 1)">
         Element 'counts': Missing element or wrong value in page-count.
-      </assert>
-    </rule>
-  </pattern>
-
-  <pattern id="author-notes_fn_types">
-    <title>
-      Restrict the valid values of fn[@fn-type].
-    </title>
-
-    <rule context="article/front/article-meta/author-notes/fn">
-      <assert test="@fn-type = 'author' or 
-                    @fn-type = 'con' or
-                    @fn-type = 'conflict' or 
-                    @fn-type = 'corresp' or
-                    @fn-type = 'current-aff' or
-                    @fn-type = 'deceased' or
-                    @fn-type = 'edited-by' or
-                    @fn-type = 'equal' or
-                    @fn-type = 'on-leave' or
-                    @fn-type = 'participating-researchers' or
-                    @fn-type = 'present-address' or 
-                    @fn-type = 'previously-at' or 
-                    @fn-type = 'study-group-members' or
-                    @fn-type = 'other'">
-        
-        Element 'fn', attribute fn-type: Invalid value "<value-of select="@fn-type"/>".
       </assert>
     </rule>
   </pattern>
@@ -957,12 +928,25 @@
     </rule>
   </pattern>
 
+  <pattern id="fn_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article/front/article-meta/author-notes/fn | 
+                   article/back/fn-group/fn">
+      <assert test="@fn-type">
+        Element 'fn': Missing attribute fn-type.
+      </assert>
+    </rule>
+  </pattern>
+
   <pattern id="fn-group">
     <title>
       Make sure fn-type is valid against a white list.
     </title>
 
-    <rule context="article/back/fn-group/fn">
+    <rule context="article/back/fn-group/fn[@fn-type]">
       <assert test="@fn-type = 'abbr' or
                     @fn-type = 'com' or 
                     @fn-type = 'financial-disclosure' or
@@ -973,7 +957,7 @@
         Element 'fn', attribute fn-type: Invalid value '<value-of select="@fn-type"/>'.
       </assert>
     </rule>
-    <rule context="article/front/article-meta/author-notes/fn">
+    <rule context="article/front/article-meta/author-notes/fn[@fn-type]">
       <assert test="@fn-type = 'author' or
                     @fn-type = 'con' or
                     @fn-type = 'conflict' or
