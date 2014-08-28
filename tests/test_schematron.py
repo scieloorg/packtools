@@ -4764,3 +4764,92 @@ class MonthTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class SizeTests(unittest.TestCase):
+    """Tests for:
+      - article/front/article-meta/product/size
+      - article/back/ref-list/ref/element-citation/size
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.size')
+        return schematron.validate(etree.parse(sample))
+
+    def test_in_element_citation(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <size units="pages">2</size>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_in_product(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                            <size units="pages">2</size>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_units_in_product(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                            <size>2</size>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_units_in_element_citation(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <size>2</size>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_invalid_units_value(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                            <size units="invalid">2</size>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+

@@ -241,6 +241,11 @@
     <active pattern="month"/>
   </phase>
 
+  <phase id="phase.size">
+    <active pattern="size_attributes"/>
+    <active pattern="size_units-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1116,5 +1121,32 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="size_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article/front/article-meta/product/size | 
+                   article/back/ref-list/ref/element-citation/size">
+      <assert test="@units">
+        Element 'size': Missing attribute units.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="size_units-values">
+    <title>
+      Allowed values for size/@units
+    </title>
+
+    <rule context="article/front/article-meta/product/size[@units] | 
+                   article/back/ref-list/ref/element-citation/size[@units]">
+      <assert test="@units = 'pages'">
+        Element 'size', attribute units: Invalid value '<value-of select="@units"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
 
