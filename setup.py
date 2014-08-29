@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup, find_packages
 
 
 install_requires = [
@@ -22,9 +19,7 @@ setup(
     maintainer_email="gustavo.fonseca@scielo.org",
     license="BSD License",
     url="http://docs.scielo.org",
-    packages=['packtools'],
-    package_dir={'packtools': 'packtools'},
-    include_package_data=True,
+    packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

@@ -174,13 +174,18 @@ def main():
     import argparse
     import sys
     import os
+    import pkg_resources
+
+    packtools_version = pkg_resources.get_distribution('packtools').version
 
     os.environ['XML_CATALOG_FILES'] = XML_CATALOG
 
     parser = argparse.ArgumentParser(description='stylechecker cli utility.')
     parser.add_argument('--annotated', action='store_true')
     parser.add_argument('--nonetwork', action='store_true')
-    parser.add_argument('xmlpath', help='Filesystem path or URL to the XML file.')
+    parser.add_argument('xmlpath',
+                        help='Filesystem path or URL to the XML file.')
+    parser.add_argument('--version', action='version', version=packtools_version)
 
     args = parser.parse_args()
     try:

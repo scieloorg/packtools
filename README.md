@@ -52,7 +52,7 @@ XML. Para evitar esse comportamento, utilize a opção `--nonetwork`.
 
 ```bash
 $ stylechecker -h
-usage: stylechecker [-h] [--annotated] [--nonetwork] xmlpath
+usage: stylechecker [-h] [--annotated] [--nonetwork] [--version] xmlpath
 
 stylechecker cli utility.
 
@@ -63,6 +63,7 @@ optional arguments:
   -h, --help   show this help message and exit
   --annotated
   --nonetwork
+  --version    show program's version number and exit
 ```
 
 Obs.: Para validar XMLs disponíveis via http, é necessário delimitar a URL com aspas ou apóstrofo. e.g.: 
