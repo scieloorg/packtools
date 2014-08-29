@@ -4433,6 +4433,7 @@ class MediaIdTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
 class SecIdTests(unittest.TestCase):
     """Tests for article/body/sec elements.
     """
@@ -5012,4 +5013,56 @@ class ListTests(unittest.TestCase):
         sample = StringIO(sample)
 
         self.assertFalse(self._run_validation(sample))
+
+
+class MediaTests(unittest.TestCase):
+    """Tests for article/body//p/media elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.media_attributes')
+        return schematron.validate(etree.parse(sample))
+
+    def test_missing_mimetype(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <p><media mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_mime_subtype(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <p><media mimetype="video" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_href(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <p><media mimetype="video" mime-subtype="mp4"/></p>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_all_present(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <p><media mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
 

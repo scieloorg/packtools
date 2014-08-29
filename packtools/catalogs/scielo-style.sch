@@ -248,6 +248,10 @@
     <active pattern="list_list-type-values"/>
   </phase>
 
+  <phase id="phase.media_attributes">
+    <active pattern="media_attributes"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1163,6 +1167,24 @@
                     @list-type = 'roman-upper' or
                     @list-type = 'simple'">
         Element 'list', attribute list-type: Invalid value '<value-of select="@list-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="media_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="//media">
+      <assert test="@mime-subtype">
+        Element 'media': Missing attribute mime-subtype.
+      </assert>
+      <assert test="@mimetype">
+        Element 'media': Missing attribute mimetype.
+      </assert>
+      <assert test="@xlink:href">
+        Element 'media': Missing attribute xlink:href.
       </assert>
     </rule>
   </pattern>
