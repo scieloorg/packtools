@@ -243,6 +243,11 @@
     <active pattern="size_units-values"/>
   </phase>
 
+  <phase id="phase.list">
+    <active pattern="list_attributes"/>
+    <active pattern="list_list-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1128,6 +1133,36 @@
                    article/back/ref-list/ref/element-citation/size[@units]">
       <assert test="@units = 'pages'">
         Element 'size', attribute units: Invalid value '<value-of select="@units"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="list_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="//list">
+      <assert test="@list-type">
+        Element 'list': Missing attribute list-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="list_list-type-values">
+    <title>
+      Allowed values for list/@list-type
+    </title>
+
+    <rule context="//list[@list-type]">
+      <assert test="@list-type = 'order' or
+                    @list-type = 'bullet' or
+                    @list-type = 'alpha-lower' or
+                    @list-type = 'alpha-upper' or
+                    @list-type = 'roman-lower' or
+                    @list-type = 'roman-upper' or
+                    @list-type = 'simple'">
+        Element 'list', attribute list-type: Invalid value '<value-of select="@list-type"/>'.
       </assert>
     </rule>
   </pattern>

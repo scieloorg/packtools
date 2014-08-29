@@ -4853,3 +4853,163 @@ class SizeTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ListTests(unittest.TestCase):
+    """Tests for list elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.list')
+        return schematron.validate(etree.parse(sample))
+
+    def test_allowed_list_type(self):
+        for list_type in ['order', 'bullet', 'alpha-lower', 'alpha-upper',
+                          'roman-lower', 'roman-upper', 'simple']:
+            sample = """<article>
+                          <body>
+                            <sec>
+                              <p>
+                                <list list-type="%s">
+                                  <title>Lista Númerica</title>
+                                  <list-item>
+                                    <p>Nullam gravida tellus eget condimentum egestas.</p>
+                                  </list-item>
+                                  <list-item>
+                                    <list list-type="%s">
+                                      <list-item>
+                                        <p>Curabitur luctus lorem ac feugiat pretium.</p>
+                                      </list-item>
+                                    </list>
+                                  </list-item>
+                                  <list-item>
+                                    <p>Donec pulvinar odio ut enim lobortis, eu dignissim elit accumsan.</p>
+                                  </list-item>
+                                </list>
+                              </p>
+                            </sec>
+                          </body>
+                        </article>
+                     """ % (list_type, list_type)
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_list_type(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <list list-type="invalid">
+                              <title>Lista Númerica</title>
+                              <list-item>
+                                <p>Nullam gravida tellus eget condimentum egestas.</p>
+                              </list-item>
+                              <list-item>
+                                <list list-type="invalid">
+                                  <list-item>
+                                    <p>Curabitur luctus lorem ac feugiat pretium.</p>
+                                  </list-item>
+                                </list>
+                              </list-item>
+                              <list-item>
+                                <p>Donec pulvinar odio ut enim lobortis, eu dignissim elit accumsan.</p>
+                              </list-item>
+                            </list>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_disallowed_sub_list_type(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <list list-type="order">
+                              <title>Lista Númerica</title>
+                              <list-item>
+                                <p>Nullam gravida tellus eget condimentum egestas.</p>
+                              </list-item>
+                              <list-item>
+                                <list list-type="invalid">
+                                  <list-item>
+                                    <p>Curabitur luctus lorem ac feugiat pretium.</p>
+                                  </list-item>
+                                </list>
+                              </list-item>
+                              <list-item>
+                                <p>Donec pulvinar odio ut enim lobortis, eu dignissim elit accumsan.</p>
+                              </list-item>
+                            </list>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_list_type(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <list>
+                              <title>Lista Númerica</title>
+                              <list-item>
+                                <p>Nullam gravida tellus eget condimentum egestas.</p>
+                              </list-item>
+                              <list-item>
+                                <list>
+                                  <list-item>
+                                    <p>Curabitur luctus lorem ac feugiat pretium.</p>
+                                  </list-item>
+                                </list>
+                              </list-item>
+                              <list-item>
+                                <p>Donec pulvinar odio ut enim lobortis, eu dignissim elit accumsan.</p>
+                              </list-item>
+                            </list>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_sub_list_type(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <list list-type="order">
+                              <title>Lista Númerica</title>
+                              <list-item>
+                                <p>Nullam gravida tellus eget condimentum egestas.</p>
+                              </list-item>
+                              <list-item>
+                                <list>
+                                  <list-item>
+                                    <p>Curabitur luctus lorem ac feugiat pretium.</p>
+                                  </list-item>
+                                </list>
+                              </list-item>
+                              <list-item>
+                                <p>Donec pulvinar odio ut enim lobortis, eu dignissim elit accumsan.</p>
+                              </list-item>
+                            </list>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
