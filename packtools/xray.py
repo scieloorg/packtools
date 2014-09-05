@@ -103,10 +103,10 @@ class Xray(object):
 
 class SPSPackage(object):
     """SciELO Publishing Schema's article package.
+
+    :param file: The filesystem path to the package.
     """
     def __init__(self, file):
-        """:param file: a filesystem path to the package.
-        """
         self.file = file
         self._pack_xray = Xray(file)
 
@@ -133,23 +133,32 @@ class SPSPackage(object):
                                 lambda: stylechecker.XMLValidator(self.xml_fp))
 
     def is_valid(self):
-        """Renomear para: validate() por consistencia.
-
-        Performs all package validations sequentialy.
+        """Performs all package validations sequentialy.
         """
-        pass
+        xml_status = self.xml_validator.validate_all()[0]
+        return xml_status
 
     def list_members_by_type(self):
         """List all package members by type.
         """
         return self._pack_xray.get_classified_members()
 
+    def get_member(self, member_name):
+        """Get the file-object of a package member.
+        """
+        return self._pack_xray.get_fp(member_name)
+
+    get_fp = get_member  # Deprecated
+
     @property
     def sha1_checksum(self):
+        """Checksum package with sha1 algorithm.
+        """
         return self._pack_xray.checksum(hashlib.sha1)
 
     def __repr__(self):
-        return '<packtools.xray.SPSPackage path=%s sha1=%s>' % (self.file, self.sha1_checksum)
+        return '<%s path=%s sha1=%s>' % (self.__class__.__name__,
+                                         self.file, self.sha1_checksum)
 
     def _get_meta(self):
         parsed_xml = etree.parse(self.xml_fp)

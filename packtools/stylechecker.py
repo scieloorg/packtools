@@ -31,8 +31,7 @@ def XMLSchematron(schema_name):
 def XML(file, no_network=True, load_dtd=True):
     """Parses `file` to produce an etree instance.
 
-    The DTD is loaded during parse time, unless when provided as an
-    argument. The XML can be retrieved given its filesystem path,
+    The XML can be retrieved given its filesystem path,
     an URL or a file-object.
 
     :param file: Path to the XML file, URL or file-object.
@@ -48,25 +47,28 @@ def XML(file, no_network=True, load_dtd=True):
 
 
 class XMLValidator(object):
+    """Adapter that performs SPS validations.
+
+    If `file` is not an etree instance, it will be parsed using
+    :func:`XML`.
+
+    SPS validation stages are:
+      - JATS 1.0 or PMC 3.0 (as bound by the doctype declaration or passed
+        explicitly)
+      - SciELO Style - ISO Schematron
+      - SciELO Style - Python based pipeline
+
+    :param file: Path to the XML file, URL, etree or file-object.
+    :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
+    :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
+    """
     allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS)
 
-    def __init__(self, lxml, dtd=None, no_doctype=False):
-        """Adapter that performs SPS validations.
-
-        SPS validation stages are:
-          - JATS 1.0 or PMC 3.0 (as bound by the doctype declaration or passed
-            explicitly)
-          - SciELO Style - ISO Schematron
-          - SciELO Style - Python based pipeline
-
-        :param lxml: lxml's etree instance.
-        :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
-        :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
-        """
-        if isinstance(lxml, etree._ElementTree):
-            self.lxml = lxml
+    def __init__(self, file, dtd=None, no_doctype=False):
+        if isinstance(file, etree._ElementTree):
+            self.lxml = file
         else:
-            self.lxml = XML(lxml)
+            self.lxml = XML(file)
 
         self.dtd = dtd or self.lxml.docinfo.externalDTD
 
@@ -84,7 +86,7 @@ class XMLValidator(object):
 
     @cachedmethod
     def validate(self):
-        """Validate the source XML against the JATS Publishing Schema.
+        """Validate the source XML against JATS DTD.
 
         Returns a tuple comprising the validation status and the errors list.
         """
@@ -100,7 +102,7 @@ class XMLValidator(object):
 
     @cachedmethod
     def _validate_sch(self):
-        """Validate the source XML against the SPS Schematron.
+        """Validate the source XML against SPS-Style Schematron.
 
         Returns a tuple comprising the validation status and the errors list.
         """
@@ -114,7 +116,7 @@ class XMLValidator(object):
 
     @cachedmethod
     def validate_style(self):
-        """Validate the source XML against the SPS Tagging guidelines.
+        """Validate the source XML against SPS-Style Tagging guidelines.
 
         Returns a tuple comprising the validation status and the errors list.
         """
@@ -164,9 +166,7 @@ class XMLValidator(object):
     def annotate_errors(self, fail_fast=False):
         """Add notes on all elements that have errors.
 
-        The errors list is generated as a result of calling both :meth:`validate` and
-        :meth:`validate_style` methods.
-
+        The errors list is generated as the result of calling :meth:`validate_all`.
         """
         status, errors = self.validate_all(fail_fast=fail_fast)
         mutating_xml = deepcopy(self.lxml)
@@ -201,8 +201,7 @@ class XMLValidator(object):
         return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml, is_valid)
 
     def read(self):
-        """
-        Read the XML contents as text.
+        """Read the XML contents as text.
         """
         return unicode(self)
 
