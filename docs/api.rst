@@ -17,5 +17,9 @@ These are the classes users will more frequently interact with.
 .. autoclass:: packtools.XMLValidator
    :inherited-members:
 
+
+Utils
+-----
+
 .. autofunction:: packtools.XML
 

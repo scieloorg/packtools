@@ -35,7 +35,7 @@ def teardown(message):
 def StyleCheckingPipeline():
     """Factory for style checking pipelines.
     """
-    return plumber.Pipeline(setup, funding_group, teardown)
+    return plumber.Pipeline(setup, funding_group, doctype, teardown)
 
 
 # --------------------------------
@@ -176,6 +176,20 @@ def funding_group(message):
 
     else:
         logger.debug('No contract numbers found in %s.' % et)
+
+    return message
+
+
+@plumber.pipe
+def doctype(message):
+    """Make sure the DOCTYPE declaration is present.
+    """
+    et, err_list = message
+
+    if not et.docinfo.doctype:
+        err = StyleError()
+        err.message = "Missing DOCTYPE declaration."
+        err_list.append(err)
 
     return message
 

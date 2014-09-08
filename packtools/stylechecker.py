@@ -58,6 +58,13 @@ class XMLValidator(object):
       - SciELO Style - ISO Schematron
       - SciELO Style - Python based pipeline
 
+    If the DOCTYPE is declared, its public id is validated against a white list,
+    declared by ``allowed_public_ids`` class variable. The system id is ignored.
+    By default, the allowed values are:
+
+      - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
+      - ``-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN``
+
     :param file: Path to the XML file, URL, etree or file-object.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
     :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
@@ -91,7 +98,7 @@ class XMLValidator(object):
         Returns a tuple comprising the validation status and the errors list.
         """
         if self.dtd is None:
-            raise TypeError('The DTD/XSD could not be loaded.')
+            raise TypeError('The DTD/XSD could not be loaded')
 
         def make_error_log():
             return [SchemaStyleError(err) for err in self.dtd.error_log]
@@ -132,7 +139,12 @@ class XMLValidator(object):
     def validate_all(self, fail_fast=False):
         """Runs all validations.
 
-        :param fail_fast: (optional) raise TypeError if the dtd have not been loaded.
+        First, the XML is validated against the DTD (calling :meth:`validate`).
+        If no DTD is provided and the argument ``fail_fast == True``, a ``TypeError``
+        is raised. After that, the XML is validated against the SciELO style
+        (calling :meth:`validate_style`).
+
+        :param fail_fast: (optional) raise ``TypeError`` if the DTD has not been loaded.
         """
         try:
             v_result, v_errors = self.validate()
@@ -205,6 +217,29 @@ class XMLValidator(object):
         """
         return unicode(self)
 
+    @property
+    def meta(self):
+        """Article metadata.
+        """
+        parsed_xml = self.lxml
+
+        xml_nodes = {
+            "journal_title": "front/journal-meta/journal-title-group/journal-title",
+            "journal_eissn": "front/journal-meta/issn[@pub-type='epub']",
+            "journal_pissn": "front/journal-meta/issn[@pub-type='ppub']",
+            "article_title": "front/article-meta/title-group/article-title",
+            "issue_year": "front/article-meta/pub-date/year",
+            "issue_volume": "front/article-meta/volume",
+            "issue_number": "front/article-meta/issue",
+        }
+
+        metadata = {}
+        for node_k, node_v in xml_nodes.items():
+            node = parsed_xml.find(node_v)
+            metadata[node_k] = getattr(node, 'text', None)
+
+        return metadata
+
 
 def main():
     import argparse
@@ -225,15 +260,27 @@ def main():
 
     args = parser.parse_args()
     try:
-        xml = XML(args.xmlpath, no_network=args.nonetwork)
+        parsed_xml = XML(args.xmlpath, no_network=args.nonetwork)
+
     except IOError:
         sys.exit('Error reading %s. Make sure it is a valid file-path or URL.' % args.xmlpath)
+
     except etree.XMLSyntaxError as e:
         sys.exit('Error reading %s. Syntax error: %s' % (args.xmlpath, e.message))
-    except ValueError as e:
-        sys.exit('Error reading %s. %s.' % (args.xmlpath, e.message))
 
-    is_valid, errors = xml.validate()
+    else:
+        try:
+            xml = XMLValidator(parsed_xml)
+
+        except ValueError as e:
+            sys.exit('Error reading %s. %s.' % (args.xmlpath, e.message))
+
+    try:
+        # validation may raise TypeError when the DTD lookup fails.
+        is_valid, errors = xml.validate()
+    except TypeError as e:
+        sys.exit('Error validating %s. %s.' % (args.xmlpath, e.message))
+
     style_is_valid, style_errors = xml.validate_style()
 
     if args.annotated:

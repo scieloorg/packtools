@@ -102,9 +102,9 @@ class Xray(object):
 
 
 class SPSPackage(object):
-    """SciELO Publishing Schema's article package.
+    """SciELO Publishing Schema article package.
 
-    :param file: The filesystem path to the package.
+    :param file: Filesystem path to the package.
     """
     def __init__(self, file):
         self.file = file
@@ -112,10 +112,10 @@ class SPSPackage(object):
 
     @property
     def xml_fp(self):
-        """Returns the file-object to the XML file inside the package.
+        """File-object to the XML file inside the package.
 
-        Make sure the package has only one XML file, otherwise an
-        AttributeError is raised.
+        If there are more than one XML file inside the package, ``AttributeError``
+        is raised.
         """
         fps = self._pack_xray.get_fps('xml')
 
@@ -129,8 +129,10 @@ class SPSPackage(object):
     def xml_validator(self):
         """stylechecker.XMLValidator instance.
         """
+        # XMLValidator is instantiated with `no_doctype=True` for resilience
+        # while inspecting the XML file.
         return utils.setdefault(self, '__xml_validator_instance',
-                                lambda: stylechecker.XMLValidator(self.xml_fp))
+            lambda: stylechecker.XMLValidator(self.xml_fp, no_doctype=True))
 
     def is_valid(self):
         """Performs all package validations sequentialy.
@@ -160,29 +162,9 @@ class SPSPackage(object):
         return '<%s path=%s sha1=%s>' % (self.__class__.__name__,
                                          self.file, self.sha1_checksum)
 
-    def _get_meta(self):
-        parsed_xml = etree.parse(self.xml_fp)
-
-        dct_mta = {}
-        xml_nodes = {
-            "journal_title": "front/journal-meta/journal-title-group/journal-title",
-            "journal_eissn": "front/journal-meta/issn[@pub-type='epub']",
-            "journal_pissn": "front/journal-meta/issn[@pub-type='ppub']",
-            "article_title": "front/article-meta/title-group/article-title",
-            "issue_year": "front/article-meta/pub-date/year",
-            "issue_volume": "front/article-meta/volume",
-            "issue_number": "front/article-meta/issue",
-        }
-
-        for node_k, node_v in xml_nodes.items():
-            node = parsed_xml.find(node_v)
-            dct_mta[node_k] = getattr(node, 'text', None)
-
-        return dct_mta
-
     @property
     def meta(self):
-        """Retrieve journal metadata.
+        """Package metadata.
         """
-        return utils.setdefault(self, '__meta', self._get_meta)
+        return self.xml_validator.meta
 
