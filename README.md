@@ -7,7 +7,13 @@ Canivete suiço para a inspeção de pacotes SPS.
 Instalação
 ----------
 
-Pip + git:
+Python Package Index (recomendado):
+
+``bash
+pip install packtools
+``
+
+Pip + git (versão de desenvolvimento):
 
 ```bash
 pip install -e git+git://github.com/scieloorg/packtools.git#egg=packtools
