@@ -9,9 +9,9 @@ Instalação
 
 Python Package Index (recomendado):
 
-``bash
+```bash
 pip install packtools
-``
+```
 
 Pip + git (versão de desenvolvimento):
 
