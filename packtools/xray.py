@@ -1,5 +1,4 @@
 #coding: utf-8
-import os
 import zipfile
 import itertools
 import logging
@@ -14,94 +13,17 @@ from . import stylechecker
 logger = logging.getLogger(__name__)
 
 
-class SPSMixin(object):
-
-    @property
-    def xmls(self):
-        fps = self.get_fps('xml')
-        for fp in fps:
-            yield etree.parse(fp)
-
-    @property
-    def xml(self):
-        xmls = list(itertools.islice(self.xmls, 2))
-        if len(xmls) == 1:
-            return xmls[0]
-        else:
-            raise AttributeError('there is not a single xml file' + str(len(xmls)))
-
-    @property
-    def meta(self):
-        dct_mta = {}
-
-        xml_nodes = {"journal_title": ".//journal-meta/journal-title-group/journal-title",
-                     "journal_eissn": ".//journal-meta/issn[@pub-type='epub']",
-                     "journal_pissn": ".//journal-meta/issn[@pub-type='ppub']",
-                     "article_title": ".//article-meta/title-group/article-title",
-                     "issue_year": ".//article-meta/pub-date/year",
-                     "issue_volume": ".//article-meta/volume",
-                     "issue_number": ".//article-meta/issue",
-                     "supplement": ".//article-meta/supplement",
-                     }
-        for node_k, node_v in xml_nodes.items():
-            node = self.xml.find(node_v)
-            dct_mta[node_k] = getattr(node, 'text', None)
-
-        return dct_mta
-
-    def is_valid_schema(self):
-        """
-        Checks if the XML is valid against SPS XSD.
-        More info at: https://github.com/scieloorg/scielo_publishing_schema
-        """
-        return self.stylechecker.validate()[0]
-
-    def is_valid_meta(self):
-        """
-        Checks if the minimum required data to identify a package is present.
-        """
-        meta = self.meta
-        return bool(meta['article_title'] and (
-                    meta['journal_eissn'] or meta['journal_pissn']) and (
-                    meta['issue_volume'] or meta['issue_number']))
-
-    def is_valid_package(self):
-        """
-        Validate if exist at least one XML file and one PDF file
-        """
-        is_valid = True
-        for ext in ['xml', 'pdf']:
-            try:
-                _ = self.get_ext(ext)
-            except ValueError as e:
-                is_valid = False
-
-        return is_valid
-
-    def is_valid(self):
-        """
-        Performs all package validations sequentialy.
-        """
-        return self.is_valid_package() and self.is_valid_schema() and self.is_valid_meta()
-
-    @property
-    def stylechecker(self):
-        return utils.setdefault(self, '__stylechecker', lambda: stylechecker.XML(self.xml))
-
-
 class Xray(object):
-
-    def __init__(self, filename):
+    """Introspects SPS packages.
+    """
+    def __init__(self, file):
+        """:param file: the full path to a zip file.
         """
-        ``filename`` is the full path to a zip file.
-        """
-        if not zipfile.is_zipfile(filename):
-            raise ValueError('%s is not a valid zipfile.' % filename)
+        if not zipfile.is_zipfile(file):
+            raise ValueError('%s is not a valid zipfile.' % file)
 
-        self._filename = filename
-        self._zip_pkg = zipfile.ZipFile(filename, 'r')
+        self._zip_pkg = zipfile.ZipFile(file, 'r')
         self._pkg_names = {}
-
         self._classify()
 
     def __del__(self):
@@ -124,8 +46,7 @@ class Xray(object):
                 ext_node.append(filename)
 
     def get_members(self):
-        """
-        Get a list of members.
+        """Get a list of members.
         """
         members = []
         for names in self._pkg_names.values():
@@ -135,8 +56,7 @@ class Xray(object):
         return members
 
     def get_classified_members(self):
-        """
-        Get a list of members classified by type.
+        """Get a list of members classified by type.
         """
         return dict(self._pkg_names)
 
@@ -152,8 +72,7 @@ class Xray(object):
             return []
 
     def get_fps(self, ext):
-        """
-        Get file objects for all members having ``ext`` as extension.
+        """Get file objects for all members having ``ext`` as extension.
         If ``ext`` is not found in the archive, the iterator is empty.
         """
         filenames = self.get_ext(ext)
@@ -164,8 +83,7 @@ class Xray(object):
             yield self._zip_pkg.open(filename, 'r')
 
     def get_fp(self, member):
-        """
-        Get file object for member.
+        """Get file object for member.
 
         A complete list of members can be checked
         calling get_members().
@@ -177,14 +95,76 @@ class Xray(object):
         except KeyError:
             raise ValueError('Missing member %s' % member)
 
+    def checksum(self, algorithm):
+        """Checksum the package file using `algorithm`.
+        """
+        return utils.checksum_file(self._zip_pkg.filename, algorithm)
+
+
+class SPSPackage(object):
+    """SciELO Publishing Schema article package.
+
+    :param file: Filesystem path to the package.
+    """
+    def __init__(self, file):
+        self.file = file
+        self._pack_xray = Xray(file)
+
     @property
-    def checksum(self):
-        """
-        Checksum the package file using sha1.
-        """
-        return utils.checksum_file(self._filename, hashlib.sha1)
+    def xml_fp(self):
+        """File-object to the XML file inside the package.
 
+        If there are more than one XML file inside the package, ``AttributeError``
+        is raised.
+        """
+        fps = self._pack_xray.get_fps('xml')
 
-class SPSPackage(SPSMixin, Xray):
-    pass
+        xmls = list(itertools.islice(fps, 2))
+        if len(xmls) != 1:
+            raise AttributeError('There must be only one xml file inside a package.')
+
+        return xmls[0]
+
+    @property
+    def xml_validator(self):
+        """stylechecker.XMLValidator instance.
+        """
+        # XMLValidator is instantiated with `no_doctype=True` for resilience
+        # while inspecting the XML file.
+        return utils.setdefault(self, '__xml_validator_instance',
+            lambda: stylechecker.XMLValidator(self.xml_fp, no_doctype=True))
+
+    def is_valid(self):
+        """Performs all package validations sequentialy.
+        """
+        xml_status = self.xml_validator.validate_all()[0]
+        return xml_status
+
+    def list_members_by_type(self):
+        """List all package members by type.
+        """
+        return self._pack_xray.get_classified_members()
+
+    def get_member(self, member_name):
+        """Get the file-object of a package member.
+        """
+        return self._pack_xray.get_fp(member_name)
+
+    get_fp = get_member  # Deprecated
+
+    @property
+    def sha1_checksum(self):
+        """Checksum package with sha1 algorithm.
+        """
+        return self._pack_xray.checksum(hashlib.sha1)
+
+    def __repr__(self):
+        return '<%s path=%s sha1=%s>' % (self.__class__.__name__,
+                                         self.file, self.sha1_checksum)
+
+    @property
+    def meta(self):
+        """Package metadata.
+        """
+        return self.xml_validator.meta
 

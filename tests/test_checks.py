@@ -30,7 +30,7 @@ class TeardownTests(unittest.TestCase):
 class PipelineTests(unittest.TestCase):
     def test_connected_pipes_no(self):
         ppl = checks.StyleCheckingPipeline()
-        self.assertEqual(len(ppl._pipes), 3)
+        self.assertEqual(len(ppl._pipes), 4)
 
     @unittest.skip('depends on not implemented feature')
     def test_connected_pipes(self):
@@ -449,4 +449,33 @@ class FundingGroupPipeTests(unittest.TestCase):
 
         self.assertEquals(len(err_list), 1)
         self.assertTrue("'funding-group'" in err_list[0].message)
+
+
+class DoctypePipeTests(unittest.TestCase):
+
+    def test_missing_doctype(self):
+        sample = StringIO("""
+        <article>
+          ...
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.doctype((et, []))
+
+        self.assertEquals(len(err_list), 1)
+        self.assertTrue("DOCTYPE" in err_list[0].message)
+
+    def test_doctype(self):
+        sample = StringIO("""
+        <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+        <article>
+          ...
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.doctype((et, []))
+
+        self.assertEquals(len(err_list), 0)
 

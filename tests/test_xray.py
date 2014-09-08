@@ -1,16 +1,30 @@
 #coding: utf-8
+import types
 import unittest
 import zipfile
 from tempfile import NamedTemporaryFile
+import os
 
 from lxml import etree
 import mocker
 
 from packtools import xray as x_ray
-from packtools.catalogs import SCHEMAS
+from packtools.catalogs import SCHEMAS, XML_CATALOG
 
 
 DTD = SCHEMAS['JATS-journalpublishing1.dtd']
+
+
+def setUpModule():
+    """Setup the XML Catalog in order to perform local lookups for DTD.
+    """
+    os.environ['XML_CATALOG_FILES'] = XML_CATALOG
+
+
+def tearDownModule():
+    """Unset the local XML catalog.
+    """
+    del(os.environ['XML_CATALOG_FILES'])
 
 
 def make_test_archive(arch_data):
@@ -22,29 +36,17 @@ def make_test_archive(arch_data):
     return fp
 
 
-class SPSMixinTests(mocker.MockerTestCase):
-
+class SPSPackage(mocker.MockerTestCase):
 
     def _makeOne(self, fname):
-        class Foo(x_ray.SPSMixin, x_ray.Xray):
-            pass
+        return x_ray.SPSPackage(fname)
 
-        return Foo(fname)
-
-    def test_xmls_yields_etree_instances(self):
+    def test_xml_returns_fileobject(self):
         data = [('bar.xml', b'<root><name>bar</name></root>')]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
 
-        xmls = pkg.xmls
-        self.assertIsInstance(xmls.next(), etree._ElementTree)
-
-    def test_xml_returns_etree_instance(self):
-        data = [('bar.xml', b'<root><name>bar</name></root>')]
-        arch = make_test_archive(data)
-        pkg = self._makeOne(arch.name)
-
-        self.assertIsInstance(pkg.xml, etree._ElementTree)
+        self.assertTrue(hasattr(pkg.xml_fp, 'read'))
 
     def test_xml_raises_AttributeError_when_multiple_xmls(self):
         data = [
@@ -58,7 +60,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_journal_title_data_is_fetched(self):
         data = [
-            ('bar.xml', b'<root><journal-meta><journal-title-group><journal-title>foo</journal-title></journal-title-group></journal-meta></root>'),
+            ('bar.xml', '<article><front><journal-meta><journal-title-group><journal-title>foo</journal-title></journal-title-group></journal-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -67,7 +69,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_journal_title_is_None_if_not_present(self):
         data = [
-            ('bar.xml', b'<root></root>'),
+            ('bar.xml', '<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -76,7 +78,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_journal_eissn_data_is_fetched(self):
         data = [
-            ('bar.xml', b'<root><journal-meta><issn pub-type="epub">1234-1234</issn></journal-meta></root>'),
+            ('bar.xml', '<article><front><journal-meta><issn pub-type="epub">1234-1234</issn></journal-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -85,7 +87,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_journal_eissn_is_None_if_not_present(self):
         data = [
-            ('bar.xml', b'<root></root>'),
+            ('bar.xml', '<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -94,7 +96,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_journal_pissn_data_is_fetched(self):
         data = [
-            ('bar.xml', b'<root><journal-meta><issn pub-type="ppub">1234-1234</issn></journal-meta></root>'),
+            ('bar.xml', '<article><front><journal-meta><issn pub-type="ppub">1234-1234</issn></journal-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -103,7 +105,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_journal_pissn_is_None_if_not_present(self):
         data = [
-            ('bar.xml', b'<root></root>'),
+            ('bar.xml', '<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -112,7 +114,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_article_title_data_is_fetched(self):
         data = [
-            ('bar.xml', b'<root><article-meta><title-group><article-title>bar</article-title></title-group></article-meta></root>'),
+            ('bar.xml', '<article><front><article-meta><title-group><article-title>bar</article-title></title-group></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -121,7 +123,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_article_title_is_None_if_not_present(self):
         data = [
-            ('bar.xml', b'<root></root>'),
+            ('bar.xml', '<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -130,7 +132,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_issue_year_data_is_fetched(self):
         data = [
-            ('bar.xml', b'<root><article-meta><pub-date><year>2013</year></pub-date></article-meta></root>'),
+            ('bar.xml', '<article><front><article-meta><pub-date><year>2013</year></pub-date></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -139,7 +141,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_issue_year_is_None_if_not_present(self):
         data = [
-            ('bar.xml', b'<root></root>'),
+            ('bar.xml', '<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -148,7 +150,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_issue_volume_data_is_fetched(self):
         data = [
-            ('bar.xml', b'<root><article-meta><volume>2</volume></article-meta></root>'),
+            ('bar.xml', '<article><front><article-meta><volume>2</volume></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -157,7 +159,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_issue_volume_is_None_if_not_present(self):
         data = [
-            ('bar.xml', b'<root></root>'),
+            ('bar.xml', '<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -166,7 +168,7 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_issue_number_data_is_fetched(self):
         data = [
-            ('bar.xml', b'<root><article-meta><issue>2</issue></article-meta></root>'),
+            ('bar.xml', '<article><front><article-meta><issue>2</issue></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -175,34 +177,16 @@ class SPSMixinTests(mocker.MockerTestCase):
 
     def test_meta_issue_number_is_None_if_not_present(self):
         data = [
-            ('bar.xml', b'<root></root>'),
+            ('bar.xml', '<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
 
         self.assertIsNone(pkg.meta['issue_number'])
 
-    def test_meta_is_not_valid(self):
-        data = [
-            ('bar.xml', b'<root></root>'),
-        ]
-        arch = make_test_archive(data)
-        pkg = self._makeOne(arch.name)
-
-        self.assertFalse(pkg.is_valid_meta())
-
-    def test_meta_is_valid(self):
-        data = [
-            ('bar.xml', b'<root><journal-meta><issn pub-type="ppub">12-34</issn></journal-meta><article-meta><issue>3</issue><title-group><article-title>Titulo de artigo</article-title></title-group></article-meta></root>'),
-        ]
-        arch = make_test_archive(data)
-        pkg = self._makeOne(arch.name)
-
-        self.assertTrue(pkg.is_valid_meta())
-
-    @unittest.skip('broken after the change to DTD validation')
     def test_is_valid_schema_with_valid_xml(self):
         data = [('bar.xml', b'''<?xml version="1.0" encoding="utf-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
                 <article article-type="in-brief" dtd-version="1.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
                 <front>
                     <journal-meta>
@@ -252,12 +236,13 @@ class SPSMixinTests(mocker.MockerTestCase):
             ''')]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
+        xml_validator = pkg.xml_validator
 
-        self.assertTrue(pkg.is_valid_schema())
+        self.assertTrue(xml_validator.validate()[0])
 
-    @unittest.skip('broken after the change to DTD validation')
     def test_is_valid_schema_with_invalid_xml(self):
         data = [('bar.xml', b'''<?xml version="1.0" encoding="utf-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
                 <article article-type="in-brief" dtd-version="1.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
                 <front>
                     <journal-meta>
@@ -306,12 +291,13 @@ class SPSMixinTests(mocker.MockerTestCase):
             ''')]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
+        xml_validator = pkg.xml_validator
 
-        self.assertFalse(pkg.is_valid_schema())
+        self.assertFalse(xml_validator.validate()[0])
 
-    @unittest.skip('broken after the change to DTD validation')
     def test_is_valid_schema_with_wrong_tag(self):
         data = [('bar.xml', b'''<?xml version="1.0" encoding="utf-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
                 <article article-type="in-brief" dtd-version="1.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
                 <front>
                     <a>wrong</a>
@@ -361,8 +347,9 @@ class SPSMixinTests(mocker.MockerTestCase):
             ''')]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
+        xml_validator = pkg.xml_validator
 
-        self.assertFalse(pkg.is_valid_schema())
+        self.assertFalse(xml_validator.validate()[0])
 
 
 class XrayTests(mocker.MockerTestCase):
@@ -423,13 +410,14 @@ class XrayTests(mocker.MockerTestCase):
         self.assertRaises(StopIteration, lambda: fps.next())
 
     def test_package_checksum_is_calculated(self):
+        import hashlib
         data = [('bar.xml', b'<root><name>bar</name></root>')]
         arch1 = make_test_archive(data)
         arch2 = make_test_archive(data)
 
         self.assertEquals(
-            x_ray.Xray(arch1.name).checksum,
-            x_ray.Xray(arch2.name).checksum
+            x_ray.Xray(arch1.name).checksum(hashlib.sha1),
+            x_ray.Xray(arch2.name).checksum(hashlib.sha1)
         )
 
     def test_get_members(self):
