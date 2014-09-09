@@ -252,6 +252,11 @@
     <active pattern="media_attributes"/>
   </phase>
 
+  <phase id="phase.ext-link">
+    <active pattern="ext-link_href_values"/>
+    <active pattern="ext-link_attributes"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1185,6 +1190,39 @@
       </assert>
       <assert test="@xlink:href">
         Element 'media': Missing attribute xlink:href.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="ext-link_attributes">
+    <title>
+      Make sure some attributes are present. Also, the value of 
+      ext-link-type is validated against a white-list.
+    </title>
+
+    <rule context="//ext-link">
+      <assert test="@ext-link-type">
+        Element 'ext-link': Missing attribute ext-link-type.
+      </assert>
+      <assert test="@ext-link-type = 'uri'">
+        Element 'ext-link', attribute ext-link-type: Invalid value '<value-of select="@ext-link-type"/>'.
+      </assert>
+      <assert test="@xlink:href">
+        Element 'ext-link': Missing attribute xlink:href.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="ext-link_href_values">
+    <title>
+      When //ext-link/@ext-link-type="uri", @xlink:href must start with
+      http:// or https://.
+    </title>
+
+    <rule context="//ext-link[@ext-link-type='uri']">
+      <assert test="starts-with(@xlink:href, 'http://') or 
+                    starts-with(@xlink:href, 'https://')">
+        Element 'ext-link', attribute xlink:href: Missing HTTP URI scheme in '<value-of select="@xlink:href"/>'.
       </assert>
     </rule>
   </pattern>

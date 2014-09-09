@@ -5066,3 +5066,90 @@ class MediaTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class ExtLinkTests(unittest.TestCase):
+    """Tests for ext-link elements.
+    """
+    def _run_validation(self, sample):
+        schematron = isoschematron.Schematron(SCH, phase='phase.ext-link')
+        return schematron.validate(etree.parse(sample))
+
+    def test_complete(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <p>Neque porro quisquam est <ext-link ext-link-type="uri" xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_allowed_extlinktype(self):
+        for link_type in ['uri', ]:
+            sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <body>
+                            <sec>
+                              <p>Neque porro quisquam est <ext-link ext-link-type="%s" xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
+                            </sec>
+                          </body>
+                        </article>
+                     """ % link_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_extlinktype(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <p>Neque porro quisquam est <ext-link ext-link-type="invalid" xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_extlinktype(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <p>Neque porro quisquam est <ext-link xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_xlinkhref(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <p>Neque porro quisquam est <ext-link ext-link-type="uri">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_uri_without_scheme(self):
+        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <body>
+                        <sec>
+                          <p>Neque porro quisquam est <ext-link ext-link-type="uri" xlink:href="www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
