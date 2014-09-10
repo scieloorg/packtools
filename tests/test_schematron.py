@@ -2102,8 +2102,7 @@ class ProductTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_product_types(self):
-        for prod_type in ['book', 'software', 'article', 'issue', 'website',
-                          'film', 'hardware']:
+        for prod_type in ['book', 'software', 'article', 'chapter', 'other']:
             sample = """<article article-type="book-review">
                           <front>
                             <article-meta>
@@ -3148,7 +3147,9 @@ class ElementCitationTests(unittest.TestCase):
 
 
 class PersonGroupTests(unittest.TestCase):
-    """Tests for article/back/ref-list/ref/element-citation/person-group element.
+    """Tests for
+      - article/back/ref-list/ref/element-citation/person-group
+      - article/front/article-meta/product/person-group
     """
     def _run_validation(self, sample):
         schematron = isoschematron.Schematron(SCH, phase='phase.person-group')
@@ -3173,6 +3174,23 @@ class PersonGroupTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_missing_type_at_product(self):
+        sample = """<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                            <person-group>
+                              <name>Foo</name>
+                            </person-group>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_with_type(self):
         sample = """<article>
                       <back>
@@ -3191,6 +3209,45 @@ class PersonGroupTests(unittest.TestCase):
         sample = StringIO(sample)
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_allowed_types(self):
+        for group_type in ['author', 'compiler', 'editor', 'translator']:
+            sample = """<article>
+                          <back>
+                            <ref-list>
+                              <ref>
+                                <element-citation>
+                                  <person-group person-group-type="%s">
+                                    <name>Foo</name>
+                                  </person-group>
+                                </element-citation>
+                              </ref>
+                            </ref-list>
+                          </back>
+                        </article>
+                     """ % group_type
+        sample = StringIO(sample)
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_type(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <person-group person-group-type="invalid">
+                                <name>Foo</name>
+                              </person-group>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
 
 
 class FNGroupTests(unittest.TestCase):
@@ -4589,11 +4646,10 @@ class ArticleAttributesTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_allowed_article_types(self):
-        for art_type in ['research-article', 'letter', 'article-commentary',
-                'brief-report', 'editorial', 'in-brief', 'case-report', 'report',
-                'note', 'correction', 'obituary', 'abstract', 'review-article',
-                'book-review', 'product-review', 'clinical-trial', 'retraction',
-                'collection']:
+        for art_type in ['abstract', 'announcement', 'other', 'article-commentary',
+                'case-report', 'editorial', 'correction', 'letter', 'research-article',
+                'in-brief', 'review-article', 'book-review', 'retraction',
+                'brief-report', 'rapid-communication', 'reply', 'translation']:
 
             sample = """<article article-type="%s" xml:lang="en" dtd-version="1.0">
                         </article>
