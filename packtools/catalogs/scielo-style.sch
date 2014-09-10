@@ -227,6 +227,7 @@
   <phase id="phase.article-attrs">
     <active pattern="article_attributes"/>
     <active pattern="article_article-type-values"/>
+    <active pattern="article_specific-use-values"/>
   </phase>
 
   <phase id="phase.named-content_attrs">
@@ -1040,6 +1041,9 @@
       <assert test="@dtd-version">
         Element 'article': Missing attribute dtd-version.
       </assert>
+      <assert test="@specific-use">
+        Element 'article': Missing SPS version at the attribute specific-use.
+      </assert>
     </rule>
   </pattern>
 
@@ -1068,6 +1072,18 @@
                     @article-type = 'retraction' or 
                     @article-type = 'collection'">
         Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="article_specific-use-values">
+    <title>
+      The SPS version must be declared in article/@specific-use 
+    </title>
+
+    <rule context="article[@specific-use]">
+      <assert test="@specific-use = 'sps-1.1'">
+        Element 'article', attribute specific-use: Invalid value '<value-of select="@specific-use"/>'.
       </assert>
     </rule>
   </pattern>

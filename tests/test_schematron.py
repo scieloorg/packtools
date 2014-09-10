@@ -4595,7 +4595,7 @@ class ArticleAttributesTests(unittest.TestCase):
                 'book-review', 'product-review', 'clinical-trial', 'retraction',
                 'collection']:
 
-            sample = """<article article-type="%s" xml:lang="en" dtd-version="1.0">
+            sample = """<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.1">
                         </article>
                      """ % art_type
             sample = StringIO(sample)
@@ -4603,7 +4603,7 @@ class ArticleAttributesTests(unittest.TestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_article_type(self):
-        sample = """<article article-type="invalid" dtd-version="1.0">
+        sample = """<article article-type="invalid" dtd-version="1.0" specific-use="sps-1.1">
                     </article>
                  """
         sample = StringIO(sample)
@@ -4611,7 +4611,7 @@ class ArticleAttributesTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_article_type(self):
-        sample = """<article xml:lang="en" dtd-version="1.0">
+        sample = """<article xml:lang="en" dtd-version="1.0" specific-use="sps-1.1">
                     </article>
                  """
         sample = StringIO(sample)
@@ -4619,7 +4619,7 @@ class ArticleAttributesTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_xmllang(self):
-        sample = """<article article-type="research-article" dtd-version="1.0">
+        sample = """<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.1">
                     </article>
                  """
         sample = StringIO(sample)
@@ -4627,13 +4627,28 @@ class ArticleAttributesTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_dtdversion(self):
-        sample = """<article article-type="research-article" xml:lang="en">
+        sample = """<article article-type="research-article" xml:lang="en" specific-use="sps-1.1">
                     </article>
                  """
         sample = StringIO(sample)
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_missing_sps_version(self):
+        sample = """<article article-type="research-article" dtd-version="1.0" xml:lang="en">
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_invalid_sps_version(self):
+        sample = """<article article-type="research-article" dtd-version="1.0" xml:lang="en" specific-use="sps-1.0">
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
 
 class NamedContentTests(unittest.TestCase):
     """Tests for article/front/article-meta/aff/addr-line/named-content elements.
