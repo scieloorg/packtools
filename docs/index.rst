@@ -14,7 +14,9 @@ This software is licensed under `BSD License <http://opensource.org/licenses/BSD
 Packtools is a Python library and set of command line utilities which can be 
 used to handle :term:`SciELO Publishing Schema` packages and XML files.
 
-*stylechecker* command-line utility example:
+
+stylechecker command line utility
+---------------------------------
 
 .. code-block:: bash
 
@@ -40,7 +42,8 @@ used to handle :term:`SciELO Publishing Schema` packages and XML files.
     Element 'journal-meta': Missing element issn of type "epub".
 
 
-Lib usage example:
+Using packtools as a library
+----------------------------
 
 .. code-block:: python
 
