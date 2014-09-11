@@ -201,6 +201,8 @@
 
   <phase id="phase.element-citation">
     <active pattern="element-citation"/>
+    <active pattern="element-citation_attributes"/>
+    <active pattern="element-citation_publication-type-values"/>
   </phase>
 
   <phase id="phase.person-group">
@@ -915,18 +917,25 @@
 
   <pattern id="element-citation">
     <title>
-      Make sure name, etal and collab are not child of element-citation.
+      - Make sure name, etal and collab are not child of element-citation.
+      - element-citation can be only child of ref elements.
     </title>
 
     <rule context="article/back/ref-list/ref/element-citation">
       <assert test="not(name)">
-        Element '<name/>': Unexpected element name.
+        Element 'element-citation': Unexpected element name.
       </assert>
       <assert test="not(etal)">
-        Element '<name/>': Unexpected element etal.
+        Element 'element-citation': Unexpected element etal.
       </assert>
       <assert test="not(collab)">
-        Element '<name/>': Unexpected element collab.
+        Element 'element-citation': Unexpected element collab.
+      </assert>
+    </rule>
+
+    <rule context="//element-citation">
+      <assert test="parent[name() = 'ref']">
+        Unexpected element 'element-citation': Allowed only as child of ref elements.
       </assert>
     </rule>
   </pattern>
@@ -1243,5 +1252,35 @@
     </rule>
   </pattern>
 
+  <pattern id="element-citation_attributes">
+    <title>
+      Make sure some attributes are present. 
+    </title>
+
+    <rule context="article/back/ref-list/ref/element-citation">
+      <assert test="@publication-type">
+        Element 'element-citation': Missing attribute publication-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="element-citation_publication-type-values">
+    <title>
+      Allowed values for element-citation/@publication-type
+    </title>
+
+    <rule context="article/back/ref-list/ref/element-citation[@publication-type]">
+      <assert test="@publication-type = 'journal' or
+                    @publication-type = 'book' or
+                    @publication-type = 'webpage' or
+                    @publication-type = 'thesis' or
+                    @publication-type = 'confproc' or
+                    @publication-type = 'patent' or
+                    @publication-type = 'software' or
+                    @publication-type = 'database'">
+        Element 'element-citation', attribute publication-type: Invalid value '<value-of select="@publication-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
 </schema>
 

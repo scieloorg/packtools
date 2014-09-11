@@ -3043,7 +3043,7 @@ class ElementCitationTests(unittest.TestCase):
                       <back>
                         <ref-list>
                           <ref>
-                            <element-citation>
+                            <element-citation publication-type="journal">
                               <name>Foo</name>
                             </element-citation>
                           </ref>
@@ -3060,7 +3060,7 @@ class ElementCitationTests(unittest.TestCase):
                       <back>
                         <ref-list>
                           <ref>
-                            <element-citation>
+                            <element-citation publication-type="journal">
                               <person-group>
                                 <name>Foo</name>
                               </person-group>
@@ -3079,7 +3079,7 @@ class ElementCitationTests(unittest.TestCase):
                       <back>
                         <ref-list>
                           <ref>
-                            <element-citation>
+                            <element-citation publication-type="journal">
                               <etal>Foo</etal>
                             </element-citation>
                           </ref>
@@ -3096,7 +3096,7 @@ class ElementCitationTests(unittest.TestCase):
                       <back>
                         <ref-list>
                           <ref>
-                            <element-citation>
+                            <element-citation publication-type="journal">
                               <person-group>
                                 <etal>Foo</etal>
                               </person-group>
@@ -3115,7 +3115,7 @@ class ElementCitationTests(unittest.TestCase):
                       <back>
                         <ref-list>
                           <ref>
-                            <element-citation>
+                            <element-citation publication-type="journal">
                               <collab>Foo</collab>
                             </element-citation>
                           </ref>
@@ -3132,7 +3132,7 @@ class ElementCitationTests(unittest.TestCase):
                       <back>
                         <ref-list>
                           <ref>
-                            <element-citation>
+                            <element-citation publication-type="journal">
                               <person-group>
                                 <collab>Foo</collab>
                               </person-group>
@@ -3145,6 +3145,59 @@ class ElementCitationTests(unittest.TestCase):
         sample = StringIO(sample)
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_allowed_publication_types(self):
+        for pub_type in ['journal', 'book', 'webpage', 'thesis', 'confproc',
+                         'patent', 'software', 'database']:
+            sample = """<article>
+                          <back>
+                            <ref-list>
+                              <ref>
+                                <element-citation publication-type="%s">
+                                </element-citation>
+                              </ref>
+                            </ref-list>
+                          </back>
+                        </article>
+                     """ % pub_type
+            sample = StringIO(sample)
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_publication_types(self):
+        sample = """<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="invalid">
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_outside_ref(self):
+        sample = """<article>
+                      <body>
+                        <sec>
+                          <p>
+                            <element-citation publication-type="journal">
+                              <person-group>
+                                <collab>Foo</collab>
+                              </person-group>
+                            </element-citation>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = StringIO(sample)
+
+        self.assertFalse(self._run_validation(sample))
 
 
 class PersonGroupTests(unittest.TestCase):
