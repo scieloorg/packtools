@@ -207,6 +207,7 @@
 
   <phase id="phase.person-group">
     <active pattern="person-group"/>
+    <active pattern="person-group-type_values"/>
   </phase>
 
   <phase id="phase.fn-group">
@@ -565,13 +566,11 @@
     </title>
 
     <rule context="article/front/article-meta/product[@product-type]">
-      <assert test="@product-type = 'book' or
-                    @product-type = 'software' or
-                    @product-type = 'article' or
-                    @product-type = 'issue' or
-                    @product-type = 'website' or
-                    @product-type = 'film' or
-                    @product-type = 'hardware'">
+      <assert test="@product-type = 'article' or
+                    @product-type = 'book' or
+                    @product-type = 'chapter' or
+                    @product-type = 'other' or
+                    @product-type = 'software'">
         Element 'product', attribute product-type: Invalid value "<value-of select="@product-type"/>".
       </assert>
     </rule>
@@ -945,9 +944,26 @@
       Make sure person-group-type is present.
     </title>
 
-    <rule context="article/back/ref-list/ref/element-citation/person-group">
+    <rule context="article/back/ref-list/ref/element-citation/person-group | 
+                   article/front/article-meta/product/person-group">
       <assert test="@person-group-type">
         Element 'person-group': Missing attribute person-group-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="person-group-type_values">
+    <title>
+      person-group/@person-group-type value constraints.
+    </title>
+
+    <rule context="article/back/ref-list/ref/element-citation/person-group[@person-group-type] | 
+                   article/front/article-meta/product/person-group[@person-group-type]">
+      <assert test="@person-group-type = 'author' or
+                    @person-group-type = 'compiler' or 
+                    @person-group-type = 'editor' or
+                    @person-group-type = 'translator'">
+        Element 'person-group', attribute person-group-type: Invalid value '<value-of select="@person-group-type"/>'.
       </assert>
     </rule>
   </pattern>
@@ -1062,24 +1078,23 @@
     </title>
 
     <rule context="article[@article-type]">
-      <assert test="@article-type = 'research-article' or
-                    @article-type = 'letter' or 
+      <assert test="@article-type = 'abstract' or 
+                    @article-type = 'announcement' or
+                    @article-type = 'other' or
                     @article-type = 'article-commentary' or 
-                    @article-type = 'brief-report' or 
-                    @article-type = 'editorial' or
-                    @article-type = 'in-brief' or 
                     @article-type = 'case-report' or 
-                    @article-type = 'report' or 
-                    @article-type = 'note' or 
+                    @article-type = 'editorial' or
                     @article-type = 'correction' or
-                    @article-type = 'obituary' or
-                    @article-type = 'abstract' or 
+                    @article-type = 'letter' or 
+                    @article-type = 'research-article' or
+                    @article-type = 'in-brief' or 
                     @article-type = 'review-article' or 
                     @article-type = 'book-review' or 
-                    @article-type = 'product-review' or 
-                    @article-type = 'clinical-trial' or 
                     @article-type = 'retraction' or 
-                    @article-type = 'collection'">
+                    @article-type = 'brief-report' or 
+                    @article-type = 'rapid-communication' or 
+                    @article-type = 'reply' or 
+                    @article-type = 'translation'">
         Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
       </assert>
     </rule>
