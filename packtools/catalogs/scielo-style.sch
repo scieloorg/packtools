@@ -269,6 +269,9 @@
       <assert test="journal-id[@journal-id-type='nlm-ta'] or journal-id[@journal-id-type='publisher-id']">
         Element 'journal-meta': Missing element journal-id with journal-id-type=("nlm-ta" or "publisher-id").
       </assert>
+      <assert test="count(journal-id) = 1">
+        Element 'journal-meta': There must be exactly one element journal-id.
+      </assert>
     </rule>
   </pattern>
 

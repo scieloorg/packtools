@@ -21,7 +21,7 @@ class JournalIdTests(unittest.TestCase):
         """
         presence(@nlm-ta) is True
         presence(@publisher-id) is True
-        presence(@nlm-ta) v presence(@publisher-id) is True
+        presence(@nlm-ta) xor presence(@publisher-id) is False
         """
         sample = """<article>
                       <front>
@@ -38,13 +38,13 @@ class JournalIdTests(unittest.TestCase):
                  """
         sample = StringIO(sample)
 
-        self.assertTrue(self._run_validation(sample))
+        self.assertFalse(self._run_validation(sample))
 
     def test_case2(self):
         """
         presence(@nlm-ta) is True
         presence(@publisher-id) is False
-        presence(@nlm-ta) v presence(@publisher-id) is True
+        presence(@nlm-ta) xor presence(@publisher-id) is True
         """
         sample = """<article>
                       <front>
@@ -64,7 +64,7 @@ class JournalIdTests(unittest.TestCase):
         """
         presence(@nlm-ta) is False
         presence(@publisher-id) is True
-        presence(@nlm-ta) v presence(@publisher-id) is True
+        presence(@nlm-ta) xor presence(@publisher-id) is True
         """
         sample = """<article>
                       <front>
@@ -84,7 +84,7 @@ class JournalIdTests(unittest.TestCase):
         """
         presence(@nlm-ta) is False
         presence(@publisher-id) is False
-        presence(@nlm-ta) v presence(@publisher-id) is False
+        presence(@nlm-ta) xor presence(@publisher-id) is False
         """
         sample = """<article>
                       <front>
