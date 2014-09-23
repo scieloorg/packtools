@@ -1,11 +1,19 @@
 #!/usr/bin/env python
+import sys
 from setuptools import setup, find_packages
 
 
 install_requires = [
-    'lxml >= 3.3.5',
+    'lxml >= 3.3.4',
     'picles.plumber >= 0.10',
 ]
+
+
+tests_require = ['mocker']
+PY2 = sys.version_info[0] == 2
+if PY2:
+    tests_require.append('mock')
+
 
 setup(
     name="packtools",
@@ -26,12 +34,12 @@ setup(
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    setup_requires=["nose>=1.0", "coverage"],
-    tests_require=["mocker"],
+    tests_require=tests_require,
     test_suite='tests',
     install_requires=install_requires,
     entry_points="""
     [console_scripts]
     stylechecker = packtools.stylechecker:main
+    packbuilder = packtools.packbuilder:main
     """)
 

@@ -5,7 +5,7 @@ from copy import deepcopy
 
 from lxml import etree, isoschematron
 
-from packtools.utils import cachedmethod
+from packtools.utils import cachedmethod, XML
 from packtools.checks import StyleCheckingPipeline
 from packtools.adapters import SchematronStyleError, SchemaStyleError
 from packtools.catalogs import SCHEMAS, XML_CATALOG
@@ -26,24 +26,6 @@ def XMLSchematron(schema_name):
 
     schematron = isoschematron.Schematron(xmlschema_doc)
     return schematron
-
-
-def XML(file, no_network=True, load_dtd=True):
-    """Parses `file` to produce an etree instance.
-
-    The XML can be retrieved given its filesystem path,
-    an URL or a file-object.
-
-    :param file: Path to the XML file, URL or file-object.
-    :param no_network: (optional) prevent network access for external DTD.
-    :param load_dtd: (optional) load DTD during parse-time.
-    """
-    parser = etree.XMLParser(remove_blank_text=True,
-                             load_dtd=load_dtd,
-                             no_network=no_network)
-    xml = etree.parse(file, parser)
-
-    return xml
 
 
 class XMLValidator(object):

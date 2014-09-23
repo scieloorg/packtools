@@ -1,6 +1,8 @@
 Tutorial
 ========
 
+.. _xml-catalog-configuration:
+
 XML Catalog configuration
 -------------------------
 

@@ -5,10 +5,12 @@ from StringIO import StringIO
 
 from lxml import etree
 
-from .utils import setdefault
+from . import utils
 
 
 logger = logging.getLogger(__name__)
+
+
 EXPOSE_ELEMENTNAME_PATTERN = re.compile(r"(?<=Element )'.*?'")
 
 
@@ -67,7 +69,7 @@ class StyleError(object):
             tagname = search_element_name(self.message)
             return search_element(doc, '//' + tagname, line=self.line)
 
-        return setdefault(self, '__apparent_element', get_data)
+        return utils.setdefault(self, '__apparent_element', get_data)
 
 
 class SchemaStyleError(StyleError):
@@ -83,7 +85,7 @@ class SchemaStyleError(StyleError):
             tagname = search_element_name(self.message)
             return search_element(doc, '//' + tagname, line=self.line)
 
-        return setdefault(self, '__apparent_element', get_data)
+        return utils.setdefault(self, '__apparent_element', get_data)
 
 
 class SchematronStyleError(StyleError):
@@ -103,7 +105,7 @@ class SchematronStyleError(StyleError):
 
             return text.strip()
 
-        return setdefault(self, '__message', get_data)
+        return utils.setdefault(self, '__message', get_data)
 
     def get_apparent_element(self, doc):
         def get_data():
@@ -114,5 +116,5 @@ class SchematronStyleError(StyleError):
 
             return search_element(doc, tagname)
 
-        return setdefault(self, '__apparent_element', get_data)
+        return utils.setdefault(self, '__apparent_element', get_data)
 
