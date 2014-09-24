@@ -8,23 +8,10 @@ import os
 from lxml import etree
 import mocker
 
-from packtools import xray as x_ray
 from packtools.catalogs import SCHEMAS, XML_CATALOG
 
 
 DTD = SCHEMAS['JATS-journalpublishing1.dtd']
-
-
-def setUpModule():
-    """Setup the XML Catalog in order to perform local lookups for DTD.
-    """
-    os.environ['XML_CATALOG_FILES'] = XML_CATALOG
-
-
-def tearDownModule():
-    """Unset the local XML catalog.
-    """
-    del(os.environ['XML_CATALOG_FILES'])
 
 
 def make_test_archive(arch_data):
@@ -39,7 +26,11 @@ def make_test_archive(arch_data):
 class SPSPackage(mocker.MockerTestCase):
 
     def _makeOne(self, fname):
-        return x_ray.SPSPackage(fname)
+        import packtools
+        dtd = etree.DTD(packtools.catalogs.SCHEMAS['JATS-journalpublishing1.dtd'])
+        pack = packtools.SPSPackage(fname)
+        pack.xml_validator.dtd = dtd
+        return pack
 
     def test_xml_returns_fileobject(self):
         data = [('bar.xml', b'<root><name>bar</name></root>')]
@@ -49,12 +40,13 @@ class SPSPackage(mocker.MockerTestCase):
         self.assertTrue(hasattr(pkg.xml_fp, 'read'))
 
     def test_xml_raises_AttributeError_when_multiple_xmls(self):
+        import packtools
         data = [
             ('bar.xml', b'<root><name>bar</name></root>'),
             ('baz.xml', b'<root><name>baz</name></root>'),
         ]
         arch = make_test_archive(data)
-        pkg = self._makeOne(arch.name)
+        pkg = packtools.SPSPackage(arch.name)  # cannot use _makeOne to get the error
 
         self.assertRaises(AttributeError, lambda: pkg.xml)
 
@@ -362,15 +354,19 @@ class XrayTests(mocker.MockerTestCase):
 
         return fp
 
+    def _makeOne(self, file):
+        from packtools.xray import Xray
+        return Xray(file)
+
     def test_non_zip_archive_raises_ValueError(self):
         fp = NamedTemporaryFile()
-        self.assertRaises(ValueError, lambda: x_ray.Xray(fp.name))
+        self.assertRaises(ValueError, lambda: self._makeOne(fp.name))
 
     def test_get_ext_returns_member_names(self):
         arch = make_test_archive(
             [('bar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_ext('xml'), ['bar.xml'])
 
@@ -378,7 +374,7 @@ class XrayTests(mocker.MockerTestCase):
         arch = make_test_archive(
             [('bar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_ext('jpeg'), [])
 
@@ -386,7 +382,7 @@ class XrayTests(mocker.MockerTestCase):
         arch = make_test_archive(
             [('bar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         fps = xray.get_fps('xml')
         self.assertTrue(hasattr(fps, 'next'))
@@ -395,7 +391,7 @@ class XrayTests(mocker.MockerTestCase):
         arch = make_test_archive(
             [('bar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         fps = xray.get_fps('xml')
         self.assertIsInstance(fps.next(), zipfile.ZipExtFile)
@@ -404,7 +400,7 @@ class XrayTests(mocker.MockerTestCase):
         arch = make_test_archive(
             [('bar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
         fps = xray.get_fps('jpeg')
 
         self.assertRaises(StopIteration, lambda: fps.next())
@@ -416,8 +412,8 @@ class XrayTests(mocker.MockerTestCase):
         arch2 = make_test_archive(data)
 
         self.assertEquals(
-            x_ray.Xray(arch1.name).checksum(hashlib.sha1),
-            x_ray.Xray(arch2.name).checksum(hashlib.sha1)
+            self._makeOne(arch1.name).checksum(hashlib.sha1),
+            self._makeOne(arch2.name).checksum(hashlib.sha1)
         )
 
     def test_get_members(self):
@@ -425,14 +421,14 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_members(), ['bar.xml', 'jar.xml'])
 
     def test_get_members_returns_empty(self):
         arch = make_test_archive([])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_members(), [])
 
@@ -441,7 +437,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertIsInstance(xray.get_fp('bar.xml'),
             zipfile.ZipExtFile)
@@ -451,7 +447,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertRaises(ValueError, lambda: xray.get_fp('foo.xml'))
 
@@ -460,7 +456,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.xml', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.xml']})
 
@@ -469,7 +465,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.XML', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_ext('xml'), ['bar.xml', 'jar.XML'])
 
@@ -478,7 +474,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.XML', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_ext('XML'), ['bar.xml', 'jar.XML'])
 
@@ -487,7 +483,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.XML', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
 
         self.assertEquals(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.XML']})
 
@@ -496,7 +492,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.XML', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
         fps = xray.get_fps('xml')
 
         self.assertEqual([fp.name for fp in fps], ['bar.xml', 'jar.XML'])
@@ -506,7 +502,7 @@ class XrayTests(mocker.MockerTestCase):
             [('bar.xml', b'<root><name>bar</name></root>'),
              ('jar.XML', b'<root><name>bar</name></root>')])
 
-        xray = x_ray.Xray(arch.name)
+        xray = self._makeOne(arch.name)
         fps = xray.get_fps('XML')
 
         self.assertEqual([fp.name for fp in fps], ['bar.xml', 'jar.XML'])

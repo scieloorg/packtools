@@ -1,7 +1,7 @@
 #coding: utf-8
 import logging
-import itertools
 from copy import deepcopy
+import os
 
 from lxml import etree, isoschematron
 
@@ -60,6 +60,7 @@ class XMLValidator(object):
             self.lxml = XML(file)
 
         self.dtd = dtd or self.lxml.docinfo.externalDTD
+        self.source_url = self.lxml.docinfo.URL
 
         self.doctype = self.lxml.docinfo.doctype
         if no_doctype is False:
@@ -215,7 +216,7 @@ class XMLValidator(object):
             "issue_number": "front/article-meta/issue",
         }
 
-        metadata = {}
+        metadata = {'filename': self.source_url}
         for node_k, node_v in xml_nodes.items():
             node = parsed_xml.find(node_v)
             metadata[node_k] = getattr(node, 'text', None)
@@ -223,15 +224,25 @@ class XMLValidator(object):
         return metadata
 
 
+def config_xml_catalog(func):
+    """Wraps the execution of ``func``, setting-up and tearing-down the
+    ``XML_CATALOG_FILES`` environment variable for the current process.
+    """
+    def wrapper(*args, **kwargs):
+        os.environ['XML_CATALOG_FILES'] = XML_CATALOG
+        _return = func(*args, **kwargs)
+        del(os.environ['XML_CATALOG_FILES'])
+        return _return
+    return wrapper
+
+
+@config_xml_catalog
 def main():
     import argparse
     import sys
-    import os
     import pkg_resources
 
     packtools_version = pkg_resources.get_distribution('packtools').version
-
-    os.environ['XML_CATALOG_FILES'] = XML_CATALOG
 
     parser = argparse.ArgumentParser(description='stylechecker cli utility.')
     parser.add_argument('--annotated', action='store_true')

@@ -6,8 +6,6 @@ try:
 except ImportError: # PY2
     import mock
 
-import packtools
-
 
 # ------------------------
 # Fixtures
@@ -69,13 +67,18 @@ class XMLPackerTests(unittest.TestCase):
     def tearDown(self):
         self.tmpfile.close()
 
+    def _makeOne(self, file):
+        from packtools import XMLPacker
+        return XMLPacker(file)
+
     def test_valid_filepaths(self):
-        packer = packtools.XMLPacker(self.tmpfile.name)
-        self.assertTrue(isinstance(packer, packtools.XMLPacker))
+        from packtools import XMLPacker
+        packer = self._makeOne(self.tmpfile.name)
+        self.assertTrue(isinstance(packer, XMLPacker))
 
     def test_invalid_filepath(self):
         self.assertRaises(ValueError,
-                lambda: packtools.XMLPacker(self.tmpfile.name + 'zzzzzz'))
+                lambda: self._makeOne(self.tmpfile.name + 'zzzzzz'))
 
     def test_assets(self):
         expected_assets = ['1234-5678-rctb-45-05-0110-e01.tif',
@@ -84,6 +87,6 @@ class XMLPackerTests(unittest.TestCase):
                            '1234-5678-rctb-45-05-0110-e02.tif',
                            '1234-5678-rctb-45-05-0110-suppl02.pdf']
 
-        packer = packtools.XMLPacker(self.tmpfile.name)
+        packer = self._makeOne(self.tmpfile.name)
         self.assertEqual(sorted(packer.assets), sorted(expected_assets))
 
