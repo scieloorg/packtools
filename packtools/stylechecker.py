@@ -5,7 +5,7 @@ import os
 
 from lxml import etree, isoschematron
 
-from packtools.utils import cachedmethod, XML
+from packtools.utils import XML
 from packtools.checks import StyleCheckingPipeline
 from packtools.adapters import SchematronStyleError, SchemaStyleError
 from packtools.catalogs import SCHEMAS, XML_CATALOG
@@ -21,11 +21,21 @@ logger = logging.getLogger(__name__)
 
 
 def XMLSchematron(schema_name):
-    with open(SCHEMAS[schema_name]) as fp:
-        xmlschema_doc = etree.parse(fp)
+    """Returns an instance of `isoschematron.Schematron`.
 
-    schematron = isoschematron.Schematron(xmlschema_doc)
-    return schematron
+    The returned instance is cached due to performance reasons.
+    """
+    cache = XMLSchematron.func_dict.setdefault('cache', {})
+
+    if schema_name in cache:
+        return cache[schema_name]
+    else:
+        with open(SCHEMAS[schema_name]) as fp:
+            xmlschema_doc = etree.parse(fp)
+
+        schematron = isoschematron.Schematron(xmlschema_doc)
+        cache[schema_name] = schematron
+        return schematron
 
 
 class XMLValidator(object):
@@ -74,7 +84,6 @@ class XMLValidator(object):
         self.schematron = XMLSchematron('scielo-style.sch')
         self.ppl = StyleCheckingPipeline()
 
-    @cachedmethod
     def validate(self):
         """Validate the source XML against JATS DTD.
 
@@ -90,7 +99,6 @@ class XMLValidator(object):
         errors = make_error_log()
         return result, errors
 
-    @cachedmethod
     def _validate_sch(self):
         """Validate the source XML against SPS-Style Schematron.
 
@@ -104,7 +112,6 @@ class XMLValidator(object):
         errors = make_error_log()
         return result, errors
 
-    @cachedmethod
     def validate_style(self):
         """Validate the source XML against SPS-Style Tagging guidelines.
 
