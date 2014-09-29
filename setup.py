@@ -17,10 +17,10 @@ if PY2:
 
 setup(
     name="packtools",
-    version='0.5',
+    version='0.6',
     description="Handle SPS packages like a breeze.",
-    #long_description=open('README.md').read() + '\n\n' +
-    #                 open('HISTORY.md').read(),
+    long_description=open('README.md').read() + '\n\n' +
+                     open('HISTORY.md').read(),
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
     maintainer="Gustavo Fonseca",
@@ -28,6 +28,7 @@ setup(
     license="BSD License",
     url="http://docs.scielo.org",
     packages=find_packages(),
+    include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
