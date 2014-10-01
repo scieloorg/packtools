@@ -6,7 +6,6 @@ from tempfile import NamedTemporaryFile
 import os
 
 from lxml import etree
-import mocker
 
 from packtools.catalogs import SCHEMAS, XML_CATALOG
 
@@ -18,12 +17,12 @@ def make_test_archive(arch_data):
     fp = NamedTemporaryFile()
     with zipfile.ZipFile(fp, 'w') as zipfp:
         for archive, data in arch_data:
-            zipfp.writestr(archive, data)
+            zipfp.writestr(archive, data.encode('utf-8'))
 
     return fp
 
 
-class SPSPackage(mocker.MockerTestCase):
+class SPSPackage(unittest.TestCase):
 
     def _makeOne(self, fname):
         import packtools
@@ -33,7 +32,7 @@ class SPSPackage(mocker.MockerTestCase):
         return pack
 
     def test_xml_returns_fileobject(self):
-        data = [('bar.xml', b'<root><name>bar</name></root>')]
+        data = [('bar.xml', u'<root><name>bar</name></root>')]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
 
@@ -42,8 +41,8 @@ class SPSPackage(mocker.MockerTestCase):
     def test_xml_raises_AttributeError_when_multiple_xmls(self):
         import packtools
         data = [
-            ('bar.xml', b'<root><name>bar</name></root>'),
-            ('baz.xml', b'<root><name>baz</name></root>'),
+            ('bar.xml', u'<root><name>bar</name></root>'),
+            ('baz.xml', u'<root><name>baz</name></root>'),
         ]
         arch = make_test_archive(data)
         pkg = packtools.SPSPackage(arch.name)  # cannot use _makeOne to get the error
@@ -52,7 +51,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_journal_title_data_is_fetched(self):
         data = [
-            ('bar.xml', '<article><front><journal-meta><journal-title-group><journal-title>foo</journal-title></journal-title-group></journal-meta></front></article>'),
+            ('bar.xml', u'<article><front><journal-meta><journal-title-group><journal-title>foo</journal-title></journal-title-group></journal-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -61,7 +60,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_journal_title_is_None_if_not_present(self):
         data = [
-            ('bar.xml', '<article></article>'),
+            ('bar.xml', u'<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -70,7 +69,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_journal_eissn_data_is_fetched(self):
         data = [
-            ('bar.xml', '<article><front><journal-meta><issn pub-type="epub">1234-1234</issn></journal-meta></front></article>'),
+            ('bar.xml', u'<article><front><journal-meta><issn pub-type="epub">1234-1234</issn></journal-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -79,7 +78,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_journal_eissn_is_None_if_not_present(self):
         data = [
-            ('bar.xml', '<article></article>'),
+            ('bar.xml', u'<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -88,7 +87,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_journal_pissn_data_is_fetched(self):
         data = [
-            ('bar.xml', '<article><front><journal-meta><issn pub-type="ppub">1234-1234</issn></journal-meta></front></article>'),
+            ('bar.xml', u'<article><front><journal-meta><issn pub-type="ppub">1234-1234</issn></journal-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -97,7 +96,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_journal_pissn_is_None_if_not_present(self):
         data = [
-            ('bar.xml', '<article></article>'),
+            ('bar.xml', u'<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -106,7 +105,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_article_title_data_is_fetched(self):
         data = [
-            ('bar.xml', '<article><front><article-meta><title-group><article-title>bar</article-title></title-group></article-meta></front></article>'),
+            ('bar.xml', u'<article><front><article-meta><title-group><article-title>bar</article-title></title-group></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -115,7 +114,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_article_title_is_None_if_not_present(self):
         data = [
-            ('bar.xml', '<article></article>'),
+            ('bar.xml', u'<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -124,7 +123,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_issue_year_data_is_fetched(self):
         data = [
-            ('bar.xml', '<article><front><article-meta><pub-date><year>2013</year></pub-date></article-meta></front></article>'),
+            ('bar.xml', u'<article><front><article-meta><pub-date><year>2013</year></pub-date></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -133,7 +132,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_issue_year_is_None_if_not_present(self):
         data = [
-            ('bar.xml', '<article></article>'),
+            ('bar.xml', u'<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -142,7 +141,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_issue_volume_data_is_fetched(self):
         data = [
-            ('bar.xml', '<article><front><article-meta><volume>2</volume></article-meta></front></article>'),
+            ('bar.xml', u'<article><front><article-meta><volume>2</volume></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -151,7 +150,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_issue_volume_is_None_if_not_present(self):
         data = [
-            ('bar.xml', '<article></article>'),
+            ('bar.xml', u'<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -160,7 +159,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_issue_number_data_is_fetched(self):
         data = [
-            ('bar.xml', '<article><front><article-meta><issue>2</issue></article-meta></front></article>'),
+            ('bar.xml', u'<article><front><article-meta><issue>2</issue></article-meta></front></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -169,7 +168,7 @@ class SPSPackage(mocker.MockerTestCase):
 
     def test_meta_issue_number_is_None_if_not_present(self):
         data = [
-            ('bar.xml', '<article></article>'),
+            ('bar.xml', u'<article></article>'),
         ]
         arch = make_test_archive(data)
         pkg = self._makeOne(arch.name)
@@ -177,7 +176,7 @@ class SPSPackage(mocker.MockerTestCase):
         self.assertIsNone(pkg.meta['issue_number'])
 
     def test_is_valid_schema_with_valid_xml(self):
-        data = [('bar.xml', b'''<?xml version="1.0" encoding="utf-8"?>
+        data = [('bar.xml', u'''<?xml version="1.0" encoding="utf-8"?>
                 <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
                 <article article-type="in-brief" dtd-version="1.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
                 <front>
@@ -233,7 +232,7 @@ class SPSPackage(mocker.MockerTestCase):
         self.assertTrue(xml_validator.validate()[0])
 
     def test_is_valid_schema_with_invalid_xml(self):
-        data = [('bar.xml', b'''<?xml version="1.0" encoding="utf-8"?>
+        data = [('bar.xml', u'''<?xml version="1.0" encoding="utf-8"?>
                 <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
                 <article article-type="in-brief" dtd-version="1.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
                 <front>
@@ -288,7 +287,7 @@ class SPSPackage(mocker.MockerTestCase):
         self.assertFalse(xml_validator.validate()[0])
 
     def test_is_valid_schema_with_wrong_tag(self):
-        data = [('bar.xml', b'''<?xml version="1.0" encoding="utf-8"?>
+        data = [('bar.xml', u'''<?xml version="1.0" encoding="utf-8"?>
                 <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
                 <article article-type="in-brief" dtd-version="1.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
                 <front>
@@ -344,7 +343,7 @@ class SPSPackage(mocker.MockerTestCase):
         self.assertFalse(xml_validator.validate()[0])
 
 
-class XrayTests(mocker.MockerTestCase):
+class XrayTests(unittest.TestCase):
 
     def _make_test_archive(self, arch_data):
         fp = NamedTemporaryFile()
@@ -364,7 +363,7 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_ext_returns_member_names(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -372,7 +371,7 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_ext_returns_empty_when_ext_doesnot_exist(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -380,34 +379,34 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_fps_returns_an_iterable(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
         fps = xray.get_fps('xml')
-        self.assertTrue(hasattr(fps, 'next'))
+        self.assertTrue(isinstance(fps, types.GeneratorType))
 
     def test_get_fpd_yields_ZipExtFile_instances(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
         fps = xray.get_fps('xml')
-        self.assertIsInstance(fps.next(), zipfile.ZipExtFile)
+        self.assertIsInstance(next(fps), zipfile.ZipExtFile)
 
     def test_get_fps_swallow_exceptions_when_ext_doesnot_exist(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
         fps = xray.get_fps('jpeg')
 
-        self.assertRaises(StopIteration, lambda: fps.next())
+        self.assertRaises(StopIteration, lambda: next(fps))
 
     def test_package_checksum_is_calculated(self):
         import hashlib
-        data = [('bar.xml', b'<root><name>bar</name></root>')]
+        data = [('bar.xml', u'<root><name>bar</name></root>')]
         arch1 = make_test_archive(data)
         arch2 = make_test_archive(data)
 
@@ -418,8 +417,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_members(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -434,8 +433,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_fp(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -444,8 +443,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_fp_nonexisting_members(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -453,8 +452,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_classified_members(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.xml', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.xml', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -462,8 +461,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_ext_is_caseinsensitive(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.XML', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.XML', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -471,8 +470,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_ext_arg_is_caseinsensitive(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.XML', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.XML', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -480,8 +479,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_classified_members_is_caseinsensitive(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.XML', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.XML', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
 
@@ -489,8 +488,8 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_fps_is_caseinsensitive(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.XML', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.XML', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
         fps = xray.get_fps('xml')
@@ -499,12 +498,11 @@ class XrayTests(mocker.MockerTestCase):
 
     def test_get_fps_arg_is_caseinsensitive(self):
         arch = make_test_archive(
-            [('bar.xml', b'<root><name>bar</name></root>'),
-             ('jar.XML', b'<root><name>bar</name></root>')])
+            [('bar.xml', u'<root><name>bar</name></root>'),
+             ('jar.XML', u'<root><name>bar</name></root>')])
 
         xray = self._makeOne(arch.name)
         fps = xray.get_fps('XML')
 
         self.assertEqual([fp.name for fp in fps], ['bar.xml', 'jar.XML'])
-
 

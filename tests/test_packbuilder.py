@@ -1,16 +1,12 @@
 #coding:utf-8
 import tempfile
 import unittest
-try:
-    from unittest import mock
-except ImportError: # PY2
-    import mock
 
 
-# ------------------------
-# Fixtures
-# ------------------------
-SAMPLE_XML = """<?xml version="1.0" encoding="UTF-8"?>
+# -----------------------------
+# Fixtures - Byte strings only!
+# -----------------------------
+SAMPLE_XML = u"""<?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xlink="http://www.w3.org/1999/xlink"
          dtd-version="1.0"
          article-type="research-article"
@@ -50,7 +46,7 @@ SAMPLE_XML = """<?xml version="1.0" encoding="UTF-8"?>
     </app-group>
   </back>
 </article>
-"""
+""".encode('utf-8')
 
 
 # ------------------------

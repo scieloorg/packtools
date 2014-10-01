@@ -1,6 +1,6 @@
 # coding: utf-8
 import unittest
-from StringIO import StringIO
+import io
 
 from lxml import isoschematron, etree
 
@@ -23,7 +23,7 @@ class JournalIdTests(unittest.TestCase):
         presence(@publisher-id) is True
         presence(@nlm-ta) xor presence(@publisher-id) is False
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-id journal-id-type="nlm-ta">
@@ -36,7 +36,7 @@ class JournalIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -46,7 +46,7 @@ class JournalIdTests(unittest.TestCase):
         presence(@publisher-id) is False
         presence(@nlm-ta) xor presence(@publisher-id) is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-id journal-id-type="nlm-ta">
@@ -56,7 +56,7 @@ class JournalIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -66,7 +66,7 @@ class JournalIdTests(unittest.TestCase):
         presence(@publisher-id) is True
         presence(@nlm-ta) xor presence(@publisher-id) is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-id journal-id-type="publisher-id">
@@ -76,7 +76,7 @@ class JournalIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -86,7 +86,7 @@ class JournalIdTests(unittest.TestCase):
         presence(@publisher-id) is False
         presence(@nlm-ta) xor presence(@publisher-id) is False
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-id journal-id-type='doi'>
@@ -96,7 +96,7 @@ class JournalIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -109,14 +109,14 @@ class JournalTitleGroupTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_journal_title_group_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                         </journal-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -127,7 +127,7 @@ class JournalTitleGroupTests(unittest.TestCase):
         B: presence(abbrev-journal-title[@abbrev-type='publisher']) is True
         A ^ B is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-title-group>
@@ -142,7 +142,7 @@ class JournalTitleGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -152,7 +152,7 @@ class JournalTitleGroupTests(unittest.TestCase):
         B: presence(abbrev-journal-title[@abbrev-type='publisher']) is False
         A ^ B is False
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-title-group>
@@ -164,7 +164,7 @@ class JournalTitleGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -174,7 +174,7 @@ class JournalTitleGroupTests(unittest.TestCase):
         B: presence(abbrev-journal-title[@abbrev-type='publisher']) is True
         A ^ B is False
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-title-group>
@@ -186,7 +186,7 @@ class JournalTitleGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -196,7 +196,7 @@ class JournalTitleGroupTests(unittest.TestCase):
         B: presence(abbrev-journal-title[@abbrev-type='publisher']) is False
         A ^ B is False
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <journal-title-group>
@@ -205,7 +205,7 @@ class JournalTitleGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -218,7 +218,7 @@ class PublisherTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_publisher_is_present(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <publisher>
@@ -228,19 +228,19 @@ class PublisherTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_publisher_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                         </journal-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -253,7 +253,7 @@ class ArticleCategoriesTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_article_categories_is_present(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -268,19 +268,19 @@ class ArticleCategoriesTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_article_categories_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -298,7 +298,7 @@ class fpage_OR_elocationTests(unittest.TestCase):
         elocation-id is True
         fpage v elocation-id is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <fpage>01</fpage>
@@ -307,7 +307,7 @@ class fpage_OR_elocationTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -317,7 +317,7 @@ class fpage_OR_elocationTests(unittest.TestCase):
         elocation-id is False
         fpage v elocation-id is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <fpage>01</fpage>
@@ -325,7 +325,7 @@ class fpage_OR_elocationTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -335,7 +335,7 @@ class fpage_OR_elocationTests(unittest.TestCase):
         elocation-id is True
         fpage v elocation-id is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <elocation-id>E27</elocation-id>
@@ -343,7 +343,7 @@ class fpage_OR_elocationTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -353,14 +353,14 @@ class fpage_OR_elocationTests(unittest.TestCase):
         elocation-id is False
         fpage v elocation-id is False
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -377,7 +377,7 @@ class ISSNTests(unittest.TestCase):
         B: @pub-type='ppub' is True
         A v B is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <issn pub-type="epub">
@@ -390,7 +390,7 @@ class ISSNTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -400,7 +400,7 @@ class ISSNTests(unittest.TestCase):
         B: @pub-type='ppub' is False
         A v B is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <issn pub-type="epub">
@@ -410,7 +410,7 @@ class ISSNTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -420,7 +420,7 @@ class ISSNTests(unittest.TestCase):
         B: @pub-type='ppub' is True
         A v B is True
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <issn pub-type="ppub">
@@ -430,7 +430,7 @@ class ISSNTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -440,7 +440,7 @@ class ISSNTests(unittest.TestCase):
         B: @pub-type='ppub' is False
         A v B is False
         """
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <journal-meta>
                           <issn>
@@ -450,7 +450,7 @@ class ISSNTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -463,20 +463,20 @@ class ArticleIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_article_id_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
 
     def test_pub_id_type_doi_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-id>
@@ -489,12 +489,12 @@ class ArticleIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_pub_id_type_doi(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-id pub-id-type='doi'>
@@ -504,12 +504,12 @@ class ArticleIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_invalid_pub_id_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-id pub-id-type='unknown'>
@@ -519,12 +519,12 @@ class ArticleIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_invalid_pub_id_type_case2(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-id pub-id-type='unknown'>
@@ -537,13 +537,13 @@ class ArticleIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_valid_pub_id_type_values(self):
         for typ in ['doi', 'publisher-id', 'other']:
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <article-id pub-id-type='%s'>
@@ -556,7 +556,7 @@ class ArticleIdTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % typ
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
             self.assertTrue(self._run_validation(sample))
 
 
@@ -568,7 +568,7 @@ class SubjGroupTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_subj_group_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -577,12 +577,12 @@ class SubjGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_without_heading_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -601,12 +601,12 @@ class SubjGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_with_heading_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -625,12 +625,12 @@ class SubjGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_heading_in_subarticle_pt(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -658,12 +658,12 @@ class SubjGroupTests(unittest.TestCase):
                       </sub-article>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_many_heading_in_subarticle_pt(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -694,12 +694,12 @@ class SubjGroupTests(unittest.TestCase):
                       </sub-article>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_with_heading_type_in_the_deep(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -718,12 +718,12 @@ class SubjGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_many_heading_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <article-categories>
@@ -742,7 +742,7 @@ class SubjGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -755,7 +755,7 @@ class AbstractLangTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_is_present(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <abstract>
@@ -765,24 +765,24 @@ class AbstractLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_is_present_with_lang(self):
-        sample = """<?xml version="1.0" encoding="UTF-8"?>
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
                     <article>
                       <front>
                         <article-meta>
@@ -793,12 +793,12 @@ class AbstractLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_for_research_article(self):
-        sample = """<?xml version="1.0" encoding="UTF-8"?>
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
                     <article article-type="research-article">
                       <front>
                         <article-meta>
@@ -806,12 +806,12 @@ class AbstractLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_research_article(self):
-        sample = """<?xml version="1.0" encoding="UTF-8"?>
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
                     <article article-type="research-article">
                       <front>
                         <article-meta>
@@ -822,12 +822,12 @@ class AbstractLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_missing_for_review_article(self):
-        sample = """<?xml version="1.0" encoding="UTF-8"?>
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
                     <article article-type="review-article">
                       <front>
                         <article-meta>
@@ -835,12 +835,12 @@ class AbstractLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_review_article(self):
-        sample = """<?xml version="1.0" encoding="UTF-8"?>
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
                     <article article-type="review-article">
                       <front>
                         <article-meta>
@@ -851,7 +851,7 @@ class AbstractLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -864,7 +864,7 @@ class ArticleTitleLangTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_is_present(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <title-group>
@@ -876,12 +876,12 @@ class ArticleTitleLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_is_present_with_lang(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <title-group>
@@ -893,7 +893,7 @@ class ArticleTitleLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -906,7 +906,7 @@ class KwdGroupLangTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_single_occurence(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <kwd-group>
@@ -916,12 +916,12 @@ class KwdGroupLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_many_occurencies(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <kwd-group xml:lang="en">
@@ -934,12 +934,12 @@ class KwdGroupLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_many_occurencies_without_lang(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <kwd-group>
@@ -952,7 +952,7 @@ class KwdGroupLangTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -967,7 +967,7 @@ class AffContentTypeTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_original_is_present(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -979,12 +979,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_original_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -996,12 +996,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_many_original(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -1016,12 +1016,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_original_is_present_and_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -1038,12 +1038,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_original_is_present_and_present(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -1060,12 +1060,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_allowed_orgdiv1(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -1080,12 +1080,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_allowed_orgdiv2(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -1100,12 +1100,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_allowed_orgdiv3(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -1120,12 +1120,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_orgdiv4(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -1140,12 +1140,12 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_orgname_inside_contrib_group(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <contrib-group>
@@ -1162,7 +1162,7 @@ class AffContentTypeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -1175,7 +1175,7 @@ class CountsTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <fpage>0</fpage>
@@ -1184,12 +1184,12 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_table_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1204,12 +1204,12 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_ref_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1224,12 +1224,12 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_fig_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1244,12 +1244,12 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_equation_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1264,12 +1264,12 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_page_is_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1282,12 +1282,12 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_zeroes_if_elements_are_missing(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1303,12 +1303,12 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_tables(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1351,12 +1351,12 @@ class CountsTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_tables_as_graphic(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <counts>
@@ -1383,12 +1383,12 @@ class CountsTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_ref(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <counts>
@@ -1415,12 +1415,12 @@ class CountsTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_fig(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <counts>
@@ -1449,12 +1449,12 @@ class CountsTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_equation(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <counts>
@@ -1478,12 +1478,12 @@ class CountsTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_page(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <counts>
@@ -1499,7 +1499,7 @@ class CountsTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -1516,7 +1516,7 @@ class AuthorNotesTests(unittest.TestCase):
                 'deceased', 'edited-by', 'equal', 'on-leave', 'participating-researchers',
                 'present-address', 'previously-at', 'study-group-members', 'other']:
 
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <author-notes>
@@ -1528,12 +1528,12 @@ class AuthorNotesTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % fn_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_fn_types(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <author-notes>
@@ -1545,7 +1545,7 @@ class AuthorNotesTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -1558,7 +1558,7 @@ class PubDateTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_pub_type_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <pub-date>
@@ -1570,13 +1570,13 @@ class PubDateTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_pub_type_allowed_values(self):
         for pub_type in ['epub', 'epub-ppub', 'collection']:
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <pub-date pub-type="%s">
@@ -1588,12 +1588,12 @@ class PubDateTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % pub_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_pub_type_disallowed_value(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <pub-date pub-type="wtf">
@@ -1605,7 +1605,7 @@ class PubDateTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -1620,19 +1620,19 @@ class VolumeTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent_in_front(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_present_but_empty_in_front(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <volume></volume>
@@ -1640,12 +1640,12 @@ class VolumeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_present_in_front(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <volume>10</volume>
@@ -1653,7 +1653,7 @@ class VolumeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -1668,19 +1668,19 @@ class IssueTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent_in_front(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_present_but_empty_in_front(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <issue></issue>
@@ -1688,12 +1688,12 @@ class IssueTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_present_in_front(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <issue>10</issue>
@@ -1701,7 +1701,7 @@ class IssueTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -1715,19 +1715,19 @@ class SupplementTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_present(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <supplement>Suppl 2</supplement>
@@ -1735,7 +1735,7 @@ class SupplementTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -1750,19 +1750,19 @@ class ElocationIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_fpage(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <elocation-id>E27</elocation-id>
@@ -1771,12 +1771,12 @@ class ElocationIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_without_fpage(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <elocation-id>E27</elocation-id>
@@ -1784,12 +1784,12 @@ class ElocationIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_absent_back(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -1800,12 +1800,12 @@ class ElocationIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_fpage_back(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -1818,12 +1818,12 @@ class ElocationIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_without_fpage_back(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -1835,12 +1835,12 @@ class ElocationIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_and_without_fpage_back(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -1858,7 +1858,7 @@ class ElocationIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -1872,32 +1872,32 @@ class HistoryTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_date_type_allowed_values(self):
         for pub_type in ['received', 'accepted', 'rev-recd']:
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <history>
@@ -1911,12 +1911,12 @@ class HistoryTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % pub_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_date_type_disallowed_values(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <history>
@@ -1930,12 +1930,12 @@ class HistoryTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_date_type_allowed_values_multi(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <history>
@@ -1954,7 +1954,7 @@ class HistoryTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -1968,33 +1968,33 @@ class ProductTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_absent_allowed_types(self):
         for art_type in ['book-review', 'product-review']:
-            sample = """<article article-type="%s">
+            sample = u"""<article article-type="%s">
                           <front>
                             <article-meta>
                             </article-meta>
                           </front>
                         </article>
                      """ % art_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_allowed_types(self):
         for art_type in ['book-review', 'product-review']:
-            sample = """<article article-type="%s">
+            sample = u"""<article article-type="%s">
                           <front>
                             <article-meta>
                               <product product-type="book">
@@ -2016,12 +2016,12 @@ class ProductTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % art_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_types(self):
-        sample = """<article article-type="research-article">
+        sample = u"""<article article-type="research-article">
                       <front>
                         <article-meta>
                           <product product-type="book">
@@ -2043,12 +2043,12 @@ class ProductTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_no_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <product product-type="book">
@@ -2070,12 +2070,12 @@ class ProductTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_product_type(self):
-        sample = """<article article-type="book-review">
+        sample = u"""<article article-type="book-review">
                       <front>
                         <article-meta>
                           <product>
@@ -2097,13 +2097,13 @@ class ProductTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_product_types(self):
         for prod_type in ['book', 'software', 'article', 'chapter', 'other']:
-            sample = """<article article-type="book-review">
+            sample = u"""<article article-type="book-review">
                           <front>
                             <article-meta>
                               <product product-type="%s">
@@ -2125,12 +2125,12 @@ class ProductTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % prod_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_product_types(self):
-        sample = """<article article-type="book-review">
+        sample = u"""<article article-type="book-review">
                       <front>
                         <article-meta>
                           <product product-type="invalid">
@@ -2152,7 +2152,7 @@ class ProductTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -2166,7 +2166,7 @@ class SecTitleTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_absent(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>Foo bar</p>
@@ -2174,12 +2174,12 @@ class SecTitleTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_has_title(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Introduction</title>
@@ -2188,12 +2188,12 @@ class SecTitleTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_has_empty_title(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title></title>
@@ -2202,7 +2202,7 @@ class SecTitleTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -2215,7 +2215,7 @@ class ParagraphTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_sec_without_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2224,12 +2224,12 @@ class ParagraphTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_sec_with_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2238,29 +2238,29 @@ class ParagraphTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_body_without_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <p>Foo bar</p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_body_with_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <p id="p01">Foo bar</p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -2273,7 +2273,7 @@ class DispFormulaTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2288,12 +2288,12 @@ class DispFormulaTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2308,12 +2308,12 @@ class DispFormulaTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2328,12 +2328,12 @@ class DispFormulaTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2348,12 +2348,12 @@ class DispFormulaTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2372,12 +2372,12 @@ class DispFormulaTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2396,7 +2396,7 @@ class DispFormulaTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -2409,7 +2409,7 @@ class TableWrapTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2422,12 +2422,12 @@ class TableWrapTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2440,12 +2440,12 @@ class TableWrapTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2458,12 +2458,12 @@ class TableWrapTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2476,12 +2476,12 @@ class TableWrapTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2496,12 +2496,12 @@ class TableWrapTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2516,7 +2516,7 @@ class TableWrapTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -2529,7 +2529,7 @@ class TableWrapFootTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2547,12 +2547,12 @@ class TableWrapFootTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2570,12 +2570,12 @@ class TableWrapFootTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2593,12 +2593,12 @@ class TableWrapFootTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2616,12 +2616,12 @@ class TableWrapFootTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2646,12 +2646,12 @@ class TableWrapFootTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -2676,7 +2676,7 @@ class TableWrapFootTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -2689,7 +2689,7 @@ class XrefRidTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_mismatching_rid(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <contrib-group>
@@ -2703,12 +2703,12 @@ class XrefRidTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_matching_rid(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <contrib-group>
@@ -2736,12 +2736,12 @@ class XrefRidTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_mismatching_reftype(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <table-wrap id="t01">
@@ -2755,7 +2755,7 @@ class XrefRidTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -2771,7 +2771,7 @@ class XrefRefTypeTests(unittest.TestCase):
         for reftype in ['aff', 'app', 'author-notes', 'bibr', 'contrib',
                         'corresp', 'disp-formula', 'fig', 'fn', 'sec',
                         'supplementary-material', 'table', 'table-fn']:
-            sample = """<article>
+            sample = u"""<article>
                           <body>
                             <sec>
                               <p>
@@ -2781,14 +2781,14 @@ class XrefRefTypeTests(unittest.TestCase):
                           </body>
                         </article>
                      """ % reftype
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_ref_types(self):
         for reftype in ['boxed-text', 'chem', 'kwd', 'list', 'other', 'plate'
                         'scheme', 'statement']:
-            sample = """<article>
+            sample = u"""<article>
                           <body>
                             <sec>
                               <p>
@@ -2798,7 +2798,7 @@ class XrefRefTypeTests(unittest.TestCase):
                           </body>
                         </article>
                      """ % reftype
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertFalse(self._run_validation(sample))
 
@@ -2811,7 +2811,7 @@ class CaptionTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_with_title(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <fig id="f03">
                           <label>Figura 3</label>
@@ -2825,12 +2825,12 @@ class CaptionTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_without_title(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <fig id="f03">
                           <label>Figura 3</label>
@@ -2844,12 +2844,12 @@ class CaptionTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_with_title_and_more(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <fig id="f03">
                           <label>Figura 3</label>
@@ -2866,7 +2866,7 @@ class CaptionTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -2879,19 +2879,19 @@ class LicenseTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_missing_permissions_elem(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                         </article-meta>
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_license(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <permissions>
@@ -2900,12 +2900,12 @@ class LicenseTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_license_type(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <permissions>
@@ -2920,12 +2920,12 @@ class LicenseTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_license_type(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <permissions>
@@ -2940,7 +2940,7 @@ class LicenseTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -2953,7 +2953,7 @@ class LicenseTests(unittest.TestCase):
         ]
 
         for license in allowed_licenses:
-            sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                           <front>
                             <article-meta>
                               <permissions>
@@ -2968,12 +2968,12 @@ class LicenseTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % license
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_license_href(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
                         <article-meta>
                           <permissions>
@@ -2988,7 +2988,7 @@ class LicenseTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3001,7 +3001,7 @@ class AckTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_with_sec(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ack>
                           <sec>
@@ -3011,12 +3011,12 @@ class AckTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_without_sec(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ack>
                           <title>Acknowledgment</title>
@@ -3025,7 +3025,7 @@ class AckTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -3038,7 +3038,7 @@ class ElementCitationTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_with_name_outside_persongroup(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3050,12 +3050,12 @@ class ElementCitationTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_with_name_inside_persongroup(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3069,12 +3069,12 @@ class ElementCitationTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_etal_outside_persongroup(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3086,12 +3086,12 @@ class ElementCitationTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_with_etal_inside_persongroup(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3105,12 +3105,12 @@ class ElementCitationTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_with_collab_outside_persongroup(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3122,12 +3122,12 @@ class ElementCitationTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_with_collab_inside_persongroup(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3141,14 +3141,14 @@ class ElementCitationTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_allowed_publication_types(self):
         for pub_type in ['journal', 'book', 'webpage', 'thesis', 'confproc',
                          'patent', 'software', 'database']:
-            sample = """<article>
+            sample = u"""<article>
                           <back>
                             <ref-list>
                               <ref>
@@ -3159,12 +3159,12 @@ class ElementCitationTests(unittest.TestCase):
                           </back>
                         </article>
                      """ % pub_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_publication_types(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3175,12 +3175,12 @@ class ElementCitationTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_outside_ref(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -3194,7 +3194,7 @@ class ElementCitationTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3209,7 +3209,7 @@ class PersonGroupTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_missing_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3223,12 +3223,12 @@ class PersonGroupTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_type_at_product(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <product>
@@ -3240,12 +3240,12 @@ class PersonGroupTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_with_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3259,13 +3259,13 @@ class PersonGroupTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_allowed_types(self):
         for group_type in ['author', 'compiler', 'editor', 'translator']:
-            sample = """<article>
+            sample = u"""<article>
                           <back>
                             <ref-list>
                               <ref>
@@ -3279,12 +3279,12 @@ class PersonGroupTests(unittest.TestCase):
                           </back>
                         </article>
                      """ % group_type
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -3298,7 +3298,7 @@ class PersonGroupTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3314,7 +3314,7 @@ class FNGroupTests(unittest.TestCase):
         for fn_type in ['abbr', 'com', 'financial-disclosure', 'supported-by',
                 'presented-at', 'supplementary-material', 'other']:
 
-            sample = """<article>
+            sample = u"""<article>
                           <back>
                             <fn-group>
                               <fn fn-type="%s">
@@ -3324,12 +3324,12 @@ class FNGroupTests(unittest.TestCase):
                           </back>
                         </article>
                      """ % fn_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_fn_types(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <fn-group>
                           <fn fn-type="invalid">
@@ -3339,7 +3339,7 @@ class FNGroupTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3354,7 +3354,7 @@ class XHTMLTableTests(unittest.TestCase):
     def test_valid_toplevel(self):
         for elem in ['caption', 'summary', 'col', 'colgroup', 'thead', 'tfoot', 'tbody']:
 
-            sample = """<article>
+            sample = u"""<article>
                           <body>
                             <sec>
                               <p>
@@ -3366,14 +3366,14 @@ class XHTMLTableTests(unittest.TestCase):
                           </body>
                         </article>
                      """ % (elem, elem)
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_invalid_toplevel(self):
         for elem in ['tr']:
 
-            sample = """<article>
+            sample = u"""<article>
                           <body>
                             <sec>
                               <p>
@@ -3385,12 +3385,12 @@ class XHTMLTableTests(unittest.TestCase):
                           </body>
                         </article>
                      """ % (elem, elem)
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertFalse(self._run_validation(sample))
 
     def test_tbody_upon_th(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -3406,12 +3406,12 @@ class XHTMLTableTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_thead_upon_th(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -3427,12 +3427,12 @@ class XHTMLTableTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_thead_upon_td(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -3448,7 +3448,7 @@ class XHTMLTableTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3465,7 +3465,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
            mime-subtype is True
            mimetype ^ mime-subtype is True
         """
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material id="S1"
                                                 xlink:title="local_file"
@@ -3480,7 +3480,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -3489,7 +3489,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
            mime-subtype is False
            mimetype ^ mime-subtype is False
         """
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material id="S1"
                                                 xlink:title="local_file"
@@ -3503,7 +3503,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3512,7 +3512,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
            mime-subtype is True
            mimetype ^ mime-subtype is False
         """
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material id="S1"
                                                 xlink:title="local_file"
@@ -3526,7 +3526,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3535,7 +3535,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
            mime-subtype is False
            mimetype ^ mime-subtype is False
         """
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material id="S1"
                                                 xlink:title="local_file"
@@ -3548,7 +3548,7 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -3561,7 +3561,7 @@ class FigTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -3578,12 +3578,12 @@ class FigTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -3600,12 +3600,12 @@ class FigTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -3622,12 +3622,12 @@ class FigTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -3644,12 +3644,12 @@ class FigTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -3675,12 +3675,12 @@ class FigTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <title>Intro</title>
@@ -3706,7 +3706,7 @@ class FigTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -3719,7 +3719,7 @@ class AppTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <back>
                         <app-group>
                           <app>
@@ -3731,12 +3731,12 @@ class AppTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <back>
                         <app-group>
                           <app id="a01">
@@ -3748,12 +3748,12 @@ class AppTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <back>
                         <app-group>
                           <app id="app0j">
@@ -3765,12 +3765,12 @@ class AppTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <back>
                         <app-group>
                           <app id="app01">
@@ -3782,12 +3782,12 @@ class AppTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <back>
                         <app-group>
                           <app id="app01">
@@ -3804,12 +3804,12 @@ class AppTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <back>
                         <app-group>
                           <app id="app01">
@@ -3826,7 +3826,7 @@ class AppTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -3839,7 +3839,7 @@ class AffIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -3851,12 +3851,12 @@ class AffIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff id="aff0j">
@@ -3868,12 +3868,12 @@ class AffIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff id="h01">
@@ -3885,12 +3885,12 @@ class AffIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff id="aff01">
@@ -3902,12 +3902,12 @@ class AffIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff id="aff01">
@@ -3924,12 +3924,12 @@ class AffIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff id="aff01">
@@ -3946,7 +3946,7 @@ class AffIdTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -3959,7 +3959,7 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material xlink:title="local_file"
                                                 xlink:href="1471-2105-1-1-s1.pdf"
@@ -3973,12 +3973,12 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material xlink:title="local_file"
                                                 id="S01"
@@ -3993,12 +3993,12 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material xlink:title="local_file"
                                                 id="suppl0j"
@@ -4013,12 +4013,12 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material xlink:title="local_file"
                                                 id="suppl01"
@@ -4033,12 +4033,12 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material xlink:title="local_file"
                                                 id="suppl01"
@@ -4063,12 +4063,12 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <supplementary-material xlink:title="local_file"
                                                 id="suppl01"
@@ -4093,7 +4093,7 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -4106,7 +4106,7 @@ class RefIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -4115,12 +4115,12 @@ class RefIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref id="C1">
@@ -4129,12 +4129,12 @@ class RefIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref id="Bj">
@@ -4143,12 +4143,12 @@ class RefIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref id="B1">
@@ -4157,12 +4157,12 @@ class RefIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref id="B1">
@@ -4173,12 +4173,12 @@ class RefIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref id="B1">
@@ -4189,7 +4189,7 @@ class RefIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -4202,55 +4202,55 @@ class DefListIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <def-list>
                         </def-list>
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <def-list id="X01">
                         </def-list>
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <def-list id="d0j">
                         </def-list>
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <def-list id="d01">
                         </def-list>
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <def-list id="d01">
                         </def-list>
@@ -4259,12 +4259,12 @@ class DefListIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <def-list id="d01">
                         </def-list>
@@ -4273,7 +4273,7 @@ class DefListIdTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -4286,7 +4286,7 @@ class CorrespIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <corresp>&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
@@ -4294,12 +4294,12 @@ class CorrespIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <corresp id="x1">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
@@ -4307,12 +4307,12 @@ class CorrespIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <corresp id="cj">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
@@ -4320,12 +4320,12 @@ class CorrespIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <corresp id="c01">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
@@ -4333,12 +4333,12 @@ class CorrespIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <corresp id="c01">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
@@ -4347,12 +4347,12 @@ class CorrespIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <corresp id="c01">&#x2010; Correspondence to: B Genton<email>Blaise.Genton@hospvd.ch</email></corresp>
@@ -4361,7 +4361,7 @@ class CorrespIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -4373,7 +4373,7 @@ class FnIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <fn fn-type="conflict">
@@ -4383,12 +4383,12 @@ class FnIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <fn fn-type="conflict" id="x01">
@@ -4398,12 +4398,12 @@ class FnIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <fn fn-type="conflict" id="fn0j">
@@ -4413,12 +4413,12 @@ class FnIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <fn fn-type="conflict" id="fn01">
@@ -4428,12 +4428,12 @@ class FnIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <fn fn-type="conflict" id="fn01">
@@ -4446,12 +4446,12 @@ class FnIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <article-meta>
                         <author-notes>
                           <fn fn-type="conflict" id="fn01">
@@ -4464,7 +4464,7 @@ class FnIdTests(unittest.TestCase):
                       </article-meta>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -4476,70 +4476,70 @@ class MediaIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media id="x01" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media id="m0j" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media id="m01" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media id="m01" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                         <p><media id="m01" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media id="m01" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                         <p><media id="m02" mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -4552,7 +4552,7 @@ class SecIdTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_without_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec sec-type="methods">
                           <title>Methodology</title>
@@ -4561,12 +4561,12 @@ class SecIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_wrong_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec sec-type="methods" id="x01">
                           <title>Methodology</title>
@@ -4575,12 +4575,12 @@ class SecIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_wrong_id_suffix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec sec-type="methods" id="sec0j">
                           <title>Methodology</title>
@@ -4589,12 +4589,12 @@ class SecIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_id_prefix(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec sec-type="methods" id="sec01">
                           <title>Methodology</title>
@@ -4603,12 +4603,12 @@ class SecIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_repeated_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec sec-type="methods" id="sec01">
                           <title>Methodology</title>
@@ -4621,12 +4621,12 @@ class SecIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_unique_id(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec sec-type="methods" id="sec01">
                           <title>Methodology</title>
@@ -4639,7 +4639,7 @@ class SecIdTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -4657,7 +4657,7 @@ class AuthorNotesFNTests(unittest.TestCase):
                         'participating-researchers', 'present-address',
                         'previously-at', 'study-group-members', 'other']:
 
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <author-notes>
@@ -4669,12 +4669,12 @@ class AuthorNotesFNTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % fn_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_fn_types(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <author-notes>
@@ -4686,7 +4686,7 @@ class AuthorNotesFNTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -4704,58 +4704,58 @@ class ArticleAttributesTests(unittest.TestCase):
                 'in-brief', 'review-article', 'book-review', 'retraction',
                 'brief-report', 'rapid-communication', 'reply', 'translation']:
 
-            sample = """<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.1">
+            sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.1">
                         </article>
                      """ % art_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_article_type(self):
-        sample = """<article article-type="invalid" dtd-version="1.0" specific-use="sps-1.1">
+        sample = u"""<article article-type="invalid" dtd-version="1.0" specific-use="sps-1.1">
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_article_type(self):
-        sample = """<article xml:lang="en" dtd-version="1.0" specific-use="sps-1.1">
+        sample = u"""<article xml:lang="en" dtd-version="1.0" specific-use="sps-1.1">
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_xmllang(self):
-        sample = """<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.1">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.1">
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_dtdversion(self):
-        sample = """<article article-type="research-article" xml:lang="en" specific-use="sps-1.1">
+        sample = u"""<article article-type="research-article" xml:lang="en" specific-use="sps-1.1">
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_sps_version(self):
-        sample = """<article article-type="research-article" dtd-version="1.0" xml:lang="en">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" xml:lang="en">
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_invalid_sps_version(self):
-        sample = """<article article-type="research-article" dtd-version="1.0" xml:lang="en" specific-use="sps-1.0">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" xml:lang="en" specific-use="sps-1.0">
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -4767,7 +4767,7 @@ class NamedContentTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_missing_contenttype(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -4779,13 +4779,13 @@ class NamedContentTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_contenttype(self):
         for ctype in ['city', 'state']:
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <aff>
@@ -4797,12 +4797,12 @@ class NamedContentTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % ctype
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_contenttype(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <aff>
@@ -4814,7 +4814,7 @@ class NamedContentTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -4828,7 +4828,7 @@ class MonthTests(unittest.TestCase):
 
     def test_range_1_12(self):
         for month in range(1, 13):
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <pub-date>
@@ -4838,13 +4838,13 @@ class MonthTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % month
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_range_01_12(self):
         for month in range(1, 13):
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <pub-date>
@@ -4854,13 +4854,13 @@ class MonthTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % month
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_out_of_range(self):
         for month in [0, 13]:
-            sample = """<article>
+            sample = u"""<article>
                           <front>
                             <article-meta>
                               <pub-date>
@@ -4870,12 +4870,12 @@ class MonthTests(unittest.TestCase):
                           </front>
                         </article>
                      """ % month
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertFalse(self._run_validation(sample))
 
     def test_must_be_integer(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <pub-date>
@@ -4885,7 +4885,7 @@ class MonthTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -4900,7 +4900,7 @@ class SizeTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_in_element_citation(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -4912,12 +4912,12 @@ class SizeTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_in_product(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <product>
@@ -4927,12 +4927,12 @@ class SizeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_missing_units_in_product(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <product>
@@ -4942,12 +4942,12 @@ class SizeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_units_in_element_citation(self):
-        sample = """<article>
+        sample = u"""<article>
                       <back>
                         <ref-list>
                           <ref>
@@ -4959,12 +4959,12 @@ class SizeTests(unittest.TestCase):
                       </back>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_invalid_units_value(self):
-        sample = """<article>
+        sample = u"""<article>
                       <front>
                         <article-meta>
                           <product>
@@ -4974,7 +4974,7 @@ class SizeTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -4989,7 +4989,7 @@ class ListTests(unittest.TestCase):
     def test_allowed_list_type(self):
         for list_type in ['order', 'bullet', 'alpha-lower', 'alpha-upper',
                           'roman-lower', 'roman-upper', 'simple']:
-            sample = """<article>
+            sample = u"""<article>
                           <body>
                             <sec>
                               <p>
@@ -5014,12 +5014,12 @@ class ListTests(unittest.TestCase):
                           </body>
                         </article>
                      """ % (list_type, list_type)
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_list_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -5044,12 +5044,12 @@ class ListTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_disallowed_sub_list_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -5074,12 +5074,12 @@ class ListTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_list_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -5104,12 +5104,12 @@ class ListTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_sub_list_type(self):
-        sample = """<article>
+        sample = u"""<article>
                       <body>
                         <sec>
                           <p>
@@ -5134,7 +5134,7 @@ class ListTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
@@ -5147,46 +5147,46 @@ class MediaTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_missing_mimetype(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_mime_subtype(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media mimetype="video" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_href(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media mimetype="video" mime-subtype="mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_all_present(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <p><media mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
@@ -5199,7 +5199,7 @@ class ExtLinkTests(unittest.TestCase):
         return schematron.validate(etree.parse(sample))
 
     def test_complete(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <p>Neque porro quisquam est <ext-link ext-link-type="uri" xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
@@ -5207,13 +5207,13 @@ class ExtLinkTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
 
     def test_allowed_extlinktype(self):
         for link_type in ['uri', ]:
-            sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                           <body>
                             <sec>
                               <p>Neque porro quisquam est <ext-link ext-link-type="%s" xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
@@ -5221,12 +5221,12 @@ class ExtLinkTests(unittest.TestCase):
                           </body>
                         </article>
                      """ % link_type
-            sample = StringIO(sample)
+            sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_extlinktype(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <p>Neque porro quisquam est <ext-link ext-link-type="invalid" xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
@@ -5234,12 +5234,12 @@ class ExtLinkTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_extlinktype(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <p>Neque porro quisquam est <ext-link xlink:href="http://www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
@@ -5247,12 +5247,12 @@ class ExtLinkTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_xlinkhref(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <p>Neque porro quisquam est <ext-link ext-link-type="uri">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
@@ -5260,12 +5260,12 @@ class ExtLinkTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 
     def test_uri_without_scheme(self):
-        sample = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <body>
                         <sec>
                           <p>Neque porro quisquam est <ext-link ext-link-type="uri" xlink:href="www.scielo.org">www.scielo.org</ext-link> qui dolorem ipsum quia</p>
@@ -5273,7 +5273,7 @@ class ExtLinkTests(unittest.TestCase):
                       </body>
                     </article>
                  """
-        sample = StringIO(sample)
+        sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
 

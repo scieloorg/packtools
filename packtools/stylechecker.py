@@ -1,11 +1,12 @@
 #coding: utf-8
+from __future__ import print_function
 import logging
 from copy import deepcopy
 import os
 
 from lxml import etree, isoschematron
 
-from packtools.utils import XML
+from packtools.utils import XML, setdefault
 from packtools.checks import StyleCheckingPipeline
 from packtools.adapters import SchematronStyleError, SchemaStyleError
 from packtools.catalogs import SCHEMAS, XML_CATALOG
@@ -25,12 +26,13 @@ def XMLSchematron(schema_name):
 
     The returned instance is cached due to performance reasons.
     """
-    cache = XMLSchematron.func_dict.setdefault('cache', {})
+    #cache = XMLSchematron.func_dict.setdefault('cache', {})
+    cache = setdefault(XMLSchematron, 'cache', lambda: {})
 
     if schema_name in cache:
         return cache[schema_name]
     else:
-        with open(SCHEMAS[schema_name]) as fp:
+        with open(SCHEMAS[schema_name], mode='rb') as fp:
             xmlschema_doc = etree.parse(fp)
 
         schematron = isoschematron.Schematron(xmlschema_doc)
@@ -290,18 +292,18 @@ def main():
 
     else:
         if not is_valid:
-            print 'Invalid XML! Found %s errors:' % len(errors)
+            print('Invalid XML! Found %s errors:' % len(errors))
             for err in errors:
-                print '%s,%s\t%s' % (err.line, err.column, err.message)
+                print('%s,%s\t%s' % (err.line, err.column, err.message))
         else:
-            print 'Valid XML! ;)'
+            print('Valid XML! ;)')
 
         if not style_is_valid:
-            print 'Invalid SPS Style! Found %s errors:' % len(style_errors)
+            print('Invalid SPS Style! Found %s errors:' % len(style_errors))
             for err in style_errors:
-                print err.message
+                print(err.message)
         else:
-            print 'Valid SPS Style! ;)'
+            print('Valid SPS Style! ;)')
 
 if __name__ == '__main__':
     main()

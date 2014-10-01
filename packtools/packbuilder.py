@@ -1,4 +1,5 @@
 #coding:utf-8
+from __future__ import print_function
 import os
 import zipfile
 
@@ -85,17 +86,17 @@ def main():
         try:
             packer = XMLPacker(xml)
         except IOError:
-            print 'Error reading %s. Make sure it is a valid file-path.' % xml
+            print('Error reading %s. Make sure it is a valid file-path.' % xml)
         except etree.XMLSyntaxError as e:
-            print 'Error reading %s. Syntax error: %s' % (xml, e.message)
+            print('Error reading %s. Syntax error: %s' % (xml, e.message))
         else:
             outfile = packer.abs_filepath.replace('.xml', '.zip')
             try:
                 packer.pack(outfile)
             except ValueError as e:
-                print 'Error:', e.message
+                print('Error:', e.message)
             else:
-                print 'Created:', outfile
+                print('Created:', outfile)
 
 
 if __name__ == '__main__':

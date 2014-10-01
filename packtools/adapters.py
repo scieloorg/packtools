@@ -1,11 +1,12 @@
 #coding: utf-8
 import re
 import logging
-from StringIO import StringIO
+import io
 
 from lxml import etree
 
 from . import utils
+from . import compat
 
 
 logger = logging.getLogger(__name__)
@@ -93,7 +94,9 @@ class SchematronStyleError(StyleError):
     """
     def __init__(self, err_object):
         self._err = err_object
-        self._parsed_message = etree.parse(StringIO(self._err.message.encode('utf-8')))
+
+        byte_string = io.BytesIO(self._err.message.encode('utf-8'))
+        self._parsed_message = etree.parse(byte_string)
 
     @property
     def message(self):

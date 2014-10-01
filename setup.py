@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import sys
 from setuptools import setup, find_packages
 
 
@@ -9,10 +8,7 @@ install_requires = [
 ]
 
 
-tests_require = ['mocker']
-PY2 = sys.version_info[0] == 2
-if PY2:
-    tests_require.append('mock')
+tests_require = []
 
 
 setup(
@@ -32,7 +28,9 @@ setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
-        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     tests_require=tests_require,

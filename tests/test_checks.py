@@ -1,7 +1,7 @@
 # coding: utf-8
 import os
 import unittest
-from StringIO import StringIO
+import io
 
 from lxml import etree
 
@@ -15,13 +15,13 @@ SAMPLES_PATH = os.path.join(
 
 class SetupTests(unittest.TestCase):
     def test_message_is_splitted(self):
-        fp = etree.parse(StringIO(b'<a><b>bar</b></a>'))
+        fp = etree.parse(io.BytesIO(b'<a><b>bar</b></a>'))
         self.assertEqual(checks.setup(fp), (fp, []))
 
 
 class TeardownTests(unittest.TestCase):
     def test_returns_errorlist(self):
-        fp = etree.parse(StringIO(b'<a><b>bar</b></a>'))
+        fp = etree.parse(io.BytesIO(b'<a><b>bar</b></a>'))
         err_list = ['some error']
         message = (fp, err_list)
         self.assertEqual(checks.teardown(message), err_list)
@@ -253,7 +253,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         HasFundingGroup is False
         (HasExplicitContract <=> HasFundingGroup) is False
         """
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <article>
           <front>
             <article-meta></article-meta>
@@ -280,7 +280,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         HasFundingGroup is True
         (HasExplicitContract <=> HasFundingGroup) is False
         """
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <article>
           <front>
             <article-meta>
@@ -315,7 +315,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         HasFundingGroup is False
         (HasExplicitContract <=> HasFundingGroup) is True
         """
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <article>
           <front>
             <article-meta></article-meta>
@@ -341,7 +341,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         ∀ContractNo<ack> [ Registered(FundingGroup, ContractNo) ] ^
         ∀ContractNo<funding-group> [ Registered(Ack, ContractNo) v Registered(Fn, ContractNo) ]
         """
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <article>
           <front>
             <article-meta>
@@ -379,7 +379,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         ∃ContractNo<ack> [ ¬Registered(FundingGroup, ContractNo) ] ^
         ∀ContractNo<funding-group> [ Registered(Ack, ContractNo) v Registered(Fn, ContractNo) ]
         """
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <article>
           <front>
             <article-meta>
@@ -417,7 +417,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         ∀ContractNo<ack> [ Registered(FundingGroup, ContractNo) ] ^
         ∃ContractNo<funding-group> [ ¬(Registered(Ack, ContractNo)) ^ ¬(Registered(Fn, ContractNo)) ]
         """
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <article>
           <front>
             <article-meta>
@@ -454,7 +454,7 @@ class FundingGroupPipeTests(unittest.TestCase):
 class DoctypePipeTests(unittest.TestCase):
 
     def test_missing_doctype(self):
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <article>
           ...
         </article>
@@ -467,7 +467,7 @@ class DoctypePipeTests(unittest.TestCase):
         self.assertTrue("DOCTYPE" in err_list[0].message)
 
     def test_doctype(self):
-        sample = StringIO("""
+        sample = io.BytesIO(b"""
         <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
         <article>
           ...
