@@ -26,7 +26,6 @@ def XMLSchematron(schema_name):
 
     The returned instance is cached due to performance reasons.
     """
-    #cache = XMLSchematron.func_dict.setdefault('cache', {})
     cache = setdefault(XMLSchematron, 'cache', lambda: {})
 
     if schema_name in cache:
@@ -268,20 +267,20 @@ def main():
         sys.exit('Error reading %s. Make sure it is a valid file-path or URL.' % args.xmlpath)
 
     except etree.XMLSyntaxError as e:
-        sys.exit('Error reading %s. Syntax error: %s' % (args.xmlpath, e.message))
+        sys.exit('Error reading %s. Syntax error: %s' % (args.xmlpath, e))
 
     else:
         try:
             xml = XMLValidator(parsed_xml)
 
         except ValueError as e:
-            sys.exit('Error reading %s. %s.' % (args.xmlpath, e.message))
+            sys.exit('Error reading %s. %s.' % (args.xmlpath, e))
 
     try:
         # validation may raise TypeError when the DTD lookup fails.
         is_valid, errors = xml.validate()
     except TypeError as e:
-        sys.exit('Error validating %s. %s.' % (args.xmlpath, e.message))
+        sys.exit('Error validating %s. %s.' % (args.xmlpath, e))
 
     style_is_valid, style_errors = xml.validate_style()
 
