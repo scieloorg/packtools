@@ -17,13 +17,13 @@ class CachedMethodTests(unittest.TestCase):
                 return 'bar'
 
         a = A()
-        self.assertEquals(a.counter, 0)
+        self.assertEqual(a.counter, 0)
 
-        self.assertEquals(a.foo(), 'bar')
-        self.assertEquals(a.counter, 1)
+        self.assertEqual(a.foo(), 'bar')
+        self.assertEqual(a.counter, 1)
 
-        self.assertEquals(a.foo(), 'bar')
-        self.assertEquals(a.counter, 1)
+        self.assertEqual(a.foo(), 'bar')
+        self.assertEqual(a.counter, 1)
 
     def test_with_params(self):
 
@@ -37,14 +37,14 @@ class CachedMethodTests(unittest.TestCase):
                 return a + b
 
         a = A()
-        self.assertEquals(a.counter, 0)
+        self.assertEqual(a.counter, 0)
 
-        self.assertEquals(a.sum(2, 2), 4)
-        self.assertEquals(a.counter, 1)
+        self.assertEqual(a.sum(2, 2), 4)
+        self.assertEqual(a.counter, 1)
 
-        self.assertEquals(a.sum(2, 3), 5)
-        self.assertEquals(a.counter, 2)
+        self.assertEqual(a.sum(2, 3), 5)
+        self.assertEqual(a.counter, 2)
 
-        self.assertEquals(a.sum(2, 2), 4)
-        self.assertEquals(a.counter, 2)
+        self.assertEqual(a.sum(2, 2), 4)
+        self.assertEqual(a.counter, 2)
 

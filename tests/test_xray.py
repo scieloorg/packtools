@@ -367,7 +367,7 @@ class XrayTests(unittest.TestCase):
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_ext('xml'), ['bar.xml'])
+        self.assertEqual(xray.get_ext('xml'), ['bar.xml'])
 
     def test_get_ext_returns_empty_when_ext_doesnot_exist(self):
         arch = make_test_archive(
@@ -375,7 +375,7 @@ class XrayTests(unittest.TestCase):
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_ext('jpeg'), [])
+        self.assertEqual(xray.get_ext('jpeg'), [])
 
     def test_get_fps_returns_an_iterable(self):
         arch = make_test_archive(
@@ -410,7 +410,7 @@ class XrayTests(unittest.TestCase):
         arch1 = make_test_archive(data)
         arch2 = make_test_archive(data)
 
-        self.assertEquals(
+        self.assertEqual(
             self._makeOne(arch1.name).checksum(hashlib.sha1),
             self._makeOne(arch2.name).checksum(hashlib.sha1)
         )
@@ -422,14 +422,14 @@ class XrayTests(unittest.TestCase):
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_members(), ['bar.xml', 'jar.xml'])
+        self.assertEqual(xray.get_members(), ['bar.xml', 'jar.xml'])
 
     def test_get_members_returns_empty(self):
         arch = make_test_archive([])
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_members(), [])
+        self.assertEqual(xray.get_members(), [])
 
     def test_get_fp(self):
         arch = make_test_archive(
@@ -457,7 +457,7 @@ class XrayTests(unittest.TestCase):
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.xml']})
+        self.assertEqual(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.xml']})
 
     def test_get_ext_is_caseinsensitive(self):
         arch = make_test_archive(
@@ -466,7 +466,7 @@ class XrayTests(unittest.TestCase):
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_ext('xml'), ['bar.xml', 'jar.XML'])
+        self.assertEqual(xray.get_ext('xml'), ['bar.xml', 'jar.XML'])
 
     def test_get_ext_arg_is_caseinsensitive(self):
         arch = make_test_archive(
@@ -475,7 +475,7 @@ class XrayTests(unittest.TestCase):
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_ext('XML'), ['bar.xml', 'jar.XML'])
+        self.assertEqual(xray.get_ext('XML'), ['bar.xml', 'jar.XML'])
 
     def test_get_classified_members_is_caseinsensitive(self):
         arch = make_test_archive(
@@ -484,7 +484,7 @@ class XrayTests(unittest.TestCase):
 
         xray = self._makeOne(arch.name)
 
-        self.assertEquals(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.XML']})
+        self.assertEqual(xray.get_classified_members(), {'xml': ['bar.xml', 'jar.XML']})
 
     def test_get_fps_is_caseinsensitive(self):
         arch = make_test_archive(

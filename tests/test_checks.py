@@ -245,7 +245,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.funding_group((et, []))
 
-        self.assertEquals(len(err_list), 0)
+        self.assertEqual(len(err_list), 0)
 
     def test_proposition_1_case_2(self):
         """
@@ -271,7 +271,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.funding_group((et, []))
 
-        self.assertEquals(len(err_list), 1)
+        self.assertEqual(len(err_list), 1)
         self.assertTrue("'funding-group'" in err_list[0].message)
 
     def test_proposition_1_case_3(self):
@@ -306,7 +306,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.funding_group((et, []))
 
-        self.assertEquals(len(err_list), 1)
+        self.assertEqual(len(err_list), 1)
         self.assertTrue("'funding-group'" in err_list[0].message)
 
     def test_proposition_1_case_4(self):
@@ -333,7 +333,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.funding_group((et, []))
 
-        self.assertEquals(len(err_list), 0)
+        self.assertEqual(len(err_list), 0)
 
     def test_proposition_3_case_1(self):
         """
@@ -370,7 +370,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.funding_group((et, []))
 
-        self.assertEquals(len(err_list), 1)
+        self.assertEqual(len(err_list), 1)
         self.assertTrue("'fn-group'" in err_list[0].message)
 
     def test_proposition_3_case_2(self):
@@ -408,7 +408,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.funding_group((et, []))
 
-        self.assertEquals(len(err_list), 1)
+        self.assertEqual(len(err_list), 1)
         self.assertTrue("'ack'" in err_list[0].message)
 
     def test_proposition_3_case_3(self):
@@ -447,7 +447,7 @@ class FundingGroupPipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.funding_group((et, []))
 
-        self.assertEquals(len(err_list), 1)
+        self.assertEqual(len(err_list), 1)
         self.assertTrue("'funding-group'" in err_list[0].message)
 
 
@@ -463,7 +463,7 @@ class DoctypePipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.doctype((et, []))
 
-        self.assertEquals(len(err_list), 1)
+        self.assertEqual(len(err_list), 1)
         self.assertTrue("DOCTYPE" in err_list[0].message)
 
     def test_doctype(self):
@@ -477,5 +477,5 @@ class DoctypePipeTests(unittest.TestCase):
         et = etree.parse(sample)
         _, err_list = checks.doctype((et, []))
 
-        self.assertEquals(len(err_list), 0)
+        self.assertEqual(len(err_list), 0)
 

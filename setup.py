@@ -2,6 +2,12 @@
 from setuptools import setup, find_packages
 
 
+# adds version to the local namespace
+version = {}
+with open('packtools/version.py') as fp:
+    exec(fp.read(), version)
+
+
 install_requires = [
     'lxml >= 3.3.4',
     'picles.plumber >= 0.10',
@@ -13,7 +19,7 @@ tests_require = []
 
 setup(
     name="packtools",
-    version='0.6',
+    version=version['__version__'],
     description="Handle SPS packages like a breeze.",
     long_description=open('README.md').read() + '\n\n' +
                      open('HISTORY.md').read(),

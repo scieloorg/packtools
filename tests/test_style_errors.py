@@ -4,11 +4,11 @@ import io
 
 from lxml import etree
 
-from packtools import adapters
+from packtools import style_errors
 
 
 class ElementNamePatternTests(unittest.TestCase):
-    pattern = adapters.EXPOSE_ELEMENTNAME_PATTERN
+    pattern = style_errors.EXPOSE_ELEMENTNAME_PATTERN
 
     def test_case1(self):
         message = "Element 'article', attribute 'dtd-version': [facet 'enumeration'] The value '3.0' is not an element of the set {'1.0'}."
@@ -36,17 +36,17 @@ class SearchElementFunctionTests(unittest.TestCase):
 
     def test_find_root_element(self):
         fp = etree.parse(io.BytesIO(b'<a>\n<b>bar</b>\n</a>'))
-        elem = adapters.search_element(fp, '/a', 1)
+        elem = style_errors.search_element(fp, '/a', 1)
         self.assertEqual(elem.tag, 'a')
         self.assertEqual(elem.sourceline, 1)
 
     def test_find(self):
         fp = etree.parse(io.BytesIO(b'<a>\n<b>bar</b>\n</a>'))
-        elem = adapters.search_element(fp, '//b', 2)
+        elem = style_errors.search_element(fp, '//b', 2)
         self.assertEqual(elem.tag, 'b')
         self.assertEqual(elem.sourceline, 2)
 
     def test_find_missing(self):
         fp = etree.parse(io.BytesIO(b'<a>\n<b>bar</b>\n</a>'))
-        self.assertRaises(ValueError, lambda: adapters.search_element(fp, 'c', 2))
+        self.assertRaises(ValueError, lambda: style_errors.search_element(fp, 'c', 2))
 

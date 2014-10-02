@@ -1,12 +1,14 @@
-#coding: utf-8
+# coding:utf-8
+"""Adapters for XML errors.
+
+An adapter is an object that provides domain-specific apis for another object,
+called adaptee.
+"""
+import io
 import re
 import logging
-import io
 
 from lxml import etree
-
-from . import utils
-from . import compat
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +46,9 @@ def search_element(doc, xpath, line=None):
         raise ValueError("Could not find element '%s'." % xpath)
 
 
+#--------------------------------
+# adapters for XML style errors
+#--------------------------------
 class StyleError(object):
     """Acts like an interface for SPS style errors.
 
@@ -66,11 +71,8 @@ class StyleError(object):
         This base implementation tries to discover the element name by
         searching the string pattern `Element 'element name'` on message.
         """
-        def get_data():
-            tagname = search_element_name(self.message)
-            return search_element(doc, '//' + tagname, line=self.line)
-
-        return utils.setdefault(self, '__apparent_element', get_data)
+        tagname = search_element_name(self.message)
+        return search_element(doc, '//' + tagname, line=self.line)
 
 
 class SchemaStyleError(StyleError):
@@ -80,13 +82,6 @@ class SchemaStyleError(StyleError):
         self._err = err_object
         self.message = self._err.message
         self.line = self._err.line
-
-    def get_apparent_element(self, doc):
-        def get_data():
-            tagname = search_element_name(self.message)
-            return search_element(doc, '//' + tagname, line=self.line)
-
-        return utils.setdefault(self, '__apparent_element', get_data)
 
 
 class SchematronStyleError(StyleError):
@@ -100,24 +95,18 @@ class SchematronStyleError(StyleError):
 
     @property
     def message(self):
-        def get_data():
-            try:
-                text = re.search(r"<svrl:text>(.*)</svrl:text>", self._err.message, re.DOTALL).group(1)
-            except AttributeError:
-                raise ValueError('Cannot get the message from %s.' % self._err)
+        try:
+            text = re.search(r"<svrl:text>(.*)</svrl:text>", self._err.message, re.DOTALL).group(1)
+        except AttributeError:
+            raise ValueError('Cannot get the message from %s.' % self._err)
 
-            return text.strip()
-
-        return utils.setdefault(self, '__message', get_data)
+        return text.strip()
 
     def get_apparent_element(self, doc):
-        def get_data():
-            try:
-                tagname = self._parsed_message.xpath('@location')[0]
-            except IndexError:
-                raise ValueError('Cannot get the context info from %s.' % self._err.message)
+        try:
+            tagname = self._parsed_message.xpath('@location')[0]
+        except IndexError:
+            raise ValueError('Cannot get the context info from %s.' % self._err.message)
 
-            return search_element(doc, tagname)
-
-        return utils.setdefault(self, '__apparent_element', get_data)
+        return search_element(doc, tagname)
 

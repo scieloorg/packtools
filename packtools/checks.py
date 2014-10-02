@@ -4,7 +4,7 @@ import logging
 
 import plumber
 
-from .adapters import StyleError
+from .style_errors import StyleError
 
 
 logger = logging.getLogger(__name__)

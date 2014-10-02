@@ -6,8 +6,7 @@ import hashlib
 
 from lxml import etree
 
-from . import utils
-from . import stylechecker
+from . import utils, domain
 
 
 logger = logging.getLogger(__name__)
@@ -127,12 +126,12 @@ class SPSPackage(object):
 
     @property
     def xml_validator(self):
-        """stylechecker.XMLValidator instance.
+        """domain.XMLValidator instance.
         """
         # XMLValidator is instantiated with `no_doctype=True` for resilience
         # while inspecting the XML file.
         return utils.setdefault(self, '__xml_validator_instance',
-            lambda: stylechecker.XMLValidator(self.xml_fp, no_doctype=True))
+            lambda: domain.XMLValidator(self.xml_fp, no_doctype=True))
 
     def is_valid(self):
         """Performs all package validations sequentialy.

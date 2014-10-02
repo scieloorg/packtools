@@ -5,6 +5,8 @@ History
 ---
 
 * Python 3 support.
+* Project-wide code refactoring.
+* `packtools.__version__` attribute to get the package version.
 
 
 0.5 (2014-09-29)
