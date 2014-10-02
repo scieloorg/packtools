@@ -10,6 +10,9 @@ from lxml import etree
 import packtools
 
 
+PY2 = sys.version_info[0] == 2
+
+
 def config_xml_catalog(func):
     """Wraps the execution of ``func``, setting-up and tearing-down the
     ``XML_CATALOG_FILES`` environment variable for the current process.
@@ -61,7 +64,13 @@ def main():
 
     if args.annotated:
         err_xml = xml.annotate_errors()
-        sys.stdout.write(etree.tostring(err_xml, pretty_print=True,
+
+        if PY2:
+            bin_stdout = sys.stdout
+        else:
+            bin_stdout = sys.stdout.buffer
+
+        bin_stdout.write(etree.tostring(err_xml, pretty_print=True,
             encoding='utf-8', xml_declaration=True))
 
     else:
