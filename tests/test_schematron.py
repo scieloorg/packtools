@@ -1,6 +1,7 @@
 # coding: utf-8
 import unittest
 import io
+import copy
 
 from lxml import isoschematron, etree
 
@@ -10,12 +11,31 @@ from packtools.catalogs import SCHEMAS
 SCH = etree.parse(SCHEMAS['scielo-style.sch'])
 
 
-class JournalIdTests(unittest.TestCase):
+def TestPhase(phase_name, cache):
+    """Factory of parsed Schematron phases.
+
+    :param phase_name: the phase name
+    :param cache: mapping type
+    """
+    if phase_name not in cache:
+        phase = isoschematron.Schematron(SCH, phase=phase_name)
+        cache[phase_name] = phase
+
+    return copy.deepcopy(cache[phase_name])
+
+
+class PhaseBasedTestCase(unittest.TestCase):
+    cache = {}
+
+    def _run_validation(self, sample):
+        schematron = TestPhase(self.sch_phase, self.cache)
+        return schematron.validate(etree.parse(sample))
+
+
+class JournalIdTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/journal-id elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.journal-id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.journal-id'
 
     def test_case1(self):
         """
@@ -101,12 +121,10 @@ class JournalIdTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class JournalTitleGroupTests(unittest.TestCase):
+class JournalTitleGroupTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/journal-title-group elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.journal-title-group')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.journal-title-group'
 
     def test_journal_title_group_is_absent(self):
         sample = u"""<article>
@@ -210,12 +228,10 @@ class JournalTitleGroupTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class PublisherTests(unittest.TestCase):
+class PublisherTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/publisher elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.publisher')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.publisher'
 
     def test_publisher_is_present(self):
         sample = u"""<article>
@@ -245,12 +261,10 @@ class PublisherTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ArticleCategoriesTests(unittest.TestCase):
+class ArticleCategoriesTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/article-categories elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.article-categories')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.article-categories'
 
     def test_article_categories_is_present(self):
         sample = u"""<article>
@@ -285,12 +299,10 @@ class ArticleCategoriesTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class fpage_OR_elocationTests(unittest.TestCase):
+class fpage_OR_elocationTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/fpage or elocation-id elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.fpage_or_elocation-id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.fpage_or_elocation-id'
 
     def test_case1(self):
         """
@@ -364,12 +376,10 @@ class fpage_OR_elocationTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
-class ISSNTests(unittest.TestCase):
+class ISSNTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/issn elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.issn')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.issn'
 
     def test_case1(self):
         """
@@ -455,12 +465,10 @@ class ISSNTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ArticleIdTests(unittest.TestCase):
+class ArticleIdTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/article-id elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.article-id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.article-id'
 
     def test_article_id_is_absent(self):
         sample = u"""<article>
@@ -560,12 +568,10 @@ class ArticleIdTests(unittest.TestCase):
             self.assertTrue(self._run_validation(sample))
 
 
-class SubjGroupTests(unittest.TestCase):
+class SubjGroupTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/article-categories/subj-group elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.subj-group')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.subj-group'
 
     def test_subj_group_is_absent(self):
         sample = u"""<article>
@@ -747,12 +753,10 @@ class SubjGroupTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class AbstractLangTests(unittest.TestCase):
+class AbstractLangTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/abstract elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.abstract_lang')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.abstract_lang'
 
     def test_is_present(self):
         sample = u"""<article>
@@ -856,12 +860,10 @@ class AbstractLangTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class ArticleTitleLangTests(unittest.TestCase):
+class ArticleTitleLangTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/title-group/article-title elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.article-title_lang')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.article-title_lang'
 
     def test_is_present(self):
         sample = u"""<article>
@@ -898,12 +900,10 @@ class ArticleTitleLangTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class KwdGroupLangTests(unittest.TestCase):
+class KwdGroupLangTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/kwd-group elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.kwd-group_lang')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.kwd-group_lang'
 
     def test_single_occurence(self):
         sample = u"""<article>
@@ -957,14 +957,12 @@ class KwdGroupLangTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class AffContentTypeTests(unittest.TestCase):
+class AffContentTypeTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/contrib-group
       - article/front/article-meta
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.aff_contenttypes')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.aff_contenttypes'
 
     def test_original_is_present(self):
         sample = u"""<article>
@@ -1167,12 +1165,10 @@ class AffContentTypeTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class CountsTests(unittest.TestCase):
+class CountsTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/counts elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.counts')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.counts'
 
     def test_absent(self):
         sample = u"""<article>
@@ -1504,12 +1500,10 @@ class CountsTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class AuthorNotesTests(unittest.TestCase):
+class AuthorNotesTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/author-notes elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.fn-group')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.fn-group'
 
     def test_allowed_fn_types(self):
         for fn_type in ['author', 'con', 'conflict', 'corresp', 'current-aff',
@@ -1550,12 +1544,10 @@ class AuthorNotesTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class PubDateTests(unittest.TestCase):
+class PubDateTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/pub-date elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.pub-date')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.pub-date'
 
     def test_pub_type_absent(self):
         sample = u"""<article>
@@ -1610,14 +1602,12 @@ class PubDateTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class VolumeTests(unittest.TestCase):
+class VolumeTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/volume
       - article/back/ref-list/ref/element-citation/volume
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.volume')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.volume'
 
     def test_absent_in_front(self):
         sample = u"""<article>
@@ -1658,14 +1648,12 @@ class VolumeTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class IssueTests(unittest.TestCase):
+class IssueTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/issue
       - article/back/ref-list/ref/element-citation/issue
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.issue')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.issue'
 
     def test_absent_in_front(self):
         sample = u"""<article>
@@ -1706,13 +1694,11 @@ class IssueTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class SupplementTests(unittest.TestCase):
+class SupplementTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/supplement
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.supplement')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.supplement'
 
     def test_absent(self):
         sample = u"""<article>
@@ -1740,14 +1726,12 @@ class SupplementTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ElocationIdTests(unittest.TestCase):
+class ElocationIdTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/elocation-id
       - article/back/ref-list/ref/element-citation/elocation-id
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.elocation-id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.elocation-id'
 
     def test_absent(self):
         sample = u"""<article>
@@ -1863,13 +1847,11 @@ class ElocationIdTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class HistoryTests(unittest.TestCase):
+class HistoryTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/history
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.history')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.history'
 
     def test_absent(self):
         sample = u"""<article>
@@ -1959,13 +1941,11 @@ class HistoryTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class ProductTests(unittest.TestCase):
+class ProductTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/product
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.product')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.product'
 
     def test_absent(self):
         sample = u"""<article>
@@ -2157,13 +2137,11 @@ class ProductTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class SecTitleTests(unittest.TestCase):
+class SecTitleTests(PhaseBasedTestCase):
     """Tests for:
       - article/body/sec/title
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.sectitle')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.sectitle'
 
     def test_absent(self):
         sample = u"""<article>
@@ -2207,12 +2185,10 @@ class SecTitleTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ParagraphTests(unittest.TestCase):
+class ParagraphTests(PhaseBasedTestCase):
     """Tests for //p
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.paragraph')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.paragraph'
 
     def test_sec_without_id(self):
         sample = u"""<article>
@@ -2265,12 +2241,10 @@ class ParagraphTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class DispFormulaTests(unittest.TestCase):
+class DispFormulaTests(PhaseBasedTestCase):
     """Tests for //disp-formula
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.disp-formula')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.disp-formula'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -2401,12 +2375,10 @@ class DispFormulaTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class TableWrapTests(unittest.TestCase):
+class TableWrapTests(PhaseBasedTestCase):
     """Tests for //table-wrap
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.table-wrap')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.table-wrap'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -2521,12 +2493,10 @@ class TableWrapTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class TableWrapFootTests(unittest.TestCase):
+class TableWrapFootTests(PhaseBasedTestCase):
     """Tests for //table-wrap-foot/fn
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.table-wrap-foot')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.table-wrap-foot'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -2681,12 +2651,10 @@ class TableWrapFootTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class XrefRidTests(unittest.TestCase):
+class XrefRidTests(PhaseBasedTestCase):
     """Tests for //xref[@rid]
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.rid_integrity')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.rid_integrity'
 
     def test_mismatching_rid(self):
         sample = u"""<article>
@@ -2760,12 +2728,10 @@ class XrefRidTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class XrefRefTypeTests(unittest.TestCase):
+class XrefRefTypeTests(PhaseBasedTestCase):
     """Tests for //xref[@ref-type]
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.xref_reftype_integrity')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.xref_reftype_integrity'
 
     def test_allowed_ref_types(self):
         for reftype in ['aff', 'app', 'author-notes', 'bibr', 'contrib',
@@ -2803,12 +2769,10 @@ class XrefRefTypeTests(unittest.TestCase):
             self.assertFalse(self._run_validation(sample))
 
 
-class CaptionTests(unittest.TestCase):
+class CaptionTests(PhaseBasedTestCase):
     """Tests for //caption
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.caption')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.caption'
 
     def test_with_title(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -2871,12 +2835,10 @@ class CaptionTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class LicenseTests(unittest.TestCase):
+class LicenseTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/permissions/license element.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.license')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.license'
 
     def test_missing_permissions_elem(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -2993,12 +2955,10 @@ class LicenseTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class AckTests(unittest.TestCase):
+class AckTests(PhaseBasedTestCase):
     """Tests for article/back/ack element.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.ack')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.ack'
 
     def test_with_sec(self):
         sample = u"""<article>
@@ -3030,12 +2990,10 @@ class AckTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class ElementCitationTests(unittest.TestCase):
+class ElementCitationTests(PhaseBasedTestCase):
     """Tests for article/back/ref-list/ref/element-citation element.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.element-citation')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.element-citation'
 
     def test_with_name_outside_persongroup(self):
         sample = u"""<article>
@@ -3199,14 +3157,12 @@ class ElementCitationTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class PersonGroupTests(unittest.TestCase):
+class PersonGroupTests(PhaseBasedTestCase):
     """Tests for
       - article/back/ref-list/ref/element-citation/person-group
       - article/front/article-meta/product/person-group
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.person-group')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.person-group'
 
     def test_missing_type(self):
         sample = u"""<article>
@@ -3303,12 +3259,10 @@ class PersonGroupTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class FNGroupTests(unittest.TestCase):
+class FNGroupTests(PhaseBasedTestCase):
     """Tests for article/back/fn-group/fn element.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.fn-group')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.fn-group'
 
     def test_allowed_fn_types(self):
         for fn_type in ['abbr', 'com', 'financial-disclosure', 'supported-by',
@@ -3344,12 +3298,10 @@ class FNGroupTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class XHTMLTableTests(unittest.TestCase):
+class XHTMLTableTests(PhaseBasedTestCase):
     """Tests for //table elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.xhtml-table')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.xhtml-table'
 
     def test_valid_toplevel(self):
         for elem in ['caption', 'summary', 'col', 'colgroup', 'thead', 'tfoot', 'tbody']:
@@ -3453,12 +3405,10 @@ class XHTMLTableTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class SupplementaryMaterialMimetypeTests(unittest.TestCase):
+class SupplementaryMaterialMimetypeTests(PhaseBasedTestCase):
     """Tests for article//supplementary-material elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.supplementary-material')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.supplementary-material'
 
     def test_case1(self):
         """mimetype is True
@@ -3553,12 +3503,10 @@ class SupplementaryMaterialMimetypeTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class FigTests(unittest.TestCase):
+class FigTests(PhaseBasedTestCase):
     """Tests for //fig elements
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.fig')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.fig'
 
     def test_without_id_prefix(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -3711,12 +3659,10 @@ class FigTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class AppTests(unittest.TestCase):
+class AppTests(PhaseBasedTestCase):
     """Tests for //app elements
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.app')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.app'
 
     def test_without_id_prefix(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -3831,12 +3777,10 @@ class AppTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class AffIdTests(unittest.TestCase):
+class AffIdTests(PhaseBasedTestCase):
     """Tests for //app elements
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.aff_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.aff_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -3951,12 +3895,10 @@ class AffIdTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class SupplementaryMaterialIdTests(unittest.TestCase):
+class SupplementaryMaterialIdTests(PhaseBasedTestCase):
     """Tests for article//supplementary-material elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.supplementary-material_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.supplementary-material_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -4098,12 +4040,10 @@ class SupplementaryMaterialIdTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class RefIdTests(unittest.TestCase):
+class RefIdTests(PhaseBasedTestCase):
     """Tests for article/back/ref-list/ref elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.ref_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.ref_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -4194,12 +4134,10 @@ class RefIdTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class DefListIdTests(unittest.TestCase):
+class DefListIdTests(PhaseBasedTestCase):
     """Tests for article/back/glossary/def-list elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.def-list_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.def-list_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -4278,12 +4216,10 @@ class DefListIdTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class CorrespIdTests(unittest.TestCase):
+class CorrespIdTests(PhaseBasedTestCase):
     """Tests for article/back/glossary/def-list elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.corresp_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.corresp_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -4365,12 +4301,10 @@ class CorrespIdTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-class FnIdTests(unittest.TestCase):
+class FnIdTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/author-notes/fn elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.fn_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.fn_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -4468,12 +4402,10 @@ class FnIdTests(unittest.TestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-class MediaIdTests(unittest.TestCase):
+class MediaIdTests(PhaseBasedTestCase):
     """Tests for article/body//p/media elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.media_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.media_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -4544,12 +4476,10 @@ class MediaIdTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class SecIdTests(unittest.TestCase):
+class SecIdTests(PhaseBasedTestCase):
     """Tests for article/body/sec elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.sec_id')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.sec_id'
 
     def test_without_id_prefix(self):
         sample = u"""<article>
@@ -4644,12 +4574,10 @@ class SecIdTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class AuthorNotesFNTests(unittest.TestCase):
+class AuthorNotesFNTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/author-notes/fn element.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.fn-group')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.fn-group'
 
     def test_allowed_fn_types(self):
         for fn_type in ['author', 'con', 'conflict', 'corresp', 'current-aff',
@@ -4691,12 +4619,10 @@ class AuthorNotesFNTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ArticleAttributesTests(unittest.TestCase):
+class ArticleAttributesTests(PhaseBasedTestCase):
     """Tests for article element.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.article-attrs')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.article-attrs'
 
     def test_allowed_article_types(self):
         for art_type in ['abstract', 'announcement', 'other', 'article-commentary',
@@ -4759,12 +4685,11 @@ class ArticleAttributesTests(unittest.TestCase):
 
         self.assertFalse(self._run_validation(sample))
 
-class NamedContentTests(unittest.TestCase):
+
+class NamedContentTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/aff/addr-line/named-content elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.named-content_attrs')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.named-content_attrs'
 
     def test_missing_contenttype(self):
         sample = u"""<article>
@@ -4819,12 +4744,10 @@ class NamedContentTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class MonthTests(unittest.TestCase):
+class MonthTests(PhaseBasedTestCase):
     """Tests for //month elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.month')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.month'
 
     def test_range_1_12(self):
         for month in range(1, 13):
@@ -4890,14 +4813,12 @@ class MonthTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class SizeTests(unittest.TestCase):
+class SizeTests(PhaseBasedTestCase):
     """Tests for:
       - article/front/article-meta/product/size
       - article/back/ref-list/ref/element-citation/size
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.size')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.size'
 
     def test_in_element_citation(self):
         sample = u"""<article>
@@ -4979,12 +4900,10 @@ class SizeTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class ListTests(unittest.TestCase):
+class ListTests(PhaseBasedTestCase):
     """Tests for list elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.list')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.list'
 
     def test_allowed_list_type(self):
         for list_type in ['order', 'bullet', 'alpha-lower', 'alpha-upper',
@@ -5139,12 +5058,10 @@ class ListTests(unittest.TestCase):
         self.assertFalse(self._run_validation(sample))
 
 
-class MediaTests(unittest.TestCase):
+class MediaTests(PhaseBasedTestCase):
     """Tests for article/body//p/media elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.media_attributes')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.media_attributes'
 
     def test_missing_mimetype(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -5191,12 +5108,10 @@ class MediaTests(unittest.TestCase):
         self.assertTrue(self._run_validation(sample))
 
 
-class ExtLinkTests(unittest.TestCase):
+class ExtLinkTests(PhaseBasedTestCase):
     """Tests for ext-link elements.
     """
-    def _run_validation(self, sample):
-        schematron = isoschematron.Schematron(SCH, phase='phase.ext-link')
-        return schematron.validate(etree.parse(sample))
+    sch_phase = 'phase.ext-link'
 
     def test_complete(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
