@@ -61,8 +61,7 @@ class StyleError(object):
     # The error message
     message = None
 
-    # The error level. Can be ERROR or WARNING
-    level = 'Error'
+    level = u'Style Error'
     level_name = level
 
     def get_apparent_element(self, doc):
@@ -78,6 +77,8 @@ class StyleError(object):
 class SchemaStyleError(StyleError):
     """Implements the StyleError interface for Schema error objects.
     """
+    level = u'DTD Error'
+
     def __init__(self, err_object):
         self._err = err_object
         self.message = self._err.message
