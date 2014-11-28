@@ -1,8 +1,10 @@
 History
 =======
 
-0.7
----
+0.6.1 (2014-11-28)
+------------------
+
+* Minor fix to implement changes from SciELO PS 1.1.1.
 
 
 0.6 (2014-10-28)

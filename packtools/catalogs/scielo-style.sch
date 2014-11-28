@@ -399,7 +399,8 @@
                     @content-type='orgname' or
                     @content-type='orgdiv1' or
                     @content-type='orgdiv2' or
-                    @content-type='orgdiv3'">
+                    @content-type='orgdiv3' or
+                    @content-type='normalized'">
         Element '<name/>', attribute content-type: Invalid value "<value-of select="@content-type"/>". 
       </assert>
     </rule>
@@ -1295,6 +1296,9 @@
                     @publication-type = 'confproc' or
                     @publication-type = 'patent' or
                     @publication-type = 'software' or
+                    @publication-type = 'legal-doc' or
+                    @publication-type = 'newspaper' or
+                    @publication-type = 'other' or
                     @publication-type = 'database'">
         Element 'element-citation', attribute publication-type: Invalid value '<value-of select="@publication-type"/>'.
       </assert>

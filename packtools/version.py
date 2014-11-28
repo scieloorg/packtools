@@ -1,4 +1,4 @@
 """Single source to the version across setup.py and the whole project.
 """
-__version__ = '0.7'
+__version__ = '0.6.1'
 

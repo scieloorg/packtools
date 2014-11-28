@@ -1122,6 +1122,26 @@ class AffContentTypeTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_allowed_normalized(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <institution content-type="normalized">
+                              Instituto de Matematica e Estatistica
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
     def test_disallowed_orgdiv4(self):
         sample = u"""<article>
                       <front>
@@ -3105,7 +3125,8 @@ class ElementCitationTests(PhaseBasedTestCase):
 
     def test_allowed_publication_types(self):
         for pub_type in ['journal', 'book', 'webpage', 'thesis', 'confproc',
-                         'patent', 'software', 'database']:
+                         'patent', 'software', 'database', 'legal-doc', 'newspaper',
+                         'other']:
             sample = u"""<article>
                           <back>
                             <ref-list>
