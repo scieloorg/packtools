@@ -1,6 +1,17 @@
 History
 =======
 
+0.6.2 (2015-01-23)
+------------------
+
+* Added method `XMLValidator.lookup_assets`.
+* Added property `XMLValidator.assets`. 
+* Fixed minor issue that would cause //element-citation[@publication-type="report"] 
+  to be reported as invalid.
+* Fixed minor issue that would erroneously identify an element-citation element 
+  as not being child of element ref.
+
+
 0.6.1 (2014-11-28)
 ------------------
 

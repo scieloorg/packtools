@@ -937,7 +937,7 @@
     </rule>
 
     <rule context="//element-citation">
-      <assert test="parent[name() = 'ref']">
+      <assert test="parent::ref">
         Unexpected element 'element-citation': Allowed only as child of ref elements.
       </assert>
     </rule>
@@ -1295,6 +1295,7 @@
                     @publication-type = 'thesis' or
                     @publication-type = 'confproc' or
                     @publication-type = 'patent' or
+                    @publication-type = 'report' or
                     @publication-type = 'software' or
                     @publication-type = 'legal-doc' or
                     @publication-type = 'newspaper' or

@@ -137,3 +137,46 @@ class XMLValidatorTests(unittest.TestCase):
 
         self.assertTrue(domain.XMLValidator(et, no_doctype=False))
 
+    def test_list_assets(self):
+        fp = io.BytesIO(b"""<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xlink="http://www.w3.org/1999/xlink"
+         dtd-version="1.0"
+         article-type="research-article"
+         xml:lang="en">
+  <front>
+    <article-meta>
+      <supplementary-material mimetype="application"
+                              mime-subtype="pdf"
+                              xlink:href="1234-5678-rctb-45-05-0110-suppl02.pdf"/>
+    </article-meta>
+  </front>
+  <body>
+    <sec>
+      <p>The Eh measurements... <xref ref-type="disp-formula" rid="e01">equation 1</xref>(in mV):</p>
+      <disp-formula id="e01">
+        <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif"/>
+      </disp-formula>
+      <p>We also used an... <inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tif"/>.</p>
+    </sec>
+  </body>
+</article>""")
+        et = etree.parse(fp)
+        xml_validator = domain.XMLValidator(et, no_doctype=True)
+        expected_assets = ['1234-5678-rctb-45-05-0110-e01.tif',
+                           '1234-5678-rctb-45-05-0110-e02.tif',
+                           '1234-5678-rctb-45-05-0110-suppl02.pdf']
+
+        self.assertEqual(sorted(xml_validator.assets), sorted(expected_assets))
+
+    def test_empty_assets_list(self):
+        fp = io.BytesIO(b"""<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xlink="http://www.w3.org/1999/xlink"
+         dtd-version="1.0"
+         article-type="research-article"
+         xml:lang="en">
+</article>""")
+        et = etree.parse(fp)
+        xml_validator = domain.XMLValidator(et, no_doctype=True)
+
+        self.assertEqual(xml_validator.assets, [])
+

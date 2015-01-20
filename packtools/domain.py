@@ -239,6 +239,21 @@ class XMLValidator(object):
 
         return metadata
 
+    @property
+    def assets(self):
+        """Lists all static assets referenced by the XML.
+        """
+        return utils.get_static_assets(self.lxml)
+
+    def lookup_assets(self, base_dir):
+        """Look for each asset in `base_dir`, and returns a list of tuples
+        with the asset name and its presence status.
+
+        :param base_dir: path to the directory where the lookup will be based on.
+        """
+        is_available = utils.make_file_checker(base_dir)
+        return [(asset, is_available(asset)) for asset in self.assets]
+
 
 class XMLPacker(object):
     """Adapter that puts all XML pieces together to make a SPS Package.
