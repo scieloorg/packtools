@@ -4,13 +4,18 @@ import os
 import argparse
 import sys
 import pkg_resources
+import json
 
 from lxml import etree
+# import pygments if here
+try:
+    import pygments     # NOQA
+    from pygments.lexers import get_lexer_for_mimetype
+    from pygments.formatters import TerminalFormatter
+except ImportError:
+    pygments = False    # NOQA
 
 import packtools
-
-
-PY2 = sys.version_info[0] == 2
 
 
 def config_xml_catalog(func):
@@ -25,68 +30,115 @@ def config_xml_catalog(func):
     return wrapper
 
 
+class XMLError(Exception):
+    """ Represents errors that would block XMLValidator instance from
+    being created.
+    """
+
+def prettify(jsonobj):
+    """ Prettify JSON output.
+
+    Function copied from Circus process manager:
+    https://github.com/circus-tent/circus/blob/master/circus/circusctl.py
+    """
+
+    json_str = json.dumps(jsonobj, indent=2, sort_keys=True)
+    if pygments:
+        try:
+            lexer = get_lexer_for_mimetype("application/json")
+            return pygments.highlight(json_str, lexer, TerminalFormatter())
+        except:
+            pass
+
+    return json_str
+
+
+def get_xmlvalidator(xmlpath, no_network):
+    try:
+        parsed_xml = packtools.XML(xmlpath, no_network=no_network)
+    except IOError:
+        raise XMLError('Error reading %s. Make sure it is a valid file-path or URL.' % xmlpath)
+    except etree.XMLSyntaxError as e:
+        raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, e))
+
+    try:
+        xml = packtools.XMLValidator(parsed_xml)
+    except ValueError as e:
+        raise XMLError('Error reading %s. %s.' % (xmlpath, e))
+
+    return xml
+
+
+def summarize(validator, assets_basedir=None):
+    dtd_is_valid, dtd_errors = validator.validate()
+    sps_is_valid, sps_errors = validator.validate_style()
+
+    summary = {
+        'dtd_errors': ['{message}'.format(message=err.message)
+                       for err in dtd_errors],
+        'sps_errors': ['{message}'.format(message=err.message)
+                       for err in sps_errors],
+    }
+
+    if assets_basedir:
+        summary['assets'] = validator.lookup_assets(assets_basedir)
+
+    return summary
+
+
 @config_xml_catalog
 def main():
 
     packtools_version = pkg_resources.get_distribution('packtools').version
 
-    parser = argparse.ArgumentParser(description='stylechecker cli utility.')
-    parser.add_argument('--annotated', action='store_true')
-    parser.add_argument('--nonetwork', action='store_true')
-    parser.add_argument('xmlpath',
-                        help='Filesystem path or URL to the XML file.')
+    parser = argparse.ArgumentParser(description='stylechecker cli utility')
+    parser.add_argument('--annotated', action='store_true',
+                        help='reproduces the XML with notes at elements that have errors')
+    parser.add_argument('--nonetwork', action='store_true',
+                        help='prevents the retrieval of the DTD through the network')
+    parser.add_argument('--assetsdir', default=None,
+                        help='lookup, at the given directory, for each asset referenced by the XML')
+    parser.add_argument('XML', nargs='+',
+                        help='filesystem path or URL to the XML')
     parser.add_argument('--version', action='version', version=packtools_version)
 
     args = parser.parse_args()
-    try:
-        parsed_xml = packtools.XML(args.xmlpath, no_network=args.nonetwork)
 
-    except IOError:
-        sys.exit('Error reading %s. Make sure it is a valid file-path or URL.' % args.xmlpath)
+    if len(args.XML) > 1:
+        print('Please wait, this may take a while...')
 
-    except etree.XMLSyntaxError as e:
-        sys.exit('Error reading %s. Syntax error: %s' % (args.xmlpath, e))
-
-    else:
+    summary_list = []
+    for xml in args.XML:
         try:
-            xml = packtools.XMLValidator(parsed_xml)
+            xml_validator = get_xmlvalidator(xml, args.nonetwork)
+        except XMLError as e:
+            sys.exit(e)
 
-        except ValueError as e:
-            sys.exit('Error reading %s. %s.' % (args.xmlpath, e))
+        if args.annotated:
+            err_xml = xml_validator.annotate_errors()
 
-    try:
-        # validation may raise TypeError when the DTD lookup fails.
-        is_valid, errors = xml.validate()
-    except TypeError as e:
-        sys.exit('Error validating %s. %s.' % (args.xmlpath, e))
+            fname, fext = xml.rsplit('.', 1)
+            out_fname = '.'.join([fname, 'annotated', fext])
 
-    style_is_valid, style_errors = xml.validate_style()
+            with open(out_fname, 'wb') as fp:
+                fp.write(etree.tostring(err_xml, pretty_print=True,
+                            encoding='utf-8', xml_declaration=True))
 
-    if args.annotated:
-        err_xml = xml.annotate_errors()
+            print('Annotated XML file:', out_fname)
 
-        if PY2:
-            bin_stdout = sys.stdout
         else:
-            bin_stdout = sys.stdout.buffer
+            try:
+                summary = summarize(xml_validator, assets_basedir=args.assetsdir)
+            except TypeError as e:
+                sys.exit('Error validating %s. %s.' % (xml_validator, e))
 
-        bin_stdout.write(etree.tostring(err_xml, pretty_print=True,
-            encoding='utf-8', xml_declaration=True))
+            summary['_xml'] = xml
+            summary['is_valid'] = bool(xml_validator.validate()[0] and xml_validator.validate_style()[0])
 
-    else:
-        if not is_valid:
-            print('Invalid XML! Found %s errors:' % len(errors))
-            for err in errors:
-                print('%s,%s\t%s' % (err.line, err.column, err.message))
-        else:
-            print('Valid XML! ;)')
+            summary_list.append(summary)
 
-        if not style_is_valid:
-            print('Invalid SPS Style! Found %s errors:' % len(style_errors))
-            for err in style_errors:
-                print(err.message)
-        else:
-            print('Valid SPS Style! ;)')
+    if summary_list:
+        print(prettify(summary_list))
 
 
 if __name__ == '__main__':
