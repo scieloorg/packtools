@@ -1,6 +1,17 @@
 History
 =======
 
+0.6.3 (2015-02-02)
+------------------
+
+* stylechecker CLI utility overhaul:
+  * The basic output is now presented as JSON structure. 
+  * The option *--assetsdir* lookups, in the given dir, for each asset referenced in
+      XML. The *--annotated* option now writes the output to a file. The
+      utility now takes more than one XML a time.
+  * *pygments*, if installed, will be used to display pretty JSON outputs.
+
+
 0.6.2 (2015-01-23)
 ------------------
 
