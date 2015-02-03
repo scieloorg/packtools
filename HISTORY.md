@@ -1,6 +1,17 @@
 History
 =======
 
+
+0.6.4 (2015-02-03)
+------------------
+
+* Fixes a bug that causes malfunctioning on stylechecker
+  while expanding wildcards on windows.
+* Major semantic changes at *--assetsdir* options. Now it is always turned ON,
+  and the option is used to set the lookup basedir. By default,
+  the XML basedir is used.
+
+
 0.6.3 (2015-02-02)
 ------------------
 
