@@ -5,6 +5,7 @@ import argparse
 import sys
 import pkg_resources
 import json
+import glob
 
 from lxml import etree
 # import pygments if here
@@ -88,6 +89,20 @@ def summarize(validator, assets_basedir=None):
     return summary
 
 
+def flatten(paths):
+    for path in paths:
+        ylock = True
+        if not path.startswith(('http:', 'https:')):
+            # try to expand wildchars and get the absolute path
+            for fpath in glob.iglob(path):
+                yield os.path.abspath(fpath)
+                ylock = False
+
+        # args must not be suppressed, even the invalid
+        if ylock == True:
+            yield path
+
+
 @config_xml_catalog
 def main():
 
@@ -99,18 +114,16 @@ def main():
     parser.add_argument('--nonetwork', action='store_true',
                         help='prevents the retrieval of the DTD through the network')
     parser.add_argument('--assetsdir', default=None,
-                        help='lookup, at the given directory, for each asset referenced by the XML')
+                        help='lookup, at the given directory, for each asset referenced by the XML. current working directory will be used by default.')
     parser.add_argument('XML', nargs='+',
                         help='filesystem path or URL to the XML')
     parser.add_argument('--version', action='version', version=packtools_version)
-
     args = parser.parse_args()
 
-    if len(args.XML) > 1:
-        print('Please wait, this may take a while...')
+    print('Please wait, this may take a while...')
 
     summary_list = []
-    for xml in args.XML:
+    for xml in flatten(args.XML):
         try:
             xml_validator = get_xmlvalidator(xml, args.nonetwork)
         except XMLError as e:
@@ -130,7 +143,13 @@ def main():
 
         else:
             try:
-                summary = summarize(xml_validator, assets_basedir=args.assetsdir)
+                # remote XML will not lookup for assets
+                if xml.startswith(('http:', 'https:')):
+                    assets_basedir = None
+                else:
+                    assets_basedir = args.assetsdir or os.path.dirname(xml)
+
+                summary = summarize(xml_validator, assets_basedir=assets_basedir)
             except TypeError as e:
                 sys.exit('Error validating %s. %s.' % (xml_validator, e))
 
