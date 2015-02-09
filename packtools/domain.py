@@ -36,8 +36,11 @@ def XMLSchematron(schema_name):
     if schema_name in cache:
         return cache[schema_name]
     else:
-        with open(catalogs.SCHEMAS[schema_name], mode='rb') as fp:
-            xmlschema_doc = etree.parse(fp)
+        try:
+            with open(catalogs.SCHEMAS[schema_name], mode='rb') as fp:
+                xmlschema_doc = etree.parse(fp)
+        except KeyError:
+            raise ValueError('Unknown schema %s' % (schema_name,))
 
         schematron = isoschematron.Schematron(xmlschema_doc)
         cache[schema_name] = schematron
@@ -69,18 +72,38 @@ class XMLValidator(object):
     :param file: Path to the XML file, URL, etree or file-object.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
     :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
+    :param sps_version: (optional) force the style validation with a SPS version.
     """
     allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS)
 
-    def __init__(self, file, dtd=None, no_doctype=False):
+    def __init__(self, file, dtd=None, no_doctype=False, sps_version=None):
         if isinstance(file, etree._ElementTree):
             self.lxml = file
         else:
             self.lxml = utils.XML(file)
 
+        # add self.sps_version, self.doctype or raise ValueError
+        self._init_sps_version(sps_version)
+        self._init_doctype(no_doctype)
+
         self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.source_url = self.lxml.docinfo.URL
 
+        self.public_id = self.lxml.docinfo.public_id
+        self.schematron = XMLSchematron(self.sps_version)  # can raise ValueError
+        self.ppl = checks.StyleCheckingPipeline()
+
+    def _init_sps_version(self, sps_version):
+        """Initializes the attribute self.sps_version or raises ValueError.
+        """
+        try:
+            self.sps_version = sps_version or self.lxml.getroot().attrib['specific-use']
+        except KeyError:
+            raise ValueError('Missing SPS version at /article/@specific-use')
+
+    def _init_doctype(self, no_doctype):
+        """Initializes the attribute self.doctype or raises ValueError.
+        """
         self.doctype = self.lxml.docinfo.doctype
         if no_doctype is False:
             if not self.doctype:
@@ -88,10 +111,6 @@ class XMLValidator(object):
 
         if self.doctype and self.lxml.docinfo.public_id not in self.allowed_public_ids:
             raise ValueError('Unsuported DOCTYPE public id')
-
-        self.public_id = self.lxml.docinfo.public_id
-        self.schematron = XMLSchematron('scielo-style.sch')
-        self.ppl = checks.StyleCheckingPipeline()
 
     def validate(self):
         """Validate the source XML against JATS DTD.

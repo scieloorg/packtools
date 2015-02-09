@@ -105,6 +105,8 @@ class SPSPackage(object):
 
     :param file: Filesystem path to the package.
     """
+    XMLValidator = domain.XMLValidator
+
     def __init__(self, file):
         self.file = file
         self._pack_xray = Xray(file)
@@ -131,7 +133,7 @@ class SPSPackage(object):
         # XMLValidator is instantiated with `no_doctype=True` for resilience
         # while inspecting the XML file.
         return utils.setdefault(self, '__xml_validator_instance',
-            lambda: domain.XMLValidator(self.xml_fp, no_doctype=True))
+            lambda: self.XMLValidator(self.xml_fp, no_doctype=True))
 
     def is_valid(self):
         """Performs all package validations sequentialy.
