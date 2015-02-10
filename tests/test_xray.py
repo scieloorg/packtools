@@ -3,11 +3,12 @@ import types
 import unittest
 import zipfile
 from tempfile import NamedTemporaryFile
-import os
+import functools
 
 from lxml import etree
 
-from packtools.catalogs import SCHEMAS, XML_CATALOG
+from packtools.catalogs import SCHEMAS
+from packtools.domain import XMLValidator
 
 
 DTD = SCHEMAS['JATS-journalpublishing1.dtd']
@@ -23,10 +24,15 @@ def make_test_archive(arch_data):
 
 
 class SPSPackage(unittest.TestCase):
+    XMLValidatorStub = functools.partial(XMLValidator, sps_version='sps-1.1')
 
     def _makeOne(self, fname):
+        """Make a SPSPackage instance with its XMLValidator association set to
+        perform validations against a predefined sps version and dtd.
+        """
         import packtools
         dtd = etree.DTD(packtools.catalogs.SCHEMAS['JATS-journalpublishing1.dtd'])
+        packtools.SPSPackage.XMLValidator = self.XMLValidatorStub
         pack = packtools.SPSPackage(fname)
         pack.xml_validator.dtd = dtd
         return pack
