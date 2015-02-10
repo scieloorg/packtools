@@ -21,25 +21,50 @@ stylechecker command line utility
 .. code-block:: bash
 
     $ stylechecker -h
-    usage: stylechecker [-h] [--annotated] [--nonetwork] [--version] xmlpath
-    
-    stylechecker cli utility.
-    
+    usage: stylechecker [-h] [--annotated] [--nonetwork] [--assetsdir ASSETSDIR]
+                        [--version]
+                        XML [XML ...]
+
+    stylechecker cli utility
+
     positional arguments:
-      xmlpath      Filesystem path or URL to the XML file.
-    
+      XML                   filesystem path or URL to the XML
+
     optional arguments:
-      -h, --help   show this help message and exit
-      --annotated
-      --nonetwork
-      --version    show program's version number and exit
+      -h, --help            show this help message and exit
+      --annotated           reproduces the XML with notes at elements that have
+                            errors
+      --nonetwork           prevents the retrieval of the DTD through the network
+      --assetsdir ASSETSDIR
+                            lookup, at the given directory, for each asset
+                            referenced by the XML
+      --version             show program's version number and exit
     
-    $ stylechecker "http://192.168.1.162:7000/api/v1/article?code=S1516-635X2014000100012&format=xmlrsps"
-    Valid XML! ;)
-    Invalid SPS Style! Found 3 errors:
-    Element 'journal-meta': Missing element journal-id of type "nlm-ta" or "publisher-id".
-    Element 'journal-title-group': Missing element abbrev-journal-title of type "publisher".
-    Element 'journal-meta': Missing element issn of type "epub".
+
+    $ stylechecker 0034-8910-rsp-48-2-0206.xml
+    [
+      {
+        "_xml": "0034-8910-rsp-48-2-0206.xml",
+        "assets": [],
+        "dtd_errors": [
+          "Value \"foo\" for attribute ref-type of xref is not among the enumerated set"
+        ],
+        "is_valid": false,
+        "sps_errors": [
+          "Element 'abstract': Unexpected attribute xml:lang.",
+          "Element 'article-title': Unexpected attribute xml:lang.",
+          "Element 'counts': Missing element or wrong value in equation-count.",
+          "Element 'xref', attribute ref-type: Invalid value \"foo\".",
+          "Element 'person-group': Missing attribute person-group-type.",
+          "Element 'fn': Missing attribute fn-type.",
+          "Element 'article': Missing SPS version at the attribute specific-use."
+        ]
+      }
+    ]
+
+
+For better outputs, stylechecker makes use of `Pygments <https://pypi.python.org/pypi/Pygments/>`_ 
+whenever it is available.
 
 
 Using packtools as a library

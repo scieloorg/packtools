@@ -19,18 +19,6 @@ except ImportError:
 import packtools
 
 
-def config_xml_catalog(func):
-    """Wraps the execution of ``func``, setting-up and tearing-down the
-    ``XML_CATALOG_FILES`` environment variable for the current process.
-    """
-    def wrapper(*args, **kwargs):
-        os.environ['XML_CATALOG_FILES'] = packtools.catalogs.XML_CATALOG
-        _return = func(*args, **kwargs)
-        del(os.environ['XML_CATALOG_FILES'])
-        return _return
-    return wrapper
-
-
 class XMLError(Exception):
     """ Represents errors that would block XMLValidator instance from
     being created.
@@ -103,7 +91,7 @@ def flatten(paths):
             yield path
 
 
-@config_xml_catalog
+@packtools.utils.config_xml_catalog
 def main():
 
     packtools_version = pkg_resources.get_distribution('packtools').version

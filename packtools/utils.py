@@ -9,6 +9,8 @@ import os
 
 from lxml import etree
 
+from packtools import catalogs
+
 
 logger = logging.getLogger(__name__)
 
@@ -131,4 +133,25 @@ def XML(file, no_network=True, load_dtd=True):
     xml = etree.parse(file, parser)
 
     return xml
+
+
+def config_xml_catalog(wrapped):
+    """Decorator that wraps the execution of a function, setting-up and
+    tearing-down the ``XML_CATALOG_FILES`` environment variable for the current
+    process.
+
+    .. code-block:: python
+
+       @config_xml_catalog
+       def main(xml_filepath):
+           xml = XMLValidator(xml_filepath)
+           # do some work here
+    """
+    @functools.wraps(wrapped)
+    def wrapper(*args, **kwargs):
+        os.environ['XML_CATALOG_FILES'] = catalogs.XML_CATALOG
+        _return = wrapped(*args, **kwargs)
+        del(os.environ['XML_CATALOG_FILES'])
+        return _return
+    return wrapper
 

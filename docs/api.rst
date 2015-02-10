@@ -25,4 +25,5 @@ Utils
 -----
 
 .. autofunction:: packtools.XML
+.. autofunction:: packtools.utils.config_xml_catalog
 
