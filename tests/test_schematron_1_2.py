@@ -1519,6 +1519,27 @@ class CountsTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_page_wrong_count(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="50"/>
+                          </counts>
+                          <fpage>140</fpage>
+                          <lpage>150</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class AuthorNotesTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/author-notes elements.
