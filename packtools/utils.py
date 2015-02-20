@@ -6,6 +6,7 @@ import logging
 import functools
 import itertools
 import os
+import glob
 
 from lxml import etree
 
@@ -154,4 +155,23 @@ def config_xml_catalog(wrapped):
         del(os.environ['XML_CATALOG_FILES'])
         return _return
     return wrapper
+
+
+def flatten(paths):
+    """ Produces absolute path for each path in paths.
+
+    Glob expansions are allowed.
+    :param paths: Collection of paths. A path can be relative, absolute or a glob expression.
+    """
+    for path in paths:
+        ylock = True
+        if not path.startswith(('http:', 'https:')):
+            # try to expand wildchars and get the absolute path
+            for fpath in glob.iglob(path):
+                yield os.path.abspath(fpath)
+                ylock = False
+
+        # args must not be suppressed, even the invalid
+        if ylock == True:
+            yield path
 

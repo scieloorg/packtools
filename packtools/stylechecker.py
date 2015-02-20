@@ -5,7 +5,7 @@ import argparse
 import sys
 import pkg_resources
 import json
-import glob
+import logging
 
 from lxml import etree
 # import pygments if here
@@ -19,10 +19,14 @@ except ImportError:
 import packtools
 
 
+logger = logging.getLogger(__file__)
+
+
 class XMLError(Exception):
     """ Represents errors that would block XMLValidator instance from
     being created.
     """
+
 
 def prettify(jsonobj):
     """ Prettify JSON output.
@@ -35,10 +39,12 @@ def prettify(jsonobj):
 
     json_str = json.dumps(jsonobj, indent=2, sort_keys=True)
     if pygments and not sys.platform.startswith('win'):
+        logger.info('using pygments to highlight the output')
         try:
             lexer = get_lexer_for_mimetype("application/json")
             return pygments.highlight(json_str, lexer, TerminalFormatter())
-        except:
+        except Exception as e:
+            logger.debug(e)
             pass
 
     return json_str
@@ -47,7 +53,7 @@ def prettify(jsonobj):
 def get_xmlvalidator(xmlpath, no_network):
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
-    except IOError:
+    except IOError as e:
         raise XMLError('Error reading %s. Make sure it is a valid file-path or URL.' % xmlpath)
     except etree.XMLSyntaxError as e:
         raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, e))
@@ -72,23 +78,10 @@ def summarize(validator, assets_basedir=None):
     }
 
     if assets_basedir:
+        logger.info('looking for assets in %s' % (assets_basedir,))
         summary['assets'] = validator.lookup_assets(assets_basedir)
 
     return summary
-
-
-def flatten(paths):
-    for path in paths:
-        ylock = True
-        if not path.startswith(('http:', 'https:')):
-            # try to expand wildchars and get the absolute path
-            for fpath in glob.iglob(path):
-                yield os.path.abspath(fpath)
-                ylock = False
-
-        # args must not be suppressed, even the invalid
-        if ylock == True:
-            yield path
 
 
 @packtools.utils.config_xml_catalog
@@ -106,15 +99,22 @@ def main():
     parser.add_argument('XML', nargs='+',
                         help='filesystem path or URL to the XML')
     parser.add_argument('--version', action='version', version=packtools_version)
+    parser.add_argument('--loglevel', default='WARNING')
     args = parser.parse_args()
+
+    logging.basicConfig(level=getattr(logging, args.loglevel))
 
     print('Please wait, this may take a while...')
 
     summary_list = []
-    for xml in flatten(args.XML):
+    for xml in packtools.utils.flatten(args.XML):
+        logger.info('starting validation of %s' % (xml,))
+
         try:
             xml_validator = get_xmlvalidator(xml, args.nonetwork)
+            logger.debug('XMLValidator repr: %s' % repr(xml_validator))
         except XMLError as e:
+            logger.debug(e)
             sys.exit(e)
 
         if args.annotated:
@@ -139,12 +139,15 @@ def main():
 
                 summary = summarize(xml_validator, assets_basedir=assets_basedir)
             except TypeError as e:
+                logger.debug(e)
                 sys.exit('Error validating %s. %s.' % (xml_validator, e))
 
             summary['_xml'] = xml
             summary['is_valid'] = bool(xml_validator.validate()[0] and xml_validator.validate_style()[0])
 
             summary_list.append(summary)
+
+        logger.info('finished validating %s' % (xml,))
 
     if summary_list:
         print(prettify(summary_list))
