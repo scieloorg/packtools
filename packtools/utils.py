@@ -150,9 +150,13 @@ def config_xml_catalog(wrapped):
     """
     @functools.wraps(wrapped)
     def wrapper(*args, **kwargs):
-        os.environ['XML_CATALOG_FILES'] = catalogs.XML_CATALOG
-        _return = wrapped(*args, **kwargs)
-        del(os.environ['XML_CATALOG_FILES'])
+        try:
+            os.environ['XML_CATALOG_FILES'] = catalogs.XML_CATALOG
+            _return = wrapped(*args, **kwargs)
+
+        finally:
+            del(os.environ['XML_CATALOG_FILES'])
+
         return _return
     return wrapper
 

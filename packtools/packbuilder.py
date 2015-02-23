@@ -9,7 +9,7 @@ from lxml import etree
 import packtools
 
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 def main():

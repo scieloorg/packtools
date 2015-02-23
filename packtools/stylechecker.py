@@ -19,7 +19,7 @@ except ImportError:
 import packtools
 
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 class XMLError(Exception):
@@ -28,7 +28,7 @@ class XMLError(Exception):
     """
 
 
-def prettify(jsonobj):
+def prettify(jsonobj, colorize=True):
     """ Prettify JSON output.
 
     On windows, bypass pygments colorization.
@@ -38,7 +38,7 @@ def prettify(jsonobj):
     """
 
     json_str = json.dumps(jsonobj, indent=2, sort_keys=True)
-    if pygments and not sys.platform.startswith('win'):
+    if colorize and pygments and not sys.platform.startswith('win'):
         logger.info('using pygments to highlight the output')
         try:
             lexer = get_lexer_for_mimetype("application/json")
@@ -80,6 +80,7 @@ def summarize(validator, assets_basedir=None):
     if assets_basedir:
         logger.info('looking for assets in %s' % (assets_basedir,))
         summary['assets'] = validator.lookup_assets(assets_basedir)
+        logger.info('total assets referenced: %s' % (len(summary['assets']),))
 
     return summary
 
@@ -100,6 +101,8 @@ def main():
                         help='filesystem path or URL to the XML')
     parser.add_argument('--version', action='version', version=packtools_version)
     parser.add_argument('--loglevel', default='WARNING')
+    parser.add_argument('--nocolors', action='store_false',
+                        help='prevents the output from being colorized by ANSI escape sequences')
     args = parser.parse_args()
 
     logging.basicConfig(level=getattr(logging, args.loglevel))
@@ -150,7 +153,7 @@ def main():
         logger.info('finished validating %s' % (xml,))
 
     if summary_list:
-        print(prettify(summary_list))
+        print(prettify(summary_list, colorize=args.nocolors))
 
 
 if __name__ == '__main__':
