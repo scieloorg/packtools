@@ -26,7 +26,33 @@ the catalog file is also provided.
     >>> os.environ['XML_CATALOG_FILES'] = XML_CATALOG
 
 
+In some cases where the system's entry-point is a single function, for instance 
+the ``main`` function, a special helper decorator can be used, as follows:
+
+.. code-block:: python
+
+    >>> from packtools.utils import config_xml_catalog
+    >>> @config_xml_catalog
+    >>> def main():
+    ...     """At this point the XML Catalog is configured"""
+
+
 More information at http://xmlsoft.org/catalog.html#Simple
+
+
+Settings up the logger handler
+------------------------------
+
+It is expected that the application using `packtools` defines a logger for 
+`packtools`, e.g.:
+
+.. code-block:: python
+
+    import logging
+    logging.getLogger('packtools').addHandler(logging.StreamHandler())
+
+
+See the official `docs <http://docs.python.org/2.7/howto/logging.html#configuring-logging>`_ for more info.
 
 
 Step-by-step tutorial
