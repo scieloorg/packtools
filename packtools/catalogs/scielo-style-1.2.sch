@@ -209,6 +209,11 @@
     <active pattern="ext-link_attributes"/>
   </phase>
 
+  <phase id="phase.sub-article-attrs">
+    <active pattern="sub-article_attributes"/>
+    <active pattern="sub-article_article-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1119,5 +1124,39 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="sub-article_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article//sub-article">
+      <assert test="@article-type">
+        Element 'sub-article': Missing attribute article-type.
+      </assert>
+      <assert test="@xml:lang">
+        Element 'sub-article': Missing attribute xml:lang.
+      </assert>
+      <assert test="@id">
+        Element 'sub-article': Missing attribute id.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="sub-article_article-type-values">
+    <title>
+      Allowed values for //sub-article/@article-type
+    </title>
+
+    <rule context="//sub-article[@article-type]">
+      <assert test="@article-type = 'abstract' or 
+                    @article-type = 'letter' or 
+                    @article-type = 'reply' or 
+                    @article-type = 'translation'">
+        Element 'sub-article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
 
