@@ -214,6 +214,11 @@
     <active pattern="sub-article_article-type-values"/>
   </phase>
 
+  <phase id="phase.response-attrs">
+    <active pattern="response_attributes"/>
+    <active pattern="response_response-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1154,6 +1159,38 @@
                     @article-type = 'reply' or 
                     @article-type = 'translation'">
         Element 'sub-article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="response_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article//response">
+      <assert test="@response-type">
+        Element 'response': Missing attribute response-type.
+      </assert>
+      <assert test="@xml:lang">
+        Element 'response': Missing attribute xml:lang.
+      </assert>
+      <assert test="@id">
+        Element 'response': Missing attribute id.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="response_response-type-values">
+    <title>
+      Allowed values for //response/@response-type
+    </title>
+
+    <rule context="//response[@response-type]">
+      <assert test="@response-type = 'addendum' or 
+                    @response-type = 'discussion' or 
+                    @response-type = 'reply'">
+        Element 'response', attribute response-type: Invalid value '<value-of select="@response-type"/>'.
       </assert>
     </rule>
   </pattern>

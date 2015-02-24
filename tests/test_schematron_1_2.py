@@ -3806,3 +3806,55 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ResponseAttributesTests(PhaseBasedTestCase):
+    """Tests for response element.
+    """
+    sch_phase = 'phase.response-attrs'
+
+    def test_allowed_response_types(self):
+        for type in ['addendum', 'discussion', 'reply']:
+            sample = u"""<article>
+                           <response response-type="%s" xml:lang="pt" id="r1"></response>
+                         </article>
+                     """ % type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_response_type(self):
+        sample = u"""<article>
+                       <response response-type="invalid" xml:lang="pt" id="r1"></response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_response_type(self):
+        sample = u"""<article>
+                       <response xml:lang="pt" id="r1"></response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_xmllang(self):
+        sample = u"""<article>
+                       <response response-type="invalid" id="r1"></response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_id(self):
+        sample = u"""<article>
+                       <response response-type="invalid" xml:lang="pt"></response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
