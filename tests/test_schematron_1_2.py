@@ -3144,7 +3144,8 @@ class AuthorNotesFNTests(PhaseBasedTestCase):
         for fn_type in ['author', 'con', 'conflict', 'corresp', 'current-aff',
                         'deceased', 'edited-by', 'equal', 'on-leave',
                         'participating-researchers', 'present-address',
-                        'previously-at', 'study-group-members', 'other']:
+                        'previously-at', 'study-group-members', 'other',
+                        'presented-at', 'presented-by']:
 
             sample = u"""<article>
                           <front>

@@ -827,7 +827,9 @@
                     @fn-type = 'present-address' or
                     @fn-type = 'previously-at' or
                     @fn-type = 'study-group-members' or
-                    @fn-type = 'other'">
+                    @fn-type = 'other' or
+                    @fn-type = 'presented-at' or 
+                    @fn-type = 'presented-by'">
         Element 'fn', attribute fn-type: Invalid value '<value-of select="@fn-type"/>'.
       </assert>
     </rule>
