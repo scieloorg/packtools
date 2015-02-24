@@ -22,6 +22,11 @@ logger = logging.getLogger(__name__)
 
 ALLOWED_PUBLIC_IDS = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
+)
+
+# deprecated
+ALLOWED_PUBLIC_IDS_LEGACY = (
+    '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
     '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',
 )
 
@@ -66,8 +71,11 @@ class XMLValidator(object):
     declared by ``allowed_public_ids`` class variable. The system id is ignored.
     By default, the allowed values are:
 
-      - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
-      - ``-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN``
+      - SciELO PS 1.2:
+        - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
+      - SciELO PS 1.1:
+        - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
+        - ``-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN``
 
     :param file: Path to the XML file, URL, etree or file-object.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
@@ -82,8 +90,14 @@ class XMLValidator(object):
         else:
             self.lxml = utils.XML(file)
 
-        # add self.sps_version, self.doctype or raise ValueError
+        # add self.sps_version or raise ValueError
         self._init_sps_version(sps_version)
+
+        # sps version is relevant to _init_doctype method
+        if self.sps_version != 'sps-1.2':
+            self.allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS_LEGACY)
+
+        # add self.doctype or raise ValueError
         self._init_doctype(no_doctype)
 
         self.dtd = dtd or self.lxml.docinfo.externalDTD

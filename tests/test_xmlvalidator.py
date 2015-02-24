@@ -150,7 +150,28 @@ class XMLValidatorTests(unittest.TestCase):
         self.assertRaises(ValueError, lambda: domain.XMLValidator(et, no_doctype=False))
 
     def test_checks_allowed_doctype_public_ids(self):
+        # JATS 1.0
         fp = io.BytesIO(b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd"><a><b>bar</b></a>')
+        et = etree.parse(fp)
+
+        self.assertTrue(domain.XMLValidator(et, no_doctype=False, sps_version='sps-1.2'))
+
+    def test_checks_pmc3_not_allowed_doctype_public_ids(self):
+        # PMC 3.0
+        fp = io.BytesIO(b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "journalpublishing3.dtd"><a><b>bar</b></a>')
+        et = etree.parse(fp)
+
+        self.assertRaises(ValueError, lambda: domain.XMLValidator(et, no_doctype=False, sps_version='sps-1.2'))
+
+    def test_checks_allowed_doctype_public_ids_sps1_1(self):
+        # JATS 1.0
+        fp = io.BytesIO(b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd"><a><b>bar</b></a>')
+        et = etree.parse(fp)
+
+        self.assertTrue(domain.XMLValidator(et, no_doctype=False, sps_version='sps-1.1'))
+
+        #PMC 3.0
+        fp = io.BytesIO(b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "journalpublishing3.dtd"><a><b>bar</b></a>')
         et = etree.parse(fp)
 
         self.assertTrue(domain.XMLValidator(et, no_doctype=False, sps_version='sps-1.1'))
