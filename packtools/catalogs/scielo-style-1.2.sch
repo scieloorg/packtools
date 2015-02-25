@@ -219,6 +219,11 @@
     <active pattern="response_response-type-values"/>
   </phase>
 
+  <phase id="phase.response-reply-type">
+    <active pattern="response-reply"/>
+    <active pattern="response_related-article_attributes"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1191,6 +1196,42 @@
                     @response-type = 'discussion' or 
                     @response-type = 'reply'">
         Element 'response', attribute response-type: Invalid value '<value-of select="@response-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="response-reply">
+    <title>
+      article//response[@response-type="reply"] specific rules.
+    </title>
+
+    <rule context="article//response[@response-type='reply']">
+      <assert test="/article/@article-type = 'article-commentary'">
+        Element 'response': Unexpected article-type '<value-of select="/article/@article-type"/>'.
+      </assert>
+      <assert test=".//related-article">
+        Element 'response': Missing element related-article.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="response_related-article_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article//response[@response-type='reply']//related-article">
+      <assert test="@related-article-type = 'commentary-article'">
+        Element 'related-article': Missing attribute related-article-type of type 'commentary-article'.
+      </assert>
+      <assert test="@id">
+        Element 'related-article': Missing attribute id.
+      </assert>
+      <assert test="@vol">
+        Element 'related-article': Missing attribute vol.
+      </assert>
+      <assert test="@page or @elocation-id">
+        Element 'related-article': Missing attribute page or elocation-id.
       </assert>
     </rule>
   </pattern>

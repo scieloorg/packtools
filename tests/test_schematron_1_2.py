@@ -3858,3 +3858,118 @@ class ResponseAttributesTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ResponseReplyAttributeTests(PhaseBasedTestCase):
+    """Tests for response[@response-type='reply'] elements.
+    """
+    sch_phase = 'phase.response-reply-type'
+
+    def test_reply_type_demands_an_article_type(self):
+        """ the article-type of value `article-commentary` is required
+        """
+        sample = u"""<article article-type="article-commentary">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                           <related-article related-article-type="commentary-article" id="ra1" vol="109" page="87-92"/>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_reply_type_invalid_article_type(self):
+        """ anything different of `article-commentary` is invalid
+        """
+        sample = u"""<article article-type="research-article">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                           <related-article related-article-type="commentary-article" id="ra1" vol="109" page="87-92"/>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_reply_type_missing_related_article(self):
+        """ the article-type of value `article-commentary` is required
+        """
+        sample = u"""<article article-type="article-commentary">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_article_missing_id(self):
+        sample = u"""<article article-type="article-commentary">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                           <related-article related-article-type="commentary-article" vol="109" page="87-92"/>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_article_missing_vol(self):
+        sample = u"""<article article-type="article-commentary">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                           <related-article related-article-type="commentary-article" id="ra1" page="87-92"/>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_article_missing_page(self):
+        sample = u"""<article article-type="article-commentary">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                           <related-article related-article-type="commentary-article" id="ra1" vol="109" elocation-id="1q2w"/>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_related_article_missing_elocationid(self):
+        sample = u"""<article article-type="article-commentary">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                           <related-article related-article-type="commentary-article" id="ra1" vol="109" page="87-92"/>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_related_article_missing_page_and_elocationid(self):
+        sample = u"""<article article-type="article-commentary">
+                       <response response-type="reply" xml:lang="pt" id="r1">
+                         <front-stub>
+                           <related-article related-article-type="commentary-article" id="ra1" vol="109"/>
+                         </front-stub>
+                       </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
