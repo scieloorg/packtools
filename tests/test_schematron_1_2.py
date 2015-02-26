@@ -3908,19 +3908,6 @@ class ResponseReplyAttributeTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
-    def test_related_article_missing_id(self):
-        sample = u"""<article article-type="article-commentary">
-                       <response response-type="reply" xml:lang="pt" id="r1">
-                         <front-stub>
-                           <related-article related-article-type="commentary-article" vol="109" page="87-92"/>
-                         </front-stub>
-                       </response>
-                     </article>
-                 """
-        sample = io.BytesIO(sample.encode('utf-8'))
-
-        self.assertFalse(self._run_validation(sample))
-
     def test_related_article_missing_vol(self):
         sample = u"""<article article-type="article-commentary">
                        <response response-type="reply" xml:lang="pt" id="r1">
@@ -3967,6 +3954,57 @@ class ResponseReplyAttributeTests(PhaseBasedTestCase):
                            <related-article related-article-type="commentary-article" id="ra1" vol="109"/>
                          </front-stub>
                        </response>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class RelatedArticleTypesTests(PhaseBasedTestCase):
+    """Tests for related-article element.
+    """
+    sch_phase = 'phase.related-article-attrs'
+
+    def test_allowed_response_types(self):
+        for type in ['corrected-article', 'press-release', 'commentary-article']:
+            sample = u"""<article>
+                           <article-meta>
+                             <related-article related-article-type="%s" id="01"/>
+                           </article-meta>
+                         </article>
+                     """ % type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_response_type(self):
+        sample = u"""<article>
+                       <article-meta>
+                         <related-article related-article-type="invalid" id="01"/>
+                       </article-meta>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_id(self):
+        sample = u"""<article>
+                       <article-meta>
+                         <related-article related-article-type="corrected-article"/>
+                       </article-meta>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_related_article_type(self):
+        sample = u"""<article>
+                       <article-meta>
+                         <related-article id="01"/>
+                       </article-meta>
                      </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))

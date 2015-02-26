@@ -224,6 +224,11 @@
     <active pattern="response_related-article_attributes"/>
   </phase>
 
+  <phase id="phase.related-article-attrs">
+    <active pattern="related-article_attributes"/>
+    <active pattern="related-article-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1218,14 +1223,14 @@
   <pattern id="response_related-article_attributes">
     <title>
       Make sure some attributes are present
+
+      @id is mandatory for all use cases, so it is not implemented in this 
+      pattern.
     </title>
 
     <rule context="article//response[@response-type='reply']//related-article">
       <assert test="@related-article-type = 'commentary-article'">
         Element 'related-article': Missing attribute related-article-type of type 'commentary-article'.
-      </assert>
-      <assert test="@id">
-        Element 'related-article': Missing attribute id.
       </assert>
       <assert test="@vol">
         Element 'related-article': Missing attribute vol.
@@ -1236,5 +1241,33 @@
     </rule>
   </pattern>
 
+  <pattern id="related-article_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article//related-article">
+      <assert test="@related-article-type">
+        Element 'related-article': Missing attribute related-article-type.
+      </assert>
+      <assert test="@id">
+        Element 'related-article': Missing attribute id.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="related-article-type-values">
+    <title>
+      Allowed values for //related-article/@related-article-type
+    </title>
+
+    <rule context="//related-article[@related-article-type]">
+      <assert test="@related-article-type = 'corrected-article' or 
+                    @related-article-type = 'press-release' or 
+                    @related-article-type = 'commentary-article'">
+        Element 'related-article', attribute related-article-type: Invalid value '<value-of select="@related-article-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
 </schema>
 
