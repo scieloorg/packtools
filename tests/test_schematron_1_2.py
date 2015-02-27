@@ -3969,9 +3969,11 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
     def test_allowed_response_types(self):
         for type in ['corrected-article', 'press-release', 'commentary-article']:
             sample = u"""<article>
-                           <article-meta>
-                             <related-article related-article-type="%s" id="01"/>
-                           </article-meta>
+                           <front>
+                             <article-meta>
+                               <related-article related-article-type="%s" id="01"/>
+                             </article-meta>
+                           </front>
                          </article>
                      """ % type
             sample = io.BytesIO(sample.encode('utf-8'))
@@ -3980,9 +3982,11 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
 
     def test_disallowed_response_type(self):
         sample = u"""<article>
-                       <article-meta>
-                         <related-article related-article-type="invalid" id="01"/>
-                       </article-meta>
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="invalid" id="01"/>
+                         </article-meta>
+                       </front>
                      </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -3991,9 +3995,11 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
 
     def test_missing_id(self):
         sample = u"""<article>
-                       <article-meta>
-                         <related-article related-article-type="corrected-article"/>
-                       </article-meta>
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="corrected-article"/>
+                         </article-meta>
+                       </front>
                      </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -4002,9 +4008,58 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
 
     def test_missing_related_article_type(self):
         sample = u"""<article>
-                       <article-meta>
-                         <related-article id="01"/>
-                       </article-meta>
+                       <front>
+                         <article-meta>
+                           <related-article id="01"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class CorrectionTests(PhaseBasedTestCase):
+    """Tests for article[@article-type="correction"] element.
+    """
+    sch_phase = 'phase.correction'
+
+    def test_expected_elements(self):
+        sample = u"""<article article-type="correction">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="corrected-article" id="01"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_related_article(self):
+        """ must have a related-article[@related-article-type='corrected-article']
+        element.
+        """
+        sample = u"""<article article-type="correction">
+                       <front>
+                         <article-meta>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_article_type_must_be_correction(self):
+        sample = u"""<article article-type="research-article">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="corrected-article" id="01"/>
+                         </article-meta>
+                       </front>
                      </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))

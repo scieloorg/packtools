@@ -229,6 +229,11 @@
     <active pattern="related-article-type-values"/>
   </phase>
 
+  <phase id="phase.correction">
+    <active pattern="correction_related-article"/>
+    <active pattern="correction_article-type"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1269,5 +1274,31 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="correction_related-article">
+    <title>
+      Articles of type correction must specify the article it relates to.
+    </title>
+
+    <rule context="article[@article-type='correction']/front/article-meta">
+      <assert test="related-article/@related-article-type = 'corrected-article'">
+        Element 'article-meta': Missing element related-article with related-article-type='corrected-article'.
+      </assert>
+    </rule>
+  </pattern>  
+
+  <pattern id="correction_article-type">
+    <title>
+      Ensure related-article[@related-article-type='corrected-article' is 
+      defined only for correction article types.
+    </title>
+
+    <rule context="article[@article-type != 'correction']/front/article-meta/related-article">
+      <assert test="not(@related-article-type = 'corrected-article')">
+        Element 'related-article', attribute related-article-type: Invalid value 'corrected-article' for article-type '<value-of select="/article/@article-type"/>'. 
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
 
