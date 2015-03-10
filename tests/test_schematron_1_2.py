@@ -3966,8 +3966,8 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
     """
     sch_phase = 'phase.related-article-attrs'
 
-    def test_allowed_response_types(self):
-        for type in ['corrected-article', 'press-release', 'commentary-article']:
+    def test_allowed_related_article_types(self):
+        for type in ['corrected-article', 'press-release', 'commentary-article', 'article-reference']:
             sample = u"""<article>
                            <front>
                              <article-meta>
@@ -3980,7 +3980,7 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
 
             self.assertTrue(self._run_validation(sample))
 
-    def test_disallowed_response_type(self):
+    def test_disallowed_related_article_type(self):
         sample = u"""<article>
                        <front>
                          <article-meta>
