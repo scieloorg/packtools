@@ -4,7 +4,15 @@ History
 0.7
 ---
 
-* Adds SciELO PS 1.2 support.
+* Added SciELO PS 1.2 support.
+* Added the apparent sourceline of the element raising validation errors 
+  (stylechecker).
+* Added the option *--nocolors* to prevent stylechecker output from being 
+  colorized by ANSI escape sequences.
+* stylechecker now prints log messages to stdout. The option *--loglevel* 
+  should be used to define the log level. Options are: DEBUG, INFO, WARNING, 
+  ERROR or CRITICAL.
+* SciELO PS 1.2 schematron uses EXSLT querybinding.
 
 
 0.6.4 (2015-02-03)

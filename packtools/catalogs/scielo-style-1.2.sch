@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema xmlns="http://purl.oclc.org/dsdl/schematron"
-        queryBinding="xslt"
+        queryBinding="exslt"
         xml:lang="en">
   <ns uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
+  <ns uri="http://exslt.org/regular-expressions" prefix="regexp"/>
   <p>
   *******************************************************************************
    THINGS TO BE SURE BEFORE EDITING THIS FILE!
@@ -738,12 +739,7 @@
       <assert test="@license-type = 'open-access'">
         Element 'license', attribute license-type: Invalid value '<value-of select="@license-type"/>'.
       </assert>
-      <assert test="@xlink:href = 'http://creativecommons.org/licenses/by-nc/4.0/' or 
-                    @xlink:href = 'http://creativecommons.org/licenses/by-nc/3.0/' or
-                    @xlink:href = 'http://creativecommons.org/licenses/by/4.0/' or
-                    @xlink:href = 'http://creativecommons.org/licenses/by/3.0/' or
-                    @xlink:href = 'http://creativecommons.org/licenses/by-nc-nd/4.0/' or
-                    @xlink:href = 'http://creativecommons.org/licenses/by-nc-nd/3.0/'">
+      <assert test="regexp:test(@xlink:href, 'https?://creativecommons\.org/licenses/(by-nc|by|by-nc-nd)/(3|4)\.0/')">
         Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
       </assert>
     </rule>
@@ -992,18 +988,7 @@
     </title>
 
     <rule context="//month">
-      <assert test="current() = '1' or current() = '01' or
-                    current() = '2' or current() = '02' or
-                    current() = '3' or current() = '03' or
-                    current() = '4' or current() = '04' or
-                    current() = '5' or current() = '05' or
-                    current() = '6' or current() = '06' or
-                    current() = '7' or current() = '07' or
-                    current() = '8' or current() = '08' or
-                    current() = '9' or current() = '09' or
-                    current() = '10' or
-                    current() = '11' or
-                    current() = '12'">
+      <assert test="regexp:test(current(), '^(0?[1-9]{1}|[10-12]{2})$')">
         Element 'month': Invalid value '<value-of select="current()"/>'.
       </assert>
     </rule>
