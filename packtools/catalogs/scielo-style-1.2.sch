@@ -234,6 +234,11 @@
     <active pattern="correction_article-type"/>
   </phase>
 
+  <phase id="phase.in-brief">
+    <active pattern="inbrief_related-article"/>
+    <active pattern="inbrief_article-type"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1297,6 +1302,31 @@
     <rule context="article[@article-type != 'correction']/front/article-meta/related-article">
       <assert test="not(@related-article-type = 'corrected-article')">
         Element 'related-article', attribute related-article-type: Invalid value 'corrected-article' for article-type '<value-of select="/article/@article-type"/>'. 
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="inbrief_related-article">
+    <title>
+      Articles of type in-brief must specify the article it relates to.
+    </title>
+
+    <rule context="article[@article-type='in-brief']/front/article-meta">
+      <assert test="related-article/@related-article-type = 'article-reference'">
+        Element 'article-meta': Missing element related-article with related-article-type='article-reference'.
+      </assert>
+    </rule>
+  </pattern>  
+
+  <pattern id="inbrief_article-type">
+    <title>
+      Ensure related-article[@related-article-type='article-reference' is 
+      defined only for in-brief article types.
+    </title>
+
+    <rule context="article[@article-type != 'in-brief']/front/article-meta/related-article">
+      <assert test="not(@related-article-type = 'article-reference')">
+        Element 'related-article', attribute related-article-type: Invalid value 'article-reference' for article-type '<value-of select="/article/@article-type"/>'. 
       </assert>
     </rule>
   </pattern>

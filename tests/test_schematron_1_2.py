@@ -4066,3 +4066,50 @@ class CorrectionTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class InBriefTests(PhaseBasedTestCase):
+    """Tests for article[@article-type="in-brief"] element.
+    """
+    sch_phase = 'phase.in-brief'
+
+    def test_expected_elements(self):
+        sample = u"""<article article-type="in-brief">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="article-reference" id="01"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_related_article(self):
+        """ must have a related-article[@related-article-type='in-brief']
+        element.
+        """
+        sample = u"""<article article-type="in-brief">
+                       <front>
+                         <article-meta>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_article_type_must_be_in_brief(self):
+        sample = u"""<article article-type="research-article">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="article-reference" id="01"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
