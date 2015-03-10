@@ -721,6 +721,8 @@
         - http://creativecommons.org/licenses/by-nc/3.0/
         - http://creativecommons.org/licenses/by/4.0/
         - http://creativecommons.org/licenses/by/3.0/
+        - http://creativecommons.org/licenses/by-nc-nd/4.0/
+        - http://creativecommons.org/licenses/by-nc-nd/3.0/
     </title>
 
     <rule context="article/front/article-meta">
@@ -742,7 +744,9 @@
       <assert test="@xlink:href = 'http://creativecommons.org/licenses/by-nc/4.0/' or 
                     @xlink:href = 'http://creativecommons.org/licenses/by-nc/3.0/' or
                     @xlink:href = 'http://creativecommons.org/licenses/by/4.0/' or
-                    @xlink:href = 'http://creativecommons.org/licenses/by/3.0/'">
+                    @xlink:href = 'http://creativecommons.org/licenses/by/3.0/' or
+                    @xlink:href = 'http://creativecommons.org/licenses/by-nc-nd/4.0/' or
+                    @xlink:href = 'http://creativecommons.org/licenses/by-nc-nd/3.0/'">
         Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
       </assert>
     </rule>

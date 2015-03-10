@@ -2543,6 +2543,8 @@ class LicenseTests(PhaseBasedTestCase):
             'http://creativecommons.org/licenses/by-nc/3.0/',
             'http://creativecommons.org/licenses/by/4.0/',
             'http://creativecommons.org/licenses/by/3.0/',
+            'http://creativecommons.org/licenses/by-nc-nd/4.0/',
+            'http://creativecommons.org/licenses/by-nc-nd/3.0/',
         ]
 
         for license in allowed_licenses:
