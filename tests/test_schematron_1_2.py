@@ -34,6 +34,9 @@ class PhaseBasedTestCase(unittest.TestCase):
 
 class JournalIdTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/journal-id elements.
+
+    Ticket #14 makes @journal-id-type="publisher-id" mandatory.
+    Ref: https://github.com/scieloorg/scielo_publishing_schema/issues/14
     """
     sch_phase = 'phase.journal-id'
 
@@ -41,7 +44,6 @@ class JournalIdTests(PhaseBasedTestCase):
         """
         presence(@nlm-ta) is True
         presence(@publisher-id) is True
-        presence(@nlm-ta) xor presence(@publisher-id) is False
         """
         sample = u"""<article>
                       <front>
@@ -58,13 +60,12 @@ class JournalIdTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_case2(self):
         """
         presence(@nlm-ta) is True
         presence(@publisher-id) is False
-        presence(@nlm-ta) xor presence(@publisher-id) is True
         """
         sample = u"""<article>
                       <front>
@@ -78,13 +79,12 @@ class JournalIdTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertTrue(self._run_validation(sample))
+        self.assertFalse(self._run_validation(sample))
 
     def test_case3(self):
         """
         presence(@nlm-ta) is False
         presence(@publisher-id) is True
-        presence(@nlm-ta) xor presence(@publisher-id) is True
         """
         sample = u"""<article>
                       <front>
@@ -104,7 +104,6 @@ class JournalIdTests(PhaseBasedTestCase):
         """
         presence(@nlm-ta) is False
         presence(@publisher-id) is False
-        presence(@nlm-ta) xor presence(@publisher-id) is False
         """
         sample = u"""<article>
                       <front>

@@ -244,11 +244,8 @@
   -->
   <pattern id="journal-id_type_nlm-ta_or_publisher-id">
     <rule context="article/front/journal-meta">
-      <assert test="journal-id[@journal-id-type='nlm-ta'] or journal-id[@journal-id-type='publisher-id']">
-        Element 'journal-meta': Missing element journal-id with journal-id-type=("nlm-ta" or "publisher-id").
-      </assert>
-      <assert test="count(journal-id) = 1">
-        Element 'journal-meta': There must be exactly one element journal-id.
+      <assert test="journal-id[@journal-id-type='publisher-id']">
+        Element 'journal-meta': Missing element journal-id with journal-id-type="publisher-id".
       </assert>
     </rule>
   </pattern>
