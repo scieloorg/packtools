@@ -25,9 +25,14 @@ def search_element_name(message):
     """
     match = EXPOSE_ELEMENTNAME_PATTERN.search(message)
     if match is None:
+        logger.info('Could not locate the element name in: %s.', message)
         raise ValueError('Could not locate the element name in %s.' % message)
+
     else:
-        return match.group(0).strip("'")
+        element_name = match.group(0).strip("'")
+        logger.info('Found element name "%s" in "%s"', element_name, message)
+
+        return element_name
 
 
 def search_element(doc, xpath, line=None):
@@ -44,25 +49,26 @@ def search_element(doc, xpath, line=None):
             continue
 
     else:
+        logger.info("Could not find element '%s'.", xpath)
         raise ValueError("Could not find element '%s'." % xpath)
 
 
 #--------------------------------
 # adapters for XML style errors
 #--------------------------------
-class StyleError(object):
+class StyleErrorBase(object):
     """Acts like an interface for SPS style errors.
 
     A basic implementation of `get_apparent_element` is provided.
     """
-    # The sourceline of the apparent element
-    line = 0
-    column = 0
+    # to keep compatibility with lxml api
+    line = None
+    column = None
 
     # The error message
     message = None
 
-    level = u'Style Error'
+    level = None
     level_name = level
 
     def get_apparent_element(self, doc):
@@ -75,20 +81,39 @@ class StyleError(object):
         return search_element(doc, '//' + tagname, line=self.line)
 
 
-class SchemaStyleError(StyleError):
-    """Implements the StyleError interface for Schema error objects.
+class StyleError(StyleErrorBase):
+    """ SciELO-style errors raised by the validation pipeline.
+    """
+    level = u'Style Error'
+    level_name = level
+
+
+class SchemaStyleError(StyleErrorBase):
+    """ DTD errors.
     """
     level = u'DTD Error'
+    level_name = level
 
     def __init__(self, err_object):
         self._err = err_object
         self.message = self._err.message
         self.line = self._err.line
 
+    def get_apparent_element(self, doc):
+        for elem in doc.iter():
+            if elem.sourceline == self.line:
+                return elem
+        else:
+            logger.info("Could not find element at the line %s", self.line)
+            raise ValueError("Could not find element at the line %s" % self.line)
 
-class SchematronStyleError(StyleError):
-    """Implements the StyleError interface for Schematron error objects.
+
+class SchematronStyleError(StyleErrorBase):
+    """ SciELO-style errors raised by schematron validation.
     """
+    level = u'Style Error'
+    level_name = level
+
     def __init__(self, err_object):
         self._err = err_object
 

@@ -219,14 +219,18 @@ class XMLValidator(object):
         if status == True:
             return mutating_xml
 
+        err_pairs = []
         for error in errors:
             try:
                 err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
-                logger.info('Could not locate the element name in: %s' % error.message)
+                logger.info('Could not locate the element name in: %s', error.message)
                 err_element = mutating_xml.getroot()
 
-            self._annotate_error(err_element, error.message)
+            err_pairs.append((err_element, error.message))
+
+        for el, em in err_pairs:
+            self._annotate_error(el, em)
 
         return mutating_xml
 

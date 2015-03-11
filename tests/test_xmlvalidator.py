@@ -103,7 +103,7 @@ class XMLValidatorTests(unittest.TestCase):
 
         _, errors = xml.validate()
         for error in errors:
-            self.assertIsInstance(error, style_errors.StyleError)
+            self.assertIsInstance(error, style_errors.StyleErrorBase)
 
     def test_annotate_errors(self):
         fp = etree.parse(io.BytesIO(b'<a><c>bar</c></a>'))
