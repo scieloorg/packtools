@@ -4,6 +4,7 @@
 An adapter is an object that provides domain-specific apis for another object,
 called adaptee.
 """
+from __future__ import unicode_literals
 import io
 import re
 import logging

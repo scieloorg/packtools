@@ -7,6 +7,7 @@ called adaptee.
 Examples are: XMLValidator and XMLPacker objects, which provide SciELO PS
 validation behaviour and packaging functionality, respectively.
 """
+from __future__ import unicode_literals
 import logging
 from copy import deepcopy
 import zipfile

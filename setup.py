@@ -1,5 +1,13 @@
 #!/usr/bin/env python
+#coding:utf-8
+from __future__ import unicode_literals
 from setuptools import setup, find_packages
+import codecs
+import sys
+
+
+if sys.version_info[0:2] < (2, 7):
+    raise RuntimeError('Requires Python 2.7 or newer')
 
 
 # adds version to the local namespace
@@ -21,8 +29,8 @@ setup(
     name="packtools",
     version=version['__version__'],
     description="Handle SPS packages like a breeze.",
-    long_description=open('README.md').read() + '\n\n' +
-                     open('HISTORY.md').read(),
+    long_description=codecs.open('README.md', mode='r', encoding='utf-8').read() + '\n\n' +
+                     codecs.open('HISTORY.md', mode='r', encoding='utf-8').read(),
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
     maintainer="Gustavo Fonseca",

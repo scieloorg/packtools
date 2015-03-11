@@ -1,5 +1,5 @@
 #coding:utf-8
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 import argparse
 import pkg_resources
 import logging
@@ -52,6 +52,7 @@ def main():
                 print('Created:', outfile)
 
         logger.info('finished packing %s' % xml)
+
 
 if __name__ == '__main__':
     main()
