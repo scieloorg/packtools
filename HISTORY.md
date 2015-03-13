@@ -1,8 +1,9 @@
 History
 =======
 
-0.7
----
+
+0.7 (2015-03-13)
+----------------
 
 * Added SciELO PS 1.2 support.
 * Added the apparent sourceline of the element raising validation errors 
@@ -13,6 +14,7 @@ History
   should be used to define the log level. Options are: DEBUG, INFO, WARNING, 
   ERROR or CRITICAL.
 * SciELO PS 1.2 schematron uses EXSLT querybinding.
+* Better error handling while analyzing multiple XML files with stylechecker.
 
 
 0.6.4 (2015-02-03)
