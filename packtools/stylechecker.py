@@ -127,7 +127,7 @@ def main():
 
     logging.basicConfig(level=getattr(logging, args.loglevel))
 
-    print('Please wait, this may take a while...')
+    print('Please wait, this may take a while...', file=sys.stderr)
 
     summary_list = []
     for xml in packtools.utils.flatten(args.XML):
@@ -138,7 +138,8 @@ def main():
             logger.debug('XMLValidator repr: %s' % repr(xml_validator))
         except XMLError as e:
             logger.debug(e)
-            sys.exit(e)
+            logger.warning('Error validating %s. Skipping. Run with DEBUG for more info.', xml)
+            continue
 
         if args.annotated:
             err_xml = xml_validator.annotate_errors()
@@ -163,7 +164,8 @@ def main():
                 summary = summarize(xml_validator, assets_basedir=assets_basedir)
             except TypeError as e:
                 logger.debug(e)
-                sys.exit('Error validating %s. %s.' % (xml_validator, e))
+                logger.warning('Error validating %s. Skipping. Run with DEBUG for more info.', xml)
+                continue
 
             summary['_xml'] = xml
             summary['is_valid'] = bool(xml_validator.validate()[0] and xml_validator.validate_style()[0])
