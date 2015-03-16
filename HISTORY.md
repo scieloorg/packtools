@@ -2,6 +2,13 @@ History
 =======
 
 
+Dev
+---
+
+* Fixes a bug that report *page-count* as invalid when fpage or lpage values 
+  are non-digit.
+
+
 0.7 (2015-03-13)
 ----------------
 

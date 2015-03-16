@@ -1540,6 +1540,29 @@ class CountsTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_non_digit_pages(self):
+        """Non-digit page interval cannot be checked automatically.
+        """
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="11"/>
+                          </counts>
+                          <fpage>A140</fpage>
+                          <lpage>A150</lpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class AuthorNotesTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/author-notes elements.

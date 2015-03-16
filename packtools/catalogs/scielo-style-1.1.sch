@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schema xmlns="http://purl.oclc.org/dsdl/schematron"
-        queryBinding="xslt"
+        queryBinding="exslt"
         xml:lang="en">
   <ns uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
+  <ns uri="http://exslt.org/regular-expressions" prefix="regexp"/>
   <p>
   *******************************************************************************
    THINGS TO BE SURE BEFORE EDITING THIS FILE!
@@ -452,6 +453,8 @@
       <assert test="(front/article-meta/lpage = 0 and
                      front/article-meta/fpage = 0 and
                      front/article-meta/counts/page-count/@count = 0) or 
+                    (regexp:test(front/article-meta/fpage, '\D', 'i') or
+                     regexp:test(front/article-meta/lpage, '\D', 'i')) or
                     (front/article-meta/counts/page-count/@count = ((front/article-meta/lpage - front/article-meta/fpage) + 1))">
         Element 'counts': Missing element or wrong value in page-count.
       </assert>
