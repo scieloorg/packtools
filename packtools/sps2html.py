@@ -9,7 +9,8 @@ from lxml import etree
 from StringIO import StringIO
 import packtools
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
+
 XML_NAMESPACE = 'http://www.w3.org/XML/1998/namespace'
 HERE = os.path.dirname(os.path.abspath(__file__))
 XSLT_TEMPLATE_DIR = os.path.abspath(os.path.join(HERE, 'templates_xslt/'))
