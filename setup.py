@@ -54,5 +54,6 @@ setup(
     [console_scripts]
     stylechecker = packtools.stylechecker:main
     packbuilder = packtools.packbuilder:main
+    sps2html = packtools.sps2html:main
     """)
 
