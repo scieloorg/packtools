@@ -1,3 +1,2 @@
 include *.txt *.ini *.cfg *.rst *.md LICENSE
-recursive-include packtools *.xsd *.sch *.xml *.ent *.dtd *.mod
-
+recursive-include packtools *.xsd *.sch *.xml *.ent *.dtd *.mod templates_xslt/*.xslt
