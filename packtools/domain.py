@@ -53,6 +53,26 @@ def XMLSchematron(schema_name):
         return schematron
 
 
+def XSLT(xslt_name):
+    """Returns an instance of `etree.XSLT`.
+
+    The returned instance is cached due to performance reasons.
+    """
+    cache = utils.setdefault(XSLT, 'cache', lambda: {})
+
+    if xslt_name in cache:
+        return cache[xslt_name]
+    else:
+        try:
+            xslt_doc = etree.parse(catalogs.XSLTS[xslt_name])
+        except KeyError:
+            raise ValueError('Unknown xslt %s' % (xslt_name,))
+
+        xslt = etree.XSLT(xslt_doc)
+        cache[xslt_name] = xslt
+        return xslt
+
+
 #--------------------------------
 # adapters for etree._ElementTree
 #--------------------------------
@@ -348,4 +368,27 @@ class XMLPacker(object):
             for asset in self.assets:
                 abs_path_asset = os.path.join(self.abs_basepath, asset)
                 zpack.write(abs_path_asset, asset)
+
+
+class HTMLGenerator(object):
+    """Adapter that generates HTML from SPS XML.
+
+    If `file` is not an etree instance, it will be parsed using
+    :func:`XML`.
+
+    :param file: Path to the XML file, URL, etree or file-object.
+    :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
+    """
+
+    def __init__(self, file, xslt=None):
+        if isinstance(file, etree._ElementTree):
+            self.lxml = file
+        else:
+            self.lxml = utils.XML(file)
+
+        self.xslt = xslt or XSLT('default-html.xslt')
+
+    @property
+    def languages(self):
+        return self.lxml.xpath('/article/@xml:lang | //sub-article[@article-type="translation"]/@xml:lang')
 

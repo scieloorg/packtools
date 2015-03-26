@@ -16,3 +16,7 @@ SCHEMAS = {
 # XML Catalog - OASIS Standard.
 XML_CATALOG = os.path.join(_CWD, 'scielo-publishing-schema.xml')
 
+XSLTS = {
+    'default-html.xslt': os.path.join(_CWD, 'default-html.xslt'),
+}
+
