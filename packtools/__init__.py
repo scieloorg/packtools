@@ -4,7 +4,7 @@ used to handle SciELO Publishing Schema packages and XML files.
 import logging
 
 from .xray import SPSPackage
-from .domain import XMLValidator, XMLPacker
+from .domain import XMLValidator, XMLPacker, HTMLGenerator
 from .utils import XML
 from .version import __version__
 

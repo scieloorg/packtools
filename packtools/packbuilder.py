@@ -26,7 +26,7 @@ def main():
     parser.add_argument('--loglevel', default='WARNING')
     args = parser.parse_args()
 
-    logging.basicConfig(level=getattr(logging, args.loglevel))
+    logging.basicConfig(level=getattr(logging, args.loglevel.upper()))
 
     for xml in packtools.utils.flatten(args.XML):
         logger.info('started packing %s' % repr(xml))

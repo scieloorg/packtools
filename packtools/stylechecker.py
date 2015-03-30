@@ -5,7 +5,6 @@ import argparse
 import sys
 import pkg_resources
 import json
-import glob
 import logging
 
 from lxml import etree
@@ -125,7 +124,7 @@ def main():
                         help='prevents the output from being colorized by ANSI escape sequences')
     args = parser.parse_args()
 
-    logging.basicConfig(level=getattr(logging, args.loglevel))
+    logging.basicConfig(level=getattr(logging, args.loglevel.upper()))
 
     print('Please wait, this may take a while...', file=sys.stderr)
 

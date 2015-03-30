@@ -15,11 +15,9 @@ import os
 
 from lxml import etree, isoschematron
 
-from . import utils, catalogs, checks, style_errors
-
+from .import utils, catalogs, checks, style_errors
 
 logger = logging.getLogger(__name__)
-
 
 ALLOWED_PUBLIC_IDS = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
@@ -28,8 +26,7 @@ ALLOWED_PUBLIC_IDS = (
 # deprecated
 ALLOWED_PUBLIC_IDS_LEGACY = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
-    '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',
-)
+    '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',)
 
 
 def XMLSchematron(schema_name):
@@ -125,14 +122,16 @@ class XMLValidator(object):
         self.source_url = self.lxml.docinfo.URL
 
         self.public_id = self.lxml.docinfo.public_id
-        self.schematron = XMLSchematron(self.sps_version)  # can raise ValueError
+        self.schematron = XMLSchematron(self.sps_version
+                                       )  # can raise ValueError
         self.ppl = checks.StyleCheckingPipeline()
 
     def _init_sps_version(self, sps_version):
         """Initializes the attribute self.sps_version or raises ValueError.
         """
         try:
-            self.sps_version = sps_version or self.lxml.getroot().attrib['specific-use']
+            self.sps_version = sps_version or self.lxml.getroot(
+).attrib['specific-use']
         except KeyError:
             raise ValueError('Missing SPS version at /article/@specific-use')
 
@@ -156,7 +155,8 @@ class XMLValidator(object):
             raise TypeError('The DTD/XSD could not be loaded')
 
         def make_error_log():
-            return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
+            return [style_errors.SchemaStyleError(err)
+                    for err in self.dtd.error_log]
 
         result = self.dtd.validate(self.lxml)
         errors = make_error_log()
@@ -167,6 +167,7 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
+
         def make_error_log():
             err_log = self.schematron.error_log
             return [style_errors.SchematronStyleError(err) for err in err_log]
@@ -180,6 +181,7 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
+
         def make_error_log():
             errors = next(self.ppl.run(self.lxml, rewrap=True))
             errors += self._validate_sch()[1]
@@ -244,7 +246,8 @@ class XMLValidator(object):
             try:
                 err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
-                logger.info('Could not locate the element name in: %s', error.message)
+                logger.info('Could not locate the element name in: %s',
+                            error.message)
                 err_element = mutating_xml.getroot()
 
             err_pairs.append((err_element, error.message))
@@ -255,8 +258,10 @@ class XMLValidator(object):
         return mutating_xml
 
     def __str__(self):
-        return etree.tostring(self.lxml, pretty_print=True,
-            encoding='utf-8', xml_declaration=True)
+        return etree.tostring(self.lxml,
+                              pretty_print=True,
+                              encoding='utf-8',
+                              xml_declaration=True)
 
     def __unicode__(self):
         return str(self).decode('utf-8')
@@ -267,7 +272,8 @@ class XMLValidator(object):
         except TypeError:
             is_valid = None
 
-        return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml, is_valid)
+        return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml,
+                                         is_valid)
 
     def read(self):
         """Read the XML contents as text.
@@ -281,7 +287,8 @@ class XMLValidator(object):
         parsed_xml = self.lxml
 
         xml_nodes = {
-            "journal_title": "front/journal-meta/journal-title-group/journal-title",
+            "journal_title":
+            "front/journal-meta/journal-title-group/journal-title",
             "journal_eissn": "front/journal-meta/issn[@pub-type='epub']",
             "journal_pissn": "front/journal-meta/issn[@pub-type='ppub']",
             "article_title": "front/article-meta/title-group/article-title",
@@ -318,6 +325,7 @@ class XMLPacker(object):
 
     :param file: the XML filepath.
     """
+
     def __init__(self, file):
         self.abs_filepath = os.path.abspath(os.path.expanduser(file))
         self.abs_basepath = os.path.dirname(self.abs_filepath)
@@ -376,19 +384,90 @@ class HTMLGenerator(object):
     If `file` is not an etree instance, it will be parsed using
     :func:`XML`.
 
+    Usage:
+
+    .. code-block:: python
+
+      generator = HTMLGenerator('valid-sps-file.xml')
+      for lang, html in generator:
+          print('Lang:', lang)
+          print('HTML:', etree.tostring(html, encoding='unicode', method='html'))
+
     :param file: Path to the XML file, URL, etree or file-object.
     :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
     """
 
-    def __init__(self, file, xslt=None):
+    def __init__(self, file, xslt=None, valid_only=True):
         if isinstance(file, etree._ElementTree):
             self.lxml = file
         else:
             self.lxml = utils.XML(file)
 
+        if valid_only:
+            is_valid, errors = XMLValidator(file).validate()
+            if not is_valid:
+                raise ValueError('The XML is not valid according to SPS rules')
+
         self.xslt = xslt or XSLT('default-html.xslt')
 
     @property
     def languages(self):
-        return self.lxml.xpath('/article/@xml:lang | //sub-article[@article-type="translation"]/@xml:lang')
+        """ The language of the main document plus all translations.
+        """
+        return self.lxml.xpath(
+            '/article/@xml:lang | //sub-article[@article-type="translation"]/@xml:lang')
 
+    @property
+    def language(self):
+        """ The language of the main document.
+        """
+        return self.lxml.xpath('/article/@xml:lang')[0]
+
+    def _is_aop(self):
+        """ Has the document been published ahead-of-print?
+        """
+        volume = self.lxml.findtext('front/article-meta/volume')
+        number = self.lxml.findtext('front/article-meta/issue')
+
+        return volume == '00' and number == '00'
+
+    def _get_issue_label(self):
+        volume = self.lxml.findtext('front/article-meta/volume')
+        number = self.lxml.findtext('front/article-meta/issue')
+
+        return 'vol.%s n.%s' % (volume, number)
+
+    def _get_bibliographic_legend(self):
+        return '[#BIBLIOGRAPHIC LEGEND#]'
+
+        issue = 'ahead of print' if self._is_aop() else self._get_issue_label()
+
+        abrev_title = self.lxml.findtext(
+            'front/journal-meta/journal-title-group/abbrev-journal-title[@abbrev-type="publisher"]')
+        city = '[#CITY#]'
+
+        pubdate = self.lxml.xpath(
+            '/article/front/article-meta/pub-date[@pub-type="epub-ppub" or @pub-type="epub"][1]')[0]
+        pubtype = 'Epub' if pubdate.xpath('@pub-type')[0] == 'epub' else ''
+        day = pubdate.findtext('day')
+        month = pubdate.findtext('month')
+        year = pubdate.findtext('year')
+        dates = ' '.join([month, year]) if month else year
+
+        parts = [abrev_title, issue, city, pubtype, dates]
+
+        return ' '.join([part for part in parts if part])
+
+    def __iter__(self):
+        def transform(article_lang, is_translation):
+            return self.xslt(self.lxml,
+                             article_lang=etree.XSLT.strparam(article_lang),
+                             is_translation=etree.XSLT.strparam(
+                                 str(is_translation)),
+                             bibliographic_legend=etree.XSLT.strparam(
+                                 self._get_bibliographic_legend()),
+                             article_id=etree.XSLT.strparam('article-id'))
+
+        for lang in self.languages:
+            res_html = transform(lang, lang != self.language)
+            yield lang, res_html
