@@ -899,10 +899,7 @@
       <assert test="@license-type = 'open-access'">
         Element 'license', attribute license-type: Invalid value '<value-of select="@license-type"/>'.
       </assert>
-      <assert test="@xlink:href = 'http://creativecommons.org/licenses/by-nc/4.0/' or 
-                    @xlink:href = 'http://creativecommons.org/licenses/by-nc/3.0/' or
-                    @xlink:href = 'http://creativecommons.org/licenses/by/4.0/' or
-                    @xlink:href = 'http://creativecommons.org/licenses/by/3.0/'">
+      <assert test="regexp:test(@xlink:href, 'https?://creativecommons\.org/licenses/(by-nc|by)/(3|4)\.0/?')">
         Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
       </assert>
     </rule>

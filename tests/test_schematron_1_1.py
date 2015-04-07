@@ -2999,6 +2999,34 @@ class LicenseTests(PhaseBasedTestCase):
 
             self.assertTrue(self._run_validation(sample))
 
+    def test_allowed_license_href_https_scheme(self):
+        allowed_licenses = [
+            'https://creativecommons.org/licenses/by-nc/4.0/',
+            'https://creativecommons.org/licenses/by-nc/3.0/',
+            'https://creativecommons.org/licenses/by/4.0/',
+            'https://creativecommons.org/licenses/by/3.0/',
+        ]
+
+        for license in allowed_licenses:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <front>
+                            <article-meta>
+                              <permissions>
+                                <license license-type="open-access"
+                                         xlink:href="%s">
+                                  <license-p>
+                                    This is an open-access article distributed under the terms...
+                                  </license-p>
+                                </license>
+                              </permissions>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % license
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
     def test_disallowed_license_href(self):
         sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                       <front>
@@ -3019,6 +3047,30 @@ class LicenseTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_missing_trailing_slash(self):
+        allowed_licenses = [
+            'https://creativecommons.org/licenses/by-nc/4.0',
+        ]
+
+        for license in allowed_licenses:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <front>
+                            <article-meta>
+                              <permissions>
+                                <license license-type="open-access"
+                                         xlink:href="%s">
+                                  <license-p>
+                                    This is an open-access article distributed under the terms...
+                                  </license-p>
+                                </license>
+                              </permissions>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % license
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
 
 class AckTests(PhaseBasedTestCase):
     """Tests for article/back/ack element.

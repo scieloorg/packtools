@@ -2640,6 +2640,31 @@ class LicenseTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_missing_trailing_slash(self):
+        allowed_licenses = [
+            'https://creativecommons.org/licenses/by-nc/4.0',
+        ]
+
+        for license in allowed_licenses:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <front>
+                            <article-meta>
+                              <permissions>
+                                <license license-type="open-access"
+                                         xlink:href="%s">
+                                  <license-p>
+                                    This is an open-access article distributed under the terms...
+                                  </license-p>
+                                </license>
+                              </permissions>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % license
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
 
 class AckTests(PhaseBasedTestCase):
     """Tests for article/back/ack element.
