@@ -1,11 +1,11 @@
-#coding: utf-8
+# coding: utf-8
 from __future__ import print_function, unicode_literals
 import os
 import argparse
 import sys
 import pkg_resources
 import logging
-
+import lxml.html
 from lxml import etree
 
 import packtools
@@ -74,11 +74,10 @@ def main():
 
                 with open(out_fname, 'wb') as fp:
                     fp.write(etree.tostring(trans_result, pretty_print=True,
-                             encoding='utf-8', method='html'))
+                                            encoding='utf-8', method='html',
+                                            doctype=u"<!DOCTYPE html>"))
 
                 print('Generated HTML file:', out_fname)
-
-
         except TypeError as e:
             logger.debug(e)
             logger.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
@@ -89,4 +88,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
