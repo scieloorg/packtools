@@ -1134,6 +1134,98 @@ class GeneratedTagsTests(unittest.TestCase):
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
 
+    def test_label_tag_inside_app(self):
+        """
+        verifica que o tag <label> dentro de <app> seja correto
+        - - -
+        <label> aparece em:
+        <aff>, <corresp>, <fn>, <fig>, <table-wrap>, <disp-formula>, <media>, <supplementary-material>, <list>, <list-item>, <ref>, <glossary>, <app>, <def-list>
+        """
+        label_text = {
+            'pt': 'Apêndice 1',
+            'en': 'Appendix 1',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <app-group>
+                                <app id="app01">
+                                    <label>%s</label>
+                                    <title>Questionário  para SciELO</title>
+                                    <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                                </app>
+                            </app-group>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <app-group>
+                                    <app id="app01">
+                                        <label>%s</label>
+                                        <title>Questionnaire for SciELO</title>
+                                        <graphic xlink:href="1234-5678-rctb-45-05-0110-app01.tif"/>
+                                    </app>
+                                </app-group>
+                            </back>
+                        </sub-article>
+                    </article>
+                """ % (label_text['pt'], label_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            html_generated = lxml.html.fromstring(str(html_output))
+            # print lxml.html.tostring(html_generated, pretty_print=True)
+            found_labels = html_generated.xpath('//label[@for="app01"]')
+            self.assertEqual(1, len(found_labels))
+            found_label = found_labels[0]
+            self.assertEqual(label_text[lang], found_label.text.strip())
+
+    def test_label_tag_inside_def_list(self):
+        """
+        verifica que o tag <label> dentro de <def-list> seja correto
+        - - -
+        <label> aparece em:
+        <aff>, <corresp>, <fn>, <fig>, <table-wrap>, <disp-formula>, <media>, <supplementary-material>, <list>, <list-item>, <ref>, <glossary>, <app>, <def-list>
+        """
+        label_text = {
+            'pt': 'Lista de Definições 1',
+            'en': 'Definitions list 1',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <def-list id="d01">
+                                <label>%s</label>
+                                <def-item>
+                                    <term><bold>Angina pectoris (Angina de peito)</bold></term>
+                                    <def><p>Sensação de angústia, de opressão torácica</p></def>
+                                </def-item>
+                            </def-list>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <def-list id="d01">
+                                    <label>%s</label>
+                                    <def-item>
+                                        <term><bold>Angina pectoris</bold></term>
+                                        <def><p>Lorem ipsum dolor sit amet</p></def>
+                                    </def-item>
+                                </def-list>
+                            </back>
+                        </sub-article>
+                    </article>
+                """ % (label_text['pt'], label_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            html_generated = lxml.html.fromstring(str(html_output))
+            # print lxml.html.tostring(html_generated, pretty_print=True)
+            found_labels = html_generated.xpath('//label[@for="d01"]')
+            self.assertEqual(1, len(found_labels))
+            found_label = found_labels[0]
+            self.assertEqual(label_text[lang], found_label.text.strip())
+
     """ <DOI> """
     def test_doi_link(self):
         """

@@ -268,7 +268,14 @@
           <header>
             <h2>DEF LIST</h2>
           </header>
-          <xsl:apply-templates select="//back/def-list"/>
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/back/def-list"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/back/def-list"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </section>
 
         <section class="article app-group">
@@ -276,7 +283,14 @@
           <header>
             <h2>APP-GROUP:</h2>
           </header>
-          <xsl:apply-templates select="//back/app-group"/>
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/back/app-group"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/back/app-group"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </section>
 
         <section class="article fn-group">
@@ -1055,7 +1069,7 @@
         <xsl:for-each select="app">
           <div class="app">
             <div class="app-label">
-              <xsl:apply-templates select="label"/>
+              <label for="{@id}"><xsl:apply-templates select="label"/></label>
             </div>
             <div class="app-content">
               <xsl:apply-templates select="*[not(name()='label')]"/>
@@ -1069,7 +1083,7 @@
     <xsl:template match="back/def-list" name="def-list">
       <div class="def-list">
         <xsl:if test="label">
-          <h4><xsl:value-of select="label"/></h4>
+          <label for="{@id}"><xsl:apply-templates select="label"/></label>
         </xsl:if>
         <dl>
           <xsl:for-each select="def-item | def-list">
