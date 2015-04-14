@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import unittest
 import io
 from tempfile import NamedTemporaryFile
-import lxml.html
 from lxml import etree
 
 from packtools import domain
@@ -136,8 +135,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            meta_tag = html_generated.xpath('/html/head/meta[@charset="utf-8"]')
+            meta_tag = html_output.xpath('/html/head/meta[@charset="utf-8"]')
             self.assertEqual(1, len(meta_tag))
 
     def test_title_tag_and_content(self):
@@ -163,16 +161,13 @@ class GeneratedTagsTests(unittest.TestCase):
 
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
-        html_generated = ''
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-
-        title_node = html_generated.xpath('/html/head/title')[0]
-        title_tag = title_node.tag
-        title_text = title_node.text.replace('  ', '').replace('\n', ' ')
-        expected_text = u'Rev Saude Publica - Proposta conceitual de telessa\xfade no modelo da pesquisa translacional'
-        self.assertEqual(title_tag, 'title')
-        self.assertEqual(title_text, expected_text)
+            title_node = html_output.xpath('/html/head/title')[0]
+            title_tag = title_node.tag
+            title_text = title_node.text.replace('  ', '').replace('\n', ' ')
+            expected_text = u'Rev Saude Publica - Proposta conceitual de telessa\xfade no modelo da pesquisa translacional'
+            self.assertEqual(title_tag, 'title')
+            self.assertEqual(title_text, expected_text)
 
     def test_html_tag_lang_attrib(self):
         """
@@ -190,8 +185,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            html_lang_attribute = html_generated.xpath('/html')[0].attrib['lang']
+            html_lang_attribute = html_output.xpath('/html')[0].attrib['lang']
             self.assertEqual(lang, html_lang_attribute)
 
     """ <XREF> """
@@ -241,8 +235,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_xrefs = html_generated.xpath('//a[@class="xref_href"]')
+            found_xrefs = html_output.xpath('//a[@class="xref_href"]')
             self.assertEqual(1, len(found_xrefs))
             found_xref = found_xrefs[0]
             self.assertEqual(xref_text[lang], found_xref.text)
@@ -282,8 +275,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_xrefs = html_generated.xpath('//a[@class="xref_href"]')
+            found_xrefs = html_output.xpath('//a[@class="xref_href"]')
             self.assertEqual(1, len(found_xrefs))
             found_xref = found_xrefs[0]
             self.assertEqual('LOREM', found_xref.text.strip())
@@ -330,8 +322,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_xrefs = html_generated.xpath('//a[@class="xref_href"]')
+            found_xrefs = html_output.xpath('//a[@class="xref_href"]')
             self.assertEqual(1, len(found_xrefs))
             found_xref = found_xrefs[0]
             self.assertEqual(xref_text[lang], found_xref.text.strip())
@@ -396,8 +387,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_xrefs = html_generated.xpath('//a[@class="xref_href"]')
+            found_xrefs = html_output.xpath('//a[@class="xref_href"]')
             self.assertEqual(2, len(found_xrefs))  # one xref-anchor on article body and another xref-anchor in table section
             found_xref = found_xrefs[0]
             self.assertEqual(xref_text[lang], found_xref.text.strip())
@@ -462,8 +452,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_xrefs = html_generated.xpath('//a[@class="xref_href"]')
+            found_xrefs = html_output.xpath('//a[@class="xref_href"]')
             self.assertEqual(2, len(found_xrefs))  # one xref-anchor on article body and another xref-anchor in table section
             found_xref = found_xrefs[0]
             self.assertEqual(xref_text[lang], found_xref.text.strip())
@@ -512,8 +501,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_xrefs = html_generated.xpath('//a[@class="xref_href"]')
+            found_xrefs = html_output.xpath('//a[@class="xref_href"]')
             self.assertEqual(1, len(found_xrefs))
             found_xref = found_xrefs[0]
             self.assertEqual(xref_text[lang], found_xref.text.strip())
@@ -569,8 +557,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_xrefs = html_generated.xpath('//a[@class="xref_href"]')
+            found_xrefs = html_output.xpath('//a[@class="xref_href"]')
             self.assertEqual(2, len(found_xrefs))  # one xref-anchor on article body and another xref-anchor in table section
             found_xref = found_xrefs[0]
             self.assertEqual(xref_text[lang], found_xref.text.strip())
@@ -609,8 +596,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_labels = html_generated.xpath('//label[@for="aff1"]')
+            found_labels = html_output.xpath('//label[@for="aff1"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text, found_label.text.strip())
@@ -646,8 +632,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_labels = html_generated.xpath('//label[@for="c01"]')
+            found_labels = html_output.xpath('//label[@for="c01"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text, found_label.text.strip())
@@ -681,8 +666,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_labels = html_generated.xpath('//label[@for=""]')
+            found_labels = html_output.xpath('//label[@for=""]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text, found_label.text.strip())
@@ -734,8 +718,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_labels = html_generated.xpath('//label[@for="f01"]')
+            found_labels = html_output.xpath('//label[@for="f01"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -779,8 +762,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_labels = html_generated.xpath('//label[@for="t01"]')
+            found_labels = html_output.xpath('//label[@for="t01"]')
             self.assertEqual(2, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -824,9 +806,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for="e01"]')
+            found_labels = html_output.xpath('//label[@for="e01"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -874,9 +854,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//span[@class="media-label"]')
+            found_labels = html_output.xpath('//span[@class="media-label"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -924,9 +902,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for="S1"]')
+            found_labels = html_output.xpath('//label[@for="S1"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -978,9 +954,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for=""]')
+            found_labels = html_output.xpath('//label[@for=""]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -1032,9 +1006,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for=""]')
+            found_labels = html_output.xpath('//label[@for=""]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -1076,9 +1048,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for="B3"]')
+            found_labels = html_output.xpath('//label[@for="B3"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -1127,9 +1097,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for="gloss01"]')
+            found_labels = html_output.xpath('//label[@for="gloss01"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -1173,9 +1141,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for="app01"]')
+            found_labels = html_output.xpath('//label[@for="app01"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
@@ -1219,12 +1185,415 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            # print lxml.html.tostring(html_generated, pretty_print=True)
-            found_labels = html_generated.xpath('//label[@for="d01"]')
+            found_labels = html_output.xpath('//label[@for="d01"]')
             self.assertEqual(1, len(found_labels))
             found_label = found_labels[0]
             self.assertEqual(label_text[lang], found_label.text.strip())
+
+    """ <P> """
+    def test_p_tag_inside_abstract(self):
+        """
+        verifica que o tag <p> dentro de <abstract> seja correto
+        - - -
+        <p> aparece em
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'abstract em PT',
+            'en': 'abstract em EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <abstract xml:lang="pt">
+                                <p>%s</p>
+                            </abstract>
+                        </article-meta>
+                    </front>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <front-stub>
+                            <abstract xml:lang="en">
+                                <p>%s</p>
+                            </abstract>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//div[@class="abstract"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_sec(self):
+        """
+        verifica que o tag <p> dentro de <sec> seja correto
+        - - -
+        <p> aparece em
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'texto em PT',
+            'en': 'text in EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <sec sec-type="intro">
+                            <p>%s</p>
+                        </sec>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <sec sec-type="intro">
+                                <p>%s</p>
+                            </sec>
+                        </body>
+                    </sub-article>
+                </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//article[@class="body"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_trans_abstract(self):
+        """
+        verifica que o tag <p> dentro de <trans-abstract> seja correto
+        - - -
+        <p> aparece em
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'abstract em PT',
+            'en': 'abstract em EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <abstract xml:lang="pt">
+                                <p>%s</p>
+                            </abstract>
+                            <trans-abstract xml:lang="en">
+                                <p>%s</p>
+                            </trans-abstract>
+                        </article-meta>
+                    </front>
+                </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//div[@class="abstract"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_fn(self):
+        """
+        verifica que o tag <p> dentro de <fn> seja correto
+        - - -
+        <p> aparece em
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'Declaração: Sim',
+            'en': 'Declaration: Yes',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <fn-group>
+                            <fn fn-type="financial-disclosure" id="fn01">
+                                <label>1</label>
+                                <p>%s</p>
+                            </fn>
+                        </fn-group>
+                    </back>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <back>
+                            <fn-group>
+                                <fn fn-type="financial-disclosure" id="fn01">
+                                    <label>1</label>
+                                    <p>%s</p>
+                                </fn>
+                            </fn-group>
+                        </back>
+                    </sub-article>
+                </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//div[@class="fn-block fn-id-fn01 fn-type-financial-disclosure"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_body(self):
+        """
+        verifica que o tag <p> dentro de <body> seja correto
+        - - -
+        <p> aparece em
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'texto em PT',
+            'en': 'text in EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <p>%s</p>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <p>%s</p>
+                        </body>
+                    </sub-article>
+                </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//article[@class="body"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_disp_quote(self):
+        """
+        verifica que o tag <p> dentro de <disp-quote> seja correto
+        - - -
+        <p> aparece em
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'texto em PT',
+            'en': 'text in EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <sec sec-type="methods">
+                            <p>
+                                <disp-quote>
+                                    <p>%s</p>
+                                </disp-quote>
+                            </p>
+                        </sec>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <sec sec-type="methods">
+                                <p>
+                                    <disp-quote>
+                                        <p>%s</p>
+                                    </disp-quote>
+                                </p>
+                            </sec>
+                        </body>
+                    </sub-article>
+                </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//blockquote[@class="disp-quote"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_list_item(self):
+        """
+        verifica que o tag <p> dentro de <list-item> seja correto
+        - - -
+        <p> aparece em:
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'Material Adicional',
+            'en': 'Additional material',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sec sec-type="list">
+                                <p>
+                                    <list list-type="order">
+                                        <title>Lista Númerica</title>
+                                        <list-item>
+                                            <label>ITEM UM</label>
+                                            <p>%s</p>
+                                        </list-item>
+                                    </list>
+                                </p>
+                            </sec>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sec sec-type="supplementary-material">
+                                    <p>
+                                        <list list-type="order">
+                                            <title>Numeric List</title>
+                                            <list-item>
+                                                <label>ITEM ONE</label>
+                                                <p>%s</p>
+                                            </list-item>
+                                        </list>
+                                    </p>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//div[@class="list-item-content"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_sig(self):
+        """
+        verifica que o tag <p> dentro de <sig> seja correto
+        - - -
+        <p> aparece em:
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'Sig PT',
+            'en': 'Sig EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sig-block>
+                                <sig>
+                                    <p>%s</p>
+                                </sig>
+                            </sig-block>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sig-block>
+                                    <sig>
+                                        <p>%s</p>
+                                    </sig>
+                                </sig-block>
+                            </body>
+                        </sub-article>
+                    </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//div[@class="sig-block"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_app(self):
+        """
+        verifica que o tag <p> dentro de <app> seja correto
+        - - -
+        <p> aparece em:
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'texto PT',
+            'en': 'text EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <app-group>
+                                <app id="app01">
+                                    <label>App 01</label>
+                                    <p>%s</p>
+                                </app>
+                            </app-group>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <app-group>
+                                    <app id="app01">
+                                        <label>App 01</label>
+                                        <p>%s</p>
+                                    </app>
+                                </app-group>
+                            </back>
+                        </sub-article>
+                    </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//div[@class="app-content"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
+
+    def test_p_tag_inside_def(self):
+        """
+        verifica que o tag <p> dentro de <def> seja correto
+        - - -
+        <p> aparece em:
+        <abstract>, <sec>, <trans-abstract>, <fn>, <body>, <disp-quote>, list-item, sig, app, def
+        """
+        paragraph_text = {
+            'pt': 'texto PT',
+            'en': 'text EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <def-list id="d01">
+                                <label>lista 01</label>
+                                <def-item>
+                                    <term><bold>Angina pectoris (Angina de peito)</bold></term>
+                                    <def><p>%s</p></def>
+                                </def-item>
+                            </def-list>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <def-list id="d01">
+                                    <label>list 01</label>
+                                    <def-item>
+                                        <term><bold>Angina pectoris</bold></term>
+                                        <def><p>%s</p></def>
+                                    </def-item>
+                                </def-list>
+                            </back>
+                        </sub-article>
+                    </article>
+                """ % (paragraph_text['pt'], paragraph_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_paragraphs = html_output.xpath('//dd[@class="def-list-item"]//p')
+            self.assertEqual(1, len(found_paragraphs))
+            found_paragraph = found_paragraphs[0]
+            self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
 
     """ <DOI> """
     def test_doi_link(self):
@@ -1252,8 +1621,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         # when
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            doi_links = html_generated.xpath('//span[@class="doi"]/a')
+            doi_links = html_output.xpath('//span[@class="doi"]/a')
             # then
             self.assertEqual(1, len(doi_links))
             doi_link = doi_links[0]
@@ -1298,8 +1666,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         # when
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            emails_links = html_generated.xpath('//div[@class="author-notes"]//a[@href="%s"]' % email_href)
+            emails_links = html_output.xpath('//div[@class="author-notes"]//a[@href="%s"]' % email_href)
             # then
             self.assertEqual(1, len(emails_links))
             found_email_link = emails_links[0]
@@ -1337,8 +1704,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         # when
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_sup_nodes = html_generated.xpath('//sup')
+            found_sup_nodes = html_output.xpath('//sup')
             # then
             self.assertEqual(1, len(found_sup_nodes))
             found_sup_node = found_sup_nodes[0]
@@ -1373,8 +1739,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         # when
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_sup_nodes = html_generated.xpath('//sup')
+            found_sup_nodes = html_output.xpath('//sup')
             # then
             self.assertEqual(1, len(found_sup_nodes))
             found_sup_node = found_sup_nodes[0]
@@ -1410,8 +1775,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         # when
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_sub_nodes = html_generated.xpath('//sub')
+            found_sub_nodes = html_output.xpath('//sub')
             # then
             self.assertEqual(1, len(found_sub_nodes))
             found_sub_node = found_sub_nodes[0]
@@ -1446,8 +1810,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         # when
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            html_generated = lxml.html.fromstring(str(html_output))
-            found_sub_nodes = html_generated.xpath('//sub')
+            found_sub_nodes = html_output.xpath('//sub')
             # then
             self.assertEqual(1, len(found_sub_nodes))
             found_sub_node = found_sub_nodes[0]

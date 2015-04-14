@@ -138,9 +138,19 @@
         <h2>Abstract:</h2>
         <div class="abstract">
           <xsl:choose>
-            <xsl:when test="$is_translation = 'True' ">
+            <!-- if: is_translation AND sub-article/front-stub/abstract/ -->
+            <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/abstract[@xml:lang=$article_lang]">
               <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/abstract[@xml:lang=$article_lang]"/>
             </xsl:when>
+            <!-- if: is_translation AND sub-article/front-stub/trans-abstract/ -->
+            <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/trans-abstract[@xml:lang=$article_lang]">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/abstract[@xml:lang=$article_lang]"/>
+            </xsl:when>
+            <!-- if: is_translation AND article/front/article-meta/trans-abstract/ -->
+            <xsl:when test="$is_translation = 'True' and article/front/article-meta/trans-abstract[@xml:lang=$article_lang]">
+              <xsl:apply-templates select="article/front/article-meta/trans-abstract[@xml:lang=$article_lang]"/>
+            </xsl:when>
+            <!-- if: article/front/article-meta/abstract/ -->
             <xsl:otherwise>
               <xsl:apply-templates select="article/front/article-meta/abstract[@xml:lang=$article_lang]"/>
             </xsl:otherwise>
@@ -187,10 +197,12 @@
           </header>
           <xsl:choose>
             <xsl:when test="$is_translation = 'True' ">
-              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sec"/>
+              <xsl:apply-templates
+                select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sec | article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/p | article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sig-block"
+                mode="scift-standard-body" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="article/body/sec"/>
+              <xsl:apply-templates select="article/body/sec | article/body/p | article/body/sig-block"  mode="scift-standard-body" />
             </xsl:otherwise>
           </xsl:choose>
         </article>
@@ -600,7 +612,11 @@
   <!-- O body compreende o conteúdo e desenvolvimento do artigo. -->
 
     <!-- TEXT -->
-    <xsl:template match="article//body/sec ">
+    <xsl:template match="article//body//p" mode="scift-standard-body">
+      <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="article//body/sec" mode="scift-standard-body">
       <a id="{@sec-type}"></a>
       <section>
         <header>
@@ -841,7 +857,7 @@
 
     <!-- DISP-QUOTE -->
     <xsl:template match="disp-quote">
-      <blockquote>
+      <blockquote class="disp-quote">
         <xsl:apply-templates select="*|text()"/>
       </blockquote>
     </xsl:template>
@@ -861,7 +877,7 @@
             <xsl:apply-templates select="./label"/>
           </label>
         </xsl:if>
-        <xsl:value-of select="*[not(name()='label')]"/>
+        <xsl:apply-templates select="*[not(name()='label')]"/>
         <xsl:apply-templates select="list"/>
       </div>
     </xsl:template>
@@ -949,7 +965,7 @@
     </xsl:template>
 
     <!-- SIG-BLOCK -->
-    <xsl:template match="sig-block/sig">
+    <xsl:template match="sig-block/sig" mode="scift-standard-body">
       <div class="sig-block">
         <xsl:apply-templates select="*"/>
       </div>

@@ -5,7 +5,6 @@ import argparse
 import sys
 import pkg_resources
 import logging
-import lxml.html
 from lxml import etree
 
 import packtools

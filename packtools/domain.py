@@ -70,9 +70,9 @@ def XSLT(xslt_name):
         return xslt
 
 
-#--------------------------------
+# --------------------------------
 # adapters for etree._ElementTree
-#--------------------------------
+# --------------------------------
 class XMLValidator(object):
     """Adapter that performs SPS validations.
 
@@ -122,16 +122,14 @@ class XMLValidator(object):
         self.source_url = self.lxml.docinfo.URL
 
         self.public_id = self.lxml.docinfo.public_id
-        self.schematron = XMLSchematron(self.sps_version
-                                       )  # can raise ValueError
+        self.schematron = XMLSchematron(self.sps_version)  # can raise ValueError
         self.ppl = checks.StyleCheckingPipeline()
 
     def _init_sps_version(self, sps_version):
         """Initializes the attribute self.sps_version or raises ValueError.
         """
         try:
-            self.sps_version = sps_version or self.lxml.getroot(
-).attrib['specific-use']
+            self.sps_version = sps_version or self.lxml.getroot().attrib['specific-use']
         except KeyError:
             raise ValueError('Missing SPS version at /article/@specific-use')
 
@@ -238,7 +236,7 @@ class XMLValidator(object):
         status, errors = self.validate_all(fail_fast=fail_fast)
         mutating_xml = deepcopy(self.lxml)
 
-        if status == True:
+        if status is True:
             return mutating_xml
 
         err_pairs = []
@@ -360,7 +358,7 @@ class XMLPacker(object):
         if not file.endswith('.zip'):
             file += '.zip'
 
-        if os.path.exists(file) and force == False:
+        if os.path.exists(file) and force is False:
             raise ValueError('File already exists')
 
         with zipfile.ZipFile(file, 'w') as zpack:
