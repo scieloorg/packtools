@@ -138,37 +138,6 @@ class GeneratedTagsTests(unittest.TestCase):
             meta_tag = html_output.xpath('/html/head/meta[@charset="utf-8"]')
             self.assertEqual(1, len(meta_tag))
 
-    def test_title_tag_and_content(self):
-        """
-        verifica que o tag <title> no html gerado seja correto
-        """
-
-        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
-                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
-                    <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="review-article" xml:lang="pt">
-                        <front>
-                            <journal-meta>
-                                <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
-                            </journal-meta>
-                            <article-meta>
-                                <title-group>
-                                    <article-title xml:lang="pt">Proposta conceitual de telessaúde no modelo da pesquisa translacional</article-title>
-                                </title-group>
-                            </article-meta>
-                        </front>
-                    </article>
-                """
-
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
-        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            title_node = html_output.xpath('/html/head/title')[0]
-            title_tag = title_node.tag
-            title_text = title_node.text.replace('  ', '').replace('\n', ' ')
-            expected_text = u'Rev Saude Publica - Proposta conceitual de telessa\xfade no modelo da pesquisa translacional'
-            self.assertEqual(title_tag, 'title')
-            self.assertEqual(title_text, expected_text)
-
     def test_html_tag_lang_attrib(self):
         """
         verifica que aparece o atributo "lang" no tag <html>, com o language certo.
@@ -187,6 +156,27 @@ class GeneratedTagsTests(unittest.TestCase):
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
             html_lang_attribute = html_output.xpath('/html')[0].attrib['lang']
             self.assertEqual(lang, html_lang_attribute)
+
+    def test_bibliographic_legend(self):
+        """
+        verifica que aparece o conteudo processado como "bibliographic_legend" no html
+        """
+        expected_legend_text = '[#BIBLIOGRAPHIC LEGEND#]'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                       <sub-article xml:lang="en" article-type="translation" id="S01">
+                       </sub-article>
+                       <sub-article xml:lang="es" article-type="translation" id="S02">
+                       </sub-article>
+                    </article>
+                 """
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            legend_span_tag = html_output.xpath('//span[@class="bibliographic_legend"]')
+            self.assertEqual(1, len(legend_span_tag))
+            self.assertEqual(expected_legend_text, legend_span_tag[0].text.strip())
 
     """ <XREF> """
     def test_xref_tag_inside_article_title_and_trans_title(self):
@@ -1595,10 +1585,41 @@ class GeneratedTagsTests(unittest.TestCase):
             found_paragraph = found_paragraphs[0]
             self.assertEqual(paragraph_text[lang], found_paragraph.text.strip())
 
+    """ <ISSN> """
+    def test_issn_tag_for_epub_and_ppub(self):
+        """
+        verifica que o tag <issn> (epub e ppub) no seja correto no html
+        """
+        issn_text = {
+            'epub': '1808-8686',
+            'ppub': '1808-8694',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="review-article" xml:lang="pt">
+                        <front>
+                            <journal-meta>
+                                <issn pub-type="epub">%s</issn>
+                                <issn pub-type="ppub">%s</issn>
+                            </journal-meta>
+                        </front>
+                    </article>
+                """ % (issn_text['epub'], issn_text['ppub'])
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_issn = html_output.xpath('//span[@class="issn"]//span')
+            self.assertEqual(2, len(found_issn))
+            found_ppub = html_output.xpath('//span[@class="issn"]//span[@class="ppub"]')[0]
+            found_epub = html_output.xpath('//span[@class="issn"]//span[@class="epub"]')[0]
+            self.assertEqual(issn_text['ppub'], found_ppub.text.strip())
+            self.assertEqual(issn_text['epub'], found_epub.text.strip())
+
     """ <DOI> """
     def test_doi_link(self):
         """
-        generate the HTML, and then check the DOI appears as a link
+        verifica que o DOI e o link do DOI seja correto no html
         """
         # with
         doi = '10.1590/S0034-8910.2014048004923'
@@ -1629,6 +1650,438 @@ class GeneratedTagsTests(unittest.TestCase):
             doi_link_text = doi_link.text
             self.assertIn(doi, doi_link_href)
             self.assertEqual(doi, doi_link_text)
+
+    """ <ARTICLE-CATEGORIES>, <SUBJ-GROUP>, <SUBJECT> """
+    def test_article_categories_and_subjects_tag(self):
+        """
+        verifica que o tag <article-categories> e <subject> seja correto no html.
+        - - -
+        <article-categories> aparece em: <article-meta>
+        <subj-group> aparece em: <article-categories>
+        <subject> aparece em: <subj-group>
+        """
+        subjects = {
+            'pt': 'Biotecnologia',
+            'en': 'Biotechnology',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <article-categories>
+                                    <subj-group subj-group-type="heading">
+                                        <subject>%s</subject>
+                                    </subj-group>
+                                </article-categories>
+                            </article-meta>
+                        </front>
+                        <sub-article xml:lang="en" article-type="translation" id="S01">
+                            <front-stub>
+                                <article-categories>
+                                    <subj-group subj-group-type="heading">
+                                        <subject>%s</subject>
+                                    </subj-group>
+                                </article-categories>
+                            </front-stub>
+                        </sub-article>
+                    </article>
+                 """ % (subjects['pt'], subjects['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            subject_tags = html_output.xpath('//ul[@class="article-categories"]/li')
+            self.assertEqual(1, len(subject_tags))
+            self.assertEqual(subjects[lang], subject_tags[0].text.strip())
+
+    """ <TITLE-GROUP>, <ARTICLE-TITLE>, <TRANS-TITLE-GROUP>, <TRANS-TITLE>"""
+    def test_article_title_tag_and_trans_title_tag(self):
+        """
+        verifica que o tag <article-title> (<trans-title-group> para as traduções) seja correto no tag <title> html.
+        """
+        titles = {
+            'pt': 'titulo em PT',
+            'en': 'titulo em EN',
+            'es': 'titulo em ES',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="review-article" xml:lang="pt">
+                        <front>
+                            <journal-meta>
+                                <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+                            </journal-meta>
+                            <article-meta>
+                                <title-group>
+                                    <article-title>%s</article-title>
+                                    <trans-title-group xml:lang="en">
+                                        <trans-title>%s</trans-title>
+                                    </trans-title-group>
+                                    <trans-title-group xml:lang="es">
+                                        <trans-title>%s</trans-title>
+                                    </trans-title-group>
+                                </title-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                """ % (titles['pt'], titles['en'], titles['es'])
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_titles = html_output.xpath('/html/head/title')
+            self.assertEqual(1, len(found_titles))
+            found_title = found_titles[0]
+            title_text = found_title.text.replace('  ', '').replace('\n', ' ')
+            expected_text = u'Rev Saude Publica - %s' % titles[lang]
+            self.assertEqual(title_text, expected_text)
+
+    """ <CONTRIB-GROUP>, <CONTRIB>, <NAME>"""
+    def test_contrib_group_tag_and_contrib_tag_and_name(self):
+        """
+        verifica que o tag <contrib-group> e <contrib> e <name> seja correto no html.
+        - - -
+        <contrib-group> aparece em: <article-meta>
+        <contrib> aparece em: <contrib-group>
+        <name> aparece em: <contrib>
+        """
+        contrib_names = {
+            'surname': 'Vader',
+            'given_names': 'Darth',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <contrib contrib-type="author">
+                                        <name>
+                                            <surname>%s</surname>
+                                            <given-names>%s</given-names>
+                                        </name>
+                                    </contrib>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % (contrib_names['surname'], contrib_names['given_names'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            contrib_tags = html_output.xpath('//ul[@class="contrib-group"]/li[@class="contrib-type author"]')
+            self.assertEqual(1, len(contrib_tags))
+            surname_tag = contrib_tags[0].xpath('div[@class="name"]/span[@class="surname"]')[0]
+            given_name_tag = contrib_tags[0].xpath('div[@class="name"]/span[@class="given_names"]')[0]
+            self.assertEqual(contrib_names['surname'], surname_tag.text.strip())
+            self.assertEqual(contrib_names['given_names'], given_name_tag.text.strip())
+
+    """ <CONTRIB-GROUP>, <CONTRIB>, <COLLAB>"""
+    def test_contrib_group_tag_and_contrib_tag_and_collab_tag(self):
+        """
+        verifica que o tag <contrib-group> e <contrib> e <collab> seja correto no html.
+        - - -
+        <contrib-group> aparece em: <article-meta>
+        <contrib> aparece em: <contrib-group>
+        <collab> aparece em: <contrib>
+        """
+        collab_text = 'lorem ipsum'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <contrib contrib-type="author">
+                                        <collab>%s</collab>
+                                    </contrib>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % collab_text
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            collab_tags = html_output.xpath('//div[@class="collab"]')
+            self.assertEqual(1, len(collab_tags))
+            collab_tag = collab_tags[0]
+            self.assertEqual(collab_text, collab_tag.text.strip())
+
+    """ <ON-BEHALF-OF> """
+    def test_on_behalf_of_tag_inside_contrib_tag(self):
+        """
+        verifica que o tag <on-behalf-of> dentro de <contrib> seja correto no html.
+        - - -
+        <on-behalf-of> aparece em: <contrib-group>, <contrib>
+        """
+        behalf_text = 'lorem ipsum'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <contrib contrib-type="author">
+                                        <on-behalf-of>%s</on-behalf-of>
+                                    </contrib>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % behalf_text
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            behalf_tags = html_output.xpath('//div[@class="on_behalf_of"]')
+            self.assertEqual(1, len(behalf_tags))
+            behalf_tag = behalf_tags[0]
+            self.assertEqual(behalf_text, behalf_tag.text.strip())
+
+    def test_on_behalf_of_tag_inside_contrib_group_tag(self):
+        """
+        verifica que o tag <on-behalf-of> dentro de <contrib> seja correto no html.
+        - - -
+        <on-behalf-of> aparece em: <contrib-group>, <contrib>
+        """
+        behalf_text = 'lorem ipsum'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <on-behalf-of>%s</on-behalf-of>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % behalf_text
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            behalf_tags = html_output.xpath('//div[@class="on_behalf_of"]')
+            self.assertEqual(1, len(behalf_tags))
+            behalf_tag = behalf_tags[0]
+            self.assertEqual(behalf_text, behalf_tag.text.strip())
+
+    def test_role_tag_inside_collab_tag(self):
+        """
+        verifica que o tag <role> dentro de <collab> seja correto no html.
+        - - -
+        <role> aparece em: <collab>, <contrib>, <contrib-group>, <element-citation>, <person-group>, <product>
+        """
+        role_text = 'lorem ipsum'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <contrib contrib-type="author">
+                                        <collab>
+                                            <role>%s</role>
+                                        </collab>
+                                    </contrib>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % role_text
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            # print etree.tostring(html_output, method="html", pretty_print=True)
+            role_tags = html_output.xpath('//span[@class="role"]')
+            self.assertEqual(1, len(role_tags))
+            role_tag = role_tags[0]
+            self.assertEqual(role_text, role_tag.text.strip())
+
+    def test_role_tag_inside_contrib_tag(self):
+        """
+        verifica que o tag <role> dentro de <collab> seja correto no html.
+        - - -
+        <role> aparece em: <collab>, <contrib>, <contrib-group>, <element-citation>, <person-group>, <product>
+        """
+        role_text = 'lorem ipsum'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <contrib contrib-type="author">
+                                        <role>%s</role>
+                                    </contrib>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % role_text
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            # print etree.tostring(html_output, method="html", pretty_print=True)
+            role_tags = html_output.xpath('//span[@class="role"]')
+            self.assertEqual(1, len(role_tags))
+            role_tag = role_tags[0]
+            self.assertEqual(role_text, role_tag.text.strip())
+
+    def test_role_tag_inside_contrib_group_tag(self):
+        """
+        verifica que o tag <role> dentro de <collab> seja correto no html.
+        - - -
+        <role> aparece em: <collab>, <contrib>, <contrib-group>, <element-citation>, <person-group>, <product>
+        """
+        role_text = 'lorem ipsum'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <role>%s</role>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % role_text
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            role_tags = html_output.xpath('//span[@class="role"]')
+            self.assertEqual(1, len(role_tags))
+            role_tag = role_tags[0]
+            self.assertEqual(role_text, role_tag.text.strip())
+
+    def test_role_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <role> dentro de <element-citation> seja correto no html.
+        - - -
+        <role> aparece em: <collab>, <contrib>, <contrib-group>, <element-citation>, <person-group>, <product>
+        """
+        role_text = {
+            'pt': 'role em PT',
+            'en': 'role em EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <role>%s</role>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <ref-list>
+                                    <ref id="B3">
+                                        <element-citation publication-type="journal">
+                                            <role>%s</role>
+                                        </element-citation>
+                                    </ref>
+                                </ref-list>
+                            </back>
+                        </sub-article>
+                    </article>
+                 """ % (role_text['pt'], role_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            role_tags = html_output.xpath('//span[@class="role"]')
+            self.assertEqual(1, len(role_tags))
+            role_tag = role_tags[0]
+            self.assertEqual(role_text[lang], role_tag.text.strip())
+
+    def test_role_tag_inside_person_group_tag(self):
+        """
+        verifica que o tag <role> dentro de <person-group> seja correto no html.
+        - - -
+        <role> aparece em: <collab>, <contrib>, <contrib-group>, <element-citation>, <person-group>, <product>
+        """
+        role_text = {
+            'pt': 'role em PT',
+            'en': 'role em EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <person-group person-group-type="author">
+                                            <role>%s</role>
+                                        </person-group>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <ref-list>
+                                    <ref id="B3">
+                                        <element-citation publication-type="journal">
+                                            <person-group person-group-type="author">
+                                                <role>%s</role>
+                                            </person-group>
+                                        </element-citation>
+                                    </ref>
+                                </ref-list>
+                            </back>
+                        </sub-article>
+                    </article>
+                 """ % (role_text['pt'], role_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            role_tags = html_output.xpath('//span[@class="role"]')
+            self.assertEqual(1, len(role_tags))
+            role_tag = role_tags[0]
+            self.assertEqual(role_text[lang], role_tag.text.strip())
+
+    def test_role_tag_inside_product_tag(self):
+        """
+        verifica que o tag <role> dentro de <product> seja correto no html.
+        - - -
+        <role> aparece em: <collab>, <contrib>, <contrib-group>, <element-citation>, <person-group>, <product>
+        """
+        role_text = {
+            'pt': 'role em PT',
+            'en': 'role em EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <product product-type="book">
+                                    <role>%s</role>
+                                </product>
+                            </article-meta>
+                        </front>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <front-stub>
+                                <article-meta>
+                                    <product product-type="book">
+                                        <role>%s</role>
+                                    </product>
+                                </article-meta>
+                            </front-stub>
+                        </sub-article>
+                    </article>
+                 """ % (role_text['pt'], role_text['en'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            role_tags = html_output.xpath('//span[@class="role"]')
+            self.assertEqual(1, len(role_tags))
+            role_tag = role_tags[0]
+            self.assertEqual(role_text[lang], role_tag.text.strip())
 
     """ <EMAIL> """
     def test_email_tag(self):

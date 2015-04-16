@@ -16,7 +16,14 @@
         <meta charset="utf-8" />
         <title>
           <xsl:value-of select="article/front/journal-meta/journal-id"/> -
-          <xsl:value-of select="article/front/article-meta/title-group/article-title"/>
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:value-of select="article/front/article-meta/title-group/trans-title-group[@xml:lang=$article_lang]/trans-title" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="article/front/article-meta/title-group/article-title"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </title>
       </head>
       <body>
@@ -61,8 +68,8 @@
             <xsl:value-of select="$bibliographic_legend" />
           </span>
           <span class="issn">
-            ppub: <xsl:value-of select="article/front/journal-meta/issn[@pub-type='ppub']"/> -
-            epub: <xsl:value-of select="article/front/journal-meta/issn[@pub-type='epub']"/>
+            ppub: <span class="ppub"><xsl:value-of select="article/front/journal-meta/issn[@pub-type='ppub']"/></span> -
+            epub: <span class="epub"><xsl:value-of select="article/front/journal-meta/issn[@pub-type='epub']"/></span>
           </span>
         </div>
 
@@ -131,7 +138,15 @@
         <a id="products"></a>
         <h2>Products:</h2>
         <div class="products">
-          <xsl:apply-templates select="article/front/article-meta//product"/>
+          <!-- <xsl:apply-templates select="article/front/article-meta//product"/> -->
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/article-meta/product"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/front/article-meta/product"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
 
         <a id="abstract"></a>
@@ -424,14 +439,56 @@
     </xsl:template>
 
     <!-- CONTRIB GROUP -->
-    <xsl:template match="article/front/article-meta/contrib-group/contrib">
-      <li class="contrib-type {@contrib-type}">
-        <xsl:value-of select="name/surname"/>, <xsl:value-of select="name/given-names"/> <xsl:value-of select="name/suffix"/> [<xsl:apply-templates select="xref" />]
-      </li>
+    <xsl:template match="contrib-group">
+      <xsl:for-each select="contrib | collab | on-behalf-of | role">
+        <li class="contrib-type {@contrib-type}">
+          <xsl:apply-templates select="."/>
+        </li>
+      </xsl:for-each>
+    </xsl:template>
+
+    <!-- CONTRIB -->
+    <xsl:template match="contrib">
+      <xsl:apply-templates/>
+    </xsl:template>
+    <!-- NAME -->
+    <xsl:template match="name">
+      <div class="name">
+        <span class="surname">
+          <xsl:value-of select="surname"/>
+        </span>,
+        <span class="given_names">
+          <xsl:value-of select="given-names"/>
+        </span>,
+        <span class="suffix">
+          <xsl:value-of select="suffix"/>
+        </span>
+      </div>
+    </xsl:template>
+
+    <!-- COLLAB -->
+    <xsl:template match="collab">
+      <div class="collab">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:template>
+
+    <!-- ON-BEHALF-OF -->
+    <xsl:template match="on-behalf-of">
+      <div class="on_behalf_of">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:template>
+
+    <!-- ROLE -->
+    <xsl:template match="role">
+      <span class="role">
+        <xsl:apply-templates/>
+      </span>
     </xsl:template>
 
     <!-- ARTICLE CATEGORIES -->
-    <xsl:template match="article/front/article-meta/article-categories">
+    <xsl:template match="article//article-categories">
       <ul class="article-categories">
         <xsl:for-each select="subj-group">
           <li class="article-categories {@subj-group-type}">
@@ -1154,12 +1211,15 @@
           <xsl:if test="prefix"><xsl:value-of select="prefix"/></xsl:if>
           <xsl:if test="surname"><xsl:value-of select="surname"/>,</xsl:if>
           <xsl:if test="given-names">&#160;<xsl:value-of select="given-names"/></xsl:if>
-          <xsl:if test="prefix">&#160;<xsl:value-of select="suffix"/></xsl:if>
+          <xsl:if test="suffix">&#160;<xsl:value-of select="suffix"/></xsl:if>
           <xsl:if test="../collab">
            - <xsl:value-of select="../collab"/>
           </xsl:if>
         </span>
       </xsl:for-each>
+      <xsl:if test="role">
+        <xsl:apply-templates select="role"/>
+      </xsl:if>
       <xsl:if test="etal">
         <span class="et-al">et al.</span>
       </xsl:if>
