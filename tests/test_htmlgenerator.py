@@ -1865,6 +1865,7 @@ class GeneratedTagsTests(unittest.TestCase):
             behalf_tag = behalf_tags[0]
             self.assertEqual(behalf_text, behalf_tag.text.strip())
 
+    """ <ROLE> """
     def test_role_tag_inside_collab_tag(self):
         """
         verifica que o tag <role> dentro de <collab> seja correto no html.
@@ -1891,7 +1892,6 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            # print etree.tostring(html_output, method="html", pretty_print=True)
             role_tags = html_output.xpath('//span[@class="role"]')
             self.assertEqual(1, len(role_tags))
             role_tag = role_tags[0]
@@ -1899,7 +1899,7 @@ class GeneratedTagsTests(unittest.TestCase):
 
     def test_role_tag_inside_contrib_tag(self):
         """
-        verifica que o tag <role> dentro de <collab> seja correto no html.
+        verifica que o tag <role> dentro de <contrib> seja correto no html.
         - - -
         <role> aparece em: <collab>, <contrib>, <contrib-group>, <element-citation>, <person-group>, <product>
         """
@@ -2082,6 +2082,389 @@ class GeneratedTagsTests(unittest.TestCase):
             self.assertEqual(1, len(role_tags))
             role_tag = role_tags[0]
             self.assertEqual(role_text[lang], role_tag.text.strip())
+
+    """ <NAME> <SURNAME> <GIVEN-NAMES> <PREFIX> <SUFFIX> """
+    def test_name_tag_inside_contrib_tag(self):
+        """
+        verifica que o tag <name> dentro de <contrib> seja correto no html.
+        - - -
+        <name> aparece em: <contrib>, <person-group>
+        """
+        name_data = {
+            'prefix': 'Mr',
+            'surname': 'Foo',
+            'given_names': 'Bar',
+            'suffix': 'Jr',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <contrib-group>
+                                    <contrib contrib-type="author">
+                                        <name>
+                                            <prefix>%s</prefix>
+                                            <surname>%s</surname>
+                                            <given-names>%s</given-names>
+                                            <suffix>%s</suffix>
+                                        </name>
+                                    </contrib>
+                                </contrib-group>
+                            </article-meta>
+                        </front>
+                    </article>
+                 """ % (name_data['prefix'], name_data['surname'], name_data['given_names'], name_data['suffix'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            name_tags = html_output.xpath('//div[@class="name"]')
+            self.assertEqual(1, len(name_tags))
+
+            prefix_tag = name_tags[0].find('span[@class="prefix"]')
+            surname_tag = name_tags[0].find('span[@class="surname"]')
+            given_name_tag = name_tags[0].find('span[@class="given_names"]')
+            suffix_tag = name_tags[0].find('span[@class="suffix"]')
+
+            self.assertEqual(name_data['prefix'], prefix_tag.text.strip())
+            self.assertEqual(name_data['surname'], surname_tag.text.strip())
+            self.assertEqual(name_data['given_names'], given_name_tag.text.strip())
+            self.assertEqual(name_data['suffix'], suffix_tag.text.strip())
+
+    def test_name_tag_inside_person_group_tag(self):
+        """
+        verifica que o tag <name> dentro de <contrib> seja correto no html.
+        - - -
+        <name> aparece em: <contrib>, <person-group>
+        """
+        name_data = {
+            'prefix': 'Mr',
+            'surname': 'Foo',
+            'given_names': 'Bar',
+            'suffix': 'Jr',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <person-group person-group-type="author">
+                                            <name>
+                                            <prefix>%s</prefix>
+                                            <surname>%s</surname>
+                                            <given-names>%s</given-names>
+                                            <suffix>%s</suffix>
+                                        </name>
+                                        </person-group>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </article>
+                 """ % (name_data['prefix'], name_data['surname'], name_data['given_names'], name_data['suffix'])
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            name_tags = html_output.xpath('//div[@class="name"]')
+            self.assertEqual(1, len(name_tags))
+
+            prefix_tag = name_tags[0].find('span[@class="prefix"]')
+            surname_tag = name_tags[0].find('span[@class="surname"]')
+            given_name_tag = name_tags[0].find('span[@class="given_names"]')
+            suffix_tag = name_tags[0].find('span[@class="suffix"]')
+
+            self.assertEqual(name_data['prefix'], prefix_tag.text.strip())
+            self.assertEqual(name_data['surname'], surname_tag.text.strip())
+            self.assertEqual(name_data['given_names'], given_name_tag.text.strip())
+            self.assertEqual(name_data['suffix'], suffix_tag.text.strip())
+
+    """ <AFF>, <INSTITUTION>, <ADDR-LINE>, <COUNTRY> """
+    def test_aff_tag(self):
+        """
+        verifica que o tag <aff> dentro de <article-meta> seja correto no html.
+        - - -
+        <aff> aparece em <article-meta>
+        """
+        aff_data = {
+            'label': '1',
+            'institution_orgname': 'Fundação Oswaldo Cruz',
+            'institution_orgdiv1': 'Escola Nacional de Saúde Pública Sérgio Arouca',
+            'institution_orgdiv2': 'Centro de Estudos da Saúde do Trabalhador e Ecologia Humana',
+            'addr_line_city': 'Manguinhos',
+            'addr_line_state': 'RJ',
+            'country': 'Brasil',
+            'institution_original': 'Prof. da Fundação Oswaldo Cruz; da Escola Nacional de Saúde Pública Sérgio Arouca, do Centro de Estudos da Saúde do Trabalhador e Ecologia Humana. RJ - Manguinhos / Brasil.',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <aff id="aff1">
+                                <label>{label}</label>
+                                <institution content-type="orgname">{institution_orgname}</institution>
+                                <institution content-type="orgdiv1">{institution_orgdiv1}</institution>
+                                <institution content-type="orgdiv2">{institution_orgdiv2}</institution>
+                                <addr-line>
+                                    <named-content content-type="city">{addr_line_city}</named-content>
+                                    <named-content content-type="state">{addr_line_state}</named-content>
+                                </addr-line>
+                                <country>{country}</country>
+                                <institution content-type="original">{institution_original}</institution>
+                            </aff>
+                        </article-meta>
+                    </front>
+                </article>
+                """.format(**aff_data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_affs = html_output.xpath('//li[@id="aff1"]/div')
+            self.assertEqual(1, len(found_affs))
+
+            label_tag = found_affs[0].find('label[@for="aff1"]')
+            institution_orgname_tag = found_affs[0].xpath('//span[@class="institution orgname"]')[0]
+            institution_orgdiv1_tag = found_affs[0].xpath('//span[@class="institution orgdiv1"]')[0]
+            institution_orgdiv2_tag = found_affs[0].xpath('//span[@class="institution orgdiv2"]')[0]
+            addr_line_city_tag = found_affs[0].xpath('//span[@class="addr_line city"]')[0]
+            addr_line_state_tag = found_affs[0].xpath('//span[@class="addr_line state"]')[0]
+            country_tag = found_affs[0].xpath('//span[@class="country"]')[0]
+            institution_original_tag = found_affs[0].xpath('//span[@class="institution original"]')[0]
+
+            self.assertEqual(aff_data['label'], label_tag.text.strip())
+            self.assertEqual(aff_data['institution_orgname'], institution_orgname_tag.text.strip())
+            self.assertEqual(aff_data['institution_orgdiv1'], institution_orgdiv1_tag.text.strip())
+            self.assertEqual(aff_data['institution_orgdiv2'], institution_orgdiv2_tag.text.strip())
+            self.assertEqual(aff_data['addr_line_city'], addr_line_city_tag.text.strip())
+            self.assertEqual(aff_data['addr_line_state'], addr_line_state_tag.text.strip())
+            self.assertEqual(aff_data['country'], country_tag.text.strip())
+            self.assertEqual(aff_data['institution_original'], institution_original_tag.text.strip())
+
+    """ <AUTHOR-NOTES> <FN> <CORRESP> """
+    def test_author_notes_tag_inside_article_meta(self):
+        """
+        verifica que o tag <author-notes> dentro de <article-meta> seja correto no html.
+        - - -
+        <author-notes> aparece em <article-meta>
+        """
+        author_notes_data = {
+            'corresp': 'Correspondence: - Cidade Universitária, 79070-192 Campo Grande - MS Brasil,',
+            'fn_text': 'Conflict of interest: none',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <author-notes>
+                                <corresp id="c01">{corresp}</corresp>
+                                <fn fn-type="conflict">
+                                    <p>{fn_text}</p>
+                                </fn>
+                            </author-notes>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <author-notes>
+                                <corresp id="c01">{corresp}</corresp>
+                                <fn fn-type="conflict">
+                                    <p>{fn_text}</p>
+                                </fn>
+                            </author-notes>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**author_notes_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_author_notes = html_output.xpath('//div[@class="author-notes"]')
+            self.assertEqual(1, len(found_author_notes))
+
+            found_author_note = found_author_notes[0]
+            corresp_tag = found_author_note.xpath('//div[@class="corresp"]')
+            fn_tag = found_author_note.xpath('//div[@class="author-notes-fn conflict"]/p')
+
+            self.assertEqual(author_notes_data['corresp'], corresp_tag[0].text.strip())
+            self.assertEqual(author_notes_data['fn_text'], fn_tag[0].text.strip())
+
+    """ <PUB-DATE>, <DAY>, <MONTH>, <YEAR> """
+    def test_pub_date_tag_inside_article_meta(self):
+        """
+        verifica que o tag <pub-date> dentro de <article-meta> seja correto no html.
+        - - -
+        <pub-date> aparece em <article-meta>
+        """
+        pub_date_data = {
+            'day': '17',
+            'month': '3',
+            'year': '2015',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <pub-date pub-type="epub-ppub">
+                                <day>{day}</day>
+                                <month>{month}</month>
+                                <year>{year}</year>
+                            </pub-date>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <pub-date pub-type="epub-ppub">
+                                <day>{day}</day>
+                                <month>{month}</month>
+                                <year>{year}</year>
+                            </pub-date>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**pub_date_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_pub_dates = html_output.xpath('//span[@class="pub_date"]')
+            self.assertEqual(1, len(found_pub_dates))
+
+            found_pub_date = found_pub_dates[0]
+            pub_type = found_pub_date.xpath('//span[@class="pub_date_type"]')
+            day_tag = found_pub_date.xpath('//span[@class="day"]')
+            month_tag = found_pub_date.xpath('//span[@class="month"]')
+            year_tag = found_pub_date.xpath('//span[@class="year"]')
+
+            self.assertEqual(pub_date_data['day'], day_tag[0].text.strip())
+            self.assertEqual(pub_date_data['month'], month_tag[0].text.strip())
+            self.assertEqual(pub_date_data['year'], year_tag[0].text.strip())
+
+    """ <SEASON> """
+    def test_season_tag_inside_pub_date(self):
+        """
+        verifica que o tag <season> dentro de <pub-date> seja correto no html.
+        - - -
+        <season> aparece em <pub-date>, <product>, <element-citation>
+        """
+        season_text = 'Nov-Dec'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <pub-date pub-type="epub-ppub">
+                                <season>{season}</season>
+                            </pub-date>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <pub-date pub-type="epub-ppub">
+                                <season>{season}</season>
+                            </pub-date>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(season=season_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_pub_dates = html_output.xpath('//span[@class="pub_date"]')
+            self.assertEqual(1, len(found_pub_dates))
+
+            found_pub_date = found_pub_dates[0]
+            season_tag = found_pub_date.xpath('//span[@class="season"]')
+
+            self.assertEqual(season_text, season_tag[0].text.strip())
+
+    def test_season_tag_inside_product(self):
+        """
+        verifica que o tag <season> dentro de <product> seja correto no html.
+        - - -
+        <season> aparece em <pub-date>, <product>, <element-citation>
+        """
+        season_text = 'Nov-Dec'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <season>{season}</season>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <season>{season}</season>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(season=season_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(found_products))
+
+            found_product = found_products[0]
+            season_tag = found_product.xpath('//div[@class="season"]')
+
+            self.assertEqual(season_text, season_tag[0].text.strip())
+
+    def test_season_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <season> dentro de <element-citation> seja correto no html.
+        - - -
+        <season> aparece em <pub-date>, <product>, <element-citation>
+        """
+        season_text = 'Nov-Dec'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <season>{season}</season>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <season>{season}</season>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(season=season_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(found_elements))
+
+            found_element = found_elements[0]
+            season_tag = found_element.xpath('//div[@class="season"]')
+            self.assertEqual(season_text, season_tag[0].text.strip())
 
     """ <EMAIL> """
     def test_email_tag(self):
