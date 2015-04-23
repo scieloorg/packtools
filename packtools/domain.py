@@ -463,7 +463,9 @@ class HTMLGenerator(object):
                              is_translation=etree.XSLT.strparam(
                                  str(is_translation)),
                              bibliographic_legend=etree.XSLT.strparam(
-                                 self._get_bibliographic_legend()))
+                                 self._get_bibliographic_legend()),
+                             issue_label=etree.XSLT.strparam(
+                                 self._get_issue_label()))
 
         for lang in self.languages:
             res_html = transform(lang, lang != self.language)

@@ -7,6 +7,7 @@
 
   <xsl:param name="article_lang" />
   <xsl:param name="is_translation" />
+  <xsl:param name="issue_label" />
   <xsl:output method="html" indent="yes" encoding="UTF-8" omit-xml-declaration="yes" standalone="yes" />
 
   <!-- MAIN TEMPLTE -->
@@ -71,6 +72,26 @@
             ppub: <span class="ppub"><xsl:value-of select="article/front/journal-meta/issn[@pub-type='ppub']"/></span> -
             epub: <span class="epub"><xsl:value-of select="article/front/journal-meta/issn[@pub-type='epub']"/></span>
           </span>
+          <!-- FPAGE and LPAGE -->
+          <xsl:if test="article/front/article-meta/fpage != '00' and article/front/article-meta/lpage != '00' ">
+            <span class="pages">
+              <span class="fpage"><xsl:value-of select="article/front/article-meta/fpage"/></span> -
+              <span class="lpage"><xsl:value-of select="article/front/article-meta/lpage"/></span>
+            </span>
+          </xsl:if>
+          <!-- ELOCATION-ID -->
+          <xsl:if test="article/front/article-meta/elocation-id">
+            <span class="elocation_id"><xsl:value-of select="article/front/article-meta/elocation-id"/></span>
+          </xsl:if>
+          <!-- VOLUME and ISSUE or "ahead of print" -->
+          <xsl:choose>
+            <xsl:when test="article/front/article-meta/issue = '00' and article/front/article-meta/volume = '00' ">
+              <span class="issue_label">ahead of print</span>
+            </xsl:when>
+            <xsl:otherwise>
+              <span class="issue_label"><xsl:value-of select="$issue_label"/></span>
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
 
         <h1 class="article-title">
@@ -87,7 +108,7 @@
         <div class="title-bottom">
           <span class="doi">
             DOI:
-            <xsl:apply-templates select="article/front//article-meta/article-id[@pub-id-type='doi']"/>
+            <xsl:apply-templates select="article/front/article-meta/article-id[@pub-id-type='doi']"/>
           </span>
         </div>
 
@@ -1293,11 +1314,34 @@
   </xsl:template>
 
   <xsl:template match="element-citation/season">
-    <div class="season">
-      <xsl:apply-templates/>
-    </div>
+    <span class="season"><xsl:apply-templates/></span>
   </xsl:template>
-  <xsl:template match="mixed-citation | element-citation | nlm-citation | citation ">
+  <xsl:template match="element-citation">
+    <span class="{name()} {@publication-type}">
+      <xsl:apply-templates select="*[not(issue|volume|fpage|lpage|elocation-id)]"/>
+      <!-- ISSUE and VOLUME -->
+      <xsl:if test="issue and volume">
+        <xsl:choose>
+          <xsl:when test="issue = '00' and volume = '00' ">
+            <span class="element_issue_volume">ahead of print</span>
+          </xsl:when>
+          <xsl:otherwise>
+            <span class="element_issue_volume">
+              vol.<xsl:value-of select="volume"/> n.<xsl:value-of select="issue"/>
+            </span>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+      <!-- FPAGE and LPAGE -->
+      <xsl:if test="fpage and fpage != '00' and lpage and lpage != '00' ">
+        <span class="element_pages">
+          <span class="element_fpage"><xsl:value-of select="fpage"/></span> -
+          <span class="element_lpage"><xsl:value-of select="lpage"/></span>
+        </span>
+      </xsl:if>
+    </span>
+  </xsl:template>
+  <xsl:template match="mixed-citation | nlm-citation | citation ">
     <span class="{name()} {@publication-type}"><xsl:apply-templates/></span>
   </xsl:template>
 

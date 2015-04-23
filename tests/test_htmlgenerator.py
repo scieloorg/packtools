@@ -2461,10 +2461,350 @@ class GeneratedTagsTests(unittest.TestCase):
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
             found_elements = html_output.xpath('//span[@class="element-citation journal"]')
             self.assertEqual(1, len(found_elements))
-
             found_element = found_elements[0]
-            season_tag = found_element.xpath('//div[@class="season"]')
+            season_tag = found_element.xpath('//span[@class="season"]')
             self.assertEqual(season_text, season_tag[0].text.strip())
+
+    """ <ISSUE> <VOLUME> """
+    def test_issue_and_volume_tag_inside_article_meta_tag(self):
+        """
+        verifica que o tag <issue> e <volume> dentro de <article-meta> seja correto no html.
+        - - -
+        <issue> aparece em <article-meta>, <element-citation>
+        """
+        issue_text = "5 suppl 1"
+        volume_text = "99"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <issue>{issue}</issue>
+                            <volume>{volume}</volume>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(issue=issue_text, volume=volume_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_issue_labels = html_output.xpath('//span[@class="issue_label"]')
+            self.assertEqual(1, len(found_issue_labels))
+            expected_label = 'vol.%s n.%s' % (volume_text, issue_text)
+            self.assertEqual(expected_label, found_issue_labels[0].text.strip())
+
+    def test_issue_and_volume_tag_as_ahead_of_print_inside_article_meta_tag(self):
+        """
+        verifica que o tag <issue> e <volume> (ahead of print) dentro de <article-meta> seja correto no html.
+        - - -
+        <issue>, e <volume> aparece em <article-meta>, <element-citation>
+        """
+        issue_text = "00"
+        volume_text = "00"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <issue>{issue}</issue>
+                            <volume>{volume}</volume>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(issue=issue_text, volume=volume_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_issue_labels = html_output.xpath('//span[@class="issue_label"]')
+            self.assertEqual(1, len(found_issue_labels))
+            expected_label = 'ahead of print'
+            self.assertEqual(expected_label, found_issue_labels[0].text.strip())
+
+    def test_issue_and_volume_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <issue> e <volume> dentro de  <element-citation> seja correto no html.
+        - - -
+        <issue>, e <volume> aparece em <article-meta>, <element-citation>
+        """
+        issue_text = "5 suppl 1"
+        volume_text = "99"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <issue>{issue}</issue>
+                                    <volume>{volume}</volume>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <issue>{issue}</issue>
+                                        <volume>{volume}</volume>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(issue=issue_text, volume=volume_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(found_elements))
+            element_issue_volume = found_elements[0].xpath('//span[@class="element_issue_volume"]')[0].text.strip()
+            expected_label = u'vol.%s n.%s' % (volume_text, issue_text)
+            self.assertEqual(expected_label, element_issue_volume)
+
+    def test_issue_and_volume_tag_as_ahead_of_print_inside_element_citation_tag(self):
+        """
+        verifica que o tag <issue> e <volume> (ahead of print) dentro de <element-citation> seja correto no html.
+        - - -
+        <issue>, e <volume> aparece em <article-meta>, <element-citation>
+        """
+        issue_text = "00"
+        volume_text = "00"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <issue>{issue}</issue>
+                                    <volume>{volume}</volume>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <issue>{issue}</issue>
+                                        <volume>{volume}</volume>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(issue=issue_text, volume=volume_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(found_elements))
+            element_issue_volume = found_elements[0].xpath('//span[@class="element_issue_volume"]')[0].text.strip()
+            expected_label = 'ahead of print'
+            self.assertEqual(expected_label, element_issue_volume)
+
+    """ <FPAGE> <LPAGE> """
+    def test_fpage_and_lpage_tag_inside_article_meta_tag(self):
+        """
+        verifica que o tag <fpage> e <lpage> dentro de <article-meta> seja correto no html.
+        - - -
+        <fpage> e <lpage> aparece em <article-meta>, <element-citation>
+        """
+        fpage_text = "17"
+        lpage_text = "21"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <fpage>{fpage}</fpage>
+                            <lpage>{lpage}</lpage>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(fpage=fpage_text, lpage=lpage_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_pages = html_output.xpath('//span[@class="pages"]')
+            self.assertEqual(1, len(found_pages))
+            found_fpage = found_pages[0].xpath('//span[@class="fpage"]')[0].text.strip()
+            found_lpage = found_pages[0].xpath('//span[@class="lpage"]')[0].text.strip()
+            self.assertEqual(fpage_text, found_fpage)
+            self.assertEqual(lpage_text, found_lpage)
+
+    def test_fpage_and_lpage_tag_as_ahead_of_print_inside_article_meta_tag(self):
+        """
+        verifica que o tag <fpage> e <lpage> dentro de <article-meta> seja correto no html.
+        - - -
+        <fpage> e <lpage> aparece em <article-meta>, <element-citation>
+        """
+        fpage_text = "00"
+        lpage_text = "00"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <fpage>{fpage}</fpage>
+                            <lpage>{lpage}</lpage>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(fpage=fpage_text, lpage=lpage_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_pages = html_output.xpath('//span[@class="pages"]')
+            found_fpages = html_output.xpath('//span[@class="fpage"]')
+            found_lpages = html_output.xpath('//span[@class="lpage"]')
+            self.assertEqual(0, len(found_pages))
+            self.assertEqual(0, len(found_fpages))
+            self.assertEqual(0, len(found_lpages))
+
+    def test_fpage_and_lpage_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <fpage> e <lpage> dentro de <element-citation> seja correto no html.
+        - - -
+        <fpage> e <lpage> aparece em <article-meta>, <element-citation>
+        """
+        fpage_text = "17"
+        lpage_text = "21"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <fpage>{fpage}</fpage>
+                                    <lpage>{lpage}</lpage>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <fpage>{fpage}</fpage>
+                                        <lpage>{lpage}</lpage>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(fpage=fpage_text, lpage=lpage_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(found_elements))
+            element_pages = found_elements[0].xpath('//span[@class="element_pages"]')
+            self.assertEqual(1, len(element_pages))
+            element_fpage = element_pages[0].xpath('//span[@class="element_fpage"]')[0].text.strip()
+            element_lpage = element_pages[0].xpath('//span[@class="element_lpage"]')[0].text.strip()
+            self.assertEqual(fpage_text, element_fpage)
+            self.assertEqual(lpage_text, element_lpage)
+
+    def test_fpage_and_lpage_tag_as_ahead_of_print_inside_element_citation_tag(self):
+        """
+        verifica que o tag <fpage> e <lpage> dentro de <element-citation> seja correto no html.
+        - - -
+        <fpage> e <lpage> aparece em <article-meta>, <element-citation>
+        """
+        fpage_text = "00"
+        lpage_text = "00"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <fpage>{fpage}</fpage>
+                                    <lpage>{lpage}</lpage>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <fpage>{fpage}</fpage>
+                                        <lpage>{lpage}</lpage>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(fpage=fpage_text, lpage=lpage_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            found_elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(found_elements))
+            element_pages = found_elements[0].xpath('//span[@class="element_pages"]')
+            element_fpage = html_output.xpath('//span[@class="element_fpage"]')
+            element_lpage = html_output.xpath('//span[@class="element_lpage"]')
+            self.assertEqual(0, len(element_pages))
+            self.assertEqual(0, len(element_fpage))
+            self.assertEqual(0, len(element_lpage))
+
+    """ <ELOCATION-ID> """
+    def test_elocation_id_tag_inside_article_meta_tag(self):
+        """
+        verifica que o tag <elocation-id> dentro de <article-meta> seja correto no html.
+        - - -
+        <elocation-id> aparece em <article-meta>
+        """
+        elocation_id_text = "0102961"
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <elocation-id>{elocation_id}</elocation-id>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(elocation_id=elocation_id_text)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elocation_ids = html_output.xpath('//span[@class="elocation_id"]')
+            self.assertEqual(1, len(elocation_ids))
+            elocation_id = elocation_ids[0].text.strip()
+            self.assertEqual(elocation_id_text, elocation_id)
 
     """ <EMAIL> """
     def test_email_tag(self):
