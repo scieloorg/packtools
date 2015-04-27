@@ -7,17 +7,24 @@
 
   <xsl:param name="article_lang" />
   <xsl:param name="is_translation" />
+  <xsl:param name="issue_label" />
   <xsl:output method="html" indent="yes" encoding="UTF-8" omit-xml-declaration="yes" standalone="yes" />
 
   <!-- MAIN TEMPLTE -->
   <xsl:template match="/">
-    <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;</xsl:text>
     <html lang="{ $article_lang }">
       <head>
+        <meta charset="utf-8" />
         <title>
           <xsl:value-of select="article/front/journal-meta/journal-id"/> -
-          <xsl:value-of select="article/front/article-meta/title-group/article-title"/> -
-          <xsl:value-of select="$article_id" />
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:value-of select="article/front/article-meta/title-group/trans-title-group[@xml:lang=$article_lang]/trans-title" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="article/front/article-meta/title-group/article-title"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </title>
       </head>
       <body>
@@ -44,7 +51,7 @@
             <xsl:if test="article/back/ack">
               <li><a href="#acknowledgement">Acknowledgement</a></li>
             </xsl:if>
-            <xsl:if test="article/back/ref-list">
+            <xsl:if test="article//back/ref-list">
               <li><a href="#references">References</a></li>
             </xsl:if>
             <xsl:if test="article/back/article/body//fig">
@@ -62,18 +69,38 @@
             <xsl:value-of select="$bibliographic_legend" />
           </span>
           <span class="issn">
-            ppub: <xsl:value-of select="article/front/journal-meta/issn[@pub-type='ppub']"/> -
-            epub: <xsl:value-of select="article/front/journal-meta/issn[@pub-type='epub']"/>
+            ppub: <span class="ppub"><xsl:value-of select="article/front/journal-meta/issn[@pub-type='ppub']"/></span> -
+            epub: <span class="epub"><xsl:value-of select="article/front/journal-meta/issn[@pub-type='epub']"/></span>
           </span>
+          <!-- FPAGE and LPAGE -->
+          <xsl:if test="article/front/article-meta/fpage != '00' and article/front/article-meta/lpage != '00' ">
+            <span class="pages">
+              <span class="fpage"><xsl:value-of select="article/front/article-meta/fpage"/></span> -
+              <span class="lpage"><xsl:value-of select="article/front/article-meta/lpage"/></span>
+            </span>
+          </xsl:if>
+          <!-- ELOCATION-ID -->
+          <xsl:if test="article/front/article-meta/elocation-id">
+            <span class="elocation_id"><xsl:value-of select="article/front/article-meta/elocation-id"/></span>
+          </xsl:if>
+          <!-- VOLUME and ISSUE or "ahead of print" -->
+          <xsl:choose>
+            <xsl:when test="article/front/article-meta/issue = '00' and article/front/article-meta/volume = '00' ">
+              <span class="issue_label">ahead of print</span>
+            </xsl:when>
+            <xsl:otherwise>
+              <span class="issue_label"><xsl:value-of select="$issue_label"/></span>
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
 
         <h1 class="article-title">
           <xsl:choose>
             <xsl:when test="$is_translation = 'True' ">
-              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/title-group/article-title[@xml:lang=$article_lang]"/>
+              <xsl:apply-templates select="article/front/article-meta/title-group/trans-title-group[@xml:lang=$article_lang]/trans-title"/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="article/front/article-meta/title-group/article-title"/>
+              <xsl:apply-templates select="article/front/article-meta/title-group/article-title"/>
             </xsl:otherwise>
           </xsl:choose>
         </h1>
@@ -81,9 +108,10 @@
         <div class="title-bottom">
           <span class="doi">
             DOI:
-            <xsl:apply-templates select="article/front//article-meta/article-id[@pub-id-type='doi']"/>
+            <xsl:apply-templates select="article/front/article-meta/article-id[@pub-id-type='doi']"/>
           </span>
         </div>
+
         <a id="article-categories"></a>
         <h2>Article categories:</h2>
         <div class="article-categories">
@@ -96,11 +124,13 @@
             </xsl:otherwise>
           </xsl:choose>
         </div>
+
         <a id="contrib-group"></a>
         <h2>Contrib-group:</h2>
         <ul class="contrib-group">
           <xsl:apply-templates select="article/front/article-meta/contrib-group"/>
         </ul>
+
         <a id="affiliations"></a>
         <h2>Affiliations:</h2>
         <ul class="affiliations">
@@ -129,16 +159,34 @@
         <a id="products"></a>
         <h2>Products:</h2>
         <div class="products">
-          <xsl:apply-templates select="article/front/article-meta//product"/>
+          <!-- <xsl:apply-templates select="article/front/article-meta//product"/> -->
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/article-meta/product"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/front/article-meta/product"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
 
         <a id="abstract"></a>
         <h2>Abstract:</h2>
         <div class="abstract">
           <xsl:choose>
-            <xsl:when test="$is_translation = 'True' ">
+            <!-- if: is_translation AND sub-article/front-stub/abstract/ -->
+            <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/abstract[@xml:lang=$article_lang]">
               <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/abstract[@xml:lang=$article_lang]"/>
             </xsl:when>
+            <!-- if: is_translation AND sub-article/front-stub/trans-abstract/ -->
+            <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/trans-abstract[@xml:lang=$article_lang]">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/abstract[@xml:lang=$article_lang]"/>
+            </xsl:when>
+            <!-- if: is_translation AND article/front/article-meta/trans-abstract/ -->
+            <xsl:when test="$is_translation = 'True' and article/front/article-meta/trans-abstract[@xml:lang=$article_lang]">
+              <xsl:apply-templates select="article/front/article-meta/trans-abstract[@xml:lang=$article_lang]"/>
+            </xsl:when>
+            <!-- if: article/front/article-meta/abstract/ -->
             <xsl:otherwise>
               <xsl:apply-templates select="article/front/article-meta/abstract[@xml:lang=$article_lang]"/>
             </xsl:otherwise>
@@ -157,6 +205,22 @@
             </xsl:otherwise>
           </xsl:choose>
         </ul>
+
+        <a id="dates"></a>
+        <section class="pub_dates">
+          <header>
+            <h3>Pub Dates:</h3>
+          </header>
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/pub-date"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/front/article-meta/pub-date"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </section>
+
 
         <xsl:if test="article/front/article-meta/history">
           <a id="history"></a>
@@ -185,10 +249,12 @@
           </header>
           <xsl:choose>
             <xsl:when test="$is_translation = 'True' ">
-              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sec"/>
+              <xsl:apply-templates
+                select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sec | article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/p | article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sig-block"
+                mode="scift-standard-body" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="article/body/sec"/>
+              <xsl:apply-templates select="article/body/sec | article/body/p | article/body/sig-block"  mode="scift-standard-body" />
             </xsl:otherwise>
           </xsl:choose>
         </article>
@@ -210,20 +276,26 @@
           </section>
         </xsl:if>
 
-        <xsl:if test="article/back/ref-list">
+        <xsl:if test="article//back/ref-list">
           <a id="references"></a>
           <section class="article references">
             <header>
               <h2>Referencias:</h2>
             </header>
-            <xsl:apply-templates select="article/back/ref-list"/>
+            <xsl:choose>
+              <xsl:when test="$is_translation = 'True' ">
+                <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/back/ref-list"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="article/back/ref-list"/>
+              </xsl:otherwise>
+            </xsl:choose>
           </section>
         </xsl:if>
 
         <xsl:if test="article/body//fig">
           <a id="figures"></a>
           <section class="article figures">
-            <!-- <xsl:apply-templates select="article/body//fig"/> -->
             <header>
               <h2>Figures:</h2>
             </header>
@@ -260,7 +332,14 @@
           <header>
             <h2>DEF LIST</h2>
           </header>
-          <xsl:apply-templates select="//back/def-list"/>
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/back/def-list"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/back/def-list"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </section>
 
         <section class="article app-group">
@@ -268,7 +347,14 @@
           <header>
             <h2>APP-GROUP:</h2>
           </header>
-          <xsl:apply-templates select="//back/app-group"/>
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/back/app-group"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/back/app-group"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </section>
 
         <section class="article fn-group">
@@ -294,10 +380,10 @@
             </header>
             <xsl:choose>
               <xsl:when test="$is_translation = 'True' ">
-                <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/back/fn-group"/>
+                <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/back/glossary"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:apply-templates select="//back/glossary"/>
+                <xsl:apply-templates select="article/back/glossary"/>
               </xsl:otherwise>
             </xsl:choose>
 
@@ -314,9 +400,9 @@
     <!-- XREF -->
     <xsl:template match="xref">
       <xsl:if test="@ref-type='fn'">
-        <a id="back_{@rid}"/>
+        <a id="back_{@rid}" class="xref_id" />
       </xsl:if>
-      <a href="#{@rid}">
+      <a href="#{@rid}" class="xref_href">
         <xsl:apply-templates select="*|text()"/>
       </a>
     </xsl:template>
@@ -324,12 +410,26 @@
 
     <!-- LABEL -->
     <xsl:template match="label|caption" mode="scift-label-caption-graphic">
-      <span class="{name()}"><xsl:apply-templates select="text() | *" mode="scift-label-caption-graphic"/>&#160;</span>
+      <xsl:choose>
+        <xsl:when test="name() = 'label' ">
+          <label for="{../@id}">
+            <xsl:apply-templates select="text() | *" mode="scift-label-caption-graphic"/>
+          </label>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="{name()}">
+            <xsl:apply-templates select="text() | *" mode="scift-label-caption-graphic"/>
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
+
     </xsl:template>
+    <!-- /LABEL -->
+    <!-- TITLE -->
     <xsl:template match="title" mode="scift-label-caption-graphic">
       <xsl:apply-templates select="text() | *"/>
     </xsl:template>
-    <!-- /LABEL -->
+    <!-- /TITLE -->
 
     <!-- P -->
     <xsl:template match="p">
@@ -359,6 +459,14 @@
   <!-- FRONT related tags -->
   <!-- Em <front> devem ser identificados os metadados do periódico, título, autoria, afiliação, resumo, ... -->
 
+    <!-- <ARTICLE-TITLE> and <TRANS-TITLE> -->
+    <xsl:template match="article-title | trans-title">
+      <span class="article-title">
+        <xsl:apply-templates />
+      </span>
+    </xsl:template>
+
+
     <!-- <ARTICLE-META>/<ARTICLE-ID>/DOI -->
     <xsl:template match="article/front/article-meta/article-id[@pub-id-type='doi']">
       <xsl:variable name="doi" select="." />
@@ -368,15 +476,63 @@
     </xsl:template>
 
     <!-- CONTRIB GROUP -->
-    <xsl:template match="article/front/article-meta/contrib-group/contrib">
-      <li class="contrib-type">
-          <xsl:value-of select="name/given-names"/>,
-          <xsl:value-of select="name/surname"/>
-      </li>
+    <xsl:template match="contrib-group">
+      <xsl:for-each select="contrib | collab | on-behalf-of | role">
+        <li class="contrib-type {@contrib-type}">
+          <xsl:apply-templates select="."/>
+        </li>
+      </xsl:for-each>
+    </xsl:template>
+
+    <!-- CONTRIB -->
+    <xsl:template match="contrib">
+      <xsl:apply-templates/>
+    </xsl:template>
+    <!-- NAME -->
+    <xsl:template match="name">
+      <div class="name">
+        <xsl:if test="prefix">
+          <span class="prefix"><xsl:value-of select="prefix"/></span>
+          &#160;
+        </xsl:if>
+        <xsl:if test="surname">
+          <span class="surname"><xsl:value-of select="surname"/></span>
+          ,&#160;
+        </xsl:if>
+        <xsl:if test="given-names">
+          <span class="given_names"><xsl:value-of select="given-names"/></span>
+          ,&#160;
+        </xsl:if>
+        <xsl:if test="suffix">
+          <span class="suffix"><xsl:value-of select="suffix"/></span>
+          ,&#160;
+        </xsl:if>
+      </div>
+    </xsl:template>
+
+    <!-- COLLAB -->
+    <xsl:template match="collab">
+      <div class="collab">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:template>
+
+    <!-- ON-BEHALF-OF -->
+    <xsl:template match="on-behalf-of">
+      <div class="on_behalf_of">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:template>
+
+    <!-- ROLE -->
+    <xsl:template match="role">
+      <span class="role">
+        <xsl:apply-templates/>
+      </span>
     </xsl:template>
 
     <!-- ARTICLE CATEGORIES -->
-    <xsl:template match="article/front/article-meta/article-categories">
+    <xsl:template match="article//article-categories">
       <ul class="article-categories">
         <xsl:for-each select="subj-group">
           <li class="article-categories {@subj-group-type}">
@@ -390,7 +546,7 @@
     <xsl:template match="article/front/article-meta/aff">
       <li id="{@id}" class="aff">
           <div>
-            <span class="label"><xsl:value-of select="label"/></span>
+            <label for="{@id}"><xsl:value-of select="label"/></label>
             <xsl:if test="institution[@content-type='orgname']">
               &#8226; <span class="institution orgname"><xsl:value-of select="institution[@content-type='orgname']"/></span>
             </xsl:if>
@@ -407,21 +563,23 @@
               &#8226; <span class="institution original"><xsl:value-of select="institution[@content-type='original']"/></span>
             </xsl:if>
             <xsl:if test="addr-line">
-              <xsl:if test="named-content[@content-type='city']">
-                &#8226;
-                <span class="addr-line city">
-                  <xsl-value-of select="named-content[@content-type='city']"/>
-                </span>
-              </xsl:if>
-              <xsl:if test="named-content[@content-type='state']">
-                &#8226;
-                <span class="addr-line state">
-                  <xsl-value-of select="named-content[@content-type='state']"/>
-                </span>
-              </xsl:if>
+              <div class="addr-line">
+                <xsl:if test="addr-line/named-content[@content-type='city']">
+                  &#8226;
+                  <span class="addr_line city">
+                    <xsl:value-of select="addr-line/named-content[@content-type='city']"/>
+                  </span>
+                </xsl:if>
+                <xsl:if test="addr-line/named-content[@content-type='state']">
+                  &#8226;
+                  <span class="addr_line state">
+                    <xsl:value-of select="addr-line/named-content[@content-type='state']"/>
+                  </span>
+                </xsl:if>
+              </div>
             </xsl:if>
             <xsl:if test="country">
-              &#8226; <span class="country {@country}"><xsl:value-of select="country"/></span>
+              &#8226; <span class="country"><xsl:value-of select="country"/></span>
             </xsl:if>
           </div>
       </li>
@@ -435,17 +593,47 @@
       </a>
     </xsl:template>
 
-    <xsl:template match="author-notes">
-      <div class="author-notes">
-        <xsl:for-each select="corresp">
-          <p class="corresp"><xsl:apply-templates /></p>
-        </xsl:for-each>
-        <xsl:for-each select="fn/p">
-          <p class="fn-author {../@fn-type}">
-            <xsl:apply-templates/>
-          </p>
-        </xsl:for-each>
+    <xsl:template match="corresp/label | fn/label">
+      <label for="{../@id}">
+        <xsl:value-of select="."/>
+      </label>
+    </xsl:template>
+
+    <xsl:template match="author-notes/fn">
+      <div class="author-notes-fn {@fn-type}">
+        <xsl:apply-templates/>
       </div>
+    </xsl:template>
+
+    <xsl:template match="author-notes/corresp">
+      <div class="corresp">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:template>
+
+    <xsl:template match="author-notes">
+      <xsl:for-each select="*">
+        <xsl:apply-templates select="."/>
+      </xsl:for-each>
+    </xsl:template>
+
+    <!-- PUB-DATE -->
+    <xsl:template match="pub-date">
+      <span class="pub_date">
+        <span class="pub_date_type"><xsl:value-of select="@pub-type"/></span>:
+        <xsl:if test="day">
+          <span class="day"><xsl:apply-templates select="day"/></span>
+        </xsl:if>
+        <xsl:if test="month">
+          <span class="month"><xsl:apply-templates select="month"/></span>
+        </xsl:if>
+        <xsl:if test="year">
+          <span class="year"><xsl:apply-templates select="year"/></span>
+        </xsl:if>
+        <xsl:if test="season">
+          <span class="season"><xsl:apply-templates select="season"/></span>
+        </xsl:if>
+      </span>
     </xsl:template>
 
     <!-- PERMISSIONS/LICENSE -->
@@ -464,44 +652,49 @@
     </xsl:template>
 
     <xsl:template match="product">
-      <div class="product {@article-type}">
+      <div class="product {@product-type}">
         <xsl:if test="source">
           <div class="source">
-            <strong>source:</strong> <xsl:value-of select="source" />
+            <xsl:value-of select="source" />
+          </div>
+        </xsl:if>
+        <xsl:if test="season">
+          <div class="season">
+            <xsl:value-of select="season" />
           </div>
         </xsl:if>
         <xsl:if test="year">
           <div class="year">
-            <strong>year:</strong> <xsl:value-of select="year" />
+            <xsl:value-of select="year" />
           </div>
         </xsl:if>
         <xsl:if test="publisher-name">
           <div class="publisher-name">
-            <strong>publisher-name:</strong> <xsl:value-of select="publisher-name" />
+            <xsl:value-of select="publisher-name" />
           </div>
         </xsl:if>
         <xsl:if test="publisher-loc">
           <div class="publisher-loc">
-            <strong>publisher-loc:</strong> <xsl:value-of select="publisher-loc" />
+            <xsl:value-of select="publisher-loc" />
           </div>
         </xsl:if>
         <xsl:if test="size">
           <div class="size">
-            <strong>size:</strong> <xsl:value-of select="size" />
+            <xsl:value-of select="size" />
           </div>
         </xsl:if>
         <xsl:if test="isbn">
           <div class="isbn">
-            <strong>isbn:</strong> <xsl:value-of select="isbn" />
+            <xsl:value-of select="isbn" />
           </div>
         </xsl:if>
         <xsl:if test="edition">
           <div class="edition">
-            <strong>edition:</strong> <xsl:value-of select="edition" />
+            <xsl:value-of select="edition" />
           </div>
         </xsl:if>
         <!-- person-groups and other tags like: inline-graphics -->
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="*[not(source|season|year|publisher-name|publisher-loc|size|isbn|edition)]"/>
       </div>
     </xsl:template>
 
@@ -546,32 +739,49 @@
   <!-- O body compreende o conteúdo e desenvolvimento do artigo. -->
 
     <!-- TEXT -->
-    <xsl:template match="article//body/sec ">
+    <xsl:template match="article//body//p" mode="scift-standard-body">
+      <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="article//body/sec" mode="scift-standard-body">
       <a id="{@sec-type}"></a>
       <section>
         <header>
           <h4><xsl:value-of select="title"/></h4>
         </header>
-        <xsl:for-each select="p">
+        <xsl:for-each select="p | disp-formula | supplementary-material">
           <xsl:choose>
             <xsl:when test="./table-wrap">
               <xsl:apply-templates select="./table-wrap"/>
             </xsl:when>
             <xsl:when test="./fig">
             </xsl:when>
+            <xsl:when test="name() = 'disp-formula'">
+              <div class="disp-formula">
+                <xsl:apply-templates />
+              </div>
+            </xsl:when>
+            <xsl:when test="./supplementary-material">
+              <div class="supplementary-material">
+                <xsl:apply-templates />
+              </div>
+            </xsl:when>
+            <xsl:when test="name() = 'supplementary-material'">
+              <div class="supplementary-material">
+                <xsl:apply-templates />
+              </div>
+            </xsl:when>
             <xsl:otherwise>
               <xsl:apply-templates select="."/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:for-each>
-
       </section>
     </xsl:template>
 
-
     <!-- SEC/TITLE -->
     <xsl:template match="sec[@sec-type]/title">
-      <p class="sec">
+      <p class="sec {@sec-type}">
         <xsl:apply-templates/>
       </p>
     </xsl:template>
@@ -584,10 +794,10 @@
     </xsl:template>
 
     <!-- DISP-FORMULA -->
-    <xsl:template match="disp-formula">
-      <div class="disp-formula">
-        <xsl:apply-templates />
-      </div>
+    <xsl:template match="disp-formula/label">
+      <label for="{../@id}">
+        <xsl:apply-templates/>
+      </label>
     </xsl:template>
 
     <xsl:template match="inline-graphic | disp-formula/graphic">
@@ -649,7 +859,7 @@
       </xsl:attribute>
     </xsl:template>
 
-    <xsl:template match="table//*">
+    <xsl:template match="table//*[not(name()='xref')]">
       <xsl:element name="{name()}">
         <xsl:apply-templates select="@* | * | text()"/>
       </xsl:element>
@@ -685,11 +895,17 @@
       </figure>
     </xsl:template>
 
-    <!-- FIG/LABEL or TABLE-WRAP/LABEL or FIG/CAPTION or TABLE-WRAP/CAPTION -->
-    <xsl:template match="fig/label | table-wrap/label | fig/caption | table-wrap/caption">
+    <!-- FIG/CAPTION or TABLE-WRAP/CAPTION -->
+    <xsl:template match="fig/caption | table-wrap/caption">
       <span class="{name()}">
         <xsl:apply-templates select="* | text()"/>
       </span>
+    </xsl:template>
+    <!-- FIG/LABEL or TABLE-WRAP/LABEL -->
+    <xsl:template match="fig/label | table-wrap/label">
+      <label for="{../@id}">
+        <xsl:apply-templates select=". | text()"/>
+      </label>
     </xsl:template>
     <xsl:template match="table-wrap/table-wrap-foot">
       <footer class="{name()}">
@@ -716,14 +932,24 @@
     </xsl:template>
 
     <!-- SUPPLEMENTARY-MATERIAL -->
+    <xsl:template match="supplementary-material/caption">
+      <caption class="supplementary-material-caption-for-{../@id}">
+        <xsl:apply-templates />
+      </caption>
+    </xsl:template>
+
+    <xsl:template match="supplementary-material/label">
+      <label for="{../@id}">
+        <xsl:apply-templates />
+      </label>
+    </xsl:template>
+
     <xsl:template match="supplementary-material">
       <xsl:choose>
         <xsl:when test="not(*) and normalize-space(text())=''">
           <xsl:variable name="src">/????/<xsl:value-of select="@xlink:href"/></xsl:variable>
           <a target="_blank">
-            <xsl:attribute name="href">
-              <xsl:value-of select="$src"/>
-            </xsl:attribute>
+            <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
             <xsl:value-of select="@xlink:href"/>
           </a>
         </xsl:when>
@@ -758,7 +984,7 @@
 
     <!-- DISP-QUOTE -->
     <xsl:template match="disp-quote">
-      <blockquote>
+      <blockquote class="disp-quote">
         <xsl:apply-templates select="*|text()"/>
       </blockquote>
     </xsl:template>
@@ -771,46 +997,60 @@
     </xsl:template>
 
     <!-- LIST -->
+    <xsl:template match="list-item" mode="scift-standard-list-item">
+      <div class="list-item-content">
+        <xsl:if test="label">
+          <label for="{@id}">
+            <xsl:apply-templates select="./label"/>
+          </label>
+        </xsl:if>
+        <xsl:apply-templates select="*[not(name()='label')]"/>
+        <xsl:apply-templates select="list"/>
+      </div>
+    </xsl:template>
+
     <xsl:template match="list">
-      <xsl:value-of select="title"/>
+      <xsl:if test="title">
+        <span class="list-title"><xsl:value-of select="title"/></span>
+      </xsl:if>
+      <xsl:if test="label">
+        <label for="{@id}">
+          <xsl:apply-templates select="label"/>
+        </label>
+      </xsl:if>
       <xsl:variable name="type" select="@list-type" />
       <ul class="{$type}">
         <xsl:for-each select="list-item">
           <xsl:choose>
             <xsl:when test="$type = 'order'">
-              <li>
-                <xsl:number level="multiple"/>. <xsl:value-of select="."/>
-                <xsl:apply-templates select="list"/>
+              <li class="list-item">
+                <xsl:number level="multiple"/>.
+                <xsl:apply-templates select="." mode="scift-standard-list-item"/>
               </li>
             </xsl:when>
             <xsl:when test="$type = 'bullet'">
               <li>
-                &#8226; <xsl:value-of select="."/>
-                <xsl:apply-templates select="list"/>
+                &#8226; <xsl:apply-templates select="." mode="scift-standard-list-item"/>
               </li>
             </xsl:when>
             <xsl:when test="$type = 'alpha-lower'">
               <li>
-                <xsl:number level="multiple" format="a. "/> <xsl:value-of select="."/>
-                <xsl:apply-templates select="list"/>
+                <xsl:number level="multiple" format="a. "/> <xsl:apply-templates select="." mode="scift-standard-list-item"/>
               </li>
             </xsl:when>
             <xsl:when test="$type = 'roman-lower'">
               <li>
-                <xsl:number level="multiple" format="i. "/> <xsl:value-of select="."/>
-                <xsl:apply-templates select="list"/>
+                <xsl:number level="multiple" format="i. "/> <xsl:apply-templates select="." mode="scift-standard-list-item"/>
               </li>
             </xsl:when>
             <xsl:when test="$type = 'roman-upper'">
               <li>
-                <xsl:number level="multiple" format="I. "/> <xsl:value-of select="."/>
-                <xsl:apply-templates select="list"/>
+                <xsl:number level="multiple" format="I. "/> <xsl:apply-templates select="." mode="scift-standard-list-item"/>
               </li>
             </xsl:when>
             <xsl:when test="$type = 'simple'">
               <li>
-                <xsl:value-of select="."/>
-                <xsl:apply-templates select="list"/>
+                <xsl:apply-templates select="." mode="scift-standard-list-item"/>
               </li>
             </xsl:when>
           </xsl:choose>
@@ -826,6 +1066,9 @@
         <xsl:attribute name="href">
           <xsl:value-of select="$src"/>
         </xsl:attribute>
+        <xsl:if test="label">
+          <span class="media-label"><xsl:value-of select="label"/></span>
+        </xsl:if>
       </a>
 
       <embed width="100%" height="400">
@@ -849,7 +1092,7 @@
     </xsl:template>
 
     <!-- SIG-BLOCK -->
-    <xsl:template match="sig-block/sig">
+    <xsl:template match="sig-block/sig" mode="scift-standard-body">
       <div class="sig-block">
         <xsl:apply-templates select="*"/>
       </div>
@@ -870,7 +1113,7 @@
     </xsl:template>
 
     <!-- REF-LIST & REF -->
-    <xsl:template match="article/back/ref-list">
+    <xsl:template match="//back/ref-list">
       <div class="ref-list">
         <a id="ref-list"/>
         <section class="ref">
@@ -893,11 +1136,13 @@
         <xsl:choose>
           <xsl:when test="label and mixed-citation">
             <xsl:if test="substring(mixed-citation,1,string-length(label))!=label">
-              <xsl:value-of select="label"/>.&#160;
+              <label for="{@id}"><xsl:value-of select="label"/></label>
             </xsl:if>
           </xsl:when>
           <xsl:when test="label">
-            <xsl:value-of select="label"/>.&#160;
+            <label for="{@id}">
+              <label for="{@id}"><xsl:value-of select="label"/></label>
+            </label>
           </xsl:when>
         </xsl:choose>
         <xsl:choose>
@@ -967,7 +1212,7 @@
         <xsl:for-each select="app">
           <div class="app">
             <div class="app-label">
-              <xsl:apply-templates select="label"/>
+              <label for="{@id}"><xsl:apply-templates select="label"/></label>
             </div>
             <div class="app-content">
               <xsl:apply-templates select="*[not(name()='label')]"/>
@@ -981,7 +1226,7 @@
     <xsl:template match="back/def-list" name="def-list">
       <div class="def-list">
         <xsl:if test="label">
-          <h4><xsl:value-of select="label"/></h4>
+          <label for="{@id}"><xsl:apply-templates select="label"/></label>
         </xsl:if>
         <dl>
           <xsl:for-each select="def-item | def-list">
@@ -1006,6 +1251,12 @@
     <!-- GLOSSARY -->
     <xsl:template match="back/glossary">
       <div id="glossary-{@id}" class="glossary">
+        <xsl:if test="label">
+          <label for="{@id}"><xsl:apply-templates select="label"/></label>
+        </xsl:if>
+        <xsl:if test="title">
+          <span class="glossary-title-for-{@id}"><xsl:apply-templates select="title"/></span>
+        </xsl:if>
         <xsl:for-each select="def-list">
           <xsl:call-template name="def-list"/>
         </xsl:for-each>
@@ -1025,17 +1276,16 @@
   <xsl:template match="person-group">
     <span class="person-group {@person-group-type}">
       <xsl:for-each select="name">
-        <xsl:if test="position()!=1">; </xsl:if>
-        <span class="person">
-          <xsl:if test="prefix"><xsl:value-of select="prefix"/></xsl:if>
-          <xsl:if test="surname"><xsl:value-of select="surname"/>,</xsl:if>
-          <xsl:if test="given-names">&#160;<xsl:value-of select="given-names"/></xsl:if>
-          <xsl:if test="prefix">&#160;<xsl:value-of select="suffix"/></xsl:if>
+        <div class="person">
+          <xsl:apply-templates select="."/>
           <xsl:if test="../collab">
            - <xsl:value-of select="../collab"/>
           </xsl:if>
-        </span>
+        </div>
       </xsl:for-each>
+      <xsl:if test="role">
+        <xsl:apply-templates select="role"/>
+      </xsl:if>
       <xsl:if test="etal">
         <span class="et-al">et al.</span>
       </xsl:if>
@@ -1063,7 +1313,35 @@
     <xsl:attribute name="alt"></xsl:attribute>
   </xsl:template>
 
-  <xsl:template match="mixed-citation | element-citation | nlm-citation | citation ">
+  <xsl:template match="element-citation/season">
+    <span class="season"><xsl:apply-templates/></span>
+  </xsl:template>
+  <xsl:template match="element-citation">
+    <span class="{name()} {@publication-type}">
+      <xsl:apply-templates select="*[not(issue|volume|fpage|lpage|elocation-id)]"/>
+      <!-- ISSUE and VOLUME -->
+      <xsl:if test="issue and volume">
+        <xsl:choose>
+          <xsl:when test="issue = '00' and volume = '00' ">
+            <span class="element_issue_volume">ahead of print</span>
+          </xsl:when>
+          <xsl:otherwise>
+            <span class="element_issue_volume">
+              vol.<xsl:value-of select="volume"/> n.<xsl:value-of select="issue"/>
+            </span>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+      <!-- FPAGE and LPAGE -->
+      <xsl:if test="fpage and fpage != '00' and lpage and lpage != '00' ">
+        <span class="element_pages">
+          <span class="element_fpage"><xsl:value-of select="fpage"/></span> -
+          <span class="element_lpage"><xsl:value-of select="lpage"/></span>
+        </span>
+      </xsl:if>
+    </span>
+  </xsl:template>
+  <xsl:template match="mixed-citation | nlm-citation | citation ">
     <span class="{name()} {@publication-type}"><xsl:apply-templates/></span>
   </xsl:template>
 
