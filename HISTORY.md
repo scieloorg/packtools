@@ -9,6 +9,7 @@ Dev
   are non-digit.
 * Fixes a bug that mark as invalid XMLs containing use-licenses with 
   https scheme or missing trailing slashes.
+* Changes the funding-group validation algorithm. 
 
 
 0.7 (2015-03-13)
