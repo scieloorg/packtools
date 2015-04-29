@@ -71,11 +71,11 @@ class FundingGroupPipeTests(unittest.TestCase):
           </front>
           <back>
             <fn-group>
-			  <fn id="fn1" fn-type="financial-disclosure">
-			    <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
-			  </fn>
-		    </fn-group>
-	      </back>
+              <fn id="fn1" fn-type="financial-disclosure">
+                <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
+              </fn>
+	    </fn-group>
+	  </back>
         </article>
         """)
 
@@ -95,22 +95,22 @@ class FundingGroupPipeTests(unittest.TestCase):
         <article>
           <front>
             <article-meta>
-			  <funding-group>
-				<award-group>
-				  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
-			      <award-id>CSV 234/07</award-id>
-				</award-group>
-			    <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
-			  </funding-group>
+	      <funding-group>
+	        <award-group>
+		  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+		  <award-id>CSV 234/07</award-id>
+		</award-group>
+                <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
+	      </funding-group>
             </article-meta>
           </front>
           <back>
             <fn-group>
-			  <fn id="fn1">
-			    <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
-			  </fn>
-		    </fn-group>
-	      </back>
+              <fn id="fn1">
+	        <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
+	      </fn>
+            </fn-group>
+          </back>
         </article>
         """)
 
@@ -133,11 +133,11 @@ class FundingGroupPipeTests(unittest.TestCase):
           </front>
           <back>
             <fn-group>
-			  <fn id="fn1">
-			    <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
-			  </fn>
-		    </fn-group>
-	      </back>
+              <fn id="fn1">
+                <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
+              </fn>
+            </fn-group>
+          </back>
         </article>
         """)
 
@@ -156,25 +156,25 @@ class FundingGroupPipeTests(unittest.TestCase):
         <article>
           <front>
             <article-meta>
-			  <funding-group>
-				<award-group>
-				  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
-			      <award-id>234/07</award-id>
-				</award-group>
-			    <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
-			  </funding-group>
+	      <funding-group>
+                <award-group>
+                  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+		  <award-id>234/07</award-id>
+                </award-group>
+		<funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
+                </funding-group>
             </article-meta>
           </front>
           <back>
             <fn-group>
-			  <fn id="fn1" fn-type="financial-disclosure">
-			    <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
-			  </fn>
-			  <fn id="fn2" fn-type="financial-disclosure">
-			    <p>Foo Bar Office on Drugs and Crime (Process CSV 235/07).</p>
-			  </fn>
-		    </fn-group>
-	      </back>
+              <fn id="fn1" fn-type="financial-disclosure">
+                <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
+              </fn>
+	      <fn id="fn2" fn-type="financial-disclosure">
+                <p>Foo Bar Office on Drugs and Crime (Process CSV 235/07).</p>
+              </fn>
+            </fn-group>
+          </back>
         </article>
         """)
 
@@ -195,25 +195,25 @@ class FundingGroupPipeTests(unittest.TestCase):
         <article>
           <front>
             <article-meta>
-			  <funding-group>
-				<award-group>
-				  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
-			      <award-id>234/07</award-id>
-				</award-group>
-			    <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
-			  </funding-group>
+              <funding-group>
+                <award-group>
+                  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+                  <award-id>234/07</award-id>
+                </award-group>
+                <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
+              </funding-group>
             </article-meta>
           </front>
           <back>
             <fn-group>
-			  <fn id="fn1" fn-type="financial-disclosure">
-			    <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
-			  </fn>
-		    </fn-group>
+              <fn id="fn1" fn-type="financial-disclosure">
+                <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
+              </fn>
+            </fn-group>
             <ack>
               <p>... this study was supported by FooBar under the process 235/09.</p>
             </ack>
-	      </back>
+          </back>
         </article>
         """)
 
@@ -232,26 +232,26 @@ class FundingGroupPipeTests(unittest.TestCase):
         <article>
           <front>
             <article-meta>
-			  <funding-group>
-				<award-group>
-				  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
-			      <award-id>234/07</award-id>
-				</award-group>
-				<award-group>
-				  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
-			      <award-id>236/08</award-id>
-				</award-group>
-			    <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
-			  </funding-group>
+              <funding-group>
+                <award-group>
+                  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+                  <award-id>234/07</award-id>
+                </award-group>
+                <award-group>
+                  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+                  <award-id>236/08</award-id>
+                </award-group>
+                <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
+              </funding-group>
             </article-meta>
           </front>
           <back>
             <fn-group>
-			  <fn id="fn1" fn-type="financial-disclosure">
-			    <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
-			  </fn>
-		    </fn-group>
-	      </back>
+              <fn id="fn1" fn-type="financial-disclosure">
+                <p>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
+              </fn>
+            </fn-group>
+          </back>
         </article>
         """)
 
