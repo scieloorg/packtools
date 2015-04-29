@@ -262,6 +262,10 @@
     <active pattern="ext-link_attributes"/>
   </phase>
 
+  <phase id="phase.funding-group">
+    <active pattern="funding-group"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1304,5 +1308,16 @@
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="funding-group">
+    <title></title>
+
+    <rule context="article/back//fn[@fn-type='financial-disclosure']">
+      <assert test="/article/front/article-meta/funding-group/funding-statement">
+        Element 'fn': Missing element funding-statement.
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
 

@@ -4193,3 +4193,52 @@ class InBriefTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class FundingGroupTests(PhaseBasedTestCase):
+    """Tests for article/front/article-meta/funding-group elements.
+    """
+    sch_phase = 'phase.funding-group'
+
+    def test_funding_statement_when_fn_is_present(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <funding-group>
+                            <funding-statement>This study was supported by FAPEST #12345</funding-statement>
+                          </funding-group>
+                        </article-meta>
+                      </front>
+                      <back>
+                        <fn-group>
+                          <fn id="fn01" fn-type="financial-disclosure">
+                            <p>This study was supported by FAPEST #12345</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_funding_statement_when_fn_is_present(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <funding-group>
+                          </funding-group>
+                        </article-meta>
+                      </front>
+                      <back>
+                        <fn-group>
+                          <fn id="fn01" fn-type="financial-disclosure">
+                            <p>This study was supported by FAPEST #12345</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+

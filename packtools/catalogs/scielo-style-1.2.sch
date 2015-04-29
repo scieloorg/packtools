@@ -240,6 +240,10 @@
     <active pattern="inbrief_article-type"/>
   </phase>
 
+  <phase id="phase.funding-group">
+    <active pattern="funding-group"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1317,6 +1321,16 @@
     <rule context="article[@article-type != 'in-brief']/front/article-meta/related-article">
       <assert test="not(@related-article-type = 'article-reference')">
         Element 'related-article', attribute related-article-type: Invalid value 'article-reference' for article-type '<value-of select="/article/@article-type"/>'. 
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="funding-group">
+    <title></title>
+
+    <rule context="article/back//fn[@fn-type='financial-disclosure']">
+      <assert test="/article/front/article-meta/funding-group/funding-statement">
+        Element 'fn': Missing element funding-statement.
       </assert>
     </rule>
   </pattern>

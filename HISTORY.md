@@ -2,14 +2,16 @@ History
 =======
 
 
-Dev
----
+0.7.1 (2015-04-29)
+------------------
 
 * Fixes a bug that report *page-count* as invalid when fpage or lpage values 
   are non-digit.
 * Fixes a bug that mark as invalid XMLs containing use-licenses with 
   https scheme or missing trailing slashes.
 * Changes the funding-group validation algorithm. 
+* Checking for funding-statement when fn[fn-type="financial-disclosure"] is 
+  present.
 
 
 0.7 (2015-03-13)
