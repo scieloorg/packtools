@@ -261,6 +261,87 @@ class FundingGroupPipeTests(unittest.TestCase):
         self.assertEqual(len(err_list), 1)
         self.assertTrue("'funding-group'" in err_list[0].message)
 
+    def test_fn_p_with_no_content(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+            </article-meta>
+          </front>
+          <back>
+            <fn-group>
+              <fn id="fn1" fn-type="financial-disclosure">
+                <p/>
+              </fn>
+            </fn-group>
+          </back>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.funding_group((et, []))
+
+        self.assertEqual(len(err_list), 1)
+        self.assertTrue("'fn-group'" in err_list[0].message)
+
+    def test_fn_p_with_no_content_with_funding_group(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+              <funding-group>
+                <award-group>
+                  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+                  <award-id>234/07</award-id>
+                </award-group>
+              </funding-group>
+            </article-meta>
+          </front>
+          <back>
+            <fn-group>
+              <fn id="fn1" fn-type="financial-disclosure">
+                <p/>
+              </fn>
+            </fn-group>
+          </back>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.funding_group((et, []))
+
+        self.assertEqual(len(err_list), 1)
+        self.assertTrue("'funding-group'" in err_list[0].message)
+
+    def test_fn_p_and_awardid_with_no_content(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+              <funding-group>
+                <award-group>
+                  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+                  <award-id/>
+                </award-group>
+              </funding-group>
+            </article-meta>
+          </front>
+          <back>
+            <fn-group>
+              <fn id="fn1" fn-type="financial-disclosure">
+                <p/>
+              </fn>
+            </fn-group>
+          </back>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.funding_group((et, []))
+
+        self.assertEqual(len(err_list), 1)
+        self.assertTrue("'fn-group'" in err_list[0].message)
+
 
 class DoctypePipeTests(unittest.TestCase):
 

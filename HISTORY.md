@@ -1,6 +1,12 @@
 History
 =======
 
+0.7.2 (2015-04-30)
+------------------
+
+* Fixes a bug in which the occurrence of empty award-id, 
+  fn[@fn-type="financial-disclosure"] or ack could lead stylechecker to crash.
+
 
 0.7.1 (2015-04-29)
 ------------------

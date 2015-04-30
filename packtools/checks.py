@@ -56,10 +56,11 @@ def funding_group(message):
     """
     et, err_list = message
 
-    funding_groups = et.findall('front//funding-group')
+    funding_groups = et.findall('front//funding-group//award-id')
     financial_disclosures = et.findall(
             'back//fn[@fn-type="financial-disclosure"]')
-    has_funding_group = bool(funding_groups)
+    has_funding_group = bool(all([bool(elem.text)
+                                  for elem in funding_groups]))
     has_financial_disclosure = bool(financial_disclosures)
 
     if has_financial_disclosure and not has_funding_group or (
@@ -71,11 +72,14 @@ def funding_group(message):
     if has_funding_group:
         # only the main document is relevant
         award_ids = [elem.text for elem in et.findall(
-            'front//funding-group/award-group/award-id')]
+            'front//funding-group/award-group/award-id')
+            if elem.text is not None]
         fn_occs = [elem.text for elem in et.findall(
-            'back//fn[@fn-type="financial-disclosure"]/p')]
+            'back//fn[@fn-type="financial-disclosure"]/p')
+            if elem.text is not None]
         ack_occs = [elem.text for elem in et.findall(
-            'back//ack/p')]
+            'back//ack/p')
+            if elem.text is not None]
 
         def in_there(award_id, texts):
             for text in texts:
