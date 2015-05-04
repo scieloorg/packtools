@@ -1319,6 +1319,26 @@
       <xsl:if test="page-range">
         <span class="element_page_range"><xsl:value-of select="page-range"/></span>
       </xsl:if>
+      <!-- ISBN -->
+      <xsl:if test="isbn">
+        <span class="element_isbn"><xsl:value-of select="isbn"/></span>
+      </xsl:if>
+      <!-- SOURCE -->
+      <xsl:if test="source">
+        <span class="element_source"><xsl:value-of select="source"/></span>
+      </xsl:if>
+      <!-- EDITION -->
+      <xsl:if test="edition">
+        <span class="element_edition"><xsl:value-of select="edition"/></span>
+      </xsl:if>
+      <!-- PUBLISHER-NAME -->
+      <xsl:if test="publisher-name">
+        <span class="element_publisher_name"><xsl:value-of select="publisher-name"/></span>
+      </xsl:if>
+      <!-- PUBLISHER-LOC -->
+      <xsl:if test="publisher-loc">
+        <span class="element_publisher_loc"><xsl:value-of select="publisher-loc"/></span>
+      </xsl:if>
     </span>
   </xsl:template>
   <xsl:template match="mixed-citation | nlm-citation | citation ">
