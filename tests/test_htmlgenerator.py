@@ -289,9 +289,8 @@ class GeneratedTagsTests(unittest.TestCase):
                         <sec sec-type="intro">
                             <title>INTRODUÇÃO</title>
                             <p>A telessaúde tem sido aplicada em diferentes países com escopo abrangente
-                                <xref ref-type="bibr" rid="B5">
-                                    %s
-                                </xref> Entretanto, os significados de telessaúde oscilam segundo ênfases.
+                                <xref ref-type="bibr" rid="B5">%s</xref>
+                                Entretanto, os significados de telessaúde oscilam segundo ênfases.
                             </p>
                         </sec>
                     </body>
@@ -3764,6 +3763,685 @@ class GeneratedTagsTests(unittest.TestCase):
             self.assertEqual(1, len(products))
             publisher_loc = products[0].xpath('//div[@class="publisher-loc"]')[0].text.strip()
             self.assertEqual(data['%s_publisher_loc' % lang], publisher_loc)
+
+    """ <HISTORY, DATE> """
+    def test_history_and_data_tag_inside_article_meta_tag(self):
+        """
+        verifica que o tag <history> (e <date> dentro do <history>) dentro de <article-meta> seja correto no html.
+        - - -
+        <history> aparece em <article-meta>
+        <date> aparece em <history>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            # received
+            'pt_received_date_day': '15',
+            'pt_received_date_month': '03',
+            'pt_received_date_year': '2013',
+            # rev_recd
+            'pt_rev_recd_date_day': '06',
+            'pt_rev_recd_date_month': '11',
+            'pt_rev_recd_date_year': '2013',
+            # accepted
+            'pt_accepted_date_day': '12',
+            'pt_accepted_date_month': '05',
+            'pt_accepted_date_year': '2014',
+            #  -*- lang: en -*-
+            # received
+            'en_received_date_day': '15',
+            'en_received_date_month': '03',
+            'en_received_date_year': '2013',
+            # rev_recd
+            'en_rev_recd_date_day': '06',
+            'en_rev_recd_date_month': '11',
+            'en_rev_recd_date_year': '2013',
+            # accepted
+            'en_accepted_date_day': '12',
+            'en_accepted_date_month': '05',
+            'en_accepted_date_year': '2014',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <history>
+                                <date date-type="received">
+                                    <day>{pt_received_date_day}</day>
+                                    <month>{pt_received_date_month}</month>
+                                    <year>{pt_received_date_year}</year>
+                                </date>
+                                <date date-type="rev-recd">
+                                    <day>{pt_rev_recd_date_day}</day>
+                                    <month>{pt_rev_recd_date_month}</month>
+                                    <year>{pt_rev_recd_date_year}</year>
+                                </date>
+                                <date date-type="accepted">
+                                    <day>{pt_accepted_date_day}</day>
+                                    <month>{pt_accepted_date_month}</month>
+                                    <year>{pt_accepted_date_year}</year>
+                                </date>
+                            </history>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <history>
+                                <date date-type="received">
+                                    <day>{en_received_date_day}</day>
+                                    <month>{en_received_date_month}</month>
+                                    <year>{en_received_date_year}</year>
+                                </date>
+                                <date date-type="rev-recd">
+                                    <day>{en_rev_recd_date_day}</day>
+                                    <month>{en_rev_recd_date_month}</month>
+                                    <year>{en_rev_recd_date_year}</year>
+                                </date>
+                                <date date-type="accepted">
+                                    <day>{en_accepted_date_day}</day>
+                                    <month>{en_accepted_date_month}</month>
+                                    <year>{en_accepted_date_year}</year>
+                                </date>
+                            </history>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            histories = html_output.xpath('//ul[@class="history"]')
+            self.assertEqual(1, len(histories))
+
+            history = histories[0]
+            for date_type in ['received', 'rev-recd', 'accepted', ]:
+                date_type_undeline = date_type.replace('-', '_')
+                # type
+                d_type = history.xpath('//li[@class="date %s"]//span[@class="type"]' % date_type)[0].text.strip()
+                self.assertEqual(date_type, d_type)
+                # day
+                d_day = history.xpath('//li[@class="date %s"]//span[@class="day"]' % date_type)[0].text.strip()
+                self.assertEqual(data['%s_%s_date_day' % (lang, date_type_undeline)], d_day)
+                # month
+                d_month = history.xpath('//li[@class="date %s"]//span[@class="month"]' % date_type)[0].text.strip()
+                self.assertEqual(data['%s_%s_date_month' % (lang, date_type_undeline)], d_month)
+                # year
+                d_year = history.xpath('//li[@class="date %s"]//span[@class="year"]' % date_type)[0].text.strip()
+                self.assertEqual(data['%s_%s_date_year' % (lang, date_type_undeline)], d_year)
+
+    """ <PERMISSIONS, LICENSE, LICENSE-P> """
+    def test_permissions_and_license_tags_inside_article_meta_tag(self):
+        """
+        verifica que os tags <permissions> (e <license> dentro do <permissions>,  e <license-p> dentro de <license>) dentro de <article-meta> seja correto no html.
+        - - -
+        <permissions> aparece em <article-meta>
+        <license> aparece em <permissions>
+        <license-p> aparece em <license>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_license_href': 'https://creativecommons.org/licenses/by/4.0/deed.pt_BR',
+            'pt_license_p': 'Este é um artigo de acesso aberto distribuído sob os termos da Licença Creative Commons Attribution, que permite uso irrestrito, distribuição e reprodução em qualquer meio, desde que a obra original, devidamente citada.',
+            #  -*- lang: en -*-
+            'en_license_href': 'https://creativecommons.org/licenses/by/4.0/deed.en',
+            'en_license_p': 'This is an open-access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properlycited',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <permissions>
+                                <license license-type="open-access" xlink:href="{pt_license_href}">
+                                    <license-p>{pt_license_p}</license-p>
+                                </license>
+                            </permissions>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <permissions>
+                                <license license-type="open-access" xlink:href="{en_license_href}">
+                                    <license-p>{en_license_p}</license-p>
+                                </license>
+                            </permissions>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            permissions = html_output.xpath('//div[@class="permissions"]')
+            self.assertEqual(1, len(permissions))
+            license = permissions[0].xpath('//div[@class="license"]')
+            self.assertEqual(1, len(license))
+            link = license[0].xpath('a')
+            self.assertEqual(1, len(link))
+            self.assertEqual(data['%s_license_href' % lang], link[0].attrib['href'])
+            self.assertEqual(data['%s_license_p' % lang], link[0].text.strip())
+
+    """ <PERMISSIONS, COPYRIGHT-STATEMENT, COPYRIGHT-YEAR> """
+    def test_permissions_and_copyright_tags_inside_article_meta_tag(self):
+        """
+        verifica que os tags <permissions> (e <copyright-statement> e <copyright-year> dentro do <permissions>) dentro de <article-meta> seja correto no html.
+        - - -
+        <permissions> aparece em <article-meta>
+        <copyright-statement> aparece em <permissions>
+        <copyright-year> aparece em <permissions>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_statement': '(c) 2013 Elsevier Editora Ltda.',
+            'pt_year': '2013',
+            #  -*- lang: en -*-
+            'en_statement': '(c) 2013 Elsevier Editorial Ltda.',
+            'en_year': '2013',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <permissions>
+                                <copyright-statement>{pt_statement}</copyright-statement>
+                                <copyright-year>{pt_year}</copyright-year>
+                            </permissions>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <permissions>
+                                <copyright-statement>{en_statement}</copyright-statement>
+                                <copyright-year>{en_year}</copyright-year>
+                            </permissions>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            permissions = html_output.xpath('//div[@class="permissions"]')
+            self.assertEqual(1, len(permissions))
+            copyright = permissions[0].xpath('//div[@class="copyright"]')
+            self.assertEqual(1, len(copyright))
+            copyright_year = copyright[0].xpath('span[@class="copyright-year"]')
+            copyright_statement = copyright[0].xpath('span[@class="copyright-statement"]')
+            self.assertEqual(1, len(copyright_year))
+            self.assertEqual(1, len(copyright_statement))
+            self.assertEqual(data['%s_statement' % lang], copyright_statement[0].text.strip())
+            self.assertEqual(data['%s_year' % lang], copyright_year[0].text.strip())
+
+    """ <ABSTRACT> """
+    def test_abstract_tag_simple_inside_article_meta_tag(self):
+        """
+        verifica que os tags <abstract> dentro de <article-meta> seja correto no html.
+        Nos artigos publicados na SciELO normalmente apresentam-se em dois formatos:
+        - Simples: Quando apresenta de forma sucinta os principais pontos do texto sem a divisão por seções.
+        - Estruturado: Quando possui seções. Cada grupo apresentado no resumo será identificado como seção e cada seção terá seu título.
+        - - -
+        <abstract> aparece em <article-meta>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_abstract_title': 'Resumo',
+            'pt_abstract_text': 'Verificar a sensibilidade e especificidade das curvas de fluxo-volume na detecção de obstrução da via aérea central (OVAC)',
+            #  -*- lang: en -*-
+            'en_abstract_title': 'Summary:',
+            'en_abstract_text': 'Check the sensitivity and specificity of the flow-volume curves in the obstruction detection of central air (OVAC)',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <abstract xml:lang="pt">
+                                <title>{pt_abstract_title}</title>
+                                <p>{pt_abstract_text}</p>
+                            </abstract>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <abstract xml:lang="en">
+                                <title>{en_abstract_title}</title>
+                                <p>{en_abstract_text}</p>
+                            </abstract>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            abstract = html_output.xpath('//div[@class="abstract"]')
+            self.assertEqual(1, len(abstract))
+            title = abstract[0].xpath('//h4[@class="abstract-title"]')
+            text = abstract[0].xpath('//p[@class="abstract-p"]')
+
+            self.assertEqual(1, len(title))
+            self.assertEqual(1, len(text))
+
+            self.assertEqual(data['%s_abstract_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_abstract_text' % lang], text[0].text.strip())
+
+    def test_abstract_tag_strucutured_with_section_inside_article_meta_tag(self):
+        """
+        verifica que os tags <abstract> dentro de <article-meta> seja correto no html.
+        Nos artigos publicados na SciELO normalmente apresentam-se em dois formatos:
+        - Simples: Quando apresenta de forma sucinta os principais pontos do texto sem a divisão por seções.
+        - Estruturado: Quando possui seções. Cada grupo apresentado no resumo será identificado como seção e cada seção terá seu título.
+        - - -
+        <abstract> aparece em <article-meta>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_abstract_title': 'Resumo',
+            'pt_abstract_sec_title': 'Foo',
+            'pt_abstract_text': 'Verificar a sensibilidade e especificidade das curvas de fluxo-volume na detecção de obstrução da via aérea central (OVAC)',
+            #  -*- lang: en -*-
+            'en_abstract_title': 'Summary:',
+            'en_abstract_sec_title': 'Bar',
+            'en_abstract_text': 'Check the sensitivity and specificity of the flow-volume curves in the obstruction detection of central air (OVAC)',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <abstract xml:lang="pt">
+                                <title>{pt_abstract_title}</title>
+                                <sec>
+                                    <title>{pt_abstract_sec_title}</title>
+                                    <p>{pt_abstract_text}</p>
+                                </sec>
+                            </abstract>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <abstract xml:lang="en">
+                                <title>{en_abstract_title}</title>
+                                <sec>
+                                    <title>{en_abstract_sec_title}</title>
+                                    <p>{en_abstract_text}</p>
+                                </sec>
+                            </abstract>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            abstract = html_output.xpath('//div[@class="abstract"]')
+            self.assertEqual(1, len(abstract))
+            title = abstract[0].xpath('//h4[@class="abstract-title"]')
+            sec_title = abstract[0].xpath('//h5[@class="abstract-sec-title"]')
+            text = abstract[0].xpath('//p[@class="abstract-p"]')
+
+            self.assertEqual(1, len(title))
+            self.assertEqual(1, len(text))
+
+            self.assertEqual(data['%s_abstract_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_abstract_sec_title' % lang], sec_title[0].text.strip())
+            self.assertEqual(data['%s_abstract_text' % lang], text[0].text.strip())
+
+    """ <TRANS-ABSTRACT> """
+    def test_trans_abstract_tag_simple_inside_article_meta_tag(self):
+        """
+        verifica que os tags <trans-abstract> dentro de <article-meta> seja correto no html.
+        Nos artigos publicados na SciELO normalmente apresentam-se em dois formatos:
+        - Simples: Quando apresenta de forma sucinta os principais pontos do texto sem a divisão por seções.
+        - Estruturado: Quando possui seções. Cada grupo apresentado no resumo será identificado como seção e cada seção terá seu título.
+        - - -
+        <trans-abstract> aparece em <article-meta>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_abstract_title': 'Resumo',
+            'pt_abstract_text': 'Verificar a sensibilidade e especificidade das curvas de fluxo-volume na detecção de obstrução da via aérea central (OVAC)',
+            #  -*- lang: en -*-
+            'en_abstract_title': 'Summary:',
+            'en_abstract_text': 'Check the sensitivity and specificity of the flow-volume curves in the obstruction detection of central air (OVAC)',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <abstract xml:lang="pt">
+                                <title>{pt_abstract_title}</title>
+                                <p>{pt_abstract_text}</p>
+                            </abstract>
+                            <trans-abstract xml:lang="en">
+                                <title>{en_abstract_title}</title>
+                                <p>{en_abstract_text}</p>
+                            </trans-abstract>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            abstract = html_output.xpath('//div[@class="abstract"]')
+            self.assertEqual(1, len(abstract))
+            title = abstract[0].xpath('//h4[@class="abstract-title"]')
+            text = abstract[0].xpath('//p[@class="abstract-p"]')
+
+            self.assertEqual(1, len(title))
+            self.assertEqual(1, len(text))
+
+            self.assertEqual(data['%s_abstract_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_abstract_text' % lang], text[0].text.strip())
+
+    def test_trans_abstract_tag_strucutured_with_section_inside_article_meta_tag(self):
+        """
+        verifica que os tags <trans-abstract> dentro de <article-meta> seja correto no html.
+        Nos artigos publicados na SciELO normalmente apresentam-se em dois formatos:
+        - Simples: Quando apresenta de forma sucinta os principais pontos do texto sem a divisão por seções.
+        - Estruturado: Quando possui seções. Cada grupo apresentado no resumo será identificado como seção e cada seção terá seu título.
+        - - -
+        <trans-abstract> aparece em <article-meta>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_abstract_title': 'Resumo',
+            'pt_abstract_sec_title': 'Foo',
+            'pt_abstract_text': 'Verificar a sensibilidade e especificidade das curvas de fluxo-volume na detecção de obstrução da via aérea central (OVAC)',
+            #  -*- lang: en -*-
+            'en_abstract_title': 'Summary:',
+            'en_abstract_sec_title': 'Bar',
+            'en_abstract_text': 'Check the sensitivity and specificity of the flow-volume curves in the obstruction detection of central air (OVAC)',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <abstract xml:lang="pt">
+                                <title>{pt_abstract_title}</title>
+                                <sec>
+                                    <title>{pt_abstract_sec_title}</title>
+                                    <p>{pt_abstract_text}</p>
+                                </sec>
+                            </abstract>
+                            <trans-abstract xml:lang="en">
+                                <title>{en_abstract_title}</title>
+                                <sec>
+                                    <title>{en_abstract_sec_title}</title>
+                                    <p>{en_abstract_text}</p>
+                                </sec>
+                            </trans-abstract>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            abstract = html_output.xpath('//div[@class="abstract"]')
+            self.assertEqual(1, len(abstract))
+            title = abstract[0].xpath('//h4[@class="abstract-title"]')
+            sec_title = abstract[0].xpath('//h5[@class="abstract-sec-title"]')
+            text = abstract[0].xpath('//p[@class="abstract-p"]')
+
+            self.assertEqual(1, len(title))
+            self.assertEqual(1, len(text))
+
+            self.assertEqual(data['%s_abstract_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_abstract_sec_title' % lang], sec_title[0].text.strip())
+            self.assertEqual(data['%s_abstract_text' % lang], text[0].text.strip())
+
+    """ <KWD-GROUP, KWD> """
+    def test_kwd_group_tag_inside_article_meta_tag(self):
+        """
+        verifica que os tags <kwd-group> dentro de <article-meta> seja correto no html.
+        - - -
+        <kwd-group> aparece em <article-meta>
+        <kwd> aparece em <kwd-group>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_kwd_title': 'Palavras-chave',
+            'pt_kwd_text_1': 'Broncoscopia',
+            'pt_kwd_text_2': 'Curvas de fluxo-volume expiratório máximo',
+            'pt_kwd_text_3': 'sensibilidade e especificidade',
+            #  -*- lang: en -*-
+            'en_kwd_title': 'Keywords',
+            'en_kwd_text_1': 'Broncoscopy',
+            'en_kwd_text_2': 'Maximal expiratory flow-volume curves',
+            'en_kwd_text_3': 'Sensitivity and specificity',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <kwd-group xml:lang="pt">
+                                <title>{pt_kwd_title}</title>
+                                <kwd>{pt_kwd_text_1}</kwd>
+                                <kwd>{pt_kwd_text_2}</kwd>
+                                <kwd>{pt_kwd_text_3}</kwd>
+                            </kwd-group>
+                            <kwd-group xml:lang="en">
+                                <title>{en_kwd_title}</title>
+                                <kwd>{en_kwd_text_1}</kwd>
+                                <kwd>{en_kwd_text_2}</kwd>
+                                <kwd>{en_kwd_text_3}</kwd>
+                            </kwd-group>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            kwd_group = html_output.xpath('//ul[@class="kwd-group"]')
+            self.assertEqual(1, len(kwd_group))
+
+            kwd_group_item = kwd_group[0].xpath('li[@class="kwd-group-item"]')
+            self.assertEqual(1, len(kwd_group_item))
+
+            kwd_group_title = kwd_group_item[0].xpath('//h4[@class="kwd-group-title"]')
+            self.assertEqual(1, len(kwd_group_title))
+
+            kwds = kwd_group_item[0].xpath('ul[@class="kwds"]/li[@class="kwd"]')
+            self.assertEqual(3, len(kwds))
+
+            # kwd-group-title
+            self.assertEqual(data['%s_kwd_title' % lang], kwd_group_title[0].text.strip())
+            # kwds
+            self.assertEqual(data['%s_kwd_text_1' % lang], kwds[0].text.strip())
+            self.assertEqual(data['%s_kwd_text_2' % lang], kwds[1].text.strip())
+            self.assertEqual(data['%s_kwd_text_3' % lang], kwds[2].text.strip())
+
+    """ <FUNDING-GROUP>, <AWARD-GROUP>, <FUNDING-SOURCE>, <AWARD-ID>, <FUNDING-STATEMENT> """
+    def test_funding_source_tag_inside_article_meta_tag(self):
+        """
+        verifica que os tags <funding-group> dentro de <article-meta> seja correto no html.
+        verifica que os tags <award-group> dentro de <funding-group> seja correto no html.
+        verifica que os tags <funding-source> dentro de <award-group> seja correto no html.
+        verifica que os tags <award-id> dentro de <award-group> seja correto no html.
+        verifica que os tags <funding-statement> dentro de <funding-group> seja correto no html.
+        - - -
+        <funding-group> aparece em <article-meta>
+        <award-group> aparece em <funding-group>
+        <funding-source> aparece em <award-group>
+        <award-id> aparece em <award-group>
+        <funding-statement> aparece em <funding-group>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_funding_source': 'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior',
+            'pt_award_id': '04/08142-0',
+            'pt_funding_statement': 'Este estudo foi apoiado em parte por ...',
+            #  -*- lang: en -*-
+            'en_funding_source': 'Higher Education Personnel Improvement Coordination',
+            'en_award_id': '04/08142-0',
+            'en_funding_statement': 'This study was supported in part by ...',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <funding-group>
+                                <award-group>
+                                    <funding-source>{pt_funding_source}</funding-source>
+                                    <award-id>{pt_award_id}</award-id>
+                                </award-group>
+                                <funding-statement>{pt_funding_statement}</funding-statement>
+                            </funding-group>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <funding-group>
+                                <award-group>
+                                    <funding-source>{en_funding_source}</funding-source>
+                                    <award-id>{en_award_id}</award-id>
+                                </award-group>
+                                <funding-statement>{en_funding_statement}</funding-statement>
+                            </funding-group>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            funding_group = html_output.xpath('//section[@class="funding-group"]')
+            self.assertEqual(1, len(funding_group))
+            # award-group
+            award_group = funding_group[0].xpath('//li[@class="award-group"]')
+            self.assertEqual(1, len(award_group))
+            # funding-statement
+            funding_statement = award_group[0].xpath('//li[@class="funding-statement"]')
+            self.assertEqual(1, len(funding_statement))
+            # funding-source
+            funding_source = award_group[0].xpath('//span[@class="funding-source"]')
+            self.assertEqual(1, len(funding_source))
+            # award-id
+            award_id = award_group[0].xpath('//span[@class="award-id"]')
+            self.assertEqual(1, len(award_id))
+            # then:
+            self.assertEqual(data['%s_funding_source' % lang], funding_source[0].text.strip())
+            self.assertEqual(data['%s_award_id' % lang], award_id[0].text.strip())
+            self.assertEqual(data['%s_funding_statement' % lang], funding_statement[0].text.strip())
+
+    """ <COUNT>, <FIG-COUNT>, <TABLE-COUNT>, <EQUATION-COUNT>, <REF-COUNT>, <PAGE-COUNT> """
+    def test_count_tags_inside_article_meta_tag(self):
+        """
+        verifica que os tags <count> dentro de <article-meta> seja correto no html.
+        verifica que os tags <fig-count> dentro de <count> seja correto no html.
+        verifica que os tags <table-count> dentro de <count> seja correto no html.
+        verifica que os tags <equation-count> dentro de <count> seja correto no html.
+        verifica que os tags <ref-count> dentro de <count> seja correto no html.
+        verifica que os tags <page-count> dentro de <count> seja correto no html.
+        - - -
+        <count> aparece em <article-meta>
+        <fig-count> aparece em <count>
+        <table-count> aparece em <count>
+        <equation-count> aparece em <count>
+        <ref-count> aparece em <count>
+        <page-count> aparece em <count>
+        """
+
+        data = {
+            #  -*- lang: pt -*-
+            'pt_fig_count': '1',
+            'pt_table_count': '2',
+            'pt_equation_count': '3',
+            'pt_ref_count': '4',
+            'pt_page_count': '5',
+            #  -*- lang: en -*-
+            'en_fig_count': '1',
+            'en_table_count': '2',
+            'en_equation_count': '3',
+            'en_ref_count': '4',
+            'en_page_count': '5',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <counts>
+                                <fig-count count="{pt_fig_count}"/>
+                                <table-count count="{pt_table_count}"/>
+                                <equation-count count="{pt_equation_count}"/>
+                                <ref-count count="{pt_ref_count}"/>
+                                <page-count count="{pt_page_count}"/>
+                            </counts>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <counts>
+                                <fig-count count="{en_fig_count}"/>
+                                <table-count count="{en_table_count}"/>
+                                <equation-count count="{en_equation_count}"/>
+                                <ref-count count="{en_ref_count}"/>
+                                <page-count count="{en_page_count}"/>
+                            </counts>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            counts = html_output.xpath('//ul[@class="counts"]')
+            self.assertEqual(1, len(counts))
+            # fig-count
+            fig_count = counts[0].xpath('//li/span[@class="fig-count"]')
+            self.assertEqual(1, len(fig_count))
+            # table-count
+            table_count = counts[0].xpath('//li/span[@class="table-count"]')
+            self.assertEqual(1, len(table_count))
+            # equation-count
+            equation_count = counts[0].xpath('//li/span[@class="equation-count"]')
+            self.assertEqual(1, len(equation_count))
+            # ref-count
+            ref_count = counts[0].xpath('//li/span[@class="ref-count"]')
+            self.assertEqual(1, len(ref_count))
+            # page-count
+            page_count = counts[0].xpath('//li/span[@class="page-count"]')
+            self.assertEqual(1, len(page_count))
+            # # then:
+            self.assertEqual(data['%s_fig_count' % lang], fig_count[0].text.strip())
+            self.assertEqual(data['%s_table_count' % lang], table_count[0].text.strip())
+            self.assertEqual(data['%s_equation_count' % lang], equation_count[0].text.strip())
+            self.assertEqual(data['%s_ref_count' % lang], ref_count[0].text.strip())
+            self.assertEqual(data['%s_page_count' % lang], page_count[0].text.strip())
+
     """ <EMAIL> """
     def test_email_tag(self):
         """

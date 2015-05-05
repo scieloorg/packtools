@@ -131,6 +131,20 @@
           <xsl:apply-templates select="article/front/article-meta/contrib-group"/>
         </ul>
 
+        <xsl:if test="article/front/article-meta/counts | article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/counts">
+          <h2>Counts:</h2>
+          <ul class="counts">
+            <xsl:choose>
+              <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/counts">
+                <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/counts"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="article/front/article-meta/counts"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </ul>
+        </xsl:if>
+
         <a id="affiliations"></a>
         <h2>Affiliations:</h2>
         <ul class="affiliations">
@@ -152,9 +166,16 @@
 
         <a id="license"></a>
         <h2>License:</h2>
-        <span class="license">
-          <xsl:apply-templates select="article/front/article-meta/permissions/license"/>
-        </span>
+        <div class="permissions">
+          <xsl:choose>
+            <xsl:when test="$is_translation = 'True' ">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/permissions"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="article/front/article-meta/permissions"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </div>
 
         <a id="products"></a>
         <h2>Products:</h2>
@@ -180,7 +201,7 @@
             </xsl:when>
             <!-- if: is_translation AND sub-article/front-stub/trans-abstract/ -->
             <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/trans-abstract[@xml:lang=$article_lang]">
-              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/abstract[@xml:lang=$article_lang]"/>
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/trans-abstract[@xml:lang=$article_lang]"/>
             </xsl:when>
             <!-- if: is_translation AND article/front/article-meta/trans-abstract/ -->
             <xsl:when test="$is_translation = 'True' and article/front/article-meta/trans-abstract[@xml:lang=$article_lang]">
@@ -197,11 +218,11 @@
         <h3>Keywords:</h3>
         <ul class="kwd-group">
           <xsl:choose>
-            <xsl:when test="$is_translation = 'True' ">
-              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/kwd-group"/>
+            <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/kwd-group[@xml:lang=$article_lang]">
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/kwd-group[@xml:lang=$article_lang]"/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="article/front/article-meta/kwd-group"/>
+              <xsl:apply-templates select="article/front/article-meta/kwd-group[@xml:lang=$article_lang]"/>
             </xsl:otherwise>
           </xsl:choose>
         </ul>
@@ -221,23 +242,38 @@
           </xsl:choose>
         </section>
 
-
-        <xsl:if test="article/front/article-meta/history">
+        <xsl:if test="//article-meta/history | sub-article/front-stub/history">
           <a id="history"></a>
           <section class="history">
-            <h3>History:</h3>
+            <header>
+              <h3>History:</h3>
+            </header>
             <ul class="history">
-              <xsl:apply-templates select="article/front/article-meta/history"/>
+              <xsl:choose>
+                <xsl:when test="$is_translation = 'True' ">
+                  <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/history"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:apply-templates select="article/front/article-meta/history"/>
+                </xsl:otherwise>
+              </xsl:choose>
             </ul>
           </section>
         </xsl:if>
 
-        <xsl:if test="article/front/article-meta/funding-group">
+        <xsl:if test="article//funding-group">
           <a id="funding-group"></a>
           <section class="funding-group">
             <h3>Funding group:</h3>
             <ul class="funding-group-list">
-              <xsl:apply-templates select="article/front/article-meta/funding-group"/>
+              <xsl:choose>
+                <xsl:when test="$is_translation = 'True' and article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/funding-group">
+                  <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/funding-group"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:apply-templates select="article/front/article-meta/funding-group"/>
+                </xsl:otherwise>
+              </xsl:choose>
             </ul>
           </section>
         </xsl:if>
@@ -459,6 +495,30 @@
   <!-- FRONT related tags -->
   <!-- Em <front> devem ser identificados os metadados do periódico, título, autoria, afiliação, resumo, ... -->
 
+    <!-- <ABSTRACT>, <TRANS-ABSTRACT> -->
+    <xsl:template match="abstract/title|trans-abstract/title">
+      <header>
+        <h4 class="abstract-title"><xsl:apply-templates/></h4>
+      </header>
+    </xsl:template>
+    <xsl:template match="abstract/sec/title|trans-abstract/sec/title">
+      <header>
+        <h5 class="abstract-sec-title"><xsl:apply-templates/></h5>
+      </header>
+    </xsl:template>
+    <xsl:template match="abstract//p|trans-abstract//p">
+      <p class="abstract-p"><xsl:apply-templates/></p>
+    </xsl:template>
+    <xsl:template match="abstract/sec|trans-abstract/sec">
+      <section class="abstract">
+        <xsl:apply-templates/>
+      </section>
+    </xsl:template>
+
+    <xsl:template match="front-stub/abstract | article-meta/abstract | front-stub/trans-abstract | article-meta/trans-abstract">
+      <xsl:apply-templates/>
+    </xsl:template>
+
     <!-- <ARTICLE-TITLE> and <TRANS-TITLE> -->
     <xsl:template match="article-title | trans-title">
       <span class="article-title">
@@ -637,17 +697,52 @@
     </xsl:template>
 
     <!-- PERMISSIONS/LICENSE -->
-    <xsl:template match="article/front/article-meta/permissions/license">
-      <xsl:variable name="licence_href" select="@xlink:href" />
-      <a href='{$licence_href}'>
-        <xsl:value-of select="license-p"/>
-      </a>
+    <xsl:template match="//permissions/license">
+      <div class="license">
+        <xsl:variable name="licence_href" select="@xlink:href" />
+        <a href='{$licence_href}'>
+          <xsl:value-of select="license-p"/>
+        </a>
+      </div>
+    </xsl:template>
+    <!-- PERMISSIONS/COPYRIGHT-STATEMENT -->
+    <xsl:template match="//permissions/copyright-statement">
+      <span class="copyright-statement">
+        <xsl:apply-templates/>
+      </span>
+    </xsl:template>
+    <!-- PERMISSIONS/COPYRIGHT-YEAR -->
+    <xsl:template match="//permissions/copyright-year">
+      <span class="copyright-year"><xsl:apply-templates/></span>
+    </xsl:template>
+    <!-- PERMISSIONS -->
+    <xsl:template match="//permissions">
+      <xsl:if test="license">
+        <xsl:apply-templates select="license"/>
+      </xsl:if>
+      <xsl:if test="copyright-year | copyright-statement">
+        <div class="copyright">
+          <xsl:if test="copyright-year">
+            <xsl:apply-templates select="copyright-year"/>
+          </xsl:if>
+          <xsl:if test="copyright-statement">
+            <xsl:apply-templates select="copyright-statement"/>
+          </xsl:if>
+        </div>
+      </xsl:if>
     </xsl:template>
 
     <!-- KWD GROUP -->
-    <xsl:template match="article//kwd-group/kwd">
-      <li class="kwd">
-          <xsl:value-of select="."/>
+    <xsl:template match="kwd-group">
+      <li class="kwd-group-item">
+          <h4 class="kwd-group-title"><xsl:apply-templates select="title"/></h4>
+          <ul class="kwds">
+             <xsl:for-each select="kwd">
+                <li class="kwd">
+                  <xsl:apply-templates select="."/>
+                </li>
+              </xsl:for-each>
+          </ul>
       </li>
     </xsl:template>
 
@@ -672,39 +767,63 @@
     </xsl:template>
 
     <!-- HISTORY -->
-    <xsl:template match="article/front/article-meta/history">
+    <xsl:template match="//article-meta/history | //front-stub/history">
       <xsl:for-each select="date">
-        <li class="date">
-          <xsl:value-of select="@date-type"/>: <xsl:value-of select="day"/>/<xsl:value-of select="month"/>/<xsl:value-of select="year"/>
+        <li class="date {@date-type}">
+          <div>
+            <span class="type"><xsl:value-of select="@date-type"/></span>:
+            <span class="day"><xsl:value-of select="day"/></span>/
+            <span class="month"><xsl:value-of select="month"/></span>/
+            <span class="year"><xsl:value-of select="year"/></span>
+          </div>
         </li>
       </xsl:for-each>
     </xsl:template>
 
     <!-- FUNDING GROUP -->
-    <xsl:template match="article/front/article-meta/funding-group">
+    <xsl:template match="article//funding-group">
       <xsl:for-each select="award-group | funding-statement">
         <xsl:choose>
           <xsl:when test="name() ='funding-statement'">
             <li class="funding-statement">
-              <div class="award">
-                <xsl:value-of select="."/>
-              </div>
+              <xsl:apply-templates select="."/>
             </li>
           </xsl:when>
           <xsl:otherwise>
             <li class="award-group">
               <div class="award">
                 <span class="funding-source">
-                  <xsl:value-of select="funding-source"/>
+                  <xsl:apply-templates select="funding-source"/>
                 </span>
                 <span class="award-id">
-                  <xsl:value-of select="award-id"/>
+                  <xsl:apply-templates select="award-id"/>
                 </span>
               </div>
             </li>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template match="fig-count | table-count | equation-count | ref-count | page-count">
+      <xsl:value-of select="@count"/>
+    </xsl:template>
+    <xsl:template match="article-meta/counts | front-stub/counts">
+      <xsl:if test="fig-count">
+        <li>Fig count: <span class="fig-count"><xsl:apply-templates select="fig-count"/></span></li>
+      </xsl:if>
+      <xsl:if test="table-count">
+        <li>Table count: <span class="table-count"><xsl:apply-templates select="table-count"/></span></li>
+      </xsl:if>
+      <xsl:if test="equation-count">
+        <li>Equation count: <span class="equation-count"><xsl:apply-templates select="equation-count"/></span></li>
+      </xsl:if>
+      <xsl:if test="ref-count">
+        <li>Ref count: <span class="ref-count"><xsl:apply-templates select="ref-count"/></span></li>
+      </xsl:if>
+      <xsl:if test="page-count">
+        <li>Page count: <span class="page-count"><xsl:apply-templates select="page-count"/></span></li>
+      </xsl:if>
     </xsl:template>
 
   <!-- /FRONT related tags -->
