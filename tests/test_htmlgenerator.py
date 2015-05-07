@@ -2078,7 +2078,7 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            role_tags = html_output.xpath('//span[@class="role"]')
+            role_tags = html_output.xpath('//div[@class="role"]')
             self.assertEqual(1, len(role_tags))
             role_tag = role_tags[0]
             self.assertEqual(role_text[lang], role_tag.text.strip())
@@ -2806,6 +2806,964 @@ class GeneratedTagsTests(unittest.TestCase):
             elocation_id = elocation_ids[0].text.strip()
             self.assertEqual(elocation_id_text, elocation_id)
 
+    """ <PRODUCT> """
+    def test_product_tag_inside_article_meta_tag(self):
+        """
+        verifica que o tag <product> dentro de <article-meta> seja correto no html.
+        - - -
+        <product> aparece em <article-meta>
+        """
+        product_data = {
+            # lang: pt
+            'pt_product_surname': 'PT product surname',
+            'pt_product_given_names': 'PT product given_names',
+            'pt_product_source': 'PT product source',
+            'pt_product_year': 'PT product year',
+            'pt_product_publisher_name': 'PT product publisher_name',
+            'pt_product_publisher_loc': 'PT product publisher_loc',
+            'pt_product_size': 'PT product size',
+            'pt_product_isbn': 'PT product isbn',
+            'pt_product_inline_graphic': 'PT product inline_graphic',
+            # lang: en
+            'en_product_surname': 'EN product surname',
+            'en_product_given_names': 'EN product given_names',
+            'en_product_source': 'EN product source',
+            'en_product_year': 'EN product year',
+            'en_product_publisher_name': 'EN product publisher_name',
+            'en_product_publisher_loc': 'EN product publisher_loc',
+            'en_product_size': 'EN product size',
+            'en_product_isbn': 'EN product isbn',
+            'en_product_inline_graphic': 'EN product inline_graphic',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <person-group person-group-type="author">
+                                    <name>
+                                        <surname>{pt_product_surname}</surname>
+                                        <given-names>{pt_product_given_names}</given-names>
+                                    </name>
+                                </person-group>
+                                <source>{pt_product_source}</source>
+                                <year>{pt_product_year}</year>
+                                <publisher-name>{pt_product_publisher_name}</publisher-name>
+                                <publisher-loc>{pt_product_publisher_loc}</publisher-loc>
+                                <size units="pages">{pt_product_size}</size>
+                                <isbn>{pt_product_isbn}</isbn>
+                                <inline-graphic>{pt_product_inline_graphic}</inline-graphic>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <person-group person-group-type="author">
+                                        <name>
+                                            <surname>{en_product_surname}</surname>
+                                            <given-names>{en_product_given_names}</given-names>
+                                        </name>
+                                    </person-group>
+                                    <source>{en_product_source}</source>
+                                    <year>{en_product_year}</year>
+                                    <publisher-name>{en_product_publisher_name}</publisher-name>
+                                    <publisher-loc>{en_product_publisher_loc}</publisher-loc>
+                                    <size units="pages">{en_product_size}</size>
+                                    <isbn>{en_product_isbn}</isbn>
+                                    <inline-graphic>{en_product_inline_graphic}</inline-graphic>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**product_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            product_surname = products[0].xpath('//span[@class="surname"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_surname' % lang], product_surname)
+            product_given_names = products[0].xpath('//span[@class="given_names"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_given_names' % lang], product_given_names)
+            product_source = products[0].xpath('//div[@class="source"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_source' % lang], product_source)
+            product_year = products[0].xpath('//div[@class="year"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_year' % lang], product_year)
+            product_publisher_name = products[0].xpath('//div[@class="publisher-name"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_publisher_name' % lang], product_publisher_name)
+            product_publisher_loc = products[0].xpath('//div[@class="publisher-loc"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_publisher_loc' % lang], product_publisher_loc)
+            product_size = products[0].xpath('//div[@class="size"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_size' % lang], product_size)
+            product_isbn = products[0].xpath('//div[@class="isbn"]')[0].text.strip()
+            self.assertEqual(product_data['%s_product_isbn' % lang], product_isbn)
+
+    """ <PERSON-GROUP> """
+    def test_person_group_tag_inside_product_tag(self):
+        """
+        verifica que o tag <person-group> dentro de <product> seja correto no html.
+        - - -
+        <person-group> aparece em <product>, <element-citation>
+        """
+        person_data = {
+            # lang: pt
+            'pt_product_surname': 'PT product surname',
+            'pt_product_given_names': 'PT product given_names',
+            # lang: en
+            'en_product_surname': 'EN product surname',
+            'en_product_given_names': 'EN product given_names',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <person-group person-group-type="author">
+                                    <name>
+                                        <surname>{pt_product_surname}</surname>
+                                        <given-names>{pt_product_given_names}</given-names>
+                                    </name>
+                                </person-group>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <person-group person-group-type="author">
+                                        <name>
+                                            <surname>{en_product_surname}</surname>
+                                            <given-names>{en_product_given_names}</given-names>
+                                        </name>
+                                    </person-group>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**person_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            product_surname = products[0].xpath('//span[@class="surname"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_surname' % lang], product_surname)
+            product_given_names = products[0].xpath('//span[@class="given_names"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_given_names' % lang], product_given_names)
+
+    def test_person_group_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <person-group> dentro de <element-citation> seja correto no html.
+        - - -
+        <person-group> aparece em <product>, <element-citation>
+        """
+        person_data = {
+            # lang: pt
+            'pt_product_surname': 'PT product surname',
+            'pt_product_given_names': 'PT product given_names',
+            # lang: en
+            'en_product_surname': 'EN product surname',
+            'en_product_given_names': 'EN product given_names',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <person-group person-group-type="author">
+                                        <name>
+                                            <surname>{pt_product_surname}</surname>
+                                            <given-names>{pt_product_given_names}</given-names>
+                                        </name>
+                                    </person-group>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <person-group person-group-type="author">
+                                            <name>
+                                                <surname>{en_product_surname}</surname>
+                                                <given-names>{en_product_given_names}</given-names>
+                                            </name>
+                                        </person-group>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**person_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            product_surname = elements[0].xpath('//span[@class="surname"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_surname' % lang], product_surname)
+            product_given_names = elements[0].xpath('//span[@class="given_names"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_given_names' % lang], product_given_names)
+
+    """ <ETAL> """
+    def test_etal_tag_inside_person_group_tag(self):
+        """
+        verifica que o tag <etal> dentro de <person-group> seja correto no html.
+        - - -
+        <etal> aparece em <person-group> <product>
+        """
+        person_data = {
+            # lang: pt
+            'pt_product_surname': 'PT product surname',
+            'pt_product_given_names': 'PT product given_names',
+            # lang: en
+            'en_product_surname': 'EN product surname',
+            'en_product_given_names': 'EN product given_names',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <person-group person-group-type="author">
+                                        <name>
+                                            <surname>{pt_product_surname}</surname>
+                                            <given-names>{pt_product_given_names}</given-names>
+                                        </name>
+                                        <etal/>
+                                    </person-group>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <person-group person-group-type="author">
+                                            <name>
+                                                <surname>{en_product_surname}</surname>
+                                                <given-names>{en_product_given_names}</given-names>
+                                            </name>
+                                            <etal/>
+                                        </person-group>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**person_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            product_surname = elements[0].xpath('//span[@class="surname"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_surname' % lang], product_surname)
+            product_given_names = elements[0].xpath('//span[@class="given_names"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_given_names' % lang], product_given_names)
+            etal = elements[0].xpath('//span[@class="et-al"]')[0].text.strip()
+            self.assertEqual('et al.', etal)
+
+    def test_etal_tag_inside_product_tag(self):
+        """
+        verifica que o tag <etal> dentro de <person-group> seja correto no html.
+        - - -
+        <etal> aparece em <person-group> <product>
+        """
+
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <etal/>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <etal/>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            etal = products[0].xpath('//span[@class="et-al"]')[0].text.strip()
+            self.assertEqual('et al.', etal)
+
+    """ <SIZE> """
+    def test_size_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <size> dentro de <element-citation> seja correto no html.
+        - - -
+        <size> aparece em <product>, <element-citation>
+        """
+        person_data = {
+            # lang: pt
+            'pt_product_surname': 'PT product surname',
+            'pt_product_given_names': 'PT product given_names',
+            'pt_size': 'PT product size',
+            # lang: en
+            'en_product_surname': 'EN product surname',
+            'en_product_given_names': 'EN product given_names',
+            'en_size': 'EN product size',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <person-group person-group-type="author">
+                                        <name>
+                                            <surname>{pt_product_surname}</surname>
+                                            <given-names>{pt_product_given_names}</given-names>
+                                        </name>
+                                    </person-group>
+                                    <size units="pages">{pt_size}</size>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <person-group person-group-type="author">
+                                            <name>
+                                                <surname>{en_product_surname}</surname>
+                                                <given-names>{en_product_given_names}</given-names>
+                                            </name>
+                                        </person-group>
+                                        <size units="pages">{en_size}</size>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**person_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            product_surname = elements[0].xpath('//span[@class="surname"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_surname' % lang], product_surname)
+            product_given_names = elements[0].xpath('//span[@class="given_names"]')[0].text.strip()
+            self.assertEqual(person_data['%s_product_given_names' % lang], product_given_names)
+            size = elements[0].xpath('//span[@class="size"]')[0].text.strip()
+            self.assertEqual(person_data['%s_size' % lang], size)
+
+    def test_size_tag_inside_product_tag(self):
+        """
+        verifica que o tag <size> dentro de <product> seja correto no html.
+        - - -
+        <size> aparece em <product>, <element-citation>
+        """
+        size_data = {
+            # lang: pt
+            'pt_size': 'PT product size',
+            # lang: en
+            'en_size': 'EN product size',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <size units="pages">{pt_size}</size>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <size units="pages">{en_size}</size>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**size_data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            size = products[0].xpath('//div[@class="size"]')[0].text.strip()
+            self.assertEqual(size_data['%s_size' % lang], size)
+
+    """ <PAGE-RANGE> """
+    def test_page_range_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <page-range> dentro de <element-citation> seja correto no html.
+        - - -
+        <page-range> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_page_range': '300-301, 305, 407-420',
+            # lang: en
+            'en_page_range': '300-301, 305, 407-420',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <page-range>{pt_page_range}</page-range>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <page-range>{en_page_range}</page-range>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            page_range = elements[0].xpath('//span[@class="element_page_range"]')[0].text.strip()
+            self.assertEqual(data['%s_page_range' % lang], page_range)
+
+    def test_page_range_tag_inside_product_tag(self):
+        """
+        verifica que o tag <page-range> dentro de <product> seja correto no html.
+        - - -
+        <page-range> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_page_range': '300-301, 305, 407-420',
+            # lang: en
+            'en_page_range': '300-301, 305, 407-420',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <page-range>{pt_page_range}</page-range>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <page-range>{en_page_range}</page-range>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            page_range = products[0].xpath('//span[@class="product_page_range"]')[0].text.strip()
+            self.assertEqual(data['%s_page_range' % lang], page_range)
+
+    """ <ISBN> """
+    def test_isbn_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <isbn> dentro de <element-citation> seja correto no html.
+        - - -
+        <isbn> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_isbn': '978-3-16-148410-0',
+            # lang: en
+            'en_isbn': '123-4-56-789012-3',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <isbn>{pt_isbn}</isbn>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <isbn>{en_isbn}</isbn>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            isbn = elements[0].xpath('//span[@class="element_isbn"]')[0].text.strip()
+            self.assertEqual(data['%s_isbn' % lang], isbn)
+
+    def test_isbn_tag_inside_product_tag(self):
+        """
+        verifica que o tag <isbn> dentro de <product> seja correto no html.
+        - - -
+        <isbn> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_isbn': '978-3-16-148410-0',
+            # lang: en
+            'en_isbn': '123-4-56-789012-3',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <isbn>{pt_isbn}</isbn>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <isbn>{en_isbn}</isbn>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            isbn = products[0].xpath('//div[@class="isbn"]')[0].text.strip()
+            self.assertEqual(data['%s_isbn' % lang], isbn)
+
+    """ <SOURCE> """
+    def test_source_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <source> dentro de <element-citation> seja correto no html.
+        - - -
+        <source> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_source': 'A comunidade filosófica, evidenciado por uma faculdade populares',
+            # lang: en
+            'en_source': 'The philosophical community, evidenced by a popular college',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <source>{pt_source}</source>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <source>{en_source}</source>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            source = elements[0].xpath('//span[@class="element_source"]')[0].text.strip()
+            self.assertEqual(data['%s_source' % lang], source)
+
+    def test_source_tag_inside_product_tag(self):
+        """
+        verifica que o tag <source> dentro de <product> seja correto no html.
+        - - -
+        <source> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_source': '978-3-16-148410-0',
+            # lang: en
+            'en_source': '123-4-56-789012-3',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <source>{pt_source}</source>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <source>{en_source}</source>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            source = products[0].xpath('//div[@class="source"]')[0].text.strip()
+            self.assertEqual(data['%s_source' % lang], source)
+
+    """ <EDITION> """
+    def test_edition_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <edition> dentro de <element-citation> seja correto no html.
+        - - -
+        <edition> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_edition': 'A comunidade filosófica, evidenciado por uma faculdade populares',
+            # lang: en
+            'en_edition': 'The philosophical community, evidenced by a popular college',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <edition>{pt_edition}</edition>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <edition>{en_edition}</edition>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            edition = elements[0].xpath('//span[@class="element_edition"]')[0].text.strip()
+            self.assertEqual(data['%s_edition' % lang], edition)
+
+    def test_edition_tag_inside_product_tag(self):
+        """
+        verifica que o tag <edition> dentro de <product> seja correto no html.
+        - - -
+        <edition> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_edition': '978-3-16-148410-0',
+            # lang: en
+            'en_edition': '123-4-56-789012-3',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <edition>{pt_edition}</edition>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <edition>{en_edition}</edition>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            edition = products[0].xpath('//div[@class="edition"]')[0].text.strip()
+            self.assertEqual(data['%s_edition' % lang], edition)
+
+    """ <PUBLISHER-NAME> """
+    def test_publisher_name_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <publisher-name> dentro de <element-citation> seja correto no html.
+        - - -
+        <publisher-name> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_publisher_name': 'Jornal British Medical',
+            # lang: en
+            'en_publisher_name': 'British Medical Journal',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <publisher-name>{pt_publisher_name}</publisher-name>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <publisher-name>{en_publisher_name}</publisher-name>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            publisher_name = elements[0].xpath('//span[@class="element_publisher_name"]')[0].text.strip()
+            self.assertEqual(data['%s_publisher_name' % lang], publisher_name)
+
+    def test_publisher_name_tag_inside_product_tag(self):
+        """
+        verifica que o tag <publisher-name> dentro de <product> seja correto no html.
+        - - -
+        <publisher-name> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_publisher_name': 'Jornal British Medical',
+            # lang: en
+            'en_publisher_name': 'British Medical Journal',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <publisher-name>{pt_publisher_name}</publisher-name>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <publisher-name>{en_publisher_name}</publisher-name>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            publisher_name = products[0].xpath('//div[@class="publisher-name"]')[0].text.strip()
+            self.assertEqual(data['%s_publisher_name' % lang], publisher_name)
+
+    """ <PUBLISHER-LOC> """
+    def test_publisher_loc_tag_inside_element_citation_tag(self):
+        """
+        verifica que o tag <publisher-loc> dentro de <element-citation> seja correto no html.
+        - - -
+        <publisher-loc> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_publisher_loc': 'Jornal British Medical',
+            # lang: en
+            'en_publisher_loc': 'British Medical Journal',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <ref-list>
+                            <ref id="B3">
+                                <element-citation publication-type="journal">
+                                    <publisher-loc>{pt_publisher_loc}</publisher-loc>
+                                </element-citation>
+                            </ref>
+                        </ref-list>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <ref-list>
+                                <ref id="B3">
+                                    <element-citation publication-type="journal">
+                                        <publisher-loc>{en_publisher_loc}</publisher-loc>
+                                    </element-citation>
+                                </ref>
+                            </ref-list>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            elements = html_output.xpath('//span[@class="element-citation journal"]')
+            self.assertEqual(1, len(elements))
+            publisher_loc = elements[0].xpath('//span[@class="element_publisher_loc"]')[0].text.strip()
+            self.assertEqual(data['%s_publisher_loc' % lang], publisher_loc)
+
+    def test_publisher_loc_tag_inside_product_tag(self):
+        """
+        verifica que o tag <publisher-loc> dentro de <product> seja correto no html.
+        - - -
+        <publisher-loc> aparece em <product>, <element-citation>
+        """
+        data = {
+            # lang: pt
+            'pt_publisher_loc': 'Jornal British Medical',
+            # lang: en
+            'en_publisher_loc': 'British Medical Journal',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <front>
+                        <article-meta>
+                            <product product-type="book">
+                                <publisher-loc>{pt_publisher_loc}</publisher-loc>
+                            </product>
+                        </article-meta>
+                    </front>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <front-stub>
+                            <article-meta>
+                                <product product-type="book">
+                                    <publisher-loc>{en_publisher_loc}</publisher-loc>
+                                </product>
+                            </article-meta>
+                        </front-stub>
+                    </sub-article>
+                </article>
+                """.format(**data)
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product book"]')
+            self.assertEqual(1, len(products))
+            publisher_loc = products[0].xpath('//div[@class="publisher-loc"]')[0].text.strip()
+            self.assertEqual(data['%s_publisher_loc' % lang], publisher_loc)
     """ <EMAIL> """
     def test_email_tag(self):
         """

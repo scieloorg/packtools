@@ -651,50 +651,23 @@
       </li>
     </xsl:template>
 
+    <!-- PRODUCT -->
+    <xsl:template match="product/etal">
+      <span class="et-al">et al.</span>
+    </xsl:template>
+    <xsl:template match="product/page-range">
+      <span class="product_page_range"><xsl:value-of select="."/></span>
+    </xsl:template>
+
+    <xsl:template match="product/role|product/source|product/season|product/year|product/publisher-name|product/publisher-loc|product/size|product/isbn|product/edition">
+      <div class="{name()}">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:template>
+
     <xsl:template match="product">
       <div class="product {@product-type}">
-        <xsl:if test="source">
-          <div class="source">
-            <xsl:value-of select="source" />
-          </div>
-        </xsl:if>
-        <xsl:if test="season">
-          <div class="season">
-            <xsl:value-of select="season" />
-          </div>
-        </xsl:if>
-        <xsl:if test="year">
-          <div class="year">
-            <xsl:value-of select="year" />
-          </div>
-        </xsl:if>
-        <xsl:if test="publisher-name">
-          <div class="publisher-name">
-            <xsl:value-of select="publisher-name" />
-          </div>
-        </xsl:if>
-        <xsl:if test="publisher-loc">
-          <div class="publisher-loc">
-            <xsl:value-of select="publisher-loc" />
-          </div>
-        </xsl:if>
-        <xsl:if test="size">
-          <div class="size">
-            <xsl:value-of select="size" />
-          </div>
-        </xsl:if>
-        <xsl:if test="isbn">
-          <div class="isbn">
-            <xsl:value-of select="isbn" />
-          </div>
-        </xsl:if>
-        <xsl:if test="edition">
-          <div class="edition">
-            <xsl:value-of select="edition" />
-          </div>
-        </xsl:if>
-        <!-- person-groups and other tags like: inline-graphics -->
-        <xsl:apply-templates select="*[not(source|season|year|publisher-name|publisher-loc|size|isbn|edition)]"/>
+        <xsl:apply-templates/>
       </div>
     </xsl:template>
 
@@ -1316,6 +1289,9 @@
   <xsl:template match="element-citation/season">
     <span class="season"><xsl:apply-templates/></span>
   </xsl:template>
+  <xsl:template match="element-citation/size">
+    <span class="size"><xsl:apply-templates/></span>
+  </xsl:template>
   <xsl:template match="element-citation">
     <span class="{name()} {@publication-type}">
       <xsl:apply-templates select="*[not(issue|volume|fpage|lpage|elocation-id)]"/>
@@ -1338,6 +1314,30 @@
           <span class="element_fpage"><xsl:value-of select="fpage"/></span> -
           <span class="element_lpage"><xsl:value-of select="lpage"/></span>
         </span>
+      </xsl:if>
+      <!-- PAGE-RANGE -->
+      <xsl:if test="page-range">
+        <span class="element_page_range"><xsl:value-of select="page-range"/></span>
+      </xsl:if>
+      <!-- ISBN -->
+      <xsl:if test="isbn">
+        <span class="element_isbn"><xsl:value-of select="isbn"/></span>
+      </xsl:if>
+      <!-- SOURCE -->
+      <xsl:if test="source">
+        <span class="element_source"><xsl:value-of select="source"/></span>
+      </xsl:if>
+      <!-- EDITION -->
+      <xsl:if test="edition">
+        <span class="element_edition"><xsl:value-of select="edition"/></span>
+      </xsl:if>
+      <!-- PUBLISHER-NAME -->
+      <xsl:if test="publisher-name">
+        <span class="element_publisher_name"><xsl:value-of select="publisher-name"/></span>
+      </xsl:if>
+      <!-- PUBLISHER-LOC -->
+      <xsl:if test="publisher-loc">
+        <span class="element_publisher_loc"><xsl:value-of select="publisher-loc"/></span>
       </xsl:if>
     </span>
   </xsl:template>
