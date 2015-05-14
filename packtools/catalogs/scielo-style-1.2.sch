@@ -26,7 +26,7 @@
   
      - DTD/XSD constraints are not duplicated here
      - There is an issue at http://git.io/5EcR4Q with status `Aprovada`
-     - PMC-Style compatibility is maintained[2]
+     - PMC-Style compatibility is desired[2]
   
    Always double-check the JPTS and PMC-Style before editing.
    [1] http://jats.nlm.nih.gov/publishing/tag-library/1.0/
@@ -242,6 +242,10 @@
 
   <phase id="phase.funding-group">
     <active pattern="funding-group"/>
+  </phase>
+
+  <phase id="phase.element-citation_journal_display-only">
+    <active pattern="element-citation_type_journal"/>
   </phase>
 
   <!--
@@ -1335,5 +1339,21 @@
     </rule>
   </pattern>
 
+  <pattern id="element-citation_type_journal">
+    <title>
+      Incomplete references of type "journal" must be marked-up as 
+      "display-only". See http://git.io/vUSp6.
+    </title>
+
+    <rule context="article/back//element-citation[@publication-type='journal']">
+      <assert test="(person-group[@person-group-type='author']/name[1]/surname and
+                     article-title and
+                     source and
+                     year) or 
+                    @specific-use='display-only'">
+        Element 'element-citation': Incomplete references must be identified with specific-use='display-only'.
+      </assert>
+    </rule>
+  </pattern>
 </schema>
 

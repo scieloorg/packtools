@@ -1,6 +1,10 @@
 History
 =======
 
+* Validating the minimum set of elements required for references of type 
+  journal [http://git.io/vUSp6].
+
+
 0.7.2 (2015-04-30)
 ------------------
 

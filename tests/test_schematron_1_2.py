@@ -2869,6 +2869,295 @@ class ElementCitationTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
 
+class ElementCitationTypeJournalDisplayOnlyTests(PhaseBasedTestCase):
+    """Tests for article/back/ref-list/ref/element-citation element.
+
+    Elements of type element-citation[@publication-type="journal"] need at
+    least the child elements:
+      - person-group[person-group-type="author"]/name[1]
+      - article-title
+      - source
+      - year
+
+    The lack of any of the above elements result in the need for adding
+    the attribute element-citation/@specific-use="display-only".
+    """
+    sch_phase = 'phase.element-citation_journal_display-only'
+
+    def test_all_elements(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <source>Dados</source>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_surname(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <source>Dados</source>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_surname_display_only(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal" specific-use="display-only">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <source>Dados</source>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_first_author_surname(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                </name>
+                                <name>
+                                  <given-names>Baz</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <source>Dados</source>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_first_author_surname_display_only(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal" specific-use="display-only">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                </name>
+                                <name>
+                                  <given-names>Baz</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <source>Dados</source>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_article_title(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Baz</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <source>Dados</source>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_article_title_display_only(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal" specific-use="display-only">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Baz</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <source>Dados</source>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_journal_ref_missing_source(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_journal_ref_missing_source_display_only(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal" specific-use="display-only">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <year>2014</year>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_journal_ref_missing_year(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <source>Dados</source>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_journal_ref_missing_year_display_only(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal" specific-use="display-only">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <given-names>Foo</given-names>
+                                  <surname>Bar</surname>
+                                </name>
+                              </person-group>
+                              <article-title>Some article title</article-title>
+                              <source>Dados</source>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+
 class PersonGroupTests(PhaseBasedTestCase):
     """Tests for
       - article/back/ref-list/ref/element-citation/person-group
