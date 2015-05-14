@@ -29,40 +29,6 @@
       </head>
       <body>
 
-        <nav class="toc">
-          <h2>Navigation</h2>
-          <ul>
-            <li><a href="#article-title">Title</a></li>
-            <li><a href="#contrib-group">Contrib Group</a></li>
-            <li><a href="#license">License</a></li>
-            <li><a href="#abstract">Abstract</a></li>
-            <li><a href="#keywords">Keywords</a></li>
-            <xsl:if test="article/front/article-meta/funding-group">
-              <li><a href="#funding-group">Funding Group</a></li>
-            </xsl:if>
-            <li>
-              <a href="#text">Text</a>
-              <ul>
-                <xsl:for-each select="article/body/sec">
-                  <li><a href="#{@sec-type}"><xsl:value-of select="title"/></a></li>
-                </xsl:for-each>
-              </ul>
-            </li>
-            <xsl:if test="article/back/ack">
-              <li><a href="#acknowledgement">Acknowledgement</a></li>
-            </xsl:if>
-            <xsl:if test="article//back/ref-list">
-              <li><a href="#references">References</a></li>
-            </xsl:if>
-            <xsl:if test="article/back/article/body//fig">
-              <li><a href="#figures">Figures</a></li>
-            </xsl:if>
-            <xsl:if test="article/body//table-wrap">
-              <li><a href="#tables">Tables</a></li>
-            </xsl:if>
-          </ul>
-        </nav>
-
         <a id="article-title"></a>
         <div class="title-top">
           <span class="bibliographic_legend">
@@ -280,17 +246,13 @@
 
         <a id="text"></a>
         <article class="body">
-          <header>
-            <h2>Text:</h2>
-          </header>
           <xsl:choose>
             <xsl:when test="$is_translation = 'True' ">
               <xsl:apply-templates
-                select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sec | article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/p | article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body/sig-block"
-                mode="scift-standard-body" />
+                select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body" mode="scift-standard-body" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="article/body/sec | article/body/p | article/body/sig-block"  mode="scift-standard-body" />
+              <xsl:apply-templates select="article/body"  mode="scift-standard-body" />
             </xsl:otherwise>
           </xsl:choose>
         </article>
@@ -750,6 +712,11 @@
     <xsl:template match="product/etal">
       <span class="et-al">et al.</span>
     </xsl:template>
+
+    <xsl:template match="product/inline-graphic | p/inline-graphic | th/inline-graphic | td/inline-graphic">
+      <xsl:apply-templates select="." mode="scift-standard-body"/>
+    </xsl:template>
+
     <xsl:template match="product/page-range">
       <span class="product_page_range"><xsl:value-of select="."/></span>
     </xsl:template>
@@ -835,23 +802,22 @@
       <xsl:apply-templates select="."/>
     </xsl:template>
 
-    <xsl:template match="article//body/sec" mode="scift-standard-body">
+    <xsl:template match="disp-formula" mode="scift-standard-body">
+      <xsl:apply-templates/>
+    </xsl:template>
+
+    <xsl:template match="article//body//sec" mode="scift-standard-body">
       <a id="{@sec-type}"></a>
-      <section>
+      <section class="{translate(@sec-type, '|', ' ')}">
         <header>
           <h4><xsl:value-of select="title"/></h4>
         </header>
-        <xsl:for-each select="p | disp-formula | supplementary-material">
+        <xsl:for-each select="sec | p | disp-formula | inline-graphic | supplementary-material">
           <xsl:choose>
             <xsl:when test="./table-wrap">
               <xsl:apply-templates select="./table-wrap"/>
             </xsl:when>
             <xsl:when test="./fig">
-            </xsl:when>
-            <xsl:when test="name() = 'disp-formula'">
-              <div class="disp-formula">
-                <xsl:apply-templates />
-              </div>
             </xsl:when>
             <xsl:when test="./supplementary-material">
               <div class="supplementary-material">
@@ -864,7 +830,7 @@
               </div>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="."/>
+              <xsl:apply-templates select="." mode="scift-standard-body"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:for-each>
@@ -892,13 +858,27 @@
       </label>
     </xsl:template>
 
-    <xsl:template match="inline-graphic | disp-formula/graphic">
-      <a target="_blank">
-        <xsl:apply-templates select="." mode="scift-attribute-href"/>
-        <img class="inline-formula">
-          <xsl:apply-templates select="." mode="scift-attribute-src"/>
-        </img>
-      </a>
+    <xsl:template match="inline-graphic" mode="scift-standard-body">
+      <span class="inline-graphic">
+        <a target="_blank">
+          <xsl:apply-templates select="." mode="scift-attribute-href"/>
+          <img class="inline-graphic">
+            <xsl:apply-templates select="." mode="scift-attribute-src"/>
+          </img>
+        </a>
+      </span>
+    </xsl:template>
+
+    <xsl:template match="disp-formula/graphic">
+      <a id="disp-formula_{../@id}"></a>
+      <div class="disp-formula {../@id}">
+        <a target="_blank">
+          <xsl:apply-templates select="." mode="scift-attribute-href"/>
+          <img class="inline-formula">
+            <xsl:apply-templates select="." mode="scift-attribute-src"/>
+          </img>
+        </a>
+      </div>
     </xsl:template>
     <!-- TABLE-WRAP -->
     <xsl:template match="table-wrap" mode="scift-standard-with-anchor-id">
@@ -951,7 +931,7 @@
       </xsl:attribute>
     </xsl:template>
 
-    <xsl:template match="table//*[not(name()='xref')]">
+    <xsl:template match="table//*[xref|disp-formula|inline-graphic]">
       <xsl:element name="{name()}">
         <xsl:apply-templates select="@* | * | text()"/>
       </xsl:element>
