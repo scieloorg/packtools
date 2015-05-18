@@ -248,6 +248,9 @@
     <active pattern="element-citation_type_journal"/>
   </phase>
 
+  <phase id="phase.aff_country-attrs">
+    <active pattern="aff_country-attrs"/>
+  </phase>
   <!--
    Patterns - sets of rules.
   -->
@@ -1352,6 +1355,18 @@
                      year) or 
                     @specific-use='display-only'">
         Element 'element-citation': Incomplete references must be identified with specific-use='display-only'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="aff_country-attrs">
+    <title>
+      Ensure the attribute 'country' is present for all //aff/country elements.
+    </title>
+
+    <rule context="article/front/article-meta/aff/country">
+      <assert test="@country">
+        Element 'country': Missing attribute country.
       </assert>
     </rule>
   </pattern>

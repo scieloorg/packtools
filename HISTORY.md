@@ -1,8 +1,14 @@
 History
 =======
 
+
+0.7.3 (2015-05-18)
+------------------
+
 * Validating the minimum set of elements required for references of type 
   journal [http://git.io/vUSp6].
+* Added validation of //aff/country/@country attributes for XMLs under 
+  sps-1.2 spec.
 
 
 0.7.2 (2015-04-30)

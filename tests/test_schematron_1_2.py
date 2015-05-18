@@ -4531,3 +4531,65 @@ class FundingGroupTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class AffCountryTests(PhaseBasedTestCase):
+    """ //aff/country/@country is required.
+
+    See: https://github.com/scieloorg/packtools/issues/44
+    """
+    sch_phase = 'phase.aff_country-attrs'
+
+    def test_attribute_is_present(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="BR">Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_attribute_is_absent(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country>Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_attribute_value_is_not_validated(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="XZ">Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
