@@ -551,7 +551,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
             found_xrefs = html_output.xpath('//a[@class="xref_href"]')
-            self.assertEqual(2, len(found_xrefs))  # one xref-anchor on article body and another xref-anchor in table section
+            self.assertEqual(4, len(found_xrefs))  # one xref-anchor on article body and another xref-anchor in table section and backlinks
             found_xref = found_xrefs[0]
             self.assertEqual(xref_text[lang], found_xref.text.strip())
             self.assertEqual({'href': '#fn1', 'class': 'xref_href'}, found_xref.attrib)
@@ -2115,7 +2115,6 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            # print etree.tostring(html_output, method="html", pretty_print=True)
             role_tags = html_output.xpath('//span[@class="role"]')
             self.assertEqual(1, len(role_tags))
             role_tag = role_tags[0]
@@ -5024,8 +5023,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
             formula_id = data['%s_disp_id' % lang]
-
-            formulas = html_output.xpath('//article[@class="body"]/p/table[@class="table"]/th/div[@class="disp-formula %s"]' % formula_id)
+            formulas = html_output.xpath('//article[@class="body"]//table[@class="table"]/thead/tr/th/div[@class="disp-formula %s"]' % formula_id)
             self.assertEqual(1, len(formulas))
 
             formula_link = formulas[0].xpath('a')
@@ -5106,8 +5104,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
             formula_id = data['%s_disp_id' % lang]
-
-            formulas = html_output.xpath('//article[@class="body"]/p/table[@class="table"]/td/div[@class="disp-formula %s"]' % formula_id)
+            formulas = html_output.xpath('//article[@class="body"]//table[@class="table"]/tbody/tr/td/div[@class="disp-formula %s"]' % formula_id)
             self.assertEqual(1, len(formulas))
 
             formula_link = formulas[0].xpath('a')
@@ -5219,7 +5216,7 @@ class GeneratedTagsTests(unittest.TestCase):
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
             formula_id = data['%s_disp_id' % lang]
-            # print etree.tostring(html_output, method="html", pretty_print=True)
+
             formulas = html_output.xpath('//article[@class="body"]/section[@class="supplementary-material"]/div[@class="supplementary-material"]/div[@class="disp-formula %s"]' % formula_id)
             self.assertEqual(1, len(formulas))
 
@@ -5311,7 +5308,7 @@ class GeneratedTagsTests(unittest.TestCase):
             body = html_output.xpath('//article[@class="body"]')
             self.assertEqual(1, len(body))
 
-            graphic = body[0].xpath('span[@class="inline-graphic"]')
+            graphic = body[0].xpath('//span[@class="inline-graphic"]')
             self.assertEqual(1, len(graphic))
 
             link = graphic[0].xpath('a')
@@ -5400,7 +5397,7 @@ class GeneratedTagsTests(unittest.TestCase):
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
             body = html_output.xpath('//article[@class="body"]')
             self.assertEqual(1, len(body))
-            # print etree.tostring(body[0], method="html", pretty_print=True)
+
             graphic = body[0].xpath('section[@class="intro"]/span[@class="inline-graphic"]')
             self.assertEqual(1, len(graphic))
 
@@ -5473,10 +5470,10 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            table = html_output.xpath('//article[@class="body"]/p/table[@class="table"]')
+            table = html_output.xpath('//article[@class="body"]//table[@class="table"]')
             self.assertEqual(1, len(table))
 
-            graphic = table[0].xpath('th/span[@class="inline-graphic"]')
+            graphic = table[0].xpath('thead/tr/th/span[@class="inline-graphic"]')
             self.assertEqual(1, len(graphic))
 
             link = graphic[0].xpath('a')
@@ -5548,10 +5545,10 @@ class GeneratedTagsTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
         for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
-            table = html_output.xpath('//article[@class="body"]/p/table[@class="table"]')
+            table = html_output.xpath('//article[@class="body"]//table[@class="table"]')
             self.assertEqual(1, len(table))
 
-            graphic = table[0].xpath('td/span[@class="inline-graphic"]')
+            graphic = table[0].xpath('tbody/tr/td/span[@class="inline-graphic"]')
             self.assertEqual(1, len(graphic))
 
             link = graphic[0].xpath('a')
@@ -5562,3 +5559,716 @@ class GeneratedTagsTests(unittest.TestCase):
 
             self.assertIn(data['%s_inline_href' % lang], link[0].attrib['href'])
             self.assertIn(data['%s_inline_href' % lang], graphic_img[0].attrib['src'])
+
+    """ <TABLE-WRAP> """
+    def test_table_wrap_tag_inside_app_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <app> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <app-group>
+                                <app id="app01">
+                                    <table-wrap id="t01">
+                                        <label>{pt_label}</label>
+                                        <caption>
+                                            <title>{pt_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{pt_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{pt_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {pt_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </app>
+                            </app-group>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <app-group>
+                                    <app id="app01">
+                                        <table-wrap id="t01">
+                                            <label>{en_label}</label>
+                                            <caption>
+                                                <title>{en_caption}</title>
+                                            </caption>
+                                            <table>
+                                                <thead>
+                                                    <tr><th>{en_th}</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td>{en_td}</td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table-wrap-foot>
+                                                {en_foot}
+                                            </table-wrap-foot>
+                                        </table-wrap>
+                                    </app>
+                                </app-group>
+                            </back>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            app_content = html_output.xpath('//div[@class="app-group"]/div[@class="app"]/div[@class="app-content"]')
+            self.assertEqual(1, len(app_content))
+
+            table = app_content[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = app_content[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = app_content[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = app_content[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_app_group_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <app-group> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <app-group>
+                                <table-wrap id="t01">
+                                    <label>{pt_label}</label>
+                                    <caption>
+                                        <title>{pt_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{pt_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{pt_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {pt_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </app-group>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <app-group>
+                                    <table-wrap id="t01">
+                                        <label>{en_label}</label>
+                                        <caption>
+                                            <title>{en_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{en_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{en_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {en_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </app-group>
+                            </back>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            app_content = html_output.xpath('//div[@class="app-group"]')
+            self.assertEqual(1, len(app_content))
+
+            table = app_content[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = app_content[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = app_content[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = app_content[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_body_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <body> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <table-wrap id="t01">
+                                <label>{pt_label}</label>
+                                <caption>
+                                    <title>{pt_caption}</title>
+                                </caption>
+                                <table>
+                                    <thead>
+                                        <tr><th>{pt_th}</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{pt_td}</td></tr>
+                                    </tbody>
+                                </table>
+                                <table-wrap-foot>
+                                    {pt_foot}
+                                </table-wrap-foot>
+                            </table-wrap>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <table-wrap id="t01">
+                                    <label>{en_label}</label>
+                                    <caption>
+                                        <title>{en_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{en_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{en_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {en_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            body = html_output.xpath('//article[@class="body"]')
+            self.assertEqual(1, len(body))
+
+            table = body[0].xpath('//table')
+            self.assertEqual(1, len(table))
+
+            caption = body[0].xpath('//span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = body[0].xpath('//span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = body[0].xpath('//div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_glossary_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <glossary> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <glossary id="gloss01">
+                                <table-wrap id="t01">
+                                    <label>{pt_label}</label>
+                                    <caption>
+                                        <title>{pt_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{pt_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{pt_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {pt_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </glossary>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <glossary id="gloss01">
+                                    <table-wrap id="t01">
+                                        <label>{en_label}</label>
+                                        <caption>
+                                            <title>{en_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{en_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{en_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {en_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </glossary>
+                            </back>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            glossary = html_output.xpath('//div[@class="glossary"]')
+            self.assertEqual(1, len(glossary))
+
+            table = glossary[0].xpath('//table')
+            self.assertEqual(1, len(table))
+
+            caption = glossary[0].xpath('//span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = glossary[0].xpath('//span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = glossary[0].xpath('//div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_p_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <p> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sec sec-type="intro">
+                                <p>
+                                    <table-wrap id="t01">
+                                        <label>{pt_label}</label>
+                                        <caption>
+                                            <title>{pt_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{pt_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{pt_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {pt_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </p>
+                            </sec>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sec sec-type="intro">
+                                    <p>
+                                        <table-wrap id="t01">
+                                            <label>{en_label}</label>
+                                            <caption>
+                                                <title>{en_caption}</title>
+                                            </caption>
+                                            <table>
+                                                <thead>
+                                                    <tr><th>{en_th}</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td>{en_td}</td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table-wrap-foot>
+                                                {en_foot}
+                                            </table-wrap-foot>
+                                        </table-wrap>
+                                    </p>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            paragraph = html_output.xpath('//article[@class="body"]/section[@class="intro"]/p')
+            self.assertEqual(1, len(paragraph))
+
+            table = paragraph[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = paragraph[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = paragraph[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = paragraph[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_sec_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <sec> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sec sec-type="intro">
+                                <table-wrap id="t01">
+                                    <label>{pt_label}</label>
+                                    <caption>
+                                        <title>{pt_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{pt_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{pt_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {pt_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </sec>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sec sec-type="intro">
+                                    <table-wrap id="t01">
+                                        <label>{en_label}</label>
+                                        <caption>
+                                            <title>{en_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{en_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{en_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {en_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            section = html_output.xpath('//article[@class="body"]/section[@class="intro"]')
+            self.assertEqual(1, len(section))
+
+            table = section[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = section[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = section[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = section[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_supplementary_material_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <supplementary-material> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sec sec-type="supplementary-material">
+                                <p>
+                                    <supplementary-material id="suppl01">
+                                        <table-wrap id="t01">
+                                            <label>{pt_label}</label>
+                                            <caption>
+                                                <title>{pt_caption}</title>
+                                            </caption>
+                                            <table>
+                                                <thead>
+                                                    <tr><th>{pt_th}</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td>{pt_td}</td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table-wrap-foot>
+                                                {pt_foot}
+                                            </table-wrap-foot>
+                                        </table-wrap>
+                                    </supplementary-material>
+                                </p>
+                            </sec>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sec sec-type="supplementary-material">
+                                    <p>
+                                        <supplementary-material id="suppl01">
+                                            <table-wrap id="t01">
+                                                <label>{en_label}</label>
+                                                <caption>
+                                                    <title>{en_caption}</title>
+                                                </caption>
+                                                <table>
+                                                    <thead>
+                                                        <tr><th>{en_th}</th></tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr><td>{en_td}</td></tr>
+                                                    </tbody>
+                                                </table>
+                                                <table-wrap-foot>
+                                                    {en_foot}
+                                                </table-wrap-foot>
+                                            </table-wrap>
+                                        </supplementary-material>
+                                    </p>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            supplementary = html_output.xpath('//article[@class="body"]/section[@class="supplementary-material"]/div[@class="supplementary-material"]')
+            self.assertEqual(1, len(supplementary))
+
+            table = supplementary[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = supplementary[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = supplementary[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = supplementary[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
