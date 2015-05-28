@@ -316,10 +316,10 @@
             </header>
             <xsl:choose>
               <xsl:when test="$is_translation = 'True' ">
-                <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]//table-wrap" mode="scift-standard-with-anchor-id"/>
+                <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]//table-wrap"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:apply-templates select="article/body//table-wrap" mode="scift-standard-with-anchor-id"/>
+                <xsl:apply-templates select="article/body//table-wrap"/>
               </xsl:otherwise>
             </xsl:choose>
           </section>
@@ -396,12 +396,12 @@
     <!-- As chamadas tags flutuantes podem aparecer em todo o documento, <front>, <body> e <back>. -->
 
     <!-- XREF -->
-    <xsl:template match="xref">
+    <xsl:template match="xref | td/xref | th/xref">
       <xsl:if test="@ref-type='fn'">
         <a id="back_{@rid}" class="xref_id" />
       </xsl:if>
       <a href="#{@rid}" class="xref_href">
-        <xsl:apply-templates select="*|text()"/>
+        <xsl:apply-templates/>
       </a>
     </xsl:template>
     <!-- /XREF -->
@@ -420,7 +420,6 @@
           </xsl:element>
         </xsl:otherwise>
       </xsl:choose>
-
     </xsl:template>
     <!-- /LABEL -->
     <!-- TITLE -->
@@ -487,7 +486,6 @@
         <xsl:apply-templates />
       </span>
     </xsl:template>
-
 
     <!-- <ARTICLE-META>/<ARTICLE-ID>/DOI -->
     <xsl:template match="article/front/article-meta/article-id[@pub-id-type='doi']">
@@ -812,13 +810,14 @@
         <header>
           <h4><xsl:value-of select="title"/></h4>
         </header>
-        <xsl:for-each select="sec | p | disp-formula | inline-graphic | supplementary-material">
+        <xsl:for-each select="sec | p | disp-formula | inline-graphic | supplementary-material | table-wrap">
           <xsl:choose>
-            <xsl:when test="./table-wrap">
-              <xsl:apply-templates select="./table-wrap"/>
-            </xsl:when>
             <xsl:when test="./fig">
             </xsl:when>
+            <xsl:when test="name() = 'table-wrap'">
+              <xsl:apply-templates select="."/>
+            </xsl:when>
+
             <xsl:when test="./supplementary-material">
               <div class="supplementary-material">
                 <xsl:apply-templates />
@@ -880,13 +879,15 @@
         </a>
       </div>
     </xsl:template>
+
     <!-- TABLE-WRAP -->
-    <xsl:template match="table-wrap" mode="scift-standard-with-anchor-id">
+    <xsl:template match="table-wrap">
       <a id="{@id}"></a>
       <span class="label_caption">
         <xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
       </span>
       <xsl:apply-templates select="graphic | table"/>
+      <xsl:apply-templates select="table-wrap-foot"/>
       <xsl:apply-templates mode="footnote" select=".//fn"/>
     </xsl:template>
 
@@ -908,33 +909,41 @@
         <xsl:text>border-color:black; border-style: solid;</xsl:text>
       </xsl:attribute>
     </xsl:template>
+
     <xsl:template match="table/@frame"></xsl:template>
+
     <xsl:template match="colgroup/@width">
       <xsl:attribute name="style">
           <xsl:text>width:</xsl:text><xsl:value-of select="." />
       </xsl:attribute>
     </xsl:template>
+
     <xsl:template match="th/@align|td/@align">
       <xsl:attribute name="style">
           <xsl:text>text-align:</xsl:text><xsl:value-of select="." />
       </xsl:attribute>
     </xsl:template>
+
     <xsl:template match="table">
       <table class="table">
-        <xsl:apply-templates select="@*|*|text()"/>
+        <xsl:apply-templates/>
       </table>
+    </xsl:template>
+
+    <xsl:template match="table//disp-formula">
+      <xsl:apply-templates/>
+    </xsl:template>
+
+    <xsl:template match="table//*">
+      <xsl:element name="{name()}">
+        <xsl:apply-templates/>
+      </xsl:element>
     </xsl:template>
 
     <xsl:template match="table//@*">
       <xsl:attribute name="{name()}">
         <xsl:value-of select="."/>
       </xsl:attribute>
-    </xsl:template>
-
-    <xsl:template match="table//*[xref|disp-formula|inline-graphic]">
-      <xsl:element name="{name()}">
-        <xsl:apply-templates select="@* | * | text()"/>
-      </xsl:element>
     </xsl:template>
 
     <xsl:template match="table-wrap//fn" mode="footnote">
@@ -954,10 +963,11 @@
       </p>
     </xsl:template>
 
-    <!-- FIG or TABLE-WRAP -->
-    <xsl:template match="fig | table-wrap ">
+    <!-- FIG -->
+    <xsl:template match="fig">
       <xsl:apply-templates select="." mode="scift-standard"/>
     </xsl:template>
+
     <xsl:template match="fig" mode="scift-standard">
       <figure id="{@id}" class="figure">
         <xsl:apply-templates select="graphic|media"/>
@@ -973,16 +983,18 @@
         <xsl:apply-templates select="* | text()"/>
       </span>
     </xsl:template>
+
     <!-- FIG/LABEL or TABLE-WRAP/LABEL -->
     <xsl:template match="fig/label | table-wrap/label">
       <label for="{../@id}">
         <xsl:apply-templates select=". | text()"/>
       </label>
     </xsl:template>
-    <xsl:template match="table-wrap/table-wrap-foot">
-      <footer class="{name()}">
+
+    <xsl:template match="table-wrap//table-wrap-foot">
+      <div class="{name()}">
         <xsl:apply-templates select="* | text()"/>
-      </footer>
+      </div>
     </xsl:template>
 
     <xsl:template match="fig | table-wrap[.//graphic]" mode="scift-thumbnail">
@@ -1024,6 +1036,9 @@
             <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
             <xsl:value-of select="@xlink:href"/>
           </a>
+        </xsl:when>
+        <xsl:when test="table-wrap">
+          <xsl:apply-templates select="table-wrap"/>
         </xsl:when>
         <xsl:otherwise>
           <div class="panel">
@@ -1175,7 +1190,7 @@
   <!-- O <back> é a parte final do documento que compreende lista de referências e demais dados referentes a pesquisa. -->
 
     <!-- ACK -->
-    <xsl:template match="//back/ack ">
+    <xsl:template match="//back/ack">
       <h3><xsl:value-of select="title"/></h3>
       <ul>
         <xsl:for-each select="p">
@@ -1279,17 +1294,28 @@
     </xsl:template>
 
     <!-- APP-GROUP/APP -->
+    <xsl:template match="app">
+      <div class="app">
+        <div class="app-label">
+          <label for="{@id}"><xsl:apply-templates select="label"/></label>
+        </div>
+        <div class="app-content">
+          <xsl:apply-templates select="*[not(name()='label')]"/>
+        </div>
+      </div>
+    </xsl:template>
+
     <xsl:template match="back/app-group">
       <div class="app-group">
-        <xsl:for-each select="app">
-          <div class="app">
-            <div class="app-label">
-              <label for="{@id}"><xsl:apply-templates select="label"/></label>
-            </div>
-            <div class="app-content">
-              <xsl:apply-templates select="*[not(name()='label')]"/>
-            </div>
-          </div>
+        <xsl:for-each select="*">
+          <xsl:choose>
+              <xsl:when test="./app">
+                <xsl:apply-templates select="./app"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="."/>
+              </xsl:otherwise>
+          </xsl:choose>
         </xsl:for-each>
       </div>
     </xsl:template>
@@ -1331,6 +1357,9 @@
         </xsl:if>
         <xsl:for-each select="def-list">
           <xsl:call-template name="def-list"/>
+        </xsl:for-each>
+        <xsl:for-each select="table-wrap">
+          <xsl:apply-templates select="."/>
         </xsl:for-each>
       </div>
     </xsl:template>
