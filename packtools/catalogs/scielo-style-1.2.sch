@@ -441,9 +441,10 @@
       <assert test="(front/article-meta/lpage = 0 and
                      front/article-meta/fpage = 0 and
                      front/article-meta/counts/page-count/@count = 0) or 
-                    (regexp:test(front/article-meta/fpage, '\D', 'i') or
-                     regexp:test(front/article-meta/lpage, '\D', 'i')) or
-                    (front/article-meta/counts/page-count/@count = ((front/article-meta/lpage - front/article-meta/fpage) + 1))">
+                     (regexp:test(front/article-meta/fpage, '\D', 'i') or
+                      regexp:test(front/article-meta/lpage, '\D', 'i')) or
+                     string-length(front/article-meta/elocation-id) > 0 or
+                     (front/article-meta/counts/page-count/@count = ((front/article-meta/lpage - front/article-meta/fpage) + 1))">
         Element 'counts': Missing element or wrong value in page-count.
       </assert>
     </rule>
