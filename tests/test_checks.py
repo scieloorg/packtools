@@ -342,6 +342,33 @@ class FundingGroupPipeTests(unittest.TestCase):
         self.assertEqual(len(err_list), 1)
         self.assertTrue("'fn-group'" in err_list[0].message)
 
+    def test_valid_with_contractno_after_formatting_markup(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+	      <funding-group>
+	        <award-group>
+		  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+		  <award-id>CSV 234/07</award-id>
+		</award-group>
+                <funding-statement>This study was supported by the Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</funding-statement>
+	      </funding-group>
+            </article-meta>
+          </front>
+          <back>
+            <ack>
+	      <p>This study was supported by the <italic>Brazilian</italic> Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis, through the Project of International Technical Cooperation AD/BRA/03/H34 between the Brazilian Government and the United Nations Office on Drugs and Crime (Process CSV 234/07).</p>
+            </ack>
+          </back>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.funding_group((et, []))
+
+        self.assertEqual(len(err_list), 0)
+
 
 class DoctypePipeTests(unittest.TestCase):
 

@@ -7,6 +7,7 @@ History
 * Fixed bug that would cause page counts to be reported as error when 
   pagination is identified with elocation-id [#51].
 * Added support for creative commons IGO licenses (sps-1.2 only). 
+* Fixed bug that would cause funding-group validation to raise false positives.
 
 
 0.7.3 (2015-05-18)

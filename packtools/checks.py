@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import re
 import logging
 import itertools
+from datetime import datetime
 
 import plumber
 
@@ -69,15 +70,20 @@ def funding_group(message):
         err.message = "Element 'fn-group': This element has occurrences not declared in funding-group."
         err_list.append(err)
 
+    logger.info('here: %s', datetime.now())
+
     if has_funding_group:
+        def get_text(elem):
+            return ''.join(elem.itertext())
+
         # only the main document is relevant
         award_ids = [elem.text for elem in et.findall(
             'front//funding-group/award-group/award-id')
             if elem.text is not None]
-        fn_occs = [elem.text for elem in et.findall(
+        fn_occs = [get_text(elem) for elem in et.findall(
             'back//fn[@fn-type="financial-disclosure"]/p')
             if elem.text is not None]
-        ack_occs = [elem.text for elem in et.findall(
+        ack_occs = [get_text(elem) for elem in et.findall(
             'back//ack/p')
             if elem.text is not None]
 
@@ -85,8 +91,12 @@ def funding_group(message):
             for text in texts:
                 if award_id in text:
                     return True
+                else:
+                    logger.debug('Cannot find "%s" in "%s".', award_id, text)
 
             return False
+
+        logger.info('Declared contract numbers: %s', award_ids)
 
         missing_award_ids = set(award_ids)
         for award_id in award_ids:
@@ -96,8 +106,12 @@ def funding_group(message):
                 except KeyError:
                     logger.info('The award-id %s is mentioned more than once.',
                                 award_id)
+            else:
+                logger.info('Cannot find contract number "%s" in the set "%s".',
+                        award_id, award_ids)
 
         if missing_award_ids:
+            logger.debug('Missing award-id: %s.', missing_award_ids)
             err = StyleError()
             err.message = "Element 'funding-group': This element has occurrences not declared in fn or ack."
             err_list.append(err)
