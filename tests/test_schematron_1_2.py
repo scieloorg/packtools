@@ -2568,6 +2568,9 @@ class LicenseTests(PhaseBasedTestCase):
             'http://creativecommons.org/licenses/by/3.0/',
             'http://creativecommons.org/licenses/by-nc-nd/4.0/',
             'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+            'http://creativecommons.org/licenses/by/3.0/igo/',
+            'http://creativecommons.org/licenses/by-nc/3.0/igo/',
+            'http://creativecommons.org/licenses/by-nc-nd/3.0/igo/',
         ]
 
         for license in allowed_licenses:
@@ -2598,6 +2601,9 @@ class LicenseTests(PhaseBasedTestCase):
             'https://creativecommons.org/licenses/by/3.0/',
             'https://creativecommons.org/licenses/by-nc-nd/4.0/',
             'https://creativecommons.org/licenses/by-nc-nd/3.0/',
+            'https://creativecommons.org/licenses/by/3.0/igo/',
+            'https://creativecommons.org/licenses/by-nc/3.0/igo/',
+            'https://creativecommons.org/licenses/by-nc-nd/3.0/igo/',
         ]
 
         for license in allowed_licenses:
