@@ -244,10 +244,6 @@
     <active pattern="funding-group"/>
   </phase>
 
-  <phase id="phase.element-citation_journal_display-only">
-    <active pattern="element-citation_type_journal"/>
-  </phase>
-
   <phase id="phase.aff_country-attrs">
     <active pattern="aff_country-attrs"/>
   </phase>
@@ -1339,23 +1335,6 @@
     <rule context="article/back//fn[@fn-type='financial-disclosure']">
       <assert test="/article/front/article-meta/funding-group/funding-statement">
         Element 'fn': Missing element funding-statement.
-      </assert>
-    </rule>
-  </pattern>
-
-  <pattern id="element-citation_type_journal">
-    <title>
-      Incomplete references of type "journal" must be marked-up as 
-      "display-only". See http://git.io/vUSp6.
-    </title>
-
-    <rule context="article/back//element-citation[@publication-type='journal']">
-      <assert test="(person-group[@person-group-type='author']/name[1]/surname and
-                     article-title and
-                     source and
-                     year) or 
-                    @specific-use='display-only'">
-        Element 'element-citation': Incomplete references must be identified with specific-use='display-only'.
       </assert>
     </rule>
   </pattern>
