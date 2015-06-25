@@ -51,7 +51,7 @@ def prettify(jsonobj, colorize=True):
     return json_str
 
 
-def get_xmlvalidator(xmlpath, no_network):
+def get_xmlvalidator(xmlpath, no_network, extra_sch):
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
     except IOError as e:
@@ -60,7 +60,7 @@ def get_xmlvalidator(xmlpath, no_network):
         raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, e))
 
     try:
-        xml = packtools.XMLValidator(parsed_xml)
+        xml = packtools.XMLValidator(parsed_xml, extra_schematron=extra_sch)
     except ValueError as e:
         raise XMLError('Error reading %s. %s.' % (xmlpath, e))
 
@@ -123,6 +123,8 @@ def main():
     parser.add_argument('--loglevel', default='WARNING')
     parser.add_argument('--nocolors', action='store_false',
                         help='prevents the output from being colorized by ANSI escape sequences')
+    parser.add_argument('--extrasch', default=None,
+                        help='runs an extra validation using an external schematron schema.')
     args = parser.parse_args()
 
     logging.basicConfig(level=getattr(logging, args.loglevel))
@@ -134,7 +136,7 @@ def main():
         logger.info('starting validation of %s' % (xml,))
 
         try:
-            xml_validator = get_xmlvalidator(xml, args.nonetwork)
+            xml_validator = get_xmlvalidator(xml, args.nonetwork, args.extrasch)
             logger.debug('XMLValidator repr: %s' % repr(xml_validator))
         except XMLError as e:
             logger.debug(e)

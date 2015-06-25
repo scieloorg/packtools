@@ -220,3 +220,48 @@ class XMLValidatorTests(unittest.TestCase):
 
         self.assertEqual(xml_validator.assets, [])
 
+
+class XMLValidatorExtraSchematronTests(unittest.TestCase):
+
+    def test_valid_extra_schematron(self):
+        extra_sch = io.BytesIO(b'''\
+        <schema xmlns="http://purl.oclc.org/dsdl/schematron">
+          <pattern id="two_elements">
+            <title>Max 2 elements allowed.</title>
+            <rule context="Total">
+              <assert test="count(//Percent) &lt; 3">Element 'Total': More than 2 elements.</assert>
+            </rule>
+          </pattern>
+        </schema>
+        ''')
+
+        fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>20</Percent><Percent>10</Percent></Total>'))
+        xml = domain.XMLValidator(fp, no_doctype=True, sps_version='sps-1.1')
+        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
+        xml.extra_schematron = isoschematron.Schematron(etree.parse(extra_sch))
+
+        result, errors = xml._validate_sch()
+        self.assertFalse(result)
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, "Element 'Total': More than 2 elements.")
+
+    def test_invalid_extra_schematron_raises_ValueError_on_init(self):
+        invalid_extra_sch = b'''\
+        <schema xmlns="http://purl.oclc.org/dsdl/schematron">
+          <pattern id="two_elements">
+            <title>Max 2 elements allowed.</title>
+            <rule context="Total">
+              <assert test="count(//Percent) &lt; 3">Element 'Total': More than 2 elements.</assert>
+            </ruleZZ>
+          </pattern>
+        </schema>
+        '''
+        tmp = NamedTemporaryFile()
+        tmp.write(invalid_extra_sch)
+        tmp.seek(0)
+
+        fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>20</Percent><Percent>10</Percent></Total>'))
+        self.assertRaises(etree.XMLSyntaxError, lambda: domain.XMLValidator(
+            fp, no_doctype=True, sps_version='sps-1.1',
+            extra_schematron=tmp.name))
+

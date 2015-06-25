@@ -61,7 +61,8 @@ A função *ajuda* pode ser utilizada com a opção `-h`, conforme o exemplo:
 ```bash
 $ stylechecker -h
 usage: stylechecker [-h] [--annotated] [--nonetwork] [--assetsdir ASSETSDIR]
-                    [--version]
+                    [--version] [--loglevel LOGLEVEL] [--nocolors]
+                    [--extrasch EXTRASCH]
                     XML [XML ...]
 
 stylechecker cli utility
@@ -76,8 +77,14 @@ optional arguments:
   --nonetwork           prevents the retrieval of the DTD through the network
   --assetsdir ASSETSDIR
                         lookup, at the given directory, for each asset
-                        referenced by the XML
+                        referenced by the XML. current working directory will
+                        be used by default.
   --version             show program's version number and exit
+  --loglevel LOGLEVEL
+  --nocolors            prevents the output from being colorized by ANSI
+                        escape sequences
+  --extrasch EXTRASCH   runs an extra validation using an external schematron
+                        schema.
 ```
 
 
