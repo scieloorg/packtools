@@ -173,10 +173,10 @@ def flatten(paths):
         if not path.startswith(('http:', 'https:')):
             # try to expand wildchars and get the absolute path
             for fpath in glob.iglob(path):
-                yield os.path.abspath(fpath)
+                yield os.path.abspath(fpath).strip()
                 ylock = False
 
         # args must not be suppressed, even the invalid
         if ylock == True:
-            yield path
+            yield path.strip()
 

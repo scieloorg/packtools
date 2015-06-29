@@ -6,6 +6,9 @@ History
 
 * Added feature to run the validation against an external schematron schema 
   [#55].
+* stylechecker's `--loglevel` option accepts upper, lower or mixed case strings.
+* stylechecker utility can read from stdin, so it can be a filter in unix 
+  pipelines.
 
 
 0.7.4 (2015-06-19)

@@ -70,8 +70,6 @@ def funding_group(message):
         err.message = "Element 'fn-group': This element has occurrences not declared in funding-group."
         err_list.append(err)
 
-    logger.info('here: %s', datetime.now())
-
     if has_funding_group:
         def get_text(elem):
             return ''.join(elem.itertext())
