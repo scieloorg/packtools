@@ -135,6 +135,8 @@ def _main():
     parser.add_argument('--loglevel', default='WARNING')
     parser.add_argument('--nocolors', action='store_false',
                         help='prevents the output from being colorized by ANSI escape sequences')
+    parser.add_argument('--noaggregation', action='store_true',
+                        help='prevents the output from being aggregated as a single json data structure')
     parser.add_argument('--extrasch', default=None,
                         help='runs an extra validation using an external schematron schema.')
     args = parser.parse_args()
@@ -190,7 +192,10 @@ def _main():
                     xml_validator.validate()[0] and
                     xml_validator.validate_style()[0])
 
-            summary_list.append(summary)
+            if args.noaggregation:
+                print(json.dumps(summary, sort_keys=True))
+            else:
+                summary_list.append(summary)
 
         logger.info('finished validating %s' % (xml,))
 
