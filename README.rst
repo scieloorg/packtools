@@ -60,12 +60,12 @@ A função *ajuda* pode ser utilizada com a opção `-h`, conforme o exemplo:
 
 ```bash
 $ stylechecker -h
-usage: stylechecker [-h] [--annotated] [--nonetwork] [--assetsdir ASSETSDIR]
-                    [--version] [--loglevel LOGLEVEL] [--nocolors]
-                    [--extrasch EXTRASCH]
-                    XML [XML ...]
+usage: stylechecker [-h] [--annotated | --raw] [--nonetwork]
+                    [--assetsdir ASSETSDIR] [--version] [--loglevel LOGLEVEL]
+                    [--nocolors] [--extrasch EXTRASCH]
+                    [XML [XML ...]]
 
-stylechecker cli utility
+SciELO PS stylechecker command line utility.
 
 positional arguments:
   XML                   filesystem path or URL to the XML
@@ -74,6 +74,8 @@ optional arguments:
   -h, --help            show this help message and exit
   --annotated           reproduces the XML with notes at elements that have
                         errors
+  --raw                 each result is encoded as json, without any
+                        formatting, and written to stdout in a single line.
   --nonetwork           prevents the retrieval of the DTD through the network
   --assetsdir ASSETSDIR
                         lookup, at the given directory, for each asset
@@ -85,30 +87,9 @@ optional arguments:
                         escape sequences
   --extrasch EXTRASCH   runs an extra validation using an external schematron
                         schema.
-```
 
-
-Exemplo do resultado da validação:
-
-```bash
-$ stylechecker 0034-8910-rsp-48-2-0206.xml
-[
-  {
-    "_xml": "0034-8910-rsp-48-2-0206.xml",
-    "dtd_errors": [
-      "Value \"foo\" for attribute ref-type of xref is not among the enumerated set"
-    ],
-    "is_valid": false,
-    "sps_errors": [
-      "Element 'abstract': Unexpected attribute xml:lang.",
-      "Element 'article-title': Unexpected attribute xml:lang.",
-      "Element 'counts': Missing element or wrong value in equation-count.",
-      "Element 'xref', attribute ref-type: Invalid value \"foo\".",
-      "Element 'person-group': Missing attribute person-group-type.",
-      "Element 'fn': Missing attribute fn-type.",
-      "Element 'article': Missing SPS version at the attribute specific-use."
-    ]
-  }
-]
+Copyright 2013 SciELO <scielo-dev@googlegroups.com>. Licensed under the terms
+of the BSD license. Please see LICENSE in the source code for more
+information.
 ```
 

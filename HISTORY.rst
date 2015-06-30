@@ -9,8 +9,7 @@ History
 * stylechecker's `--loglevel` option accepts upper, lower or mixed case strings.
 * stylechecker utility can read from stdin, so it can be a filter in unix 
   pipelines.
-* Added option `--noaggregation` to stylechecker, to prevent output from being 
-  aggregated as a single JSON data structure.
+* Added `--raw` option to stylechecker. 
 
 
 0.7.4 (2015-06-19)
