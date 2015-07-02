@@ -10,6 +10,8 @@ History
 * stylechecker utility can read from stdin, so it can be a filter in unix 
   pipelines.
 * Added `--raw` option to stylechecker. 
+* Fixed bug that would raise UnicodeDecodeError in the presence 
+  of any non-ascii character in the path to the file (Python 2 on Windows only).
 
 
 0.7.4 (2015-06-19)
