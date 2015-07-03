@@ -1,8 +1,8 @@
 History
 =======
 
-0.7.5
------
+0.7.5 (2015-07-03)
+------------------
 
 * Added feature to run the validation against an external schematron schema 
   [#55].
