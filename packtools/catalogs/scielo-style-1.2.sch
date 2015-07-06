@@ -4,6 +4,8 @@
         xml:lang="en">
   <ns uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
   <ns uri="http://exslt.org/regular-expressions" prefix="regexp"/>
+
+  <include href="common.sch"/>
   <p>
   *******************************************************************************
    THINGS TO BE SURE BEFORE EDITING THIS FILE!
@@ -63,7 +65,9 @@
   </phase>
 
   <phase id="phase.article-id">
-    <active pattern="has_article_id_type_doi_and_valid_values"/>
+    <active pattern="article-id_notempty"/>
+    <active pattern="article-id_attributes"/>
+    <active pattern="article-id_values"/>
   </phase>
 
   <phase id="phase.subj-group">
@@ -307,20 +311,30 @@
     </rule>
   </pattern>
 
-  <pattern id="has_article_id_type_doi_and_valid_values">
+  <pattern id="article-id_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta"/>
+    <param name="assert_expr" value="article-id"/>
+  </pattern>
+
+  <pattern id="article-id_attributes">
+    <title>
+      Mandatory attributes are present.
+    </title>
     <rule context="article/front/article-meta">
-      <assert test="article-id">
-        Element 'article-meta': Missing element article-id.
-      </assert>
       <assert test="article-id[@pub-id-type='doi']">
         Element 'article-meta': Missing element article-id with pub-id-type="doi".
       </assert>
     </rule>
+  </pattern>
 
-    <rule context="article/front/article-meta/article-id">
-        <assert test="@pub-id-type='doi' or 
-                      @pub-id-type='other' or 
-                      @pub-id-type='publisher-id'">
+  <pattern id="article-id_values">
+    <title>
+      Values are known.
+    </title>
+    <rule context="article/front/article-meta/article-id[@pub-id-type]">
+      <assert test="@pub-id-type = 'doi' or 
+                    @pub-id-type = 'other' or 
+                    @pub-id-type = 'publisher-id'">
         Element 'article-id', attribute pub-id-type: Invalid value "<value-of select="@pub-id-type"/>".
       </assert>
     </rule>

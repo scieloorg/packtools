@@ -517,6 +517,19 @@ class ArticleIdTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_pub_id_type_doi_is_empty(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <article-id pub-id-type='doi'/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_invalid_pub_id_type(self):
         sample = u"""<article>
                       <front>
