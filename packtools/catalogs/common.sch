@@ -13,7 +13,7 @@ code for more information.
   
   <rule context="$base_context">
     <assert test="string-length(normalize-space($assert_expr)) != 0">
-      Element '<name/>': Element is mandatory and cannot be empty.
+      Element '<name/>': <value-of select="$err_message"/>
     </assert>
   </rule>
 </pattern>

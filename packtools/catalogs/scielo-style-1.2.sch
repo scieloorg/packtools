@@ -312,8 +312,9 @@
   </pattern>
 
   <pattern id="article-id_notempty" is-a="assert-not-empty">
-    <param name="base_context" value="article/front/article-meta"/>
-    <param name="assert_expr" value="article-id"/>
+    <param name="base_context" value="article/front/article-meta/article-id"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Missing value in article-id.'"/>
   </pattern>
 
   <pattern id="article-id_attributes">
