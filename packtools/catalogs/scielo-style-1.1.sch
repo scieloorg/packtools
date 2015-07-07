@@ -41,15 +41,19 @@
    These are being used to help on tests isolation.
   -->
   <phase id="phase.journal-id">
+    <active pattern="journal-id_notempty"/>
     <active pattern="journal-id_type_nlm-ta_or_publisher-id"/>
   </phase>
 
   <phase id="phase.journal-title-group">
     <active pattern="has_journal-title_and_abbrev-journal-title"/>
+    <active pattern="journal-title_notempty"/>
+    <active pattern="abbrev-journal-title_notempty"/>
   </phase>
 
   <phase id="phase.publisher">
     <active pattern="publisher"/>
+    <active pattern="publisher_notempty"/>
   </phase>
 
   <phase id="phase.article-categories">
@@ -57,11 +61,14 @@
   </phase>
 
   <phase id="phase.fpage_or_elocation-id">
-    <active pattern="fpage_or_elocation_id"/>
+    <active pattern="fpage_or_elocation-id"/>
+    <active pattern="fpage_notempty"/>
+    <active pattern="elocation-id_notempty"/>
   </phase>
 
   <phase id="phase.issn">
     <active pattern="issn_pub_type_epub_or_ppub"/>
+    <active pattern="issn_notempty"/>
   </phase>
 
   <phase id="phase.article-id">
@@ -104,10 +111,12 @@
 
   <phase id="phase.volume">
     <active pattern="volume"/>
+    <active pattern="volume_notempty"/>
   </phase>
   
   <phase id="phase.issue">
     <active pattern="issue"/>
+    <active pattern="issue_notempty"/>
   </phase>
 
   <phase id="phase.supplement">
@@ -273,6 +282,12 @@
   <!--
    Patterns - sets of rules.
   -->
+  <pattern id="journal-id_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/journal-id"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
   <pattern id="journal-id_type_nlm-ta_or_publisher-id">
     <rule context="article/front/journal-meta">
       <assert test="journal-id[@journal-id-type='nlm-ta'] or journal-id[@journal-id-type='publisher-id']">
@@ -301,12 +316,30 @@
     </rule>
   </pattern>
 
+  <pattern id="journal-title_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/journal-title-group/journal-title"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="abbrev-journal-title_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/journal-title-group/abbrev-journal-title"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
   <pattern id="publisher">
     <rule context="article/front/journal-meta">
       <assert test="publisher">
         Element 'journal-meta': Missing element publisher.
       </assert>
     </rule>
+  </pattern>
+
+  <pattern id="publisher_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/publisher/publisher-name"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="article_categories">
@@ -317,12 +350,24 @@
     </rule>
   </pattern>
 
-  <pattern id="fpage_or_elocation_id">
+  <pattern id="fpage_or_elocation-id">
     <rule context="article/front/article-meta">
       <assert test="fpage or elocation-id">
         Element 'article-meta': Missing elements fpage or elocation-id.
       </assert>
     </rule>
+  </pattern>
+
+  <pattern id="fpage_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/fpage"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="elocation-id_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/elocation-id"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="issn_pub_type_epub_or_ppub">
@@ -333,10 +378,16 @@
     </rule>
   </pattern>
 
+  <pattern id="issn_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/issn"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
   <pattern id="article-id_notempty" is-a="assert-not-empty">
     <param name="base_context" value="article/front/article-meta/article-id"/>
     <param name="assert_expr" value="text()"/>
-    <param name="err_message" value="'Missing value in article-id.'"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="article-id_attributes">
@@ -505,12 +556,12 @@
         Element 'article-meta': Missing element volume.
       </assert>
     </rule>
+  </pattern>
 
-    <rule context="article/front/article-meta/volume">
-      <assert test="string-length(.) > 0">
-        Element 'volume': Element cannot be empty.
-      </assert>
-    </rule>
+  <pattern id="volume_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/volume"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="issue">
@@ -523,12 +574,12 @@
         Element 'article-meta': Missing element issue.
       </assert>
     </rule>
+  </pattern>
 
-    <rule context="article/front/article-meta/issue">
-      <assert test="string-length(.) > 0">
-        Element 'issue': Element cannot be empty.
-      </assert>
-    </rule>
+  <pattern id="issue_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/issue"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="supplement">

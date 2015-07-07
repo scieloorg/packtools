@@ -121,6 +121,19 @@ class JournalIdTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_publisher_id_cannot_be_empty(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <journal-id journal-id-type="publisher-id"></journal-id>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class JournalTitleGroupTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/journal-title-group elements.
@@ -228,6 +241,38 @@ class JournalTitleGroupTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_empty_journal_title(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <journal-title-group>
+                            <journal-title></journal-title>
+                            <abbrev-journal-title abbrev-type='publisher'>Rev. Saude Publica</abbrev-journal-title>
+                          </journal-title-group>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_empty_abbrev_journal_title(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <journal-title-group>
+                            <journal-title>Revista de Saude Publica</journal-title>
+                            <abbrev-journal-title abbrev-type='publisher'></abbrev-journal-title>
+                          </journal-title-group>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class PublisherTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/publisher elements.
@@ -253,6 +298,21 @@ class PublisherTests(PhaseBasedTestCase):
         sample = u"""<article>
                       <front>
                         <journal-meta>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_publisher_is_empty(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <publisher>
+                            <publisher-name></publisher-name>
+                          </publisher>
                         </journal-meta>
                       </front>
                     </article>
@@ -377,6 +437,33 @@ class fpage_OR_elocationTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_empty_fpage(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <fpage></fpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_empty_elocationid(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <elocation-id></elocation-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
 class ISSNTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/issn elements.
     """
@@ -464,6 +551,20 @@ class ISSNTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
+
+    def test_empty_issn(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <issn pub-type="epub"></issn>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 
 class ArticleIdTests(PhaseBasedTestCase):
