@@ -1,6 +1,12 @@
 History
 =======
 
+0.7.6 (2015-07-08)
+------------------
+
+* Fixed bug that would cause empty mandatory elements to be valid.
+
+
 0.7.5 (2015-07-03)
 ------------------
 

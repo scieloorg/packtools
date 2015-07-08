@@ -261,6 +261,11 @@
   <phase id="phase.aff_country-attrs">
     <active pattern="aff_country-attrs"/>
   </phase>
+
+  <phase id="phase.ref">
+    <active pattern="ref"/>
+    <active pattern="ref_notempty"/>
+  </phase>
   <!--
    Patterns - sets of rules.
   -->
@@ -1429,6 +1434,27 @@
         Element 'country': Missing attribute country.
       </assert>
     </rule>
+  </pattern>
+
+  <pattern id="ref">
+    <title>
+      element-citation and mixed-citation are mandatory in ref.
+    </title>
+
+    <rule context="article/back/ref-list/ref">
+      <assert test="mixed-citation">
+        Element 'ref': Missing element mixed-citation.
+      </assert>
+      <assert test="element-citation">
+        Element 'ref': Missing element element-citation.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="ref_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/back/ref-list/ref/mixed-citation"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 </schema>
 

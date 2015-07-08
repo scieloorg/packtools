@@ -4445,3 +4445,137 @@ class AffCountryTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class RefTests(PhaseBasedTestCase):
+    """Tests for article/back/ref-list/ref element.
+    """
+    sch_phase = 'phase.ref'
+
+    def test_element_and_mixed_citation_elements(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_mixed_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_mixed_citation_cannot_be_empty(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation></mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
