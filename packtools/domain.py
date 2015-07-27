@@ -15,7 +15,7 @@ import os
 
 from lxml import etree, isoschematron
 
-from .import utils, catalogs, checks, style_errors
+from . import utils, catalogs, checks, style_errors
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,8 @@ ALLOWED_PUBLIC_IDS = (
 # deprecated
 ALLOWED_PUBLIC_IDS_LEGACY = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
-    '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',)
+    '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',
+)
 
 
 def XMLSchematron(schema_name):
@@ -395,7 +396,7 @@ class HTMLGenerator(object):
     :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
     """
 
-    def __init__(self, file, xslt=None, valid_only=True):
+    def __init__(self, file, xslt=None, valid_only=True, css=None):
         if isinstance(file, etree._ElementTree):
             self.lxml = file
         else:
@@ -406,7 +407,8 @@ class HTMLGenerator(object):
             if not is_valid:
                 raise ValueError('The XML is not valid according to SPS rules')
 
-        self.xslt = xslt or XSLT('default-html.xslt')
+        self.xslt = xslt or XSLT('root-html-1.2.xslt')
+        self.css = css
 
     @property
     def languages(self):
@@ -465,7 +467,10 @@ class HTMLGenerator(object):
                              bibliographic_legend=etree.XSLT.strparam(
                                  self._get_bibliographic_legend()),
                              issue_label=etree.XSLT.strparam(
-                                 self._get_issue_label()))
+                                 self._get_issue_label()),
+                             styles_css_path=etree.XSLT.strparam(
+                                 self.css or ''),
+                             )
 
         for lang in self.languages:
             res_html = transform(lang, lang != self.language)

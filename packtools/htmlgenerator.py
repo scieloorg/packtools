@@ -19,7 +19,7 @@ class XMLError(Exception):
     """
 
 
-def get_htmlgenerator(xmlpath, no_network, no_checks):
+def get_htmlgenerator(xmlpath, no_network, no_checks, css):
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
     except IOError as e:
@@ -28,7 +28,7 @@ def get_htmlgenerator(xmlpath, no_network, no_checks):
         raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, e))
 
     try:
-        generator = packtools.HTMLGenerator(parsed_xml, valid_only=not no_checks)
+        generator = packtools.HTMLGenerator(parsed_xml, valid_only=not no_checks, css=css)
     except ValueError as e:
         raise XMLError('Error reading %s. %s.' % (xmlpath, e))
 
@@ -45,6 +45,7 @@ def main():
                         help='prevents the retrieval of the DTD through the network')
     parser.add_argument('--nochecks', action='store_true',
                         help='prevents the validation against SciELO PS spec')
+    parser.add_argument('--css')
     parser.add_argument('XML', nargs='+',
                         help='filesystem path or URL to the XML')
     parser.add_argument('--version', action='version', version=packtools_version)
@@ -59,7 +60,7 @@ def main():
         logger.info('starting generation of %s' % (xml,))
 
         try:
-            html_generator = get_htmlgenerator(xml, args.nonetwork, args.nochecks)
+            html_generator = get_htmlgenerator(xml, args.nonetwork, args.nochecks, args.css)
             logger.debug('HTMLGenerator repr: %s' % repr(html_generator))
         except XMLError as e:
             logger.debug(e)
