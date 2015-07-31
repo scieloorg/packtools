@@ -17,6 +17,5 @@ SCHEMAS = {
 XML_CATALOG = os.path.join(_CWD, 'scielo-publishing-schema.xml')
 
 XSLTS = {
-    'default-html.xslt': os.path.join(_CWD, 'default-html.xslt'),
     'root-html-1.2.xslt': os.path.join(_CWD, 'htmlgenerator/root-html-1.2.xslt'),
 }
