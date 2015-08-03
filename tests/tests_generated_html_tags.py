@@ -68,3 +68,26 @@ class GeneratedTagsTests(unittest.TestCase):
             legend_span_tag = html_output.xpath('//span[@id="bibliographic_legend"]')
             self.assertEqual(1, len(legend_span_tag))
             self.assertEqual(expected_legend_text, legend_span_tag[0].text.strip())
+
+    def test_css_path(self):
+        """
+        verifica que aparece o caminho ao css no html
+        """
+        expected_legend_text = '[#BIBLIOGRAPHIC LEGEND#]'
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xml:lang="pt">
+                       <sub-article xml:lang="en" article-type="translation" id="S01">
+                       </sub-article>
+                       <sub-article xml:lang="es" article-type="translation" id="S02">
+                       </sub-article>
+                    </article>
+                 """
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        css_path = 'foo/bar.css'
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False, css=css_path):
+            css_links_tags = html_output.xpath('//link[@type="text/css"]')
+            self.assertEqual(2, len(css_links_tags))
+            self.assertIn('bootstrap', css_links_tags[0].attrib['href'])
+            self.assertIn(css_path, css_links_tags[1].attrib['href'])
