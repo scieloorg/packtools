@@ -374,7 +374,7 @@
 
             <div class="abstract-keywords-wrapper">
               <!-- abstract -->
-              <xsl:if test="//front/article-meta/abstract[@xml:lang=$article_lang]">
+              <xsl:if test="//abstract[@xml:lang=$article_lang]">
                 <a id="abstract"></a>
                 <h1>
                   <xsl:choose>
@@ -436,7 +436,7 @@
               <xsl:choose>
                 <xsl:when test="$is_translation = 'True' ">
                   <xsl:apply-templates
-                    select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/body" mode="scift-standard-body" />
+                    select="//sub-article[@article-type='translation' and @xml:lang=$article_lang]/body" mode="scift-standard-body" />
                 </xsl:when>
                 <xsl:otherwise>
                   <xsl:apply-templates select="article/body"  mode="scift-standard-body" />
@@ -701,15 +701,15 @@
         <xsl:when test="$is_translation = 'True' ">
           <xsl:choose>
             <xsl:when test="article/front/article-meta/title-group/trans-title-group[@xml:lang=$article_lang]/trans-title">
-              <xsl:value-of select="article/front/article-meta/title-group/trans-title-group[@xml:lang=$article_lang]/trans-title" />
+              <xsl:apply-templates select="article/front/article-meta/title-group/trans-title-group[@xml:lang=$article_lang]/trans-title" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/title-group/article-title[@xml:lang=$article_lang]"/>
+              <xsl:apply-templates select="article/sub-article[@article-type='translation' and @xml:lang=$article_lang]/front-stub/title-group/article-title[@xml:lang=$article_lang]"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="article/front/article-meta/title-group/article-title"/>
+          <xsl:apply-templates select="article/front/article-meta/title-group/article-title"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:template>
