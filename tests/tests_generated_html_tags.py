@@ -4538,3 +4538,1649 @@ class GeneratedFrontTagsTests(unittest.TestCase):
             self.assertEqual(data['%s_equation_count' % lang], equation_count[0].text.strip())
             self.assertEqual(data['%s_ref_count' % lang], ref_count[0].text.strip())
             self.assertEqual(data['%s_page_count' % lang], page_count[0].text.strip())
+
+
+class GeneratedBodyTagsTests(unittest.TestCase):
+
+    # *************** #
+    # ***** BODY **** #
+    # *************** #
+
+    """ <SEC> """
+    def test_sec_tag_with_sectype_attrib_simple_inside_body_tag(self):
+        """
+        verifica que o tag <sec> dentro de <body> seja correto no html.
+        - <sec> com atributo @sec-type simples.
+        - sem <sec> aninhadas (compostas)
+        - - -
+        <sec> aparece em <body>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_sec_type': 'intro',
+            'pt_title': 'Introdução',
+            'pt_text': 'Texto em PT-BR',
+            #  -*- lang: en -*-
+            'en_sec_type': 'intro',
+            'en_title': 'Introduction',
+            'en_text': 'Text in EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <sec sec-type="{pt_sec_type}">
+                            <title>{pt_title}</title>
+                            <p>{pt_text}</p>
+                        </sec>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <sec sec-type="{en_sec_type}">
+                                <title>{en_title}</title>
+                                <p>{en_text}</p>
+                            </sec>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            sec_type = data['%s_sec_type' % lang]
+            secs = html_output.xpath('//article[@class="body-wrapper"]/section[@class="%s"]' % sec_type)
+            self.assertEqual(1, len(secs))
+            title = secs[0].xpath('//header/h2')
+            self.assertEqual(1, len(title))
+            text = secs[0].xpath('//p')
+            self.assertEqual(1, len(text))
+            self.assertEqual(data['%s_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_text' % lang], text[0].text.strip())
+
+    def test_sec_tag_without_sectype_attr_inside_body_tag(self):
+        """
+        verifica que o tag <sec> dentro de <body> seja correto no html.
+        o tag <sec> sem atributo @sec-type
+        - - -
+        <sec> aparece em <body>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_title': 'Introdução',
+            'pt_text': 'Texto em PT-BR',
+            #  -*- lang: en -*-
+            'en_title': 'Introduction',
+            'en_text': 'Text in EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <sec>
+                            <title>{pt_title}</title>
+                            <p>{pt_text}</p>
+                        </sec>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <sec>
+                                <title>{en_title}</title>
+                                <p>{en_text}</p>
+                            </sec>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            secs = html_output.xpath('//article[@class="body-wrapper"]/section')
+            self.assertEqual(1, len(secs))
+            title = secs[0].xpath('//header/h2')
+            self.assertEqual(1, len(title))
+            text = secs[0].xpath('//p')
+            self.assertEqual(1, len(text))
+            self.assertEqual(data['%s_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_text' % lang], text[0].text.strip())
+
+    def test_sec_tag_with_sectype_combined_attr_inside_body_tag(self):
+        """
+        verifica que o tag <sec> dentro de <body> seja correto no html.
+        no <sec> o atributo @sec-type é combinado: "materials|methods"
+        - - -
+        <sec> aparece em <body>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_sec_type': 'materials|methods',
+            'pt_title': 'Introdução',
+            'pt_text': 'Texto em PT-BR',
+            #  -*- lang: en -*-
+            'en_sec_type': 'materials|methods',
+            'en_title': 'Introduction',
+            'en_text': 'Text in EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <sec sec-type="{pt_sec_type}">
+                            <title>{pt_title}</title>
+                            <p>{pt_text}</p>
+                        </sec>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <sec sec-type="{en_sec_type}">
+                                <title>{en_title}</title>
+                                <p>{en_text}</p>
+                            </sec>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            sec_type = data['%s_sec_type' % lang].replace('|', ' ')
+            secs = html_output.xpath('//article[@class="body-wrapper"]/section[@class="%s"]' % sec_type)
+            self.assertEqual(1, len(secs))
+            title = secs[0].xpath('//header/h2')
+            self.assertEqual(1, len(title))
+            text = secs[0].xpath('//p')
+            self.assertEqual(1, len(text))
+            self.assertEqual(data['%s_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_text' % lang], text[0].text.strip())
+
+    def test_sec_tag_with_subsection_attr_inside_body_tag(self):
+        """
+        verifica que o tag <sec> dentro de <body> seja correto no html.
+        o tag <sec> contem outro tag <sec> aninhadas
+        - - -
+        <sec> aparece em <body>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_sec_type': 'intro',
+            'pt_title': 'Introdução',
+            'pt_subsec_type': 'methods',
+            'pt_subtitle': 'Metodologia em ciencia',
+            'pt_subtext': 'Texto em PT-BR',
+            #  -*- lang: en -*-
+            'en_sec_type': 'intro',
+            'en_title': 'Introduction',
+            'en_subsec_type': 'methods',
+            'en_subtitle': 'Methodology in Science',
+            'en_subtext': 'Text in EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <sec sec-type="{pt_sec_type}">
+                            <title>{pt_title}</title>
+                            <sec sec-type="{pt_subsec_type}">
+                                <title>{pt_subtitle}</title>
+                                <p>{pt_subtext}</p>
+                            </sec>
+                        </sec>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <sec sec-type="{en_sec_type}">
+                                <title>{en_title}</title>
+                                <sec sec-type="{en_subsec_type}">
+                                    <title>{en_subtitle}</title>
+                                    <p>{en_subtext}</p>
+                                </sec>
+                            </sec>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            sec_type = data['%s_sec_type' % lang]
+            subsec_type = data['%s_subsec_type' % lang]
+
+            secs = html_output.xpath('//article[@class="body-wrapper"]/section[@class="%s"]' % sec_type)
+            self.assertEqual(1, len(secs))
+
+            title = secs[0].xpath('//section[@class="%s"]/header/h2' % sec_type)
+            self.assertEqual(1, len(title))
+
+            sub_title = secs[0].xpath('//section[@class="%s"]/section[@class="%s"]/header/h2' % (sec_type, subsec_type))
+            self.assertEqual(1, len(sub_title))
+
+            sub_text = secs[0].xpath('//section[@class="%s"]/section[@class="%s"]/p' % (sec_type, subsec_type))
+            self.assertEqual(1, len(sub_text))
+
+            self.assertEqual(data['%s_title' % lang], title[0].text.strip())
+            self.assertEqual(data['%s_subtitle' % lang], sub_title[0].text.strip())
+            self.assertEqual(data['%s_subtext' % lang], sub_text[0].text.strip())
+
+    """ <DISP-FORMULA> with <GRAPHIC> """
+    def test_disp_formula_with_graphic_tag_inside_body_tag(self):
+        """
+        verifica que o tag <disp-formula> (contendo <graphic>), dentro de <body> seja correto no html.
+        - - -
+        <disp-formula> aparece em <body>, <p>, <th>, <td>, <app>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_disp_id': 'e01',
+            'pt_graphic_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            #  -*- lang: en -*-
+            'en_disp_id': 'e02',
+            'en_graphic_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <disp-formula id="{pt_disp_id}">
+                            <graphic xlink:href="{pt_graphic_href}" />
+                        </disp-formula>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <disp-formula id="{en_disp_id}">
+                                <graphic xlink:href="{en_graphic_href}" />
+                            </disp-formula>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            formula_id = data['%s_disp_id' % lang]
+
+            formulas = html_output.xpath('//article[@class="body-wrapper"]/div[@class="disp-formula %s"]' % formula_id)
+            self.assertEqual(1, len(formulas))
+
+            formula_link = formulas[0].xpath('a')
+            self.assertEqual(1, len(formula_link))
+
+            graphic_img = formula_link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_graphic_href' % lang], formula_link[0].attrib['href'])
+            self.assertIn(data['%s_graphic_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_disp_formula_with_graphic_tag_inside_p_tag(self):
+        """
+        verifica que o tag <disp-formula> (contendo <graphic>), dentro de <p> seja correto no html.
+        - - -
+        <disp-formula> aparece em <body>, <p>, <th>, <td>, <app>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_disp_id': 'e01',
+            'pt_graphic_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            #  -*- lang: en -*-
+            'en_disp_id': 'e02',
+            'en_graphic_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <p>
+                            <disp-formula id="{pt_disp_id}">
+                                <graphic xlink:href="{pt_graphic_href}" />
+                            </disp-formula>
+                        </p>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <p>
+                                <disp-formula id="{en_disp_id}">
+                                    <graphic xlink:href="{en_graphic_href}" />
+                                </disp-formula>
+                            </p>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            formula_id = data['%s_disp_id' % lang]
+
+            formulas = html_output.xpath('//article[@class="body-wrapper"]/p/div[@class="disp-formula %s"]' % formula_id)
+            self.assertEqual(1, len(formulas))
+
+            formula_link = formulas[0].xpath('a')
+            self.assertEqual(1, len(formula_link))
+
+            graphic_img = formula_link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_graphic_href' % lang], formula_link[0].attrib['href'])
+            self.assertIn(data['%s_graphic_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_disp_formula_with_graphic_tag_inside_th_tag(self):
+        """
+        verifica que o tag <disp-formula> (contendo <graphic>), dentro de <th> seja correto no html.
+        - - -
+        <disp-formula> aparece em <body>, <p>, <th>, <td>, <app>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_disp_id': 'e01',
+            'pt_graphic_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            #  -*- lang: en -*-
+            'en_disp_id': 'e02',
+            'en_graphic_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <p>
+                            <table-wrap id="t01">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <disp-formula id="{pt_disp_id}">
+                                                    <graphic xlink:href="{pt_graphic_href}" />
+                                                </disp-formula>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>9,8</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </table-wrap>
+                        </p>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <p>
+                                <table-wrap id="t01">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <disp-formula id="{en_disp_id}">
+                                                        <graphic xlink:href="{en_graphic_href}" />
+                                                    </disp-formula>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>9,8</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </table-wrap>
+                            </p>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            formula_id = data['%s_disp_id' % lang]
+            formulas = html_output.xpath('//article[@class="body-wrapper"]//table[@class="table"]/thead/tr/th/div[@class="disp-formula %s"]' % formula_id)
+            self.assertEqual(1, len(formulas))
+
+            formula_link = formulas[0].xpath('a')
+            self.assertEqual(1, len(formula_link))
+
+            graphic_img = formula_link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_graphic_href' % lang], formula_link[0].attrib['href'])
+            self.assertIn(data['%s_graphic_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_disp_formula_with_graphic_tag_inside_td_tag(self):
+        """
+        verifica que o tag <disp-formula> (contendo <graphic>), dentro de <td> seja correto no html.
+        - - -
+        <disp-formula> aparece em <body>, <p>, <th>, <td>, <app>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_disp_id': 'e01',
+            'pt_graphic_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            #  -*- lang: en -*-
+            'en_disp_id': 'e02',
+            'en_graphic_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <p>
+                            <table-wrap id="t01">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>FOO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <disp-formula id="{pt_disp_id}">
+                                                    <graphic xlink:href="{pt_graphic_href}" />
+                                                </disp-formula>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </table-wrap>
+                        </p>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <p>
+                                <table-wrap id="t01">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>FOO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <disp-formula id="{en_disp_id}">
+                                                        <graphic xlink:href="{en_graphic_href}" />
+                                                    </disp-formula>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </table-wrap>
+                            </p>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            formula_id = data['%s_disp_id' % lang]
+            formulas = html_output.xpath('//article[@class="body-wrapper"]//table[@class="table"]/tbody/tr/td/div[@class="disp-formula %s"]' % formula_id)
+            self.assertEqual(1, len(formulas))
+
+            formula_link = formulas[0].xpath('a')
+            self.assertEqual(1, len(formula_link))
+
+            graphic_img = formula_link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_graphic_href' % lang], formula_link[0].attrib['href'])
+            self.assertIn(data['%s_graphic_href' % lang], graphic_img[0].attrib['src'])
+
+    @unittest.skip('tag app/app-group não é exibida por enquanto')
+    def test_disp_formula_with_graphic_tag_inside_app_tag(self):
+        """
+        verifica que o tag <disp-formula> (contendo <graphic>), dentro de <app> seja correto no html.
+        - - -
+        <disp-formula> aparece em <body>, <p>, <th>, <td>, <app>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_disp_id': 'e01',
+            'pt_graphic_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            #  -*- lang: en -*-
+            'en_disp_id': 'e02',
+            'en_graphic_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <back>
+                        <app-group>
+                            <app id="app01">
+                                <disp-formula id="{pt_disp_id}">
+                                    <graphic xlink:href="{pt_graphic_href}" />
+                                </disp-formula>
+                            </app>
+                        </app-group>
+                    </back>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <back>
+                            <app-group>
+                                <app id="app01">
+                                    <disp-formula id="{en_disp_id}">
+                                        <graphic xlink:href="{en_graphic_href}" />
+                                    </disp-formula>
+                                </app>
+                            </app-group>
+                        </back>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            formula_id = data['%s_disp_id' % lang]
+            formulas = html_output.xpath('//div[@class="app-content"]/div[@class="disp-formula %s"]' % formula_id)
+            self.assertEqual(1, len(formulas))
+
+            formula_link = formulas[0].xpath('a')
+            self.assertEqual(1, len(formula_link))
+
+            graphic_img = formula_link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_graphic_href' % lang], formula_link[0].attrib['href'])
+            self.assertIn(data['%s_graphic_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_disp_formula_with_graphic_tag_inside_supplementary_material_tag(self):
+        """
+        verifica que o tag <disp-formula> (contendo <graphic>), dentro de <supplementary-material> seja correto no html.
+        - - -
+        <disp-formula> aparece em <body>, <p>, <th>, <td>, <app>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_disp_id': 'e01',
+            'pt_graphic_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            #  -*- lang: en -*-
+            'en_disp_id': 'e02',
+            'en_graphic_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                    <body>
+                        <sec sec-type="supplementary-material">
+                            <title>Material Supplementario</title>
+                            <supplementary-material id="S1">
+                                <disp-formula id="{pt_disp_id}">
+                                    <graphic xlink:href="{pt_graphic_href}" />
+                                </disp-formula>
+                            </supplementary-material>
+                        </sec>
+                    </body>
+                    <sub-article xml:lang="en" article-type="translation" id="S01">
+                        <body>
+                            <sec sec-type="supplementary-material">
+                                <title>Material Supplementario</title>
+                                <supplementary-material id="S1">
+                                    <disp-formula id="{en_disp_id}">
+                                        <graphic xlink:href="{en_graphic_href}" />
+                                    </disp-formula>
+                                </supplementary-material>
+                            </sec>
+                        </body>
+                    </sub-article>
+                </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            formula_id = data['%s_disp_id' % lang]
+
+            formulas = html_output.xpath('//article[@class="body-wrapper"]/section[@class="supplementary-material"]/div[@class="supplementary-material"]/div[@class="disp-formula %s"]' % formula_id)
+            self.assertEqual(1, len(formulas))
+
+            formula_link = formulas[0].xpath('a')
+            self.assertEqual(1, len(formula_link))
+
+            graphic_img = formula_link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_graphic_href' % lang], formula_link[0].attrib['href'])
+            self.assertIn(data['%s_graphic_href' % lang], graphic_img[0].attrib['src'])
+
+    """ <INLINE-GRAPHIC> """
+    @unittest.skip('tag product não é exibida por enquanto')
+    def test_inline_graphic_tag_inside_product_tag(self):
+        """
+        verifica que o tag <inline-graphic>, dentro de <product> seja correto no html.
+        - - -
+        <inline-graphic> aparece em <product>, <body>, <p>, <sec>, th, td
+        """
+        data = {
+            'pt_inline_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            'en_inline_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                        <front>
+                            <article-meta>
+                                <product product-type="other">
+                                    <inline-graphic xlink:href="{pt_inline_href}"/>
+                                </product>
+                            </article-meta>
+                        </front>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <front-stub>
+                                <article-meta>
+                                    <product product-type="other">
+                                        <inline-graphic xlink:href="{en_inline_href}"/>
+                                    </product>
+                                </article-meta>
+                            </front-stub>
+                        </sub-article>
+                    </article>
+                 """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            products = html_output.xpath('//div[@class="product other"]')
+            self.assertEqual(1, len(products))
+
+            graphic = products[0].xpath('//span[@class="inline-graphic"]')
+            self.assertEqual(1, len(graphic))
+
+            link = graphic[0].xpath('a')
+            self.assertEqual(1, len(link))
+
+            graphic_img = link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_inline_href' % lang], link[0].attrib['href'])
+            self.assertIn(data['%s_inline_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_inline_graphic_tag_inside_body_tag(self):
+        """
+        verifica que o tag <inline-graphic>, dentro de <body> seja correto no html.
+        - - -
+        <inline-graphic> aparece em <product>, <body>, <p>, <sec>, th, td
+        """
+        data = {
+            'pt_inline_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            'en_inline_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                        <body>
+                            <inline-graphic xlink:href="{pt_inline_href}"/>
+                        </body>
+                        <sub-article xml:lang="en" article-type="translation" id="S01">
+                            <body>
+                                <inline-graphic xlink:href="{en_inline_href}"/>
+                            </body>
+                        </sub-article>
+                    </article>
+                 """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            body = html_output.xpath('//article[@class="body-wrapper"]')
+            self.assertEqual(1, len(body))
+
+            graphic = body[0].xpath('//span[@class="inline-graphic"]')
+            self.assertEqual(1, len(graphic))
+
+            link = graphic[0].xpath('a')
+            self.assertEqual(1, len(link))
+
+            graphic_img = link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_inline_href' % lang], link[0].attrib['href'])
+            self.assertIn(data['%s_inline_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_inline_graphic_tag_inside_p_tag(self):
+        """
+        verifica que o tag <inline-graphic>, dentro de <p> seja correto no html.
+        - - -
+        <inline-graphic> aparece em <product>, <body>, <p>, <sec>, th, td
+        """
+        data = {
+            'pt_inline_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            'en_inline_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                        <body>
+                            <p>
+                                <inline-graphic xlink:href="{pt_inline_href}"/>
+                            </p>
+                        </body>
+                        <sub-article xml:lang="en" article-type="translation" id="S01">
+                            <body>
+                                <p>
+                                    <inline-graphic xlink:href="{en_inline_href}"/>
+                                </p>
+                            </body>
+                        </sub-article>
+                    </article>
+                 """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            body = html_output.xpath('//article[@class="body-wrapper"]')
+            self.assertEqual(1, len(body))
+
+            graphic = body[0].xpath('p/span[@class="inline-graphic"]')
+            self.assertEqual(1, len(graphic))
+
+            link = graphic[0].xpath('a')
+            self.assertEqual(1, len(link))
+
+            graphic_img = link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_inline_href' % lang], link[0].attrib['href'])
+            self.assertIn(data['%s_inline_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_inline_graphic_tag_inside_sec_tag(self):
+        """
+        verifica que o tag <inline-graphic>, dentro de <sec> seja correto no html.
+        - - -
+        <inline-graphic> aparece em <product>, <body>, <p>, <sec>, th, td
+        """
+        data = {
+            'pt_inline_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            'en_inline_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                        <body>
+                            <sec sec-type="intro">
+                                <inline-graphic xlink:href="{pt_inline_href}"/>
+                            </sec>
+                        </body>
+                        <sub-article xml:lang="en" article-type="translation" id="S01">
+                            <body>
+                                <sec sec-type="intro">
+                                    <inline-graphic xlink:href="{en_inline_href}"/>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                 """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            body = html_output.xpath('//article[@class="body-wrapper"]')
+            self.assertEqual(1, len(body))
+
+            graphic = body[0].xpath('section[@class="intro"]/span[@class="inline-graphic"]')
+            self.assertEqual(1, len(graphic))
+
+            link = graphic[0].xpath('a')
+            self.assertEqual(1, len(link))
+
+            graphic_img = link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_inline_href' % lang], link[0].attrib['href'])
+            self.assertIn(data['%s_inline_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_inline_graphic_tag_inside_th_tag(self):
+        """
+        verifica que o tag <inline-graphic>, dentro de <th> seja correto no html.
+        - - -
+        <inline-graphic> aparece em <product>, <body>, <p>, <sec>, th, td
+        """
+        data = {
+            'pt_inline_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            'en_inline_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                        <body>
+                            <p>
+                                <table-wrap id="t01">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <inline-graphic xlink:href="{pt_inline_href}"/>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>9,8</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </table-wrap>
+                            </p>
+                        </body>
+                        <sub-article xml:lang="en" article-type="translation" id="S01">
+                            <body>
+                                <p>
+                                    <table-wrap id="t01">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <inline-graphic xlink:href="{en_inline_href}"/>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>9,8</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </table-wrap>
+                                </p>
+                            </body>
+                        </sub-article>
+                    </article>
+                 """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            table = html_output.xpath('//article[@class="body-wrapper"]//table[@class="table"]')
+            self.assertEqual(1, len(table))
+
+            graphic = table[0].xpath('thead/tr/th/span[@class="inline-graphic"]')
+            self.assertEqual(1, len(graphic))
+
+            link = graphic[0].xpath('a')
+            self.assertEqual(1, len(link))
+
+            graphic_img = link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_inline_href' % lang], link[0].attrib['href'])
+            self.assertIn(data['%s_inline_href' % lang], graphic_img[0].attrib['src'])
+
+    def test_inline_graphic_tag_inside_td_tag(self):
+        """
+        verifica que o tag <inline-graphic>, dentro de <td> seja correto no html.
+        - - -
+        <inline-graphic> aparece em <product>, <body>, <p>, <sec>, th, td
+        """
+        data = {
+            'pt_inline_href': '1234-5678-rctb-45-05-0110-e01.tif',
+            'en_inline_href': '1234-5678-rctb-45-05-0110-e02.tif',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.0" article-type="review-article" xml:lang="pt">
+                        <body>
+                            <p>
+                                <table-wrap id="t01">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>FOO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <inline-graphic xlink:href="{pt_inline_href}"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </table-wrap>
+                            </p>
+                        </body>
+                        <sub-article xml:lang="en" article-type="translation" id="S01">
+                            <body>
+                                <p>
+                                    <table-wrap id="t01">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>BAR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <inline-graphic xlink:href="{en_inline_href}"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </table-wrap>
+                                </p>
+                            </body>
+                        </sub-article>
+                    </article>
+                 """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            table = html_output.xpath('//article[@class="body-wrapper"]//table[@class="table"]')
+            self.assertEqual(1, len(table))
+
+            graphic = table[0].xpath('tbody/tr/td/span[@class="inline-graphic"]')
+            self.assertEqual(1, len(graphic))
+
+            link = graphic[0].xpath('a')
+            self.assertEqual(1, len(link))
+
+            graphic_img = link[0].xpath('img')
+            self.assertEqual(1, len(graphic_img))
+
+            self.assertIn(data['%s_inline_href' % lang], link[0].attrib['href'])
+            self.assertIn(data['%s_inline_href' % lang], graphic_img[0].attrib['src'])
+
+    """ <TABLE-WRAP> """
+    @unittest.skip('tag app/app-group não é exibida por enquanto')
+    def test_table_wrap_tag_inside_app_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <app> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <app-group>
+                                <app id="app01">
+                                    <table-wrap id="t01">
+                                        <label>{pt_label}</label>
+                                        <caption>
+                                            <title>{pt_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{pt_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{pt_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {pt_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </app>
+                            </app-group>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <app-group>
+                                    <app id="app01">
+                                        <table-wrap id="t01">
+                                            <label>{en_label}</label>
+                                            <caption>
+                                                <title>{en_caption}</title>
+                                            </caption>
+                                            <table>
+                                                <thead>
+                                                    <tr><th>{en_th}</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td>{en_td}</td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table-wrap-foot>
+                                                {en_foot}
+                                            </table-wrap-foot>
+                                        </table-wrap>
+                                    </app>
+                                </app-group>
+                            </back>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            app_content = html_output.xpath('//div[@class="app-group"]/div[@class="app"]/div[@class="app-content"]')
+            self.assertEqual(1, len(app_content))
+
+            table = app_content[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = app_content[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = app_content[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = app_content[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    @unittest.skip('tag app/app-group não é exibida por enquanto')
+    def test_table_wrap_tag_inside_app_group_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <app-group> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <app-group>
+                                <table-wrap id="t01">
+                                    <label>{pt_label}</label>
+                                    <caption>
+                                        <title>{pt_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{pt_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{pt_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {pt_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </app-group>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <app-group>
+                                    <table-wrap id="t01">
+                                        <label>{en_label}</label>
+                                        <caption>
+                                            <title>{en_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{en_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{en_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {en_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </app-group>
+                            </back>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            app_content = html_output.xpath('//div[@class="app-group"]')
+            self.assertEqual(1, len(app_content))
+
+            table = app_content[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = app_content[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = app_content[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = app_content[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_body_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <body> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <table-wrap id="t01">
+                                <label>{pt_label}</label>
+                                <caption>
+                                    <title>{pt_caption}</title>
+                                </caption>
+                                <table>
+                                    <thead>
+                                        <tr><th>{pt_th}</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{pt_td}</td></tr>
+                                    </tbody>
+                                </table>
+                                <table-wrap-foot>
+                                    {pt_foot}
+                                </table-wrap-foot>
+                            </table-wrap>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <table-wrap id="t01">
+                                    <label>{en_label}</label>
+                                    <caption>
+                                        <title>{en_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{en_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{en_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {en_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            body = html_output.xpath('//article[@class="body-wrapper"]')
+            self.assertEqual(1, len(body))
+
+            table = body[0].xpath('//table')
+            self.assertEqual(1, len(table))
+
+            caption = body[0].xpath('//span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = body[0].xpath('//span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = body[0].xpath('//div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    @unittest.skip('tag glossary não é exibida por enquanto')
+    def test_table_wrap_tag_inside_glossary_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <glossary> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <back>
+                            <glossary id="gloss01">
+                                <table-wrap id="t01">
+                                    <label>{pt_label}</label>
+                                    <caption>
+                                        <title>{pt_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{pt_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{pt_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {pt_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </glossary>
+                        </back>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <back>
+                                <glossary id="gloss01">
+                                    <table-wrap id="t01">
+                                        <label>{en_label}</label>
+                                        <caption>
+                                            <title>{en_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{en_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{en_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {en_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </glossary>
+                            </back>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            glossary = html_output.xpath('//div[@class="glossary"]')
+            self.assertEqual(1, len(glossary))
+
+            table = glossary[0].xpath('//table')
+            self.assertEqual(1, len(table))
+
+            caption = glossary[0].xpath('//span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = glossary[0].xpath('//span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = glossary[0].xpath('//div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_p_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <p> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sec sec-type="intro">
+                                <p>
+                                    <table-wrap id="t01">
+                                        <label>{pt_label}</label>
+                                        <caption>
+                                            <title>{pt_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{pt_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{pt_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {pt_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </p>
+                            </sec>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sec sec-type="intro">
+                                    <p>
+                                        <table-wrap id="t01">
+                                            <label>{en_label}</label>
+                                            <caption>
+                                                <title>{en_caption}</title>
+                                            </caption>
+                                            <table>
+                                                <thead>
+                                                    <tr><th>{en_th}</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td>{en_td}</td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table-wrap-foot>
+                                                {en_foot}
+                                            </table-wrap-foot>
+                                        </table-wrap>
+                                    </p>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            paragraph = html_output.xpath('//article[@class="body-wrapper"]/section[@class="intro"]/p')
+            self.assertEqual(1, len(paragraph))
+
+            table = paragraph[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = paragraph[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = paragraph[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = paragraph[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_sec_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <sec> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sec sec-type="intro">
+                                <table-wrap id="t01">
+                                    <label>{pt_label}</label>
+                                    <caption>
+                                        <title>{pt_caption}</title>
+                                    </caption>
+                                    <table>
+                                        <thead>
+                                            <tr><th>{pt_th}</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>{pt_td}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table-wrap-foot>
+                                        {pt_foot}
+                                    </table-wrap-foot>
+                                </table-wrap>
+                            </sec>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sec sec-type="intro">
+                                    <table-wrap id="t01">
+                                        <label>{en_label}</label>
+                                        <caption>
+                                            <title>{en_caption}</title>
+                                        </caption>
+                                        <table>
+                                            <thead>
+                                                <tr><th>{en_th}</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>{en_td}</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <table-wrap-foot>
+                                            {en_foot}
+                                        </table-wrap-foot>
+                                    </table-wrap>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            section = html_output.xpath('//article[@class="body-wrapper"]/section[@class="intro"]')
+            self.assertEqual(1, len(section))
+
+            table = section[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = section[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = section[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = section[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
+
+    def test_table_wrap_tag_inside_supplementary_material_tag(self):
+        """
+        verifica que o tag <table-wrap>, dentro de <supplementary-material> seja correto no html.
+        - - -
+        <table-wrap> aparece em <app>, <app-group>, <body>, Glossário, <p>, <sec>, <supplementary-material>
+        """
+        data = {
+            #  -*- lang: pt -*-
+            'pt_label': 'label PT',
+            'pt_caption': 'caption PT',
+            'pt_th': 'table header PT',
+            'pt_td': 'table data PT',
+            'pt_foot': 'table foot PT',
+            #  -*- lang: en -*-
+            'en_label': 'label EN',
+            'en_caption': 'caption EN',
+            'en_th': 'table header EN',
+            'en_td': 'table data EN',
+            'en_foot': 'table foot EN',
+        }
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
+                    <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                        <body>
+                            <sec sec-type="supplementary-material">
+                                <p>
+                                    <supplementary-material id="suppl01">
+                                        <table-wrap id="t01">
+                                            <label>{pt_label}</label>
+                                            <caption>
+                                                <title>{pt_caption}</title>
+                                            </caption>
+                                            <table>
+                                                <thead>
+                                                    <tr><th>{pt_th}</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr><td>{pt_td}</td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table-wrap-foot>
+                                                {pt_foot}
+                                            </table-wrap-foot>
+                                        </table-wrap>
+                                    </supplementary-material>
+                                </p>
+                            </sec>
+                        </body>
+                        <sub-article article-type="translation" id="TRen" xml:lang="en">
+                            <body>
+                                <sec sec-type="supplementary-material">
+                                    <p>
+                                        <supplementary-material id="suppl01">
+                                            <table-wrap id="t01">
+                                                <label>{en_label}</label>
+                                                <caption>
+                                                    <title>{en_caption}</title>
+                                                </caption>
+                                                <table>
+                                                    <thead>
+                                                        <tr><th>{en_th}</th></tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr><td>{en_td}</td></tr>
+                                                    </tbody>
+                                                </table>
+                                                <table-wrap-foot>
+                                                    {en_foot}
+                                                </table-wrap-foot>
+                                            </table-wrap>
+                                        </supplementary-material>
+                                    </p>
+                                </sec>
+                            </body>
+                        </sub-article>
+                    </article>
+                """.format(**data)
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        for lang, html_output in domain.HTMLGenerator(et, valid_only=False):
+            supplementary = html_output.xpath('//article[@class="body-wrapper"]/section[@class="supplementary-material"]/div[@class="supplementary-material"]')
+            self.assertEqual(1, len(supplementary))
+
+            table = supplementary[0].xpath('table')
+            self.assertEqual(1, len(table))
+
+            caption = supplementary[0].xpath('span[@class="label_caption"]/caption')
+            self.assertEqual(1, len(caption))
+
+            label = supplementary[0].xpath('span[@class="label_caption"]/label[@for="t01"]')
+            self.assertEqual(1, len(label))
+
+            table_header = table[0].xpath('thead/tr/th')
+            self.assertEqual(1, len(table_header))
+
+            table_cell = table[0].xpath('tbody/tr/td')
+            self.assertEqual(1, len(table_cell))
+
+            table_wrap_footer = supplementary[0].xpath('div[@class="table-wrap-foot"]')
+            self.assertEqual(1, len(table_wrap_footer))
+
+            # then:
+            self.assertEqual(data['%s_label' % lang], label[0].text.strip())
+            self.assertEqual(data['%s_caption' % lang], caption[0].text.strip())
+            self.assertEqual(data['%s_th' % lang], table_header[0].text.strip())
+            self.assertEqual(data['%s_td' % lang], table_cell[0].text.strip())
+            self.assertEqual(data['%s_foot' % lang], table_wrap_footer[0].text.strip())
