@@ -1,6 +1,13 @@
 History
 =======
 
+dev
+---
+
+* Minor refactoring to make possible for the XMLValidator to handle deprecated 
+  versions of SciELO PS.
+
+
 0.7.6 (2015-07-08)
 ------------------
 
