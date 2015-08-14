@@ -4,6 +4,8 @@
         xml:lang="en">
   <ns uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
   <ns uri="http://exslt.org/regular-expressions" prefix="regexp"/>
+
+  <include href="common.sch"/>
   <p>
   *******************************************************************************
    THINGS TO BE SURE BEFORE EDITING THIS FILE!
@@ -26,7 +28,7 @@
   
      - DTD/XSD constraints are not duplicated here
      - There is an issue at http://git.io/5EcR4Q with status `Aprovada`
-     - PMC-Style compatibility is maintained[2]
+     - PMC-Style compatibility is desired[2]
   
    Always double-check the JPTS and PMC-Style before editing.
    [1] http://jats.nlm.nih.gov/publishing/tag-library/1.0/
@@ -39,15 +41,20 @@
    These are being used to help on tests isolation.
   -->
   <phase id="phase.journal-id">
-    <active pattern="journal-id_type_nlm-ta_or_publisher-id"/>
+    <active pattern="journal-id_notempty"/>
+    <active pattern="journal-id_has_publisher-id"/>
+    <active pattern="journal-id_values"/>
   </phase>
 
   <phase id="phase.journal-title-group">
     <active pattern="has_journal-title_and_abbrev-journal-title"/>
+    <active pattern="journal-title_notempty"/>
+    <active pattern="abbrev-journal-title_notempty"/>
   </phase>
 
   <phase id="phase.publisher">
     <active pattern="publisher"/>
+    <active pattern="publisher_notempty"/>
   </phase>
 
   <phase id="phase.article-categories">
@@ -55,15 +62,20 @@
   </phase>
 
   <phase id="phase.fpage_or_elocation-id">
-    <active pattern="fpage_or_elocation_id"/>
+    <active pattern="fpage_or_elocation-id"/>
+    <active pattern="fpage_notempty"/>
+    <active pattern="elocation-id_notempty"/>
   </phase>
 
   <phase id="phase.issn">
     <active pattern="issn_pub_type_epub_or_ppub"/>
+    <active pattern="issn_notempty"/>
   </phase>
 
   <phase id="phase.article-id">
-    <active pattern="has_article_id_type_doi_and_valid_values"/>
+    <active pattern="article-id_notempty"/>
+    <active pattern="article-id_attributes"/>
+    <active pattern="article-id_values"/>
   </phase>
 
   <phase id="phase.subj-group">
@@ -100,10 +112,12 @@
 
   <phase id="phase.volume">
     <active pattern="volume"/>
+    <active pattern="volume_notempty"/>
   </phase>
   
   <phase id="phase.issue">
     <active pattern="issue"/>
+    <active pattern="issue_notempty"/>
   </phase>
 
   <phase id="phase.supplement">
@@ -240,13 +254,44 @@
     <active pattern="inbrief_article-type"/>
   </phase>
 
+  <phase id="phase.funding-group">
+    <active pattern="funding-group"/>
+  </phase>
+
+  <phase id="phase.aff_country-attrs">
+    <active pattern="aff_country-attrs"/>
+  </phase>
+
+  <phase id="phase.ref">
+    <active pattern="ref"/>
+    <active pattern="ref_notempty"/>
+  </phase>
   <!--
    Patterns - sets of rules.
   -->
-  <pattern id="journal-id_type_nlm-ta_or_publisher-id">
+  <pattern id="journal-id_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/journal-id"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="journal-id_has_publisher-id">
+    <title>
+      There exists one journal-id[@journal-id-type='publisher-id'].
+    </title>
+
     <rule context="article/front/journal-meta">
       <assert test="journal-id[@journal-id-type='publisher-id']">
         Element 'journal-meta': Missing element journal-id with journal-id-type="publisher-id".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="journal-id_values">
+    <rule context="article/front/journal-meta/journal-id[@journal-id-type]">
+      <assert test="@journal-id-type = 'nlm-ta' or
+                    @journal-id-type = 'publisher-id'">
+        Element 'journal-id', attribute journal-id-type: Invalid value "<value-of select="@journal-id-type"/>".
       </assert>
     </rule>
   </pattern>
@@ -268,12 +313,30 @@
     </rule>
   </pattern>
 
+  <pattern id="journal-title_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/journal-title-group/journal-title"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="abbrev-journal-title_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/journal-title-group/abbrev-journal-title"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
   <pattern id="publisher">
     <rule context="article/front/journal-meta">
       <assert test="publisher">
         Element 'journal-meta': Missing element publisher.
       </assert>
     </rule>
+  </pattern>
+
+  <pattern id="publisher_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/publisher/publisher-name"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="article_categories">
@@ -284,12 +347,24 @@
     </rule>
   </pattern>
 
-  <pattern id="fpage_or_elocation_id">
+  <pattern id="fpage_or_elocation-id">
     <rule context="article/front/article-meta">
       <assert test="fpage or elocation-id">
         Element 'article-meta': Missing elements fpage or elocation-id.
       </assert>
     </rule>
+  </pattern>
+
+  <pattern id="fpage_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/fpage"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="elocation-id_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/elocation-id"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="issn_pub_type_epub_or_ppub">
@@ -300,20 +375,37 @@
     </rule>
   </pattern>
 
-  <pattern id="has_article_id_type_doi_and_valid_values">
+  <pattern id="issn_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/journal-meta/issn"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="article-id_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/article-id"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="article-id_attributes">
+    <title>
+      Mandatory attributes are present.
+    </title>
     <rule context="article/front/article-meta">
-      <assert test="article-id">
-        Element 'article-meta': Missing element article-id.
-      </assert>
       <assert test="article-id[@pub-id-type='doi']">
         Element 'article-meta': Missing element article-id with pub-id-type="doi".
       </assert>
     </rule>
+  </pattern>
 
-    <rule context="article/front/article-meta/article-id">
-        <assert test="@pub-id-type='doi' or 
-                      @pub-id-type='other' or 
-                      @pub-id-type='publisher-id'">
+  <pattern id="article-id_values">
+    <title>
+      Values are known.
+    </title>
+    <rule context="article/front/article-meta/article-id[@pub-id-type]">
+      <assert test="@pub-id-type = 'doi' or 
+                    @pub-id-type = 'other' or 
+                    @pub-id-type = 'publisher-id'">
         Element 'article-id', attribute pub-id-type: Invalid value "<value-of select="@pub-id-type"/>".
       </assert>
     </rule>
@@ -430,9 +522,10 @@
       <assert test="(front/article-meta/lpage = 0 and
                      front/article-meta/fpage = 0 and
                      front/article-meta/counts/page-count/@count = 0) or 
-                    (regexp:test(front/article-meta/fpage, '\D', 'i') or
-                     regexp:test(front/article-meta/lpage, '\D', 'i')) or
-                    (front/article-meta/counts/page-count/@count = ((front/article-meta/lpage - front/article-meta/fpage) + 1))">
+                     (regexp:test(front/article-meta/fpage, '\D', 'i') or
+                      regexp:test(front/article-meta/lpage, '\D', 'i')) or
+                     string-length(front/article-meta/elocation-id) > 0 or
+                     (front/article-meta/counts/page-count/@count = ((front/article-meta/lpage - front/article-meta/fpage) + 1))">
         Element 'counts': Missing element or wrong value in page-count.
       </assert>
     </rule>
@@ -462,12 +555,12 @@
         Element 'article-meta': Missing element volume.
       </assert>
     </rule>
+  </pattern>
 
-    <rule context="article/front/article-meta/volume">
-      <assert test="string-length(.) > 0">
-        Element 'volume': Element cannot be empty.
-      </assert>
-    </rule>
+  <pattern id="volume_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/volume"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="issue">
@@ -480,12 +573,12 @@
         Element 'article-meta': Missing element issue.
       </assert>
     </rule>
+  </pattern>
 
-    <rule context="article/front/article-meta/issue">
-      <assert test="string-length(.) > 0">
-        Element 'issue': Element cannot be empty.
-      </assert>
-    </rule>
+  <pattern id="issue_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/front/article-meta/issue"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
   </pattern>
 
   <pattern id="supplement">
@@ -743,7 +836,7 @@
       <assert test="@license-type = 'open-access'">
         Element 'license', attribute license-type: Invalid value '<value-of select="@license-type"/>'.
       </assert>
-      <assert test="regexp:test(@xlink:href, 'https?://creativecommons\.org/licenses/(by-nc|by|by-nc-nd)/(3|4)\.0/')">
+      <assert test="regexp:test(@xlink:href, '^https?://creativecommons\.org/licenses/(by-nc|by|by-nc-nd)/(3|4)\.0(/igo)?/?$')">
         Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
       </assert>
     </rule>
@@ -1321,5 +1414,47 @@
     </rule>
   </pattern>
 
+  <pattern id="funding-group">
+    <title></title>
+
+    <rule context="article/back//fn[@fn-type='financial-disclosure']">
+      <assert test="/article/front/article-meta/funding-group/funding-statement">
+        Element 'fn': Missing element funding-statement.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="aff_country-attrs">
+    <title>
+      Ensure the attribute 'country' is present for all //aff/country elements.
+    </title>
+
+    <rule context="article/front/article-meta/aff/country">
+      <assert test="@country">
+        Element 'country': Missing attribute country.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="ref">
+    <title>
+      element-citation and mixed-citation are mandatory in ref.
+    </title>
+
+    <rule context="article/back/ref-list/ref">
+      <assert test="mixed-citation">
+        Element 'ref': Missing element mixed-citation.
+      </assert>
+      <assert test="element-citation">
+        Element 'ref': Missing element element-citation.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="ref_notempty" is-a="assert-not-empty">
+    <param name="base_context" value="article/back/ref-list/ref/mixed-citation"/>
+    <param name="assert_expr" value="text()"/>
+    <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
 </schema>
 

@@ -30,23 +30,31 @@ ALLOWED_PUBLIC_IDS_LEGACY = (
 )
 
 
-def XMLSchematron(schema_name):
+def Schematron(file):
+    with open(file, mode='rb') as fp:
+        xmlschema_doc = etree.parse(fp)
+
+    return isoschematron.Schematron(xmlschema_doc)
+
+
+def StdSchematron(schema_name):
     """Returns an instance of `isoschematron.Schematron`.
 
+    A standard schematron is one bundled with packtools.
     The returned instance is cached due to performance reasons.
+
+    :param schema_name: The logical name of schematron file in the package `catalogs`.
     """
-    cache = utils.setdefault(XMLSchematron, 'cache', lambda: {})
+    cache = utils.setdefault(StdSchematron, 'cache', lambda: {})
 
     if schema_name in cache:
         return cache[schema_name]
     else:
         try:
-            with open(catalogs.SCHEMAS[schema_name], mode='rb') as fp:
-                xmlschema_doc = etree.parse(fp)
+            schematron = Schematron(catalogs.SCHEMAS[schema_name])
         except KeyError:
             raise ValueError('Unknown schema %s' % (schema_name,))
 
-        schematron = isoschematron.Schematron(xmlschema_doc)
         cache[schema_name] = schematron
         return schematron
 
@@ -100,10 +108,12 @@ class XMLValidator(object):
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
     :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
     :param sps_version: (optional) force the style validation with a SPS version.
+    :param extra_schematron: (optional) extra schematron schema.
     """
     allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS)
 
-    def __init__(self, file, dtd=None, no_doctype=False, sps_version=None):
+    def __init__(self, file, dtd=None, no_doctype=False, sps_version=None,
+                 extra_schematron=None):
         if isinstance(file, etree._ElementTree):
             self.lxml = file
         else:
@@ -123,7 +133,11 @@ class XMLValidator(object):
         self.source_url = self.lxml.docinfo.URL
 
         self.public_id = self.lxml.docinfo.public_id
-        self.schematron = XMLSchematron(self.sps_version)  # can raise ValueError
+        self.schematron = StdSchematron(self.sps_version)  # can raise ValueError
+        if extra_schematron:
+            self.extra_schematron = Schematron(extra_schematron)
+        else:
+            self.extra_schematron = None
         self.ppl = checks.StyleCheckingPipeline()
 
     def _init_sps_version(self, sps_version):
@@ -166,13 +180,18 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-
-        def make_error_log():
-            err_log = self.schematron.error_log
+        def make_error_log(schematron):
+            err_log = schematron.error_log
             return [style_errors.SchematronStyleError(err) for err in err_log]
 
         result = self.schematron.validate(self.lxml)
-        errors = make_error_log()
+        errors = make_error_log(self.schematron)
+
+        if self.extra_schematron:
+            extra_result = self.extra_schematron.validate(self.lxml)  # run
+            result = result and extra_result
+            errors += make_error_log(self.extra_schematron)
+
         return result, errors
 
     def validate_style(self):

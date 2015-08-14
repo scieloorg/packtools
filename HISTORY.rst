@@ -1,12 +1,60 @@
 History
 =======
 
+0.7.6 (2015-07-08)
+------------------
 
-Dev
----
+* Fixed bug that would cause empty mandatory elements to be valid.
+
+
+0.7.5 (2015-07-03)
+------------------
+
+* Added feature to run the validation against an external schematron schema 
+  [#55].
+* stylechecker's `--loglevel` option accepts upper, lower or mixed case strings.
+* stylechecker utility can read from stdin, so it can be a filter in unix 
+  pipelines.
+* Added `--raw` option to stylechecker. 
+* Fixed bug that would raise UnicodeDecodeError in the presence 
+  of any non-ascii character in the path to the file (Python 2 on Windows only).
+
+
+0.7.4 (2015-06-19)
+------------------
+
+* Fixed bug that would cause page counts to be reported as error when 
+  pagination is identified with elocation-id [#51].
+* Added support for creative commons IGO licenses (sps-1.2 only). 
+* Fixed bug that would cause funding-group validation to raise false positives.
+
+
+0.7.3 (2015-05-18)
+------------------
+
+* Validating the minimum set of elements required for references of type 
+  journal [http://git.io/vUSp6].
+* Added validation of //aff/country/@country attributes for XMLs under 
+  sps-1.2 spec.
+
+
+0.7.2 (2015-04-30)
+------------------
+
+* Fixes a bug in which the occurrence of empty award-id, 
+  fn[@fn-type="financial-disclosure"] or ack could lead stylechecker to crash.
+
+
+0.7.1 (2015-04-29)
+------------------
 
 * Fixes a bug that report *page-count* as invalid when fpage or lpage values 
   are non-digit.
+* Fixes a bug that mark as invalid XMLs containing use-licenses with 
+  https scheme or missing trailing slashes.
+* Changes the funding-group validation algorithm. 
+* Checking for funding-statement when fn[fn-type="financial-disclosure"] is 
+  present.
 
 
 0.7 (2015-03-13)
