@@ -111,12 +111,10 @@
   </phase>
 
   <phase id="phase.volume">
-    <active pattern="volume"/>
     <active pattern="volume_notempty"/>
   </phase>
   
   <phase id="phase.issue">
-    <active pattern="issue"/>
     <active pattern="issue_notempty"/>
   </phase>
 
@@ -545,34 +543,10 @@
     </rule>
   </pattern>
 
-  <pattern id="volume">
-    <title>
-      Make sure the volume is present and is not empty.
-    </title>
-
-    <rule context="article/front/article-meta">
-      <assert test="count(volume) = 1">
-        Element 'article-meta': Missing element volume.
-      </assert>
-    </rule>
-  </pattern>
-
   <pattern id="volume_notempty" is-a="assert-not-empty">
     <param name="base_context" value="article/front/article-meta/volume"/>
     <param name="assert_expr" value="text()"/>
     <param name="err_message" value="'Element cannot be empty.'"/>
-  </pattern>
-
-  <pattern id="issue">
-    <title>
-      Make sure the issue is present and is not empty.
-    </title>
-
-    <rule context="article/front/article-meta">
-      <assert test="count(issue) = 1">
-        Element 'article-meta': Missing element issue.
-      </assert>
-    </rule>
   </pattern>
 
   <pattern id="issue_notempty" is-a="assert-not-empty">

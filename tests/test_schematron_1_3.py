@@ -1850,7 +1850,7 @@ class VolumeTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_present_but_empty_in_front(self):
         sample = u"""<article>
@@ -1896,7 +1896,7 @@ class IssueTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_present_but_empty_in_front(self):
         sample = u"""<article>
