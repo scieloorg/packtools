@@ -1347,7 +1347,7 @@ class CountsTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_table_is_absent(self):
         sample = u"""<article>
@@ -1367,7 +1367,7 @@ class CountsTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_ref_is_absent(self):
         sample = u"""<article>
@@ -1387,7 +1387,7 @@ class CountsTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_fig_is_absent(self):
         sample = u"""<article>
@@ -1407,7 +1407,7 @@ class CountsTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_equation_is_absent(self):
         sample = u"""<article>
@@ -1427,7 +1427,7 @@ class CountsTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_page_is_absent(self):
         sample = u"""<article>
@@ -1439,27 +1439,6 @@ class CountsTests(PhaseBasedTestCase):
                             <fig-count count="0"/>
                             <equation-count count="0"/>
                           </counts>
-                        </article-meta>
-                      </front>
-                    </article>
-                 """
-        sample = io.BytesIO(sample.encode('utf-8'))
-
-        self.assertFalse(self._run_validation(sample))
-
-    def test_zeroes_if_elements_are_missing(self):
-        sample = u"""<article>
-                      <front>
-                        <article-meta>
-                          <counts>
-                            <table-count count="0"/>
-                            <ref-count count="0"/>
-                            <fig-count count="0"/>
-                            <equation-count count="0"/>
-                            <page-count count="0"/>
-                          </counts>
-                          <fpage>0</fpage>
-                          <lpage>0</lpage>
                         </article-meta>
                       </front>
                     </article>

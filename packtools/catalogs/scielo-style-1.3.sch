@@ -103,7 +103,11 @@
   </phase>
 
   <phase id="phase.counts">
-    <active pattern="counts"/>
+      <active pattern="counts_tables"/>
+      <active pattern="counts_refs"/>
+      <active pattern="counts_figs"/>
+      <active pattern="counts_equations"/>
+      <active pattern="counts_pages"/>
   </phase>
 
   <phase id="phase.pub-date">
@@ -497,34 +501,68 @@
     </rule>
   </pattern>
 
-  <pattern id="counts">
+  <pattern id="counts_tables">
     <title>
-      Make sure the total number of tables, figures, equations and pages are present.
-
-      Page-count cannot be checked if fpage or lpage present non-digit values.
+      Make sure the total number of tables are correct.
     </title>
 
-    <rule context="article">
-      <assert test="front/article-meta/counts/table-count/@count = count(//table-wrap)">
-        Element 'counts': Missing element or wrong value in table-count.
+    <rule context="article/front/article-meta/counts/table-count">
+      <assert test="@count = count(//table-wrap)">
+        Element 'table-count': Wrong value in table-count.
       </assert>
-      <assert test="front/article-meta/counts/ref-count/@count = count(//ref)">
-        Element 'counts': Missing element or wrong value in ref-count.
+    </rule>
+  </pattern>
+
+  <pattern id="counts_refs">
+    <title>
+      Make sure the total number of refs are correct.
+    </title>
+
+    <rule context="article/front/article-meta/counts/ref-count">
+      <assert test="@count = count(//ref)">
+        Element 'ref-count': Wrong value in ref-count.
       </assert>
-      <assert test="front/article-meta/counts/fig-count/@count = count(//fig)">
-        Element 'counts': Missing element or wrong value in fig-count.
+    </rule>
+  </pattern>
+
+  <pattern id="counts_figs">
+    <title>
+      Make sure the total number of figures are correct.
+    </title>
+
+    <rule context="article/front/article-meta/counts/fig-count">
+      <assert test="@count = count(//fig)">
+        Element 'fig-count': Wrong value in fig-count.
       </assert>
-      <assert test="front/article-meta/counts/equation-count/@count = count(//disp-formula)">
-        Element 'counts': Missing element or wrong value in equation-count.
+    </rule>
+  </pattern>
+
+  <pattern id="counts_equations">
+    <title>
+      Make sure the total number of equations are correct.
+    </title>
+
+    <rule context="article/front/article-meta/counts/equation-count">
+      <assert test="@count = count(//disp-formula)">
+        Element 'equation-count': Wrong value in equation-count.
       </assert>
-      <assert test="(front/article-meta/lpage = 0 and
-                     front/article-meta/fpage = 0 and
-                     front/article-meta/counts/page-count/@count = 0) or 
-                     (regexp:test(front/article-meta/fpage, '\D', 'i') or
-                      regexp:test(front/article-meta/lpage, '\D', 'i')) or
-                     string-length(front/article-meta/elocation-id) > 0 or
-                     (front/article-meta/counts/page-count/@count = ((front/article-meta/lpage - front/article-meta/fpage) + 1))">
-        Element 'counts': Missing element or wrong value in page-count.
+    </rule>
+  </pattern>
+
+  <pattern id="counts_pages">
+    <title>
+      Make sure the total number of pages are correct.
+    </title>
+
+    <rule context="article/front/article-meta/counts/page-count">
+      <assert test="(/article/front/article-meta/lpage = 0 and
+                     /article/front/article-meta/fpage = 0 and
+                     @count = 0) or 
+                     (regexp:test(/article/front/article-meta/fpage, '\D', 'i') or
+                      regexp:test(/article/front/article-meta/lpage, '\D', 'i')) or
+                     string-length(/article/front/article-meta/elocation-id) > 0 or
+                     (@count = ((/article/front/article-meta/lpage - /article/front/article-meta/fpage) + 1))">
+        Element 'page-count': Wrong value in page-count.
       </assert>
     </rule>
   </pattern>
