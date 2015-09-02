@@ -1188,7 +1188,8 @@
       <assert test="@ext-link-type">
         Element 'ext-link': Missing attribute ext-link-type.
       </assert>
-      <assert test="@ext-link-type = 'uri'">
+      <assert test="@ext-link-type = 'uri' or
+                    @ext-link-type = 'clinical-trial'">
         Element 'ext-link', attribute ext-link-type: Invalid value '<value-of select="@ext-link-type"/>'.
       </assert>
       <assert test="@xlink:href">

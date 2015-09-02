@@ -3922,7 +3922,7 @@ class ExtLinkTests(PhaseBasedTestCase):
         self.assertTrue(self._run_validation(sample))
 
     def test_allowed_extlinktype(self):
-        for link_type in ['uri', ]:
+        for link_type in ['uri', 'clinical-trial' ]:
             sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                           <body>
                             <sec>
