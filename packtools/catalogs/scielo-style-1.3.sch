@@ -785,7 +785,8 @@
                     @ref-type = 'sec' or
                     @ref-type = 'supplementary-material' or
                     @ref-type = 'table' or
-                    @ref-type = 'table-fn'">
+                    @ref-type = 'table-fn' or
+                    @ref-type = 'boxed-text'">
         Element 'xref', attribute ref-type: Invalid value "<value-of select="@ref-type"/>".
       </assert>
     </rule>

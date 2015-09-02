@@ -2536,7 +2536,8 @@ class XrefRefTypeTests(PhaseBasedTestCase):
     def test_allowed_ref_types(self):
         for reftype in ['aff', 'app', 'author-notes', 'bibr', 'contrib',
                         'corresp', 'disp-formula', 'fig', 'fn', 'sec',
-                        'supplementary-material', 'table', 'table-fn']:
+                        'supplementary-material', 'table', 'table-fn',
+                        'boxed-text']:
             sample = u"""<article>
                           <body>
                             <sec>
@@ -2552,7 +2553,7 @@ class XrefRefTypeTests(PhaseBasedTestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_ref_types(self):
-        for reftype in ['boxed-text', 'chem', 'kwd', 'list', 'other', 'plate'
+        for reftype in ['chem', 'kwd', 'list', 'other', 'plate'
                         'scheme', 'statement']:
             sample = u"""<article>
                           <body>
