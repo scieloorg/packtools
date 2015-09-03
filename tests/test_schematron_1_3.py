@@ -4352,11 +4352,37 @@ class FundingGroupTests(PhaseBasedTestCase):
     """
     sch_phase = 'phase.funding-group'
 
+    def test_funding_statement_when_fn_is_present_missing_award_group(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <funding-group>
+                            <funding-statement>This study was supported by FAPEST #12345</funding-statement>
+                          </funding-group>
+                        </article-meta>
+                      </front>
+                      <back>
+                        <fn-group>
+                          <fn id="fn01" fn-type="financial-disclosure">
+                            <p>This study was supported by FAPEST #12345</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_funding_statement_when_fn_is_present(self):
         sample = u"""<article>
                       <front>
                         <article-meta>
                           <funding-group>
+                            <award-group>
+                              <funding-source>FAPEST</funding-source>
+                              <award-id>12345</award-id>
+                            </award-group>
                             <funding-statement>This study was supported by FAPEST #12345</funding-statement>
                           </funding-group>
                         </article-meta>
@@ -4379,6 +4405,10 @@ class FundingGroupTests(PhaseBasedTestCase):
                       <front>
                         <article-meta>
                           <funding-group>
+                            <award-group>
+                              <funding-source>FAPEST</funding-source>
+                              <award-id>12345</award-id>
+                            </award-group>
                           </funding-group>
                         </article-meta>
                       </front>

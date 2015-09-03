@@ -258,6 +258,7 @@
 
   <phase id="phase.funding-group">
     <active pattern="funding-group"/>
+    <active pattern="funding-group_elements"/>
   </phase>
 
   <phase id="phase.aff_country-attrs">
@@ -1434,6 +1435,18 @@
     <rule context="article/back//fn[@fn-type='financial-disclosure']">
       <assert test="/article/front/article-meta/funding-group/funding-statement">
         Element 'fn': Missing element funding-statement.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="funding-group_elements">
+    <title>
+      Make sure mandatory child elements are present.  
+    </title>
+
+    <rule context="article/front/article-meta/funding-group">
+      <assert test="award-group">
+        Element 'funding-group': Missing element award-group.
       </assert>
     </rule>
   </pattern>
