@@ -1,6 +1,12 @@
 History
 =======
 
+0.8.1 (2015-09-03)
+------------------
+
+* Fixe some issues that would cause invalid sps-1.3 XMLs to be considered valid.
+
+
 0.8.0 (2015-08-31)
 ------------------
 
