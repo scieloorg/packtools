@@ -3420,8 +3420,8 @@ class ArticleAttributesTests(PhaseBasedTestCase):
     sch_phase = 'phase.article-attrs'
 
     def test_allowed_article_types(self):
-        for art_type in ['abstract', 'announcement', 'other', 'article-commentary',
-                'case-report', 'editorial', 'correction', 'letter', 'research-article',
+        for art_type in ['other', 'article-commentary', 'case-report',
+                'editorial', 'correction', 'letter', 'research-article',
                 'in-brief', 'review-article', 'book-review', 'retraction',
                 'brief-report', 'rapid-communication', 'reply', 'translation']:
 

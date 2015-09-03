@@ -1034,9 +1034,7 @@
     </title>
 
     <rule context="article[@article-type]">
-      <assert test="@article-type = 'abstract' or 
-                    @article-type = 'announcement' or
-                    @article-type = 'other' or
+      <assert test="@article-type = 'other' or
                     @article-type = 'article-commentary' or 
                     @article-type = 'case-report' or 
                     @article-type = 'editorial' or
