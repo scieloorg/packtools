@@ -158,7 +158,8 @@ def _main():
             logger.debug('XMLValidator repr: %s' % repr(xml_validator))
         except XMLError as exc:
             logger.debug(exc)
-            logger.warning('Error validating %s. Skipping. Run with DEBUG for more info.', xml)
+            print('Error reading %s. Run with DEBUG for more info.' % xml,
+                  file=sys.stderr)
             continue
 
         if args.annotated:

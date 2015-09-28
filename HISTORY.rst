@@ -1,6 +1,20 @@
 History
 =======
 
+0.8.1 (2015-09-03)
+------------------
+
+* Fixe some issues that would cause invalid sps-1.3 XMLs to be considered valid.
+
+
+0.8.0 (2015-08-31)
+------------------
+
+* Minor refactoring to make possible for the XMLValidator to handle deprecated 
+  versions of SciELO PS.
+* Added basic support to SciELO PS 1.3.
+
+
 0.7.6 (2015-07-08)
 ------------------
 

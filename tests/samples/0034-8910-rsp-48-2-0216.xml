@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN" "JATS-journalpublishing1.dtd">
-<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="en" specific-use="sps-1.1">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="en" specific-use="sps-1.3">
 	<front>
 		<journal-meta>
 			<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
@@ -156,14 +156,9 @@
 				<kwd>Estudos Transversais</kwd>
 			</kwd-group>
 			<funding-group>
-				<award-group>
-					<funding-source>Fundação para o Desenvolvimento Científico e Tecnológico em Saúde</funding-source>
-					<award-id>013-LIV10-2-5-33</award-id>
-				</award-group>
-				<funding-statement>This study was supported by the Fundação para o Desenvolvimento Científico e Tecnológico em Saúde (FIOTEC – Process ENSP-013-LIV10-2-5-33 – Programa Inova ENSP).</funding-statement>
 			</funding-group>
 			<counts>
-				<table-count count="5"/>
+				<table-count count="4"/>
 				<ref-count count="30"/>
 				<page-count count="9"/>
 			</counts>
@@ -2186,7 +2181,7 @@
 				<label>d</label>
 				<p> Peixoto HG. Estado Nutricional e seus fatores interferentes em pacientes com transtornos depressivos [dissertação de mestrado]. Brasília (DF): Faculdade de Ciências da Saúde da UnB; 2006.</p>
 			</fn>
-			<fn id="fn5" fn-type="financial-disclosure">
+			<fn id="fn5">
 				<p>This study was supported by the <italic>Fundação para o Desenvolvimento Científico e Tecnológico em Saúde</italic> (FIOTEC – Process ENSP-013-LIV10-2-5-33 –<italic> Programa Inova </italic>ENSP).</p>
 			</fn>
 		</fn-group>

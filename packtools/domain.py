@@ -17,17 +17,57 @@ from lxml import etree, isoschematron
 
 from . import utils, catalogs, checks, style_errors
 
+
+__all__ = ['XMLValidator', 'XMLPacker']
+
+
 logger = logging.getLogger(__name__)
+
+
+# As a general rule, only the latest 2 versions are supported simultaneously.
+CURRENTLY_SUPPORTED_VERSIONS = os.environ.get(
+    'PACKTOOLS_SUPPORTED_SPS_VERSIONS', 'sps-1.2:sps-1.3').split(':')
 
 ALLOWED_PUBLIC_IDS = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
 )
 
-# deprecated
+# doctype public ids for sps <= 1.1
 ALLOWED_PUBLIC_IDS_LEGACY = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
     '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',
 )
+
+
+def _get_public_ids(sps_version):
+    """Returns the set of allowed public ids for the XML based on its version.
+    """
+    if sps_version in ['pre-sps', 'sps-1.1']:
+        return frozenset(ALLOWED_PUBLIC_IDS_LEGACY)
+    else:
+        return frozenset(ALLOWED_PUBLIC_IDS)
+
+
+def _init_sps_version(xml_et, supported_versions=None):
+    """Returns the SPS spec version for `xml_et` or raises ValueError.
+
+    It also checks if the version is currently supported.
+
+    :param xml_et: etree instance.
+    :param supported_versions: (optional) the default value is set by env var `PACKTOOLS_SUPPORTED_SPS_VERSIONS`.
+    """
+    if supported_versions is None:
+        supported_versions = CURRENTLY_SUPPORTED_VERSIONS
+
+    try:
+        version_from_xml = xml_et.getroot().attrib['specific-use']
+    except KeyError:
+        raise ValueError('Missing SPS version at /article/@specific-use')
+
+    if version_from_xml not in supported_versions:
+        raise ValueError('%s is not currently supported' % version_from_xml)
+    else:
+        return version_from_xml
 
 
 def Schematron(file):
@@ -109,55 +149,48 @@ class XMLValidator(object):
     :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
     :param sps_version: (optional) force the style validation with a SPS version.
     :param extra_schematron: (optional) extra schematron schema.
+    :param supported_sps_versions: (optional) list of supported versions. the
+           only way to bypass this restriction is by using the arg `sps_version`.
     """
-    allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS)
-
     def __init__(self, file, dtd=None, no_doctype=False, sps_version=None,
-                 extra_schematron=None):
+                 extra_schematron=None, supported_sps_versions=None):
         if isinstance(file, etree._ElementTree):
             self.lxml = file
         else:
             self.lxml = utils.XML(file)
 
-        # add self.sps_version or raise ValueError
-        self._init_sps_version(sps_version)
+        # can raise ValueError
+        self.sps_version = sps_version or _init_sps_version(self.lxml,
+                supported_sps_versions)
 
-        # sps version is relevant to _init_doctype method
-        if self.sps_version != 'sps-1.2':
-            self.allowed_public_ids = frozenset(ALLOWED_PUBLIC_IDS_LEGACY)
+        self.allowed_public_ids = _get_public_ids(self.sps_version)
 
-        # add self.doctype or raise ValueError
-        self._init_doctype(no_doctype)
+        # DOCTYPE declaration must be present by default. This behaviour can
+        # be changed by the `no_doctype` arg.
+        self.doctype = self.lxml.docinfo.doctype
+        if not self.doctype and not no_doctype:
+            raise ValueError('Missing DOCTYPE declaration')
 
         self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.source_url = self.lxml.docinfo.URL
 
+        # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
+        # supported.
         self.public_id = self.lxml.docinfo.public_id
-        self.schematron = StdSchematron(self.sps_version)  # can raise ValueError
+        if self.doctype and self.public_id not in self.allowed_public_ids:
+            raise ValueError('Unsuported DOCTYPE public id')
+
+        # Load schematron schema based on sps version. Can raise ValueError
+        self.schematron = StdSchematron(self.sps_version)
+
+        # Load user-provided schematron schema
         if extra_schematron:
             self.extra_schematron = Schematron(extra_schematron)
         else:
             self.extra_schematron = None
+
+        # Load python based validation pipeline
         self.ppl = checks.StyleCheckingPipeline()
-
-    def _init_sps_version(self, sps_version):
-        """Initializes the attribute self.sps_version or raises ValueError.
-        """
-        try:
-            self.sps_version = sps_version or self.lxml.getroot().attrib['specific-use']
-        except KeyError:
-            raise ValueError('Missing SPS version at /article/@specific-use')
-
-    def _init_doctype(self, no_doctype):
-        """Initializes the attribute self.doctype or raises ValueError.
-        """
-        self.doctype = self.lxml.docinfo.doctype
-        if no_doctype is False:
-            if not self.doctype:
-                raise ValueError('Missing DOCTYPE declaration')
-
-        if self.doctype and self.lxml.docinfo.public_id not in self.allowed_public_ids:
-            raise ValueError('Unsuported DOCTYPE public id')
 
     def validate(self):
         """Validate the source XML against JATS DTD.
@@ -168,8 +201,7 @@ class XMLValidator(object):
             raise TypeError('The DTD/XSD could not be loaded')
 
         def make_error_log():
-            return [style_errors.SchemaStyleError(err)
-                    for err in self.dtd.error_log]
+            return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
 
         result = self.dtd.validate(self.lxml)
         errors = make_error_log()
@@ -264,8 +296,7 @@ class XMLValidator(object):
             try:
                 err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
-                logger.info('Could not locate the element name in: %s',
-                            error.message)
+                logger.info('Could not locate the element name in: %s', error.message)
                 err_element = mutating_xml.getroot()
 
             err_pairs.append((err_element, error.message))
@@ -276,10 +307,8 @@ class XMLValidator(object):
         return mutating_xml
 
     def __str__(self):
-        return etree.tostring(self.lxml,
-                              pretty_print=True,
-                              encoding='utf-8',
-                              xml_declaration=True)
+        return etree.tostring(self.lxml, pretty_print=True,
+            encoding='utf-8', xml_declaration=True)
 
     def __unicode__(self):
         return str(self).decode('utf-8')
@@ -290,8 +319,7 @@ class XMLValidator(object):
         except TypeError:
             is_valid = None
 
-        return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml,
-                                         is_valid)
+        return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml, is_valid)
 
     def read(self):
         """Read the XML contents as text.
@@ -305,8 +333,7 @@ class XMLValidator(object):
         parsed_xml = self.lxml
 
         xml_nodes = {
-            "journal_title":
-            "front/journal-meta/journal-title-group/journal-title",
+            "journal_title": "front/journal-meta/journal-title-group/journal-title",
             "journal_eissn": "front/journal-meta/issn[@pub-type='epub']",
             "journal_pissn": "front/journal-meta/issn[@pub-type='ppub']",
             "article_title": "front/article-meta/title-group/article-title",

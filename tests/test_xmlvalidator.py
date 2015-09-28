@@ -76,7 +76,14 @@ class XMLValidatorTests(unittest.TestCase):
         fp = io.BytesIO(b'<a specific-use="sps-1.1"><b>bar</b></a>')
         et = etree.parse(fp)
 
-        self.assertTrue(domain.XMLValidator(et, no_doctype=True))
+        self.assertTrue(domain.XMLValidator(et, no_doctype=True,
+            supported_sps_versions=['sps-1.1', 'sps-1.2']))
+
+    def test_unsupported_sps_version(self):
+        fp = io.BytesIO(b'<a specific-use="pre-sps"><b>bar</b></a>')
+        et = etree.parse(fp)
+
+        self.assertRaises(ValueError, lambda: domain.XMLValidator(et, no_doctype=True))
 
     def test_validation(self):
         fp = etree.parse(io.BytesIO(b'<a><b>bar</b></a>'))
