@@ -1,6 +1,12 @@
 History
 =======
 
+0.9.0
+-----
+
+* Added support for automatic generation of HTML documents.
+
+
 0.8.1 (2015-09-03)
 ------------------
 
