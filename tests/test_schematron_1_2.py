@@ -120,6 +120,19 @@ class JournalIdTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_publisher_id_cannot_be_empty(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <journal-id journal-id-type="publisher-id"></journal-id>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class JournalTitleGroupTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/journal-title-group elements.
@@ -227,6 +240,38 @@ class JournalTitleGroupTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_empty_journal_title(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <journal-title-group>
+                            <journal-title></journal-title>
+                            <abbrev-journal-title abbrev-type='publisher'>Rev. Saude Publica</abbrev-journal-title>
+                          </journal-title-group>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_empty_abbrev_journal_title(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <journal-title-group>
+                            <journal-title>Revista de Saude Publica</journal-title>
+                            <abbrev-journal-title abbrev-type='publisher'></abbrev-journal-title>
+                          </journal-title-group>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class PublisherTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/publisher elements.
@@ -252,6 +297,21 @@ class PublisherTests(PhaseBasedTestCase):
         sample = u"""<article>
                       <front>
                         <journal-meta>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_publisher_is_empty(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <publisher>
+                            <publisher-name></publisher-name>
+                          </publisher>
                         </journal-meta>
                       </front>
                     </article>
@@ -376,6 +436,33 @@ class fpage_OR_elocationTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_empty_fpage(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <fpage></fpage>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_empty_elocationid(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <elocation-id></elocation-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
 class ISSNTests(PhaseBasedTestCase):
     """Tests for article/front/journal-meta/issn elements.
     """
@@ -464,6 +551,19 @@ class ISSNTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_empty_issn(self):
+        sample = u"""<article>
+                      <front>
+                        <journal-meta>
+                          <issn pub-type="epub"></issn>
+                        </journal-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class ArticleIdTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/article-id elements.
@@ -515,6 +615,19 @@ class ArticleIdTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_pub_id_type_doi_is_empty(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <article-id pub-id-type='doi'/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
     def test_invalid_pub_id_type(self):
         sample = u"""<article>
@@ -1563,6 +1676,28 @@ class CountsTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_elocationid_pages(self):
+        """Electronic pagination cannot be checked automatically.
+        """
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <counts>
+                            <table-count count="0"/>
+                            <ref-count count="0"/>
+                            <fig-count count="0"/>
+                            <equation-count count="0"/>
+                            <page-count count="11"/>
+                          </counts>
+                          <elocation-id>A140</elocation-id>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class AuthorNotesTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/author-notes elements.
@@ -2568,6 +2703,9 @@ class LicenseTests(PhaseBasedTestCase):
             'http://creativecommons.org/licenses/by/3.0/',
             'http://creativecommons.org/licenses/by-nc-nd/4.0/',
             'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+            'http://creativecommons.org/licenses/by/3.0/igo/',
+            'http://creativecommons.org/licenses/by-nc/3.0/igo/',
+            'http://creativecommons.org/licenses/by-nc-nd/3.0/igo/',
         ]
 
         for license in allowed_licenses:
@@ -2598,6 +2736,9 @@ class LicenseTests(PhaseBasedTestCase):
             'https://creativecommons.org/licenses/by/3.0/',
             'https://creativecommons.org/licenses/by-nc-nd/4.0/',
             'https://creativecommons.org/licenses/by-nc-nd/3.0/',
+            'https://creativecommons.org/licenses/by/3.0/igo/',
+            'https://creativecommons.org/licenses/by-nc/3.0/igo/',
+            'https://creativecommons.org/licenses/by-nc-nd/3.0/igo/',
         ]
 
         for license in allowed_licenses:
@@ -2639,6 +2780,31 @@ class LicenseTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
+
+    def test_missing_trailing_slash(self):
+        allowed_licenses = [
+            'https://creativecommons.org/licenses/by-nc/4.0',
+        ]
+
+        for license in allowed_licenses:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <front>
+                            <article-meta>
+                              <permissions>
+                                <license license-type="open-access"
+                                         xlink:href="%s">
+                                  <license-p>
+                                    This is an open-access article distributed under the terms...
+                                  </license-p>
+                                </license>
+                              </permissions>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % license
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
 
 
 class AckTests(PhaseBasedTestCase):
@@ -4163,6 +4329,251 @@ class InBriefTests(PhaseBasedTestCase):
                          </article-meta>
                        </front>
                      </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class FundingGroupTests(PhaseBasedTestCase):
+    """Tests for article/front/article-meta/funding-group elements.
+    """
+    sch_phase = 'phase.funding-group'
+
+    def test_funding_statement_when_fn_is_present(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <funding-group>
+                            <funding-statement>This study was supported by FAPEST #12345</funding-statement>
+                          </funding-group>
+                        </article-meta>
+                      </front>
+                      <back>
+                        <fn-group>
+                          <fn id="fn01" fn-type="financial-disclosure">
+                            <p>This study was supported by FAPEST #12345</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_funding_statement_when_fn_is_present(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <funding-group>
+                          </funding-group>
+                        </article-meta>
+                      </front>
+                      <back>
+                        <fn-group>
+                          <fn id="fn01" fn-type="financial-disclosure">
+                            <p>This study was supported by FAPEST #12345</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class AffCountryTests(PhaseBasedTestCase):
+    """ //aff/country/@country is required.
+
+    See: https://github.com/scieloorg/packtools/issues/44
+    """
+    sch_phase = 'phase.aff_country-attrs'
+
+    def test_attribute_is_present(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="BR">Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_attribute_is_absent(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country>Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_attribute_value_is_not_validated(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="XZ">Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+
+class RefTests(PhaseBasedTestCase):
+    """Tests for article/back/ref-list/ref element.
+    """
+    sch_phase = 'phase.ref'
+
+    def test_element_and_mixed_citation_elements(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_mixed_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_mixed_citation_cannot_be_empty(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation></mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 

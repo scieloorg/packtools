@@ -8,6 +8,7 @@ import functools
 import itertools
 import os
 import glob
+import sys
 
 from lxml import etree
 
@@ -15,6 +16,9 @@ from packtools import catalogs
 
 
 logger = logging.getLogger(__name__)
+
+
+PY2 = sys.version_info[0] == 2
 
 
 def _feed_hash(message, hash):
@@ -168,15 +172,22 @@ def flatten(paths):
     Glob expansions are allowed.
     :param paths: Collection of paths. A path can be relative, absolute or a glob expression.
     """
-    for path in paths:
-        ylock = True
-        if not path.startswith(('http:', 'https:')):
-            # try to expand wildchars and get the absolute path
-            for fpath in glob.iglob(path):
-                yield os.path.abspath(fpath)
-                ylock = False
+    def _inner_generator():
+        for path in paths:
+            ylock = True
+            if not path.startswith(('http:', 'https:')):
+                # try to expand wildchars and get the absolute path
+                for fpath in glob.iglob(path):
+                    yield os.path.abspath(fpath).strip()
+                    ylock = False
 
-        # args must not be suppressed, even the invalid
-        if ylock == True:
+            # args must not be suppressed, even the invalid
+            if ylock == True:
+                yield path.strip()
+
+    for path in _inner_generator():
+        if PY2:
+            yield path.decode(encoding=sys.getfilesystemencoding())
+        else:
             yield path
 
