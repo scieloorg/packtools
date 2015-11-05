@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2013 SciELO <scielo-dev@googlegroups.com>.
+Licensed under the terms of the BSD license. Please see LICENSE in the source
+code for more information.
+-->
 <schema xmlns="http://purl.oclc.org/dsdl/schematron"
         queryBinding="exslt"
         xml:lang="en">
