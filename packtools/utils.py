@@ -191,3 +191,4 @@ def flatten(paths):
         else:
             yield path
 
+

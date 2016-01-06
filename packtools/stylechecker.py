@@ -140,11 +140,17 @@ def _main():
                         help='prevents the output from being colorized by ANSI escape sequences')
     parser.add_argument('--extrasch', default=None,
                         help='runs an extra validation using an external schematron schema.')
+    parser.add_argument('--sysinfo', action='store_true',
+                        help='show program\'s installation info and exit.')
     parser.add_argument('XML', nargs='*',
                         help='filesystem path or URL to the XML')
     args = parser.parse_args()
 
     logging.basicConfig(level=getattr(logging, args.loglevel.upper()))
+
+    if args.sysinfo:
+        print(prettify(packtools.get_debug_info(), colorize=args.nocolors))
+        sys.exit(0)
 
     print('Please wait, this may take a while...', file=sys.stderr)
 
@@ -213,6 +219,7 @@ def main():
     except KeyboardInterrupt:
         logger.debug('The program is terminating due to SIGTERM.')
         pass
+
 
 if __name__ == '__main__':
     main()

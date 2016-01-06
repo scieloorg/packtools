@@ -1,6 +1,13 @@
 History
 =======
 
+0.9
+---
+
+* Better debug information with `stylechecker --sysinfo` option.
+* Added scripts to handle registration of local xml catalog in the super catalog.
+
+
 0.8.1 (2015-09-03)
 ------------------
 
