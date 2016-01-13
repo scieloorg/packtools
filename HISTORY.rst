@@ -6,6 +6,9 @@ History
 
 * Better debug information with `stylechecker --sysinfo` option.
 * Added scripts to handle registration of local xml catalog in the super catalog.
+* New domain specific exceptions.
+* XMLValidator as a factory function for _XMLValidator objects. The latter's 
+  `__init__` method was simplified in order to improve testability. 
 
 
 0.8.1 (2015-09-03)

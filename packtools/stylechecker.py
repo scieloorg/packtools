@@ -18,6 +18,7 @@ except ImportError:
     pygments = False    # NOQA
 
 import packtools
+from packtools import exceptions
 
 
 logger = logging.getLogger(__name__)
@@ -30,10 +31,7 @@ code for more information.
 """
 
 
-class XMLError(Exception):
-    """ Represents errors that would block XMLValidator instance from
-    being created.
-    """
+ERR_MESSAGE = "Something went wrong while working on {filename}: {details}."
 
 
 def prettify(jsonobj, colorize=True):
@@ -59,22 +57,8 @@ def prettify(jsonobj, colorize=True):
 
 
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
-    try:
-        parsed_xml = packtools.XML(xmlpath, no_network=no_network)
-    except IOError as exc:
-        logger.debug(exc)
-        raise XMLError('Error reading %s. Make sure it is a valid file-path or URL.' % xmlpath)
-    except etree.XMLSyntaxError as exc:
-        logger.debug(exc)
-        raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, exc))
-
-    try:
-        xml = packtools.XMLValidator(parsed_xml, extra_schematron=extra_sch)
-    except ValueError as exc:
-        logger.debug(exc)
-        raise XMLError('Error reading %s. %s.' % (xmlpath, exc))
-
-    return xml
+    parsed_xml = packtools.XML(xmlpath, no_network=no_network)
+    return packtools.XMLValidator(parsed_xml, extra_schematron=extra_sch)
 
 
 def summarize(validator, assets_basedir=None):
@@ -162,11 +146,12 @@ def _main():
 
         try:
             xml_validator = get_xmlvalidator(xml, args.nonetwork, args.extrasch)
-            logger.debug('XMLValidator repr: %s' % repr(xml_validator))
-        except XMLError as exc:
+
+        except (etree.XMLSyntaxError, exceptions.XMLDoctypeError,
+                exceptions.XMLSPSVersionError) as exc:
             logger.debug(exc)
-            print('Error reading %s. Run with DEBUG for more info.' % xml,
-                  file=sys.stderr)
+            print(ERR_MESSAGE.format(filename=xml, details=exc),
+                    file=sys.stderr)
             continue
 
         if args.annotated:

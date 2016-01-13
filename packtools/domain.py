@@ -15,7 +15,7 @@ import os
 
 from lxml import etree, isoschematron
 
-from . import utils, catalogs, checks, style_errors
+from . import utils, catalogs, checks, style_errors, exceptions
 
 
 __all__ = ['XMLValidator', 'XMLPacker']
@@ -62,10 +62,10 @@ def _init_sps_version(xml_et, supported_versions=None):
     try:
         version_from_xml = xml_et.getroot().attrib['specific-use']
     except KeyError:
-        raise ValueError('Missing SPS version at /article/@specific-use')
+        raise exceptions.XMLSPSVersionError('Missing SPS version at /article/@specific-use')
 
     if version_from_xml not in supported_versions:
-        raise ValueError('%s is not currently supported' % version_from_xml)
+        raise exceptions.XMLSPSVersionError('%s is not currently supported' % version_from_xml)
     else:
         return version_from_xml
 
@@ -135,7 +135,7 @@ def XMLValidator(file, dtd=None, no_doctype=False, sps_version=None,
     else:
         et = utils.XML(file)
 
-    # can raise ValueError
+    # can raise exception
     sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
 
     allowed_public_ids = _get_public_ids(sps_version)
@@ -144,13 +144,13 @@ def XMLValidator(file, dtd=None, no_doctype=False, sps_version=None,
     # be changed by the `no_doctype` arg.
     doctype = et.docinfo.doctype
     if not doctype and not no_doctype:
-        raise ValueError('Missing DOCTYPE declaration')
+        raise exceptions.XMLDoctypeError('Missing DOCTYPE declaration')
 
     # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
     # supported.
     public_id = et.docinfo.public_id
     if doctype and public_id not in allowed_public_ids:
-        raise ValueError('Unsuported DOCTYPE public id')
+        raise exceptions.XMLDoctypeError('Unsuported DOCTYPE public id')
 
     return _XMLValidator(et, sps_version, dtd, extra_schematron)
 
@@ -201,7 +201,7 @@ class _XMLValidator(object):
         Returns a tuple comprising the validation status and the errors list.
         """
         if self.dtd is None:
-            raise TypeError('The DTD/XSD could not be loaded')
+            raise exceptions.UndefinedDTDError('The DTD/XSD could not be loaded')
 
         def make_error_log():
             return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
@@ -256,7 +256,7 @@ class _XMLValidator(object):
         try:
             v_result, v_errors = self.validate()
 
-        except TypeError:
+        except exceptions.UndefinedDTDError:
             if fail_fast:
                 raise
             else:
@@ -318,7 +318,7 @@ class _XMLValidator(object):
     def __repr__(self):
         try:
             is_valid = self.validate_all()[0]
-        except TypeError:
+        except exceptions.UndefinedDTDError:
             is_valid = None
 
         return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml, is_valid)
