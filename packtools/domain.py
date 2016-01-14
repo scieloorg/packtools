@@ -21,7 +21,7 @@ from . import utils, catalogs, checks, style_errors, exceptions
 __all__ = ['XMLValidator', 'XMLPacker']
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 # As a general rule, only the latest 2 versions are supported simultaneously.
@@ -298,7 +298,7 @@ class _XMLValidator(object):
             try:
                 err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
-                logger.info('Could not locate the element name in: %s', error.message)
+                LOGGER.info('Could not locate the element name in: %s', error.message)
                 err_element = mutating_xml.getroot()
 
             err_pairs.append((err_element, error.message))

@@ -8,13 +8,12 @@ import platform
 
 from lxml import etree
 
-from .xray import SPSPackage
 from .domain import XMLValidator, XMLPacker
 from .utils import XML
 from .version import __version__
 
 
-__all__ = ['SPSPackage', 'XMLValidator', 'XMLPacker', 'XML', '__version__',
+__all__ = ['XMLValidator', 'XMLPacker', 'XML', '__version__',
         'get_debug_info',]
 
 

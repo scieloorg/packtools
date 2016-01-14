@@ -12,7 +12,7 @@ import logging
 from lxml import etree
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 EXPOSE_ELEMENTNAME_PATTERN = re.compile(r"(?<=Element )'.*?'")
@@ -25,12 +25,12 @@ def search_element_name(message):
     """
     match = EXPOSE_ELEMENTNAME_PATTERN.search(message)
     if match is None:
-        logger.info('Could not locate the element name in: %s.', message)
+        LOGGER.info('Could not locate the element name in: %s.', message)
         raise ValueError('Could not locate the element name in %s.' % message)
 
     else:
         element_name = match.group(0).strip("'")
-        logger.info('Found element name "%s" in "%s"', element_name, message)
+        LOGGER.info('Found element name "%s" in "%s"', element_name, message)
 
         return element_name
 
@@ -49,7 +49,7 @@ def search_element(doc, xpath, line=None):
             continue
 
     else:
-        logger.info("Could not find element '%s'.", xpath)
+        LOGGER.info("Could not find element '%s'.", xpath)
         raise ValueError("Could not find element '%s'." % xpath)
 
 
@@ -104,7 +104,7 @@ class SchemaStyleError(StyleErrorBase):
             if elem.sourceline == self.line:
                 return elem
         else:
-            logger.info("Could not find element at the line %s", self.line)
+            LOGGER.info("Could not find element at the line %s", self.line)
             raise ValueError("Could not find element at the line %s" % self.line)
 
 

@@ -21,7 +21,7 @@ import packtools
 from packtools import exceptions
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 EPILOG = """\
@@ -45,12 +45,12 @@ def prettify(jsonobj, colorize=True):
 
     json_str = json.dumps(jsonobj, indent=2, sort_keys=True)
     if colorize and pygments and not sys.platform.startswith('win'):
-        logger.info('using pygments to highlight the output')
+        LOGGER.info('using pygments to highlight the output')
         try:
             lexer = get_lexer_for_mimetype("application/json")
             return pygments.highlight(json_str, lexer, TerminalFormatter())
         except Exception as e:
-            logger.debug(e)
+            LOGGER.debug(e)
             pass
 
     return json_str
@@ -72,7 +72,7 @@ def summarize(validator, assets_basedir=None):
         try:
             err_element = err.get_apparent_element(validator.lxml)
         except ValueError:
-            logger.info('Could not locate the element name in: %s' % err.message)
+            LOGGER.info('Could not locate the element name in: %s' % err.message)
             err_element = None
 
         if err_element is not None:
@@ -92,9 +92,9 @@ def summarize(validator, assets_basedir=None):
     }
 
     if assets_basedir:
-        logger.info('looking for assets in %s' % (assets_basedir,))
+        LOGGER.info('looking for assets in %s' % (assets_basedir,))
         summary['assets'] = validator.lookup_assets(assets_basedir)
-        logger.info('total assets referenced: %s' % (len(summary['assets']),))
+        LOGGER.info('total assets referenced: %s' % (len(summary['assets']),))
 
     return summary
 
@@ -142,14 +142,14 @@ def _main():
     summary_list = []
 
     for xml in packtools.utils.flatten(input_args):
-        logger.info('starting validation of %s' % (xml,))
+        LOGGER.info('starting validation of %s' % (xml,))
 
         try:
             xml_validator = get_xmlvalidator(xml, args.nonetwork, args.extrasch)
 
         except (etree.XMLSyntaxError, exceptions.XMLDoctypeError,
                 exceptions.XMLSPSVersionError) as exc:
-            logger.debug(exc)
+            LOGGER.debug(exc)
             print(ERR_MESSAGE.format(filename=xml, details=exc),
                     file=sys.stderr)
             continue
@@ -176,8 +176,8 @@ def _main():
 
                 summary = summarize(xml_validator, assets_basedir=assets_basedir)
             except TypeError as exc:
-                logger.debug(exc)
-                logger.warning(
+                LOGGER.debug(exc)
+                LOGGER.warning(
                         'Error validating %s. Skipping. Run with DEBUG for more info.',
                         xml)
                 continue
@@ -192,7 +192,7 @@ def _main():
             else:
                 summary_list.append(summary)
 
-        logger.info('finished validating %s' % (xml,))
+        LOGGER.info('finished validating %s' % (xml,))
 
     if summary_list:
         print(prettify(summary_list, colorize=args.nocolors))
@@ -202,7 +202,7 @@ def main():
     try:
         _main()
     except KeyboardInterrupt:
-        logger.debug('The program is terminating due to SIGTERM.')
+        LOGGER.debug('The program is terminating due to SIGTERM.')
         pass
 
 

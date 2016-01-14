@@ -4,11 +4,12 @@ History
 0.9
 ---
 
-* Better debug information with `stylechecker --sysinfo` option.
+* Better debug information with ``stylechecker --sysinfo`` option.
 * Added scripts to handle registration of local xml catalog in the super catalog.
 * New domain specific exceptions.
 * XMLValidator as a factory function for _XMLValidator objects. The latter's 
-  `__init__` method was simplified in order to improve testability. 
+  ``__init__`` method was simplified in order to improve testability. 
+* The module ``packtools.xray`` was removed.
 
 
 0.8.1 (2015-09-03)
@@ -36,10 +37,10 @@ History
 
 * Added feature to run the validation against an external schematron schema 
   [#55].
-* stylechecker's `--loglevel` option accepts upper, lower or mixed case strings.
+* stylechecker's ``--loglevel`` option accepts upper, lower or mixed case strings.
 * stylechecker utility can read from stdin, so it can be a filter in unix 
   pipelines.
-* Added `--raw` option to stylechecker. 
+* Added ``--raw`` option to stylechecker. 
 * Fixed bug that would raise UnicodeDecodeError in the presence 
   of any non-ascii character in the path to the file (Python 2 on Windows only).
 
@@ -120,8 +121,8 @@ History
 0.6.2 (2015-01-23)
 ------------------
 
-* Added method `XMLValidator.lookup_assets`.
-* Added property `XMLValidator.assets`. 
+* Added method ``XMLValidator.lookup_assets``.
+* Added property ``XMLValidator.assets``. 
 * Fixed minor issue that would cause //element-citation[@publication-type="report"] 
   to be reported as invalid.
 * Fixed minor issue that would erroneously identify an element-citation element 
@@ -139,15 +140,15 @@ History
 
 * Python 3 support.
 * Project-wide code refactoring.
-* `packtools.__version__` attribute to get the package version.
-* Distinction between classes of error with the attribute `StyleError.level`.
+* ``packtools.__version__`` attribute to get the package version.
+* Distinction between classes of error with the attribute ``StyleError.level``.
 
 
 0.5 (2014-09-29)
 ----------------
 
 * Basic implementation of XML style rules according to SciELO PS version 1.1.
-* `stylechecker` and `packbuilder` console utilities.
-* Major performance improvements on `XMLValidator` instantiation, when used
+* ``stylechecker`` and ``packbuilder`` console utilities.
+* Major performance improvements on ``XMLValidator`` instantiation, when used
   with long-running processes (9.5x).
 
