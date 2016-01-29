@@ -8,13 +8,17 @@ import platform
 
 from lxml import etree
 
-from .domain import XMLValidator, XMLPacker
+from .domain import XMLValidator
 from .utils import XML
 from .version import __version__
 
 
-__all__ = ['XMLValidator', 'XMLPacker', 'XML', '__version__',
-        'get_debug_info',]
+__all__ = [
+    'XMLValidator',
+    'XML',
+    '__version__',
+    'get_debug_info',
+]
 
 
 LIBXML_COMPILED_VERSION = '.'.join(

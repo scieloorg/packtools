@@ -53,6 +53,5 @@ setup(
     entry_points="""
     [console_scripts]
     stylechecker = packtools.stylechecker:main
-    packbuilder = packtools.packbuilder:main
     """)
 
