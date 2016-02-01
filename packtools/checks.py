@@ -16,7 +16,7 @@ LOGGER = logging.getLogger(__name__)
 # --------------------------------
 # Basic functionality
 # --------------------------------
-@plumber.pipe
+@plumber.filter
 def setup(message):
     """Prepare the message to traverse the pipeline.
 
@@ -27,7 +27,7 @@ def setup(message):
     return message, []
 
 
-@plumber.pipe
+@plumber.filter
 def teardown(message):
     """Finalize the processing pipeline and return the errors list.
     """
@@ -44,7 +44,7 @@ def StyleCheckingPipeline():
 # --------------------------------
 # Funding Group check
 # --------------------------------
-@plumber.pipe
+@plumber.filter
 def funding_group(message):
     """Validate the Funding Group element
 
@@ -119,7 +119,7 @@ def funding_group(message):
     return message
 
 
-@plumber.pipe
+@plumber.filter
 def doctype(message):
     """Make sure the DOCTYPE declaration is present.
     """

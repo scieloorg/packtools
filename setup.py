@@ -18,7 +18,7 @@ with open('packtools/version.py') as fp:
 
 install_requires = [
     'lxml >= 3.3.4',
-    'picles.plumber >= 0.10',
+    'picles.plumber >= 0.11',
 ]
 
 
