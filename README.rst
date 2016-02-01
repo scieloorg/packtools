@@ -2,7 +2,7 @@
 scielo.packtools
 ================
 
-Python library and command-line utilities to handle SciELO PS XML files. 
+Python library and command-line utilities to handle SciELO PS XML files that runs on python 2.7, 3.3 and 3.4.
 
 
 Build status
