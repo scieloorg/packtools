@@ -6,14 +6,9 @@ import sys
 import logging
 import platform
 
-<<<<<<< HEAD
-from .xray import SPSPackage
-from .domain import XMLValidator, XMLPacker, HTMLGenerator
-=======
 from lxml import etree
 
-from .domain import XMLValidator
->>>>>>> master
+from .domain import XMLValidator, HTMLGenerator
 from .utils import XML
 from .version import __version__
 
@@ -23,6 +18,7 @@ __all__ = [
     'XML',
     '__version__',
     'get_debug_info',
+    'HTMLGenerator',
 ]
 
 

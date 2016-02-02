@@ -17,7 +17,7 @@ from lxml import etree, isoschematron
 from . import utils, catalogs, checks, style_errors, exceptions
 
 
-__all__ = ['XMLValidator',]
+__all__ = ['XMLValidator', 'HTMLGenerator']
 
 
 LOGGER = logging.getLogger(__name__)
@@ -387,4 +387,105 @@ class _XMLValidator(object):
         """
         is_available = utils.make_file_checker(base_dir)
         return [(asset, is_available(asset)) for asset in self.assets]
+
+
+class HTMLGenerator(object):
+    """Adapter that generates HTML from SPS XML.
+
+    If `file` is not an etree instance, it will be parsed using
+    :func:`XML`.
+
+    Usage:
+
+    .. code-block:: python
+
+        generator = HTMLGenerator('valid-sps-file.xml')
+        for lang, html in generator:
+            print('Lang:', lang)
+            print('HTML:', etree.tostring(html, encoding='unicode', method='html'))
+
+
+    :param file: Path to the XML file, URL, etree or file-object.
+    :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
+    """
+
+    def __init__(self, file, xslt=None, valid_only=True, css=None):
+        if isinstance(file, etree._ElementTree):
+            self.lxml = file
+        else:
+            self.lxml = utils.XML(file)
+
+        if valid_only:
+            is_valid, errors = XMLValidator(file).validate()
+            if not is_valid:
+                raise ValueError('The XML is not valid according to SPS rules')
+
+        self.xslt = xslt or XSLT('root-html-1.2.xslt')
+        self.css = css
+
+    @property
+    def languages(self):
+        """ The language of the main document plus all translations.
+        """
+        return self.lxml.xpath(
+            '/article/@xml:lang | //sub-article[@article-type="translation"]/@xml:lang')
+
+    @property
+    def language(self):
+        """ The language of the main document.
+        """
+        return self.lxml.xpath('/article/@xml:lang')[0]
+
+    def _is_aop(self):
+        """ Has the document been published ahead-of-print?
+        """
+        volume = self.lxml.findtext('front/article-meta/volume')
+        number = self.lxml.findtext('front/article-meta/issue')
+
+        return volume == '00' and number == '00'
+
+    def _get_issue_label(self):
+        volume = self.lxml.findtext('front/article-meta/volume')
+        number = self.lxml.findtext('front/article-meta/issue')
+
+        return 'vol.%s n.%s' % (volume, number)
+
+    def _get_bibliographic_legend(self):
+        return '[#BIBLIOGRAPHIC LEGEND#]'
+
+        issue = 'ahead of print' if self._is_aop() else self._get_issue_label()
+
+        abrev_title = self.lxml.findtext(
+            'front/journal-meta/journal-title-group/abbrev-journal-title[@abbrev-type="publisher"]')
+        city = '[#CITY#]'
+
+        pubdate = self.lxml.xpath(
+            '/article/front/article-meta/pub-date[@pub-type="epub-ppub" or @pub-type="epub"][1]')[0]
+        pubtype = 'Epub' if pubdate.xpath('@pub-type')[0] == 'epub' else ''
+        day = pubdate.findtext('day')
+        month = pubdate.findtext('month')
+        year = pubdate.findtext('year')
+        dates = ' '.join([month, year]) if month else year
+
+        parts = [abrev_title, issue, city, pubtype, dates]
+
+        return ' '.join([part for part in parts if part])
+
+    def __iter__(self):
+        def transform(article_lang, is_translation):
+            return self.xslt(self.lxml,
+                             article_lang=etree.XSLT.strparam(article_lang),
+                             is_translation=etree.XSLT.strparam(
+                                 str(is_translation)),
+                             bibliographic_legend=etree.XSLT.strparam(
+                                 self._get_bibliographic_legend()),
+                             issue_label=etree.XSLT.strparam(
+                                 self._get_issue_label()),
+                             styles_css_path=etree.XSLT.strparam(
+                                 self.css or ''),
+                             )
+
+        for lang in self.languages:
+            res_html = transform(lang, lang != self.language)
+            yield lang, res_html
 
