@@ -1,12 +1,60 @@
 """Packtools is a Python library and set of command line utilities which can be
 used to handle SciELO Publishing Schema packages and XML files.
 """
+import os
+import sys
 import logging
+import platform
 
+<<<<<<< HEAD
 from .xray import SPSPackage
 from .domain import XMLValidator, XMLPacker, HTMLGenerator
+=======
+from lxml import etree
+
+from .domain import XMLValidator
+>>>>>>> master
 from .utils import XML
 from .version import __version__
+
+
+__all__ = [
+    'XMLValidator',
+    'XML',
+    '__version__',
+    'get_debug_info',
+]
+
+
+LIBXML_COMPILED_VERSION = '.'.join(
+        (str(digit) for digit in etree.LIBXML_COMPILED_VERSION))
+LIBXML_VERSION = '.'.join(
+        (str(digit) for digit in etree.LIBXML_VERSION))
+LIBXSLT_COMPILED_VERSION = '.'.join(
+        (str(digit) for digit in etree.LIBXSLT_COMPILED_VERSION))
+LIBXSLT_VERSION = '.'.join(
+        (str(digit) for digit in etree.LIBXSLT_VERSION))
+LXML_VERSION = '.'.join(
+        (str(digit) for digit in etree.LXML_VERSION))
+
+
+def get_debug_info():
+    """ Returns debug data computed at the time.
+    """
+    info = {
+        'libxml_compiled_version': LIBXML_COMPILED_VERSION,
+        'libxml_version': LIBXML_VERSION,
+        'libxslt_compiled_version': LIBXSLT_COMPILED_VERSION,
+        'libxslt_version': LIBXSLT_VERSION,
+        'lxml_version': LXML_VERSION,
+        'xml_catalog_files': os.environ.get('XML_CATALOG_FILES', ''),
+        'system_path': sys.path,
+        'packtools_version': __version__,
+        'python_version': platform.python_version(),
+    }
+
+    return info
+
 
 # Setting up a do-nothing handler. We expect the application to define
 # the handler for `packtools`.

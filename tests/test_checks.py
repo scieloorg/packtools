@@ -28,17 +28,6 @@ class TeardownTests(unittest.TestCase):
         self.assertEqual(checks.teardown(message), err_list)
 
 
-class PipelineTests(unittest.TestCase):
-    def test_connected_pipes_no(self):
-        ppl = checks.StyleCheckingPipeline()
-        self.assertEqual(len(ppl._pipes), 4)
-
-    @unittest.skip('depends on not implemented feature')
-    def test_connected_pipes(self):
-        """Make sure that all meaningful pipes are part of the pipeline.
-        """
-
-
 # ----------------------------------
 # Funding Group pipe and utils tests
 # ----------------------------------

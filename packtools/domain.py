@@ -10,18 +10,17 @@ validation behaviour and packaging functionality, respectively.
 from __future__ import unicode_literals
 import logging
 from copy import deepcopy
-import zipfile
 import os
 
 from lxml import etree, isoschematron
 
-from . import utils, catalogs, checks, style_errors
+from . import utils, catalogs, checks, style_errors, exceptions
 
 
-__all__ = ['XMLValidator', 'XMLPacker']
+__all__ = ['XMLValidator',]
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 # As a general rule, only the latest 2 versions are supported simultaneously.
@@ -62,10 +61,10 @@ def _init_sps_version(xml_et, supported_versions=None):
     try:
         version_from_xml = xml_et.getroot().attrib['specific-use']
     except KeyError:
-        raise ValueError('Missing SPS version at /article/@specific-use')
+        raise exceptions.XMLSPSVersionError('Missing SPS version at /article/@specific-use')
 
     if version_from_xml not in supported_versions:
-        raise ValueError('%s is not currently supported' % version_from_xml)
+        raise exceptions.XMLSPSVersionError('%s is not currently supported' % version_from_xml)
     else:
         return version_from_xml
 
@@ -122,8 +121,9 @@ def XSLT(xslt_name):
 # --------------------------------
 # adapters for etree._ElementTree
 # --------------------------------
-class XMLValidator(object):
-    """Adapter that performs SPS validations.
+def XMLValidator(file, dtd=None, no_doctype=False, sps_version=None,
+             extra_schematron=None, supported_sps_versions=None):
+    """Factory of _XMLValidator instances, to perform SPS validations.
 
     If `file` is not an etree instance, it will be parsed using
     :func:`XML`.
@@ -138,7 +138,7 @@ class XMLValidator(object):
     declared by ``allowed_public_ids`` class variable. The system id is ignored.
     By default, the allowed values are:
 
-      - SciELO PS 1.2:
+      - SciELO PS >= 1.2:
         - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
       - SciELO PS 1.1:
         - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
@@ -147,38 +147,63 @@ class XMLValidator(object):
     :param file: Path to the XML file, URL, etree or file-object.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
     :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
-    :param sps_version: (optional) force the style validation with a SPS version.
+    :param sps_version: (optional) force the style validation against a SPS version.
     :param extra_schematron: (optional) extra schematron schema.
     :param supported_sps_versions: (optional) list of supported versions. the
            only way to bypass this restriction is by using the arg `sps_version`.
     """
-    def __init__(self, file, dtd=None, no_doctype=False, sps_version=None,
-                 extra_schematron=None, supported_sps_versions=None):
-        if isinstance(file, etree._ElementTree):
-            self.lxml = file
-        else:
-            self.lxml = utils.XML(file)
+    if isinstance(file, etree._ElementTree):
+        et = file
+    else:
+        et = utils.XML(file)
 
-        # can raise ValueError
-        self.sps_version = sps_version or _init_sps_version(self.lxml,
-                supported_sps_versions)
+    # can raise exception
+    sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
 
+    allowed_public_ids = _get_public_ids(sps_version)
+
+    # DOCTYPE declaration must be present by default. This behaviour can
+    # be changed by the `no_doctype` arg.
+    doctype = et.docinfo.doctype
+    if not doctype and not no_doctype:
+        raise exceptions.XMLDoctypeError('Missing DOCTYPE declaration')
+
+    # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
+    # supported.
+    public_id = et.docinfo.public_id
+    if doctype and public_id not in allowed_public_ids:
+        raise exceptions.XMLDoctypeError('Unsuported DOCTYPE public id')
+
+    return _XMLValidator(et, sps_version, dtd, extra_schematron)
+
+
+#--------------------------------
+# adapters for etree._ElementTree
+#--------------------------------
+class _XMLValidator(object):
+    """Adapter that performs SPS validations.
+
+    SPS validation stages are:
+      - JATS 1.0 or PMC 3.0 (as bound by the doctype declaration or passed
+        explicitly)
+      - SciELO Style - ISO Schematron
+      - SciELO Style - Python based pipeline
+
+    :param file: etree._ElementTree instance.
+    :param sps_version: the version of the SPS that will be the basis for validation.
+    :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
+    :param extra_schematron: (optional) extra schematron schema.
+    """
+    def __init__(self, file, sps_version, dtd=None, extra_schematron=None):
+        assert isinstance(file, etree._ElementTree)
+
+        self.lxml = file
+        self.sps_version = sps_version
         self.allowed_public_ids = _get_public_ids(self.sps_version)
-
-        # DOCTYPE declaration must be present by default. This behaviour can
-        # be changed by the `no_doctype` arg.
         self.doctype = self.lxml.docinfo.doctype
-        if not self.doctype and not no_doctype:
-            raise ValueError('Missing DOCTYPE declaration')
-
         self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.source_url = self.lxml.docinfo.URL
-
-        # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
-        # supported.
         self.public_id = self.lxml.docinfo.public_id
-        if self.doctype and self.public_id not in self.allowed_public_ids:
-            raise ValueError('Unsuported DOCTYPE public id')
 
         # Load schematron schema based on sps version. Can raise ValueError
         self.schematron = StdSchematron(self.sps_version)
@@ -198,7 +223,7 @@ class XMLValidator(object):
         Returns a tuple comprising the validation status and the errors list.
         """
         if self.dtd is None:
-            raise TypeError('The DTD/XSD could not be loaded')
+            raise exceptions.UndefinedDTDError('The DTD/XSD could not be loaded')
 
         def make_error_log():
             return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
@@ -231,7 +256,6 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-
         def make_error_log():
             errors = next(self.ppl.run(self.lxml, rewrap=True))
             errors += self._validate_sch()[1]
@@ -254,7 +278,7 @@ class XMLValidator(object):
         try:
             v_result, v_errors = self.validate()
 
-        except TypeError:
+        except exceptions.UndefinedDTDError:
             if fail_fast:
                 raise
             else:
@@ -296,7 +320,7 @@ class XMLValidator(object):
             try:
                 err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
-                logger.info('Could not locate the element name in: %s', error.message)
+                LOGGER.info('Could not locate the element name in: %s', error.message)
                 err_element = mutating_xml.getroot()
 
             err_pairs.append((err_element, error.message))
@@ -316,7 +340,7 @@ class XMLValidator(object):
     def __repr__(self):
         try:
             is_valid = self.validate_all()[0]
-        except TypeError:
+        except exceptions.UndefinedDTDError:
             is_valid = None
 
         return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml, is_valid)
@@ -364,160 +388,3 @@ class XMLValidator(object):
         is_available = utils.make_file_checker(base_dir)
         return [(asset, is_available(asset)) for asset in self.assets]
 
-
-class XMLPacker(object):
-    """Adapter that puts all XML pieces together to make a SPS Package.
-
-    :param file: the XML filepath.
-    """
-
-    def __init__(self, file):
-        self.abs_filepath = os.path.abspath(os.path.expanduser(file))
-        self.abs_basepath = os.path.dirname(self.abs_filepath)
-        self.filename = os.path.basename(self.abs_filepath)
-
-        try:
-            self.xml = utils.XML(self.abs_filepath, load_dtd=False)
-        except IOError:
-            raise ValueError('Could not load file')
-
-    @property
-    def assets(self):
-        """Lists all static assets referenced by the XML.
-        """
-        return utils.get_static_assets(self.xml)
-
-    def check_assets(self):
-        """Checks if all related assets are available.
-        """
-        is_available = utils.make_file_checker(self.abs_basepath)
-        return all([is_available(asset) for asset in self.assets])
-
-    def pack(self, file, force=False):
-        """Generates a SPS Package.
-
-        :param file: the filename of the output package.
-        :param force: force overwrite if the file already exists.
-        """
-        if self.check_assets() == False:
-            raise ValueError('There are missing assets')
-
-        if not file.endswith('.zip'):
-            file += '.zip'
-
-        if os.path.exists(file) and force is False:
-            raise ValueError('File already exists')
-
-        with zipfile.ZipFile(file, 'w') as zpack:
-            # write the XML file
-            zpack.write(self.abs_filepath, self.filename)
-
-            # write the PDF file, when available
-            abs_pdffile = self.abs_filepath.replace('.xml', '.pdf')
-            if os.path.exists(abs_pdffile):
-                zpack.write(abs_pdffile, os.path.basename(abs_pdffile))
-
-            # write its assets
-            for asset in self.assets:
-                abs_path_asset = os.path.join(self.abs_basepath, asset)
-                zpack.write(abs_path_asset, asset)
-
-
-class HTMLGenerator(object):
-    """Adapter that generates HTML from SPS XML.
-
-    If `file` is not an etree instance, it will be parsed using
-    :func:`XML`.
-
-    Usage:
-
-    .. code-block:: python
-
-      generator = HTMLGenerator('valid-sps-file.xml')
-      for lang, html in generator:
-          print('Lang:', lang)
-          print('HTML:', etree.tostring(html, encoding='unicode', method='html'))
-
-    :param file: Path to the XML file, URL, etree or file-object.
-    :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
-    """
-
-    def __init__(self, file, xslt=None, valid_only=True, css=None):
-        if isinstance(file, etree._ElementTree):
-            self.lxml = file
-        else:
-            self.lxml = utils.XML(file)
-
-        if valid_only:
-            is_valid, errors = XMLValidator(file).validate()
-            if not is_valid:
-                raise ValueError('The XML is not valid according to SPS rules')
-
-        self.xslt = xslt or XSLT('root-html-1.2.xslt')
-        self.css = css
-
-    @property
-    def languages(self):
-        """ The language of the main document plus all translations.
-        """
-        return self.lxml.xpath(
-            '/article/@xml:lang | //sub-article[@article-type="translation"]/@xml:lang')
-
-    @property
-    def language(self):
-        """ The language of the main document.
-        """
-        return self.lxml.xpath('/article/@xml:lang')[0]
-
-    def _is_aop(self):
-        """ Has the document been published ahead-of-print?
-        """
-        volume = self.lxml.findtext('front/article-meta/volume')
-        number = self.lxml.findtext('front/article-meta/issue')
-
-        return volume == '00' and number == '00'
-
-    def _get_issue_label(self):
-        volume = self.lxml.findtext('front/article-meta/volume')
-        number = self.lxml.findtext('front/article-meta/issue')
-
-        return 'vol.%s n.%s' % (volume, number)
-
-    def _get_bibliographic_legend(self):
-        return '[#BIBLIOGRAPHIC LEGEND#]'
-
-        issue = 'ahead of print' if self._is_aop() else self._get_issue_label()
-
-        abrev_title = self.lxml.findtext(
-            'front/journal-meta/journal-title-group/abbrev-journal-title[@abbrev-type="publisher"]')
-        city = '[#CITY#]'
-
-        pubdate = self.lxml.xpath(
-            '/article/front/article-meta/pub-date[@pub-type="epub-ppub" or @pub-type="epub"][1]')[0]
-        pubtype = 'Epub' if pubdate.xpath('@pub-type')[0] == 'epub' else ''
-        day = pubdate.findtext('day')
-        month = pubdate.findtext('month')
-        year = pubdate.findtext('year')
-        dates = ' '.join([month, year]) if month else year
-
-        parts = [abrev_title, issue, city, pubtype, dates]
-
-        return ' '.join([part for part in parts if part])
-
-    def __iter__(self):
-        def transform(article_lang, is_translation):
-            return self.xslt(self.lxml,
-                             article_lang=etree.XSLT.strparam(article_lang),
-                             is_translation=etree.XSLT.strparam(
-                                 str(is_translation)),
-                             bibliographic_legend=etree.XSLT.strparam(
-                                 self._get_bibliographic_legend()),
-                             issue_label=etree.XSLT.strparam(
-                                 self._get_issue_label()),
-                             styles_css_path=etree.XSLT.strparam(
-                                 self.css or ''),
-                             )
-
-        for lang in self.languages:
-            res_html = transform(lang, lang != self.language)
-            yield lang, res_html

@@ -18,7 +18,7 @@ with open('packtools/version.py') as fp:
 
 install_requires = [
     'lxml >= 3.3.4',
-    'picles.plumber >= 0.10',
+    'picles.plumber >= 0.11',
 ]
 
 
@@ -53,7 +53,6 @@ setup(
     entry_points="""
     [console_scripts]
     stylechecker = packtools.stylechecker:main
-    packbuilder = packtools.packbuilder:main
     htmlgenerator = packtools.htmlgenerator:main
     """)
 

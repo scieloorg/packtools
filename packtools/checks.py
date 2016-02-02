@@ -10,13 +10,13 @@ import plumber
 from .style_errors import StyleError
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 # --------------------------------
 # Basic functionality
 # --------------------------------
-@plumber.pipe
+@plumber.filter
 def setup(message):
     """Prepare the message to traverse the pipeline.
 
@@ -27,7 +27,7 @@ def setup(message):
     return message, []
 
 
-@plumber.pipe
+@plumber.filter
 def teardown(message):
     """Finalize the processing pipeline and return the errors list.
     """
@@ -44,7 +44,7 @@ def StyleCheckingPipeline():
 # --------------------------------
 # Funding Group check
 # --------------------------------
-@plumber.pipe
+@plumber.filter
 def funding_group(message):
     """Validate the Funding Group element
 
@@ -90,11 +90,11 @@ def funding_group(message):
                 if award_id in text:
                     return True
                 else:
-                    logger.debug('Cannot find "%s" in "%s".', award_id, text)
+                    LOGGER.debug('Cannot find "%s" in "%s".', award_id, text)
 
             return False
 
-        logger.info('Declared contract numbers: %s', award_ids)
+        LOGGER.info('Declared contract numbers: %s', award_ids)
 
         missing_award_ids = set(award_ids)
         for award_id in award_ids:
@@ -102,24 +102,24 @@ def funding_group(message):
                 try:
                     missing_award_ids.remove(award_id)
                 except KeyError:
-                    logger.info('The award-id %s is mentioned more than once.',
+                    LOGGER.info('The award-id %s is mentioned more than once.',
                                 award_id)
             else:
-                logger.info('Cannot find contract number "%s" in the set "%s".',
+                LOGGER.info('Cannot find contract number "%s" in the set "%s".',
                         award_id, award_ids)
 
         if missing_award_ids:
-            logger.debug('Missing award-id: %s.', missing_award_ids)
+            LOGGER.debug('Missing award-id: %s.', missing_award_ids)
             err = StyleError()
             err.message = "Element 'funding-group': This element has occurrences not declared in fn or ack."
             err_list.append(err)
     else:
-        logger.debug('No contract numbers found in %s.' % et)
+        LOGGER.debug('No contract numbers found in %s.' % et)
 
     return message
 
 
-@plumber.pipe
+@plumber.filter
 def doctype(message):
     """Make sure the DOCTYPE declaration is present.
     """

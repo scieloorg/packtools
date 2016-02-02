@@ -17,9 +17,10 @@ except ImportError:
     pygments = False    # NOQA
 
 import packtools
+from packtools import exceptions
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 EPILOG = """\
@@ -29,10 +30,7 @@ code for more information.
 """
 
 
-class XMLError(Exception):
-    """ Represents errors that would block XMLValidator instance from
-    being created.
-    """
+ERR_MESSAGE = "Something went wrong while working on {filename}: {details}."
 
 
 def prettify(jsonobj, colorize=True):
@@ -46,34 +44,20 @@ def prettify(jsonobj, colorize=True):
 
     json_str = json.dumps(jsonobj, indent=2, sort_keys=True)
     if colorize and pygments and not sys.platform.startswith('win'):
-        logger.info('using pygments to highlight the output')
+        LOGGER.info('using pygments to highlight the output')
         try:
             lexer = get_lexer_for_mimetype("application/json")
             return pygments.highlight(json_str, lexer, TerminalFormatter())
         except Exception as e:
-            logger.debug(e)
+            LOGGER.debug(e)
             pass
 
     return json_str
 
 
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
-    try:
-        parsed_xml = packtools.XML(xmlpath, no_network=no_network)
-    except IOError as exc:
-        logger.debug(exc)
-        raise XMLError('Error reading %s. Make sure it is a valid file-path or URL.' % xmlpath)
-    except etree.XMLSyntaxError as exc:
-        logger.debug(exc)
-        raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, exc))
-
-    try:
-        xml = packtools.XMLValidator(parsed_xml, extra_schematron=extra_sch)
-    except ValueError as exc:
-        logger.debug(exc)
-        raise XMLError('Error reading %s. %s.' % (xmlpath, exc))
-
-    return xml
+    parsed_xml = packtools.XML(xmlpath, no_network=no_network)
+    return packtools.XMLValidator(parsed_xml, extra_schematron=extra_sch)
 
 
 def summarize(validator, assets_basedir=None):
@@ -87,7 +71,7 @@ def summarize(validator, assets_basedir=None):
         try:
             err_element = err.get_apparent_element(validator.lxml)
         except ValueError:
-            logger.info('Could not locate the element name in: %s' % err.message)
+            LOGGER.info('Could not locate the element name in: %s' % err.message)
             err_element = None
 
         if err_element is not None:
@@ -107,9 +91,9 @@ def summarize(validator, assets_basedir=None):
     }
 
     if assets_basedir:
-        logger.info('looking for assets in %s' % (assets_basedir,))
+        LOGGER.info('looking for assets in %s' % (assets_basedir,))
         summary['assets'] = validator.lookup_assets(assets_basedir)
-        logger.info('total assets referenced: %s' % (len(summary['assets']),))
+        LOGGER.info('total assets referenced: %s' % (len(summary['assets']),))
 
     return summary
 
@@ -139,11 +123,17 @@ def _main():
                         help='prevents the output from being colorized by ANSI escape sequences')
     parser.add_argument('--extrasch', default=None,
                         help='runs an extra validation using an external schematron schema.')
+    parser.add_argument('--sysinfo', action='store_true',
+                        help='show program\'s installation info and exit.')
     parser.add_argument('XML', nargs='*',
                         help='filesystem path or URL to the XML')
     args = parser.parse_args()
 
     logging.basicConfig(level=getattr(logging, args.loglevel.upper()))
+
+    if args.sysinfo:
+        print(prettify(packtools.get_debug_info(), colorize=args.nocolors))
+        sys.exit(0)
 
     print('Please wait, this may take a while...', file=sys.stderr)
 
@@ -151,15 +141,16 @@ def _main():
     summary_list = []
 
     for xml in packtools.utils.flatten(input_args):
-        logger.info('starting validation of %s' % (xml,))
+        LOGGER.info('starting validation of %s' % (xml,))
 
         try:
             xml_validator = get_xmlvalidator(xml, args.nonetwork, args.extrasch)
-            logger.debug('XMLValidator repr: %s' % repr(xml_validator))
-        except XMLError as exc:
-            logger.debug(exc)
-            print('Error reading %s. Run with DEBUG for more info.' % xml,
-                  file=sys.stderr)
+
+        except (etree.XMLSyntaxError, exceptions.XMLDoctypeError,
+                exceptions.XMLSPSVersionError) as exc:
+            LOGGER.debug(exc)
+            print(ERR_MESSAGE.format(filename=xml, details=exc),
+                    file=sys.stderr)
             continue
 
         if args.annotated:
@@ -184,8 +175,8 @@ def _main():
 
                 summary = summarize(xml_validator, assets_basedir=assets_basedir)
             except TypeError as exc:
-                logger.debug(exc)
-                logger.warning(
+                LOGGER.debug(exc)
+                LOGGER.warning(
                         'Error validating %s. Skipping. Run with DEBUG for more info.',
                         xml)
                 continue
@@ -200,7 +191,7 @@ def _main():
             else:
                 summary_list.append(summary)
 
-        logger.info('finished validating %s' % (xml,))
+        LOGGER.info('finished validating %s' % (xml,))
 
     if summary_list:
         print(prettify(summary_list, colorize=args.nocolors))
@@ -210,8 +201,9 @@ def main():
     try:
         _main()
     except KeyboardInterrupt:
-        logger.debug('The program is terminating due to SIGTERM.')
+        LOGGER.debug('The program is terminating due to SIGTERM.')
         pass
+
 
 if __name__ == '__main__':
     main()

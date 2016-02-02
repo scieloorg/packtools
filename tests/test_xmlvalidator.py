@@ -6,7 +6,7 @@ from tempfile import NamedTemporaryFile
 
 from lxml import etree, isoschematron
 
-from packtools import domain, style_errors
+from packtools import domain, style_errors, exceptions
 
 
 # valid: <a><b></b></a>
@@ -169,7 +169,8 @@ class XMLValidatorTests(unittest.TestCase):
         fp = io.BytesIO(b'<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "journalpublishing3.dtd"><a><b>bar</b></a>')
         et = etree.parse(fp)
 
-        self.assertRaises(ValueError, lambda: domain.XMLValidator(et, no_doctype=False, sps_version='sps-1.2'))
+        self.assertRaises(exceptions.XMLDoctypeError,
+                lambda: domain.XMLValidator(et, no_doctype=False, sps_version='sps-1.2'))
 
     def test_checks_allowed_doctype_public_ids_sps1_1(self):
         # JATS 1.0
