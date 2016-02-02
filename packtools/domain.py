@@ -425,14 +425,14 @@ class HTMLGenerator(object):
 
     @property
     def languages(self):
-        """ The language of the main document plus all translations.
+        """The language of the main document plus all translations.
         """
         return self.lxml.xpath(
             '/article/@xml:lang | //sub-article[@article-type="translation"]/@xml:lang')
 
     @property
     def language(self):
-        """ The language of the main document.
+        """The language of the main document.
         """
         return self.lxml.xpath('/article/@xml:lang')[0]
 
@@ -472,20 +472,24 @@ class HTMLGenerator(object):
         return ' '.join([part for part in parts if part])
 
     def __iter__(self):
-        def transform(article_lang, is_translation):
-            return self.xslt(self.lxml,
-                             article_lang=etree.XSLT.strparam(article_lang),
-                             is_translation=etree.XSLT.strparam(
-                                 str(is_translation)),
-                             bibliographic_legend=etree.XSLT.strparam(
-                                 self._get_bibliographic_legend()),
-                             issue_label=etree.XSLT.strparam(
-                                 self._get_issue_label()),
-                             styles_css_path=etree.XSLT.strparam(
-                                 self.css or ''),
-                             )
-
+        """Iterates thru all languages and generates the HTML for each one.
+        """
         for lang in self.languages:
-            res_html = transform(lang, lang != self.language)
+            res_html = self.generate(lang)
             yield lang, res_html
+
+    def generate(self, lang):
+        """Generates the HTML in the language ``lang``.
+
+        :param lang: 2-digit ISO 639-1 text string.
+        """
+        is_translation = lang != self.language
+        return self.xslt(
+                self.lxml,
+                article_lang=etree.XSLT.strparam(lang),
+                is_translation=etree.XSLT.strparam(str(is_translation)),
+                bibliographic_legend=etree.XSLT.strparam(self._get_bibliographic_legend()),
+                issue_label=etree.XSLT.strparam(self._get_issue_label()),
+                styles_css_path=etree.XSLT.strparam(self.css or ''),
+        )
 
