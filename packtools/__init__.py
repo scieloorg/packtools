@@ -22,16 +22,36 @@ __all__ = [
 ]
 
 
-LIBXML_COMPILED_VERSION = '.'.join(
-        (str(digit) for digit in etree.LIBXML_COMPILED_VERSION))
-LIBXML_VERSION = '.'.join(
-        (str(digit) for digit in etree.LIBXML_VERSION))
-LIBXSLT_COMPILED_VERSION = '.'.join(
-        (str(digit) for digit in etree.LIBXSLT_COMPILED_VERSION))
-LIBXSLT_VERSION = '.'.join(
-        (str(digit) for digit in etree.LIBXSLT_VERSION))
-LXML_VERSION = '.'.join(
-        (str(digit) for digit in etree.LXML_VERSION))
+# we need to handle this exception in order to use sphinx-doc's autodoc.
+try:
+    LIBXML_COMPILED_VERSION = '.'.join(
+            (str(digit) for digit in etree.LIBXML_COMPILED_VERSION))
+except TypeError:
+    LIBXML_COMPILED_VERSION = ''
+
+try:
+    LIBXML_VERSION = '.'.join(
+            (str(digit) for digit in etree.LIBXML_VERSION))
+except TypeError:
+    LIBXML_VERSION = ''
+
+try:
+    LIBXSLT_COMPILED_VERSION = '.'.join(
+            (str(digit) for digit in etree.LIBXSLT_COMPILED_VERSION))
+except TypeError:
+    LIBXSLT_COMPILED_VERSION = ''
+
+try:
+    LIBXSLT_VERSION = '.'.join(
+            (str(digit) for digit in etree.LIBXSLT_VERSION))
+except TypeError:
+    LIBXSLT_VERSION = ''
+
+try:
+    LXML_VERSION = '.'.join(
+            (str(digit) for digit in etree.LXML_VERSION))
+except TypeError:
+    LXML_VERSION = ''
 
 
 def get_debug_info():
