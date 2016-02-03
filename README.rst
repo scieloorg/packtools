@@ -41,6 +41,12 @@ Source-code:
     $ python setup.py install
 
 
+Documentation
+-------------
+
+http://packtools.readthedocs.org/ (we need help!)
+
+
 Use license
 -----------
 
