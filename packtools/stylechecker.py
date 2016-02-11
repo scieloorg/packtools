@@ -57,7 +57,7 @@ def prettify(jsonobj, colorize=True):
 
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
     parsed_xml = packtools.XML(xmlpath, no_network=no_network)
-    return packtools.XMLValidator(parsed_xml, extra_schematron=extra_sch)
+    return packtools.XMLValidator.parse(parsed_xml, extra_schematron=extra_sch)
 
 
 def summarize(validator, assets_basedir=None):

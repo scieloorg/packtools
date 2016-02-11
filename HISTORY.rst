@@ -11,6 +11,7 @@ History
   ``__init__`` method was simplified in order to improve testability. 
 * The module ``packtools.xray`` was removed.
 * Added support for automatic generation of HTML documents.
+* Backwards incompatible change in ``XMLValidator`` init method signature.
 
 
 0.8.1 (2015-09-03)

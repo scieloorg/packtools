@@ -118,69 +118,10 @@ def XSLT(xslt_name):
         return xslt
 
 
-# --------------------------------
-# adapters for etree._ElementTree
-# --------------------------------
-def XMLValidator(file, dtd=None, no_doctype=False, sps_version=None,
-             extra_schematron=None, supported_sps_versions=None):
-    """Factory of _XMLValidator instances, to perform SPS validations.
-
-    If `file` is not an etree instance, it will be parsed using
-    :func:`XML`.
-
-    SPS validation stages are:
-      - JATS 1.0 or PMC 3.0 (as bound by the doctype declaration or passed
-        explicitly)
-      - SciELO Style - ISO Schematron
-      - SciELO Style - Python based pipeline
-
-    If the DOCTYPE is declared, its public id is validated against a white list,
-    declared by ``allowed_public_ids`` class variable. The system id is ignored.
-    By default, the allowed values are:
-
-      - SciELO PS >= 1.2:
-        - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
-      - SciELO PS 1.1:
-        - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
-        - ``-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN``
-
-    :param file: Path to the XML file, URL, etree or file-object.
-    :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
-    :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
-    :param sps_version: (optional) force the style validation against a SPS version.
-    :param extra_schematron: (optional) extra schematron schema.
-    :param supported_sps_versions: (optional) list of supported versions. the
-           only way to bypass this restriction is by using the arg `sps_version`.
-    """
-    if isinstance(file, etree._ElementTree):
-        et = file
-    else:
-        et = utils.XML(file)
-
-    # can raise exception
-    sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
-
-    allowed_public_ids = _get_public_ids(sps_version)
-
-    # DOCTYPE declaration must be present by default. This behaviour can
-    # be changed by the `no_doctype` arg.
-    doctype = et.docinfo.doctype
-    if not doctype and not no_doctype:
-        raise exceptions.XMLDoctypeError('Missing DOCTYPE declaration')
-
-    # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
-    # supported.
-    public_id = et.docinfo.public_id
-    if doctype and public_id not in allowed_public_ids:
-        raise exceptions.XMLDoctypeError('Unsuported DOCTYPE public id')
-
-    return _XMLValidator(et, sps_version, dtd, extra_schematron)
-
-
 #--------------------------------
 # adapters for etree._ElementTree
 #--------------------------------
-class _XMLValidator(object):
+class XMLValidator(object):
     """Adapter that performs SPS validations.
 
     SPS validation stages are:
@@ -216,6 +157,54 @@ class _XMLValidator(object):
 
         # Load python based validation pipeline
         self.ppl = checks.StyleCheckingPipeline()
+
+    @classmethod
+    def parse(cls, file, no_doctype=False, sps_version=None,
+            supported_sps_versions=None, **kwargs):
+        """Factory of XMLValidator instances.
+
+        If `file` is not an etree instance, it will be parsed using
+        :func:`XML`.
+
+        If the DOCTYPE is declared, its public id is validated against a white list,
+        declared by ``allowed_public_ids`` class variable. The system id is ignored.
+        By default, the allowed values are:
+
+          - SciELO PS >= 1.2:
+            - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
+          - SciELO PS 1.1:
+            - ``-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN``
+            - ``-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN``
+
+        :param file: Path to the XML file, URL, etree or file-object.
+        :param no_doctype: (optional) if missing DOCTYPE declaration is accepted.
+        :param sps_version: (optional) force the style validation against a SPS version.
+        :param supported_sps_versions: (optional) list of supported versions. the
+               only way to bypass this restriction is by using the arg `sps_version`.
+        """
+        if isinstance(file, etree._ElementTree):
+            et = file
+        else:
+            et = utils.XML(file)
+
+        # can raise exception
+        sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
+
+        allowed_public_ids = _get_public_ids(sps_version)
+
+        # DOCTYPE declaration must be present by default. This behaviour can
+        # be changed by the `no_doctype` arg.
+        doctype = et.docinfo.doctype
+        if not doctype and not no_doctype:
+            raise exceptions.XMLDoctypeError('Missing DOCTYPE declaration')
+
+        # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
+        # supported.
+        public_id = et.docinfo.public_id
+        if doctype and public_id not in allowed_public_ids:
+            raise exceptions.XMLDoctypeError('Unsuported DOCTYPE public id')
+
+        return cls(et, sps_version, **kwargs)
 
     def validate(self):
         """Validate the source XML against JATS DTD.
@@ -416,7 +405,7 @@ class HTMLGenerator(object):
             self.lxml = utils.XML(file)
 
         if valid_only:
-            is_valid, errors = XMLValidator(file).validate()
+            is_valid, errors = XMLValidator.parse(file).validate()
             if not is_valid:
                 raise ValueError('The XML is not valid according to SPS rules')
 
