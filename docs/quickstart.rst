@@ -13,8 +13,32 @@ For performance and safety, instances of ``stylechecker.XMLValidator`` do not pe
 network connections, so we strongly recommend that you set up an XML catalog, 
 which translates public ids to local file URIs.
 
-*packtools* is shipped with a standard catalog. To use it, simply set the
-environment variable *XML_CATALOG_FILES* with the absolute path to 
+*packtools* is shipped with a standard catalog, and can be used basically in 2
+ways:
+
+1. Registering packtools' catalog in the super catalog with the appropriate delegates, 
+   which can be done by adding the following lines to make the file ``/etc/xml/catalog``
+   looks like (this is preferred for production):
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+    <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+        <delegatePublic publicIdStartString="-//NLM//DTD JATS" 
+                        catalog="file://<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml"/>
+        <delegatePublic publicIdStartString="-//NLM//DTD Journal" 
+                        catalog="file://<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml"/>
+        <delegateSystem systemIdStartString="JATS-journalpublishing1.dtd" 
+                        catalog="file://<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml"/>
+        <delegateSystem systemIdStartString="journalpublishing3.dtd" 
+                        catalog="file://<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml"/>
+    </catalog>
+
+`This shell script <https://github.com/scieloorg/packtools/blob/master/scripts/install_xml_catalog.sh>`_ 
+can help you with the task.
+
+2. Setting the environment variable *XML_CATALOG_FILES* with the absolute path to 
 ``<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml``. This setup can
 also be made by the main Python program, so for these cases a constant pointing to 
 the catalog file is also provided.

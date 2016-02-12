@@ -26,13 +26,13 @@ class HTMLGeneratorTests(unittest.TestCase):
 
     @setup_tmpfile
     def test_initializes_with_filepath(self):
-        self.assertTrue(domain.HTMLGenerator(self.valid_tmpfile.name, valid_only=False))
+        self.assertTrue(domain.HTMLGenerator.parse(self.valid_tmpfile.name, valid_only=False))
 
     def test_initializes_with_etree(self):
         fp = io.BytesIO(b'<a><b>bar</b></a>')
         et = etree.parse(fp)
 
-        self.assertTrue(domain.HTMLGenerator(et, valid_only=False))
+        self.assertTrue(domain.HTMLGenerator.parse(et, valid_only=False))
 
     def test_languages(self):
         sample = u"""<article xml:lang="pt">
@@ -45,7 +45,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
 
-        self.assertEqual(domain.HTMLGenerator(et, valid_only=False).languages, ['pt', 'en', 'es'])
+        self.assertEqual(domain.HTMLGenerator.parse(et, valid_only=False).languages, ['pt', 'en', 'es'])
 
     def test_language(self):
         sample = u"""<article xml:lang="pt">
@@ -58,7 +58,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
 
-        self.assertEqual(domain.HTMLGenerator(et, valid_only=False).language, 'pt')
+        self.assertEqual(domain.HTMLGenerator.parse(et, valid_only=False).language, 'pt')
 
     def test_language_missing_data(self):
         """ This should not happen since the attribute is mandatory.
@@ -73,7 +73,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
 
-        self.assertRaises(IndexError, lambda: domain.HTMLGenerator(et, valid_only=False).language)
+        self.assertRaises(IndexError, lambda: domain.HTMLGenerator.parse(et, valid_only=False).language)
 
     @unittest.skip('aguardando definicao')
     def test_bibliographic_legend_epub_ppub(self):
@@ -100,7 +100,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
 
-        self.assertEqual(domain.HTMLGenerator(et, valid_only=False)._get_bibliographic_legend(),
+        self.assertEqual(domain.HTMLGenerator.parse(et, valid_only=False)._get_bibliographic_legend(),
                          u'Rev. Saude Publica vol.10 no.2 Mar 17, 2014')
 
     @unittest.skip('aguardando definicao')

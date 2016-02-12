@@ -1,16 +1,16 @@
 # coding: utf-8
 from __future__ import print_function, unicode_literals
-import os
 import argparse
 import sys
 import pkg_resources
 import logging
+
 from lxml import etree
 
 import packtools
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class XMLError(Exception):
@@ -28,7 +28,7 @@ def get_htmlgenerator(xmlpath, no_network, no_checks, css):
         raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, e))
 
     try:
-        generator = packtools.HTMLGenerator(parsed_xml, valid_only=not no_checks, css=css)
+        generator = packtools.HTMLGenerator.parse(parsed_xml, valid_only=not no_checks, css=css)
     except ValueError as e:
         raise XMLError('Error reading %s. %s.' % (xmlpath, e))
 
@@ -57,14 +57,14 @@ def main():
     print('Please wait, this may take a while...', file=sys.stderr)
 
     for xml in packtools.utils.flatten(args.XML):
-        logger.info('starting generation of %s' % (xml,))
+        LOGGER.info('starting generation of %s' % (xml,))
 
         try:
             html_generator = get_htmlgenerator(xml, args.nonetwork, args.nochecks, args.css)
-            logger.debug('HTMLGenerator repr: %s' % repr(html_generator))
+            LOGGER.debug('HTMLGenerator repr: %s' % repr(html_generator))
         except XMLError as e:
-            logger.debug(e)
-            logger.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
+            LOGGER.debug(e)
+            LOGGER.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
             continue
 
         try:
@@ -79,11 +79,11 @@ def main():
 
                 print('Generated HTML file:', out_fname)
         except TypeError as e:
-            logger.debug(e)
-            logger.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
+            LOGGER.debug(e)
+            LOGGER.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
             continue
 
-        logger.info('finished generating %s' % (xml,))
+        LOGGER.info('finished generating %s' % (xml,))
 
 
 if __name__ == '__main__':

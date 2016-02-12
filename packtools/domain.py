@@ -388,7 +388,7 @@ class HTMLGenerator(object):
 
     .. code-block:: python
 
-        generator = HTMLGenerator('valid-sps-file.xml')
+        generator = HTMLGenerator.parse('valid-sps-file.xml')
         for lang, html in generator:
             print('Lang:', lang)
             print('HTML:', etree.tostring(html, encoding='unicode', method='html'))
@@ -396,21 +396,36 @@ class HTMLGenerator(object):
 
     :param file: Path to the XML file, URL, etree or file-object.
     :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
+    :param css: (optional) URI for a CSS file.
     """
+    def __init__(self, file, xslt=None, css=None):
+        assert isinstance(file, etree._ElementTree)
 
-    def __init__(self, file, xslt=None, valid_only=True, css=None):
+        self.lxml = file
+        self.xslt = xslt or XSLT('root-html-1.2.xslt')
+        self.css = css
+
+    @classmethod
+    def parse(cls, file, valid_only=True, **kwargs):
+        """Factory of HTMLGenerator instances.
+
+        If `file` is not an etree instance, it will be parsed using
+        :func:`XML`.
+
+        :param file: Path to the XML file, URL, etree or file-object.
+        :param valid_only: (optional) prevents the generation of HTML for invalid XMLs.
+        """
         if isinstance(file, etree._ElementTree):
-            self.lxml = file
+            et = file
         else:
-            self.lxml = utils.XML(file)
+            et = utils.XML(file)
 
         if valid_only:
-            is_valid, errors = XMLValidator.parse(file).validate()
+            is_valid, _ = XMLValidator.parse(et).validate_all()
             if not is_valid:
                 raise ValueError('The XML is not valid according to SPS rules')
 
-        self.xslt = xslt or XSLT('root-html-1.2.xslt')
-        self.css = css
+        return cls(et, **kwargs)
 
     @property
     def languages(self):
