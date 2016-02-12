@@ -11,13 +11,10 @@ Domain-level classes
 
 These are the classes users will more frequently interact with.
 
-.. autoclass:: packtools.SPSPackage
-   :inherited-members:
-
 .. autoclass:: packtools.XMLValidator
    :inherited-members:
 
-.. autoclass:: packtools.XMLPacker
+.. autoclass:: packtools.HTMLGenerator
    :inherited-members:
 
 
