@@ -381,20 +381,20 @@ class XMLValidator(object):
 class HTMLGenerator(object):
     """Adapter that generates HTML from SPS XML.
 
-    If `file` is not an etree instance, it will be parsed using
-    :func:`XML`.
-
-    Usage:
+    Basic usage:
 
     .. code-block:: python
 
-        generator = HTMLGenerator.parse('valid-sps-file.xml')
-        for lang, html in generator:
-            print('Lang:', lang)
-            print('HTML:', etree.tostring(html, encoding='unicode', method='html'))
+        from lxml import etree
+
+        xml = etree.parse('valid-sps-file.xml')
+        generator = HTMLGenerator(xml)
+
+        html = generator.generate('pt')
+        html_string = etree.tostring(html, encoding='unicode', method='html')
 
 
-    :param file: Path to the XML file, URL, etree or file-object.
+    :param file: etree._ElementTree instance.
     :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
     :param css: (optional) URI for a CSS file.
     """
@@ -487,6 +487,9 @@ class HTMLGenerator(object):
 
         :param lang: 2-digit ISO 639-1 text string.
         """
+        if lang not in self.languages:
+            raise ValueError('Unknown language "%s"' % lang)
+
         is_translation = lang != self.language
         return self.xslt(
                 self.lxml,

@@ -114,3 +114,19 @@ class HTMLGeneratorTests(unittest.TestCase):
     @unittest.skip('aguardando definicao')
     def test_bibliographic_legend_ahead_of_print(self):
         pass
+
+    def test_generation_unknown_language(self):
+        sample = u"""<article xml:lang="pt">
+                       <sub-article xml:lang="en" article-type="translation" id="S01">
+                       </sub-article>
+                       <sub-article xml:lang="es" article-type="translation" id="S02">
+                       </sub-article>
+                    </article>
+                 """
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        gen = domain.HTMLGenerator.parse(et, valid_only=False)
+
+        self.assertRaises(ValueError, lambda: gen.generate('ru'))
+
