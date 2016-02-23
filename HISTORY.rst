@@ -1,16 +1,15 @@
 History
 =======
 
-0.9
----
+1.0 (2016-02-23)
+----------------
 
 * Better debug information with ``stylechecker --sysinfo`` option.
 * Added scripts to handle registration of local xml catalog in the super catalog.
 * New domain specific exceptions.
-* XMLValidator as a factory function for _XMLValidator objects. The latter's 
-  ``__init__`` method was simplified in order to improve testability. 
 * The module ``packtools.xray`` was removed.
-* Added support for automatic generation of HTML documents.
+* Added support for automatic generation of HTML documents through 
+  ``HTMLGenerator``.
 * Backwards incompatible change in ``XMLValidator`` init method signature.
 
 
