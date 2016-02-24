@@ -358,6 +358,38 @@ class FundingGroupPipeTests(unittest.TestCase):
 
         self.assertEqual(len(err_list), 0)
 
+    def test_valid_with_contractno_after_formatting_markup_as_first_element(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+	      <funding-group>
+	        <award-group>
+		  <funding-source>Brazilian Ministry of Health/Secretariat of Health Surveillance/Department of STD, AIDS and Viral Hepatitis</funding-source>
+		  <award-id>2010/03107-2</award-id>
+		</award-group>
+                <funding-statement>Apoio financeiro: Fundacao de Amparo a Pesquisa do Estado de Sao Paulo (FAPESP). Processo 2010/03107-2. Conselho Nacional de Desenvolvimento Cientifico e Tecnologico (CNPq).
+                </funding-statement>
+              </funding-group>
+            </article-meta>
+          </front>
+          <back>
+	    <fn-group>
+	      <fn fn-type="financial-disclosure">
+	        <p><bold>Apoio financeiro:</bold> Fundacao de Amparo a Pesquisa do Estado de Sao
+		   Paulo (FAPESP). Processo 2010/03107-2. Conselho Nacional de
+		   Desenvolvimento Cientifico e Tecnologico (CNPq).</p>
+	      </fn>
+	    </fn-group>
+          </back>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.funding_group((et, []))
+
+        self.assertEqual(len(err_list), 0)
+
 
 class DoctypePipeTests(unittest.TestCase):
 

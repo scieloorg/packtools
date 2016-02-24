@@ -72,18 +72,21 @@ def funding_group(message):
 
     if has_funding_group:
         def get_text(elem):
-            return ''.join(elem.itertext())
+            """Always returns a text string.
+            """
+            try:
+                return u''.join(elem.itertext())
+            except:
+                return u''
 
         # only the main document is relevant
         award_ids = [elem.text for elem in et.findall(
             'front//funding-group/award-group/award-id')
             if elem.text is not None]
         fn_occs = [get_text(elem) for elem in et.findall(
-            'back//fn[@fn-type="financial-disclosure"]/p')
-            if elem.text is not None]
+            'back//fn[@fn-type="financial-disclosure"]/p')]
         ack_occs = [get_text(elem) for elem in et.findall(
-            'back//ack/p')
-            if elem.text is not None]
+            'back//ack/p')]
 
         def in_there(award_id, texts):
             for text in texts:
@@ -97,8 +100,10 @@ def funding_group(message):
         LOGGER.info('Declared contract numbers: %s', award_ids)
 
         missing_award_ids = set(award_ids)
+        paragraphs = [p for p in itertools.chain(fn_occs, ack_occs) if p]
+
         for award_id in award_ids:
-            if in_there(award_id, itertools.chain(fn_occs, ack_occs)):
+            if in_there(award_id, paragraphs):
                 try:
                     missing_award_ids.remove(award_id)
                 except KeyError:
