@@ -9,12 +9,6 @@ import logging
 
 from lxml import etree
 # import pygments if here
-try:
-    import pygments     # NOQA
-    from pygments.lexers import get_lexer_for_mimetype
-    from pygments.formatters import TerminalFormatter
-except ImportError:
-    pygments = False    # NOQA
 
 import packtools
 from packtools import exceptions
@@ -31,28 +25,6 @@ code for more information.
 
 
 ERR_MESSAGE = "Something went wrong while working on {filename}: {details}."
-
-
-def prettify(jsonobj, colorize=True):
-    """ Prettify JSON output.
-
-    On windows, bypass pygments colorization.
-
-    Function copied from Circus process manager:
-    https://github.com/circus-tent/circus/blob/master/circus/circusctl.py
-    """
-
-    json_str = json.dumps(jsonobj, indent=2, sort_keys=True)
-    if colorize and pygments and not sys.platform.startswith('win'):
-        LOGGER.info('using pygments to highlight the output')
-        try:
-            lexer = get_lexer_for_mimetype("application/json")
-            return pygments.highlight(json_str, lexer, TerminalFormatter())
-        except Exception as e:
-            LOGGER.debug(e)
-            pass
-
-    return json_str
 
 
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
@@ -88,6 +60,7 @@ def summarize(validator, assets_basedir=None):
     summary = {
         'dtd_errors': [_make_err_message(err) for err in dtd_errors],
         'sps_errors': [_make_err_message(err) for err in sps_errors],
+        'is_valid': bool(dtd_is_valid and sps_is_valid),
     }
 
     if assets_basedir:
@@ -132,7 +105,7 @@ def _main():
     logging.basicConfig(level=getattr(logging, args.loglevel.upper()))
 
     if args.sysinfo:
-        print(prettify(packtools.get_debug_info(), colorize=args.nocolors))
+        print(packtools.utils.prettify(packtools.get_debug_info(), colorize=args.nocolors))
         sys.exit(0)
 
     print('Please wait, this may take a while...', file=sys.stderr)
@@ -182,9 +155,6 @@ def _main():
                 continue
 
             summary['_xml'] = xml
-            summary['is_valid'] = bool(
-                    xml_validator.validate()[0] and
-                    xml_validator.validate_style()[0])
 
             if args.raw:
                 print(json.dumps(summary, sort_keys=True))
@@ -194,7 +164,7 @@ def _main():
         LOGGER.info('finished validating %s' % (xml,))
 
     if summary_list:
-        print(prettify(summary_list, colorize=args.nocolors))
+        print(packtools.utils.prettify(summary_list, colorize=args.nocolors))
 
 
 def main():

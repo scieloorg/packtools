@@ -6,8 +6,15 @@ import itertools
 import os
 import glob
 import sys
+import json
 
 from lxml import etree
+try:
+    import pygments     # NOQA
+    from pygments.lexers import get_lexer_for_mimetype
+    from pygments.formatters import TerminalFormatter
+except ImportError:
+    pygments = False    # NOQA
 
 from packtools import catalogs
 
@@ -141,4 +148,26 @@ def flatten(paths):
             yield path.decode(encoding=sys.getfilesystemencoding())
         else:
             yield path
+
+
+def prettify(jsonobj, colorize=True):
+    """ Serialize and prettify a Python object as JSON.
+
+    On windows, bypass pygments colorization.
+
+    Function copied from Circus process manager:
+    https://github.com/circus-tent/circus/blob/master/circus/circusctl.py
+    """
+
+    json_str = json.dumps(jsonobj, indent=2, sort_keys=True)
+    if colorize and pygments and not sys.platform.startswith('win'):
+        LOGGER.info('using pygments to highlight the output')
+        try:
+            lexer = get_lexer_for_mimetype("application/json")
+            return pygments.highlight(json_str, lexer, TerminalFormatter())
+        except Exception as exc:
+            LOGGER.debug(exc)
+            pass
+
+    return json_str
 
