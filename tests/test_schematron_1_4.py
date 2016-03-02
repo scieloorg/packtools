@@ -2818,6 +2818,130 @@ class LicenseTests(PhaseBasedTestCase):
 
             self.assertTrue(self._run_validation(sample))
 
+    def test_permissions_within_elements_of_the_body(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                      <body>
+                        <sec>
+                          <p>
+                            <fig id="f01">
+                              <label>Fig. 1</label>
+                              <caption>
+                                <title>título da imagem</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                              <permissions>
+                                <copyright-statement>Copyright © 2014 SciELO</copyright-statement>
+                                <copyright-year>2014</copyright-year>
+                                <copyright-holder>SciELO</copyright-holder>
+                                <license license-type="open-access"
+                                         xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+                                         xml:lang="en">
+                                  <license-p>This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.</license-p>
+                                </license>
+                              </permissions>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_copyrighted_elements_within_the_body(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                      <body>
+                        <sec>
+                          <p>
+                            <fig id="f01">
+                              <label>Fig. 1</label>
+                              <caption>
+                                <title>título da imagem</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                              <permissions>
+                                <copyright-statement>Copyright © 2014 SciELO</copyright-statement>
+                                <copyright-year>2014</copyright-year>
+                                <copyright-holder>SciELO</copyright-holder>
+                              </permissions>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_irrestrict_use_licenses_within_elements_in_the_body(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                      <body>
+                        <sec>
+                          <p>
+                            <fig id="f01">
+                              <label>Fig. 1</label>
+                              <caption>
+                                <title>título da imagem</title>
+                              </caption>
+                              <graphic xlink:href="1234-5678-rctb-45-05-0110-gf01.tif"/>
+                              <permissions>
+                                <copyright-statement>Copyright © 2014 SciELO</copyright-statement>
+                                <copyright-year>2014</copyright-year>
+                                <copyright-holder>SciELO</copyright-holder>
+                                <license license-type="open-access"
+                                         xlink:href="http://creativecommons.org/licenses/by/2.0/"
+                                         xml:lang="en">
+                                  <license-p>This is an open-access article distributed under the terms of...</license-p>
+                                </license>
+                              </permissions>
+                            </fig>
+                          </p>
+                        </sec>
+                      </body>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class AckTests(PhaseBasedTestCase):
     """Tests for article/back/ack element.
