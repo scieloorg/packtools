@@ -2942,6 +2942,29 @@ class LicenseTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_main_article_copyright_info(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <copyright-statement>Copyright © 2014 SciELO</copyright-statement>
+                            <copyright-year>2014</copyright-year>
+                            <copyright-holder>SciELO</copyright-holder>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class AckTests(PhaseBasedTestCase):
     """Tests for article/back/ack element.
