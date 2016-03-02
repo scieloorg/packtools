@@ -3309,6 +3309,39 @@ class FNGroupTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_group_title(self):
+        sample = u"""<article>
+                      <back>
+                        <fn-group>
+                          <title>Notes</title>
+                          <fn fn-type="other">
+                            <p>foobar</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_many_group_titles_are_not_allowed(self):
+        sample = u"""<article>
+                      <back>
+                        <fn-group>
+                          <title>Notes</title>
+                          <title>Notes again</title>
+                          <fn fn-type="other">
+                            <p>foobar</p>
+                          </fn>
+                        </fn-group>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class XHTMLTableTests(PhaseBasedTestCase):
     """Tests for //table elements.

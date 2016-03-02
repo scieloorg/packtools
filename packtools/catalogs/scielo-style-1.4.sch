@@ -181,6 +181,7 @@ code for more information.
   </phase>
 
   <phase id="phase.fn-group">
+    <active pattern="fn"/>
     <active pattern="fn-group"/>
     <active pattern="fn_attributes"/>
   </phase>
@@ -946,7 +947,7 @@ code for more information.
     </rule>
   </pattern>
 
-  <pattern id="fn-group">
+  <pattern id="fn">
     <title>
       Make sure fn-type is valid against a white list.
     </title>
@@ -980,6 +981,14 @@ code for more information.
                     @fn-type = 'presented-at' or 
                     @fn-type = 'presented-by'">
         Element 'fn', attribute fn-type: Invalid value '<value-of select="@fn-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="fn-group">
+    <rule context="article/back/fn-group">
+      <assert test="count(title) &lt; 2">
+        Element 'fn-group': There must be zero or one element title.
       </assert>
     </rule>
   </pattern>
