@@ -4795,3 +4795,79 @@ class RefTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ContribIdTests(PhaseBasedTestCase):
+    """Tests for contrib-id element.
+    """
+    sch_phase = 'phase.contrib-id'
+
+    def test_allowed_contrib_id_type_attrs(self):
+        for type in ['lattes', 'orcid', 'researchid', 'scopus']:
+            sample = u"""<article>
+                           <front>
+                             <article-meta>
+                               <contrib-group>
+                                 <contrib-id contrib-id-type="%s">some id</contrib-id>
+                                 <aff>
+                                   <institution content-type="original">
+                                     Grupo de ...
+                                   </institution>
+                                   <institution content-type="orgname">
+                                     Instituto de Matematica e Estatistica
+                                   </institution>
+                                 </aff>
+                               </contrib-group>
+                             </article-meta>
+                           </front>
+                         </article>
+                     """ % type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_disallowed_related_article_type(self):
+        sample = u"""<article>
+                       <front>
+                         <article-meta>
+                           <contrib-group>
+                             <contrib-id contrib-id-type="invalid">some id</contrib-id>
+                             <aff>
+                               <institution content-type="original">
+                                 Grupo de ...
+                               </institution>
+                               <institution content-type="orgname">
+                                 Instituto de Matematica e Estatistica
+                               </institution>
+                             </aff>
+                           </contrib-group>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_contrib_id_type(self):
+        sample = u"""<article>
+                       <front>
+                         <article-meta>
+                           <contrib-group>
+                             <contrib-id>some id</contrib-id>
+                             <aff>
+                               <institution content-type="original">
+                                 Grupo de ...
+                               </institution>
+                               <institution content-type="orgname">
+                                 Instituto de Matematica e Estatistica
+                               </institution>
+                             </aff>
+                           </contrib-group>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+

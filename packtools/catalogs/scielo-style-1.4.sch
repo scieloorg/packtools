@@ -274,6 +274,12 @@ code for more information.
     <active pattern="ref"/>
     <active pattern="ref_notempty"/>
   </phase>
+
+  <phase id="phase.contrib-id">
+    <active pattern="contrib-id_attributes"/>
+    <active pattern="contrib-id-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1488,6 +1494,33 @@ code for more information.
     <param name="base_context" value="article/back/ref-list/ref/mixed-citation"/>
     <param name="assert_expr" value="text()"/>
     <param name="err_message" value="'Element cannot be empty.'"/>
+  </pattern>
+
+  <pattern id="contrib-id_attributes">
+    <title>
+      Make sure some attributes are present
+    </title>
+
+    <rule context="article//contrib-group/contrib-id">
+      <assert test="@contrib-id-type">
+        Element 'contrib-id': Missing attribute contrib-id-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="contrib-id-type-values">
+    <title>
+      Allowed values for //contrib/contrib-id/@contrib-id-type
+    </title>
+
+    <rule context="article//contrib-group/contrib-id[@contrib-id-type]">
+      <assert test="@contrib-id-type = 'lattes' or 
+                    @contrib-id-type = 'orcid' or 
+                    @contrib-id-type = 'researchid' or
+                    @contrib-id-type = 'scopus'">
+        Element 'contrib-id', attribute contrib-id-type: Invalid value '<value-of select="@contrib-id-type"/>'.
+      </assert>
+    </rule>
   </pattern>
 </schema>
 
