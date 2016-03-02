@@ -1903,6 +1903,19 @@ class IssueTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_special_number_support(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <issue>spe</issue>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class SupplementTests(PhaseBasedTestCase):
     """Tests for:
