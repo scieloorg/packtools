@@ -2686,7 +2686,8 @@ class LicenseTests(PhaseBasedTestCase):
                         <article-meta>
                           <permissions>
                             <license license-type="open-access"
-                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="en">
                               <license-p>
                                 This is an open-access article distributed under the terms...
                               </license-p>
@@ -2706,7 +2707,8 @@ class LicenseTests(PhaseBasedTestCase):
                         <article-meta>
                           <permissions>
                             <license license-type="closed-access"
-                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="en">
                               <license-p>
                                 This is an open-access article distributed under the terms...
                               </license-p>
@@ -2739,7 +2741,8 @@ class LicenseTests(PhaseBasedTestCase):
                             <article-meta>
                               <permissions>
                                 <license license-type="open-access"
-                                         xlink:href="%s">
+                                         xlink:href="%s"
+                                         xml:lang="en">
                                   <license-p>
                                     This is an open-access article distributed under the terms...
                                   </license-p>
@@ -2772,7 +2775,8 @@ class LicenseTests(PhaseBasedTestCase):
                             <article-meta>
                               <permissions>
                                 <license license-type="open-access"
-                                         xlink:href="%s">
+                                         xlink:href="%s"
+                                         xml:lang="en">
                                   <license-p>
                                     This is an open-access article distributed under the terms...
                                   </license-p>
@@ -2792,7 +2796,8 @@ class LicenseTests(PhaseBasedTestCase):
                         <article-meta>
                           <permissions>
                             <license license-type="open-access"
-                                     xlink:href="http://opensource.org/licenses/MIT">
+                                     xlink:href="http://opensource.org/licenses/MIT"
+                                     xml:lang="en">
                               <license-p>
                                 This is an open-access article distributed under the terms...
                               </license-p>
@@ -2817,7 +2822,8 @@ class LicenseTests(PhaseBasedTestCase):
                             <article-meta>
                               <permissions>
                                 <license license-type="open-access"
-                                         xlink:href="%s">
+                                         xlink:href="%s"
+                                         xml:lang="en">
                                   <license-p>
                                     This is an open-access article distributed under the terms...
                                   </license-p>
@@ -2837,7 +2843,8 @@ class LicenseTests(PhaseBasedTestCase):
                         <article-meta>
                           <permissions>
                             <license license-type="open-access"
-                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="en">
                               <license-p>
                                 This is an open-access article distributed under the terms...
                               </license-p>
@@ -2880,7 +2887,8 @@ class LicenseTests(PhaseBasedTestCase):
                         <article-meta>
                           <permissions>
                             <license license-type="open-access"
-                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="en">
                               <license-p>
                                 This is an open-access article distributed under the terms...
                               </license-p>
@@ -2918,7 +2926,8 @@ class LicenseTests(PhaseBasedTestCase):
                         <article-meta>
                           <permissions>
                             <license license-type="open-access"
-                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="en">
                               <license-p>
                                 This is an open-access article distributed under the terms...
                               </license-p>
@@ -2964,7 +2973,8 @@ class LicenseTests(PhaseBasedTestCase):
                             <copyright-year>2014</copyright-year>
                             <copyright-holder>SciELO</copyright-holder>
                             <license license-type="open-access"
-                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="en">
                               <license-p>
                                 This is an open-access article distributed under the terms...
                               </license-p>
@@ -2977,6 +2987,68 @@ class LicenseTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_lang_mismatch(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="pt">
+                              <license-p>
+                                Texto em pt-br...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_lang_mismatch_is_ignored_if_lang_is_en(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                                     xml:lang="en">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_lang_attribute(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                      <front>
+                        <article-meta>
+                          <permissions>
+                            <license license-type="open-access"
+                                     xlink:href="http://creativecommons.org/licenses/by/4.0/">
+                              <license-p>
+                                This is an open-access article distributed under the terms...
+                              </license-p>
+                            </license>
+                          </permissions>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
 
 class AckTests(PhaseBasedTestCase):

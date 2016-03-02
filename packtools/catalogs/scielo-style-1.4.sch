@@ -829,6 +829,9 @@ code for more information.
       <assert test="@xlink:href">
         Element 'license': Missing attribute xlink:href.
       </assert>
+      <assert test="@xml:lang">
+        Element 'license': Missing attribute xml:lang.
+      </assert>
     </rule>
   </pattern>
 
@@ -864,6 +867,9 @@ code for more information.
       </assert>
       <assert test="regexp:test(@xlink:href, '^https?://creativecommons\.org/licenses/(by-nc|by|by-nc-nd)/(3|4)\.0(/igo)?/?$')">
         Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
+      </assert>
+      <assert test="@xml:lang = 'en' or @xml:lang = /article/@xml:lang">
+        Element 'license', attribute xml:lang: Must be 'en' or match with article/@xml:lang.
       </assert>
     </rule>
   </pattern>
