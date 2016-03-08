@@ -3123,6 +3123,52 @@ class PersonGroupTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_loose_text_below_element_citation_node(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">HERE
+                                <collab>Foo</collab>
+                              </person-group>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_loose_text_below_product_node(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                            <person-group person-group-type="author">HERE
+                              <collab>Foo</collab>
+                            </person-group>
+                          </product>
+                        </article-meta>
+                      </front>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <collab>Foo</collab>
+                              </person-group>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
 class FNGroupTests(PhaseBasedTestCase):
     """Tests for article/back/fn-group/fn element.
