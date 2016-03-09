@@ -4477,7 +4477,7 @@ class AffCountryTests(PhaseBasedTestCase):
 
     See: https://github.com/scieloorg/packtools/issues/44
     """
-    sch_phase = 'phase.aff_country-attrs'
+    sch_phase = 'phase.aff_country'
 
     def test_attribute_is_present(self):
         sample = u"""<article>
@@ -4532,6 +4532,42 @@ class AffCountryTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_country_cannot_be_empty(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="XZ"></country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_country_cannot_be_empty_closed_element(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="XZ"/>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
 
 class RefTests(PhaseBasedTestCase):
@@ -4661,6 +4697,47 @@ class RefTests(PhaseBasedTestCase):
                           </ref>
                         </ref-list>
                       </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class AffTests(PhaseBasedTestCase):
+    """ /article//aff is required.
+    """
+    sch_phase = 'phase.aff'
+
+    def test_country_is_present(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="BR">Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_country_is_absent(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))

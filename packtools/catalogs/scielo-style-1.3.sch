@@ -103,6 +103,10 @@ code for more information.
     <active pattern="aff_contenttypes_contribgroup"/>
   </phase>
 
+  <phase id="phase.aff">
+    <active pattern="aff"/>
+  </phase>
+
   <phase id="phase.kwd-group_lang">
     <active pattern="kwdgroup_lang"/>
   </phase>
@@ -266,8 +270,9 @@ code for more information.
     <active pattern="funding-group_elements"/>
   </phase>
 
-  <phase id="phase.aff_country-attrs">
+  <phase id="phase.aff_country">
     <active pattern="aff_country-attrs"/>
+    <active pattern="aff_country"/>
   </phase>
 
   <phase id="phase.ref">
@@ -1466,6 +1471,30 @@ code for more information.
     <rule context="article/front/article-meta/aff/country">
       <assert test="@country">
         Element 'country': Missing attribute country.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="aff_country">
+    <title>
+      //aff/country elements cannot be empty.
+    </title>
+
+    <rule context="article/front/article-meta/aff/country">
+      <assert test="string-length(normalize-space(text())) > 0">
+        Element 'country': Missing text content.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="aff">
+    <title>
+      //aff elements.
+    </title>
+
+    <rule context="article//aff">
+      <assert test="country">
+        Element 'aff': Missing element country.
       </assert>
     </rule>
   </pattern>
