@@ -5113,3 +5113,72 @@ class AffTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_country_is_absent_in_subarticle(self):
+        for typ in ['abstract', 'letter', 'reply']:
+            sample = u"""<article>
+                          <front>
+                            <article-meta>
+                              <aff>
+                                <institution content-type="original">
+                                  Grupo de ...
+                                </institution>
+                                <country country="BR">Brasil</country>
+                              </aff>
+                            </article-meta>
+                          </front>
+                          <sub-article article-type="{type}"
+                                       xml:lang="en"
+                                       id="s1">
+                            <front-stub>
+                              <article-categories>
+                                <subj-group subj-group-type="heading">
+                                  <subject>Artigos Originais</subject>
+                                </subj-group>
+                              </article-categories>
+                              <aff>
+                                <institution content-type="original">
+                                  Grupo de ...
+                                </institution>
+                              </aff>
+                            </front-stub>
+                          </sub-article>
+                        </article>
+                     """.format(type=typ)
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertFalse(self._run_validation(sample))
+
+    def test_country_is_absent_in_subarticle_type_translation(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <country country="BR">Brasil</country>
+                          </aff>
+                        </article-meta>
+                      </front>
+                      <sub-article article-type="translation"
+                                   xml:lang="en"
+                                   id="s1">
+                        <front-stub>
+                          <article-categories>
+                            <subj-group subj-group-type="heading">
+                              <subject>Artigos Originais</subject>
+                            </subj-group>
+                          </article-categories>
+                          <aff>
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                          </aff>
+                        </front-stub>
+                      </sub-article>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+

@@ -1516,7 +1516,10 @@ code for more information.
       //aff elements.
     </title>
 
-    <rule context="article//aff">
+    <rule context="article/front//aff | 
+                   article/sub-article[@article-type = 'abstract' or 
+                                       @article-type = 'letter' or 
+                                       @article-type = 'reply']//aff">
       <assert test="country">
         Element 'aff': Missing element country.
       </assert>
