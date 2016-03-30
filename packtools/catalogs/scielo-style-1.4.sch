@@ -474,7 +474,8 @@ code for more information.
   </pattern>
 
   <pattern id="article-title">
-    <rule context="article/front/article-meta/title-group/article-title">
+    <rule context="article/front/article-meta/title-group/article-title | 
+                   article/back/ref-list/ref/element-citation/article-title">
       <assert test="not(@xml:lang)">
         Element 'article-title': Unexpected attribute xml:lang.
       </assert>

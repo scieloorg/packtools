@@ -1044,6 +1044,81 @@ class ArticleTitleLangTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_is_present_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_is_present_in_elementcitation_with_lang(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title xml:lang="pt">Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
 class KwdGroupLangTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/kwd-group elements.
