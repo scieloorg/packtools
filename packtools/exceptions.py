@@ -16,3 +16,7 @@ class UndefinedDTDError(PacktoolsError, TypeError):
     """ To handle validation attempts without a previously defined validator.
     """
 
+
+class HTMLGenerationError(PacktoolsError):
+    """ Generic errors during HTML generation phase.
+    """

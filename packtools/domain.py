@@ -490,10 +490,15 @@ class HTMLGenerator(object):
 
         :param lang: 2-digit ISO 639-1 text string.
         """
+        main_language = self.language
+        if main_language is None:
+            raise exceptions.HTMLGenerationError('Main document language is '
+                                                 'undefined.')
+
         if lang not in self.languages:
             raise ValueError('Unknown language "%s"' % lang)
 
-        is_translation = lang != self.language
+        is_translation = lang != main_language
         return self.xslt(
                 self.lxml,
                 article_lang=etree.XSLT.strparam(lang),
