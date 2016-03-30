@@ -73,7 +73,8 @@ class HTMLGeneratorTests(unittest.TestCase):
         fp = io.BytesIO(sample.encode('utf-8'))
         et = etree.parse(fp)
 
-        self.assertRaises(IndexError, lambda: domain.HTMLGenerator.parse(et, valid_only=False).language)
+        self.assertEquals(domain.HTMLGenerator.parse(
+            et, valid_only=False).language, None)
 
     @unittest.skip('aguardando definicao')
     def test_bibliographic_legend_epub_ppub(self):

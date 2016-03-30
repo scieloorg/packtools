@@ -438,7 +438,10 @@ class HTMLGenerator(object):
     def language(self):
         """The language of the main document.
         """
-        return self.lxml.xpath('/article/@xml:lang')[0]
+        try:
+            return self.lxml.xpath('/article/@xml:lang')[0]
+        except IndexError:
+            return None
 
     def _is_aop(self):
         """ Has the document been published ahead-of-print?
