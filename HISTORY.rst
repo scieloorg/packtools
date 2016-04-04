@@ -1,6 +1,15 @@
 History
 =======
 
+1.2 (2016-04-04)
+----------------
+
+* Fixes a bug that would cause ``country`` elements to be mandatory on 
+  sub-articles of type ``transation``. 
+* HTMLGenerator().generate() method now handling undefined 
+  ``article/@xml:lang`` attribute.
+
+
 1.1 (2016-03-11)
 ----------------
 
