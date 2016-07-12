@@ -11,6 +11,7 @@ from __future__ import unicode_literals
 import logging
 from copy import deepcopy
 import os
+import reprlib
 
 from lxml import etree, isoschematron
 
@@ -121,6 +122,7 @@ def XSLT(xslt_name):
 #--------------------------------
 # adapters for etree._ElementTree
 #--------------------------------
+@utils.implements_to_string
 class XMLValidator(object):
     """Adapter that performs SPS validations.
 
@@ -145,6 +147,7 @@ class XMLValidator(object):
         self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.source_url = self.lxml.docinfo.URL
         self.public_id = self.lxml.docinfo.public_id
+        self.encoding = self.lxml.docinfo.encoding
 
         # Load schematron schema based on sps version. Can raise ValueError
         self.schematron = StdSchematron(self.sps_version)
@@ -320,24 +323,21 @@ class XMLValidator(object):
         return mutating_xml
 
     def __str__(self):
-        return etree.tostring(self.lxml, pretty_print=True,
-            encoding='utf-8', xml_declaration=True)
+        return etree.tostring(self.lxml, encoding='unicode')
 
-    def __unicode__(self):
-        return str(self).decode('utf-8')
+    def __bytes__(self):
+        return etree.tostring(self.lxml, encoding=self.encoding,
+                xml_declaration=True)
 
     def __repr__(self):
-        try:
-            is_valid = self.validate_all()[0]
-        except exceptions.UndefinedDTDError:
-            is_valid = None
+        arg_names = [u'lxml', u'sps_version', u'dtd']
+        arg_values = [reprlib.repr(getattr(self, arg)) for arg in arg_names]
+        arg_names[0] = u'file'
 
-        return '<%s xml=%s valid=%s>' % (self.__class__.__name__, self.lxml, is_valid)
+        args = zip(arg_names, arg_values)
+        attrib_args = (u'{}={}'.format(name, value) for name, value in args)
 
-    def read(self):
-        """Read the XML contents as text.
-        """
-        return unicode(self)
+        return u'<XMLValidator {}>'.format(u', '.join(attrib_args))
 
     @property
     def meta(self):

@@ -7,6 +7,7 @@ import os
 import glob
 import sys
 import json
+import unicodedata
 
 from lxml import etree
 try:
@@ -170,4 +171,25 @@ def prettify(jsonobj, colorize=True):
             pass
 
     return json_str
+
+
+def normalize_string(unistr):
+    """Return the NFKC form for the unicode string ``unistr``.
+
+    The normal form KD (NFKD) will apply the compatibility decomposition, i.e.
+    replace all compatibility characters with their equivalents, followed by
+    the canonical composition.
+    """
+    return unicodedata.normalize('NFKC', unistr)
+
+# -----
+# Class decorator to handle string representation across python 2 and 3.
+# -----
+if PY2:
+    def implements_to_string(cls):
+        cls.__unicode__ = cls.__str__
+        cls.__str__ = cls.__bytes__
+        return cls
+else:
+    implements_to_string = lambda x: x
 
