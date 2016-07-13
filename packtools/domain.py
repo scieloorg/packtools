@@ -11,7 +11,10 @@ from __future__ import unicode_literals
 import logging
 from copy import deepcopy
 import os
-import reprlib
+try:
+    import reprlib
+except ImportError:
+    import repr as reprlib
 
 from lxml import etree, isoschematron
 
@@ -122,7 +125,6 @@ def XSLT(xslt_name):
 #--------------------------------
 # adapters for etree._ElementTree
 #--------------------------------
-@utils.implements_to_string
 class XMLValidator(object):
     """Adapter that performs SPS validations.
 
@@ -160,6 +162,9 @@ class XMLValidator(object):
 
         # Load python based validation pipeline
         self.ppl = checks.StyleCheckingPipeline()
+
+        # Cache of validation results
+        self._validation_errors = {'dtd': (), 'style': ()}
 
     @classmethod
     def parse(cls, file, no_doctype=False, sps_version=None,
@@ -214,15 +219,18 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        if self.dtd is None:
-            raise exceptions.UndefinedDTDError('The DTD/XSD could not be loaded')
+        if len(self._validation_errors['dtd']) == 0:
+            if self.dtd is None:
+                raise exceptions.UndefinedDTDError('The DTD/XSD could not be loaded')
 
-        def make_error_log():
-            return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
+            def make_error_log():
+                return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
 
-        result = self.dtd.validate(self.lxml)
-        errors = make_error_log()
-        return result, errors
+            result = self.dtd.validate(self.lxml)
+            errors = make_error_log()
+            self._validation_errors['dtd'] = result, errors
+
+        return self._validation_errors['dtd']
 
     def _validate_sch(self):
         """Validate the source XML against SPS-Style Schematron.
@@ -248,14 +256,17 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        def make_error_log():
-            errors = next(self.ppl.run(self.lxml, rewrap=True))
-            errors += self._validate_sch()[1]
-            return errors
+        if len(self._validation_errors['style']) == 0:
+            def make_error_log():
+                errors = next(self.ppl.run(self.lxml, rewrap=True))
+                errors += self._validate_sch()[1]
+                return errors
 
-        errors = make_error_log()
-        result = not bool(errors)
-        return result, errors
+            errors = make_error_log()
+            result = not bool(errors)
+            self._validation_errors['style'] = result, errors
+
+        return self._validation_errors['style']
 
     def validate_all(self, fail_fast=False):
         """Runs all validations.
@@ -322,13 +333,6 @@ class XMLValidator(object):
 
         return mutating_xml
 
-    def __str__(self):
-        return etree.tostring(self.lxml, encoding='unicode')
-
-    def __bytes__(self):
-        return etree.tostring(self.lxml, encoding=self.encoding,
-                xml_declaration=True)
-
     def __repr__(self):
         arg_names = [u'lxml', u'sps_version', u'dtd']
         arg_values = [reprlib.repr(getattr(self, arg)) for arg in arg_names]
@@ -337,7 +341,8 @@ class XMLValidator(object):
         args = zip(arg_names, arg_values)
         attrib_args = (u'{}={}'.format(name, value) for name, value in args)
 
-        return u'<XMLValidator {}>'.format(u', '.join(attrib_args))
+        return '<XMLValidator object at 0x%x (%s)>' % (
+                id(self), u', '.join(attrib_args))
 
     @property
     def meta(self):

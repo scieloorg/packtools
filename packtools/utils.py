@@ -182,14 +182,3 @@ def normalize_string(unistr):
     """
     return unicodedata.normalize('NFKC', unistr)
 
-# -----
-# Class decorator to handle string representation across python 2 and 3.
-# -----
-if PY2:
-    def implements_to_string(cls):
-        cls.__unicode__ = cls.__str__
-        cls.__str__ = cls.__bytes__
-        return cls
-else:
-    implements_to_string = lambda x: x
-
