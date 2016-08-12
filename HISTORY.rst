@@ -1,6 +1,12 @@
 History
 =======
 
+1.3
+---
+
+* Added functions ``stylechecker.summarize`` and ``stylechecker.annotate``.
+
+
 1.2 (2016-04-04)
 ----------------
 

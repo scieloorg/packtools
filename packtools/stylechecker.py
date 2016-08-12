@@ -8,10 +8,12 @@ import json
 import logging
 
 from lxml import etree
-# import pygments if here
 
 import packtools
 from packtools import exceptions
+
+
+__all__ = ['summarize', 'annotate']
 
 
 LOGGER = logging.getLogger(__name__)
@@ -32,8 +34,17 @@ def get_xmlvalidator(xmlpath, no_network, extra_sch):
     return packtools.XMLValidator.parse(parsed_xml, extra_schematron=extra_sch)
 
 
-def summarize(validator, assets_basedir=None):
+def annotate(validator, buff, encoding=None):
+    _encoding = encoding or validator.encoding
+    err_xml = validator.annotate_errors()
 
+    buff.write(etree.tostring(err_xml, pretty_print=True,
+        encoding=_encoding, xml_declaration=True))
+
+
+def summarize(validator, assets_basedir=None):
+    """Produce a summarized result of the validation.
+    """
     def _make_err_message(err):
         """ An error message is comprised of the message itself and the
         element sourceline.
@@ -43,7 +54,7 @@ def summarize(validator, assets_basedir=None):
         try:
             err_element = err.get_apparent_element(validator.lxml)
         except ValueError:
-            LOGGER.info('Could not locate the element name in: %s' % err.message)
+            LOGGER.info('Could not locate the element name in: %s', err.message)
             err_element = None
 
         if err_element is not None:
@@ -52,7 +63,6 @@ def summarize(validator, assets_basedir=None):
             err_msg['apparent_line'] = None
 
         return err_msg
-
 
     dtd_is_valid, dtd_errors = validator.validate()
     sps_is_valid, sps_errors = validator.validate_style()
@@ -64,9 +74,9 @@ def summarize(validator, assets_basedir=None):
     }
 
     if assets_basedir:
-        LOGGER.info('looking for assets in %s' % (assets_basedir,))
+        LOGGER.info('looking for assets in %s', assets_basedir)
         summary['assets'] = validator.lookup_assets(assets_basedir)
-        LOGGER.info('total assets referenced: %s' % (len(summary['assets']),))
+        LOGGER.info('total assets referenced: %s', len(summary['assets']))
 
     return summary
 
@@ -113,42 +123,41 @@ def _main():
     input_args = args.XML or sys.stdin
     summary_list = []
 
+
     for xml in packtools.utils.flatten(input_args):
-        LOGGER.info('starting validation of %s' % (xml,))
+        LOGGER.info('starting validation of %s', xml)
 
         try:
-            xml_validator = get_xmlvalidator(xml, args.nonetwork, args.extrasch)
+            validator = get_xmlvalidator(xml, args.nonetwork, args.extrasch)
 
         except (etree.XMLSyntaxError, exceptions.XMLDoctypeError,
                 exceptions.XMLSPSVersionError) as exc:
-            LOGGER.debug(exc)
+            LOGGER.exception(exc)
             print(ERR_MESSAGE.format(filename=xml, details=exc),
                     file=sys.stderr)
             continue
 
         if args.annotated:
-            err_xml = xml_validator.annotate_errors()
 
             fname, fext = xml.rsplit('.', 1)
             out_fname = '.'.join([fname, 'annotated', fext])
 
             with open(out_fname, 'wb') as fp:
-                fp.write(etree.tostring(err_xml, pretty_print=True,
-                            encoding='utf-8', xml_declaration=True))
+                annotate(validator, fp)
 
             print('Annotated XML file:', out_fname)
 
         else:
-            try:
-                # remote XML will not lookup for assets
-                if xml.startswith(('http:', 'https:')):
-                    assets_basedir = None
-                else:
-                    assets_basedir = args.assetsdir or os.path.dirname(xml)
+            # remote XML will not lookup for assets
+            if xml.startswith(('http:', 'https:')):
+                assetsdir = None
+            else:
+                assetsdir = args.assetsdir or os.path.dirname(xml)
 
-                summary = summarize(xml_validator, assets_basedir=assets_basedir)
+            try:
+                summary = summarize(validator, assets_basedir=assetsdir)
             except TypeError as exc:
-                LOGGER.debug(exc)
+                LOGGER.exception(exc)
                 LOGGER.warning(
                         'Error validating %s. Skipping. Run with DEBUG for more info.',
                         xml)
@@ -161,7 +170,7 @@ def _main():
             else:
                 summary_list.append(summary)
 
-        LOGGER.info('finished validating %s' % (xml,))
+        LOGGER.info('finished validating %s', xml)
 
     if summary_list:
         print(packtools.utils.prettify(summary_list, colorize=args.nocolors))
@@ -172,7 +181,9 @@ def main():
         _main()
     except KeyboardInterrupt:
         LOGGER.debug('The program is terminating due to SIGTERM.')
-        pass
+    except Exception as exc:
+        LOGGER.exception(exc)
+        sys.exit('An unexpected error has occurred.')
 
 
 if __name__ == '__main__':
