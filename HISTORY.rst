@@ -5,6 +5,7 @@ History
 ---
 
 * Added functions ``stylechecker.summarize`` and ``stylechecker.annotate``.
+* Added zip-file validation capabilities.
 
 
 1.2 (2016-04-04)
