@@ -121,7 +121,7 @@ def validate_zip_package(filepath):
                     exc_type = None
                     exc_value = None
 
-                    paths = _make_relative_to_path(xml_dirname,
+                    paths = _make_relative_to_base(xml_dirname,
                             xpack.show_members())
                     summary = summarize(validator, paths)
 
