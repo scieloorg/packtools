@@ -6,6 +6,7 @@ import sys
 import pkg_resources
 import json
 import logging
+import pathlib
 
 from lxml import etree
 
@@ -81,6 +82,52 @@ def summarize(validator, assets_basedir=None):
     return summary
 
 
+def _make_relative_to_base(base, paths):
+    for path in paths:
+        # pure paths don't access the filesystem
+        posix_path = pathlib.PurePosixPath(path)
+        try:
+            relative_path = posix_path.relative_to(base)
+        except ValueError:
+            continue
+
+        yield str(relative_path)
+
+
+def validate_zip_package(filepath):
+    """Validates all documents in a zip package.
+
+    Returns a generator object that produces validation reports for each
+    XML document. Validation reports are represented as 5-tuples in the form:
+    (<filename>, <is_valid>, <validation_errors>, <exc_type>, <exc_value>)
+    """
+    with packtools.utils.Xray.fromfile(filepath) as xpack:
+        xmls = xpack.show_sorted_members().get('xml', [])
+
+        for xml in xmls:
+            # useful for looking-up files relative to the xml file
+            xml_dirname = os.path.dirname(xml)
+
+            with xpack.get_file(xml) as file:
+                try:
+                    validator = packtools.XMLValidator.parse(file)
+
+                except exceptions.PacktoolsError as exc:
+                    exc_type = type(exc).__name__
+                    exc_value = str(exc)
+                    summary = None
+
+                else:
+                    exc_type = None
+                    exc_value = None
+
+                    paths = _make_relative_to_path(xml_dirname,
+                            xpack.show_members())
+                    summary = summarize(validator, paths)
+
+            yield (xml, summary, exc_type, exc_value)
+
+
 @packtools.utils.config_xml_catalog
 def _main():
 
@@ -154,8 +201,9 @@ def _main():
             else:
                 assetsdir = args.assetsdir or os.path.dirname(xml)
 
+            assetsdir_files = os.listdir(assetsdir)  # list of files in dir
             try:
-                summary = summarize(validator, assets_basedir=assetsdir)
+                summary = summarize(validator, assets_basedir=assetsdir_files)
             except TypeError as exc:
                 LOGGER.exception(exc)
                 LOGGER.warning(

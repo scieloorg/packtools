@@ -22,6 +22,10 @@ install_requires = [
 ]
 
 
+if sys.version_info[0] == 2:
+    install_requires.append('pathlib2 >= 2.1.0')
+
+
 tests_require = []
 
 
@@ -45,6 +49,7 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     tests_require=tests_require,

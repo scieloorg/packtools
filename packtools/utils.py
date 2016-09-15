@@ -8,6 +8,7 @@ import glob
 import sys
 import json
 import unicodedata
+import zipfile
 
 from lxml import etree
 try:
@@ -70,16 +71,6 @@ def get_static_assets(xml_et):
     elements = itertools.chain(*iterators)
 
     return [element.attrib['{http://www.w3.org/1999/xlink}href'] for element in elements]
-
-
-def make_file_checker(path):
-    """Returns a function that looks for a given filename in path.
-    """
-    dir_contents = set(os.listdir(path))
-    def file_checker(filename):
-        return filename in dir_contents
-
-    return file_checker
 
 
 def XML(file, no_network=True, load_dtd=True):
@@ -181,4 +172,64 @@ def normalize_string(unistr):
     the canonical composition.
     """
     return unicodedata.normalize('NFKC', unistr)
+
+
+class Xray(object):
+    """Zip-file introspector.
+
+    :param zip_file: instance of ``zipfile.ZipFile``.
+    """
+    def __init__(self, zip_file):
+        self._zipfile = zip_file
+
+    @classmethod
+    def fromfile(cls, filepath):
+        if not zipfile.is_zipfile(filepath):
+            raise ValueError('"%s" is not a valid zipfile.' % filepath)
+
+        zip_file = zipfile.ZipFile(filepath, 'r')
+        return cls(zip_file)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+    def show_sorted_members(self):
+        """Shows the package members sorted by their file extensions.
+        """
+        sorted_members = {}
+        for member in self.show_members():
+            _, ext = member.rsplit('.', 1)
+            ext_node = sorted_members.setdefault(ext.lower(), [])
+            ext_node.append(member)
+
+        return sorted_members
+
+    def show_members(self):
+        """Shows the package members.
+        """
+        return [filename for fileinfo, filename
+                in zip(self._zipfile.infolist(), self._zipfile.namelist())
+                if fileinfo.file_size]
+
+    def get_file(self, member, mode='r'):
+        """Get file object for member.
+
+        A complete list of members can be checked
+        calling ``show_members``().
+
+        :param member: a zip member, e.g. 'foo.xml'
+        """
+        try:
+            return self._zipfile.open(member, mode)
+
+        except KeyError:
+            raise ValueError('Unknown member "%s".' % member)
+
+    def close(self):
+        """Close the archive file.
+        """
+        self._zipfile.close()
 
