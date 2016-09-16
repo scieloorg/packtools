@@ -587,9 +587,6 @@ class ArticleIdTests(PhaseBasedTestCase):
         sample = u"""<article>
                       <front>
                         <article-meta>
-                          <article-id>
-                            10.1590/1414-431X20143434
-                          </article-id>
                           <article-id pub-id-type='other'>
                             10.1590/1414-431X20143435
                           </article-id>
@@ -599,7 +596,7 @@ class ArticleIdTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_pub_id_type_doi(self):
         sample = u"""<article>

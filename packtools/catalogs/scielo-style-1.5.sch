@@ -412,8 +412,8 @@ code for more information.
       Mandatory attributes are present.
     </title>
     <rule context="article/front/article-meta">
-      <assert test="article-id[@pub-id-type='doi']">
-        Element 'article-meta': Missing element article-id with pub-id-type="doi".
+      <assert test="article-id[@pub-id-type]">
+        Element 'article-meta': Missing element article-id.
       </assert>
     </rule>
   </pattern>
