@@ -1084,7 +1084,8 @@ code for more information.
                     @article-type = 'brief-report' or 
                     @article-type = 'rapid-communication' or 
                     @article-type = 'reply' or 
-                    @article-type = 'translation'">
+                    @article-type = 'translation' or
+                    @article-type = 'partial-retraction'">
         Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
       </assert>
     </rule>

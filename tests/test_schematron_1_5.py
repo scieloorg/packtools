@@ -3811,7 +3811,8 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         for art_type in ['other', 'article-commentary', 'case-report',
                 'editorial', 'correction', 'letter', 'research-article',
                 'in-brief', 'review-article', 'book-review', 'retraction',
-                'brief-report', 'rapid-communication', 'reply', 'translation']:
+                'brief-report', 'rapid-communication', 'reply', 'translation',
+                'partial-retraction']:
 
             sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.4">
                         </article>
