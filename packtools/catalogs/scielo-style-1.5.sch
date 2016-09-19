@@ -1409,9 +1409,10 @@ code for more information.
 
     <rule context="//related-article[@related-article-type]">
       <assert test="@related-article-type = 'corrected-article' or 
-                    @related-article-type = 'press-release' or 
                     @related-article-type = 'commentary-article' or
-                    @related-article-type = 'article-reference'">
+                    @related-article-type = 'letter' or
+                    @related-article-type = 'partial-retraction' or
+                    @related-article-type = 'retracted-article'">
         Element 'related-article', attribute related-article-type: Invalid value '<value-of select="@related-article-type"/>'.
       </assert>
     </rule>

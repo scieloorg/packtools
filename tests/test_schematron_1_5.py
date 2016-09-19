@@ -4613,7 +4613,8 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
     sch_phase = 'phase.related-article-attrs'
 
     def test_allowed_related_article_types(self):
-        for type in ['corrected-article', 'press-release', 'commentary-article', 'article-reference']:
+        for type in ['corrected-article', 'commentary-article',
+                     'letter', 'partial-retraction', 'retracted-article']:
             sample = u"""<article>
                            <front>
                              <article-meta>
