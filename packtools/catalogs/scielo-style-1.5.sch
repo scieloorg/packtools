@@ -286,6 +286,10 @@ code for more information.
     <active pattern="contrib-id-type-values"/>
   </phase>
 
+  <phase id="phase.source">
+    <active pattern="source_cardinality"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1577,5 +1581,20 @@ code for more information.
       </assert>
     </rule>
   </pattern>
+
+  <pattern abstract="true" id="occurs_zero_or_one">
+    <rule context="$base_context">
+      <assert test="count($element) &lt; 2">
+        Element '<name/>': There must be zero or one element <value-of select="$element"/>.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="source_cardinality" is-a="occurs_zero_or_one">
+    <param name="base_context" value="article/back/ref-list/ref/element-citation | 
+                                      article/front/article-meta/product"/>
+    <param name="element" value="source"/>
+  </pattern>
+
 </schema>
 
