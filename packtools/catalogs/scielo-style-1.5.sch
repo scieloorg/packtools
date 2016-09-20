@@ -220,6 +220,7 @@ code for more information.
   <phase id="phase.size">
     <active pattern="size_attributes"/>
     <active pattern="size_units-values"/>
+    <active pattern="size_cardinality"/>
   </phase>
 
   <phase id="phase.list">
@@ -1594,6 +1595,12 @@ code for more information.
     <param name="base_context" value="article/back/ref-list/ref/element-citation | 
                                       article/front/article-meta/product"/>
     <param name="element" value="source"/>
+  </pattern>
+
+  <pattern id="size_cardinality" is-a="occurs_zero_or_one">
+    <param name="base_context" value="article/back/ref-list/ref/element-citation | 
+                                      article/front/article-meta/product"/>
+    <param name="element" value="size"/>
   </pattern>
 
 </schema>

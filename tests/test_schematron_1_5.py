@@ -4033,6 +4033,70 @@ class SizeTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_missing_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_in_product(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_twice_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <size units="pages">2</size>
+                              <size units="pages">2</size>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_twice_in_product(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                            <size units="pages">2</size>
+                            <size units="pages">2</size>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_missing_units_in_product(self):
         sample = u"""<article>
                       <front>
