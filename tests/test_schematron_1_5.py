@@ -3993,6 +3993,57 @@ class MonthTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_is_present_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <month>02</month>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_is_present_twice_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <month>02</month>
+                              <month>02</month>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_is_absent_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class SizeTests(PhaseBasedTestCase):
     """Tests for:

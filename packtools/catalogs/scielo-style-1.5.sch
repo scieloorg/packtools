@@ -215,6 +215,7 @@ code for more information.
 
   <phase id="phase.month">
     <active pattern="month"/>
+    <active pattern="month_cardinality"/>
   </phase>
 
   <phase id="phase.size">
@@ -1601,6 +1602,11 @@ code for more information.
     <param name="base_context" value="article/back/ref-list/ref/element-citation | 
                                       article/front/article-meta/product"/>
     <param name="element" value="size"/>
+  </pattern>
+
+  <pattern id="month_cardinality" is-a="occurs_zero_or_one">
+    <param name="base_context" value="article/back/ref-list/ref/element-citation"/>
+    <param name="element" value="month"/>
   </pattern>
 
 </schema>
