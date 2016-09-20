@@ -11,6 +11,7 @@ SCHEMAS = {
     'sps-1.2': os.path.join(_CWD, 'scielo-style-1.2.sch'),
     'sps-1.3': os.path.join(_CWD, 'scielo-style-1.3.sch'),
     'sps-1.4': os.path.join(_CWD, 'scielo-style-1.4.sch'),
+    'sps-1.5': os.path.join(_CWD, 'scielo-style-1.5.sch'),
 
     # DTD
     'JATS-journalpublishing1.dtd': os.path.join(
