@@ -294,6 +294,10 @@ code for more information.
     <active pattern="source_cardinality"/>
   </phase>
 
+  <phase id="phase.chapter-title">
+    <active pattern="chapter-title_cardinality"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1622,6 +1626,12 @@ code for more information.
   <pattern id="issue_cardinality" is-a="occurs_zero_or_once">
     <param name="base_context" value="article/back/ref-list/ref/element-citation"/>
     <param name="element" value="issue"/>
+  </pattern>
+
+  <pattern id="chapter-title_cardinality" is-a="occurs_zero_or_once">
+    <param name="base_context" value="article/back/ref-list/ref/element-citation | 
+                                      article/front/article-meta/product"/>
+    <param name="element" value="chapter-title"/>
   </pattern>
 
   <pattern id="element-citation_cardinality" is-a="occurs_once">

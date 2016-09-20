@@ -3377,6 +3377,149 @@ class ElementCitationTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
 
+class ChapterTitleTests(PhaseBasedTestCase):
+    """Tests for
+      - article/back/ref-list/ref/element-citation/chapter-title
+      - article/front/article-meta/product/chapter-title
+    """
+    sch_phase = 'phase.chapter-title'
+
+    def test_absent_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <chapter-title>Título do capítulo</chapter-title>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_twice_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <chapter-title>Título do capítulo</chapter-title>
+                              <chapter-title> Outro título do capítulo</chapter-title>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_absent_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="chapter">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="chapter">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <chapter-title>Título do capítulo do livro</chapter-title>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_twice_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="chapter">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <chapter-title>Título do capítulo do livro</chapter-title>
+                            <chapter-title>Outro título do capítulo do livro</chapter-title>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
 class PersonGroupTests(PhaseBasedTestCase):
     """Tests for
       - article/back/ref-list/ref/element-citation/person-group
