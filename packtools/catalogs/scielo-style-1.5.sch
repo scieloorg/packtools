@@ -282,6 +282,7 @@ code for more information.
   <phase id="phase.ref">
     <active pattern="ref"/>
     <active pattern="ref_notempty"/>
+    <active pattern="element-citation_cardinality"/>
   </phase>
 
   <phase id="phase.contrib-id">
@@ -1585,7 +1586,7 @@ code for more information.
     </rule>
   </pattern>
 
-  <pattern abstract="true" id="occurs_zero_or_one">
+  <pattern abstract="true" id="occurs_zero_or_once">
     <rule context="$base_context">
       <assert test="count($element) &lt; 2">
         Element '<name/>': There must be zero or one element <value-of select="$element"/>.
@@ -1593,26 +1594,39 @@ code for more information.
     </rule>
   </pattern>
 
-  <pattern id="source_cardinality" is-a="occurs_zero_or_one">
+  <pattern abstract="true" id="occurs_once">
+    <rule context="$base_context">
+      <assert test="count($element) = 1">
+        Element '<name/>': There must be only one element <value-of select="$element"/>.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="source_cardinality" is-a="occurs_zero_or_once">
     <param name="base_context" value="article/back/ref-list/ref/element-citation | 
                                       article/front/article-meta/product"/>
     <param name="element" value="source"/>
   </pattern>
 
-  <pattern id="size_cardinality" is-a="occurs_zero_or_one">
+  <pattern id="size_cardinality" is-a="occurs_zero_or_once">
     <param name="base_context" value="article/back/ref-list/ref/element-citation | 
                                       article/front/article-meta/product"/>
     <param name="element" value="size"/>
   </pattern>
 
-  <pattern id="month_cardinality" is-a="occurs_zero_or_one">
+  <pattern id="month_cardinality" is-a="occurs_zero_or_once">
     <param name="base_context" value="article/back/ref-list/ref/element-citation"/>
     <param name="element" value="month"/>
   </pattern>
 
-  <pattern id="issue_cardinality" is-a="occurs_zero_or_one">
+  <pattern id="issue_cardinality" is-a="occurs_zero_or_once">
     <param name="base_context" value="article/back/ref-list/ref/element-citation"/>
     <param name="element" value="issue"/>
+  </pattern>
+
+  <pattern id="element-citation_cardinality" is-a="occurs_once">
+    <param name="base_context" value="article/back/ref-list/ref"/>
+    <param name="element" value="element-citation"/>
   </pattern>
 
 </schema>
