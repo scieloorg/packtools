@@ -129,6 +129,7 @@ code for more information.
   
   <phase id="phase.issue">
     <active pattern="issue_notempty"/>
+    <active pattern="issue_cardinality"/>
   </phase>
 
   <phase id="phase.supplement">
@@ -1607,6 +1608,11 @@ code for more information.
   <pattern id="month_cardinality" is-a="occurs_zero_or_one">
     <param name="base_context" value="article/back/ref-list/ref/element-citation"/>
     <param name="element" value="month"/>
+  </pattern>
+
+  <pattern id="issue_cardinality" is-a="occurs_zero_or_one">
+    <param name="base_context" value="article/back/ref-list/ref/element-citation"/>
+    <param name="element" value="issue"/>
   </pattern>
 
 </schema>
