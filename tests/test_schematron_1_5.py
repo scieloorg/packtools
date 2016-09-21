@@ -4923,10 +4923,10 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
     def test_allowed_related_article_types(self):
         for type in ['corrected-article', 'commentary-article',
                      'letter', 'partial-retraction', 'retracted-article']:
-            sample = u"""<article>
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                            <front>
                              <article-meta>
-                               <related-article related-article-type="%s" id="01"/>
+                               <related-article related-article-type="%s" id="01" ext-link-type="doi" xlink:href="foo"/>
                              </article-meta>
                            </front>
                          </article>
@@ -4976,10 +4976,10 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
 
     def test_allowed_ext_link_types(self):
         for type in ['doi', 'scielo-pid', 'scielo-aid']:
-            sample = u"""<article>
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                            <front>
                              <article-meta>
-                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s"/>
+                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s" xlink:href="foo"/>
                              </article-meta>
                            </front>
                          </article>
@@ -4990,10 +4990,10 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
 
     def test_invalid_ext_link_types(self):
         for type in ['invalid',]:
-            sample = u"""<article>
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                            <front>
                              <article-meta>
-                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s"/>
+                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s" xlink:href="foo"/>
                              </article-meta>
                            </front>
                          </article>
@@ -5001,6 +5001,32 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
             sample = io.BytesIO(sample.encode('utf-8'))
 
             self.assertFalse(self._run_validation(sample))
+
+    def test_missing_ext_link_type_on_corrected_articles(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="corrected-article" id="01" xlink:href="foo"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_xlinkhref_on_corrected_articles(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="corrected-article" id="01" ext-link-type="corrected-article"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
 
 class CorrectionTests(PhaseBasedTestCase):

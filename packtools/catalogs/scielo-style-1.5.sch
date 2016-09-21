@@ -258,6 +258,7 @@ code for more information.
     <active pattern="related-article_attributes"/>
     <active pattern="related-article-type-values"/>
     <active pattern="related-article_ext-link-type-values"/>
+    <active pattern="related-article_correction_attributes"/>
   </phase>
 
   <phase id="phase.correction">
@@ -1411,6 +1412,22 @@ code for more information.
       </assert>
       <assert test="@id">
         Element 'related-article': Missing attribute id.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="related-article_correction_attributes">
+    <title>
+      Make sure some attributes are present for corrections.
+      http://docs.scielo.org/projects/scielo-publishing-schema/pt_BR/1.5-branch/narr/errata.html#errata
+    </title>
+
+    <rule context="article//related-article[@related-article-type = 'corrected-article']">
+      <assert test="@ext-link-type">
+        Element 'related-article': Missing attribute ext-link-type.
+      </assert>
+      <assert test="@xlink:href">
+        Element 'related-article': Missing attribute xlink:href.
       </assert>
     </rule>
   </pattern>
