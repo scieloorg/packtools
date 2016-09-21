@@ -257,6 +257,7 @@ code for more information.
   <phase id="phase.related-article-attrs">
     <active pattern="related-article_attributes"/>
     <active pattern="related-article-type-values"/>
+    <active pattern="related-article_ext-link-type-values"/>
   </phase>
 
   <phase id="phase.correction">
@@ -1637,6 +1638,20 @@ code for more information.
   <pattern id="element-citation_cardinality" is-a="occurs_once">
     <param name="base_context" value="article/back/ref-list/ref"/>
     <param name="element" value="element-citation"/>
+  </pattern>
+
+  <pattern id="related-article_ext-link-type-values">
+    <title>
+      Allowed values for //related-article/@ext-link-type
+    </title>
+
+    <rule context="article/front/article-meta/related-article[@ext-link-type]">
+      <assert test="@ext-link-type = 'doi' or 
+                    @ext-link-type = 'scielo-pid' or 
+                    @ext-link-type = 'scielo-aid'">
+        Element 'related-article', attribute ext-link-type: Invalid value '<value-of select="@ext-link-type"/>'.
+      </assert>
+    </rule>
   </pattern>
 
 </schema>

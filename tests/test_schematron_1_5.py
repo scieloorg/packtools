@@ -4974,6 +4974,34 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_allowed_ext_link_types(self):
+        for type in ['doi', 'scielo-pid', 'scielo-aid']:
+            sample = u"""<article>
+                           <front>
+                             <article-meta>
+                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s"/>
+                             </article-meta>
+                           </front>
+                         </article>
+                     """ % type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_invalid_ext_link_types(self):
+        for type in ['invalid',]:
+            sample = u"""<article>
+                           <front>
+                             <article-meta>
+                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s"/>
+                             </article-meta>
+                           </front>
+                         </article>
+                     """ % type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertFalse(self._run_validation(sample))
+
 
 class CorrectionTests(PhaseBasedTestCase):
     """Tests for article[@article-type="correction"] element.
