@@ -599,7 +599,7 @@ class ArticleIdTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_pub_id_type_doi(self):
         sample = u"""<article>
