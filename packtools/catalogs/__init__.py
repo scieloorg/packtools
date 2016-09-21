@@ -13,6 +13,9 @@ SCHEMAS = {
     'sps-1.4': os.path.join(_CWD, 'scielo-style-1.4.sch'),
     'sps-1.5': os.path.join(_CWD, 'scielo-style-1.5.sch'),
 
+    # Collection-specific schema
+    'scielo-br': os.path.join(_CWD, 'scielo-br.sch'),
+
     # DTD
     'JATS-journalpublishing1.dtd': os.path.join(
         _CWD, 'jats-publishing-dtd-1.0/JATS-journalpublishing1.dtd'),

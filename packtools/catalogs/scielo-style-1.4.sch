@@ -412,8 +412,8 @@ code for more information.
       Mandatory attributes are present.
     </title>
     <rule context="article/front/article-meta">
-      <assert test="article-id[@pub-id-type='doi']">
-        Element 'article-meta': Missing element article-id with pub-id-type="doi".
+      <assert test="article-id[@pub-id-type]">
+        Element 'article-meta': Missing element article-id.
       </assert>
     </rule>
   </pattern>
@@ -871,7 +871,7 @@ code for more information.
       <assert test="@license-type = 'open-access'">
         Element 'license', attribute license-type: Invalid value '<value-of select="@license-type"/>'.
       </assert>
-      <assert test="regexp:test(@xlink:href, '^https?://creativecommons\.org/licenses/(by-nc|by|by-nc-nd)/(3|4)\.0(/igo)?/?$')">
+      <assert test="regexp:test(@xlink:href, '^https?://creativecommons\.org/licenses/')">
         Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
       </assert>
       <assert test="@xml:lang = 'en' or @xml:lang = /article/@xml:lang">
