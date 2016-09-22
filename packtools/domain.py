@@ -62,9 +62,9 @@ def _init_sps_version(xml_et, supported_versions=None):
     if supported_versions is None:
         supported_versions = CURRENTLY_SUPPORTED_VERSIONS
 
-    try:
-        version_from_xml = xml_et.getroot().attrib['specific-use']
-    except KeyError:
+    doc_root = xml_et.getroot()
+    version_from_xml = doc_root.attrib.get('specific-use', None)
+    if version_from_xml is None:
         raise exceptions.XMLSPSVersionError('Missing SPS version at /article/@specific-use')
 
     if version_from_xml not in supported_versions:
