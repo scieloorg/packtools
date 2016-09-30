@@ -1,11 +1,12 @@
 History
 =======
 
-1.3
----
+1.3 (2016-09-30)
+----------------
 
 * Added functions ``stylechecker.summarize`` and ``stylechecker.annotate``.
 * Added zip-file validation capabilities.
+* Initial support for SciELO PS 1.5.
 
 
 1.2 (2016-04-04)
