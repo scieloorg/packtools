@@ -30,4 +30,7 @@
     <xsl:template match="sup[xref]">
         <sup class="xref big"><xsl:apply-templates></xsl:apply-templates></sup>
     </xsl:template>
+    <xsl:template match="email">
+        <a href="mailto:{.}"><xsl:value-of select="."/></a>
+    </xsl:template>
 </xsl:stylesheet>
