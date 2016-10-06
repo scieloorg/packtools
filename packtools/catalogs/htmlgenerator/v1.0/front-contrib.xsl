@@ -12,7 +12,7 @@
     </xsl:template>
     
     <xsl:template match="contrib/name">
-        <xsl:apply-templates select="given-names"/> <xsl:apply-templates select="surname"/>
+        <xsl:apply-templates select="given-names"/><xsl:text> </xsl:text><xsl:apply-templates select="surname"/>
     </xsl:template>
     
     <xsl:template match="contrib/xref">

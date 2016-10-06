@@ -15,9 +15,11 @@
     <xsl:param name="CSS_PATH">/Users/roberta.takenaka/Downloads/SciELO-prototipo-15-05-13/static/css</xsl:param>
     <xsl:param name="JS_PATH">/Users/roberta.takenaka/Downloads/SciELO-prototipo-15-05-13/static/js</xsl:param>
     
-    <xsl:output method="html" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="yes"  ></xsl:output>
+    <xsl:output method="html"  indent="yes" xml:space="preserve" encoding="UTF-8" omit-xml-declaration="no"></xsl:output>
     
     <xsl:include href="generic.xsl"/>
+    <xsl:include href="functions-block.xsl"/>
+    
     <xsl:include href="frame.xsl"/>
     <xsl:include href="lang.xsl"/>
     <xsl:include href="labels.xsl"/>
@@ -26,6 +28,11 @@
     <xsl:include href="front-abstract.xsl"/>
     <xsl:include href="front-contrib.xsl"/>
     <xsl:include href="body.xsl"/>
+    <xsl:include href="body-formula.xsl"/>
+    <xsl:include href="body-table.xsl"/>
+    <xsl:include href="body-fig.xsl"/>
+    <xsl:include href="body-xref.xsl"/>
+    <xsl:include href="ref.xsl"/>
     
     <xsl:template match="article" mode="article">
         <section class="articleCtt">
@@ -43,9 +50,11 @@
                         <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']"></xsl:apply-templates>
                         <xsl:apply-templates select=".//article-meta//contrib-group"></xsl:apply-templates>
                         <xsl:apply-templates select="." mode="front-link-group"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="front-share"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="body"></xsl:apply-templates>
+                        
+                        
                     </div>
+                    <xsl:apply-templates select="." mode="functions-block"></xsl:apply-templates>
+                    <xsl:apply-templates select="." mode="body"></xsl:apply-templates>
                 </div>
             </div>
         </section>

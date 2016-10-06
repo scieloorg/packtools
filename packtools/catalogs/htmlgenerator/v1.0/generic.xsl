@@ -23,7 +23,12 @@
     <xsl:template match="italic">
         <i><xsl:apply-templates></xsl:apply-templates></i>
     </xsl:template>
-    
+    <xsl:template match="break">
+        <br/>
+    </xsl:template>
+    <xsl:template match="ext-link">
+        <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
+    </xsl:template>
     <xsl:template match="*[not(sup)]/xref">
         <sup class="xref big"><xsl:apply-templates></xsl:apply-templates></sup>
     </xsl:template>
