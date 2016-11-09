@@ -12,9 +12,9 @@
         <div class="row fig" id="{@id}">
             <a name="{@id}"></a>
             <div class="col-md-3 col-sm-4">
-                <div class="thumb" style="background-image: url({$location});">Thumbnail</div>
+                <div class="thumb" style="background-image: url('{$location}');">Thumbnail</div>
                 <div class="figInfo">
-                    <span class="glyphBtn zoom"></span> Passe o mouse sobre a figura para visualizar
+                    <span class="glyphBtn zoom"></span> <!-- FIXME -->Passe o mouse sobre a figura para visualizar
                 </div>
             </div>
             <div class="col-md-9 col-sm-8">
@@ -29,7 +29,7 @@
     <xsl:template match="fig-group" mode="fig-file-location">
         <xsl:apply-templates select="fig[graphic]" mode="fig-file-location"></xsl:apply-templates>
     </xsl:template>
-    <xsl:template match="fig[graphic]" mode="fig-file-location"><xsl:value-of select="graphic/@xlink:href"/></xsl:template>
+    <xsl:template match="fig[graphic]" mode="fig-file-location"><xsl:apply-templates select="graphic/@xlink:href" mode="generic-href-content"/></xsl:template>
     <xsl:template match="fig-group" mode="fig-label-caption">
         <xsl:apply-templates select="fig[@xml:lang=$PAGE_LANG]"></xsl:apply-templates>
     </xsl:template>
@@ -43,6 +43,7 @@
         <xsl:apply-templates select="label"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="fig/caption">
+        <xsl:text> </xsl:text>
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="fig/caption/title">

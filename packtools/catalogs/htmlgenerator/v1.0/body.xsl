@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:variable name="ref" select="//ref"></xsl:variable>
+    
     <xsl:template match="article" mode="body">
         <div class="row articleTxt">
             <ul class="col-md-2 hidden-sm articleMenu">
@@ -12,19 +13,12 @@
             </article>
         </div>
     </xsl:template>
+    
     <xsl:template match="*" mode="body-body">
         <div class="articleSection" data-anchor="Texto">
             <!-- FIXME: body ou sub-article/body -->
             <xsl:apply-templates select="./body"></xsl:apply-templates>
         </div>
-    </xsl:template>
-    
-    <xsl:template match="body">
-        <xsl:apply-templates select="*"></xsl:apply-templates>    
-    </xsl:template>
-    
-    <xsl:template match="body/*">
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="body/sec[@sec-type]">
@@ -47,7 +41,14 @@
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="body//p">
+    
+    <xsl:template match="p">
+        <xsl:element name="{name()}">
+            <xsl:apply-templates select="@*|*|text()"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="body/p | sec/p">
         <div class="row paragraph">
             <div class="col-md-8 col-sm-8 text">
                 <p>
@@ -112,5 +113,33 @@
         <xsl:if test="element-citation/fpage">
             <xsl:apply-templates select="element-citation/fpage"/><xsl:if test="lpage">-<xsl:apply-templates select="element-citation/lpage"/></xsl:if>
         </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="list">
+        <xsl:choose>
+            <xsl:when test="@list-type='order'">
+                <ol>
+                    <xsl:apply-templates select="*"></xsl:apply-templates>
+                </ol>
+            </xsl:when>
+            <xsl:otherwise>
+                <ul>
+                    <xsl:apply-templates select="*"></xsl:apply-templates>
+                </ul>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="list-item">
+        <li>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </li>
+    </xsl:template>
+    
+    <xsl:template match="fn">
+        <a name="{@id}"/>
+        <div id="{@id}" class="footnote">
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </div>
     </xsl:template>
 </xsl:stylesheet>

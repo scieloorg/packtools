@@ -24,18 +24,6 @@
         </div>    
     </xsl:template>
     
-    <xsl:template match="issn">
-        <div>
-            <span><xsl:apply-templates select="@pub-type"></xsl:apply-templates> <xsl:value-of select="."/></span>
-        </div>
-    </xsl:template>
-    
-    <xsl:template match="article" mode="front-issn">
-        <div class="col-md-4 col-sm-6 right">
-            <xsl:apply-templates select=".//journal-meta//issn"></xsl:apply-templates>
-        </div>
-    </xsl:template>
-    
     <xsl:template match="article" mode="front-link-group">
         <div class="linkGroup">
             <a name="authorInfo"></a>
@@ -76,5 +64,4 @@
         <!-- FIXME: Veja as permissões desta licença -->
     </xsl:template>
     
-
 </xsl:stylesheet>

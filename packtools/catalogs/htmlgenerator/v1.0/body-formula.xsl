@@ -9,7 +9,7 @@
     <xsl:template match="disp-formula">
         <a name="{@id}"></a>
         <span class="formula" id="{@id}">
-            <img src="{@xlink:href}" alt="Formula" />
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </span>
     </xsl:template>
 </xsl:stylesheet>

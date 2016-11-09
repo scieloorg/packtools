@@ -6,9 +6,7 @@
   exclude-result-prefixes="xlink mml">
 
     <xsl:template match="*">
-        <xsl:element name="{name()}">
-            <xsl:apply-templates select="@*|*|text()"/>
-        </xsl:element>
+        <xsl:apply-templates select="*|text()"/>
     </xsl:template>
     <xsl:template match="text()">
         <xsl:value-of select="."/>
@@ -17,25 +15,4 @@
         <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
     </xsl:template>
     
-    <xsl:template match="bold">
-        <b><xsl:apply-templates></xsl:apply-templates></b>
-    </xsl:template>
-    <xsl:template match="italic">
-        <i><xsl:apply-templates></xsl:apply-templates></i>
-    </xsl:template>
-    <xsl:template match="break">
-        <br/>
-    </xsl:template>
-    <xsl:template match="ext-link">
-        <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
-    </xsl:template>
-    <xsl:template match="*[not(sup)]/xref">
-        <sup class="xref big"><xsl:apply-templates></xsl:apply-templates></sup>
-    </xsl:template>
-    <xsl:template match="sup[xref]">
-        <sup class="xref big"><xsl:apply-templates></xsl:apply-templates></sup>
-    </xsl:template>
-    <xsl:template match="email">
-        <a href="mailto:{.}"><xsl:value-of select="."/></a>
-    </xsl:template>
 </xsl:stylesheet>

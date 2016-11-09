@@ -12,6 +12,19 @@
         <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.min.css"/>
         <link rel="stylesheet" href="{$CSS_PATH}/scielo-portal.css"/>
         <link rel="stylesheet" href="{$CSS_PATH}/scielo-print.css" media="print"/>
+    	<style>
+    		table {
+				font-size: 90%;
+				background-color: #E8F3F8;
+				font-family: courier;
+			}
+			.footnote {
+			font-size: 70%;
+			
+			font-family: courier;
+			}
+			
+    	</style>
     </xsl:template>
     <xsl:template match="/">
        <html>

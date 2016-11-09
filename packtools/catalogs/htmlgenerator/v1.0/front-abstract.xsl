@@ -16,6 +16,9 @@
             <a name="articleSection0"></a>
             <xsl:apply-templates select="*"></xsl:apply-templates>
             <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"></xsl:apply-templates>
+            <xsl:if test="not(../kwd-group[@xml:lang=$lang])">
+                <xsl:apply-templates select="../kwd-group[1]" mode="keywords"/>
+            </xsl:if>
         </div>
     </xsl:template>
     <xsl:template match="abstract/title | trans-abstract/title">
