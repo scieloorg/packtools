@@ -12,20 +12,15 @@
             </div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 ref-list">
-                    <ul class="refList">
-                        <xsl:apply-templates select="ref"></xsl:apply-templates>
-                    </ul>
+                       <xsl:apply-templates select="ref"></xsl:apply-templates>
                 </div>
             </div></div>
     </xsl:template>
     
     <xsl:template match="ref">
-        <li>
-            <xsl:apply-templates select="label"></xsl:apply-templates>
             <div>
                 <xsl:apply-templates select="mixed-citation"></xsl:apply-templates>
             </div>
-        </li>
     </xsl:template>
     
     <xsl:template match="ref/label">

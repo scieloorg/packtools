@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:template match="article" mode="front-abstract">
+    <xsl:template match="article" mode="article-meta-abstract">
         <xsl:apply-templates select="." mode="lang-abstract"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="abstract | trans-abstract" mode="attribute-data-anchor">

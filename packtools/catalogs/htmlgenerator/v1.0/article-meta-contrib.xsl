@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
+    <xsl:template match="*" mode="article-meta-contrib">
+        <xsl:apply-templates select=".//article-meta//contrib-group"></xsl:apply-templates>
+    </xsl:template>
     <xsl:template match="contrib-group">
         <div class="contribGroup">
-            <xsl:apply-templates select="contrib" mode="front-contrib"></xsl:apply-templates>
+            <xsl:apply-templates select="contrib" mode="article-meta-contrib"></xsl:apply-templates>
         </div>
     </xsl:template>
     
-    <xsl:template match="contrib" mode="front-contrib">
+    <xsl:template match="contrib" mode="article-meta-contrib">
         <span> <xsl:apply-templates select="name|xref"/></span><xsl:if test="position()!=last()">; </xsl:if>
     </xsl:template>
     
@@ -19,7 +22,7 @@
         <sup class="xref trigger" data-rel="#authorInfoBtn"><xsl:apply-templates></xsl:apply-templates></sup>
     </xsl:template>
     
-    <xsl:template match="article" mode="front-author-notes">
+    <xsl:template match="article" mode="article-meta-author-notes">
         <div class="rowBlock">
             <xsl:apply-templates select=".//article-meta/author-notes"></xsl:apply-templates>    
         </div>

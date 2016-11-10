@@ -3,18 +3,19 @@
     version="1.0">
     <xsl:variable name="ref" select="//ref"></xsl:variable>
     
-    <xsl:template match="article" mode="body">
+    <xsl:template match="article" mode="text">
         <div class="row articleTxt">
-            <ul class="col-md-2 hidden-sm articleMenu">
-            </ul>
+            <!-- ul class="col-md-2 hidden-sm articleMenu">
+            </ul-->
             <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12">
-                <xsl:apply-templates select="." mode="front-abstract"></xsl:apply-templates>
-                <xsl:apply-templates select="." mode="body-body"></xsl:apply-templates>
+                <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
+                <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
+                <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
             </article>
         </div>
     </xsl:template>
     
-    <xsl:template match="*" mode="body-body">
+    <xsl:template match="*" mode="text-body">
         <div class="articleSection" data-anchor="Texto">
             <!-- FIXME: body ou sub-article/body -->
             <xsl:apply-templates select="./body"></xsl:apply-templates>
@@ -29,7 +30,7 @@
     
     <xsl:template match="body/sec/title">
         <xsl:param name="position"></xsl:param>
-        <div class="row">
+        <!--div class="row">
             <a name="as1-heading{$position - 1}"></a>
             <div class="col-md-8 col-sm-9 text">
                 <h1>
@@ -39,7 +40,7 @@
                     <xsl:apply-templates select="*|text()"/>
                 </h1>
             </div>
-        </div>
+        </div-->
     </xsl:template>
     
     <xsl:template match="p">
@@ -55,29 +56,25 @@
                     <xsl:apply-templates select="*|text()"></xsl:apply-templates>
                 </p>    
             </div>
-            <div class="col-md-4 col-sm-4 ref">
-                <xsl:if test=".//xref">
-                    <xsl:apply-templates select="." mode="body-xref-list"></xsl:apply-templates>
-                </xsl:if>
-            </div>
+            <!-- referencia na lateral -->
         </div>
     </xsl:template>
-    <xsl:template match="p" mode="body-xref-list">
+    <xsl:template match="p" mode="text-xref-list">
         <xsl:variable name="pindex" select="position()"></xsl:variable>
         <ul class="refList">
-            <xsl:apply-templates select=".//xref" mode="body-xref-list-item">
+            <xsl:apply-templates select=".//xref" mode="text-xref-list-item">
                 <xsl:with-param name="pindex" select="$pindex"></xsl:with-param>
             </xsl:apply-templates>
         </ul>
     </xsl:template>
-    <xsl:template match="xref" mode="body-xref-list-item">
+    <xsl:template match="xref" mode="text-xref-list-item">
         <xsl:variable name="rid" select="@rid"></xsl:variable>
-        <xsl:apply-templates select="$ref[@id=$rid]" mode="body-xref-list-item"></xsl:apply-templates>
+        <xsl:apply-templates select="$ref[@id=$rid]" mode="text-xref-list-item"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="ref/label">
         <sup class="xref big"><xsl:apply-templates select="*|text()"></xsl:apply-templates></sup>
     </xsl:template>
-    <xsl:template match="ref" mode="body-xref-list-item">
+    <xsl:template match="ref" mode="text-xref-list-item">
         <xsl:param name="pindex"></xsl:param>
         <li class="p{$pindex}-{@id}">
             <xsl:apply-templates select="label"/>

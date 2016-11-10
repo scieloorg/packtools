@@ -20,19 +20,19 @@
     <xsl:include href="functions-block.xsl"/>
         
     <xsl:include href="journal-meta.xsl"/>
+    <xsl:include href="article-meta.xsl"/>
+    <xsl:include href="article-meta-contrib.xsl"/>
     
-    <xsl:include href="front.xsl"/>
-    <xsl:include href="front-aff.xsl"/>
-    <xsl:include href="front-abstract.xsl"/>
-    <xsl:include href="front-contrib.xsl"/>
+    <xsl:include href="article-meta-aff.xsl"/>
+    <xsl:include href="article-meta-abstract.xsl"/>
     
-    <xsl:include href="body.xsl"/>
-    <xsl:include href="body-formula.xsl"/>
-    <xsl:include href="body-table.xsl"/>
-    <xsl:include href="body-fig.xsl"/>
+    <xsl:include href="text.xsl"/>
+    <xsl:include href="text-formula.xsl"/>
+    <xsl:include href="text-table.xsl"/>
+    <xsl:include href="text-fig.xsl"/>
     
-    <xsl:include href="back.xsl"/>
-    <xsl:include href="ref.xsl"/>
+    <xsl:include href="text-back.xsl"/>
+    <xsl:include href="text-ref.xsl"/>
     
     <xsl:include href="frame.xsl"/>
     
@@ -44,14 +44,14 @@
                         <!-- FIXME -->
                         <xsl:apply-templates select="." mode="journal-meta-bibstrip"></xsl:apply-templates>
                         <xsl:apply-templates select="." mode="lang-article-title"></xsl:apply-templates>
-                        <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']"></xsl:apply-templates>
-                        <xsl:apply-templates select=".//article-meta//contrib-group"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="front-link-group"></xsl:apply-templates>
+                        <xsl:apply-templates select="." mode="article-meta-doi"></xsl:apply-templates>
+                        <xsl:apply-templates select="." mode="article-meta-contrib"></xsl:apply-templates>
+                        
+                        <!--xsl:apply-templates select="." mode="article-meta-link-group"></xsl:apply-templates-->
                     </div>
-                    <xsl:apply-templates select="." mode="functions-block"></xsl:apply-templates>
-                    <xsl:apply-templates select="." mode="body"></xsl:apply-templates>
-                    <xsl:apply-templates select="." mode="back"></xsl:apply-templates>
+                    <xsl:apply-templates select="." mode="text"></xsl:apply-templates>
                 </div>
+                
             </div>
         </section>
     </xsl:template>

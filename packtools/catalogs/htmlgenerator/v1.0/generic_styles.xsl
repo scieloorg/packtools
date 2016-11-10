@@ -11,9 +11,11 @@
         <br/>
     </xsl:template>
     <xsl:template match="*[not(sup)]/xref">
-        <sup class="xref big"><xsl:apply-templates></xsl:apply-templates></sup>
+        <sup><xsl:apply-templates></xsl:apply-templates></sup>
+            
     </xsl:template>
-    <xsl:template match="sup[xref]">
-        <sup class="xref big"><xsl:apply-templates></xsl:apply-templates></sup>
-    </xsl:template>
+    <!--xsl:template match="sup[xref]">
+        <sup class="xref big"></sup>
+        <xsl:apply-templates></xsl:apply-templates>
+    </xsl:template-->
 </xsl:stylesheet>
