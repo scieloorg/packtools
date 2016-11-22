@@ -914,8 +914,7 @@ code for more information.
       <assert test="@person-group-type">
         Element 'person-group': Missing attribute person-group-type.
       </assert>
-      <assert test="parent::.[local-name() = 'product'] or 
-                    string-length(normalize-space(text())) = 0">
+      <assert test="string-length(normalize-space(text())) = 0">
         Element 'person-group': Unexpected text content. 
       </assert>
     </rule>
