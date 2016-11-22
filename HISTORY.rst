@@ -1,10 +1,18 @@
 History
 =======
 
+1.3.2 (2016-11-22)
+------------------
+
+* Bugfix release
+  [https://github.com/scieloorg/packtools/issues/101].
+
+
 1.3.1 (2016-10-03)
 ------------------
 
-* Bugfix release.
+* Bugfix release 
+  [https://github.com/scieloorg/packtools/commit/36a0277e].
 
 
 1.3 (2016-09-30)
