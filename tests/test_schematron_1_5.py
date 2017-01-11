@@ -2319,7 +2319,7 @@ class ProductTests(PhaseBasedTestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_allowed_types(self):
-        for art_type in ['book-review', 'product-review']:
+        for art_type in ['book-review']:
             sample = u"""<article article-type="%s">
                           <front>
                             <article-meta>
@@ -2428,7 +2428,7 @@ class ProductTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_product_types(self):
-        for prod_type in ['book', 'software', 'article', 'chapter', 'other']:
+        for prod_type in ['book', 'other']:
             sample = u"""<article article-type="book-review">
                           <front>
                             <article-meta>
@@ -2481,6 +2481,33 @@ class ProductTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
+
+    def test_formatting_and_punctuation(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="book">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>,
+                                <given-names>Prenomes do autor</given-names>;
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>,
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
 
 
 class SecTitleTests(PhaseBasedTestCase):

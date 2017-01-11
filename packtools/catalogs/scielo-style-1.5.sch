@@ -671,8 +671,7 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta/product">
-      <assert test="/article[@article-type='book-review'] or
-                    /article[@article-type='product-review']">
+      <assert test="/article[@article-type='book-review']">
         Element 'article-meta': Unexpected element product.
       </assert>
       <assert test="@product-type">
@@ -687,11 +686,8 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta/product[@product-type]">
-      <assert test="@product-type = 'article' or
-                    @product-type = 'book' or
-                    @product-type = 'chapter' or
-                    @product-type = 'other' or
-                    @product-type = 'software'">
+      <assert test="@product-type = 'book' or
+                    @product-type = 'other'">
         Element 'product', attribute product-type: Invalid value "<value-of select="@product-type"/>".
       </assert>
     </rule>

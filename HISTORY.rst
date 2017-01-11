@@ -1,6 +1,13 @@
 History
 =======
 
+1.3.3
+-----
+
+* Fixes a bug that would cause invalid product types to be accepted on 
+  ``article/front/article-meta/product[@product-type]``.
+
+
 1.3.2 (2016-11-22)
 ------------------
 
