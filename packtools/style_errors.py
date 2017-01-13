@@ -63,13 +63,25 @@ class StyleErrorBase(object):
     """
     # to keep compatibility with lxml api
     line = None
-    column = None
 
     # The error message
     message = None
 
     level = None
-    level_name = level
+
+    def get_apparent_element(self, doc):
+        """The apparent element presenting the error at doc.
+
+        This base implementation tries to discover the element name by
+        searching the string pattern `Element 'element name'` on message.
+        """
+        return NotImplemented
+
+
+class StyleError(StyleErrorBase):
+    """ SciELO-style errors raised by the validation pipeline.
+    """
+    level = u'Style Error'
 
     def get_apparent_element(self, doc):
         """The apparent element presenting the error at doc.
@@ -81,18 +93,10 @@ class StyleErrorBase(object):
         return search_element(doc, '//' + tagname, line=self.line)
 
 
-class StyleError(StyleErrorBase):
-    """ SciELO-style errors raised by the validation pipeline.
-    """
-    level = u'Style Error'
-    level_name = level
-
-
 class SchemaStyleError(StyleErrorBase):
     """ DTD errors.
     """
     level = u'DTD Error'
-    level_name = level
 
     def __init__(self, err_object):
         self._err = err_object
@@ -112,7 +116,6 @@ class SchematronStyleError(StyleErrorBase):
     """ SciELO-style errors raised by schematron validation.
     """
     level = u'Style Error'
-    level_name = level
 
     def __init__(self, err_object):
         self._err = err_object

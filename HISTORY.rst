@@ -8,6 +8,8 @@ History
   ``article/front/article-meta/product/@product-type``.
 * Fixes a bug that would cause invalid invalid values to be accepted on 
   ``article/front/article-meta/aff/institution/@content-type``.
+* Clean up unused attributes from classes from the ``packtools.style_error`` 
+  module. 
 
 
 1.3.2 (2016-11-22)
