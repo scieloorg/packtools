@@ -1320,7 +1320,7 @@ class AffContentTypeTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-    def test_allowed_orgdiv3(self):
+    def test_orgdiv3_is_not_allowed_anymore(self):
         sample = u"""<article>
                       <front>
                         <article-meta>
@@ -1338,7 +1338,7 @@ class AffContentTypeTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertTrue(self._run_validation(sample))
+        self.assertFalse(self._run_validation(sample))
 
     def test_allowed_normalized(self):
         sample = u"""<article>

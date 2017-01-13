@@ -5,7 +5,9 @@ History
 -----
 
 * Fixes a bug that would cause invalid product types to be accepted on 
-  ``article/front/article-meta/product[@product-type]``.
+  ``article/front/article-meta/product/@product-type``.
+* Fixes a bug that would cause invalid invalid values to be accepted on 
+  ``article/front/article-meta/aff/institution/@content-type``.
 
 
 1.3.2 (2016-11-22)

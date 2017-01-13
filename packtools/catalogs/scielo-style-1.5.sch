@@ -502,7 +502,6 @@ code for more information.
                     @content-type='orgname' or
                     @content-type='orgdiv1' or
                     @content-type='orgdiv2' or
-                    @content-type='orgdiv3' or
                     @content-type='normalized'">
         Element '<name/>', attribute content-type: Invalid value "<value-of select="@content-type"/>". 
       </assert>
