@@ -4,5 +4,7 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
-script: python setup.py test -q
+  - "3.6"
+install: pip install tox-travis
+script: tox
 
