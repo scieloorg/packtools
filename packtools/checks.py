@@ -93,7 +93,7 @@ def funding_group(message):
                 if award_id in text:
                     return True
                 else:
-                    LOGGER.debug('Cannot find "%s" in "%s".', award_id, text)
+                    LOGGER.info('Cannot find "%s" in "%s".', award_id, text)
 
             return False
 
@@ -114,12 +114,12 @@ def funding_group(message):
                         award_id, award_ids)
 
         if missing_award_ids:
-            LOGGER.debug('Missing award-id: %s.', missing_award_ids)
+            LOGGER.info('Missing award-id: %s.', missing_award_ids)
             err = StyleError()
             err.message = "Element 'funding-group': This element has occurrences not declared in fn or ack."
             err_list.append(err)
     else:
-        LOGGER.debug('No contract numbers found in %s.' % et)
+        LOGGER.info('No contract numbers found in %s.' % et)
 
     return message
 

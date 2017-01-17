@@ -158,7 +158,7 @@ def prettify(jsonobj, colorize=True):
             lexer = get_lexer_for_mimetype("application/json")
             return pygments.highlight(json_str, lexer, TerminalFormatter())
         except Exception as exc:
-            LOGGER.debug(exc)
+            LOGGER.exception(exc)
             pass
 
     return json_str

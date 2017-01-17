@@ -20,6 +20,9 @@ __all__ = ['summarize', 'annotate']
 LOGGER = logging.getLogger(__name__)
 
 
+LOGGER_FMT = '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+
+
 EPILOG = """\
 Copyright 2013 SciELO <scielo-dev@googlegroups.com>.
 Licensed under the terms of the BSD license. Please see LICENSE in the source
@@ -148,7 +151,7 @@ def _main():
     parser.add_argument('--assetsdir', default=None,
                         help='lookup, at the given directory, for each asset referenced by the XML. current working directory will be used by default.')
     parser.add_argument('--version', action='version', version=packtools_version)
-    parser.add_argument('--loglevel', default='ERROR')
+    parser.add_argument('--loglevel', default='')  # disabled by default
     parser.add_argument('--nocolors', action='store_false',
                         help='prevents the output from being colorized by ANSI escape sequences')
     parser.add_argument('--extrasch', default=None,
@@ -159,7 +162,9 @@ def _main():
                         help='filesystem path or URL to the XML')
     args = parser.parse_args()
 
-    logging.basicConfig(level=getattr(logging, args.loglevel.upper()))
+    # All log messages will be omited if level > 50
+    logging.basicConfig(level=getattr(logging, args.loglevel.upper(), 999),
+            format=LOGGER_FMT)
 
     if args.sysinfo:
         print(packtools.utils.prettify(packtools.get_debug_info(), colorize=args.nocolors))
@@ -206,8 +211,9 @@ def _main():
                 summary = summarize(validator, assets_basedir=assetsdir_files)
             except TypeError as exc:
                 LOGGER.exception(exc)
-                LOGGER.warning(
-                        'Error validating %s. Skipping. Run with DEBUG for more info.',
+                LOGGER.info(
+                        'Error validating %s. Skipping. '
+                        'Run with option `--loglevel INFO` for more info.',
                         xml)
                 continue
 
@@ -228,7 +234,7 @@ def main():
     try:
         _main()
     except KeyboardInterrupt:
-        LOGGER.debug('The program is terminating due to SIGTERM.')
+        LOGGER.info('The program is terminating due to SIGTERM.')
     except Exception as exc:
         LOGGER.exception(exc)
         sys.exit('An unexpected error has occurred.')
