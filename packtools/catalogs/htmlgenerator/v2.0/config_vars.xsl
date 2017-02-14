@@ -7,7 +7,7 @@
     <xsl:param name="styles_css_path" />
     
     <xsl:param name="PAGE_LANG"><xsl:value-of select="./article/@xml:lang"/></xsl:param>
-    <xsl:param name="IMAGES_PATH">/Users/roberta.takenaka/Documents/xml/htmlgenerator/rsp/v49/</xsl:param>
+    <xsl:param name="IMAGES_PATH"></xsl:param>
     <xsl:param name="CSS_PATH">/Users/roberta.takenaka/Documents/xml/htmlgenerator/2017-01-10-scielo/static/css</xsl:param>
     <xsl:param name="JS_PATH">/Users/roberta.takenaka/Documents/xml/htmlgenerator/2017-01-10-scielo/static/js</xsl:param>
     
