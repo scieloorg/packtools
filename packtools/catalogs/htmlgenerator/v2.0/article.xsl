@@ -6,7 +6,7 @@
     exclude-result-prefixes="xlink mml" >
     
     
-    <xsl:output method="xhtml"  indent="yes"  encoding="UTF-8" omit-xml-declaration="no"></xsl:output>
+    <xsl:output method="html"  indent="yes"  encoding="UTF-8" omit-xml-declaration="no"></xsl:output>
     
     <xsl:include href="config_vars.xsl"/>  
     
@@ -72,6 +72,7 @@
                     
                     <div class="row">
                         <ul class="col-md-2 hidden-sm articleMenu">
+                            <xsl:comment> </xsl:comment>
                         </ul>
                         
                     <xsl:apply-templates select="." mode="text"></xsl:apply-templates>

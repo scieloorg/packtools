@@ -43,6 +43,12 @@
         </p>
     </xsl:template>
     
+    <xsl:template match="*" mode="title">
+        <xsl:if test="not(title)">
+            <xsl:apply-templates select="." mode="generated-title"></xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template match="body/sec/title">
         <xsl:param name="position"></xsl:param>
         <a name="as1-heading{$position - 1}"></a>

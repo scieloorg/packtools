@@ -5,7 +5,7 @@
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   exclude-result-prefixes="xlink mml">
 
-  <xsl:include href="html2.0/article.xsl"/>
+  <xsl:include href="v2.0/article.xsl"/>
   
   <!-- /OTHERS tags -->
 </xsl:stylesheet>

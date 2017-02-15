@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:variable name="INTERFACE_TEXTS"></xsl:variable>
+    <xsl:variable name="TEXT_LABELS"></xsl:variable>
+    <xsl:variable name="INTERFACE_LABELS"></xsl:variable>
+    <xsl:template match="*" mode="text-labels">
+        <xsl:param name="text"></xsl:param>
+        <xsl:choose>
+            <xsl:when test="$TEXT_LABELS!=''">
+                <xsl:value-of select="$TEXT_LABELS[$text]"/>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="*" mode="interface">
         <xsl:param name="text"></xsl:param>
         <xsl:choose>
-            <xsl:when test="$INTERFACE_TEXTS!=''">
-                <xsl:value-of select="$INTERFACE_TEXTS[$text]"/>
+            <xsl:when test="$INTERFACE_LABELS!=''">
+                <xsl:value-of select="$INTERFACE_LABELS[$text]"/>
             </xsl:when>
             <xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
         </xsl:choose>

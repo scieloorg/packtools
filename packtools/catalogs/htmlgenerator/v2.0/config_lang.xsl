@@ -12,10 +12,10 @@
     
     <xsl:template match="month" mode="lang-month">
         <xsl:choose>
-            <xsl:when test="$PAGE_LANG='es'">
+            <xsl:when test="$ARTICLE_LANG='es'">
                 <xsl:apply-templates select="." mode="lang-es"></xsl:apply-templates>
             </xsl:when>
-            <xsl:when test="$PAGE_LANG='pt'">
+            <xsl:when test="$ARTICLE_LANG='pt'">
                 <xsl:apply-templates select="." mode="lang-pt"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
