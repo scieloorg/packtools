@@ -11,6 +11,8 @@ History
 * Clean up unused attributes from classes from the ``packtools.style_error`` 
   module. 
 * Log messages are now omitted from the stderr by default. 
+* Fixes a bug that would cause tests to fail on Python 3.6
+  [https://github.com/scieloorg/packtools/issues/107].
 
 
 1.3.2 (2016-11-22)
