@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 import unittest
 import io
-import copy
 
 from lxml import isoschematron, etree
 
@@ -22,7 +21,7 @@ def TestPhase(phase_name, cache):
         phase = isoschematron.Schematron(SCH, phase=phase_name)
         cache[phase_name] = phase
 
-    return copy.deepcopy(cache[phase_name])
+    return cache[phase_name]
 
 
 class PhaseBasedTestCase(unittest.TestCase):
