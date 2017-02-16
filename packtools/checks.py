@@ -1,9 +1,7 @@
 #coding: utf-8
 from __future__ import unicode_literals
-import re
 import logging
 import itertools
-from datetime import datetime
 
 import plumber
 
@@ -31,7 +29,7 @@ def setup(message):
 def teardown(message):
     """Finalize the processing pipeline and return the errors list.
     """
-    et, err_list = message
+    _, err_list = message
     return err_list
 
 
@@ -119,7 +117,7 @@ def funding_group(message):
             err.message = "Element 'funding-group': This element has occurrences not declared in fn or ack."
             err_list.append(err)
     else:
-        LOGGER.info('No contract numbers found in %s.' % et)
+        LOGGER.info('No contract numbers found in %s.', et)
 
     return message
 

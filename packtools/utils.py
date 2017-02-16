@@ -132,7 +132,7 @@ def flatten(paths):
                     ylock = False
 
             # args must not be suppressed, even the invalid
-            if ylock == True:
+            if ylock:
                 yield path.strip()
 
     for path in _inner_generator():
@@ -159,7 +159,6 @@ def prettify(jsonobj, colorize=True):
             return pygments.highlight(json_str, lexer, TerminalFormatter())
         except Exception as exc:
             LOGGER.exception(exc)
-            pass
 
     return json_str
 

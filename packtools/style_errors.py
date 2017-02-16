@@ -48,9 +48,9 @@ def search_element(doc, xpath, line=None):
         else:
             continue
 
-    else:
-        LOGGER.info("Could not find element '%s'.", xpath)
-        raise ValueError("Could not find element '%s'." % xpath)
+    # raise ValueError if the element could not be located.
+    LOGGER.info("Could not find element '%s'.", xpath)
+    raise ValueError("Could not find element '%s'." % xpath)
 
 
 #--------------------------------
@@ -107,9 +107,9 @@ class SchemaStyleError(StyleErrorBase):
         for elem in doc.iter():
             if elem.sourceline == self.line:
                 return elem
-        else:
-            LOGGER.info("Could not find element at the line %s", self.line)
-            raise ValueError("Could not find element at the line %s" % self.line)
+
+        LOGGER.info("Could not find element at the line %s", self.line)
+        raise ValueError("Could not find element at the line %s" % self.line)
 
 
 class SchematronStyleError(StyleErrorBase):
