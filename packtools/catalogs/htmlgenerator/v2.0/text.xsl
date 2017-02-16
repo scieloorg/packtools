@@ -8,7 +8,7 @@
             <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
-            <xsl:apply-templates select=". " mode="dates-notes"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="dates-notes"></xsl:apply-templates>
         </article>
     </xsl:template>
     
@@ -57,7 +57,6 @@
         </h1>
     </xsl:template>
     
-    
     <xsl:template match="body/sec/sec/title">
         <xsl:param name="position"></xsl:param>
         
@@ -66,7 +65,25 @@
         </h2>
     </xsl:template>
     
-    <xsl:template match="xref[@ref-type='bibr']">
+    <xsl:template match="xref">
+        <xsl:variable name="type"><xsl:choose>
+            <xsl:when test="@ref-type='equation'">formula</xsl:when>
+            <xsl:when test="@ref-type='disp-formula'">formula</xsl:when>
+            <xsl:when test="@ref-type='fig'">figure</xsl:when>
+            <xsl:when test="@ref-type='table'">table</xsl:when>
+            </xsl:choose></xsl:variable>
+        <a href="#{@rid}" class="goto">
+            <xsl:choose>
+                <xsl:when test="$type!=''">
+                    <span class="glyphBtn {$type}Icon"></span><xsl:value-of select="."/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <sup><xsl:value-of select="."/></sup>
+                </xsl:otherwise>
+            </xsl:choose>
+        </a>
+    </xsl:template>
+    <xsl:template match="xref[@ref-type='bibr' or @ref-type='fn']">
         <xsl:param name="position"></xsl:param>
         <xsl:variable name="id">p<xsl:value-of select="$position"/>-<xsl:value-of select="@rid"/></xsl:variable>
         <span class="ref">
@@ -126,37 +143,36 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="xref">
-        <xsl:variable name="type"><xsl:choose>
-            <xsl:when test="@ref-type='equation'">formula</xsl:when>
-            <xsl:when test="@ref-type='disp-formula'">formula</xsl:when>
-            <xsl:when test="@ref-type='fig'">figure</xsl:when>
-            <xsl:when test="@ref-type='table'">table</xsl:when>
-            
-        </xsl:choose></xsl:variable>
-        <a href="#{@rid}" class="goto">
-            <span class="glyphBtn {$type}Icon"></span><xsl:value-of select="."/>
-        </a>
-    </xsl:template>
     <xsl:template match="xref[@ref-type='bibr']" mode="text">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <xsl:apply-templates select="$document//ref[@id=$id]" mode="text"></xsl:apply-templates>
     </xsl:template>
+    <xsl:template match="xref[@ref-type='fn']" mode="text">
+        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <xsl:apply-templates select="$document//fn[@id=$id]" mode="text"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="fn" mode="text">
+        <xsl:apply-templates select="p" mode="footnote-in-text"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="footnote-in-text">
+        <xsl:apply-templates select="*|text()" mode="footnote-in-text"></xsl:apply-templates>
+    </xsl:template>
     
     <xsl:template match="ref" mode="text">
-        <xsl:variable name="url"><xsl:choose>
-            <xsl:when test=".//ext-link"><xsl:value-of select=".//ext-link[1]"/></xsl:when>
-            <xsl:when test=".//pub-id[@pub-id-type='doi']">https://doi.org/<xsl:value-of select=".//pub-id[@pub-id-type='doi']"/></xsl:when>
-        </xsl:choose></xsl:variable>
-        
-        <a href="{$url}" target="_blank">
-            <xsl:apply-templates select="mixed-citation" mode="text"></xsl:apply-templates>
-        </a>
+        <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$url!=''">
+                <a href="{$url}" target="_blank">
+                    <xsl:apply-templates select="mixed-citation"></xsl:apply-templates>
+                </a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="mixed-citation"></xsl:apply-templates></xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <xsl:template match="mixed-citation/*" mode="text">
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-    </xsl:template>
-    
+   
     <xsl:template match="p | sub | sup">
         <xsl:param name="position"></xsl:param>
         <xsl:element name="{name()}">
@@ -225,15 +241,15 @@
     </xsl:template>
     <xsl:template match="*" mode="errata-date">
         <!-- FIXME -->
-        <li><strong>Errata:</strong><br/> 01/11/2013</li>
+        <!-- li><strong>Errata:</strong><br/> 01/11/2013</li -->
     </xsl:template>
     <xsl:template match="*" mode="retraction-date">
         <!-- FIXME -->
-        <li><strong>Retratação:</strong><br/> 01/11/2013</li>
+        <!-- li><strong>Retratação:</strong><br/> 01/11/2013</li -->
     </xsl:template>
     <xsl:template match="*" mode="manisfestation-date">
         <!-- FIXME -->
-        <li><strong>Manifestação de preocupação:</strong><br/> 01/11/2013</li>
+        <!-- li><strong>Manifestação de preocupação:</strong><br/> 01/11/2013</li -->
     </xsl:template>
     
     <xsl:template match="*[month or year or day or season]">

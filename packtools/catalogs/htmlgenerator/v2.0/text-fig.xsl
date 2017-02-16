@@ -31,13 +31,13 @@
     </xsl:template>
     <xsl:template match="fig[graphic]" mode="fig-file-location"><xsl:apply-templates select="graphic/@xlink:href" mode="generic-href-content"/></xsl:template>
     <xsl:template match="fig-group" mode="fig-label-caption">
-        <xsl:apply-templates select="fig[@xml:lang=$PAGE_LANG]"></xsl:apply-templates>
+        <xsl:apply-templates select="fig[@xml:lang=$ARTICLE_LANG]"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="fig" mode="fig-label-caption">
         <xsl:apply-templates select="label|caption"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="fig-group" mode="fig-label">
-        <xsl:apply-templates select="fig[@xml:lang=$PAGE_LANG]"></xsl:apply-templates>
+        <xsl:apply-templates select="fig[@xml:lang=$ARTICLE_LANG]"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="fig" mode="fig-label">
         <xsl:apply-templates select="label"></xsl:apply-templates>

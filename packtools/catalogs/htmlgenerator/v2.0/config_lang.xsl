@@ -75,8 +75,8 @@
     
     <xsl:template match="article" mode="lang-license">
         <xsl:choose>
-            <xsl:when test="//article-meta//license[@xml:lang=$PAGE_LANG]">
-                <xsl:apply-templates select="//article-meta//license[@xml:lang=$PAGE_LANG]"></xsl:apply-templates>
+            <xsl:when test="//article-meta//license[@xml:lang=$ARTICLE_LANG]">
+                <xsl:apply-templates select="//article-meta//license[@xml:lang=$ARTICLE_LANG]"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="//article-meta//license[1]"></xsl:apply-templates>

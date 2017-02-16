@@ -44,7 +44,7 @@
     <xsl:template match="kwd-group" mode="generated-title">
         <xsl:variable name="lang"><xsl:choose>
             <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="$TEXT_LANG"/></xsl:otherwise>
+            <xsl:otherwise><xsl:value-of select="$ARTICLE_LANG"/></xsl:otherwise>
         </xsl:choose></xsl:variable>
         <strong><xsl:choose>
             <xsl:when test="$lang='es'">Palabras-clave</xsl:when>
@@ -55,7 +55,7 @@
     <xsl:template match="abstract|trans-abstract" mode="generated-title">
         <xsl:variable name="lang"><xsl:choose>
             <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="$TEXT_LANG"/></xsl:otherwise>
+            <xsl:otherwise><xsl:value-of select="$ARTICLE_LANG"/></xsl:otherwise>
         </xsl:choose></xsl:variable>
         <div class="row">
             <a name="resumo-heading-01"></a>

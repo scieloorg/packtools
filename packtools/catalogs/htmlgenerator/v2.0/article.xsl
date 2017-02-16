@@ -35,6 +35,7 @@
     
     <xsl:include href="text-back.xsl"/>
     <xsl:include href="text-ref.xsl"/>
+    <xsl:include href="modals.xsl"/>
     
     <xsl:include href="frame.xsl"/>
     

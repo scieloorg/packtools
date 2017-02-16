@@ -7,12 +7,13 @@
     </xsl:template>
     <xsl:template match="contrib-group">
         <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
+        <xsl:if test="contrib[*]">
         <a href="javascript:;" class="outlineFadeLink" data-toggle="modal"
             data-target="#ModalTutors">
             <xsl:apply-templates select="." mode="interface">
                 <xsl:with-param name="text" select="'Sobre os autores'"/>
             </xsl:apply-templates>
-        </a>
+        </a></xsl:if>
     </xsl:template>
 
     <xsl:template match="contrib" mode="article-meta-contrib">
@@ -31,7 +32,8 @@
             <ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor{@id}">
                 <xsl:apply-templates select="role"/>
                 <xsl:apply-templates select="xref"/>
-                <xsl:apply-templates select="contrib-id|author-notes"/>
+                <xsl:apply-templates select="cauthor-notes"/>
+                <xsl:apply-templates select="contrib-id"/>
             </ul>
         </xsl:if>
     </xsl:template>
@@ -48,7 +50,8 @@
 
     <xsl:template match="contrib/xref">
         <xsl:variable name="rid" select="@rid"/>
-        <xsl:apply-templates select="../../..//aff[@id=$rid]"/>
+        <xsl:apply-templates select="$document//aff[@id=$rid]"/>
+        <xsl:apply-templates select="$document//fn[@id=$rid]"/>
     </xsl:template>
 
     <xsl:template match="contrib-id">
@@ -79,7 +82,7 @@
     <xsl:template match="contrib-id" mode="icon"/>
     <xsl:template match="contrib-id[@contrib-id-type='orcid']" mode="icon">
         <span style="margin:4px">
-            <img src="/img/orcid.png"/>
+            <img src="{$WEBSITE_IMG_PATH}/iD icon"></img><!-- FIXME -->
         </span>
     </xsl:template>
 
@@ -98,5 +101,18 @@
             <xsl:apply-templates/>
         </h3>
     </xsl:template>
-
+    <xsl:template match="fn[@fn-type]" mode="author-notes">
+        <xsl:if test="not(contains('abbr|financial-disclosure|other|presented-at|supplementary-material|supported-by',@fn-type))">
+            <xsl:apply-templates select="*" mode="author-notes"></xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template match="*" mode="author-notes">
+        <xsl:apply-templates></xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="label" mode="author-notes">
+        <h3>
+            <xsl:apply-templates/>
+        </h3>
+    </xsl:template>
+    
 </xsl:stylesheet>

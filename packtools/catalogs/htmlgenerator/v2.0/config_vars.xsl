@@ -11,5 +11,6 @@
     <xsl:param name="IMAGES_PATH"></xsl:param>
     <xsl:param name="CSS_PATH">/Users/roberta.takenaka/Documents/xml/htmlgenerator/2017-01-10-scielo/static/css</xsl:param>
     <xsl:param name="JS_PATH">/Users/roberta.takenaka/Documents/xml/htmlgenerator/2017-01-10-scielo/static/js</xsl:param>
+    <xsl:param name="WEBSITE_IMG_PATH">/Users/roberta.takenaka/Documents/xml/htmlgenerator/2017-01-10-scielo/static/img</xsl:param>
     
 </xsl:stylesheet>
