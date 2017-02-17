@@ -190,10 +190,12 @@ class XMLValidator(object):
         :param supported_sps_versions: (optional) list of supported versions. the
                only way to bypass this restriction is by using the arg `sps_version`.
         """
-        if isinstance(file, etree._ElementTree):
-            et = file
-        else:
+        try:
             et = utils.XML(file)
+        except TypeError:
+            # We hope it is an instance of etree.ElementTree. If it is not,
+            # it will fail in the next lines.
+            et = file
 
         # can raise exception
         sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
