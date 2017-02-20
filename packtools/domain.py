@@ -33,6 +33,7 @@ CURRENTLY_SUPPORTED_VERSIONS = os.environ.get(
 
 ALLOWED_PUBLIC_IDS = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
+    '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN',
 )
 
 # doctype public ids for sps <= 1.1
