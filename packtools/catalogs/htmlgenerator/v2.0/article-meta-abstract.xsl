@@ -2,10 +2,29 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="article" mode="article-meta-abstract">
-        <div class="articleSection" data-anchor="Resumo">
-            <a name="articleSection0"></a>
-            <xsl:apply-templates select="." mode="lang-abstract"></xsl:apply-templates>
-        </div>        
+        <xsl:apply-templates select=".//article-meta/*[contains(name(),'abstract')]" mode="layout">
+        </xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="abstract | trans-abstract" mode="layout">
+        <div class="articleSection">
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="title"></xsl:apply-templates><xsl:if test="not(title)">
+            <xsl:apply-templates select="." mode="label"></xsl:apply-templates></xsl:if></xsl:attribute>
+         
+            <a name="articleSection{position()-1}"></a>
+            <div class="row">
+                <a name="resumo-heading-01"></a>
+                <div class="col-md-8 col-sm-8">
+                    <h1><xsl:choose>
+                        <xsl:when test="title"><xsl:apply-templates select="title"></xsl:apply-templates></xsl:when>
+                        <xsl:otherwise><xsl:apply-templates select="." mode="label"></xsl:apply-templates></xsl:otherwise>
+                    </xsl:choose></h1>
+                </div>
+            </div>
+            <xsl:apply-templates select="*[name()!='title']">
+                
+            </xsl:apply-templates>
+        </div>
     </xsl:template>
     
     <xsl:template match="abstract | trans-abstract">
@@ -19,12 +38,7 @@
     </xsl:template>
     
     <xsl:template match="abstract/title | trans-abstract/title">
-        <div class="row">
-            <a name="resumo-heading-01"></a>
-            <div class="col-md-8 col-sm-8">
-                <h1><xsl:apply-templates select="*|text()"/></h1>
-            </div>
-        </div>
+        <xsl:apply-templates select="*|text()"/>
     </xsl:template>
     
     <xsl:template match="abstract/sec/title | trans-abstract/sec/title">
@@ -52,22 +66,6 @@
             <xsl:otherwise>Key words</xsl:otherwise>
         </xsl:choose></strong>
     </xsl:template>
-    <xsl:template match="abstract|trans-abstract" mode="generated-title">
-        <xsl:variable name="lang"><xsl:choose>
-            <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="$ARTICLE_LANG"/></xsl:otherwise>
-        </xsl:choose></xsl:variable>
-        <div class="row">
-            <a name="resumo-heading-01"></a>
-            <div class="col-md-8 col-sm-8">
-                <h1><xsl:choose>
-                    <xsl:when test="$lang='es'">Resumen</xsl:when>
-                    <xsl:when test="$lang='pt'">Resumo</xsl:when>
-                    <xsl:otherwise>Abstract</xsl:otherwise>
-                </xsl:choose></h1>
-            </div>
-        </div>
-        
-    </xsl:template>
+    
     
 </xsl:stylesheet>

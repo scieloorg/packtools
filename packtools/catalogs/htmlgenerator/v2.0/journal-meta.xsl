@@ -5,6 +5,7 @@
     <xsl:template match="article" mode="journal-meta-bibstrip-title">
         <xsl:apply-templates select=".//journal-meta//abbrev-journal-title"></xsl:apply-templates>
     </xsl:template>
+    
     <xsl:template match="article" mode="journal-meta-bibstrip-issue">
         <xsl:if test=".//article-meta">
             <xsl:if test=".//article-meta/volume!='00'">
@@ -16,33 +17,12 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="article" mode="journal-meta-pub-dates">
-        <xsl:apply-templates  select=".//article-meta/pub-date" mode="journal-meta-pub-dates"></xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="article-meta/pub-date" mode="journal-meta-pub-dates">
-        <xsl:if test="@pub-type='epub'">Epub </xsl:if>
-        <xsl:choose>
-            <xsl:when test="season">
-                <xsl:apply-templates select="season"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:when test="day">
-                <xsl:apply-templates select="month"></xsl:apply-templates>
-                <xsl:text> </xsl:text>
-                <xsl:apply-templates select="day"></xsl:apply-templates>, 
-            </xsl:when>
-            <xsl:otherwise><xsl:apply-templates select="month" mode="lang-month"></xsl:apply-templates></xsl:otherwise>
-        </xsl:choose>
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates select="year"></xsl:apply-templates>
-    </xsl:template>
-    
     <xsl:template match="article" mode="journal-meta-issn">
         <xsl:apply-templates select=".//journal-meta//issn"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="issn">
-        <span><xsl:apply-templates select="@pub-type"></xsl:apply-templates> <xsl:value-of select="."/></span>
+        <span>ISSN&#160;<xsl:value-of select="."/>&#160;(<xsl:apply-templates select="@pub-type" mode="label"/>)</span>
     </xsl:template>
     
 </xsl:stylesheet>

@@ -49,21 +49,20 @@
                             <xsl:text> </xsl:text>
                             <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"></xsl:apply-templates>
                             <!-- FIXME location --> 
-                            <xsl:apply-templates select="." mode="journal-meta-pub-dates"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="issue-meta-pub-dates"></xsl:apply-templates>
                         </span>
                         <xsl:text> </xsl:text>
                         <xsl:apply-templates select="." mode="journal-meta-issn"></xsl:apply-templates>
                     </div>
                     <h1 class="article-title">
-                        <xsl:apply-templates select="." mode="lang-article-title"></xsl:apply-templates>
+                        <xsl:apply-templates select="." mode="article-meta-title"></xsl:apply-templates>
                     </h1>
                     <div class="articleMeta">
                         <div>
                             <!-- FIXME -->
-                            <span>Publicado em: 12 de novembro de 2016 •</span>
-                            <img src="../static/img/cc-license-small.png" alt="Creative Common - BY | NC"/>
+                            <xsl:apply-templates select="." mode="article-meta-pub-dates"></xsl:apply-templates> - 
+                            <xsl:apply-templates select="." mode="article-meta-license"></xsl:apply-templates>
                         </div>
-                        
                         <div>
                             <xsl:apply-templates select="." mode="article-meta-doi"></xsl:apply-templates>
                         </div>

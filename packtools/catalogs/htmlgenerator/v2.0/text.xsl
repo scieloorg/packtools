@@ -8,20 +8,34 @@
             <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
-            <xsl:apply-templates select="." mode="dates-notes"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="dates-notes">
+                <xsl:with-param name="position">
+                    <xsl:value-of select="count(.//article-meta/abstract)+count(.//article-meta/trans-abstract)+count(./body)+count(.//back/*)-1"/>
+                </xsl:with-param>
+            </xsl:apply-templates>
         </article>
     </xsl:template>
     
     <xsl:template match="*" mode="text-body">
         <div class="articleSection" data-anchor="Texto">
             <!-- FIXME: body ou sub-article/body -->
-            <xsl:apply-templates select="./body"></xsl:apply-templates>
+            <xsl:apply-templates select="./body">
+                <xsl:with-param name="position"><xsl:value-of select="count(.//article-meta/abstract)+count(.//article-meta/trans-abstract)"/></xsl:with-param>
+            </xsl:apply-templates>
         </div>
+    </xsl:template>
+    
+    <xsl:template match="body">
+        <xsl:param name="position"/>
+        <a name="articleSection{$position}"/>
+        <xsl:apply-templates select="*">
+            <xsl:with-param name="position"><xsl:value-of select="$position"/></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="body/sec">
         <xsl:param name="position"></xsl:param>
-        <a name="articleSection{position()}"/>
+        <a name="as{$position}-heading{position()-1}"/>
         
         <xsl:apply-templates>
             <xsl:with-param name="position" select="position()"></xsl:with-param>
@@ -183,8 +197,9 @@
     </xsl:template>
     
     <xsl:template match="*" mode="dates-notes">
+        <xsl:param name="position"></xsl:param>
         <div class="articleSection" data-anchor="Data de publicação">
-            <a name="articleSection8"></a>
+            <a name="articleSection{$position}"></a>
             
             <div class="row">
                 <div class="col-md-12 col-sm-12">

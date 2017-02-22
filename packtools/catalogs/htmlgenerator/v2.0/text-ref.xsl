@@ -20,6 +20,7 @@
     </xsl:template>
     
     <xsl:template match="ref">
+        <xsl:comment>  <xsl:apply-templates select="mixed-citation"/> </xsl:comment>
         <li>
             <xsl:if test="label">
                 <xsl:apply-templates select="label"></xsl:apply-templates>
@@ -55,6 +56,7 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="normalize-space($label)!=''"><xsl:value-of select="substring-after(.,$label)"/></xsl:when>
+            <xsl:when test="starts-with(.,'.')"><xsl:value-of select="substring-after(.,'.')"/></xsl:when>
             <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
         </xsl:choose> 
     </xsl:template>

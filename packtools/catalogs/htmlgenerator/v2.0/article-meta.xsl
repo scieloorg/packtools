@@ -4,7 +4,9 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     >
-    
+    <xsl:template match="article" mode="article-meta-title">
+        <xsl:apply-templates select=".//article-meta//article-title"></xsl:apply-templates>
+    </xsl:template>
     <xsl:template match="*" mode="article-meta-doi">
         <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']"></xsl:apply-templates>        
     </xsl:template>
@@ -20,50 +22,59 @@
         </label>
     </xsl:template>
     
-    
-    
-    
-    
-    
-    
-    <xsl:template match="article" mode="article-meta-link-group">
-        <div class="linkGroup">
-            <a name="authorInfo"></a>
-            <div class="row">
-                <div class="col-md-4 col-sm-4">
-                    <a href="javascript:;" class="link showFloatInfo" data-rel=".linkGroup;#authorInfo;#copyrightInfo" id="authorInfoBtn"><span class="glyphBtn authorInfo"></span> Sobre os autores</a>
-                    <!-- FIXME: Sobre autores -->
-                </div>
-                <div class="col-md-5 col-sm-5">
-                    <a href="javascript:;" class="link showFloatInfo" data-rel=".linkGroup;#copyrightInfo;#authorInfo" id="copyrightInfoBtn"><span class="glyphBtn copyrightInfo"></span> Permissões</a>
-                    <!-- FIXME: Permissões -->
-                </div>
-            </div>
-            <div class="floatInformation" id="authorInfo">
-                <button type="button" class="close showFloatInfo" data-rel=".linkGroup;null;#authorInfo"><span aria-hidden="true">&#215;</span></button>
-                <xsl:apply-templates select="." mode="article-meta-affiliations"></xsl:apply-templates>
-                <div class="rowBlock">
-                    <a href=""><span class="glyphBtn scientiLogo"></span> Curriculum ScienTI</a>
-                    <!-- FIXME: Curriculum ScienTI -->
-                </div>
-                <xsl:apply-templates select="." mode="article-meta-author-notes"></xsl:apply-templates>
-            </div>
-            <xsl:apply-templates select="." mode="article-meta-licenses"></xsl:apply-templates>
-        </div>
+    <xsl:template match="article" mode="issue-meta-pub-dates">
+        <xsl:choose>
+            <xsl:when test=".//article-meta/pub-date[@pub-type='collection']">
+                <xsl:apply-templates  select=".//article-meta/pub-date[@pub-type='collection']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//article-meta/pub-date[@pub-type='ppub']">
+                <xsl:apply-templates  select=".//article-meta/pub-date[@pub-type='ppub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//article-meta/pub-date[@pub-type='ppub-epub']">
+                <xsl:apply-templates  select=".//article-meta/pub-date[@pub-type='ppub-epub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//article-meta/pub-date[@pub-type='epub-ppub']">
+                <xsl:apply-templates  select=".//article-meta/pub-date[@pub-type='epub-ppub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates  select=".//article-meta/pub-date"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="article" mode="article-meta-licenses">
-        <div class="floatInformation" id="copyrightInfo">
-            <button type="button" class="close showFloatInfo" data-rel=".linkGroup;null;#copyrightInfo"><span aria-hidden="true">&#215;</span></button>
-            <div class="rowBlock">
-                <xsl:apply-templates select="." mode="lang-license"></xsl:apply-templates>
-            </div>
-        </div>
+    <xsl:template match="article" mode="article-meta-pub-dates">
+        <xsl:apply-templates select=".//article-meta/pub-date[1]" mode="label"></xsl:apply-templates>&#160;
+        
+        <xsl:choose>
+            <xsl:when test=".//article-meta/pub-date[@pub-type='epub']">
+                <xsl:apply-templates  select=".//article-meta/pub-date[@pub-type='epub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates  select=".//article-meta/pub-date"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <xsl:template match="license">
-        <xsl:apply-templates select="license-p"></xsl:apply-templates><br/>
-        <a href="{@xlink:href}">» <xsl:apply-templates select="." mode="labels-license-view"></xsl:apply-templates></a>
-        <!-- FIXME: Veja as permissões desta licença -->
+    
+    <xsl:template match="article-meta/pub-date">
+        <xsl:choose>
+            <xsl:when test="season">
+                <xsl:apply-templates select="season"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="day">
+                <xsl:apply-templates select="month" mode="label"></xsl:apply-templates>
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates select="day"></xsl:apply-templates>, 
+            </xsl:when>
+            <xsl:otherwise><xsl:apply-templates select="month" mode="label"></xsl:apply-templates></xsl:otherwise>
+        </xsl:choose>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates select="year"></xsl:apply-templates>
     </xsl:template>
+    
+    <xsl:template match="article" mode="article-meta-license">
+        <!-- FIXME -->
+        <img src="../static/img/cc-license-small.png" alt="Creative Common - BY | NC"/>
+    </xsl:template>
+    
     
 </xsl:stylesheet>
