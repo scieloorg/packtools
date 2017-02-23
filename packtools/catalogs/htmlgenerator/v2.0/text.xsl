@@ -2,6 +2,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:variable name="ref" select="//ref"></xsl:variable>
+    <xsl:variable name="q_abstracts"><xsl:value-of select="count(.//article-meta/abstract)+count(.//article-meta/trans-abstract)"></xsl:value-of></xsl:variable>
+    <xsl:variable name="q_back"><xsl:value-of select="count(.//back/*)"></xsl:value-of></xsl:variable>
+    <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
     
     <xsl:template match="article" mode="text">
         <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
@@ -10,32 +13,41 @@
             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="dates-notes">
                 <xsl:with-param name="position">
-                    <xsl:value-of select="count(.//article-meta/abstract)+count(.//article-meta/trans-abstract)+count(./body)+count(.//back/*)-1"/>
+                    <xsl:value-of select="$q_abstracts+count(./body)+$q_back"/>
                 </xsl:with-param>
             </xsl:apply-templates>
         </article>
     </xsl:template>
-    
-    <xsl:template match="*" mode="text-body">
-        <div class="articleSection" data-anchor="Texto">
-            <!-- FIXME: body ou sub-article/body -->
-            <xsl:apply-templates select="./body">
-                <xsl:with-param name="position"><xsl:value-of select="count(.//article-meta/abstract)+count(.//article-meta/trans-abstract)"/></xsl:with-param>
-            </xsl:apply-templates>
-        </div>
+    <xsl:template match="*" mode="title">
+        <xsl:apply-templates select="title"></xsl:apply-templates>
+        <xsl:if test="not(title)">
+            <xsl:apply-templates select="." mode="label"></xsl:apply-templates>
+        </xsl:if>
     </xsl:template>
-    
-    <xsl:template match="body">
-        <xsl:param name="position"/>
-        <a name="articleSection{$position}"/>
-        <xsl:apply-templates select="*">
-            <xsl:with-param name="position"><xsl:value-of select="$position"/></xsl:with-param>
-        </xsl:apply-templates>
+    <xsl:template match="*" mode="text-body">
+        <div class="articleSection">
+            <xsl:attribute name="data-anchor">
+            <xsl:apply-templates select="body" mode="label"/>
+            </xsl:attribute>
+            <!-- FIXME: body ou sub-article/body -->
+            <a name="articleSection{$body_index}"/>
+            <xsl:choose>
+                <xsl:when test=".//sub-article[@xml:lang=$ARTICLE_LANG]">
+                    <xsl:apply-templates select=".//sub-article[@xml:lang=$ARTICLE_LANG]//body/*"/>
+                    
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="./body/*"/>
+                    
+                </xsl:otherwise>
+            </xsl:choose>
+            
+        </div>
     </xsl:template>
     
     <xsl:template match="body/sec">
         <xsl:param name="position"></xsl:param>
-        <a name="as{$position}-heading{position()-1}"/>
+        <a name="as{$body_index}-heading{position()-1}"/>
         
         <xsl:apply-templates>
             <xsl:with-param name="position" select="position()"></xsl:with-param>
@@ -57,15 +69,8 @@
         </p>
     </xsl:template>
     
-    <xsl:template match="*" mode="title">
-        <xsl:if test="not(title)">
-            <xsl:apply-templates select="." mode="generated-title"></xsl:apply-templates>
-        </xsl:if>
-    </xsl:template>
-    
     <xsl:template match="body/sec/title">
         <xsl:param name="position"></xsl:param>
-        <a name="as1-heading{$position - 1}"></a>
         <h1 id="text-{../@sec-type}">
             <xsl:apply-templates select="*|text()"/>
         </h1>
@@ -146,17 +151,6 @@
         </li>
     </xsl:template>
     
-    <xsl:template match="fn">
-        <xsl:param name="position"></xsl:param>
-        
-        <a name="{@id}"/>
-        <div id="{@id}" class="footnote">
-            <xsl:apply-templates select="*|text()">
-                <xsl:with-param name="position" select="position()"></xsl:with-param>
-            </xsl:apply-templates>
-        </div>
-    </xsl:template>
-    
     <xsl:template match="xref[@ref-type='bibr']" mode="text">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <xsl:apply-templates select="$document//ref[@id=$id]" mode="text"></xsl:apply-templates>
@@ -164,14 +158,6 @@
     <xsl:template match="xref[@ref-type='fn']" mode="text">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <xsl:apply-templates select="$document//fn[@id=$id]" mode="text"></xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="fn" mode="text">
-        <xsl:apply-templates select="p" mode="footnote-in-text"></xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="*" mode="footnote-in-text">
-        <xsl:apply-templates select="*|text()" mode="footnote-in-text"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="ref" mode="text">
@@ -196,82 +182,5 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="*" mode="dates-notes">
-        <xsl:param name="position"></xsl:param>
-        <div class="articleSection" data-anchor="Data de publicação">
-            <a name="articleSection{$position}"></a>
-            
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <h1><xsl:apply-templates select="." mode="interface"><xsl:with-param name="text">Data de publicação</xsl:with-param></xsl:apply-templates></h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <ul class="articleTimeline">
-                        <xsl:apply-templates select="." mode="submission-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="approvement-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="aop-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="publication-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="errata-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="retraction-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="manisfestation-date"></xsl:apply-templates>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </xsl:template>
-    <xsl:template match="*" mode="submission-date">
-        <li><strong>Submissão:</strong><br/> <xsl:apply-templates select=".//history/date[@date-type='received']"></xsl:apply-templates></li>
-    </xsl:template>
-    <xsl:template match="*" mode="approvement-date">
-        <li><strong>Aprovação:</strong><br/> <xsl:apply-templates select=".//history/date[@date-type='accepted']"></xsl:apply-templates></li>
-    </xsl:template>
-    <xsl:template match="*" mode="aop-date">
-        <xsl:choose>
-            <xsl:when test=".//article-meta/pub-date[@pub-type='epub'] and .//article-meta/pub-date[@pub-type='ppub']">
-                <li><strong>Publicação Avançada:</strong><br/> <xsl:apply-templates select=".//article-meta/pub-date[@pub-type='epub']"></xsl:apply-templates></li>                
-            </xsl:when>
-            <xsl:when test=".//article-meta/pub-date[@pub-type='epub'] and count(.//article-meta/pub-date)=1">
-                <li><strong>Publicação Avançada:</strong><br/> <xsl:apply-templates select=".//pub-date[@pub-type='epub']"></xsl:apply-templates></li>                
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="*" mode="publication-date">
-        <xsl:if test=".//article-meta/pub-date[@pub-type='epub-ppub'] or .//article-meta/pub-date[@pub-type='ppub'] or .//article-meta/pub-date[@pub-type='collection']">
-            <li><strong>Publicação em número:</strong><br/> 
-            <xsl:choose>
-                <xsl:when test=".//article-meta/pub-date[@pub-type='epub-ppub']">
-                    <xsl:apply-templates select=".//article-meta/pub-date[@pub-type='epub-ppub']"></xsl:apply-templates>             
-                </xsl:when>
-                <xsl:when test=".//article-meta/pub-date[@pub-type='collection']">
-                    <xsl:apply-templates select=".//article-meta/pub-date[@pub-type='collection']"></xsl:apply-templates>             
-                </xsl:when>
-                <xsl:when test=".//article-meta/pub-date[@pub-type='ppub']">
-                    <xsl:apply-templates select=".//article-meta/pub-date[@pub-type='ppub']"></xsl:apply-templates>             
-                </xsl:when>
-            </xsl:choose>
-            </li>
-        </xsl:if>
-    </xsl:template>
-    <xsl:template match="*" mode="errata-date">
-        <!-- FIXME -->
-        <!-- li><strong>Errata:</strong><br/> 01/11/2013</li -->
-    </xsl:template>
-    <xsl:template match="*" mode="retraction-date">
-        <!-- FIXME -->
-        <!-- li><strong>Retratação:</strong><br/> 01/11/2013</li -->
-    </xsl:template>
-    <xsl:template match="*" mode="manisfestation-date">
-        <!-- FIXME -->
-        <!-- li><strong>Manifestação de preocupação:</strong><br/> 01/11/2013</li -->
-    </xsl:template>
-    
-    <xsl:template match="*[month or year or day or season]">
-        <xsl:apply-templates select="day"></xsl:apply-templates>
-        <xsl:if test="day">/</xsl:if>
-        <xsl:apply-templates select="month|season"></xsl:apply-templates>
-        <xsl:if test="month or season">/</xsl:if>
-        <xsl:apply-templates select="year"></xsl:apply-templates>
-    </xsl:template>
+   
 </xsl:stylesheet>

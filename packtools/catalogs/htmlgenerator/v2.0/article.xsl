@@ -29,14 +29,13 @@
     <xsl:include href="article-meta-abstract.xsl"/>
     
     <xsl:include href="text.xsl"/>
-    <xsl:include href="text-formula.xsl"/>
-    <xsl:include href="text-table.xsl"/>
-    <xsl:include href="text-fig.xsl"/>
-    
     <xsl:include href="text-back.xsl"/>
+    <xsl:include href="text-table.xsl"/>
+    <xsl:include href="text-formula.xsl"/>
+    <xsl:include href="text-fig.xsl"/>
     <xsl:include href="text-ref.xsl"/>
-    <xsl:include href="modals.xsl"/>
     
+    <xsl:include href="modals.xsl"/>
     <xsl:include href="frame.xsl"/>
     
     <xsl:template match="article" mode="article">

@@ -7,7 +7,7 @@
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </div>
     </xsl:template>
-    <xsl:template match="table-wrap//*">
+    <xsl:template match="table-wrap/table| table/* | table/*/* | table/*/*/*">
         <xsl:element name="{name()}">
             <xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
         </xsl:element>

@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:variable name="TEXT_LABELS"></xsl:variable>
-    <xsl:variable name="INTERFACE_LABELS"></xsl:variable>
+    <xsl:variable name="LABELS" select="document('labels.xml')//term"></xsl:variable>
+    
+    <xsl:template match="*|@*|text()" mode="translate">
+        <xsl:param name="term"></xsl:param>
+        <xsl:param name="lang"></xsl:param>
+        <xsl:choose>
+            <xsl:when test="$LABELS[name=$term]//name[@lang=$lang]">
+                <xsl:value-of select="$LABELS/term[name=$term]//name[@lang=$lang]"/>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="$term"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="*|@*|text()" mode="text-labels">
         <xsl:param name="text"></xsl:param>
-        <xsl:choose>
-            <xsl:when test="$TEXT_LABELS!=''">
-                <xsl:value-of select="$TEXT_LABELS[$text]"/>
-            </xsl:when>
-            <xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="." mode="translate">
+            <xsl:with-param name="term"><xsl:value-of select="$text"/></xsl:with-param>
+            <xsl:with-param name="lang"><xsl:value-of select="$ARTICLE_LANG"/></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
+    
     <xsl:template match="*|@*|text()" mode="interface">
         <xsl:param name="text"></xsl:param>
-        <xsl:choose>
-            <xsl:when test="$INTERFACE_LABELS!=''">
-                <xsl:value-of select="$INTERFACE_LABELS[$text]"/>
-            </xsl:when>
-            <xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="." mode="translate">
+            <xsl:with-param name="term"><xsl:value-of select="$text"/></xsl:with-param>
+            <xsl:with-param name="lang"><xsl:value-of select="$INTERFACE_LANG"/></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="*" mode="labels-license-view">
-        Veja as permissões desta licença
-    </xsl:template>
-    <xsl:template match="*" mode="labels-share">
-        Compartilhe
-    </xsl:template>
-    <xsl:variable name="INTERFACE_CLICK_TO_COPY_URL">
-        Clique para copiar a URL
-    </xsl:variable>
-    <xsl:variable name="INTERFACE_COPY_LINK">
-        copiar link
-    </xsl:variable>
     
+    <xsl:template match="body" mode="label">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">Text</xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
     <xsl:template match="@pub-type" mode="label">
         <xsl:apply-templates select="." mode="interface">
             <xsl:with-param name="text"><xsl:choose>
@@ -111,4 +111,20 @@
             <xsl:otherwise>Abstract</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="back/ack" mode="label">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">Acknowledgments</xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="back/fn-group" mode="label">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">Footnotes</xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="back/ref-list" mode="label">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">References</xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    
 </xsl:stylesheet>
