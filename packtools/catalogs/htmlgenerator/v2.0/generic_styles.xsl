@@ -11,4 +11,10 @@
         <br/>
     </xsl:template>
     
+    <xsl:template match="*" mode="list-item">
+        <li>
+            <xsl:apply-templates select="."></xsl:apply-templates>
+        </li>
+    </xsl:template>
+    
 </xsl:stylesheet>

@@ -2,8 +2,18 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="article" mode="article-meta-abstract">
-        <xsl:apply-templates select=".//article-meta/*[contains(name(),'abstract')]" mode="layout">
-        </xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]/*/abstract" mode="layout"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//article-meta//trans-abstract[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//article-meta//trans-abstract[@xml:lang=$TEXT_LANG]" mode="layout"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//article-meta//abstract" mode="layout"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
     
     <xsl:template match="abstract | trans-abstract" mode="layout">
@@ -58,7 +68,7 @@
     <xsl:template match="kwd-group" mode="generated-title">
         <xsl:variable name="lang"><xsl:choose>
             <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="$ARTICLE_LANG"/></xsl:otherwise>
+            <xsl:otherwise><xsl:value-of select="$TEXT_LANG"/></xsl:otherwise>
         </xsl:choose></xsl:variable>
         <strong><xsl:choose>
             <xsl:when test="$lang='es'">Palabras-clave</xsl:when>

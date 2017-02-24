@@ -11,7 +11,7 @@
         <a href="javascript:;" class="outlineFadeLink" data-toggle="modal"
             data-target="#ModalTutors">
             <xsl:apply-templates select="." mode="interface">
-                <xsl:with-param name="text" select="'Sobre os autores'"/>
+                <xsl:with-param name="text" select="'+'"/>
             </xsl:apply-templates>
         </a></xsl:if>
     </xsl:template>
@@ -50,8 +50,8 @@
 
     <xsl:template match="contrib/xref">
         <xsl:variable name="rid" select="@rid"/>
-        <xsl:apply-templates select="$document//aff[@id=$rid]"/>
-        <xsl:apply-templates select="$document//fn[@id=$rid]"/>
+        <xsl:apply-templates select="$document//aff[@id=$rid]" mode="list-item"/>
+        <xsl:apply-templates select="$document//fn[@id=$rid]" mode="list-item"/>
     </xsl:template>
 
     <xsl:template match="contrib-id">
@@ -114,5 +114,29 @@
             <xsl:apply-templates/>
         </h3>
     </xsl:template>
-    
+    <xsl:template match="aff//*" mode="aff">
+        <xsl:apply-templates select="*|text()" mode="aff"></xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="aff//text()" mode="aff">
+        <xsl:value-of select="."/>,&#160;
+    </xsl:template>
+    <xsl:template match="aff/*[position()=last()]/text()" mode="aff">
+        <xsl:value-of select="."/>
+    </xsl:template>
+    <xsl:template match="aff/text()" mode="aff">
+        <xsl:value-of select="."/>
+    </xsl:template>
+    <xsl:template match="aff">
+        <xsl:choose>
+            <xsl:when test="institution[@content-type='original']">
+                <xsl:apply-templates select="institution[@content-type='original']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="institution[@content-type='orgname'] and contains(text(),institution[@content-type='orgname'])">
+                <xsl:apply-templates select="text()" mode="aff"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[name()!='label']|text()" mode="aff"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>

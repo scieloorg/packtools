@@ -5,7 +5,17 @@
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     >
     <xsl:template match="article" mode="article-meta-title">
-        <xsl:apply-templates select=".//article-meta//article-title"></xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]/*/title-group/article-title"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title">
+                <xsl:apply-templates select=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//article-meta//article-title"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="*" mode="article-meta-doi">
         <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']"></xsl:apply-templates>        
@@ -13,13 +23,7 @@
    
     <xsl:template match="article-id[@pub-id-type='doi']">
         <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
-        <span>DOI: <span class="doi"><xsl:value-of select="."/></span></span>
-        <label class="showTooltip" data-placement="left">
-            <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface"><xsl:with-param name="text">Clique para copiar a URL</xsl:with-param></xsl:apply-templates></xsl:attribute>
-            <span class="glyphBtn articleLink hidden-sm hidden-md"></span> <input type="text" name="link-share" class="fakeLink" data-clipboard-text="{$link}" data-toggle="tooltip" id="linkShare" >
-                <xsl:attribute name="value"><xsl:apply-templates select="." mode="interface"><xsl:with-param name="text">copiar link</xsl:with-param></xsl:apply-templates></xsl:attribute>
-            </input>
-        </label>
+        <span class="doi"><a href="{$link}"><xsl:value-of select="$link"/></a></span>
     </xsl:template>
     
     <xsl:template match="article" mode="issue-meta-pub-dates">
@@ -73,7 +77,11 @@
     
     <xsl:template match="article" mode="article-meta-license">
         <!-- FIXME -->
-        <img src="../static/img/cc-license-small.png" alt="Creative Common - BY | NC"/>
+        <xsl:apply-templates select=".//article-meta//license[1]/@xlink:href"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="license/@xlink:href">
+        <xsl:value-of select="."/>
     </xsl:template>
     
     

@@ -25,7 +25,6 @@
     <xsl:include href="article-meta.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
     
-    <xsl:include href="article-meta-aff.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     
     <xsl:include href="text.xsl"/>
