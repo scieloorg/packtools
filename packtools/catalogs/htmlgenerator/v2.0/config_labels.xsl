@@ -8,7 +8,7 @@
         <xsl:param name="lang"></xsl:param>
         <xsl:choose>
             <xsl:when test="$LABELS[name=$term]//name[@lang=$lang]">
-                <xsl:value-of select="$LABELS/term[name=$term]//name[@lang=$lang]"/>
+                <xsl:value-of select="$LABELS[name=$term]//name[@lang=$lang]"/>
             </xsl:when>
             <xsl:otherwise><xsl:value-of select="$term"/></xsl:otherwise>
         </xsl:choose>
@@ -17,7 +17,7 @@
         <xsl:param name="text"></xsl:param>
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term"><xsl:value-of select="$text"/></xsl:with-param>
-            <xsl:with-param name="lang"><xsl:value-of select="$ARTICLE_LANG"/></xsl:with-param>
+            <xsl:with-param name="lang"><xsl:value-of select="$TEXT_LANG"/></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
     
@@ -32,7 +32,7 @@
     
     <xsl:template match="body" mode="label">
         <xsl:apply-templates select="." mode="text-labels">
-            <xsl:with-param name="text">Text</xsl:with-param>
+            <xsl:with-param name="text">Text</xsl:with-param>            
         </xsl:apply-templates>
     </xsl:template>
     <xsl:template match="@pub-type" mode="label">
@@ -126,5 +126,9 @@
             <xsl:with-param name="text">References</xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
-    
+    <xsl:template match="history/date" mode="label">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text"><xsl:value-of select="@date-type"/></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
 </xsl:stylesheet>

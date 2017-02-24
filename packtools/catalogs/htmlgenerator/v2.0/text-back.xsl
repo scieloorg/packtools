@@ -2,7 +2,15 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="article" mode="text-back">
-        <xsl:apply-templates select="./back/*" mode="layout"></xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]//back/*" mode="layout"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="./back/*" mode="layout"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
     
     <xsl:template match="back/*" mode="layout">
@@ -69,8 +77,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <ul class="articleTimeline">
-                        <xsl:apply-templates select="." mode="submission-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="approvement-date"></xsl:apply-templates>
+                        <xsl:apply-templates select="." mode="history-dates"></xsl:apply-templates>
                         <xsl:apply-templates select="." mode="aop-date"></xsl:apply-templates>
                         <xsl:apply-templates select="." mode="publication-date"></xsl:apply-templates>
                         <xsl:apply-templates select="." mode="errata-date"></xsl:apply-templates>
@@ -81,12 +88,14 @@
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="*" mode="submission-date">
-        <li><strong>Submissão:</strong><br/> <xsl:apply-templates select=".//history/date[@date-type='received']"></xsl:apply-templates></li>
+    <xsl:template match="*" mode="history-dates">
+        <xsl:apply-templates select=".//history/date" mode="list-item"></xsl:apply-templates>
     </xsl:template>
-    <xsl:template match="*" mode="approvement-date">
-        <li><strong>Aprovação:</strong><br/> <xsl:apply-templates select=".//history/date[@date-type='accepted']"></xsl:apply-templates></li>
+    
+    <xsl:template match="history/date" mode="list-item">
+        <li><strong><xsl:apply-templates select="." mode="label"></xsl:apply-templates></strong><br/> <xsl:apply-templates select="."></xsl:apply-templates></li>
     </xsl:template>
+    
     <xsl:template match="*" mode="aop-date">
         <xsl:choose>
             <xsl:when test=".//article-meta/pub-date[@pub-type='epub'] and .//article-meta/pub-date[@pub-type='ppub']">

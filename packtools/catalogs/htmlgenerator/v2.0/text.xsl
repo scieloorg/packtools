@@ -11,6 +11,7 @@
             <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="sub-articles"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="dates-notes">
                 <xsl:with-param name="position">
                     <xsl:value-of select="$q_abstracts+count(./body)+$q_back"/>
@@ -32,8 +33,8 @@
             <!-- FIXME: body ou sub-article/body -->
             <a name="articleSection{$body_index}"/>
             <xsl:choose>
-                <xsl:when test=".//sub-article[@xml:lang=$ARTICLE_LANG]">
-                    <xsl:apply-templates select=".//sub-article[@xml:lang=$ARTICLE_LANG]//body/*"/>
+                <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
+                    <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]//body/*"/>
                     
                 </xsl:when>
                 <xsl:otherwise>
@@ -173,14 +174,8 @@
         </xsl:choose>
     </xsl:template>
    
-    <xsl:template match="p | sub | sup">
-        <xsl:param name="position"></xsl:param>
-        <xsl:element name="{name()}">
-            <xsl:apply-templates select="*|text()">
-                <xsl:with-param name="position" select="position()"></xsl:with-param>
-            </xsl:apply-templates>
-        </xsl:element>
-    </xsl:template>
-    
-   
+    <xsl:template match="article" mode="sub-articles">
+       <xsl:apply-templates select="sub-articles[@article-type!='translation' and (@xml:lang=$TEXT_LANG or not(@xml:lang))]"></xsl:apply-templates>
+       
+   </xsl:template>
 </xsl:stylesheet>

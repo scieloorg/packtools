@@ -15,5 +15,14 @@
         <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
     </xsl:template>
     
+    <xsl:template match="p | sub | sup">
+        <xsl:param name="position"></xsl:param>
+        <xsl:element name="{name()}">
+            <xsl:apply-templates select="*|text()">
+                <xsl:with-param name="position" select="position()"></xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:element>
+    </xsl:template>
+    
     
 </xsl:stylesheet>

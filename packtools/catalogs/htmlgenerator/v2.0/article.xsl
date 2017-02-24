@@ -13,7 +13,6 @@
     <xsl:variable name="document" select="./article"/>
     <xsl:include href="generic.xsl"/>
     
-    <xsl:include href="config_lang.xsl"/>
     <xsl:include href="config_labels.xsl"/>
     
     <xsl:include href="generic_href.xsl"/>
