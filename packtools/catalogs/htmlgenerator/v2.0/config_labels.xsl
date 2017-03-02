@@ -13,6 +13,7 @@
             <xsl:otherwise><xsl:value-of select="$term"/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
     <xsl:template match="*|@*|text()" mode="text-labels">
         <xsl:param name="text"></xsl:param>
         <xsl:apply-templates select="." mode="translate">
@@ -28,8 +29,7 @@
             <xsl:with-param name="lang"><xsl:value-of select="$INTERFACE_LANG"/></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
-    
-    
+        
     <xsl:template match="body" mode="label">
         <xsl:apply-templates select="." mode="text-labels">
             <xsl:with-param name="text">Text</xsl:with-param>            

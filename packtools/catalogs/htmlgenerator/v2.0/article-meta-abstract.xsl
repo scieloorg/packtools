@@ -3,17 +3,13 @@
     version="1.0">
     <xsl:template match="article" mode="article-meta-abstract">
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]/*/abstract" mode="layout"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:when test=".//article-meta//trans-abstract[@xml:lang=$TEXT_LANG]">
-                <xsl:apply-templates select=".//article-meta//trans-abstract[@xml:lang=$TEXT_LANG]" mode="layout"></xsl:apply-templates>
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]/*/abstract" mode="layout"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select=".//article-meta//abstract" mode="layout"></xsl:apply-templates>
+                <xsl:apply-templates select=".//article-meta//abstract|.//article-meta//trans-abstract" mode="layout"></xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
-        
     </xsl:template>
     
     <xsl:template match="abstract | trans-abstract" mode="layout">
@@ -31,9 +27,7 @@
                     </xsl:choose></h1>
                 </div>
             </div>
-            <xsl:apply-templates select="*[name()!='title']">
-                
-            </xsl:apply-templates>
+            <xsl:apply-templates select="*[name()!='title']"/>
         </div>
     </xsl:template>
     
@@ -60,11 +54,14 @@
         <xsl:apply-templates select="." mode="title"/>
         <p><xsl:apply-templates select="*"/></p>
     </xsl:template>
+    
     <xsl:template match="kwd-group/title">
         <strong><xsl:value-of select="."/></strong> 
     </xsl:template>
+    
     <xsl:template match="kwd"><xsl:apply-templates select="*|text()"></xsl:apply-templates><xsl:if test="position()!=last()">; </xsl:if>
     </xsl:template>
+    
     <xsl:template match="kwd-group" mode="generated-title">
         <xsl:variable name="lang"><xsl:choose>
             <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
@@ -76,6 +73,5 @@
             <xsl:otherwise>Key words</xsl:otherwise>
         </xsl:choose></strong>
     </xsl:template>
-    
-    
+      
 </xsl:stylesheet>

@@ -57,7 +57,7 @@
                     <div class="articleMeta">
                         <div>
                             <!-- FIXME -->
-                            <xsl:apply-templates select="." mode="article-meta-pub-dates"></xsl:apply-templates> - 
+                            <xsl:apply-templates select="." mode="article-meta-pub-dates"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="article-meta-license"></xsl:apply-templates>
                         </div>
                         <div>

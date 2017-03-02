@@ -17,6 +17,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template match="*" mode="article-meta-doi">
         <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']"></xsl:apply-templates>        
     </xsl:template>
@@ -59,30 +60,16 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="article-meta/pub-date">
-        <xsl:choose>
-            <xsl:when test="season">
-                <xsl:apply-templates select="season"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:when test="day">
-                <xsl:apply-templates select="month" mode="label"></xsl:apply-templates>
-                <xsl:text> </xsl:text>
-                <xsl:apply-templates select="day"></xsl:apply-templates>, 
-            </xsl:when>
-            <xsl:otherwise><xsl:apply-templates select="month" mode="label"></xsl:apply-templates></xsl:otherwise>
-        </xsl:choose>
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates select="year"></xsl:apply-templates>
-    </xsl:template>
-    
     <xsl:template match="article" mode="article-meta-license">
         <!-- FIXME -->
         <xsl:apply-templates select=".//article-meta//license[1]/@xlink:href"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="license/@xlink:href">
-        <xsl:value-of select="."/>
+        <xsl:variable name="url">https://licensebuttons.net/l/</xsl:variable>
+        <xsl:variable name="icon"><xsl:value-of select="substring-after(.,'http://creativecommons.org/licenses/')"/></xsl:variable>
+        
+        • <img src="{$url}{$icon}/80x15.png"></img>
     </xsl:template>
-    
-    
+       
 </xsl:stylesheet>

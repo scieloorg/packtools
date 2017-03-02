@@ -2,9 +2,49 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:variable name="ref" select="//ref"></xsl:variable>
-    <xsl:variable name="q_abstracts"><xsl:value-of select="count(.//article-meta/abstract)+count(.//article-meta/trans-abstract)"></xsl:value-of></xsl:variable>
-    <xsl:variable name="q_back"><xsl:value-of select="count(.//back/*)"></xsl:value-of></xsl:variable>
+    
+    
+    <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
     <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
+    
+    <xsl:template match="article" mode="count_abstracts">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_abstracts"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//article-meta" mode="count_abstracts"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="count_abstracts">
+        <xsl:value-of select="count(.//abstract)+count(.//trans-abstract)"></xsl:value-of>
+    </xsl:template>
+    
+    <xsl:template match="article" mode="count_back_elements">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_back_elements"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="count(back/*)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="sub-article[@article-type='translation']" mode="count_back_elements">
+        <xsl:choose>
+            <xsl:when test="back/ref-list">
+                <xsl:value-of select="count(back/*)"/>
+            </xsl:when>
+            <xsl:when test="../back/ref-list">
+                <xsl:value-of select="count(back/*)+1"/>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="count(back/*)"/></xsl:otherwise>
+        </xsl:choose>       
+    </xsl:template>
     
     <xsl:template match="article" mode="text">
         <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
@@ -12,9 +52,10 @@
             <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="sub-articles"></xsl:apply-templates>
+            
             <xsl:apply-templates select="." mode="dates-notes">
                 <xsl:with-param name="position">
-                    <xsl:value-of select="$q_abstracts+count(./body)+$q_back"/>
+                    <xsl:value-of select="$q_abstracts + count(./body) + $q_back"/>
                 </xsl:with-param>
             </xsl:apply-templates>
         </article>
@@ -35,14 +76,11 @@
             <xsl:choose>
                 <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
                     <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]//body/*"/>
-                    
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="./body/*"/>
-                    
+                    <xsl:apply-templates select="./body/*"/>                    
                 </xsl:otherwise>
-            </xsl:choose>
-            
+            </xsl:choose>            
         </div>
     </xsl:template>
     

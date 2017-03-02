@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-    <xsl:template match="*" mode="article-meta-contrib">
+    <xsl:template match="article" mode="article-meta-contrib">
         <div class="contribGroup">
-            <xsl:apply-templates select=".//article-meta//contrib-group"/>
+            <xsl:choose>
+                <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//front-stub//contrib-group">
+                   <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//front-stub//contrib-group"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select=".//article-meta//contrib-group"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </div>
     </xsl:template>
     <xsl:template match="contrib-group">
@@ -50,8 +57,8 @@
 
     <xsl:template match="contrib/xref">
         <xsl:variable name="rid" select="@rid"/>
-        <xsl:apply-templates select="$document//aff[@id=$rid]" mode="list-item"/>
-        <xsl:apply-templates select="$document//fn[@id=$rid]" mode="list-item"/>
+        <xsl:apply-templates select="../../..//aff[@id=$rid]" mode="list-item"/>
+        <xsl:apply-templates select="../../..//fn[@id=$rid]" mode="list-item"/>
     </xsl:template>
 
     <xsl:template match="contrib-id">
@@ -114,6 +121,7 @@
             <xsl:apply-templates/>
         </h3>
     </xsl:template>
+    
     <xsl:template match="aff//*" mode="aff">
         <xsl:apply-templates select="*|text()" mode="aff"></xsl:apply-templates>
     </xsl:template>
@@ -126,6 +134,7 @@
     <xsl:template match="aff/text()" mode="aff">
         <xsl:value-of select="."/>
     </xsl:template>
+    
     <xsl:template match="aff">
         <xsl:choose>
             <xsl:when test="institution[@content-type='original']">
@@ -135,7 +144,7 @@
                 <xsl:apply-templates select="text()" mode="aff"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="*[name()!='label']|text()" mode="aff"></xsl:apply-templates>
+                <xsl:apply-templates select="*[name()!='label']" mode="aff"></xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

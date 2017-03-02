@@ -25,6 +25,7 @@
     <xsl:template match="graphic/@xlink:href">
         <xsl:attribute name="src"><xsl:apply-templates select="." mode="generic-href-content"></xsl:apply-templates></xsl:attribute>
     </xsl:template>
+    
     <xsl:template match="graphic/@xlink:href" mode="generic-href-content">
         <xsl:variable name="last4char"><xsl:value-of select="substring(.,string-length(.)-3)"/></xsl:variable>
         <xsl:variable name="name"><xsl:choose>
