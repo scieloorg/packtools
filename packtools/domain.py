@@ -137,7 +137,7 @@ class XMLValidator(object):
     :param file: etree._ElementTree instance.
     :param sps_version: the version of the SPS that will be the basis for validation.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
-    :param sch_schemas: (optional) list of schematron schemas.
+    :param sch_schemas: (optional) list of Schematron schemas.
     """
     def __init__(self, file, dtd=None, sch_schemas=None):
         assert isinstance(file, etree._ElementTree)
@@ -148,7 +148,7 @@ class XMLValidator(object):
         self.source_url = self.lxml.docinfo.URL
         self.public_id = self.lxml.docinfo.public_id
         self.encoding = self.lxml.docinfo.encoding
-        self.sch_schemas = sch_schemas
+        self.sch_schemas = list(sch_schemas) if sch_schemas else []
 
         # Load python based validation pipeline
         self.ppl = checks.StyleCheckingPipeline()
@@ -194,9 +194,17 @@ class XMLValidator(object):
         # based on sps version, get the right Schematron schema and then
         # mix it with the list supplied by the user.
         sch_schema = StdSchematron(sps_version)
-        sch_schemas = set([sch_schema])
+        sch_schemas = [sch_schema]
+
         if extra_sch_schemas:
-            sch_schemas.update(list(extra_sch_schemas))
+            for extra_sch in extra_sch_schemas:
+                # does ``extra_sch`` implement the Schematron protocol?
+                if hasattr(extra_sch, 'validate'):
+                    sch_schemas.append(extra_sch)
+
+                # if not, we assume it is a filepath and try to parse it.
+                else:
+                    sch_schemas.append(Schematron(extra_sch))
 
         allowed_public_ids = _get_public_ids(sps_version)
 

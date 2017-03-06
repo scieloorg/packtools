@@ -34,8 +34,14 @@ ERR_MESSAGE = "Something went wrong while working on {filename}: {details}."
 
 
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
+    """ Get an instance of ``packtools.XMLValidator``.
+
+    :param xmlpath: filesystem or URL to an XML file.
+    :param no_network: if the parser might retrieve the DTD from the internet.
+    :param extra_sch: list of paths to schematron schemas.
+    """ 
     parsed_xml = packtools.XML(xmlpath, no_network=no_network)
-    return packtools.XMLValidator.parse(parsed_xml, extra_schematron=extra_sch)
+    return packtools.XMLValidator.parse(parsed_xml, extra_sch_schemas=extra_sch)
 
 
 def annotate(validator, buff, encoding=None):
@@ -154,7 +160,7 @@ def _main():
     parser.add_argument('--loglevel', default='')  # disabled by default
     parser.add_argument('--nocolors', action='store_false',
                         help='prevents the output from being colorized by ANSI escape sequences')
-    parser.add_argument('--extrasch', default=None,
+    parser.add_argument('--extrasch', action='append', default=None,
                         help='runs an extra validation using an external schematron schema.')
     parser.add_argument('--sysinfo', action='store_true',
                         help='show program\'s installation info and exit.')
