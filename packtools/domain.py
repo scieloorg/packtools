@@ -16,7 +16,7 @@ try:
 except ImportError:
     import repr as reprlib
 
-from lxml import etree, isoschematron
+from lxml import etree
 
 from . import utils, catalogs, checks, style_errors, exceptions
 
@@ -73,13 +73,6 @@ def _init_sps_version(xml_et, supported_versions=None):
         return version_from_xml
 
 
-def Schematron(file):
-    with open(file, mode='rb') as fp:
-        xmlschema_doc = etree.parse(fp)
-
-    return isoschematron.Schematron(xmlschema_doc)
-
-
 def StdSchematron(schema_name):
     """Returns an instance of `isoschematron.Schematron`.
 
@@ -94,10 +87,11 @@ def StdSchematron(schema_name):
         return cache[schema_name]
     else:
         try:
-            schematron = Schematron(catalogs.SCHEMAS[schema_name])
+            schema_path = catalogs.SCHEMAS[schema_name]
         except KeyError:
             raise ValueError('Unknown schema %s' % (schema_name,))
 
+        schematron = utils.get_schematron_from_filepath(schema_path)
         cache[schema_name] = schematron
         return schematron
 
@@ -191,20 +185,11 @@ class XMLValidator(object):
         # can raise exception
         sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
 
-        # based on sps version, get the right Schematron schema and then
-        # mix it with the list supplied by the user.
-        sch_schema = StdSchematron(sps_version)
-        sch_schemas = [sch_schema]
-
+        # get the right Schematron schema based on the value of ``sps_version`` 
+        # and then mix it with the list of schemas supplied by the user.
+        sch_schemas = [StdSchematron(sps_version)]
         if extra_sch_schemas:
-            for extra_sch in extra_sch_schemas:
-                # does ``extra_sch`` implement the Schematron protocol?
-                if hasattr(extra_sch, 'validate'):
-                    sch_schemas.append(extra_sch)
-
-                # if not, we assume it is a filepath and try to parse it.
-                else:
-                    sch_schemas.append(Schematron(extra_sch))
+            sch_schemas += list(extra_sch_schemas)
 
         allowed_public_ids = _get_public_ids(sps_version)
 

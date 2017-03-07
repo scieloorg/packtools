@@ -3,7 +3,7 @@
     <title>Make sure RSP's nlm title is correct</title>
 
     <rule context="/article/front/journal-meta/journal-id[@journal-id-type='nlm-ta']">
-      <assert test="text() = 'Rev Saude Publica'">
+      <assert test="text() = 'Revs Saude Publica'">
           Element 'journal-id': Invalid NLM title.
       </assert>
     </rule>

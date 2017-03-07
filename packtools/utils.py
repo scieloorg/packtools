@@ -10,7 +10,7 @@ import json
 import unicodedata
 import zipfile
 
-from lxml import etree
+from lxml import etree, isoschematron
 try:
     import pygments     # NOQA
     from pygments.lexers import get_lexer_for_mimetype
@@ -89,6 +89,16 @@ def XML(file, no_network=True, load_dtd=True):
     xml = etree.parse(file, parser)
 
     return xml
+
+
+def get_schematron_from_buffer(buff):
+    xmlschema_doc = etree.parse(buff)
+    return isoschematron.Schematron(xmlschema_doc)
+
+
+def get_schematron_from_filepath(filepath):
+    with open(filepath, mode='rb') as buff:
+        return get_schematron_from_buffer(buff)
 
 
 def config_xml_catalog(wrapped):

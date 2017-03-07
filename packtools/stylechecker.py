@@ -41,7 +41,11 @@ def get_xmlvalidator(xmlpath, no_network, extra_sch):
     :param extra_sch: list of paths to schematron schemas.
     """ 
     parsed_xml = packtools.XML(xmlpath, no_network=no_network)
-    return packtools.XMLValidator.parse(parsed_xml, extra_sch_schemas=extra_sch)
+    _extra_sch = list(extra_sch)
+    extra_sch_schemas = [packtools.utils.get_schematron_from_filepath(path)
+                         for path in _extra_sch]
+    return packtools.XMLValidator.parse(parsed_xml, 
+            extra_sch_schemas=extra_sch_schemas)
 
 
 def annotate(validator, buff, encoding=None):
@@ -160,7 +164,7 @@ def _main():
     parser.add_argument('--loglevel', default='')  # disabled by default
     parser.add_argument('--nocolors', action='store_false',
                         help='prevents the output from being colorized by ANSI escape sequences')
-    parser.add_argument('--extrasch', action='append', default=None,
+    parser.add_argument('--extrasch', action='append', default=[],  # empty tuple
                         help='runs an extra validation using an external schematron schema.')
     parser.add_argument('--sysinfo', action='store_true',
                         help='show program\'s installation info and exit.')
