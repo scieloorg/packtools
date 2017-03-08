@@ -30,5 +30,8 @@ then
     xmlcatalog --noout --add "delegateSystem" \
         "journalpublishing3.dtd" \
         "file://$CATALOG" $ROOTCATALOG
+    xmlcatalog --noout --add "delegateSystem" \
+        "http://jats.nlm.nih.gov/publishing/" \
+        "file://$CATALOG" $ROOTCATALOG
 fi
 

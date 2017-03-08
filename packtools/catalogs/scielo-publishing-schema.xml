@@ -5,6 +5,9 @@
           uri="jats-publishing-dtd-1.0/JATS-journalpublishing1.dtd"/>
   <system systemId="JATS-journalpublishing1.dtd" 
           uri="jats-publishing-dtd-1.0/JATS-journalpublishing1.dtd"/>
+  <system systemId="http://jats.nlm.nih.gov/publishing/1.0/JATS-journalpublishing1.dtd" 
+          uri="jats-publishing-dtd-1.0/JATS-journalpublishing1.dtd"/>
+
   <public publicId="-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" 
           uri="pmc-publishing-dtd-3.0/journalpublishing3.dtd"/>
   <system systemId="journalpublishing3.dtd" 
