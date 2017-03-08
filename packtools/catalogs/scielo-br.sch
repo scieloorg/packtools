@@ -48,10 +48,6 @@ code for more information.
     <active pattern="article-id_attributes"/>
   </phase>
 
-  <phase id="phase.license">
-    <active pattern="license"/>
-  </phase>
-
   <!--
    Patterns - sets of rules.
   -->
@@ -63,27 +59,6 @@ code for more information.
     <rule context="article/front/article-meta">
       <assert test="article-id[@pub-id-type='doi']">
         Element 'article-meta': Missing element article-id with pub-id-type="doi".
-      </assert>
-    </rule>
-  </pattern>
-
-  <pattern id="license">
-    <title>
-      Make sure the document has a permissions element, and a valid
-      license (represented as a known href).
-
-      Valid licenses are:
-        - http://creativecommons.org/licenses/by-nc/4.0/
-        - http://creativecommons.org/licenses/by-nc/3.0/
-        - http://creativecommons.org/licenses/by/4.0/
-        - http://creativecommons.org/licenses/by/3.0/
-        - http://creativecommons.org/licenses/by-nc-nd/4.0/
-        - http://creativecommons.org/licenses/by-nc-nd/3.0/
-    </title>
-
-    <rule context="article/front/article-meta/permissions/license[@license-type and @xlink:href]">
-      <assert test="regexp:test(@xlink:href, '^https?://creativecommons\.org/licenses/(by-nc|by|by-nc-nd)/(3|4)\.0(/igo)?/?$')">
-        Element 'license', attribute xlink:href: Invalid value '<value-of select="@xlink:href"/>'.
       </assert>
     </rule>
   </pattern>

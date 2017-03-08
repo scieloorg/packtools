@@ -3,6 +3,8 @@ History
 
 * XML catalog to resolve system ids of type URL
   [https://github.com/scieloorg/packtools/issues/110].
+* Remove the use license restrictions from the Brazil instance
+  [https://github.com/scieloorg/packtools/issues/112].
 
 
 1.3.3 (2017-02-16)
