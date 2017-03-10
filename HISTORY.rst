@@ -1,10 +1,15 @@
 History
 =======
 
+1.4
+---
+
 * XML catalog to resolve system ids of type URL
   [https://github.com/scieloorg/packtools/issues/110].
 * Remove the use license restrictions from the Brazil instance
   [https://github.com/scieloorg/packtools/issues/112].
+* Make built-in schematron schemas available through the prefix `@`:
+  @scielo-br, @sps-1.1, @sps-1.2, @sps-1.3, @sps-1.4, @sps-1.5.
 
 
 1.3.3 (2017-02-16)

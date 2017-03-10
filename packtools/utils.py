@@ -232,3 +232,28 @@ class Xray(object):
         """
         self._zipfile.close()
 
+
+def resolve_schematron_filepath(value):
+    """Determine the filepath for ``value``.
+
+    The lookup is run against all known schemas from
+    ``packtools.catalogs.SCH_SCHEMAS``. If ``value`` is already a filepath,
+    than it is returned as it is.
+    """
+    try:
+        lookup_builtin = value.startswith('@')
+    except AttributeError as exc:
+        # the `from` clause cannot be used due to compatibility with python 2.
+        raise TypeError('This function only handles text strings.')
+
+    if lookup_builtin:
+        path = catalogs.SCH_SCHEMAS.get(value[1:])
+        if path:
+            return path
+        else:
+            raise ValueError('Could not resolve schematron "%s".' % value)
+    elif os.path.lexists(value):
+        return value
+    else:
+        raise ValueError('File not found.')
+         
