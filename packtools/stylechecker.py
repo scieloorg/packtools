@@ -33,9 +33,19 @@ code for more information.
 ERR_MESSAGE = "Something went wrong while working on {filename}: {details}."
 
 
+AVAILABLE_SCHEMAS = ', '.join(sorted(['@'+key 
+    for key in packtools.catalogs.SCH_SCHEMAS.keys()]))
+
+
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
     parsed_xml = packtools.XML(xmlpath, no_network=no_network)
-    return packtools.XMLValidator.parse(parsed_xml, extra_schematron=extra_sch)
+    if extra_sch:
+        path_to_extra_sch = packtools.utils.resolve_schematron_filepath(extra_sch)
+    else:
+        path_to_extra_sch = None
+
+    return packtools.XMLValidator.parse(parsed_xml, 
+            extra_schematron=path_to_extra_sch)
 
 
 def annotate(validator, buff, encoding=None):
@@ -155,7 +165,7 @@ def _main():
     parser.add_argument('--nocolors', action='store_false',
                         help='prevents the output from being colorized by ANSI escape sequences')
     parser.add_argument('--extrasch', default=None,
-                        help='runs an extra validation using an external schematron schema.')
+                        help='runs an extra validation using an external schematron schema. built-in schemas are available through the prefix `@`: %s.' % AVAILABLE_SCHEMAS)
     parser.add_argument('--sysinfo', action='store_true',
                         help='show program\'s installation info and exit.')
     parser.add_argument('XML', nargs='*',
