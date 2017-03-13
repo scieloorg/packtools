@@ -65,10 +65,10 @@ def _init_sps_version(xml_et, supported_versions=None):
     doc_root = xml_et.getroot()
     version_from_xml = doc_root.attrib.get('specific-use', None)
     if version_from_xml is None:
-        raise exceptions.XMLSPSVersionError('Missing SPS version at /article/@specific-use')
+        raise exceptions.XMLSPSVersionError('cannot get the SPS version from /article/@specific-use')
 
     if version_from_xml not in supported_versions:
-        raise exceptions.XMLSPSVersionError('%s is not currently supported' % version_from_xml)
+        raise exceptions.XMLSPSVersionError('version "%s" is not currently supported' % version_from_xml)
     else:
         return version_from_xml
 
@@ -96,7 +96,7 @@ def StdSchematron(schema_name):
         try:
             schematron = Schematron(catalogs.SCHEMAS[schema_name])
         except KeyError:
-            raise ValueError('Unknown schema %s' % (schema_name,))
+            raise ValueError('unrecognized schema: "%s"' % schema_name)
 
         cache[schema_name] = schematron
         return schematron
@@ -115,7 +115,7 @@ def XSLT(xslt_name):
         try:
             xslt_doc = etree.parse(catalogs.XSLTS[xslt_name])
         except KeyError:
-            raise ValueError('Unknown xslt %s' % (xslt_name,))
+            raise ValueError('unrecognized xslt: "%s"' % xslt_name)
 
         xslt = etree.XSLT(xslt_doc)
         cache[xslt_name] = xslt
@@ -206,13 +206,13 @@ class XMLValidator(object):
         # be changed by the `no_doctype` arg.
         doctype = et.docinfo.doctype
         if not doctype and not no_doctype:
-            raise exceptions.XMLDoctypeError('Missing DOCTYPE declaration')
+            raise exceptions.XMLDoctypeError('cannot get the DOCTYPE declaration')
 
         # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
         # supported.
         public_id = et.docinfo.public_id
         if doctype and public_id not in allowed_public_ids:
-            raise exceptions.XMLDoctypeError('Unsuported DOCTYPE public id')
+            raise exceptions.XMLDoctypeError('invalid DOCTYPE public id')
 
         return cls(et, sps_version, **kwargs)
 
@@ -223,7 +223,7 @@ class XMLValidator(object):
         """
         if len(self._validation_errors['dtd']) == 0:
             if self.dtd is None:
-                raise exceptions.UndefinedDTDError('The DTD/XSD could not be loaded')
+                raise exceptions.UndefinedDTDError('cannot validate (DTD is not set)')
 
             def make_error_log():
                 return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
@@ -325,7 +325,6 @@ class XMLValidator(object):
             try:
                 err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
-                LOGGER.info('Could not locate the element name in: %s', error.message)
                 err_element = mutating_xml.getroot()
 
             err_pairs.append((err_element, error.message))
@@ -430,7 +429,7 @@ class HTMLGenerator(object):
         if valid_only:
             is_valid, _ = XMLValidator.parse(et).validate_all()
             if not is_valid:
-                raise ValueError('The XML is not valid according to SPS rules')
+                raise ValueError('invalid XML')
 
         return cls(et, **kwargs)
 
@@ -499,11 +498,11 @@ class HTMLGenerator(object):
         """
         main_language = self.language
         if main_language is None:
-            raise exceptions.HTMLGenerationError('Main document language is '
+            raise exceptions.HTMLGenerationError('main document language is '
                                                  'undefined.')
 
         if lang not in self.languages:
-            raise ValueError('Unknown language "%s"' % lang)
+            raise ValueError('unrecognized language: "%s"' % lang)
 
         is_translation = lang != main_language
         return self.xslt(

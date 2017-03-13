@@ -10,6 +10,7 @@ History
   [https://github.com/scieloorg/packtools/issues/112].
 * Make built-in schematron schemas available through the prefix `@`:
   @scielo-br, @sps-1.1, @sps-1.2, @sps-1.3, @sps-1.4, @sps-1.5.
+* Better exception and log messages.
 
 
 1.3.3 (2017-02-16)
