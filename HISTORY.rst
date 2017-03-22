@@ -1,6 +1,12 @@
 History
 =======
 
+1.4.2 (2017-03-22)
+------------------
+
+* This release is purely bureaucratic, because Pypi does not allow a package
+  to be fixed and resubmitted with the same filename.
+
 
 1.4.1 (2017-03-22)
 ------------------
