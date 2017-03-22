@@ -1,8 +1,8 @@
 History
 =======
 
-1.4
----
+1.4 (2017-03-22)
+----------------
 
 * XML catalog to resolve system ids of type URL
   [https://github.com/scieloorg/packtools/issues/110].
