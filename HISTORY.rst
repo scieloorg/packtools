@@ -1,6 +1,13 @@
 History
 =======
 
+
+1.4.1 (2017-03-22)
+------------------
+
+* Fixes syntax error on HISTORY.rst that caused style problems on Pypi.
+
+
 1.4 (2017-03-22)
 ----------------
 
@@ -175,11 +182,11 @@ History
 ------------------
 
 * stylechecker CLI utility overhaul:
-  * The basic output is now presented as JSON structure. 
-  * The option *--assetsdir* lookups, in the given dir, for each asset referenced in
+    * The basic output is now presented as JSON structure. 
+    * The option *--assetsdir* lookups, in the given dir, for each asset referenced in
       XML. The *--annotated* option now writes the output to a file. The
       utility now takes more than one XML a time.
-  * *pygments*, if installed, will be used to display pretty JSON outputs.
+    * *pygments*, if installed, will be used to display pretty JSON outputs.
 
 
 0.6.2 (2015-01-23)
