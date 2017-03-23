@@ -1,6 +1,15 @@
 History
 =======
 
+2.0
+---
+
+* [Backwards incompatible] Major changes on ``packtools.domain.XMLValidator``
+  initializer and ``.parse`` classmethod. The param ``extra_schematron`` is 
+  now deprecated. Use ``sch_schemas`` and ``extra_sch_schemas`` instead, since 
+  both params accept an arbitrary number of schematron schemas.
+
+
 1.4.2 (2017-03-22)
 ------------------
 
