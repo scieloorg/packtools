@@ -194,7 +194,7 @@ class Xray(object):
     @classmethod
     def fromfile(cls, filepath):
         if not zipfile.is_zipfile(filepath):
-            raise ValueError('"%s" is not a valid zipfile.' % filepath)
+            raise ValueError('cannot read "%s": not a valid zipfile' % filepath)
 
         zip_file = zipfile.ZipFile(filepath, 'r')
         return cls(zip_file)
@@ -235,10 +235,35 @@ class Xray(object):
             return self._zipfile.open(member, mode)
 
         except KeyError:
-            raise ValueError('Unknown member "%s".' % member)
+            raise ValueError('cannot open file "%s": file doesn\'t exist' % member)
 
     def close(self):
         """Close the archive file.
         """
         self._zipfile.close()
 
+
+def resolve_schematron_filepath(value):
+    """Determine the filepath for ``value``.
+
+    The lookup is run against all known schemas from
+    ``packtools.catalogs.SCH_SCHEMAS``. If ``value`` is already a filepath,
+    than it is returned as it is.
+    """
+    try:
+        lookup_builtin = value.startswith('@')
+    except AttributeError as exc:
+        # the `from` clause cannot be used due to compatibility with python 2.
+        raise TypeError('invalid input type for text string: "value"')
+
+    if lookup_builtin:
+        path = catalogs.SCH_SCHEMAS.get(value[1:])
+        if path:
+            return path
+        else:
+            raise ValueError('cannot resolve schematron "%s"' % value)
+    elif os.path.lexists(value):
+        return value
+    else:
+        raise ValueError('could not locate file "%s" (I/O failure)' % value)
+         

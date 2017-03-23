@@ -33,6 +33,10 @@ code for more information.
 ERR_MESSAGE = "Something went wrong while working on {filename}: {details}."
 
 
+AVAILABLE_SCHEMAS = ', '.join(sorted(['@'+key 
+    for key in packtools.catalogs.SCH_SCHEMAS.keys()]))
+
+
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
     """ Get an instance of ``packtools.XMLValidator``.
 
@@ -42,10 +46,16 @@ def get_xmlvalidator(xmlpath, no_network, extra_sch):
     """ 
     parsed_xml = packtools.XML(xmlpath, no_network=no_network)
     _extra_sch = list(extra_sch)
-    extra_sch_schemas = [packtools.utils.get_schematron_from_filepath(path)
-                         for path in _extra_sch]
+    if _extra_sch:
+        paths = [packtools.utils.resolve_schematron_filepath(path_or_ref)
+                 for path_or_ref in _extra_sch]
+        schemas = [packtools.utils.get_schematron_from_filepath(path)
+                   for path in paths]
+    else:
+        schemas = None
+
     return packtools.XMLValidator.parse(parsed_xml, 
-            extra_sch_schemas=extra_sch_schemas)
+            extra_sch_schemas=schemas)
 
 
 def annotate(validator, buff, encoding=None):
@@ -68,7 +78,7 @@ def summarize(validator, assets_basedir=None):
         try:
             err_element = err.get_apparent_element(validator.lxml)
         except ValueError:
-            LOGGER.info('Could not locate the element name in: %s', err.message)
+            LOGGER.info('could not find the element name in message')
             err_element = None
 
         if err_element is not None:
@@ -88,7 +98,7 @@ def summarize(validator, assets_basedir=None):
     }
 
     if assets_basedir:
-        LOGGER.info('looking for assets in %s', assets_basedir)
+        LOGGER.info('starting to look for assets')
         summary['assets'] = validator.lookup_assets(assets_basedir)
         LOGGER.info('total assets referenced: %s', len(summary['assets']))
 
@@ -164,8 +174,8 @@ def _main():
     parser.add_argument('--loglevel', default='')  # disabled by default
     parser.add_argument('--nocolors', action='store_false',
                         help='prevents the output from being colorized by ANSI escape sequences')
-    parser.add_argument('--extrasch', action='append', default=[],  # empty tuple
-                        help='runs an extra validation using an external schematron schema.')
+    parser.add_argument('--extrasch', action='append', default=[],
+                        help='runs an extra validation using an external schematron schema. built-in schemas are available through the prefix `@`: %s.' % AVAILABLE_SCHEMAS)
     parser.add_argument('--sysinfo', action='store_true',
                         help='show program\'s installation info and exit.')
     parser.add_argument('XML', nargs='*',
@@ -187,7 +197,7 @@ def _main():
 
 
     for xml in packtools.utils.flatten(input_args):
-        LOGGER.info('starting validation of %s', xml)
+        LOGGER.info('starting validation of "%s"', xml)
 
         try:
             validator = get_xmlvalidator(xml, args.nonetwork, args.extrasch)
@@ -207,23 +217,26 @@ def _main():
             with open(out_fname, 'wb') as fp:
                 annotate(validator, fp)
 
-            print('Annotated XML file:', out_fname)
+            print('Annotated XML file: "%s"' % out_fname)
 
         else:
             # remote XML will not lookup for assets
             if xml.startswith(('http:', 'https:')):
-                assetsdir = None
+                LOGGER.info('disabling assets lookup since "%s" is a '
+                            'remote file', xml)
+                assetsdir = ''
+                assetsdir_files = []
             else:
                 assetsdir = args.assetsdir or os.path.dirname(xml)
+                assetsdir_files = os.listdir(assetsdir)  # list of files in dir
 
-            assetsdir_files = os.listdir(assetsdir)  # list of files in dir
             try:
                 summary = summarize(validator, assets_basedir=assetsdir_files)
             except TypeError as exc:
                 LOGGER.exception(exc)
                 LOGGER.info(
-                        'Error validating %s. Skipping. '
-                        'Run with option `--loglevel INFO` for more info.',
+                        'error validating "%s". Skipping. '
+                        'run with option `--loglevel INFO` for more info',
                         xml)
                 continue
 
@@ -234,7 +247,7 @@ def _main():
             else:
                 summary_list.append(summary)
 
-        LOGGER.info('finished validating %s', xml)
+        LOGGER.info('finished validating "%s"', xml)
 
     if summary_list:
         print(packtools.utils.prettify(summary_list, colorize=args.nocolors))
@@ -244,10 +257,10 @@ def main():
     try:
         _main()
     except KeyboardInterrupt:
-        LOGGER.info('The program is terminating due to SIGTERM.')
+        LOGGER.info('terminating the program')
     except Exception as exc:
         LOGGER.exception(exc)
-        sys.exit('An unexpected error has occurred.')
+        sys.exit('An unexpected error has occurred: %s' % exc)
 
 
 if __name__ == '__main__':

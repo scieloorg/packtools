@@ -1,4 +1,3 @@
-================
 scielo.packtools
 ================
 
@@ -7,10 +6,15 @@ runs on python 2.7, 3.3+.
 
 
 Build status
-============
+------------
 
 .. image:: https://travis-ci.org/scieloorg/packtools.svg?branch=master
     :target: https://travis-ci.org/scieloorg/packtools
+    :alt: master Travis CI Status
+
+.. image:: https://readthedocs.org/projects/packtools/badge/?version=latest
+        :target: https://packtools.readthedocs.io/en/latest/
+        :alt: Latest Documentation Status
 
 
 Installation
