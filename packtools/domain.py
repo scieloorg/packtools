@@ -185,7 +185,7 @@ class XMLValidator(object):
         # can raise exception
         sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
 
-        # get the right Schematron schema based on the value of ``sps_version`` 
+        # get the right Schematron schema based on the value of ``sps_version``
         # and then mix it with the list of schemas supplied by the user.
         sch_schemas = [StdSchematron(sps_version)]
         if extra_sch_schemas:
@@ -197,7 +197,8 @@ class XMLValidator(object):
         # be changed by the `no_doctype` arg.
         doctype = et.docinfo.doctype
         if not doctype and not no_doctype:
-            raise exceptions.XMLDoctypeError('cannot get the DOCTYPE declaration')
+            raise exceptions.XMLDoctypeError(
+                    'cannot get the DOCTYPE declaration')
 
         # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
         # supported.
@@ -217,7 +218,8 @@ class XMLValidator(object):
                 raise exceptions.UndefinedDTDError('cannot validate (DTD is not set)')
 
             def make_error_log():
-                return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
+                return [style_errors.SchemaStyleError(err) 
+                        for err in self.dtd.error_log]
 
             result = self.dtd.validate(self.lxml)
             errors = make_error_log()
