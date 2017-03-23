@@ -147,9 +147,6 @@ class XMLValidator(object):
         # Load python based validation pipeline
         self.ppl = checks.StyleCheckingPipeline()
 
-        # Cache of validation results
-        self._validation_errors = {'dtd': (), 'style': ()}
-
     @classmethod
     def parse(cls, file, no_doctype=False, sps_version=None,
             supported_sps_versions=None, extra_sch_schemas=None, **kwargs):
@@ -208,24 +205,23 @@ class XMLValidator(object):
 
         return cls(et, sch_schemas=sch_schemas, **kwargs)
 
+    @utils.cachedmethod
     def validate(self):
         """Validate the source XML against JATS DTD.
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        if len(self._validation_errors['dtd']) == 0:
-            if self.dtd is None:
-                raise exceptions.UndefinedDTDError('cannot validate (DTD is not set)')
+        if self.dtd is None:
+            raise exceptions.UndefinedDTDError('cannot validate (DTD is not set)')
 
-            def make_error_log():
-                return [style_errors.SchemaStyleError(err) 
-                        for err in self.dtd.error_log]
+        def make_error_log():
+            return [style_errors.SchemaStyleError(err) 
+                    for err in self.dtd.error_log]
 
-            result = self.dtd.validate(self.lxml)
-            errors = make_error_log()
-            self._validation_errors['dtd'] = result, errors
+        result = self.dtd.validate(self.lxml)
+        errors = make_error_log()
 
-        return self._validation_errors['dtd']
+        return result, errors
 
     def _validate_sch(self, schema):
         """Validate the source XML against SPS-Style Schematron.
@@ -241,23 +237,22 @@ class XMLValidator(object):
 
         return result, errors
 
+    @utils.cachedmethod
     def validate_style(self):
         """Validate the source XML against SPS-Style Tagging guidelines.
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        if len(self._validation_errors['style']) == 0:
-            # run python based checks
-            errors = next(self.ppl.run(self.lxml, rewrap=True))
+        # run python based checks
+        errors = next(self.ppl.run(self.lxml, rewrap=True))
 
-            # now run all the schematron schemas
-            for schema in self.sch_schemas:
-                errors += self._validate_sch(schema)[1]
+        # now run all the schematron schemas
+        for schema in self.sch_schemas:
+            errors += self._validate_sch(schema)[1]
 
-            result = not bool(errors)
-            self._validation_errors['style'] = result, errors
+        result = not bool(errors)
 
-        return self._validation_errors['style']
+        return result, errors
 
     def validate_all(self, fail_fast=False):
         """Runs all validations.
