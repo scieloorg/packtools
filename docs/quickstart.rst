@@ -33,6 +33,8 @@ ways:
                         catalog="file://<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml"/>
         <delegateSystem systemIdStartString="journalpublishing3.dtd" 
                         catalog="file://<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml"/>
+        <delegateSystem systemIdStartString="http://jats.nlm.nih.gov/publishing/"
+                        catalog="file://<packtools_dir>/packtools/catalogs/scielo-publishing-schema.xml"/>
     </catalog>
 
 `This shell script <https://github.com/scieloorg/packtools/blob/master/scripts/install_xml_catalog.sh>`_ 
@@ -45,9 +47,9 @@ the catalog file is also provided.
 
 .. code-block:: python
 
-    >>> import os
-    >>> from packtools.catalogs import XML_CATALOG
-    >>> os.environ['XML_CATALOG_FILES'] = XML_CATALOG
+    import os
+    from packtools.catalogs import XML_CATALOG
+    os.environ['XML_CATALOG_FILES'] = XML_CATALOG
 
 
 In some cases where the system's entry-point is a single function, for instance 
@@ -55,10 +57,10 @@ the ``main`` function, a special helper decorator can be used, as follows:
 
 .. code-block:: python
 
-    >>> from packtools.utils import config_xml_catalog
-    >>> @config_xml_catalog
-    >>> def main():
-    ...     """At this point the XML Catalog is configured"""
+    from packtools.utils import config_xml_catalog
+    @config_xml_catalog
+    def main():
+        """At this point the XML Catalog is configured"""
 
 
 More information at http://xmlsoft.org/catalog.html#Simple
@@ -79,6 +81,32 @@ It is expected that the application using `packtools` defines a logger for
 See the official `docs <http://docs.python.org/2.7/howto/logging.html#configuring-logging>`_ for more info.
 
 
-Step-by-step tutorial
----------------------
+Validation basics
+-----------------
+
+The validation of an XML document is performed through instances of 
+:class:`packtools.XMLValidator`. The easiest way to get an instance is by running
+:meth:`packtools.XMLValidator.parse`, which in addition to accepting absolute or
+relative path to file in the local filesystem, URL, etree objects, or
+file-objects, it also loads the most appropriate validation schemas to the
+document according to its version.
+
+.. code-block:: python
+
+    import packtools
+    xmlvalidator = packtools.XMLValidator.parse('path/to/file.xml')
+
+
+The validation can be performed in two levels: DTD and SciELO Style.
+To do this, the :meth:`packtools.XMLValidator.validate` and 
+:meth:`packtools.XMLValidator.validate_style` methods are available, respectively.
+Full validation can be performed with the :meth:`packtools.XMLValidator.validate_all`
+method. All these methods return a *tuple* comprising the validation status and the 
+errors list.
+
+.. code-block:: python
+
+    import packtools
+    xmlvalidator = packtools.XMLValidator.parse('path/to/file.xml')
+    is_valid, errors = xmlvalidator.validate_all()
 

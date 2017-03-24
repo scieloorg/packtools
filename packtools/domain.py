@@ -153,10 +153,10 @@ class XMLValidator(object):
         """Factory of XMLValidator instances.
 
         If `file` is not an etree instance, it will be parsed using
-        :func:`XML`.
+        :func:`packtools.utils.XML`.
 
         If the DOCTYPE is declared, its public id is validated against a white list,
-        declared by ``allowed_public_ids`` class variable. The system id is ignored.
+        declared by :data:`ALLOWED_PUBLIC_IDS` module variable. The system id is ignored.
         By default, the allowed values are:
 
           - SciELO PS >= 1.2:

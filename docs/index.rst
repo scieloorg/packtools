@@ -25,6 +25,7 @@ Step-by-step guide to use the features provided by **packtools**.
 
    install
    quickstart
+   cli
 
 
 API documentation

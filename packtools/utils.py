@@ -227,7 +227,7 @@ class Xray(object):
         """Get file object for member.
 
         A complete list of members can be checked
-        calling ``show_members``().
+        calling :meth:`show_members`.
 
         :param member: a zip member, e.g. 'foo.xml'
         """
@@ -247,7 +247,7 @@ def resolve_schematron_filepath(value):
     """Determine the filepath for ``value``.
 
     The lookup is run against all known schemas from
-    ``packtools.catalogs.SCH_SCHEMAS``. If ``value`` is already a filepath,
+    :data:`packtools.catalogs.SCH_SCHEMAS`. If ``value`` is already a filepath,
     than it is returned as it is.
     """
     try:

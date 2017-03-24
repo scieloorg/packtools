@@ -178,7 +178,7 @@ def _main():
                         help='runs an extra validation using an external schematron schema. built-in schemas are available through the prefix `@`: %s.' % AVAILABLE_SCHEMAS)
     parser.add_argument('--sysinfo', action='store_true',
                         help='show program\'s installation info and exit.')
-    parser.add_argument('XML', nargs='*',
+    parser.add_argument('file', nargs='*',
                         help='filesystem path or URL to the XML')
     args = parser.parse_args()
 
@@ -192,7 +192,7 @@ def _main():
 
     print('Please wait, this may take a while...', file=sys.stderr)
 
-    input_args = args.XML or sys.stdin
+    input_args = args.file or sys.stdin
     summary_list = []
 
 
@@ -258,6 +258,7 @@ def main():
         _main()
     except KeyboardInterrupt:
         LOGGER.info('terminating the program')
+        sys.exit(1)
     except Exception as exc:
         LOGGER.exception(exc)
         sys.exit('An unexpected error has occurred: %s' % exc)

@@ -21,6 +21,6 @@ These are the classes users will more frequently interact with.
 Utils
 -----
 
-.. autofunction:: packtools.XML
-.. autofunction:: packtools.utils.config_xml_catalog
+.. automodule:: packtools.utils
+    :members:
 
