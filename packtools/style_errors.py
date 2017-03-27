@@ -68,8 +68,8 @@ class StyleErrorBase(object):
 
     # The error message
     message = None
-
     level = None
+    label = None
 
     def get_apparent_element(self, doc):
         """The apparent element presenting the error at doc.
@@ -119,8 +119,9 @@ class SchematronStyleError(StyleErrorBase):
     """
     level = u'Style Error'
 
-    def __init__(self, err_object):
+    def __init__(self, err_object, label):
         self._err = err_object
+        self.label = label
 
         byte_string = io.BytesIO(self._err.message.encode('utf-8'))
         self._parsed_message = etree.parse(byte_string)

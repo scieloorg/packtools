@@ -47,10 +47,10 @@ def get_xmlvalidator(xmlpath, no_network, extra_sch):
     parsed_xml = packtools.XML(xmlpath, no_network=no_network)
     _extra_sch = list(extra_sch)
     if _extra_sch:
-        paths = [packtools.utils.resolve_schematron_filepath(path_or_ref)
+        paths = [(packtools.utils.resolve_schematron_filepath(path_or_ref), path_or_ref)
                  for path_or_ref in _extra_sch]
-        schemas = [packtools.utils.get_schematron_from_filepath(path)
-                   for path in paths]
+        schemas = [(packtools.utils.get_schematron_from_filepath(path), label)
+                   for path, label in paths]
     else:
         schemas = None
 
@@ -93,9 +93,13 @@ def summarize(validator, assets_basedir=None):
 
     summary = {
         'dtd_errors': [_make_err_message(err) for err in dtd_errors],
-        'sps_errors': [_make_err_message(err) for err in sps_errors],
         'is_valid': bool(dtd_is_valid and sps_is_valid),
+        'sps_errors': {},
     }
+
+    for sps_error in sps_errors:
+        err_by_label = summary['sps_errors'].setdefault(sps_error.label, [])
+        err_by_label.append(_make_err_message(sps_error))
 
     if assets_basedir:
         LOGGER.info('starting to look for assets')

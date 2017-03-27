@@ -131,7 +131,8 @@ class XMLValidator(object):
     :param file: etree._ElementTree instance.
     :param sps_version: the version of the SPS that will be the basis for validation.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
-    :param sch_schemas: (optional) list of Schematron schemas.
+    :param sch_schemas: (optional) associative list of Schematron schemas and
+           labels.
     """
     def __init__(self, file, dtd=None, sch_schemas=None):
         assert isinstance(file, etree._ElementTree)
@@ -170,7 +171,8 @@ class XMLValidator(object):
         :param sps_version: (optional) force the style validation against a SPS version.
         :param supported_sps_versions: (optional) list of supported versions. the
                only way to bypass this restriction is by using the arg `sps_version`.
-        :param extra_sch_schemas: (optional) list of extra Schematron schemas.
+        :param extra_sch_schemas: (optional) associative list of extra
+               Schematron schemas and labels.
         """
         try:
             et = utils.XML(file)
@@ -184,7 +186,7 @@ class XMLValidator(object):
 
         # get the right Schematron schema based on the value of ``sps_version``
         # and then mix it with the list of schemas supplied by the user.
-        sch_schemas = [StdSchematron(sps_version)]
+        sch_schemas = [(StdSchematron(sps_version), '@'+sps_version)]
         if extra_sch_schemas:
             sch_schemas += list(extra_sch_schemas)
 
@@ -223,14 +225,15 @@ class XMLValidator(object):
 
         return result, errors
 
-    def _validate_sch(self, schema):
+    def _validate_sch(self, schema, label):
         """Validate the source XML against SPS-Style Schematron.
 
         Returns a tuple comprising the validation status and the errors list.
         """
         def make_error_log(schematron):
             err_log = schematron.error_log
-            return [style_errors.SchematronStyleError(err) for err in err_log]
+            return [style_errors.SchematronStyleError(err, label) 
+                    for err in err_log]
 
         result = schema.validate(self.lxml)
         errors = make_error_log(schema)
@@ -247,8 +250,8 @@ class XMLValidator(object):
         errors = next(self.ppl.run(self.lxml, rewrap=True))
 
         # now run all the schematron schemas
-        for schema in self.sch_schemas:
-            errors += self._validate_sch(schema)[1]
+        for schema, label in self.sch_schemas:
+            errors += self._validate_sch(schema, label)[1]
 
         result = not bool(errors)
 
