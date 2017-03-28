@@ -116,6 +116,70 @@ def XSLT(xslt_name):
         return xslt
 
 
+#----------------------------------
+# validators for etree._ElementTree
+#
+# a validator is an object that
+# provides the method ``validate``,
+# with the following signature:
+# validate(xmlfile: etree._ElementTree) -> Tuple(bool, list)
+#---------------------------------- 
+class PyValidator(object):
+    """Style validations implemented in Python.
+    """
+    def __init__(self, pipeline=checks.StyleCheckingPipeline):
+        self.ppl = pipeline()
+
+    def validate(self, xmlfile):
+        errors = next(self.ppl.run(xmlfile, rewrap=True))
+        return bool(errors), errors
+
+
+class DTDValidator(object):
+    """DTD validations.
+    """
+    def __init__(self, dtd):
+        self.dtd = dtd
+
+    def validate(self, xmlfile):
+        """Validate xmlfile against the given DTD.
+
+        Returns a tuple comprising the validation status and the errors list.
+        """
+        result = self.dtd.validate(xmlfile)
+        errors = [style_errors.SchemaStyleError(err)
+                  for err in self.dtd.error_log]
+
+        return result, errors
+
+
+class SchematronValidator(object):
+    """Style validations implemented in Schematron.
+    """
+    def __init__(self, sch):
+        self.sch = sch
+
+    @classmethod
+    def from_catalog(cls, ref):
+        """Get an instance based on schema's reference name.
+
+        :param ref: The reference name for the schematron file in 
+                    :data:`packtools.catalogs.SCH_SCHEMAS`.
+        """
+        return cls(StdSchematron(ref))
+
+    def validate(self, xmlfile):
+        """Validate xmlfile against the given Schematron schema.
+
+        Returns a tuple comprising the validation status and the errors list.
+        """
+        result = self.sch.validate(xmlfile)
+        errors = [style_errors.SchematronStyleError(err)
+                  for err in self.sch.error_log]
+
+        return result, errors
+
+
 #--------------------------------
 # adapters for etree._ElementTree
 #--------------------------------
@@ -138,14 +202,20 @@ class XMLValidator(object):
 
         self.lxml = file
         self.doctype = self.lxml.docinfo.doctype
-        self.dtd = dtd or self.lxml.docinfo.externalDTD
+
+        _dtd = dtd or self.lxml.docinfo.externalDTD
+        if _dtd:
+            self.dtd = DTDValidator(_dtd)
+        else:
+            self.dtd = None
+
         self.source_url = self.lxml.docinfo.URL
         self.public_id = self.lxml.docinfo.public_id
         self.encoding = self.lxml.docinfo.encoding
         self.sch_schemas = list(sch_schemas) if sch_schemas else []
 
         # Load python based validation pipeline
-        self.ppl = checks.StyleCheckingPipeline()
+        self.py_schema = PyValidator()
 
     @classmethod
     def parse(cls, file, no_doctype=False, sps_version=None,
@@ -184,9 +254,10 @@ class XMLValidator(object):
 
         # get the right Schematron schema based on the value of ``sps_version``
         # and then mix it with the list of schemas supplied by the user.
-        sch_schemas = [StdSchematron(sps_version)]
+        sch_schemas = [SchematronValidator.from_catalog(sps_version)]
         if extra_sch_schemas:
-            sch_schemas += list(extra_sch_schemas)
+            sch_schemas += [SchematronValidator(sch) 
+                            for sch in list(extra_sch_schemas)]
 
         allowed_public_ids = _get_public_ids(sps_version)
 
@@ -205,6 +276,12 @@ class XMLValidator(object):
 
         return cls(et, sch_schemas=sch_schemas, **kwargs)
 
+    @property
+    def style_validators(self):
+        """Lists all style validators.
+        """
+        return self.sch_schemas + [self.py_schema]
+
     @utils.cachedmethod
     def validate(self):
         """Validate the source XML against JATS DTD.
@@ -214,28 +291,8 @@ class XMLValidator(object):
         if self.dtd is None:
             raise exceptions.UndefinedDTDError('cannot validate (DTD is not set)')
 
-        def make_error_log():
-            return [style_errors.SchemaStyleError(err) 
-                    for err in self.dtd.error_log]
-
-        result = self.dtd.validate(self.lxml)
-        errors = make_error_log()
-
-        return result, errors
-
-    def _validate_sch(self, schema):
-        """Validate the source XML against SPS-Style Schematron.
-
-        Returns a tuple comprising the validation status and the errors list.
-        """
-        def make_error_log(schematron):
-            err_log = schematron.error_log
-            return [style_errors.SchematronStyleError(err) for err in err_log]
-
-        result = schema.validate(self.lxml)
-        errors = make_error_log(schema)
-
-        return result, errors
+        result_tuple = self.dtd.validate(self.lxml)
+        return result_tuple
 
     @utils.cachedmethod
     def validate_style(self):
@@ -243,12 +300,9 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        # run python based checks
-        errors = next(self.ppl.run(self.lxml, rewrap=True))
-
-        # now run all the schematron schemas
-        for schema in self.sch_schemas:
-            errors += self._validate_sch(schema)[1]
+        errors = []
+        for validator in self.style_validators:
+            errors += validator.validate(self.lxml)[1]
 
         result = not bool(errors)
 

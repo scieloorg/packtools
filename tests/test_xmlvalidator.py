@@ -131,7 +131,8 @@ class XMLValidatorTests(unittest.TestCase):
 
     def test_validation_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>30</Percent></Total>'))
-        schema = isoschematron.Schematron(etree.parse(sample_sch))
+        schema = domain.SchematronValidator(
+                isoschematron.Schematron(etree.parse(sample_sch)))
         xml = domain.XMLValidator(fp, sch_schemas=[schema])
 
         is_valid, errors = xml.validate_style()
@@ -140,7 +141,8 @@ class XMLValidatorTests(unittest.TestCase):
 
     def test_invalid_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
-        schema = isoschematron.Schematron(etree.parse(sample_sch))
+        schema = domain.SchematronValidator(
+                isoschematron.Schematron(etree.parse(sample_sch)))
         xml = domain.XMLValidator(fp, sch_schemas=[schema])
 
         result, errors = xml.validate_style()
@@ -149,9 +151,10 @@ class XMLValidatorTests(unittest.TestCase):
 
     def test_annotate_errors_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
-        schema = isoschematron.Schematron(etree.parse(sample_sch))
-        dtd = etree.XMLSchema(etree.parse(sample_xsd))
-        xml = domain.XMLValidator(fp, dtd=dtd, sch_schemas=[schema])
+        schema = domain.SchematronValidator(
+                isoschematron.Schematron(etree.parse(sample_sch)))
+        dtd = domain.DTDValidator(etree.XMLSchema(etree.parse(sample_xsd)))
+        xml = domain.XMLValidator(fp, sch_schemas=[schema])
 
         err_xml = xml.annotate_errors()
         xml_text = etree.tostring(err_xml)
@@ -255,8 +258,6 @@ class XMLValidatorExtraSchematronTests(unittest.TestCase):
         extra_sch_obj = isoschematron.Schematron(etree.parse(extra_sch))
         xml = domain.XMLValidator.parse(fp, no_doctype=True, 
                 sps_version='sps-1.1', extra_sch_schemas=[extra_sch_obj])
-
-        self.assertTrue(extra_sch_obj in xml.sch_schemas)
 
         result, errors = xml.validate_style()
         self.assertFalse(result)
