@@ -133,17 +133,17 @@ class XMLValidatorTests(unittest.TestCase):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>30</Percent></Total>'))
         schema = domain.SchematronValidator(
                 isoschematron.Schematron(etree.parse(sample_sch)))
-        xml = domain.XMLValidator(fp, sch_schemas=[schema])
+        xml = domain.XMLValidator(fp, style_validators=[schema])
 
         is_valid, errors = xml.validate_style()
-        self.assertFalse(is_valid)
-        self.assertTrue(len(errors) > 0)
+        self.assertTrue(is_valid)
+        self.assertEqual(len(errors), 0)
 
     def test_invalid_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
         schema = domain.SchematronValidator(
                 isoschematron.Schematron(etree.parse(sample_sch)))
-        xml = domain.XMLValidator(fp, sch_schemas=[schema])
+        xml = domain.XMLValidator(fp, style_validators=[schema])
 
         result, errors = xml.validate_style()
         self.assertFalse(result)
@@ -154,7 +154,7 @@ class XMLValidatorTests(unittest.TestCase):
         schema = domain.SchematronValidator(
                 isoschematron.Schematron(etree.parse(sample_sch)))
         dtd = domain.DTDValidator(etree.XMLSchema(etree.parse(sample_xsd)))
-        xml = domain.XMLValidator(fp, sch_schemas=[schema])
+        xml = domain.XMLValidator(fp, style_validators=[schema])
 
         err_xml = xml.annotate_errors()
         xml_text = etree.tostring(err_xml)

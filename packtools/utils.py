@@ -130,7 +130,9 @@ def flatten(paths):
     """ Produces absolute path for each path in paths.
 
     Glob expansions are allowed.
-    :param paths: Collection of paths. A path can be relative, absolute or a glob expression.
+
+    :param paths: Collection of paths. A path can be relative, absolute or a 
+                  glob expression.
     """
     def _inner_generator():
         for path in paths:

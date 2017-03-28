@@ -195,27 +195,25 @@ class XMLValidator(object):
     :param file: etree._ElementTree instance.
     :param sps_version: the version of the SPS that will be the basis for validation.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
-    :param sch_schemas: (optional) list of Schematron schemas.
+    :param style_validators: (optional) list of
+                             :class:`packtools.domain.SchematronValidator`
+                             objects.
     """
-    def __init__(self, file, dtd=None, sch_schemas=None):
+    def __init__(self, file, dtd=None, style_validators=None):
         assert isinstance(file, etree._ElementTree)
 
         self.lxml = file
         self.doctype = self.lxml.docinfo.doctype
 
-        _dtd = dtd or self.lxml.docinfo.externalDTD
-        if _dtd:
-            self.dtd = DTDValidator(_dtd)
-        else:
-            self.dtd = None
-
+        self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.source_url = self.lxml.docinfo.URL
         self.public_id = self.lxml.docinfo.public_id
         self.encoding = self.lxml.docinfo.encoding
-        self.sch_schemas = list(sch_schemas) if sch_schemas else []
 
-        # Load python based validation pipeline
-        self.py_schema = PyValidator()
+        if style_validators:
+            self.style_validators = list(style_validators)
+        else:
+            self.style_validators = []
 
     @classmethod
     def parse(cls, file, no_doctype=False, sps_version=None,
@@ -252,17 +250,22 @@ class XMLValidator(object):
         # can raise exception
         sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
 
-        # get the right Schematron schema based on the value of ``sps_version``
+        # get the right Schematron validator based on the value of ``sps_version``
         # and then mix it with the list of schemas supplied by the user.
-        sch_schemas = [SchematronValidator.from_catalog(sps_version)]
+        LOGGER.info('auto-loading style validations for version "%s"', sps_version)
+        style_validators = [
+                SchematronValidator.from_catalog(sps_version),
+                PyValidator(),  # the python based validation pipeline
+        ]
         if extra_sch_schemas:
-            sch_schemas += [SchematronValidator(sch) 
-                            for sch in list(extra_sch_schemas)]
+            style_validators += [SchematronValidator(sch) 
+                                 for sch in list(extra_sch_schemas)]
 
         allowed_public_ids = _get_public_ids(sps_version)
 
         # DOCTYPE declaration must be present by default. This behaviour can
         # be changed by the `no_doctype` arg.
+        LOGGER.info('fetching the DOCTYPE declaration')
         doctype = et.docinfo.doctype
         if not doctype and not no_doctype:
             raise exceptions.XMLDoctypeError(
@@ -270,17 +273,19 @@ class XMLValidator(object):
 
         # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
         # supported.
+        LOGGER.info('fetching the PUBLIC-ID in DOCTYPE declaration')
         public_id = et.docinfo.public_id
         if doctype and public_id not in allowed_public_ids:
             raise exceptions.XMLDoctypeError('invalid DOCTYPE public id')
 
-        return cls(et, sch_schemas=sch_schemas, **kwargs)
+        return cls(et, style_validators=style_validators, **kwargs)
 
     @property
-    def style_validators(self):
-        """Lists all style validators.
-        """
-        return self.sch_schemas + [self.py_schema]
+    def dtd_validator(self):
+        if self.dtd:
+            return DTDValidator(self.dtd)
+        else:
+            return None
 
     @utils.cachedmethod
     def validate(self):
@@ -288,10 +293,10 @@ class XMLValidator(object):
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        if self.dtd is None:
+        if self.dtd_validator is None:
             raise exceptions.UndefinedDTDError('cannot validate (DTD is not set)')
 
-        result_tuple = self.dtd.validate(self.lxml)
+        result_tuple = self.dtd_validator.validate(self.lxml)
         return result_tuple
 
     @utils.cachedmethod
