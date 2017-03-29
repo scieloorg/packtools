@@ -8,6 +8,9 @@ History
   initializer and ``.parse`` classmethod. The param ``extra_schematron`` is 
   now deprecated. Use ``sch_schemas`` and ``extra_sch_schemas`` instead, since 
   both params accept an arbitrary number of schematron schemas.
+* Validation logic was abstracted and moved to Validator objects
+  (``packtools.domain.PyValidator``, ``packtools.domain.DTDValidator``, and 
+  ``packtools.domain.SchematronValidator``).
 
 
 1.4.2 (2017-03-22)
