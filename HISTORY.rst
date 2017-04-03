@@ -13,6 +13,12 @@ History
   ``packtools.domain.SchematronValidator``).
 
 
+1.5 (2017-04-03)
+----------------
+
+* Initial support for SciELO PS 1.6.
+
+
 1.4.2 (2017-03-22)
 ------------------
 
