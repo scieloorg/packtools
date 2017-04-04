@@ -11,6 +11,8 @@ History
 * Validation logic was abstracted and moved to Validator objects
   (``packtools.domain.PyValidator``, ``packtools.domain.DTDValidator``, and 
   ``packtools.domain.SchematronValidator``).
+* The stylechecker utility exits 0 on success, and >0 if an error occurs
+  [https://github.com/scieloorg/packtools/issues/118].
 
 
 1.5 (2017-04-03)
