@@ -153,6 +153,7 @@ def validate_zip_package(filepath):
 
 @packtools.utils.config_xml_catalog
 def _main():
+    exit_status = 0
 
     packtools_version = pkg_resources.get_distribution('packtools').version
 
@@ -207,6 +208,7 @@ def _main():
             LOGGER.exception(exc)
             print(ERR_MESSAGE.format(filename=xml, details=exc),
                     file=sys.stderr)
+            exit_status = 1
             continue
 
         if args.annotated:
@@ -216,6 +218,10 @@ def _main():
 
             with open(out_fname, 'wb') as fp:
                 annotate(validator, fp)
+
+            is_valid, _ = validator.validate_all()
+            if is_valid is False:
+                exit_status = 1
 
             print('Annotated XML file: "%s"' % out_fname)
 
@@ -247,15 +253,21 @@ def _main():
             else:
                 summary_list.append(summary)
 
+            # set the exit status to 1 if the xml is not valid
+            if summary['is_valid'] is False:
+                exit_status = 1
+
         LOGGER.info('finished validating "%s"', xml)
 
     if summary_list:
         print(packtools.utils.prettify(summary_list, colorize=args.nocolors))
 
+    return exit_status
+
 
 def main():
     try:
-        _main()
+        sys.exit(_main())
     except KeyboardInterrupt:
         LOGGER.info('terminating the program')
         sys.exit(1)
