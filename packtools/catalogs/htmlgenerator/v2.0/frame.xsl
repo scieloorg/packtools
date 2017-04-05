@@ -1,88 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:template match="/" mode="js"><!--FIXME-->
-        <script src="{$JS_PATH}/vendor/jquery-1.11.0.min.js"></script>
-        <script src="{$JS_PATH}/vendor/bootstrap.min.js"></script>
-        <script src="{$JS_PATH}/vendor/jquery-ui.min.js"></script>
-        <script src="{$JS_PATH}/plugins.js"></script>
-        <script src="{$JS_PATH}/min/main-min.js"></script>
-    	<!-- 
-    	<script src="../static/js/vendor/jquery-1.11.0.min.js"></script>
-		<script src="../static/js/vendor/bootstrap.min.js"></script>
-		<script src="../static/js/vendor/jquery-ui.min.js"></script>
-
-		<script src="../static/js/plugins.js"></script>
-		<script src="../static/js/min/main-min.js"></script>
-    	-->
-    </xsl:template>
-    <xsl:template match="/" mode="css"><!--FIXME-->
-        <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.min.css"/>
-        <link rel="stylesheet" href="{$CSS_PATH}/scielo-portal.css"/>
-        <link rel="stylesheet" href="{$CSS_PATH}/scielo-print.css" media="print"/>
-    	<style>
-    		table {
-				font-size: 90%;
-				background-color: #E8F3F8;
-				font-family: courier;
-			}
-			.footnote {
-			font-size: 70%;
-			
-			font-family: courier;
-			}
-			
-    	</style>
-    </xsl:template>
-	<xsl:template match="/" mode="html-head-title">
-		<title>Boletim do Museu Paraense Emílio Goeldi - SciELO Brasil</title>
-	</xsl:template>
-	<xsl:template match="/" mode="article-html-meta">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-		
-		<!-- adicionar o link da versão antiga no rel=canonical -->
-		<link rel="canonical" href="" />
-		
-		<meta name="citation_journal_title" content="Brazilian Journal of Medical and Biological Research" />
-		<meta name="citation_journal_title_abbrev" content="Braz J Med Biol Res" />
-		<meta name="citation_publisher" content="Associação Brasileira de Divulgação Científica" />
-		
-		<meta name="citation_title" content="Induction of chagasic-like arrhythmias in the isolated beating hearts of healthy rats perfused with Trypanosoma cruzi-conditioned médium" />
-		<meta name="citation_date" content="01/2013" />
-		<meta name="citation_volume" content="46" />
-		<meta name="citation_issue" content="1" />
-		<meta name="citation_issn" content="1414-431X" />
-		<meta name="citation_doi" content="10.1590/1414-431X20122409" />
-		
-		<!-- adicionar links para os parâmetros abaixo -->
-		<meta name="citation_abstract_html_url" content="" />
-		<meta name="citation_fulltext_html_url" content="" />
-		<meta name="citation_pdf_url" content="" />
-		
-		<meta name="citation_author" content="Rodríguez-Angulo, H."/>
-		<meta name="citation_author_institution" content="Instituto Venezolano de Investigaciones Científicas, Centro de Biofísica y Bioquímica, Caracas, Venezuela" />
-		
-		<meta name="citation_author" content="Toro-Mendoza, J."/>
-		<meta name="citation_author_institution" content="Instituto Venezolano de Investigaciones Científicas, Centro de Estudios Interdisciplinarios de la Física, Caracas, Venezuela" />
-		
-		<meta name="citation_author" content="Marques, J."/>
-		<meta name="citation_author_institution" content="Instituto de Medicina Tropical, Universidad Central de Venezuela, Servicio de Cardiología, Caracas, Venezuela" />
-		
-		<meta name="citation_author" content="Bonfante-Cabarcas, R."/>
-		<meta name="citation_author_institution" content="Universidad Centroccidental &amp;#8220;Lisandro Alvarado&amp;#8221;, Unidad de Investigación en Bioquímica, Decanato de Ciencias de la Salud, Barquisimeto, Venezuela" />
-		
-		<meta name="citation_author" content="Mijares, A."/>
-		<meta name="citation_author_institution" content="Instituto Venezolano de Investigaciones Científicas, Centro de Biofísica y Bioquímica, Caracas, Venezuela" />
-		
-		<meta name="citation_firstpage" content="58" />
-		<meta name="citation_lastpage" content="64" />
-		<meta name="citation_id" content="10.1590/1414-431X20122409" />
-		
-		<meta property="og:title" content="Induction of chagasic-like arrhythmias in the isolated beating hearts of healthy rats perfused with Trypanosoma cruzi-conditioned médium" /> 
-		<meta property="og:image" content="http://localhost/static/img/logo-plainScielo.png" /> 
-		<meta property="og:description" content="Brazilian Journal of Medical and Biological Research" /> 
-		<meta property="og:url" content="http://localhost/article.html"/>
-	</xsl:template>
+    
+	
 	<xsl:template match="/" mode="html-header">
 		<header>
 			<div class="container">
@@ -135,72 +55,8 @@
 			</div>
 		</header>
 	</xsl:template>
-	<xsl:template match="/" mode="html-body-section-menu">
-		<section class="levelMenu">
-			<div class="container">
-				<div class="col-md-2 col-sm-2">
-					<a href="/Periodico/homepage.html" class="btn single"><span class="glyphBtn home"></span> home</a>
-				</div>
-				<div class="col-md-7 col-sm-7">
-					<div class="btn-group">
-						<a href="/Periodico/atual.html" class="btn group">sumário</a>
-						<a href="javascript:;" class="btn group">« anterior</a>
-						<a href="javascript:;" class="btn group selected">atual</a>
-						<a href="javascript:;" class="btn group">próximo »</a>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-3 share">
-					Compartilhe
-					<a href="" class="sendViaMail showTooltip" data-placement="top" title="Enviar link por e-mail"><span class="glyphBtn sendMail"></span></a>
-					<a href="" class="shareFacebook showTooltip" data-placement="top" title="Compartilhar no Facebook"><span class="glyphBtn facebook"></span></a>
-					<a href="" class="shareTwitter showTooltip" data-placement="top" title="Compartilhar no Twitter"><span class="glyphBtn twitter"></span></a>
-					<a href="" class="showTooltip dropdown-toggle" data-toggle="dropdown" data-placement="top" title="Outras redes sociais"><span class="glyphBtn otherNetworks"></span></a>
-					<ul class="dropdown-menu">
-						<li class="dropdown-header">Outras redes sociais</li>
-						<li><a href="" class="shareGooglePlus"><span class="glyphBtn googlePlus"></span> Google+</a></li>
-						<li><a href="" class="shareLinkedIn"><span class="glyphBtn linkedIn"></span> LinkedIn</a></li>
-						<li><a href="" class="shareReddit"><span class="glyphBtn reddit"></span> Reddit</a></li>
-						<li><a href="" class="shareStambleUpon"><span class="glyphBtn stambleUpon"></span> StambleUpon</a></li>
-						<li><a href="" class="shareCiteULike"><span class="glyphBtn citeULike"></span> CiteULike</a></li>
-						<li><a href="" class="shareMendeley"><span class="glyphBtn mendeley"></span> Mendeley</a></li>
-					</ul>
-				</div>
-			</div>
-		</section>
-	</xsl:template>
-    <xsl:template match="/">
-		<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-		<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-		<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-		<!--[if gt IE 8]><!--> 
-    	<html class="no-js"> <!--<![endif]-->
-			<head>
-				<meta charset="utf-8"/>
-				<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-				<xsl:apply-templates select="." mode="html-head-title"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="article-html-meta"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="css"></xsl:apply-templates>
-				<link rel="alternate" type="application/rss+xml" title="SciELO" href=""/>
-				<!--[if lt IE 9]>
-					<script src="../static/js/vendor/html5-3.6-respond-1.1.0.min.js"></script>
-				<![endif]-->
-			</head>
-			<body class="journal article">
-				<a name="top"></a>
-				<xsl:apply-templates select="." mode="html-body-section-menu"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="article"></xsl:apply-templates>		
-				<xsl:apply-templates select="." mode="article-modals"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="journal-contacts"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="html-body-footer"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="alternative-header"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="floating-menu"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="article-modals-automatic-translation"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="article-modals-send-by-email"></xsl:apply-templates>
-				<xsl:apply-templates select="." mode="article-modals-services"></xsl:apply-templates>		
-				<xsl:apply-templates select="." mode="js"></xsl:apply-templates>
-			</body>
-		</html>
-   </xsl:template>
+	
+    
 	<xsl:template match="/" mode="article-modals-services">
 		<div class="modal fade ModalDefault" id="ModalDownloads" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">

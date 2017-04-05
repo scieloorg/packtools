@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <term>
+        <name>Text</name>
+        <name lang="pt">Texto</name>
+        <name lang="es">Texto</name>
+    </term>
+    <term>
+        <name>Online publication</name>
+        <name lang="pt">Epub</name>
+        <name lang="es">Epub</name>
+    </term>
+    <term>
+        <name>Issue publication</name>
+        <name lang="pt">Publicação em número</name>
+        <name lang="es">Publicación en número</name>
+    </term>
+    <term>
+        <name>Print</name>
+        <name lang="pt">Impresso</name>
+        <name lang="es">Impreso</name>
+    </term>
+    <term>
+        <name>Online</name>
+        <name lang="es">En línea</name>
+    </term>
+    <term>
+        <name>Published on</name>
+        <name lang="pt">Publicado em</name>
+        <name lang="es">Publicado en</name>
+    </term>
+    <term>
+        <name>Acknowledgments</name>
+        <name lang="pt">Agradecimentos</name>
+        <name lang="es">Agradecimientos</name>
+    </term>
+    <term>
+        <name>Footnotes</name>
+        <name lang="pt">Notas</name>
+        <name lang="es">Notas</name>
+    </term>
+    <term>
+        <name>References</name>
+        <name lang="pt">Referências bibliográficas</name>
+        <name lang="es">Referencias bibliográficas</name>
+    </term>
+    <term>
+        <name>History</name>
+        <name lang="pt">Histórico</name>
+        <name lang="es">Histórico</name>
+    </term>
+    <term>
+        <name>received</name>
+        <name lang="en">Received</name>
+        <name lang="pt">Recebido</name>
+        <name lang="es">Recibido</name>
+    </term>
+    <term>
+        <name>accepted</name>
+        <name lang="pt">Aceito</name>
+        <name lang="es">Acepto</name>
+        <name lang="en">Accepted</name>
+    </term>
+    <term>
+        <name>rev-recd</name>
+        <name lang="pt">Revisado</name>
+        <name lang="es">Revisado</name>
+        <name lang="en">Reviewed</name>
+    </term>
+    <term>
+        <name>About the authors</name>
+        <name lang="pt">Sobre os autores</name>
+        <name lang="es">Acerca de los autores</name>
+        
+    </term>
+</labels>
