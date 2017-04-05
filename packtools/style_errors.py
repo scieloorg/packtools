@@ -25,12 +25,14 @@ def search_element_name(message):
     """
     match = EXPOSE_ELEMENTNAME_PATTERN.search(message)
     if match is None:
-        LOGGER.info('Could not locate the element name in: %s.', message)
-        raise ValueError('Could not locate the element name in %s.' % message)
+        LOGGER.info('cannot find the element name in message')
+        LOGGER.debug('failed regexp was %s on message "%s"', 
+                EXPOSE_ELEMENTNAME_PATTERN.pattern, message)
+        raise ValueError('cannot find the element name in message')
 
     else:
         element_name = match.group(0).strip("'")
-        LOGGER.info('Found element name "%s" in "%s"', element_name, message)
+        LOGGER.info('found element name "%s" in message', element_name)
 
         return element_name
 
@@ -48,9 +50,9 @@ def search_element(doc, xpath, line=None):
         else:
             continue
 
-    else:
-        LOGGER.info("Could not find element '%s'.", xpath)
-        raise ValueError("Could not find element '%s'." % xpath)
+    # raise ValueError if the element could not be located.
+    LOGGER.info('could not find element "%s"', xpath)
+    raise ValueError('could not find element "%s"' % xpath)
 
 
 #--------------------------------
@@ -107,9 +109,9 @@ class SchemaStyleError(StyleErrorBase):
         for elem in doc.iter():
             if elem.sourceline == self.line:
                 return elem
-        else:
-            LOGGER.info("Could not find element at the line %s", self.line)
-            raise ValueError("Could not find element at the line %s" % self.line)
+
+        LOGGER.info("cannot find element at the line %s", self.line)
+        raise ValueError("cannot find element at the line %s" % self.line)
 
 
 class SchematronStyleError(StyleErrorBase):
@@ -128,7 +130,7 @@ class SchematronStyleError(StyleErrorBase):
         try:
             text = re.search(r"<svrl:text>(.*)</svrl:text>", self._err.message, re.DOTALL).group(1)
         except AttributeError:
-            raise ValueError('Cannot get the message from %s.' % self._err)
+            raise ValueError('cannot get message')
 
         return text.strip()
 
@@ -136,7 +138,7 @@ class SchematronStyleError(StyleErrorBase):
         try:
             tagname = self._parsed_message.xpath('@location')[0]
         except IndexError:
-            raise ValueError('Cannot get the context info from %s.' % self._err.message)
+            raise ValueError('cannot get context info')
 
         return search_element(doc, tagname)
 

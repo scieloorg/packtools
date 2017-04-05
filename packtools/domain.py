@@ -16,7 +16,7 @@ try:
 except ImportError:
     import repr as reprlib
 
-from lxml import etree, isoschematron
+from lxml import etree
 
 from . import utils, catalogs, checks, style_errors, exceptions
 
@@ -29,7 +29,7 @@ LOGGER = logging.getLogger(__name__)
 
 # As a general rule, only the latest 2 versions are supported simultaneously.
 CURRENTLY_SUPPORTED_VERSIONS = os.environ.get(
-    'PACKTOOLS_SUPPORTED_SPS_VERSIONS', 'sps-1.4:sps-1.5').split(':')
+    'PACKTOOLS_SUPPORTED_SPS_VERSIONS', 'sps-1.5:sps-1.6').split(':')
 
 ALLOWED_PUBLIC_IDS = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
@@ -65,19 +65,12 @@ def _init_sps_version(xml_et, supported_versions=None):
     doc_root = xml_et.getroot()
     version_from_xml = doc_root.attrib.get('specific-use', None)
     if version_from_xml is None:
-        raise exceptions.XMLSPSVersionError('Missing SPS version at /article/@specific-use')
+        raise exceptions.XMLSPSVersionError('cannot get the SPS version from /article/@specific-use')
 
     if version_from_xml not in supported_versions:
-        raise exceptions.XMLSPSVersionError('%s is not currently supported' % version_from_xml)
+        raise exceptions.XMLSPSVersionError('version "%s" is not currently supported' % version_from_xml)
     else:
         return version_from_xml
-
-
-def Schematron(file):
-    with open(file, mode='rb') as fp:
-        xmlschema_doc = etree.parse(fp)
-
-    return isoschematron.Schematron(xmlschema_doc)
 
 
 def StdSchematron(schema_name):
@@ -94,10 +87,11 @@ def StdSchematron(schema_name):
         return cache[schema_name]
     else:
         try:
-            schematron = Schematron(catalogs.SCHEMAS[schema_name])
+            schema_path = catalogs.SCHEMAS[schema_name]
         except KeyError:
-            raise ValueError('Unknown schema %s' % (schema_name,))
+            raise ValueError('unrecognized schema: "%s"' % schema_name)
 
+        schematron = utils.get_schematron_from_filepath(schema_path)
         cache[schema_name] = schematron
         return schematron
 
@@ -115,11 +109,75 @@ def XSLT(xslt_name):
         try:
             xslt_doc = etree.parse(catalogs.XSLTS[xslt_name])
         except KeyError:
-            raise ValueError('Unknown xslt %s' % (xslt_name,))
+            raise ValueError('unrecognized xslt: "%s"' % xslt_name)
 
         xslt = etree.XSLT(xslt_doc)
         cache[xslt_name] = xslt
         return xslt
+
+
+#----------------------------------
+# validators for etree._ElementTree
+#
+# a validator is an object that
+# provides the method ``validate``,
+# with the following signature:
+# validate(xmlfile: etree._ElementTree) -> Tuple(bool, list)
+#---------------------------------- 
+class PyValidator(object):
+    """Style validations implemented in Python.
+    """
+    def __init__(self, pipeline=checks.StyleCheckingPipeline):
+        self.ppl = pipeline()
+
+    def validate(self, xmlfile):
+        errors = next(self.ppl.run(xmlfile, rewrap=True))
+        return bool(errors), errors
+
+
+class DTDValidator(object):
+    """DTD validations.
+    """
+    def __init__(self, dtd):
+        self.dtd = dtd
+
+    def validate(self, xmlfile):
+        """Validate xmlfile against the given DTD.
+
+        Returns a tuple comprising the validation status and the errors list.
+        """
+        result = self.dtd.validate(xmlfile)
+        errors = [style_errors.SchemaStyleError(err)
+                  for err in self.dtd.error_log]
+
+        return result, errors
+
+
+class SchematronValidator(object):
+    """Style validations implemented in Schematron.
+    """
+    def __init__(self, sch):
+        self.sch = sch
+
+    @classmethod
+    def from_catalog(cls, ref):
+        """Get an instance based on schema's reference name.
+
+        :param ref: The reference name for the schematron file in 
+                    :data:`packtools.catalogs.SCH_SCHEMAS`.
+        """
+        return cls(StdSchematron(ref))
+
+    def validate(self, xmlfile):
+        """Validate xmlfile against the given Schematron schema.
+
+        Returns a tuple comprising the validation status and the errors list.
+        """
+        result = self.sch.validate(xmlfile)
+        errors = [style_errors.SchematronStyleError(err)
+                  for err in self.sch.error_log]
+
+        return result, errors
 
 
 #--------------------------------
@@ -137,45 +195,36 @@ class XMLValidator(object):
     :param file: etree._ElementTree instance.
     :param sps_version: the version of the SPS that will be the basis for validation.
     :param dtd: (optional) etree.DTD instance. If not provided, we try the external DTD.
-    :param extra_schematron: (optional) extra schematron schema.
+    :param style_validators: (optional) list of
+                             :class:`packtools.domain.SchematronValidator`
+                             objects.
     """
-    def __init__(self, file, sps_version, dtd=None, extra_schematron=None):
+    def __init__(self, file, dtd=None, style_validators=None):
         assert isinstance(file, etree._ElementTree)
 
         self.lxml = file
-        self.sps_version = sps_version
-        self.allowed_public_ids = _get_public_ids(self.sps_version)
         self.doctype = self.lxml.docinfo.doctype
+
         self.dtd = dtd or self.lxml.docinfo.externalDTD
         self.source_url = self.lxml.docinfo.URL
         self.public_id = self.lxml.docinfo.public_id
         self.encoding = self.lxml.docinfo.encoding
 
-        # Load schematron schema based on sps version. Can raise ValueError
-        self.schematron = StdSchematron(self.sps_version)
-
-        # Load user-provided schematron schema
-        if extra_schematron:
-            self.extra_schematron = Schematron(extra_schematron)
+        if style_validators:
+            self.style_validators = list(style_validators)
         else:
-            self.extra_schematron = None
-
-        # Load python based validation pipeline
-        self.ppl = checks.StyleCheckingPipeline()
-
-        # Cache of validation results
-        self._validation_errors = {'dtd': (), 'style': ()}
+            self.style_validators = []
 
     @classmethod
     def parse(cls, file, no_doctype=False, sps_version=None,
-            supported_sps_versions=None, **kwargs):
+            supported_sps_versions=None, extra_sch_schemas=None, **kwargs):
         """Factory of XMLValidator instances.
 
         If `file` is not an etree instance, it will be parsed using
-        :func:`XML`.
+        :func:`packtools.utils.XML`.
 
         If the DOCTYPE is declared, its public id is validated against a white list,
-        declared by ``allowed_public_ids`` class variable. The system id is ignored.
+        declared by :data:`ALLOWED_PUBLIC_IDS` module variable. The system id is ignored.
         By default, the allowed values are:
 
           - SciELO PS >= 1.2:
@@ -189,84 +238,80 @@ class XMLValidator(object):
         :param sps_version: (optional) force the style validation against a SPS version.
         :param supported_sps_versions: (optional) list of supported versions. the
                only way to bypass this restriction is by using the arg `sps_version`.
+        :param extra_sch_schemas: (optional) list of extra Schematron schemas.
         """
-        if isinstance(file, etree._ElementTree):
-            et = file
-        else:
+        try:
             et = utils.XML(file)
+        except TypeError:
+            # We hope it is an instance of etree.ElementTree. If it is not,
+            # it will fail in the next lines.
+            et = file
 
         # can raise exception
         sps_version = sps_version or _init_sps_version(et, supported_sps_versions)
+
+        # get the right Schematron validator based on the value of ``sps_version``
+        # and then mix it with the list of schemas supplied by the user.
+        LOGGER.info('auto-loading style validations for version "%s"', sps_version)
+        style_validators = [
+                SchematronValidator.from_catalog(sps_version),
+                PyValidator(),  # the python based validation pipeline
+        ]
+        if extra_sch_schemas:
+            style_validators += [SchematronValidator(sch) 
+                                 for sch in list(extra_sch_schemas)]
 
         allowed_public_ids = _get_public_ids(sps_version)
 
         # DOCTYPE declaration must be present by default. This behaviour can
         # be changed by the `no_doctype` arg.
+        LOGGER.info('fetching the DOCTYPE declaration')
         doctype = et.docinfo.doctype
         if not doctype and not no_doctype:
-            raise exceptions.XMLDoctypeError('Missing DOCTYPE declaration')
+            raise exceptions.XMLDoctypeError(
+                    'cannot get the DOCTYPE declaration')
 
         # if there exists a DOCTYPE declaration, ensure its PUBLIC-ID is
         # supported.
+        LOGGER.info('fetching the PUBLIC-ID in DOCTYPE declaration')
         public_id = et.docinfo.public_id
         if doctype and public_id not in allowed_public_ids:
-            raise exceptions.XMLDoctypeError('Unsuported DOCTYPE public id')
+            raise exceptions.XMLDoctypeError('invalid DOCTYPE public id')
 
-        return cls(et, sps_version, **kwargs)
+        return cls(et, style_validators=style_validators, **kwargs)
 
+    @property
+    def dtd_validator(self):
+        if self.dtd:
+            return DTDValidator(self.dtd)
+        else:
+            return None
+
+    @utils.cachedmethod
     def validate(self):
         """Validate the source XML against JATS DTD.
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        if len(self._validation_errors['dtd']) == 0:
-            if self.dtd is None:
-                raise exceptions.UndefinedDTDError('The DTD/XSD could not be loaded')
+        if self.dtd_validator is None:
+            raise exceptions.UndefinedDTDError('cannot validate (DTD is not set)')
 
-            def make_error_log():
-                return [style_errors.SchemaStyleError(err) for err in self.dtd.error_log]
+        result_tuple = self.dtd_validator.validate(self.lxml)
+        return result_tuple
 
-            result = self.dtd.validate(self.lxml)
-            errors = make_error_log()
-            self._validation_errors['dtd'] = result, errors
-
-        return self._validation_errors['dtd']
-
-    def _validate_sch(self):
-        """Validate the source XML against SPS-Style Schematron.
-
-        Returns a tuple comprising the validation status and the errors list.
-        """
-        def make_error_log(schematron):
-            err_log = schematron.error_log
-            return [style_errors.SchematronStyleError(err) for err in err_log]
-
-        result = self.schematron.validate(self.lxml)
-        errors = make_error_log(self.schematron)
-
-        if self.extra_schematron:
-            extra_result = self.extra_schematron.validate(self.lxml)  # run
-            result = result and extra_result
-            errors += make_error_log(self.extra_schematron)
-
-        return result, errors
-
+    @utils.cachedmethod
     def validate_style(self):
         """Validate the source XML against SPS-Style Tagging guidelines.
 
         Returns a tuple comprising the validation status and the errors list.
         """
-        if len(self._validation_errors['style']) == 0:
-            def make_error_log():
-                errors = next(self.ppl.run(self.lxml, rewrap=True))
-                errors += self._validate_sch()[1]
-                return errors
+        errors = []
+        for validator in self.style_validators:
+            errors += validator.validate(self.lxml)[1]
 
-            errors = make_error_log()
-            result = not bool(errors)
-            self._validation_errors['style'] = result, errors
+        result = not bool(errors)
 
-        return self._validation_errors['style']
+        return result, errors
 
     def validate_all(self, fail_fast=False):
         """Runs all validations.
@@ -323,7 +368,6 @@ class XMLValidator(object):
             try:
                 err_element = error.get_apparent_element(mutating_xml)
             except ValueError:
-                LOGGER.info('Could not locate the element name in: %s', error.message)
                 err_element = mutating_xml.getroot()
 
             err_pairs.append((err_element, error.message))
@@ -428,7 +472,7 @@ class HTMLGenerator(object):
         if valid_only:
             is_valid, _ = XMLValidator.parse(et).validate_all()
             if not is_valid:
-                raise ValueError('The XML is not valid according to SPS rules')
+                raise ValueError('invalid XML')
 
         return cls(et, **kwargs)
 
@@ -497,11 +541,11 @@ class HTMLGenerator(object):
         """
         main_language = self.language
         if main_language is None:
-            raise exceptions.HTMLGenerationError('Main document language is '
+            raise exceptions.HTMLGenerationError('main document language is '
                                                  'undefined.')
 
         if lang not in self.languages:
-            raise ValueError('Unknown language "%s"' % lang)
+            raise ValueError('unrecognized language: "%s"' % lang)
 
         is_translation = lang != main_language
         return self.xslt(

@@ -10,7 +10,7 @@ import json
 import unicodedata
 import zipfile
 
-from lxml import etree
+from lxml import etree, isoschematron
 try:
     import pygments     # NOQA
     from pygments.lexers import get_lexer_for_mimetype
@@ -91,6 +91,16 @@ def XML(file, no_network=True, load_dtd=True):
     return xml
 
 
+def get_schematron_from_buffer(buff):
+    xmlschema_doc = etree.parse(buff)
+    return isoschematron.Schematron(xmlschema_doc)
+
+
+def get_schematron_from_filepath(filepath):
+    with open(filepath, mode='rb') as buff:
+        return get_schematron_from_buffer(buff)
+
+
 def config_xml_catalog(wrapped):
     """Decorator that wraps the execution of a function, setting-up and
     tearing-down the ``XML_CATALOG_FILES`` environment variable for the current
@@ -120,7 +130,9 @@ def flatten(paths):
     """ Produces absolute path for each path in paths.
 
     Glob expansions are allowed.
-    :param paths: Collection of paths. A path can be relative, absolute or a glob expression.
+
+    :param paths: Collection of paths. A path can be relative, absolute or a 
+                  glob expression.
     """
     def _inner_generator():
         for path in paths:
@@ -132,7 +144,7 @@ def flatten(paths):
                     ylock = False
 
             # args must not be suppressed, even the invalid
-            if ylock == True:
+            if ylock:
                 yield path.strip()
 
     for path in _inner_generator():
@@ -159,7 +171,6 @@ def prettify(jsonobj, colorize=True):
             return pygments.highlight(json_str, lexer, TerminalFormatter())
         except Exception as exc:
             LOGGER.exception(exc)
-            pass
 
     return json_str
 
@@ -185,7 +196,7 @@ class Xray(object):
     @classmethod
     def fromfile(cls, filepath):
         if not zipfile.is_zipfile(filepath):
-            raise ValueError('"%s" is not a valid zipfile.' % filepath)
+            raise ValueError('cannot read "%s": not a valid zipfile' % filepath)
 
         zip_file = zipfile.ZipFile(filepath, 'r')
         return cls(zip_file)
@@ -218,7 +229,7 @@ class Xray(object):
         """Get file object for member.
 
         A complete list of members can be checked
-        calling ``show_members``().
+        calling :meth:`show_members`.
 
         :param member: a zip member, e.g. 'foo.xml'
         """
@@ -226,10 +237,35 @@ class Xray(object):
             return self._zipfile.open(member, mode)
 
         except KeyError:
-            raise ValueError('Unknown member "%s".' % member)
+            raise ValueError('cannot open file "%s": file doesn\'t exist' % member)
 
     def close(self):
         """Close the archive file.
         """
         self._zipfile.close()
 
+
+def resolve_schematron_filepath(value):
+    """Determine the filepath for ``value``.
+
+    The lookup is run against all known schemas from
+    :data:`packtools.catalogs.SCH_SCHEMAS`. If ``value`` is already a filepath,
+    than it is returned as it is.
+    """
+    try:
+        lookup_builtin = value.startswith('@')
+    except AttributeError as exc:
+        # the `from` clause cannot be used due to compatibility with python 2.
+        raise TypeError('invalid input type for text string: "value"')
+
+    if lookup_builtin:
+        path = catalogs.SCH_SCHEMAS.get(value[1:])
+        if path:
+            return path
+        else:
+            raise ValueError('cannot resolve schematron "%s"' % value)
+    elif os.path.lexists(value):
+        return value
+    else:
+        raise ValueError('could not locate file "%s" (I/O failure)' % value)
+         

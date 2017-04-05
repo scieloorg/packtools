@@ -8,7 +8,7 @@ from lxml import isoschematron, etree
 from packtools.catalogs import SCHEMAS
 
 
-SCH = etree.parse(SCHEMAS['sps-1.4'])
+SCH = etree.parse(SCHEMAS['sps-1.6'])
 
 
 def TestPhase(phase_name, cache):
@@ -586,9 +586,6 @@ class ArticleIdTests(PhaseBasedTestCase):
         sample = u"""<article>
                       <front>
                         <article-meta>
-                          <article-id>
-                            10.1590/1414-431X20143434
-                          </article-id>
                           <article-id pub-id-type='other'>
                             10.1590/1414-431X20143435
                           </article-id>
@@ -1322,7 +1319,7 @@ class AffContentTypeTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-    def test_allowed_orgdiv3(self):
+    def test_orgdiv3_is_not_allowed_anymore(self):
         sample = u"""<article>
                       <front>
                         <article-meta>
@@ -1340,7 +1337,7 @@ class AffContentTypeTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertTrue(self._run_validation(sample))
+        self.assertFalse(self._run_validation(sample))
 
     def test_allowed_normalized(self):
         sample = u"""<article>
@@ -1991,6 +1988,56 @@ class IssueTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_is_present_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <issue>10</issue>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_is_present_twice_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <issue>02</issue>
+                              <issue>02</issue>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_is_absent_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
 
 class SupplementTests(PhaseBasedTestCase):
     """Tests for:
@@ -2271,7 +2318,7 @@ class ProductTests(PhaseBasedTestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_allowed_types(self):
-        for art_type in ['book-review', 'product-review']:
+        for art_type in ['book-review']:
             sample = u"""<article article-type="%s">
                           <front>
                             <article-meta>
@@ -2380,7 +2427,7 @@ class ProductTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_product_types(self):
-        for prod_type in ['book', 'software', 'article', 'chapter', 'other']:
+        for prod_type in ['book', 'other']:
             sample = u"""<article article-type="book-review">
                           <front>
                             <article-meta>
@@ -2433,6 +2480,33 @@ class ProductTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
+
+    def test_formatting_and_punctuation(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="book">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>,
+                                <given-names>Prenomes do autor</given-names>;
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>,
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
 
 
 class SecTitleTests(PhaseBasedTestCase):
@@ -3329,6 +3403,149 @@ class ElementCitationTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
 
+class ChapterTitleTests(PhaseBasedTestCase):
+    """Tests for
+      - article/back/ref-list/ref/element-citation/chapter-title
+      - article/front/article-meta/product/chapter-title
+    """
+    sch_phase = 'phase.chapter-title'
+
+    def test_absent_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <chapter-title>Título do capítulo</chapter-title>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_twice_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <chapter-title>Título do capítulo</chapter-title>
+                              <chapter-title> Outro título do capítulo</chapter-title>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_absent_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="chapter">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="chapter">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <chapter-title>Título do capítulo do livro</chapter-title>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_present_twice_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="chapter">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <chapter-title>Título do capítulo do livro</chapter-title>
+                            <chapter-title>Outro título do capítulo do livro</chapter-title>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
 class PersonGroupTests(PhaseBasedTestCase):
     """Tests for
       - article/back/ref-list/ref/element-citation/person-group
@@ -3810,9 +4027,10 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         for art_type in ['other', 'article-commentary', 'case-report',
                 'editorial', 'correction', 'letter', 'research-article',
                 'in-brief', 'review-article', 'book-review', 'retraction',
-                'brief-report', 'rapid-communication', 'reply', 'translation']:
+                'brief-report', 'rapid-communication', 'reply', 'translation',
+                'partial-retraction']:
 
-            sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.4">
+            sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.6">
                         </article>
                      """ % art_type
             sample = io.BytesIO(sample.encode('utf-8'))
@@ -3820,7 +4038,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_article_type(self):
-        sample = u"""<article article-type="invalid" dtd-version="1.0" specific-use="sps-1.4">
+        sample = u"""<article article-type="invalid" dtd-version="1.0" specific-use="sps-1.6">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -3828,7 +4046,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_article_type(self):
-        sample = u"""<article xml:lang="en" dtd-version="1.0" specific-use="sps-1.4">
+        sample = u"""<article xml:lang="en" dtd-version="1.0" specific-use="sps-1.6">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -3836,7 +4054,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_xmllang(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.4">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.6">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -3844,7 +4062,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_dtdversion(self):
-        sample = u"""<article article-type="research-article" xml:lang="en" specific-use="sps-1.4">
+        sample = u"""<article article-type="research-article" xml:lang="en" specific-use="sps-1.6">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -3994,6 +4212,57 @@ class MonthTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_is_present_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <month>02</month>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_is_present_twice_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <month>02</month>
+                              <month>02</month>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_is_absent_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class SizeTests(PhaseBasedTestCase):
     """Tests for:
@@ -4033,6 +4302,70 @@ class SizeTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_missing_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_in_product(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_twice_in_element_citation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <element-citation>
+                              <size units="pages">2</size>
+                              <size units="pages">2</size>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_twice_in_product(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <product>
+                            <size units="pages">2</size>
+                            <size units="pages">2</size>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
     def test_missing_units_in_product(self):
         sample = u"""<article>
@@ -4409,7 +4742,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
 
     def test_allowed_article_types(self):
         for art_type in ['abstract', 'letter', 'reply', 'translation']:
-            sample = u"""<article article-type="research-article" xml:lang="en" dtd-version="1.0" specific-use="sps-1.4">
+            sample = u"""<article article-type="research-article" xml:lang="en" dtd-version="1.0" specific-use="sps-1.6">
                            <sub-article article-type="%s" xml:lang="pt" id="sa1"></sub-article>
                          </article>
                      """ % art_type
@@ -4418,7 +4751,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_article_type(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.4">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.6">
                        <sub-article article-type="invalid" xml:lang="pt" id="trans_pt"></sub-article>
                      </article>
                  """
@@ -4427,7 +4760,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_article_type(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.4">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.6">
                        <sub-article xml:lang="pt" id="trans_pt"></sub-article>
                      </article>
                  """
@@ -4436,7 +4769,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_xmllang(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.4">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.6">
                        <sub-article article-type="translation" id="trans_pt"></sub-article>
                      </article>
                  """
@@ -4445,7 +4778,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_id(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.4">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.6">
                        <sub-article article-type="translation" xml:lang="pt"></sub-article>
                      </article>
                  """
@@ -4614,11 +4947,12 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
     sch_phase = 'phase.related-article-attrs'
 
     def test_allowed_related_article_types(self):
-        for type in ['corrected-article', 'press-release', 'commentary-article', 'article-reference']:
-            sample = u"""<article>
+        for type in ['corrected-article', 'commentary-article',
+                     'letter', 'partial-retraction', 'retracted-article']:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                            <front>
                              <article-meta>
-                               <related-article related-article-type="%s" id="01"/>
+                               <related-article related-article-type="%s" id="01" ext-link-type="doi" xlink:href="foo"/>
                              </article-meta>
                            </front>
                          </article>
@@ -4658,6 +4992,60 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
                        <front>
                          <article-meta>
                            <related-article id="01"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_allowed_ext_link_types(self):
+        for type in ['doi', 'scielo-pid', 'scielo-aid']:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                           <front>
+                             <article-meta>
+                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s" xlink:href="foo"/>
+                             </article-meta>
+                           </front>
+                         </article>
+                     """ % type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_invalid_ext_link_types(self):
+        for type in ['invalid',]:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                           <front>
+                             <article-meta>
+                               <related-article related-article-type="corrected-article" id="01" ext-link-type="%s" xlink:href="foo"/>
+                             </article-meta>
+                           </front>
+                         </article>
+                     """ % type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertFalse(self._run_validation(sample))
+
+    def test_missing_ext_link_type_on_corrected_articles(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="corrected-article" id="01" xlink:href="foo"/>
+                         </article-meta>
+                       </front>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_xlinkhref_on_corrected_articles(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
+                       <front>
+                         <article-meta>
+                           <related-article related-article-type="corrected-article" id="01" ext-link-type="corrected-article"/>
                          </article-meta>
                        </front>
                      </article>
@@ -4981,6 +5369,67 @@ class RefTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_element_citation_cannot_be_present_twice(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
     def test_missing_element_citation(self):
         sample = u"""<article>
                       <back>
@@ -5256,4 +5705,205 @@ class AffTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
+
+class SourceTests(PhaseBasedTestCase):
+    """Tests for article//source element.
+    """
+    sch_phase = 'phase.source'
+
+    def test_source_is_absent_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_source_is_present_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_source_is_present_more_than_once_in_elementcitation(self):
+        sample = u"""<article>
+                      <back>
+                        <ref-list>
+                          <ref>
+                            <mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde e grau de dependência de pessoas idosas institucionalizadas. <italic>Rev Gaucha Enferm.</italic> 2009;30(3):192-9.</mixed-citation>
+                            <element-citation publication-type="journal">
+                              <person-group person-group-type="author">
+                                <name>
+                                  <surname>Aires</surname>
+                                  <given-names>M</given-names>
+                                </name>
+                                <name>
+                                  <surname>Paz</surname>
+                                  <given-names>AA</given-names>
+                                </name>
+                                <name>
+                                  <surname>Perosa</surname>
+                                  <given-names>CT</given-names>
+                                </name>
+                              </person-group>
+                              <article-title>Situação de saúde e grau de dependência de pessoas idosas institucionalizadas</article-title>
+                              <source>Rev Gaucha Enferm</source>
+                              <source>Rev Gaucha Foo</source>
+                              <year>2009</year>
+                              <volume>30</volume>
+                              <issue>3</issue>
+                              <fpage>192</fpage>
+                              <lpage>199</lpage>
+                            </element-citation>
+                          </ref>
+                        </ref-list>
+                      </back>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_source_is_absent_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="book">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_source_is_present_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="book">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_source_is_present_more_than_once_in_product(self):
+        sample = u"""<article article-type="book-review">
+                      <front>
+                        <article-meta>
+                          <product product-type="book">
+                            <person-group person-group-type="author">
+                              <name>
+                                <surname>Sobrenome do autor</surname>
+                                <given-names>Prenomes do autor</given-names>
+                              </name>
+                            </person-group>
+                            <source>Título do livro</source>
+                            <source>Título do livro</source>
+                            <year>Ano de publicação</year>
+                            <publisher-name>Nome da casa publicadora/Editora</publisher-name>
+                            <publisher-loc>Local de publicação</publisher-loc>
+                            <page-count count="total de paginação do livro (opcional)"/>
+                            <isbn>ISBN do livro, se houver</isbn>
+                            <inline-graphic>1234-5678-rctb-45-05-690-gf01.tif</inline-graphic>
+                          </product>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
