@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:variable name="LABELS" select="document('labels.xml')//term"></xsl:variable>
+    <xsl:variable name="LABELS" select="document('config-labels.xml')//term"></xsl:variable>
     
     <xsl:template match="*|@*|text()" mode="translate">
         <xsl:param name="term"></xsl:param>

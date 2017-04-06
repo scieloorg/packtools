@@ -7,9 +7,11 @@
     <xsl:template match="article/back/ref-list" mode="previous">
         <xsl:apply-templates select="preceding-sibling::node()[1]" mode="node-name"/>
     </xsl:template>
+    
     <xsl:template match="article/back/ref-list" mode="next">
         <xsl:apply-templates select="following-sibling::node()[1]" mode="node-name"/>
     </xsl:template>
+    
     <xsl:template match="*" mode="node-name"><xsl:value-of select="name()"/></xsl:template>
     
     <xsl:template match="article" mode="text-back">
@@ -108,25 +110,7 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="fn">
-        <xsl:param name="position"></xsl:param>
-        
-        <a name="{@id}"/>
-        <div id="{@id}" class="footnote">
-            <xsl:apply-templates select="*|text()">
-                <xsl:with-param name="position" select="position()"></xsl:with-param>
-            </xsl:apply-templates>
-        </div>
-    </xsl:template>
     
-    <xsl:template match="fn" mode="text">
-        <xsl:apply-templates select="p" mode="footnote-in-text"></xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="*" mode="footnote-in-text">
-        <xsl:apply-templates select="*|text()" mode="footnote-in-text"></xsl:apply-templates>
-    </xsl:template>
-     
     <xsl:template match="*" mode="dates-notes">
         <xsl:param name="position"></xsl:param>
         <div class="articleSection">
@@ -204,14 +188,17 @@
             </li>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template match="*" mode="errata-date">
         <!-- FIXME -->
         <!-- li><strong>Errata:</strong><br/> 01/11/2013</li -->
     </xsl:template>
+    
     <xsl:template match="*" mode="retraction-date">
         <!-- FIXME -->
         <!-- li><strong>Retratação:</strong><br/> 01/11/2013</li -->
     </xsl:template>
+    
     <xsl:template match="*" mode="manisfestation-date">
         <!-- FIXME -->
         <!-- li><strong>Manifestação de preocupação:</strong><br/> 01/11/2013</li -->

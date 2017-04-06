@@ -9,13 +9,13 @@
                 <xsl:apply-templates select="label"></xsl:apply-templates>
             </xsl:if>
             
-            <div><xsl:choose>
-                <xsl:when test="mixed-citation[*]">
-                    <xsl:apply-templates select="mixed-citation"/>
-                </xsl:when>
-                <xsl:otherwise><xsl:apply-templates select="mixed-citation"/></xsl:otherwise>
-            </xsl:choose>
-                
+            <div>
+                <xsl:choose>
+                    <xsl:when test="mixed-citation[*]">
+                        <xsl:apply-templates select="mixed-citation"/>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:apply-templates select="mixed-citation"/></xsl:otherwise>
+                </xsl:choose>
             </div>
         </li>
     </xsl:template>
@@ -65,6 +65,19 @@
             <xsl:when test=".//comment[starts-with(.,'http')]"><xsl:value-of select=".//comment[starts-with(.,'http')]"/></xsl:when>
             <xsl:when test=".//comment[contains(.,'doi:')]">https://doi.org/<xsl:value-of select="normalize-space(substring-after(.//comment[contains(.,'doi:')],'doi:'))"/></xsl:when>
             <xsl:when test=".//comment[contains(.,'DOI:')]">https://doi.org/<xsl:value-of select="normalize-space(substring-after(.//comment[contains(.,'DOI:')],'DOI:'))"/></xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="ref" mode="xref">
+        <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$url!=''">
+                <a href="{$url}" target="_blank">
+                    <xsl:apply-templates select="mixed-citation"></xsl:apply-templates>
+                </a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="mixed-citation"></xsl:apply-templates></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

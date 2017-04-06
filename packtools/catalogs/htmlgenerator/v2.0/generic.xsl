@@ -26,5 +26,16 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template match="bold">
+        <b><xsl:apply-templates></xsl:apply-templates></b>
+    </xsl:template>
+    
+    <xsl:template match="italic">
+        <i><xsl:apply-templates></xsl:apply-templates></i>
+    </xsl:template>
+    
+    <xsl:template match="break">
+        <br/>
+    </xsl:template>
     
 </xsl:stylesheet>

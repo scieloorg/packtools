@@ -5,6 +5,7 @@
 			<xsl:apply-templates select=".//article/journal-title"/>
 		</title>
 	</xsl:template>
+	
 	<xsl:template match="*" mode="html-head-meta">
 		<!-- FIXME -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:variable name="ref" select="//ref"></xsl:variable>
-    
     
     <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
     <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
     <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
+    
+    
+    <xsl:template match="*" mode="list-item">
+        <li>
+            <xsl:apply-templates select="."></xsl:apply-templates>
+        </li>
+    </xsl:template>
     
     <xsl:template match="article" mode="count_abstracts">
         <xsl:choose>
@@ -60,12 +65,14 @@
             </xsl:apply-templates>
         </article>
     </xsl:template>
+    
     <xsl:template match="*" mode="title">
         <xsl:apply-templates select="title"></xsl:apply-templates>
         <xsl:if test="not(title)">
             <xsl:apply-templates select="." mode="label"></xsl:apply-templates>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template match="*" mode="text-body">
         <div class="articleSection">
             <xsl:attribute name="data-anchor">
@@ -92,6 +99,7 @@
             <xsl:with-param name="position" select="position()"></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
+    
     <xsl:template match="body/*/sec">
         <xsl:param name="position"></xsl:param>
         
@@ -99,6 +107,7 @@
             <xsl:with-param name="position" select="position()"></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
+    
     <xsl:template match="body//p">
         <xsl:param name="position"></xsl:param>
         <p>
@@ -122,43 +131,7 @@
             <xsl:apply-templates select="*|text()"/>
         </h2>
     </xsl:template>
-    
-    <xsl:template match="xref">
-        <xsl:variable name="type"><xsl:choose>
-            <xsl:when test="@ref-type='equation'">formula</xsl:when>
-            <xsl:when test="@ref-type='disp-formula'">formula</xsl:when>
-            <xsl:when test="@ref-type='fig'">figure</xsl:when>
-            <xsl:when test="@ref-type='table'">table</xsl:when>
-            </xsl:choose></xsl:variable>
-        <a href="#{@rid}" class="goto">
-            <xsl:choose>
-                <xsl:when test="$type!=''">
-                    <span class="glyphBtn {$type}Icon"></span><xsl:value-of select="."/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <sup><xsl:value-of select="."/></sup>
-                </xsl:otherwise>
-            </xsl:choose>
-        </a>
-    </xsl:template>
-    <xsl:template match="xref[@ref-type='bibr' or @ref-type='fn']">
-        <xsl:param name="position"></xsl:param>
-        <xsl:variable name="id">p<xsl:value-of select="$position"/>-<xsl:value-of select="@rid"/></xsl:variable>
-        <span class="ref">
-            <xsl:choose>
-                <xsl:when test="sup">
-                    <sup class="xref {$id}"><xsl:value-of select="."/></sup>
-                </xsl:when>
-                <xsl:otherwise>
-                    <sup class="xref {$id}"><xsl:value-of select="."/></sup>
-                </xsl:otherwise>
-            </xsl:choose>
-            <span class="{$id} closed">
-                <xsl:apply-templates select="." mode="text"></xsl:apply-templates>
-            </span>
-        </span>
-    </xsl:template>
-    
+            
     <xsl:template match="list">
         <xsl:param name="position"></xsl:param>
         
@@ -190,30 +163,16 @@
         </li>
     </xsl:template>
     
-    <xsl:template match="xref[@ref-type='bibr']" mode="text">
-        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <xsl:apply-templates select="$document//ref[@id=$id]" mode="text"></xsl:apply-templates>
-    </xsl:template>
-    <xsl:template match="xref[@ref-type='fn']" mode="text">
-        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <xsl:apply-templates select="$document//fn[@id=$id]" mode="text"></xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="ref" mode="text">
-        <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
-        <xsl:choose>
-            <xsl:when test="$url!=''">
-                <a href="{$url}" target="_blank">
-                    <xsl:apply-templates select="mixed-citation"></xsl:apply-templates>
-                </a>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="mixed-citation"></xsl:apply-templates></xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-   
     <xsl:template match="article" mode="sub-articles">
        <xsl:apply-templates select="sub-articles[@article-type!='translation' and (@xml:lang=$TEXT_LANG or not(@xml:lang))]"></xsl:apply-templates>
-       
    </xsl:template>
+    
+    <xsl:template match="ext-link">
+        <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
+    </xsl:template>
+
+    <xsl:template match="email">
+        <a href="mailto:{.}"><xsl:value-of select="."/></a>
+    </xsl:template>
+    
 </xsl:stylesheet>

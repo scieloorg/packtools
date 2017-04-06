@@ -19,12 +19,28 @@
     </xsl:template>
     
     <xsl:template match="*" mode="article-meta-doi">
-        <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']"></xsl:apply-templates>        
+        <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>        
     </xsl:template>
    
-    <xsl:template match="article-id[@pub-id-type='doi']">
+    <xsl:template match="article-id[@pub-id-type='doi']" mode="display">
         <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
         <span class="doi"><a href="{$link}"><xsl:value-of select="$link"/></a></span>
+        <label class="showTooltip copyLink" data-placement="left">
+            <xsl:attribute name="title">
+                <xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">Click to </xsl:with-param>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">copy URL</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:attribute>
+            <span class="sci-ico-link hidden-sm hidden-md"></span> 
+            <input type="text" name="link-share" class="fakeLink" data-clipboard-text="{$link}" data-toggle="tooltip" id="linkShare">
+                <xsl:attribute name="value"><xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">copy URL</xsl:with-param>
+                </xsl:apply-templates></xsl:attribute>
+            </input>
+        </label>
     </xsl:template>
     
     <xsl:template match="article" mode="issue-meta-pub-dates">

@@ -5,23 +5,12 @@
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   exclude-result-prefixes="xlink mml">
 
-    <xsl:template match="ext-link">
-        <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
-    </xsl:template>
-    <xsl:template match="email">
-        <a href="mailto:{.}"><xsl:value-of select="."/></a>
-    </xsl:template>
     <xsl:template match="graphic">
         <img>
             <xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
         </img>
     </xsl:template>
     
-    <xsl:template match="xref">
-        <a href="#{@rid}" class="goto"><xsl:apply-templates></xsl:apply-templates></a>
-    </xsl:template>
-    
-    <!-- -->
     <xsl:template match="graphic/@xlink:href">
         <xsl:attribute name="src"><xsl:apply-templates select="." mode="generic-href-content"></xsl:apply-templates></xsl:attribute>
     </xsl:template>
@@ -37,5 +26,4 @@
         <xsl:value-of select="concat($IMAGES_PATH,$name)"/>
     </xsl:template>
     
-
 </xsl:stylesheet>

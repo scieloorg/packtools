@@ -6,33 +6,36 @@
 
     <xsl:output method="html" indent="yes" encoding="UTF-8" omit-xml-declaration="no"/>
 
-    <xsl:include href="config_vars.xsl"/>
+    <xsl:include href="config-vars.xsl"/>
 
     <xsl:variable name="document" select="./article"/>
     <xsl:include href="generic.xsl"/>
 
-    <xsl:include href="config_labels.xsl"/>
-
-    <xsl:include href="generic_href.xsl"/>
-    <xsl:include href="generic_styles.xsl"/>
+    <xsl:include href="config-labels.xsl"/>
 
     <xsl:include href="functions-block.xsl"/>
 
     <xsl:include href="journal-meta.xsl"/>
+    
     <xsl:include href="article-meta.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
-
     <xsl:include href="article-meta-abstract.xsl"/>
 
-    <xsl:include href="text.xsl"/>
-    <xsl:include href="text-back.xsl"/>
-    <xsl:include href="text-table.xsl"/>
-    <xsl:include href="text-formula.xsl"/>
-    <xsl:include href="text-fig.xsl"/>
-    <xsl:include href="text-ref.xsl"/>
-
-    <xsl:include href="modals.xsl"/>
-    <xsl:include href="frame.xsl"/>
+    <xsl:include href="article-text.xsl"/>
+    <xsl:include href="article-text-graphic.xsl"/>
+    <xsl:include href="article-text-table.xsl"/>
+    <xsl:include href="article-text-formula.xsl"/>
+    <xsl:include href="article-text-fig.xsl"/>
+    <xsl:include href="article-text-xref.xsl"/>
+    <xsl:include href="article-text-fn.xsl"/>
+    <xsl:include href="article-text-ref.xsl"/>
+    <xsl:include href="article-text-back.xsl"/>
+    
+    <xsl:include href="html-modals.xsl"/>
+    <xsl:include href="html-modals-contribs.xsl"/>
+    <xsl:include href="html-modals-tables.xsl"/>
+    <xsl:include href="html-modals-figs.xsl"/>
+    
     <xsl:include href="html-head.xsl"/>
 
     <xsl:template match="/">
@@ -54,13 +57,6 @@
                 <a name="top"/>
                 <xsl:apply-templates select="." mode="article"/>
                 <xsl:apply-templates select="." mode="article-modals"/>
-                <xsl:apply-templates select="." mode="journal-contacts"/>
-                <xsl:apply-templates select="." mode="html-body-footer"/>
-                <xsl:apply-templates select="." mode="alternative-header"/>
-                <xsl:apply-templates select="." mode="floating-menu"/>
-                <xsl:apply-templates select="." mode="article-modals-automatic-translation"/>
-                <xsl:apply-templates select="." mode="article-modals-send-by-email"/>
-                <xsl:apply-templates select="." mode="article-modals-services"/>
                 <xsl:apply-templates select="." mode="js"/>
             </body>
         </html>
@@ -78,14 +74,6 @@
         <script src="{$JS_PATH}/vendor/jquery-ui.min.js"/>
         <script src="{$JS_PATH}/plugins.js"/>
         <script src="{$JS_PATH}/min/main-min.js"/>
-        <!-- 
-    	<script src="../static/js/vendor/jquery-1.11.0.min.js"></script>
-		<script src="../static/js/vendor/bootstrap.min.js"></script>
-		<script src="../static/js/vendor/jquery-ui.min.js"></script>
-		
-		<script src="../static/js/plugins.js"></script>
-		<script src="../static/js/min/main-min.js"></script>
-    	-->
     </xsl:template>
     
     <xsl:template match="article" mode="article">
@@ -114,6 +102,7 @@
                         </div>
                         <div>
                             <xsl:apply-templates select="." mode="article-meta-doi"/>
+                            
                         </div>
                     </div>
 
