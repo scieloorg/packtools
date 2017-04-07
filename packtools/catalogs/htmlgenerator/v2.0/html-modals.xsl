@@ -3,8 +3,15 @@
     version="1.0">
     <xsl:template match="*" mode="article-modals">
         <xsl:apply-templates select="." mode="modal-contribs"/>
-        <xsl:apply-templates select="." mode="modal-related-articles"/>
         <xsl:apply-templates select="." mode="modal-tables"/>
         <xsl:apply-templates select="." mode="modal-figs"/>
     </xsl:template>
+    
+    <xsl:template match="*" mode="modal-tables">
+        <xsl:apply-templates select=".//table-wrap" mode="modal"></xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="*" mode="modal-figs">
+        <xsl:apply-templates select=".//fig-group[fig] | .//*[not(fig-group)]/fig" mode="modal"></xsl:apply-templates>
+    </xsl:template>
+    
 </xsl:stylesheet>

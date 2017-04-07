@@ -11,15 +11,13 @@
     <xsl:variable name="ARTICLE_LANG"><xsl:value-of select="$article_lang"/></xsl:variable>
     
     <xsl:variable name="CSS_PATH"><xsl:choose>
-        <xsl:when test="$styles_css_path"><xsl:value-of select="$styles_css_path"/></xsl:when>
-        <xsl:otherwise>/Users/roberta.takenaka/Documents/xml/htmlgenerator/v2.0/2017-03-31-Artigo-Correcoes/static/css</xsl:otherwise>
+        <xsl:when test="$styles_css_path!=''"><xsl:value-of select="$styles_css_path"/></xsl:when>
+        <xsl:otherwise>/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/v2.0/2017-03-31-Artigo-Correcoes/static/css</xsl:otherwise>
     </xsl:choose></xsl:variable>
     
     <xsl:variable name="JS_PATH"><xsl:choose>
-        <xsl:when test="$styles_css_path"><xsl:value-of select="$styles_css_path"/></xsl:when>
-        <xsl:otherwise>/Users/roberta.takenaka/Documents/xml/htmlgenerator/v2.0/2017-03-31-Artigo-Correcoes/static/js</xsl:otherwise>
+        <xsl:when test="$styles_css_path!=''"><xsl:value-of select="$styles_css_path"/>/../js</xsl:when>
+        <xsl:otherwise>/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/v2.0/2017-03-31-Artigo-Correcoes/static/js</xsl:otherwise>
     </xsl:choose></xsl:variable>
-    
-    <xsl:variable name="WEBSITE_IMG_PATH">/Users/roberta.takenaka/Documents/xml/htmlgenerator/v2.0/2017-03-31-Artigo-Correcoes/static/img</xsl:variable>
     
 </xsl:stylesheet>

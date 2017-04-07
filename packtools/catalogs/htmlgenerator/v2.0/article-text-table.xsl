@@ -4,6 +4,19 @@
     <xsl:template match="table-wrap">
         <div class="row table" id="{@id}">
         <a name="{@id}"/>
+            
+            <div class="col-md-4">
+                <a data-toggle="modal" data-target="#ModalTable{@id}">
+                    <div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8">
+                <strong><xsl:apply-templates select="label"/></strong><br/>
+                <xsl:apply-templates select="caption"/>
+            </div>
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </div>
     </xsl:template>
@@ -16,9 +29,7 @@
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="table-wrap/caption/p">
-        <div>
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-        </div>
     </xsl:template>
     <xsl:template match="table-wrap/caption/title"><xsl:text> </xsl:text>
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>

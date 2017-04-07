@@ -17,12 +17,13 @@
                         <div class="modal-body">
                             <div class="info">
                                 <xsl:apply-templates select=".//article-meta//contrib" mode="modal-contrib"></xsl:apply-templates>
-                                <xsl:apply-templates select=".//article-meta//contrib-group/author-notes" mode="modal-contrib"></xsl:apply-templates>
+                                <xsl:apply-templates select=".//article-meta//author-notes" mode="modal-contrib"></xsl:apply-templates>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </xsl:if>    
     </xsl:template>
     

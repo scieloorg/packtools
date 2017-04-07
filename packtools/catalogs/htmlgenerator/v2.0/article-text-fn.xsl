@@ -14,15 +14,33 @@
     </xsl:template>
     
     <xsl:template match="fn">
-        <xsl:param name="position"></xsl:param>
-        
-        <a name="{@id}"/>
-        <div id="{@id}" class="footnote">
-            <xsl:apply-templates select="*|text()">
-                <xsl:with-param name="position" select="position()"></xsl:with-param>
-            </xsl:apply-templates>
+        <li>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </li>
+    </xsl:template>
+    
+    <xsl:template match="fn/label">
+        <sup class="xref big"><xsl:value-of select="."></xsl:value-of></sup>
+    </xsl:template>
+    
+    <xsl:template match="fn/p">
+        <div>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </div>
     </xsl:template>
-   
     
+    <xsl:template match="back/fn" mode="content">
+        <ul class="refList footnote">
+            <xsl:apply-templates select="."></xsl:apply-templates>
+        </ul>
+    </xsl:template>
+    
+    <xsl:template match="fn-group/title" mode="content">
+    </xsl:template>
+    
+    <xsl:template match="back/fn-group" mode="content">
+        <ul class="refList footnote">
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </ul>
+    </xsl:template>
 </xsl:stylesheet>

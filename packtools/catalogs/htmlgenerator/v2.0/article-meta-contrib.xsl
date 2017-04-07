@@ -14,7 +14,10 @@
     </xsl:template>
     
     <xsl:template match="contrib-group">
-        <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
+        <div class="contribGroup">
+            <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>    
+        </div>
+        
         <xsl:if test="contrib[*]">
         <a href="javascript:;" class="outlineFadeLink" data-toggle="modal"
             data-target="#ModalTutors">
@@ -41,11 +44,12 @@
                 <xsl:apply-templates select="role"/>
                 <xsl:apply-templates select="xref"/>
                 <xsl:apply-templates select="author-notes"/>
+                <xsl:if test="not(author-notes)"><xsl:apply-templates select="../..//author-notes"></xsl:apply-templates></xsl:if>
                 <xsl:apply-templates select="contrib-id"/>
             </ul>
         </xsl:if>
     </xsl:template>
-
+    
     <xsl:template match="contrib/name">
         <xsl:apply-templates select="prefix"/>
         <xsl:text> </xsl:text>
@@ -58,7 +62,7 @@
 
     <xsl:template match="contrib/xref">
         <xsl:variable name="rid" select="@rid"/>
-        <xsl:apply-templates select="../../..//aff[@id=$rid]" mode="list-item"/>
+        <xsl:apply-templates select="../../..//aff[@id=$rid]" mode="xref"/>
         <xsl:apply-templates select="../../..//fn[@id=$rid]" mode="list-item"/>
     </xsl:template>
 
@@ -70,7 +74,7 @@
             <xsl:value-of select="$url"/>
             <xsl:value-of select="."/>
         </xsl:variable>
-        <a href="{$location}" class="btnContribLinks {@contrib-id-type}">
+        <a href="" class="btnContribLinks {@contrib-id-type}">
             <xsl:value-of select="$location"/>
         </a>
     </xsl:template>
@@ -91,15 +95,15 @@
         </span>
     </xsl:template>
     
-    <xsl:template match="corresp">
-        <p>
-            <xsl:apply-templates/>
-        </p>
+    <xsl:template match="author-notes/fn | author-notes/corresp">
+        <div class="info">
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </div>
     </xsl:template>
     
-    <xsl:template match="author-notes/fn/label">
+    <xsl:template match="author-notes//label">
         <h3>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="*|text()"/>
         </h3>
     </xsl:template>
     
@@ -109,14 +113,16 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="*" mode="author-notes">
-        <xsl:apply-templates></xsl:apply-templates>
-    </xsl:template>
-    
     <xsl:template match="label" mode="author-notes">
         <h3>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="*|text()"/>
         </h3>
+    </xsl:template>
+    
+    <xsl:template match="aff" mode="xref">
+        <strong><xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">Affiliation</xsl:with-param>
+        </xsl:apply-templates>: </strong><xsl:apply-templates select="."/>
     </xsl:template>
     
     <xsl:template match="aff//*" mode="aff">

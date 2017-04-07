@@ -10,34 +10,34 @@
 
     <xsl:variable name="document" select="./article"/>
     <xsl:include href="generic.xsl"/>
-
     <xsl:include href="config-labels.xsl"/>
-
-    <xsl:include href="functions-block.xsl"/>
 
     <xsl:include href="journal-meta.xsl"/>
     
     <xsl:include href="article-meta.xsl"/>
+    <xsl:include href="article-meta-history.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
 
     <xsl:include href="article-text.xsl"/>
+        
     <xsl:include href="article-text-graphic.xsl"/>
+
     <xsl:include href="article-text-table.xsl"/>
     <xsl:include href="article-text-formula.xsl"/>
     <xsl:include href="article-text-fig.xsl"/>
     <xsl:include href="article-text-xref.xsl"/>
     <xsl:include href="article-text-fn.xsl"/>
-    <xsl:include href="article-text-ref.xsl"/>
+
     <xsl:include href="article-text-back.xsl"/>
+    <xsl:include href="article-text-ref.xsl"/>
     
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
     <xsl:include href="html-modals-figs.xsl"/>
-    
     <xsl:include href="html-head.xsl"/>
-
+    
     <xsl:template match="/">
         <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
         <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->

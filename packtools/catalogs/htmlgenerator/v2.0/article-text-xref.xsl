@@ -7,9 +7,8 @@
     <xsl:template match="xref">
         <a href="#{@rid}" class="goto"><xsl:apply-templates></xsl:apply-templates></a>
     </xsl:template>
-    
     <xsl:template match="xref[@ref-type='equation' or @ref-type='disp-formula']">
-        <a href="#{@id}" class="goto"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
+        <a href="#{@rid}" class="goto"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
     </xsl:template>
     
     <xsl:template match="xref[@ref-type='fig']">
@@ -37,13 +36,13 @@
     </xsl:template>
     
     <xsl:template match="xref[@ref-type='bibr']">
-        <xsl:param name="position"></xsl:param>
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <xsl:variable name="text"><xsl:value-of select="text()"/></xsl:variable>
+        <xsl:variable name="elem"><xsl:choose>
+            <xsl:when test="contains('1234567890',substring($text,1,1))">sup</xsl:when>
+            <xsl:otherwise>strong</xsl:otherwise>
+        </xsl:choose></xsl:variable>
         <span class="ref">
-            <xsl:variable name="elem"><xsl:choose>
-                <xsl:when test="@ref-type='bibr'">strong</xsl:when>
-                <xsl:otherwise>sup</xsl:otherwise>
-            </xsl:choose></xsl:variable>
             <xsl:element name="{$elem}">
                 <xsl:attribute name="class">xref</xsl:attribute>
                 <xsl:apply-templates select="sup|text()"></xsl:apply-templates>
@@ -53,5 +52,6 @@
             </span>
         </span>
     </xsl:template>
+    
     
 </xsl:stylesheet>
