@@ -24,7 +24,8 @@
    
     <xsl:template match="article-id[@pub-id-type='doi']" mode="display">
         <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
-        <span class="doi"><a href="{$link}"><xsl:value-of select="$link"/></a></span>
+        <span>
+            <span class="doi"><xsl:value-of select="$link"/></span></span>
         <label class="showTooltip copyLink" data-placement="left">
             <xsl:attribute name="title">
                 <xsl:apply-templates select="." mode="interface">
@@ -44,6 +45,7 @@
     </xsl:template>
     
     <xsl:template match="article" mode="issue-meta-pub-dates">
+        
         <xsl:choose>
             <xsl:when test=".//article-meta/pub-date[@pub-type='collection']">
                 <xsl:apply-templates  select=".//article-meta/pub-date[@pub-type='collection']"></xsl:apply-templates>

@@ -15,7 +15,11 @@
     <xsl:template match="*" mode="node-name"><xsl:value-of select="name()"/></xsl:template>
     
     <xsl:template match="ref">
-        <xsl:comment>  <xsl:apply-templates select="mixed-citation"/> </xsl:comment>
+        <xsl:if test="not(contains(.,'-'))">        <xsl:comment>  
+            <xsl:apply-templates select="mixed-citation"/> ??? 
+        </xsl:comment>
+        </xsl:if>
+        
         <li>
             <xsl:if test="label">
                 <xsl:apply-templates select="label"></xsl:apply-templates>
@@ -47,7 +51,14 @@
     </xsl:template>
     
     <xsl:template match="mixed-citation[*]/text() | mixed-citation[not(*)]/text()">
-        <xsl:if test="position()=1"><xsl:comment> <xsl:value-of select="."/> </xsl:comment></xsl:if>
+        <xsl:if test="position()=1">
+            <xsl:if test="not(contains(.,'-'))">
+            <xsl:comment> 
+                <xsl:value-of select="."/>  ??? 
+                
+            </xsl:comment>
+        </xsl:if>
+        </xsl:if>
         <xsl:variable name="label">
             <xsl:if test="position()=1">
                 <xsl:choose>

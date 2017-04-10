@@ -4,7 +4,7 @@
     exclude-result-prefixes="xlink mml">
 
 
-    <xsl:output method="html" indent="yes" encoding="UTF-8" omit-xml-declaration="no"/>
+    <xsl:output method="html" indent="yes"  encoding="UTF-8" omit-xml-declaration="no" xml:space="preserve" />
 
     <xsl:include href="config-vars.xsl"/>
 
@@ -97,7 +97,8 @@
                     <div class="articleMeta">
                         <div>
                             <!-- FIXME -->
-                            <xsl:apply-templates select="." mode="article-meta-pub-dates"/>
+                            <span>
+                                <xsl:apply-templates select="." mode="article-meta-pub-dates"/></span>
                             <xsl:apply-templates select="." mode="article-meta-license"/>
                         </div>
                         <div>
@@ -110,7 +111,9 @@
 
                     <div class="row">
                         <ul class="col-md-2 hidden-sm articleMenu">
-                            <xsl:comment> </xsl:comment>
+                            <xsl:comment> 
+                            x
+                            </xsl:comment>
                         </ul>
 
                         <xsl:apply-templates select="." mode="text"/>

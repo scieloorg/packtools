@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    version="1.0">
+    version="1.0"
+    xmlns:xlink="http://www.w3.org/1999/xlink" >
     
     <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
     <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
@@ -168,7 +169,14 @@
    </xsl:template>
     
     <xsl:template match="ext-link">
-        <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
+        <xsl:choose>
+            <xsl:when test="@xlink:href">
+                <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="email">

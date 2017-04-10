@@ -6,6 +6,7 @@
   exclude-result-prefixes="xlink mml">
 
     <xsl:template match="graphic">
+        
         <xsl:choose>
             <xsl:when test="substring(@xlink:href,string-length(@xlink:href)-2)='svg'">
                 <object type="image/svg+xml">
