@@ -13,6 +13,9 @@ History
   ``packtools.domain.SchematronValidator``).
 * The stylechecker utility exits 0 on success, and >0 if an error occurs
   [https://github.com/scieloorg/packtools/issues/118].
+* The values in attribute ``@country`` are checked against ISO3166 alpha-2 
+  list.
+
 
 
 1.5 (2017-04-03)
