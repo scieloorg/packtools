@@ -32,6 +32,7 @@
         <xsl:variable name="id">
             <xsl:value-of select="position()"/>
         </xsl:variable>
+        
         <span class="dropdown">
             <a id="contribGroupTutor{$id}" class="dropdown-toggle" data-toggle="dropdown">
                 <span>

@@ -17,7 +17,6 @@
                 <strong><xsl:apply-templates select="label"/></strong><br/>
                 <xsl:apply-templates select="caption"/>
             </div>
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </div>
     </xsl:template>
     <xsl:template match="table-wrap/table| table/* | table/*/* | table/*/*/*">

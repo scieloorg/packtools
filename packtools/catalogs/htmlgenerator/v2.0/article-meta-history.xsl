@@ -63,8 +63,12 @@
     
     <xsl:template match="*" mode="publication-date">
         <xsl:if test=".//article-meta/pub-date[@pub-type='epub-ppub'] or .//article-meta/pub-date[@pub-type='ppub'] or .//article-meta/pub-date[@pub-type='collection']">
-            <li><strong><xsl:apply-templates select="." mode="text-labels">
-                <xsl:with-param name="text">Issue publication</xsl:with-param>
+            <li><strong>
+                <xsl:apply-templates select="." mode="text-labels">
+                <xsl:with-param name="text"><xsl:choose>
+                    <xsl:when test=".//article-meta/pub-date[@pub-type='epub-ppub']">Publication</xsl:when>
+                    <xsl:otherwise>Issue publication</xsl:otherwise>
+                </xsl:choose></xsl:with-param>
             </xsl:apply-templates></strong><br/> 
                 <xsl:choose>
                     <xsl:when test=".//article-meta/pub-date[@pub-type='epub-ppub']">

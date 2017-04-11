@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="fig | fig-group" mode="modal">
-        <div class="modal fade ModalFigs" id="ModalScheme{@id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade ModalFigs" id="ModalFig{@id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -15,21 +15,35 @@
                             </span>
                         </button>
                         <!-- FIXME -->
-                        <a class="link-newWindow showTooltip" href="../static/trash/1516-1439-mr-1516-1439321614-sch01.jpg" target="_blank" data-placement="left" title="Abrir em nova janela">
+                        <a class="link-newWindow showTooltip" target="_blank" data-placement="left">
+                            <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
+                                <xsl:with-param name="text">Open new window</xsl:with-param>
+                            </xsl:apply-templates></xsl:attribute>
+                            <xsl:attribute name="href"><xsl:apply-templates select="." mode="file-location"/></xsl:attribute>
+                            
                             <span class="sci-ico-newWindow"></span>
                         </a>
-                        <h4 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="label"></xsl:apply-templates></h4>
+                        <h4 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="." mode="label-caption"></xsl:apply-templates></h4>
                         
                     </div>
                     <div class="modal-body">
-                        <xsl:apply-templates select="graphic"></xsl:apply-templates>
+                        <xsl:choose>
+                            <xsl:when test="fig">
+                                <xsl:apply-templates select="fig"/>
+                            </xsl:when>
+                            <xsl:when test="graphic">
+                                <xsl:apply-templates select="graphic"></xsl:apply-templates>
+                            </xsl:when>
+                            
+                        </xsl:choose>
                     </div>
                     <div class="modal-footer">
-                        <xsl:apply-templates select="caption"></xsl:apply-templates>
+                        <xsl:apply-templates select="attrib"></xsl:apply-templates>
                     </div>
                 </div>
             </div>
         </div>
     </xsl:template>
+    
     
 </xsl:stylesheet>

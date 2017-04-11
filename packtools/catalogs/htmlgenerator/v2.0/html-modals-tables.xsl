@@ -16,31 +16,33 @@
                             </span>
                         </button>
                         <!-- FIXME -->
-                        <a class="link-newWindow showTooltip" href="article-table2.html" target="_blank"  data-placement="left">
+                        <!-- a class="link-newWindow showTooltip" href="" target="_blank"  data-placement="left">
                             <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
                                 <xsl:with-param name="text">Open new window</xsl:with-param>
                             </xsl:apply-templates></xsl:attribute>
-                            <span class="sci-ico-newWindow"></span></a>
-                        <h4 class="modal-title"><span class="sci-ico-fileTable"></span> <xsl:apply-templates select="label"/></h4>
+                            <span class="sci-ico-newWindow"></span></a -->
+                        <h4 class="modal-title"><span class="sci-ico-fileTable"></span> <xsl:apply-templates select="." mode="label-caption"/></h4>
                     </div>
                     <div class="modal-body">
                         <xsl:choose>
                             <xsl:when test="table">
-                                <xsl:copy-of select="table"/>
+                                <xsl:apply-templates select="table"/>
                             </xsl:when>
                             <xsl:when test="graphic">
                                 <xsl:apply-templates select="graphic"></xsl:apply-templates>
                             </xsl:when>
                             <xsl:when test="alternatives">
-                                <!-- FIXME -->
-                                <xsl:copy-of select="alternatives/table"/>
+                                <xsl:apply-templates select="alternatives"/>
                             </xsl:when>
                         </xsl:choose>
                     </div>
+                    <xsl:apply-templates select="table-wrap-foot"></xsl:apply-templates>
                 </div>
             </div>
         </div>          
     </xsl:template>
     
-    
+    <xsl:template match="table-wrap/alternatives">
+        <xsl:apply-templates select="table"></xsl:apply-templates>
+    </xsl:template>
 </xsl:stylesheet>

@@ -30,6 +30,12 @@
         </xsl:apply-templates>
     </xsl:template>
         
+    <xsl:template match="*" mode="label">
+        <xsl:comment> *, mode=label </xsl:comment>
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text"><xsl:value-of select="name()"/></xsl:with-param>            
+        </xsl:apply-templates>
+    </xsl:template>
     <xsl:template match="body" mode="label">
         <xsl:apply-templates select="." mode="text-labels">
             <xsl:with-param name="text">Text</xsl:with-param>            
@@ -131,4 +137,52 @@
             <xsl:with-param name="text"><xsl:value-of select="@date-type"/></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
+    
+    <xsl:template match="*" mode="data-anchor">
+        <xsl:choose>
+            <xsl:when test="label">
+                <xsl:apply-templates select="label"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="title">
+                <xsl:apply-templates select="title"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="label"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="title">
+        <xsl:comment> * mode=title </xsl:comment>
+        <xsl:apply-templates select="label"/>
+        <xsl:if test="label and title"> &#160; </xsl:if>
+        <xsl:apply-templates select="title"/>
+        <xsl:if test="not(label) and not(title)">
+            <xsl:apply-templates select="." mode="label"/></xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="ref-list" mode="data-anchor">
+        <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="ref-list" mode="title">
+        <xsl:choose>
+            <xsl:when test="$article/@xml:lang=$TEXT_LANG and title">
+                <xsl:apply-templates select="title"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">ref-list</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="label-caption">
+        <xsl:comment> * mode=label-caption </xsl:comment>
+        <strong><xsl:apply-templates select="label"/></strong>
+        <xsl:if test="label and caption"> &#160; </xsl:if>
+        <xsl:apply-templates select="caption"/>
+    </xsl:template>
+    
 </xsl:stylesheet>

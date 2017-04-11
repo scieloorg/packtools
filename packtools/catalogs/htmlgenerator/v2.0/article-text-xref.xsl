@@ -30,7 +30,7 @@
         <span class="ref footnote">
             <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
             <span class="refCtt closed">
-                <xsl:apply-templates select="$document//fn[@id=$id]" mode="xref"></xsl:apply-templates>
+                <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
             </span>
         </span>
     </xsl:template>
@@ -48,7 +48,7 @@
                 <xsl:apply-templates select="sup|text()"></xsl:apply-templates>
             </xsl:element>
             <span class="refCtt closed">
-                <xsl:apply-templates select="$document//ref[@id=$id]" mode="xref"></xsl:apply-templates>
+                <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"></xsl:apply-templates>
             </span>
         </span>
     </xsl:template>

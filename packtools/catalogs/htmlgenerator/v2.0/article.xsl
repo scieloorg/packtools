@@ -8,7 +8,7 @@
 
     <xsl:include href="config-vars.xsl"/>
 
-    <xsl:variable name="document" select="./article"/>
+    <xsl:variable name="article" select="./article"/>
     <xsl:include href="generic.xsl"/>
     <xsl:include href="config-labels.xsl"/>
 
@@ -27,10 +27,10 @@
     <xsl:include href="article-text-formula.xsl"/>
     <xsl:include href="article-text-fig.xsl"/>
     <xsl:include href="article-text-xref.xsl"/>
-    <xsl:include href="article-text-fn.xsl"/>
-
+    
     <xsl:include href="article-text-back.xsl"/>
     <xsl:include href="article-text-ref.xsl"/>
+    <xsl:include href="article-text-fn.xsl"/>
     
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>

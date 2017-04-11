@@ -66,14 +66,7 @@
             </xsl:apply-templates>
         </article>
     </xsl:template>
-    
-    <xsl:template match="*" mode="title">
-        <xsl:apply-templates select="title"></xsl:apply-templates>
-        <xsl:if test="not(title)">
-            <xsl:apply-templates select="." mode="label"></xsl:apply-templates>
-        </xsl:if>
-    </xsl:template>
-    
+        
     <xsl:template match="*" mode="text-body">
         <div class="articleSection">
             <xsl:attribute name="data-anchor">
@@ -165,7 +158,7 @@
     </xsl:template>
     
     <xsl:template match="article" mode="sub-articles">
-       <xsl:apply-templates select="sub-articles[@article-type!='translation' and (@xml:lang=$TEXT_LANG or not(@xml:lang))]"></xsl:apply-templates>
+       <xsl:apply-templates select="sub-articles[@article-type!='translation' and (@xml:lang=$TEXT_LANG or not(@xml:lang))]|*[name()!='front' and name()!='body' and name()!='back' and name()!='sub-article']"></xsl:apply-templates>
    </xsl:template>
     
     <xsl:template match="ext-link">

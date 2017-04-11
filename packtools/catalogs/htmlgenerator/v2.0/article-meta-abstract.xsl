@@ -14,17 +14,13 @@
     
     <xsl:template match="abstract | trans-abstract" mode="layout">
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="title"></xsl:apply-templates><xsl:if test="not(title)">
-            <xsl:apply-templates select="." mode="label"></xsl:apply-templates></xsl:if></xsl:attribute>
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="data-anchor"/></xsl:attribute>
          
             <a name="articleSection{position()-1}"></a>
             <div class="row">
                 <a name="resumo-heading-01"></a>
                 <div class="col-md-8 col-sm-8">
-                    <h1><xsl:choose>
-                        <xsl:when test="title"><xsl:apply-templates select="title"></xsl:apply-templates></xsl:when>
-                        <xsl:otherwise><xsl:apply-templates select="." mode="label"></xsl:apply-templates></xsl:otherwise>
-                    </xsl:choose></h1>
+                    <h1><xsl:apply-templates select="." mode="title"></xsl:apply-templates></h1>
                 </div>
             </div>
             <xsl:apply-templates select="*[name()!='title']"/>

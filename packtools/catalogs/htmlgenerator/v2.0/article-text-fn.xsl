@@ -29,16 +29,13 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="back/fn" mode="content">
+    <xsl:template match="back/fn" mode="back-section-content">
         <ul class="refList footnote">
             <xsl:apply-templates select="."></xsl:apply-templates>
         </ul>
     </xsl:template>
     
-    <xsl:template match="fn-group/title" mode="content">
-    </xsl:template>
-    
-    <xsl:template match="back/fn-group" mode="content">
+    <xsl:template match="back/fn-group" mode="back-section-content">
         <ul class="refList footnote">
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </ul>
