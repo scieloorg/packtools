@@ -15,6 +15,9 @@ History
   [https://github.com/scieloorg/packtools/issues/118].
 * The values in attribute ``@country`` are checked against ISO3166 alpha-2 
   list.
+* Fixes a bug that would cause element's text to be printed out on error 
+  messages instead of the element's name
+  [https://github.com/scieloorg/packtools/issues/123].
 
 
 
