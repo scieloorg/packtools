@@ -21,8 +21,9 @@
 
     <xsl:include href="article-text.xsl"/>
         
+    <xsl:include href="article-text-boxed-text.xsl"/>
+    
     <xsl:include href="article-text-graphic.xsl"/>
-
     <xsl:include href="article-text-table.xsl"/>
     <xsl:include href="article-text-formula.xsl"/>
     <xsl:include href="article-text-fig.xsl"/>
@@ -31,6 +32,9 @@
     <xsl:include href="article-text-back.xsl"/>
     <xsl:include href="article-text-ref.xsl"/>
     <xsl:include href="article-text-fn.xsl"/>
+    <xsl:include href="article-text-bio.xsl"/>
+    
+    <xsl:include href="article-text-sub-article.xsl"/>
     
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
@@ -116,7 +120,18 @@
                             </xsl:comment>
                         </ul>
 
-                        <xsl:apply-templates select="." mode="text"/>
+                        <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+                            <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="sub-articles"></xsl:apply-templates>
+                            
+                            <xsl:apply-templates select="." mode="dates-notes">
+                                <xsl:with-param name="position">
+                                    <xsl:value-of select="$q_abstracts + count(./body) + $q_back"/>
+                                </xsl:with-param>
+                            </xsl:apply-templates>
+                        </article>
                     </div>
                 </div>
             </div>

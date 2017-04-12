@@ -158,7 +158,8 @@
         <xsl:if test="label and title"> &#160; </xsl:if>
         <xsl:apply-templates select="title"/>
         <xsl:if test="not(label) and not(title)">
-            <xsl:apply-templates select="." mode="label"/></xsl:if>
+            <xsl:apply-templates select="." mode="label"/>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="ref-list" mode="data-anchor">

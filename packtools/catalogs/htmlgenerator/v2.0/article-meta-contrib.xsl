@@ -5,15 +5,26 @@
             <xsl:when
                 test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//front-stub//contrib-group">
                 <xsl:apply-templates
-                    select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//front-stub//contrib-group"
-                />
+                    select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="contrib-group"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select=".//article-meta//contrib-group"/>
+                <xsl:apply-templates select="." mode="contrib-group"></xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    
+    <xsl:template match="article" mode="contrib-group">
+        <xsl:if test="not(body//sig)">
+            <xsl:apply-templates select=".//article-meta//contrib-group"/>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="sub-article" mode="contrib-group">
+        <xsl:if test="not(body//sig)">
+            <xsl:apply-templates select=".//front-stub//contrib-group"></xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template match="contrib-group">
         <div class="contribGroup">
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
@@ -27,6 +38,9 @@
             </xsl:if>
         </div>
     </xsl:template>
+    
+    <xsl:template match="sub-article[body//sig]//contrib-group">
+    </xsl:template>
 
     <xsl:template match="contrib" mode="article-meta-contrib">
         <xsl:variable name="id">
@@ -36,7 +50,7 @@
         <span class="dropdown">
             <a id="contribGroupTutor{$id}" class="dropdown-toggle" data-toggle="dropdown">
                 <span>
-                    <xsl:apply-templates select="name"/>
+                    <xsl:apply-templates select="name|collab"/>
                 </span>
             </a>
             <xsl:apply-templates select="." mode="contrib-dropdown-menu">

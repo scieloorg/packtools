@@ -29,6 +29,7 @@
         <xsl:variable name="ext"><xsl:if test="contains($s,'.')">.<xsl:value-of select="substring-after($s,'.')"/></xsl:if></xsl:variable>
         <xsl:choose>
             <xsl:when test="$ext='.tif' or $ext='.tiff'"><xsl:value-of select="substring-before(.,$ext)"/>.jpg</xsl:when>
+            <xsl:when test="$ext=''"><xsl:value-of select="."/>.jpg</xsl:when>
             <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
         </xsl:choose>      
     </xsl:template>

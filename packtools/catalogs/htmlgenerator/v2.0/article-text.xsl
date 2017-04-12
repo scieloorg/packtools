@@ -51,21 +51,6 @@
             <xsl:otherwise><xsl:value-of select="count(back/*)"/></xsl:otherwise>
         </xsl:choose>       
     </xsl:template>
-    
-    <xsl:template match="article" mode="text">
-        <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
-            <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
-            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
-            <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
-            <xsl:apply-templates select="." mode="sub-articles"></xsl:apply-templates>
-            
-            <xsl:apply-templates select="." mode="dates-notes">
-                <xsl:with-param name="position">
-                    <xsl:value-of select="$q_abstracts + count(./body) + $q_back"/>
-                </xsl:with-param>
-            </xsl:apply-templates>
-        </article>
-    </xsl:template>
         
     <xsl:template match="*" mode="text-body">
         <div class="articleSection">
@@ -158,8 +143,26 @@
     </xsl:template>
     
     <xsl:template match="article" mode="sub-articles">
-       <xsl:apply-templates select="sub-articles[@article-type!='translation' and (@xml:lang=$TEXT_LANG or not(@xml:lang))]|*[name()!='front' and name()!='body' and name()!='back' and name()!='sub-article']"></xsl:apply-templates>
-   </xsl:template>
+        <xsl:comment> sub-article </xsl:comment>
+        <xsl:apply-templates select=".//sub-article" mode="debug"></xsl:apply-templates>
+        
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type!='translation']">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type!='translation']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:apply-templates select=".//sub-article[@article-type!='translation']"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="sub-article" mode="debug">
+        <xsl:comment> sub-article debug</xsl:comment>
+        <xsl:comment>
+        <xsl:value-of select="@article-type"/>|
+        <xsl:value-of select="@xml:lang"/>
+        </xsl:comment>
+    </xsl:template>
     
     <xsl:template match="ext-link">
         <xsl:choose>

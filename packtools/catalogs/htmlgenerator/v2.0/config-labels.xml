@@ -51,6 +51,12 @@
         <name lang="es">Referencias bibliográficas</name>
     </term>
     <term>
+        <name>bio</name>
+        <name lang="en">Biography</name>
+        <name lang="pt">Biografia</name>
+        <name lang="es">Biografía</name>
+    </term>
+    <term>
         <name>History</name>
         <name lang="pt">Histórico</name>
         <name lang="es">Histórico</name>
