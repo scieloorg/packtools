@@ -9,6 +9,7 @@
     <xsl:include href="config-vars.xsl"/>
 
     <xsl:variable name="article" select="./article"/>
+    
     <xsl:include href="generic.xsl"/>
     <xsl:include href="config-labels.xsl"/>
 
@@ -18,10 +19,13 @@
     <xsl:include href="article-meta-history.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
-
+    <xsl:include href="article-meta-product.xsl"/>
+    
     <xsl:include href="article-text.xsl"/>
         
     <xsl:include href="article-text-boxed-text.xsl"/>
+    <xsl:include href="article-text-list.xsl"/>
+    <xsl:include href="article-text-supplementary-material.xsl"/>
     
     <xsl:include href="article-text-graphic.xsl"/>
     <xsl:include href="article-text-table.xsl"/>
@@ -115,17 +119,16 @@
 
                     <div class="row">
                         <ul class="col-md-2 hidden-sm articleMenu">
-                            <xsl:comment> 
-                            x
-                            </xsl:comment>
+                            
                         </ul>
 
                         <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+                            <xsl:apply-templates select="." mode="article-meta-product"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>                            
                             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="sub-articles"></xsl:apply-templates>
-                            
+                            <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="sub-articles"></xsl:apply-templates>                            
                             <xsl:apply-templates select="." mode="dates-notes">
                                 <xsl:with-param name="position">
                                     <xsl:value-of select="$q_abstracts + count(./body) + $q_back"/>
@@ -137,4 +140,5 @@
             </div>
         </section>
     </xsl:template>
+    
 </xsl:stylesheet>

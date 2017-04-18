@@ -3,13 +3,36 @@
     version="1.0">
     
     <xsl:template match="ref-list" mode="back-section-content">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 ref-list">
-                <ul class="refList">
-                    <xsl:apply-templates select="ref"></xsl:apply-templates>
-                </ul>
-            </div>
-        </div>        
+        <xsl:apply-templates select="."></xsl:apply-templates>
+    </xsl:template>
+   
+    <xsl:template match="ref-list">
+        <xsl:choose>
+            <xsl:when test="ref-list">
+                <xsl:apply-templates select="*"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 ref-list">
+                        <ul class="refList">
+                            <xsl:apply-templates select="." mode="ref-items"></xsl:apply-templates>
+                        </ul>
+                    </div>
+                </div>   
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="ref-list" mode="ref-items">
+        <xsl:apply-templates select="ref"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="sub-article[@article-type='translation']/back//ref-list[ref]" mode="ref-items">
+        <xsl:apply-templates select="$article/back/ref-list/ref"/>
+    </xsl:template>
+    
+    <xsl:template match="sub-article[@article-type='translation']/response/back//ref-list[ref]" mode="ref-items">
+        <xsl:apply-templates select="$article/response/back/ref-list/ref"/>
     </xsl:template>
     
     <xsl:template match="ref">
@@ -69,16 +92,6 @@
         <sup class="xref big"><xsl:value-of select="."/></sup>
     </xsl:template>
     
-    <xsl:template match="person-group">
-        <xsl:apply-templates select="name"></xsl:apply-templates><xsl:choose>
-            <xsl:when test="position()=last()">. </xsl:when>
-            <xsl:otherwise>; </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="person-group/name">
-        <xsl:apply-templates select="surname"></xsl:apply-templates>, <xsl:apply-templates select="given-names"></xsl:apply-templates>
-    </xsl:template>
-    
     <xsl:template match="ref" mode="url">
         <xsl:choose>
             <xsl:when test=".//ext-link"><xsl:value-of select=".//ext-link[1]"/></xsl:when>
@@ -87,32 +100,6 @@
             <xsl:when test=".//comment[contains(.,'doi:')]">https://doi.org/<xsl:value-of select="normalize-space(substring-after(.//comment[contains(.,'doi:')],'doi:'))"/></xsl:when>
             <xsl:when test=".//comment[contains(.,'DOI:')]">https://doi.org/<xsl:value-of select="normalize-space(substring-after(.//comment[contains(.,'DOI:')],'DOI:'))"/></xsl:when>
         </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="ref" mode="xref">
-        <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
-        <xsl:choose>
-            <xsl:when test="$url!=''">
-                <a href="{normalize-space($url)}" target="_blank">
-                    <xsl:apply-templates select="mixed-citation" mode="xref"></xsl:apply-templates>
-                </a>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="mixed-citation" mode="xref"></xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="mixed-citation" mode="xref">
-        <xsl:apply-templates select="*|text()" mode="xref"/>
-    </xsl:template>
-    
-    <xsl:template match="mixed-citation//*" mode="xref">
-        <xsl:apply-templates select="*|text()" mode="xref"/>
-    </xsl:template>
-    
-    <xsl:template match="ext-link | pub-id | comment" mode="xref">
-        <xsl:value-of select="."/>
     </xsl:template>
     
     <xsl:template match="mixed-citation//ext-link">

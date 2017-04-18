@@ -6,7 +6,17 @@
     exclude-result-prefixes="xlink mml"
     version="1.0">
     
-    <xsl:template match="fig[graphic]|fig-group">
+    <xsl:template match="fig-group">
+        <xsl:choose>
+            <xsl:when test="fig[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="fig[1]"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="fig[graphic]">
         <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"></xsl:apply-templates></xsl:variable>
         <div class="row fig" id="{@id}">
             <a name="{@id}"></a>

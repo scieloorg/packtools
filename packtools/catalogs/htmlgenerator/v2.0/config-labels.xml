@@ -7,13 +7,18 @@
     </term>
     <term>
         <name>Online publication</name>
-        <name lang="pt">Epub</name>
-        <name lang="es">Epub</name>
+        <name lang="pt">Publicação Online</name>
+        <name lang="es">Publicación en línea</name>
+    </term>
+    <term>
+        <name>Publication</name>
+        <name lang="pt">Publicação</name>
+        <name lang="es">Publicación</name>
     </term>
     <term>
         <name>Issue publication</name>
         <name lang="pt">Publicação em número</name>
-        <name lang="es">Publicación en número</name>
+        <name lang="es">Publicación em número</name>
     </term>
     <term>
         <name>Print</name>
@@ -103,5 +108,11 @@
         <name>Affiliation</name>
         <name lang="pt">Afiliação</name>
         <name lang="es">Afiliación</name>        
+    </term>
+    <term>
+        <name>corresp</name>
+        <name lang="en">Correspondence</name>
+        <name lang="pt">Correspondência</name>
+        <name lang="es">Correspondencia</name>        
     </term>
 </labels>

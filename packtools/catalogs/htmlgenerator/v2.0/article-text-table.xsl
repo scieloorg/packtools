@@ -36,10 +36,26 @@
     <xsl:template match="table-wrap/label">
         <strong><xsl:apply-templates></xsl:apply-templates> </strong>
     </xsl:template>
-    <xsl:template match="table-wrap/table-wrap-foot">
-        <div class="footnotes">
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+    <xsl:template match="table-wrap-foot">
+        <div class="ref-list">
+            <ul class="refList footnote">
+                <xsl:apply-templates select="*"></xsl:apply-templates>
+            </ul>
         </div>
     </xsl:template>
+    <xsl:template match="table-wrap-foot/fn">
+        <li>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </li>     
+    </xsl:template>
+    <xsl:template match="table-wrap-foot/fn/label">
+        <sup class="xref big"><xsl:value-of select="."/></sup>
+    </xsl:template>
+    <xsl:template match="table-wrap-foot/fn/p">
+        <div>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </div>
+    </xsl:template>
+   
     
 </xsl:stylesheet>

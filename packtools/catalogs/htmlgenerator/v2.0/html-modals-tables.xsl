@@ -36,7 +36,9 @@
                             </xsl:when>
                         </xsl:choose>
                     </div>
-                    <xsl:apply-templates select="table-wrap-foot"></xsl:apply-templates>
+                    <div class="modal-footer">
+                        <xsl:apply-templates select="table-wrap-foot"></xsl:apply-templates>
+                    </div>
                 </div>
             </div>
         </div>          

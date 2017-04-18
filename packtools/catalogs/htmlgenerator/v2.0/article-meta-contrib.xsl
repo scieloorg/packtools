@@ -48,9 +48,13 @@
         </xsl:variable>
         
         <span class="dropdown">
-            <a id="contribGroupTutor{$id}" class="dropdown-toggle" data-toggle="dropdown">
+            <a id="contribGroupTutor{$id}">
+                <xsl:if test="role or xref or contrib-id">
+                    <xsl:attribute name="class">dropdown-toggle</xsl:attribute>
+                    <xsl:attribute name="data-toggle">dropdown</xsl:attribute>
+                </xsl:if>
                 <span>
-                    <xsl:apply-templates select="name|collab"/>
+                    <xsl:apply-templates select="name|collab|on-behalf-of"/>
                 </span>
             </a>
             <xsl:apply-templates select="." mode="contrib-dropdown-menu">
@@ -63,18 +67,11 @@
 
     <xsl:template match="contrib" mode="contrib-dropdown-menu">
         <xsl:param name="id"/>
-        <xsl:if test="*[name()!='name']">
+        <xsl:if test="role or xref or contrib-id">
             <ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor{$id}">
                 <xsl:apply-templates select="role"/>
                 <xsl:apply-templates select="xref"/>
-                <xsl:text>
-                    
-                </xsl:text>
-                <!-- <xsl:apply-templates select="author-notes"/>
-                <xsl:if test="not(author-notes)"><xsl:apply-templates select="../..//author-notes"></xsl:apply-templates></xsl:if>
-                -->
                 <xsl:apply-templates select="contrib-id"/>
-
             </ul>
         </xsl:if>
     </xsl:template>
@@ -87,12 +84,6 @@
         <xsl:apply-templates select="surname"/>
         <xsl:text> </xsl:text>
         <xsl:apply-templates select="suffix"/>
-    </xsl:template>
-
-    <xsl:template match="contrib/xref">
-        <xsl:variable name="rid" select="@rid"/>
-        <xsl:apply-templates select="../../..//aff[@id=$rid]" mode="xref"/>
-        <xsl:apply-templates select="../../..//fn[@id=$rid]" mode="xref"/>
     </xsl:template>
 
     <xsl:template match="contrib-id">
@@ -117,49 +108,6 @@
         >https://www.scopus.com/authid/detail.uri?authorId=</xsl:template>
     <xsl:template match="contrib-id[@contrib-id-type='researchid']" mode="url"
         >http://www.researcherid.com/rid/</xsl:template>
-
-    <xsl:template match="corresp/label">
-        <span>
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
-
-    <xsl:template match="author-notes/fn | author-notes/corresp">
-        <div class="info">
-            <xsl:apply-templates select="*|text()"/>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="author-notes//label">
-        <h3>
-            <xsl:apply-templates select="*|text()"/>
-        </h3>
-    </xsl:template>
-
-    <xsl:template match="fn[@fn-type]" mode="author-notes">
-        <xsl:if
-            test="not(contains('abbr|financial-disclosure|other|presented-at|supplementary-material|supported-by',@fn-type))">
-            <xsl:apply-templates select="*" mode="author-notes"/>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="label" mode="author-notes">
-        <h3>
-            <xsl:apply-templates select="*|text()"/>
-        </h3>
-    </xsl:template>
-
-    <xsl:template match="aff" mode="xref">
-        <strong>
-            <xsl:apply-templates select="." mode="text-labels">
-                <xsl:with-param name="text">Affiliation</xsl:with-param>
-            </xsl:apply-templates>
-        </strong>
-        <xsl:text>
-            
-        </xsl:text>
-        <xsl:apply-templates select="."/>
-    </xsl:template>
 
     <xsl:template match="aff//*" mode="aff">
         <xsl:apply-templates select="*|text()" mode="aff"/>

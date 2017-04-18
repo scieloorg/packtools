@@ -9,7 +9,7 @@
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                 <xsl:with-param name="text">History</xsl:with-param>
                 </xsl:apply-templates></xsl:attribute>
-            <a name="articleSection{$body_index + $q_back + 1}"></a>
+            <a name="articleSection{$body_index + $q_back + $q_body_fn + $q_subarticle + 1}"></a>
             
             <div class="row">
                 <div class="col-md-12 col-sm-12">

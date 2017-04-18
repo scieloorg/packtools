@@ -53,5 +53,67 @@
         </span>
     </xsl:template>
     
+    <xsl:template match="contrib/xref">
+        <xsl:variable name="rid" select="@rid"/>
+        <xsl:apply-templates select="$article//aff[@id=$rid]" mode="xref"/>
+        <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>)
+    </xsl:template>
     
+    <xsl:template match="text()" mode="xref">
+        <xsl:value-of select="."/>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="xref">
+        <xsl:apply-templates select="*|text()" mode="xref"/>
+    </xsl:template>
+    
+    <xsl:template match="aff" mode="xref">
+        <strong>
+            <xsl:apply-templates select="." mode="text-labels">
+                <xsl:with-param name="text">Affiliation</xsl:with-param>
+            </xsl:apply-templates>
+        </strong>
+        <xsl:text>
+            
+        </xsl:text>
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    
+    <xsl:template match="fn" mode="xref">
+        <xsl:apply-templates select="*|text()" mode="xref"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="fn/label" mode="xref">
+        <strong class="fn-title"><xsl:apply-templates select="*|text()" mode="xref"/></strong>
+    </xsl:template>
+    
+    <xsl:template match="fn/p" mode="xref">
+        <xsl:apply-templates select="*|text()" mode="xref"/>
+    </xsl:template>
+    
+    <xsl:template match="ref" mode="xref">
+        <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$url!=''">
+                <a href="{normalize-space($url)}" target="_blank">
+                    <xsl:apply-templates select="mixed-citation" mode="xref"></xsl:apply-templates>
+                </a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="mixed-citation" mode="xref"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="mixed-citation" mode="xref">
+        <xsl:apply-templates select="*|text()" mode="xref"/>
+    </xsl:template>
+    
+    <xsl:template match="mixed-citation//*" mode="xref">
+        <xsl:apply-templates select="*|text()" mode="xref"/>
+    </xsl:template>
+    
+    <xsl:template match="ext-link | pub-id | comment" mode="xref">
+        <xsl:value-of select="."/>
+    </xsl:template>
 </xsl:stylesheet>

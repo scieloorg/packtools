@@ -5,14 +5,10 @@
     
     <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
     <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_body_fn"><xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_subarticle"><xsl:apply-templates select="article" mode="count_subarticle"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_history">1</xsl:variable>
     <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
-    
-    
-    <xsl:template match="*" mode="list-item">
-        <li>
-            <xsl:apply-templates select="."></xsl:apply-templates>
-        </li>
-    </xsl:template>
     
     <xsl:template match="article" mode="count_abstracts">
         <xsl:choose>
@@ -37,6 +33,18 @@
             <xsl:otherwise>
                 <xsl:value-of select="count(back/*)"/>
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="article" mode="count_subarticle">
+        <xsl:value-of select="count(.//sub-article[@article-type!='translation' and @xml:lang=$TEXT_LANG])"/>
+    </xsl:template>
+    
+    <xsl:template match="article" mode="count_body_fn">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]//body//p/fn">1</xsl:when>
+            <xsl:when test="./body//p/fn">1</xsl:when>
+            <xsl:otherwise>0</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
@@ -70,9 +78,26 @@
         </div>
     </xsl:template>
     
+    <xsl:template match="sec[@id]" mode="number">
+        <xsl:param name="sec_id"/>
+        <xsl:if test="@id=$sec_id"><xsl:value-of select="number(position()-1)"/></xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="body" mode="number">
+        <xsl:param name="sec_id"/>
+        <xsl:apply-templates select=".//sec[@id and @sec-type]" mode="number">
+            <xsl:with-param name="sec_id"><xsl:value-of select="$sec_id"/></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    
     <xsl:template match="body/sec">
-        <xsl:param name="position"></xsl:param>
-        <a name="as{$body_index}-heading{position()-1}"/>
+        <xsl:param name="position"/>
+        <xsl:if test="@id and @sec-type">
+            <xsl:variable name="item"><xsl:apply-templates select="../../body" mode="number">
+                <xsl:with-param name="sec_id"><xsl:value-of select="@id"/></xsl:with-param>
+            </xsl:apply-templates></xsl:variable>
+            <a name="as{$body_index}-heading{$item}"/>
+        </xsl:if>
         
         <xsl:apply-templates>
             <xsl:with-param name="position" select="position()"></xsl:with-param>
@@ -111,72 +136,6 @@
         </h2>
     </xsl:template>
             
-    <xsl:template match="list">
-        <xsl:param name="position"></xsl:param>
-        
-        <xsl:choose>
-            <xsl:when test="@list-type='order'">
-                <ol>
-                    <xsl:apply-templates select="*">
-                        <xsl:with-param name="position" select="position()"></xsl:with-param>
-                    </xsl:apply-templates>
-                </ol>
-            </xsl:when>
-            <xsl:otherwise>
-                <ul>
-                    <xsl:apply-templates select="*">
-                        <xsl:with-param name="position" select="position()"></xsl:with-param>
-                    </xsl:apply-templates>
-                </ul>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
     
-    <xsl:template match="list-item">
-        <xsl:param name="position"></xsl:param>
-        
-        <li>
-            <xsl:apply-templates select="*|text()">
-                <xsl:with-param name="position" select="position()"></xsl:with-param>
-            </xsl:apply-templates>
-        </li>
-    </xsl:template>
-    
-    <xsl:template match="article" mode="sub-articles">
-        <xsl:comment> sub-article </xsl:comment>
-        <xsl:apply-templates select=".//sub-article" mode="debug"></xsl:apply-templates>
-        
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type!='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type!='translation']"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:apply-templates select=".//sub-article[@article-type!='translation']"></xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="sub-article" mode="debug">
-        <xsl:comment> sub-article debug</xsl:comment>
-        <xsl:comment>
-        <xsl:value-of select="@article-type"/>|
-        <xsl:value-of select="@xml:lang"/>
-        </xsl:comment>
-    </xsl:template>
-    
-    <xsl:template match="ext-link">
-        <xsl:choose>
-            <xsl:when test="@xlink:href">
-                <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="email">
-        <a href="mailto:{.}"><xsl:value-of select="."/></a>
-    </xsl:template>
     
 </xsl:stylesheet>
