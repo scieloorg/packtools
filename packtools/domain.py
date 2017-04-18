@@ -127,19 +127,24 @@ def XSLT(xslt_name):
 class PyValidator(object):
     """Style validations implemented in Python.
     """
-    def __init__(self, pipeline=checks.StyleCheckingPipeline):
+    def __init__(self, pipeline=checks.StyleCheckingPipeline, label=u''):
         self.ppl = pipeline()
+        self.label = label
 
     def validate(self, xmlfile):
         errors = next(self.ppl.run(xmlfile, rewrap=True))
+        for error in errors:
+            error.label = self.label
+
         return bool(errors), errors
 
 
 class DTDValidator(object):
     """DTD validations.
     """
-    def __init__(self, dtd):
+    def __init__(self, dtd, label=u''):
         self.dtd = dtd
+        self.label = label
 
     def validate(self, xmlfile):
         """Validate xmlfile against the given DTD.
@@ -147,7 +152,7 @@ class DTDValidator(object):
         Returns a tuple comprising the validation status and the errors list.
         """
         result = self.dtd.validate(xmlfile)
-        errors = [style_errors.SchemaStyleError(err)
+        errors = [style_errors.SchemaStyleError(err, label=self.label)
                   for err in self.dtd.error_log]
 
         return result, errors
@@ -156,17 +161,18 @@ class DTDValidator(object):
 class SchematronValidator(object):
     """Style validations implemented in Schematron.
     """
-    def __init__(self, sch):
+    def __init__(self, sch, label=u''):
         self.sch = sch
+        self.label = label
 
     @classmethod
-    def from_catalog(cls, ref):
+    def from_catalog(cls, ref, **kwargs):
         """Get an instance based on schema's reference name.
 
         :param ref: The reference name for the schematron file in 
                     :data:`packtools.catalogs.SCH_SCHEMAS`.
         """
-        return cls(StdSchematron(ref))
+        return cls(StdSchematron(ref), **kwargs)
 
     def validate(self, xmlfile):
         """Validate xmlfile against the given Schematron schema.
@@ -174,10 +180,29 @@ class SchematronValidator(object):
         Returns a tuple comprising the validation status and the errors list.
         """
         result = self.sch.validate(xmlfile)
-        errors = [style_errors.SchematronStyleError(err)
+        errors = [style_errors.SchematronStyleError(err, label=self.label)
                   for err in self.sch.error_log]
 
         return result, errors
+
+
+def iter_schematronvalidators(iterable):
+    """Returns a generator of :class:`packtools.domain.SchematronValidator`.
+
+    :param iterable: an iterable where each item follows one of the forms 
+                     ``Iterable[isoschematron.Schematron]`` or
+                     ``Iterable[Tuple[isoschematron.Schematron, str]]``. The
+                     latter sets the label attribute of the validator instance.
+    """
+    for item in iterable:
+        try:
+            sch_obj, sch_label = item
+        except TypeError:
+            sch_obj = item
+            sch_label = u''
+
+        validator = SchematronValidator(sch_obj, label=sch_label)
+        yield validator
 
 
 #--------------------------------
@@ -253,13 +278,16 @@ class XMLValidator(object):
         # get the right Schematron validator based on the value of ``sps_version``
         # and then mix it with the list of schemas supplied by the user.
         LOGGER.info('auto-loading style validations for version "%s"', sps_version)
+
+        auto_loaded_sch_label = u'@' + sps_version
         style_validators = [
-                SchematronValidator.from_catalog(sps_version),
-                PyValidator(),  # the python based validation pipeline
+                SchematronValidator.from_catalog(sps_version,
+                    label=auto_loaded_sch_label),
+                PyValidator(label=auto_loaded_sch_label),  # the python based validation pipeline
         ]
         if extra_sch_schemas:
-            style_validators += [SchematronValidator(sch) 
-                                 for sch in list(extra_sch_schemas)]
+            style_validators += list(
+                    iter_schematronvalidators(extra_sch_schemas))
 
         allowed_public_ids = _get_public_ids(sps_version)
 

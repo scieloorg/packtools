@@ -18,7 +18,10 @@ History
 * Fixes a bug that would cause element's text to be printed out on error 
   messages instead of the element's name
   [https://github.com/scieloorg/packtools/issues/123].
-
+* [Backwards incompatible] Major changes to the data structure returned by 
+  ``packtools.stylechecker.summarize`` and, as consequence, to the 
+  JSON-encoded data structure produced by the stylechecker command-line tool
+  [https://github.com/scieloorg/packtools/issues/75].
 
 
 1.5 (2017-04-03)
