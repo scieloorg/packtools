@@ -79,15 +79,23 @@
     </xsl:template>
     
     <xsl:template match="article" mode="article-meta-license">
-        <!-- FIXME -->
-        <xsl:apply-templates select=".//article-meta//license[1]/@xlink:href"></xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test=".//article-meta//license[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//article-meta//license[@xml:lang=$TEXT_LANG]"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//article-meta//license[@xml:lang='en']">
+                <xsl:apply-templates select=".//article-meta//license[@xml:lang='en']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//article-meta//license[1]"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>        
     </xsl:template>
     
-    <xsl:template match="license/@xlink:href">
+    <xsl:template match="license">
         <xsl:variable name="url">https://licensebuttons.net/l/</xsl:variable>
-        <xsl:variable name="icon"><xsl:value-of select="substring-after(.,'http://creativecommons.org/licenses/')"/></xsl:variable>
-        
-        • <img src="{$url}{$icon}/80x15.png"></img>
+        <xsl:variable name="icon"><xsl:value-of select="substring-after(@xlink:href,'http://creativecommons.org/licenses/')"/></xsl:variable>
+        • <a href="{@xlink:href}" target="_blank"><img src="{$url}{$icon}/80x15.png" alt="Creative Common - {$icon}"/> </a>
     </xsl:template>
        
 </xsl:stylesheet>
