@@ -25,6 +25,10 @@
         </a>        
     </xsl:template>
     
+    <xsl:template match="xref[@ref-type='fn']/sup | sup[xref[@ref-type='fn']]">
+        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+    </xsl:template>
+    
     <xsl:template match="xref[@ref-type='fn']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <span class="ref footnote">

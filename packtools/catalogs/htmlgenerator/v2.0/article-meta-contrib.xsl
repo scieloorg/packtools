@@ -56,6 +56,7 @@
                 <span>
                     <xsl:apply-templates select="name|collab|on-behalf-of"/>
                 </span>
+                
             </a>
             <xsl:apply-templates select="." mode="contrib-dropdown-menu">
                 <xsl:with-param name="id">

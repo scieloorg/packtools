@@ -95,6 +95,11 @@
         <name lang="es">Haz un clic para </name>       
     </term>
     <term>
+        <name>copy link</name>
+        <name lang="pt">copiar link</name>
+        <name lang="es">copiar enlace</name>        
+    </term>
+    <term>
         <name>copy URL</name>
         <name lang="pt">copiar URL</name>
         <name lang="es">copiar URL</name>        

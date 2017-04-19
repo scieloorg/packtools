@@ -181,9 +181,12 @@
     
     <xsl:template match="*" mode="label-caption">
         <xsl:comment> * mode=label-caption </xsl:comment>
-        <strong><xsl:apply-templates select="label"/></strong>
+        <xsl:apply-templates select="label"/>
         <xsl:if test="label and caption"> &#160; </xsl:if>
         <xsl:apply-templates select="caption"/>
     </xsl:template>
     
+    <xsl:template match="fn" mode="label">
+        
+    </xsl:template>
 </xsl:stylesheet>

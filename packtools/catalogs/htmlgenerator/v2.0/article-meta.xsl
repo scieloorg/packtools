@@ -38,7 +38,7 @@
             <span class="sci-ico-link hidden-sm hidden-md"></span> 
             <input type="text" name="link-share" class="fakeLink" data-clipboard-text="{$link}" data-toggle="tooltip" id="linkShare">
                 <xsl:attribute name="value"><xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">copy URL</xsl:with-param>
+                    <xsl:with-param name="text">copy link</xsl:with-param>
                 </xsl:apply-templates></xsl:attribute>
             </input>
         </label>
@@ -95,7 +95,7 @@
     <xsl:template match="license">
         <xsl:variable name="url">https://licensebuttons.net/l/</xsl:variable>
         <xsl:variable name="icon"><xsl:value-of select="substring-after(@xlink:href,'http://creativecommons.org/licenses/')"/></xsl:variable>
-        • <a href="{@xlink:href}" target="_blank"><img src="{$url}{$icon}/80x15.png" alt="Creative Common - {$icon}"/> </a>
+        <a href="{@xlink:href}" target="_blank"><img src="{$url}{$icon}/80x15.png" alt="Creative Common - {$icon}"/> </a>
     </xsl:template>
        
 </xsl:stylesheet>

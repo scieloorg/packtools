@@ -23,8 +23,8 @@
                         <div class="modal-body">
                             <div class="info">
                                 <xsl:apply-templates select=".//article-meta//contrib" mode="modal-contrib"></xsl:apply-templates>
-                                <xsl:apply-templates select=".//article-meta//author-notes" mode="modal-contrib"></xsl:apply-templates>
                             </div>
+                            <xsl:apply-templates select=".//article-meta//author-notes" mode="modal-contrib"></xsl:apply-templates>
                         </div>
                     </div>
                 </div>
@@ -65,12 +65,20 @@
         </div>
     </xsl:template>
     
+    <xsl:template match="author-notes//fn/label" mode="modal-contrib">
+        <h3><xsl:apply-templates select="." mode="title"></xsl:apply-templates></h3>
+        
+    </xsl:template>
+    
+    <xsl:template match="author-notes//fn/p" mode="modal-contrib">
+        <xsl:apply-templates select="*|text()"/>
+    </xsl:template>
+    
     <xsl:template match="author-notes//fn" mode="modal-contrib">
         <xsl:variable name="id" select="@id"></xsl:variable>
         <xsl:if test="not($xref_fn[@rid=$id])">
             <div class="info">
-                <h3><xsl:apply-templates select="." mode="title"></xsl:apply-templates></h3>
-                <xsl:apply-templates select="*[name()!='label']|text()" mode="modal-contrib"></xsl:apply-templates>
+                <xsl:apply-templates select="*|text()" mode="modal-contrib"></xsl:apply-templates>
             </div>
         </xsl:if>
     </xsl:template>

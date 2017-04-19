@@ -4,7 +4,7 @@
     exclude-result-prefixes="xlink mml">
 
 
-    <xsl:output method="html" indent="yes"  encoding="UTF-8" omit-xml-declaration="no" xml:space="preserve" />
+    <xsl:output method="html" indent="yes"  encoding="UTF-8" omit-xml-declaration="no"  xml:space="default" />
 
     <xsl:include href="config-vars.xsl"/>
 

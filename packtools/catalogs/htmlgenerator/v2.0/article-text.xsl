@@ -78,51 +78,34 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="sec[@id]" mode="number">
+    <xsl:template match="sec[@sec-type]" mode="number">
         <xsl:param name="sec_id"/>
-        <xsl:if test="@id=$sec_id"><xsl:value-of select="number(position()-1)"/></xsl:if>
+        <xsl:if test="@sec-type=$sec_id"><xsl:value-of select="number(position()-1)"/></xsl:if>
     </xsl:template>
     
     <xsl:template match="body" mode="number">
         <xsl:param name="sec_id"/>
-        <xsl:apply-templates select=".//sec[@id and @sec-type]" mode="number">
+        <xsl:apply-templates select=".//sec[@sec-type]" mode="number">
             <xsl:with-param name="sec_id"><xsl:value-of select="$sec_id"/></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="body/sec">
-        <xsl:param name="position"/>
-        <xsl:if test="@id and @sec-type">
-            <xsl:variable name="item"><xsl:apply-templates select="../../body" mode="number">
-                <xsl:with-param name="sec_id"><xsl:value-of select="@id"/></xsl:with-param>
-            </xsl:apply-templates></xsl:variable>
-            <a name="as{$body_index}-heading{$item}"/>
-        </xsl:if>
+    <xsl:template match="body/sec[@sec-type]">
+        <xsl:variable name="item"><xsl:apply-templates select="../../body" mode="number">
+            <xsl:with-param name="sec_id"><xsl:value-of select="@sec-type"/></xsl:with-param>
+        </xsl:apply-templates></xsl:variable>
+        <a name="as{$body_index}-heading{$item}"/>
         
-        <xsl:apply-templates>
-            <xsl:with-param name="position" select="position()"></xsl:with-param>
-        </xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="body/*/sec">
-        <xsl:param name="position"></xsl:param>
-        
-        <xsl:apply-templates>
-            <xsl:with-param name="position" select="position()"></xsl:with-param>
-        </xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="body//p">
-        <xsl:param name="position"></xsl:param>
-        <p>
-        <xsl:apply-templates select="*|text()">
-            <xsl:with-param name="position" select="position()"></xsl:with-param>
-        </xsl:apply-templates>
-        </p>
+        <xsl:apply-templates select="*|text()"/>
     </xsl:template>
     
     <xsl:template match="body/sec/title">
-        <xsl:param name="position"></xsl:param>
+        <h1>
+            <xsl:apply-templates select="*|text()"/>
+        </h1>
+    </xsl:template>
+    
+    <xsl:template match="body/sec[@sec-type]/title">
         <h1 id="text-{../@sec-type}">
             <xsl:apply-templates select="*|text()"/>
         </h1>
