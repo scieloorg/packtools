@@ -2,14 +2,12 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
-    
-    <xsl:template match="*" mode="dates-notes">
-        <xsl:param name="position"></xsl:param>
+    <xsl:template match="*" mode="article-meta-history">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                 <xsl:with-param name="text">History</xsl:with-param>
                 </xsl:apply-templates></xsl:attribute>
-            <a name="articleSection{$body_index + $q_back + $q_body_fn + $q_subarticle + 1}"></a>
+            <a name="articleSection{$body_index + $q_back + $q_body_fn + 1}"></a>
             
             <div class="row">
                 <div class="col-md-12 col-sm-12">

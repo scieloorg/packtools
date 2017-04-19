@@ -128,12 +128,8 @@
                             <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>                            
                             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="sub-articles"></xsl:apply-templates>                            
-                            <xsl:apply-templates select="." mode="dates-notes">
-                                <xsl:with-param name="position">
-                                    <xsl:value-of select="$q_abstracts + count(./body) + $q_back"/>
-                                </xsl:with-param>
-                            </xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="article-meta-history"/>
+                            <xsl:apply-templates select="." mode="article-text-sub-articles"></xsl:apply-templates>                            
                         </article>
                     </div>
                 </div>
