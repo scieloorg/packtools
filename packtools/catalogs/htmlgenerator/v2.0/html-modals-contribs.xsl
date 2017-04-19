@@ -3,13 +3,19 @@
     version="1.0">
 
     <xsl:variable name="xref_fn" select="$article//xref[@ref-type='fn']"></xsl:variable>
-    <xsl:template match="*" mode="modal-contrib">
-        <xsl:apply-templates select="*|text()" mode="modal-contrib"></xsl:apply-templates>
+    
+    <xsl:template match="article" mode="modal-contribs">
+        <xsl:apply-templates select=".//article-meta" mode="modal-contrib"></xsl:apply-templates>
+        <xsl:apply-templates select=".//sub-article | .//response" mode="modal-contrib"></xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="sub-article | response" mode="modal-contrib">
+        <xsl:apply-templates select=".//front | .//front-stub" mode="modal-contrib"></xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="*" mode="modal-contribs">
-        <xsl:if test=".//article-meta//contrib[*]">
-            <div class="modal fade ModalDefault" id="ModalTutors" tabindex="-1" role="dialog" aria-hidden="true">
+    <xsl:template match="article-meta | front | front-stub" mode="modal-contrib">
+        <xsl:if test=".//contrib[*]">
+            <xsl:value-of select="name()"/>
+            <div class="modal fade ModalDefault" id="ModalTutors{../@id}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -22,14 +28,13 @@
                         </div>
                         <div class="modal-body">
                             <div class="info">
-                                <xsl:apply-templates select=".//article-meta//contrib" mode="modal-contrib"></xsl:apply-templates>
+                                <xsl:apply-templates select=".//contrib" mode="modal-contrib"></xsl:apply-templates>
                             </div>
-                            <xsl:apply-templates select=".//article-meta//author-notes" mode="modal-contrib"></xsl:apply-templates>
+                            <xsl:apply-templates select=".//author-notes" mode="modal-contrib"></xsl:apply-templates>
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </div>            
         </xsl:if>    
     </xsl:template>
     
