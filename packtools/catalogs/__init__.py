@@ -36,3 +36,6 @@ XML_CATALOG = os.path.join(_CWD, 'scielo-publishing-schema.xml')
 XSLTS = {
     'root-html-1.2.xslt': os.path.join(_CWD, 'htmlgenerator/root-html-1.2.xslt'),
 }
+
+ISO3166_CODES = os.path.join(_CWD, 'iso3166-codes.json')
+

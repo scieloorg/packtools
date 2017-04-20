@@ -1605,7 +1605,7 @@ code for more information.
   <pattern abstract="true" id="occurs_zero_or_once">
     <rule context="$base_context">
       <assert test="count($element) &lt; 2">
-        Element '<name/>': There must be zero or one element <value-of select="$element"/>.
+        Element '<name/>': There must be zero or one element <value-of select="name($element)"/>.
       </assert>
     </rule>
   </pattern>
@@ -1613,7 +1613,7 @@ code for more information.
   <pattern abstract="true" id="occurs_once">
     <rule context="$base_context">
       <assert test="count($element) = 1">
-        Element '<name/>': There must be only one element <value-of select="$element"/>.
+        Element '<name/>': There must be only one element <value-of select="name($element)"/>.
       </assert>
     </rule>
   </pattern>
