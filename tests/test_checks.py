@@ -419,3 +419,89 @@ class DoctypePipeTests(unittest.TestCase):
 
         self.assertEqual(len(err_list), 0)
 
+
+class CountryCodesTests(unittest.TestCase):
+
+    def test_valid_code(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+              <aff id="aff1">
+                <label>I</label>
+                <institution content-type="orgdiv2">Departamento de Fonoaudiologia</institution>
+                <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                <institution content-type="orgname">Universidade Federal do Rio de Janeiro</institution>
+                <addr-line>
+                  <named-content content-type="city">Rio de Janeiro</named-content>
+                  <named-content content-type="state">RJ</named-content>
+                </addr-line>
+                <country country="BR">Brasil</country>
+                <institution content-type="original">Departamento de Fonoaudiologia. Faculdade de Medicina. Universidade Federal do Rio de Janeiro. Rio de Janeiro, RJ, Brasil</institution>
+              </aff>
+            </article-meta>
+          </front>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.country_code((et, []))
+
+        self.assertEqual(len(err_list), 0)
+
+    def test_valid_code_in_lowercase(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+              <aff id="aff1">
+                <label>I</label>
+                <institution content-type="orgdiv2">Departamento de Fonoaudiologia</institution>
+                <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                <institution content-type="orgname">Universidade Federal do Rio de Janeiro</institution>
+                <addr-line>
+                  <named-content content-type="city">Rio de Janeiro</named-content>
+                  <named-content content-type="state">RJ</named-content>
+                </addr-line>
+                <country country="br">Brasil</country>
+                <institution content-type="original">Departamento de Fonoaudiologia. Faculdade de Medicina. Universidade Federal do Rio de Janeiro. Rio de Janeiro, RJ, Brasil</institution>
+              </aff>
+            </article-meta>
+          </front>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.country_code((et, []))
+
+        self.assertEqual(len(err_list), 1)
+        self.assertTrue("country" in err_list[0].message)
+
+    def test_invalid_code(self):
+        sample = io.BytesIO(b"""
+        <article>
+          <front>
+            <article-meta>
+              <aff id="aff1">
+                <label>I</label>
+                <institution content-type="orgdiv2">Departamento de Fonoaudiologia</institution>
+                <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                <institution content-type="orgname">Universidade Federal do Rio de Janeiro</institution>
+                <addr-line>
+                  <named-content content-type="city">Rio de Janeiro</named-content>
+                  <named-content content-type="state">RJ</named-content>
+                </addr-line>
+                <country country="INVALID">Brasil</country>
+                <institution content-type="original">Departamento de Fonoaudiologia. Faculdade de Medicina. Universidade Federal do Rio de Janeiro. Rio de Janeiro, RJ, Brasil</institution>
+              </aff>
+            </article-meta>
+          </front>
+        </article>
+        """)
+
+        et = etree.parse(sample)
+        _, err_list = checks.country_code((et, []))
+
+        self.assertEqual(len(err_list), 1)
+        self.assertTrue("country" in err_list[0].message)
+

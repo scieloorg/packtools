@@ -63,13 +63,8 @@ class StyleErrorBase(object):
 
     A basic implementation of `get_apparent_element` is provided.
     """
-    # to keep compatibility with lxml api
-    line = None
-
-    # The error message
-    message = None
-
-    level = None
+    line = message = level = None
+    label = u''
 
     def get_apparent_element(self, doc):
         """The apparent element presenting the error at doc.
@@ -100,10 +95,11 @@ class SchemaStyleError(StyleErrorBase):
     """
     level = u'DTD Error'
 
-    def __init__(self, err_object):
+    def __init__(self, err_object, label=u''):
         self._err = err_object
         self.message = self._err.message
         self.line = self._err.line
+        self.label = label
 
     def get_apparent_element(self, doc):
         for elem in doc.iter():
@@ -119,24 +115,28 @@ class SchematronStyleError(StyleErrorBase):
     """
     level = u'Style Error'
 
-    def __init__(self, err_object):
+    def __init__(self, err_object, label=u''):
         self._err = err_object
+        self.label = label
 
         byte_string = io.BytesIO(self._err.message.encode('utf-8'))
         self._parsed_message = etree.parse(byte_string)
 
     @property
     def message(self):
+        search_res = re.search(r"<svrl:text>(.*)</svrl:text>",
+                self._err.message, re.DOTALL)
         try:
-            text = re.search(r"<svrl:text>(.*)</svrl:text>", self._err.message, re.DOTALL).group(1)
+            text = search_res.group(1)
         except AttributeError:
             raise ValueError('cannot get message')
 
         return text.strip()
 
     def get_apparent_element(self, doc):
+        query_res = self._parsed_message.xpath('@location')
         try:
-            tagname = self._parsed_message.xpath('@location')[0]
+            tagname = query_res[0]
         except IndexError:
             raise ValueError('cannot get context info')
 
