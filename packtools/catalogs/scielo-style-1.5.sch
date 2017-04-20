@@ -502,7 +502,6 @@ code for more information.
                     @content-type='orgname' or
                     @content-type='orgdiv1' or
                     @content-type='orgdiv2' or
-                    @content-type='orgdiv3' or
                     @content-type='normalized'">
         Element '<name/>', attribute content-type: Invalid value "<value-of select="@content-type"/>". 
       </assert>
@@ -671,8 +670,7 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta/product">
-      <assert test="/article[@article-type='book-review'] or
-                    /article[@article-type='product-review']">
+      <assert test="/article[@article-type='book-review']">
         Element 'article-meta': Unexpected element product.
       </assert>
       <assert test="@product-type">
@@ -687,11 +685,8 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta/product[@product-type]">
-      <assert test="@product-type = 'article' or
-                    @product-type = 'book' or
-                    @product-type = 'chapter' or
-                    @product-type = 'other' or
-                    @product-type = 'software'">
+      <assert test="@product-type = 'book' or
+                    @product-type = 'other'">
         Element 'product', attribute product-type: Invalid value "<value-of select="@product-type"/>".
       </assert>
     </rule>
@@ -941,8 +936,7 @@ code for more information.
       <assert test="@person-group-type">
         Element 'person-group': Missing attribute person-group-type.
       </assert>
-      <assert test="parent::.[local-name() = 'product'] or 
-                    string-length(normalize-space(text())) = 0">
+      <assert test="string-length(normalize-space(text())) = 0">
         Element 'person-group': Unexpected text content. 
       </assert>
     </rule>

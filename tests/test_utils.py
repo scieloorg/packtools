@@ -112,3 +112,30 @@ class XrayTests(unittest.TestCase):
             self.assertEqual(xray.show_sorted_members(),
                     {'xml': ['bar.xml', 'jar.XML']})
 
+
+class ResolveSchematronFilepathTests(unittest.TestCase):
+    def setUp(self):
+        from packtools import catalogs
+        self.sch_schemas = catalogs.SCH_SCHEMAS
+
+    def test_builtin_lookup(self):
+        for name, path in self.sch_schemas.items():
+            self.assertEqual(utils.resolve_schematron_filepath('@'+name), path)
+
+    def test_resolve_unsupported_types(self):
+        self.assertRaises(TypeError,
+                lambda: utils.resolve_schematron_filepath(None))
+
+    def test_non_existing_builtin(self):
+        self.assertRaises(ValueError, 
+                lambda: utils.resolve_schematron_filepath('@notexists'))
+
+    def test_existing_filepath(self):
+        path = list(self.sch_schemas.values())[0]  # get the first item
+        self.assertEqual(utils.resolve_schematron_filepath(path), path)
+
+    def test_non_existing_filepath(self):
+        path = list(self.sch_schemas.values())[0] + '.notexists'
+        self.assertRaises(ValueError, 
+                lambda: utils.resolve_schematron_filepath(path))
+

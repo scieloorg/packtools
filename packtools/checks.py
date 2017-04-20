@@ -1,9 +1,7 @@
 #coding: utf-8
 from __future__ import unicode_literals
-import re
 import logging
 import itertools
-from datetime import datetime
 
 import plumber
 
@@ -31,7 +29,7 @@ def setup(message):
 def teardown(message):
     """Finalize the processing pipeline and return the errors list.
     """
-    et, err_list = message
+    _, err_list = message
     return err_list
 
 
@@ -93,11 +91,11 @@ def funding_group(message):
                 if award_id in text:
                     return True
                 else:
-                    LOGGER.debug('Cannot find "%s" in "%s".', award_id, text)
+                    LOGGER.info('cannot find award-id "%s" in text', award_id)
 
             return False
 
-        LOGGER.info('Declared contract numbers: %s', award_ids)
+        LOGGER.info('declared contract numbers: %s', award_ids)
 
         missing_award_ids = set(award_ids)
         paragraphs = [p for p in itertools.chain(fn_occs, ack_occs) if p]
@@ -107,19 +105,19 @@ def funding_group(message):
                 try:
                     missing_award_ids.remove(award_id)
                 except KeyError:
-                    LOGGER.info('The award-id %s is mentioned more than once.',
+                    LOGGER.info('many occurences of award-id: "%s"',
                                 award_id)
             else:
-                LOGGER.info('Cannot find contract number "%s" in the set "%s".',
+                LOGGER.info('cannot find contract number "%s" in set "%s"',
                         award_id, award_ids)
 
         if missing_award_ids:
-            LOGGER.debug('Missing award-id: %s.', missing_award_ids)
+            LOGGER.info('missing award-id: "%s"', missing_award_ids)
             err = StyleError()
             err.message = "Element 'funding-group': This element has occurrences not declared in fn or ack."
             err_list.append(err)
     else:
-        LOGGER.debug('No contract numbers found in %s.' % et)
+        LOGGER.info('no contract numbers found in %s', et)
 
     return message
 

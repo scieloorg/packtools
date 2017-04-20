@@ -64,13 +64,15 @@ class XMLValidatorTests(unittest.TestCase):
         fp = io.BytesIO(b'<a><b>bar</b></a>')
         et = etree.parse(fp)
 
-        self.assertRaises(ValueError, lambda: domain.XMLValidator.parse(et, no_doctype=True))
+        self.assertRaises(ValueError, 
+                lambda: domain.XMLValidator.parse(et, no_doctype=True))
 
     def test_unknown_sps_version(self):
         fp = io.BytesIO(b'<a specific-use="unknown"><b>bar</b></a>')
         et = etree.parse(fp)
 
-        self.assertRaises(ValueError, lambda: domain.XMLValidator.parse(et, no_doctype=True))
+        self.assertRaises(ValueError, 
+                lambda: domain.XMLValidator.parse(et, no_doctype=True))
 
     def test_sps_version_discovery(self):
         fp = io.BytesIO(b'<a specific-use="sps-1.1"><b>bar</b></a>')
@@ -83,12 +85,14 @@ class XMLValidatorTests(unittest.TestCase):
         fp = io.BytesIO(b'<a specific-use="pre-sps"><b>bar</b></a>')
         et = etree.parse(fp)
 
-        self.assertRaises(ValueError, lambda: domain.XMLValidator.parse(et, no_doctype=True))
+        self.assertRaises(ValueError, 
+                lambda: domain.XMLValidator.parse(et, no_doctype=True))
 
     def test_validation(self):
         fp = etree.parse(io.BytesIO(b'<a><b>bar</b></a>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        xml = domain.XMLValidator.parse(fp, no_doctype=True,
+                sps_version='sps-1.1', dtd=dtd)
 
         result, errors = xml.validate()
         self.assertTrue(result)
@@ -96,8 +100,9 @@ class XMLValidatorTests(unittest.TestCase):
 
     def test_invalid(self):
         fp = etree.parse(io.BytesIO(b'<a><c>bar</c></a>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        xml = domain.XMLValidator.parse(fp, no_doctype=True,
+                sps_version='sps-1.1', dtd=dtd)
 
         result, _ = xml.validate()
         self.assertFalse(result)
@@ -105,8 +110,9 @@ class XMLValidatorTests(unittest.TestCase):
     def test_invalid_errors(self):
         # Default lxml error log.
         fp = etree.parse(io.BytesIO(b'<a><c>bar</c></a>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        xml = domain.XMLValidator.parse(fp, no_doctype=True,
+                sps_version='sps-1.1', dtd=dtd)
 
         _, errors = xml.validate()
         for error in errors:
@@ -114,8 +120,9 @@ class XMLValidatorTests(unittest.TestCase):
 
     def test_annotate_errors(self):
         fp = etree.parse(io.BytesIO(b'<a><c>bar</c></a>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        xml = domain.XMLValidator.parse(fp, no_doctype=True, 
+                sps_version='sps-1.1', dtd=dtd)
 
         err_xml = xml.annotate_errors()
         xml_text = etree.tostring(err_xml)
@@ -124,27 +131,30 @@ class XMLValidatorTests(unittest.TestCase):
 
     def test_validation_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>30</Percent></Total>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
+        schema = domain.SchematronValidator(
+                isoschematron.Schematron(etree.parse(sample_sch)))
+        xml = domain.XMLValidator(fp, style_validators=[schema])
 
-        result, errors = xml._validate_sch()
-        self.assertTrue(result)
-        self.assertFalse(errors)
+        is_valid, errors = xml.validate_style()
+        self.assertTrue(is_valid)
+        self.assertEqual(len(errors), 0)
 
     def test_invalid_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
+        schema = domain.SchematronValidator(
+                isoschematron.Schematron(etree.parse(sample_sch)))
+        xml = domain.XMLValidator(fp, style_validators=[schema])
 
-        result, errors = xml._validate_sch()
+        result, errors = xml.validate_style()
         self.assertFalse(result)
         self.assertTrue(errors)
 
     def test_annotate_errors_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>60</Percent><Percent>30</Percent></Total>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
-        xml.dtd = etree.XMLSchema(etree.parse(sample_xsd))
+        schema = domain.SchematronValidator(
+                isoschematron.Schematron(etree.parse(sample_sch)))
+        dtd = domain.DTDValidator(etree.XMLSchema(etree.parse(sample_xsd)))
+        xml = domain.XMLValidator(fp, style_validators=[schema])
 
         err_xml = xml.annotate_errors()
         xml_text = etree.tostring(err_xml)
@@ -224,14 +234,15 @@ class XMLValidatorTests(unittest.TestCase):
          xml:lang="en">
 </article>""")
         et = etree.parse(fp)
-        xml_validator = domain.XMLValidator.parse(et, no_doctype=True, sps_version='sps-1.1')
+        xml_validator = domain.XMLValidator.parse(et, no_doctype=True,
+                sps_version='sps-1.1')
 
         self.assertEqual(xml_validator.assets, [])
 
 
 class XMLValidatorExtraSchematronTests(unittest.TestCase):
 
-    def test_valid_extra_schematron(self):
+    def test_extra_schematron_thru_parse(self):
         extra_sch = io.BytesIO(b'''\
         <schema xmlns="http://purl.oclc.org/dsdl/schematron">
           <pattern id="two_elements">
@@ -244,32 +255,12 @@ class XMLValidatorExtraSchematronTests(unittest.TestCase):
         ''')
 
         fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>20</Percent><Percent>10</Percent></Total>'))
-        xml = domain.XMLValidator.parse(fp, no_doctype=True, sps_version='sps-1.1')
-        xml.schematron = isoschematron.Schematron(etree.parse(sample_sch))
-        xml.extra_schematron = isoschematron.Schematron(etree.parse(extra_sch))
+        extra_sch_obj = isoschematron.Schematron(etree.parse(extra_sch))
+        xml = domain.XMLValidator.parse(fp, no_doctype=True, 
+                sps_version='sps-1.1', extra_sch_schemas=[extra_sch_obj])
 
-        result, errors = xml._validate_sch()
+        result, errors = xml.validate_style()
         self.assertFalse(result)
-        self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0].message, "Element 'Total': More than 2 elements.")
-
-    def test_invalid_extra_schematron_raises_ValueError_on_init(self):
-        invalid_extra_sch = b'''\
-        <schema xmlns="http://purl.oclc.org/dsdl/schematron">
-          <pattern id="two_elements">
-            <title>Max 2 elements allowed.</title>
-            <rule context="Total">
-              <assert test="count(//Percent) &lt; 3">Element 'Total': More than 2 elements.</assert>
-            </ruleZZ>
-          </pattern>
-        </schema>
-        '''
-        tmp = NamedTemporaryFile()
-        tmp.write(invalid_extra_sch)
-        tmp.seek(0)
-
-        fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>20</Percent><Percent>10</Percent></Total>'))
-        self.assertRaises(etree.XMLSyntaxError, lambda: domain.XMLValidator.parse(
-            fp, no_doctype=True, sps_version='sps-1.1',
-            extra_schematron=tmp.name))
+        self.assertTrue("Element 'Total': More than 2 elements." in 
+                [err.message for err in errors]) 
 

@@ -25,12 +25,14 @@ def search_element_name(message):
     """
     match = EXPOSE_ELEMENTNAME_PATTERN.search(message)
     if match is None:
-        LOGGER.info('Could not locate the element name in: %s.', message)
-        raise ValueError('Could not locate the element name in %s.' % message)
+        LOGGER.info('cannot find the element name in message')
+        LOGGER.debug('failed regexp was %s on message "%s"', 
+                EXPOSE_ELEMENTNAME_PATTERN.pattern, message)
+        raise ValueError('cannot find the element name in message')
 
     else:
         element_name = match.group(0).strip("'")
-        LOGGER.info('Found element name "%s" in "%s"', element_name, message)
+        LOGGER.info('found element name "%s" in message', element_name)
 
         return element_name
 
@@ -48,9 +50,9 @@ def search_element(doc, xpath, line=None):
         else:
             continue
 
-    else:
-        LOGGER.info("Could not find element '%s'.", xpath)
-        raise ValueError("Could not find element '%s'." % xpath)
+    # raise ValueError if the element could not be located.
+    LOGGER.info('could not find element "%s"', xpath)
+    raise ValueError('could not find element "%s"' % xpath)
 
 
 #--------------------------------
@@ -63,13 +65,25 @@ class StyleErrorBase(object):
     """
     # to keep compatibility with lxml api
     line = None
-    column = None
 
     # The error message
     message = None
 
     level = None
-    level_name = level
+
+    def get_apparent_element(self, doc):
+        """The apparent element presenting the error at doc.
+
+        This base implementation tries to discover the element name by
+        searching the string pattern `Element 'element name'` on message.
+        """
+        return NotImplemented
+
+
+class StyleError(StyleErrorBase):
+    """ SciELO-style errors raised by the validation pipeline.
+    """
+    level = u'Style Error'
 
     def get_apparent_element(self, doc):
         """The apparent element presenting the error at doc.
@@ -81,18 +95,10 @@ class StyleErrorBase(object):
         return search_element(doc, '//' + tagname, line=self.line)
 
 
-class StyleError(StyleErrorBase):
-    """ SciELO-style errors raised by the validation pipeline.
-    """
-    level = u'Style Error'
-    level_name = level
-
-
 class SchemaStyleError(StyleErrorBase):
     """ DTD errors.
     """
     level = u'DTD Error'
-    level_name = level
 
     def __init__(self, err_object):
         self._err = err_object
@@ -103,16 +109,15 @@ class SchemaStyleError(StyleErrorBase):
         for elem in doc.iter():
             if elem.sourceline == self.line:
                 return elem
-        else:
-            LOGGER.info("Could not find element at the line %s", self.line)
-            raise ValueError("Could not find element at the line %s" % self.line)
+
+        LOGGER.info("cannot find element at the line %s", self.line)
+        raise ValueError("cannot find element at the line %s" % self.line)
 
 
 class SchematronStyleError(StyleErrorBase):
     """ SciELO-style errors raised by schematron validation.
     """
     level = u'Style Error'
-    level_name = level
 
     def __init__(self, err_object):
         self._err = err_object
@@ -125,7 +130,7 @@ class SchematronStyleError(StyleErrorBase):
         try:
             text = re.search(r"<svrl:text>(.*)</svrl:text>", self._err.message, re.DOTALL).group(1)
         except AttributeError:
-            raise ValueError('Cannot get the message from %s.' % self._err)
+            raise ValueError('cannot get message')
 
         return text.strip()
 
@@ -133,7 +138,7 @@ class SchematronStyleError(StyleErrorBase):
         try:
             tagname = self._parsed_message.xpath('@location')[0]
         except IndexError:
-            raise ValueError('Cannot get the context info from %s.' % self._err.message)
+            raise ValueError('cannot get context info')
 
         return search_element(doc, tagname)
 
