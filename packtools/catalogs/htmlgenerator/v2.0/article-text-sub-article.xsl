@@ -6,17 +6,20 @@
         <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG] | sub-article[@xml:lang=$TEXT_LANG and @article-type!='translation']"></xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="front-stub//subject">
+    <xsl:template match="front-stub/aff | article/*/front/aff |front-stub/history | article/*/front/history ">
+        
+    </xsl:template>
+    <xsl:template match="front-stub//subject | article/*/front//subject">
         <h1>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </h1>
     </xsl:template>
-    <xsl:template match="front-stub//article-title">
+    <xsl:template match="front-stub//article-title | article/*/front//article-title">
         <h2>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </h2>
     </xsl:template>
-    <xsl:template match="front-stub//trans-title">
+    <xsl:template match="front-stub//trans-title | article/*/front//trans-title">
         <h3>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </h3>
@@ -27,6 +30,7 @@
             <a name="articleSection{$body_index + $q_back + $q_body_fn + 1 + position()}"/>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>      
         </div>
+        <xsl:apply-templates select="front-stub | front" mode="generic-history"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="sub-article[@article-type!='translation'] | response" mode="data-anchor">
         <xsl:apply-templates select=".//subject"></xsl:apply-templates>

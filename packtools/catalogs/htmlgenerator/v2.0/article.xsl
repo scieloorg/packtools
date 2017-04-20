@@ -11,15 +11,17 @@
     <xsl:variable name="article" select="./article"/>
     
     <xsl:include href="generic.xsl"/>
+    
     <xsl:include href="config-labels.xsl"/>
 
     <xsl:include href="journal-meta.xsl"/>
     
     <xsl:include href="article-meta.xsl"/>
-    <xsl:include href="article-meta-history.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     <xsl:include href="article-meta-product.xsl"/>
+    
+    <xsl:include href="generic-history.xsl"/>
     
     <xsl:include href="article-text.xsl"/>
         
@@ -128,7 +130,7 @@
                             <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>                            
                             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="article-meta-history"/>
+                            <xsl:apply-templates select=".//article-meta" mode="generic-history"/>
                             <xsl:apply-templates select="." mode="article-text-sub-articles"></xsl:apply-templates>                            
                         </article>
                     </div>
