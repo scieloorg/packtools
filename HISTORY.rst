@@ -1,8 +1,8 @@
 History
 =======
 
-2.0
----
+2.0 (2017-04-25)
+----------------
 
 * [Backwards incompatible] Major changes on ``packtools.domain.XMLValidator``
   initializer and ``.parse`` classmethod. The param ``extra_schematron`` is 
