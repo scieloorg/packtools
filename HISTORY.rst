@@ -22,6 +22,9 @@ History
   ``packtools.stylechecker.summarize`` and, as consequence, to the 
   JSON-encoded data structure produced by the stylechecker command-line tool
   [https://github.com/scieloorg/packtools/issues/75].
+* The parsing of schematron schemas was accelerated by preventing the
+  collection of the IDs in an auxiliary hash table
+  [https://github.com/scieloorg/packtools/issues/109].
 
 
 1.5 (2017-04-03)
