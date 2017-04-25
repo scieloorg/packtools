@@ -27,6 +27,9 @@ LOGGER = logging.getLogger(__name__)
 PY2 = sys.version_info[0] == 2
 
 
+NOIDS_XMLPARSER = etree.XMLParser(collect_ids=False)
+
+
 def setdefault(object, attribute, producer):
     """
     Like dict().setdefault but for object attributes.
@@ -91,8 +94,13 @@ def XML(file, no_network=True, load_dtd=True):
     return xml
 
 
-def get_schematron_from_buffer(buff):
-    xmlschema_doc = etree.parse(buff)
+def get_schematron_from_buffer(buff, parser=NOIDS_XMLPARSER):
+    """Returns an ``isoschematron.Schematron`` for ``buff``.
+
+    The default parser doesn't collect ids on a hash table, i.e.:
+    ``collect_ids=False``.
+    """
+    xmlschema_doc = etree.parse(buff, parser)
     return isoschematron.Schematron(xmlschema_doc)
 
 
