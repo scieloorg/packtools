@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <term>
+        <name>Text</name>
+        <name lang="pt">Texto</name>
+        <name lang="es">Texto</name>
+    </term>
+    <term>
+        <name>Online publication</name>
+        <name lang="pt">Publicação Online</name>
+        <name lang="es">Publicación en línea</name>
+    </term>
+    <term>
+        <name>Publication</name>
+        <name lang="pt">Publicação</name>
+        <name lang="es">Publicación</name>
+    </term>
+    <term>
+        <name>Issue publication</name>
+        <name lang="pt">Publicação em número</name>
+        <name lang="es">Publicación em número</name>
+    </term>
+    <term>
+        <name>Print</name>
+        <name lang="pt">Impresso</name>
+        <name lang="es">Impreso</name>
+    </term>
+    <term>
+        <name>Online</name>
+        <name lang="es">En línea</name>
+    </term>
+    <term>
+        <name>Published on</name>
+        <name lang="pt">Publicado em</name>
+        <name lang="es">Publicado en</name>
+    </term>
+    <term>
+        <name>Acknowledgments</name>
+        <name lang="pt">Agradecimentos</name>
+        <name lang="es">Agradecimientos</name>
+    </term>
+    <term>
+        <name>Footnotes</name>
+        <name lang="pt">Notas</name>
+        <name lang="es">Notas</name>
+    </term>
+    <term>
+        <name>References</name>
+        <name lang="pt">Referências bibliográficas</name>
+        <name lang="es">Referencias bibliográficas</name>
+    </term>
+    <term>
+        <name>ref-list</name>
+        <name lang="en">References</name>
+        <name lang="pt">Referências bibliográficas</name>
+        <name lang="es">Referencias bibliográficas</name>
+    </term>
+    <term>
+        <name>bio</name>
+        <name lang="en">Biography</name>
+        <name lang="pt">Biografia</name>
+        <name lang="es">Biografía</name>
+    </term>
+    <term>
+        <name>History</name>
+        <name lang="pt">Histórico</name>
+        <name lang="es">Histórico</name>
+    </term>
+    <term>
+        <name>received</name>
+        <name lang="en">Received</name>
+        <name lang="pt">Recebido</name>
+        <name lang="es">Recibido</name>
+    </term>
+    <term>
+        <name>accepted</name>
+        <name lang="pt">Aceito</name>
+        <name lang="es">Acepto</name>
+        <name lang="en">Accepted</name>
+    </term>
+    <term>
+        <name>rev-recd</name>
+        <name lang="pt">Revisado</name>
+        <name lang="es">Revisado</name>
+        <name lang="en">Reviewed</name>
+    </term>
+    <term>
+        <name>About the authors</name>
+        <name lang="pt">Sobre os autores</name>
+        <name lang="es">Acerca de los autores</name>        
+    </term>   
+    <term>
+        <name>Click to </name>
+        <name lang="pt">Clique para </name>
+        <name lang="es">Haz un clic para </name>       
+    </term>
+    <term>
+        <name>copy link</name>
+        <name lang="pt">copiar link</name>
+        <name lang="es">copiar enlace</name>        
+    </term>
+    <term>
+        <name>copy URL</name>
+        <name lang="pt">copiar URL</name>
+        <name lang="es">copiar URL</name>        
+    </term>
+    <term>
+        <name>Open new window</name>
+        <name lang="pt">Abrir em nova janela</name>
+        <name lang="es">Abrir en nueva ventana</name>        
+    </term>
+    <term>
+        <name>Affiliation</name>
+        <name lang="pt">Afiliação</name>
+        <name lang="es">Afiliación</name>        
+    </term>
+    <term>
+        <name>corresp</name>
+        <name lang="en">Correspondence</name>
+        <name lang="pt">Correspondência</name>
+        <name lang="es">Correspondencia</name>        
+    </term>
+</labels>
