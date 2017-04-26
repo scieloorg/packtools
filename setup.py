@@ -17,13 +17,10 @@ with open('packtools/version.py') as fp:
 
 
 install_requires = [
-    'lxml >= 3.3.4',
-    'picles.plumber >= 0.11',
+    'lxml>=3.3.4',
+    'picles.plumber>=0.11',
+    'pathlib>=1.0.1;python_version<"3.4"',
 ]
-
-
-if sys.version_info[0] == 2:
-    install_requires.append('pathlib2 >= 2.1.0')
 
 
 tests_require = []
