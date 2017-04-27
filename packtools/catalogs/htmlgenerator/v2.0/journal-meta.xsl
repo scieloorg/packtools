@@ -24,7 +24,7 @@
     </xsl:template>
     
     <xsl:template match="issn">
-        <span>ISSN&#160;<xsl:value-of select="."/>&#160;(<xsl:apply-templates select="@pub-type" mode="label"/>)</span>&#160;
+        <span>ISSN&#160;<xsl:value-of select="."/>&#160;(<xsl:apply-templates select="@pub-type" mode="generated-label"/>)</span>&#160;
     </xsl:template>
     
 </xsl:stylesheet>

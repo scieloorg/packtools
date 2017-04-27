@@ -33,9 +33,10 @@
                             <xsl:when test="graphic">
                                 <xsl:apply-templates select="graphic"></xsl:apply-templates>
                             </xsl:when>
-                            <xsl:apply-templates select="attrib"></xsl:apply-templates>
                             
                         </xsl:choose>
+                        <xsl:apply-templates select="attrib"></xsl:apply-templates>
+                        
                     </div>
                     <div class="modal-footer">
                         <h4 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="." mode="label-caption"></xsl:apply-templates></h4>

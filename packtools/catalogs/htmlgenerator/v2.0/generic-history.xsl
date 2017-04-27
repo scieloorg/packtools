@@ -76,7 +76,7 @@
     </xsl:template>
     
     <xsl:template match="history/date" mode="generic-history-list-item">
-        <li><strong><xsl:apply-templates select="." mode="label"></xsl:apply-templates></strong><br/> <xsl:apply-templates select="."></xsl:apply-templates></li>
+        <li><strong><xsl:apply-templates select="." mode="generated-label"></xsl:apply-templates></strong><br/> <xsl:apply-templates select="."></xsl:apply-templates></li>
     </xsl:template>
     
     <xsl:template match="article-meta | *[name()!='article']/front | front-stub" mode="generic-history-epub-date">
@@ -143,15 +143,19 @@
     </xsl:template>
     
     <xsl:template match="*[month or year or day or season]">
-        <xsl:apply-templates select="day"></xsl:apply-templates>&#160;
+        <xsl:apply-templates select="day"></xsl:apply-templates>
+        <xsl:if test="day">&#160;</xsl:if>
         <xsl:choose>
             <xsl:when test="season">
                 <xsl:apply-templates select="season"></xsl:apply-templates>
             </xsl:when>
             <xsl:when test="month">
-                <xsl:apply-templates select="month" mode="label"></xsl:apply-templates>
+                <xsl:apply-templates select="month" mode="text-labels">
+                    <xsl:with-param name="text"><xsl:value-of select="month"/></xsl:with-param>
+                </xsl:apply-templates>
             </xsl:when>
         </xsl:choose>
-        &#160;<xsl:apply-templates select="year"></xsl:apply-templates>
+        <xsl:if test="month or season">&#160;</xsl:if>
+        <xsl:apply-templates select="year"></xsl:apply-templates>
     </xsl:template>
 </xsl:stylesheet>

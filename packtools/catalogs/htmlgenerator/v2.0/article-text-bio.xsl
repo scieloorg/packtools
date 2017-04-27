@@ -16,7 +16,7 @@
         </xsl:if>
         
         <div class="articleSection"  style="background-color: #FCF5EA;">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="data-anchor"></xsl:apply-templates></xsl:attribute>
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>
             <a name="articleSection{$body_index + $position}"></a>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
