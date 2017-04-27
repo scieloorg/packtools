@@ -17,7 +17,7 @@ with open('packtools/version.py') as fp:
 
 
 install_requires = [
-    'lxml>=3.3.4',
+    'lxml>=3.4.0',
     'picles.plumber>=0.11',
     'pathlib>=1.0.1;python_version<"3.4"',
 ]
