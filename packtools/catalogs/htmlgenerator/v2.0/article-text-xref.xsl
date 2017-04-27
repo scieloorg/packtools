@@ -25,10 +25,6 @@
         </a>        
     </xsl:template>
     
-    <xsl:template match="xref[@ref-type='fn']/sup | sup[xref[@ref-type='fn']]">
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-    </xsl:template>
-    
     <xsl:template match="xref[@ref-type='fn']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <span class="ref footnote">
@@ -60,11 +56,7 @@
     <xsl:template match="contrib/xref">
         <xsl:variable name="rid" select="@rid"/>
         <xsl:apply-templates select="$article//aff[@id=$rid]" mode="xref"/>
-        <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>)
-    </xsl:template>
-    
-    <xsl:template match="text()" mode="xref">
-        <xsl:value-of select="."/>
+        <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
     </xsl:template>
     
     <xsl:template match="*" mode="xref">
@@ -80,7 +72,8 @@
         <xsl:text>
             
         </xsl:text>
-        <xsl:apply-templates select="."/>
+        <xsl:apply-templates select="." mode="display"/>
+        
     </xsl:template>
     
     <xsl:template match="fn" mode="xref">
@@ -124,4 +117,9 @@
     <xsl:template match="ext-link | pub-id | comment" mode="xref">
         <xsl:value-of select="."/>
     </xsl:template>
+    
+    <xsl:template match="xref/sup | sup[xref]">
+        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+    </xsl:template>
+    
 </xsl:stylesheet>

@@ -44,7 +44,4 @@
         </div>          
     </xsl:template>
     
-    <xsl:template match="table-wrap/alternatives">
-        <xsl:apply-templates select="table"></xsl:apply-templates>
-    </xsl:template>
 </xsl:stylesheet>

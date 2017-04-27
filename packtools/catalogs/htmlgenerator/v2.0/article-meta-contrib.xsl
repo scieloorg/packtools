@@ -110,32 +110,40 @@
     <xsl:template match="contrib-id[@contrib-id-type='researchid']" mode="url"
         >http://www.researcherid.com/rid/</xsl:template>
 
-    <xsl:template match="aff//*" mode="aff">
-        <xsl:apply-templates select="*|text()" mode="aff"/>
+    <xsl:template match="aff//*" mode="insert-separator">
+        <xsl:apply-templates select="*|text()" mode="insert-separator"/>
     </xsl:template>
 
-    <xsl:template match="aff//text()" mode="aff">
+    <xsl:template match="aff//text()" mode="insert-separator">
         <xsl:value-of select="."/>,&#160; </xsl:template>
 
-    <xsl:template match="aff/*[position()=last()]/text()" mode="aff">
+    <xsl:template match="aff/*[position()=last()]/text()" mode="insert-separator">
         <xsl:value-of select="."/>
     </xsl:template>
 
-    <xsl:template match="aff/text()" mode="aff">
+    <xsl:template match="aff/text()" mode="insert-separator">
         <xsl:value-of select="."/>
     </xsl:template>
 
-    <xsl:template match="aff">
+    <xsl:template match="aff" mode="display">
         <xsl:choose>
             <xsl:when test="institution[@content-type='original']">
+                <xsl:comment> aff original </xsl:comment>
                 <xsl:apply-templates select="institution[@content-type='original']"/>
             </xsl:when>
             <xsl:when
                 test="institution[@content-type='orgname'] and contains(text(),institution[@content-type='orgname'])">
-                <xsl:apply-templates select="text()" mode="aff"/>
+                <xsl:comment> aff text() </xsl:comment>
+                <xsl:apply-templates select="text()"/>
+            </xsl:when>
+            <xsl:when
+                test="*[name()!='label']">
+                <xsl:comment> aff insert separator </xsl:comment>
+                <xsl:apply-templates select="*[name()!='label']" mode="insert-separator"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="*[name()!='label']" mode="aff"/>
+                <xsl:comment> aff text() 2 </xsl:comment>
+                <xsl:apply-templates select="text()"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

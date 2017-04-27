@@ -66,7 +66,7 @@
     </xsl:template>
     
     <xsl:template match="article" mode="article-meta-pub-dates">
-        <xsl:apply-templates select=".//article-meta/pub-date[1]" mode="label"></xsl:apply-templates>&#160;
+        <xsl:apply-templates select=".//article-meta/pub-date[1]" mode="generated-label"></xsl:apply-templates>&#160;
         
         <xsl:choose>
             <xsl:when test=".//article-meta/pub-date[@pub-type='epub']">
@@ -94,7 +94,7 @@
     
     <xsl:template match="license">
         <xsl:variable name="url">https://licensebuttons.net/l/</xsl:variable>
-        <xsl:variable name="icon"><xsl:value-of select="substring-after(@xlink:href,'http://creativecommons.org/licenses/')"/></xsl:variable>
+        • <xsl:variable name="icon"><xsl:value-of select="substring-after(@xlink:href,'creativecommons.org/licenses/')"/></xsl:variable>
         <a href="{@xlink:href}" target="_blank"><img src="{$url}{$icon}/80x15.png" alt="Creative Common - {$icon}"/> </a>
     </xsl:template>
        

@@ -23,8 +23,11 @@
     
     <xsl:include href="generic-history.xsl"/>
     
+    <xsl:include href="article-text-xref.xsl"/>
+
     <xsl:include href="article-text.xsl"/>
-        
+    <xsl:include href="article-text-alternatives.xsl"/>
+    
     <xsl:include href="article-text-boxed-text.xsl"/>
     <xsl:include href="article-text-list.xsl"/>
     <xsl:include href="article-text-supplementary-material.xsl"/>
@@ -33,7 +36,6 @@
     <xsl:include href="article-text-table.xsl"/>
     <xsl:include href="article-text-formula.xsl"/>
     <xsl:include href="article-text-fig.xsl"/>
-    <xsl:include href="article-text-xref.xsl"/>
     
     <xsl:include href="article-text-back.xsl"/>
     <xsl:include href="article-text-ref.xsl"/>
@@ -72,18 +74,11 @@
         </html>
     </xsl:template>
     <xsl:template match="/" mode="css">
-        <!--FIXME-->
-        <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.min.css"/>
-        <link rel="stylesheet" href="{$CSS_PATH}/article-styles.css"/>
-        <link rel="stylesheet" href="{$CSS_PATH}/scielo-print.css" media="print"/>
+        <link rel="stylesheet" href="{$CSS_PATH}"/>
+        <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>
     </xsl:template>
     <xsl:template match="/" mode="js">
-        <!--FIXME-->
-        <script src="{$JS_PATH}/vendor/jquery-1.11.0.min.js"/>
-        <script src="{$JS_PATH}/vendor/bootstrap.min.js"/>
-        <script src="{$JS_PATH}/vendor/jquery-ui.min.js"/>
-        <script src="{$JS_PATH}/plugins.js"/>
-        <script src="{$JS_PATH}/min/main-min.js"/>
+        <script src="{$JS_PATH}"/>
     </xsl:template>
     
     <xsl:template match="article" mode="article">
