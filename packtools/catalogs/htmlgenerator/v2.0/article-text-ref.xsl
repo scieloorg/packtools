@@ -105,4 +105,23 @@
     <xsl:template match="mixed-citation//ext-link">
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
     </xsl:template>
+    
+    <xsl:template match="ref" mode="table-wrap-foot">
+        <xsl:if test="not(contains(.,'-'))">        <xsl:comment>  
+            <xsl:apply-templates select="mixed-citation"/> ??? 
+        </xsl:comment>
+        </xsl:if>
+        
+        <li>
+            <sup class="xref xrefblue big"><xsl:value-of select="label"></xsl:value-of></sup>
+            <div>
+                <xsl:choose>
+                    <xsl:when test="mixed-citation[*]">
+                        <xsl:apply-templates select="mixed-citation"/>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:apply-templates select="mixed-citation"/></xsl:otherwise>
+                </xsl:choose>
+            </div>
+        </li>
+    </xsl:template>
 </xsl:stylesheet>

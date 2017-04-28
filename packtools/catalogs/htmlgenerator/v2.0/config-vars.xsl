@@ -13,7 +13,7 @@
     <xsl:variable name="ARTICLE_LANG"><xsl:value-of select="$article_lang"/></xsl:variable>
     
     <xsl:variable name="PRINT_CSS_PATH"><xsl:value-of select="$print_styles_css_path"/></xsl:variable>
-    <xsl:variable name="CSS_PATH"><xsl:value-of select="$styles_css_path"/></xsl:variable>
+    <xsl:variable name="CSS_PATH"><xsl:value-of select="$styles_css_path"/><xsl:if test="$styles_css_path=''">../../../static</xsl:if></xsl:variable>
     <xsl:variable name="JS_PATH"><xsl:value-of select="$js_path"/></xsl:variable>
     
     

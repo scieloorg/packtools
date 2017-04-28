@@ -28,11 +28,9 @@
             <span class="doi"><xsl:value-of select="$link"/></span></span>
             <a class="copyLink" data-clipboard-text="{$link}">
                 <span class="sci-ico-link hidden-sm hidden-md"></span> 
-                <xsl:attribute name="title">
                 <xsl:apply-templates select="." mode="interface">
                     <xsl:with-param name="text">copy URL</xsl:with-param>
                 </xsl:apply-templates>
-            </xsl:attribute>
         </a>
     </xsl:template>
     

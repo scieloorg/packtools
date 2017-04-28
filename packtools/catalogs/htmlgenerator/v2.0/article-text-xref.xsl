@@ -2,7 +2,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
-    <xsl:variable name="ref" select="//ref"></xsl:variable>
     
     <xsl:template match="xref">
         <a href="#{@rid}" class="goto"><xsl:apply-templates></xsl:apply-templates></a>

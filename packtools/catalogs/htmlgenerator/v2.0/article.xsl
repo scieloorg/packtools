@@ -50,6 +50,10 @@
     <xsl:include href="html-modals-figs.xsl"/>
     <xsl:include href="html-head.xsl"/>
     
+    <xsl:variable name="ref" select="//ref"></xsl:variable>
+    <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"></xsl:variable>
+    
+    
     <xsl:template match="/">
         <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
         <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -84,13 +88,13 @@
                 <link rel="stylesheet" href="{$CSS_PATH}/css/scielo-print.css" media="print"/>
              </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="$PRINT_CSS_PATH">
+        <xsl:if test="$PRINT_CSS_PATH!=''">
             <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>                
         </xsl:if>
     </xsl:template>
     <xsl:template match="/" mode="js">
         <xsl:choose>
-            <xsl:when test="$JS_PATH">
+            <xsl:when test="$JS_PATH!=''">
                 <script src="{$JS_PATH}"/>
             </xsl:when>
             <xsl:otherwise>
