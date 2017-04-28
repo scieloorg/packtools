@@ -62,7 +62,7 @@
         
     <xsl:template match="*" mode="text-body">
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="body" mode="generated-label"/></xsl:attribute>
+            <xsl:attribute name="data-anchor">x<xsl:apply-templates select="body" mode="generated-label"/></xsl:attribute>
             <!-- FIXME: body ou sub-article/body -->
             <a name="articleSection{$body_index}"/>
             <xsl:choose>

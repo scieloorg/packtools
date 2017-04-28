@@ -26,7 +26,7 @@
     </xsl:template>
     <xsl:template match="sub-article[@article-type!='translation'] | response">
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="data-anchor"></xsl:apply-templates></xsl:attribute>
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="data-anchor"/></xsl:attribute>
             <a name="articleSection{$body_index + $q_back + $q_body_fn + 1 + position()}"/>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>      
         </div>
@@ -48,7 +48,7 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="sub-article[@article-type!='translation']/*/contrib-group | response/*/contrib-group">
+    <!--xsl:template match="sub-article[@article-type!='translation']/*/contrib-group | response/*/contrib-group">
         <div class="contribGroup">
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib[*]">
@@ -60,5 +60,5 @@
                 </a>
             </xsl:if>
         </div>
-    </xsl:template>
+    </xsl:template-->
 </xsl:stylesheet>
