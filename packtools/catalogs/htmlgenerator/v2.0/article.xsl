@@ -107,7 +107,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
     <xsl:template match="article" mode="article">
         <section class="articleCtt">
             <div class="container">
@@ -159,6 +158,67 @@
                 </div>
             </div>
         </section>
+    </xsl:template>
+    <xsl:template match="article" mode="article">
+        <section class="articleCtt articleCttLeft">
+            <div class="container">
+                <div class="articleTxt">
+                    <div class="row">
+                        <div class="hidden-sm articleFigure">
+                            <xsl:apply-templates select=".//product//*[contains(name(), 'graphic')]"/>
+                        </div>
+                        <div class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+                            <div class="articleBadge">
+                                <span><xsl:apply-templates select="." mode="article-meta-subject"/></span>
+                            </div>
+                           <div class="editionMeta">
+                                <span>
+                                    <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
+                                    <!-- FIXME location -->
+                                    <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
+                                </span>
+                                <xsl:text> </xsl:text>
+                                <xsl:apply-templates select="." mode="journal-meta-issn"/>
+                            </div>
+                            <h1 class="article-title">
+                                <xsl:apply-templates select="." mode="article-meta-title"/>
+                            </h1>
+                            <div class="articleMeta">
+                                <div>
+                                    <!-- FIXME -->
+                                    <span>
+                                        <xsl:apply-templates select="." mode="article-meta-pub-dates"/></span>
+                                    <xsl:apply-templates select="." mode="article-meta-license"/>
+                                </div>
+                                <div>
+                                    <xsl:apply-templates select="." mode="article-meta-doi"/>
+
+                                </div>
+                            </div>
+                          <xsl:apply-templates select="." mode="article-meta-contrib"/>
+
+                    <div class="row">
+                        <ul class="col-md-2 hidden-sm articleMenu">
+
+                        </ul>
+
+                        <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+                            <xsl:apply-templates select="." mode="article-meta-product"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
+                            <xsl:apply-templates select=".//article-meta" mode="generic-history"/>
+                            <xsl:apply-templates select="." mode="article-text-sub-articles"></xsl:apply-templates>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
     </xsl:template>
 
 </xsl:stylesheet>

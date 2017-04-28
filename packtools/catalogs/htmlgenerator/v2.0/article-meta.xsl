@@ -4,10 +4,24 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     >
+    <xsl:template match="article" mode="article-meta-subject">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/*//subject"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]//subject">
+                <xsl:apply-templates select=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]//subject"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//article-meta//subject"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="article" mode="article-meta-title">
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]/*/title-group/article-title"></xsl:apply-templates>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/*/title-group/article-title"></xsl:apply-templates>
             </xsl:when>
             <xsl:when test=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title">
                 <xsl:apply-templates select=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title"></xsl:apply-templates>
@@ -17,7 +31,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
     <xsl:template match="*" mode="article-meta-doi">
         <xsl:apply-templates select=".//article-meta//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>        
     </xsl:template>
