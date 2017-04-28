@@ -2,7 +2,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
-    <xsl:variable name="ref" select="//ref"></xsl:variable>
     
     <xsl:template match="xref">
         <a href="#{@rid}" class="goto"><xsl:apply-templates></xsl:apply-templates></a>
@@ -50,6 +49,23 @@
             <span class="refCtt closed">
                 <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"></xsl:apply-templates>
             </span>
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="table-wrap//xref">
+        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <xsl:variable name="text"><xsl:value-of select="text()"/></xsl:variable>
+        <xsl:variable name="elem"><xsl:choose>
+            <xsl:when test="contains('1234567890',substring($text,1,1))">sup</xsl:when>
+            <xsl:otherwise>strong</xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        <span class="ref footnote">
+            <xsl:element name="{$elem}">
+                <xsl:attribute name="class">xref<xsl:choose>
+                    <xsl:when test="@ref-type='bibr'"> xrefblue</xsl:when>
+                </xsl:choose></xsl:attribute>
+                <xsl:apply-templates select="sup|text()"></xsl:apply-templates>
+            </xsl:element>    
         </span>
     </xsl:template>
     

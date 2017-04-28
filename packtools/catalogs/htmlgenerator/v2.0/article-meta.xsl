@@ -26,22 +26,12 @@
         <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
         <span>
             <span class="doi"><xsl:value-of select="$link"/></span></span>
-        <label class="showTooltip copyLink" data-placement="left">
-            <xsl:attribute name="title">
-                <xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">Click to </xsl:with-param>
-                </xsl:apply-templates>
+            <a class="copyLink" data-clipboard-text="{$link}">
+                <span class="sci-ico-link hidden-sm hidden-md"></span> 
                 <xsl:apply-templates select="." mode="interface">
                     <xsl:with-param name="text">copy URL</xsl:with-param>
                 </xsl:apply-templates>
-            </xsl:attribute>
-            <span class="sci-ico-link hidden-sm hidden-md"></span> 
-            <input type="text" name="link-share" class="fakeLink" data-clipboard-text="{$link}" data-toggle="tooltip" id="linkShare">
-                <xsl:attribute name="value"><xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">copy link</xsl:with-param>
-                </xsl:apply-templates></xsl:attribute>
-            </input>
-        </label>
+        </a>
     </xsl:template>
     
     <xsl:template match="article" mode="issue-meta-pub-dates">
