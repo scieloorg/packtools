@@ -74,11 +74,34 @@
         </html>
     </xsl:template>
     <xsl:template match="/" mode="css">
-        <link rel="stylesheet" href="{$CSS_PATH}"/>
-        <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>
+        <xsl:choose>
+            <xsl:when test="substring($CSS_PATH,string-length($CSS_PATH)-3)='.css'">
+                <link rel="stylesheet" href="{$CSS_PATH}"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <link rel="stylesheet" href="{$CSS_PATH}/css/bootstrap.min.css"/>
+                <link rel="stylesheet" href="{$CSS_PATH}/css/article-styles.css"/>
+                <link rel="stylesheet" href="{$CSS_PATH}/css/scielo-print.css" media="print"/>
+             </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="$PRINT_CSS_PATH">
+            <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>                
+        </xsl:if>
     </xsl:template>
     <xsl:template match="/" mode="js">
-        <script src="{$JS_PATH}"/>
+        <xsl:choose>
+            <xsl:when test="$JS_PATH">
+                <script src="{$JS_PATH}"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <script src="{$CSS_PATH}/js/vendor/jquery-1.11.0.min.js"></script>
+                <script src="{$CSS_PATH}/js/vendor/bootstrap.min.js"></script>
+                <script src="{$CSS_PATH}/js/vendor/jquery-ui.min.js"></script>
+                
+                <script src="{$CSS_PATH}/js/plugins.js"></script>
+                <script src="{$CSS_PATH}/js/min/main-min.js"></script>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="article" mode="article">
