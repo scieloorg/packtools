@@ -117,6 +117,21 @@
         </h2>
     </xsl:template>
             
+    <xsl:template match="sig-block">
+        <p class="articleSignature">
+            <xsl:apply-templates select="*"></xsl:apply-templates>
+        </p>
+    </xsl:template>
     
+    <xsl:template match="sig">
+        <xsl:choose>
+            <xsl:when test="position()=1">
+                <xsl:apply-templates></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <small><xsl:apply-templates></xsl:apply-templates></small>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     
 </xsl:stylesheet>
