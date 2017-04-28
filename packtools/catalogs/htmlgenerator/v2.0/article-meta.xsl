@@ -26,22 +26,14 @@
         <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
         <span>
             <span class="doi"><xsl:value-of select="$link"/></span></span>
-        <label class="showTooltip copyLink" data-placement="left">
-            <xsl:attribute name="title">
-                <xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">Click to </xsl:with-param>
-                </xsl:apply-templates>
+            <a class="copyLink" data-clipboard-text="{$link}">
+                <span class="sci-ico-link hidden-sm hidden-md"></span> 
+                <xsl:attribute name="title">
                 <xsl:apply-templates select="." mode="interface">
                     <xsl:with-param name="text">copy URL</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:attribute>
-            <span class="sci-ico-link hidden-sm hidden-md"></span> 
-            <input type="text" name="link-share" class="fakeLink" data-clipboard-text="{$link}" data-toggle="tooltip" id="linkShare">
-                <xsl:attribute name="value"><xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">copy link</xsl:with-param>
-                </xsl:apply-templates></xsl:attribute>
-            </input>
-        </label>
+        </a>
     </xsl:template>
     
     <xsl:template match="article" mode="issue-meta-pub-dates">
@@ -66,7 +58,7 @@
     </xsl:template>
     
     <xsl:template match="article" mode="article-meta-pub-dates">
-        <xsl:apply-templates select=".//article-meta/pub-date[1]" mode="label"></xsl:apply-templates>&#160;
+        <xsl:apply-templates select=".//article-meta/pub-date[1]" mode="generated-label"></xsl:apply-templates>&#160;
         
         <xsl:choose>
             <xsl:when test=".//article-meta/pub-date[@pub-type='epub']">
@@ -94,7 +86,7 @@
     
     <xsl:template match="license">
         <xsl:variable name="url">https://licensebuttons.net/l/</xsl:variable>
-        <xsl:variable name="icon"><xsl:value-of select="substring-after(@xlink:href,'http://creativecommons.org/licenses/')"/></xsl:variable>
+        • <xsl:variable name="icon"><xsl:value-of select="substring-after(@xlink:href,'creativecommons.org/licenses/')"/></xsl:variable>
         <a href="{@xlink:href}" target="_blank"><img src="{$url}{$icon}/80x15.png" alt="Creative Common - {$icon}"/> </a>
     </xsl:template>
        
