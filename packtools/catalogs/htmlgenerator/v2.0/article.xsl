@@ -9,47 +9,47 @@
     <xsl:include href="config-vars.xsl"/>
 
     <xsl:variable name="article" select="./article"/>
-    
+
     <xsl:include href="generic.xsl"/>
-    
+
     <xsl:include href="config-labels.xsl"/>
 
     <xsl:include href="journal-meta.xsl"/>
-    
+
     <xsl:include href="article-meta.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     <xsl:include href="article-meta-product.xsl"/>
-    
+
     <xsl:include href="generic-history.xsl"/>
-    
+
     <xsl:include href="article-text-xref.xsl"/>
 
     <xsl:include href="article-text.xsl"/>
     <xsl:include href="article-text-alternatives.xsl"/>
-    
+
     <xsl:include href="article-text-boxed-text.xsl"/>
     <xsl:include href="article-text-list.xsl"/>
     <xsl:include href="article-text-supplementary-material.xsl"/>
-    
+
     <xsl:include href="article-text-graphic.xsl"/>
     <xsl:include href="article-text-table.xsl"/>
     <xsl:include href="article-text-formula.xsl"/>
     <xsl:include href="article-text-fig.xsl"/>
-    
+
     <xsl:include href="article-text-back.xsl"/>
     <xsl:include href="article-text-ref.xsl"/>
     <xsl:include href="article-text-fn.xsl"/>
     <xsl:include href="article-text-bio.xsl"/>
-    
+
     <xsl:include href="article-text-sub-article.xsl"/>
-    
+
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
     <xsl:include href="html-modals-figs.xsl"/>
     <xsl:include href="html-head.xsl"/>
-    
+
     <xsl:template match="/">
         <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
         <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -74,13 +74,19 @@
         </html>
     </xsl:template>
     <xsl:template match="/" mode="css">
-        <link rel="stylesheet" href="{$CSS_PATH}"/>
-        <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>
+        <xsl:if test="$CSS_PATH != ''">
+            <link rel="stylesheet" href="{$CSS_PATH}"/>
+        </xsl:if>
+        <xsl:if test="$PRINT_CSS_PATH != ''">
+            <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="/" mode="js">
-        <script src="{$JS_PATH}"/>
+        <xsl:if test="$PRINT_CSS_PATH != ''">
+            <script src="{$JS_PATH}"></script>
+        </xsl:if>
     </xsl:template>
-    
+
     <xsl:template match="article" mode="article">
         <section class="articleCtt">
             <div class="container">
@@ -108,7 +114,7 @@
                         </div>
                         <div>
                             <xsl:apply-templates select="." mode="article-meta-doi"/>
-                            
+
                         </div>
                     </div>
 
@@ -116,22 +122,22 @@
 
                     <div class="row">
                         <ul class="col-md-2 hidden-sm articleMenu">
-                            
+
                         </ul>
 
                         <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
                             <xsl:apply-templates select="." mode="article-meta-product"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>                            
+                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
                             <xsl:apply-templates select=".//article-meta" mode="generic-history"/>
-                            <xsl:apply-templates select="." mode="article-text-sub-articles"></xsl:apply-templates>                            
+                            <xsl:apply-templates select="." mode="article-text-sub-articles"></xsl:apply-templates>
                         </article>
                     </div>
                 </div>
             </div>
         </section>
     </xsl:template>
-    
+
 </xsl:stylesheet>
