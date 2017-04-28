@@ -309,6 +309,12 @@ class XMLValidator(object):
         return cls(et, style_validators=style_validators, **kwargs)
 
     @property
+    def sps_version(self):
+        doc_root = self.lxml.getroot()
+        sps_version = doc_root.attrib.get('specific-use', None)
+        return sps_version
+
+    @property
     def dtd_validator(self):
         if self.dtd:
             return DTDValidator(self.dtd)
@@ -335,6 +341,7 @@ class XMLValidator(object):
         """
         errors = []
         for validator in self.style_validators:
+            LOGGER.info('running validator "%s"', repr(validator))
             errors += validator.validate(self.lxml)[1]
 
         result = not bool(errors)
