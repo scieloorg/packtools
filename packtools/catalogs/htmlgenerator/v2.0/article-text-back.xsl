@@ -72,11 +72,15 @@
         </xsl:if>
         
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="data-anchor"></xsl:apply-templates></xsl:attribute>
+            <xsl:if test="title">
+                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>    
+            </xsl:if>
             <a name="articleSection{$body_index + $position}"></a>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
+                    <xsl:if test="title">
                     <h1><xsl:apply-templates select="." mode="title"/></h1>
+                    </xsl:if>
                 </div>
             </div>
             <xsl:apply-templates select="." mode="back-section-content"></xsl:apply-templates>
@@ -87,17 +91,4 @@
         <xsl:apply-templates select="*[name()!='title' and name()!='label'] | text()"></xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="app-group" mode="back-section">
-        <xsl:param name="position"></xsl:param>
-        
-        <xsl:comment> app-group mode="back-section" </xsl:comment>
-        <xsl:comment> <xsl:value-of select="name()"/> </xsl:comment>
-        <xsl:comment> <xsl:value-of select="$position"/> </xsl:comment>
-        
-        <xsl:apply-templates select="*|text()" mode="back-section">
-            <xsl:with-param name="position"><xsl:value-of select="$position"/></xsl:with-param>
-        </xsl:apply-templates>
-    </xsl:template>
-    
-
 </xsl:stylesheet>

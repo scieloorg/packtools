@@ -13,15 +13,13 @@
     </xsl:template>
     <xsl:template match="body" mode="text-fn">
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
-                <xsl:with-param name="text">Notes</xsl:with-param>
-            </xsl:apply-templates></xsl:attribute>
+            <xsl:if test="title">
+                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+            </xsl:if>
             <a name="articleSection{$body_index + $q_back + 1}"></a>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
-                    <h1><xsl:apply-templates select="." mode="text-labels">
-                        <xsl:with-param name="text">Notes</xsl:with-param>
-                    </xsl:apply-templates></h1>
+                    <h1><xsl:apply-templates select="." mode="title"/></h1>
                 </div>
             </div>
             <ul class="refList footnote"> 
@@ -36,7 +34,9 @@
     
     <xsl:template match="fn/p">
         <div>
+            <p>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+            </p>
         </div>
     </xsl:template>
     
@@ -52,7 +52,7 @@
     
     <xsl:template match="back/fn-group" mode="back-section-content">
         <ul class="refList footnote">
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+            <xsl:apply-templates select="*[name()!='title']|text()"></xsl:apply-templates>
         </ul>
     </xsl:template>
 </xsl:stylesheet>

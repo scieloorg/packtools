@@ -13,9 +13,13 @@
     </xsl:template>
     
     <xsl:template match="abstract | trans-abstract" mode="layout">
+        <xsl:variable name="lang" select="@xml:lang"/>
+        
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="data-anchor"/></xsl:attribute>
-         
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+            <xsl:if test="@xml:lang='ar'">
+                <xsl:attribute name="dir">rtl</xsl:attribute>
+            </xsl:if>
             <a name="articleSection{position()-1}"></a>
             <div class="row">
                 <a name="resumo-heading-01"></a>
@@ -24,17 +28,11 @@
                 </div>
             </div>
             <xsl:apply-templates select="*[name()!='title']"/>
+            <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"></xsl:apply-templates>
+            <xsl:if test="not(../kwd-group[@xml:lang=$lang])">
+                <xsl:apply-templates select="../kwd-group[1]" mode="keywords"/>
+            </xsl:if>
         </div>
-    </xsl:template>
-    
-    <xsl:template match="abstract | trans-abstract">
-        <xsl:variable name="lang" select="@xml:lang"/>
-        <xsl:apply-templates select="." mode="title"/>
-        <xsl:apply-templates select="*"></xsl:apply-templates>
-        <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"></xsl:apply-templates>
-        <xsl:if test="not(../kwd-group[@xml:lang=$lang])">
-            <xsl:apply-templates select="../kwd-group[1]" mode="keywords"/>
-        </xsl:if>
     </xsl:template>
     
     <xsl:template match="abstract/title | trans-abstract/title">
@@ -47,8 +45,8 @@
     
     <xsl:template match="kwd-group"></xsl:template>
     <xsl:template match="kwd-group" mode="keywords">
-        <xsl:apply-templates select="." mode="title"/>
-        <p><xsl:apply-templates select="*"/></p>
+        <p><xsl:if test="not(title)"><strong><xsl:apply-templates select="." mode="generated-label"></xsl:apply-templates>: </strong></xsl:if>
+            <xsl:apply-templates select="*"/></p>
     </xsl:template>
     
     <xsl:template match="kwd-group/title">
@@ -58,16 +56,6 @@
     <xsl:template match="kwd"><xsl:apply-templates select="*|text()"></xsl:apply-templates><xsl:if test="position()!=last()">; </xsl:if>
     </xsl:template>
     
-    <xsl:template match="kwd-group" mode="generated-title">
-        <xsl:variable name="lang"><xsl:choose>
-            <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="$TEXT_LANG"/></xsl:otherwise>
-        </xsl:choose></xsl:variable>
-        <strong><xsl:choose>
-            <xsl:when test="$lang='es'">Palabras-clave</xsl:when>
-            <xsl:when test="$lang='pt'">Palavras-chave</xsl:when>
-            <xsl:otherwise>Key words</xsl:otherwise>
-        </xsl:choose></strong>
-    </xsl:template>
+    
       
 </xsl:stylesheet>
