@@ -94,16 +94,16 @@
     </xsl:template>
     <xsl:template match="/" mode="js">
         <xsl:choose>
-            <xsl:when test="substring($JS_PATH,string-length($CSS_PATH)-2)='.js'">
+            <xsl:when test="substring($JS_PATH,string-length($JS_PATH)-2)='.js'">
                 <link rel="stylesheet" href="{$JS_PATH}"/>
             </xsl:when>
             <xsl:otherwise>
-                <script src="{$CSS_PATH}/js/vendor/jquery-1.11.0.min.js"></script>
-                <script src="{$CSS_PATH}/js/vendor/bootstrap.min.js"></script>
-                <script src="{$CSS_PATH}/js/vendor/jquery-ui.min.js"></script>
+                <script src="{$JS_PATH}/js/vendor/jquery-1.11.0.min.js"></script>
+                <script src="{$JS_PATH}/js/vendor/bootstrap.min.js"></script>
+                <script src="{$JS_PATH}/js/vendor/jquery-ui.min.js"></script>
 
-                <script src="{$CSS_PATH}/js/plugins.js"></script>
-                <script src="{$CSS_PATH}/js/min/main-min.js"></script>
+                <script src="{$JS_PATH}/js/plugins.js"></script>
+                <script src="{$JS_PATH}/js/min/main-min.js"></script>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
