@@ -1,6 +1,17 @@
 History
 =======
 
+2.0.2
+-----
+
+* Reduces the size of the test matrix so tests run on a reasonable amount of 
+  time (the full matrix was taking almost 1 hour to run). Now we are testing
+  against minor versions of lxml -- 3.4, 3.5 and 3.6 --, except for 3.7.x 
+  series where we also test patch versions.
+* Fixes bug that would cause wheel distributions to handle dependencies
+  incorrectly.
+
+
 2.0.1 (2017-04-26)
 ------------------
 
