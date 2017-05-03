@@ -16,17 +16,21 @@
         <xsl:variable name="lang" select="@xml:lang"/>
         
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+            <xsl:if test="title">
+                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+            </xsl:if>
             <xsl:if test="@xml:lang='ar'">
                 <xsl:attribute name="dir">rtl</xsl:attribute>
             </xsl:if>
-            <a name="articleSection{position()-1}"></a>
-            <div class="row">
-                <a name="resumo-heading-01"></a>
-                <div class="col-md-8 col-sm-8">
-                    <h1><xsl:apply-templates select="." mode="title"></xsl:apply-templates></h1>
+            <xsl:if test="title">
+                <a name="articleSection{position()-1}"></a>
+                <div class="row">
+                    <a name="resumo-heading-01"></a>
+                    <div class="col-md-8 col-sm-8">
+                        <h1><xsl:apply-templates select="." mode="title"></xsl:apply-templates></h1>
+                    </div>
                 </div>
-            </div>
+            </xsl:if>
             <xsl:apply-templates select="*[name()!='title']"/>
             <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"></xsl:apply-templates>
             <xsl:if test="not(../kwd-group[@xml:lang=$lang])">

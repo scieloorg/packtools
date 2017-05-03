@@ -30,14 +30,12 @@
             <xsl:attribute name="class">contribGroup<xsl:if test="not(../abstract)"> contribGroupAlignLeft</xsl:if></xsl:attribute>
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib[*]">
-                <xsl:if test="../abstract">
                 <a href="" class="outlineFadeLink" data-toggle="modal"
                     data-target="#ModalTutors">
                     <xsl:apply-templates select="." mode="interface">
                         <xsl:with-param name="text">About the authors</xsl:with-param>
                     </xsl:apply-templates>
                 </a>
-                </xsl:if>
             </xsl:if>
         </div>
     </xsl:template>
@@ -71,9 +69,9 @@
 
     <xsl:template match="contrib" mode="contrib-dropdown-menu">
         <xsl:param name="id"/>
-        <xsl:if test="role or xref or contrib-id">
+        <xsl:if test="role or xref or contrib-id or bio">
             <ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor{$id}">
-                <xsl:apply-templates select="role"/>
+                <xsl:apply-templates select="role | bio"/>
                 <xsl:apply-templates select="xref"/>
                 <xsl:apply-templates select="contrib-id"/>
             </ul>

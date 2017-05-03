@@ -15,11 +15,11 @@
     <xsl:template match="bio//fig">
     </xsl:template>
     
-    <xsl:template match="bio" mode="back-section">
+    <xsl:template match="back/bio" mode="back-section-content">
         <div>
             <xsl:attribute name="class">articleBibliography<xsl:if test="not(.//graphic)"> noPicture</xsl:if></xsl:attribute>
             <xsl:apply-templates select="." mode="bio-picture"></xsl:apply-templates>
             <xsl:apply-templates select="*"></xsl:apply-templates>
-        </div>
+        </div>        
     </xsl:template>
 </xsl:stylesheet>

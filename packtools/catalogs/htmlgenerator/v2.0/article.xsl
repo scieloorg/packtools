@@ -52,7 +52,13 @@
 
     <xsl:variable name="ref" select="//ref"></xsl:variable>
     <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"></xsl:variable>
-
+    <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_body_fn"><xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_subarticle"><xsl:apply-templates select="article" mode="count_subarticle"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_history">1</xsl:variable>
+    <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
+    
     <xsl:template match="/">
         <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
         <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -220,6 +226,9 @@
                 </div>
             </div>
         </section>
+        <xsl:comment> $body_index=<xsl:value-of select="$body_index"/></xsl:comment>
+        <xsl:comment> q_back=<xsl:value-of select="$q_back"/></xsl:comment>
+        <xsl:comment> $q_body_fn=<xsl:value-of select="$q_body_fn"/></xsl:comment>
         
     </xsl:template>
 

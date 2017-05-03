@@ -3,12 +3,6 @@
     version="1.0"
     xmlns:xlink="http://www.w3.org/1999/xlink" >
     
-    <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_body_fn"><xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_subarticle"><xsl:apply-templates select="article" mode="count_subarticle"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_history">1</xsl:variable>
-    <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
     
     <xsl:template match="article" mode="count_abstracts">
         <xsl:choose>
@@ -22,7 +16,7 @@
     </xsl:template>
     
     <xsl:template match="*" mode="count_abstracts">
-        <xsl:value-of select="count(.//abstract)+count(.//trans-abstract)"></xsl:value-of>
+        <xsl:value-of select="count(.//abstract[title])+count(.//trans-abstract[title])"></xsl:value-of>
     </xsl:template>
     
     <xsl:template match="article" mode="count_back_elements">
@@ -31,7 +25,7 @@
                 <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_back_elements"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="count(back/*)"/>
+                <xsl:value-of select="count(back/*[title])"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -51,12 +45,12 @@
     <xsl:template match="sub-article[@article-type='translation']" mode="count_back_elements">
         <xsl:choose>
             <xsl:when test="back/ref-list">
-                <xsl:value-of select="count(back/*)"/>
+                <xsl:value-of select="count(back/*[title])"/>
             </xsl:when>
             <xsl:when test="../back/ref-list">
-                <xsl:value-of select="count(back/*)+1"/>
+                <xsl:value-of select="count(back/*[title])+1"/>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="count(back/*)"/></xsl:otherwise>
+            <xsl:otherwise><xsl:value-of select="count(back/*[title])"/></xsl:otherwise>
         </xsl:choose>       
     </xsl:template>
         
