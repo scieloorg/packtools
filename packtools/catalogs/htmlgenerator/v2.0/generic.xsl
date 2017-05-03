@@ -27,6 +27,12 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template match="p[.//p]">
+        <div>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
     <xsl:template match="bold">
         <b><xsl:apply-templates></xsl:apply-templates></b>
     </xsl:template>

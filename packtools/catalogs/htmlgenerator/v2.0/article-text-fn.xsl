@@ -23,9 +23,13 @@
                     <h1><xsl:apply-templates select="." mode="title"/></h1>
                 </div>
             </div>
-            <ul class="refList footnote"> 
-                <xsl:apply-templates select=".//p/fn" mode="list-item"></xsl:apply-templates>
-            </ul>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <ul class="refList footnote"> 
+                        <xsl:apply-templates select=".//p/fn" mode="list-item"></xsl:apply-templates>
+                    </ul>
+                </div>
+            </div>
         </div>        
     </xsl:template>
     
@@ -46,15 +50,23 @@
     </xsl:template>
     
     <xsl:template match="back/fn" mode="back-section-content">
-        <ul class="refList footnote">
-            <xsl:apply-templates select="." mode="list-item"></xsl:apply-templates>
-        </ul>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">                
+                <ul class="refList footnote">
+                    <xsl:apply-templates select="." mode="list-item"></xsl:apply-templates>
+                </ul>
+            </div>
+        </div>
     </xsl:template>
     
     <xsl:template match="back/fn-group" mode="back-section-content">
-        <ul class="refList footnote">
-            <xsl:apply-templates select="*[name()!='title']|text()"></xsl:apply-templates>
-        </ul>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">                
+                <ul class="refList footnote">
+                    <xsl:apply-templates select="*[name()!='title']|text()"></xsl:apply-templates>
+                </ul>
+            </div>
+        </div>
     </xsl:template>
     
     

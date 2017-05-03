@@ -164,8 +164,9 @@
             <div class="container">
                 <div class="articleTxt">
                     <div class="row">
-                        <div class="hidden-sm articleFigure">
-                            <xsl:apply-templates select=".//product//*[contains(name(), 'graphic')]"/>
+                        <div>
+                            <xsl:attribute name="class">hidden-sm<xsl:if test=".//product//*[@xlink:href]"> articleFigure</xsl:if></xsl:attribute>
+                            <xsl:apply-templates select=".//product//*[@xlink:href]"/>
                         </div>
                         <div class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
                             <div class="articleBadge">
@@ -197,8 +198,9 @@
 
                                 </div>
                             </div>
-                          <xsl:apply-templates select="." mode="article-meta-contrib"/>
-
+                            <xsl:apply-templates select="." mode="article-meta-contrib"/>
+                        </div>
+                    </div>
                     <div class="row">
                         <ul class="col-md-2 hidden-sm articleMenu">
 

@@ -63,10 +63,12 @@
     <xsl:template match="*" mode="text-body">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:choose>
-                <xsl:when test=".//abstract"><xsl:apply-templates select="body" mode="generated-label"/></xsl:when>
-                <xsl:otherwise><xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text" select="@article-type"/>
-                </xsl:apply-templates></xsl:otherwise>
+                <xsl:when test=".//sub-article[@article-type!='translation'] or .//response">
+                    <xsl:apply-templates select="." mode="text-labels">
+                        <xsl:with-param name="text"><xsl:value-of select="@article-type"/><xsl:value-of select="@response-type"/></xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise><xsl:apply-templates select="body" mode="generated-label"/></xsl:otherwise>
             </xsl:choose></xsl:attribute>
             <!-- FIXME: body ou sub-article/body -->
             <a name="articleSection{$body_index}"/>
@@ -134,9 +136,15 @@
                 <xsl:apply-templates></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <small><xsl:apply-templates></xsl:apply-templates></small>
+                <small><xsl:apply-templates select="*|text()"/></small>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
+    <xsl:template match="speech/speaker">
+        <div class="row"><strong><xsl:apply-templates select="*|text()"></xsl:apply-templates></strong></div>
+    </xsl:template>
+    <xsl:template match="speech/p">
+        <div class="row"><xsl:apply-templates select="*|text()"></xsl:apply-templates></div>
+    </xsl:template>
 </xsl:stylesheet>

@@ -36,7 +36,7 @@
     
     <xsl:template match="xref[@ref-type='bibr']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <xsl:variable name="text"><xsl:value-of select="text()"/></xsl:variable>
+        <xsl:variable name="text"><xsl:value-of select=".//text()"/></xsl:variable>
         <xsl:variable name="elem"><xsl:choose>
             <xsl:when test="contains('1234567890',substring($text,1,1))">sup</xsl:when>
             <xsl:otherwise>strong</xsl:otherwise>
