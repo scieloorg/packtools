@@ -95,7 +95,7 @@
     <xsl:template match="/" mode="js">
         <xsl:choose>
             <xsl:when test="substring($JS_PATH,string-length($JS_PATH)-2)='.js'">
-                <link rel="stylesheet" href="{$JS_PATH}"/>
+                <script src="{$JS_PATH}"/>
             </xsl:when>
             <xsl:otherwise>
                 <script src="{$JS_PATH}/js/vendor/jquery-1.11.0.min.js"></script>
