@@ -230,4 +230,23 @@
         <name lang="pt">Dez</name>
         <name lang="es">Dic</name>
     </term>
+    <term>
+        <name>reply</name>
+        <name lang="en">Reply</name>
+        <name lang="pt">Resposta</name>
+        <name lang="es">Respuesta</name>
+    </term>
+    <term>
+        <name>reply</name>
+        <name lang="en">Reply</name>
+        <name lang="pt">Resposta</name>
+        <name lang="es">Respuesta</name>
+    </term>
+    <term>
+        <name>letter</name>
+        <name lang="en">Letter</name>
+        <name lang="pt">Carta</name>
+        <name lang="es">Carta</name>
+    </term>
+    
 </labels>

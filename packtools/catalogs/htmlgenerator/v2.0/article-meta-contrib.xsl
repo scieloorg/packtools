@@ -21,20 +21,23 @@
     
     <xsl:template match="sub-article" mode="contrib-group">
         <xsl:if test="not(body//sig)">
-            <xsl:apply-templates select=".//front-stub//contrib-group"></xsl:apply-templates>
+            <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="contrib-group">
-        <div class="contribGroup">
+    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
+        <div>
+            <xsl:attribute name="class">contribGroup<xsl:if test="not(../abstract)"> contribGroupAlignLeft</xsl:if></xsl:attribute>
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib[*]">
+                <xsl:if test="../abstract">
                 <a href="" class="outlineFadeLink" data-toggle="modal"
                     data-target="#ModalTutors">
                     <xsl:apply-templates select="." mode="interface">
                         <xsl:with-param name="text">About the authors</xsl:with-param>
                     </xsl:apply-templates>
                 </a>
+                </xsl:if>
             </xsl:if>
         </div>
     </xsl:template>
