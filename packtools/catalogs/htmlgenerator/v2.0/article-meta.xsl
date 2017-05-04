@@ -5,12 +5,10 @@
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     >
     <xsl:template match="article" mode="article-meta-subject">
+        <xsl:comment> <xsl:value-of select="$TEXT_LANG"/> </xsl:comment>
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/*//subject"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:when test=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]//subject">
-                <xsl:apply-templates select=".//article-meta//trans-title-group[@xml:lang=$TEXT_LANG]//subject"></xsl:apply-templates>
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//subject" mode="display"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select=".//article-meta//subject"></xsl:apply-templates>

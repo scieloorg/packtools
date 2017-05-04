@@ -166,6 +166,7 @@
         </section>
     </xsl:template>
     <xsl:template match="article" mode="article">
+        <xsl:comment> LANG=<xsl:value-of select="$TEXT_LANG"/> </xsl:comment>
         <section class="articleCtt articleCttLeft">
             <div class="container">
                 <div class="articleTxt">
