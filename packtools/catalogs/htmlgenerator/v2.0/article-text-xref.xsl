@@ -36,11 +36,12 @@
     
     <xsl:template match="xref[@ref-type='bibr']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <xsl:variable name="text"><xsl:value-of select="text()"/></xsl:variable>
+        <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
         <xsl:variable name="elem"><xsl:choose>
-            <xsl:when test="contains('1234567890',substring($text,1,1))">sup</xsl:when>
+            <xsl:when test="contains('1234567890',substring(normalize-space($text),1,1))">sup</xsl:when>
             <xsl:otherwise>strong</xsl:otherwise>
         </xsl:choose></xsl:variable>
+        <xsl:comment> <xsl:value-of select="$text"/> </xsl:comment>
         <span class="ref">
             <xsl:element name="{$elem}">
                 <xsl:attribute name="class">xref</xsl:attribute>
@@ -54,9 +55,9 @@
     
     <xsl:template match="table-wrap//xref">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <xsl:variable name="text"><xsl:value-of select="text()"/></xsl:variable>
+        <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
         <xsl:variable name="elem"><xsl:choose>
-            <xsl:when test="contains('1234567890',substring($text,1,1))">sup</xsl:when>
+            <xsl:when test="contains('1234567890',substring(normalize-space($text),1,1))">sup</xsl:when>
             <xsl:otherwise>strong</xsl:otherwise>
         </xsl:choose></xsl:variable>
         <span class="ref footnote">

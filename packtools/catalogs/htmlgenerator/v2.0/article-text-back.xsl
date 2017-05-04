@@ -74,8 +74,8 @@
         <div class="articleSection">
             <xsl:if test="title">
                 <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>    
+                <a name="articleSection{$body_index + $position}"></a>
             </xsl:if>
-            <a name="articleSection{$body_index + $position}"></a>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <xsl:if test="title">

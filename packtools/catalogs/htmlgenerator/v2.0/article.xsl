@@ -52,7 +52,13 @@
 
     <xsl:variable name="ref" select="//ref"></xsl:variable>
     <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"></xsl:variable>
-
+    <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_body_fn"><xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_subarticle"><xsl:apply-templates select="article" mode="count_subarticle"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_history">1</xsl:variable>
+    <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
+    
     <xsl:template match="/">
         <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
         <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -107,7 +113,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
     <xsl:template match="article" mode="article">
         <section class="articleCtt">
             <div class="container">
@@ -159,6 +164,73 @@
                 </div>
             </div>
         </section>
+    </xsl:template>
+    <xsl:template match="article" mode="article">
+        <xsl:comment> LANG=<xsl:value-of select="$TEXT_LANG"/> </xsl:comment>
+        <section class="articleCtt articleCttLeft">
+            <div class="container">
+                <div class="articleTxt">
+                    <div class="row">
+                        <div>
+                            <xsl:attribute name="class">hidden-sm<xsl:if test=".//product//*[@xlink:href]"> articleFigure</xsl:if></xsl:attribute>
+                            <xsl:apply-templates select=".//product//*[@xlink:href]"/>
+                        </div>
+                        <div class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+                            <div class="articleBadge">
+                                <span><xsl:apply-templates select="." mode="article-meta-subject"/></span>
+                            </div>
+                           <div class="editionMeta">
+                                <span>
+                                    <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
+                                    <!-- FIXME location -->
+                                    <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
+                                </span>
+                                <xsl:text> </xsl:text>
+                                <xsl:apply-templates select="." mode="journal-meta-issn"/>
+                            </div>
+                            <h1 class="article-title">
+                                <xsl:apply-templates select="." mode="article-meta-title"/>
+                            </h1>
+                            <div class="articleMeta">
+                                <div>
+                                    <!-- FIXME -->
+                                    <span>
+                                        <xsl:apply-templates select="." mode="article-meta-pub-dates"/></span>
+                                    <xsl:apply-templates select="." mode="article-meta-license"/>
+                                </div>
+                                <div>
+                                    <xsl:apply-templates select="." mode="article-meta-doi"/>
+
+                                </div>
+                            </div>
+                            <xsl:apply-templates select="." mode="article-meta-contrib"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ul class="col-md-2 hidden-sm articleMenu">
+
+                        </ul>
+
+                        <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+                            <xsl:apply-templates select="." mode="article-meta-product"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
+                            <xsl:apply-templates select=".//article-meta" mode="generic-history"/>
+                            <xsl:apply-templates select="." mode="article-text-sub-articles"></xsl:apply-templates>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <xsl:comment> $body_index=<xsl:value-of select="$body_index"/></xsl:comment>
+        <xsl:comment> q_back=<xsl:value-of select="$q_back"/></xsl:comment>
+        <xsl:comment> $q_body_fn=<xsl:value-of select="$q_body_fn"/></xsl:comment>
+        
     </xsl:template>
 
 </xsl:stylesheet>

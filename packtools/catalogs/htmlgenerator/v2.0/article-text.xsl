@@ -3,12 +3,6 @@
     version="1.0"
     xmlns:xlink="http://www.w3.org/1999/xlink" >
     
-    <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_body_fn"><xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_subarticle"><xsl:apply-templates select="article" mode="count_subarticle"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_history">1</xsl:variable>
-    <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
     
     <xsl:template match="article" mode="count_abstracts">
         <xsl:choose>
@@ -22,7 +16,7 @@
     </xsl:template>
     
     <xsl:template match="*" mode="count_abstracts">
-        <xsl:value-of select="count(.//abstract)+count(.//trans-abstract)"></xsl:value-of>
+        <xsl:value-of select="count(.//abstract[title])+count(.//trans-abstract[title])"></xsl:value-of>
     </xsl:template>
     
     <xsl:template match="article" mode="count_back_elements">
@@ -31,7 +25,7 @@
                 <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_back_elements"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="count(back/*)"/>
+                <xsl:value-of select="count(back/*[title])"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -51,22 +45,24 @@
     <xsl:template match="sub-article[@article-type='translation']" mode="count_back_elements">
         <xsl:choose>
             <xsl:when test="back/ref-list">
-                <xsl:value-of select="count(back/*)"/>
+                <xsl:value-of select="count(back/*[title])"/>
             </xsl:when>
             <xsl:when test="../back/ref-list">
-                <xsl:value-of select="count(back/*)+1"/>
+                <xsl:value-of select="count(back/*[title])+1"/>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="count(back/*)"/></xsl:otherwise>
+            <xsl:otherwise><xsl:value-of select="count(back/*[title])"/></xsl:otherwise>
         </xsl:choose>       
     </xsl:template>
         
     <xsl:template match="*" mode="text-body">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:choose>
-                <xsl:when test=".//abstract"><xsl:apply-templates select="body" mode="generated-label"/></xsl:when>
-                <xsl:otherwise><xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text" select="@article-type"/>
-                </xsl:apply-templates></xsl:otherwise>
+                <xsl:when test=".//sub-article[@article-type!='translation'] or .//response">
+                    <xsl:apply-templates select="." mode="text-labels">
+                        <xsl:with-param name="text"><xsl:value-of select="@article-type"/><xsl:value-of select="@response-type"/></xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise><xsl:apply-templates select="body" mode="generated-label"/></xsl:otherwise>
             </xsl:choose></xsl:attribute>
             <!-- FIXME: body ou sub-article/body -->
             <a name="articleSection{$body_index}"/>
@@ -134,9 +130,15 @@
                 <xsl:apply-templates></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <small><xsl:apply-templates></xsl:apply-templates></small>
+                <small><xsl:apply-templates select="*|text()"/></small>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
+    <xsl:template match="speech/speaker">
+        <div class="row"><strong><xsl:apply-templates select="*|text()"></xsl:apply-templates></strong></div>
+    </xsl:template>
+    <xsl:template match="speech/p">
+        <div class="row"><xsl:apply-templates select="*|text()"></xsl:apply-templates></div>
+    </xsl:template>
 </xsl:stylesheet>

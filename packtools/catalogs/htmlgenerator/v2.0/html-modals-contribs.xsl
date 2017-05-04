@@ -14,7 +14,6 @@
     
     <xsl:template match="article-meta | front | front-stub" mode="modal-contrib">
         <xsl:if test=".//contrib[*]">
-            <xsl:value-of select="name()"/>
             <div class="modal fade ModalDefault" id="ModalTutors{../@id}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
