@@ -17,10 +17,6 @@
     
     <xsl:template match="*" mode="node-name"><xsl:value-of select="name()"/></xsl:template>
 
-    <xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
-    <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable>
-    <xsl:variable name="reflist_position"><xsl:apply-templates select="article/back/*" mode="position"><xsl:with-param name="name">ref-list</xsl:with-param></xsl:apply-templates></xsl:variable>
-    
     <xsl:template match="article" mode="text-back">
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">

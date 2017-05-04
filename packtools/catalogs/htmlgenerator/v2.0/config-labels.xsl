@@ -40,6 +40,16 @@
             </xsl:choose></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
+    <xsl:template match="abstract | trans-abstract" mode="generated-label">
+        <xsl:comment> generated-label </xsl:comment>
+        <xsl:apply-templates select="." mode="translate">
+            <xsl:with-param name="term">Abstract</xsl:with-param>
+            <xsl:with-param name="lang"><xsl:choose>
+                <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="$TEXT_LANG"/></xsl:otherwise>
+            </xsl:choose></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
     <xsl:template match="@pub-type" mode="generated-label">
         <xsl:apply-templates select="." mode="interface">
             <xsl:with-param name="text"><xsl:choose>
