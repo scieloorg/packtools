@@ -54,7 +54,7 @@
         </div>
     </xsl:template>
     <xsl:template match="article-meta" mode="generic-history-section">
-        <a name="articleSection{$body_index + $q_back + $q_body_fn + 1}"></a>
+        <a name="articleSection{$q_front + $q_back + $q_body_fn + 1}"></a>
     </xsl:template>
 
     <xsl:template match="*[name()!='article']/front | front-stub" mode="generic-history-section">

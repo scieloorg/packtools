@@ -27,7 +27,7 @@
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
         <div>
-            <xsl:attribute name="class">contribGroup<xsl:if test="not(../abstract)"> contribGroupAlignLeft</xsl:if></xsl:attribute>
+            <xsl:attribute name="class">contribGroup contribGroupAlignLeft</xsl:attribute>
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib[*]">
                 <a href="" class="outlineFadeLink" data-toggle="modal"
@@ -125,17 +125,20 @@
     <xsl:template match="aff/text()" mode="insert-separator">
         <xsl:value-of select="."/>
     </xsl:template>
-
+    
     <xsl:template match="aff" mode="display">
+        <xsl:variable name="text"><xsl:apply-templates select="text()"/></xsl:variable>
+        <xsl:comment> $text: <xsl:value-of select="$text"/> </xsl:comment>
+        <xsl:comment> text(): <xsl:apply-templates select="text()"></xsl:apply-templates></xsl:comment>
         <xsl:choose>
             <xsl:when test="institution[@content-type='original']">
                 <xsl:comment> aff original </xsl:comment>
                 <xsl:apply-templates select="institution[@content-type='original']"/>
             </xsl:when>
             <xsl:when
-                test="institution[@content-type='orgname'] and contains(text(),institution[@content-type='orgname'])">
-                <xsl:comment> aff text() </xsl:comment>
-                <xsl:apply-templates select="text()"/>
+                test="institution[@content-type='orgname'] and contains($text,institution[@content-type='orgname'])">
+                <xsl:comment> $text </xsl:comment>
+                <xsl:value-of select="$text"/>
             </xsl:when>
             <xsl:when
                 test="*[name()!='label']">
@@ -143,8 +146,8 @@
                 <xsl:apply-templates select="*[name()!='label']" mode="insert-separator"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:comment> aff text() 2 </xsl:comment>
-                <xsl:apply-templates select="text()"/>
+                <xsl:comment> $text </xsl:comment>
+                <xsl:value-of select="$text"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -52,12 +52,21 @@
 
     <xsl:variable name="ref" select="//ref"></xsl:variable>
     <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"></xsl:variable>
-    <xsl:variable name="q_abstracts"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
+    
+    <xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
+    <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable>
+    <xsl:variable name="reflist_position"><xsl:apply-templates select="article/back/*" mode="position"><xsl:with-param name="name">ref-list</xsl:with-param></xsl:apply-templates></xsl:variable>
+    
+    <xsl:variable name="q_abstract_title"><xsl:apply-templates select="article" mode="count_abstract_title"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_abstract"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_front"><xsl:choose>
+        <xsl:when test="$q_abstract_title=0"><xsl:value-of select="$q_abstract"/></xsl:when>
+        <xsl:otherwise><xsl:value-of select="$q_abstract_title"/></xsl:otherwise>
+    </xsl:choose></xsl:variable>
     <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
     <xsl:variable name="q_body_fn"><xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_history"><xsl:apply-templates select="article" mode="count_history"/></xsl:variable>
     <xsl:variable name="q_subarticle"><xsl:apply-templates select="article" mode="count_subarticle"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_history">1</xsl:variable>
-    <xsl:variable name="body_index"><xsl:value-of select="$q_abstracts"/></xsl:variable>
     
     <xsl:template match="/">
         <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -227,9 +236,13 @@
                 </div>
             </div>
         </section>
-        <xsl:comment> $body_index=<xsl:value-of select="$body_index"/></xsl:comment>
-        <xsl:comment> q_back=<xsl:value-of select="$q_back"/></xsl:comment>
+        <xsl:comment> $q_abstract_title=<xsl:value-of select="$q_abstract_title"/></xsl:comment>
+        <xsl:comment> $q_abstract=<xsl:value-of select="$q_abstract"/></xsl:comment>
+        <xsl:comment> $q_front=<xsl:value-of select="$q_front"/></xsl:comment>
+        <xsl:comment> $q_back=<xsl:value-of select="$q_back"/></xsl:comment>
         <xsl:comment> $q_body_fn=<xsl:value-of select="$q_body_fn"/></xsl:comment>
+        <xsl:comment> $q_history=<xsl:value-of select="$q_history"/></xsl:comment>
+        <xsl:comment> $q_subarticle=<xsl:value-of select="$q_subarticle"/></xsl:comment>
         
     </xsl:template>
 

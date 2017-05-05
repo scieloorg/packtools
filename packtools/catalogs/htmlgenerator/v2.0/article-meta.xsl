@@ -95,8 +95,12 @@
     
     <xsl:template match="license">
         <xsl:variable name="url">https://licensebuttons.net/l/</xsl:variable>
-        • <xsl:variable name="icon"><xsl:value-of select="substring-after(@xlink:href,'creativecommons.org/licenses/')"/></xsl:variable>
-        <a href="{@xlink:href}" target="_blank"><img src="{$url}{$icon}/80x15.png" alt="Creative Common - {$icon}"/> </a>
+        <xsl:variable name="icon_path"><xsl:value-of select="substring-after(@xlink:href,'creativecommons.org/licenses/')"/></xsl:variable>
+        <xsl:variable name="icon"><xsl:choose>
+            <xsl:when test="contains($icon_path,'/deen')"><xsl:value-of select="substring-before($icon_path,'/deen')"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="$icon_path"/></xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        • <a href="{@xlink:href}" target="_blank"><img src="{$url}{$icon}/80x15.png" alt="Creative Common - {$icon}"/> </a>
     </xsl:template>
        
 </xsl:stylesheet>
