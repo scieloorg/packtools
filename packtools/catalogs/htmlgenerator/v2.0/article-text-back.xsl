@@ -33,6 +33,33 @@
         </xsl:choose>        
     </xsl:template>
     
+    <xsl:template match="back/*[title]" mode="index">
+        <xsl:param name="title"/>
+        <xsl:if test="normalize-space(title)=normalize-space($title)"><xsl:value-of select="position()"/></xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="back" mode="index">
+        <xsl:param name="title"/>
+        <xsl:variable name="index"><xsl:apply-templates select=".//*[title]" mode="index">
+            <xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
+        </xsl:apply-templates></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$reflist_position != '' and ref-list">
+                <xsl:value-of select="$index"/>
+            </xsl:when>
+            <xsl:when test="$reflist_position != '' and not(ref-list)">
+                <xsl:choose>
+                    <xsl:when test="$index &lt; $reflist_position">
+                        <xsl:value-of select="$index"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$index+1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+        </xsl:choose>        
+    </xsl:template>
+    
     <xsl:template match="*" mode="back">
         <xsl:comment> mode="back" </xsl:comment>
         <xsl:comment> <xsl:value-of select="name()"/> </xsl:comment>
@@ -42,7 +69,7 @@
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type='translation']/back[not(ref-list)]/*" mode="back">
-        <xsl:comment> sub-article </xsl:comment>
+        <xsl:comment> sub-article/*, mode="back" </xsl:comment>
         <xsl:comment> position()=<xsl:value-of select="position()"/> </xsl:comment>
         <xsl:comment> ref-list position()=<xsl:value-of select="$reflist_position"/> </xsl:comment>
         <xsl:if test="position()=$reflist_position">
@@ -62,17 +89,26 @@
         <xsl:param name="position"></xsl:param>
         <xsl:comment> mode="back-section" </xsl:comment>
         <xsl:comment> <xsl:value-of select="name()"/> </xsl:comment>
-        <xsl:comment> <xsl:value-of select="$position"/> </xsl:comment>
-        <xsl:if test="@id">
-            <a name="{@id}"/>
+        <xsl:comment> title=<xsl:apply-templates select="title//text()"/> </xsl:comment>
+        <xsl:comment> title=<xsl:value-of select="title"/> </xsl:comment>
+        
+        <xsl:variable name="index"><xsl:if test="title"><xsl:apply-templates select="../../back" mode="index">
+            <xsl:with-param name="title"><xsl:value-of select="title"/></xsl:with-param>
+        </xsl:apply-templates></xsl:if></xsl:variable>
+        <xsl:comment> index: <xsl:value-of select="$index"/> </xsl:comment>
+        <xsl:if test="$index!=''">
+            <a name="articleSection{$q_front+number($index)}"/>
         </xsl:if>
         
         <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>    
-            <a name="articleSection{$q_front + $position}"></a>
+            <xsl:if test="title">
+                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>    
+            </xsl:if>
             <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <h1><xsl:apply-templates select="." mode="title"/></h1>
+                <div class="col-md-12 col-sm-12">                    
+                    <h1>
+                        <xsl:if test="title"><xsl:apply-templates select="." mode="title"/></xsl:if>
+                    </h1>
                 </div>
             </div>
             <xsl:apply-templates select="." mode="back-section-content"></xsl:apply-templates>

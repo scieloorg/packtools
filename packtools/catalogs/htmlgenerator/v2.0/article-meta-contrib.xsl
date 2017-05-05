@@ -27,7 +27,7 @@
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
         <div>
-            <xsl:attribute name="class">contribGroup<xsl:if test="not(../abstract)"> contribGroupAlignLeft</xsl:if></xsl:attribute>
+            <xsl:attribute name="class">contribGroup contribGroupAlignLeft</xsl:attribute>
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib[*]">
                 <a href="" class="outlineFadeLink" data-toggle="modal"
