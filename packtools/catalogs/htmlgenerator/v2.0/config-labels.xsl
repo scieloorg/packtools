@@ -31,7 +31,7 @@
     </xsl:template>
         
     <xsl:template match="*" mode="generated-label">
-        <xsl:comment> generated-label </xsl:comment>
+        <xsl:comment> generated-label </xsl:comment>(Generated)
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term"><xsl:value-of select="name()"/></xsl:with-param>
             <xsl:with-param name="lang"><xsl:choose>
@@ -40,7 +40,7 @@
             </xsl:choose></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
-    <xsl:template match="abstract | trans-abstract" mode="generated-label">
+    <xsl:template match="abstract | trans-abstract" mode="generated-label">(Generated)
         <xsl:comment> generated-label </xsl:comment>
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term">Abstract</xsl:with-param>

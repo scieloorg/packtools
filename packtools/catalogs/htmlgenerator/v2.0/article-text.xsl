@@ -4,13 +4,27 @@
     xmlns:xlink="http://www.w3.org/1999/xlink" >
     
     
-    <xsl:template match="article | sub-article[@article-type='translation']" mode="count_abstracts">
+    <xsl:template match="article" mode="count_abstracts">
         <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//abstract">
                 <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_abstracts"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="count(.//abstract[title])+count(.//trans-abstract[title])"></xsl:value-of>
+                <xsl:value-of select="count(.//article-meta//abstract)+count(.//article-meta//trans-abstract)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="sub-article[@article-type='translation']" mode="count_abstracts">
+        <xsl:value-of select="count(.//abstract)+count(.//trans-abstract)"/>
+    </xsl:template>
+    
+    <xsl:template match="article | sub-article[@article-type='translation']" mode="count_history">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//history">
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_history"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="count(.//history)"></xsl:value-of>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -21,19 +35,19 @@
                 <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_back_elements"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="count(back/*[title])"/>
+                <xsl:value-of select="count(back/*)"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="sub-article[@article-type='translation']" mode="count_back_elements">
         <xsl:choose>
             <xsl:when test="back/ref-list">
-                <xsl:value-of select="count(back/*[title])"/>
+                <xsl:value-of select="count(back/*)"/>
             </xsl:when>
             <xsl:when test="../back/ref-list">
-                <xsl:value-of select="count(back/*[title])+1"/>
+                <xsl:value-of select="count(back/*)+1"/>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="count(back/*[title])"/></xsl:otherwise>
+            <xsl:otherwise><xsl:value-of select="count(back/*)"/></xsl:otherwise>
         </xsl:choose>       
     </xsl:template>
     
@@ -67,7 +81,7 @@
                 <xsl:otherwise><xsl:apply-templates select="body" mode="generated-label"/></xsl:otherwise>
             </xsl:choose></xsl:attribute>
             <!-- FIXME: body ou sub-article/body -->
-            <a name="articleSection{$q_abstracts}"/>
+            <a name="articleSection{$q_front}"/>
             <xsl:choose>
                 <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
                     <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]//body/*"/>
@@ -95,15 +109,15 @@
         <xsl:variable name="item"><xsl:apply-templates select="../../body" mode="number">
             <xsl:with-param name="sec_id"><xsl:value-of select="@sec-type"/></xsl:with-param>
         </xsl:apply-templates></xsl:variable>
-        <a name="as{$body_index}-heading{$item}"/>
+        <a name="as{$q_front}-heading{$item}"/>
         
         <xsl:apply-templates select="*|text()"/>
     </xsl:template>
     
     <xsl:template match="body/sec/title">
-        <h1>
+        <h2>
             <xsl:apply-templates select="*|text()"/>
-        </h1>
+        </h2>
     </xsl:template>
     
     <xsl:template match="body/sec[@sec-type]/title">

@@ -26,7 +26,7 @@
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                 <xsl:with-param name="text" select="concat(@article-type,@response-type)"/>
             </xsl:apply-templates></xsl:attribute>
-            <a name="articleSection{$body_index + $q_back + $q_body_fn + 1 + position()}"/>
+            <a name="articleSection{$q_front + $q_back + $q_body_fn + 1 + position()}"/>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>      
         </div>
         <xsl:apply-templates select="front-stub | front" mode="generic-history"></xsl:apply-templates>

@@ -68,15 +68,11 @@
         </xsl:if>
         
         <div class="articleSection">
-            <xsl:if test="title">
-                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>    
-                <a name="articleSection{$body_index + $position}"></a>
-            </xsl:if>
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>    
+            <a name="articleSection{$q_front + $position}"></a>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
-                    <xsl:if test="title">
                     <h1><xsl:apply-templates select="." mode="title"/></h1>
-                    </xsl:if>
                 </div>
             </div>
             <xsl:apply-templates select="." mode="back-section-content"></xsl:apply-templates>

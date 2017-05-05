@@ -3,24 +3,28 @@
     version="1.0">
     <xsl:template match="article" mode="article-meta-abstract">
         <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]/*/abstract" mode="layout"></xsl:apply-templates>
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//abstract">
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="article-meta-abstract"></xsl:apply-templates>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test=".//article-meta//abstract">
                 <xsl:apply-templates select=".//article-meta//abstract|.//article-meta//trans-abstract" mode="layout"></xsl:apply-templates>
-            </xsl:otherwise>
+            </xsl:when>
         </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="sub-article[@article-type='translation']" mode="article-meta-abstract">
+        <xsl:apply-templates select=".//abstract|.//trans-abstract" mode="layout"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="abstract | trans-abstract" mode="layout">
         <xsl:variable name="lang" select="@xml:lang"/>
+        <a name="articleSection{position()-1}"></a>
         
         <div class="articleSection">
             <xsl:if test="@xml:lang='ar'">
                 <xsl:attribute name="dir">rtl</xsl:attribute>
             </xsl:if>
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
-            <a name="articleSection{position()-1}"></a>
+                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
             <div class="row">
                 <a name="resumo-heading-01"></a>
                 <div class="col-md-8 col-sm-8">

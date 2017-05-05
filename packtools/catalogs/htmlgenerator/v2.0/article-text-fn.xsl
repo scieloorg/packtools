@@ -14,10 +14,8 @@
     </xsl:template>
     <xsl:template match="body" mode="text-fn">
         <div class="articleSection">
-            <xsl:if test="title">
-                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
-            </xsl:if>
-            <a name="articleSection{$body_index + $q_back + 1}"></a>
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+            <a name="articleSection{$q_front + $q_back + 1}"></a>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <h1><xsl:apply-templates select="." mode="title"/></h1>
