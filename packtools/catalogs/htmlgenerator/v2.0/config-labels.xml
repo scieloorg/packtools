@@ -48,6 +48,7 @@
         <name lang="es">Notas</name>
     </term>
     <term>
+        <name>References</name>
         <name>ref-list</name>
         <name lang="en">References</name>
         <name lang="pt">Referências bibliográficas</name>
@@ -120,6 +121,7 @@
         <name lang="es">Correspondencia</name>        
     </term>
     <term>
+        <name>Text</name>
         <name>body</name>
         <name lang="en">Text</name>
         <name lang="pt">Texto</name>

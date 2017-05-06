@@ -34,6 +34,17 @@
         </span>
     </xsl:template>
     
+    <xsl:template match="article-meta//xref | front//xref | front-stub//xref">
+        <xsl:comment> front//xref </xsl:comment>
+        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <span class="ref footnote">
+            <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
+            <span class="refCtt closed">
+                <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
+            </span>
+        </span>
+    </xsl:template>
+    
     <xsl:template match="xref[@ref-type='bibr']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
