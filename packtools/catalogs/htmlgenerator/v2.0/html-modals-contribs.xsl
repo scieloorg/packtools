@@ -5,20 +5,28 @@
     <xsl:variable name="xref_fn" select="$article//xref[@ref-type='fn']"></xsl:variable>
     
     <xsl:template match="article" mode="modal-contribs">
-        <div class="modal fade ModalDefault" id="ModalTutors" tabindex="-1" role="dialog" aria-hidden="true">            
-            <xsl:apply-templates select=".//article-meta" mode="modal-contrib"></xsl:apply-templates>
-        </div>
-        <xsl:apply-templates select=".//sub-article | .//response" mode="modal-contrib"></xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when
+                test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates
+                    select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//article-meta" mode="modal-contrib"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:apply-templates select=".//sub-article[@article-type!='translation' and  @xml:lang=$TEXT_LANG]| .//response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"></xsl:apply-templates>            
     </xsl:template>
     
     <xsl:template match="sub-article | response" mode="modal-contrib">
-        <div class="modal fade ModalDefault" id="ModalTutors{@id}" tabindex="-1" role="dialog" aria-hidden="true">            
-            <xsl:apply-templates select=".//front | .//front-stub" mode="modal-contrib"></xsl:apply-templates>
-        </div>
+        <xsl:apply-templates select=".//front | .//front-stub" mode="modal-contrib"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="article-meta | front | front-stub" mode="modal-contrib">
         <xsl:if test=".//contrib[*]">
+            <xsl:variable name="id"><xsl:if test="@article-type!='translation'"><xsl:value-of select="../@id"/></xsl:if></xsl:variable>
+            <div class="modal fade ModalDefault" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">            
+                
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -37,7 +45,7 @@
                     </div>
                 </div>
             </div>
-                 
+            </div>
         </xsl:if>    
     </xsl:template>
     

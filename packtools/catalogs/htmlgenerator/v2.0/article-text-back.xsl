@@ -20,12 +20,12 @@
     <xsl:template match="article" mode="text-back">
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
-                <xsl:if test="not(.//sub-article[@xml:lang=$TEXT_LANG]/back/*)">
-                    <xsl:apply-templates select="back/ref-list" mode="back-section">
-                        <xsl:with-param name="position">1</xsl:with-param>
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]/back/*" mode="back"/>
+                <xsl:if test="count(.//sub-article[@xml:lang=$TEXT_LANG]/back/*) &lt; $reflist_position">
+                    <xsl:apply-templates select="$article/back/ref-list" mode="back-section">
+                        <xsl:with-param name="position"><xsl:value-of select="$reflist_position"/></xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:if>
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]/back/*" mode="back"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="./back/*" mode="back"></xsl:apply-templates>

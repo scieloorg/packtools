@@ -26,12 +26,13 @@
     </xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
+        <xsl:variable name="id"><xsl:if test="../../@article-type!='translation'"><xsl:value-of select="../../@id"/></xsl:if></xsl:variable>
         <div>
             <xsl:attribute name="class">contribGroup contribGroupAlignLeft</xsl:attribute>
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib[*]">
                 <a href="" class="outlineFadeLink" data-toggle="modal"
-                    data-target="#ModalTutors{../../@id}">
+                    data-target="#ModalTutors{$id}">
                     <xsl:apply-templates select="." mode="interface">
                         <xsl:with-param name="text">About the authors</xsl:with-param>
                     </xsl:apply-templates>

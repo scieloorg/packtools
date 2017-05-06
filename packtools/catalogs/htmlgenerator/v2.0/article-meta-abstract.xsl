@@ -83,7 +83,7 @@
     </xsl:template>
     
     <xsl:template match="kwd-group/title">
-        <strong><xsl:value-of select="."/></strong> 
+        <strong><xsl:value-of select="."/></strong><br/>
     </xsl:template>
     
     <xsl:template match="kwd"><xsl:apply-templates select="*|text()"></xsl:apply-templates><xsl:if test="position()!=last()">; </xsl:if>

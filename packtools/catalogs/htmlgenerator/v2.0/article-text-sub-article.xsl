@@ -6,9 +6,9 @@
         <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG] | sub-article[@xml:lang=$TEXT_LANG and @article-type!='translation']"></xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="front-stub/aff | article/*/front/aff |front-stub/history | article/*/front/history ">
-        
+    <!--xsl:template match="front-stub/aff | article/*/front/aff |front-stub/history | article/*/front/history ">        
     </xsl:template>
+    
     <xsl:template match="front-stub//subject | article/*/front//subject">
      </xsl:template>
     <xsl:template match="front-stub//article-title | article/*/front//article-title">
@@ -20,7 +20,8 @@
         <h3>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </h3>
-    </xsl:template>
+    </xsl:template-->
+    
     <xsl:template match="sub-article[@article-type!='translation'] | response">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
@@ -32,22 +33,4 @@
         <xsl:apply-templates select="front-stub | front" mode="generic-history"></xsl:apply-templates>
     </xsl:template>
 
-    
-    <!--xsl:template match="sub-article[@article-type!='translation'] | response" mode="data-anchor">
-        <xsl:apply-templates select=".//subject"></xsl:apply-templates>
-        <xsl:if test="not(.//subject)">
-            <xsl:apply-templates select=".//article-title"></xsl:apply-templates>
-            <xsl:if test="not(.//article-title)">
-                <xsl:value-of select="@article-type"/>
-                <xsl:if test="not(@article-type)">
-                    <xsl:value-of select="@response-type"/>
-                    <xsl:if test="not(@response-type)">
-                        <xsl:value-of select="substring(.//body,1,10)"/>
-                    </xsl:if>
-                </xsl:if>
-            </xsl:if>
-        </xsl:if>
-    </xsl:template-->
-    
-    
 </xsl:stylesheet>
