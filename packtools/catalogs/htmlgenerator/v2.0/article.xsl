@@ -64,7 +64,7 @@
         <xsl:otherwise><xsl:value-of select="$q_abstract_title"/></xsl:otherwise>
     </xsl:choose></xsl:variable>
     <xsl:variable name="q_back"><xsl:apply-templates select="article" mode="count_back_elements"></xsl:apply-templates></xsl:variable>
-    <xsl:variable name="q_body_fn"><xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="q_body_fn">0<!--xsl:apply-templates select="article" mode="count_body_fn"></xsl:apply-templates--></xsl:variable>
     <xsl:variable name="q_history"><xsl:apply-templates select="article" mode="count_history"/></xsl:variable>
     <xsl:variable name="q_subarticle"><xsl:apply-templates select="article" mode="count_subarticle"></xsl:apply-templates></xsl:variable>
     

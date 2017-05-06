@@ -22,6 +22,7 @@
         <xsl:choose>
             <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//abstract">1</xsl:when>
             <xsl:when test=".//article-meta//abstract">1</xsl:when>
+            <xsl:otherwise>0</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
@@ -71,8 +72,8 @@
     
     <xsl:template match="article" mode="count_body_fn">
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]//body//p/fn">1</xsl:when>
-            <xsl:when test="./body//p/fn">1</xsl:when>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]//body//*[(fn or fn-group) and name()!='table-wrap']">1</xsl:when>
+            <xsl:when test="./body//*[(fn or fn-group) and name()!='table-wrap']">1</xsl:when>
             <xsl:otherwise>0</xsl:otherwise>
         </xsl:choose>
     </xsl:template>

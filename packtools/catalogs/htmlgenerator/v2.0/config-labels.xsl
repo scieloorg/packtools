@@ -10,6 +10,12 @@
             <xsl:when test="$LABELS[name=$term]//name[@lang=$lang]">
                 <xsl:value-of select="$LABELS[name=$term]//name[@lang=$lang]"/>
             </xsl:when>
+            <xsl:when test="$LABELS[name=$term]//name[@lang='en']">
+                <xsl:value-of select="$LABELS[name=$term]//name[@lang='en']"/>
+            </xsl:when>
+            <xsl:when test="$LABELS[name=$term]">
+                <xsl:value-of select="$LABELS[name=$term]//name[1]"/>
+            </xsl:when>
             <xsl:otherwise><xsl:value-of select="$term"/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -31,7 +31,7 @@
             <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib[*]">
                 <a href="" class="outlineFadeLink" data-toggle="modal"
-                    data-target="#ModalTutors">
+                    data-target="#ModalTutors{../../@id}">
                     <xsl:apply-templates select="." mode="interface">
                         <xsl:with-param name="text">About the authors</xsl:with-param>
                     </xsl:apply-templates>

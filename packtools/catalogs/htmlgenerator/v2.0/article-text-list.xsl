@@ -5,13 +5,18 @@
     
     <xsl:template match="*" mode="list-item">
         <li>
+            <xsl:apply-templates/>
+        </li>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="list-item">
+        <li>
             <xsl:apply-templates select="."></xsl:apply-templates>
         </li>
     </xsl:template>
     
     <xsl:template match="list">
         <xsl:param name="position"></xsl:param>
-        
         <xsl:choose>
             <xsl:when test="@list-type!='bullet'">
                 <ol>
@@ -22,7 +27,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <ul>
-                    <xsl:apply-templates select="*">
+                    <xsl:apply-templates select="@*|*">
                         <xsl:with-param name="position" select="position()"></xsl:with-param>
                     </xsl:apply-templates>
                 </ul>

@@ -69,7 +69,11 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="source | article-title | chapter-title">
+    <xsl:template match="article-title">
+        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="source | chapter-title">
         <cite><xsl:apply-templates select="*|text()"></xsl:apply-templates></cite>
     </xsl:template>
     
