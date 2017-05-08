@@ -31,6 +31,18 @@ Installing Packtools for Windows
 Requirements
 ------------------
 
+What version of Windows?
+
+What is the hardware architecture?
+
+What is the version of python?
+
+The downloads of the "Lxml" and "Packtools" packages can be found at: [https://pypi.python.org/pypi](https://pypi.python.org/pypi)
+
+In the example below we have the following scenario:
+
+Windows 10, 64 bits and Python 2.7.3
+
 Download and Install lxml:
 
 .. code-block:: bash
