@@ -40,7 +40,7 @@
     
     <xsl:template match="back" mode="index">
         <xsl:param name="title"/>
-        <xsl:variable name="index"><xsl:apply-templates select=".//*[title]" mode="index">
+        <xsl:variable name="index"><xsl:apply-templates select="*[title]" mode="index">
             <xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
         </xsl:apply-templates></xsl:variable>
         <xsl:choose>
