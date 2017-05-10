@@ -36,28 +36,3 @@
         </div>        
     </xsl:template>
 </xsl:stylesheet>
-
-<!-- 
-    
-    <div class="articleReferral biography">
-									<div class="arPicture">
-										<img src="../static/trash/bibliografia.jpg" width="98" height="132" alt="">
-										<small>
-											Courtesy of Philip James
-											<span>Philip James</span>
-										</small>
-									</div>
-									<div class="arText">
-										<h2>Professor Philip James</h2>
-										<p>Professor Philip James has devoted the last four decades to the study of obesity and raising awareness of the problem. He trained in physiology and medicine at University College London, and did postgraduate training in Jamaica, the United Kingdom and the United States of America. From 1971 to 1974 he worked on the first national study of obesity in the United Kingdom and in 1976 established the Dunn Clinical Nutrition Centre in Cambridge to research obesity and the dietary aspects of adult chronic diseases. In 1982 he was appointed Director of the Rowett Research Institute in Aberdeen and in 1996 returned to the London School of Hygiene with his newly established International Obesity Task Force (IOTF). Working as an adviser to WHO, he helped to establish strategies for tackling the current global epidemic of obesity and adult chronic diseases.</p>
-									</div>
-								</div>
-
-								<div class="articleReferral noPicture">
-									<div class="arText">
-										<h2>Professor Philip James</h2>
-										<p>Professor Philip James has devoted the last four decades to the study of obesity and raising awareness of the problem. He trained in physiology and medicine at University College London, and did postgraduate training in Jamaica, the United Kingdom and the United States of America. From 1971 to 1974 he worked on the first national study of obesity in the United Kingdom and in 1976 established the Dunn Clinical Nutrition Centre in Cambridge to research obesity and the dietary aspects of adult chronic diseases. In 1982 he was appointed Director of the Rowett Research Institute in Aberdeen and in 1996 returned to the London School of Hygiene with his newly established International Obesity Task Force (IOTF). Working as an adviser to WHO, he helped to establish strategies for tackling the current global epidemic of obesity and adult chronic diseases.</p>
-									</div>
-								</div>
-								
-								-->
