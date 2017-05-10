@@ -176,14 +176,14 @@
     </xsl:template>
     <xsl:template match="article" mode="article">
         <xsl:comment> LANG=<xsl:value-of select="$TEXT_LANG"/> </xsl:comment>
-        <section class="articleCtt articleCttLeft">
+        <section class="articleCtt">
             <div class="container">
                 <div class="articleTxt">
                     <div class="row">
-                        <div>
+                        <!--div>
                             <xsl:attribute name="class">hidden-sm<xsl:if test=".//product//*[@xlink:href]"> articleFigure</xsl:if></xsl:attribute>
                             <xsl:apply-templates select=".//product//*[@xlink:href]"/>
-                        </div>
+                        </div-->
                         <div class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
                             <div class="articleBadge">
                                 <span><xsl:apply-templates select="." mode="article-meta-subject"/></span>
