@@ -94,4 +94,10 @@
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </dd>
     </xsl:template>
+    
+    <xsl:template match="attrib">
+        <small>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </small>
+    </xsl:template>
 </xsl:stylesheet>

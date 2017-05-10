@@ -9,16 +9,23 @@
 	<xsl:template match="article-meta/product">
 		<xsl:variable name="sep"><xsl:apply-templates select="text()"></xsl:apply-templates></xsl:variable>
 		<xsl:comment> <xsl:value-of select="$sep"/></xsl:comment>
-		<blockquote>
-		<xsl:choose>
-			<xsl:when test="normalize-space($sep)=''">
-				<xsl:apply-templates select="*" mode="build"></xsl:apply-templates>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates select="*|text()" mode="display"></xsl:apply-templates>
-			</xsl:otherwise>
-		</xsl:choose>
-		</blockquote>
+		<div class="articleReferral">
+			<xsl:if test=".//graphic or .//inline-graphic">
+				<div class="arPicture">
+					<xsl:apply-templates select=".//graphic | .//inline-graphic"></xsl:apply-templates>
+				</div>
+			</xsl:if>
+			<div class="arText">
+				<xsl:choose>
+					<xsl:when test="normalize-space($sep)=''">
+						<xsl:apply-templates select="*" mode="build"></xsl:apply-templates>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="*|text()" mode="display"></xsl:apply-templates>
+					</xsl:otherwise>
+				</xsl:choose>
+			</div>			
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="product//*" mode="build">

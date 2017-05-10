@@ -57,6 +57,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
+            <xsl:otherwise><xsl:value-of select="$index"/></xsl:otherwise>
         </xsl:choose>        
     </xsl:template>
     
