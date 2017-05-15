@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="fig-group" mode="modal">
-        <xsl:apply-templates select="*" mode="modal"></xsl:apply-templates>
+        <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="modal"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="fig" mode="modal">
             <div class="modal fade ModalFigs" id="ModalFig{@id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -29,17 +29,8 @@
                         
                     </div>
                     <div class="modal-body">
-                        <xsl:choose>
-                            <xsl:when test="fig">
-                                <xsl:apply-templates select="fig"/>
-                            </xsl:when>
-                            <xsl:when test="graphic">
-                                <xsl:apply-templates select="graphic"></xsl:apply-templates>
-                            </xsl:when>
-                            
-                        </xsl:choose>
+                        <xsl:apply-templates select="graphic"></xsl:apply-templates>
                         <xsl:apply-templates select="attrib"></xsl:apply-templates>
-                        
                     </div>
                     <div class="modal-footer">
                         <h4 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="." mode="label-caption"></xsl:apply-templates></h4>

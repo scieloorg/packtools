@@ -250,5 +250,23 @@
         <name lang="pt">Carta</name>
         <name lang="es">Carta</name>
     </term>
+    <term>
+        <name>Figures</name>
+        <name lang="en">Figures</name>
+        <name lang="pt">Figuras</name>
+        <name lang="es">Figuras</name>
+    </term>
+    <term>
+        <name>Tables</name>
+        <name lang="en">Tables</name>
+        <name lang="pt">Tabelas</name>
+        <name lang="es">Tablas</name>
+    </term>
+    <term>
+        <name>Formulas</name>
+        <name lang="en">Formulas</name>
+        <name lang="pt">Fórmulas</name>
+        <name lang="es">Fórmulas</name>
+    </term>
     
 </labels>
