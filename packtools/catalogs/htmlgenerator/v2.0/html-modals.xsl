@@ -11,6 +11,7 @@
     <xsl:template match="*" mode="modal-tables">
         <xsl:apply-templates select=".//table-wrap" mode="modal"></xsl:apply-templates>
     </xsl:template>
+    
     <xsl:template match="*" mode="modal-figs">
         <xsl:apply-templates select=".//fig-group[fig] | .//*[not(fig-group)]/fig" mode="modal"></xsl:apply-templates>
     </xsl:template>
@@ -27,7 +28,7 @@
     </xsl:template>
     
     <xsl:template match="body" mode="modal-all-items">
-         <xsl:if test=".//fig or .//table-wrap or .//disp-formula">
+         <xsl:if test=".//fig or .//table-wrap or .//disp-formula[@id]">
              <div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true">
                  <div class="modal-dialog">
                      <div class="modal-content">
@@ -45,15 +46,15 @@
                                      <xsl:apply-templates select="." mode="interface">
                                          <xsl:with-param name="text">Figures</xsl:with-param>
                                      </xsl:apply-templates>
-                                     <xsl:if test=".//table-wrap or .//disp-formula"> | </xsl:if>
+                                     <xsl:if test=".//table-wrap or .//disp-formula[@id]"> | </xsl:if>
                                  </xsl:if>
                                  <xsl:if test=".//table-wrap">
                                      <xsl:apply-templates select="." mode="interface">
                                          <xsl:with-param name="text">Tables</xsl:with-param>
                                      </xsl:apply-templates>
-                                     <xsl:if test=".//disp-formula"> | </xsl:if>
+                                     <xsl:if test=".//disp-formula[@id]"> | </xsl:if>
                                  </xsl:if>
-                                 <xsl:if test=".//disp-formula">
+                                 <xsl:if test=".//disp-formula[@id]">
                                      <xsl:apply-templates select="." mode="interface">
                                          <xsl:with-param name="text">Formulas</xsl:with-param>
                                      </xsl:apply-templates>
@@ -82,13 +83,13 @@
                                          </a>
                                      </li>
                                  </xsl:if>
-                                 <xsl:if test=".//disp-formula">
+                                 <xsl:if test=".//disp-formula[@id]">
                                      <li role="presentation" class="col-md-4">
                                          <a href="#schemes" aria-controls="tables" role="tab" data-toggle="tab">
                                              <xsl:apply-templates select="." mode="interface">
                                                  <xsl:with-param name="text">Formulas</xsl:with-param>
                                              </xsl:apply-templates>
-                                             (<xsl:value-of select="count(.//disp-formula)"/>)
+                                             (<xsl:value-of select="count(.//disp-formula[@id])"/>)
                                          </a>
                                      </li>
                                  </xsl:if>
@@ -105,9 +106,9 @@
                                          <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[name()!='table-wrap-group']//table-wrap" mode="modal-all-item"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
-                                 <xsl:if test=".//disp-formula">
+                                 <xsl:if test=".//disp-formula[@id]">
                                      <div role="tabpanel" class="tab-pane" id="schemes">
-                                         <xsl:apply-templates select=".//disp-formula" mode="modal-all-item"></xsl:apply-templates>
+                                         <xsl:apply-templates select=".//disp-formula[@id]" mode="modal-all-item"></xsl:apply-templates>
                                          
                                      </div>
                                  </xsl:if>
@@ -135,7 +136,7 @@
     <xsl:template match="fig | fig-group" mode="modal-all-item-display">
         <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
         <div class="col-md-4">
-            <a data-toggle="modal" data-target="#ModalFig{@id}ente">
+            <a data-toggle="modal" data-target="#ModalFig{@id}">
                 <div class="thumb" style="background-image: url({$location});">
                     Thumbnail
                     <div class="zoom"><span class="sci-ico-zoom"></span></div>
@@ -167,8 +168,8 @@
     <xsl:template match="table-wrap | table-wrap-group" mode="modal-all-item-display">
         <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
         <div class="col-md-4">
-            <a data-toggle="modal" data-target="#ModalTable{@id}ente">
-                <div class="thumb" style="background-image: url({$location});">
+            <a data-toggle="modal" data-target="#ModalTable{@id}">
+                <div class="thumbOff">
                     Thumbnail
                     <div class="zoom"><span class="sci-ico-zoom"></span></div>
                 </div>
@@ -185,7 +186,7 @@
     <xsl:template match="disp-formula" mode="modal-all-item">       
         <div class="row fig">
             <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
-            <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="modal-all-item-info"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="modal-all-item-info"></xsl:apply-templates>
         </div>        
     </xsl:template>
      
@@ -193,7 +194,16 @@
         <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
         <div class="col-md-4">
             <a data-toggle="modal" data-target="#ModalScheme{@id}">
-                <div class="thumb" style="background-image: url({$location});">
+                <div>
+                    <xsl:choose>
+                        <xsl:when test="graphic">
+                            <xsl:attribute name="class">thumb</xsl:attribute>
+                            <xsl:attribute name="style">background-image: url(<xsl:value-of select="$location"/>);</xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="class">thumbOff</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     Thumbnail
                     <div class="zoom"><span class="sci-ico-zoom"></span></div>
                 </div>
