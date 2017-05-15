@@ -15,4 +15,9 @@
         </div>
     </xsl:template>
     
+    <xsl:template match="tex-math">
+        <span>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </span>
+    </xsl:template>
 </xsl:stylesheet>
