@@ -100,6 +100,11 @@
         <xsl:if test="label and caption"> &#160; </xsl:if>
         <xsl:apply-templates select="caption"/>
     </xsl:template>
+
+    <xsl:template match="*" mode="label-caption-thumb">
+        <strong><xsl:apply-templates select="label"/></strong><br/>
+        <xsl:apply-templates select="caption"/>
+    </xsl:template>
     
     <xsl:template match="fn" mode="label">
         

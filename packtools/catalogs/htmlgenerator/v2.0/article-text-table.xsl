@@ -14,8 +14,7 @@
                 </a>
             </div>
             <div class="col-md-8">
-                <strong><xsl:apply-templates select="label"/></strong><br/>
-                <xsl:apply-templates select="caption"/>
+                <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
             </div>
         </div>
     </xsl:template>

@@ -113,33 +113,43 @@
         </xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="body/sec[@sec-type]">
-        <xsl:variable name="index"><xsl:apply-templates select="../../body" mode="index">
-            <xsl:with-param name="sec_id"><xsl:value-of select="@sec-type"/></xsl:with-param>
-        </xsl:apply-templates></xsl:variable>
-        <a name="as{$q_front}-heading{$index}"/>
-        
-        <xsl:apply-templates select="*|text()"/>
+    <xsl:template match="body/sec">
+        <xsl:choose>
+            <xsl:when test="@sec-type">
+                <xsl:variable name="index"><xsl:apply-templates select="../../body" mode="index">
+                    <xsl:with-param name="sec_id"><xsl:value-of select="@sec-type"/></xsl:with-param>
+                </xsl:apply-templates></xsl:variable>
+                <a name="as{$q_front}-heading{$index}"/>                
+                <xsl:apply-templates select="*|text()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*|text()"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="body/sec/title">
+    <xsl:template match="sec/title">
         <h2>
             <xsl:apply-templates select="*|text()"/>
         </h2>
+    </xsl:template>
+    
+    <xsl:template match="sec/sec/title">
+        <h2>
+            <xsl:apply-templates select="*|text()"/>
+        </h2>
+    </xsl:template>
+    
+    <xsl:template match="sec/sec/sec/title">
+        <h3>
+            <xsl:apply-templates select="*|text()"/>
+        </h3>
     </xsl:template>
     
     <xsl:template match="body/sec[@sec-type]/title">
         <h1 id="text-{../@sec-type}">
             <xsl:apply-templates select="*|text()"/>
         </h1>
-    </xsl:template>
-    
-    <xsl:template match="body/sec/sec/title">
-        <xsl:param name="position"></xsl:param>
-        
-        <h2>
-            <xsl:apply-templates select="*|text()"/>
-        </h2>
     </xsl:template>
             
     <xsl:template match="sig-block">
