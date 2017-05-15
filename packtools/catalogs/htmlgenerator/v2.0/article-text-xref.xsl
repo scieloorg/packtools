@@ -119,7 +119,7 @@
     <xsl:template match="ref" mode="xref">
         <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
         <xsl:if test="label">
-            <xsl:if test="substring(mixed-citation,1,string-length(label))!=label"><xsl:value-of select="label"/></xsl:if>
+            <xsl:if test="substring(mixed-citation,1,string-length(label))!=label"><xsl:value-of select="label"/>&#160;</xsl:if>
         </xsl:if>
         <xsl:choose>
             <xsl:when test="$url!=''">
