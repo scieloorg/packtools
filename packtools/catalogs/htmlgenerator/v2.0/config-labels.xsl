@@ -3,6 +3,24 @@
     version="1.0">
     <xsl:variable name="LABELS" select="document('config-labels.xml')//term"></xsl:variable>
     
+    <xsl:variable name="graphic_elements_title"><xsl:if test=".//fig">
+        <xsl:apply-templates select="." mode="interface">
+            <xsl:with-param name="text">Figures</xsl:with-param>
+        </xsl:apply-templates>
+        <xsl:if test=".//table-wrap or .//disp-formula[@id]"> | </xsl:if>
+    </xsl:if>
+        <xsl:if test=".//table-wrap">
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">Tables</xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:if test=".//disp-formula[@id]"> | </xsl:if>
+        </xsl:if>
+        <xsl:if test=".//disp-formula[@id]">
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">Formulas</xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:if></xsl:variable>
+    
     <xsl:template match="*|@*|text()" mode="translate">
         <xsl:param name="term"></xsl:param>
         <xsl:param name="lang"></xsl:param>

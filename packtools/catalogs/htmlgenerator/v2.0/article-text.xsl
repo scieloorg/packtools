@@ -102,14 +102,14 @@
     </xsl:template>
     
     <xsl:template match="sec[@sec-type]" mode="index">
-        <xsl:param name="sec_id"/>
-        <xsl:if test="@sec-type=$sec_id"><xsl:value-of select="number(position()-1)"/></xsl:if>
+        <xsl:param name="sectype"/>
+        <xsl:if test="@sec-type=$sectype"><xsl:value-of select="number(position()-1)"/></xsl:if>
     </xsl:template>
     
     <xsl:template match="body" mode="index">
-        <xsl:param name="sec_id"/>
+        <xsl:param name="sectype"/>
         <xsl:apply-templates select=".//sec[@sec-type]" mode="index">
-            <xsl:with-param name="sec_id"><xsl:value-of select="$sec_id"/></xsl:with-param>
+            <xsl:with-param name="sectype"><xsl:value-of select="$sectype"/></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
     
@@ -117,9 +117,9 @@
         <xsl:choose>
             <xsl:when test="@sec-type">
                 <xsl:variable name="index"><xsl:apply-templates select="../../body" mode="index">
-                    <xsl:with-param name="sec_id"><xsl:value-of select="@sec-type"/></xsl:with-param>
+                    <xsl:with-param name="sectype"><xsl:value-of select="@sec-type"/></xsl:with-param>
                 </xsl:apply-templates></xsl:variable>
-                <a name="as{$q_front}-heading{$index}"/>                
+                <a name="as{$q_front}-heading{$index}"/>
                 <xsl:apply-templates select="*|text()"/>
             </xsl:when>
             <xsl:otherwise>

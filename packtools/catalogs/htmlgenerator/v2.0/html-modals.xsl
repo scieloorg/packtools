@@ -13,7 +13,7 @@
     </xsl:template>
     
     <xsl:template match="*" mode="modal-figs">
-        <xsl:apply-templates select=".//fig-group[fig] | .//*[not(fig-group)]/fig" mode="modal"></xsl:apply-templates>
+        <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="*" mode="modal-all-items">
@@ -41,25 +41,7 @@
                                      </xsl:apply-templates>
                                  </span>
                              </button>
-                             <h4 class="modal-title">
-                                 <xsl:if test=".//fig">
-                                     <xsl:apply-templates select="." mode="interface">
-                                         <xsl:with-param name="text">Figures</xsl:with-param>
-                                     </xsl:apply-templates>
-                                     <xsl:if test=".//table-wrap or .//disp-formula[@id]"> | </xsl:if>
-                                 </xsl:if>
-                                 <xsl:if test=".//table-wrap">
-                                     <xsl:apply-templates select="." mode="interface">
-                                         <xsl:with-param name="text">Tables</xsl:with-param>
-                                     </xsl:apply-templates>
-                                     <xsl:if test=".//disp-formula[@id]"> | </xsl:if>
-                                 </xsl:if>
-                                 <xsl:if test=".//disp-formula[@id]">
-                                     <xsl:apply-templates select="." mode="interface">
-                                         <xsl:with-param name="text">Formulas</xsl:with-param>
-                                     </xsl:apply-templates>
-                                 </xsl:if>
-                             </h4>
+                             <h4 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h4>
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">
@@ -69,13 +51,14 @@
                                              <xsl:apply-templates select="." mode="interface">
                                                  <xsl:with-param name="text">Figures</xsl:with-param>
                                              </xsl:apply-templates>
-                                             (<xsl:value-of select="count(.//fig-group)+count(.//*[fig and name()!='fig-group']//fig)"/>)
+                                             (<xsl:value-of select="count(.//fig-group[@id])+count(.//fig[@id])"/>)
                                          </a>
                                      </li>
                                  </xsl:if>
                                  <xsl:if test=".//table-wrap">
-                                     <li role="presentation" class="col-md-4 active">
-                                         <a href="#figures" aria-controls="figures" role="tab" data-toggle="tab">
+                                     <li role="presentation">
+                                         <xsl:attribute name="class">col-md-4<xsl:if test="not(.//fig)"> active</xsl:if></xsl:attribute>
+                                         <a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">
                                              <xsl:apply-templates select="." mode="interface">
                                                  <xsl:with-param name="text">Tables</xsl:with-param>
                                              </xsl:apply-templates>
@@ -84,8 +67,10 @@
                                      </li>
                                  </xsl:if>
                                  <xsl:if test=".//disp-formula[@id]">
-                                     <li role="presentation" class="col-md-4">
-                                         <a href="#schemes" aria-controls="tables" role="tab" data-toggle="tab">
+                                     <li role="presentation">
+                                         <xsl:attribute name="class">col-md-4<xsl:if test="not(.//fig) and not(.//table-wrap)"> active</xsl:if></xsl:attribute>
+                                         
+                                         <a href="#schemes" aria-controls="schemes" role="tab" data-toggle="tab">
                                              <xsl:apply-templates select="." mode="interface">
                                                  <xsl:with-param name="text">Formulas</xsl:with-param>
                                              </xsl:apply-templates>
@@ -97,17 +82,22 @@
                              <div class="clearfix"></div>
                              <div class="tab-content">
                                  <xsl:if test=".//fig">
-                                     <div role="tabpanel" class="tab-pane active" id="figures">
-                                         <xsl:apply-templates select=".//fig-group[fig] | .//*[name()!='fig-group']//fig" mode="modal-all-item"></xsl:apply-templates>
+                                     <div role="tabpanel" id="figures">
+                                         <xsl:attribute name="class">tab-pane active</xsl:attribute>
+                                         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal-all-item"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test=".//table-wrap">
-                                     <div role="tabpanel" class="tab-pane" id="tables">
-                                         <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[name()!='table-wrap-group']//table-wrap" mode="modal-all-item"></xsl:apply-templates>
+                                     <div role="tabpanel" id="tables">
+                                         <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig)"> active</xsl:if></xsl:attribute>
+                                         
+                                         <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="modal-all-item"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test=".//disp-formula[@id]">
-                                     <div role="tabpanel" class="tab-pane" id="schemes">
+                                     <div role="tabpanel" id="schemes">
+                                         <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig) and not(.//table-wrap)"> active</xsl:if></xsl:attribute>
+                                         
                                          <xsl:apply-templates select=".//disp-formula[@id]" mode="modal-all-item"></xsl:apply-templates>
                                          
                                      </div>
@@ -120,20 +110,20 @@
          </xsl:if>
     </xsl:template>
     
-    <xsl:template match="fig-group[fig]" mode="modal-all-item">       
+    <xsl:template match="fig-group[@id]" mode="modal-all-item">       
         <div class="row fig">
             <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
             <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="modal-all-item-info"></xsl:apply-templates>
         </div>        
     </xsl:template>
-    <xsl:template match="fig[not(@xml:lang)]" mode="modal-all-item">       
+    <xsl:template match="fig[@id]" mode="modal-all-item">       
         <div class="row fig">
             <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="modal-all-item-info"></xsl:apply-templates>
         </div>        
     </xsl:template>
     
-    <xsl:template match="fig | fig-group" mode="modal-all-item-display">
+    <xsl:template match="fig[@id] | fig-group[@id]" mode="modal-all-item-display">
         <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
         <div class="col-md-4">
             <a data-toggle="modal" data-target="#ModalFig{@id}">
@@ -147,7 +137,7 @@
     
     <xsl:template match="fig" mode="modal-all-item-info">
         <div class="col-md-8">
-            <xsl:apply-templates select="label | caption"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
         </div>
     </xsl:template>
     
@@ -183,14 +173,14 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="disp-formula" mode="modal-all-item">       
+    <xsl:template match="disp-formula[@id]" mode="modal-all-item">       
         <div class="row fig">
             <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
             <xsl:apply-templates select="." mode="modal-all-item-info"></xsl:apply-templates>
         </div>        
     </xsl:template>
      
-    <xsl:template match="disp-formula" mode="modal-all-item-display">
+    <xsl:template match="disp-formula[@id]" mode="modal-all-item-display">
         <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
         <div class="col-md-4">
             <a data-toggle="modal" data-target="#ModalScheme{@id}">
@@ -211,10 +201,11 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="disp-formula" mode="modal-all-item-info">
+    <xsl:template match="disp-formula[@id]" mode="modal-all-item-info">
         <div class="col-md-8">
             <xsl:apply-templates select="label"></xsl:apply-templates>
         </div>
     </xsl:template>
- 
+    
+    
 </xsl:stylesheet>
