@@ -38,7 +38,7 @@
         <xsl:apply-templates select="fig[graphic]" mode="file-location"></xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="fig[graphic]" mode="file-location"><xsl:apply-templates select="graphic/@xlink:href"/></xsl:template>
+    <xsl:template match="*[graphic]" mode="file-location"><xsl:apply-templates select="graphic/@xlink:href"/></xsl:template>
     
     <xsl:template match="fig-group" mode="label-caption">
         <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="label-caption"></xsl:apply-templates>

@@ -85,8 +85,34 @@
             </head>
             <body class="journal article">
                 <a name="top"/>
-                <xsl:apply-templates select="." mode="article"/>
-                <xsl:apply-templates select="." mode="article-modals"/>
+                <div id="standalonearticle">
+                    <xsl:apply-templates select="." mode="article"/>
+                    <xsl:apply-templates select="." mode="article-modals"/>
+                </div>
+                <ul class="floatingMenu fm-slidein" data-fm-toogle="hover">
+                    <li class="fm-wrap">
+                        <a href="javascript:;" class="fm-button-main">
+                            <span class="sci-ico-floatingMenuDefault glyphFloatMenu"></span>
+                            <span class="sci-ico-floatingMenuClose glyphFloatMenu"></span>
+                        </a>
+                        <ul class="fm-list">
+                            <li>
+                                <a class="fm-button-child" data-fm-label="{$graphic_elements_title}" data-toggle="modal" data-target="#ModalTablesFigures">
+                                    <span class="sci-ico-figures glyphFloatMenu"></span>
+                                </a>
+                            </li>
+                            	
+                        </ul>
+                    </li>
+                </ul>
+                <xsl:comment> $q_abstract_title=<xsl:value-of select="$q_abstract_title"/></xsl:comment>
+                <xsl:comment> $q_abstract=<xsl:value-of select="$q_abstract"/></xsl:comment>
+                <xsl:comment> $q_front=<xsl:value-of select="$q_front"/></xsl:comment>
+                <xsl:comment> $q_back=<xsl:value-of select="$q_back"/></xsl:comment>
+                <xsl:comment> $q_body_fn=<xsl:value-of select="$q_body_fn"/></xsl:comment>
+                <xsl:comment> $q_history=<xsl:value-of select="$q_history"/></xsl:comment>
+                <xsl:comment> $q_subarticle=<xsl:value-of select="$q_subarticle"/></xsl:comment>
+                
                 <xsl:apply-templates select="." mode="js"/>
             </body>
         </html>
@@ -122,58 +148,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="article" mode="article">
-        <section class="articleCtt">
-            <div class="container">
-                <div class="articleTxt">
-                    <div class="editionMeta">
-                        <span>
-                            <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
-                            <!-- FIXME location -->
-                            <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
-                        </span>
-                        <xsl:text> </xsl:text>
-                        <xsl:apply-templates select="." mode="journal-meta-issn"/>
-                    </div>
-                    <h1 class="article-title">
-                        <xsl:apply-templates select="." mode="article-meta-title"/>
-                    </h1>
-                    <div class="articleMeta">
-                        <div>
-                            <!-- FIXME -->
-                            <span>
-                                <xsl:apply-templates select="." mode="article-meta-pub-dates"/></span>
-                            <xsl:apply-templates select="." mode="article-meta-license"/>
-                        </div>
-                        <div>
-                            <xsl:apply-templates select="." mode="article-meta-doi"/>
-
-                        </div>
-                    </div>
-
-                    <xsl:apply-templates select="." mode="article-meta-contrib"/>
-
-                    <div class="row">
-                        <ul class="col-md-2 hidden-sm articleMenu">
-
-                        </ul>
-
-                        <article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
-                            <xsl:apply-templates select="." mode="article-meta-product"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
-                            <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
-                            <xsl:apply-templates select=".//article-meta" mode="generic-history"/>
-                            <xsl:apply-templates select="." mode="article-text-sub-articles"></xsl:apply-templates>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </xsl:template>
+    
     <xsl:template match="article" mode="article">
         <xsl:comment> LANG=<xsl:value-of select="$TEXT_LANG"/> </xsl:comment>
         <section class="articleCtt">
@@ -237,14 +212,8 @@
                 </div>
             </div>
         </section>
-        <xsl:comment> $q_abstract_title=<xsl:value-of select="$q_abstract_title"/></xsl:comment>
-        <xsl:comment> $q_abstract=<xsl:value-of select="$q_abstract"/></xsl:comment>
-        <xsl:comment> $q_front=<xsl:value-of select="$q_front"/></xsl:comment>
-        <xsl:comment> $q_back=<xsl:value-of select="$q_back"/></xsl:comment>
-        <xsl:comment> $q_body_fn=<xsl:value-of select="$q_body_fn"/></xsl:comment>
-        <xsl:comment> $q_history=<xsl:value-of select="$q_history"/></xsl:comment>
-        <xsl:comment> $q_subarticle=<xsl:value-of select="$q_subarticle"/></xsl:comment>
-        
+
+
     </xsl:template>
 
 </xsl:stylesheet>
