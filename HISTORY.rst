@@ -1,8 +1,8 @@
 History
 =======
 
-2.0.2
------
+2.0.2 (2017-05-16)
+------------------
 
 * Reduces the size of the test matrix so tests run on a reasonable amount of 
   time (the full matrix was taking almost 1 hour to run). Now we are testing
