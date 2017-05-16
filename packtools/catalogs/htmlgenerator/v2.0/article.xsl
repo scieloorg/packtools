@@ -226,6 +226,7 @@
                             <xsl:apply-templates select="." mode="article-meta-product"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="article-meta-abstract"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="text-body"></xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="text-back"></xsl:apply-templates>
                             <xsl:apply-templates select="." mode="text-fn"></xsl:apply-templates>
                             <xsl:apply-templates select=".//article-meta" mode="generic-history"/>

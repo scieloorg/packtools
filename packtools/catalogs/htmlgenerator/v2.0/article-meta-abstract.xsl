@@ -15,6 +15,19 @@
         </xsl:choose>
     </xsl:template>
     
+    <xsl:template match="article" mode="article-meta-no-abstract-keywords">
+        <xsl:if test="not(.//abstract)">
+            <xsl:choose>
+                <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//kwd-group">
+                    <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//kwd-group" mode="keywords"/>
+                </xsl:when>
+                <xsl:when test=".//article-meta//kwd-group">
+                    <xsl:apply-templates select=".//article-meta//kwd-group" mode="keywords"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template match="sub-article[@article-type='translation']" mode="article-meta-abstract">
         <xsl:if test="$q_abstract_title=0">
             <xsl:apply-templates select="." mode="abstract-anchor"></xsl:apply-templates>
