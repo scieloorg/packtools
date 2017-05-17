@@ -37,11 +37,17 @@
     <xsl:template match="*" mode="abstract-anchor">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
-                <xsl:with-param name="text">Abstract</xsl:with-param>
+                <xsl:with-param name="text"><xsl:choose>
+                    <xsl:when test="count(.//abstract)+count(.//trans-abstract) &gt; 1">Abstracts</xsl:when>
+                    <xsl:otherwise>Abstract</xsl:otherwise>
+                </xsl:choose></xsl:with-param>
             </xsl:apply-templates></xsl:attribute>
             <a name="articleSection0"></a>
             <h1><xsl:apply-templates select="." mode="text-labels">
-                <xsl:with-param name="text">Abstract</xsl:with-param>
+                <xsl:with-param name="text"><xsl:choose>
+                    <xsl:when test="count(.//abstract)+count(.//trans-abstract) &gt; 1">Abstracts</xsl:when>
+                    <xsl:otherwise>Abstract</xsl:otherwise>
+                </xsl:choose></xsl:with-param>
             </xsl:apply-templates></h1>
         </div>
     </xsl:template>
@@ -69,9 +75,16 @@
             <div class="row">
                 <a name="resumo-heading-01"></a>
                 <div class="col-md-8 col-sm-8">
-                    <xsl:if test="title">
-                        <h1><xsl:apply-templates select="." mode="title"></xsl:apply-templates></h1>
-                    </xsl:if>
+                    <h1>
+                        <xsl:choose>
+                            <xsl:when test="title">
+                                <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </h1>
                 </div>
             </div>
             <xsl:apply-templates select="*[name()!='title']"/>

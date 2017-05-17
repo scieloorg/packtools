@@ -106,6 +106,22 @@
         <xsl:if test="@sec-type=$sectype"><xsl:value-of select="number(position()-1)"/></xsl:if>
     </xsl:template>
     
+    <xsl:template match="body/p">
+        <p></p>
+        <xsl:choose>
+            <xsl:when test="p">
+                <div>
+                    <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="body" mode="index">
         <xsl:param name="sectype"/>
         <xsl:apply-templates select=".//sec[@sec-type]" mode="index">
