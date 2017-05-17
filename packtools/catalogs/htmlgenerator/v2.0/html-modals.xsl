@@ -3,16 +3,46 @@
     version="1.0">
     <xsl:template match="*" mode="article-modals">
         <xsl:apply-templates select="." mode="modal-contribs"/>
-        <xsl:apply-templates select="." mode="modal-tables"/>
-        <xsl:apply-templates select="." mode="modal-figs"/>
         <xsl:apply-templates select="." mode="modal-all-items"></xsl:apply-templates>
+        <xsl:apply-templates select="." mode="modal-figs"/>
+        <xsl:apply-templates select="." mode="modal-tables"/>
+        <xsl:apply-templates select="." mode="modal-disp-formulas"/>
     </xsl:template>
     
     <xsl:template match="*" mode="modal-tables">
-        <xsl:apply-templates select=".//table-wrap" mode="modal"></xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]//body//table-wrap" mode="modal"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="./body//table-wrap" mode="modal"/>                    
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="modal-disp-formulas">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]//body//disp-formula" mode="modal"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="./body//disp-formula" mode="modal"/>                    
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="*" mode="modal-figs">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG]//body" mode="modal-figs"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="./body" mode="modal-figs"/>                    
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="body" mode="modal-figs">
         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal"></xsl:apply-templates>
     </xsl:template>
     
@@ -82,21 +112,22 @@
                              <div class="clearfix"></div>
                              <div class="tab-content">
                                  <xsl:if test=".//fig">
-                                     <div role="tabpanel" id="figures">
-                                         <xsl:attribute name="class">tab-pane active</xsl:attribute>
+                                     <div role="tabpanel" class="tab-pane active" id="figures">
                                          <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal-all-item"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test=".//table-wrap">
-                                     <div role="tabpanel" id="tables">
+                                     <div role="tabpanel">
                                          <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig)"> active</xsl:if></xsl:attribute>
+                                         <xsl:attribute name="id">tables</xsl:attribute>
                                          
                                          <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="modal-all-item"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test=".//disp-formula[@id]">
-                                     <div role="tabpanel" id="schemes">
+                                     <div role="tabpanel">
                                          <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig) and not(.//table-wrap)"> active</xsl:if></xsl:attribute>
+                                         <xsl:attribute name="id">schemes</xsl:attribute>
                                          
                                          <xsl:apply-templates select=".//disp-formula[@id]" mode="modal-all-item"></xsl:apply-templates>
                                          

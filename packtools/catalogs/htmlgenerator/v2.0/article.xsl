@@ -48,6 +48,7 @@
     <xsl:include href="html-modals-contribs.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
     <xsl:include href="html-modals-figs.xsl"/>
+    <xsl:include href="html-modals-scheme.xsl"/>
     <xsl:include href="html-head.xsl"/>
 
     <xsl:variable name="ref" select="//ref"></xsl:variable>
