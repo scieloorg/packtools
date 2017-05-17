@@ -17,6 +17,14 @@
         <xsl:if test="not(body//sig)">
             <xsl:apply-templates select=".//article-meta//contrib-group"/>
         </xsl:if>
+        <xsl:if test="not(.//article-meta//contrib-group)">
+            <div>
+                <xsl:attribute name="class">contribGroup contribGroupAlignLeft</xsl:attribute>
+            </div>
+            <div>
+                <xsl:attribute name="class">contribGroup contribGroupAlignLeft</xsl:attribute>
+            </div>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="sub-article" mode="contrib-group">

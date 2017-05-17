@@ -136,6 +136,11 @@
         <name lang="es">Resumen</name>  
     </term>
     <term>
+        <name lang="en">Abstracts</name>
+        <name lang="pt">Resumos</name>
+        <name lang="es">Resúmenes</name>  
+    </term>
+    <term>
         <name>kwd-group</name>
         <name lang="en">Keywords</name>
         <name lang="pt">Palavras-chave</name>
