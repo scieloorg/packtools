@@ -2,12 +2,27 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
-    
     <xsl:template match="xref">
         <a href="#{@rid}" class="goto"><xsl:apply-templates></xsl:apply-templates></a>
     </xsl:template>
+
+    <xsl:template match="front//xref | front-stub//xref">
+        <xsl:comment> front//xref </xsl:comment>
+        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <span class="ref footnote">
+            <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
+            <span class="refCtt closed">
+                <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
+            </span>
+        </span>
+    </xsl:template>
+    
     <xsl:template match="xref[@ref-type='equation' or @ref-type='disp-formula']">
-        <a href="#{@rid}" class="goto"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
+        <!-- <a href="#{@rid}" class="goto"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="*|text()"></xsl:apply-templates></a> -->
+        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalScheme{@rid}">
+            <span class="sci-ico-fileFormula"></span> 
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </a>
     </xsl:template>
     
     <xsl:template match="xref[@ref-type='fig']">
@@ -25,17 +40,6 @@
     </xsl:template>
     
     <xsl:template match="xref[@ref-type='fn']">
-        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <span class="ref footnote">
-            <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
-            <span class="refCtt closed">
-                <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
-            </span>
-        </span>
-    </xsl:template>
-    
-    <xsl:template match="article-meta//xref | front//xref | front-stub//xref">
-        <xsl:comment> front//xref </xsl:comment>
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <span class="ref footnote">
             <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
