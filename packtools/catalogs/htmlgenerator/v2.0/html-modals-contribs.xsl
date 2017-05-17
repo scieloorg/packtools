@@ -54,7 +54,7 @@
             <strong><xsl:apply-templates select="name|collab|on-behalf-of"/></strong>
             <br/>
             <xsl:apply-templates select="role"/>
-            <xsl:apply-templates select="xref"/>
+            <xsl:apply-templates select="xref" mode="modal-contrib"/>
             <xsl:apply-templates select="author-notes"/>
             <xsl:if test="contrib-id">
                 <ul class="md-list inline">
@@ -62,6 +62,18 @@
                 </ul>
             </xsl:if>
             <div class="clearfix"></div>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="contrib/xref" mode="modal-contrib">
+        <xsl:variable name="rid" select="@rid"/>
+        <xsl:apply-templates select="$article//aff[@id=$rid]" mode="modal-contrib"/>
+        <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
+    </xsl:template>
+    
+    <xsl:template match="aff" mode="modal-contrib">
+        <div>
+        <xsl:apply-templates select="." mode="display"/>
         </div>
     </xsl:template>
     

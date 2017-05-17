@@ -84,28 +84,9 @@
             </xsl:element>    
         </span>
     </xsl:template>
-    
-    <xsl:template match="contrib/xref">
-        <xsl:variable name="rid" select="@rid"/>
-        <xsl:apply-templates select="$article//aff[@id=$rid]" mode="xref"/>
-        <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
-    </xsl:template>
-    
+        
     <xsl:template match="*" mode="xref">
         <xsl:apply-templates select="*|text()" mode="xref"/>
-    </xsl:template>
-    
-    <xsl:template match="aff" mode="xref">
-        <strong>
-            <xsl:apply-templates select="." mode="text-labels">
-                <xsl:with-param name="text">Affiliation</xsl:with-param>
-            </xsl:apply-templates>
-        </strong>
-        <xsl:text>
-            
-        </xsl:text>
-        <xsl:apply-templates select="." mode="display"/>
-        
     </xsl:template>
     
     <xsl:template match="fn" mode="xref">

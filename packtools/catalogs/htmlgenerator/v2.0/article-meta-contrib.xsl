@@ -73,10 +73,25 @@
         <xsl:if test="role or xref or contrib-id or bio">
             <ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor{$id}">
                 <xsl:apply-templates select="role | bio"/>
-                <xsl:apply-templates select="xref"/>
+                <xsl:apply-templates select="xref" mode="contrib-dropdown-menu"/>
                 <xsl:apply-templates select="contrib-id"/>
             </ul>
         </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="contrib/xref" mode="contrib-dropdown-menu">
+        <xsl:variable name="rid" select="@rid"/>
+        <xsl:apply-templates select="$article//aff[@id=$rid]" mode="contrib-dropdown-menu"/>
+        <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
+    </xsl:template>
+    
+    <xsl:template match="aff" mode="contrib-dropdown-menu">
+            <strong>
+                <!--xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">Affiliation</xsl:with-param>
+                </xsl:apply-templates-->
+            </strong>
+        <xsl:apply-templates select="." mode="display"/>
     </xsl:template>
 
     <xsl:template match="contrib/name">
