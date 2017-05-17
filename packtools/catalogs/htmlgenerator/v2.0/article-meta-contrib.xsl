@@ -167,4 +167,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="role">
+        <xsl:if test="position()!=1">, </xsl:if><xsl:apply-templates select="*|text()"></xsl:apply-templates>
+    </xsl:template>
 </xsl:stylesheet>
