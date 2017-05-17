@@ -17,6 +17,7 @@
     <xsl:include href="journal-meta.xsl"/>
 
     <xsl:include href="article-meta.xsl"/>
+    <xsl:include href="article-meta-permissions.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     <xsl:include href="article-meta-product.xsl"/>
@@ -183,7 +184,7 @@
                                     <!-- FIXME -->
                                     <span>
                                         <xsl:apply-templates select="." mode="article-meta-pub-dates"/></span>
-                                    <xsl:apply-templates select="." mode="article-meta-license"/>
+                                    <xsl:apply-templates select="." mode="article-meta-permissions"/>
                                 </div>
                                 <div>
                                     <xsl:apply-templates select="." mode="article-meta-doi"/>
