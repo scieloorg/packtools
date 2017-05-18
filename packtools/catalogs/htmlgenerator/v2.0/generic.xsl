@@ -47,9 +47,10 @@
     
     
     <xsl:template match="ext-link">
+        <xsl:param name="symbol"></xsl:param>
         <xsl:choose>
             <xsl:when test="@xlink:href">
-                <a href="{@xlink:href}" target="_blank"><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
+                <a href="{@xlink:href}" target="_blank"><xsl:value-of select="$symbol"/><xsl:apply-templates select="*|text()"></xsl:apply-templates></a>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="*|text()"></xsl:apply-templates>
