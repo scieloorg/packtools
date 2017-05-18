@@ -47,17 +47,17 @@
                 <xsl:apply-templates select="label"></xsl:apply-templates>
             </xsl:if>            
             <div>
-                <xsl:choose>
-                    <xsl:when test="mixed-citation[*]">
-                        <xsl:apply-templates select="mixed-citation"/>
-                    </xsl:when>
-                    <xsl:otherwise><xsl:apply-templates select="mixed-citation"/></xsl:otherwise>
-                </xsl:choose>
+                <xsl:apply-templates select="mixed-citation"/>
+                <xsl:if test="element-citation//pub-id[@pub-id-type='doi'] or element-citation//ext-link">
+                    <br/>
+                    <xsl:apply-templates select="element-citation//pub-id[@pub-id-type='doi']" mode="ref"></xsl:apply-templates>
+                    <xsl:apply-templates select="element-citation//ext-link" mode="ref"></xsl:apply-templates>
+                </xsl:if>
             </div>
         </li>
     </xsl:template>
     
-    <xsl:template match="mixed-citation[*]/text() | mixed-citation[not(*)]/text()">
+    <xsl:template match="mixed-citation/text()">
         <xsl:if test="position()=1">
             <xsl:if test="not(contains(.,'-'))">
                 <xsl:comment> 
@@ -65,6 +65,7 @@
                 </xsl:comment>
             </xsl:if>
         </xsl:if>
+        
         <xsl:variable name="label">
             <xsl:if test="position()=1">
                 <xsl:choose>
@@ -80,11 +81,13 @@
                 </xsl:choose>
             </xsl:if>
         </xsl:variable>
+        
         <xsl:choose>
             <xsl:when test="normalize-space($label)!=''"><xsl:value-of select="substring-after(.,$label)"/></xsl:when>
             <xsl:when test="starts-with(.,'.')"><xsl:value-of select="substring-after(.,'.')"/></xsl:when>
             <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
-        </xsl:choose> 
+        </xsl:choose>
+        
     </xsl:template>
     
     <xsl:template match="ref/label">
@@ -94,33 +97,46 @@
     <xsl:template match="ref" mode="url">
         <xsl:choose>
             <xsl:when test=".//ext-link"><xsl:value-of select=".//ext-link[1]"/></xsl:when>
-            <xsl:when test=".//pub-id[@pub-id-type='doi']">https://doi.org/<xsl:value-of select=".//pub-id[@pub-id-type='doi']"/></xsl:when>
+            <xsl:when test=".//pub-id[@pub-id-type='doi']"><xsl:apply-templates select=".//pub-id[@pub-id-type='doi']"/></xsl:when>
             <xsl:when test=".//comment[starts-with(.,'http')]"><xsl:value-of select=".//comment[starts-with(.,'http')]"/></xsl:when>
             <xsl:when test=".//comment[contains(.,'doi:')]">https://doi.org/<xsl:value-of select="normalize-space(substring-after(.//comment[contains(.,'doi:')],'doi:'))"/></xsl:when>
             <xsl:when test=".//comment[contains(.,'DOI:')]">https://doi.org/<xsl:value-of select="normalize-space(substring-after(.//comment[contains(.,'DOI:')],'DOI:'))"/></xsl:when>
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="mixed-citation//ext-link">
+    <!--xsl:template match="mixed-citation//ext-link">
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-    </xsl:template>
+    </xsl:template-->
     
     <xsl:template match="ref" mode="table-wrap-foot">
-        <xsl:if test="not(contains(.,'-'))">        <xsl:comment>  
-            <xsl:apply-templates select="mixed-citation"/> ??? 
-        </xsl:comment>
+        <xsl:if test="not(contains(.,'-'))">
+            <xsl:comment>  
+                <xsl:apply-templates select="mixed-citation"/> ??? 
+            </xsl:comment>
         </xsl:if>
         
         <li>
             <sup class="xref xrefblue big"><xsl:value-of select="label"></xsl:value-of></sup>
             <div>
-                <xsl:choose>
-                    <xsl:when test="mixed-citation[*]">
-                        <xsl:apply-templates select="mixed-citation"/>
-                    </xsl:when>
-                    <xsl:otherwise><xsl:apply-templates select="mixed-citation"/></xsl:otherwise>
-                </xsl:choose>
+                <xsl:apply-templates select="mixed-citation"/>
             </div>
         </li>
+    </xsl:template>
+    
+    <xsl:template match="mixed-citation//ext-link | mixed-citation//pub-id">
+        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="ext-link | pub-id" mode="ref">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="symbol">» </xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="pub-id[@pub-id-type='doi']">
+        <xsl:param name="symbol"></xsl:param>
+        <a target="_blank">
+            <xsl:attribute name="href">https://doi.org/<xsl:value-of select="."/></xsl:attribute>
+            <xsl:value-of select="$symbol"/>https://doi.org/<xsl:value-of select="."/>
+        </a>
     </xsl:template>
 </xsl:stylesheet>
