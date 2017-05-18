@@ -3,7 +3,6 @@
     version="1.0"
     xmlns:xlink="http://www.w3.org/1999/xlink" >
     
-    
     <xsl:template match="article" mode="count_abstract_title">
         <xsl:choose>
             <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//abstract">
@@ -47,6 +46,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template match="sub-article[@article-type='translation']" mode="count_back_elements">
         <xsl:choose>
             <xsl:when test="back/ref-list">
@@ -101,11 +101,6 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="sec[@sec-type]" mode="index">
-        <xsl:param name="sectype"/>
-        <xsl:if test="@sec-type=$sectype"><xsl:value-of select="number(position()-1)"/></xsl:if>
-    </xsl:template>
-    
     <xsl:template match="body/p">
         <p></p>
         <xsl:choose>
@@ -120,13 +115,6 @@
                 </p>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="body" mode="index">
-        <xsl:param name="sectype"/>
-        <xsl:apply-templates select=".//sec[@sec-type]" mode="index">
-            <xsl:with-param name="sectype"><xsl:value-of select="$sectype"/></xsl:with-param>
-        </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="body/sec">
@@ -188,6 +176,7 @@
     <xsl:template match="speech/speaker">
         <div class="row"><strong><xsl:apply-templates select="*|text()"></xsl:apply-templates></strong></div>
     </xsl:template>
+
     <xsl:template match="speech/p">
         <div class="row"><xsl:apply-templates select="*|text()"></xsl:apply-templates></div>
     </xsl:template>

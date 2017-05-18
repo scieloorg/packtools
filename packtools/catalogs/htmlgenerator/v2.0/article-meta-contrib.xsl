@@ -14,23 +14,11 @@
     </xsl:template>
     
     <xsl:template match="article" mode="contrib-group">
-        <xsl:if test="not(body//sig)">
-            <xsl:apply-templates select=".//article-meta//contrib-group"/>
-        </xsl:if>
-        <xsl:if test="not(.//article-meta//contrib-group)">
-            <div>
-                <xsl:attribute name="class">contribGroup contribGroupAlignLeft</xsl:attribute>
-            </div>
-            <div>
-                <xsl:attribute name="class">contribGroup contribGroupAlignLeft</xsl:attribute>
-            </div>
-        </xsl:if>
+        <xsl:apply-templates select=".//article-meta//contrib-group"/>
     </xsl:template>
     
     <xsl:template match="sub-article" mode="contrib-group">
-        <xsl:if test="not(body//sig)">
-            <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
-        </xsl:if>
+        <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
@@ -48,10 +36,7 @@
             </xsl:if>
         </div>
     </xsl:template>
-    
-    <xsl:template match="sub-article[body//sig]//contrib-group">
-    </xsl:template>
-
+   
     <xsl:template match="contrib" mode="article-meta-contrib">
         <xsl:variable name="id">
             <xsl:value-of select="position()"/>
