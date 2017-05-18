@@ -2,82 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0"
     xmlns:xlink="http://www.w3.org/1999/xlink" >
-    
-    
-    <xsl:template match="article" mode="count_abstract_title">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//abstract">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_abstract_title"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="count(.//article-meta//abstract[title])+count(.//article-meta//trans-abstract[title])"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="sub-article[@article-type='translation']" mode="count_abstract_title">
-        <xsl:value-of select="count(.//abstract[title])+count(.//trans-abstract[title])"/>
-    </xsl:template>
-    
-    <xsl:template match="article" mode="count_abstracts">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//abstract">1</xsl:when>
-            <xsl:when test=".//article-meta//abstract">1</xsl:when>
-            <xsl:otherwise>0</xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="article | sub-article[@article-type='translation']" mode="count_history">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//history">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_history"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="count(.//history)"></xsl:value-of>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="article" mode="count_back_elements">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_back_elements"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="count(back/*[title])"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="sub-article[@article-type='translation']" mode="count_back_elements">
-        <xsl:choose>
-            <xsl:when test="back/ref-list">
-                <xsl:value-of select="count(back/*[title])"/>
-            </xsl:when>
-            <xsl:when test="../back/ref-list">
-                <xsl:value-of select="count(back/*[title])+1"/>
-            </xsl:when>
-            <xsl:otherwise><xsl:value-of select="count(back/*[title])"/></xsl:otherwise>
-        </xsl:choose>       
-    </xsl:template>
-    
-    <xsl:template match="article | sub-article[@article-type='translation']" mode="count_subarticle">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="count_subarticle"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="count(.//sub-article[@article-type!='translation' and @xml:lang=$TEXT_LANG])+count(.//response)"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="article" mode="count_body_fn">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG]//body//*[(fn or fn-group) and name()!='table-wrap']">1</xsl:when>
-            <xsl:when test="./body//*[(fn or fn-group) and name()!='table-wrap']">1</xsl:when>
-            <xsl:otherwise>0</xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-            
+                
     <xsl:template match="*" mode="text-body">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:choose>
@@ -101,11 +26,6 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="sec[@sec-type]" mode="index">
-        <xsl:param name="sectype"/>
-        <xsl:if test="@sec-type=$sectype"><xsl:value-of select="number(position()-1)"/></xsl:if>
-    </xsl:template>
-    
     <xsl:template match="body/p">
         <p></p>
         <xsl:choose>
@@ -120,13 +40,6 @@
                 </p>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="body" mode="index">
-        <xsl:param name="sectype"/>
-        <xsl:apply-templates select=".//sec[@sec-type]" mode="index">
-            <xsl:with-param name="sectype"><xsl:value-of select="$sectype"/></xsl:with-param>
-        </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="body/sec">
@@ -188,6 +101,7 @@
     <xsl:template match="speech/speaker">
         <div class="row"><strong><xsl:apply-templates select="*|text()"></xsl:apply-templates></strong></div>
     </xsl:template>
+
     <xsl:template match="speech/p">
         <div class="row"><xsl:apply-templates select="*|text()"></xsl:apply-templates></div>
     </xsl:template>

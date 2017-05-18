@@ -24,6 +24,7 @@
 
     <xsl:include href="generic-history.xsl"/>
 
+    <xsl:include href="article-text-position_index.xsl"/>
     <xsl:include href="article-text-xref.xsl"/>
 
     <xsl:include href="article-text.xsl"/>
@@ -55,9 +56,11 @@
     <xsl:variable name="ref" select="//ref"></xsl:variable>
     <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"></xsl:variable>
     
-    <xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
-    <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable>
-    <xsl:variable name="reflist_position"><xsl:apply-templates select="article/back/*" mode="position"><xsl:with-param name="name">ref-list</xsl:with-param></xsl:apply-templates></xsl:variable>
+    <!--xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
+    <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable-->
+    
+    <xsl:variable name="REFLIST_POSITION"><xsl:apply-templates select="article/back/*" mode="position"><xsl:with-param name="name">ref-list</xsl:with-param></xsl:apply-templates></xsl:variable>
+    <xsl:variable name="REFLIST_INDEX"><xsl:apply-templates select="article/back/*[title]" mode="index"/></xsl:variable>
     
     <xsl:variable name="q_abstract_title"><xsl:apply-templates select="article" mode="count_abstract_title"></xsl:apply-templates></xsl:variable>
     <xsl:variable name="q_abstract"><xsl:apply-templates select="article" mode="count_abstracts"></xsl:apply-templates></xsl:variable>
