@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
-    <xsl:template match="article-meta" mode="generic-history">
+    <xsl:template match="article-meta | front-stub | *[name()!='article']/front" mode="generic-history">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                 <xsl:with-param name="text">History</xsl:with-param>
@@ -30,7 +30,7 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="front-stub | *[name()!='article']/front" mode="generic-history">
+    <!--xsl:template match="front-stub | *[name()!='article']/front" mode="generic-history">
         <div>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
@@ -52,12 +52,14 @@
                 </div>
             </div>
         </div>
-    </xsl:template>
+    </xsl:template-->
+    
     <xsl:template match="article-meta" mode="generic-history-section">
         <a name="articleSection{$q_front + $q_back + $q_body_fn + 1}"></a>
     </xsl:template>
 
     <xsl:template match="*[name()!='article']/front | front-stub" mode="generic-history-section">
+        <a name="articleSection{$q_front + $q_back + $q_body_fn + 3}"></a>
     </xsl:template>
     
     <xsl:template match="article-meta" mode="generic-history-history-dates">
