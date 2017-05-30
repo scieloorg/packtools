@@ -6,14 +6,32 @@
         <a href="#{@rid}" class="goto"><xsl:apply-templates></xsl:apply-templates></a>
     </xsl:template>
 
-    <xsl:template match="front//xref | front-stub//xref">
-        <xsl:comment> front//xref </xsl:comment>
+    <xsl:template match="xref">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <span class="ref footnote">
             <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
             <span class="refCtt closed">
-                <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
+                <span class="refCttPadding">
+                    <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
+                </span>
             </span>
+        </span>
+    </xsl:template>
+ 
+    <xsl:template match="table-wrap//xref">
+        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <xsl:variable name="text"><xsl:apply-templates select="normalize-space(.//text())"/></xsl:variable>
+        <xsl:variable name="elem"><xsl:choose>
+            <xsl:when test="contains('1234567890',substring(normalize-space($text),1,1)) or string-length($text)=1">sup</xsl:when>
+            <xsl:otherwise>strong</xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        <span class="ref footnote">
+            <xsl:element name="{$elem}">
+                <xsl:attribute name="class">xref<xsl:choose>
+                    <xsl:when test="@ref-type='bibr'"> xrefblue</xsl:when>
+                </xsl:choose></xsl:attribute>
+                <xsl:apply-templates select="sup|text()"></xsl:apply-templates>
+            </xsl:element>    
         </span>
     </xsl:template>
     
@@ -38,17 +56,7 @@
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </a>        
     </xsl:template>
-    
-    <xsl:template match="xref[@ref-type='fn']">
-        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <span class="ref footnote">
-            <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
-            <span class="refCtt closed">
-                <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
-            </span>
-        </span>
-    </xsl:template>
-    
+       
     <xsl:template match="xref[@ref-type='bibr']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
@@ -68,23 +76,7 @@
         </span>
     </xsl:template>
     
-    <xsl:template match="table-wrap//xref">
-        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
-        <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
-        <xsl:variable name="elem"><xsl:choose>
-            <xsl:when test="contains('1234567890',substring(normalize-space($text),1,1))">sup</xsl:when>
-            <xsl:otherwise>strong</xsl:otherwise>
-        </xsl:choose></xsl:variable>
-        <span class="ref footnote">
-            <xsl:element name="{$elem}">
-                <xsl:attribute name="class">xref<xsl:choose>
-                    <xsl:when test="@ref-type='bibr'"> xrefblue</xsl:when>
-                </xsl:choose></xsl:attribute>
-                <xsl:apply-templates select="sup|text()"></xsl:apply-templates>
-            </xsl:element>    
-        </span>
-    </xsl:template>
-        
+
     <xsl:template match="*" mode="xref">
         <xsl:apply-templates select="*|text()" mode="xref"/>
     </xsl:template>
