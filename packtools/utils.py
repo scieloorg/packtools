@@ -27,7 +27,13 @@ LOGGER = logging.getLogger(__name__)
 PY2 = sys.version_info[0] == 2
 
 
-NOIDS_XMLPARSER = etree.XMLParser(collect_ids=False)
+try:
+    # available on lxml >= 3.4.0
+    NOIDS_XMLPARSER = etree.XMLParser(collect_ids=False)
+except TypeError:
+    LOGGER.info('cannot instantiate an XML parser that avoids the collection '
+                'of ids from elements.')
+    NOIDS_XMLPARSER = etree.XMLParser()
 
 
 def setdefault(object, attribute, producer):

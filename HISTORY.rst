@@ -1,6 +1,13 @@
 History
 =======
 
+2.0.3 (2017-06-02)
+------------------
+
+* Fixes a bug that would cause ``etree.XMLParser`` to raise TypeError on
+  some old versions of lxml.
+
+
 2.0.2 (2017-05-16)
 ------------------
 
