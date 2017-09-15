@@ -13,6 +13,7 @@ SCH_SCHEMAS = {
     'sps-1.4': os.path.join(_CWD, 'scielo-style-1.4.sch'),
     'sps-1.5': os.path.join(_CWD, 'scielo-style-1.5.sch'),
     'sps-1.6': os.path.join(_CWD, 'scielo-style-1.6.sch'),
+    'sps-1.7': os.path.join(_CWD, 'scielo-style-1.7.sch'),
 
     # Collection-specific schema
     'scielo-br': os.path.join(_CWD, 'scielo-br.sch'),

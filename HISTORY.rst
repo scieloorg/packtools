@@ -1,6 +1,13 @@
 History
 =======
 
+2.1
+---
+
+* Initial support for SciELO PS 1.7.
+* Adds support to JATS 1.1. 
+
+
 2.0.3 (2017-06-02)
 ------------------
 
