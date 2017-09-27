@@ -29,7 +29,7 @@ LOGGER = logging.getLogger(__name__)
 
 # As a general rule, only the latest 2 versions are supported simultaneously.
 CURRENTLY_SUPPORTED_VERSIONS = os.environ.get(
-    'PACKTOOLS_SUPPORTED_SPS_VERSIONS', 'sps-1.5:sps-1.6').split(':')
+    'PACKTOOLS_SUPPORTED_SPS_VERSIONS', 'sps-1.6:sps-1.7').split(':')
 
 ALLOWED_PUBLIC_IDS = (
     '-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.0 20120330//EN',
