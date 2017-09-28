@@ -1,11 +1,12 @@
 History
 =======
 
-2.1
----
+2.1 (2017-09-28)
+----------------
 
 * Initial support for SciELO PS 1.7.
 * Adds support to JATS 1.1. 
+* Removes Python 3.3 and adds lxml 3.8 and 4.0 to the test matrix.
 
 
 2.0.3 (2017-06-02)
