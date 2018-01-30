@@ -124,7 +124,7 @@ def XSLT(xslt_name):
 # provides the method ``validate``,
 # with the following signature:
 # validate(xmlfile: etree._ElementTree) -> Tuple(bool, list)
-#---------------------------------- 
+#----------------------------------
 class PyValidator(object):
     """Style validations implemented in Python.
     """
@@ -170,7 +170,7 @@ class SchematronValidator(object):
     def from_catalog(cls, ref, **kwargs):
         """Get an instance based on schema's reference name.
 
-        :param ref: The reference name for the schematron file in 
+        :param ref: The reference name for the schematron file in
                     :data:`packtools.catalogs.SCH_SCHEMAS`.
         """
         return cls(StdSchematron(ref), **kwargs)
@@ -190,7 +190,7 @@ class SchematronValidator(object):
 def iter_schematronvalidators(iterable):
     """Returns a generator of :class:`packtools.domain.SchematronValidator`.
 
-    :param iterable: an iterable where each item follows one of the forms 
+    :param iterable: an iterable where each item follows one of the forms
                      ``Iterable[isoschematron.Schematron]`` or
                      ``Iterable[Tuple[isoschematron.Schematron, str]]``. The
                      latter sets the label attribute of the validator instance.
@@ -483,12 +483,17 @@ class HTMLGenerator(object):
     :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
     :param css: (optional) URI for a CSS file.
     """
-    def __init__(self, file, xslt=None, css=None):
+    def __init__(self, file, xslt=None, css=None, print_css=None, js=None, permlink=None, url_article_page=None, url_download_ris=None):
         assert isinstance(file, etree._ElementTree)
 
         self.lxml = file
-        self.xslt = xslt or XSLT('root-html-1.2.xslt')
+        self.xslt = xslt or XSLT('root-html-2.0.xslt')
         self.css = css
+        self.print_css = print_css
+        self.js = js
+        self.permlink = permlink
+        self.url_article_page = url_article_page
+        self.url_download_ris = url_download_ris
 
     @classmethod
     def parse(cls, file, valid_only=True, **kwargs):
@@ -591,5 +596,9 @@ class HTMLGenerator(object):
                 bibliographic_legend=etree.XSLT.strparam(self._get_bibliographic_legend()),
                 issue_label=etree.XSLT.strparam(self._get_issue_label()),
                 styles_css_path=etree.XSLT.strparam(self.css or ''),
+                print_styles_css_path=etree.XSLT.strparam(self.print_css or ''),
+                js_path=etree.XSLT.strparam(self.js or ''),
+                permlink=etree.XSLT.strparam(self.permlink or ''),
+                url_article_page=etree.XSLT.strparam(self.url_article_page or ''),
+                url_download_ris=etree.XSLT.strparam(self.url_download_ris or ''),
         )
-

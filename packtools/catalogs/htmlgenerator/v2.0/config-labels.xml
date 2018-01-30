@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <term>
+        <name>Text</name>
+        <name lang="pt">Texto</name>
+        <name lang="es">Texto</name>
+    </term>
+    <term>
+        <name>Online publication</name>
+        <name lang="pt">Publicação Online</name>
+        <name lang="es">Publicación en línea</name>
+    </term>
+    <term>
+        <name>Publication</name>
+        <name lang="pt">Publicação</name>
+        <name lang="es">Publicación</name>
+    </term>
+    <term>
+        <name>Issue publication</name>
+        <name lang="pt">Publicação em número</name>
+        <name lang="es">Publicación em número</name>
+    </term>
+    <term>
+        <name>Print</name>
+        <name lang="pt">Impresso</name>
+        <name lang="es">Impreso</name>
+    </term>
+    <term>
+        <name>Online</name>
+        <name lang="es">En línea</name>
+    </term>
+    <term>
+        <name>pub-date</name>
+        <name lang="en">Published on</name>
+        <name lang="pt">Publicado em</name>
+        <name lang="es">Publicado en</name>
+    </term>
+    <term>
+        <name>ack</name>
+        <name lang="en">Acknowledgments</name>
+        <name lang="pt">Agradecimentos</name>
+        <name lang="es">Agradecimientos</name>
+    </term>
+    <term>
+        <name>fn-group</name>
+        <name lang="en">Notes</name>
+        <name lang="pt">Notas</name>
+        <name lang="es">Notas</name>
+    </term>
+    <term>
+        <name>References</name>
+        <name>ref-list</name>
+        <name lang="en">References</name>
+        <name lang="pt">Referências bibliográficas</name>
+        <name lang="es">Referencias bibliográficas</name>
+    </term>
+    <term>
+        <name>bio</name>
+        <name lang="en">Biography</name>
+        <name lang="pt">Biografia</name>
+        <name lang="es">Biografía</name>
+    </term>
+    <term>
+        <name>history</name>
+        <name lang="en">History</name>
+        <name lang="pt">Histórico</name>
+        <name lang="es">Histórico</name>
+    </term>
+    <term>
+        <name>received</name>
+        <name lang="en">Received</name>
+        <name lang="pt">Recebido</name>
+        <name lang="es">Recibido</name>
+    </term>
+    <term>
+        <name>accepted</name>
+        <name lang="pt">Aceito</name>
+        <name lang="es">Acepto</name>
+        <name lang="en">Accepted</name>
+    </term>
+    <term>
+        <name>rev-recd</name>
+        <name lang="pt">Revisado</name>
+        <name lang="es">Revisado</name>
+        <name lang="en">Reviewed</name>
+    </term>
+    <term>
+        <name>About the authors</name>
+        <name lang="pt">Sobre os autores</name>
+        <name lang="es">Acerca de los autores</name>        
+    </term>   
+    <term>
+        <name>About the author</name>
+        <name lang="pt">Sobre o autor</name>
+        <name lang="es">Acerca del autor</name>        
+    </term>   
+    <term>
+        <name>Click to </name>
+        <name lang="pt">Clique para </name>
+        <name lang="es">Haz un clic para </name>       
+    </term>
+    <term>
+        <name>copy link</name>
+        <name lang="pt">copiar link</name>
+        <name lang="es">copiar enlace</name>        
+    </term>
+    <term>
+        <name>copy URL</name>
+        <name lang="pt">copiar URL</name>
+        <name lang="es">copiar URL</name>        
+    </term>
+    <term>
+        <name>copy</name>
+        <name lang="pt">copiar</name>
+        <name lang="es">copiar</name>        
+    </term>
+    <term>
+        <name>ris format</name>
+        <name lang="pt">formato ris</name>
+        <name lang="es">formato ris</name>        
+    </term>
+    
+    <term>
+        <name>Open new window</name>
+        <name lang="pt">Abrir em nova janela</name>
+        <name lang="es">Abrir en nueva ventana</name>        
+    </term>
+    <term>
+        <name>Affiliation</name>
+        <name lang="pt">Afiliação</name>
+        <name lang="es">Afiliación</name>        
+    </term>
+    <term>
+        <name>corresp</name>
+        <name lang="en">Correspondence</name>
+        <name lang="pt">Correspondência</name>
+        <name lang="es">Correspondencia</name>        
+    </term>
+    <term>
+        <name>Text</name>
+        <name>body</name>
+        <name lang="en">Text</name>
+        <name lang="pt">Texto</name>
+        <name lang="es">Texto</name>  
+    </term>
+    
+    <term>
+        <name>abstract</name>
+        <name>trans-abstract</name>
+        <name lang="en">Abstract</name>
+        <name lang="pt">Resumo</name>
+        <name lang="es">Resumen</name>  
+    </term>
+    <term>
+        <name lang="en">Abstracts</name>
+        <name lang="pt">Resumos</name>
+        <name lang="es">Resúmenes</name>  
+    </term>
+    <term>
+        <name>kwd-group</name>
+        <name lang="en">Keywords</name>
+        <name lang="pt">Palavras-chave</name>
+        <name lang="es">Palabras clave</name>  
+    </term>
+    <term>
+        <name>app-group</name>
+        <name>app</name>
+        <name lang="en">Appendix</name>
+        <name lang="pt">Apêndice</name>
+        <name lang="es">Apéndice</name>  
+    </term>
+    <term>
+        <name>1</name>
+        <name>01</name>
+        <name lang="en">Jan</name>
+        <name lang="pt">Jan</name>
+        <name lang="es">Ene</name>
+    </term>
+    <term>
+        <name>2</name>
+        <name>02</name>
+        <name lang="en">Feb</name>
+        <name lang="pt">Fev</name>
+        <name lang="es">Feb</name>
+    </term>
+    <term>
+        <name>3</name>
+        <name>03</name>
+        <name lang="en">Mar</name>
+        <name lang="pt">Mar</name>
+        <name lang="es">Mar</name>
+    </term>
+    <term>
+        <name>4</name>
+        <name>04</name>
+        <name lang="en">Apr</name>
+        <name lang="pt">Abr</name>
+        <name lang="es">Abr</name>
+    </term>
+    <term>
+        <name>5</name>
+        <name>05</name>
+        <name lang="en">May</name>
+        <name lang="pt">Maio</name>
+        <name lang="es">Mayo</name>
+    </term>
+    <term>
+        <name>6</name>
+        <name>06</name>
+        <name lang="en">June</name>
+        <name lang="pt">Jun</name>
+        <name lang="es">Jun</name>
+    </term>
+    <term>
+        <name>7</name>
+        <name>07</name>
+        <name lang="en">July</name>
+        <name lang="pt">Jul</name>
+        <name lang="es">Jul</name>
+    </term>
+    <term>
+        <name>8</name>
+        <name>08</name>
+        <name lang="en">Aug</name>
+        <name lang="pt">Ago</name>
+        <name lang="es">Ago</name>
+    </term>
+    <term>
+        <name>9</name>
+        <name>09</name>
+        <name lang="en">Sept</name>
+        <name lang="pt">Set</name>
+        <name lang="es">Set</name>
+    </term>
+    <term>
+        <name>10</name>
+        <name>10</name>
+        <name lang="en">Oct</name>
+        <name lang="pt">Out</name>
+        <name lang="es">Oct</name>
+    </term>
+    <term>
+        <name>11</name>
+        <name>11</name>
+        <name lang="en">Nov</name>
+        <name lang="pt">Nov</name>
+        <name lang="es">Nov</name>
+    </term>
+    <term>
+        <name>12</name>
+        <name>12</name>
+        <name lang="en">Dec</name>
+        <name lang="pt">Dez</name>
+        <name lang="es">Dic</name>
+    </term>
+    <term>
+        <name>'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'</name>
+        <name lang="en">'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'</name>
+        <name lang="pt">'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'</name>
+        <name lang="es">'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Deciembre'</name>
+    </term>
+    <term>
+        <name>reply</name>
+        <name lang="en">Reply</name>
+        <name lang="pt">Resposta</name>
+        <name lang="es">Respuesta</name>
+    </term>
+    <term>
+        <name>reply</name>
+        <name lang="en">Reply</name>
+        <name lang="pt">Resposta</name>
+        <name lang="es">Respuesta</name>
+    </term>
+    <term>
+        <name>letter</name>
+        <name lang="en">Letter</name>
+        <name lang="pt">Carta</name>
+        <name lang="es">Carta</name>
+    </term>
+    <term>
+        <name>Figures</name>
+        <name lang="en">Figures</name>
+        <name lang="pt">Figuras</name>
+        <name lang="es">Figuras</name>
+    </term>
+    <term>
+        <name>Tables</name>
+        <name lang="en">Tables</name>
+        <name lang="pt">Tabelas</name>
+        <name lang="es">Tablas</name>
+    </term>
+    <term>
+        <name>Formulas</name>
+        <name lang="en">Formulas</name>
+        <name lang="pt">Fórmulas</name>
+        <name lang="es">Fórmulas</name>
+    </term>
+    <term>
+        <name>This erratum corrects</name>
+        <name lang="en">This erratum corrects</name>
+        <name lang="pt">Esta errata corrige</name>
+        <name lang="es">Esta errata corrige</name>
+    </term>
+    <term>
+        <name>How to cite</name>
+        <name lang="en">How to cite</name>
+        <name lang="pt">Como citar</name>
+        <name lang="es">Como citar</name>
+    </term>
+    <term>
+        <name>and</name>
+        <name lang="en">and</name>
+        <name lang="pt">e</name>
+        <name lang="es">y</name>
+    </term>
+    <term>
+        <name>Available from</name>
+        <name lang="en">Available from</name>
+        <name lang="pt">Disponível em</name>
+        <name lang="es">Disponible en</name>
+    </term>
+    <term>
+        <name>cited</name>
+        <name lang="en">Accessed</name>
+        <name lang="pt">Acessado</name>
+        <name lang="es">Accedido</name>
+    </term>
+</labels>
