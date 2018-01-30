@@ -5,6 +5,6 @@
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   exclude-result-prefixes="xlink mml">
 
-    <xsl:include href="v1.2/article.xsl"/>
+    <xsl:include href="v2.0/article.xsl"/>
   
 </xsl:stylesheet>

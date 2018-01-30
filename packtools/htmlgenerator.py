@@ -1,5 +1,6 @@
 # coding: utf-8
 from __future__ import print_function, unicode_literals
+import os
 import argparse
 import sys
 import pkg_resources
@@ -11,6 +12,11 @@ import packtools
 
 
 LOGGER = logging.getLogger(__name__)
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+DEFAULT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article.css')
+DEFAULT_PRINT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-print.css')
+DEFAULT_JS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article.js')
 
 
 class XMLError(Exception):
@@ -19,7 +25,7 @@ class XMLError(Exception):
     """
 
 
-def get_htmlgenerator(xmlpath, no_network, no_checks, css):
+def get_htmlgenerator(xmlpath, no_network, no_checks, css, print_css, js, permlink, url_article_page, url_download_ris):
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
     except IOError as e:
@@ -28,7 +34,13 @@ def get_htmlgenerator(xmlpath, no_network, no_checks, css):
         raise XMLError('Error reading %s. Syntax error: %s' % (xmlpath, e))
 
     try:
-        generator = packtools.HTMLGenerator.parse(parsed_xml, valid_only=not no_checks, css=css)
+        valid_only = not no_checks
+        generator = packtools.HTMLGenerator.parse(
+            parsed_xml, valid_only=valid_only, css=css,
+            print_css=print_css, js=js,
+            permlink=permlink,
+            url_article_page=url_article_page,
+            url_download_ris=url_download_ris)
     except ValueError as e:
         raise XMLError('Error reading %s. %s.' % (xmlpath, e))
 
@@ -45,7 +57,18 @@ def main():
                         help='prevents the retrieval of the DTD through the network')
     parser.add_argument('--nochecks', action='store_true',
                         help='prevents the validation against SciELO PS spec')
-    parser.add_argument('--css')
+    parser.add_argument('--css', default=DEFAULT_CSS_PATH,
+                        help='URL or full path of the CSS file to use with generated htmls')
+    parser.add_argument('--print_css', default=DEFAULT_PRINT_CSS_PATH,
+                        help='URL or full path of the CSS (media: print) file to use with generated htmls')
+    parser.add_argument('--js', default=DEFAULT_JS_PATH,
+                        help='URL or full path of the JS file to use with generated htmls')
+    parser.add_argument('--permlink', default='',
+                        help='Permanente URL to access the article')
+    parser.add_argument('--url_article_page', default='',
+                        help='OPAC URL to access the article')
+    parser.add_argument('--url_download_ris', default='',
+                        help='URL to download RIS file (how to cite this article)')
     parser.add_argument('XML', nargs='+',
                         help='filesystem path or URL to the XML')
     parser.add_argument('--version', action='version', version=packtools_version)
@@ -60,7 +83,10 @@ def main():
         LOGGER.info('starting generation of %s' % (xml,))
 
         try:
-            html_generator = get_htmlgenerator(xml, args.nonetwork, args.nochecks, args.css)
+            html_generator = get_htmlgenerator(
+                xml, args.nonetwork, args.nochecks,
+                args.css, args.print_css, args.js,
+                args.permlink, args.url_article_page, args.url_download_ris)
             LOGGER.debug('HTMLGenerator repr: %s' % repr(html_generator))
         except XMLError as e:
             LOGGER.debug(e)
