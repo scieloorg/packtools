@@ -14,9 +14,9 @@ import packtools
 LOGGER = logging.getLogger(__name__)
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-DEFAULT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article.css')
-DEFAULT_PRINT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-print.css')
-DEFAULT_JS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article.js')
+DEFAULT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article-standalone.css')
+DEFAULT_PRINT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-bundle-print.css')
+DEFAULT_JS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article-standalone-min.js')
 
 
 class XMLError(Exception):
