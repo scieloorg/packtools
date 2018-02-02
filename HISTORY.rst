@@ -1,6 +1,13 @@
 History
 =======
 
+2.2 (2018-02-02)
+----------------
+
+* Updates the HTMLGenerator to support the build of the most recent version of
+  the articles in HTML.
+
+
 2.1 (2017-09-28)
 ----------------
 
