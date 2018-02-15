@@ -1,6 +1,12 @@
 History
 =======
 
+2.3
+---
+
+* Initial support for SciELO PS 1.8.
+
+
 2.2 (2018-02-02)
 ----------------
 

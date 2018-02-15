@@ -70,3 +70,23 @@ class ArticleIdTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class ArticleTypeValues(PhaseBasedTestCase):
+    """Tests for article element.
+    """
+    sch_phase = 'phase.article-type-values'
+
+    def test_allowed_article_types(self):
+        for art_type in ['addendum', 'research-article', 'review-article',
+                'letter', 'article-commentary', 'brief-report', 'rapid-communication',
+                'oration', 'discussion', 'editorial', 'interview', 'correction',
+                'guidelines', 'other', 'obituary', 'case-report', 'book-review',
+                'reply', 'retraction', 'partial-retraction', 'clinical-trial']:
+
+            sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.7">
+                        </article>
+                     """ % art_type
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+

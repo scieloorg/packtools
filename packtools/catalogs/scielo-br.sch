@@ -48,6 +48,10 @@ code for more information.
     <active pattern="article-id_attributes"/>
   </phase>
 
+  <phase id="phase.article-type-values">
+    <active pattern="article_article-type-values"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -59,6 +63,38 @@ code for more information.
     <rule context="article/front/article-meta">
       <assert test="article-id[@pub-id-type='doi']">
         Element 'article-meta': Missing element article-id with pub-id-type="doi".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="article_article-type-values">
+    <title>
+      Allowed values for article/@article-type
+    </title>
+
+    <rule context="article[@article-type]">
+        <assert test="@article-type = 'addendum' or
+            @article-type = 'research-article' or
+            @article-type = 'review-article' or
+            @article-type = 'letter' or
+            @article-type = 'article-commentary' or
+            @article-type = 'brief-report' or
+            @article-type = 'rapid-communication' or
+            @article-type = 'oration' or
+            @article-type = 'discussion' or
+            @article-type = 'editorial' or
+            @article-type = 'interview' or
+            @article-type = 'correction' or
+            @article-type = 'guidelines' or
+            @article-type = 'other' or
+            @article-type = 'obituary' or
+            @article-type = 'case-report' or
+            @article-type = 'book-review' or
+            @article-type = 'reply' or
+            @article-type = 'retraction' or
+            @article-type = 'partial-retraction' or
+            @article-type = 'clinical-trial'">
+        Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
       </assert>
     </rule>
   </pattern>
