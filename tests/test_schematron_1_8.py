@@ -4033,7 +4033,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
                 'reprint', 'meeting-report', 'abstract', 'product-review',
                 'dissertation', 'translation']:
 
-            sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.7">
+            sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.8">
                         </article>
                      """ % art_type
             sample = io.BytesIO(sample.encode('utf-8'))
@@ -4041,7 +4041,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_article_type(self):
-        sample = u"""<article article-type="invalid" dtd-version="1.0" specific-use="sps-1.7">
+        sample = u"""<article article-type="invalid" dtd-version="1.0" specific-use="sps-1.8">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -4049,7 +4049,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_article_type(self):
-        sample = u"""<article xml:lang="en" dtd-version="1.0" specific-use="sps-1.7">
+        sample = u"""<article xml:lang="en" dtd-version="1.0" specific-use="sps-1.8">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -4057,7 +4057,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_xmllang(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.7">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.8">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -4065,7 +4065,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_dtdversion(self):
-        sample = u"""<article article-type="research-article" xml:lang="en" specific-use="sps-1.7">
+        sample = u"""<article article-type="research-article" xml:lang="en" specific-use="sps-1.8">
                     </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
@@ -4745,7 +4745,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
 
     def test_allowed_article_types(self):
         for art_type in ['abstract', 'letter', 'reply', 'translation']:
-            sample = u"""<article article-type="research-article" xml:lang="en" dtd-version="1.0" specific-use="sps-1.7">
+            sample = u"""<article article-type="research-article" xml:lang="en" dtd-version="1.0" specific-use="sps-1.8">
                            <sub-article article-type="%s" xml:lang="pt" id="sa1"></sub-article>
                          </article>
                      """ % art_type
@@ -4754,7 +4754,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
             self.assertTrue(self._run_validation(sample))
 
     def test_disallowed_article_type(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.7">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.8">
                        <sub-article article-type="invalid" xml:lang="pt" id="trans_pt"></sub-article>
                      </article>
                  """
@@ -4763,7 +4763,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_article_type(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.7">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.8">
                        <sub-article xml:lang="pt" id="trans_pt"></sub-article>
                      </article>
                  """
@@ -4772,7 +4772,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_xmllang(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.7">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.8">
                        <sub-article article-type="translation" id="trans_pt"></sub-article>
                      </article>
                  """
@@ -4781,7 +4781,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_missing_id(self):
-        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.7">
+        sample = u"""<article article-type="research-article" dtd-version="1.0" specific-use="sps-1.8">
                        <sub-article article-type="translation" xml:lang="pt"></sub-article>
                      </article>
                  """

@@ -1121,7 +1121,7 @@ code for more information.
     </title>
 
     <rule context="article[@specific-use]">
-      <assert test="@specific-use = 'sps-1.7'">
+      <assert test="@specific-use = 'sps-1.8'">
         Element 'article', attribute specific-use: Invalid value '<value-of select="@specific-use"/>'.
       </assert>
     </rule>
