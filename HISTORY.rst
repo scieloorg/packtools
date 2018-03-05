@@ -1,6 +1,12 @@
 History
 =======
 
+2.3.1 (2018-03-05)
+------------------
+
+* Fixes a bug that would cause error messages on all sps-1.8 documents.
+
+
 2.3 (2018-03-02)
 ----------------
 
