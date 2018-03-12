@@ -2428,7 +2428,8 @@ class ProductTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_product_types(self):
-        for prod_type in ['book', 'other']:
+        for prod_type in ['book', 'article', 'issue', 'website', 'film',
+                'software', 'hardware', 'other']:
             sample = u"""<article article-type="book-review">
                           <front>
                             <article-meta>

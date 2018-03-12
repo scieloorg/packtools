@@ -691,6 +691,12 @@ code for more information.
 
     <rule context="article/front/article-meta/product[@product-type]">
       <assert test="@product-type = 'book' or
+                    @product-type = 'article' or
+                    @product-type = 'issue' or
+                    @product-type = 'website' or
+                    @product-type = 'film' or
+                    @product-type = 'software' or
+                    @product-type = 'hardware' or
                     @product-type = 'other'">
         Element 'product', attribute product-type: Invalid value "<value-of select="@product-type"/>".
       </assert>
