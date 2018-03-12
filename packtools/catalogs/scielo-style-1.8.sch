@@ -657,6 +657,11 @@ code for more information.
     <rule context="article/front/article-meta/history/date">
       <assert test="@date-type = 'received' or 
                     @date-type = 'accepted' or
+                    @date-type = 'corrected' or
+                    @date-type = 'pub' or
+                    @date-type = 'preprint' or
+                    @date-type = 'retracted' or
+                    @date-type = 'rev-request' or
                     @date-type = 'rev-recd'">
         Element 'date', attribute date-type: Invalid value "<value-of select="@date-type"/>".
       </assert>
