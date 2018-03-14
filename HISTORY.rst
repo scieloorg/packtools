@@ -7,6 +7,7 @@ History
 * Makes the validation of the response element more flexible.
 * Adds more values to ``//product/@product-type``.
 * Adds more values to ``//date/@date-type``.
+* Adds SciELO BR specific rules.
 
 
 2.3.1 (2018-03-05)
