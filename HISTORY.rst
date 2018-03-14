@@ -1,8 +1,8 @@
 History
 =======
 
-2.3.2
------
+2.3.2 (2018-03-14)
+------------------
 
 * Makes the validation of the response element more flexible.
 * Adds more values to ``//product/@product-type``.
