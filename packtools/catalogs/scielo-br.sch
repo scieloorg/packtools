@@ -52,6 +52,11 @@ code for more information.
     <active pattern="article_article-type-values"/>
   </phase>
 
+  <phase id="phase.history">
+    <active pattern="history"/>
+  </phase>
+
+
   <!--
    Patterns - sets of rules.
   -->
@@ -95,6 +100,24 @@ code for more information.
             @article-type = 'partial-retraction' or
             @article-type = 'clinical-trial'">
         Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="history">
+    <title>
+      Ensure elements day, month and year are present.
+    </title>
+
+    <rule context="article/front/article-meta/history/date">
+      <assert test="string-length(day) > 0">
+        Element 'date', Missing element day.
+      </assert>
+      <assert test="string-length(month) > 0">
+        Element 'date', Missing element month.
+      </assert>
+      <assert test="string-length(year) > 0">
+        Element 'date', Missing element year.
       </assert>
     </rule>
   </pattern>

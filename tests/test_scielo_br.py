@@ -90,3 +90,82 @@ class ArticleTypeValues(PhaseBasedTestCase):
 
             self.assertTrue(self._run_validation(sample))
 
+
+class HistoryTests(PhaseBasedTestCase):
+    """Tests for article/front/article-meta/history/date.
+    """
+    sch_phase = 'phase.history'
+
+    def test_complete_history(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <history>
+                            <date date-type="received">
+                              <day>15</day>
+                              <month>03</month>
+                              <year>2013</year>
+                            </date>
+                          </history>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_day_is_missing(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <history>
+                            <date date-type="received">
+                              <month>03</month>
+                              <year>2013</year>
+                            </date>
+                          </history>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_month_is_missing(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <history>
+                            <date date-type="received">
+                              <day>15</day>
+                              <year>2013</year>
+                            </date>
+                          </history>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_year_is_missing(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <history>
+                            <date date-type="received">
+                              <day>15</day>
+                              <month>03</month>
+                            </date>
+                          </history>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
