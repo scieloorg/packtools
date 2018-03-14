@@ -4859,8 +4859,8 @@ class ResponseReplyAttributeTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-    def test_reply_type_invalid_article_type(self):
-        """ anything different of `article-commentary` is invalid
+    def test_reply_with_article_types_different_than_article_commentary(self):
+        """ anything different from `article-commentary` is now valid (03/2018)
         """
         sample = u"""<article article-type="research-article">
                        <response response-type="reply" xml:lang="pt" id="r1">
@@ -4872,10 +4872,10 @@ class ResponseReplyAttributeTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_reply_type_missing_related_article(self):
-        """ the article-type of value `article-commentary` is required
+        """ the article-type of value `article-commentary` is not required anymore
         """
         sample = u"""<article article-type="article-commentary">
                        <response response-type="reply" xml:lang="pt" id="r1">
@@ -4886,7 +4886,7 @@ class ResponseReplyAttributeTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_related_article_missing_vol(self):
         sample = u"""<article article-type="article-commentary">

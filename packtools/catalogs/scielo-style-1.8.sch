@@ -250,7 +250,6 @@ code for more information.
   </phase>
 
   <phase id="phase.response-reply-type">
-    <active pattern="response-reply"/>
     <active pattern="response_related-article_attributes"/>
   </phase>
 
@@ -1382,21 +1381,6 @@ code for more information.
                     @response-type = 'discussion' or 
                     @response-type = 'reply'">
         Element 'response', attribute response-type: Invalid value '<value-of select="@response-type"/>'.
-      </assert>
-    </rule>
-  </pattern>
-
-  <pattern id="response-reply">
-    <title>
-      article//response[@response-type="reply"] specific rules.
-    </title>
-
-    <rule context="article//response[@response-type='reply']">
-      <assert test="/article/@article-type = 'article-commentary'">
-        Element 'response': Unexpected article-type '<value-of select="/article/@article-type"/>'.
-      </assert>
-      <assert test=".//related-article">
-        Element 'response': Missing element related-article.
       </assert>
     </rule>
   </pattern>
