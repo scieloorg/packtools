@@ -60,6 +60,14 @@ code for more information.
     <active pattern="contrib-group"/>
   </phase>
 
+  <phase id="phase.institution">
+    <active pattern="institution"/>
+  </phase>
+
+  <phase id="phase.country">
+    <active pattern="country"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -136,6 +144,34 @@ code for more information.
         /article/@article-type != 'retraction']">
       <assert test="contrib-group">
         Element 'article-meta', Missing element contrib-group.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="institution">
+    <title>
+      SciELO Brazil expects all documents to present institution elements, except
+      while corrections and retractions.
+    </title>
+
+    <rule context="article/front/article-meta//aff[/article/@article-type != 'correction' and
+        /article/@article-type != 'retraction']">
+      <assert test="institution">
+        Element 'aff', Missing element institution.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="country">
+    <title>
+      SciELO Brazil expects all documents to present institution elements, except
+      while corrections and retractions.
+    </title>
+
+    <rule context="article/front/article-meta//aff[/article/@article-type != 'correction' and
+        /article/@article-type != 'retraction']">
+      <assert test="country">
+        Element 'aff', Missing element country.
       </assert>
     </rule>
   </pattern>
