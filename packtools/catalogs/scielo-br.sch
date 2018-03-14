@@ -56,6 +56,10 @@ code for more information.
     <active pattern="history"/>
   </phase>
 
+  <phase id="phase.contrib-group">
+    <active pattern="contrib-group"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -118,6 +122,20 @@ code for more information.
       </assert>
       <assert test="string-length(year) > 0">
         Element 'date', Missing element year.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="contrib-group">
+    <title>
+      SciELO Brazil expects all documents to present contrib-group elements, except
+      while corrections and retractions.
+    </title>
+
+    <rule context="article/front/article-meta[/article/@article-type != 'correction' and
+        /article/@article-type != 'retraction']">
+      <assert test="contrib-group">
+        Element 'article-meta', Missing element contrib-group.
       </assert>
     </rule>
   </pattern>

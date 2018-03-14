@@ -169,3 +169,53 @@ class HistoryTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class ContribGroupTests(PhaseBasedTestCase):
+    sch_phase = 'phase.contrib-group'
+
+    def test_contrib_group_is_present(self):
+        sample = u"""<article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+                            <aff>
+                              <institution content-type="original">
+                                Grupo de ...
+                              </institution>
+                              <institution content-type="orgname">
+                                Instituto de Matematica e Estatistica
+                              </institution>
+                            </aff>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_contrib_group_is_optional_for_corrections(self):
+        sample = u"""<article article-type="correction">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_contrib_group_is_optional_for_retractions(self):
+        sample = u"""<article article-type="retraction">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
