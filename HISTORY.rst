@@ -1,6 +1,12 @@
 History
 =======
 
+2.3.3 (2018-03-15)
+------------------
+
+* Fixes support for SciELO PS 1.8 adding validations to affs and ref-lists.
+
+
 2.3.2 (2018-03-14)
 ------------------
 
