@@ -395,3 +395,37 @@ class CountryTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+
+class ReferencesTests(PhaseBasedTestCase):
+    sch_phase = 'phase.references'
+
+    def test_missing_back_raises_error(self):
+        sample = u"""<article article-type="research-article">
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_reflist_raises_error(self):
+        sample = u"""<article article-type="research-article">
+                       <back>
+                       </back>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_missing_ref_raises_error(self):
+        sample = u"""<article article-type="research-article">
+                       <back>
+                         <ref-list>
+                         </ref-list>
+                       </back>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+

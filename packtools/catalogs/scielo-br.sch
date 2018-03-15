@@ -69,6 +69,12 @@ code for more information.
     <active pattern="country"/>
   </phase>
 
+  <phase id="phase.references">
+    <active pattern="back"/>
+    <active pattern="ref-list"/>
+    <active pattern="ref"/>
+  </phase>
+
 
   <!--
    Patterns - sets of rules.
@@ -185,6 +191,42 @@ code for more information.
     <rule context="//aff[@id]">
       <assert test="@id = //contrib/xref[@ref-type = 'aff']/@rid">
         Element 'aff': The affiliation is not related to any contributor.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="back">
+    <title>
+      Make sure /article/back is present.
+    </title>
+
+    <rule context="article">
+      <assert test="back">
+        Element 'article': Missing element back.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="ref-list">
+    <title>
+      Make sure /article/back/ref-list is present.
+    </title>
+
+    <rule context="article/back">
+      <assert test="ref-list">
+        Element 'back': Missing element ref-list.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="ref">
+    <title>
+      Make sure /article/back/ref-list/ref is present.
+    </title>
+
+    <rule context="article/back/ref-list">
+      <assert test="ref">
+        Element 'ref-list': Missing element ref.
       </assert>
     </rule>
   </pattern>
