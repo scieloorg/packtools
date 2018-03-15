@@ -219,6 +219,63 @@ class ContribGroupTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_affs_must_be_referenced_by_contributors(self):
+        sample = u"""<article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                            <aff id="aff1">
+                              <institution content-type="original">
+                                Grupo de ...
+                              </institution>
+                              <institution content-type="orgname">
+                                Instituto de Matematica e Estatistica
+                              </institution>
+                            </aff>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_must_error_when_affs_unrelated_to_contributors(self):
+        sample = u"""<article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                            </contrib>
+                            <aff id="aff1">
+                              <institution content-type="original">
+                                Grupo de ...
+                              </institution>
+                              <institution content-type="orgname">
+                                Instituto de Matematica e Estatistica
+                              </institution>
+                            </aff>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class InstitutionTests(PhaseBasedTestCase):
     sch_phase = 'phase.institution'

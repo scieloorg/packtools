@@ -57,6 +57,7 @@ code for more information.
   </phase>
 
   <phase id="phase.contrib-group">
+    <active pattern="aff-integrity-check"/>
     <active pattern="contrib-group"/>
   </phase>
 
@@ -164,14 +165,26 @@ code for more information.
 
   <pattern id="country">
     <title>
-      SciELO Brazil expects all documents to present institution elements, except
-      while corrections and retractions.
+        SciELO Brazil expects all documents to present article/front//aff/country
+        elements, except while corrections and retractions.
     </title>
 
     <rule context="article/front/article-meta//aff[/article/@article-type != 'correction' and
         /article/@article-type != 'retraction']">
       <assert test="country">
         Element 'aff', Missing element country.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="aff-integrity-check">
+    <title>
+      Make sure each affiliation is related to at least one contributor.
+    </title>
+
+    <rule context="//aff[@id]">
+      <assert test="@id = //contrib/xref[@ref-type = 'aff']/@rid">
+        Element 'aff': The affiliation is not related to any contributor.
       </assert>
     </rule>
   </pattern>
