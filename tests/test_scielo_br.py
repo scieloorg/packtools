@@ -489,6 +489,22 @@ class ReferencesTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_missing_back_in_retractions(self):
+        sample = u"""<article article-type="retraction">
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_back_in_corrections(self):
+        sample = u"""<article article-type="correction">
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
     def test_missing_reflist_raises_error(self):
         sample = u"""<article article-type="research-article">
                        <back>

@@ -206,7 +206,8 @@ code for more information.
       Make sure /article/back is present.
     </title>
 
-    <rule context="article">
+    <rule context="article[/article/@article-type != 'correction' and
+        /article/@article-type != 'retraction']">
       <assert test="back">
         Element 'article': Missing element back.
       </assert>
