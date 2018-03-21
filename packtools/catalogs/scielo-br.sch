@@ -75,6 +75,9 @@ code for more information.
     <active pattern="ref"/>
   </phase>
 
+  <phase id="phase.aff">
+    <active pattern="aff"/>
+  </phase>
 
   <!--
    Patterns - sets of rules.
@@ -227,6 +230,18 @@ code for more information.
     <rule context="article/back/ref-list">
       <assert test="ref">
         Element 'ref-list': Missing element ref.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="aff">
+    <title>
+      Check if there is at least one element aff.
+    </title>
+
+    <rule context="article/front/article-meta">
+      <assert test="count(.//aff) > 0">
+        Element 'article-meta': There must be at least one element aff.
       </assert>
     </rule>
   </pattern>

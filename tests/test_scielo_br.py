@@ -277,6 +277,88 @@ class ContribGroupTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
 
+class AffTests(PhaseBasedTestCase):
+    sch_phase = 'phase.aff'
+
+    def test_existence_at_least_one_aff(self):
+        sample = u"""<article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                            <aff id="aff1">
+                              <institution content-type="original">
+                                Grupo de ...
+                              </institution>
+                              <institution content-type="orgname">
+                                Instituto de Matematica e Estatistica
+                              </institution>
+                            </aff>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_aff_existence_outside_contrib_groups(self):
+        sample = u"""<article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                          </contrib-group>
+                          <aff id="aff1">
+                            <institution content-type="original">
+                              Grupo de ...
+                            </institution>
+                            <institution content-type="orgname">
+                              Instituto de Matematica e Estatistica
+                            </institution>
+                          </aff>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_raises_error_when_there_are_no_affs(self):
+        sample = u"""<article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
 class InstitutionTests(PhaseBasedTestCase):
     sch_phase = 'phase.institution'
 
