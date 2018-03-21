@@ -179,7 +179,10 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta//aff[/article/@article-type != 'correction' and
-        /article/@article-type != 'retraction']">
+        /article/@article-type != 'retraction'] |
+        article/sub-article[@article-type = 'abstract' or 
+                            @article-type = 'letter' or 
+                            @article-type = 'reply']//aff">
       <assert test="country">
         Element 'aff', Missing element country.
       </assert>

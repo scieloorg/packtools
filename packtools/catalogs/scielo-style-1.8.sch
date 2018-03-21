@@ -103,10 +103,6 @@ code for more information.
     <active pattern="aff_contenttypes_contribgroup"/>
   </phase>
 
-  <phase id="phase.aff">
-    <active pattern="aff"/>
-  </phase>
-
   <phase id="phase.kwd-group_lang">
     <active pattern="kwdgroup_lang"/>
   </phase>
@@ -1548,22 +1544,6 @@ code for more information.
       </assert>
     </rule>
   </pattern>
-
-  <pattern id="aff">
-    <title>
-      //aff elements.
-    </title>
-
-    <rule context="article/front//aff | 
-                   article/sub-article[@article-type = 'abstract' or 
-                                       @article-type = 'letter' or 
-                                       @article-type = 'reply']//aff">
-      <assert test="country">
-        Element 'aff': Missing element country.
-      </assert>
-    </rule>
-  </pattern>
-
 
   <pattern id="ref">
     <title>

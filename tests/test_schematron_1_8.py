@@ -5640,7 +5640,7 @@ class AffTests(PhaseBasedTestCase):
                  """
         sample = io.BytesIO(sample.encode('utf-8'))
 
-        self.assertFalse(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_country_is_absent_in_subarticle(self):
         for typ in ['abstract', 'letter', 'reply']:
@@ -5675,7 +5675,7 @@ class AffTests(PhaseBasedTestCase):
                      """.format(type=typ)
             sample = io.BytesIO(sample.encode('utf-8'))
 
-            self.assertFalse(self._run_validation(sample))
+            self.assertTrue(self._run_validation(sample))
 
     def test_country_is_absent_in_subarticle_type_translation(self):
         sample = u"""<article>
