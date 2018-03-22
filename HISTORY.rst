@@ -1,6 +1,13 @@
 History
 =======
 
+2.3.5 (2018-03-22)
+------------------
+
+* Fixes a bug that would cause affs to be mandatory for corrections and
+  retractions.
+
+
 2.3.4 (2018-03-21)
 ------------------
 
