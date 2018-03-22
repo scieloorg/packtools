@@ -219,6 +219,18 @@ class ContribGroupTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_contrib_group_is_optional_for_partial_retractions(self):
+        sample = u"""<article article-type="partial-retraction">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
     def test_affs_must_be_referenced_by_contributors(self):
         sample = u"""<article article-type="research-article">
                       <front>
@@ -358,6 +370,66 @@ class AffTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_dont_raise_error_when_corrections_have_no_affs(self):
+        sample = u"""<article article-type="correction">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_dont_raise_error_when_retractions_have_no_affs(self):
+        sample = u"""<article article-type="retraction">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_dont_raise_error_when_partial_retractions_have_no_affs(self):
+        sample = u"""<article article-type="partial-retraction">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+		            <contrib contrib-type="author">
+                              <name>
+                                <surname>Brait</surname>
+                                <given-names>Beth</given-names>
+                              </name>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
 
 class InstitutionTests(PhaseBasedTestCase):
     sch_phase = 'phase.institution'
@@ -398,6 +470,18 @@ class InstitutionTests(PhaseBasedTestCase):
 
     def test_institution_is_optional_for_retractions(self):
         sample = u"""<article article-type="retraction">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_institution_is_optional_for_partial_retractions(self):
+        sample = u"""<article article-type="partial-retraction">
                       <front>
                         <article-meta>
                         </article-meta>
@@ -462,7 +546,23 @@ class CountryTests(PhaseBasedTestCase):
         self.assertTrue(self._run_validation(sample))
 
     def test_missing_country_in_aff_of_retraction(self):
-        sample = u"""<article article-type="correction">
+        sample = u"""<article article-type="retraction">
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+                            <aff>
+                            </aff>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_country_in_aff_of_partial_retraction(self):
+        sample = u"""<article article-type="partial-retraction">
                       <front>
                         <article-meta>
                           <contrib-group>
@@ -491,6 +591,14 @@ class ReferencesTests(PhaseBasedTestCase):
 
     def test_missing_back_in_retractions(self):
         sample = u"""<article article-type="retraction">
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_back_in_partial_retractions(self):
+        sample = u"""<article article-type="partial-retraction">
                      </article>
                  """
         sample = io.BytesIO(sample.encode('utf-8'))

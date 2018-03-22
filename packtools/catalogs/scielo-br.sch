@@ -151,7 +151,8 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta[/article/@article-type != 'correction' and
-        /article/@article-type != 'retraction']">
+        /article/@article-type != 'retraction' and
+        /article/@article-type != 'partial-retraction']">
       <assert test="contrib-group">
         Element 'article-meta', Missing element contrib-group.
       </assert>
@@ -165,7 +166,8 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta//aff[/article/@article-type != 'correction' and
-        /article/@article-type != 'retraction']">
+        /article/@article-type != 'retraction' and
+        /article/@article-type != 'partial-retraction']">
       <assert test="institution">
         Element 'aff', Missing element institution.
       </assert>
@@ -179,7 +181,8 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta//aff[/article/@article-type != 'correction' and
-        /article/@article-type != 'retraction'] |
+        /article/@article-type != 'retraction' and
+        /article/@article-type != 'partial-retraction'] |
         article/sub-article[@article-type = 'abstract' or 
                             @article-type = 'letter' or 
                             @article-type = 'reply']//aff">
@@ -207,7 +210,8 @@ code for more information.
     </title>
 
     <rule context="article[/article/@article-type != 'correction' and
-        /article/@article-type != 'retraction']">
+        /article/@article-type != 'retraction' and
+        /article/@article-type != 'partial-retraction']">
       <assert test="back">
         Element 'article': Missing element back.
       </assert>
@@ -243,7 +247,9 @@ code for more information.
       Check if there is at least one element aff.
     </title>
 
-    <rule context="article/front/article-meta">
+    <rule context="article/front/article-meta[/article/@article-type != 'correction' and
+        /article/@article-type != 'retraction' and
+        /article/@article-type != 'partial-retraction']">
       <assert test="count(.//aff) > 0">
         Element 'article-meta': There must be at least one element aff.
       </assert>
