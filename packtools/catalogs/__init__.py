@@ -39,7 +39,7 @@ class Catalog:
     XML_CATALOG = os.path.join(_CWD, 'scielo-publishing-schema.xml')
 
     # HTML GENERATOR default constants
-    HTML_GET_XSLTS = {
+    HTML_GEN_XSLTS = {
         'root-html-1.2.xslt': os.path.join(_CWD, 'htmlgenerator/root-html-1.2.xslt'),
         'root-html-2.0.xslt': os.path.join(_CWD, 'htmlgenerator/root-html-2.0.xslt'),
     }

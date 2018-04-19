@@ -91,7 +91,7 @@ def XSLT(xslt_name):
         return cache[xslt_name]
     else:
         try:
-            xslt_doc = etree.parse(catalog.HTML_GET_XSLTS[xslt_name])
+            xslt_doc = etree.parse(catalog.HTML_GEN_XSLTS[xslt_name])
         except KeyError:
             raise ValueError('unrecognized xslt: "%s"' % xslt_name)
 
