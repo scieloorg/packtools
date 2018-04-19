@@ -18,7 +18,7 @@ try:
 except ImportError:
     pygments = False    # NOQA
 
-from packtools import catalogs
+from packtools.catalogs import catalog
 
 
 LOGGER = logging.getLogger(__name__)
@@ -130,7 +130,7 @@ def config_xml_catalog(wrapped):
     @functools.wraps(wrapped)
     def wrapper(*args, **kwargs):
         try:
-            os.environ['XML_CATALOG_FILES'] = catalogs.XML_CATALOG
+            os.environ['XML_CATALOG_FILES'] = catalog.XML_CATALOG
             _return = wrapped(*args, **kwargs)
 
         finally:
@@ -263,7 +263,7 @@ def resolve_schematron_filepath(value):
     """Determine the filepath for ``value``.
 
     The lookup is run against all known schemas from
-    :data:`packtools.catalogs.SCH_SCHEMAS`. If ``value`` is already a filepath,
+    :data:`packtools.catalog.SCH_SCHEMAS`. If ``value`` is already a filepath,
     than it is returned as it is.
     """
     try:
@@ -273,7 +273,7 @@ def resolve_schematron_filepath(value):
         raise TypeError('invalid input type for text string: "value"')
 
     if lookup_builtin:
-        path = catalogs.SCH_SCHEMAS.get(value[1:])
+        path = catalog.SCH_SCHEMAS.get(value[1:])
         if path:
             return path
         else:

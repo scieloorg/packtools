@@ -1,6 +1,5 @@
 # coding: utf-8
 from __future__ import print_function, unicode_literals
-import os
 import argparse
 import sys
 import pkg_resources
@@ -9,14 +8,9 @@ import logging
 from lxml import etree
 
 import packtools
-
+from packtools.catalogs import catalog
 
 LOGGER = logging.getLogger(__name__)
-HERE = os.path.dirname(os.path.abspath(__file__))
-
-DEFAULT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article-standalone.css')
-DEFAULT_PRINT_CSS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-bundle-print.css')
-DEFAULT_JS_PATH = os.path.join(HERE, 'catalogs/htmlgenerator/static/scielo-article-standalone-min.js')
 
 
 class XMLError(Exception):
@@ -25,7 +19,9 @@ class XMLError(Exception):
     """
 
 
-def get_htmlgenerator(xmlpath, no_network, no_checks, css, print_css, js, permlink, url_article_page, url_download_ris):
+def get_htmlgenerator(
+    xmlpath, no_network, no_checks, css, print_css, js, permlink, url_article_page, url_download_ris
+):
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
     except IOError as e:
@@ -57,11 +53,11 @@ def main():
                         help='prevents the retrieval of the DTD through the network')
     parser.add_argument('--nochecks', action='store_true',
                         help='prevents the validation against SciELO PS spec')
-    parser.add_argument('--css', default=DEFAULT_CSS_PATH,
+    parser.add_argument('--css', default=catalog.HTML_GEN_DEFAULT_CSS_PATH,
                         help='URL or full path of the CSS file to use with generated htmls')
-    parser.add_argument('--print_css', default=DEFAULT_PRINT_CSS_PATH,
+    parser.add_argument('--print_css', default=catalog.HTML_GEN_DEFAULT_PRINT_CSS_PATH,
                         help='URL or full path of the CSS (media: print) file to use with generated htmls')
-    parser.add_argument('--js', default=DEFAULT_JS_PATH,
+    parser.add_argument('--js', default=catalog.HTML_GEN_DEFAULT_JS_PATH,
                         help='URL or full path of the JS file to use with generated htmls')
     parser.add_argument('--permlink', default='',
                         help='Permanente URL to access the article')

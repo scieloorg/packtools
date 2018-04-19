@@ -115,8 +115,8 @@ class XrayTests(unittest.TestCase):
 
 class ResolveSchematronFilepathTests(unittest.TestCase):
     def setUp(self):
-        from packtools import catalogs
-        self.sch_schemas = catalogs.SCH_SCHEMAS
+        from packtools.catalogs import catalog
+        self.sch_schemas = catalog.SCH_SCHEMAS
 
     def test_builtin_lookup(self):
         for name, path in self.sch_schemas.items():
