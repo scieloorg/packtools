@@ -7,11 +7,11 @@ import json
 import plumber
 
 from .style_errors import StyleError
-from packtools.catalogs import catalog
+from packtools import catalogs
 
 LOGGER = logging.getLogger(__name__)
 
-with open(catalog.ISO3166_CODES) as f:
+with open(catalogs.ISO3166_CODES) as f:
     ISO3166_CODES_SET = set(json.load(f))
 
 

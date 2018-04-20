@@ -2,9 +2,12 @@
 """
 import os
 
+_CWD = os.path.dirname(os.path.abspath(__file__))
+
+ISO3166_CODES = os.path.join(_CWD, 'iso3166-codes.json')
+
 
 class Catalog:
-    _CWD = os.path.dirname(os.path.abspath(__file__))
 
     NAME = 'SciELO Style Catalog for PackTooks'
 
@@ -47,8 +50,6 @@ class Catalog:
     HTML_GEN_DEFAULT_CSS_PATH = os.path.join(_CWD, 'htmlgenerator/static/scielo-article-standalone.css')
     HTML_GEN_DEFAULT_JS_PATH = os.path.join(_CWD, 'htmlgenerator/static/scielo-article-standalone-min.js')
 
-    ISO3166_CODES = os.path.join(_CWD, 'iso3166-codes.json')
-
     # As a general rule, only the latest 2 versions are supported simultaneously.
     CURRENTLY_SUPPORTED_VERSIONS = os.environ.get(
         'PACKTOOLS_SUPPORTED_SPS_VERSIONS', 'sps-1.7:sps-1.8').split(':')
@@ -64,7 +65,10 @@ class Catalog:
         '-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN',
     )
 
-    def check_extra_catalog(self):
+
+class CatalogLoader:
+
+    def _check_extra_catalog(self):
         from pkg_resources import iter_entry_points
         for entry_point in iter_entry_points(group='packtools.catalog', name=None):
             if entry_point.name == 'packtools_catalog':
@@ -73,11 +77,11 @@ class Catalog:
         return None
 
     def load(self):
-        extra_catalog = self.check_extra_catalog()
+        extra_catalog = self._check_extra_catalog()
         if extra_catalog is not None:
             return extra_catalog
         else:
-            return self
+            return Catalog()
 
 
-catalog = Catalog().load()
+catalog = CatalogLoader().load()
