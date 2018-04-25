@@ -1,6 +1,12 @@
 History
 =======
 
+2.4 (2018-04-25)
+----------------
+
+* Makes possible to have plugable catalogs of validation schemas and xslts.
+
+
 2.3.5 (2018-03-22)
 ------------------
 
