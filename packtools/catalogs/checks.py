@@ -6,7 +6,7 @@ import json
 
 import plumber
 
-from .style_errors import StyleError
+from packtools.style_errors import StyleError
 from packtools.catalogs import catalog
 
 LOGGER = logging.getLogger(__name__)
@@ -157,3 +157,27 @@ def country_code(message):
 
     return message
 
+
+class CatalogChecksLoader(object):
+
+    def _load_plugin_if_exists(self):
+        """Returns the plugged-in Catalog if it exists or None.
+        """
+        from pkg_resources import iter_entry_points
+        for entry_point in iter_entry_points(group='packtools.catalog', name=None):
+            if entry_point.name == 'packtools_checks':
+                return entry_point.load()
+
+        return None
+
+    def load(self, default):
+        """Returns the plugged-in Catalog if it exists or otherwise the default
+        catalog.
+        """
+        stylecheckingpipeline = self._load_plugin_if_exists()
+        if stylecheckingpipeline:
+            return stylecheckingpipeline
+        else:
+            return default
+
+stylecheckingpipeline = CatalogChecksLoader().load(default=StyleCheckingPipeline)
