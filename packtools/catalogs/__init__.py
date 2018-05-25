@@ -2,6 +2,9 @@
 """
 import os
 
+from . import checks 
+
+
 _CWD = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -75,28 +78,42 @@ class Catalog(object):
         for name, value in kwargs.items():
             setattr(self, name, value)
 
+    @classmethod
+    def fromdict(cls, d):
+        return cls(**d)
+
 
 class CatalogLoader(object):
+    group_name = 'packtools.catalog'
 
-    def _load_plugin_if_exists(self):
+    def _load_plugin_if_exists(self, name):
         """Returns the plugged-in Catalog if it exists or None.
         """
         from pkg_resources import iter_entry_points
-        for entry_point in iter_entry_points(group='packtools.catalog', name=None):
-            if entry_point.name == 'packtools_catalog':
+        for entry_point in iter_entry_points(group=self.group_name, name=None):
+            if entry_point.name == name:
                 return entry_point.load()
 
         return None
 
-    def load(self, default):
+    def load(self, name, default, plugin_wrapper=None):
         """Returns the plugged-in Catalog if it exists or otherwise the default
         catalog.
+
+        :param default: object that will be returned if ``name`` is not set.
+        :param plugin_wrapper: a callable that will be called with the loaded
+        object as argument.
         """
-        plugged_catalog = self._load_plugin_if_exists()
-        if plugged_catalog:
-            return Catalog(**plugged_catalog)
-        else: 
-            return Catalog(**default)
+        plugin_wrapper = plugin_wrapper if plugin_wrapper else lambda p: p
+
+        plugin = self._load_plugin_if_exists(name) or default
+        return plugin_wrapper(plugin)
 
 
-catalog = CatalogLoader().load(default=default_catalog)
+catalog = CatalogLoader().load('packtools_catalog',
+        default=default_catalog,
+        plugin_wrapper=lambda p: Catalog.fromdict(p))
+
+StyleCheckingPipeline = CatalogLoader().load('packtools_checks',
+        default=checks.StyleCheckingPipeline)
+

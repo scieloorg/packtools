@@ -6,7 +6,7 @@ import io
 
 from lxml import etree
 
-from packtools import checks
+from packtools.catalogs import checks
 
 
 SAMPLES_PATH = os.path.join(

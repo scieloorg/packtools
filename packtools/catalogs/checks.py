@@ -6,13 +6,15 @@ import json
 
 import plumber
 
-from .style_errors import StyleError
-from packtools.catalogs import catalog
+from packtools.style_errors import StyleError
 
 LOGGER = logging.getLogger(__name__)
 
-with open(catalog.ISO3166_CODES) as f:
-    ISO3166_CODES_SET = set(json.load(f))
+
+def ISO3166_CODES_SET():
+    from . import catalog
+    with open(catalog.ISO3166_CODES) as f:
+        return set(json.load(f))
 
 
 # --------------------------------
@@ -149,7 +151,7 @@ def country_code(message):
     elements = et.findall('//*[@country]')
     for elem in elements:
         value = elem.attrib['country']
-        if value not in ISO3166_CODES_SET:
+        if value not in ISO3166_CODES_SET():
             err = StyleError()
             err.line = elem.sourceline
             err.message = "Element '%s', attribute country: Invalid country code \"%s\"." % (elem.tag, value)
