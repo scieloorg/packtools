@@ -17,8 +17,8 @@ except ImportError:
 
 from lxml import etree
 
-from . import utils, checks, style_errors, exceptions
-from packtools.catalogs import catalog
+from . import utils, style_errors, exceptions
+from packtools.catalogs import catalog, checks
 
 __all__ = ['XMLValidator', 'HTMLGenerator']
 
@@ -111,7 +111,7 @@ def XSLT(xslt_name):
 class PyValidator(object):
     """Style validations implemented in Python.
     """
-    def __init__(self, pipeline=checks.StyleCheckingPipeline, label=u''):
+    def __init__(self, pipeline=checks.stylecheckingpipeline, label=u''):
         self.ppl = pipeline()
         self.label = label
 
