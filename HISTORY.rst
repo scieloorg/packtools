@@ -1,6 +1,12 @@
 History
 =======
 
+2.3.6 (2018-06-20)
+------------------
+
+* Fixes a bug on the distribution os xsl data files.
+
+
 2.3.5 (2018-03-22)
 ------------------
 
