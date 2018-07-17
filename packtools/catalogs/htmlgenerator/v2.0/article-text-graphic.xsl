@@ -24,7 +24,9 @@
                 </img>
             </xsl:otherwise>
         </xsl:choose>      
+        <!--
         <xsl:comment><xsl:value-of select="$s"/> </xsl:comment>
+        -->
     </xsl:template>
 
     <xsl:template match="graphic/@xlink:href | inline-graphic/@xlink:href">

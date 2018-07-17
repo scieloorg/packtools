@@ -9,7 +9,9 @@
         <xsl:value-of select="name()"/>
     </xsl:template>
     <xsl:template match="*">
+        <!--
         <xsl:comment> * <xsl:value-of select="name()"/> </xsl:comment>
+        -->
         <xsl:apply-templates select="*|text()"/>
     </xsl:template>
     

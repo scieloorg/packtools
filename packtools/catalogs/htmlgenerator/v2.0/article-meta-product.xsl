@@ -8,7 +8,9 @@
 	
 	<xsl:template match="article-meta/product">
 		<xsl:variable name="sep"><xsl:apply-templates select="text()"></xsl:apply-templates></xsl:variable>
+        <!--
 		<xsl:comment> <xsl:value-of select="$sep"/></xsl:comment>
+        -->
 		<div>
 			<xsl:choose>
 				<xsl:when test=".//graphic or .//inline-graphic">
@@ -48,7 +50,9 @@
 	</xsl:template>
 	
 	<xsl:template match="product//*[@xlink:href]" mode="display">
+        <!--
 		<xsl:comment> ignored <xsl:value-of select="name()"/> </xsl:comment>
+        -->
 	</xsl:template>
 	
 	<xsl:template match="product/person-group" mode="display">

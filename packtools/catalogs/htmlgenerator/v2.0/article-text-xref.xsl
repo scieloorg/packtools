@@ -35,7 +35,9 @@
             <xsl:when test="contains('1234567890',substring(normalize-space($text),1,1))">sup</xsl:when>
             <xsl:otherwise>strong</xsl:otherwise>
         </xsl:choose></xsl:variable>
+        <!--
         <xsl:comment> <xsl:value-of select="$text"/> </xsl:comment>
+        -->
         
         <span class="ref">
             <xsl:element name="{$elem}">

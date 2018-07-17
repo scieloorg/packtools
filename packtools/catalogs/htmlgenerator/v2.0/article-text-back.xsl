@@ -9,7 +9,9 @@
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                 <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/back/*" mode="back"/>
                 <xsl:if test="count(.//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/back/*) &lt; $REFLIST_POSITION">
+                    <!--
                     <xsl:comment> ref-list inserted </xsl:comment>
+                    -->
                     <xsl:apply-templates select="$article/back/ref-list" mode="back-section"/>
                 </xsl:if>
             </xsl:when>
@@ -21,21 +23,27 @@
     
    
     <xsl:template match="*" mode="back">
+        <!--
         <xsl:comment> <xsl:value-of select="name()"/>, mode="back" </xsl:comment>
         <xsl:comment> position()=<xsl:value-of select="position()"/> </xsl:comment>
         <xsl:comment> $REFLIST_POSITION=<xsl:value-of select="$REFLIST_POSITION"/> </xsl:comment>
         <xsl:comment> $REFLIST_INDEX=<xsl:value-of select="$REFLIST_INDEX"/> </xsl:comment>
+        -->
         <xsl:apply-templates select="." mode="back-section"/>
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type='translation']/back[not(ref-list)]/*" mode="back">
+        <!--
         <xsl:comment> sub-article/<xsl:value-of select="name()"/>, mode="back" </xsl:comment>
         <xsl:comment> position()=<xsl:value-of select="position()"/> </xsl:comment>
         <xsl:comment> $REFLIST_POSITION=<xsl:value-of select="$REFLIST_POSITION"/> </xsl:comment>
         <xsl:comment> $REFLIST_INDEX=<xsl:value-of select="$REFLIST_INDEX"/> </xsl:comment>
+        -->
         
         <xsl:if test="position()=$REFLIST_POSITION">
+            <!--
             <xsl:comment> ref-list inserted </xsl:comment>
+            -->
             <xsl:apply-templates select="$article/back/ref-list" mode="back-section"/>
         </xsl:if>
          <xsl:apply-templates select="." mode="back-section"/>

@@ -172,25 +172,35 @@
     
     <xsl:template match="aff" mode="display">
         <xsl:variable name="text"><xsl:apply-templates select="text()"/></xsl:variable>
+        <!--
         <xsl:comment> $text: <xsl:value-of select="$text"/> </xsl:comment>
         <xsl:comment> text(): <xsl:apply-templates select="text()"></xsl:apply-templates></xsl:comment>
+        -->
         <xsl:choose>
             <xsl:when test="institution[@content-type='original']">
+                <!--
                 <xsl:comment> aff original </xsl:comment>
+                -->
                 <xsl:apply-templates select="institution[@content-type='original']"/>
             </xsl:when>
             <xsl:when
                 test="institution[@content-type='orgname'] and contains($text,institution[@content-type='orgname'])">
+                <!--
                 <xsl:comment> $text </xsl:comment>
+                -->
                 <xsl:value-of select="$text"/>
             </xsl:when>
             <xsl:when
                 test="*[name()!='label']">
+                <!--
                 <xsl:comment> aff insert separator </xsl:comment>
+                -->
                 <xsl:apply-templates select="*[name()!='label']" mode="insert-separator"/>
             </xsl:when>
             <xsl:otherwise>
+                <!--
                 <xsl:comment> $text </xsl:comment>
+                -->
                 <xsl:value-of select="$text"/>
             </xsl:otherwise>
         </xsl:choose>
