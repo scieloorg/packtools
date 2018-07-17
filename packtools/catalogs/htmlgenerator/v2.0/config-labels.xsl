@@ -55,7 +55,9 @@
     </xsl:template>
         
     <xsl:template match="*" mode="generated-label">
+        <!--
         <xsl:comment> generated-label </xsl:comment>
+        -->
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term"><xsl:value-of select="name()"/></xsl:with-param>
             <xsl:with-param name="lang"><xsl:choose>
@@ -65,7 +67,9 @@
         </xsl:apply-templates>
     </xsl:template>
     <xsl:template match="abstract | trans-abstract" mode="generated-label">
+        <!--
         <xsl:comment> generated-label </xsl:comment>
+        -->
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term">Abstract</xsl:with-param>
             <xsl:with-param name="lang"><xsl:choose>
@@ -90,7 +94,9 @@
     </xsl:template>
     
     <xsl:template match="*" mode="title">
+        <!--
         <xsl:comment> * mode=title </xsl:comment>
+        -->
         <xsl:apply-templates select="label"/>
         <xsl:if test="label and title"> &#160; </xsl:if>
         <xsl:apply-templates select="title"/>
@@ -113,7 +119,9 @@
     </xsl:template>
     
     <xsl:template match="*" mode="label-caption">
+        <!--
         <xsl:comment> * mode=label-caption </xsl:comment>
+        -->
         <xsl:apply-templates select="label"/>
         <xsl:if test="label and caption"> &#160; </xsl:if>
         <xsl:apply-templates select="caption"/>

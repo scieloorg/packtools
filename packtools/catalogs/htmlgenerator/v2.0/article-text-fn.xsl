@@ -18,7 +18,9 @@
             <h2></h2>
             <div class="ref-list">
                 <ul class="refList footnote"> 
+                    <!--
                     <xsl:comment> body note </xsl:comment>
+                    -->
                     <xsl:apply-templates select=".//*[(fn or fn-group) and name()!='table-wrap-foot']/*[contains(name(),'fn')]" mode="display-body-footnotes"></xsl:apply-templates>
                 </ul>
             </div>
@@ -36,14 +38,18 @@
     </xsl:template>
     
     <xsl:template match="body//*[(fn or fn-group) and name()!='table-wrap-foot']/fn | body//*[(fn or fn-group) and name()!='table-wrap-foot']/fn-group">
+        <!--
         <xsl:comment> skip p/fn </xsl:comment>
+        -->
     </xsl:template>
     
     <xsl:template match="*" mode="display-body-footnotes">
     </xsl:template>
     
     <xsl:template match="fn|fn-group" mode="display-body-footnotes">
+        <!--
         <xsl:comment> list body//fn </xsl:comment>
+        -->
         <li>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </li>
