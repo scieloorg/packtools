@@ -1,6 +1,13 @@
 History
 =======
 
+2.3.7 (2018-07-17)
+------------------
+
+* Fixes a bug that would break the html generator
+  [https://github.com/scieloorg/packtools/issues/157]
+
+
 2.3.6 (2018-06-20)
 ------------------
 
