@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #coding:utf-8
 from __future__ import unicode_literals
-from setuptools import setup, find_packages
+from setuptools import setup
 import setuptools
 import codecs
 import sys
@@ -52,7 +52,7 @@ setup(
     maintainer_email="gustavo.fonseca@scielo.org",
     license="BSD License",
     url="http://docs.scielo.org",
-    packages=find_packages(),
+    packages=['packtools'],
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",

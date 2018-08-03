@@ -1,2 +1,5 @@
-include *.txt *.ini *.cfg *.rst *.md LICENSE
 recursive-include packtools *.xsd *.sch *.xml *.ent *.dtd *.mod *.xslt *.json *.xsl
+recursive-exclude tests *
+include README.rst HISTORY.rst
+exclude tox.ini
+exclude MANIFEST.in
