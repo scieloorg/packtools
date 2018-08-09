@@ -52,7 +52,7 @@ setup(
     maintainer_email="gustavo.fonseca@scielo.org",
     license="BSD License",
     url="http://docs.scielo.org",
-    packages=['packtools'],
+    packages=['packtools', 'packtools.catalogs'],
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
