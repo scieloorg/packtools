@@ -50,7 +50,6 @@
                 <xsl:variable name="id">
                     <xsl:value-of select="position()"/>
                 </xsl:variable>
-                xxxxxxxxxx
                 <span class="dropdown">
                     <a id="contribGroupTutor{$id}">
                         <xsl:attribute name="class">dropdown-toggle</xsl:attribute>
