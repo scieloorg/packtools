@@ -32,8 +32,7 @@
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
         <div>
             <xsl:attribute name="class">contribGroup</xsl:attribute>
-            <xsl:apply-templates select="contrib[position()&lt;=number($MAX_CONTRIB)]" mode="article-meta-contrib"/>
-            <xsl:if test="count(contrib)&gt;number($MAX_CONTRIB)"> ... </xsl:if>
+            <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
             <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
                 <a href="" class="outlineFadeLink" data-toggle="modal"
                     data-target="#ModalTutors{$id}">
@@ -51,7 +50,6 @@
                 <xsl:variable name="id">
                     <xsl:value-of select="position()"/>
                 </xsl:variable>
-                
                 <span class="dropdown">
                     <a id="contribGroupTutor{$id}">
                         <xsl:attribute name="class">dropdown-toggle</xsl:attribute>
