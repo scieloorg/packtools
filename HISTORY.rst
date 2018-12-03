@@ -1,6 +1,12 @@
 History
 =======
 
+2.3.8 (2018-12-03)
+------------------
+
+* Fixes a bug that would cause authors names to be ommited in the HTML version
+  [https://github.com/scieloorg/packtools/issues/159]
+
 2.3.7 (2018-07-17)
 ------------------
 
