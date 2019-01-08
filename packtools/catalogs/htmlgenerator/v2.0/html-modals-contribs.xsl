@@ -74,7 +74,9 @@
     
     <xsl:template match="contrib/xref" mode="modal-contrib">
         <xsl:variable name="rid" select="@rid"/>
-        <xsl:apply-templates select="$article//aff[@id=$rid]" mode="modal-contrib"/>
+        <xsl:if test="* or normalize-space(text()) != ''">
+            <xsl:apply-templates select="$article//aff[@id=$rid]" mode="modal-contrib"/>
+        </xsl:if>
         <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
     </xsl:template>
     
