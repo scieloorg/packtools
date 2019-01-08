@@ -104,6 +104,7 @@
     
     <xsl:template match="contrib/xref" mode="contrib-dropdown-menu">
         <xsl:variable name="rid" select="@rid"/>
+        <xsl:apply-templates select="$article//author-notes/corresp[@id=$rid]" mode="contrib-dropdown-menu"/>
         <xsl:if test="* or normalize-space(text()) != ''">
             <xsl:apply-templates select="$article//aff[@id=$rid]" mode="contrib-dropdown-menu"/>
         </xsl:if>
