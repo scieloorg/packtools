@@ -104,6 +104,7 @@
     
     <xsl:template match="contrib/xref" mode="contrib-dropdown-menu">
         <xsl:variable name="rid" select="@rid"/>
+        <xsl:apply-templates select="$article//author-notes/corresp[@id=$rid]" mode="contrib-dropdown-menu"/>
         <xsl:apply-templates select="$article//aff[@id=$rid]" mode="contrib-dropdown-menu"/>
         <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
     </xsl:template>

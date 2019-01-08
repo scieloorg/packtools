@@ -59,6 +59,9 @@
     <xsl:template match="contrib" mode="modal-contrib">
         <div class="tutors">
             <strong><xsl:apply-templates select="name|collab|on-behalf-of"/></strong>
+            <xsl:if test="xref[@ref-type='corresp']">
+                <xsl:apply-templates select="xref[@ref-type='corresp']" />
+            </xsl:if>
             <br/>
             <xsl:apply-templates select="role"/>
             <xsl:apply-templates select="xref" mode="modal-contrib"/>
@@ -101,7 +104,14 @@
     </xsl:template>
     
     <xsl:template match="author-notes//label">
-        <h3><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>        
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space(text())) = 1">
+                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <h3><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!--xsl:template match="author-notes//fn" mode="modal-contrib">
@@ -112,4 +122,11 @@
             </div>
         </xsl:if>
     </xsl:template-->
+
+    <xsl:template match="author-notes/corresp" mode="contrib-dropdown-menu">
+      <div class="corresp">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:template>
+
 </xsl:stylesheet>
