@@ -85,6 +85,36 @@
         <name lang="en">Reviewed</name>
     </term>
     <term>
+        <name>corrected</name>
+        <name lang="en">Corrected</name>
+        <name lang="pt">Corrigido</name>
+        <name lang="es">Corregido</name>
+    </term>
+    <term>
+        <name>pub</name>
+        <name lang="pt">Publicação</name>
+        <name lang="es">Publicación</name>
+        <name lang="en">Publication</name>
+    </term>
+    <term>
+        <name>preprint</name>
+        <name lang="pt">Preprint</name>
+        <name lang="es">Preprint</name>
+        <name lang="en">Preprint</name>
+    </term>
+    <term>
+        <name>retracted</name>
+        <name lang="pt">Retratado</name>
+        <name lang="es">Retractado</name>
+        <name lang="en">Retracted</name>
+    </term>
+    <term>
+        <name>rev-requested</name>
+        <name lang="pt">Solicitud de Revisión</name>
+        <name lang="es">Revisado</name>
+        <name lang="en">Requested Revision</name>
+    </term>
+    <term>
         <name>About the authors</name>
         <name lang="pt">Sobre os autores</name>
         <name lang="es">Acerca de los autores</name>        
