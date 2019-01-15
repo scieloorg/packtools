@@ -12,8 +12,8 @@ LOGGER = logging.getLogger(__name__)
 
 
 def ISO3166_CODES_SET():
-    from . import catalog
-    with open(catalog.ISO3166_CODES) as f:
+    from . import ISO3166_CODES
+    with open(ISO3166_CODES) as f:
         return set(json.load(f))
 
 

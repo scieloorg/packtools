@@ -5,10 +5,10 @@ import io
 
 from lxml import isoschematron, etree
 
-from packtools.catalogs import catalog
+from packtools.catalogs import SCHEMAS
 
 
-SCH = etree.parse(catalog.SCHEMAS['scielo-br'])
+SCH = etree.parse(SCHEMAS['scielo-br'])
 
 
 def TestPhase(phase_name, cache):

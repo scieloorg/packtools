@@ -8,7 +8,7 @@ import logging
 from lxml import etree
 
 import packtools
-from packtools.catalogs import catalog
+from packtools import catalogs
 
 LOGGER = logging.getLogger(__name__)
 
@@ -53,11 +53,11 @@ def main():
                         help='prevents the retrieval of the DTD through the network')
     parser.add_argument('--nochecks', action='store_true',
                         help='prevents the validation against SciELO PS spec')
-    parser.add_argument('--css', default=catalog.HTML_GEN_DEFAULT_CSS_PATH,
+    parser.add_argument('--css', default=catalogs.HTML_GEN_DEFAULT_CSS_PATH,
                         help='URL or full path of the CSS file to use with generated htmls')
-    parser.add_argument('--print_css', default=catalog.HTML_GEN_DEFAULT_PRINT_CSS_PATH,
+    parser.add_argument('--print_css', default=catalogs.HTML_GEN_DEFAULT_PRINT_CSS_PATH,
                         help='URL or full path of the CSS (media: print) file to use with generated htmls')
-    parser.add_argument('--js', default=catalog.HTML_GEN_DEFAULT_JS_PATH,
+    parser.add_argument('--js', default=catalogs.HTML_GEN_DEFAULT_JS_PATH,
                         help='URL or full path of the JS file to use with generated htmls')
     parser.add_argument('--permlink', default='',
                         help='Permanente URL to access the article')

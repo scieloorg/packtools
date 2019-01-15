@@ -12,7 +12,7 @@ from lxml import etree
 
 import packtools
 from packtools import exceptions
-from packtools.catalogs import catalog
+from packtools import catalogs
 
 __all__ = ['summarize', 'annotate']
 
@@ -34,7 +34,7 @@ ERR_MESSAGE = "Something went wrong while working on {filename}: {details}."
 
 
 AVAILABLE_SCHEMAS = ', '.join(sorted(['@'+key 
-    for key in catalog.SCH_SCHEMAS.keys()]))
+    for key in catalogs.SCH_SCHEMAS.keys()]))
 
 
 def get_xmlvalidator(xmlpath, no_network, extra_sch):
@@ -201,7 +201,7 @@ def _main():
     input_args = args.file or sys.stdin
     summary_list = []
 
-    LOGGER.info('running with catalog: %s', catalog.NAME)
+    LOGGER.info('running with catalog: %s', catalogs.NAME)
 
     for xml in packtools.utils.flatten(input_args):
         LOGGER.info('starting validation of "%s"', xml)

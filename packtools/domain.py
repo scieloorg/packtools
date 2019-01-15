@@ -17,8 +17,8 @@ except ImportError:
 
 from lxml import etree
 
-from . import utils, style_errors, exceptions
-from packtools.catalogs import catalog, StyleCheckingPipeline
+from . import utils, catalogs, style_errors, exceptions
+
 
 __all__ = ['XMLValidator', 'HTMLGenerator']
 
@@ -30,9 +30,9 @@ def _get_public_ids(sps_version):
     """Returns the set of allowed public ids for the XML based on its version.
     """
     if sps_version in ['pre-sps', 'sps-1.1']:
-        return frozenset(catalog.ALLOWED_PUBLIC_IDS_LEGACY)
+        return frozenset(catalogs.ALLOWED_PUBLIC_IDS_LEGACY)
     else:
-        return frozenset(catalog.ALLOWED_PUBLIC_IDS)
+        return frozenset(catalogs.ALLOWED_PUBLIC_IDS)
 
 
 def _init_sps_version(xml_et, supported_versions=None):
@@ -44,7 +44,7 @@ def _init_sps_version(xml_et, supported_versions=None):
     :param supported_versions: (optional) the default value is set by env var `PACKTOOLS_SUPPORTED_SPS_VERSIONS`.
     """
     if supported_versions is None:
-        supported_versions = catalog.CURRENTLY_SUPPORTED_VERSIONS
+        supported_versions = catalogs.CURRENTLY_SUPPORTED_VERSIONS
 
     doc_root = xml_et.getroot()
     version_from_xml = doc_root.attrib.get('specific-use', None)
@@ -71,7 +71,7 @@ def StdSchematron(schema_name):
         return cache[schema_name]
     else:
         try:
-            schema_path = catalog.SCHEMAS[schema_name]
+            schema_path = catalogs.SCHEMAS[schema_name]
         except KeyError:
             raise ValueError('unrecognized schema: "%s"' % schema_name)
 
@@ -91,7 +91,7 @@ def XSLT(xslt_name):
         return cache[xslt_name]
     else:
         try:
-            xslt_doc = etree.parse(catalog.HTML_GEN_XSLTS[xslt_name])
+            xslt_doc = etree.parse(catalogs.HTML_GEN_XSLTS[xslt_name])
         except KeyError:
             raise ValueError('unrecognized xslt: "%s"' % xslt_name)
 
@@ -111,7 +111,7 @@ def XSLT(xslt_name):
 class PyValidator(object):
     """Style validations implemented in Python.
     """
-    def __init__(self, pipeline=StyleCheckingPipeline, label=u''):
+    def __init__(self, pipeline=catalogs.StyleCheckingPipeline, label=u''):
         self.ppl = pipeline()
         self.label = label
 
@@ -154,7 +154,7 @@ class SchematronValidator(object):
         """Get an instance based on schema's reference name.
 
         :param ref: The reference name for the schematron file in
-                    :data:`packtools.catalog.SCH_SCHEMAS`.
+                    :data:`packtools.catalogs.SCH_SCHEMAS`.
         """
         return cls(StdSchematron(ref), **kwargs)
 

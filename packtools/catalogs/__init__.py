@@ -1,6 +1,7 @@
 """Just to ease the access to the files.
 """
 import os
+import sys
 
 from . import checks 
 
@@ -110,10 +111,21 @@ class CatalogLoader(object):
         return plugin_wrapper(plugin)
 
 
-catalog = CatalogLoader().load('packtools_catalog',
-        default=default_catalog,
-        plugin_wrapper=lambda p: Catalog.fromdict(p))
+class PluggableModule(object):
+    def __init__(self):
+        self.catalog = CatalogLoader().load('packtools_catalog',
+                default=default_catalog,
+                plugin_wrapper=lambda p: Catalog.fromdict(p)) 
+        self.StyleCheckingPipeline = CatalogLoader().load('packtools_checks',
+                default=checks.StyleCheckingPipeline)
+        self.checks = checks
 
-StyleCheckingPipeline = CatalogLoader().load('packtools_checks',
-        default=checks.StyleCheckingPipeline)
+    def __getattr__(self, name):
+        try:
+            return getattr(self.catalog, name)
+        except AttributeError:
+            return getattr(self.StyleCheckingPipeline, name)
 
+# This is a documented and recommended hack. See:
+# https://mail.python.org/pipermail/python-ideas/2012-May/014969.html
+sys.modules[__name__] = PluggableModule()
