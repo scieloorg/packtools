@@ -1,25 +1,31 @@
 History
 =======
 
-2.x.x
------
+2.4 (2019-01-16)
+----------------
 
-* Fixes a bug that would break the html generator
-  [https://github.com/scieloorg/packtools/issues/157]
+* Makes possible to have plugable catalogs of validation schemas and xslts.
+* Minor fixes and adjusts to the generated HTML.
+
+
+2.3.8 (2018-12-03)
+------------------
+
 * Fixes a bug that would cause authors names to be ommited in the HTML version
   [https://github.com/scieloorg/packtools/issues/159]
 
 
-2.4.1 (2018-06-19)
+2.3.7 (2018-07-17)
+------------------
+
+* Fixes a bug that would break the html generator
+  [https://github.com/scieloorg/packtools/issues/157]
+
+
+2.3.6 (2018-06-20)
 ------------------
 
 * Fixes a bug on the distribution os xsl data files.
-
-
-2.4 (2018-04-25)
-----------------
-
-* Makes possible to have plugable catalogs of validation schemas and xslts.
 
 
 2.3.5 (2018-03-22)
