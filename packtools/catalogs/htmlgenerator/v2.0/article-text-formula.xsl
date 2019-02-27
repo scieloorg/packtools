@@ -14,7 +14,11 @@
             </div>
         </div>
     </xsl:template>
-    
+
+	<xsl:template match="disp-formula/label">
+		<span class="label"><xsl:value-of select="."/></span>
+	</xsl:template>
+
     <xsl:template match="tex-math">
         <span>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
