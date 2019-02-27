@@ -10,7 +10,9 @@
         <div class="row formula" id="e{@id}">
             <a name="{@id}"></a>
             <div class="col-md-12">
-                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+                <div class="formula-container">
+                    <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+                </div>
             </div>
         </div>
     </xsl:template>
@@ -20,8 +22,15 @@
 	</xsl:template>
 
     <xsl:template match="tex-math">
-        <span>
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        <span class="formula-body">
+            <xsl:choose>
+                <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                    <xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
         </span>
     </xsl:template>
     
