@@ -46,6 +46,7 @@ code for more information.
   -->
   <phase id="phase.article-id">
     <active pattern="article-id_attributes"/>
+    <active pattern="article-id_attributes_translations"/>
   </phase>
 
   <phase id="phase.article-type-values">
@@ -90,6 +91,23 @@ code for more information.
     <rule context="article/front/article-meta">
       <assert test="article-id[@pub-id-type='doi']">
         Element 'article-meta': Missing element article-id with pub-id-type="doi".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="article-id_attributes_translations">
+    <title>
+      Mandatory attributes are present.
+    </title>
+
+    <rule context="article/sub-article[@article-type = 'translation']/front-stub">
+      <assert test="article-id[@pub-id-type='doi']">
+        Element 'front-stub': Missing element article-id with pub-id-type="doi".
+      </assert>
+    </rule>
+    <rule context="article/sub-article[@article-type = 'translation']">
+      <assert test="front-stub">
+        Element 'sub-article': Missing element front-stub.
       </assert>
     </rule>
   </pattern>
