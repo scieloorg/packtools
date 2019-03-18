@@ -118,7 +118,8 @@ class ArticleTypeValues(PhaseBasedTestCase):
                 'letter', 'article-commentary', 'brief-report', 'rapid-communication',
                 'oration', 'discussion', 'editorial', 'interview', 'correction',
                 'guidelines', 'other', 'obituary', 'case-report', 'book-review',
-                'reply', 'retraction', 'partial-retraction', 'clinical-trial']:
+                'reply', 'retraction', 'partial-retraction', 'clinical-trial',
+                'data-article']:
 
             sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.7">
                         </article>

@@ -4033,7 +4033,7 @@ class ArticleAttributesTests(PhaseBasedTestCase):
                 'reply', 'retraction', 'partial-retraction', 'clinical-trial',
                 'announcement', 'calendar', 'in-brief', 'book-received', 'news',
                 'reprint', 'meeting-report', 'abstract', 'product-review',
-                'dissertation', 'translation']:
+                'dissertation', 'translation', 'data-article']:
 
             sample = u"""<article article-type="%s" xml:lang="en" dtd-version="1.0" specific-use="sps-1.9">
                         </article>

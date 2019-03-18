@@ -138,7 +138,8 @@ code for more information.
             @article-type = 'reply' or
             @article-type = 'retraction' or
             @article-type = 'partial-retraction' or
-            @article-type = 'clinical-trial'">
+            @article-type = 'clinical-trial' or
+            @article-type = 'data-article'">
         Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
       </assert>
     </rule>
