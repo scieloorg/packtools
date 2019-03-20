@@ -230,7 +230,8 @@ code for more information.
 
     <rule context="article[/article/@article-type != 'correction' and
         /article/@article-type != 'retraction' and
-        /article/@article-type != 'partial-retraction']">
+        /article/@article-type != 'partial-retraction' and
+        /article/@article-type != 'editorial']">
       <assert test="back">
         Element 'article': Missing element back.
       </assert>
@@ -242,7 +243,10 @@ code for more information.
       Make sure /article/back/ref-list is present.
     </title>
 
-    <rule context="article/back">
+    <rule context="article[/article/@article-type != 'correction' and
+        /article/@article-type != 'retraction' and
+        /article/@article-type != 'partial-retraction' and
+        /article/@article-type != 'editorial']/back">
       <assert test="ref-list">
         Element 'back': Missing element ref-list.
       </assert>

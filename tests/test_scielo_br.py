@@ -651,6 +651,59 @@ class ReferencesTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_missing_back_in_editorial(self):
+        sample = u"""<article article-type="editorial">
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+
+    def test_missing_reflist_in_editorial(self):
+        sample = u"""<article article-type="editorial">
+                       <back>
+                       </back>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+
+    def test_missing_reflist_in_correction(self):
+        sample = u"""<article article-type="correction">
+                       <back>
+                       </back>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+
+    def test_missing_reflist_in_partial_retraction(self):
+        sample = u"""<article article-type="partial-retraction">
+                       <back>
+                       </back>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+
+    def test_missing_reflist_in_retraction(self):
+        sample = u"""<article article-type="retraction">
+                       <back>
+                       </back>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+
     def test_missing_reflist_raises_error(self):
         sample = u"""<article article-type="research-article">
                        <back>
