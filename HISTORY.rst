@@ -1,6 +1,14 @@
 History
 =======
 
+2.4.1 (2019-03-20)
+----------------
+
+* Minor fixes and adjusts to the generated HTML
+  [https://github.com/scieloorg/packtools/issues/168],
+  [https://github.com/scieloorg/packtools/issues/169].
+
+
 2.4 (2019-01-16)
 ----------------
 
