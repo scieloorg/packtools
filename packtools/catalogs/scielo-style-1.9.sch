@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright 2017 SciELO <scielo-dev@googlegroups.com>.
+Copyright 2019 SciELO <scielo-dev@googlegroups.com>.
 Licensed under the terms of the BSD license. Please see LICENSE in the source
 code for more information.
 -->
@@ -596,14 +596,16 @@ code for more information.
 
   <pattern id="pub-date_pub_type">
     <title>
-      Restrict the valid values of pub-date[@pub-type].
+      Restrict the valid values of @date-type and @publication-format.
     </title>
 
     <rule context="article/front/article-meta/pub-date">
-      <assert test="@pub-type = 'epub' or
-                    @pub-type = 'epub-ppub' or
-                    @pub-type = 'collection'">
-        Element 'pub-date', attribute pub-type: Invalid value "<value-of select="@pub-type"/>".
+      <assert test="@date-type = 'pub' or
+                    @date-type = 'collection'">
+        Element 'pub-date', attribute date-type: Invalid value "<value-of select="@date-type"/>".
+      </assert>
+      <assert test="@publication-format = 'electronic'">
+        Element 'pub-date', attribute publication-format: Invalid value "<value-of select="@publication-format"/>".
       </assert>
     </rule>
   </pattern>
