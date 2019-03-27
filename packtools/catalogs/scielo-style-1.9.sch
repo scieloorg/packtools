@@ -116,7 +116,9 @@ code for more information.
   </phase>
 
   <phase id="phase.pub-date">
-    <active pattern="pub-date_pub_type"/>
+    <active pattern="pub-date_date_type"/>
+    <active pattern="pub-date_publication_format"/>
+    <active pattern="pub-date_type_pub"/>
   </phase>
 
   <phase id="phase.volume">
@@ -594,18 +596,49 @@ code for more information.
     </rule>
   </pattern>
 
-  <pattern id="pub-date_pub_type">
+  <pattern id="pub-date_date_type">
     <title>
-      Restrict the valid values of @date-type and @publication-format.
+      Restrict the valid values of @date-type.
     </title>
 
-    <rule context="article/front/article-meta/pub-date">
+    <rule context="article/front/article-meta/pub-date[@date-type]">
       <assert test="@date-type = 'pub' or
                     @date-type = 'collection'">
         Element 'pub-date', attribute date-type: Invalid value "<value-of select="@date-type"/>".
       </assert>
+    </rule>
+    <rule context="article/front/article-meta/pub-date">
+      <assert test="@date-type">
+        Element 'pub-date': Missing attribute date-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_type_pub">
+    <title>
+      Make sure there exists at least one pub-date of type pub.
+    </title>
+
+    <rule context="article/front/article-meta">
+      <assert test="count(pub-date[@date-type = 'pub']) > 0">
+        Element 'article-meta': Missing element pub-date with date-type="pub".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_publication_format">
+    <title>
+      Restrict the valid values of @publication-format.
+    </title>
+
+    <rule context="article/front/article-meta/pub-date[@publication-format]">
       <assert test="@publication-format = 'electronic'">
         Element 'pub-date', attribute publication-format: Invalid value "<value-of select="@publication-format"/>".
+      </assert>
+    </rule>
+    <rule context="article/front/article-meta/pub-date">
+      <assert test="@publication-format">
+        Element 'pub-date': Missing attribute publication-format.
       </assert>
     </rule>
   </pattern>

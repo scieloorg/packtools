@@ -1866,22 +1866,21 @@ class PubDateTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_date_type_allowed_values(self):
-        for value in ['pub', 'collection']:
-            sample = u"""<article>
-                          <front>
-                            <article-meta>
-                              <pub-date date-type="%s" publication-format="electronic">
-                                <day>17</day>
-                                <month>03</month>
-                                <year>2014</year>
-                              </pub-date>
-                            </article-meta>
-                          </front>
-                        </article>
-                     """ % value
-            sample = io.BytesIO(sample.encode('utf-8'))
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
 
-            self.assertTrue(self._run_validation(sample))
+        self.assertTrue(self._run_validation(sample))
 
     def test_pub_type_disallowed_value(self):
         sample = u"""<article>
@@ -1934,6 +1933,44 @@ class PubDateTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_collection_without_pub_is_not_allowed(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="collection" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_collection_with_pub(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                          <pub-date date-type="collection" publication-format="electronic">
+                            <month>03</month>
+                            <year>2015</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
 
 
 class VolumeTests(PhaseBasedTestCase):
