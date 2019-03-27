@@ -1313,7 +1313,8 @@ code for more information.
                     @publication-type = 'legal-doc' or
                     @publication-type = 'newspaper' or
                     @publication-type = 'other' or
-                    @publication-type = 'database'">
+                    @publication-type = 'database' or
+                    @publication-type = 'data'">
         Element 'element-citation', attribute publication-type: Invalid value '<value-of select="@publication-type"/>'.
       </assert>
     </rule>

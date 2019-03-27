@@ -3405,7 +3405,7 @@ class ElementCitationTests(PhaseBasedTestCase):
     def test_allowed_publication_types(self):
         for pub_type in ['journal', 'book', 'webpage', 'thesis', 'confproc',
                          'patent', 'software', 'database', 'legal-doc', 'newspaper',
-                         'other', 'report']:
+                         'other', 'report', 'data']:
             sample = u"""<article>
                           <back>
                             <ref-list>
