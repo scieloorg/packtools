@@ -10,14 +10,24 @@
         -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//subject" mode="display"></xsl:apply-templates>
+                <xsl:for-each select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//subject">
+                    <xsl:value-of select="text()"/>
+                    <xsl:choose>
+                        <xsl:when test="position() != last()">, </xsl:when>
+                    </xsl:choose>
+                </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="front/article-meta//subject"></xsl:apply-templates>
+                <xsl:for-each select="front/article-meta//subject">
+                    <xsl:value-of select="text()"/>
+                    <xsl:choose>
+                        <xsl:when test="position() != last()">, </xsl:when>
+                    </xsl:choose>
+                </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="article" mode="article-meta-title">
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -31,7 +41,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="article" mode="article-meta-trans-title">
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -47,25 +57,25 @@
     <xsl:template match="trans-title" mode="translation">
         <h2 class="article-title"><xsl:apply-templates select="*|text()"></xsl:apply-templates></h2>
     </xsl:template>
-    
+
     <xsl:template match="*" mode="article-meta-doi">
-        <xsl:apply-templates select="front/article-meta//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>        
+        <xsl:apply-templates select="front/article-meta//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>
     </xsl:template>
-   
+
     <xsl:template match="article-id[@pub-id-type='doi']" mode="display">
         <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
         <span class="_doi"><xsl:value-of select="$link"/></span>
         &#160;
         <a class="copyLink" data-clipboard-text="{$link}">
-            <span class="sci-ico-link"/> 
+            <span class="sci-ico-link"/>
             <xsl:apply-templates select="." mode="interface">
                 <xsl:with-param name="text">copy</xsl:with-param>
             </xsl:apply-templates>
         </a>
     </xsl:template>
-    
+
     <xsl:template match="article" mode="issue-meta-pub-dates">
-        
+
         <xsl:choose>
             <xsl:when test="front/article-meta/pub-date[@pub-type='collection']">
                 <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='collection']"></xsl:apply-templates>
@@ -84,10 +94,10 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="article" mode="article-meta-pub-dates">
         <xsl:apply-templates select="front/article-meta/pub-date[1]" mode="generated-label"></xsl:apply-templates>&#160;
-        
+
         <xsl:choose>
             <xsl:when test="front/article-meta/pub-date[@pub-type='epub']">
                 <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='epub']"></xsl:apply-templates>
