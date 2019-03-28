@@ -119,6 +119,7 @@ code for more information.
     <active pattern="pub-date_date_type"/>
     <active pattern="pub-date_publication_format"/>
     <active pattern="pub-date_type_pub"/>
+    <active pattern="pub-date"/>
   </phase>
 
   <phase id="phase.volume">
@@ -639,6 +640,21 @@ code for more information.
     <rule context="article/front/article-meta/pub-date">
       <assert test="@publication-format">
         Element 'pub-date': Missing attribute publication-format.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date">
+    <title>
+      Assert rules on pub-date child elements.
+    </title>
+
+    <rule context="article/front/article-meta/pub-date[@date-type = 'collection']">
+      <assert test="not(day)">
+        Element 'pub-date': Unexpected element day.
+      </assert>
+      <assert test="year">
+        Element 'pub-date': Missing element year.
       </assert>
     </rule>
   </pattern>

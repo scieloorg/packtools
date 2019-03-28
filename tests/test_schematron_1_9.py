@@ -1939,7 +1939,6 @@ class PubDateTests(PhaseBasedTestCase):
                       <front>
                         <article-meta>
                           <pub-date date-type="collection" publication-format="electronic">
-                            <day>17</day>
                             <month>03</month>
                             <year>2014</year>
                           </pub-date>
@@ -1951,7 +1950,7 @@ class PubDateTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
-    def test_date_type_collection_with_pub(self):
+    def test_date_type_collection_containing_month_year(self):
         sample = u"""<article>
                       <front>
                         <article-meta>
@@ -1963,6 +1962,110 @@ class PubDateTests(PhaseBasedTestCase):
                           <pub-date date-type="collection" publication-format="electronic">
                             <month>03</month>
                             <year>2015</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_date_type_collection_containing_day_month_year(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                          <pub-date date-type="collection" publication-format="electronic">
+                            <day>12</day>
+                            <month>03</month>
+                            <year>2015</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_collection_containing_day_year(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                          <pub-date date-type="collection" publication-format="electronic">
+                            <day>12</day>
+                            <year>2015</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_collection_containing_year(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                          <pub-date date-type="collection" publication-format="electronic">
+                            <year>2015</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_date_type_collection_containing_season(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                          <pub-date date-type="collection" publication-format="electronic">
+                            <season>Jan-Feb</season>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_collection_containing_season_year(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                          <pub-date date-type="collection" publication-format="electronic">
+                            <season>Jan-Feb</season>
+                            <year>2019</year>
                           </pub-date>
                         </article-meta>
                       </front>
