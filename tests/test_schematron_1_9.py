@@ -1865,7 +1865,7 @@ class PubDateTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
-    def test_date_type_allowed_values(self):
+    def test_date_type_allowed_values_day_month_year(self):
         sample = u"""<article>
                       <front>
                         <article-meta>
@@ -1881,6 +1881,69 @@ class PubDateTests(PhaseBasedTestCase):
         sample = io.BytesIO(sample.encode('utf-8'))
 
         self.assertTrue(self._run_validation(sample))
+
+    def test_date_type_allowed_values_day_month(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <month>03</month>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_allowed_values_day_year(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <day>17</day>
+                            <year>2014</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_allowed_values_month_year(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <month>03</month>
+                            <year>2014</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_date_type_allowed_values_year(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <pub-date date-type="pub" publication-format="electronic">
+                            <year>2014</year>
+                          </pub-date>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
 
     def test_pub_type_disallowed_value(self):
         sample = u"""<article>

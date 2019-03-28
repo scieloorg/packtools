@@ -119,7 +119,8 @@ code for more information.
     <active pattern="pub-date_date_type"/>
     <active pattern="pub-date_publication_format"/>
     <active pattern="pub-date_type_pub"/>
-    <active pattern="pub-date"/>
+    <active pattern="pub-date_type_collection"/>
+    <active pattern="pub-date_type_not_collection"/>
   </phase>
 
   <phase id="phase.volume">
@@ -644,9 +645,9 @@ code for more information.
     </rule>
   </pattern>
 
-  <pattern id="pub-date">
+  <pattern id="pub-date_type_collection">
     <title>
-      Assert rules on pub-date child elements.
+      Assert rules on pub-date[@date-type="collection"] child elements.
     </title>
 
     <rule context="article/front/article-meta/pub-date[@date-type = 'collection']">
@@ -655,6 +656,27 @@ code for more information.
       </assert>
       <assert test="year">
         Element 'pub-date': Missing element year.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_type_not_collection">
+    <title>
+      Assert rules on pub-date[@date-type != "pub"] child elements.
+    </title>
+
+    <rule context="article/front/article-meta/pub-date[@date-type != 'collection']">
+      <assert test="day">
+        Element 'pub-date': Missing element day.
+      </assert>
+      <assert test="month">
+        Element 'pub-date': Missing element month.
+      </assert>
+      <assert test="year">
+        Element 'pub-date': Missing element year.
+      </assert>
+      <assert test="not(season)">
+        Element 'pub-date': Unexpected element season.
       </assert>
     </rule>
   </pattern>
