@@ -1,10 +1,12 @@
 History
 =======
 
-2.4.2 (2019-03-25)
+2.4.2 (2019-03-29)
 ------------------
 
 * Add support to SciELO PS 1.9.
+* Minor fixes to the generated HTML
+  [https://github.com/scieloorg/packtools/pull/184].
 
 
 2.4.1 (2019-03-20)
