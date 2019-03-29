@@ -92,6 +92,7 @@ code for more information.
 
   <phase id="phase.abstract_lang">
     <active pattern="abstract"/>
+    <active pattern="abstract_abstract-type_values"/>
   </phase>
 
   <phase id="phase.article-title_lang">
@@ -482,6 +483,14 @@ code for more information.
     <rule context="article/front/article-meta/abstract">
       <assert test="not(@xml:lang)">
         Element 'abstract': Unexpected attribute xml:lang.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="abstract_abstract-type_values">
+    <rule context="//trans-abstract[@abstract-type]">
+      <assert test="@abstract-type = 'graphical'">
+        Element 'trans-abstract', attribute abstract-type: Invalid value "<value-of select="@abstract-type"/>".
       </assert>
     </rule>
   </pattern>

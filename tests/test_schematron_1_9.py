@@ -1000,6 +1000,39 @@ class AbstractLangTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
+    def test_transabstract_allowed_types(self):
+        for value in ['graphical',]:
+            sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                        <article article-type="research-article">
+                          <front>
+                            <article-meta>
+                              <trans-abstract abstract-type="%s" xml:lang="en">
+                                <p>Differing socioeconomic positions in...</p>
+                              </trans-abstract>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % value
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_transabstract_disallowed_types(self):
+        sample = u"""<?xml version="1.0" encoding="UTF-8"?>
+                    <article article-type="research-article">
+                      <front>
+                        <article-meta>
+                          <trans-abstract abstract-type="unknown" xml:lang="en">
+                            <p>Differing socioeconomic positions in...</p>
+                          </trans-abstract>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
 
 class ArticleTitleLangTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/title-group/article-title elements.
