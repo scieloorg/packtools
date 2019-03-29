@@ -70,43 +70,6 @@ class ArticleIdTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-    def test_pub_id_type_doi_is_absent_in_translation(self):
-        sample = u"""<article>
-                      <front>
-                        <article-meta>
-                          <article-id pub-id-type='doi'>
-                            10.1590/1414-431X20143434
-                          </article-id>
-                        </article-meta>
-                      </front>
-                      <sub-article article-type='translation' xml:lang='en' id='s1'>
-                        <front-stub>
-                          <article-id pub-id-type='other'>42</article-id>
-                        </front-stub>
-                      </sub-article>
-                    </article>
-                 """
-        sample = io.BytesIO(sample.encode('utf-8'))
-
-        self.assertFalse(self._run_validation(sample))
-
-    def test_front_stub_is_absent_in_translation(self):
-        sample = u"""<article>
-                      <front>
-                        <article-meta>
-                          <article-id pub-id-type='doi'>
-                            10.1590/1414-431X20143434
-                          </article-id>
-                        </article-meta>
-                      </front>
-                      <sub-article article-type='translation' xml:lang='en' id='s1'>
-                      </sub-article>
-                    </article>
-                 """
-        sample = io.BytesIO(sample.encode('utf-8'))
-
-        self.assertFalse(self._run_validation(sample))
-
 
 class ArticleTypeValues(PhaseBasedTestCase):
     """Tests for article element.
