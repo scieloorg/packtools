@@ -1,0 +1,38 @@
+{% extends "validator/base.html" %}
+
+{% block page_title %}{% trans %}Packtools - Style Checker{% endtrans %}{% endblock %}
+{% block main_content %}
+  <div class="row-fluid">
+    <div class="span12 well">
+      <h2>{% trans %}SciELO Style Checker{% endtrans %}</h2>
+      <p>
+      {% trans %}
+      Use this tool to confirm whether an XML file conforms to SciELO Style as defined in the SciELO Publishing Schema Tagging Guidelines.
+      {% endtrans %}
+      </p>
+      <p>
+      {% trans %}
+      Browse to your local XML file and click "Validate". The results will be displayed below.
+      {% endtrans %}
+      </p>
+
+
+    </div>
+  </div>
+
+  {% if results or xml_exception %}
+    <div class="row-fluid">
+      <div class="span12">
+        {# annotations #}
+        {# /annotations #}
+      </div>
+    </div>
+  {% endif %}
+
+  {% include "validator/includes/packtools_version.html" %}
+
+{% endblock main_content %}
+
+{% block extrafooter %}
+  {% include "validator/includes/xml_upload_form_validation.html" %}
+{% endblock extrafooter %}

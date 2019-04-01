@@ -1,0 +1,56 @@
+# English translations for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-04-01 16:25-0300\n"
+"PO-Revision-Date: 2019-04-01 16:25-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: packtools/webapp/templates/validator/stylechecker.html:3
+msgid "Packtools - Style Checker"
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:7
+msgid "SciELO Style Checker"
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:9
+msgid ""
+"\n"
+"      Use this tool to confirm whether an XML file conforms to SciELO "
+"Style as defined in the SciELO Publishing Schema Tagging Guidelines.\n"
+"      "
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:14
+msgid ""
+"\n"
+"      Browse to your local XML file and click \"Validate\". The results "
+"will be displayed below.\n"
+"      "
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/packtools_version.html:4
+msgid "packtools version"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:24
+msgid "This type of file is not allowed! Please select another file."
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:29
+msgid "The file size is too large! Please select a smaller file."
+msgstr ""
+
