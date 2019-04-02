@@ -1,4 +1,27 @@
 <script type="text/javascript">
+
+    $(":file").filestyle({
+      buttonText: '{% trans %}Browse{% endtrans %}',
+      classButton: 'btn btn-primary'
+    });
+
+    function display_form_msg(msg, type, append){
+      var form_messages = $('#form_messages');
+      var html;
+      form_messages.hide();
+
+      html = '<div class="alert alert-'+ type +'">';
+      html += '<a class="close" data-dismiss="alert" href="#">&times;</a>';
+      html += msg;
+      html += '</div>';
+      if (append) {
+        form_messages.append(html);
+      } else {
+        form_messages.html(html);
+      }
+      form_messages.show();
+    };
+
     $(function () {
       var xml_upload_form = $('#xml_upload_form');
       var form_buttons = $('.form-buttons', xml_upload_form);
@@ -25,7 +48,7 @@
           display_form_msg(msg, 'error', true);
           return false
         }
-        if (file_obj.size > {{ SETTINGS_MAX_UPLOAD_SIZE }}) {
+        if (file_obj.size > {{ g.SETTINGS_MAX_UPLOAD_SIZE }}) {
           msg = '{% trans %}The file size is too large! Please select a smaller file.{% endtrans %}';
           display_form_msg(msg, 'error', true);
           return false

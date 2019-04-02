@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-04-01 16:25-0300\n"
+"POT-Creation-Date: 2019-04-02 14:25-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,275 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: packtools/webapp/templates/validator/stylechecker.html:3
-msgid "Packtools - Style Checker"
+#: packtools/webapp/forms.py:11
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:8
+msgid "File"
 msgstr ""
 
-#: packtools/webapp/templates/validator/stylechecker.html:7
-msgid "SciELO Style Checker"
-msgstr ""
-
-#: packtools/webapp/templates/validator/stylechecker.html:9
-msgid ""
-"\n"
-"      Use this tool to confirm whether an XML file conforms to SciELO "
-"Style as defined in the SciELO Publishing Schema Tagging Guidelines.\n"
-"      "
-msgstr ""
-
-#: packtools/webapp/templates/validator/stylechecker.html:14
-msgid ""
-"\n"
-"      Browse to your local XML file and click \"Validate\". The results "
-"will be displayed below.\n"
-"      "
-msgstr ""
-
-#: packtools/webapp/templates/validator/includes/packtools_version.html:4
-msgid "packtools version"
-msgstr ""
-
-#: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:24
+#: packtools/webapp/forms.py:18
+#: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:47
 msgid "This type of file is not allowed! Please select another file."
 msgstr ""
 
-#: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:29
+#: packtools/webapp/templates/validator/preview_html.html:2
+msgid "Packtools - SciELO HTML Previewer "
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:10
+msgid "SciELO HTML Previewer"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:11
+msgid "Use this tool to preview your XML file as an HTML"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:12
+msgid ""
+"Browse to your local XML file and click 'Preview'. The results will be "
+"displayed below."
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:20
+#: packtools/webapp/templates/validator/stylechecker.html:19
+msgid "Upload XML"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:25
+#: packtools/webapp/templates/validator/stylechecker.html:24
+msgid "Help?"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:36
+#: packtools/webapp/templates/validator/stylechecker.html:34
+msgid "Max. upload size"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:47
+#: packtools/webapp/templates/validator/stylechecker.html:52
+msgid "Clear"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:48
+msgid "Preview"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:54
+#: packtools/webapp/templates/validator/stylechecker.html:59
+msgid ""
+"\n"
+"              If you have any problems with the tool or with the SPS "
+"Tagging Guidelines, please contact:\n"
+"              <strong><a href=\"mailto:scielo-xml@googlegroups.com"
+"\">scielo-xml@googlegroups.com</a></strong>.\n"
+"              "
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:77
+msgid "HTML preview"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:92
+msgid "No HTML generated, is the XML file valid?"
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:2
+msgid "Packtools - Style Checker"
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:6
+msgid "SciELO Style Checker"
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:8
+msgid ""
+"Use this tool to confirm whether an XML file conforms to SciELO Style as "
+"defined in the SciELO Publishing Schema Tagging Guidelines."
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:11
+msgid ""
+"Browse to your local XML file and click \"Validate\". The results will be"
+" displayed below."
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:46
+msgid ""
+"\n"
+"                Also validate against SciELO Brazil's specific rules. <a "
+"href=\"http://docs.scielo.org/projects/scielo-publishing-"
+"schema/pt_BR/latest/narr/scielo-brasil.html\">Read more.</a>\n"
+"                "
+msgstr ""
+
+#: packtools/webapp/templates/validator/stylechecker.html:53
+msgid "Validate"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/packtools_version.html:4
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:196
+msgid "packtools version"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/script_xml_annotated.html:286
+msgid "Phrase"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/script_xml_annotated.html:294
+msgid "was NOT found"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/script_xml_annotated.html:296
+msgid "in the next lines"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/script_xml_annotated.html:299
+msgid "in the previous lines"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:5
+msgid "XML Meta"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:11
+msgid "Article title"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:14
+msgid "Journal title"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:17
+msgid "Issue volume"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:20
+msgid "Issue number"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:24
+msgid "SPS version"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:34
+msgid "The XML could not be analyzed"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:35
+msgid "Detail:"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:41
+msgid "Warning!"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:42
+msgid ""
+"This XML document uses a version of SciELO PS that soon will no longer be"
+" supported. Please consider upgrading to a newer version as soon as "
+"possible."
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:43
+msgid "If you want to know more about the support policy, please refer to"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:45
+msgid "SciELO PS official documentation"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:50
+msgid "XML validation output"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:55
+msgid "Level"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:56
+msgid "Message"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:57
+msgid "Occurrences"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:78
+msgid "The XML seems to be valid."
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:89
+msgid "Help"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:92
+msgid "back to errors"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:124
+msgid "Help and Shortcuts"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:130
+msgid "Shortcut"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:131
+msgid "Action"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:137
+msgid "Show this Help and Shortcuts popup"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:143
+msgid "Go fullscreen"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:147
+msgid "Exit fullscreen"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:151
+msgid "Show go-to-line field"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:155
+msgid "Show search field"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:159
+msgid "Find next"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:163
+msgid "Find previous"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:167
+msgid "Fold/Unfold current tag"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:171
+msgid "Jump to the matching selected tag"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:177
+msgid "Clear the last search of SPS-ERRORs"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:183
+msgid "Jump to Previous Highlighted SPS-ERROR"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_annotated.html:189
+msgid "Jump to Next Highlighted SPS-ERROR"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:4
+msgid "Browse"
+msgstr ""
+
+#: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:52
 msgid "The file size is too large! Please select a smaller file."
 msgstr ""
 
