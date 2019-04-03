@@ -75,6 +75,8 @@ def test(pattern='test_*.py', failfast=False):
         return sys.exit(1)
 
 
+def manager_run():
+    manager.run()
 
 if __name__ == '__main__':
-    manager.run()
+    manager_run()

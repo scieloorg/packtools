@@ -23,7 +23,17 @@ INSTALL_REQUIRES = [
 ]
 
 
-EXTRAS_REQUIRE = {} 
+EXTRAS_REQUIRE = {
+
+    'webapp':[
+        'Flask==1.0.2',
+        'Flask-BabelEx==0.9.3',
+        'Flask-DebugToolbar==0.10.1',
+        'Flask-Script==2.0.6',
+        'Flask-WTF==0.14.2',
+        'python-slugify==3.0.2',
+    ]
+}
 
 
 TESTS_REQUIRE = []
@@ -68,9 +78,11 @@ setup(
     test_suite='tests',
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
-    entry_points="""
-    [console_scripts]
-    stylechecker = packtools.stylechecker:main
-    htmlgenerator = packtools.htmlgenerator:main
-    """)
-
+    entry_points={
+        "console_scripts":[
+            "stylechecker=packtools.stylechecker:main",
+            "htmlgenerator=packtools.htmlgenerator:main",
+            "webapp=packtools.webapp.manager:manager_run [webapp]"
+        ]
+    }
+)

@@ -1,3 +1,11 @@
+
+COMPOSE_FILE = docker-compose.yml
+
+export PACKTOOLS_BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
+export PACKTOOLS_VCS_REF=$(strip $(shell git rev-parse --short HEAD))
+export PACKTOOLS_WEBAPP_VERSION=$(strip $(shell cat VERSION))
+
+
 clean:
 	@python setup.py clean
 	@rm -f dist/*
@@ -9,6 +17,19 @@ build:
 upload:
 	@twine upload dist/*
 
+
+###########################################################
+## atalhos docker-compose build e push para o Docker Hub ##
+###########################################################
+
+release_docker_build:
+	@echo "[Building] Release version: " $(PACKTOOLS_WEBAPP_VERSION)
+	@echo "[Building] Latest commit: " $(PACKTOOLS_VCS_REF)
+	@echo "[Building] Build date: " $(PACKTOOLS_BUILD_DATE)
+	@docker build \
+	--build-arg PACKTOOLS_BUILD_DATE=$(PACKTOOLS_BUILD_DATE) \
+	--build-arg PACKTOOLS_VCS_REF=$(PACKTOOLS_VCS_REF) \
+	--build-arg PACKTOOLS_WEBAPP_VERSION=$(PACKTOOLS_WEBAPP_VERSION) .
 
 #########
 ## i18n #

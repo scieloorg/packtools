@@ -31,7 +31,7 @@ def packtools_home():
 
         results, exc = analyze_xml(form.file.data, extra_schematron=extra_sch)
         context["results"] = results
-        context["xml_exception"] = getattr(exc, "message", getattr(exc, "msg", str(exc)))
+        context["xml_exception"] = exc and getattr(exc, "message", getattr(exc, "msg", str(exc))) or None
 
     return render_template("validator/stylechecker.html", **context)
 
