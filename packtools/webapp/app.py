@@ -1,8 +1,9 @@
+# coding:utf-8
 import os
 from flask import Flask, render_template
 from flask_babelex import Babel
 
-from custom_filters import clean_uri, utility_processor
+from packtools.webapp.custom_filters import clean_uri, utility_processor
 
 
 def create_app():
@@ -18,7 +19,7 @@ def create_app():
         os.environ["APP_SETTINGS"]
     )  # config.default.DevelopmentConfig
 
-    from views import main as main_bp
+    from packtools.webapp.views import main as main_bp
     app.register_blueprint(main_bp)
 
     app.jinja_env.filters["clean_uri"] = clean_uri

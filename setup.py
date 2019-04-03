@@ -24,7 +24,6 @@ INSTALL_REQUIRES = [
 
 
 EXTRAS_REQUIRE = {
-
     'webapp':[
         'Flask==1.0.2',
         'Flask-BabelEx==0.9.3',
@@ -36,7 +35,9 @@ EXTRAS_REQUIRE = {
 }
 
 
-TESTS_REQUIRE = []
+TESTS_REQUIRE = [
+    'Flask-Testing>=0.6.2',
+]
 
 
 # from https://hynek.me/articles/conditional-python-dependencies/
@@ -62,7 +63,7 @@ setup(
     maintainer_email="gustavo.fonseca@scielo.org",
     license="BSD License",
     url="http://docs.scielo.org",
-    packages=['packtools', 'packtools.catalogs'],
+    packages=['packtools', 'packtools.catalogs', "packtools.webapp"],
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",

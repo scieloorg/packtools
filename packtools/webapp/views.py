@@ -1,8 +1,8 @@
 # coding: utf-8
 from flask import g, Blueprint, render_template, current_app, request, url_for
 import packtools
-from forms import XMLUploadForm
-from utils import analyze_xml
+from packtools.webapp.forms import XMLUploadForm
+from packtools.webapp.utils import analyze_xml
 
 main = Blueprint("main", __name__)
 

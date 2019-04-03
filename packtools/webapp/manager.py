@@ -24,7 +24,7 @@ if FLASK_COVERAGE:
 else:
     COV = None
 
-from app import create_app
+from packtools.webapp.app import create_app
 from flask_script import Manager, Shell  # noqa
 
 app = create_app()
