@@ -1,5 +1,12 @@
 # coding: utf-8
-from flask import g, Blueprint, render_template, current_app, request, url_for
+from flask import (g, Blueprint, render_template, current_app, request,
+                   url_for, redirect, session)
+
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urljoin
+
 import packtools
 from packtools.webapp.forms import XMLUploadForm
 from packtools.webapp.utils import analyze_xml
@@ -17,8 +24,18 @@ def add_context_settings():
     setattr(g, "PACKTOOLS_VERSION", current_app.config.get("PACKTOOLS_VERSION"))
 
 
-@main.route("/", methods=["GET", "POST"])
-def packtools_home():
+@main.route('/', defaults={'path_file': ''})
+@main.route("/<path:path_file>")
+def packtools_home(path_file):
+    if not path_file:
+        return redirect(url_for('main.packtools_stylechecker'))
+
+    url_session = session.get('url_static_file', 'http://localhost')
+    return redirect(urljoin(url_session, path_file))
+
+
+@main.route("/stylechecker", methods=["GET", "POST"])
+def packtools_stylechecker():
 
     form = XMLUploadForm()
     context = dict(form=form)
@@ -43,6 +60,7 @@ def packtools_preview_html():
     context = dict(form=form)
     if form.validate_on_submit():
 
+        session["url_static_file"] = form.url_static_file.data
         previews = []
         try:
             for lang, html_output in packtools.HTMLGenerator.parse(
@@ -50,7 +68,7 @@ def packtools_preview_html():
                 valid_only=False,
                 css=url_for("static", filename="css/htmlgenerator/scielo-article.css"),
                 print_css=url_for(
-                    "static", filename="css/htmlgenerator/scielo-bundle-print.cs"
+                    "static", filename="css/htmlgenerator/scielo-bundle-print.css"
                 ),
                 js=url_for("static", filename="js/htmlgenerator/scielo-article-min.js"),
             ):

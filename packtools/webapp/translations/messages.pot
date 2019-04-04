@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-04-02 14:25-0300\n"
+"POT-Creation-Date: 2019-04-04 15:18-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,59 +17,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: packtools/webapp/forms.py:11
+#: build/lib/packtools/webapp/forms.py:11 packtools/webapp/forms.py:12
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:8
 msgid "File"
 msgstr ""
 
-#: packtools/webapp/forms.py:18
+#: build/lib/packtools/webapp/forms.py:18 packtools/webapp/forms.py:19
 #: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:47
 msgid "This type of file is not allowed! Please select another file."
+msgstr ""
+
+#: packtools/webapp/forms.py:11
+msgid "URL to statics files"
 msgstr ""
 
 #: packtools/webapp/templates/validator/preview_html.html:2
 msgid "Packtools - SciELO HTML Previewer "
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:10
+#: packtools/webapp/templates/validator/preview_html.html:12
 msgid "SciELO HTML Previewer"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:11
+#: packtools/webapp/templates/validator/preview_html.html:13
 msgid "Use this tool to preview your XML file as an HTML"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:12
+#: packtools/webapp/templates/validator/preview_html.html:14
 msgid ""
 "Browse to your local XML file and click 'Preview'. The results will be "
 "displayed below."
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:20
+#: packtools/webapp/templates/validator/preview_html.html:22
 #: packtools/webapp/templates/validator/stylechecker.html:19
 msgid "Upload XML"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:25
+#: packtools/webapp/templates/validator/preview_html.html:27
 #: packtools/webapp/templates/validator/stylechecker.html:24
 msgid "Help?"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:36
+#: packtools/webapp/templates/validator/preview_html.html:38
 #: packtools/webapp/templates/validator/stylechecker.html:34
 msgid "Max. upload size"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:47
+#: packtools/webapp/templates/validator/preview_html.html:50
+msgid "Use absolute path (ex: http://, file://, fyp://)"
+msgstr ""
+
+#: packtools/webapp/templates/validator/preview_html.html:54
 #: packtools/webapp/templates/validator/stylechecker.html:52
 msgid "Clear"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:48
+#: packtools/webapp/templates/validator/preview_html.html:55
 msgid "Preview"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:54
+#: packtools/webapp/templates/validator/preview_html.html:61
 #: packtools/webapp/templates/validator/stylechecker.html:59
 msgid ""
 "\n"
@@ -80,11 +88,11 @@ msgid ""
 "              "
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:77
+#: packtools/webapp/templates/validator/preview_html.html:84
 msgid "HTML preview"
 msgstr ""
 
-#: packtools/webapp/templates/validator/preview_html.html:92
+#: packtools/webapp/templates/validator/preview_html.html:99
 msgid "No HTML generated, is the XML file valid?"
 msgstr ""
 

@@ -44,6 +44,11 @@
                 {% endfor %}
               </div>
             {% endwith %}
+            <div class="control-group">
+              <label>{{ form.url_static_file.label }}</label>
+              {{ form.url_static_file }}
+              <span class="help-block">{% trans %}Use absolute path (ex: http://, file://, fyp://){% endtrans %}</span>
+            </div>
 
             <div class='form-buttons clearfix'>
               <input type="button" class="btn btn-danger pull-left" id='form_clear_btn' value="{% trans %}Clear{% endtrans %}" />
@@ -85,7 +90,7 @@
           {% for preview in previews %}
             <div class="tab-pane tab-pane-preview {% if loop.first %} active {% endif %}" id="preview_{{ preview.lang }}">
               <div class="preview_container">
-                <iframe id="iframe_{{preview.lang}}" scrolling="auto" src='' width="100%" height="1000px" frameborder="0"></iframe>
+                <iframe id="iframe_{{preview.lang}}" scrolling="auto" srcdoc="{{ preview.html }}" width="100%" height="1000px" frameborder="0"></iframe>
               </div>
             </div>
           {% endfor %}
@@ -99,31 +104,8 @@
     </div>
   {% endif %}
 
-  <div style="display:none">
-    {% for preview in previews %}
-      <script id="content_{{preview.lang}}" type="text/html">
-          {{ preview.html|safe }}
-      </script>
-    {% endfor %}
-  </div>
-
 {% endblock main_content %}
 
 {% block extrafooter %}
   {% include "validator/includes/xml_upload_form_validation.html" %}
-
-  <script type="text/javascript">
-    $(function () {
-      /* fill the iframes with the content of script#content_LANG tags */
-      $('.preview_container').each(function(index, el) {
-        var frame = $(el).find('iframe')[0];
-        var lang = frame.id.split('_')[1];
-        var content = $('#content_' + lang);
-        var iframeDoc = frame.contentWindow.document;
-        iframeDoc.open();
-        iframeDoc.write(content.html());
-        iframeDoc.close();
-      });
-    });
-  </script>
 {% endblock extrafooter %}

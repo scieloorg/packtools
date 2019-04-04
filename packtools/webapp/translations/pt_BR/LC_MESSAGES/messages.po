@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-04-02 14:25-0300\n"
+"POT-Creation-Date: 2019-04-04 15:18-0300\n"
 "PO-Revision-Date: 2019-04-01 16:25-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt_BR\n"
@@ -18,61 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: packtools/webapp/forms.py:11
+#: build/lib/packtools/webapp/forms.py:11 packtools/webapp/forms.py:12
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:8
 msgid "File"
 msgstr "Arquivo"
 
-#: packtools/webapp/forms.py:18
+#: build/lib/packtools/webapp/forms.py:18 packtools/webapp/forms.py:19
 #: packtools/webapp/templates/validator/includes/xml_upload_form_validation.html:47
 msgid "This type of file is not allowed! Please select another file."
 msgstr "Tipo de arquivo não suportado. Por favor, selecione outro arquivo."
+
+#: packtools/webapp/forms.py:11
+msgid "URL to statics files"
+msgstr "URL para os arquivos estaticos"
 
 #: packtools/webapp/templates/validator/preview_html.html:2
 msgid "Packtools - SciELO HTML Previewer "
 msgstr "Packtools - SciELO HTML Previewer"
 
-#: packtools/webapp/templates/validator/preview_html.html:10
+#: packtools/webapp/templates/validator/preview_html.html:12
 msgid "SciELO HTML Previewer"
 msgstr "SciELO HTML Previewer"
 
-#: packtools/webapp/templates/validator/preview_html.html:11
+#: packtools/webapp/templates/validator/preview_html.html:13
 msgid "Use this tool to preview your XML file as an HTML"
 msgstr "Use esta ferramenta para visualizar seu arquivo XML como um HTML"
 
-#: packtools/webapp/templates/validator/preview_html.html:12
+#: packtools/webapp/templates/validator/preview_html.html:14
 msgid ""
 "Browse to your local XML file and click 'Preview'. The results will be "
 "displayed below."
 msgstr ""
-"Navegue até o arquivo XML local e clique em "Visualizar". Os resultados serão "
-"exibido abaixo."
+"Navegue até o arquivo XML local e clique em \"Visualizar\". Os resultados"
+" serão exibido abaixo."
 
-#: packtools/webapp/templates/validator/preview_html.html:20
+#: packtools/webapp/templates/validator/preview_html.html:22
 #: packtools/webapp/templates/validator/stylechecker.html:19
 msgid "Upload XML"
 msgstr "Upload XML"
 
-#: packtools/webapp/templates/validator/preview_html.html:25
+#: packtools/webapp/templates/validator/preview_html.html:27
 #: packtools/webapp/templates/validator/stylechecker.html:24
 msgid "Help?"
 msgstr "Ajuda?"
 
-#: packtools/webapp/templates/validator/preview_html.html:36
+#: packtools/webapp/templates/validator/preview_html.html:38
 #: packtools/webapp/templates/validator/stylechecker.html:34
 msgid "Max. upload size"
 msgstr "Tamanho máximo"
 
-#: packtools/webapp/templates/validator/preview_html.html:47
+#: packtools/webapp/templates/validator/preview_html.html:50
+msgid "Use absolute path (ex: http://, file://, fyp://)"
+msgstr "Use caminho absoluto (ex: http://, file://, fyp://)"
+
+#: packtools/webapp/templates/validator/preview_html.html:54
 #: packtools/webapp/templates/validator/stylechecker.html:52
 msgid "Clear"
 msgstr "Limpar"
 
-#: packtools/webapp/templates/validator/preview_html.html:48
+#: packtools/webapp/templates/validator/preview_html.html:55
 msgid "Preview"
 msgstr "Pre-visualizar"
 
-#: packtools/webapp/templates/validator/preview_html.html:54
+#: packtools/webapp/templates/validator/preview_html.html:61
 #: packtools/webapp/templates/validator/stylechecker.html:59
 msgid ""
 "\n"
@@ -89,11 +97,11 @@ msgstr ""
 "\">scielo-xml@googlegroups.com</a></strong>.\n"
 "              "
 
-#: packtools/webapp/templates/validator/preview_html.html:77
+#: packtools/webapp/templates/validator/preview_html.html:84
 msgid "HTML preview"
 msgstr "Pre-visualizar HTML"
 
-#: packtools/webapp/templates/validator/preview_html.html:92
+#: packtools/webapp/templates/validator/preview_html.html:99
 msgid "No HTML generated, is the XML file valid?"
 msgstr "Nenhum HTML gerado, o arquivo XML é válido?"
 
@@ -198,9 +206,9 @@ msgid ""
 " supported. Please consider upgrading to a newer version as soon as "
 "possible."
 msgstr ""
-"Este documento XML usa uma versão do SciELO PS que em breve não será mais"
-"suportado. Por favor, considere a atualização para uma nova versão assim que"
-"possível."
+"Este documento XML usa uma versão do SciELO PS que em breve não será "
+"maissuportado. Por favor, considere a atualização para uma nova versão "
+"assim quepossível."
 
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:43
 msgid "If you want to know more about the support policy, please refer to"
@@ -236,11 +244,11 @@ msgstr "Ajuda"
 
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:92
 msgid "back to errors"
-msgstr ""
+msgstr "Voltar aos erros"
 
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:124
 msgid "Help and Shortcuts"
-msgstr "Voltar aos erros"
+msgstr "Ajuda e Atalhos"
 
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:130
 msgid "Shortcut"
@@ -260,7 +268,7 @@ msgstr "Vá em tela cheia"
 
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:147
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Sair da tela cheia"
 
 #: packtools/webapp/templates/validator/includes/xml_annotated.html:151
 msgid "Show go-to-line field"

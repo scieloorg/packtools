@@ -13,9 +13,9 @@ class TestWebAppTests(TestCase):
         os.environ["APP_SETTINGS"] = "packtools.webapp.config.default.TestingConfig"
         return app.create_app()
 
-    def test_packtools_home(self):
+    def test_packtools_stylechecker(self):
 
-        response = self.client.get("/")
+        response = self.client.get("/stylechecker")
         self.assertIn("SciELO Style Checker",response.data.decode("utf-8"))
 
     def test_packtools_preview_html(self):

@@ -39,6 +39,7 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
 
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
     DEBUG_TB_PANELS = [
         # default:
         "flask_debugtoolbar.panels.versions.VersionDebugPanel",
