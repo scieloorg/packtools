@@ -15,11 +15,10 @@ def create_app():
         static_folder="static",
         instance_relative_config=False,
     )
-    app.config.from_object(
-        os.environ["APP_SETTINGS"]
-    )  # config.default.DevelopmentConfig
+    app.config.from_object(os.environ["APP_SETTINGS"])
 
     from packtools.webapp.views import main as main_bp
+
     app.register_blueprint(main_bp)
 
     app.jinja_env.filters["clean_uri"] = clean_uri

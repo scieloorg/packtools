@@ -20,7 +20,7 @@ class Config(object):
 
     # linguagem padrão:
     BABEL_DEFAULT_LOCALE = "pt_BR"
-    SECRET_KEY = "2eed60cf-e63c-470e-83f4-a524b441957b"
+    SECRET_KEY = os.environ.get("SECRET_KEY", "s3kr3tk3y")
     LOCAL_ZONE = os.environ.get("LOCAL_ZONE", "America/Sao_Paulo")
     SETTINGS_MAX_UPLOAD_SIZE = 512 * 1024  # max size in byte to upload xml to validator
     PACKTOOLS_VERSION = PACKTOOLS_VERSION

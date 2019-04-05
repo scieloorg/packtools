@@ -1,11 +1,19 @@
 # coding: utf-8
-from flask import (g, Blueprint, render_template, current_app, request,
-                   url_for, redirect, session)
+from flask import (
+    g,
+    Blueprint,
+    render_template,
+    current_app,
+    request,
+    url_for,
+    redirect,
+    session,
+)
 
 try:
-    from urllib.parse import urlparse
+    from urllib.parse import urljoin
 except ImportError:
-     from urlparse import urljoin
+    from urlparse import urljoin
 
 import packtools
 from packtools.webapp.forms import XMLUploadForm
@@ -24,13 +32,13 @@ def add_context_settings():
     setattr(g, "PACKTOOLS_VERSION", current_app.config.get("PACKTOOLS_VERSION"))
 
 
-@main.route('/', defaults={'path_file': ''})
+@main.route("/", defaults={"path_file": ""})
 @main.route("/<path:path_file>")
 def packtools_home(path_file):
     if not path_file:
-        return redirect(url_for('main.packtools_stylechecker'))
+        return redirect(url_for("main.packtools_stylechecker"))
 
-    url_session = session.get('url_static_file', 'http://localhost')
+    url_session = session.get("url_static_file", "http://localhost")
     return redirect(urljoin(url_session, path_file))
 
 
@@ -48,7 +56,9 @@ def packtools_stylechecker():
 
         results, exc = analyze_xml(form.file.data, extra_schematron=extra_sch)
         context["results"] = results
-        context["xml_exception"] = exc and getattr(exc, "message", getattr(exc, "msg", str(exc))) or None
+        context["xml_exception"] = (
+            exc and getattr(exc, "message", getattr(exc, "msg", str(exc))) or None
+        )
 
     return render_template("validator/stylechecker.html", **context)
 

@@ -9,17 +9,17 @@ import unittest
 WEBAPP_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, WEBAPP_PATH)
 
-FLASK_COVERAGE = os.environ.get('FLASK_COVERAGE', None)
+FLASK_COVERAGE = os.environ.get("FLASK_COVERAGE", None)
 
 if FLASK_COVERAGE:
     try:
         import coverage
     except ImportError:
-        msg = 'Não é possível importar o modulo coverage'
+        msg = "Não é possível importar o modulo coverage"
         raise RuntimeError(msg)
     COV = None
     if FLASK_COVERAGE:
-        COV = coverage.coverage(branch=True, include='packtools/webapp/*')
+        COV = coverage.coverage(branch=True, include="packtools/webapp/*")
         COV.start()
 else:
     COV = None
@@ -30,17 +30,18 @@ from flask_script import Manager, Shell  # noqa
 app = create_app()
 manager = Manager(app)
 
+
 def make_shell_context():
-    return dict(
-        app=app
-    )
+    return dict(app=app)
+
+
 manager.add_command("shell", Shell(make_context=make_shell_context))
 
 
 @manager.command
-@manager.option('-p', '--pattern', dest='pattern')
-@manager.option('-f', '--failfast', dest='failfast')
-def test(pattern='test_*.py', failfast=False):
+@manager.option("-p", "--pattern", dest="pattern")
+@manager.option("-f", "--failfast", dest="failfast")
+def test(pattern="test_*.py", failfast=False):
     """ Executa tests unitarios.
     Lembre de definir a variável: OPAC_CONFIG="path do arquivo de conf para testing"
     antes de executar este comando:
@@ -51,17 +52,17 @@ def test(pattern='test_*.py', failfast=False):
     failfast = True if failfast else False
 
     if COV and not FLASK_COVERAGE:
-        os.environ['FLASK_COVERAGE'] = '1'
+        os.environ["FLASK_COVERAGE"] = "1"
         os.execvp(sys.executable, [sys.executable] + sys.argv)
 
-    tests = unittest.TestLoader().discover('tests', pattern=pattern)
+    tests = unittest.TestLoader().discover("tests", pattern=pattern)
 
     result = unittest.TextTestRunner(verbosity=2, failfast=failfast).run(tests)
 
     if COV:
         COV.stop()
         COV.save()
-        print('Coverage Summary:')
+        print("Coverage Summary:")
         COV.report()
         # basedir = os.path.abspath(os.path.dirname(__file__))
         # covdir = 'tmp/coverage'
@@ -78,5 +79,6 @@ def test(pattern='test_*.py', failfast=False):
 def manager_run():
     manager.run()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     manager_run()
