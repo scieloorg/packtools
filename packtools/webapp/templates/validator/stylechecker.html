@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block page_title %}{% trans %}Packtools - Style Checker{% endtrans %}{% endblock %}
+{% block main_content %}
+  <div class="row-fluid">
+    <div class="span12 well">
+      <h2>{% trans %}SciELO Style Checker{% endtrans %}</h2>
+      <p>
+        {% trans %}Use this tool to confirm whether an XML file conforms to SciELO Style as defined in the SciELO Publishing Schema Tagging Guidelines.{% endtrans %}
+      </p>
+      <p>
+        {% trans %}Browse to your local XML file and click "Validate". The results will be displayed below.{% endtrans %}
+      </p>
+
+      <form id='xml_upload_form' enctype="multipart/form-data" method="post" action="">
+        {{ form.csrf_token }}
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#XML" data-toggle="tab">
+              <i class="icon-upload"></i> {% trans %}Upload XML{% endtrans %}
+            </a>
+          </li>
+          <li>
+            <a href="#HELP" data-toggle="tab">
+              <i class="icon-question-sign"></i> {% trans %}Help?{% endtrans %}
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="XML">
+            {# FILE FIELD #}
+            {% with field=form.file, field_error=form.errors.file %}
+              <div class="control-group {% if field_error|length > 0 %}error{% endif %}">
+                {{ field }} {# use of |attr doesnt work, 'cause bootstrap js plugin:filestyle create a new input #}
+                <em>{% trans %}Max. upload size{% endtrans %}: <span class="label label-warning">{{ g.SETTINGS_MAX_UPLOAD_SIZE|filesizeformat }}</span></em>
+                {# field errors #}
+                {% for error in field_error %}
+                  <div class="alert alert-error">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endwith %}
+            <div>
+              <label class="checkbox">
+                {{ form.add_scielo_br_rules }}
+                {% trans %}
+                Also validate against SciELO Brazil's specific rules. <a href="http://docs.scielo.org/projects/scielo-publishing-schema/pt_BR/latest/narr/scielo-brasil.html">Read more.</a>
+                {% endtrans %}
+              </label>
+            </div>
+            <div class='form-buttons clearfix'>
+              <input type="button" class="btn btn-danger pull-left" id='form_clear_btn' value="{% trans %}Clear{% endtrans %}" />
+              <input type="submit" class="btn btn-success pull-right" value="{% trans %}Validate{% endtrans %}" />
+            </div>
+          </div>
+          <div class="tab-pane" id="HELP">
+            <div class="alert alert-info">
+              <i class="icon-question-sign"></i>&nbsp;
+              {% trans %}
+              If you have any problems with the tool or with the SPS Tagging Guidelines, please contact:
+              <strong><a href="mailto:scielo-xml@googlegroups.com">scielo-xml@googlegroups.com</a></strong>.
+              {% endtrans %}
+            </div>
+          </div>
+        </div>
+
+        <div id='form_messages' style='display:none;'>
+          {# js validations messages goes here #}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if results or xml_exception %}
+    <div class="row-fluid">
+      <div class="span12">
+        {# annotations #}
+        {% with xml_data=results %}
+          {% include "validator/includes/xml_annotated.html" %}
+        {% endwith %}
+        {# /annotations #}
+      </div>
+    </div>
+  {% endif %}
+{% endblock main_content %}
+
+{% block extrafooter %}
+  {% include "validator/includes/xml_upload_form_validation.html" %}
+
+  {% include "validator/includes/script_xml_annotated.html" %}
+{% endblock extrafooter %}

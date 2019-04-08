@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+
+    packtools_webapp:
+        image: scieloorg/packtools
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        ports:
+            - "8000:8000"
+        environment:
+            - SECRET_KEY=s3kr3tk3y

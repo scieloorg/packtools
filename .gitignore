@@ -4,7 +4,7 @@
 *.so
 
 # Packages
-*.egg
+*.eggs
 *.egg-info
 dist
 build
@@ -15,7 +15,6 @@ var
 sdist
 develop-eggs
 .installed.cfg
-lib
 lib64
 __pycache__
 
@@ -37,3 +36,4 @@ nosetests.xml
 
 # Vim
 *.swp
+.DS_Store

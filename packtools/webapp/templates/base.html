@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body data-offset="50" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true">
+    {% block topbody %}{% endblock %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="/">SciELO Manager</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class=""><a href="{{ url_for('main.packtools_stylechecker') }}">Style Checker</a></li>
+              <li class=""><a href="{{ url_for('main.packtools_preview_html') }}">HTML Previewer</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container-fluid container-base">
+      {% block main_content %}
+      {% endblock main_content %}
+      <div class="row">
+        {% include "validator/includes/packtools_version.html" %}
+      </div>
+    </div> <!-- /container -->
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-filestyle.min.js') }}"></script>
+    {% block extrafooter %}{% endblock %}
+  </body>
+</html>

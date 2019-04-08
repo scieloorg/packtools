@@ -1,7 +1,7 @@
 scielo.packtools
 ================
 
-Python library and command-line utilities to handle SciELO PS XML files that 
+Python library and command-line utilities to handle SciELO PS XML files that
 runs on python 2.7, 3.3+.
 
 
@@ -39,11 +39,39 @@ Pip + git (versão de desenvolvimento):
 
 Source-code:
 
-.. code-block:: bash 
+.. code-block:: bash
 
     $ git clone https://github.com/scieloorg/packtools.git
     $ cd packtools
     $ python setup.py install
+
+
+Installation as a web application, where a graphical interface for `stylechecker`
+and an HTML previewer is provided:
+
+.. code-block:: bash
+
+    $ pip install packtools[webapp]
+
+
+Running the web application
+---------------------------
+
+
+Configuring the application::
+
++----------------------+--------------------------------------------------+
+| environment variable | default value                                    |
++======================+==================================================+
+| APP_SETTINGS         | packtools.webapp.config.default.ProductionConfig |
++----------------------+--------------------------------------------------+
+
+
+.. code-block:: bash
+
+    $ export APP_SETTINGS=packtools.webapp.config.default.ProductionConfig
+    $ export FLASK_APP=packtools.webapp.app.py
+    $ flask run
 
 
 Documentation
@@ -65,4 +93,3 @@ https://github.com/scieloorg/packtools/blob/master/LICENSE
 Changelog
 ---------
 https://github.com/scieloorg/packtools/blob/master/HISTORY.rst
-

@@ -1,0 +1,350 @@
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/codemirror/custom_styles.css')}}">
+<script src="{{ url_for('static', filename='js/codemirror/lib/codemirror.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/mode/xml/xml.js')}}"></script>
+
+<script src="{{ url_for('static', filename='js/codemirror/addon/dialog/dialog.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/dialog/search.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/dialog/searchcursor.js')}}"></script>
+
+<script src="{{ url_for('static', filename='js/codemirror/addon/display/fullscreen.js')}}"></script>
+
+<script src="{{ url_for('static', filename='js/codemirror/addon/fold/brace-fold.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/fold/comment-fold.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/fold/foldcode.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/fold/foldgutter.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/fold/xml-fold.js')}}"></script>
+
+<script src="{{ url_for('static', filename='js/codemirror/addon/search/goto-line.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/search/search.js')}}"></script>
+<script src="{{ url_for('static', filename='js/codemirror/addon/search/searchcursor.js')}}"></script>
+
+<script type="text/javascript">
+
+  window.editor = null; {# initilize it with: window.Annotations.initialize(); #}
+
+  $(function(){
+
+    $('#editor_toolbar').find('a.btn').tooltip();
+
+    window.Annotations = {
+      code_source_id: 'code',   {# DOM node id, where the source (annotated XML) code is placed #}
+      last_search: {
+        query: null,
+        line: null,
+        searchCursor: null,
+      },
+      search_toolbar: {
+        css_classes: ['search_string_not_found', 'search_string_found', 'has_content'],
+        info_message: null,
+        btn_find_prev: null,
+        btn_find_next: null,
+        btn_clear: null,
+        {# search_toolbar methods #}
+        initialize: function(){
+          this.info_message = $('#search_string');
+          this.btn_find_prev = $('#find_prev');
+          this.btn_find_next = $('#find_next');
+          this.btn_clear = $('#clear_search');
+        },
+        ui_clear_info_msg: function(){
+          this.info_message.html("");
+        },
+        ui_info_remove_css_classes: function(){
+          for (var i = 0; i < this.css_classes.length; i++) {
+            this.info_message.removeClass(this.css_classes[i]);
+          }
+        },
+        ui_disable_buttons: function(elem_array){
+          for (var i = 0; i < elem_array.length; i++) {
+            elem_array[i].attr('disabled', 'disabled');
+          }
+        },
+        ui_enable_buttons: function(elem_array){
+          for (var i = 0; i < elem_array.length; i++) {
+            elem_array[i].removeAttr('disabled');
+          }
+        },
+        ui_info_msg_update: function(content, was_found){
+          this.ui_clear_info_msg();
+          this.ui_info_remove_css_classes();
+          this.info_message.addClass(this.css_classes[2]); {# has_content #}
+          if (was_found) {
+            this.info_message.addClass(this.css_classes[1]); {# search_string_found #}
+          } else {
+            this.info_message.addClass(this.css_classes[0]); {# search_string_not_found #}
+          }
+          this.info_message.html(content);
+        }
+        {# end of search_toolbar methods #}
+      },
+      {# window.Annotations methods #}
+      initialize: function() {
+        this.search_toolbar.initialize();
+        {# initialize the CodeMirror editor instance #}
+        var self = this;
+        window.editor = CodeMirror.fromTextArea(
+          document.getElementById(this.code_source_id),
+          {
+            lineNumbers: true,
+            lineWrapping: true,
+            mode: "application/xml",
+            styleActiveLine: true,
+            extraKeys: {
+              {# show help #}
+              "F1": function(cm) { self.ui_showHelp(); },
+              {# fullscreen #}
+              "F": function(cm) {
+                  cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                  self.ui_toggle_navbar();
+              },
+              "Esc": function(cm) {
+                if (cm.getOption("fullScreen")){
+                  cm.setOption("fullScreen", false);
+                  self.ui_toggle_navbar();
+                }
+              },
+              {# fold #}
+              "G": function(cm){ cm.foldCode(cm.getCursor()); },
+              {# matching tag#}
+              "T": "toMatchingTag",
+              {# jump between errors  #}
+              "J": function(cm){ self.search_prev(); },
+              "K": function(cm){ self.search_next(); },
+              "H": function(cm){ self.clear_search();},
+              {# go-to-line  #}
+              "L": "gotoLine",
+            },
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+            matchTags: { bothTags: true },
+        });
+
+        {# ---- read only hack ---- listen for the beforeChange event, and cancel #}
+        window.editor.on('beforeChange',function(cm,change) { change.cancel(); });
+
+        {# ---- render line hack ---- #}
+        var charWidth = window.editor.defaultCharWidth(), basePadding = 4;
+        window.editor.on("renderLine", function(cm, line, elt) {
+          var off = CodeMirror.countColumn(line.text, null, cm.getOption("tabSize")) * charWidth;
+          elt.style.textIndent = "-" + off + "px";
+          elt.style.paddingLeft = (basePadding + off) + "px";
+        });
+        window.editor.refresh();
+      },
+      highlight_line: function (line){
+        window.editor.addLineClass(line, 'background', 'line-highlight');
+      },
+      unhighlinght_line: function (line){
+        window.editor.removeLineClass(line, 'background');
+      },
+      blink_line: function (line){
+        var self = this;
+        var x = 300;  {# timeout interval  #}
+        var i = 2;    {# blink i-times #}
+        (function loop() { {# recurisve IIFE #}
+            self.highlight_line(line);
+            setTimeout(function () {
+                self.unhighlinght_line(line);
+                if (--i) setTimeout(loop, x); {# restart loop #}
+            }, x);
+        }());
+      },
+      jump_to_line: function (line) {
+        var t = window.editor.charCoords({line: line, ch: 0}, 'local').top;
+        var middleHeight = editor.getScrollerElement().offsetHeight / 2;
+        window.editor.scrollTo(null, t - middleHeight - 5);
+        window.editor.focus();
+      },
+      jump_and_blink: function(line){
+        {# shortcut to jump to a line, then animated blinks on it #}
+        this.scroll_to_annotations();
+        this.jump_to_line(line);
+        this.blink_line(line);
+      },
+      scroll_to_annotations: function(){
+        $('html, body').animate({
+            scrollTop: $(".CodeMirror").offset().top
+        }, 200);
+      },
+      search_text: function(target_text) {
+        var searchCursor = window.editor.getSearchCursor(target_text,0,true);
+        this.last_search.query = target_text;
+        this.last_search.searchCursor = searchCursor;
+
+        if (searchCursor.findNext()){
+          var line = searchCursor.from().line;
+          this.last_search.line = line;
+          window.Annotations.jump_and_blink(line);
+          {# enable toolbar buttons #}
+          this.search_toolbar.ui_enable_buttons([
+            this.search_toolbar.btn_find_prev,
+            this.search_toolbar.btn_find_next,
+          ]);
+          this.ui_update_search_message(true, parseInt(line + 1, 10), 'forward');
+        } else {
+          {# text not found, disable toolbar buttons #}
+          this.search_toolbar.ui_disable_buttons([
+            this.search_toolbar.btn_find_prev,
+            this.search_toolbar.btn_find_next,
+          ]);
+          this.ui_update_search_message(false, null, 'forward');
+        }
+        window.editor.focus();
+      },
+      search_next: function(){
+        if (!this.last_search.searchCursor) {
+          {# no previous search made, search for generic error msg #}
+          this.last_search.query = "SPS-ERROR: ";
+          this.last_search.searchCursor = window.editor.getSearchCursor(this.last_search.query ,0,true);
+        }
+
+        {# get context from: searchCursor, and find the NEXT occurrence of the searched text (stored in this.last_search) #}
+        var searchCursor = this.last_search.searchCursor;
+        if (searchCursor.findNext()){
+          var line = searchCursor.from().line;
+          this.last_search.line = line;
+          this.jump_and_blink(line);
+          {# enable toolbar buttons #}
+          this.search_toolbar.ui_enable_buttons([
+            this.search_toolbar.btn_find_prev,
+          ]);
+          this.ui_update_search_message(true, parseInt(line + 1, 10), 'forward');
+        } else {
+          {# text not found, disable toolbar buttons #}
+          this.search_toolbar.ui_disable_buttons([
+            this.search_toolbar.btn_find_next,
+          ]);
+          this.ui_update_search_message(false, null, 'forward');
+        }
+        this.last_search.searchCursor = searchCursor;
+      },
+      search_prev: function(){
+        if (!this.last_search.searchCursor) {
+          {#  no previous search made, search for generic error msg #}
+          this.last_search.query = "SPS-ERROR: ";
+          this.last_search.searchCursor = window.editor.getSearchCursor(this.last_search.query ,0,true);
+        }
+
+        {# get context from: searchCursor, and find the PREVIOUS occurrence of the searched text (stored in this.last_search) #}
+        var searchCursor = this.last_search.searchCursor;
+
+        if (searchCursor.findPrevious()){
+          var line = searchCursor.from().line;
+          this.last_search.line = line;
+          this.jump_and_blink(line);
+          {# enable toolbar buttons #}
+          this.search_toolbar.ui_enable_buttons([
+            this.search_toolbar.btn_find_next,
+          ]);
+          this.ui_update_search_message(true, parseInt(line + 1, 10), 'backward');
+        } else {
+          {# text not found, disable toolbar buttons  #}
+          this.search_toolbar.ui_disable_buttons([
+            this.search_toolbar.btn_find_prev,
+          ]);
+          this.ui_update_search_message(false, null, 'backward');
+        }
+
+        this.last_search.searchCursor = searchCursor;
+      },
+      clear_search: function(){
+        this.last_search.searchCursor = null;
+        this.last_search.query = "";
+        {#  update search toolbar #}
+        this.search_toolbar.ui_clear_info_msg();
+        this.search_toolbar.ui_info_remove_css_classes();
+        this.search_toolbar.ui_enable_buttons([ this.search_toolbar.btn_find_prev,  this.search_toolbar.btn_find_next,]);
+      },
+      toggle_fullscreen: function(){
+        {#  can't find how to trigger a keydown event, to simulate the behavior of pressing the F key #}
+        this.ui_toggle_navbar();
+        window.editor.setOption("fullScreen", true);
+        window.editor.focus();
+      },
+      ui_hide_navbar: function(){
+        $('.navbar').hide();
+      },
+      ui_toggle_navbar: function(){
+        var navbar = $('.navbar');
+        var navbar_display = navbar.css('display');
+        if (navbar_display === 'none') {
+          navbar.show();
+        } else {
+          navbar.hide();
+        }
+      },
+      ui_showHelp: function(){
+        $('#editor_help').click();
+      },
+      ui_update_search_message: function(was_found, line, direction){
+        if (!this.last_search.query) {
+          {# empty string as a last search, go away #}
+          return;
+        }
+
+        var content = '{% trans %}Phrase{% endtrans %}: <code>' + this.last_search.query + '</code>&nbsp;';
+        var direction_msg = '';
+        if (was_found) {
+          content += ' <strong>was found</strong>';
+          if (line) {
+            content += '  at line: <strong>' + line + '</strong>';
+          }
+        } else {
+          content += ' <strong>{% trans %}was NOT found{% endtrans %}</strong>';
+          if(direction === 'forward'){
+            direction_msg = ' {% trans %}in the next lines{% endtrans %}';
+          }
+          if(direction === 'backward'){
+            direction_msg = ' {% trans %}in the previous lines{% endtrans %}';
+          }
+          content += direction_msg;
+        }
+        this.search_toolbar.ui_info_msg_update(content, was_found);
+      },
+    }
+    {# take off sequence starts here :) #}
+    if (document.getElementById('code')) {
+      window.Annotations.initialize();
+    };
+  });
+
+  {# === actions triggered by click on buttons === #}
+  $('.goto_line').click(function(event){
+    event.preventDefault();
+    var line = $(this).data('target-line');
+    window.Annotations.jump_and_blink(line - 1);  {# lines are 0-indexed #}
+  });
+
+  $('.search_error').click(function(event){
+    event.preventDefault();
+    var target_text = $(this).data('target-text');
+    window.Annotations.search_text(target_text);
+  });
+
+  $('#find_next').click(function(event) {
+    event.preventDefault();
+    window.Annotations.search_next();
+  });
+
+  $('#find_prev').click(function(event) {
+    event.preventDefault();
+    window.Annotations.search_prev();
+  });
+  $('#clear_search').click(function(event) {
+    event.preventDefault();
+    window.Annotations.clear_search();
+  });
+  $("#back-to-errors").click(function(event){
+      event.preventDefault();
+      var table = $('#validation_errors_table');
+      $('html, body').animate(
+          { scrollTop: table.offset().top - 100 },
+          200
+      );
+  });
+  $('#toggle-fullscreen').click(function(event) {
+    event.preventDefault();
+    window.Annotations.toggle_fullscreen();
+  });
+</script>

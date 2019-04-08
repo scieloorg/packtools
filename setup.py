@@ -23,10 +23,19 @@ INSTALL_REQUIRES = [
 ]
 
 
-EXTRAS_REQUIRE = {} 
+EXTRAS_REQUIRE = {
+    'webapp':[
+        'Flask',
+        'Flask-BabelEx',
+        'Flask-WTF',
+        'python-slugify',
+    ]
+}
 
 
-TESTS_REQUIRE = []
+TESTS_REQUIRE = [
+    'Flask-Testing>=0.6.2',
+]
 
 
 # from https://hynek.me/articles/conditional-python-dependencies/
@@ -52,7 +61,9 @@ setup(
     maintainer_email="gustavo.fonseca@scielo.org",
     license="BSD License",
     url="http://docs.scielo.org",
-    packages=['packtools', 'packtools.catalogs'],
+    packages=setuptools.find_packages(
+        exclude=["*.tests", "*.tests.*", "tests.*", "tests", "docs"]
+    ),
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -68,9 +79,10 @@ setup(
     test_suite='tests',
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
-    entry_points="""
-    [console_scripts]
-    stylechecker = packtools.stylechecker:main
-    htmlgenerator = packtools.htmlgenerator:main
-    """)
-
+    entry_points={
+        "console_scripts":[
+            "stylechecker=packtools.stylechecker:main",
+            "htmlgenerator=packtools.htmlgenerator:main",
+        ]
+    }
+)
