@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block page_title %}{% trans %}Packtools - SciELO HTML Previewer {% endtrans %}{% endblock %}
+{% block topbody %}
+  <div class="ribbon">
+    <a href="#">Beta</a>
+  </div>
+{% endblock %}
+
+{% block main_content %}
+  <div class="row-fluid">
+    <div class="span12 well">
+      <h2>{% trans %}SciELO HTML Previewer{% endtrans %}</h2>
+      <p>{% trans %}Use this tool to preview your XML file as an HTML{% endtrans %}</p>
+      <p>{% trans %}Browse to your local XML file and click 'Preview'. The results will be displayed below.{% endtrans %}</p>
+
+      <form id='xml_upload_form' enctype="multipart/form-data" method="post" action="">
+        {{ form.csrf_token }}
+
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#XML" data-toggle="tab">
+              <i class="icon-upload"></i> {% trans %}Upload XML{% endtrans %}
+            </a>
+          </li>
+          <li>
+            <a href="#HELP" data-toggle="tab">
+              <i class="icon-question-sign"></i> {% trans %}Help?{% endtrans %}
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="XML">
+
+            {# FILE FIELD #}
+            {% with field=form.file, field_error=form.errors.file %}
+              <div class="control-group {% if field_error|length > 0 %}error{% endif %}">
+                {{ field }} {# use of |attr doesnt work, 'cause bootstrap js plugin:filestyle create a new input #}
+                <em>{% trans %}Max. upload size{% endtrans %}: <span class="label label-warning">{{ g.SETTINGS_MAX_UPLOAD_SIZE|filesizeformat }}</span></em>
+                {# field errors #}
+                {% for error in field_error %}
+                  <div class="alert alert-error">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endwith %}
+            <div class="control-group">
+              <label>{{ form.url_static_file.label }}</label>
+              {{ form.url_static_file }}
+              <span class="help-block">{% trans %}Use absolute path (ex: http://, file://, fyp://){% endtrans %}</span>
+            </div>
+
+            <div class='form-buttons clearfix'>
+              <input type="button" class="btn btn-danger pull-left" id='form_clear_btn' value="{% trans %}Clear{% endtrans %}" />
+              <input type="submit" class="btn btn-success pull-right" value="{% trans %}Preview{% endtrans %}" />
+            </div>
+          </div>
+          <div class="tab-pane" id="HELP">
+            <div class="alert alert-info">
+              <i class="icon-question-sign"></i>&nbsp;
+              {% trans %}
+              If you have any problems with the tool or with the SPS Tagging Guidelines, please contact:
+              <strong><a href="mailto:scielo-xml@googlegroups.com">scielo-xml@googlegroups.com</a></strong>.
+              {% endtrans %}
+            </div>
+          </div>
+        </div>
+
+        <div id='form_messages' style='display:none;'>
+          {# js validations messages goes here #}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if previews %}
+    <div class="row-fluid">
+      <div class="span12">
+        <ul class="nav nav-tabs">
+          {# adiciono uma tab para cada linguagem/html gerado #}
+          {% for preview in previews %}
+            <li class="{% if loop.first %} active {% endif %}">
+              <a data-toggle="tab" href="#preview_{{ preview.lang }}">
+                {% trans %}HTML preview{% endtrans %} ({{ preview.lang|upper }})
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="tab-content">
+          {% for preview in previews %}
+            <div class="tab-pane tab-pane-preview {% if loop.first %} active {% endif %}" id="preview_{{ preview.lang }}">
+              <div class="preview_container">
+                <iframe id="iframe_{{preview.lang}}" scrolling="auto" srcdoc="{{ preview.html }}" width="100%" height="1000px" frameborder="0"></iframe>
+              </div>
+            </div>
+          {% endfor %}
+          {% if not previews|length %}
+            <div class="alert alert-warning">
+              {% trans %}No HTML generated, is the XML file valid?{% endtrans %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+{% endblock main_content %}
+
+{% block extrafooter %}
+  {% include "validator/includes/xml_upload_form_validation.html" %}
+{% endblock extrafooter %}

@@ -1,0 +1,202 @@
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/codemirror/lib/codemirror.css')}}">
+
+{% if xml_data.meta %}
+  <h4>{% trans %}XML Meta{% endtrans %}:</h4>
+  <div class="well well-small">
+    <dl class="dl-horizontal">
+      <dt>{% trans %}File{% endtrans %}</dt>
+      <dd>{{ xml_data.meta.filename|clean_uri }}</dd>
+
+      <dt>{% trans %}Article title{% endtrans %}</dt>
+      <dd>{{ xml_data.meta.article_title }}</dd>
+
+      <dt>{% trans %}Journal title{% endtrans %}</dt>
+      <dd>{{ xml_data.meta.journal_title }}</dd>
+
+      <dt>{% trans %}Issue volume{% endtrans %}</dt>
+      <dd>{{ xml_data.meta.issue_volume }}</dd>
+
+      <dt>{% trans %}Issue number{% endtrans %}</dt>
+      <dd>{{ xml_data.meta.issue_number }}</dd>
+
+      {% if xml_data.sps_version %}
+        <dt>{% trans %}SPS version{% endtrans %}</dt>
+        <dd>{{ xml_data.sps_version }}</dd>
+      {% endif %}
+
+    </dl>
+  </div>
+{% endif %}
+
+{%if xml_exception  %}
+  <div class="alert alert-warning">
+    <h4><i class="icon-minus-sign"></i> {% trans %}The XML could not be analyzed{% endtrans %}</h4>
+    <p>{% trans %}Detail:{% endtrans %} <strong>{{ xml_exception }}</strong></p>
+  </div>
+{% else %}
+
+  {% if xml_data.is_deprecated_version  %}
+    <div class="alert alert-warning alert-block">
+      <h4>{% trans %}Warning!{% endtrans %}</h4>
+      {% trans %}This XML document uses a version of SciELO PS that soon will no longer be supported. Please consider upgrading to a newer version as soon as possible.{% endtrans %}<br>
+      {% trans %}If you want to know more about the support policy, please refer to{% endtrans %}:
+      <a href="http://docs.scielo.org/projects/scielo-publishing-schema/pt_BR/latest/#notas-da-versao">
+        {% trans %}SciELO PS official documentation{% endtrans %}
+      </a>.
+    </div>
+  {% endif %}
+
+  <h4>{% trans %}XML validation output{% endtrans %}:</h4>
+  {% if xml_data.validation_errors %}
+    <table id="validation_errors_table" class="table table-striped table-hover table-condensed">
+      <thead>
+        <tr>
+          <th class="span2">{% trans %}Level{% endtrans %}:</th>
+          <th>{% trans %}Message{% endtrans %}:</th>
+          <th class="span2">{% trans %}Occurrences{% endtrans %}:</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for error, count in xml_data.validation_errors %}
+          <tr>
+            <td><span class="label label-{{ trans_status(error.level,'True') }}">{{ error.level|upper }}</span></td>
+            <td>
+              {% if error.line %}
+                <a class="goto_line" href="#" data-target-line="{{ error.line }}">{{ error.message }}</a>
+              {% else %}
+                <a class="search_error" href="#" data-target-text="{{ error.message }}">{{ error.message }}</a>
+              {% endif %}
+            </td>
+            <td><span class="badge badge-info">{{ default(count,"--") }}</span></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-success">
+      <h4><i class="icon-thumbs-up"></i> {% trans %}The XML seems to be valid.{% endtrans %}</h4>
+    </div>
+  {% endif %}
+  {# XML ANNOTATED #}
+  <div class="codemirror_wrapper">
+    <div class="row-fluid">
+      <div id="editor_toolbar" class="span12">
+
+        {# help modal btn & jumpt to error list #}
+        <div class="btn-group span2">
+          <a id="editor_help"  class="btn btn-mini" href="#helpModal" data-toggle="modal">
+            <i class="icon-question-sign"></i> {% trans %}Help{% endtrans %}
+          </a>
+          <a id="back-to-errors" class="btn btn-mini" href="#" data-toggle="tooltip" title="scroll to the list of errors">
+            <i class="icon-list"></i> {% trans %}back to errors{% endtrans %}
+          </a>
+          <a id="toggle-fullscreen" class="btn btn-mini" href="#" data-toggle="tooltip" title="toggle fullscreen">
+            <i class="icon-fullscreen"></i>
+          </a>
+        </div>
+
+        {# search and nav #}
+        <div id="error_navigate_toolbar" class="btn-group span1">
+          <a id="clear_search" class="btn btn-mini" href="#" data-toggle="tooltip" title="clear search">
+            <i class="icon-remove"></i>
+          </a>
+          <a id="find_prev" class="btn btn-mini" href="#" data-toggle="tooltip" title="find previous occurrence">
+            <i class="icon-chevron-left"></i>
+          </a>
+          <a id="find_next" class="btn btn-mini" href="#" data-toggle="tooltip" title="find next occurrence">
+            <i class="icon-chevron-right"></i>
+          </a>
+        </div>
+        <div class="search_msg_wrapper span9">
+            <span id="search_string"></span>
+        </div>
+
+      </div>
+    </div>
+    <textarea id="code" name="code">{{ xml_data.annotations|safe }}</textarea>
+  </div>
+
+  {# Editor Help Modal #}
+  <div id="helpModal" class="modal hide fade" role="dialog">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>{% trans %}Help and Shortcuts{% endtrans %}</h3>
+    </div>
+    <div class="modal-body">
+      <table class="table table-striped table-hover table-condensed">
+        <thead>
+          <tr>
+            <th>{% trans %}Shortcut{% endtrans %}</th>
+            <th>{% trans %}Action{% endtrans %}</th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <td><code>F1</code></td>
+              <td>{% trans %}Show this Help and Shortcuts popup{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td>
+                <code>F</code> / <a class="btn btn-mini"><i class="icon-fullscreen"></i></a>
+              </td>
+              <td>{% trans %}Go fullscreen{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td><code>ESC</code></td>
+              <td>{% trans %}Exit fullscreen{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td><code>L</code></td>
+              <td>{% trans %}Show go-to-line field{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td><code>Ctrl-F</code> / <code>Cmd-F</code></td>
+              <td>{% trans %}Show search field{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td><code>Ctrl-G</code> / <code>Cmd-G</code></td>
+              <td>{% trans %}Find next{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td><code>Shift-Ctrl-G</code> / <code>Shift-Cmd-G</code></td>
+              <td>{% trans %}Find previous{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td><code>G</code></td>
+              <td>{% trans %}Fold/Unfold current tag{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td><code>T</code></td>
+              <td>{% trans %}Jump to the matching selected tag{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td>
+                <code>H</code> / <a class="btn btn-mini" href="#"><i class="icon-remove"></i></a>
+              </td>
+              <td>{% trans %}Clear the last search of SPS-ERRORs{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td>
+                <code>J</code> / <a class="btn btn-mini" href="#"><i class="icon-chevron-left"></i></a>
+              </td>
+              <td>{% trans %}Jump to Previous Highlighted SPS-ERROR{% endtrans %}</td>
+            </tr>
+            <tr>
+              <td>
+                <code>K</code> / <a class="btn btn-mini" href="#"><i class="icon-chevron-right"></i></a>
+              </td>
+              <td>{% trans %}Jump to Next Highlighted SPS-ERROR{% endtrans %}</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      {% if packtools_version %}
+        <p class="text-center"><small>{% trans %}packtools version{% endtrans %}: <strong>{{ packtools_version }}</strong></small></p>
+      {% endif %}
+    </div>
+  </div>
+  {# /Editor Help Modal #}
+{% endif %}
+

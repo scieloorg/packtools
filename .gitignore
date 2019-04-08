@@ -4,7 +4,7 @@
 *.so
 
 # Packages
-*.egg
+*.eggs
 *.egg-info
 dist
 build
@@ -37,3 +37,4 @@ nosetests.xml
 
 # Vim
 *.swp
+.DS_Store

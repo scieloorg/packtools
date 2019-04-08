@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+
+    packtools_webapp:
+        image: scieloorg/packtools
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            args:
+                - PACKTOOLS_BUILD_DATE=${PACKTOOLS_BUILD_DATE}            # export PACKTOOLS_BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+                - PACKTOOLS_VCS_REF=${PACKTOOLS_VCS_REF}                  # export PACKTOOLS_VCS_REF=`git rev-parse --short HEAD`
+                - PACKTOOLS_WEBAPP_VERSION=${PACKTOOLS_WEBAPP_VERSION}    # export PACKTOOLS_WEBAPP_VERSION="v0.1.0-dev"
+        command: webapp runserver --processes 3 --host 0.0.0.0 --port 8000
+        user: nobody
+        restart: always
+        hostname: packtools_webapp
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+        ports:
+            - "8000:8000"
+        environment:
+            - SECRET_KEY=s3kr3tk3y
+            - APP_SETTINGS=config.default.ProductionConfig
