@@ -35,3 +35,6 @@ def create_app():
         toolbar.init_app(app)
 
     return app
+
+
+app = create_app()

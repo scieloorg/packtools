@@ -46,28 +46,22 @@ Source-code:
     $ python setup.py install
 
 
-Installation WebApp
--------------------
+Installation as a web application, where a graphical interface for `stylechecker`
+and an HTML previewer is provided:
 
 .. code-block:: bash
 
     $ pip install packtools[webapp]
 
 
-Execute WebApp
--------------------
+Running the web application
+---------------------------
 
 .. code-block:: bash
 
-    $ webapp runserver
-
-
-Utilization Docker
-------------------
-
-.. code-block:: bash
-
-    $ docker-compose up
+    $ export APP_SETTINGS=packtools.webapp.config.default.ProductionConfig
+    $ export FLASK_APP=packtools.webapp.app.py
+    $ flask run
 
 
 Documentation
@@ -89,4 +83,3 @@ https://github.com/scieloorg/packtools/blob/master/LICENSE
 Changelog
 ---------
 https://github.com/scieloorg/packtools/blob/master/HISTORY.rst
-

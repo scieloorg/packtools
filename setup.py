@@ -28,7 +28,6 @@ EXTRAS_REQUIRE = {
         'Flask==1.0.2',
         'Flask-BabelEx==0.9.3',
         'Flask-DebugToolbar==0.10.1',
-        'Flask-Script==2.0.6',
         'Flask-WTF==0.14.2',
         'python-slugify==3.0.2',
     ]
@@ -83,7 +82,6 @@ setup(
         "console_scripts":[
             "stylechecker=packtools.stylechecker:main",
             "htmlgenerator=packtools.htmlgenerator:main",
-            "webapp=packtools.webapp.manager:manager_run [webapp]"
         ]
     }
 )
