@@ -15,7 +15,8 @@ def create_app():
         static_folder="static",
         instance_relative_config=False,
     )
-    app.config.from_object(os.environ["APP_SETTINGS"])
+    app.config.from_object(os.environ.get("APP_SETTINGS",
+        "packtools.webapp.config.default.ProductionConfig"))
 
     from packtools.webapp.views import main as main_bp
 
