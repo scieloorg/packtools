@@ -10,7 +10,7 @@ except pkg_resources.DistributionNotFound:
     PACKTOOLS_VERSION = None
 
 
-class Config(object):
+class ProductionConfig(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
@@ -31,11 +31,7 @@ class Config(object):
     PACKTOOLS_DEPRECATION_WARNING_VERSION = "sps-1.1"
 
 
-class ProductionConfig(Config):
-    DEBUG = False
-
-
-class DevelopmentConfig(Config):
+class DevelopmentConfig(ProductionConfig):
     DEVELOPMENT = True
     DEBUG = True
 
@@ -55,5 +51,5 @@ class DevelopmentConfig(Config):
     ]
 
 
-class TestingConfig(Config):
+class TestingConfig(ProductionConfig):
     TESTING = True
