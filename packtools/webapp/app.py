@@ -1,5 +1,7 @@
 # coding:utf-8
 import os
+import logging
+
 from flask import Flask, render_template
 from flask_babelex import Babel
 
@@ -7,6 +9,7 @@ from .custom_filters import clean_uri, utility_processor
 from .views import main as main_bp
 
 
+LOGGER = logging.getLogger(__name__)
 
 
 def create_app(settings_ns):
@@ -21,22 +24,21 @@ def create_app(settings_ns):
 
     app.config.from_object(settings_ns)
 
-    from packtools.webapp.views import main as main_bp
-
     app.register_blueprint(main_bp)
-
     app.jinja_env.filters["clean_uri"] = clean_uri
     app.context_processor(utility_processor)
-
-    # i18n
     babel.init_app(app)
-    # Debug Toolbar
-    if app.config["DEBUG"]:
-        # Toolbar
-        from flask_debugtoolbar import DebugToolbarExtension
 
-        toolbar = DebugToolbarExtension()
-        toolbar.init_app(app)
+    if app.config["DEBUG"]:
+        try:
+            from flask_debugtoolbar import DebugToolbarExtension
+        except ImportError:
+            LOGGER.info('cannot import lib "flask_debugtoolbar". '
+                        'Make sure it is installed and available in the '
+                        'import path.')
+        else:
+            toolbar = DebugToolbarExtension()
+            toolbar.init_app(app)
 
     return app
 
