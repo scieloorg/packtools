@@ -10,8 +10,7 @@ class TestWebAppTests(TestCase):
 
 
     def create_app(self):
-        os.environ["APP_SETTINGS"] = "packtools.webapp.config.default.TestingConfig"
-        return app.create_app()
+        return app.create_app("packtools.webapp.config.default.TestingConfig")
 
     def test_packtools_stylechecker(self):
 

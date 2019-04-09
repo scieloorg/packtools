@@ -6,7 +6,8 @@ from flask_babelex import Babel
 from packtools.webapp.custom_filters import clean_uri, utility_processor
 
 
-def create_app():
+
+def create_app(settings_ns):
 
     babel = Babel()
     app = Flask(
@@ -15,8 +16,8 @@ def create_app():
         static_folder="static",
         instance_relative_config=False,
     )
-    app.config.from_object(os.environ.get("APP_SETTINGS",
-        "packtools.webapp.config.default.ProductionConfig"))
+
+    app.config.from_object(settings_ns)
 
     from packtools.webapp.views import main as main_bp
 
@@ -38,4 +39,5 @@ def create_app():
     return app
 
 
-app = create_app()
+app = create_app(os.environ.get(
+    "APP_SETTINGS", "packtools.webapp.config.default.ProductionConfig"))
