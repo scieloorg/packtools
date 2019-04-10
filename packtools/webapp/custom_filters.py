@@ -2,8 +2,10 @@
 import os
 import re
 import distutils
+
 from flask import Markup
 from slugify import slugify
+
 
 dict_status = {"ok": "success"}
 label_status_translation = {

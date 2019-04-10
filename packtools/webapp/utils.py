@@ -1,7 +1,8 @@
 # coding: utf-8
 import lxml
-import packtools
 from flask import current_app
+
+import packtools
 
 
 def count(target, collection, key):
