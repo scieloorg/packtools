@@ -2,7 +2,6 @@
 import os
 import pkg_resources
 
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 try:
     PACKTOOLS_VERSION = pkg_resources.get_distribution("packtools").version
