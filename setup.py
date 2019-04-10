@@ -25,10 +25,10 @@ INSTALL_REQUIRES = [
 
 EXTRAS_REQUIRE = {
     'webapp':[
-        'Flask==1.0.2',
-        'Flask-BabelEx==0.9.3',
-        'Flask-WTF==0.14.2',
-        'python-slugify==3.0.2',
+        'Flask',
+        'Flask-BabelEx',
+        'Flask-WTF',
+        'python-slugify',
     ]
 }
 
