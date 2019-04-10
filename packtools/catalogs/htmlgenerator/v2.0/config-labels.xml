@@ -67,6 +67,12 @@
         <name lang="es">Histórico</name>
     </term>
     <term>
+        <name>publication dates</name>
+        <name lang="en">Publication Dates</name>
+        <name lang="pt">Datas de Publicação </name>
+        <name lang="es">Fechas de Publicación</name>
+    </term>
+    <term>
         <name>received</name>
         <name lang="en">Received</name>
         <name lang="pt">Recebido</name>
@@ -117,87 +123,87 @@
     <term>
         <name>About the authors</name>
         <name lang="pt">Sobre os autores</name>
-        <name lang="es">Acerca de los autores</name>        
-    </term>   
+        <name lang="es">Acerca de los autores</name>
+    </term>
     <term>
         <name>About the author</name>
         <name lang="pt">Sobre o autor</name>
-        <name lang="es">Acerca del autor</name>        
-    </term>   
+        <name lang="es">Acerca del autor</name>
+    </term>
     <term>
         <name>Click to </name>
         <name lang="pt">Clique para </name>
-        <name lang="es">Haz un clic para </name>       
+        <name lang="es">Haz un clic para </name>
     </term>
     <term>
         <name>copy link</name>
         <name lang="pt">copiar link</name>
-        <name lang="es">copiar enlace</name>        
+        <name lang="es">copiar enlace</name>
     </term>
     <term>
         <name>copy URL</name>
         <name lang="pt">copiar URL</name>
-        <name lang="es">copiar URL</name>        
+        <name lang="es">copiar URL</name>
     </term>
     <term>
         <name>copy</name>
         <name lang="pt">copiar</name>
-        <name lang="es">copiar</name>        
+        <name lang="es">copiar</name>
     </term>
     <term>
         <name>ris format</name>
         <name lang="pt">formato ris</name>
-        <name lang="es">formato ris</name>        
+        <name lang="es">formato ris</name>
     </term>
-    
+
     <term>
         <name>Open new window</name>
         <name lang="pt">Abrir em nova janela</name>
-        <name lang="es">Abrir en nueva ventana</name>        
+        <name lang="es">Abrir en nueva ventana</name>
     </term>
     <term>
         <name>Affiliation</name>
         <name lang="pt">Afiliação</name>
-        <name lang="es">Afiliación</name>        
+        <name lang="es">Afiliación</name>
     </term>
     <term>
         <name>corresp</name>
         <name lang="en">Correspondence</name>
         <name lang="pt">Correspondência</name>
-        <name lang="es">Correspondencia</name>        
+        <name lang="es">Correspondencia</name>
     </term>
     <term>
         <name>Text</name>
         <name>body</name>
         <name lang="en">Text</name>
         <name lang="pt">Texto</name>
-        <name lang="es">Texto</name>  
+        <name lang="es">Texto</name>
     </term>
-    
+
     <term>
         <name>abstract</name>
         <name>trans-abstract</name>
         <name lang="en">Abstract</name>
         <name lang="pt">Resumo</name>
-        <name lang="es">Resumen</name>  
+        <name lang="es">Resumen</name>
     </term>
     <term>
         <name lang="en">Abstracts</name>
         <name lang="pt">Resumos</name>
-        <name lang="es">Resúmenes</name>  
+        <name lang="es">Resúmenes</name>
     </term>
     <term>
         <name>kwd-group</name>
         <name lang="en">Keywords</name>
         <name lang="pt">Palavras-chave</name>
-        <name lang="es">Palabras clave</name>  
+        <name lang="es">Palabras clave</name>
     </term>
     <term>
         <name>app-group</name>
         <name>app</name>
         <name lang="en">Appendix</name>
         <name lang="pt">Apêndice</name>
-        <name lang="es">Apéndice</name>  
+        <name lang="es">Apéndice</name>
     </term>
     <term>
         <name>1</name>
@@ -354,5 +360,11 @@
         <name lang="en">Accessed</name>
         <name lang="pt">Acessado</name>
         <name lang="es">Accedido</name>
+    </term>
+    <term>
+        <name>Date of issue</name>
+        <name lang="en">Date of issue</name>
+        <name lang="pt">Data do Fascículo</name>
+        <name lang="es">Fecha del número</name>
     </term>
 </labels>
