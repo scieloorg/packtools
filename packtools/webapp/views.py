@@ -16,8 +16,9 @@ except ImportError:
     from urlparse import urljoin
 
 import packtools
-from packtools.webapp.forms import XMLUploadForm
-from packtools.webapp.utils import analyze_xml
+
+from .forms import XMLUploadForm
+from .utils import analyze_xml
 
 main = Blueprint("main", __name__)
 
