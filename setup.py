@@ -61,7 +61,9 @@ setup(
     maintainer_email="gustavo.fonseca@scielo.org",
     license="BSD License",
     url="http://docs.scielo.org",
-    packages=['packtools', 'packtools.catalogs', "packtools.webapp"],
+    packages=setuptools.find_packages(
+        exclude=["*.tests", "*.tests.*", "tests.*", "tests", "docs"]
+    ),
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",

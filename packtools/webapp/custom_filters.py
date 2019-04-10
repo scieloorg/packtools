@@ -1,7 +1,7 @@
 # coding:utf-8
 import os
 import re
-import distutils
+from distutils import util
 
 from flask import Markup
 from slugify import slugify
@@ -21,7 +21,7 @@ def asbool(s):
     return the boolean value ``False``. If ``s`` is the value ``None``,
     return ``False``. If ``s`` is already one of the boolean values ``True``
     or ``False``, return it."""
-    return bool(distutils.util.strtobool(s))
+    return bool(util.strtobool(s))
 
 
 def clean_uri(text):

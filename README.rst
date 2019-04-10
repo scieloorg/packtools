@@ -57,6 +57,16 @@ and an HTML previewer is provided:
 Running the web application
 ---------------------------
 
+
+Configuring the application::
+
++----------------------+--------------------------------------------------+
+| environment variable | default value                                    |
++======================+==================================================+
+| APP_SETTINGS         | packtools.webapp.config.default.ProductionConfig |
++----------------------+--------------------------------------------------+
+
+
 .. code-block:: bash
 
     $ export APP_SETTINGS=packtools.webapp.config.default.ProductionConfig

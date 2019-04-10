@@ -1,4 +1,4 @@
-recursive-include packtools *.xsd *.sch *.xml *.ent *.dtd *.mod *.xslt *.json *.xsl
+recursive-include packtools *.xsd *.sch *.xml *.ent *.dtd *.mod *.xslt *.json *.xsl *.html *.ico *.css *.txt *.png *.js
 recursive-exclude tests *
 include README.rst HISTORY.rst
 exclude tox.ini

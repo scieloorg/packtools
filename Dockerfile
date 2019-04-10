@@ -1,40 +1,33 @@
-FROM python:3.5-alpine
-ENV PYTHONUNBUFFERED 1
+FROM python:3.7-alpine AS build
+COPY . /src
+RUN pip install --upgrade pip \
+    && pip install wheel
+RUN cd /src \
+    && python setup.py bdist_wheel -d /deps
 
-# Build-time metadata as defined at http://label-schema.org
-ARG PACKTOOLS_BUILD_DATE
-ARG PACKTOOLS_VCS_REF
-ARG PACKTOOLS_WEBAPP_VERSION
 
-ENV PACKTOOLS_BUILD_DATE ${PACKTOOLS_BUILD_DATE}
-ENV PACKTOOLS_VCS_REF ${PACKTOOLS_VCS_REF}
-ENV PACKTOOLS_WEBAPP_VERSION ${PACKTOOLS_WEBAPP_VERSION}
+FROM python:3.7-alpine
 
-LABEL org.label-schema.build-date=$PACKTOOLS_BUILD_DATE \
-      org.label-schema.name="Packtools WebApp - development build" \
-      org.label-schema.description="PACKTOOLS WebApp main app" \
-      org.label-schema.url="https://github.com/scieloorg/packtools/" \
-      org.label-schema.vcs-ref=$PACKTOOLS_VCS_REF \
-      org.label-schema.vcs-url="https://github.com/scieloorg/packtools/" \
-      org.label-schema.vendor="SciELO" \
-      org.label-schema.version=$PACKTOOLS_WEBAPP_VERSION \
-      org.label-schema.schema-version="1.0"
+COPY --from=build /deps/* /deps/
+COPY requirements.txt .
 
-RUN apk --update add --no-cache \
-    gcc build-base linux-headers git libc-dev libxml2-dev libxslt-dev py3-lxml
+RUN apk add --no-cache --virtual .build-deps \
+        make gcc libxml2-dev libxslt-dev musl-dev g++ \
+    && apk add libxml2 libxslt \
+    && pip install --no-cache-dir --upgrade pip setuptools \
+    && pip install --no-cache-dir gunicorn \
+    && pip install --no-cache-dir raven \
+    && pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-index --find-links=file:///deps -U packtools[webapp] \
+    && apk --purge del .build-deps \
+    && rm requirements.txt \
+    && rm -rf /deps
 
-COPY . /app
 WORKDIR /app
 
-RUN pip --no-cache-dir install -e .[webapp]
-
-RUN make compile_messages
-RUN chown -R nobody:nogroup /app
+ENV PYTHONUNBUFFERED 1
 
 USER nobody
-EXPOSE 8000
 
-HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost:8000/ || exit 1
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8000", "packtools.webapp.app:app"]
 
-CMD webapp runserver --processes 3 --host 0.0.0.0 --port 8000
