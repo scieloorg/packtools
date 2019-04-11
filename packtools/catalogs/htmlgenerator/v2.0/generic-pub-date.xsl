@@ -3,7 +3,7 @@
     version="1.0">
 
     <xsl:template match="article-meta | sub-article | response" mode="generic-pub-date">
-       <xsl:if test=".//pub-date or .//pub-date">
+       <xsl:if test=".//pub-date">
         <div class="articleSection">
              <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text">Publication Dates</xsl:with-param>
@@ -14,7 +14,6 @@
              <div class="row">
                  <div class="col-md-12 col-sm-12">
                      <ul class="articleTimeline">
-                         <xsl:apply-templates select="." mode="generic-pub-date-epub-date"></xsl:apply-templates>
                          <xsl:apply-templates select="." mode="generic-pub-date-publication-date"></xsl:apply-templates>
                          <xsl:apply-templates select="." mode="generic-pub-date-collection-date"></xsl:apply-templates>
                      </ul>
@@ -24,22 +23,8 @@
        </xsl:if>
     </xsl:template>
 
-    <xsl:template match="article-meta | sub-article | response" mode="generic-pub-date-epub-date">
-        <xsl:if test=".//pub-date[@pub-type='epub']">
-            <li>
-                <strong>
-                    <xsl:apply-templates select="." mode="text-labels">
-                        <xsl:with-param name="text">Online publication</xsl:with-param>
-                    </xsl:apply-templates>
-                </strong><br/>
-                <xsl:apply-templates select="pub-date[@pub-type='epub']"></xsl:apply-templates>
-            </li>
-        </xsl:if>
-    </xsl:template>
-
-
     <xsl:template match="article-meta | sub-article | response" mode="generic-pub-date-publication-date">
-        <xsl:if test=".//pub-date[@pub-type='epub-ppub'] or pub-date[@date-type='pub']">
+        <xsl:if test="pub-date[@pub-type='epub-ppub'] or pub-date[@date-type='pub'] or pub-date[@pub-type='epub']">
                 <li><strong>
                     <xsl:apply-templates select="." mode="text-labels">
                         <xsl:with-param name="text">Publication</xsl:with-param>
@@ -48,6 +33,9 @@
                     <xsl:choose>
                         <xsl:when test="pub-date[@pub-type='epub-ppub']">
                             <xsl:apply-templates select="pub-date[@pub-type='epub-ppub']"></xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:when test="pub-date[@pub-type='epub']">
+                            <xsl:apply-templates select="pub-date[@pub-type='epub']"></xsl:apply-templates>
                         </xsl:when>
                         <xsl:when test="pub-date[@date-type='pub']">
                             <xsl:apply-templates select="pub-date[@date-type='pub']"></xsl:apply-templates>
@@ -68,7 +56,7 @@
                             <xsl:apply-templates select="pub-date[@date-type='collection']"></xsl:apply-templates>
                         </xsl:when>
                         <xsl:when test="pub-date[@pub-type='collection']">
-                            <xsl:apply-templates select="pub-date[@date-type='pub']"></xsl:apply-templates>
+                            <xsl:apply-templates select="pub-date[@pub-type='collection']"></xsl:apply-templates>
                         </xsl:when>
                     </xsl:choose>
                 </li>

@@ -439,7 +439,6 @@ code for more information.
     <rule context="article/front/article-meta/article-id[@pub-id-type] | article/sub-article[@article-type='translation']/front-stub/article-id[@pub-id-type]">
       <assert test="@pub-id-type = 'doi' or 
                     @pub-id-type = 'other' or 
-                    @pub-id-type = 'scielo-id' or
                     @pub-id-type = 'publisher-id'">
         Element 'article-id', attribute pub-id-type: Invalid value "<value-of select="@pub-id-type"/>".
       </assert>

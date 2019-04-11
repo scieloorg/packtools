@@ -116,8 +116,8 @@
     </term>
     <term>
         <name>rev-requested</name>
-        <name lang="pt">Solicitud de Revisión</name>
-        <name lang="es">Revisado</name>
+        <name lang="pt">Solicitado Revisão</name>
+        <name lang="es">Solicitud de Revisión</name>
         <name lang="en">Requested Revision</name>
     </term>
     <term>
@@ -366,5 +366,11 @@
         <name lang="en">Date of issue</name>
         <name lang="pt">Data do Fascículo</name>
         <name lang="es">Fecha del número</name>
+    </term>
+    <term>
+        <name>Publication</name>
+        <name lang="en">Publication</name>
+        <name lang="pt">Publicação</name>
+        <name lang="es">Publicación</name>
     </term>
 </labels>
