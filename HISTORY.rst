@@ -1,6 +1,13 @@
 History
 =======
 
+2.4.3 (2019-04-17)
+------------------
+
+* Minor fixes to the generated HTML
+  [https://github.com/scieloorg/opac/issues/1276].
+
+
 2.4.2 (2019-03-29)
 ------------------
 
