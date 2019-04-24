@@ -53,8 +53,9 @@ setup(
     name="packtools",
     version=VERSION['__version__'],
     description="Handle SPS packages like a breeze.",
-    long_description=codecs.open('README.rst', mode='r', encoding='utf-8').read() + '\n\n' +
-                     codecs.open('HISTORY.rst', mode='r', encoding='utf-8').read(),
+    long_description=codecs.open('README.md', mode='r', encoding='utf-8').read() + '\n\n' +
+                     codecs.open('HISTORY.md', mode='r', encoding='utf-8').read(),
+    long_description_content_type="text/markdown",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
     maintainer="Gustavo Fonseca",
