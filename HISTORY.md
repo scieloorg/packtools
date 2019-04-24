@@ -1,5 +1,12 @@
 # History
 
+## 2.5
+
+* Adds the capability to run a webserver that provides a web-based interface
+  for stylechecker and htmlgenerator.
+* README.rst and HISTORY.rst were converted to Markdown.
+
+
 ## 2.4.3 (2019-04-17)
 
 * Minor fixes to the generated HTML
