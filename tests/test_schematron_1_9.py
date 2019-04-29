@@ -659,7 +659,7 @@ class ArticleIdTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_valid_pub_id_type_values(self):
-        for typ in ['doi', 'publisher-id', 'other']:
+        for typ in ['doi', 'publisher-id', 'other', 'scielo-id']:
             sample = u"""<article>
                           <front>
                             <article-meta>
