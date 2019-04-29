@@ -676,6 +676,31 @@ class ArticleIdTests(PhaseBasedTestCase):
             sample = io.BytesIO(sample.encode('utf-8'))
             self.assertTrue(self._run_validation(sample))
 
+    def test_valid_pub_id_type_values_on_translations(self):
+        for typ in ['doi', 'publisher-id', 'other']:
+            sample = u"""<article>
+                          <sub-article article-type='translation'>
+                            <front-stub>
+                              <article-id pub-id-type="%s">pLjk3by</article-id>
+                            </front-stub>
+                          </sub-article>
+                        </article>
+                     """ % typ
+            sample = io.BytesIO(sample.encode('utf-8'))
+            self.assertTrue(self._run_validation(sample))
+
+    def test_invalid_pub_id_type_values_on_translations(self):
+        sample = u"""<article>
+                      <sub-article article-type='translation'>
+                        <front-stub>
+                          <article-id pub-id-type="invalid">pLjk3by</article-id>
+                        </front-stub>
+                      </sub-article>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+        self.assertFalse(self._run_validation(sample))
+
 
 class SubjGroupTests(PhaseBasedTestCase):
     """Tests for article/front/article-meta/article-categories/subj-group elements.
@@ -5294,7 +5319,7 @@ class RelatedArticleTypesTests(PhaseBasedTestCase):
         self.assertFalse(self._run_validation(sample))
 
     def test_allowed_ext_link_types(self):
-        for type in ['doi', 'scielo-pid', 'scielo-aid']:
+        for type in ['doi']:
             sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink">
                            <front>
                              <article-meta>

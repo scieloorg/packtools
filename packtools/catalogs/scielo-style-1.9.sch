@@ -436,7 +436,7 @@ code for more information.
     <title>
       Values are known.
     </title>
-    <rule context="article/front/article-meta/article-id[@pub-id-type]">
+    <rule context="article/front/article-meta/article-id[@pub-id-type] | article/sub-article[@article-type='translation']/front-stub/article-id[@pub-id-type]">
       <assert test="@pub-id-type = 'doi' or 
                     @pub-id-type = 'other' or 
                     @pub-id-type = 'publisher-id'">
@@ -1732,9 +1732,7 @@ code for more information.
     </title>
 
     <rule context="article/front/article-meta/related-article[@ext-link-type]">
-      <assert test="@ext-link-type = 'doi' or 
-                    @ext-link-type = 'scielo-pid' or 
-                    @ext-link-type = 'scielo-aid'">
+      <assert test="@ext-link-type = 'doi'">
         Element 'related-article', attribute ext-link-type: Invalid value '<value-of select="@ext-link-type"/>'.
       </assert>
     </rule>
