@@ -5,6 +5,7 @@
 * Adds the capability to run a webserver that provides a web-based interface
   for stylechecker and htmlgenerator.
 * README.rst and HISTORY.rst were converted to Markdown.
+* Change validation rules for `<pub-date>` on sps-1.8.
 
 
 ## 2.4.3 (2019-04-17)

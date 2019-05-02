@@ -116,7 +116,11 @@ code for more information.
   </phase>
 
   <phase id="phase.pub-date">
-    <active pattern="pub-date_pub_type"/>
+    <active pattern="pub-date_date_type"/>
+    <active pattern="pub-date_publication_format"/>
+    <active pattern="pub-date_type_pub"/>
+    <active pattern="pub-date_type_collection"/>
+    <active pattern="pub-date_type_not_collection"/>
   </phase>
 
   <phase id="phase.volume">
@@ -594,16 +598,85 @@ code for more information.
     </rule>
   </pattern>
 
-  <pattern id="pub-date_pub_type">
+  <pattern id="pub-date_date_type">
     <title>
-      Restrict the valid values of pub-date[@pub-type].
+      Restrict the valid values of @date-type.
     </title>
 
+    <rule context="article/front/article-meta/pub-date[@date-type]">
+      <assert test="@date-type = 'pub' or
+                    @date-type = 'collection'">
+        Element 'pub-date', attribute date-type: Invalid value "<value-of select="@date-type"/>".
+      </assert>
+    </rule>
     <rule context="article/front/article-meta/pub-date">
-      <assert test="@pub-type = 'epub' or
-                    @pub-type = 'epub-ppub' or
-                    @pub-type = 'collection'">
-        Element 'pub-date', attribute pub-type: Invalid value "<value-of select="@pub-type"/>".
+      <assert test="@date-type">
+        Element 'pub-date': Missing attribute date-type.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_type_pub">
+    <title>
+      Make sure there exists at least one pub-date of type pub.
+    </title>
+
+    <rule context="article/front/article-meta">
+      <assert test="count(pub-date[@date-type = 'pub']) > 0">
+        Element 'article-meta': Missing element pub-date with date-type="pub".
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_publication_format">
+    <title>
+      Restrict the valid values of @publication-format.
+    </title>
+
+    <rule context="article/front/article-meta/pub-date[@publication-format]">
+      <assert test="@publication-format = 'electronic'">
+        Element 'pub-date', attribute publication-format: Invalid value "<value-of select="@publication-format"/>".
+      </assert>
+    </rule>
+    <rule context="article/front/article-meta/pub-date">
+      <assert test="@publication-format">
+        Element 'pub-date': Missing attribute publication-format.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_type_collection">
+    <title>
+      Assert rules on pub-date[@date-type="collection"] child elements.
+    </title>
+
+    <rule context="article/front/article-meta/pub-date[@date-type = 'collection']">
+      <assert test="not(day)">
+        Element 'pub-date': Unexpected element day.
+      </assert>
+      <assert test="year">
+        Element 'pub-date': Missing element year.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="pub-date_type_not_collection">
+    <title>
+      Assert rules on pub-date[@date-type != "pub"] child elements.
+    </title>
+
+    <rule context="article/front/article-meta/pub-date[@date-type != 'collection']">
+      <assert test="day">
+        Element 'pub-date': Missing element day.
+      </assert>
+      <assert test="month">
+        Element 'pub-date': Missing element month.
+      </assert>
+      <assert test="year">
+        Element 'pub-date': Missing element year.
+      </assert>
+      <assert test="not(season)">
+        Element 'pub-date': Unexpected element season.
       </assert>
     </rule>
   </pattern>
