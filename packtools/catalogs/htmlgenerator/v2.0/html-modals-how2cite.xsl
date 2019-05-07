@@ -158,6 +158,9 @@
 
     <xsl:template match="*" mode="how2cite-issue-info">
         <xsl:choose>
+            <xsl:when test=".//pub-date[@date-type='collection']">
+                <xsl:apply-templates select=".//pub-date[@date-type='collection']/year"/><xsl:if test=".//volume or .//issue">, </xsl:if>
+            </xsl:when>
             <xsl:when test=".//pub-date[@pub-type='epub-ppub']">
                 <xsl:apply-templates select=".//pub-date[@pub-type='epub-ppub']/year"/><xsl:if test=".//volume or .//issue">, </xsl:if>
             </xsl:when>
@@ -166,6 +169,9 @@
             </xsl:when>
             <xsl:when test=".//pub-date[@pub-type='ppub']">
                 <xsl:apply-templates select=".//pub-date[@pub-type='ppub']/year"/><xsl:if test=".//volume or .//issue">, </xsl:if>
+            </xsl:when>
+            <xsl:when test=".//pub-date[@date-type='pub']">
+                <xsl:apply-templates select=".//pub-date[@date-type='pub']/year"/><xsl:if test=".//volume or .//issue">, </xsl:if>
             </xsl:when>
             <xsl:when test=".//pub-date[@pub-type='epub']">
                 <xsl:apply-templates select=".//pub-date[@pub-type='epub']/year"/><xsl:if test=".//volume or .//issue">, </xsl:if>
@@ -212,9 +218,14 @@
     </xsl:template>
 
     <xsl:template match="*" mode="how2cite-epub-date">
-        <xsl:if test=".//pub-date[@pub-type='epub']">
-            Epub <xsl:apply-templates select=".//pub-date[@pub-type='epub']"/>.
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test=".//pub-date[@date-type='pub' and @publication-format='electronic']">
+                Epub <xsl:apply-templates select=".//pub-date[@date-type='pub']"/>.
+            </xsl:when>
+            <xsl:when test=".//pub-date[@pub-type='epub']">
+                Epub <xsl:apply-templates select=".//pub-date[@pub-type='epub']"/>.
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="*" mode="how2cite-issn">
