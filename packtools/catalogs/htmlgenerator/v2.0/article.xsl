@@ -24,6 +24,7 @@
     <xsl:include href="article-meta-related-article.xsl"/>
 
     <xsl:include href="generic-history.xsl"/>
+    <xsl:include href="generic-pub-date.xsl"/>
 
     <xsl:include href="article-text-position_index.xsl"/>
     <xsl:include href="article-text-xref.xsl"/>
@@ -42,7 +43,7 @@
     <xsl:include href="article-text-formula.xsl"/>
     <xsl:include href="article-text-fig.xsl"/>
     <xsl:include href="article-text-media.xsl"/>
-    
+
     <xsl:include href="article-text-back.xsl"/>
     <xsl:include href="article-text-ref.xsl"/>
     <xsl:include href="article-text-fn.xsl"/>
@@ -198,7 +199,7 @@
                             <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
                         </span>
                         <xsl:apply-templates select="." mode="article-meta-title"/>
-                        <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>    
+                        <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>
                     </h1>
                     <xsl:apply-templates select="." mode="article-meta-trans-title"/>
                     <div class="articleMeta">
@@ -215,20 +216,21 @@
                             <xsl:apply-templates select="." mode="text-body"/>
                             <xsl:apply-templates select="." mode="text-back"/>
                             <xsl:apply-templates select="." mode="text-fn"/>
+                            <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
                             <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
                             <xsl:apply-templates select="." mode="article-text-sub-articles"/>
-                            
+
                             <section class="documentLicense">
                                 <div class="container-license">
                                     <div class="row">
                                         <xsl:apply-templates select="." mode="article-meta-permissions"></xsl:apply-templates>
                                     </div>
-                                </div>                                
+                                </div>
                             </section>
                         </article>
                     </div>
                 </div>
-            </div>            
+            </div>
         </section>
 
 
