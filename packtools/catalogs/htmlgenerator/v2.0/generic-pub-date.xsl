@@ -27,7 +27,7 @@
         <xsl:if test="pub-date[@pub-type='epub-ppub'] or pub-date[@date-type='pub'] or pub-date[@pub-type='epub']">
                 <li><strong>
                     <xsl:apply-templates select="." mode="text-labels">
-                        <xsl:with-param name="text">Publication</xsl:with-param>
+                        <xsl:with-param name="text">Publication in this collection</xsl:with-param>
                     </xsl:apply-templates>
                     </strong><br/>
                     <xsl:choose>

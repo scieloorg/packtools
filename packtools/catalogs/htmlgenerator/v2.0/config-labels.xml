@@ -373,4 +373,10 @@
         <name lang="pt">Publicação</name>
         <name lang="es">Publicación</name>
     </term>
+    <term>
+        <name>Publication in this collection</name>
+        <name lang="en">Publication in this collection</name>
+        <name lang="pt">Publicação nesta coleção</name>
+        <name lang="es">Publicación en esta colección</name>
+    </term>
 </labels>
