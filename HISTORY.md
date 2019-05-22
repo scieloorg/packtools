@@ -1,5 +1,10 @@
 # History
 
+## 2.5.1 (2019-05-22)
+
+* Minor fixes to the generated HTML.
+
+
 ## 2.5 (2019-05-16)
 
 * Adds the capability to run a webserver that provides a web-based interface
