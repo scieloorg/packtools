@@ -21,10 +21,13 @@
     </xsl:template>
     
     <xsl:template match="sub-article" mode="contrib-group">
-        <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
-        <xsl:if test="not(.//contrib) and ../@article-type='translation'">
-            <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
-        </xsl:if>
+        <div>
+            <xsl:attribute name="class">contribGroup</xsl:attribute>
+            <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
+            <xsl:if test="not(.//contrib) and ../@article-type='translation'">
+                <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
+            </xsl:if>
+        </div>
     </xsl:template>
     
     <xsl:template match="front/contrib-group | front-stub/contrib-group" mode="modal-id"><xsl:value-of select="../../@id"/></xsl:template>
