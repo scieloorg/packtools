@@ -1,5 +1,10 @@
 # History
 
+## 2.5.2 (2019-07-19)
+
+* Minor fixes to the generated HTML.
+
+
 ## 2.5.1 (2019-05-22)
 
 * Minor fixes to the generated HTML.
