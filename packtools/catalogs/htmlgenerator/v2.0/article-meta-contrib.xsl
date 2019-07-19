@@ -14,34 +14,36 @@
     </xsl:template>
     
     <xsl:template match="article" mode="contrib-group">
-        <xsl:apply-templates select="front/article-meta//contrib-group"/>
+        <div>
+            <xsl:attribute name="class">contribGroup</xsl:attribute>
+            <xsl:apply-templates select="front/article-meta//contrib-group"/>
+        </div>
     </xsl:template>
     
     <xsl:template match="sub-article" mode="contrib-group">
-        <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
-        <xsl:if test="not(.//contrib) and ../@article-type='translation'">
-            <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
-        </xsl:if>
+        <div>
+            <xsl:attribute name="class">contribGroup</xsl:attribute>
+            <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
+            <xsl:if test="not(.//contrib) and ../@article-type='translation'">
+                <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
+            </xsl:if>
+        </div>
     </xsl:template>
     
     <xsl:template match="front/contrib-group | front-stub/contrib-group" mode="modal-id"><xsl:value-of select="../../@id"/></xsl:template>
-    <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']//contrib-group" mode="modal-id">    
-    </xsl:template>
+    <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']//contrib-group" mode="modal-id"></xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
-        <div>
-            <xsl:attribute name="class">contribGroup</xsl:attribute>
-            <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
-            <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
-                <a href="" class="outlineFadeLink" data-toggle="modal"
-                    data-target="#ModalTutors{$id}">
-                    <xsl:apply-templates select="." mode="interface">
-                        <xsl:with-param name="text">About the author<xsl:if test="count(contrib)&gt;1">s</xsl:if></xsl:with-param>
-                    </xsl:apply-templates>
-                </a>
-            </xsl:if>
-        </div>
+        <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
+        <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
+            <a href="" class="outlineFadeLink" data-toggle="modal"
+                data-target="#ModalTutors{$id}">
+                <xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">About the author<xsl:if test="count(contrib)&gt;1">s</xsl:if></xsl:with-param>
+                </xsl:apply-templates>
+            </a>
+        </xsl:if>
     </xsl:template>
    
     <xsl:template match="contrib" mode="article-meta-contrib">
