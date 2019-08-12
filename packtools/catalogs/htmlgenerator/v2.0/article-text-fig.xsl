@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
+<xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     exclude-result-prefixes="xlink mml"
     version="1.0">
-    
+
     <xsl:template match="fig-group">
         <xsl:choose>
             <xsl:when test="fig[@xml:lang=$TEXT_LANG]">
@@ -33,11 +33,26 @@
             </div>
         </div>
     </xsl:template>
-    
+
+    <xsl:template match="abstract[@abstract-type='graphical']//fig[graphic]">
+        <xsl:variable name="location">
+            <xsl:apply-templates select="." mode="file-location"></xsl:apply-templates>
+        </xsl:variable>
+        <div>
+            <span><xsl:apply-templates select="caption"/></span>
+           <img>
+                <xsl:attribute name="style">max-width:100%</xsl:attribute>
+                <xsl:attribute name="src">
+                    <xsl:value-of select="$location"/>
+                </xsl:attribute>
+            </img>
+        </div>
+    </xsl:template>
+
     <xsl:template match="fig-group" mode="file-location">
         <xsl:apply-templates select="fig[graphic]" mode="file-location"></xsl:apply-templates>
     </xsl:template>
-    
+
     <xsl:template match="fig[disp-formula and not(graphic)]">
         <div class="row fig" id="{@id}">
             <a name="{@id}"></a>
@@ -49,11 +64,11 @@
             </div>
         </div>
     </xsl:template>
-    
+
     <xsl:template match="*[graphic]" mode="file-location"><xsl:apply-templates select="graphic/@xlink:href"/></xsl:template>
-    
+
     <xsl:template match="fig-group" mode="label-caption">
         <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="label-caption"></xsl:apply-templates>
     </xsl:template>
-      
+
 </xsl:stylesheet>
