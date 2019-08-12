@@ -131,3 +131,142 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         self.assertRaises(ValueError, lambda: gen.generate('ru'))
 
+    def test_if_visual_abstract_image_present_in_html(self):
+        sample = u"""<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                      <front>
+                        <article-meta>
+                          <abstract abstract-type="graphical">
+                              <title>Visual Abstract</title>
+                              <p>
+                                  <fig id="vf01">
+                                      <caption>
+                                          <title>Caption em Inglês</title>
+                                      </caption>
+                                      <graphic xlink:href="2175-8239-jbn-2018-0058-vf01.jpg"/>
+                                  </fig>
+                              </p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+
+        self.assertIn('<img style="max-width:100%" src="2175-8239-jbn-2018-0058-vf01.jpg">', html_string)
+
+    def test_if_visual_abstract_caption_present_in_html(self):
+        sample = u"""<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                      <front>
+                        <article-meta>
+                          <abstract abstract-type="graphical">
+                              <title>Resumo Visual</title>
+                              <p>
+                                  <fig id="vf01">
+                                      <caption>
+                                          <title>Caption em Português</title>
+                                      </caption>
+                                      <graphic xlink:href="2175-8239-jbn-2018-0058-vf01.jpg"/>
+                                  </fig>
+                              </p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+
+        self.assertIn('Caption em Português', html_string)
+
+    def test_if_visual_abstract_anchor_section_present_in_html(self):
+        sample = u"""<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                      <front>
+                        <article-meta>
+                          <abstract abstract-type="graphical">
+                              <title>Resumo Visual</title>
+                              <p>
+                                  <fig id="vf01">
+                                      <caption>
+                                          <title>Caption em Português</title>
+                                      </caption>
+                                      <graphic xlink:href="2175-8239-jbn-2018-0058-vf01.jpg"/>
+                                  </fig>
+                              </p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+
+        self.assertIn('<div class="articleSection" data-anchor="Resumo Visual">', html_string)
+
+    def test_if_visual_abstract_section_present_in_html(self):
+        sample = u"""<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                      <front>
+                        <article-meta>
+                          <abstract abstract-type="graphical">
+                              <title>Resumo Visual</title>
+                              <p>
+                                  <fig id="vf01">
+                                      <caption>
+                                          <title>Caption em Português</title>
+                                      </caption>
+                                      <graphic xlink:href="2175-8239-jbn-2018-0058-vf01.jpg"/>
+                                  </fig>
+                              </p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+
+        self.assertIn('Resumo Visual', html_string)
+
+    def test_if_visual_abstract_image_from_another_language_is_present_in_html(self):
+        sample = u"""<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                      <sub-article article-type="translation" id="s1" xml:lang="en">
+                        <front-stub>
+                          <abstract abstract-type="graphical">
+                              <title>Visual Abstract EN</title>
+                              <p>
+                                  <fig id="vf01">
+                                      <caption>
+                                          <title>Caption em Inglês</title>
+                                      </caption>
+                                      <graphic xlink:href="2175-8239-jbn-2018-0058-vf01-EN.jpg"/>
+                                  </fig>
+                              </p>
+                          </abstract>
+                        </front-stub>
+                      </sub-article>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+
+        self.assertIn('<img style="max-width:100%" src="2175-8239-jbn-2018-0058-vf01-EN.jpg">', html_string)
