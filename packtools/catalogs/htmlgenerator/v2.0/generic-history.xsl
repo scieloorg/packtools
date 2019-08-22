@@ -52,7 +52,7 @@
     <xsl:template match="article-meta" mode="generic-history-history-dates">
         <xsl:choose>
             <xsl:when test="$article//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//history">
-                <xsl:apply-templates select="$article//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//history/date" mode="list-item"></xsl:apply-templates>
+                <xsl:apply-templates select="$article//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//history/date" mode="generic-history-list-item"></xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="history/date" mode="generic-history-list-item"></xsl:apply-templates>

@@ -1,0 +1,2430 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+    article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="nlm-ta">Rev Bras Anestesiol</journal-id>
+            <journal-id journal-id-type="publisher-id">rba</journal-id>
+            <journal-title-group>
+                <journal-title>Revista Brasileira de Anestesiologia</journal-title>
+                <abbrev-journal-title abbrev-type="publisher">Rev. Bras.
+                    Anestesiol.</abbrev-journal-title>
+            </journal-title-group>
+            <issn pub-type="ppub">0034-7094</issn>
+            <issn pub-type="epub">1806-907X</issn>
+            <publisher>
+                <publisher-name>Sociedade Brasileira de Anestesiologia</publisher-name>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="doi">10.1016/j.bjane.2019.01.003</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>Scientific Articles</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>Implementing a chronic pain ambulatory care: preliminary
+                    results</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0003-2243-0821</contrib-id>
+                    <name>
+                        <surname>Castro</surname>
+                        <given-names>Silvana de</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff1">a</xref>
+                    <xref ref-type="corresp" rid="c1">*</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Cavalcanti</surname>
+                        <given-names>Ismar Lima</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff2">b</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Barrucand</surname>
+                        <given-names>Louis</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff3">c</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Pinto</surname>
+                        <given-names>Cecília Izidoro</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff3">c</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Assad</surname>
+                        <given-names>Alexandra Rezende</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff2">b</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Verçosa</surname>
+                        <given-names>Nubia</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff3">c</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="aff1">
+                <label>a</label>
+                <institution content-type="orgname">Universidade Federal do Rio de Janeiro
+                    (UFRJ)</institution>
+                <addr-line>
+                    <named-content content-type="city">Rio de Janeiro</named-content>
+                    <named-content content-type="state">RJ</named-content>
+                </addr-line>
+                <country country="BR">Brazil</country>
+                <institution content-type="original">Universidade Federal do Rio de Janeiro (UFRJ),
+                    Dor e Cuidados Paliativos Oncológicos, Rio de Janeiro, RJ, Brazil</institution>
+            </aff>
+            <aff id="aff2">
+                <label>b</label>
+                <institution content-type="orgname">Universidade Federal Fluminense</institution>
+                <addr-line>
+                    <named-content content-type="city">Niterói</named-content>
+                    <named-content content-type="state">RJ</named-content>
+                </addr-line>
+                <country country="BR">Brazil</country>
+                <institution content-type="original">Universidade Federal Fluminense (UFF), Niterói,
+                    RJ, Brazil</institution>
+            </aff>
+            <aff id="aff3">
+                <label>c</label>
+                <institution content-type="orgname">Universidade Federal do Rio de
+                    Janeiro</institution>
+                <addr-line>
+                    <named-content content-type="city">Rio de Janeiro</named-content>
+                    <named-content content-type="state">RJ</named-content>
+                </addr-line>
+                <country country="BR">Brazil</country>
+                <institution content-type="original">Universidade Federal do Rio de Janeiro (UFRJ),
+                    Rio de Janeiro, RJ, Brazil</institution>
+            </aff>
+            <author-notes>
+                <corresp id="c1">
+                    <label>*</label> Corresponding author. <italic>E-mail:</italic>
+                    <email>s.lellouchedecastro@gmail.com</email> (S. de Castro).</corresp>
+                <fn fn-type="conflict">
+                    <p>
+                        <bold>Conflicts of interest</bold>
+                    </p>
+                    <p>The authors declare no conflicts of interest.</p>
+                </fn>
+            </author-notes>
+            <pub-date publication-format="electronic" date-type="pub">
+                <day>08</day>
+                <month>08</month>
+                <year>2019</year>
+            </pub-date>
+            <pub-date publication-format="electronic" date-type="collection">
+                <season>May-Jun</season>
+                <year>2019</year>
+            </pub-date>
+            <volume>69</volume>
+            <issue>3</issue>
+            <fpage>227</fpage>
+            <lpage>232</lpage>
+            <history>
+                <date date-type="received">
+                    <day>9</day>
+                    <month>7</month>
+                    <year>2018</year>
+                </date>
+                <date date-type="accepted">
+                    <day>14</day>
+                    <month>1</month>
+                    <year>2019</year>
+                </date>
+                <date date-type="pub">
+                    <day>26</day>
+                    <month>04</month>
+                    <year>2019</year>
+                </date>
+            </history>
+            <permissions>
+                <copyright-statement>&#x00a9; 2018 Sociedade Brasileira de Anestesiologia. Published
+                    by Elsevier Editora Ltda.</copyright-statement>
+                <copyright-year>2018</copyright-year>
+                <copyright-holder>Sociedade Brasileira de Anestesiologia</copyright-holder>
+                <license license-type="open-access"
+                    xlink:href="http://creativecommons.org/licenses/by-nc-nd/4.0" xml:lang="en">
+                    <license-p>This is an Open Access article distributed under the terms of the
+                        Creative Commons Attribution Non-Commercial No Derivative License, which
+                        permits unrestricted non-commercial use, distribution, and reproduction in
+                        any medium provided the original work is properly cited and the work is not
+                        changed in any way.</license-p>
+                </license>
+            </permissions>
+            <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>Background and objectives:</title>
+                    <p>Pain is one of the most common reason for seeking medical care. This study
+                        aimed to analyze patients with chronic pain in Maricá, Rio de Janeiro State,
+                        Brazil.</p>
+                </sec>
+                <sec>
+                    <title>Methods:</title>
+                    <p>A transversal retrospective study with 200 patients, who were treated in
+                        ambulatory care in a public hospital from June 2014 to December 2015. The
+                        variables considered were: pain intensity, type of pain, anatomical
+                        location, diagnosis and treatment. The data were statistically analyzed, the
+                        Fisher's exact test was applied, and the probability <italic>p</italic> was
+                        significant when &#x2264;0.05.</p>
+                </sec>
+                <sec>
+                    <title>Results:</title>
+                    <p>We analyzed 200 patients with chronic pain, most of them female (83%). Mean
+                        age was 58.6 &#x00b1; 13.01 years old. The patients were classified in
+                        groups by age, six groups with ten years of difference between them. Main
+                        age range was the 50-59 years old group, with 49 females (32%) and 5 males
+                        (15%). About 65.5% of the total of patients (131) had severe pain (Numeric
+                        Rating Sacale was 9.01). Mixed pain was predominant, affecting 108 patients
+                        (92 females and 16 males, what represents 55% and 47% of the total of
+                        females and males, respectively, that participate in the study). The most
+                        prevalent anatomical pain (159 patients, 131 females and 28 males) was in
+                        the lower limbs. Lower back pain was present in 113 of the 200 patients (94
+                        females and 19 males). In the 30-39, 50-59, 60-69 years old group, the
+                        results for pain locations were significant: <italic>p</italic> = 0.01,
+                            <italic>p</italic> = 0.0069, <italic>p</italic> = 0.0003,
+                        respectively.</p>
+                </sec>
+                <sec>
+                    <title>Conclusion:</title>
+                    <p>The prevalence of chronic pain was associated with females in 50-59 years old
+                        and severe mixed pain. Pain was located mainly in lower limbs and lumbar
+                        region. The most frequent diagnosis was low back pain followed by
+                        fibromyalgia. The patients were informed about their disease and
+                        treatment.</p>
+                </sec>
+            </abstract>
+            <kwd-group xml:lang="en">
+                <title>KEYWORDS</title>
+                <kwd>Primary health care</kwd>
+                <kwd>Ambulatory care facilities</kwd>
+                <kwd>Chronic pain</kwd>
+                <kwd>Analgesia</kwd>
+                <kwd>Pain management</kwd>
+            </kwd-group>
+        </article-meta>
+    </front>
+    <body>
+        <sec sec-type="intro">
+            <title>Introduction</title>
+            <p>Chronic pain is among the most common demand for searching medical care. The
+                International Association for the Study of Pain (IASP) defines it as pain without
+                apparent biological value that has persisted beyond the normal tissue healing time
+                usually taken to be 3 months. It is recognized worldwide as a serious health
+                problem. Approximately 60 million people endure chronic pain, around 10% of the
+                world's population.<xref ref-type="bibr" rid="B1">1</xref> Studies<xref
+                    ref-type="bibr" rid="B1">1</xref><sup>,</sup><xref ref-type="bibr" rid="B2"
+                    >2</xref> determine the prevalence of chronic pain in around 20%-25% of adults.
+                A Brazilian study showed prevalence in Rio de Janeiro, São Paulo, Florianópolis, and
+                Salvador of 31%, 29%, 26%, and 40% respectively.<xref ref-type="bibr" rid="B3"
+                    >3</xref> Although there are few estimates of the prevalence of chronic global
+                pain the World Health Organization (WHO) estimates that 10% of adults are newly
+                diagnosed with chronic pain each year.<xref ref-type="bibr" rid="B1">1</xref></p>
+            <p>The prevalence of chronic pain remains poorly understood, even in the developed
+                country where several epidemiological studies have been conducted. In Brazil,
+                chronic pain is the main cause of demand at pain ambulatory care. More detailed
+                studies are needed that will greatly contribute to the establishment of social
+                policies, health and goals for the prevention and appropriate treatment of
+                    pain.<xref ref-type="bibr" rid="B4">4</xref></p>
+            <p>Chronic pain should be understood like a disease and, not simply, like a symptom. It
+                is a multidimensional phenomenon that promotes impacts on quality of life and on the
+                functional and social capacity with serious consequences in physical, psychological
+                and behavioral conditions.<xref ref-type="bibr" rid="B5">5</xref></p>
+            <p>Understanding chronic pain needs not only the knowledge of the biological mechanisms
+                of pain but also the evaluation of other factors associated with the disease: age,
+                gender, ethnicity and weight; psychosocial (depression, anxiety, smoking and
+                excessive alcohol consumption); and socioeconomic conditions (marital status, level
+                of schooling, employment and physical activity).<xref ref-type="bibr" rid="B6"
+                    >6</xref></p>
+            <p>The systematic review conducted by Fayaz et al. in the United Kingdom found that
+                chronic pain prevalence increases steadily with increasing age, affecting 62% of the
+                population over 75 years old.<xref ref-type="bibr" rid="B7">7</xref></p>
+            <p>An interdisciplinary therapeutic approach is necessary for the purpose of pain
+                relief, physical, social and emotional restoration of the patient. According to the
+                WHO Normative Guidelines on Pain Management Report,<xref ref-type="bibr" rid="B8"
+                    >8</xref> the approach should be established by a multiprofessional team.</p>
+            <p>A significant number of pharmacological and non-pharmacological therapies are
+                available for the treatment of chronic pain. The WHO Normative Guidelines endorse
+                the therapeutic combination called multimodal therapy is needed.<xref
+                    ref-type="bibr" rid="B8">8</xref></p>
+            <p>This study aimed to describe the pain profile characteristics (intensity, type,
+                anatomic location, diagnosis and treatment), as well as the age and gender profile
+                of the first 200 patients with chronic pain consulted in the first pain ambulatory
+                care of the Hospital Municipal Conde Modesto Leal, the primary funder of this study,
+                in the small city of Maricá (127.461 inhabitants), in Rio de Janeiro, Brazil.
+                Previously Maricá was not provided of such medical facilities. The inauguration of
+                the pain ambulatory care brought benefits to the population addressed in this
+                paper.</p>
+        </sec>
+        <sec sec-type="methods">
+            <title>Methods</title>
+            <p>The study was approved by the direction of the Hospital Municipal Conde Modesto Leal,
+                in Maricá, state Rio de Janeiro, Brazil (approved at 27/9/2017) and by the Research
+                Ethics Committee of the Hospital Clementino Fraga Filho, of the Federal University
+                of Rio de Janeiro, Brazil, no. CAAE: 80142617.2.0000.5257 (approved at 21/12/2017).
+                The patients did not sign the informed consent because the data were obtained from
+                the hospital records.</p>
+            <p>This transversal, retrospective study was performed with the first 200 patients who
+                were attended at the hospital, between June 2014 and December 2015 for chronic
+                pain.</p>
+            <p>The patient's records were in the Hospital Medical File. All data were collected from
+                the records of the first 200 patients. The data refers to: age (in age groups),
+                gender and pain related aspects, such as: pain intensity (by numerical rating scale
+                - NRS), type, anatomical location, diagnosis and treatment of pain.</p>
+            <p>The criteria for classification of chronic pain were the duration longer than 6
+                months. The numerical rating scale<xref ref-type="bibr" rid="B9">9</xref> was used
+                to quantify the intensity of the individuals’ pain perception, being graded
+                according to ordinal scores: no pain (0), mild (1-3), moderate (4-6) and severe
+                (7-10). The patient chose the number that best represented the subjective intensity
+                of pain. Pain intensity was assessed at the end of the first medical appointment at
+                the Chronic Pain Clinic.</p>
+            <p>The episodes related to pain intensity, type (nociceptive, neuropathic and mixed),
+                anatomical location, diagnosis and treatment, as well as, the total of each gender
+                for each age group were compared using Fisher's exact test for contingency table of
+                2 &#x00d7; 2. The probability <italic>p</italic> (2 tails) was recognized as
+                significant when &#x2264;0.05. The table of percentages was obtained by multiplying
+                the sum of each gender or variable by 100 and dividing the quotient by the total sum
+                of each gender or variable.</p>
+        </sec>
+        <sec sec-type="results">
+            <title>Results</title>
+            <p>From the total of 200 patients with pain, 166 were females and 34 males. The mean age
+                was 58.66 &#x00b1; 13.01 years. The ages were classified in 6 age groups of 10 years
+                (20-29; 30-39; 40-49; 50-59; 60-69, 70 &#x2265;years).</p>
+            <p>With regard to the pain intensity, the Numerical Rate Scale (NRS) showed that 107
+                females (65%) and 24 males (71%) had severe pain (NRS 7-10), totalizing 131
+                patients, (mean NRS score was 9.01). The moderate pain (NRS 4 to 6) totalizing 66
+                patients: 57 females (34%) and 9 males (9%). Mild pain (NRS 1-3) did not reach much
+                expression only with 3 patients. The main age range was the 50-59 age group with a
+                total of 54 patients: 49 females (32%) and 5 males (15%). The males had a main
+                representation in the 60-69 age range with 57 patients: 41 females (26%) and 16
+                males (47%). The 40-49 group totalized 33 patients: 27 females (7%) and 6 males
+                (18%) (<xref ref-type="table" rid="t1">Table 1</xref>).</p>
+            <table-wrap id="t1">
+                <label>Table 1</label>
+                <caption>
+                    <title>Pain intensity by the Numerical Rating Scale (NRS).</title>
+                </caption>
+                <table frame="hsides" rules="groups" style="background-color:#e7e7e9">
+                    <colgroup>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th align="left">Pain level (NRS)</th>
+                            <th style="border-bottom-width:thin;border-bottom-style:solid"
+                                colspan="6" align="center">Gender (F/M) distributed by 10 years age
+                                ranges</th>
+                            <th align="left">Total</th>
+                            <th align="left">Percentage</th>
+                        </tr>
+                        <tr>
+                            <th align="left">&#x00A0;</th>
+                            <th align="left">20-29<break/>F/M</th>
+                            <th align="left">30-39<break/>F/M</th>
+                            <th align="left">40-49<break/>F/M</th>
+                            <th align="left">50-59<break/>F/M</th>
+                            <th align="left">60-69<break/>F/M</th>
+                            <th align="left">&#x2265;70<break/>F/M</th>
+                            <th align="left">20-&#x2265;70<break/>F/M</th>
+                            <th align="left">%<break/>F/M</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left">Mild (1-3)</td>
+                            <td align="left">0/0</td>
+                            <td align="left">0/0</td>
+                            <td align="left">0/0</td>
+                            <td align="left">1/1</td>
+                            <td align="left">1/0</td>
+                            <td align="left">0/0</td>
+                            <td align="left">2/1</td>
+                            <td align="left">1/3</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Moderate (4-6)</td>
+                            <td align="left">3/0</td>
+                            <td align="left">3/0</td>
+                            <td align="left">8/2</td>
+                            <td align="left">17/2</td>
+                            <td align="left">13/4</td>
+                            <td align="left">13/1</td>
+                            <td align="left">57/9</td>
+                            <td align="left">34/26</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Severe (7-10)</td>
+                            <td align="left">2/0</td>
+                            <td align="left">7/0</td>
+                            <td align="left">19/4</td>
+                            <td align="left">31/2</td>
+                            <td align="left">27/12</td>
+                            <td align="left">21/6</td>
+                            <td align="left">107/24</td>
+                            <td align="left">65/71</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Total</td>
+                            <td align="left">5/0</td>
+                            <td align="left">10/0</td>
+                            <td align="left">27/6</td>
+                            <td align="left">49/5</td>
+                            <td align="left">41/16</td>
+                            <td align="left">34/7</td>
+                            <td align="left">166/34</td>
+                            <td align="left">&#x00A0;</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Percentage (%)</td>
+                            <td align="left">3/0</td>
+                            <td align="left">6/0</td>
+                            <td align="left">7/18</td>
+                            <td align="left">32/15</td>
+                            <td align="left">26/47</td>
+                            <td align="left">22/21</td>
+                            <td align="left">&#x00A0;</td>
+                            <td align="left">&#x00A0;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn id="TFN4">
+                        <p>F, female; M, males; no significant results by Fischer's exact test.</p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+            <p>Regarding the pain types (nociceptive, neuropathic and mixed), the mixed pain was
+                composed of 108 patients: 92 females (55%) and 16 males (47%). Neuropathic pain
+                totalized 45 patients: 40 females (24%) and 5 males (15%). Nociceptive pain was
+                represented by a total of 47 patients: 34 females (21%) and 13 males (38%). The
+                50-59 age range totalized 54 patients: 49 females (30%) and 5 males (15%). The 60-69
+                age range was composed of 57 patients: 41 females (25%) and 16 males (47%) (<xref
+                    ref-type="table" rid="t2">Table 2</xref>).</p>
+            <table-wrap id="t2">
+                <label>Table 2</label>
+                <caption>
+                    <title>Pain types.</title>
+                </caption>
+                <table frame="hsides" rules="groups" style="background-color:#e7e7e9">
+                    <colgroup>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th align="left">Pain type</th>
+                            <th style="border-bottom-width:thin;border-bottom-style:solid"
+                                colspan="6" align="center">Gender (F/M) distributed by 10 years age
+                                ranges</th>
+                            <th align="left">Total</th>
+                            <th align="left">Percentage</th>
+                        </tr>
+                        <tr>
+                            <th align="left">&#x00A0;</th>
+                            <th align="left">20-29<break/>F/M</th>
+                            <th align="left">30-39<break/>F/M</th>
+                            <th align="left">40-49<break/>F/M</th>
+                            <th align="left">50-59<break/>F/M</th>
+                            <th align="left">60-69<break/>F/M</th>
+                            <th align="left">&#x2265;70<break/>F/M</th>
+                            <th align="left">20-&#x2265;70<break/>F/M</th>
+                            <th align="left">%<break/>F/M</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left">Nociceptive</td>
+                            <td align="left">1/0</td>
+                            <td align="left">1/0</td>
+                            <td align="left">5/1</td>
+                            <td align="left">6/2</td>
+                            <td align="left">13/6</td>
+                            <td align="left">8/4</td>
+                            <td align="left">34/13</td>
+                            <td align="left">21/38</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Neuropathic</td>
+                            <td align="left">2/0</td>
+                            <td align="left">5/0</td>
+                            <td align="left">10/1</td>
+                            <td align="left">9/0</td>
+                            <td align="left">12/3</td>
+                            <td align="left">2/1</td>
+                            <td align="left">40/5</td>
+                            <td align="left">24/15</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Mixed</td>
+                            <td align="left">2/0</td>
+                            <td align="left">4/0</td>
+                            <td align="left">12/4</td>
+                            <td align="left">34/3</td>
+                            <td align="left">16/7</td>
+                            <td align="left">24/2</td>
+                            <td align="left">92/16</td>
+                            <td align="left">55/47</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Total</td>
+                            <td align="left">5/0</td>
+                            <td align="left">10/0</td>
+                            <td align="left">27/6</td>
+                            <td align="left">49/5</td>
+                            <td align="left">41/16</td>
+                            <td align="left">34/7</td>
+                            <td align="left">166/34</td>
+                            <td align="left">&#x00A0;</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Percentage (%)</td>
+                            <td align="left">1/0</td>
+                            <td align="left">6/0</td>
+                            <td align="left">16/17</td>
+                            <td align="left">30/15</td>
+                            <td align="left">25/47</td>
+                            <td align="left">20/21</td>
+                            <td align="left">&#x00A0;</td>
+                            <td align="left">&#x00A0;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn id="TFN5">
+                        <p>F, female; M, males; no significant results by test exact Fischer.</p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+            <p>Referring to the anatomical locations of pain, there was a total of 10 anatomical
+                regions summing 663 locations being 558 for females and 105 for males. The lower
+                limbs totalized 159 pain locations: 131 for females (23%) and 28 for males (27%).
+                The low back pain with 113 locations: 94 for females (17%) and 19 for males (18%),
+                which was the second most common region followed by the upper limbs with a total of
+                105 locations: 90 for females (16%) and 15 for males (14%). The 50-59 age range was
+                represented by a total of 194 anatomical locations: 178 for females (32%) and 16 for
+                males (15%), <italic>p</italic> = 0.0069. The 60-69 age range totalized 179
+                locations: 133 for females (24%) and 46 for males (44%), <italic>p</italic> =
+                0.0003. In 30-39 age range had location with 27 for females (5%), but none for males
+                    <italic>p</italic> = 0.01 (<xref ref-type="table" rid="t3">Table 3</xref>).</p>
+            <table-wrap id="t3">
+                <label>Table 3</label>
+                <caption>
+                    <title>Anatomical location of pain.</title>
+                </caption>
+                <table frame="hsides" rules="groups" style="background-color:#e7e7e9">
+                    <colgroup>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                        <col width="11%"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th align="left">Anatomical location of pain</th>
+                            <th style="border-bottom-width:thin;border-bottom-style:solid"
+                                colspan="6" align="center">Gender (F/M) distributed by 10 years age
+                                ranges</th>
+                            <th align="left">Total</th>
+                            <th align="left">Percentage</th>
+                        </tr>
+                        <tr>
+                            <th align="left">&#x00A0;</th>
+                            <th align="left">20-29<break/>F/M</th>
+                            <th align="left">30-39<break/>F/M</th>
+                            <th align="left">40-49<break/>F/M</th>
+                            <th align="left">50-59<break/>F/M</th>
+                            <th align="left">60-69<break/>F/M</th>
+                            <th align="left">&#x2265;70<break/>F/M</th>
+                            <th align="left">20-&#x2265;70<break/>F/M</th>
+                            <th align="left">%<break/>F/M</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left">Cervix</td>
+                            <td align="left">2/0</td>
+                            <td align="left">1/0</td>
+                            <td align="left">8/3</td>
+                            <td align="left">17/1</td>
+                            <td align="left">11/3</td>
+                            <td align="left">6/0</td>
+                            <td align="left">45/7</td>
+                            <td align="left">8/7</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Thorax</td>
+                            <td align="left">1/0</td>
+                            <td align="left">5/0</td>
+                            <td align="left">3/1</td>
+                            <td align="left">10/</td>
+                            <td align="left">8/2</td>
+                            <td align="left">8/0</td>
+                            <td align="left">35/4</td>
+                            <td align="left">6/4</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Low back</td>
+                            <td align="left">0/0</td>
+                            <td align="left">4/0</td>
+                            <td align="left">21/3</td>
+                            <td align="left">27/4</td>
+                            <td align="left">23/8</td>
+                            <td align="left">19/4</td>
+                            <td align="left">94/19</td>
+                            <td align="left">17/18</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Head</td>
+                            <td align="left">4/0</td>
+                            <td align="left">4/0</td>
+                            <td align="left">6/0</td>
+                            <td align="left">13/1</td>
+                            <td align="left">4/2</td>
+                            <td align="left">2/0</td>
+                            <td align="left">33/3</td>
+                            <td align="left">6/3</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Upper limbs</td>
+                            <td align="left">2/0</td>
+                            <td align="left">4/0</td>
+                            <td align="left">8/3</td>
+                            <td align="left">32/3</td>
+                            <td align="left">23/6</td>
+                            <td align="left">21/3</td>
+                            <td align="left">90/15</td>
+                            <td align="left">16/14</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Shoulders</td>
+                            <td align="left">1/0</td>
+                            <td align="left">0/0</td>
+                            <td align="left">6/1</td>
+                            <td align="left">14/2</td>
+                            <td align="left">11/1</td>
+                            <td align="left">12/3</td>
+                            <td align="left">44/7</td>
+                            <td align="left">8/7</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Hands</td>
+                            <td align="left">0/0</td>
+                            <td align="left">2/0</td>
+                            <td align="left">3/2</td>
+                            <td align="left">4/0</td>
+                            <td align="left">2/1</td>
+                            <td align="left">3/0</td>
+                            <td align="left">14/3</td>
+                            <td align="left">3/3</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Lower limbs</td>
+                            <td align="left">2/0</td>
+                            <td align="left">6/0</td>
+                            <td align="left">21/5</td>
+                            <td align="left">40/3</td>
+                            <td align="left">31/14</td>
+                            <td align="left">31/6</td>
+                            <td align="left">131/28</td>
+                            <td align="left">23/27</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Knees</td>
+                            <td align="left">0/0</td>
+                            <td align="left">0/0</td>
+                            <td align="left">4/2</td>
+                            <td align="left">11/1</td>
+                            <td align="left">12/6</td>
+                            <td align="left">12/3</td>
+                            <td align="left">39/12</td>
+                            <td align="left">7/11</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Feet</td>
+                            <td align="left">0/0</td>
+                            <td align="left">1/0</td>
+                            <td align="left">4/1</td>
+                            <td align="left">10/0</td>
+                            <td align="left">8/3</td>
+                            <td align="left">10/3</td>
+                            <td align="left">33/7</td>
+                            <td align="left">6/7</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Total</td>
+                            <td align="left">12/0</td>
+                            <td align="left">27/0<sup><xref ref-type="table-fn" rid="TFN1"
+                                    >a</xref></sup></td>
+                            <td align="left">84/21</td>
+                            <td align="left">178/16<sup><xref ref-type="table-fn" rid="TFN2"
+                                        >b</xref></sup></td>
+                            <td align="left">133/46<sup><xref ref-type="table-fn" rid="TFN3"
+                                        >c</xref></sup></td>
+                            <td align="left">124/22</td>
+                            <td align="left">558/105</td>
+                            <td align="left">&#x00A0;</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Percentage (%)</td>
+                            <td align="left">2/0</td>
+                            <td align="left">5/0</td>
+                            <td align="left">15/20</td>
+                            <td align="left">32/15</td>
+                            <td align="left">24/44</td>
+                            <td align="left">22/21</td>
+                            <td align="left">&#x00A0;</td>
+                            <td align="left">&#x00A0;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn id="TFN6">
+                        <p>F, female; M, males; <italic>p</italic> &#x2264; 0.05 significant.</p>
+                    </fn>
+                    <fn id="TFN1">
+                        <label>a</label>
+                        <p>
+                            <italic>p</italic> = 0.01, 30-39 ages.</p>
+                    </fn>
+                    <fn id="TFN2">
+                        <label>b</label>
+                        <p>
+                            <italic>p</italic> = 0.0069, 50-59 ages.</p>
+                    </fn>
+                    <fn id="TFN3">
+                        <label>c</label>
+                        <p>
+                            <italic>p</italic> = 0.0003, 60-69 ages.</p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+            <p>The diagnosis totalized the number of 421: 377 for females and 44 for males. Lumbar
+                sciatic pain was outstanding with 122 diagnoses: 107 for females (28%) and 15 for
+                males (34%). Fibromyalgia totalized 67 diagnoses: 64 for females (17%) and 3 for
+                males (7%). Cervicobrachialgia summed 58 diagnoses: 50 for females (13%) and 8 for
+                males (18%). Arthritis totalized 51 diagnoses: 45 females (12%) and 6 males (14%).
+                Dorsalgia with 41 diagnoses: 37 females (10%) and 4 males (9%). Headache summed 35
+                cases: 32 females (8%) and 3 males (6%). The number of other diagnosis such as
+                neuropathic, post zoster and trigeminal neuropathies, complex regional pain syndrome
+                fell sharply since the sum of each of them is under 10. The 50-59 age range had a
+                total of 123 diagnosis: 116 for female (31%) and 7 for males (16%). The 60-69 age
+                range summed 112 diagnoses: 90 for females (24%) and 22 for males (50%).</p>
+            <p>The drugs used for the first treatment totalized 720 with 579 for females and 141 for
+                males. They were: painkillers, opioids, muscle relaxants, antidepressant and
+                anticonvulsants. Dipyrone and paracetamol totalized 185 prescriptions: 151 for
+                females (26%) and 34 for males (24%) followed by antidepressants with 165
+                prescriptions: 137 for females (24%) and 28 for males (20%). The anticonvulsants
+                summed 115 prescriptions: 92 for females (16%) and 23 for males (16%). The relaxants
+                totalized 154 prescriptions: 122 for females (21%) and 32 for males (2%). Only 40
+                patients were prescribed with opioids: 29 for females (5%) and 11 for males (8%).
+                The 50-59 year range had a total of 158 drugs: 136 for females (24%) and 22 for
+                males (16%). The 60-69 age range summed 210 drugs: 141 for females (24%) and 69 for
+                males (49%), <italic>p</italic> = 0.0001.</p>
+            <p>The interventional methods totalized 110: 100 for females and 10 for males. The
+                trigger points dry needling (acupuncture needle) was the most used with 27 females
+                (27%) and no male. The trigger point with 1% lidocaine was utilized in a total of 26
+                applications: 22 in females (22%) and 4 in males (40%), followed by paravertebral
+                blockade with 1% lidocaine also totalizing 26 cases: 25 for females (25%) and 1 for
+                male (10%). Epidural blockade with 80 mg of Depo-Medrol (Methylprednisolone)
+                totalized 8 administrations: 5 in females (5%) and 3 in males (3%),
+                    <italic>p</italic> = 0.042. Other interventions realized were: periarticular
+                infiltrations totalizing 21 applications: 19 in females (19%) and 2 in males (20%)
+                and stellate ganglion blockade in a total of 2 females (2%) and no male.</p>
+        </sec>
+        <sec sec-type="discussion">
+            <title>Discussion</title>
+            <p>The implementation of a chronic pain clinic for outpatients in the town of Maricá was
+                very relevant, because it provided the diagnosis and the beginning of an adequate
+                chronic pain treatment for patients who before had no access to this kind of
+                treatment. It is important to note that most of the patients had already been
+                treated by physicians of several specialties, but they continued to complain of
+                pain. A difficulty was expected in relation to the training of health professionals
+                unspecialized in pain purposes. Rondinelli et al. warn about the need for permanent
+                education in health, regarding the pathophysiology, treatment of pain and the
+                structuring of a pain. These actions would strengthen the interaction between
+                professionals and the patients.<xref ref-type="bibr" rid="B10">10</xref></p>
+            <p>Although severe chronic pain may arise in a relatively young age, our results showed
+                that pain is more frequent in the older age groups and females are more affected
+                than males. The 50-59 age range the females (32%) had more pain than males, while
+                men are mainly affected in the range from 60 to 69 ages (47%). Many studies
+                corroborate these results when they stated that chronic pain becomes more common
+                with increasing age, especially in women<xref ref-type="bibr" rid="B4"
+                    >4</xref><sup>,</sup><xref ref-type="bibr" rid="B7">7</xref><sup>,</sup><xref
+                    ref-type="bibr" rid="B11">11</xref><sup>,</sup><xref ref-type="bibr" rid="B12"
+                    >12</xref> and concluded that episodes are more frequent and of longer duration
+                in women than in men.<xref ref-type="bibr" rid="B4">4</xref> Fayaz et al. showed
+                that the prevalence of chronic pain in 65-74 years old was lower than the prevalence
+                in the 55-64 year-old; stratification by gender in their study demonstrates that
+                this drop is due to reduced pain reporting by male participants in the 65-74
+                year-old age.<xref ref-type="bibr" rid="B7">7</xref></p>
+            <p>Recent studies suggest that the participation of gonadal hormones in the neuroimmune
+                modulation of pain may represent an important cause of this difference in the
+                presence of pain between the genders.<xref ref-type="bibr" rid="B13"
+                    >13</xref><sup>-</sup><xref ref-type="bibr" rid="B15">15</xref> This difference
+                could be also related to the loss of muscle mass slightly later in men when compared
+                to women.<xref ref-type="bibr" rid="B16">16</xref> No studies were found comparing
+                sarcopenia (progressive loss of muscle mass) related to aging and gender in chronic
+                pain.</p>
+            <p>Regarding chronic pain other factors should be considered, such as the behavioral
+                response to pain, including the cognitive component.<xref ref-type="bibr" rid="B14"
+                    >14</xref> Ambulatory care showed that intense pain over moderate and mild pain
+                prevailed for both female and male. It is also worth noting that many elderly people
+                do not report their pain because they incorrectly believe that pain is expected or
+                normal consequence in the aging process.<xref ref-type="bibr" rid="B11">11</xref>
+                However, studies have questioned that one of the reasons for a decline in pain after
+                the age of 65 may be a reduction in the nociceptive pathways of the elderly.<xref
+                    ref-type="bibr" rid="B17">17</xref> Finally, the question is whether this
+                difference between genders is only related to the biological mechanisms of pain or
+                associated to a contribution of psychological and social factors.</p>
+            <p>In present study, there was a predominance of mixed pain (a combination of
+                nociceptive and neuropathic mechanisms) like the results of Bouhassira et al.<xref
+                    ref-type="bibr" rid="B18">18</xref> Women are at high risk for neuropathic pain
+                compared to men, according to studies by Fayaz et al.<xref ref-type="bibr" rid="B7"
+                    >7</xref> and Filling et al.<xref ref-type="bibr" rid="B19">19</xref> These
+                results were also obtained in our study.</p>
+            <p>Authors confirmed a prevalence of skeletal muscle pain in the elderly.<xref
+                    ref-type="bibr" rid="B20">20</xref> Reduced mobility, impairment of regular
+                physical activity, falls, depression, anxiety, sleep disturbance and isolation are
+                factors associated with pain. Another factor that influences the appearance of pain
+                in the elderly is the lack of family and social relationships.<xref ref-type="bibr"
+                    rid="B17">17</xref><sup>,</sup><xref ref-type="bibr" rid="B20">20</xref></p>
+            <p>Cipriano et al. and Fillingim et al. found a greater prevalence of pain in the
+                musculoskeletal system, coinciding with the result of this study.<xref
+                    ref-type="bibr" rid="B4">4</xref><sup>,</sup><xref ref-type="bibr" rid="B19"
+                    >19</xref> In our study, most of pain complaints came from women in the 50-59
+                age range, other studies concluded that women between 45 and 60 years old had an
+                increase in the incidence of joint and spinal pain in the period called
+                    perimenopause.<xref ref-type="bibr" rid="B20">20</xref><sup>,</sup><xref
+                    ref-type="bibr" rid="B21">21</xref></p>
+            <p>Goldberg remarks that pain is a disease which widely is cited as a symptom. Due to
+                this misconception the health system had disregarded of the pain management.<xref
+                    ref-type="bibr" rid="B1">1</xref> It is very important to sensitize public
+                health managers to this issue.<xref ref-type="bibr" rid="B1"
+                    >1</xref><sup>,</sup><xref ref-type="bibr" rid="B5">5</xref> The diagnosis is of
+                paramount importance since the treatment efficiency depends on it. In our study, the
+                more prevalent diagnosis was lumbar sciatic pain, followed by fibromyalgia; we did
+                not find any similar result to compare.</p>
+            <p>Concerning the treatment of the patients, they were treated exclusively with drugs:
+                analgesics, opioids, muscle relaxants, antidepressant and anticonvulsants. Dipyrone
+                and paracetamol stood out totalizing 185 prescriptions.</p>
+            <p>The age range of 60-69 shows a more expressive increase of the need for treatment of
+                chronic pain in men than in women (<italic>p</italic> = 0.0001), a relation which is
+                opposed to the 50-59 age range in which the percentage of women exceeds that of men
+                but without reaching significance. These outcomes are in accordance with the same
+                age ranges of the anatomical location analysis. Fillingim et al.<xref
+                    ref-type="bibr" rid="B22">22</xref> states that sex of an individual does not
+                directly influences pain, rather sex differences in pain reflect the effects of
+                other biological and psychosocial process (e.g. sex hormones, inflammatory
+                responses, gender roles, pain coping). Though age differences in pain and sex
+                differences in pain perception have been widely reported, whether sex differences
+                comparable across age groups has not been determined. In the study of Campbell et
+                    al.<xref ref-type="bibr" rid="B23">23</xref> they remarked that sex differences
+                emerged for most of the pain measures, and there was no sex by age interactions,
+                suggesting that sex differences in pain perception were relatively consistent across
+                age groups.</p>
+            <p>Lack of medication for the treatment of pain is a harmful barrier. Little progress
+                has been made in this way and ten million people have to endure pain due to the lack
+                of treatment or its consequences.<xref ref-type="bibr" rid="B24">24</xref> There is
+                a need to educate patients, health professionals and managers about the use and
+                distribution of medicines. It is very important to emphasize that patients with
+                chronic pain hard to treat should have access to all diagnostic options, as well as,
+                therapeutic modalities: pharmacological, physiotherapeutic, psychological, surgical,
+                interventional procedures, physical therapy, among others.<xref ref-type="bibr"
+                    rid="B12">12</xref></p>
+            <p>In the present study the intervention was headed by trigger point dry needling
+                followed by paravertebral blockade and trigger point injections for women. For
+                males, epidural blockade with Depo-Medrol<sup>&#x00ae;</sup>, periarticular blockade
+                with lidocaine and dexamethasone and paravertebral blockade with lidocaine gained
+                importance. According to the European guidelines,<xref ref-type="bibr" rid="B25"
+                    >25</xref> which specifically studied nonspecific low back pain, no single
+                invasive treatment, same as the listed above in our study, showed significant
+                results. High quality studies are required to examine the effectiveness of those
+                procedures.</p>
+        </sec>
+        <sec sec-type="conclusions">
+            <title>Conclusion</title>
+            <p>The prevalence of chronic pain was associated with females in 50-59 years and severe
+                mixed pain. Pain was located mainly in lower limbs and lumbar region. The most
+                frequent diagnosis was low back pain followed by fibromyalgia. Patients were aware
+                about their disease and treatment.</p>
+        </sec>
+    </body>
+    <back>
+        <ack>
+            <title>Acknowledgments</title>
+            <p>Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of
+                Surgery and Anesthesiology, RJ, Brazil, provided important support for this
+                research.</p>
+            <p>This study was funded by the Hospital Municipal Conde Modesto Leal, Center of
+                Diagnostic and Treatment (CDT), Municipal Secretariat of Health, Maricá, RJ,
+                Brazil.</p>
+            <p>This study was presented as a poster presentation at the Brazilian Congress of
+                Anesthesiology CBA Annual Meeting 10-14 November 2018, Belém do Pará, Brazil.</p>
+        </ack>
+        <ref-list>
+            <title>References</title>
+            <ref id="B1">
+                <label>1</label>
+                <mixed-citation>Goldberg DS, McGee SJ. Pain as a global public health priority. BMC
+                    Public Health. 2011;11:770.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Goldberg</surname>
+                            <given-names>DS</given-names>
+                        </name>
+                        <name>
+                            <surname>McGee</surname>
+                            <given-names>SJ</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Pain as a global public health priority</article-title>
+                    <source>BMC Public Health</source>
+                    <volume>11</volume>
+                    <year>2011</year>
+                    <fpage>770</fpage>
+                </element-citation>
+            </ref>
+            <ref id="B2">
+                <label>2</label>
+                <mixed-citation>Gureje O, Von Korff M, Simon GE, et al. Persistent pain and
+                    well-being: a World Health Organization Study in Primary Care. JAMA.
+                    1998;280:147-51.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Gureje</surname>
+                            <given-names>O</given-names>
+                        </name>
+                        <name>
+                            <surname>Von Korff</surname>
+                            <given-names>M</given-names>
+                        </name>
+                        <name>
+                            <surname>Simon</surname>
+                            <given-names>GE</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Persistent pain and well-being: a World Health Organization Study
+                        in Primary Care</article-title>
+                    <source>JAMA</source>
+                    <volume>280</volume>
+                    <year>1998</year>
+                    <fpage>147</fpage>
+                    <lpage>151</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B3">
+                <label>3</label>
+                <mixed-citation>Souza JB, Grossmann E, Perissinotti DMN, et al. Prevalence of
+                    chronic pain, treatments, perception, and interference on life activities:
+                    Brazilian population-based survey. Pain Res Manag.
+                    2017;4643830.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Souza</surname>
+                            <given-names>JB</given-names>
+                        </name>
+                        <name>
+                            <surname>Grossmann</surname>
+                            <given-names>E</given-names>
+                        </name>
+                        <name>
+                            <surname>Perissinotti</surname>
+                            <given-names>DMN</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Prevalence of chronic pain, treatments, perception, and
+                        interference on life activities: Brazilian population-based
+                        survey</article-title>
+                    <source>Pain Res Manag</source>
+                    <year>2017</year>
+                    <comment>4643830</comment>
+                </element-citation>
+            </ref>
+            <ref id="B4">
+                <label>4</label>
+                <mixed-citation>Cipriano A, Almeida DB, Vall J. Perfil do paciente com dor crônica
+                    atendido em um ambulatório de dor de uma grande cidade do sul do Brasil. Rev
+                    Dor. 2011;12:297-300.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Cipriano</surname>
+                            <given-names>A</given-names>
+                        </name>
+                        <name>
+                            <surname>Almeida</surname>
+                            <given-names>DB</given-names>
+                        </name>
+                        <name>
+                            <surname>Vall</surname>
+                            <given-names>J</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Perfil do paciente com dor crônica atendido em um ambulatório de
+                        dor de uma grande cidade do sul do Brasil</article-title>
+                    <source>Rev Dor</source>
+                    <volume>12</volume>
+                    <year>2011</year>
+                    <fpage>297</fpage>
+                    <lpage>300</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B5">
+                <label>5</label>
+                <mixed-citation>Siddall PJ, Cousins MJ. Persistent pain as a disease entity:
+                    implications for clinical management. Anesth Analg.
+                    2004;99:510-20.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Siddall</surname>
+                            <given-names>PJ</given-names>
+                        </name>
+                        <name>
+                            <surname>Cousins</surname>
+                            <given-names>MJ</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Persistent pain as a disease entity: implications for clinical
+                        management</article-title>
+                    <source>Anesth Analg</source>
+                    <volume>99</volume>
+                    <year>2004</year>
+                    <fpage>510</fpage>
+                    <lpage>520</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B6">
+                <label>6</label>
+                <mixed-citation>Rice NE, Lang IA, Henley W, et al. Common health predictors of early
+                    retirement: findings from the English Longitudinal Study of Ageing. Age Ageing.
+                    2011;40:54-61.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Rice</surname>
+                            <given-names>NE</given-names>
+                        </name>
+                        <name>
+                            <surname>Lang</surname>
+                            <given-names>IA</given-names>
+                        </name>
+                        <name>
+                            <surname>Henley</surname>
+                            <given-names>W</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Common health predictors of early retirement: findings from the
+                        English Longitudinal Study of Ageing</article-title>
+                    <source>Age Ageing</source>
+                    <volume>40</volume>
+                    <year>2011</year>
+                    <fpage>54</fpage>
+                    <lpage>61</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B7">
+                <label>7</label>
+                <mixed-citation>Fayaz A, Croft P, Langford RM, et al. Prevalence of chronic pain in
+                    the UK: a systematic review and meta-analysis of population studies. BMJ Open.
+                    2016;6:e010364.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Fayaz</surname>
+                            <given-names>A</given-names>
+                        </name>
+                        <name>
+                            <surname>Croft</surname>
+                            <given-names>P</given-names>
+                        </name>
+                        <name>
+                            <surname>Langford</surname>
+                            <given-names>RM</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Prevalence of chronic pain in the UK: a systematic review and
+                        meta-analysis of population studies</article-title>
+                    <source>BMJ Open</source>
+                    <volume>6</volume>
+                    <year>2016</year>
+                    <fpage>e010364</fpage>
+                </element-citation>
+            </ref>
+            <ref id="B8">
+                <label>8</label>
+                <mixed-citation>WHO Normative guidelines on pain management report of a Delphi Study
+                    to determine the need for guidelines and to identify the number and topics of
+                    guidelines that should be developed by WHO, Geneva; 2007. [Online]. Available:
+                        <ext-link ext-link-type="uri"
+                        xlink:href="http://www.who.int/medicines/areas/quality_safety/delphi_study_pain_guidelines.pdf"
+                        >http://www.who.int/medicines/areas/quality_safety/delphi_study_pain_guidelines.pdf</ext-link>
+                    [accessed 16.02.17]</mixed-citation>
+                <element-citation publication-type="webpage">
+                    <source>WHO Normative guidelines on pain management report of a Delphi Study to
+                        determine the need for guidelines and to identify the number and topics of
+                        guidelines that should be developed by WHO</source>
+                    <publisher-loc>Geneva</publisher-loc>
+                    <year>2007</year>
+                    <comment>[Online]</comment>
+                    <comment>Available: <ext-link ext-link-type="uri"
+                            xlink:href="http://www.who.int/medicines/areas/quality_safety/delphi_study_pain_guidelines.pdf"
+                            >http://www.who.int/medicines/areas/quality_safety/delphi_study_pain_guidelines.pdf</ext-link></comment>
+                    <date-in-citation content-type="access-date">16.02.17</date-in-citation>
+                </element-citation>
+            </ref>
+            <ref id="B9">
+                <label>9</label>
+                <mixed-citation>Pain Intensity Instruments, National Institutes of Health - Warren
+                    Grant Magnuson Clinical Center; July 2003.</mixed-citation>
+                <element-citation publication-type="book">
+                    <source>Pain Intensity Instruments, National Institutes of Health - Warren Grant
+                        Magnuson Clinical Center</source>
+                    <month>07</month>
+                    <year>2003</year>
+                </element-citation>
+            </ref>
+            <ref id="B10">
+                <label>10</label>
+                <mixed-citation>Rondinelli MC, Antunes JM, Sampaio WC, et al. Implementation of pain
+                    control program in a traumatology and orthopedics hospital. Rev Dor.
+                    2016;17:141-4.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Rondinelli</surname>
+                            <given-names>MC</given-names>
+                        </name>
+                        <name>
+                            <surname>Antunes</surname>
+                            <given-names>JM</given-names>
+                        </name>
+                        <name>
+                            <surname>Sampaio</surname>
+                            <given-names>WC</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Implementation of pain control program in a traumatology and
+                        orthopedics hospital</article-title>
+                    <source>Rev Dor</source>
+                    <volume>17</volume>
+                    <year>2016</year>
+                    <fpage>141</fpage>
+                    <lpage>144</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B11">
+                <label>11</label>
+                <mixed-citation>Dellaroza MSG, Furuya RK, Cabrera MAS, et al. Caracterização da dor
+                    crônica e métodos analgésicos utilizados por idosos da comunidade. Rev Assoc Med
+                    Bras. 2008;54:36-41.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Dellaroza</surname>
+                            <given-names>MSG</given-names>
+                        </name>
+                        <name>
+                            <surname>Furuya</surname>
+                            <given-names>RK</given-names>
+                        </name>
+                        <name>
+                            <surname>Cabrera</surname>
+                            <given-names>MAS</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Caracterização da dor crônica e métodos analgésicos utilizados
+                        por idosos da comunidade</article-title>
+                    <source>Rev Assoc Med Bras</source>
+                    <volume>54</volume>
+                    <year>2008</year>
+                    <fpage>36</fpage>
+                    <lpage>41</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B12">
+                <label>12</label>
+                <mixed-citation>Breivik H, Eisenberg E. The individual and societal burden of
+                    chronic pain in Europe: the case for strategic prioritisation and action to
+                    improve knowledge and availability of appropriate care. BMC Public Health.
+                    2013;13:1229.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Breivik</surname>
+                            <given-names>H</given-names>
+                        </name>
+                        <name>
+                            <surname>Eisenberg</surname>
+                            <given-names>E</given-names>
+                        </name>
+                        <collab>O’Brien</collab>
+                    </person-group>
+                    <article-title>The individual and societal burden of chronic pain in Europe: the
+                        case for strategic prioritisation and action to improve knowledge and
+                        availability of appropriate care</article-title>
+                    <source>BMC Public Health</source>
+                    <volume>13</volume>
+                    <year>2013</year>
+                    <fpage>1229</fpage>
+                </element-citation>
+            </ref>
+            <ref id="B13">
+                <label>13</label>
+                <mixed-citation>Rosen S, Ham B, Mogil JS. Sex diferences in neuroimunity and pain. J
+                    Neurosci Res. 2017;95:500-8.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Rosen</surname>
+                            <given-names>S</given-names>
+                        </name>
+                        <name>
+                            <surname>Ham</surname>
+                            <given-names>B</given-names>
+                        </name>
+                        <name>
+                            <surname>Mogil</surname>
+                            <given-names>JS</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Sex diferences in neuroimunity and pain</article-title>
+                    <source>J Neurosci Res</source>
+                    <volume>95</volume>
+                    <year>2017</year>
+                    <fpage>500</fpage>
+                    <lpage>508</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B14">
+                <label>14</label>
+                <mixed-citation>Melchior M, Poisbeau P, Gaumont I, et al. Insights into the
+                    mechanisms and the emergence of sex differences in pain. Neuroscience.
+                    2016;338:63-80.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Melchior</surname>
+                            <given-names>M</given-names>
+                        </name>
+                        <name>
+                            <surname>Poisbeau</surname>
+                            <given-names>P</given-names>
+                        </name>
+                        <name>
+                            <surname>Gaumont</surname>
+                            <given-names>I</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Insights into the mechanisms and the emergence of sex differences
+                        in pain</article-title>
+                    <source>Neuroscience</source>
+                    <volume>338</volume>
+                    <year>2016</year>
+                    <fpage>63</fpage>
+                    <lpage>80</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B15">
+                <label>15</label>
+                <mixed-citation>Maurer AJ, Lissounov A, Knezevic I, et al. Pain and sex hormones: a
+                    review of current understanding. Pain Manag. 2016;6:285-96.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Maurer</surname>
+                            <given-names>AJ</given-names>
+                        </name>
+                        <name>
+                            <surname>Lissounov</surname>
+                            <given-names>A</given-names>
+                        </name>
+                        <name>
+                            <surname>Knezevic</surname>
+                            <given-names>I</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Pain and sex hormones: a review of current
+                        understanding</article-title>
+                    <source>Pain Manag</source>
+                    <volume>6</volume>
+                    <year>2016</year>
+                    <fpage>285</fpage>
+                    <lpage>296</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B16">
+                <label>16</label>
+                <mixed-citation>Kirchengast S, Heber J. Gender and age differences in lean soft
+                    tissue mass and sarcopenia among healthy elderly. Antropol Anz.
+                    2009;67:139-51.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Kirchengast</surname>
+                            <given-names>S</given-names>
+                        </name>
+                        <name>
+                            <surname>Heber</surname>
+                            <given-names>J</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Gender and age differences in lean soft tissue mass and
+                        sarcopenia among healthy elderly</article-title>
+                    <source>Antropol Anz</source>
+                    <volume>67</volume>
+                    <year>2009</year>
+                    <fpage>139</fpage>
+                    <lpage>151</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B17">
+                <label>17</label>
+                <mixed-citation>Karp JF, Shega JW, Morone NE, et al. Advances in understanding the
+                    mechanisms and management of persistent pain in olders adults. Br J Anaesth.
+                    2008;101:111-20.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Karp</surname>
+                            <given-names>JF</given-names>
+                        </name>
+                        <name>
+                            <surname>Shega</surname>
+                            <given-names>JW</given-names>
+                        </name>
+                        <name>
+                            <surname>Morone</surname>
+                            <given-names>NE</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Advances in understanding the mechanisms and management of
+                        persistent pain in olders adults</article-title>
+                    <source>Br J Anaesth</source>
+                    <volume>101</volume>
+                    <year>2008</year>
+                    <fpage>111</fpage>
+                    <lpage>120</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B18">
+                <label>18</label>
+                <mixed-citation>Bouhassira D, Lantéri-Minet M, Attal N, et al. Prevalence of chronic
+                    pain with neuropathic characteristics in the general population. Pain.
+                    2008;136:380-7.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Bouhassira</surname>
+                            <given-names>D</given-names>
+                        </name>
+                        <name>
+                            <surname>Lantéri-Minet</surname>
+                            <given-names>M</given-names>
+                        </name>
+                        <name>
+                            <surname>Attal</surname>
+                            <given-names>N</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Prevalence of chronic pain with neuropathic characteristics in
+                        the general population</article-title>
+                    <source>Pain</source>
+                    <volume>136</volume>
+                    <year>2008</year>
+                    <fpage>380</fpage>
+                    <lpage>387</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B19">
+                <label>19</label>
+                <mixed-citation>Fillingim RB, King CD, Ribeiro-Dasilva MC, et al. Sex, gender, and
+                    pain: a review of recent clinical and experimental findings. J Pain.
+                    2009;10:447-85.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Fillingim</surname>
+                            <given-names>RB</given-names>
+                        </name>
+                        <name>
+                            <surname>King</surname>
+                            <given-names>CD</given-names>
+                        </name>
+                        <name>
+                            <surname>Ribeiro-Dasilva</surname>
+                            <given-names>MC</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Sex, gender, and pain: a review of recent clinical and
+                        experimental findings</article-title>
+                    <source>J Pain</source>
+                    <volume>10</volume>
+                    <year>2009</year>
+                    <fpage>447</fpage>
+                    <lpage>485</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B20">
+                <label>20</label>
+                <mixed-citation>Kozinoga M, Majchrzcki M, Piotrowska S. Low back pain in women
+                    before and after menopause. Prz Menopauzalny. 2015;14:203-7.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Kozinoga</surname>
+                            <given-names>M</given-names>
+                        </name>
+                        <name>
+                            <surname>Majchrzcki</surname>
+                            <given-names>M</given-names>
+                        </name>
+                        <name>
+                            <surname>Piotrowska</surname>
+                            <given-names>S</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Low back pain in women before and after menopause</article-title>
+                    <source>Prz Menopauzalny</source>
+                    <volume>14</volume>
+                    <year>2015</year>
+                    <fpage>203</fpage>
+                    <lpage>207</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B21">
+                <label>21</label>
+                <mixed-citation>Gao HL, Lin SQ, Wei Y, et al. The effect of age and menopausal
+                    status on musculoskeletal symptoms in Chinese women aged 35-64 years. J Clim.
+                    2013;16:639-45.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Gao</surname>
+                            <given-names>HL</given-names>
+                        </name>
+                        <name>
+                            <surname>Lin</surname>
+                            <given-names>SQ</given-names>
+                        </name>
+                        <name>
+                            <surname>Wei</surname>
+                            <given-names>Y</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>The effect of age and menopausal status on musculoskeletal
+                        symptoms in Chinese women aged 35-64 years</article-title>
+                    <source>J Clim</source>
+                    <volume>16</volume>
+                    <year>2013</year>
+                    <fpage>639</fpage>
+                    <lpage>645</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B22">
+                <label>22</label>
+                <mixed-citation>Fillingim RB. Individual differences in pain: understanding the
+                    Mosaic that makes pain personal. Pain. 2017;158(Suppl.
+                    1):S11-8.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Fillingim</surname>
+                            <given-names>RB</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Individual differences in pain: understanding the Mosaic that
+                        makes pain personal</article-title>
+                    <source>Pain</source>
+                    <volume>158</volume>
+                    <issue>Suppl. 1</issue>
+                    <year>2017</year>
+                    <fpage>S11</fpage>
+                    <lpage>S18</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B23">
+                <label>23</label>
+                <mixed-citation>Campbell C, Edwards R, Hastie B, et al. Age and sex differences in
+                    pain perception: the role of gender role stereotypes. J Pain.
+                    2005;6:S60.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Campbell</surname>
+                            <given-names>C</given-names>
+                        </name>
+                        <name>
+                            <surname>Edwards</surname>
+                            <given-names>R</given-names>
+                        </name>
+                        <name>
+                            <surname>Hastie</surname>
+                            <given-names>B</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Age and sex differences in pain perception: the role of gender
+                        role stereotypes</article-title>
+                    <source>J Pain</source>
+                    <volume>6</volume>
+                    <year>2005</year>
+                    <fpage>S60</fpage>
+                </element-citation>
+            </ref>
+            <ref id="B24">
+                <label>24</label>
+                <mixed-citation>Lohman D, Schleirfer R, Amon JJ. Access to pain treatment as a human
+                    right. BMC Med. 2010;8:8.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Lohman</surname>
+                            <given-names>D</given-names>
+                        </name>
+                        <name>
+                            <surname>Schleirfer</surname>
+                            <given-names>R</given-names>
+                        </name>
+                        <name>
+                            <surname>Amon</surname>
+                            <given-names>JJ</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Access to pain treatment as a human right</article-title>
+                    <source>BMC Med</source>
+                    <volume>8</volume>
+                    <year>2010</year>
+                    <fpage>8</fpage>
+                </element-citation>
+            </ref>
+            <ref id="B25">
+                <label>25</label>
+                <mixed-citation>European guidelines for the management of chronic nonspecific low
+                    back pain. Eur Spine J. 2006;15 Suppl. 2:S192-300.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <article-title>European guidelines for the management of chronic nonspecific low
+                        back pain</article-title>
+                    <source>Eur Spine J</source>
+                    <volume>15</volume>
+                    <issue>Suppl. 2</issue>
+                    <year>2006</year>
+                    <fpage>S192</fpage>
+                    <lpage>S300</lpage>
+                </element-citation>
+            </ref>
+        </ref-list>
+    </back>
+    <sub-article article-type="translation" id="SA1" xml:lang="pt">
+        <front-stub>
+            <article-id pub-id-type="doi">10.1016/j.bjan.2019.01.002</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>Artigos Científicos</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>Implementação de atendimento ambulatorial para dor crônica:
+                    resultados preliminares</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0003-2243-0821</contrib-id>
+                    <name>
+                        <surname>Castro</surname>
+                        <given-names>Silvana de</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff4">a</xref>
+                    <xref ref-type="corresp" rid="c2">*</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Cavalcanti</surname>
+                        <given-names>Ismar Lima</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff5">b</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Barrucand</surname>
+                        <given-names>Louis</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff6">c</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Pinto</surname>
+                        <given-names>Cecília Izidoro</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff6">c</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Assad</surname>
+                        <given-names>Alexandra Rezende</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff5">b</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Verçosa</surname>
+                        <given-names>Nubia</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff6">c</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="aff4">
+                <label>a</label>
+                <institution content-type="original">Universidade Federal do Rio de Janeiro (UFRJ),
+                    Dor e Cuidados Paliativos Oncológicos, Rio de Janeiro, RJ, Brasil</institution>
+            </aff>
+            <aff id="aff5">
+                <label>b</label>
+                <institution content-type="original">Universidade Federal Fluminense (UFF), Niterói,
+                    RJ, Brasil</institution>
+            </aff>
+            <aff id="aff6">
+                <label>c</label>
+                <institution content-type="original">Universidade Federal do Rio de Janeiro (UFRJ),
+                    Rio de Janeiro, RJ, Brasil</institution>
+            </aff>
+            <author-notes>
+                <corresp id="c2">
+                    <label>*</label> Autor para correspondência. <italic>E-mail:</italic>
+                    <email>s.lellouchedecastro@gmail.com</email> (S. de Castro).</corresp>
+                <fn fn-type="conflict">
+
+                    <p>
+                        <bold>Conflitos de interesse</bold>
+                    </p>
+                    <p>Os autores declaram não haver conflitos de interesse.</p>
+                </fn>
+            </author-notes>
+            <history>
+                <date date-type="received">
+                    <day>9</day>
+                    <month>7</month>
+                    <year>2018</year>
+                </date>
+                <date date-type="accepted">
+                    <day>14</day>
+                    <month>1</month>
+                    <year>2019</year>
+                </date>
+                <date date-type="pub">
+                    <day>31</day>
+                    <month>05</month>
+                    <year>2019</year>
+                </date>
+            </history>
+            <abstract>
+                <title>Resumo</title>
+                <sec>
+                    <title>Justificativa e objetivos:</title>
+                    <p>A dor é um dos motivos mais comuns para procurar atendimento médico. Este
+                        estudo teve como objetivo analisar pacientes com dor crônica atendidos em
+                        Maricá, no Estado do Rio de Janeiro, Brasil.</p>
+                </sec>
+                <sec>
+                    <title>Métodos:</title>
+                    <p>Estudo transversal retrospectivo com 200 pacientes, atendidos em ambulatório
+                        de um hospital público no período de junho de 2014 a dezembro de 2015. As
+                        variáveis analisadas foram: intensidade da dor, tipo de dor, localização
+                        anatômica, diagnóstico e tratamento. Os dados foram submetidos à análise
+                        estatística, aplicou-se o teste exato de Fisher, e o valor
+                            <italic>p</italic> foi significativo quando &#x2264; 0,05.</p>
+                </sec>
+                <sec>
+                    <title>Resultados:</title>
+                    <p>Analisamos 200 pacientes com dor crônica, sendo a maioria mulheres (83%). A
+                        média de idade foi de 58,6 &#x00b1; 13,01 anos. Os pacientes foram
+                        classificados em seis grupos de acordo com a faixa etária, com dez anos de
+                        diferença entre eles. O grupo principal foi entre 50-59 anos, com 49
+                        mulheres (32%) e cinco homens (15%). Dos pacientes, 65,5% apresentaram dor
+                        intensa (Escala Visual Numérica 9,01). A dor mista foi prevalente, afetou
+                        108 pacientes (92 mulheres e 16 homens, o que representa 55% e 47% do total
+                        de mulheres e homens, respectivamente). A dor anatômica mais prevalente (159
+                        pacientes, 131 mulheres e 28 homens) foi nos membros inferiores. A dor na
+                        parte inferior das costas estava presente em 113 das 200 pessoas analisadas
+                        (94% mulheres e 19% homens). Nos grupos entre 30-39, 50-59 e 60-69 anos, os
+                        resultados para a localização da dor foram significativos:
+                            <italic>p</italic> = 0,01, <italic>p</italic> = 0,0069,
+                            <italic>p</italic> = 0,0003, respectivamente.</p>
+                </sec>
+                <sec>
+                    <title>Conclusão:</title>
+                    <p>A prevalência de dor crônica foi associada ao sexo feminino na faixa de 50-59
+                        anos e à dor mista intensa. A dor foi localizada principalmente nos membros
+                        inferiores e na região lombar. O diagnóstico mais frequente foi de lombalgia
+                        seguida de fibromialgia. Os pacientes foram informados sobre suas doenças e
+                        tratamento.</p>
+                </sec>
+            </abstract>
+            <kwd-group xml:lang="pt">
+                <title>PALAVRAS-CHAVE</title>
+                <kwd>Atenção primária à saúde</kwd>
+                <kwd>Instituições de assistência ambulatorial</kwd>
+                <kwd>Dor crônica</kwd>
+                <kwd>Analgesia</kwd>
+                <kwd>Tratamento da dor</kwd>
+            </kwd-group>
+        </front-stub>
+        <body>
+            <sec sec-type="intro">
+                <title>Introdução</title>
+                <p>A dor crônica está entre as demandas mais comuns na procura de atendimento
+                    médico. A Associação Internacional para o Estudo da Dor (<italic>International
+                        Association for the Study of Pain</italic> - IASP) define a dor crônica como
+                    uma dor sem valor biológico aparente que persiste além do tempo normal de
+                    cicatrização do tecido, cujo tempo normalmente considerado é de três meses. A
+                    dor crônica é reconhecida mundialmente como um grave problema de saúde.
+                    Aproximadamente 60 milhões de pessoas sofrem de dor crônica, correspondente a
+                    cerca de 10% da população mundial.<xref ref-type="bibr" rid="B1">1</xref>
+                    Estudos prévios<xref ref-type="bibr" rid="B1">1</xref><sup>,</sup><xref
+                        ref-type="bibr" rid="B2">2</xref> determinam a prevalência de dor crônica em
+                    cerca de 20% a 25% dos adultos. Um estudo brasileiro mostrou prevalências no Rio
+                    de Janeiro, em São Paulo, Florianópolis e Salvador de 31%, 29%, 26% e 40%,
+                        respectivamente.<xref ref-type="bibr" rid="B3">3</xref> Embora existam
+                    poucas estimativas da prevalência global de dor crônica, a Organização Mundial
+                    da Saúde (OMS) estima que 10% dos adultos sejam diagnosticados a cada ano.<xref
+                        ref-type="bibr" rid="B1">1</xref></p>
+                <p>A prevalência de dor crônica ainda é pouco conhecida, mesmo em países
+                    desenvolvidos, onde vários estudos epidemiológicos foram feitos. No Brasil, a
+                    dor crônica é a principal causa de demanda no atendimento ambulatorial da dor.
+                    São necessários estudos mais detalhados, que certamente contribuirão muito para
+                    o estabelecimento de políticas sociais, de saúde e de metas para a prevenção e
+                    tratamento adequado da dor.<xref ref-type="bibr" rid="B4">4</xref></p>
+                <p>A dor crônica deve ser entendida como uma doença, e não apenas como um sintoma. É
+                    um fenômeno multidimensional que promove impactos na qualidade de vida e na
+                    capacidade funcional e social, com sérias consequências nas condições físicas,
+                    psicológicas e comportamentais.<xref ref-type="bibr" rid="B5">5</xref></p>
+                <p>O entendimento da dor crônica requer não apenas o conhecimento dos mecanismos
+                    biológicos da dor, mas também a avaliação de outros fatores associados à doença,
+                    tais como idade, gênero, etnia e peso. Além do comportamento psicossocial, como
+                    depressão, ansiedade, tabagismo e consumo excessivo de álcool, e condições
+                    socioeconômicas, como estado civil, nível de escolaridade, emprego e atividade
+                        física.<xref ref-type="bibr" rid="B6">6</xref></p>
+                <p>Uma revisão sistemática feita por Fayaz et al. no Reino Unido, constatou que a
+                    prevalência de dor crônica aumenta progressivamente com o aumento da idade,
+                    afetando 62% da população com mais de 75 anos.<xref ref-type="bibr" rid="B7"
+                        >7</xref></p>
+                <p>Uma abordagem terapêutica interdisciplinar é necessária para o alívio da dor e a
+                    restauração física, social e emocional do paciente. De acordo com as Diretrizes
+                    Normativas da OMS sobre o Relatório de Gerenciamento da Dor,<xref
+                        ref-type="bibr" rid="B8">8</xref> a abordagem deve ser estabelecida por uma
+                    equipe multiprofissional.</p>
+                <p>Um número significativo de terapias farmacológicas e não farmacológicas está
+                    disponível para o tratamento da dor crônica. As Diretrizes Normativas da OMS
+                    endossam a combinação terapêutica denominada terapia multimodal.<xref
+                        ref-type="bibr" rid="B8">8</xref></p>
+                <p>Este estudo teve como objetivo descrever as características do perfil de dor
+                    (intensidade, tipo, localização anatômica, diagnóstico e tratamento), bem como o
+                    perfil etário e gênero dos primeiros 200 pacientes com dor crônica consultados
+                    na primeira Clínica da Dor do Hospital Municipal Conde Modesto Leal, principal
+                    financiador deste estudo, na cidade de Maricá (127.461 habitantes), no Estado do
+                    Rio de Janeiro, Brasil. Anteriormente, Maricá não possuía tais instalações
+                    médicas. A inauguração do atendimento ambulatorial na Clínica da Dor trouxe
+                    diversos benefícios para a população, abordada neste trabalho.</p>
+            </sec>
+            <sec sec-type="methods">
+                <title>Métodos</title>
+                <p>O estudo foi aprovado em 27/9/2017 pela direção do Hospital Municipal Conde
+                    Modesto Leal, em Maricá, Estado do Rio de Janeiro, Brasil, e pelo Comitê de
+                    Ética em Pesquisa do Hospital Clementino Fraga Filho, da Universidade Federal do
+                    Rio de Janeiro, Brasil, n° CAAE: 80142617.2.0000.5257 (aprovado em 21/12/2017).
+                    Os pacientes não assinaram o termo de consentimento livre e esclarecido, pois os
+                    dados foram obtidos dos prontuários do hospital.</p>
+                <p>Este estudo transversal retrospectivo foi realizado com os primeiros 200
+                    pacientes atendidos no hospital, entre junho de 2014 e dezembro de 2015 para dor
+                    crônica.</p>
+                <p>Os prontuários dos 200 pacientes estavam no arquivo médico da instituição. Os
+                    dados coletados referem-se a: idade (em faixas etárias), sexo e aspectos
+                    relacionados à dor, tais como a intensidade da dor medida por escala numérica de
+                    avaliação (<italic>Numerical Rating Scale</italic> - NRS), tipo, localização
+                    anatômica, diagnóstico e tratamento da dor.</p>
+                <p>O critério para classificação da dor crônica foi uma duração superior a seis
+                    meses. A NRS<xref ref-type="bibr" rid="B9">9</xref> foi usada para quantificar a
+                    intensidade da percepção da dor dos indivíduos, foi graduada de acordo com os
+                    escores ordinais: sem dor (0), leve (1-3), moderada (4-6) e grave (7-10). O
+                    paciente escolheu o número que melhor representava a intensidade subjetiva de
+                    sua dor. A intensidade da dor foi avaliada no fim da primeira consulta médica na
+                    Clínica da Dor Crônica.</p>
+                <p>Os episódios relacionados à intensidade, tipo (nociceptiva, neuropática e mista),
+                    localização anatômica, diagnóstico e tratamento da dor, bem como o total de cada
+                    gênero para cada faixa etária, foram comparados pelo teste exato de Fisher para
+                    tabela de contingência de 2 &#x00d7; 2. A probabilidade <italic>p</italic>
+                    (bicaudal) foi reconhecida como significativa quando &#x2264; 0,05. A tabela de
+                    porcentagens foi obtida multiplicando-se a soma de cada gênero ou variável por
+                    100 e dividindo-se o quociente pela soma total de cada gênero ou variável.</p>
+            </sec>
+            <sec sec-type="results">
+                <title>Resultados</title>
+                <p>Dos 200 pacientes com dor, 166 eram do sexo feminino e 34 do masculino. A média
+                    de idade foi de 58,66 &#x00b1; 13,01 anos. Os pacientes foram classificados em
+                    seis grupos de acordo com a faixa etária, com dez anos de diferença entre eles
+                    (20-29; 30-39; 40-49; 50-59; 60-69, 70 &#x2265;).</p>
+                <p>Em relação à intensidade da dor, a NRS mostrou que 107 mulheres (65%) e 24 homens
+                    (71%) apresentaram dor intensa (NRS 7-10), total de 131 pacientes (média do
+                    escore NRS de 9,01). A dor moderada (NRS 4-6) foi achada em 66 pacientes: 57
+                    mulheres (34%) e nove homens (9%). A dor leve (NRS 1-3) não alcançou muita
+                    expressão, pois contou com apenas três pacientes. A faixa principal foi a de
+                    50-59 anos, com 54 pacientes: 49 mulheres (32%) e cinco homens (15%). Os homens
+                    tiveram uma representação principal na faixa de 60-69 anos com 57 pacientes: 41
+                    mulheres (26%) e 16 homens (47%). A faixa de 40-49 anos teve 33 pacientes: 27
+                    mulheres (7%) e seis homens (18%) (<xref ref-type="table" rid="t4">tabela
+                        1</xref>).</p>
+                <table-wrap id="t4">
+                    <label>Tabela 1</label>
+                    <caption>
+                        <title>Intensidade da dor medida com a escala numérica (<italic>Numerical
+                                Rating Scale</italic> - NRS)</title>
+                    </caption>
+                    <table frame="hsides" rules="groups" style="background-color:#e7e7e9">
+                        <colgroup>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th align="left">Nível da dor (NRS)</th>
+                                <th style="border-bottom-width:thin;border-bottom-style:solid"
+                                    colspan="6" align="center">Gêneros (F/M) distribuídos por faixa
+                                    etária de 10 anos</th>
+                                <th align="left">Total</th>
+                                <th align="left">Porcentagem</th>
+                            </tr>
+                            <tr>
+                                <th align="left">&#x00A0;</th>
+                                <th align="left">20-29<break/>F/M</th>
+                                <th align="left">30-39<break/>F/M</th>
+                                <th align="left">40-49<break/>F/M</th>
+                                <th align="left">50-59<break/>F/M</th>
+                                <th align="left">60-69<break/>F/M</th>
+                                <th align="left">&#x2265;70<break/>F/M</th>
+                                <th align="left">20-&#x2265;70<break/>F/M</th>
+                                <th align="left">%<break/>F/M</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">Leve (1-3)</td>
+                                <td align="left">0/0</td>
+                                <td align="left">0/0</td>
+                                <td align="left">0/0</td>
+                                <td align="left">1/1</td>
+                                <td align="left">1/0</td>
+                                <td align="left">0/0</td>
+                                <td align="left">2/1</td>
+                                <td align="left">1/3</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Moderada (4-6)</td>
+                                <td align="left">3/0</td>
+                                <td align="left">3/0</td>
+                                <td align="left">8/2</td>
+                                <td align="left">17/2</td>
+                                <td align="left">13/4</td>
+                                <td align="left">13/1</td>
+                                <td align="left">57/9</td>
+                                <td align="left">34/26</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Grave (7-10)</td>
+                                <td align="left">2/0</td>
+                                <td align="left">7/0</td>
+                                <td align="left">19/4</td>
+                                <td align="left">31/2</td>
+                                <td align="left">27/12</td>
+                                <td align="left">21/6</td>
+                                <td align="left">107/24</td>
+                                <td align="left">65/71</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Total</td>
+                                <td align="left">5/0</td>
+                                <td align="left">10/0</td>
+                                <td align="left">27/6</td>
+                                <td align="left">49/5</td>
+                                <td align="left">41/16</td>
+                                <td align="left">34/7</td>
+                                <td align="left">166/34</td>
+                                <td align="left">&#x00A0;</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Percentagem (%)</td>
+                                <td align="left">3/0</td>
+                                <td align="left">6/0</td>
+                                <td align="left">7/18</td>
+                                <td align="left">32/15</td>
+                                <td align="left">26/47</td>
+                                <td align="left">22/21</td>
+                                <td align="left">&#x00A0;</td>
+                                <td align="left">&#x00A0;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table-wrap-foot>
+                        <fn id="TFN10">
+                            <p>F, feminino; M, masculino; nenhum resultado significativo pelo teste
+                                exato de Fisher.</p>
+                        </fn>
+                    </table-wrap-foot>
+                </table-wrap>
+                <p>Os tipos de dor (nociceptiva, neuropática e mista) foram localizados em 108
+                    pacientes: 92 mulheres (55%) e 16 homens (47%). A dor neuropática em 45
+                    pacientes: 40 mulheres (24%) e cinco homens (15%). A dor nociceptiva em 47
+                    pacientes: 34 mulheres (21%) e 13 homens (38%). A faixa de 50-59 anos incluiu 54
+                    pacientes: 49 mulheres (30%) e cinco homens (15%). A faixa de 60-69 anos foi
+                    composta por 57 pacientes: 41 mulheres (25%) e 16 homens (47%) (<xref
+                        ref-type="table" rid="t5">tabela 2</xref>).</p>
+                <table-wrap id="t5">
+                    <label>Tabela 2</label>
+                    <caption>
+                        <title>Tipos de dor</title>
+                    </caption>
+                    <table frame="hsides" rules="groups" style="background-color:#e7e7e9">
+                        <colgroup>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th align="left">Tipo de dor</th>
+                                <th style="border-bottom-width:thin;border-bottom-style:solid"
+                                    colspan="6" align="center">Gêneros (F/M) distribuídos por faixa
+                                    etária de 10 anos</th>
+                                <th align="left">Total</th>
+                                <th align="left">Porcentagem</th>
+                            </tr>
+                            <tr>
+                                <th align="left">&#x00A0;</th>
+                                <th align="left">20-29<break/>F/M</th>
+                                <th align="left">30-39<break/>F/M</th>
+                                <th align="left">40-49<break/>F/M</th>
+                                <th align="left">50-59<break/>F/M</th>
+                                <th align="left">60-69<break/>F/M</th>
+                                <th align="left">&#x2265;70<break/>F/M</th>
+                                <th align="left">20-&#x2265;70<break/>F/M</th>
+                                <th align="left">%<break/>F/M</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">Nociceptiva</td>
+                                <td align="left">1/0</td>
+                                <td align="left">1/0</td>
+                                <td align="left">5/1</td>
+                                <td align="left">6/2</td>
+                                <td align="left">13/6</td>
+                                <td align="left">8/4</td>
+                                <td align="left">34/13</td>
+                                <td align="left">21/38</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Neuropática</td>
+                                <td align="left">2/0</td>
+                                <td align="left">5/0</td>
+                                <td align="left">10/1</td>
+                                <td align="left">9/0</td>
+                                <td align="left">12/3</td>
+                                <td align="left">2/1</td>
+                                <td align="left">40/5</td>
+                                <td align="left">24/15</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Mista</td>
+                                <td align="left">2/0</td>
+                                <td align="left">4/0</td>
+                                <td align="left">12/4</td>
+                                <td align="left">34/3</td>
+                                <td align="left">16/7</td>
+                                <td align="left">24/2</td>
+                                <td align="left">92/16</td>
+                                <td align="left">55/47</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Total</td>
+                                <td align="left">5/0</td>
+                                <td align="left">10/0</td>
+                                <td align="left">27/6</td>
+                                <td align="left">49/5</td>
+                                <td align="left">41/16</td>
+                                <td align="left">34/7</td>
+                                <td align="left">166/34</td>
+                                <td align="left">&#x00A0;</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Porcentagem (%)</td>
+                                <td align="left">1/0</td>
+                                <td align="left">6/0</td>
+                                <td align="left">16/17</td>
+                                <td align="left">30/15</td>
+                                <td align="left">25/47</td>
+                                <td align="left">20/21</td>
+                                <td align="left">&#x00A0;</td>
+                                <td align="left">&#x00A0;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table-wrap-foot>
+                        <fn id="TFN11">
+                            <p>F, feminino; M, masculino; nenhum resultado significativo pelo teste
+                                exato de Fisher.</p>
+                        </fn>
+                    </table-wrap-foot>
+                </table-wrap>
+                <p>Em relação às localizações anatômicas da dor, houve 10 regiões, com 663 locais -
+                    558 para mulheres e 105 para homens. Os membros inferiores incluíram 159 locais
+                    de dor: 131 para mulheres (23%) e 28 para homens (27%). Lombalgia com 113
+                    locais, 94 para mulheres (17%) e 19 para homens (18%), foi a segunda região mais
+                    comum, seguida pelos membros superiores, com 105 locais, 90 para mulheres (16%)
+                    e 15 para homens (14%). A faixa de 50-59 anos foi representada por 194
+                    localizações anatômicas: 178 para mulheres (32%) e 16 para homens (15%),
+                        <italic>p</italic> = 0,0069. A faixa de 60-69 anos teve 179 locais: 133 para
+                    mulheres (24%) e 46 para homens (44%), <italic>p</italic> = 0,0003. Na faixa de
+                    30-39 anos, 27 mulheres (5%) apresentaram locais de dor, mas não houve locais de
+                    dor em homens, <italic>p</italic> = 0,01 (<xref ref-type="table" rid="t6">tabela
+                        3</xref>).</p>
+                <table-wrap id="t6">
+                    <label>Tabela 3</label>
+                    <caption>
+                        <title>Localização anatômica da dor</title>
+                    </caption>
+                    <table frame="hsides" rules="groups" style="background-color:#e7e7e9">
+                        <colgroup>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                            <col width="11%"/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th align="left">Localização anatômica da dor</th>
+                                <th style="border-bottom-width:thin;border-bottom-style:solid"
+                                    colspan="6" align="center">Gêneros (F/M) distribuídos por faixa
+                                    etária de 10 anos</th>
+                                <th align="left">Total</th>
+                                <th align="left">Porcentagem</th>
+                            </tr>
+                            <tr>
+                                <th align="left">&#x00A0;</th>
+                                <th align="left">20-29<break/>F/M</th>
+                                <th align="left">30-39<break/>F/M</th>
+                                <th align="left">40-49<break/>F/M</th>
+                                <th align="left">50-59<break/>F/M</th>
+                                <th align="left">60-69<break/>F/M</th>
+                                <th align="left">&#x2265;70<break/>F/M</th>
+                                <th align="left">20-&#x2265;70<break/>F/M</th>
+                                <th align="left">%<break/>F/M</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">Cervical</td>
+                                <td align="left">2/0</td>
+                                <td align="left">1/0</td>
+                                <td align="left">8/3</td>
+                                <td align="left">17/1</td>
+                                <td align="left">11/3</td>
+                                <td align="left">6/0</td>
+                                <td align="left">45/7</td>
+                                <td align="left">8/7</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Torácica</td>
+                                <td align="left">1/0</td>
+                                <td align="left">5/0</td>
+                                <td align="left">3/1</td>
+                                <td align="left">10/</td>
+                                <td align="left">8/2</td>
+                                <td align="left">8/0</td>
+                                <td align="left">35/4</td>
+                                <td align="left">6/4</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Lombar</td>
+                                <td align="left">0/0</td>
+                                <td align="left">4/0</td>
+                                <td align="left">21/3</td>
+                                <td align="left">27/4</td>
+                                <td align="left">23/8</td>
+                                <td align="left">19/4</td>
+                                <td align="left">94/19</td>
+                                <td align="left">17/18</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Cabeça</td>
+                                <td align="left">4/0</td>
+                                <td align="left">4/0</td>
+                                <td align="left">6/0</td>
+                                <td align="left">13/1</td>
+                                <td align="left">4/2</td>
+                                <td align="left">2/0</td>
+                                <td align="left">33/3</td>
+                                <td align="left">6/3</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Membros superiores</td>
+                                <td align="left">2/0</td>
+                                <td align="left">4/0</td>
+                                <td align="left">8/3</td>
+                                <td align="left">32/3</td>
+                                <td align="left">23/6</td>
+                                <td align="left">21/3</td>
+                                <td align="left">90/15</td>
+                                <td align="left">16/14</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Ombros</td>
+                                <td align="left">1/0</td>
+                                <td align="left">0/0</td>
+                                <td align="left">6/1</td>
+                                <td align="left">14/2</td>
+                                <td align="left">11/1</td>
+                                <td align="left">12/3</td>
+                                <td align="left">44/7</td>
+                                <td align="left">8/7</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Mãos</td>
+                                <td align="left">0/0</td>
+                                <td align="left">2/0</td>
+                                <td align="left">3/2</td>
+                                <td align="left">4/0</td>
+                                <td align="left">2/1</td>
+                                <td align="left">3/0</td>
+                                <td align="left">14/3</td>
+                                <td align="left">3/3</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Membros inferiores</td>
+                                <td align="left">2/0</td>
+                                <td align="left">6/0</td>
+                                <td align="left">21/5</td>
+                                <td align="left">40/3</td>
+                                <td align="left">31/14</td>
+                                <td align="left">31/6</td>
+                                <td align="left">131/28</td>
+                                <td align="left">23/27</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Joelhos</td>
+                                <td align="left">0/0</td>
+                                <td align="left">0/0</td>
+                                <td align="left">4/2</td>
+                                <td align="left">11/1</td>
+                                <td align="left">12/6</td>
+                                <td align="left">12/3</td>
+                                <td align="left">39/12</td>
+                                <td align="left">7/11</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Pés</td>
+                                <td align="left">0/0</td>
+                                <td align="left">1/0</td>
+                                <td align="left">4/1</td>
+                                <td align="left">10/0</td>
+                                <td align="left">8/3</td>
+                                <td align="left">10/3</td>
+                                <td align="left">33/7</td>
+                                <td align="left">6/7</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Total</td>
+                                <td align="left">12/0</td>
+                                <td align="left">27/0<sup><xref ref-type="table-fn" rid="TFN7"
+                                            >a</xref></sup></td>
+                                <td align="left">84/21</td>
+                                <td align="left">178/16<sup><xref ref-type="table-fn" rid="TFN8"
+                                            >b</xref></sup></td>
+                                <td align="left">133/46<sup><xref ref-type="table-fn" rid="TFN9"
+                                            >c</xref></sup></td>
+                                <td align="left">124/22</td>
+                                <td align="left">558/105</td>
+                                <td align="left">&#x00A0;</td>
+                            </tr>
+                            <tr>
+                                <td align="left">Porcentagem (%)</td>
+                                <td align="left">2/0</td>
+                                <td align="left">5/0</td>
+                                <td align="left">15/20</td>
+                                <td align="left">32/15</td>
+                                <td align="left">24/44</td>
+                                <td align="left">22/21</td>
+                                <td align="left">&#x00A0;</td>
+                                <td align="left">&#x00A0;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table-wrap-foot>
+                        <fn id="TFN12">
+                            <p>F, feminino; M, masculino; <italic>p</italic> &#x2264; 0,05
+                                significativo.</p>
+                        </fn>
+                        <fn id="TFN7">
+                            <label>a</label>
+                            <p>
+                                <italic>p</italic> = 0,01, 30-39 anos.</p>
+                        </fn>
+                        <fn id="TFN8">
+                            <label>b</label>
+                            <p>
+                                <italic>p</italic> = 0,0069, 50-59 anos.</p>
+                        </fn>
+                        <fn id="TFN9">
+                            <label>c</label>
+                            <p>
+                                <italic>p</italic> = 0,0003, 60-69 anos.</p>
+                        </fn>
+                    </table-wrap-foot>
+                </table-wrap>
+                <p>O número total de diagnósticos foi de 421: 377 para mulheres e 44 para homens. A
+                    dor ciática lombar foi excepcional com 122 diagnósticos: 107 para mulheres (28%)
+                    e 15 para homens (34%). A fibromialgia chegou a 67 diagnósticos: 64 para
+                    mulheres (17%) e três para homens (7%). A cervicobraquialgia, 58 diagnósticos:
+                    50 para mulheres (13%) e oito para homens (18%). Artrite, 51 diagnósticos: 45
+                    para mulheres (12%) e seis para homens (14%). Dorsalgia, 41 diagnósticos: 37
+                    mulheres (10%) e quatro homens (9%). A dor de cabeça somou 35 casos: 32 mulheres
+                    (8%) e três homens (6%). O número de outros diagnósticos, como neuropatias
+                    neuropáticas, pós-zóster e trigêmeo e síndrome de dor complexa regional, caiu
+                    drasticamente, já que a soma de cada um deles foi inferior a 10. A faixa de
+                    50-59 anos teve 123 diagnósticos: 116 para mulheres (31%) e sete para homens
+                    (16%). A faixa de 60-69 anos somou 112 diagnósticos: 90 para mulheres (24%) e 22
+                    para homens (50%).</p>
+                <p>Foram usados 720 medicamentos para o primeiro tratamento, 579 para mulheres e 141
+                    para homens. Os medicamentos usados foram: analgésicos, opioides, relaxantes
+                    musculares, antidepressivos e anticonvulsivantes. Dipirona e paracetamol tiveram
+                    185 prescrições: 151 para mulheres (26%) e 34 para homens (24%), seguidos por
+                    antidepressivos, com 165 prescrições: 137 para mulheres (24%) e 28 para homens
+                    (20%). Os anticonvulsivantes somaram 115 prescrições: 92 para mulheres (16%) e
+                    23 para homens (16%). Os relaxantes, 154 prescrições: 122 para mulheres (21%) e
+                    32 para homens (2%). Apenas 40 pacientes receberam prescrição de opioides: 29
+                    para mulheres (5%) e 11 para homens (8%). O total de 158 medicamentos para a
+                    faixa etária de 50-59 foi de: 136 para mulheres (24%) e 22 para homens (16%). A
+                    faixa de 60-69 anos teve 210 medicamentos: 141 para mulheres (24%) e 69 para
+                    homens (49%), <italic>p</italic> = 0,0001.</p>
+                <p>Foram 110 métodos de intervenção: 100 para mulheres e 10 para homens. O
+                    agulhamento a seco (agulha de acupuntura) em ponto-gatilho foi o mais usado, com
+                    27 mulheres (27%) e nenhum homem. Lidocaína a 1% em ponto-gatilho foi usada em
+                    26 aplicações: 22 em mulheres (22%) e quatro em homens (40%), seguida de
+                    bloqueio paravertebral com lidocaína a 1%, com 26 casos: 25 para mulheres (25%)
+                    e um para homens (10%). O bloqueio peridural com 80 mg de Depo-Medrol
+                    (Metilprednisolona) chegou a oito administrações: cinco em mulheres (5%) e três
+                    em homens (3%), <italic>p</italic> = 0,042. Outras intervenções feitas foram as
+                    infiltrações periarticulares, com 21 aplicações: 19 em mulheres (19%) e duas em
+                    homens (20%), e bloqueio do gânglio estrelado em duas mulheres (2%) e nenhum
+                    homem.</p>
+            </sec>
+            <sec sec-type="discussion">
+                <title>Discussão</title>
+                <p>A implantação de uma clínica da dor crônica para pacientes ambulatoriais no
+                    município de Maricá foi muito relevante, pois proporcionou o diagnóstico e o
+                    início de um tratamento adequado da dor crônica em pacientes que antes não
+                    tinham acesso a esse tipo de tratamento. É importante notar que a maioria dos
+                    pacientes já havia sido atendida por médicos de diversas especialidades, mas
+                    continuava a se queixar de dor. Uma dificuldade era esperada em relação ao
+                    treinamento de profissionais de saúde não especializados em tratamento da dor.
+                    Rondinelli et al. alertam sobre a necessidade de educação permanente em saúde,
+                    quanto à fisiopatologia, ao tratamento e à estruturação de uma dor. Essas ações
+                    fortaleceriam a interação entre profissionais e pacientes.<xref ref-type="bibr"
+                        rid="B10">10</xref></p>
+                <p>Embora a dor crônica grave possa surgir em uma idade relativamente jovem, nossos
+                    resultados mostraram que a dor é mais frequente nos grupos de pacientes mais
+                    velhos e as mulheres são mais afetadas que os homens. Na faixa de 50-59 anos, as
+                    mulheres (32%) tiveram mais dor que os homens, enquanto eles foram afetados
+                    principalmente na faixa de 60-69 anos (47%). Muitos estudos corroboram esses
+                    resultados quando afirmam que a dor crônica torna-se mais comum com o aumento da
+                    idade, principalmente em mulheres,<xref ref-type="bibr" rid="B4"
+                        >4</xref><sup>,</sup><xref ref-type="bibr" rid="B7"
+                        >7</xref><sup>,</sup><xref ref-type="bibr" rid="B11"
+                        >11</xref><sup>,</sup><xref ref-type="bibr" rid="B12">12</xref> e concluem
+                    que os episódios são mais frequentes e de maior duração nas mulheres do que nos
+                        homens.<xref ref-type="bibr" rid="B4">4</xref> Fayaz et al. mostraram que a
+                    prevalência de dor crônica na faixa de 65-74 anos foi menor do que a prevalência
+                    na faixa de 55-64 anos; a estratificação por gênero em seu estudo demonstra que
+                    essa queda se deve à redução do relato de dor por participantes do sexo
+                    masculino na faixa de 65-74 anos.<xref ref-type="bibr" rid="B7">7</xref></p>
+                <p>Estudos recentes sugerem que a participação dos hormônios gonadais na modulação
+                    neuroimunológica da dor pode representar uma importante causa dessa diferença na
+                    presença de dor entre os gêneros.<xref ref-type="bibr" rid="B13"
+                        >13</xref><sup>-</sup><xref ref-type="bibr" rid="B15">15</xref> Essa
+                    diferença também pode estar relacionada à perda de massa muscular um pouco mais
+                    tarde nos homens, em comparação com as mulheres.<xref ref-type="bibr" rid="B16"
+                        >16</xref> Não foram encontrados estudos que comparassem sarcopenia (perda
+                    progressiva de massa muscular) relacionada ao envelhecimento e gênero na dor
+                    crônica.</p>
+                <p>Em relação à dor crônica, outros fatores devem ser considerados, como a resposta
+                    comportamental à dor, inclusive o componente cognitivo.<xref ref-type="bibr"
+                        rid="B14">14</xref> O atendimento ambulatorial mostrou que a dor intensa foi
+                    predominante em relação à dor moderada e leve, tanto no sexo feminino quanto no
+                    masculino. Vale ressaltar que muitos idosos não relatam sua dor, pois acreditam
+                    erroneamente que a dor é esperada ou consequência normal do processo de
+                        envelhecimento.<xref ref-type="bibr" rid="B11">11</xref> Entretanto, estudos
+                    têm questionado que uma das razões para um declínio da dor após os 65 anos pode
+                    ser uma redução das vias nociceptivas nos idosos.<xref ref-type="bibr" rid="B17"
+                        >17</xref> Finalmente, a questão é se essa diferença entre os gêneros está
+                    relacionada apenas aos mecanismos biológicos da dor ou associada a uma
+                    contribuição dos fatores psicológicos e sociais.</p>
+                <p>No presente estudo, houve predomínio de dor mista (uma combinação de mecanismos
+                    nociceptivos e neuropáticos), semelhantemente aos resultados de Bouhassira et
+                        al.<xref ref-type="bibr" rid="B18">18</xref> As mulheres apresentam alto
+                    risco de dor neuropática em comparação aos homens, segundo estudos feitos por
+                    Fayaz et al.<xref ref-type="bibr" rid="B7">7</xref> e Filling et al.<xref
+                        ref-type="bibr" rid="B19">19</xref> Esses resultados também foram obtidos em
+                    nosso estudo.</p>
+                <p>Autores confirmaram a prevalência de dor muscular esquelética em idosos.<xref
+                        ref-type="bibr" rid="B20">20</xref> Mobilidade reduzida, comprometimento da
+                    atividade física regular, quedas, depressão, ansiedade, distúrbios do sono e
+                    isolamento são fatores associados à dor. Outro fator que influencia o
+                    aparecimento da dor no idoso é a falta de relações familiares e sociais.<xref
+                        ref-type="bibr" rid="B17">17</xref><sup>,</sup><xref ref-type="bibr"
+                        rid="B20">20</xref></p>
+                <p>Cipriano et al. e Fillingim et al. descobriram maior prevalência de dor no
+                    sistema musculoesquelético, o que coincidiu com o nosso resultado.<xref
+                        ref-type="bibr" rid="B4">4</xref><sup>,</sup><xref ref-type="bibr" rid="B19"
+                        >19</xref> No estudo que realizamos, a maioria das queixas de dor veio de
+                    mulheres na faixa de 50-59 anos. Outros estudos concluíram que mulheres entre 45
+                    e 60 anos tiveram aumento na incidência de dor articular e espinhal no período
+                    denominado perimenopausa.<xref ref-type="bibr" rid="B20"
+                        >20</xref><sup>,</sup><xref ref-type="bibr" rid="B21">21</xref></p>
+                <p>Goldberg observa que a dor é uma doença amplamente citada como sintoma. Devido a
+                    esse conceito equivocado, o sistema de saúde havia desconsiderado o tratamento
+                    da dor.<xref ref-type="bibr" rid="B1">1</xref> É muito importante sensibilizar
+                    os gestores de saúde pública para essa questão.<xref ref-type="bibr" rid="B1"
+                        >1</xref><sup>,</sup><xref ref-type="bibr" rid="B5">5</xref> O diagnóstico é
+                    de suma importância, uma vez que a eficiência do tratamento depende dele. Em
+                    nosso estudo, o diagnóstico mais prevalente foi o de dor ciática lombar, seguido
+                    de fibromialgia. Não encontramos resultado similar para comparar.</p>
+                <p>Em relação ao tratamento, os pacientes receberam exclusivamente medicamentos
+                    analgésicos, opioides, relaxantes musculares, antidepressivos e
+                    anticonvulsivantes. Dipirona e paracetamol se destacaram com 185
+                    prescrições.</p>
+                <p>A faixa de 60-69 anos mostra um aumento mais expressivo da necessidade de
+                    tratamento da dor crônica em homens do que em mulheres (<italic>p</italic> =
+                    0,0001), uma relação que se opõe à faixa e 50-59 anos, na qual a porcentagem de
+                    mulheres excedeu a dos homens, mas sem atingir significância. Esses resultados
+                    estão de acordo com as mesmas faixas etárias na análise da localização
+                    anatômica. Fillingim et al.<xref ref-type="bibr" rid="B22">22</xref> afirmam que
+                    o gênero de um indivíduo não tem influência direta na dor, mas que as diferenças
+                    de gênero na dor refletem os efeitos de outros processos biológicos e
+                    psicossociais (p. ex.: hormônios sexuais, respostas inflamatórias, papéis de
+                    gênero, enfrentamento da dor). Embora as diferenças de idade na dor e as
+                    diferenças de gênero na percepção da dor tenham sido amplamente relatadas, as
+                    diferenças de gênero comparadas entre os grupos etários não foram determinadas.
+                    No estudo feito por Campbell et al.<xref ref-type="bibr" rid="B23">23</xref>
+                    observou-se que as diferenças entre os gêneros surgiram para a maioria das
+                    medidas de dor e não houve interações de gênero por idade. Isso sugere que as
+                    diferenças de gênero na percepção da dor foram relativamente consistentes entre
+                    as faixas etárias.</p>
+                <p>A falta de medicamentos para o tratamento da dor é uma barreira prejudicial.
+                    Pouco progresso foi feito nessa área e dez milhões de pessoas precisam suportar
+                    a dor ou suas consequências devido à falta de tratamento.<xref ref-type="bibr"
+                        rid="B24">24</xref> É necessário educar pacientes, profissionais de saúde e
+                    gestores sobre o uso e a distribuição de medicamentos. É muito importante
+                    ressaltar que os pacientes com dor crônica de difícil tratamento devem ter
+                    acesso a todas as opções diagnósticas, bem como às modalidades terapêuticas:
+                    farmacológicas, fisioterapêuticas, psicológicas, cirúrgicas, procedimentos
+                    intervencionistas, fisioterapia, entre outros.<xref ref-type="bibr" rid="B12"
+                        >12</xref></p>
+                <p>No presente estudo, a intervenção foi conduzida por agulhamento a seco em
+                    ponto-gatilho seguido de bloqueio paravertebral e injeções em ponto-gatilho para
+                    mulheres. Para os homens, o bloqueio epidural com
+                    Depo-Medrol<sup>&#x00ae;</sup>, bloqueio periarticular com lidocaína e
+                    dexametasona e bloqueio paravertebral com lidocaína ganharam importância. De
+                    acordo com as diretrizes europeias,<xref ref-type="bibr" rid="B25">25</xref> que
+                    estudaram especificamente a lombalgia inespecífica, nenhum tratamento invasivo
+                    único, semelhante aos listados em nosso estudo, mostrou resultados
+                    significativos. Estudos de alta qualidade são necessários para examinar a
+                    eficácia desses procedimentos.</p>
+            </sec>
+            <sec sec-type="conclusions">
+                <title>Conclusão</title>
+                <p>A prevalência da dor crônica foi associada a mulheres na faixa de 50-59 anos e à
+                    dor mista intensa. A dor foi localizada principalmente nos membros inferiores e
+                    na região lombar. O diagnóstico mais frequente foi de lombalgia seguida de
+                    fibromialgia. Os pacientes estavam conscientes sobre sua doença e
+                    tratamento.</p>
+            </sec>
+        </body>
+        <back>
+            <ack>
+                <title>Agradecimentos</title>
+                <p>A Universidade Federal do Rio de Janeiro (UFRJ), Faculdade de Medicina,
+                    Departamento de Cirurgia e Anestesiologia, RJ, Brasil, proporcionou importante
+                    suporte para esta pesquisa.</p>
+                <p>Este estudo foi financiado pelo Hospital Municipal Conde Modesto Leal, Centro de
+                    Diagnóstico e Tratamento (CDT), Secretaria Municipal de Saúde, Maricá, RJ,
+                    Brasil.</p>
+                <p>Este estudo foi apresentado em pôster no Congresso Anual de Anestesiologia da CBA
+                    em Belém do Pará, Brasil, de 10 a 14 de novembro de 2018.</p>
+            </ack>
+        </back>
+    </sub-article>
+</article>
