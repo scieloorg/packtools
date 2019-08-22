@@ -59,7 +59,15 @@
     </xsl:template>
 
     <xsl:template match="*" mode="article-meta-doi">
-        <xsl:apply-templates select="front/article-meta//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//front-stub/article-meta//article-id[@pub-id-type='doi']">
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:apply-templates select="front/article-meta//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="article-id[@pub-id-type='doi']" mode="display">
