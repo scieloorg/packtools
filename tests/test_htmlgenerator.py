@@ -164,6 +164,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         self.assertIn('<img style="max-width:100%" src="2175-8239-jbn-2018-0058-vf01.jpg">', html_string)
 
+    @unittest.skip('aguardando definicao')
     def test_if_visual_abstract_caption_present_in_html(self):
         sample = u"""<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
                       <front>
@@ -277,25 +278,25 @@ class HTMLGeneratorTests(unittest.TestCase):
         self.assertIn('<img style="max-width:100%" src="2175-8239-jbn-2018-0058-vf01-EN.jpg">', html_string)
 
     def test_if_history_section_is_present_in_primary_language(self):
-      sample = os.path.join(SAMPLES_PATH, '0034-7094-rba-69-03-0227.xml')
-      et = etree.parse(sample)
+        sample = os.path.join(SAMPLES_PATH, '0034-7094-rba-69-03-0227.xml')
+        et = etree.parse(sample)
 
-      html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
-      html_string = etree.tostring(html, encoding='unicode', method='html')
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+        html_string = etree.tostring(html, encoding='unicode', method='html')
 
-      self.assertIn('<h1 class="articleSectionTitle">History</h1>', html_string)
-      self.assertIn('<strong>Received</strong><br>9 July 2018</li>', html_string)
-      self.assertIn('<strong>Accepted</strong><br>14 Jan 2019</li>', html_string)
-      self.assertIn('<strong>Published</strong><br>26 Apr 2019</li>', html_string)
+        self.assertIn('<h1 class="articleSectionTitle">History</h1>', html_string)
+        self.assertIn('<strong>Received</strong><br>9 July 2018</li>', html_string)
+        self.assertIn('<strong>Accepted</strong><br>14 Jan 2019</li>', html_string)
+        self.assertIn('<strong>Published</strong><br>26 Apr 2019</li>', html_string)
 
     def test_if_history_section_is_present_in_sub_article(self):
-      sample = os.path.join(SAMPLES_PATH, '0034-7094-rba-69-03-0227.xml')
-      et = etree.parse(sample)
+        sample = os.path.join(SAMPLES_PATH, '0034-7094-rba-69-03-0227.xml')
+        et = etree.parse(sample)
 
-      html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-      html_string = etree.tostring(html, encoding='unicode', method='html')
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        html_string = etree.tostring(html, encoding='unicode', method='html')
 
-      self.assertIn('<h1 class="articleSectionTitle">Histórico</h1>', html_string)
-      self.assertIn('<strong>Recebido</strong><br>9 Jul 2018</li>', html_string)
-      self.assertIn('<strong>Aceito</strong><br>14 Jan 2019</li>', html_string)
-      self.assertIn('<strong>Publicado</strong><br>31 Maio 2019</li>', html_string)
+        self.assertIn('<h1 class="articleSectionTitle">Histórico</h1>', html_string)
+        self.assertIn('<strong>Recebido</strong><br>9 Jul 2018</li>', html_string)
+        self.assertIn('<strong>Aceito</strong><br>14 Jan 2019</li>', html_string)
+        self.assertIn('<strong>Publicado</strong><br>31 Maio 2019</li>', html_string)

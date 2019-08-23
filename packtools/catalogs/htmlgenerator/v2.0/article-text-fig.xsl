@@ -39,7 +39,7 @@
             <xsl:apply-templates select="." mode="file-location"></xsl:apply-templates>
         </xsl:variable>
         <div>
-            <span><xsl:apply-templates select="caption"/></span>
+            <!-- <span><xsl:apply-templates select="caption"/></span> -->
            <img>
                 <xsl:attribute name="style">max-width:100%</xsl:attribute>
                 <xsl:attribute name="src">
