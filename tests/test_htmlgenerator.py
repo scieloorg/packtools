@@ -299,3 +299,70 @@ class HTMLGeneratorTests(unittest.TestCase):
       self.assertIn('<strong>Recebido</strong><br>9 Jul 2018</li>', html_string)
       self.assertIn('<strong>Aceito</strong><br>14 Jan 2019</li>', html_string)
       self.assertIn('<strong>Publicado</strong><br>31 Maio 2019</li>', html_string)
+
+    def test_show_retraction_box_if_article_is_an_retraction(self):
+      sample = u"""<article article-type="retraction" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/2236-8906-34/2018-retratacao</article-id>
+            <related-article ext-link-type="doi" id="r01" related-article-type="retracted-article"
+              xlink:href="10.1590/2236-8906-34/2018"/>
+          </article-meta>
+        </front>
+      </article>"""
+
+      fp = io.BytesIO(sample.encode('utf-8'))
+      et = etree.parse(fp)
+      html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+      html_string = etree.tostring(html, encoding='unicode', method='html')
+
+      self.assertIn(u'Retratação de', html_string)
+      self.assertIn(
+        u'<ul><li><a href="https://doi.org/10.1590/2236-8906-34/2018" target="_blank">10.1590/2236-8906-34/2018</a></li>',
+        html_string
+      )
+
+    def test_should_translate_retraction_to_english(self):
+      sample = u"""<article article-type="retraction" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="en"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/2236-8906-34/2018-retratacao</article-id>
+            <related-article ext-link-type="doi" id="r01" related-article-type="retracted-article"
+              xlink:href="10.1590/2236-8906-34/2018"/>
+          </article-meta>
+        </front>
+      </article>"""
+
+      fp = io.BytesIO(sample.encode('utf-8'))
+      et = etree.parse(fp)
+      html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+      html_string = etree.tostring(html, encoding='unicode', method='html')
+
+      self.assertIn(u'Retraction of', html_string)
+
+    def test_do_not_show_retraction_box_if_article_is_not_a_retraction(self):
+        sample = u"""<article article-type="research-article" dtd-version="1.1"
+          specific-use="sps-1.8" xml:lang="pt"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <front>
+            <article-meta>
+              <article-id pub-id-type="doi">10.1590/2236-8906-34/2018-retratacao</article-id>
+              <related-article ext-link-type="doi" id="r01" related-article-type="retracted-article"
+                xlink:href="10.1590/2236-8906-34/2018"/>
+            </article-meta>
+          </front>
+        </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+
+        self.assertNotIn(u'Retraction of', html_string)

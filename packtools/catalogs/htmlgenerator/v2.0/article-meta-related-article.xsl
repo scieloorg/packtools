@@ -17,7 +17,25 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    
+
+    <!-- article retraction -->
+    <xsl:template match="article[@article-type='retraction'] | sub-article[@article-type='retraction']" mode="article-meta-related-article">
+        <div class="panel article-correction-title">
+            <div class="panel-heading">
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">Retraction of</xsl:with-param>
+                </xsl:apply-templates>:
+            </div>
+
+            <div class="panel-body">
+                <ul>
+                    <xsl:apply-templates select=".//related-article" mode="article-meta-related-article"></xsl:apply-templates>
+                </ul>
+            </div>
+        </div>
+    </xsl:template>
+    <!-- /article retraction -->
+
     <xsl:template match="*" mode="article-meta-related-articles">
         <!-- 
         <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/0102-311X00064615"></related-article>
