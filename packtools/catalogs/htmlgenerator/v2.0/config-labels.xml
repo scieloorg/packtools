@@ -338,10 +338,10 @@
         <name lang="es">Esta errata corrige</name>
     </term>
     <term>
-        <name>Retraction of</name>
-        <name lang="en">Retraction of</name>
-        <name lang="pt">Retratação de</name>
-        <name lang="es">Retractación de</name>
+        <name>This retraction retracts the following document</name>
+        <name lang="en">This retraction retracts the following document</name>
+        <name lang="pt">Esta retratação retrata o documento</name>
+        <name lang="es">Esta retracción retrata el documento</name>
     </term>
     <term>
         <name>How to cite</name>
