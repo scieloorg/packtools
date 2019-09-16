@@ -19,17 +19,17 @@
     </xsl:template>
 
     <!-- article retraction -->
-    <xsl:template match="article[@article-type='retraction'] | sub-article[@article-type='retraction']" mode="article-meta-related-article">
+    <xsl:template match="article[@article-type='retraction' or @article-type='partial-retraction'] | sub-article[@article-type='retraction' or @article-type='partial-retraction']" mode="article-meta-related-article">
         <div class="panel article-correction-title">
             <div class="panel-heading">
                 <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text">Retraction of</xsl:with-param>
+                    <xsl:with-param name="text">This retraction retracts the following document</xsl:with-param>
                 </xsl:apply-templates>:
             </div>
 
             <div class="panel-body">
                 <ul>
-                    <xsl:apply-templates select=".//related-article" mode="article-meta-related-article"></xsl:apply-templates>
+                    <xsl:apply-templates select=".//related-article[@related-article-type='retracted-article' or @related-article-type='partial-retraction']" mode="article-meta-related-article"></xsl:apply-templates>
                 </ul>
             </div>
         </div>
