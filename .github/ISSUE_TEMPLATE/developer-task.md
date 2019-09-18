@@ -1,0 +1,22 @@
+---
+name: 'Tarefa de desenvolvimento'
+about: Tarefas definidas pelo próprio time de desenvolvimento
+title: ''
+labels: task
+assignees: ''
+
+---
+
+### Descrição da tarefa
+Descreva de forma clara e objetiva a tarefa em questão
+
+### Subtarefas
+
+- [ ] Descrição da primeira subtarefa
+- [ ] Descrição da segunda subtarefa
+
+
+## Considerações e notas
+Adicione informações relevantes, se necessário.
+Ex:
+* A implementação destas mudanças implica em aumentar o consumo de disco..
