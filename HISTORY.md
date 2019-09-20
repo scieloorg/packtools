@@ -1,5 +1,15 @@
 # History
 
+## 2.5.5 (2019-09-16)
+
+* Add highlight to a document retraction [#205](https://github.com/scieloorg/packtools/pull/205)
+
+
+## 2.5.4 (2019-08-26)
+
+* DOI translation view on article page [scieloorg/opac#1391](https://github.com/scieloorg/opac/issues/1391) [#202](https://github.com/scieloorg/packtools/pull/202)
+
+
 ## 2.5.2 (2019-07-19)
 
 * Minor fixes to the generated HTML.
@@ -105,7 +115,7 @@
 ## 2.1 (2017-09-28)
 
 * Initial support for SciELO PS 1.7.
-* Adds support to JATS 1.1. 
+* Adds support to JATS 1.1.
 * Removes Python 3.3 and adds lxml 3.8 and 4.0 to the test matrix.
 
 
@@ -117,9 +127,9 @@
 
 ## 2.0.2 (2017-05-16)
 
-* Reduces the size of the test matrix so tests run on a reasonable amount of 
+* Reduces the size of the test matrix so tests run on a reasonable amount of
   time (the full matrix was taking almost 1 hour to run). Now we are testing
-  against minor versions of lxml  3.4, 3.5 and 3.6 , except for 3.7.x 
+  against minor versions of lxml  3.4, 3.5 and 3.6 , except for 3.7.x
   series where we also test patch versions.
 * Fixes bug that would cause wheel distributions to handle dependencies
   incorrectly.
@@ -133,21 +143,21 @@
 ## 2.0 (2017-04-25)
 
 * [Backwards incompatible] Major changes on ``packtools.domain.XMLValidator``
-  initializer and ``.parse`` classmethod. The param ``extra_schematron`` is 
-  now deprecated. Use ``sch_schemas`` and ``extra_sch_schemas`` instead, since 
+  initializer and ``.parse`` classmethod. The param ``extra_schematron`` is
+  now deprecated. Use ``sch_schemas`` and ``extra_sch_schemas`` instead, since
   both params accept an arbitrary number of schematron schemas.
 * Validation logic was abstracted and moved to Validator objects
-  (``packtools.domain.PyValidator``, ``packtools.domain.DTDValidator``, and 
+  (``packtools.domain.PyValidator``, ``packtools.domain.DTDValidator``, and
   ``packtools.domain.SchematronValidator``).
 * The stylechecker utility exits 0 on success, and >0 if an error occurs
   [https://github.com/scieloorg/packtools/issues/118].
-* The values in attribute ``@country`` are checked against ISO3166 alpha-2 
+* The values in attribute ``@country`` are checked against ISO3166 alpha-2
   list.
-* Fixes a bug that would cause element's text to be printed out on error 
+* Fixes a bug that would cause element's text to be printed out on error
   messages instead of the element's name
   [https://github.com/scieloorg/packtools/issues/123].
-* [Backwards incompatible] Major changes to the data structure returned by 
-  ``packtools.stylechecker.summarize`` and, as consequence, to the 
+* [Backwards incompatible] Major changes to the data structure returned by
+  ``packtools.stylechecker.summarize`` and, as consequence, to the
   JSON-encoded data structure produced by the stylechecker command-line tool
   [https://github.com/scieloorg/packtools/issues/75].
 * The parsing of schematron schemas was accelerated by preventing the
@@ -184,13 +194,13 @@
 
 ## 1.3.3 (2017-02-16)
 
-* Fixes a bug that would cause invalid product types to be accepted on 
+* Fixes a bug that would cause invalid product types to be accepted on
   ``article/front/article-meta/product/@product-type``.
-* Fixes a bug that would cause invalid invalid values to be accepted on 
+* Fixes a bug that would cause invalid invalid values to be accepted on
   ``article/front/article-meta/aff/institution/@content-type``.
-* Clean up unused attributes from classes from the ``packtools.style_error`` 
-  module. 
-* Log messages are now omitted from the stderr by default. 
+* Clean up unused attributes from classes from the ``packtools.style_error``
+  module.
+* Log messages are now omitted from the stderr by default.
 * Fixes a bug that would cause tests to fail on Python 3.6
   [https://github.com/scieloorg/packtools/issues/107].
 
@@ -203,7 +213,7 @@
 
 ## 1.3.1 (2016-10-03)
 
-* Bugfix release 
+* Bugfix release
   [https://github.com/scieloorg/packtools/commit/36a0277e].
 
 
@@ -216,9 +226,9 @@
 
 ## 1.2 (2016-04-04)
 
-* Fixes a bug that would cause ``country`` elements to be mandatory on 
-  sub-articles of type ``transation``. 
-* HTMLGenerator().generate() method now handling undefined 
+* Fixes a bug that would cause ``country`` elements to be mandatory on
+  sub-articles of type ``transation``.
+* HTMLGenerator().generate() method now handling undefined
   ``article/@xml:lang`` attribute.
 
 
@@ -233,7 +243,7 @@
 * Added scripts to handle registration of local xml catalog in the super catalog.
 * New domain specific exceptions.
 * The module ``packtools.xray`` was removed.
-* Added support for automatic generation of HTML documents through 
+* Added support for automatic generation of HTML documents through
   ``HTMLGenerator``.
 * Backwards incompatible change in ``XMLValidator`` init method signature.
 
@@ -245,7 +255,7 @@
 
 ## 0.8.0 (2015-08-31)
 
-* Minor refactoring to make possible for the XMLValidator to handle deprecated 
+* Minor refactoring to make possible for the XMLValidator to handle deprecated
   versions of SciELO PS.
 * Added basic support to SciELO PS 1.3.
 
@@ -257,58 +267,58 @@
 
 ## 0.7.5 (2015-07-03)
 
-* Added feature to run the validation against an external schematron schema 
+* Added feature to run the validation against an external schematron schema
   [#55].
 * stylechecker's ``loglevel`` option accepts upper, lower or mixed case strings.
-* stylechecker utility can read from stdin, so it can be a filter in unix 
+* stylechecker utility can read from stdin, so it can be a filter in unix
   pipelines.
-* Added ``raw`` option to stylechecker. 
-* Fixed bug that would raise UnicodeDecodeError in the presence 
+* Added ``raw`` option to stylechecker.
+* Fixed bug that would raise UnicodeDecodeError in the presence
   of any non-ascii character in the path to the file (Python 2 on Windows only).
 
 
 ## 0.7.4 (2015-06-19)
 
-* Fixed bug that would cause page counts to be reported as error when 
+* Fixed bug that would cause page counts to be reported as error when
   pagination is identified with elocation-id [#51].
-* Added support for creative commons IGO licenses (sps-1.2 only). 
+* Added support for creative commons IGO licenses (sps-1.2 only).
 * Fixed bug that would cause funding-group validation to raise false positives.
 
 
 ## 0.7.3 (2015-05-18)
 
-* Validating the minimum set of elements required for references of type 
+* Validating the minimum set of elements required for references of type
   journal [http://git.io/vUSp6].
-* Added validation of //aff/country/@country attributes for XMLs under 
+* Added validation of //aff/country/@country attributes for XMLs under
   sps-1.2 spec.
 
 
 ## 0.7.2 (2015-04-30)
 
-* Fixes a bug in which the occurrence of empty award-id, 
+* Fixes a bug in which the occurrence of empty award-id,
   fn[@fn-type="financial-disclosure"] or ack could lead stylechecker to crash.
 
 
 ## 0.7.1 (2015-04-29)
 
-* Fixes a bug that report *page-count* as invalid when fpage or lpage values 
+* Fixes a bug that report *page-count* as invalid when fpage or lpage values
   are non-digit.
-* Fixes a bug that mark as invalid XMLs containing use-licenses with 
+* Fixes a bug that mark as invalid XMLs containing use-licenses with
   https scheme or missing trailing slashes.
-* Changes the funding-group validation algorithm. 
-* Checking for funding-statement when fn[fn-type="financial-disclosure"] is 
+* Changes the funding-group validation algorithm.
+* Checking for funding-statement when fn[fn-type="financial-disclosure"] is
   present.
 
 
 ## 0.7 (2015-03-13)
 
 * Added SciELO PS 1.2 support.
-* Added the apparent sourceline of the element raising validation errors 
+* Added the apparent sourceline of the element raising validation errors
   (stylechecker).
-* Added the option *nocolors* to prevent stylechecker output from being 
+* Added the option *nocolors* to prevent stylechecker output from being
   colorized by ANSI escape sequences.
-* stylechecker now prints log messages to stdout. The option *loglevel* 
-  should be used to define the log level. Options are: DEBUG, INFO, WARNING, 
+* stylechecker now prints log messages to stdout. The option *loglevel*
+  should be used to define the log level. Options are: DEBUG, INFO, WARNING,
   ERROR or CRITICAL.
 * SciELO PS 1.2 schematron uses EXSLT querybinding.
 * Better error handling while analyzing multiple XML files with stylechecker.
@@ -326,7 +336,7 @@
 ## 0.6.3 (2015-02-02)
 
 * stylechecker CLI utility overhaul:
-    * The basic output is now presented as JSON structure. 
+    * The basic output is now presented as JSON structure.
     * The option *assetsdir* lookups, in the given dir, for each asset referenced in
       XML. The *annotated* option now writes the output to a file. The
       utility now takes more than one XML a time.
@@ -336,10 +346,10 @@
 ## 0.6.2 (2015-01-23)
 
 * Added method ``XMLValidator.lookup_assets``.
-* Added property ``XMLValidator.assets``. 
-* Fixed minor issue that would cause //element-citation[@publication-type="report"] 
+* Added property ``XMLValidator.assets``.
+* Fixed minor issue that would cause //element-citation[@publication-type="report"]
   to be reported as invalid.
-* Fixed minor issue that would erroneously identify an element-citation element 
+* Fixed minor issue that would erroneously identify an element-citation element
   as not being child of element ref.
 
 
