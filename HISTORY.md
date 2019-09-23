@@ -1,5 +1,27 @@
 # History
 
+## 2.5.5 (2019-09-16)
+
+* Adds highlight to a document retraction
+  [https://github.com/scieloorg/packtools/pull/205].
+* Adds support to partial retractions and minor improvements to labels
+  [https://github.com/scieloorg/opac/issues/1406#issuecomment-524839144].
+
+
+## 2.5.4 (2019-08-26)
+
+* Shows DOIs for translations when available
+  [https://github.com/scieloorg/opac/issues/1391],
+  [https://github.com/scieloorg/packtools/pull/202].
+* Shows history dates for sub-articles. 
+
+
+## 2.5.3 (2019-08-14)
+
+* Fixes the rendering of visual abstracts.
+  [https://github.com/scieloorg/packtools/pull/200].
+
+
 ## 2.5.2 (2019-07-19)
 
 * Minor fixes to the generated HTML.
@@ -22,7 +44,7 @@
 ## 2.4.3 (2019-04-17)
 
 * Minor fixes to the generated HTML
-[https://github.com/scieloorg/opac/issues/1276].
+  [https://github.com/scieloorg/opac/issues/1276].
 
 
 ## 2.4.2 (2019-03-29)
