@@ -1,5 +1,13 @@
 # History
 
+## 2.5.4 (2019-08-26)
+
+* Shows DOIs for translations when available
+  [https://github.com/scieloorg/opac/issues/1391],
+  [https://github.com/scieloorg/packtools/pull/202].
+* Shows history dates for sub-articles. 
+
+
 ## 2.5.3 (2019-08-14)
 
 * Fixes the rendering of visual abstracts.
