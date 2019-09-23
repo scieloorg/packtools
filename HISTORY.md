@@ -1,5 +1,13 @@
 # History
 
+## 2.5.5 (2019-09-16)
+
+* Adds highlight to a document retraction
+  [https://github.com/scieloorg/packtools/pull/205].
+* Adds support to partial retractions and minor improvements to labels
+  [https://github.com/scieloorg/opac/issues/1406#issuecomment-524839144].
+
+
 ## 2.5.4 (2019-08-26)
 
 * Shows DOIs for translations when available
