@@ -113,10 +113,10 @@
             <xsl:otherwise>
                 <xsl:apply-templates select="contrib[1]" mode="how2cite-contrib">
 
-                </xsl:apply-templates>
+                </xsl:apply-templates> et al.
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="count(contrib)&gt;3">et al</xsl:if>.
+        
     </xsl:template>
 
     <xsl:template match="contrib" mode="how2cite-contrib">
@@ -132,6 +132,10 @@
 
     <xsl:template match="name" mode="how2cite-contrib">
         <xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
+    </xsl:template>
+
+    <xsl:template match="collab" mode="how2cite-contrib">
+        <xsl:apply-templates select="."/>
     </xsl:template>
 
     <xsl:template match="*" mode="how2cite-article-title">

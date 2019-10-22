@@ -391,3 +391,82 @@ class HTMLGeneratorTests(unittest.TestCase):
         u'<ul><li><a href="https://doi.org/10.1590/2236-8906-34/2018" target="_blank">10.1590/2236-8906-34/2018</a></li>',
         html_string
       )
+
+    def test_presents_in_how_to_cite_collab_and_et_al_if_contrib_quantity_is_greater_than_3(self):
+      sample = u"""<article article-type="partial-retraction" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/2175-7860201869402</article-id>
+            <article-categories>
+                    <subj-group subj-group-type="heading">
+                            <subject>GSPC - Global Strategy for Plant Conservation</subject>
+                    </subj-group>
+            </article-categories>
+            <title-group>
+                    <article-title>Brazilian Flora 2020: Innovation and collaboration to meet Target 1 of the Global Strategy for Plant Conservation (GSPC)</article-title>
+            </title-group>
+            <contrib-group>
+                    <contrib contrib-type="author">
+                            <collab>The Brazil Flora Group</collab>
+                            <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                    <contrib contrib-type="author">
+                            <name>
+                                    <surname>Filardi</surname>
+                                    <given-names>Fabiana L. Ranzato</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                            <xref ref-type="corresp" rid="c1">1</xref>
+                    </contrib>
+                    <contrib contrib-type="author">
+                            <name>
+                                    <surname>Barros</surname>
+                                    <given-names>Fábio de</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                    <contrib contrib-type="author">
+                            <name>
+                                    <surname>Bicudo</surname>
+                                    <given-names>Carlos E.M.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                    <contrib contrib-type="author">
+                            <name>
+                                    <surname>Cavalcanti</surname>
+                                    <given-names>Taciana B.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+            </contrib-group>
+            <author-notes>
+                    <corresp id="c1">
+                            <label>1</label>Author for correspondence: <email>rafaela@jbrj.gov.br</email>, <email>floradobrasil2020@jbrj.gov.br</email>
+                    </corresp>
+                    <fn fn-type="edited-by">
+                            <p>Editor de área: Dr. Renato Pereira</p>
+                    </fn>
+            </author-notes>
+            <pub-date pub-type="epub-ppub">
+                    <season>Oct-Dec</season>
+                    <year>2018</year>
+            </pub-date>
+            <volume>69</volume>
+            <issue>04</issue>
+            <fpage>1513</fpage>
+            <lpage>1527</lpage>
+          </article-meta>
+        </front>
+      </article>"""
+      fp = io.BytesIO(sample.encode('utf-8'))
+      et = etree.parse(fp)
+      html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+      html_string = etree.tostring(html, encoding='unicode', method='html')
+      self.assertIn(
+        u'The Brazil Flora Group et al',
+        html_string
+      )
