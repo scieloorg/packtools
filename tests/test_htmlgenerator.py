@@ -391,3 +391,53 @@ class HTMLGeneratorTests(unittest.TestCase):
         u'<ul><li><a href="https://doi.org/10.1590/2236-8906-34/2018" target="_blank">10.1590/2236-8906-34/2018</a></li>',
         html_string
       )
+
+    def test_presents_link_to_retreted_document_using_pid(self):
+      sample = u"""<article article-type="partial-retraction" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/2236-8906-34/2018-retratacao</article-id>
+            <related-article ext-link-type="scielo-pid" id="r01" related-article-type="partial-retraction"
+              xlink:href="S0864-34662016000200003"/>
+          </article-meta>
+        </front>
+      </article>"""
+
+      fp = io.BytesIO(sample.encode('utf-8'))
+      et = etree.parse(fp)
+      html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+      html_string = etree.tostring(html, encoding='unicode', method='html')
+
+      self.assertIn(u'Esta retratação retrata o documento', html_string)
+      self.assertIn(
+        u'<ul><li><a href="/article/S0864-34662016000200003" target="_blank">S0864-34662016000200003</a></li>',
+        html_string
+      )
+
+    def test_presents_link_to_retreted_document_using_aid(self):
+      sample = u"""<article article-type="partial-retraction" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/2236-8906-34/2018-retratacao</article-id>
+            <related-article ext-link-type="scielo-aid" id="r01" related-article-type="partial-retraction"
+              xlink:href="12345567799"/>
+          </article-meta>
+        </front>
+      </article>"""
+
+      fp = io.BytesIO(sample.encode('utf-8'))
+      et = etree.parse(fp)
+      html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+      html_string = etree.tostring(html, encoding='unicode', method='html')
+
+      self.assertIn(u'Esta retratação retrata o documento', html_string)
+      self.assertIn(
+        u'<ul><li><a href="/article/12345567799" target="_blank">12345567799</a></li>',
+        html_string
+      )

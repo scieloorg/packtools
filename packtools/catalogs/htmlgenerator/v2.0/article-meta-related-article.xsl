@@ -99,8 +99,18 @@
         </li>
     </xsl:template>
     
-    <xsl:template match="related-article/@xlink:href">
+    <xsl:template match="related-article[@ext-link-type='doi']/@xlink:href">
         <a href="https://doi.org/{.}" target="_blank">
+            <xsl:value-of select="."/>
+        </a>
+    </xsl:template>
+    <xsl:template match="related-article[@ext-link-type='scielo-pid']/@xlink:href">
+        <a href="/article/{.}" target="_blank">
+            <xsl:value-of select="."/>
+        </a>
+    </xsl:template>
+    <xsl:template match="related-article[@ext-link-type='scielo-aid']/@xlink:href">
+        <a href="/article/{.}" target="_blank">
             <xsl:value-of select="."/>
         </a>
     </xsl:template>
