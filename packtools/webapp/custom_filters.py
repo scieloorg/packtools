@@ -4,7 +4,6 @@ import re
 from distutils import util
 
 from flask import Markup
-from slugify import slugify
 
 
 dict_status = {"ok": "success"}
@@ -36,7 +35,7 @@ def utility_processor():
         return value or default
 
     def trans_status(status, to_label=False):
-        status = slugify(status.lower())
+        status = status.lower().replace(" ", "-")
         if asbool(to_label):
             return label_status_translation.get(status, status)
         return dict_status.get(status, status)
