@@ -28,7 +28,6 @@ EXTRAS_REQUIRE = {
         'Flask',
         'Flask-BabelEx',
         'Flask-WTF',
-        'python-slugify',
     ]
 }
 
@@ -36,7 +35,6 @@ EXTRAS_REQUIRE = {
 TESTS_REQUIRE = [
     'Flask-Testing>=0.6.2',
     'Flask-BabelEx',
-    'python-slugify',
     'Flask-WTF',
 ]
 
