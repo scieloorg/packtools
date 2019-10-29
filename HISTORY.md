@@ -1,5 +1,14 @@
 # History
 
+
+## 2.5.6 (2019-10-29)
+
+* Fixes link to retracted articles in the HTML.
+* Fixes the *how to cite* of documents that have collaborative authors.
+* Adds Python 3.7 to the test matrix.
+* Removes the dependency of `python-slugify`.
+
+
 ## 2.5.5 (2019-09-16)
 
 * Adds highlight to a document retraction
