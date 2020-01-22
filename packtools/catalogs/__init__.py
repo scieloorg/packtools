@@ -23,6 +23,7 @@ default_catalog = {
             'sps-1.7': os.path.join(_CWD, 'scielo-style-1.7.sch'),
             'sps-1.8': os.path.join(_CWD, 'scielo-style-1.8.sch'),
             'sps-1.9': os.path.join(_CWD, 'scielo-style-1.9.sch'),
+            'sps-1.10': os.path.join(_CWD, 'scielo-style-1.10.sch'),
 
             # Collection-specific schema
             'scielo-br': os.path.join(_CWD, 'scielo-br.sch'),
