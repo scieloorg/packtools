@@ -6225,3 +6225,80 @@ class SourceTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+
+class RoleTests(PhaseBasedTestCase):
+    """Tests for //contrib-group/contrib/role elements.
+    """
+    sch_phase = 'phase.role'
+
+    def test_role_with_free_text(self):
+        sample = u"""<article>
+                      <front>
+                        <article-meta>
+                          <contrib-group>
+                            <contrib>
+                              <role>Autor correspondente</role>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_CRediT_taxonomy_urls(self):
+        for value in [
+            "https://dictionary.casrai.org/Contributor_Roles/Conceptualization",
+            "https://dictionary.casrai.org/Contributor_Roles/Data_curation",
+            "https://dictionary.casrai.org/Contributor_Roles/Formal_analysis",
+            "https://dictionary.casrai.org/Contributor_Roles/Funding_acquisition",
+            "https://dictionary.casrai.org/Contributor_Roles/Investigation",
+            "https://dictionary.casrai.org/Contributor_Roles/Methodology",
+            "https://dictionary.casrai.org/Contributor_Roles/Project_administration",
+            "https://dictionary.casrai.org/Contributor_Roles/Resources",
+            "https://dictionary.casrai.org/Contributor_Roles/Software",
+            "https://dictionary.casrai.org/Contributor_Roles/Supervision",
+            "https://dictionary.casrai.org/Contributor_Roles/Validation",
+            "https://dictionary.casrai.org/Contributor_Roles/Visualization",
+            "https://dictionary.casrai.org/Contributor_Roles/Writing_original_draft",
+            "https://dictionary.casrai.org/Contributor_Roles/Writing_review_editing",
+            ]:
+            sample = u"""<article>
+                          <front>
+                            <article-meta>
+                              <contrib-group>
+                                <contrib>
+                                  <role content-type="{value}">Autor correspondente</role>
+                                </contrib>
+                              </contrib-group>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """.format(value=value)
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_role_with_invalid_taxonomy_url(self):
+        for value in [
+            "https://dictionary.casrai.org/Contributor_Roles/INVALID_URL",
+            "invalid_value",
+            ]:
+            sample = u"""<article>
+                          <front>
+                            <article-meta>
+                              <contrib-group>
+                                <contrib>
+                                  <role content-type="{value}">Autor correspondente</role>
+                                </contrib>
+                              </contrib-group>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """.format(value=value)
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertFalse(self._run_validation(sample))
+
