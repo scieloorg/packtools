@@ -1180,7 +1180,7 @@ class KwdGroupLangTests(PhaseBasedTestCase):
     """
     sch_phase = 'phase.kwd-group_lang'
 
-    def test_single_occurence(self):
+    def test_single_occurence_without_lang(self):
         sample = u"""<article>
                       <front>
                         <article-meta>
