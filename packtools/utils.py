@@ -11,6 +11,7 @@ import unicodedata
 import zipfile
 
 from lxml import etree, isoschematron
+from PIL import Image
 try:
     import pygments     # NOQA
     from pygments.lexers import get_lexer_for_mimetype
@@ -282,4 +283,145 @@ def resolve_schematron_filepath(value):
         return value
     else:
         raise ValueError('could not locate file "%s" (I/O failure)' % value)
-         
+
+
+class WebImageGenerator:
+    """Generate WEB Images versions of a given Image.
+
+    Basic usage:
+
+    .. code-block:: python
+
+        image_generator = WebImageGenerator(image_filename, image_file_dir)
+        new_filename = image_generator.convert2png()
+
+    :param image_filename: image file name
+    :param image_file_dir: directory where ``image_filename`` is and where new versions
+        will be saved
+    """
+
+    def __init__(self, image_filename, image_file_dir):
+        self.image_file_path = os.path.join(image_file_dir, image_filename)
+
+    def convert2png(self):
+        """Generate a PNG file from image file in the same directory with the same name,
+        changing only the file extension."""
+        new_filename = os.path.splitext(self.image_file_path)[0] + ".png"
+        with Image.open(self.image_file_path) as tiff_file:
+            png_file = tiff_file.copy()
+            png_file.save(new_filename, "PNG")
+        return new_filename
+
+    def create_thumbnail(self):
+        """Generate a thumbnail file from image file in the same directory with the same name,
+        changing only the file name to ``*.thumbnail.jpg.``"""
+        new_filename = os.path.splitext(self.image_file_path)[0] + ".thumbnail.jpg"
+        with Image.open(self.image_file_path) as image_file:
+            size = (267, 140)
+            thumbnail_file = image_file.copy()
+            thumbnail_file.thumbnail(size)
+            thumbnail_file.save(new_filename, "JPEG")
+        return new_filename
+
+
+class XMLWebOptimiser(object):
+    """Optimise XML document to be properly rendered to HTML, with alternatives to
+    images.
+
+    Basic usage:
+
+    .. code-block:: python
+
+        package = XMLWebOptimiser(xml_file, xml_filename)
+        xml_etree = package.get_optimised_xml(get_optimised_image, get_image_thumbnail)
+
+    :param xml_file: XML document, instance of ``etree._ElementTree``
+    :param xml_filename: XML filename
+    """
+
+    def __init__(self, xml_file, xml_filename):
+        self.xml_file = xml_file
+        self.xml_filename = xml_filename
+
+    def _get_all_images_to_optimise(self):
+        paths = [
+            './/graphic[@xlink:href and not(@specific-use="scielo-web")]',
+            './/inline-graphic[@xlink:href and not(@specific-use="scielo-web")]',
+        ]
+        namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
+        iterators = [self.xml_file.xpath(path, namespaces=namespaces) for path in paths]
+        for image in itertools.chain(*iterators):
+            image_filename = image.attrib.get("{http://www.w3.org/1999/xlink}href", "")
+            if ".tif" in image_filename:
+                path = '../{}[@xlink:href and @specific-use="scielo-web"]'.format(
+                    image.tag
+                )
+                if len(image.xpath(path, namespaces=namespaces)) == 0:
+                    yield image_filename, image
+
+    def _get_all_images_to_thumbnail(self):
+        path = "//graphic[@xlink:href]"
+        namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
+        images = self.xml_file.xpath(path, namespaces=namespaces)
+        images_parents = {image.getparent() for image in images}
+        for images_parent in images_parents:
+            alternatives = images_parent.xpath(
+                "./graphic[@xlink:href]", namespaces=namespaces
+            )
+            thumbnail = images_parent.xpath(
+                './graphic[@xlink:href and starts-with(@content-type, "scielo-")]',
+                namespaces=namespaces,
+            )
+            if len(alternatives) == 1 or len(thumbnail) == 0:
+                image_filename = alternatives[0].attrib.get(
+                    "{http://www.w3.org/1999/xlink}href", ""
+                )
+                yield image_filename, alternatives[0]
+
+    def get_optimised_xml(self, get_optimised_image, get_image_thumbnail):
+        """Get optimised XML, with WEB alternatives for images.
+
+        :param get_optimised_image: function to get optimised image file from given file
+            referenced in XML
+        :param get_image_thumbnail: function to get image thumbnail from given file
+            referenced in XML
+        """
+        for image_filename, image_element in self._get_all_images_to_optimise():
+            new_filename = get_optimised_image(image_filename)
+            if new_filename is not None:
+                new_alternative = etree.Element(image_element.tag)
+                new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
+                new_alternative.set("specific-use", "scielo-web")
+
+                image_parent = image_element.getparent()
+                if image_parent.tag == "alternatives":
+                    image_parent.append(new_alternative)
+                else:
+                    alternative_node = etree.Element("alternatives")
+                    alternative_node.tail = image_element.tail
+                    image_element.tail = None
+                    alternative_node.append(image_element)
+                    alternative_node.append(new_alternative)
+                    image_parent.append(alternative_node)
+
+        for image_filename, image_element in self._get_all_images_to_thumbnail():
+            new_filename = get_image_thumbnail(image_filename)
+            if new_filename is not None:
+                new_alternative = etree.Element(image_element.tag)
+                new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
+                new_alternative.set("specific-use", "scielo-web")
+                new_alternative.set("content-type", "scielo-267x140")
+
+                image_parent = image_element.getparent()
+                if image_parent.tag == "alternatives":
+                    image_parent.append(new_alternative)
+                else:
+                    alternative_node = etree.Element("alternatives")
+                    alternative_node.tail = image_element.tail
+                    image_element.tail = None
+                    alternative_node.append(image_element)
+                    alternative_node.append(new_alternative)
+                    image_parent.append(alternative_node)
+
+        return self.xml_file
+
