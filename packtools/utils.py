@@ -9,6 +9,7 @@ import sys
 import json
 import unicodedata
 import zipfile
+import io
 
 from lxml import etree, isoschematron
 from PIL import Image
@@ -425,3 +426,125 @@ class XMLWebOptimiser(object):
 
         return self.xml_file
 
+
+class SPPackage(object):
+    """Adapter that manipulate SciELO Publishing Packages.
+
+    Basic usage:
+
+    .. code-block:: python
+
+        package = SPPackage(package_file, extracted_package)
+        package.optimise()
+
+    :param package_file: SciELO Publishing Package, instance of ``zipfile.ZipFile``
+    :param extracted_package: path to extract package files and optimise them
+    """
+
+    def __init__(self, package_file, extracted_package):
+        self._package_file = package_file
+        self._extracted_package = extracted_package
+
+    @classmethod
+    def from_file(cls, package_file_path, extracted_package=None):
+        """Factory of SPPackage instances.
+
+        :param package_file_path: Path to the SciELO Publishing Package file, instance
+               of ``zipfile.ZipFile``
+        """
+
+        if not zipfile.is_zipfile(package_file_path):
+            raise ValueError("File is not a zip file")
+
+        package2optimise = zipfile.ZipFile(package_file_path)
+        if extracted_package is None:
+            extracted_package = os.path.splitext(package_file_path)[0]
+        return cls(package2optimise, extracted_package)
+
+    def _optimise_xml_to_web(self, parsed_xml, xml_filename):
+
+        xml_web_optimiser = XMLWebOptimiser(parsed_xml, xml_filename)
+        optimised_xml = xml_web_optimiser.get_optimised_xml(
+            self.create_optimised_image, self.create_image_thumbnail
+        )
+        with open(
+            os.path.join(self._extracted_package, xml_filename), "wb"
+        ) as xml_file:
+            xml_file.write(etree.tostring(optimised_xml))
+
+    def _optimise_image(self, image_to_optimise, do_optimisation):
+        self._package_file.extract(image_to_optimise, self._extracted_package)
+        optimised_file_path = do_optimisation()
+        os.remove(os.path.join(self._extracted_package, image_to_optimise))
+        return os.path.split(optimised_file_path)[-1]
+
+    def create_optimised_image(self, image_to_optimise):
+        """Create WEB image alternative of an image in SciELO Publishing Package.
+
+        :param image_to_optimise: image file name in SciELO Publishing Package.
+        """
+        web_image_generator = WebImageGenerator(
+            image_to_optimise, self._extracted_package
+        )
+        return self._optimise_image(image_to_optimise, web_image_generator.convert2png)
+
+    def create_image_thumbnail(self, large_image):
+        """Create image thumbnail of an image in SciELO Publishing Package.
+
+        :param large_image: image file name in SciELO Publishing Package.
+        """
+        web_image_generator = WebImageGenerator(large_image, self._extracted_package)
+        return self._optimise_image(
+            large_image, web_image_generator.create_thumbnail
+        )
+
+    def optimise(self, new_package_file_path=None, preserve_files=True):
+        """Optimise SciELO Publishing Package to have WEB images alternatives.
+
+        For each XML file in package, optimise XML with WEB images alternatives.
+        In the end, creates a new SciELO Publishing Package, compressed in a ZIP file,
+        with previous content and updates all optimised XMLs and the web images
+        versions.
+        
+        :param new_package_file_path (default=None): Path to optimised SciELO Publishing
+            Package file. If not given, it will be the same path and file name of the
+            original package file ended with ``_optimised.zip``.
+        :param preserve_files (default=True): preserve extracted and optimised files in
+            aux directory. If False, it will delete files after written in new Package.
+        """
+        xmls_filenames = [
+            xml_filename
+            for xml_filename in self._package_file.namelist()
+            if os.path.splitext(xml_filename)[-1] == ".xml"
+        ]
+        for i, xml_filename in enumerate(xmls_filenames):
+            LOGGER.info(
+                "Optimizing XML file %s [%s/%s]", xml_filename, i, len(xmls_filenames)
+            )
+            self._optimise_xml_to_web(
+                XML(io.BytesIO(self._package_file.read(xml_filename))), xml_filename
+            )
+        files_to_update = os.listdir(self._extracted_package)
+        if len(files_to_update) > 0:
+            files_to_copy = set(self._package_file.namelist()) - set(files_to_update)
+            if new_package_file_path is None:
+                new_package_file_path = self._extracted_package + "_optimised.zip"
+            LOGGER.info(
+                "Generating new SciELO Publishing Package %s", new_package_file_path
+            )
+            with zipfile.ZipFile(new_package_file_path, "w") as new_zip_file:
+                for zipped_file in files_to_copy:
+                    zip_info = self._package_file.getinfo(zipped_file)
+                    new_zip_file.writestr(
+                        zipped_file,
+                        self._package_file.read(zipped_file),
+                        zip_info.compress_type,
+                    )
+                for filename in files_to_update:
+                    LOGGER.info("Updating %s file in package", filename)
+                    file_path = os.path.join(self._extracted_package, filename)
+                    new_zip_file.write(file_path, filename)
+                    if not preserve_files:
+                        os.remove(file_path)
+            if not preserve_files:
+                os.rmdir(self._extracted_package)

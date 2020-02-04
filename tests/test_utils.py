@@ -296,3 +296,144 @@ class TestXMLWebOptimiser(unittest.TestCase):
                 self.assertEqual(
                     image.attrib["{http://www.w3.org/1999/xlink}href"], expected_href,
                 )
+
+
+class TestSPPackage(unittest.TestCase):
+    def setUp(self):
+        self.temp_package_dir = tempfile.mkdtemp(".")
+        self.temp_img_dir = tempfile.mkdtemp(".")
+        self.tmp_package = os.path.join(self.temp_package_dir, "sps_package.zip")
+        self.extracted_package = os.path.splitext(self.tmp_package)[0]
+        self.optimised_package = self.extracted_package + "_optimised.zip"
+
+        with zipfile.ZipFile(self.tmp_package, "a") as self.archive:
+            xml_file_path = os.path.join(self.temp_img_dir, "somedocument.xml")
+            with open(xml_file_path, "wb") as xml_file:
+                xml_file.write(BASE_XML)
+            self.archive.write(xml_file_path, "somedocument.xml")
+            image_files = (
+                ("1234-5678-rctb-45-05-0110-e01.tif", "TIFF"),
+                ("1234-5678-rctb-45-05-0110-e02.tiff", "TIFF"),
+                ("1234-5678-rctb-45-05-0110-gf03.tiff", "TIFF"),
+                ("1234-5678-rctb-45-05-0110-gf03.png", "PNG"),
+                ("1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg", "JPEG"),
+                ("1234-5678-rctb-45-05-0110-e04.tif", "TIFF"),
+            )
+            for image_filename, format in image_files:
+                image_file_path = os.path.join(self.temp_img_dir, image_filename)
+                create_image_file(image_file_path, format)
+                self.archive.write(image_file_path, image_filename)
+
+        self.archive = zipfile.ZipFile(self.tmp_package)
+        self.sp_package = utils.SPPackage(self.archive, self.extracted_package)
+
+    def tearDown(self):
+        self.archive.close()
+        shutil.rmtree(self.temp_package_dir)
+        shutil.rmtree(self.temp_img_dir)
+
+    def test_create_SPPackage(self):
+        self.assertEqual(self.sp_package._package_file, self.archive)
+        self.assertEqual(self.sp_package._extracted_package, self.extracted_package)
+
+    def test_from_file(self):
+        package = utils.SPPackage.from_file(self.tmp_package)
+        self.assertIsInstance(package, utils.SPPackage)
+
+    def test_from_file_receives_extracted_directory(self):
+        package = utils.SPPackage.from_file(self.tmp_package, "/tmp/test")
+        self.assertEqual(package._extracted_package, "/tmp/test")
+
+    def test_optimise_xml_to_web_optimised_images(self):
+        self.sp_package._optimise_xml_to_web(
+            utils.XML(io.BytesIO(BASE_XML)), "somedocument.xml"
+        )
+
+        expected = [
+            "1234-5678-rctb-45-05-0110-e01.png",
+            "1234-5678-rctb-45-05-0110-e02.png",
+            "1234-5678-rctb-45-05-0110-e04.png",
+        ]
+        for file in expected:
+            self.assertTrue(os.path.exists(os.path.join(self.extracted_package, file)))
+        self.assertFalse(
+            os.path.exists(
+                os.path.join(
+                    self.extracted_package, "1234-5678-rctb-45-05-0110-gf03.png"
+                )
+            )
+        )
+
+    def test_optimise_xml_to_web_optimises_xmls(self):
+        self.sp_package._optimise_xml_to_web(
+            utils.XML(io.BytesIO(BASE_XML)), "somedocument.xml"
+        )
+        self.assertTrue(
+            os.path.exists(os.path.join(self.extracted_package, "somedocument.xml"))
+        )
+        expected = [
+            "1234-5678-rctb-45-05-0110-e01.png",
+            "1234-5678-rctb-45-05-0110-e01.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e02.png",
+            "1234-5678-rctb-45-05-0110-gf03.png",
+            "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e04.png",
+        ]
+        path = '//graphic[@specific-use="scielo-web"]|//inline-graphic[@specific-use="scielo-web"]'
+        xml_file_path = os.path.join(self.extracted_package, "somedocument.xml")
+        xml_file = utils.XML(xml_file_path)
+        for image_element, expected_href in zip(xml_file.xpath(path), expected):
+            self.assertEqual(
+                image_element.attrib["{http://www.w3.org/1999/xlink}href"],
+                expected_href,
+            )
+
+    def test_optimise_creates_optimised_zip(self):
+        self.sp_package.optimise()
+        self.assertTrue(os.path.exists(self.optimised_package))
+        self.assertTrue(len(os.listdir(self.extracted_package)) > 0)
+
+    def test_optimise_deletes_aux_directory_if_preserve_files_false(self):
+        self.sp_package.optimise(preserve_files=False)
+        self.assertTrue(os.path.exists(self.optimised_package))
+        self.assertFalse(os.path.exists(self.extracted_package))
+
+    def test_optimise_creates_optimised_zip_with_given_path(self):
+        given_zip_path = self.extracted_package + "_test.zip"
+        self.sp_package.optimise(new_package_file_path=given_zip_path)
+        self.assertTrue(os.path.exists(given_zip_path))
+
+    def test_optimise_creates_zip_with_files(self):
+        self.sp_package.optimise()
+
+        optimised_images = [
+            "1234-5678-rctb-45-05-0110-e01.png",
+            "1234-5678-rctb-45-05-0110-e01.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e02.png",
+            "1234-5678-rctb-45-05-0110-gf03.png",
+            "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e04.png",
+        ]
+        with zipfile.ZipFile(self.optimised_package) as zf:
+            self.assertTrue(set(self.archive.namelist()).issubset(set(zf.namelist())))
+            self.assertTrue(set(optimised_images).issubset(set(zf.namelist())))
+
+    def test_optimise_updates_xmls(self):
+        self.sp_package.optimise()
+
+        expected = [
+            "1234-5678-rctb-45-05-0110-e01.png",
+            "1234-5678-rctb-45-05-0110-e01.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e02.png",
+            "1234-5678-rctb-45-05-0110-gf03.png",
+            "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e04.png",
+        ]
+        with zipfile.ZipFile(self.optimised_package) as zf:
+            xml_file = utils.XML(io.BytesIO(zf.read("somedocument.xml")))
+            path = '//graphic[@specific-use="scielo-web"]|//inline-graphic[@specific-use="scielo-web"]'
+            for image_element, expected_href in zip(xml_file.xpath(path), expected):
+                self.assertEqual(
+                    image_element.attrib["{http://www.w3.org/1999/xlink}href"],
+                    expected_href,
+                )
