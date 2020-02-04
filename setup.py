@@ -20,6 +20,7 @@ with open('packtools/version.py') as fp:
 INSTALL_REQUIRES = [
     'lxml>=3.4.0',
     'picles.plumber>=0.11',
+    'Pillow~=6.2',
 ]
 
 
@@ -85,6 +86,7 @@ setup(
         "console_scripts":[
             "stylechecker=packtools.stylechecker:main",
             "htmlgenerator=packtools.htmlgenerator:main",
+            "package_optimiser=packtools.package_optimiser:main",
         ]
     }
 )
