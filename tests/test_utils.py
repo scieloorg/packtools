@@ -9,7 +9,13 @@ import shutil
 
 from PIL import Image
 
-from packtools import utils
+from packtools import utils, exceptions
+
+
+try:
+    from unittest import mock
+except:
+    import mock
 
 
 BASE_XML = b"""<?xml version="1.0" encoding="UTF-8"?>
@@ -266,7 +272,51 @@ class TestXMLWebOptimiser(unittest.TestCase):
             image_filename, image_element = image
             self.assertEqual(expected_filename, image_filename)
 
-    def test_get_optimised_xml(self):
+    @mock.patch("packtools.utils.LOGGER")
+    def test_get_optimised_xml_get_image_error(self, MockLogger):
+        def mock_get_optimised_image(filename):
+            if "1234-5678-rctb-45-05-0110-e02.tiff" in filename:
+                raise exceptions.SPPackageError(
+                    "Error reading 1234-5678-rctb-45-05-0110-e02.tiff"
+                )
+            return os.path.splitext(filename)[0] + ".png"
+
+        def mock_get_image_thumbnail(filename):
+            if "1234-5678-rctb-45-05-0110-e01.tif" in filename:
+                raise exceptions.SPPackageError(
+                    "Error reading 1234-5678-rctb-45-05-0110-e01.tif"
+                )
+            return os.path.splitext(filename)[0] + ".thumbnail.jpg"
+
+        expected = [
+            ("1234-5678-rctb-45-05-0110-e01.png",),
+            (
+                "1234-5678-rctb-45-05-0110-gf03.png",
+                "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
+            ),
+            ("1234-5678-rctb-45-05-0110-e04.png",),
+        ]
+        xml_result = self.xml_web_optimiser.get_optimised_xml(
+            mock_get_optimised_image, mock_get_image_thumbnail
+        )
+        MockLogger.error.assert_any_call(
+            "Error optimising image: %s",
+            "Error reading 1234-5678-rctb-45-05-0110-e02.tiff",
+        )
+        MockLogger.error.assert_any_call(
+            "Error creating image thumbnail: %s",
+            "Error reading 1234-5678-rctb-45-05-0110-e01.tif",
+        )
+        for alternatives, expected_files in zip(
+            xml_result.findall("//alternatives"), expected
+        ):
+            path = './graphic[@specific-use="scielo-web"]|./inline-graphic[@specific-use="scielo-web"]'
+            for image, expected_href in zip(alternatives.xpath(path), expected_files):
+                self.assertEqual(
+                    image.attrib["{http://www.w3.org/1999/xlink}href"], expected_href
+                )
+
+    def test_get_optimised_xml_ok(self):
         def mock_get_optimised_image(filename):
             return os.path.splitext(filename)[0] + ".png"
 
@@ -289,12 +339,12 @@ class TestXMLWebOptimiser(unittest.TestCase):
             mock_get_optimised_image, mock_get_image_thumbnail
         )
         for alternatives, expected_files in zip(
-            xml_result.findall('//alternatives'), expected
+            xml_result.findall("//alternatives"), expected
         ):
             path = './graphic[@specific-use="scielo-web"]|./inline-graphic[@specific-use="scielo-web"]'
             for image, expected_href in zip(alternatives.xpath(path), expected_files):
                 self.assertEqual(
-                    image.attrib["{http://www.w3.org/1999/xlink}href"], expected_href,
+                    image.attrib["{http://www.w3.org/1999/xlink}href"], expected_href
                 )
 
 
@@ -386,6 +436,16 @@ class TestSPPackage(unittest.TestCase):
             self.assertEqual(
                 image_element.attrib["{http://www.w3.org/1999/xlink}href"],
                 expected_href,
+            )
+
+    def test_optimise_image_raises_error_if_error_extracting_file(self):
+        inexistent_file = "inexistent_file.tiff"
+        web_image_generator = utils.WebImageGenerator(
+            "inexistent_file.tiff", self.extracted_package
+        )
+        with self.assertRaises(exceptions.SPPackageError) as exc_info:
+            self.sp_package._optimise_image(
+                inexistent_file, web_image_generator.convert2png
             )
 
     def test_optimise_creates_optimised_zip(self):

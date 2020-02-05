@@ -20,7 +20,7 @@ try:
 except ImportError:
     pygments = False    # NOQA
 
-from packtools import catalogs
+from packtools import catalogs, exceptions
 
 
 LOGGER = logging.getLogger(__name__)
@@ -388,8 +388,11 @@ class XMLWebOptimiser(object):
             referenced in XML
         """
         for image_filename, image_element in self._get_all_images_to_optimise():
-            new_filename = get_optimised_image(image_filename)
-            if new_filename is not None:
+            try:
+                new_filename = get_optimised_image(image_filename)
+            except exceptions.SPPackageError as exc:
+                LOGGER.error("Error optimising image: %s", str(exc))
+            else:
                 new_alternative = etree.Element(image_element.tag)
                 new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
                 new_alternative.set("specific-use", "scielo-web")
@@ -406,8 +409,11 @@ class XMLWebOptimiser(object):
                     image_parent.append(alternative_node)
 
         for image_filename, image_element in self._get_all_images_to_thumbnail():
-            new_filename = get_image_thumbnail(image_filename)
-            if new_filename is not None:
+            try:
+                new_filename = get_image_thumbnail(image_filename)
+            except exceptions.SPPackageError as exc:
+                LOGGER.error("Error creating image thumbnail: %s", str(exc))
+            else:
                 new_alternative = etree.Element(image_element.tag)
                 new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
                 new_alternative.set("specific-use", "scielo-web")
@@ -473,10 +479,16 @@ class SPPackage(object):
             xml_file.write(etree.tostring(optimised_xml))
 
     def _optimise_image(self, image_to_optimise, do_optimisation):
-        self._package_file.extract(image_to_optimise, self._extracted_package)
-        optimised_file_path = do_optimisation()
-        os.remove(os.path.join(self._extracted_package, image_to_optimise))
-        return os.path.split(optimised_file_path)[-1]
+        try:
+            self._package_file.extract(image_to_optimise, self._extracted_package)
+        except KeyError as exc:
+            raise exceptions.SPPackageError(
+                "No file named {} in package".format(image_to_optimise)
+            ) from None
+        else:
+            optimised_file_path = do_optimisation()
+            os.remove(os.path.join(self._extracted_package, image_to_optimise))
+            return os.path.split(optimised_file_path)[-1]
 
     def create_optimised_image(self, image_to_optimise):
         """Create WEB image alternative of an image in SciELO Publishing Package.
@@ -494,9 +506,7 @@ class SPPackage(object):
         :param large_image: image file name in SciELO Publishing Package.
         """
         web_image_generator = WebImageGenerator(large_image, self._extracted_package)
-        return self._optimise_image(
-            large_image, web_image_generator.create_thumbnail
-        )
+        return self._optimise_image(large_image, web_image_generator.create_thumbnail)
 
     def optimise(self, new_package_file_path=None, preserve_files=True):
         """Optimise SciELO Publishing Package to have WEB images alternatives.
