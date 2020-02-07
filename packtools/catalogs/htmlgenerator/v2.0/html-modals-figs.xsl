@@ -31,7 +31,7 @@
                         <h4 class="modal-title"><span class="sci-ico-fileFigure"></span> <xsl:apply-templates select="." mode="label-caption"></xsl:apply-templates></h4>                 
                     </div>
                     <div class="modal-body">
-                        <xsl:apply-templates select="graphic"/>
+                        <xsl:apply-templates select="alternatives | graphic"/>
                         <xsl:apply-templates select="disp-formula"></xsl:apply-templates>
                         <xsl:apply-templates select="attrib"></xsl:apply-templates>
                     </div>
