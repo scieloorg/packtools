@@ -29,6 +29,8 @@
         -->
     </xsl:template>
 
+    <xsl:template match="graphic | inline-graphic" mode="file-location"><xsl:apply-templates select="@xlink:href"/></xsl:template>
+
     <xsl:template match="graphic/@xlink:href | inline-graphic/@xlink:href">
         <xsl:variable name="s"><xsl:value-of select="substring(.,string-length(.)-4)"/></xsl:variable>
         <xsl:variable name="ext"><xsl:if test="contains($s,'.')">.<xsl:value-of select="substring-after($s,'.')"/></xsl:if></xsl:variable>

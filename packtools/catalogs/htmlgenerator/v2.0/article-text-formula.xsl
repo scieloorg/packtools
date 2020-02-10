@@ -21,6 +21,10 @@
 		<span class="label"><xsl:value-of select="."/></span>
 	</xsl:template>
 
+    <xsl:template match="disp-formula[alternatives]" mode="file-location">
+        <xsl:apply-templates select="alternatives" />
+    </xsl:template>
+
     <xsl:template match="tex-math">
         <span class="formula-body">
             <xsl:choose>

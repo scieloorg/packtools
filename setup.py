@@ -20,6 +20,7 @@ with open('packtools/version.py') as fp:
 INSTALL_REQUIRES = [
     'lxml>=3.4.0',
     'picles.plumber>=0.11',
+    'Pillow~=6.2',
 ]
 
 
@@ -49,6 +50,8 @@ if int(setuptools.__version__.split('.', 1)[0]) < 18:
 else:
     EXTRAS_REQUIRE[':python_version<"3.4"'] = ['pathlib>=1.0.1']
 
+if sys.version_info[0:2] == (2, 7):
+    TESTS_REQUIRE.append('mock')
 
 setup(
     name="packtools",
@@ -85,6 +88,7 @@ setup(
         "console_scripts":[
             "stylechecker=packtools.stylechecker:main",
             "htmlgenerator=packtools.htmlgenerator:main",
+            "package_optimiser=packtools.package_optimiser:main",
         ]
     }
 )

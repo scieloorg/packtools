@@ -45,6 +45,9 @@
     <xsl:template match="table-wrap/label">
         <strong><xsl:apply-templates></xsl:apply-templates> </strong>
     </xsl:template>
+    <xsl:template match="table-wrap[alternatives]">
+        <xsl:apply-templates select="alternatives" />
+    </xsl:template>
     <xsl:template match="table-wrap-foot">
         <div class="ref-list">
             <ul class="refList footnote">

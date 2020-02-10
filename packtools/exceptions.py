@@ -2,6 +2,7 @@ class PacktoolsError(Exception):
     """ The root of all evil in this lib.
     """
 
+
 class XMLDoctypeError(PacktoolsError, TypeError):
     """ To handle missing or unsupported DOCTYPE definitions.
     """
@@ -19,4 +20,14 @@ class UndefinedDTDError(PacktoolsError, TypeError):
 
 class HTMLGenerationError(PacktoolsError):
     """ Generic errors during HTML generation phase.
+    """
+
+
+class SPPackageError(PacktoolsError):
+    """ Generic errors during SP Package optimisation.
+    """
+
+
+class XMLWebOptimiserError(SPPackageError):
+    """ Generic errors during XML WEB optimisation.
     """

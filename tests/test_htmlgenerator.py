@@ -520,3 +520,236 @@ class HTMLGeneratorTests(unittest.TestCase):
         u'The Brazil Flora Group et al',
         html_string
       )
+
+
+class HTMLGeneratorDispFormulaTests(unittest.TestCase):
+    def setUp(self):
+        self.sample = u"""<article article-type="research-article" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/2175-7860201869402</article-id>
+            <title-group>
+                <article-title>
+                    Article Title
+                </article-title>
+            </title-group>
+            <pub-date pub-type="epub-ppub">
+                <season>Oct-Dec</season>
+                <year>2018</year>
+            </pub-date>
+            <supplementary-material mimetype="application"
+                                    mime-subtype="tiff"
+                                    xlink:href="1234-5678-rctb-45-05-0110-suppl02.tif"/>
+          </article-meta>
+        </front>
+          <body>
+            <sec>
+              <p>The Eh measurements... <xref ref-type="disp-formula" rid="e01">equation 1</xref>(in mV):</p>
+              {graphic1}
+              <p>We also used an... {graphic2}.</p>
+            </sec>
+          </body>
+      </article>"""
+
+    def test_graphic_images_alternatives_must_prioritize_scielo_web_in_disp_formula(self):
+        graphic1 = """
+        <disp-formula id="e01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+            </alternatives>
+        </disp-formula>
+        """
+        graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff" /><inline-graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        self.assertIsNotNone(
+            html.find(
+                '//div[@class="formula-container"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            )
+        )
+        self.assertIsNotNone(
+            html.find('//p//img[@src="1234-5678-rctb-45-05-0110-e02.png"]')
+        )
+
+    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_disp_formula(self):
+        graphic1 = """
+        <disp-formula id="e01">
+            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+        </disp-formula>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        self.assertIsNotNone(
+            html.find(
+                '//div[@class="formula-container"]//img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
+            )
+        )
+        self.assertIsNotNone(
+            html.find('//p//img[@src="1234-5678-rctb-45-05-0110-e02.jpg"]')
+        )
+
+    def test_graphic_images_alternatives_must_prioritize_scielo_web_in_fig(self):
+        graphic1 = """
+        <fig id="e01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+            </alternatives>
+        </fig>
+        """
+        graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff" /><inline-graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
+            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.png);"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0)
+
+    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_fig(self):
+        graphic1 = """
+        <fig id="e01">
+            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+        </fig>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
+            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.jpg);"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0)
+
+    def test_graphic_images_alternatives_must_prioritize_scielo_web_in_modal_disp_formula(self):
+        graphic1 = """
+        <disp-formula id="e01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+            </alternatives>
+        </disp-formula>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        modal_body = html.find(
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+        )
+        self.assertIsNotNone(modal_body)
+
+    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_modal_disp_formula(self):
+        graphic1 = """
+        <disp-formula id="e01">
+            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+        </disp-formula>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        modal_body = html.find(
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
+        )
+        self.assertIsNotNone(modal_body)
+
+    def test_graphic_images_alternatives_must_prioritize_scielo_web_in_modal_fig(self):
+        graphic1 = """
+        <fig id="e01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+            </alternatives>
+        </fig>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        modal_body = html.find(
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+        )
+        self.assertIsNotNone(modal_body)
+
+    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_modal_fig(self):
+        graphic1 = """
+        <fig id="e01">
+            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+        </fig>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        modal_body = html.find(
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
+        )
+        self.assertIsNotNone(modal_body)
+
+    def test_graphic_images_alternatives_must_prioritize_scielo_web_in_modal_table_wrap(self):
+        graphic1 = """
+        <table-wrap id="e01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+            </alternatives>
+        </table-wrap>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        modal_body = html.find(
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+        )
+        self.assertIsNotNone(modal_body)
+
+    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_modal_table_wrap(self):
+        graphic1 = """
+        <table-wrap id="e01">
+            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+        </table-wrap>
+        """
+        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        modal_body = html.find(
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
+        )
+        self.assertIsNotNone(modal_body)
