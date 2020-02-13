@@ -521,6 +521,24 @@ class HTMLGeneratorTests(unittest.TestCase):
         html_string
       )
 
+    def test_article_meta_doi_should_be_an_explicit_link(self):
+      sample = u"""<article article-type="research-article" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="en"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/r</article-id>
+          </article-meta>
+        </front>
+      </article>"""
+      fp = io.BytesIO(sample.encode("utf-8"))
+      et = etree.parse(fp)
+      html = domain.HTMLGenerator.parse(et, valid_only=False).generate("en")
+      html_string = etree.tostring(html, encoding="unicode", method="html")
+
+      article_header_dois = html.xpath("//span[contains(@class, 'group-doi')]//a[contains(@class, '_doi')]")
+      self.assertEquals(len(article_header_dois), 1)
+
 
 class HTMLGeneratorDispFormulaTests(unittest.TestCase):
     def setUp(self):
