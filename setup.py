@@ -18,7 +18,7 @@ with open('packtools/version.py') as fp:
 
 
 INSTALL_REQUIRES = [
-    'lxml>=3.4.0',
+    'lxml>=4.2.0',
     'picles.plumber>=0.11',
     'Pillow~=6.2',
 ]
@@ -75,7 +75,6 @@ setup(
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
