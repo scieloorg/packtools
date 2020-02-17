@@ -484,7 +484,7 @@ class SPPackage(object):
         except KeyError as exc:
             raise exceptions.SPPackageError(
                 "No file named {} in package".format(image_to_optimise)
-            ) from None
+            )
         else:
             optimised_file_path = do_optimisation()
             os.remove(os.path.join(self._extracted_package, image_to_optimise))
