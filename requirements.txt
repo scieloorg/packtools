@@ -1,6 +1,6 @@
 Babel==2.6.0
 Click==7.0
-Flask==1.0.3
+Flask==1.1.1
 Flask-BabelEx==0.9.3
 Flask-WTF==0.14.2
 itsdangerous==1.1.0
@@ -11,6 +11,6 @@ picles.plumber==0.11
 pytz==2019.1
 speaklater==1.3
 text-unidecode==1.2
-Werkzeug==0.15.6
+Werkzeug==0.16.1
 WTForms==2.2.1
 Pillow==6.2.2
