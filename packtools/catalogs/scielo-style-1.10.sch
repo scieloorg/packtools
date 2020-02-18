@@ -300,10 +300,6 @@ code for more information.
     <active pattern="chapter-title_cardinality"/>
   </phase>
 
-  <phase id="phase.role">
-    <active pattern="role_content-type-values"/>
-  </phase>
-
   <!--
    Patterns - sets of rules.
   -->
@@ -1742,25 +1738,5 @@ code for more information.
     </rule>
   </pattern>
 
-  <pattern id="role_content-type-values">
-    <rule context="//contrib-group/contrib/role[@content-type]">
-      <assert test="@content-type = 'https://dictionary.casrai.org/Contributor_Roles/Conceptualization' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Data_curation' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Formal_analysis' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Funding_acquisition' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Investigation' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Methodology' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Project_administration' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Resources' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Software' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Supervision' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Validation' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Visualization' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Writing_original_draft' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Writing_review_editing'">
-        Element 'role', attribute content-type: Invalid value '<value-of select="@content-type"/>'.
-      </assert>
-    </rule>
-  </pattern>
 </schema>
 
