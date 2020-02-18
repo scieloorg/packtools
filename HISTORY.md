@@ -1,6 +1,14 @@
 # History
 
 
+## 2.6.0 (2020-02-18)
+
+* Drop support for Python version 3.4.
+* Ajustments to follow the Crossref DOI Display guidelines [https://www.crossref.org/display-guidelines/]
+* Tool to optimise images for WEB in SPS Packages
+* Initial support for SciELO PS version 1.10.
+
+
 ## 2.5.6 (2019-10-29)
 
 * Fixes link to retracted articles in the HTML.
