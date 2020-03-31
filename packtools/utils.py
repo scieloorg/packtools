@@ -386,6 +386,42 @@ class WebImageGenerator:
             finally:
                 image_file.close()
 
+    def _get_bytes(self, format):
+        image_file = io.BytesIO()
+        try:
+            self._image_object.convert("RGB").save(image_file, format)
+        except (ValueError, IOError) as exc:
+            raise exceptions.WebImageGeneratorError(
+                'Error optimising image bytes from "%s": %s' % (self.filename, str(exc))
+            )
+        else:
+            return image_file.getvalue()
+
+    def get_png_bytes(self):
+        """Generate a PNG image byte-like object from image file set in
+        ``self._image_object``."""
+        if self._image_object is None:
+            raise exceptions.WebImageGeneratorError(
+                'Error optimising image bytes from "%s": '
+                'no original file bytes was given.'
+                % self.filename
+            )
+
+        return self._get_bytes("PNG")
+
+    def get_thumbnail_bytes(self):
+        """Generate a thumbnail image byte-like object from image file set in
+        ``self._image_object``."""
+        if self._image_object is None:
+            raise exceptions.WebImageGeneratorError(
+                'Error optimising image bytes from "%s": '
+                'no original file bytes was given.'
+                % self.filename
+            )
+
+        self._image_object.thumbnail(self.thumbnail_size)
+        return self._get_bytes("JPEG")
+
 
 class XMLWebOptimiser(object):
     """Optimise XML document to be properly rendered to HTML, with alternatives to

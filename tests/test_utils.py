@@ -358,6 +358,67 @@ class TestWebImageGenerator(unittest.TestCase):
         shutil.rmtree(destination_path)
         self.assertTrue(is_thumbnail_ok)
 
+    def test_get_png_bytes_no_image_object(self):
+        web_image_generator = utils.WebImageGenerator(
+            "image_tiff_1.tiff", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.get_png_bytes()
+        self.assertEqual(
+            str(exc_info.exception),
+            'Error optimising image bytes from "image_tiff_1.tiff": '
+            'no original file bytes was given.'
+        )
+
+    def test_get_png_bytes_ok(self):
+        mocked_image_io = io.BytesIO()
+        mocked_image = Image.new("RGB", (10, 10))
+        mocked_image.save(mocked_image_io, "TIFF")
+        parser = ImageFile.Parser()
+        parser.feed(mocked_image_io.getvalue())
+        web_image_generator = utils.WebImageGenerator(
+            "image_tiff_1.tiff", self.extracted_package
+        )
+        web_image_generator._image_object = parser.close()
+
+        result = web_image_generator.get_png_bytes()
+
+        image_expected = io.BytesIO()
+        image_copy = web_image_generator._image_object.copy()
+        image_copy.save(image_expected, "PNG")
+        self.assertEqual(result, image_expected.getvalue())
+
+    def test_get_thumbnail_bytes_no_image_object(self):
+        web_image_generator = utils.WebImageGenerator(
+            "image_tiff_1.tiff", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.get_thumbnail_bytes()
+        self.assertEqual(
+            str(exc_info.exception),
+            'Error optimising image bytes from "image_tiff_1.tiff": '
+            'no original file bytes was given.'
+        )
+
+    def test_get_thumbnail_bytes_ok(self):
+        mocked_image_io = io.BytesIO()
+        mocked_image = Image.new("RGB", (10, 10))
+        mocked_image.save(mocked_image_io, "TIFF")
+        parser = ImageFile.Parser()
+        parser.feed(mocked_image_io.getvalue())
+        web_image_generator = utils.WebImageGenerator(
+            "image_tiff_1.tiff", self.extracted_package
+        )
+        web_image_generator._image_object = parser.close()
+
+        result = web_image_generator.get_thumbnail_bytes()
+
+        image_expected = io.BytesIO()
+        image_copy = web_image_generator._image_object.copy()
+        image_copy.thumbnail(web_image_generator.thumbnail_size)
+        image_copy.save(image_expected, "JPEG")
+        self.assertEqual(result, image_expected.getvalue())
+
 
 class TestXMLWebOptimiser(unittest.TestCase):
     def setUp(self):
