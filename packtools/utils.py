@@ -646,12 +646,13 @@ class SPPackage(object):
     :param extracted_package: path to extract package files and optimise them
     """
 
-    def __init__(self, package_file, extracted_package):
+    def __init__(self, package_file, extracted_package, stop_if_error=False):
         self._package_file = package_file
         self._extracted_package = extracted_package
+        self._stop_if_error = stop_if_error
 
     @classmethod
-    def from_file(cls, package_file_path, extracted_package=None):
+    def from_file(cls, package_file_path, extracted_package=None, stop_if_error=False):
         """Factory of SPPackage instances.
 
         :param package_file_path: Path to the SciELO Publishing Package file, instance
@@ -664,10 +665,10 @@ class SPPackage(object):
         package2optimise = zipfile.ZipFile(package_file_path)
         if extracted_package is None:
             extracted_package = os.path.splitext(package_file_path)[0]
-        return cls(package2optimise, extracted_package)
+        return cls(package2optimise, extracted_package, stop_if_error)
 
     def _optimise_to_zipfile(self, new_package_file_path, xml_filename, xml_related_files):
-        with zipfile.ZipFile(new_package_file_path, "w") as new_zip_file:
+        with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
             xml_web_optimiser = self._get_optimise_web_xml(
                 xml_filename, xml_related_files
             )
@@ -731,37 +732,32 @@ class SPPackage(object):
         :param preserve_files (default=True): preserve extracted and optimised files in
             aux directory. If False, it will delete files after written in new Package.
         """
+        zipped_filenames = self._package_file.namelist()
+        if new_package_file_path is None:
+            new_package_file_path = self._extracted_package + "_optimised.zip"
+        LOGGER.info(
+            "Generating new SciELO Publishing Package %s", new_package_file_path
+        )
         xmls_filenames = [
             xml_filename
-            for xml_filename in self._package_file.namelist()
+            for xml_filename in zipped_filenames
             if os.path.splitext(xml_filename)[-1] == ".xml"
         ]
         for i, xml_filename in enumerate(xmls_filenames):
             LOGGER.info(
                 "Optimizing XML file %s [%s/%s]", xml_filename, i, len(xmls_filenames)
             )
+            filename_root, __ = os.path.splitext(xml_filename)
+            xml_related_files = [
+                filename
+                for filename in zipped_filenames
+                if os.path.basename(filename).startswith(filename_root)
+                and filename != xml_filename
+            ]
+            self._optimise_to_zipfile(
+                new_package_file_path, xml_filename, xml_related_files
             )
-        files_to_update = os.listdir(self._extracted_package)
-        if len(files_to_update) > 0:
-            files_to_copy = set(self._package_file.namelist()) - set(files_to_update)
-            if new_package_file_path is None:
-                new_package_file_path = self._extracted_package + "_optimised.zip"
-            LOGGER.info(
-                "Generating new SciELO Publishing Package %s", new_package_file_path
-            )
-            with zipfile.ZipFile(new_package_file_path, "w") as new_zip_file:
-                for zipped_file in files_to_copy:
-                    zip_info = self._package_file.getinfo(zipped_file)
-                    new_zip_file.writestr(
-                        zipped_file,
-                        self._package_file.read(zipped_file),
-                        zip_info.compress_type,
-                    )
-                for filename in files_to_update:
-                    LOGGER.info("Updating %s file in package", filename)
-                    file_path = os.path.join(self._extracted_package, filename)
-                    new_zip_file.write(file_path, filename)
-                    if not preserve_files:
-                        os.remove(file_path)
-            if not preserve_files:
-                os.rmdir(self._extracted_package)
+
+        if preserve_files:
+            with zipfile.ZipFile(new_package_file_path) as new_zip_file:
+                new_zip_file.extractall(self._extracted_package)

@@ -792,12 +792,17 @@ class TestSPPackage(unittest.TestCase):
         self.tmp_package = os.path.join(self.temp_package_dir, "sps_package.zip")
         self.extracted_package = os.path.splitext(self.tmp_package)[0]
         self.optimised_package = self.extracted_package + "_optimised.zip"
+        self.xml_filename = "1234-5678-rctb-45-05-0110.xml"
 
-        with zipfile.ZipFile(self.tmp_package, "a") as self.archive:
-            xml_file_path = os.path.join(self.temp_img_dir, "somedocument.xml")
+        with zipfile.ZipFile(self.tmp_package, "w") as self.archive:
+            xml_file_path = os.path.join(self.temp_img_dir, self.xml_filename)
             with open(xml_file_path, "wb") as xml_file:
-                xml_file.write(BASE_XML)
-            self.archive.write(xml_file_path, "somedocument.xml")
+                graphic_01 = '<graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif"/>'
+                graphic_02 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+                xml_content = BASE_XML.format(graphic_01, graphic_02)
+                xml_file.write(xml_content.encode("utf-8"))
+            self.archive.write(xml_file_path, self.xml_filename)
+            self.archive.write(xml_file_path, "1234-5678-rctb-45-05-0110.pdf")
             image_files = (
                 ("1234-5678-rctb-45-05-0110-e01.tif", "TIFF"),
                 ("1234-5678-rctb-45-05-0110-e02.tiff", "TIFF"),
@@ -873,7 +878,7 @@ class TestSPPackage(unittest.TestCase):
             "1234-5678-rctb-45-05-0110-e04.png",
         ]
         with zipfile.ZipFile(self.optimised_package) as zf:
-            xml_file = utils.XML(io.BytesIO(zf.read("somedocument.xml")))
+            xml_file = utils.XML(io.BytesIO(zf.read(self.xml_filename)))
             path = '//graphic[@specific-use="scielo-web"]|//inline-graphic[@specific-use="scielo-web"]'
             for image_element, expected_href in zip(xml_file.xpath(path), expected):
                 self.assertEqual(
