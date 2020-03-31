@@ -302,27 +302,65 @@ class WebImageGenerator:
     """
 
     def __init__(self, image_filename, image_file_dir):
+        self.thumbnail_size = (267, 140)
         self.image_file_path = os.path.join(image_file_dir, image_filename)
 
-    def convert2png(self):
-        """Generate a PNG file from image file in the same directory with the same name,
-        changing only the file extension."""
-        new_filename = os.path.splitext(self.image_file_path)[0] + ".png"
-        with Image.open(self.image_file_path) as tiff_file:
+    def convert2png(self, destination_path=None):
+        """Generate a PNG file from image file with the same name, changing only the
+        file extension. If ``destination_path`` is given, the new image is saved in it,
+        otherwise it is saved in the same directory as original image.
+        """
+        try:
+            tiff_file = Image.open(self.image_file_path)
+        except (FileNotFoundError, IOError, ValueError) as exc:
+            raise exceptions.WebImageGeneratorError(
+                'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
+            )
+        else:
             png_file = tiff_file.copy()
-            png_file.save(new_filename, "PNG")
-        return new_filename
+            new_filename = os.path.splitext(self.image_file_path)[0] + ".png"
+            if destination_path is not None and len(destination_path) > 0:
+                new_filename = os.path.join(
+                    destination_path, os.path.basename(new_filename)
+                )
+            try:
+                png_file.save(new_filename, "PNG")
+                return new_filename
+            except (ValueError, IOError) as exc:
+                raise exceptions.WebImageGeneratorError(
+                    'Error saving image file "%s": %s' % (new_filename, str(exc))
+                )
+            finally:
+                tiff_file.close()
 
-    def create_thumbnail(self):
-        """Generate a thumbnail file from image file in the same directory with the same name,
-        changing only the file name to ``*.thumbnail.jpg.``"""
-        new_filename = os.path.splitext(self.image_file_path)[0] + ".thumbnail.jpg"
-        with Image.open(self.image_file_path) as image_file:
-            size = (267, 140)
+    def create_thumbnail(self, destination_path=None):
+        """Generate a thumbnail file from image file with the same name, changing only
+        the file name to ``*.thumbnail.jpg``. If ``destination_path`` is given, the new
+        image is saved in it, otherwise it is saved in the same directory as original image.
+        """
+        try:
+            image_file = Image.open(self.image_file_path)
+        except (FileNotFoundError, IOError, ValueError) as exc:
+            raise exceptions.WebImageGeneratorError(
+                'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
+            )
+        else:
             thumbnail_file = image_file.copy()
-            thumbnail_file.thumbnail(size)
-            thumbnail_file.save(new_filename, "JPEG")
-        return new_filename
+            new_filename = os.path.splitext(self.image_file_path)[0] + ".thumbnail.jpg"
+            if destination_path is not None and len(destination_path) > 0:
+                new_filename = os.path.join(
+                    destination_path, os.path.basename(new_filename)
+                )
+            thumbnail_file.thumbnail(self.thumbnail_size)
+            try:
+                thumbnail_file.save(new_filename, "JPEG")
+                return new_filename
+            except (ValueError, IOError) as exc:
+                raise exceptions.WebImageGeneratorError(
+                    'Error saving image file "%s": %s' % (new_filename, str(exc))
+                )
+            finally:
+                image_file.close()
 
 
 class XMLWebOptimiser(object):

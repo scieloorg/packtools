@@ -31,3 +31,8 @@ class SPPackageError(PacktoolsError):
 class XMLWebOptimiserError(SPPackageError):
     """ Generic errors during XML WEB optimisation.
     """
+
+
+class WebImageGeneratorError(SPPackageError):
+    """ Generic errors during WEB Image optimisation.
+    """

@@ -207,7 +207,39 @@ class TestWebImageGenerator(unittest.TestCase):
             os.path.join(self.extracted_package, "image_tiff_1.tiff"),
         )
 
-    def test_convert2png(self):
+    def test_convert2png_file_does_not_exist(self):
+        web_image_generator = utils.WebImageGenerator(
+            "no_file.tif", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.convert2png()
+        self.assertIn(
+            "Error opening image file ", str(exc_info.exception)
+        )
+        self.assertIn("no_file.tif", str(exc_info.exception))
+        self.assertFalse(
+            os.path.exists(os.path.join(self.extracted_package, "no_file.png"))
+        )
+
+    def test_convert2png_no_image_file(self):
+        text_file_path = os.path.join(self.extracted_package, "file.txt")
+        with open(text_file_path, "w") as fp:
+            fp.write("Text file content.")
+
+        web_image_generator = utils.WebImageGenerator(
+            "file.txt", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.convert2png()
+        self.assertIn(
+            "Error opening image file ", str(exc_info.exception)
+        )
+        self.assertIn("file.txt", str(exc_info.exception))
+        self.assertFalse(
+            os.path.exists(os.path.join(self.extracted_package, "file.png"))
+        )
+
+    def test_convert2png_ok(self):
         web_image_generator = utils.WebImageGenerator(
             "image_tiff_2.tif", self.extracted_package
         )
@@ -221,7 +253,55 @@ class TestWebImageGenerator(unittest.TestCase):
             )
         )
 
-    def test_create_thumbnail(self):
+    def test_convert2png_to_destination_path(self):
+        destination_path = tempfile.mkdtemp(".")
+        web_image_generator = utils.WebImageGenerator(
+            "image_tiff_2.tif", self.extracted_package
+        )
+        web_image_generator.convert2png(destination_path)
+
+        is_conversion_ok = os.path.exists(
+            os.path.join(
+                destination_path,
+                os.path.splitext("image_tiff_2.tif")[0] + ".png",
+            )
+        )
+        shutil.rmtree(destination_path)
+        self.assertTrue(is_conversion_ok)
+
+    def test_create_thumbnail_file_does_not_exist(self):
+        web_image_generator = utils.WebImageGenerator(
+            "no_file.tif", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.create_thumbnail()
+        self.assertIn(
+            "Error opening image file ", str(exc_info.exception)
+        )
+        self.assertIn("no_file.tif", str(exc_info.exception))
+        self.assertFalse(
+            os.path.exists(os.path.join(self.extracted_package, "no_file.png"))
+        )
+
+    def test_create_thumbnail_no_image_file(self):
+        text_file_path = os.path.join(self.extracted_package, "file.txt")
+        with open(text_file_path, "w") as fp:
+            fp.write("Text file content.")
+
+        web_image_generator = utils.WebImageGenerator(
+            "file.txt", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.create_thumbnail()
+        self.assertIn(
+            "Error opening image file ", str(exc_info.exception)
+        )
+        self.assertIn("file.txt", str(exc_info.exception))
+        self.assertFalse(
+            os.path.exists(os.path.join(self.extracted_package, "file.png"))
+        )
+
+    def test_create_thumbnail_ok(self):
         filename = os.path.join(self.extracted_package, "image_tiff_1.png")
         create_image_file(filename, "PNG")
 
@@ -231,6 +311,20 @@ class TestWebImageGenerator(unittest.TestCase):
         web_image_generator.create_thumbnail()
         thumbnail_filename = os.path.splitext(filename)[0] + ".thumbnail.jpg"
         self.assertTrue(os.path.exists(thumbnail_filename))
+
+    def test_create_thumbnail_to_destination_path(self):
+        destination_path = tempfile.mkdtemp(".")
+        filename = os.path.join(self.extracted_package, "image_tiff_1.png")
+        create_image_file(filename, "PNG")
+
+        web_image_generator = utils.WebImageGenerator(
+            "image_tiff_1.png", self.extracted_package
+        )
+        web_image_generator.create_thumbnail()
+        thumbnail_filename = os.path.splitext(filename)[0] + ".thumbnail.jpg"
+        is_thumbnail_ok = os.path.exists(thumbnail_filename)
+        shutil.rmtree(destination_path)
+        self.assertTrue(is_thumbnail_ok)
 
 
 class TestXMLWebOptimiser(unittest.TestCase):
