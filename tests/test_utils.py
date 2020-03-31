@@ -520,12 +520,9 @@ class TestXMLWebOptimiser(unittest.TestCase):
             "1234-5678-rctb-45-05-0110-e01.tif"
         )
         self.assertEqual(len(self.xml_web_optimiser._optimised_assets), 1)
-        optimised_asset = self.xml_web_optimiser._optimised_assets[0]
-        self.assertIsInstance(optimised_asset, utils.WebImageGenerator)
-        self.assertEqual(
-            optimised_asset.filename, "1234-5678-rctb-45-05-0110-e01.tif"
-        )
-        self.assertEqual(optimised_asset.png_filename, new_filename)
+        filename, file_bytes = self.xml_web_optimiser._optimised_assets[0]
+        self.assertEqual(filename, "1234-5678-rctb-45-05-0110-e01.png")
+        self.assertIsNotNone(file_bytes)
 
     def test_add_assets_thumbnails_no_existing_file_in_source(self):
         def mocked_read_file_exception(filename):
@@ -542,12 +539,9 @@ class TestXMLWebOptimiser(unittest.TestCase):
             "1234-5678-rctb-45-05-0110-e01.tif"
         )
         self.assertEqual(len(self.xml_web_optimiser._assets_thumbnails), 1)
-        assets_thumbnail = self.xml_web_optimiser._assets_thumbnails[0]
-        self.assertIsInstance(assets_thumbnail, utils.WebImageGenerator)
-        self.assertEqual(
-            assets_thumbnail.filename, "1234-5678-rctb-45-05-0110-e01.tif"
-        )
-        self.assertEqual(assets_thumbnail.thumbnail_filename, new_filename)
+        filename, file_bytes = self.xml_web_optimiser._assets_thumbnails[0]
+        self.assertEqual(filename, "1234-5678-rctb-45-05-0110-e01.thumbnail.jpg")
+        self.assertIsNotNone(file_bytes)
 
     def test_get_xml_file_ok(self):
         expected = [
@@ -572,6 +566,53 @@ class TestXMLWebOptimiser(unittest.TestCase):
                 self.assertEqual(
                     image.attrib["{http://www.w3.org/1999/xlink}href"], expected_href
                 )
+
+    def test_get_optimised_assets_no_optimised_assets(self):
+        self.xml_web_optimiser._optimised_assets = []
+        result = self.xml_web_optimiser.get_optimised_assets()
+        optimised_assets = [image_generator for image_generator in result]
+        self.assertEqual(len(optimised_assets), 0)
+
+    def test_get_optimised_assets_ok(self):
+        self.xml_web_optimiser.get_xml_file()
+        result = self.xml_web_optimiser.get_optimised_assets()
+
+        optimised_assets = [image for image in result]
+        self.assertEqual(len(optimised_assets), 3)
+        expected_filenames = [
+            "1234-5678-rctb-45-05-0110-e01.png",
+            "1234-5678-rctb-45-05-0110-e02.png",
+            "1234-5678-rctb-45-05-0110-e04.png",
+        ]
+        for optimised_asset, expected_filename in zip(optimised_assets, expected_filenames):
+            image_filename, image_bytes = optimised_asset
+            self.assertEqual(image_filename, expected_filename)
+            self.assertIsNotNone(image_bytes)
+
+    def test_get_assets_thumbnails_no_assets_thumbnails(self):
+        self.xml_web_optimiser._assets_thumbnails = []
+        result = self.xml_web_optimiser.get_assets_thumbnails()
+        assets_thumbnails = [image_generator for image_generator in result]
+        self.assertEqual(len(assets_thumbnails), 0)
+
+    def test_get_assets_thumbnails_get_thumbnail_bytes_raises_exception(self):
+        self.xml_web_optimiser._optimised_assets = [
+            utils.WebImageGenerator("1234-5678-rctb-45-05-0110-e01.tif", "."),
+        ]
+        result = self.xml_web_optimiser.get_assets_thumbnails()
+        assets_thumbnails = [image_generator for image_generator in result]
+        self.assertEqual(len(assets_thumbnails), 0)
+
+    def test_get_assets_thumbnails_ok(self):
+        self.xml_web_optimiser.get_xml_file()
+        result = self.xml_web_optimiser.get_assets_thumbnails()
+
+        assets_thumbnails = [image for image in result]
+        self.assertEqual(len(assets_thumbnails), 1)
+        image_filename, image_bytes = assets_thumbnails[0]
+        self.assertEqual(image_filename, "1234-5678-rctb-45-05-0110-e01.thumbnail.jpg")
+        self.assertIsNotNone(image_bytes)
+
         )
         for alternatives, expected_files in zip(
             xml_etree.findall(".//alternatives"), expected

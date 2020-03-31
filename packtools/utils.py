@@ -619,9 +619,17 @@ class XMLWebOptimiser(object):
             pretty_print=True,
         )
 
-            try:
-            else:
+    def get_optimised_assets(self):
+        """Generate tuples of PNG file name and bytes of each image produced by TIFF
+        images referenced in XML content."""
+        for optimised_asset in self._optimised_assets:
+            yield optimised_asset
 
+    def get_assets_thumbnails(self):
+        """Generate tuples of thumbnail file name and bytes of each image produced by
+        images referenced in XML content."""
+        for asset_thumbnail in self._assets_thumbnails:
+            yield asset_thumbnail
 
 
 class SPPackage(object):
