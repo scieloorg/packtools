@@ -431,16 +431,39 @@ class XMLWebOptimiser(object):
 
     .. code-block:: python
 
-        package = XMLWebOptimiser(xml_file, xml_filename)
-        xml_etree = package.get_optimised_xml(get_optimised_image, get_image_thumbnail)
+        xml_web_optimiser = XMLWebOptimiser(
+            filename, image_filenames, read_file, stop_if_error
+        )
+        bytes = xml_web_optimiser.get_xml_file()
 
-    :param xml_file: XML document, instance of ``etree._ElementTree``
-    :param xml_filename: XML filename
+    :param filename: (str) XML file name
+    :param image_filenames: (list) list of image file names 
+    :param read_file: function to read file content from source which raises
+        exceptions.SPPackageError if an error occurs during the file reading
+    :param work_dir: directory path to work with image optimization
+    :param stop_if_error: (bool) if True, it raises exceptions.XMLWebOptimiserError for
+        handled exceptions, otherwise it logs error message.
     """
 
-    def __init__(self, xml_file, xml_filename):
-        self.xml_file = xml_file
-        self.xml_filename = xml_filename
+    def __init__(self, filename, image_filenames, read_file, work_dir, stop_if_error=False):
+        self.filename = filename
+        self.work_dir = work_dir
+        self.stop_if_error = stop_if_error
+        self._image_filenames = image_filenames
+        self._optimised_assets = []
+        self._assets_thumbnails = []
+        if read_file is None:
+            raise exceptions.XMLWebOptimiserError(
+                "Error instantiating XMLWebOptimiser: read_file cannot be None"
+            )
+        self._read_file = read_file
+        self._xml_file = XML(io.BytesIO(self._read_file(filename)))
+
+    def _handle_image_exception(self, exception):
+        if self.stop_if_error:
+            raise exception
+        else:
+            LOGGER.info(str(exception))
 
     def _get_all_images_to_optimise(self):
         paths = [
@@ -448,7 +471,7 @@ class XMLWebOptimiser(object):
             './/inline-graphic[@xlink:href and not(@specific-use="scielo-web")]',
         ]
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
-        iterators = [self.xml_file.xpath(path, namespaces=namespaces) for path in paths]
+        iterators = [self._xml_file.xpath(path, namespaces=namespaces) for path in paths]
         for image in itertools.chain(*iterators):
             image_filename = image.attrib.get("{http://www.w3.org/1999/xlink}href", "")
             if ".tif" in image_filename:
@@ -459,10 +482,9 @@ class XMLWebOptimiser(object):
                     yield image_filename, image
 
     def _get_all_images_to_thumbnail(self):
-        path = "//graphic[@xlink:href]"
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
-        images = self.xml_file.xpath(path, namespaces=namespaces)
-        images_parents = {image.getparent() for image in images}
+        images = self._xml_file.xpath("//graphic[@xlink:href]", namespaces=namespaces)
+        images_parents = (image.getparent() for image in images)
         for images_parent in images_parents:
             alternatives = images_parent.xpath(
                 "./graphic[@xlink:href]", namespaces=namespaces
