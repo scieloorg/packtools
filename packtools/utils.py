@@ -666,6 +666,32 @@ class SPPackage(object):
             extracted_package = os.path.splitext(package_file_path)[0]
         return cls(package2optimise, extracted_package)
 
+    def _optimise_to_zipfile(self, new_package_file_path, xml_filename, xml_related_files):
+        with zipfile.ZipFile(new_package_file_path, "w") as new_zip_file:
+            xml_web_optimiser = self._get_optimise_web_xml(
+                xml_filename, xml_related_files
+            )
+            # Write optimised XML to new Zipfile
+            optimised_xml = xml_web_optimiser.get_xml_file()
+            xml_zip_info = self._package_file.getinfo(xml_filename)
+            new_zip_file.writestr(
+                xml_filename, optimised_xml, xml_zip_info.compress_type
+            )
+            # Write optimised assets to new Zipfile
+            for asset_filename, asset_bytes in xml_web_optimiser.get_optimised_assets():
+                if asset_bytes is not None:
+                    new_zip_file.writestr(asset_filename, asset_bytes)
+            for asset_filename, asset_bytes in xml_web_optimiser.get_assets_thumbnails():
+                if asset_bytes is not None:
+                    new_zip_file.writestr(asset_filename, asset_bytes)
+            # Write other XML related files to new Zipfile
+            for xml_related_file in xml_related_files:
+                zip_info = self._package_file.getinfo(xml_related_file)
+                new_zip_file.writestr(
+                    xml_related_file,
+                    self._package_file.read(xml_related_file),
+                    zip_info.compress_type,
+                )
 
     def _get_optimise_web_xml(self, xml_filename, xml_related_files):
         image_filenames = [
