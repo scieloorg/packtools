@@ -506,6 +506,21 @@ class XMLWebOptimiser(object):
                     alternative_node.append(new_alternative)
                     image_parent.append(alternative_node)
 
+    def _add_alternative_to_anternatives_tag(self, image_element, alternative_attr_values):
+        image_parent = image_element.getparent()
+        new_alternative = etree.Element(image_element.tag)
+        for attrb, value in alternative_attr_values:
+            new_alternative.set(attrb, value)
+        if image_parent.tag == "alternatives":
+            image_parent.append(new_alternative)
+        else:
+            alternative_node = etree.Element("alternatives")
+            alternative_node.tail = image_element.tail
+            image_element.tail = None
+            alternative_node.append(image_element)
+            alternative_node.append(new_alternative)
+            image_parent.append(alternative_node)
+
         for image_filename, image_element in self._get_all_images_to_thumbnail():
             try:
                 new_filename = get_image_thumbnail(image_filename)
