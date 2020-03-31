@@ -510,34 +510,62 @@ class XMLWebOptimiser(object):
                 )
                 yield image_filename, alternatives[0]
 
-    def get_optimised_xml(self, get_optimised_image, get_image_thumbnail):
-        """Get optimised XML, with WEB alternatives for images.
+    def _get_web_image_generator(self, image_filename):
+        try:
+            image_file_bytes = self._read_file(image_filename)
+        except exceptions.SPPackageError as exc:
+            self._handle_image_exception(exc)
+        else:
+            web_image_generator = WebImageGenerator(
+                image_filename, self.work_dir, image_file_bytes
+            )
+            return web_image_generator
 
-        :param get_optimised_image: function to get optimised image file from given file
-            referenced in XML
-        :param get_image_thumbnail: function to get image thumbnail from given file
-            referenced in XML
-        """
-        for image_filename, image_element in self._get_all_images_to_optimise():
+    def _add_optimised_image(self, image_filename):
+        web_image_generator = self._get_web_image_generator(image_filename)
+        if web_image_generator is not None:
             try:
-                new_filename = get_optimised_image(image_filename)
-            except exceptions.SPPackageError as exc:
-                LOGGER.error("Error optimising image: %s", str(exc))
+                png_bytes = web_image_generator.get_png_bytes()
+            except exceptions.WebImageGeneratorError as exc:
+                self._handle_image_exception(exc)
             else:
-                new_alternative = etree.Element(image_element.tag)
-                new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
-                new_alternative.set("specific-use", "scielo-web")
+                self._optimised_assets.append(
+                    (web_image_generator.png_filename, png_bytes)
+                )
+                return web_image_generator.png_filename
 
-                image_parent = image_element.getparent()
-                if image_parent.tag == "alternatives":
-                    image_parent.append(new_alternative)
-                else:
-                    alternative_node = etree.Element("alternatives")
-                    alternative_node.tail = image_element.tail
-                    image_element.tail = None
-                    alternative_node.append(image_element)
-                    alternative_node.append(new_alternative)
-                    image_parent.append(alternative_node)
+    def _add_assets_thumbnails(self, image_filename):
+        web_image_generator = self._get_web_image_generator(image_filename)
+        if web_image_generator is not None:
+            try:
+                thumbnail_bytes = web_image_generator.get_thumbnail_bytes()
+            except exceptions.WebImageGeneratorError as exc:
+                self._handle_image_exception(exc)
+            else:
+                self._assets_thumbnails.append(
+                    (web_image_generator.thumbnail_filename, thumbnail_bytes)
+                )
+                return web_image_generator.thumbnail_filename
+
+    def _get_similar_filename(self, image_filename):
+        for filename in self._image_filenames:
+            filename_root, filename_ext = os.path.splitext(filename)
+            if filename_root == image_filename and ".tif" in filename_ext:
+                return True, filename
+        else:
+            msg_error = 'No file named "%s" in package'
+            if self.stop_if_error:
+                raise exceptions.XMLWebOptimiserError(msg_error, image_filename)
+            else:
+                LOGGER.error(msg_error, image_filename)
+                return False, None
+
+    def _get_optimised_image_with_filename(self, image_filename, add_image):
+        optimise = True
+        if image_filename not in self._image_filenames:
+            optimise, image_filename = self._get_similar_filename(image_filename)
+        if optimise:
+            return add_image(image_filename)
 
     def _add_alternative_to_anternatives_tag(self, image_element, alternative_attr_values):
         image_parent = image_element.getparent()
@@ -554,29 +582,46 @@ class XMLWebOptimiser(object):
             alternative_node.append(new_alternative)
             image_parent.append(alternative_node)
 
+    def get_xml_file(self):
+        """Get a byte-like optimised XML, with WEB alternatives for images."""
+        for image_filename, image_element in self._get_all_images_to_optimise():
+            new_filename = self._get_optimised_image_with_filename(
+                image_filename, self._add_optimised_image
+            )
+            if new_filename is not None:
+                alternative_attr_values = (
+                    ("{http://www.w3.org/1999/xlink}href", new_filename),
+                    ("specific-use", "scielo-web"),
+                )
+                self._add_alternative_to_anternatives_tag(
+                    image_element, alternative_attr_values
+                )
+
         for image_filename, image_element in self._get_all_images_to_thumbnail():
+            new_filename = self._get_optimised_image_with_filename(
+                image_filename, self._add_assets_thumbnails
+            )
+            if new_filename is not None:
+                alternative_attr_values = (
+                    ("{http://www.w3.org/1999/xlink}href", new_filename),
+                    ("specific-use", "scielo-web"),
+                    ("content-type", "scielo-267x140"),
+                )
+                self._add_alternative_to_anternatives_tag(
+                    image_element, alternative_attr_values
+                )
+
+        return etree.tostring(
+            self._xml_file,
+            xml_declaration=True,
+            method="xml",
+            encoding="utf-8",
+            pretty_print=True,
+        )
+
             try:
-                new_filename = get_image_thumbnail(image_filename)
-            except exceptions.SPPackageError as exc:
-                LOGGER.error("Error creating image thumbnail: %s", str(exc))
             else:
-                new_alternative = etree.Element(image_element.tag)
-                new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
-                new_alternative.set("specific-use", "scielo-web")
-                new_alternative.set("content-type", "scielo-267x140")
 
-                image_parent = image_element.getparent()
-                if image_parent.tag == "alternatives":
-                    image_parent.append(new_alternative)
-                else:
-                    alternative_node = etree.Element("alternatives")
-                    alternative_node.tail = image_element.tail
-                    image_element.tail = None
-                    alternative_node.append(image_element)
-                    alternative_node.append(new_alternative)
-                    image_parent.append(alternative_node)
-
-        return self.xml_file
 
 
 class SPPackage(object):
