@@ -12,7 +12,7 @@ import zipfile
 import io
 
 from lxml import etree, isoschematron
-from PIL import Image
+from PIL import Image, ImageFile
 try:
     import pygments     # NOQA
     from pygments.lexers import get_lexer_for_mimetype
@@ -299,11 +299,35 @@ class WebImageGenerator:
     :param image_filename: image file name
     :param image_file_dir: directory where ``image_filename`` is and where new versions
         will be saved
+    :param file_bytes: image file bytes
     """
 
-    def __init__(self, image_filename, image_file_dir):
+    def __init__(self, image_filename, image_file_dir, file_bytes=None):
+        self.filename = image_filename
         self.thumbnail_size = (267, 140)
         self.image_file_path = os.path.join(image_file_dir, image_filename)
+        self._image_object = self._get_image_object(file_bytes)
+
+    def _get_image_object(self, file_bytes):
+        if file_bytes is not None:
+            parser = ImageFile.Parser()
+            try:
+                parser.feed(file_bytes)
+                image = parser.close()
+            except IOError as exc:
+                raise exceptions.WebImageGeneratorError(
+                    'Error reading image "%s": %s' % (self.filename, str(exc))
+                )
+            else:
+                return image
+
+    @property
+    def png_filename(self):
+        return os.path.splitext(self.filename)[0] + ".png"
+
+    @property
+    def thumbnail_filename(self):
+        return os.path.splitext(self.filename)[0] + ".thumbnail.jpg"
 
     def convert2png(self, destination_path=None):
         """Generate a PNG file from image file with the same name, changing only the

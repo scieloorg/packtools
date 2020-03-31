@@ -7,7 +7,7 @@ import os
 import io
 import shutil
 
-from PIL import Image
+from PIL import Image, ImageFile
 
 from packtools import utils, exceptions
 
@@ -202,9 +202,41 @@ class TestWebImageGenerator(unittest.TestCase):
         web_image_generator = utils.WebImageGenerator(
             "image_tiff_1.tiff", self.extracted_package
         )
+        self.assertEqual(web_image_generator.filename, "image_tiff_1.tiff")
+        self.assertIsNone(web_image_generator._image_object)
         self.assertEqual(
             web_image_generator.image_file_path,
             os.path.join(self.extracted_package, "image_tiff_1.tiff"),
+        )
+        self.assertEqual(web_image_generator.png_filename, "image_tiff_1.png")
+        self.assertEqual(
+            web_image_generator.thumbnail_filename, "image_tiff_1.thumbnail.jpg"
+        )
+
+    def test_create_WebImageGenerator_with_invalid_image_bytes(self):
+        mocked_bytes = "This is not an image".encode("utf-8")
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            utils.WebImageGenerator("image_tiff_1.tiff", ".", mocked_bytes)
+        self.assertEqual(
+            str(exc_info.exception),
+            'Error reading image "image_tiff_1.tiff": cannot parse this image',
+        )
+
+    def test_create_WebImageGenerator_with_file_bytes(self):
+        mocked_image_io = io.BytesIO()
+        mocked_image = Image.new("RGB", (10, 10))
+        mocked_image.save(mocked_image_io, "TIFF")
+        web_image_generator = utils.WebImageGenerator(
+            "image_tiff_2.tiff", ".", mocked_image_io.getvalue()
+        )
+        self.assertEqual(web_image_generator.filename, "image_tiff_2.tiff")
+        self.assertEqual(web_image_generator.image_file_path, "./image_tiff_2.tiff")
+        self.assertEqual(web_image_generator.png_filename, "image_tiff_2.png")
+        self.assertEqual(
+            web_image_generator.thumbnail_filename, "image_tiff_2.thumbnail.jpg"
+        )
+        self.assertEqual(
+            web_image_generator._image_object.tobytes(), mocked_image.tobytes()
         )
 
     def test_convert2png_file_does_not_exist(self):
