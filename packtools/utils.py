@@ -466,6 +466,22 @@ class XMLWebOptimiser(object):
             LOGGER.info(str(exception))
 
     def _get_all_images_to_optimise(self):
+        def is_image_to_optimise(image):
+            image_filename = image.attrib.get("{http://www.w3.org/1999/xlink}href", "")
+            __, filename_ext = os.path.splitext(image_filename)
+            if filename_ext.startswith(".tif") or len(filename_ext) == 0:
+                is_optimised_siblings = [
+                    sibling
+                    for sibling in image.xpath(
+                        '../{}[@specific-use="scielo-web"]'.format(image.tag),
+                        namespaces={"xlink": "http://www.w3.org/1999/xlink"},
+                    )
+                    if sibling.tag == image.tag
+                ]
+                if len(is_optimised_siblings) == 0:
+                    return True
+            return False
+
         paths = [
             './/graphic[@xlink:href and not(@specific-use="scielo-web")]',
             './/inline-graphic[@xlink:href and not(@specific-use="scielo-web")]',
@@ -473,13 +489,8 @@ class XMLWebOptimiser(object):
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
         iterators = [self._xml_file.xpath(path, namespaces=namespaces) for path in paths]
         for image in itertools.chain(*iterators):
-            image_filename = image.attrib.get("{http://www.w3.org/1999/xlink}href", "")
-            if ".tif" in image_filename:
-                path = '../{}[@xlink:href and @specific-use="scielo-web"]'.format(
-                    image.tag
-                )
-                if len(image.xpath(path, namespaces=namespaces)) == 0:
-                    yield image_filename, image
+            if is_image_to_optimise(image):
+                yield image.attrib["{http://www.w3.org/1999/xlink}href"], image
 
     def _get_all_images_to_thumbnail(self):
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
