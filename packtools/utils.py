@@ -336,7 +336,7 @@ class WebImageGenerator:
         """
         try:
             tiff_file = Image.open(self.image_file_path)
-        except (FileNotFoundError, IOError, ValueError) as exc:
+        except (OSError, IOError, ValueError) as exc:
             raise exceptions.WebImageGeneratorError(
                 'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
             )
@@ -364,7 +364,7 @@ class WebImageGenerator:
         """
         try:
             image_file = Image.open(self.image_file_path)
-        except (FileNotFoundError, IOError, ValueError) as exc:
+        except (OSError, IOError, ValueError) as exc:
             raise exceptions.WebImageGeneratorError(
                 'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
             )

@@ -9,7 +9,7 @@ import platform
 from lxml import etree
 
 from .domain import XMLValidator, HTMLGenerator
-from .utils import XML, SPPackage
+from .utils import XML, SPPackage, XMLWebOptimiser
 from .version import __version__
 
 
@@ -20,6 +20,7 @@ __all__ = [
     'get_debug_info',
     'HTMLGenerator',
     'SPPackage',
+    'XMLWebOptimiser',
 ]
 
 
