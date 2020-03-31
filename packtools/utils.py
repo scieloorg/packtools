@@ -666,46 +666,30 @@ class SPPackage(object):
             extracted_package = os.path.splitext(package_file_path)[0]
         return cls(package2optimise, extracted_package)
 
-    def _optimise_xml_to_web(self, parsed_xml, xml_filename):
 
-        xml_web_optimiser = XMLWebOptimiser(parsed_xml, xml_filename)
-        optimised_xml = xml_web_optimiser.get_optimised_xml(
-            self.create_optimised_image, self.create_image_thumbnail
+    def _get_optimise_web_xml(self, xml_filename, xml_related_files):
+        image_filenames = [
+            filename
+            for filename in xml_related_files
+            if not os.path.splitext(filename)[-1] == ".pdf"
+        ]
+        return XMLWebOptimiser(
+            xml_filename,
+            image_filenames,
+            self._read_file,
+            self._extracted_package,
+            self._stop_if_error,
         )
-        with open(
-            os.path.join(self._extracted_package, xml_filename), "wb"
-        ) as xml_file:
-            xml_file.write(etree.tostring(optimised_xml))
 
-    def _optimise_image(self, image_to_optimise, do_optimisation):
+    def _read_file(self, image_to_optimise):
         try:
-            self._package_file.extract(image_to_optimise, self._extracted_package)
+            image_bytes = self._package_file.read(image_to_optimise)
         except KeyError as exc:
             raise exceptions.SPPackageError(
                 "No file named {} in package".format(image_to_optimise)
             )
         else:
-            optimised_file_path = do_optimisation()
-            os.remove(os.path.join(self._extracted_package, image_to_optimise))
-            return os.path.split(optimised_file_path)[-1]
-
-    def create_optimised_image(self, image_to_optimise):
-        """Create WEB image alternative of an image in SciELO Publishing Package.
-
-        :param image_to_optimise: image file name in SciELO Publishing Package.
-        """
-        web_image_generator = WebImageGenerator(
-            image_to_optimise, self._extracted_package
-        )
-        return self._optimise_image(image_to_optimise, web_image_generator.convert2png)
-
-    def create_image_thumbnail(self, large_image):
-        """Create image thumbnail of an image in SciELO Publishing Package.
-
-        :param large_image: image file name in SciELO Publishing Package.
-        """
-        web_image_generator = WebImageGenerator(large_image, self._extracted_package)
-        return self._optimise_image(large_image, web_image_generator.create_thumbnail)
+            return image_bytes
 
     def optimise(self, new_package_file_path=None, preserve_files=True):
         """Optimise SciELO Publishing Package to have WEB images alternatives.
@@ -730,8 +714,6 @@ class SPPackage(object):
             LOGGER.info(
                 "Optimizing XML file %s [%s/%s]", xml_filename, i, len(xmls_filenames)
             )
-            self._optimise_xml_to_web(
-                XML(io.BytesIO(self._package_file.read(xml_filename))), xml_filename
             )
         files_to_update = os.listdir(self._extracted_package)
         if len(files_to_update) > 0:

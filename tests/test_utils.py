@@ -831,60 +831,6 @@ class TestSPPackage(unittest.TestCase):
         package = utils.SPPackage.from_file(self.tmp_package, "/tmp/test")
         self.assertEqual(package._extracted_package, "/tmp/test")
 
-    def test_optimise_xml_to_web_optimised_images(self):
-        self.sp_package._optimise_xml_to_web(
-            utils.XML(io.BytesIO(BASE_XML)), "somedocument.xml"
-        )
-
-        expected = [
-            "1234-5678-rctb-45-05-0110-e01.png",
-            "1234-5678-rctb-45-05-0110-e02.png",
-            "1234-5678-rctb-45-05-0110-e04.png",
-        ]
-        for file in expected:
-            self.assertTrue(os.path.exists(os.path.join(self.extracted_package, file)))
-        self.assertFalse(
-            os.path.exists(
-                os.path.join(
-                    self.extracted_package, "1234-5678-rctb-45-05-0110-gf03.png"
-                )
-            )
-        )
-
-    def test_optimise_xml_to_web_optimises_xmls(self):
-        self.sp_package._optimise_xml_to_web(
-            utils.XML(io.BytesIO(BASE_XML)), "somedocument.xml"
-        )
-        self.assertTrue(
-            os.path.exists(os.path.join(self.extracted_package, "somedocument.xml"))
-        )
-        expected = [
-            "1234-5678-rctb-45-05-0110-e01.png",
-            "1234-5678-rctb-45-05-0110-e01.thumbnail.jpg",
-            "1234-5678-rctb-45-05-0110-e02.png",
-            "1234-5678-rctb-45-05-0110-gf03.png",
-            "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
-            "1234-5678-rctb-45-05-0110-e04.png",
-        ]
-        path = '//graphic[@specific-use="scielo-web"]|//inline-graphic[@specific-use="scielo-web"]'
-        xml_file_path = os.path.join(self.extracted_package, "somedocument.xml")
-        xml_file = utils.XML(xml_file_path)
-        for image_element, expected_href in zip(xml_file.xpath(path), expected):
-            self.assertEqual(
-                image_element.attrib["{http://www.w3.org/1999/xlink}href"],
-                expected_href,
-            )
-
-    def test_optimise_image_raises_error_if_error_extracting_file(self):
-        inexistent_file = "inexistent_file.tiff"
-        web_image_generator = utils.WebImageGenerator(
-            "inexistent_file.tiff", self.extracted_package
-        )
-        with self.assertRaises(exceptions.SPPackageError) as exc_info:
-            self.sp_package._optimise_image(
-                inexistent_file, web_image_generator.convert2png
-            )
-
     def test_optimise_creates_optimised_zip(self):
         self.sp_package.optimise()
         self.assertTrue(os.path.exists(self.optimised_package))
