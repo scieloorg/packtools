@@ -246,9 +246,7 @@ class TestWebImageGenerator(unittest.TestCase):
         )
         with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
             web_image_generator.convert2png()
-        self.assertIn(
-            "Error opening image file ", str(exc_info.exception)
-        )
+        self.assertIn("Error opening image file ", str(exc_info.exception))
         self.assertIn("no_file.tif", str(exc_info.exception))
         self.assertFalse(
             os.path.exists(os.path.join(self.extracted_package, "no_file.png"))
@@ -264,9 +262,7 @@ class TestWebImageGenerator(unittest.TestCase):
         )
         with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
             web_image_generator.convert2png()
-        self.assertIn(
-            "Error opening image file ", str(exc_info.exception)
-        )
+        self.assertIn("Error opening image file ", str(exc_info.exception))
         self.assertIn("file.txt", str(exc_info.exception))
         self.assertFalse(
             os.path.exists(os.path.join(self.extracted_package, "file.png"))
@@ -314,9 +310,7 @@ class TestWebImageGenerator(unittest.TestCase):
         )
         with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
             web_image_generator.create_thumbnail()
-        self.assertIn(
-            "Error opening image file ", str(exc_info.exception)
-        )
+        self.assertIn("Error opening image file ", str(exc_info.exception))
         self.assertIn("no_file.tif", str(exc_info.exception))
         self.assertFalse(
             os.path.exists(os.path.join(self.extracted_package, "no_file.png"))
@@ -332,9 +326,7 @@ class TestWebImageGenerator(unittest.TestCase):
         )
         with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
             web_image_generator.create_thumbnail()
-        self.assertIn(
-            "Error opening image file ", str(exc_info.exception)
-        )
+        self.assertIn("Error opening image file ", str(exc_info.exception))
         self.assertIn("file.txt", str(exc_info.exception))
         self.assertFalse(
             os.path.exists(os.path.join(self.extracted_package, "file.png"))
@@ -387,7 +379,7 @@ class TestWebImageGenerator(unittest.TestCase):
         self.assertEqual(
             str(exc_info.exception),
             'Error optimising image bytes from "image_tiff_1.tiff": '
-            'no original file bytes was given.'
+            "no original file bytes was given.",
         )
 
     def test_get_png_bytes_ok(self):
@@ -417,7 +409,7 @@ class TestWebImageGenerator(unittest.TestCase):
         self.assertEqual(
             str(exc_info.exception),
             'Error optimising image bytes from "image_tiff_1.tiff": '
-            'no original file bytes was given.'
+            "no original file bytes was given.",
         )
 
     def test_get_thumbnail_bytes_ok(self):
@@ -453,7 +445,7 @@ class TestXMLWebOptimiser(unittest.TestCase):
             "1234-5678-rctb-45-05-0110-gf03.tiff",
             "1234-5678-rctb-45-05-0110-gf03.png",
             "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
-            "1234-5678-rctb-45-05-0110-e04.tif"
+            "1234-5678-rctb-45-05-0110-e04.tif",
         ]
         image_format_seq = ["TIFF", "TIFF", "TIFF", "PNG", "JPEG", "TIFF"]
         for filename, format in zip(self.image_filenames, image_format_seq):
@@ -514,7 +506,9 @@ class TestXMLWebOptimiser(unittest.TestCase):
             image_filename, image_element = image
             self.assertEqual(image_filename, expected_filename)
 
-    def test_get_optimised_image_with_filename_no_existing_file_in_image_filenames(self):
+    def test_get_optimised_image_with_filename_no_existing_file_in_image_filenames(
+        self,
+    ):
         def dummy_optimise(filename):
             return None
 
@@ -527,6 +521,7 @@ class TestXMLWebOptimiser(unittest.TestCase):
     def test_add_optimised_image_no_existing_file_in_source(self):
         def mocked_read_file_exception(filename):
             raise exceptions.SPPackageError("File not found")
+
         self.xml_web_optimiser._read_file = mocked_read_file_exception
         new_filename = self.xml_web_optimiser._add_optimised_image(
             "1234-5678-rctb-45-05-0110-e01.tif"
@@ -546,6 +541,7 @@ class TestXMLWebOptimiser(unittest.TestCase):
     def test_add_assets_thumbnails_no_existing_file_in_source(self):
         def mocked_read_file_exception(filename):
             raise exceptions.SPPackageError("File not found")
+
         self.xml_web_optimiser._read_file = mocked_read_file_exception
         new_filename = self.xml_web_optimiser._add_assets_thumbnails(
             "1234-5678-rctb-45-05-0110-e01.tif"
@@ -603,7 +599,9 @@ class TestXMLWebOptimiser(unittest.TestCase):
             "1234-5678-rctb-45-05-0110-e02.png",
             "1234-5678-rctb-45-05-0110-e04.png",
         ]
-        for optimised_asset, expected_filename in zip(optimised_assets, expected_filenames):
+        for optimised_asset, expected_filename in zip(
+            optimised_assets, expected_filenames
+        ):
             image_filename, image_bytes = optimised_asset
             self.assertEqual(image_filename, expected_filename)
             self.assertIsNotNone(image_bytes)
@@ -646,7 +644,7 @@ class TestXMLWebOptimiserGraphicsWithNoFileExtention(unittest.TestCase):
             "1234-5678-rctb-45-05-0110-gf03.tiff",
             "1234-5678-rctb-45-05-0110-gf03.png",
             "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
-            "1234-5678-rctb-45-05-0110-e04.tif"
+            "1234-5678-rctb-45-05-0110-e04.tif",
         ]
         image_format_seq = ["TIFF", "TIFF", "TIFF", "PNG", "JPEG", "TIFF"]
         for filename, format in zip(self.image_filenames, image_format_seq):
@@ -729,7 +727,7 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
             "1234-5678-rctb-45-05-0110-gf03.tiff",
             "1234-5678-rctb-45-05-0110-gf03.png",
             "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
-            "1234-5678-rctb-45-05-0110-e04.tif"
+            "1234-5678-rctb-45-05-0110-e04.tif",
         ]
         image_format_seq = ["JPEG", "GIF", "TIFF", "PNG", "JPEG", "TIFF"]
         for filename, format in zip(self.image_filenames, image_format_seq):
@@ -766,7 +764,7 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         self.assertEqual(expected[0], image_filename)
 
     def test_get_all_images_to_thumbnail_does_not_return_images_with_thumbnail(self):
-        graphic_01 = ''
+        graphic_01 = ""
         graphic_02 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.gif"/>'
         xml_file = BASE_XML.format(graphic_01, graphic_02).encode("utf-8")
         xml_file_path = os.path.join(self.work_dir, self.xml_filename)
@@ -784,7 +782,7 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         self.assertEqual(len(result), 0)
 
     def test_add_alternative_to_alternatives_tag_add_image_tags_to_new_alternatives(
-        self
+        self,
     ):
         xml_file = BASE_XML.format("", "").encode("utf-8")
         xml_file_path = os.path.join(self.work_dir, self.xml_filename)
@@ -811,7 +809,10 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         xml_web_optimiser._xml_file = xml_tag
         image_element = xml_tag.find(".//graphic")
         alternative_attr_values = (
-            ("{http://www.w3.org/1999/xlink}href", "1234-5678-rctb-45-05-0110-gf03.png"),
+            (
+                "{http://www.w3.org/1999/xlink}href",
+                "1234-5678-rctb-45-05-0110-gf03.png",
+            ),
             ("specific-use", "scielo-web"),
         )
         xml_web_optimiser._add_alternative_to_alternatives_tag(
@@ -821,13 +822,14 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         alternatives_tags = xml_tag.findall("fig/alternatives")
         self.assertIsNotNone(alternatives_tags)
         expected_hrefs = [
-            "1234-5678-rctb-45-05-0110-gf03.tiff", "1234-5678-rctb-45-05-0110-gf03.png"
+            "1234-5678-rctb-45-05-0110-gf03.tiff",
+            "1234-5678-rctb-45-05-0110-gf03.png",
         ]
         for image_element in alternatives_tags[0].getchildren():
             self.assertEqual(image_element.tag, "graphic")
 
     def test_add_alternative_to_alternatives_tag_add_image_tags_to_existing_alternatives(
-        self
+        self,
     ):
         xml_file = BASE_XML.format("", "").encode("utf-8")
         xml_file_path = os.path.join(self.work_dir, self.xml_filename)
@@ -853,7 +855,10 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         xml_web_optimiser._xml_file = xml_tag
         image_element = xml_tag.find(".//inline-graphic")
         alternative_attr_values = (
-            ("{http://www.w3.org/1999/xlink}href", "1234-5678-rctb-45-05-0110-gf03.gif"),
+            (
+                "{http://www.w3.org/1999/xlink}href",
+                "1234-5678-rctb-45-05-0110-gf03.gif",
+            ),
             ("specific-use", "scielo-web"),
         )
         xml_web_optimiser._add_alternative_to_alternatives_tag(
@@ -881,14 +886,11 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
 
         with self.assertRaises(exceptions.XMLWebOptimiserError) as exc_info:
             xml_web_optimiser = utils.XMLWebOptimiser(
-                self.xml_filename,
-                self.image_filenames,
-                None,
-                self.work_dir,
+                self.xml_filename, self.image_filenames, None, self.work_dir,
             )
         self.assertEqual(
             str(exc_info.exception),
-            "Error instantiating XMLWebOptimiser: read_file cannot be None"
+            "Error instantiating XMLWebOptimiser: read_file cannot be None",
         )
 
 
@@ -905,7 +907,9 @@ class TestSPPackage(unittest.TestCase):
             xml_file_path = os.path.join(self.temp_img_dir, self.xml_filename)
             with open(xml_file_path, "wb") as xml_file:
                 graphic_01 = '<graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif"/>'
-                graphic_02 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+                graphic_02 = (
+                    '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
+                )
                 xml_content = BASE_XML.format(graphic_01, graphic_02)
                 xml_file.write(xml_content.encode("utf-8"))
             self.archive.write(xml_file_path, self.xml_filename)

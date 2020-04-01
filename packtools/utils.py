@@ -407,8 +407,7 @@ class WebImageGenerator:
         if self._image_object is None:
             raise exceptions.WebImageGeneratorError(
                 'Error optimising image bytes from "%s": '
-                'no original file bytes was given.'
-                % self.filename
+                "no original file bytes was given." % self.filename
             )
 
         return self._get_bytes("PNG")
@@ -451,7 +450,9 @@ class XMLWebOptimiser(object):
         handled exceptions, otherwise it logs error message.
     """
 
-    def __init__(self, filename, image_filenames, read_file, work_dir, stop_if_error=False):
+    def __init__(
+        self, filename, image_filenames, read_file, work_dir, stop_if_error=False
+    ):
         self.filename = filename
         self.work_dir = work_dir
         self.stop_if_error = stop_if_error
@@ -493,7 +494,9 @@ class XMLWebOptimiser(object):
             './/inline-graphic[@xlink:href and not(@specific-use="scielo-web")]',
         ]
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
-        iterators = [self._xml_file.xpath(path, namespaces=namespaces) for path in paths]
+        iterators = [
+            self._xml_file.xpath(path, namespaces=namespaces) for path in paths
+        ]
         for image in itertools.chain(*iterators):
             if is_image_to_optimise(image):
                 yield image.attrib["{http://www.w3.org/1999/xlink}href"], image
@@ -573,7 +576,9 @@ class XMLWebOptimiser(object):
         if optimise:
             return add_image(image_filename)
 
-    def _add_alternative_to_alternatives_tag(self, image_element, alternative_attr_values):
+    def _add_alternative_to_alternatives_tag(
+        self, image_element, alternative_attr_values
+    ):
         image_parent = image_element.getparent()
         new_alternative = etree.Element(image_element.tag)
         for attrb, value in alternative_attr_values:
@@ -673,7 +678,9 @@ class SPPackage(object):
             extracted_package = os.path.splitext(package_file_path)[0]
         return cls(package2optimise, extracted_package, stop_if_error)
 
-    def _optimise_to_zipfile(self, new_package_file_path, xml_filename, xml_related_files):
+    def _optimise_to_zipfile(
+        self, new_package_file_path, xml_filename, xml_related_files
+    ):
         with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
             xml_web_optimiser = self._get_optimise_web_xml(
                 xml_filename, xml_related_files
@@ -688,7 +695,10 @@ class SPPackage(object):
             for asset_filename, asset_bytes in xml_web_optimiser.get_optimised_assets():
                 if asset_bytes is not None:
                     new_zip_file.writestr(asset_filename, asset_bytes)
-            for asset_filename, asset_bytes in xml_web_optimiser.get_assets_thumbnails():
+            for (
+                asset_filename,
+                asset_bytes,
+            ) in xml_web_optimiser.get_assets_thumbnails():
                 if asset_bytes is not None:
                     new_zip_file.writestr(asset_filename, asset_bytes)
             # Write other XML related files to new Zipfile
