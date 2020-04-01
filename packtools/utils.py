@@ -344,6 +344,8 @@ class WebImageGenerator:
             png_file = tiff_file.copy()
             new_filename = os.path.splitext(self.image_file_path)[0] + ".png"
             if destination_path is not None and len(destination_path) > 0:
+                if not os.path.exists(destination_path):
+                    os.makedirs(destination_path)
                 new_filename = os.path.join(
                     destination_path, os.path.basename(new_filename)
                 )
@@ -372,6 +374,8 @@ class WebImageGenerator:
             thumbnail_file = image_file.copy()
             new_filename = os.path.splitext(self.image_file_path)[0] + ".thumbnail.jpg"
             if destination_path is not None and len(destination_path) > 0:
+                if not os.path.exists(destination_path):
+                    os.makedirs(destination_path)
                 new_filename = os.path.join(
                     destination_path, os.path.basename(new_filename)
                 )
@@ -435,6 +439,8 @@ class XMLWebOptimiser(object):
             filename, image_filenames, read_file, stop_if_error
         )
         bytes = xml_web_optimiser.get_xml_file()
+        optimised_assets = xml_web_optimiser.get_optimised_assets()
+        assets_thumbnails = xml_web_optimiser.get_assets_thumbnails()
 
     :param filename: (str) XML file name
     :param image_filenames: (list) list of image file names 
