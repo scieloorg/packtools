@@ -501,7 +501,7 @@ class XMLWebOptimiser(object):
     def _get_all_images_to_thumbnail(self):
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
         images = self._xml_file.xpath("//graphic[@xlink:href]", namespaces=namespaces)
-        images_parents = (image.getparent() for image in images)
+        images_parents = {image.getparent() for image in images}
         for images_parent in images_parents:
             alternatives = images_parent.xpath(
                 "./graphic[@xlink:href]", namespaces=namespaces
@@ -738,12 +738,12 @@ class SPPackage(object):
         :param preserve_files (default=True): preserve extracted and optimised files in
             aux directory. If False, it will delete files after written in new Package.
         """
-        zipped_filenames = self._package_file.namelist()
         if new_package_file_path is None:
             new_package_file_path = self._extracted_package + "_optimised.zip"
         LOGGER.info(
             "Generating new SciELO Publishing Package %s", new_package_file_path
         )
+        zipped_filenames = self._package_file.namelist()
         xmls_filenames = [
             xml_filename
             for xml_filename in zipped_filenames
