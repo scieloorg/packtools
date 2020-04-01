@@ -573,7 +573,7 @@ class XMLWebOptimiser(object):
         if optimise:
             return add_image(image_filename)
 
-    def _add_alternative_to_anternatives_tag(self, image_element, alternative_attr_values):
+    def _add_alternative_to_alternatives_tag(self, image_element, alternative_attr_values):
         image_parent = image_element.getparent()
         new_alternative = etree.Element(image_element.tag)
         for attrb, value in alternative_attr_values:
@@ -599,7 +599,7 @@ class XMLWebOptimiser(object):
                     ("{http://www.w3.org/1999/xlink}href", new_filename),
                     ("specific-use", "scielo-web"),
                 )
-                self._add_alternative_to_anternatives_tag(
+                self._add_alternative_to_alternatives_tag(
                     image_element, alternative_attr_values
                 )
 
@@ -613,7 +613,7 @@ class XMLWebOptimiser(object):
                     ("specific-use", "scielo-web"),
                     ("content-type", "scielo-267x140"),
                 )
-                self._add_alternative_to_anternatives_tag(
+                self._add_alternative_to_alternatives_tag(
                     image_element, alternative_attr_values
                 )
 

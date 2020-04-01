@@ -783,6 +783,94 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         result = [image for image in images]
         self.assertEqual(len(result), 0)
 
+    def test_add_alternative_to_alternatives_tag_add_image_tags_to_new_alternatives(
+        self
+    ):
+        xml_file = BASE_XML.format("", "").encode("utf-8")
+        xml_file_path = os.path.join(self.work_dir, self.xml_filename)
+        with open(xml_file_path, "wb") as fp:
+            fp.write(xml_file)
+        xml_web_optimiser = utils.XMLWebOptimiser(
+            self.xml_filename,
+            self.image_filenames,
+            self.mocked_read_file,
+            self.work_dir,
+        )
+        XML_TAG = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <fig id="f03">
+                <label>Fig. 3</label>
+                <caption>
+                    <title>titulo da imagem</title>
+                </caption>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-gf03.tiff"/>
+            </fig>
+        </article>"""
+        xml_tag = etree.fromstring(
+            XML_TAG, etree.XMLParser(remove_blank_text=True, no_network=True)
+        )
+        xml_web_optimiser._xml_file = xml_tag
+        image_element = xml_tag.find(".//graphic")
+        alternative_attr_values = (
+            ("{http://www.w3.org/1999/xlink}href", "1234-5678-rctb-45-05-0110-gf03.png"),
+            ("specific-use", "scielo-web"),
+        )
+        xml_web_optimiser._add_alternative_to_alternatives_tag(
+            image_element, alternative_attr_values
+        )
+        self.assertIsNone(xml_tag.find("fig/graphic"))
+        alternatives_tags = xml_tag.findall("fig/alternatives")
+        self.assertIsNotNone(alternatives_tags)
+        expected_hrefs = [
+            "1234-5678-rctb-45-05-0110-gf03.tiff", "1234-5678-rctb-45-05-0110-gf03.png"
+        ]
+        for image_element in alternatives_tags[0].getchildren():
+            self.assertEqual(image_element.tag, "graphic")
+
+    def test_add_alternative_to_alternatives_tag_add_image_tags_to_existing_alternatives(
+        self
+    ):
+        xml_file = BASE_XML.format("", "").encode("utf-8")
+        xml_file_path = os.path.join(self.work_dir, self.xml_filename)
+        with open(xml_file_path, "wb") as fp:
+            fp.write(xml_file)
+        xml_web_optimiser = utils.XMLWebOptimiser(
+            self.xml_filename,
+            self.image_filenames,
+            self.mocked_read_file,
+            self.work_dir,
+        )
+        XML_TAG = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <p>Bla, bla, bla
+                <alternatives>
+                    <inline-graphic xlink:href="1234-5678-rctb-45-05-0110-gf03.tiff"/>
+                    <inline-graphic xlink:href="1234-5678-rctb-45-05-0110-gf03.png" specific-use="scielo-web"/>
+                </alternatives>
+            </p>
+        </article>"""
+        xml_tag = etree.fromstring(
+            XML_TAG, etree.XMLParser(remove_blank_text=True, no_network=True)
+        )
+        xml_web_optimiser._xml_file = xml_tag
+        image_element = xml_tag.find(".//inline-graphic")
+        alternative_attr_values = (
+            ("{http://www.w3.org/1999/xlink}href", "1234-5678-rctb-45-05-0110-gf03.gif"),
+            ("specific-use", "scielo-web"),
+        )
+        xml_web_optimiser._add_alternative_to_alternatives_tag(
+            image_element, alternative_attr_values
+        )
+        self.assertIsNone(xml_tag.find("p/inline-graphic"))
+        alternatives_tags = xml_tag.findall("p/alternatives")
+        self.assertIsNotNone(alternatives_tags)
+        self.assertEqual(len(alternatives_tags), 1)
+        expected_hrefs = [
+            "1234-5678-rctb-45-05-0110-gf03.tiff",
+            "1234-5678-rctb-45-05-0110-gf03.png",
+            "1234-5678-rctb-45-05-0110-gf03.gif",
+        ]
+        for image_element in alternatives_tags[0].getchildren():
+            self.assertEqual(image_element.tag, "inline-graphic")
+
     def test_get_optimised_xml_no_reader_file(self):
         graphic_01 = '<graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif"/>'
         graphic_02 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
