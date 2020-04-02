@@ -283,26 +283,20 @@ class TestWebImageGenerator(unittest.TestCase):
         )
 
     def test_convert2png_to_destination_path(self):
-        destination_path = os.path.join(self.extracted_package, "destination_path")
-        os.makedirs(destination_path)
+        destination_path = tempfile.mkdtemp(".")
         web_image_generator = utils.WebImageGenerator(
             "image_tiff_2.tif", self.extracted_package
         )
         web_image_generator.convert2png(destination_path)
 
-        self.assertTrue(
-            os.path.exists(os.path.join(destination_path, "image_tiff_2.png"))
+        is_conversion_ok = os.path.exists(
+            os.path.join(
+                destination_path,
+                os.path.splitext("image_tiff_2.tif")[0] + ".png",
+            )
         )
-
-    def test_convert2png_create_destination_path_if_it_does_not_exist(self):
-        destination_path = os.path.join(self.extracted_package, "destination_path")
-        web_image_generator = utils.WebImageGenerator(
-            "image_tiff_2.tif", self.extracted_package
-        )
-        web_image_generator.convert2png(destination_path)
-        self.assertTrue(
-            os.path.exists(os.path.join(destination_path, "image_tiff_2.png"))
-        )
+        shutil.rmtree(destination_path)
+        self.assertTrue(is_conversion_ok)
 
     def test_create_thumbnail_file_does_not_exist(self):
         web_image_generator = utils.WebImageGenerator(
@@ -344,31 +338,18 @@ class TestWebImageGenerator(unittest.TestCase):
         self.assertTrue(os.path.exists(thumbnail_filename))
 
     def test_create_thumbnail_to_destination_path(self):
-        destination_path = os.path.join(self.extracted_package, "destination_path")
-        os.makedirs(destination_path)
+        destination_path = tempfile.mkdtemp(".")
         filename = os.path.join(self.extracted_package, "image_tiff_1.png")
         create_image_file(filename, "PNG")
 
         web_image_generator = utils.WebImageGenerator(
             "image_tiff_1.png", self.extracted_package
         )
-        web_image_generator.create_thumbnail(destination_path)
-        self.assertTrue(
-            os.path.exists(os.path.join(destination_path, "image_tiff_1.thumbnail.jpg"))
-        )
-
-    def test_create_thumbnail_create_destination_path_if_it_does_not_exist(self):
-        destination_path = os.path.join(self.extracted_package, "destination_path")
-        filename = os.path.join(self.extracted_package, "image_tiff_1.png")
-        create_image_file(filename, "PNG")
-
-        web_image_generator = utils.WebImageGenerator(
-            "image_tiff_1.png", self.extracted_package
-        )
-        web_image_generator.create_thumbnail(destination_path)
-        self.assertTrue(
-            os.path.exists(os.path.join(destination_path, "image_tiff_1.thumbnail.jpg"))
-        )
+        web_image_generator.create_thumbnail()
+        thumbnail_filename = os.path.splitext(filename)[0] + ".thumbnail.jpg"
+        is_thumbnail_ok = os.path.exists(thumbnail_filename)
+        shutil.rmtree(destination_path)
+        self.assertTrue(is_thumbnail_ok)
 
     def test_get_png_bytes_no_image_object(self):
         web_image_generator = utils.WebImageGenerator(
