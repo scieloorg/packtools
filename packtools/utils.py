@@ -434,6 +434,8 @@ class XMLWebOptimiser(object):
             filename, image_filenames, read_file, stop_if_error
         )
         bytes = xml_web_optimiser.get_xml_file()
+        optimised_assets = xml_web_optimiser.get_optimised_assets()
+        assets_thumbnails = xml_web_optimiser.get_assets_thumbnails()
 
     :param filename: (str) XML file name
     :param image_filenames: (list) list of image file names 
