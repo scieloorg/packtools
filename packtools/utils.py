@@ -452,7 +452,6 @@ class XMLWebOptimiser(object):
         self.filename = filename
         self.work_dir = work_dir
         self.stop_if_error = stop_if_error
-        self._image_filenames = image_filenames
         self._optimised_assets = []
         self._assets_thumbnails = []
         if read_file is None:
@@ -461,6 +460,24 @@ class XMLWebOptimiser(object):
             )
         self._read_file = read_file
         self._xml_file = XML(io.BytesIO(self._read_file(filename)))
+        self._image_filenames = self._get_all_graphic_images_from_xml(image_filenames)
+
+    def _get_all_graphic_images_from_xml(self, image_filenames):
+        namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
+        graphic_filename = set()
+        for elem in self._xml_file.xpath(
+            './/graphic[@xlink:href] | .//inline-graphic[@xlink:href]',
+            namespaces=namespaces
+        ):
+            href_text = elem.attrib.get("{http://www.w3.org/1999/xlink}href")
+            if href_text is not None and href_text in image_filenames:
+                graphic_filename.add(href_text)
+            else:
+                for image_filename in image_filenames:
+                    if href_text in image_filename:
+                        graphic_filename.add(image_filename)
+
+        return graphic_filename
 
     def _handle_image_exception(self, exception):
         if self.stop_if_error:
@@ -511,7 +528,7 @@ class XMLWebOptimiser(object):
             )
             if len(alternatives) == 1 or len(thumbnail) == 0:
                 image_filename = alternatives[0].attrib.get(
-                    "{http://www.w3.org/1999/xlink}href", ""
+                    "{http://www.w3.org/1999/xlink}href"
                 )
                 yield image_filename, alternatives[0]
 

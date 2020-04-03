@@ -451,10 +451,24 @@ class TestXMLWebOptimiser(unittest.TestCase):
         with open(file_path, "rb") as fp:
             return fp.read()
 
+    def test_get_all_graphic_images_from_xml(self):
+        expected = {
+            "1234-5678-rctb-45-05-0110-e01.tif",
+            "1234-5678-rctb-45-05-0110-e02.tiff",
+            "1234-5678-rctb-45-05-0110-gf03.tiff",
+            "1234-5678-rctb-45-05-0110-gf03.png",
+            "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e04.tif",
+        }
+        result = self.xml_web_optimiser._get_all_graphic_images_from_xml(
+            self.image_filenames
+        )
+        for graphic_filename, expected_filename in zip(result, expected):
+            self.assertEqual(graphic_filename, expected_filename)
+
     def test_create_XMLWebOptimiser(self):
         self.assertEqual(self.xml_web_optimiser.filename, self.xml_filename)
         self.assertEqual(self.xml_web_optimiser.work_dir, self.work_dir)
-        self.assertEqual(self.xml_web_optimiser._image_filenames, self.image_filenames)
         self.assertEqual(self.xml_web_optimiser._optimised_assets, [])
         self.assertEqual(self.xml_web_optimiser._assets_thumbnails, [])
         self.assertFalse(self.xml_web_optimiser.stop_if_error)
@@ -463,6 +477,7 @@ class TestXMLWebOptimiser(unittest.TestCase):
             etree.tostring(self.xml_web_optimiser._xml_file),
             etree.tostring(utils.XML(io.BytesIO(self.xml_file))),
         )
+        self.assertEqual(self.xml_web_optimiser._image_filenames, set(self.image_filenames))
 
     def test_get_all_images_to_optimise(self):
         images = self.xml_web_optimiser._get_all_images_to_optimise()
@@ -650,6 +665,21 @@ class TestXMLWebOptimiserGraphicsWithNoFileExtention(unittest.TestCase):
         with open(file_path, "rb") as fp:
             return fp.read()
 
+    def test_get_all_graphic_images_from_xml(self):
+        expected = {
+            "1234-5678-rctb-45-05-0110-e01.tif",
+            "1234-5678-rctb-45-05-0110-e02.tiff",
+            "1234-5678-rctb-45-05-0110-gf03.tiff",
+            "1234-5678-rctb-45-05-0110-gf03.png",
+            "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e04.tif",
+        }
+        result = self.xml_web_optimiser._get_all_graphic_images_from_xml(
+            self.image_filenames
+        )
+        for graphic_filename, expected_filename in zip(result, expected):
+            self.assertEqual(graphic_filename, expected_filename)
+
     def test_get_all_images_to_optimise(self):
         images = self.xml_web_optimiser._get_all_images_to_optimise()
         expected = [
@@ -703,10 +733,15 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         self.xml_filename = "1234-5678-rctb-45-05-0110.xml"
         self.work_dir = tempfile.mkdtemp()
         self.image_filenames = [
+            "a01-gf01.jpg",
             "1234-5678-rctb-45-05-0110-e01.jpg",
+            "a02-e01.gif",
             "1234-5678-rctb-45-05-0110-e02.gif",
+            "a03tb01.png",
             "1234-5678-rctb-45-05-0110-gf03.tiff",
             "1234-5678-rctb-45-05-0110-gf03.png",
+            "a04gf01.tiff",
+            "a04gf02.tiff",
             "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
             "1234-5678-rctb-45-05-0110-e04.tif",
         ]
@@ -722,6 +757,34 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         file_path = os.path.join(self.work_dir, filename)
         with open(file_path, "rb") as fp:
             return fp.read()
+
+    def test_get_all_graphic_images_from_xml(self):
+        graphic_01 = '<graphic xlink:href="1234-5678-rctb-45-05-0110-e01.jpg"/>'
+        graphic_02 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.gif"/>'
+        xml_file = BASE_XML.format(graphic_01, graphic_02).encode("utf-8")
+        xml_file_path = os.path.join(self.work_dir, self.xml_filename)
+        with open(xml_file_path, "wb") as fp:
+            fp.write(xml_file)
+
+        xml_web_optimiser = utils.XMLWebOptimiser(
+            self.xml_filename,
+            self.image_filenames,
+            self.mocked_read_file,
+            self.work_dir,
+        )
+        result = xml_web_optimiser._get_all_graphic_images_from_xml(
+            self.image_filenames
+        )
+        expected = {
+            "1234-5678-rctb-45-05-0110-e01.jpg",
+            "1234-5678-rctb-45-05-0110-e02.gif",
+            "1234-5678-rctb-45-05-0110-gf03.tiff",
+            "1234-5678-rctb-45-05-0110-gf03.png",
+            "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
+            "1234-5678-rctb-45-05-0110-e04.tif",
+        }
+        for graphic_filename, expected_filename in zip(result, expected):
+            self.assertEqual(graphic_filename, expected_filename)
 
     def test_get_all_images_to_optimise_does_not_return_optimised_images(self):
         graphic_01 = '<graphic xlink:href="1234-5678-rctb-45-05-0110-e01.jpg"/>'
