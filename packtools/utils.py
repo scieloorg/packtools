@@ -692,11 +692,12 @@ class SPPackage(object):
         return cls(package2optimise, extracted_package, stop_if_error)
 
     def _optimise_to_zipfile(
-        self, new_package_file_path, xml_filename, xml_related_files
+        self, new_package_file_path, xml_filename, zipped_filenames
     ):
         with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
+            zipped_files = []
             xml_web_optimiser = self._get_optimise_web_xml(
-                xml_filename, xml_related_files
+                xml_filename, zipped_filenames
             )
             # Write optimised XML to new Zipfile
             optimised_xml = xml_web_optimiser.get_xml_file()
@@ -704,22 +705,29 @@ class SPPackage(object):
             new_zip_file.writestr(
                 xml_filename, optimised_xml, xml_zip_info.compress_type
             )
+            zipped_files.append(xml_filename)
             # Write optimised assets to new Zipfile
             for asset_filename, asset_bytes in xml_web_optimiser.get_optimised_assets():
                 if asset_bytes is not None:
                     new_zip_file.writestr(asset_filename, asset_bytes)
+                    zipped_files.append(asset_filename)
             for (
                 asset_filename,
                 asset_bytes,
             ) in xml_web_optimiser.get_assets_thumbnails():
                 if asset_bytes is not None:
                     new_zip_file.writestr(asset_filename, asset_bytes)
-            # Write other XML related files to new Zipfile
-            for xml_related_file in xml_related_files:
-                zip_info = self._package_file.getinfo(xml_related_file)
+                    zipped_files.append(asset_filename)
+            return zipped_files
+
+    def _write_files_left(self, new_package_file_path, files_to_write):
+        # Write files left to new Zipfile
+        with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
+            for file_to_write in files_to_write:
+                zip_info = self._package_file.getinfo(file_to_write)
                 new_zip_file.writestr(
-                    xml_related_file,
-                    self._package_file.read(xml_related_file),
+                    file_to_write,
+                    self._package_file.read(file_to_write),
                     zip_info.compress_type,
                 )
 
@@ -772,20 +780,19 @@ class SPPackage(object):
             for xml_filename in zipped_filenames
             if os.path.splitext(xml_filename)[-1] == ".xml"
         ]
+        optimised_filenames = []
         for i, xml_filename in enumerate(xmls_filenames):
             LOGGER.info(
                 "Optimizing XML file %s [%s/%s]", xml_filename, i, len(xmls_filenames)
             )
             filename_root, __ = os.path.splitext(xml_filename)
-            xml_related_files = [
-                filename
-                for filename in zipped_filenames
-                if os.path.basename(filename).startswith(filename_root)
-                and filename != xml_filename
-            ]
-            self._optimise_to_zipfile(
-                new_package_file_path, xml_filename, xml_related_files
+            optimised_filenames += self._optimise_to_zipfile(
+                new_package_file_path, xml_filename, zipped_filenames
             )
+
+        self._write_files_left(
+            new_package_file_path, set(zipped_filenames) - set(optimised_filenames)
+        )
 
         if preserve_files:
             with zipfile.ZipFile(new_package_file_path) as new_zip_file:

@@ -945,7 +945,7 @@ class TestSPPackage(unittest.TestCase):
         self.tmp_package = os.path.join(self.temp_package_dir, "sps_package.zip")
         self.extracted_package = os.path.splitext(self.tmp_package)[0]
         self.optimised_package = self.extracted_package + "_optimised.zip"
-        self.xml_filename = "1234-5678-rctb-45-05-0110.xml"
+        self.xml_filename = "somedocument.xml"
 
         with zipfile.ZipFile(self.tmp_package, "w") as self.archive:
             xml_file_path = os.path.join(self.temp_img_dir, self.xml_filename)
