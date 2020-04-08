@@ -1,6 +1,12 @@
 # History
 
 
+## 2.6.1 (2020-04-08)
+
+* SPS Package WEB optimiser code refactoring
+* Adds option to stop execution if an error occurs during WEB package optimisation
+
+
 ## 2.6.0 (2020-02-18)
 
 * Drop support for Python version 3.4.
