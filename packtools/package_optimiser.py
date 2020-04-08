@@ -26,6 +26,11 @@ def main():
         action='store_true',
         help='preserve extracted and optimised files in aux directory',
     )
+    parser.add_argument(
+        '--stopiferror',
+        action='store_true',
+        help='stop execution if an error occurs',
+    )
     parser.add_argument("--version", action="version", version=packtools_version)
     parser.add_argument("--loglevel", default="WARNING")
     args = parser.parse_args()
@@ -40,7 +45,9 @@ def main():
         new_package_file_path = os.path.splitext(args.SPPackage)[0] + "_optimised.zip"
 
     package = packtools.SPPackage.from_file(
-        args.SPPackage, os.path.splitext(args.SPPackage)[0]
+        args.SPPackage,
+        os.path.splitext(args.SPPackage)[0],
+        stop_if_error=args.stopiferror,
     )
     package.optimise(
         new_package_file_path=new_package_file_path, preserve_files=args.preservefiles

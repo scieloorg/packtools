@@ -12,7 +12,7 @@ import zipfile
 import io
 
 from lxml import etree, isoschematron
-from PIL import Image
+from PIL import Image, ImageFile
 try:
     import pygments     # NOQA
     from pygments.lexers import get_lexer_for_mimetype
@@ -299,30 +299,127 @@ class WebImageGenerator:
     :param image_filename: image file name
     :param image_file_dir: directory where ``image_filename`` is and where new versions
         will be saved
+    :param file_bytes: image file bytes
     """
 
-    def __init__(self, image_filename, image_file_dir):
+    def __init__(self, image_filename, image_file_dir, file_bytes=None):
+        self.filename = image_filename
+        self.thumbnail_size = (267, 140)
         self.image_file_path = os.path.join(image_file_dir, image_filename)
+        self._image_object = self._get_image_object(file_bytes)
 
-    def convert2png(self):
-        """Generate a PNG file from image file in the same directory with the same name,
-        changing only the file extension."""
-        new_filename = os.path.splitext(self.image_file_path)[0] + ".png"
-        with Image.open(self.image_file_path) as tiff_file:
+    def _get_image_object(self, file_bytes):
+        if file_bytes is not None:
+            parser = ImageFile.Parser()
+            try:
+                parser.feed(file_bytes)
+                image = parser.close()
+            except IOError as exc:
+                raise exceptions.WebImageGeneratorError(
+                    'Error reading image "%s": %s' % (self.filename, str(exc))
+                )
+            else:
+                return image
+
+    @property
+    def png_filename(self):
+        return os.path.splitext(self.filename)[0] + ".png"
+
+    @property
+    def thumbnail_filename(self):
+        return os.path.splitext(self.filename)[0] + ".thumbnail.jpg"
+
+    def convert2png(self, destination_path=None):
+        """Generate a PNG file from image file with the same name, changing only the
+        file extension. If ``destination_path`` is given, the new image is saved in it,
+        otherwise it is saved in the same directory as original image.
+        """
+        try:
+            tiff_file = Image.open(self.image_file_path)
+        except (OSError, IOError, ValueError) as exc:
+            raise exceptions.WebImageGeneratorError(
+                'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
+            )
+        else:
             png_file = tiff_file.copy()
-            png_file.save(new_filename, "PNG")
-        return new_filename
+            new_filename = os.path.splitext(self.image_file_path)[0] + ".png"
+            if destination_path is not None and len(destination_path) > 0:
+                new_filename = os.path.join(
+                    destination_path, os.path.basename(new_filename)
+                )
+            try:
+                png_file.save(new_filename, "PNG")
+                return new_filename
+            except (ValueError, IOError) as exc:
+                raise exceptions.WebImageGeneratorError(
+                    'Error saving image file "%s": %s' % (new_filename, str(exc))
+                )
+            finally:
+                tiff_file.close()
 
-    def create_thumbnail(self):
-        """Generate a thumbnail file from image file in the same directory with the same name,
-        changing only the file name to ``*.thumbnail.jpg.``"""
-        new_filename = os.path.splitext(self.image_file_path)[0] + ".thumbnail.jpg"
-        with Image.open(self.image_file_path) as image_file:
-            size = (267, 140)
+    def create_thumbnail(self, destination_path=None):
+        """Generate a thumbnail file from image file with the same name, changing only
+        the file name to ``*.thumbnail.jpg``. If ``destination_path`` is given, the new
+        image is saved in it, otherwise it is saved in the same directory as original image.
+        """
+        try:
+            image_file = Image.open(self.image_file_path)
+        except (OSError, IOError, ValueError) as exc:
+            raise exceptions.WebImageGeneratorError(
+                'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
+            )
+        else:
             thumbnail_file = image_file.copy()
-            thumbnail_file.thumbnail(size)
-            thumbnail_file.save(new_filename, "JPEG")
-        return new_filename
+            new_filename = os.path.splitext(self.image_file_path)[0] + ".thumbnail.jpg"
+            if destination_path is not None and len(destination_path) > 0:
+                new_filename = os.path.join(
+                    destination_path, os.path.basename(new_filename)
+                )
+            thumbnail_file.thumbnail(self.thumbnail_size)
+            try:
+                thumbnail_file.save(new_filename, "JPEG")
+                return new_filename
+            except (ValueError, IOError) as exc:
+                raise exceptions.WebImageGeneratorError(
+                    'Error saving image file "%s": %s' % (new_filename, str(exc))
+                )
+            finally:
+                image_file.close()
+
+    def _get_bytes(self, format):
+        image_file = io.BytesIO()
+        try:
+            self._image_object.convert("RGB").save(image_file, format)
+        except (ValueError, IOError) as exc:
+            raise exceptions.WebImageGeneratorError(
+                'Error optimising image bytes from "%s": %s' % (self.filename, str(exc))
+            )
+        else:
+            return image_file.getvalue()
+
+    def get_png_bytes(self):
+        """Generate a PNG image byte-like object from image file set in
+        ``self._image_object``."""
+        if self._image_object is None:
+            raise exceptions.WebImageGeneratorError(
+                'Error optimising image bytes from "%s": '
+                "no original file bytes was given." % self.filename
+            )
+
+        return self._get_bytes("PNG")
+
+    def get_thumbnail_bytes(self):
+        """Generate a thumbnail image byte-like object from image file set in
+        ``self._image_object``."""
+        if self._image_object is None:
+            raise exceptions.WebImageGeneratorError(
+                'Error optimising image bytes from "%s": '
+                'no original file bytes was given.'
+                % self.filename
+            )
+
+        self._image_object.thumbnail(self.thumbnail_size)
+        return self._get_bytes("JPEG")
 
 
 class XMLWebOptimiser(object):
@@ -333,37 +430,93 @@ class XMLWebOptimiser(object):
 
     .. code-block:: python
 
-        package = XMLWebOptimiser(xml_file, xml_filename)
-        xml_etree = package.get_optimised_xml(get_optimised_image, get_image_thumbnail)
+        xml_web_optimiser = XMLWebOptimiser(
+            filename, image_filenames, read_file, stop_if_error
+        )
+        bytes = xml_web_optimiser.get_xml_file()
+        optimised_assets = xml_web_optimiser.get_optimised_assets()
+        assets_thumbnails = xml_web_optimiser.get_assets_thumbnails()
 
-    :param xml_file: XML document, instance of ``etree._ElementTree``
-    :param xml_filename: XML filename
+    :param filename: (str) XML file name
+    :param image_filenames: (list) list of image file names 
+    :param read_file: function to read file content from source which raises
+        exceptions.SPPackageError if an error occurs during the file reading
+    :param work_dir: directory path to work with image optimization
+    :param stop_if_error: (bool) if True, it raises exceptions.XMLWebOptimiserError for
+        handled exceptions, otherwise it logs error message.
     """
 
-    def __init__(self, xml_file, xml_filename):
-        self.xml_file = xml_file
-        self.xml_filename = xml_filename
+    def __init__(
+        self, filename, image_filenames, read_file, work_dir, stop_if_error=False
+    ):
+        self.filename = filename
+        self.work_dir = work_dir
+        self.stop_if_error = stop_if_error
+        self._optimised_assets = []
+        self._assets_thumbnails = []
+        if read_file is None:
+            raise exceptions.XMLWebOptimiserError(
+                "Error instantiating XMLWebOptimiser: read_file cannot be None"
+            )
+        self._read_file = read_file
+        self._xml_file = XML(io.BytesIO(self._read_file(filename)))
+        self._image_filenames = self._get_all_graphic_images_from_xml(image_filenames)
+
+    def _get_all_graphic_images_from_xml(self, image_filenames):
+        namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
+        graphic_filename = set()
+        for elem in self._xml_file.xpath(
+            './/graphic[@xlink:href] | .//inline-graphic[@xlink:href]',
+            namespaces=namespaces
+        ):
+            href_text = elem.attrib.get("{http://www.w3.org/1999/xlink}href")
+            if href_text is not None and href_text in image_filenames:
+                graphic_filename.add(href_text)
+            else:
+                for image_filename in image_filenames:
+                    if href_text in image_filename:
+                        graphic_filename.add(image_filename)
+
+        return graphic_filename
+
+    def _handle_image_exception(self, exception):
+        if self.stop_if_error:
+            raise exception
+        else:
+            LOGGER.info(str(exception))
 
     def _get_all_images_to_optimise(self):
+        def is_image_to_optimise(image):
+            image_filename = image.attrib.get("{http://www.w3.org/1999/xlink}href", "")
+            __, filename_ext = os.path.splitext(image_filename)
+            if filename_ext.startswith(".tif") or len(filename_ext) == 0:
+                is_optimised_siblings = [
+                    sibling
+                    for sibling in image.xpath(
+                        '../{}[@specific-use="scielo-web"]'.format(image.tag),
+                        namespaces={"xlink": "http://www.w3.org/1999/xlink"},
+                    )
+                    if sibling.tag == image.tag
+                ]
+                if len(is_optimised_siblings) == 0:
+                    return True
+            return False
+
         paths = [
             './/graphic[@xlink:href and not(@specific-use="scielo-web")]',
             './/inline-graphic[@xlink:href and not(@specific-use="scielo-web")]',
         ]
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
-        iterators = [self.xml_file.xpath(path, namespaces=namespaces) for path in paths]
+        iterators = [
+            self._xml_file.xpath(path, namespaces=namespaces) for path in paths
+        ]
         for image in itertools.chain(*iterators):
-            image_filename = image.attrib.get("{http://www.w3.org/1999/xlink}href", "")
-            if ".tif" in image_filename:
-                path = '../{}[@xlink:href and @specific-use="scielo-web"]'.format(
-                    image.tag
-                )
-                if len(image.xpath(path, namespaces=namespaces)) == 0:
-                    yield image_filename, image
+            if is_image_to_optimise(image):
+                yield image.attrib["{http://www.w3.org/1999/xlink}href"], image
 
     def _get_all_images_to_thumbnail(self):
-        path = "//graphic[@xlink:href]"
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
-        images = self.xml_file.xpath(path, namespaces=namespaces)
+        images = self._xml_file.xpath("//graphic[@xlink:href]", namespaces=namespaces)
         images_parents = {image.getparent() for image in images}
         for images_parent in images_parents:
             alternatives = images_parent.xpath(
@@ -375,62 +528,132 @@ class XMLWebOptimiser(object):
             )
             if len(alternatives) == 1 or len(thumbnail) == 0:
                 image_filename = alternatives[0].attrib.get(
-                    "{http://www.w3.org/1999/xlink}href", ""
+                    "{http://www.w3.org/1999/xlink}href"
                 )
                 yield image_filename, alternatives[0]
 
-    def get_optimised_xml(self, get_optimised_image, get_image_thumbnail):
-        """Get optimised XML, with WEB alternatives for images.
+    def _get_web_image_generator(self, image_filename):
+        try:
+            image_file_bytes = self._read_file(image_filename)
+        except exceptions.SPPackageError as exc:
+            self._handle_image_exception(exc)
+        else:
+            web_image_generator = WebImageGenerator(
+                image_filename, self.work_dir, image_file_bytes
+            )
+            return web_image_generator
 
-        :param get_optimised_image: function to get optimised image file from given file
-            referenced in XML
-        :param get_image_thumbnail: function to get image thumbnail from given file
-            referenced in XML
-        """
-        for image_filename, image_element in self._get_all_images_to_optimise():
+    def _add_optimised_image(self, image_filename):
+        web_image_generator = self._get_web_image_generator(image_filename)
+        if web_image_generator is not None:
             try:
-                new_filename = get_optimised_image(image_filename)
-            except exceptions.SPPackageError as exc:
-                LOGGER.error("Error optimising image: %s", str(exc))
+                png_bytes = web_image_generator.get_png_bytes()
+            except exceptions.WebImageGeneratorError as exc:
+                self._handle_image_exception(exc)
             else:
-                new_alternative = etree.Element(image_element.tag)
-                new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
-                new_alternative.set("specific-use", "scielo-web")
+                self._optimised_assets.append(
+                    (web_image_generator.png_filename, png_bytes)
+                )
+                return web_image_generator.png_filename
 
-                image_parent = image_element.getparent()
-                if image_parent.tag == "alternatives":
-                    image_parent.append(new_alternative)
-                else:
-                    alternative_node = etree.Element("alternatives")
-                    alternative_node.tail = image_element.tail
-                    image_element.tail = None
-                    alternative_node.append(image_element)
-                    alternative_node.append(new_alternative)
-                    image_parent.append(alternative_node)
+    def _add_assets_thumbnails(self, image_filename):
+        web_image_generator = self._get_web_image_generator(image_filename)
+        if web_image_generator is not None:
+            try:
+                thumbnail_bytes = web_image_generator.get_thumbnail_bytes()
+            except exceptions.WebImageGeneratorError as exc:
+                self._handle_image_exception(exc)
+            else:
+                self._assets_thumbnails.append(
+                    (web_image_generator.thumbnail_filename, thumbnail_bytes)
+                )
+                return web_image_generator.thumbnail_filename
+
+    def _get_similar_filename(self, image_filename):
+        for filename in self._image_filenames:
+            filename_root, filename_ext = os.path.splitext(filename)
+            if filename_root == image_filename and ".tif" in filename_ext:
+                return True, filename
+        else:
+            msg_error = 'No file named "%s" in package'
+            if self.stop_if_error:
+                raise exceptions.XMLWebOptimiserError(msg_error, image_filename)
+            else:
+                LOGGER.error(msg_error, image_filename)
+                return False, None
+
+    def _get_optimised_image_with_filename(self, image_filename, add_image):
+        optimise = True
+        if image_filename not in self._image_filenames:
+            optimise, image_filename = self._get_similar_filename(image_filename)
+        if optimise:
+            return add_image(image_filename)
+
+    def _add_alternative_to_alternatives_tag(
+        self, image_element, alternative_attr_values
+    ):
+        image_parent = image_element.getparent()
+        new_alternative = etree.Element(image_element.tag)
+        for attrb, value in alternative_attr_values:
+            new_alternative.set(attrb, value)
+        if image_parent.tag == "alternatives":
+            image_parent.append(new_alternative)
+        else:
+            alternative_node = etree.Element("alternatives")
+            alternative_node.tail = image_element.tail
+            image_element.tail = None
+            alternative_node.append(image_element)
+            alternative_node.append(new_alternative)
+            image_parent.append(alternative_node)
+
+    def get_xml_file(self):
+        """Get a byte-like optimised XML, with WEB alternatives for images."""
+        for image_filename, image_element in self._get_all_images_to_optimise():
+            new_filename = self._get_optimised_image_with_filename(
+                image_filename, self._add_optimised_image
+            )
+            if new_filename is not None:
+                alternative_attr_values = (
+                    ("{http://www.w3.org/1999/xlink}href", new_filename),
+                    ("specific-use", "scielo-web"),
+                )
+                self._add_alternative_to_alternatives_tag(
+                    image_element, alternative_attr_values
+                )
 
         for image_filename, image_element in self._get_all_images_to_thumbnail():
-            try:
-                new_filename = get_image_thumbnail(image_filename)
-            except exceptions.SPPackageError as exc:
-                LOGGER.error("Error creating image thumbnail: %s", str(exc))
-            else:
-                new_alternative = etree.Element(image_element.tag)
-                new_alternative.set("{http://www.w3.org/1999/xlink}href", new_filename)
-                new_alternative.set("specific-use", "scielo-web")
-                new_alternative.set("content-type", "scielo-267x140")
+            new_filename = self._get_optimised_image_with_filename(
+                image_filename, self._add_assets_thumbnails
+            )
+            if new_filename is not None:
+                alternative_attr_values = (
+                    ("{http://www.w3.org/1999/xlink}href", new_filename),
+                    ("specific-use", "scielo-web"),
+                    ("content-type", "scielo-267x140"),
+                )
+                self._add_alternative_to_alternatives_tag(
+                    image_element, alternative_attr_values
+                )
 
-                image_parent = image_element.getparent()
-                if image_parent.tag == "alternatives":
-                    image_parent.append(new_alternative)
-                else:
-                    alternative_node = etree.Element("alternatives")
-                    alternative_node.tail = image_element.tail
-                    image_element.tail = None
-                    alternative_node.append(image_element)
-                    alternative_node.append(new_alternative)
-                    image_parent.append(alternative_node)
+        return etree.tostring(
+            self._xml_file,
+            xml_declaration=True,
+            method="xml",
+            encoding="utf-8",
+            pretty_print=True,
+        )
 
-        return self.xml_file
+    def get_optimised_assets(self):
+        """Generate tuples of PNG file name and bytes of each image produced by TIFF
+        images referenced in XML content."""
+        for optimised_asset in self._optimised_assets:
+            yield optimised_asset
+
+    def get_assets_thumbnails(self):
+        """Generate tuples of thumbnail file name and bytes of each image produced by
+        images referenced in XML content."""
+        for asset_thumbnail in self._assets_thumbnails:
+            yield asset_thumbnail
 
 
 class SPPackage(object):
@@ -447,12 +670,13 @@ class SPPackage(object):
     :param extracted_package: path to extract package files and optimise them
     """
 
-    def __init__(self, package_file, extracted_package):
+    def __init__(self, package_file, extracted_package, stop_if_error=False):
         self._package_file = package_file
         self._extracted_package = extracted_package
+        self._stop_if_error = stop_if_error
 
     @classmethod
-    def from_file(cls, package_file_path, extracted_package=None):
+    def from_file(cls, package_file_path, extracted_package=None, stop_if_error=False):
         """Factory of SPPackage instances.
 
         :param package_file_path: Path to the SciELO Publishing Package file, instance
@@ -465,48 +689,71 @@ class SPPackage(object):
         package2optimise = zipfile.ZipFile(package_file_path)
         if extracted_package is None:
             extracted_package = os.path.splitext(package_file_path)[0]
-        return cls(package2optimise, extracted_package)
+        return cls(package2optimise, extracted_package, stop_if_error)
 
-    def _optimise_xml_to_web(self, parsed_xml, xml_filename):
+    def _optimise_to_zipfile(
+        self, new_package_file_path, xml_filename, zipped_filenames
+    ):
+        with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
+            zipped_files = []
+            xml_web_optimiser = self._get_optimise_web_xml(
+                xml_filename, zipped_filenames
+            )
+            # Write optimised XML to new Zipfile
+            optimised_xml = xml_web_optimiser.get_xml_file()
+            xml_zip_info = self._package_file.getinfo(xml_filename)
+            new_zip_file.writestr(
+                xml_filename, optimised_xml, xml_zip_info.compress_type
+            )
+            zipped_files.append(xml_filename)
+            # Write optimised assets to new Zipfile
+            for asset_filename, asset_bytes in xml_web_optimiser.get_optimised_assets():
+                if asset_bytes is not None:
+                    new_zip_file.writestr(asset_filename, asset_bytes)
+                    zipped_files.append(asset_filename)
+            for (
+                asset_filename,
+                asset_bytes,
+            ) in xml_web_optimiser.get_assets_thumbnails():
+                if asset_bytes is not None:
+                    new_zip_file.writestr(asset_filename, asset_bytes)
+                    zipped_files.append(asset_filename)
+            return zipped_files
 
-        xml_web_optimiser = XMLWebOptimiser(parsed_xml, xml_filename)
-        optimised_xml = xml_web_optimiser.get_optimised_xml(
-            self.create_optimised_image, self.create_image_thumbnail
+    def _write_files_left(self, new_package_file_path, files_to_write):
+        # Write files left to new Zipfile
+        with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
+            for file_to_write in files_to_write:
+                zip_info = self._package_file.getinfo(file_to_write)
+                new_zip_file.writestr(
+                    file_to_write,
+                    self._package_file.read(file_to_write),
+                    zip_info.compress_type,
+                )
+
+    def _get_optimise_web_xml(self, xml_filename, xml_related_files):
+        image_filenames = [
+            filename
+            for filename in xml_related_files
+            if not os.path.splitext(filename)[-1] == ".pdf"
+        ]
+        return XMLWebOptimiser(
+            xml_filename,
+            image_filenames,
+            self._read_file,
+            self._extracted_package,
+            self._stop_if_error,
         )
-        with open(
-            os.path.join(self._extracted_package, xml_filename), "wb"
-        ) as xml_file:
-            xml_file.write(etree.tostring(optimised_xml))
 
-    def _optimise_image(self, image_to_optimise, do_optimisation):
+    def _read_file(self, image_to_optimise):
         try:
-            self._package_file.extract(image_to_optimise, self._extracted_package)
+            image_bytes = self._package_file.read(image_to_optimise)
         except KeyError as exc:
             raise exceptions.SPPackageError(
                 "No file named {} in package".format(image_to_optimise)
             )
         else:
-            optimised_file_path = do_optimisation()
-            os.remove(os.path.join(self._extracted_package, image_to_optimise))
-            return os.path.split(optimised_file_path)[-1]
-
-    def create_optimised_image(self, image_to_optimise):
-        """Create WEB image alternative of an image in SciELO Publishing Package.
-
-        :param image_to_optimise: image file name in SciELO Publishing Package.
-        """
-        web_image_generator = WebImageGenerator(
-            image_to_optimise, self._extracted_package
-        )
-        return self._optimise_image(image_to_optimise, web_image_generator.convert2png)
-
-    def create_image_thumbnail(self, large_image):
-        """Create image thumbnail of an image in SciELO Publishing Package.
-
-        :param large_image: image file name in SciELO Publishing Package.
-        """
-        web_image_generator = WebImageGenerator(large_image, self._extracted_package)
-        return self._optimise_image(large_image, web_image_generator.create_thumbnail)
+            return image_bytes
 
     def optimise(self, new_package_file_path=None, preserve_files=True):
         """Optimise SciELO Publishing Package to have WEB images alternatives.
@@ -522,39 +769,31 @@ class SPPackage(object):
         :param preserve_files (default=True): preserve extracted and optimised files in
             aux directory. If False, it will delete files after written in new Package.
         """
+        if new_package_file_path is None:
+            new_package_file_path = self._extracted_package + "_optimised.zip"
+        LOGGER.info(
+            "Generating new SciELO Publishing Package %s", new_package_file_path
+        )
+        zipped_filenames = self._package_file.namelist()
         xmls_filenames = [
             xml_filename
-            for xml_filename in self._package_file.namelist()
+            for xml_filename in zipped_filenames
             if os.path.splitext(xml_filename)[-1] == ".xml"
         ]
+        optimised_filenames = []
         for i, xml_filename in enumerate(xmls_filenames):
             LOGGER.info(
                 "Optimizing XML file %s [%s/%s]", xml_filename, i, len(xmls_filenames)
             )
-            self._optimise_xml_to_web(
-                XML(io.BytesIO(self._package_file.read(xml_filename))), xml_filename
+            filename_root, __ = os.path.splitext(xml_filename)
+            optimised_filenames += self._optimise_to_zipfile(
+                new_package_file_path, xml_filename, zipped_filenames
             )
-        files_to_update = os.listdir(self._extracted_package)
-        if len(files_to_update) > 0:
-            files_to_copy = set(self._package_file.namelist()) - set(files_to_update)
-            if new_package_file_path is None:
-                new_package_file_path = self._extracted_package + "_optimised.zip"
-            LOGGER.info(
-                "Generating new SciELO Publishing Package %s", new_package_file_path
-            )
-            with zipfile.ZipFile(new_package_file_path, "w") as new_zip_file:
-                for zipped_file in files_to_copy:
-                    zip_info = self._package_file.getinfo(zipped_file)
-                    new_zip_file.writestr(
-                        zipped_file,
-                        self._package_file.read(zipped_file),
-                        zip_info.compress_type,
-                    )
-                for filename in files_to_update:
-                    LOGGER.info("Updating %s file in package", filename)
-                    file_path = os.path.join(self._extracted_package, filename)
-                    new_zip_file.write(file_path, filename)
-                    if not preserve_files:
-                        os.remove(file_path)
-            if not preserve_files:
-                os.rmdir(self._extracted_package)
+
+        self._write_files_left(
+            new_package_file_path, set(zipped_filenames) - set(optimised_filenames)
+        )
+
+        if preserve_files:
+            with zipfile.ZipFile(new_package_file_path) as new_zip_file:
+                new_zip_file.extractall(self._extracted_package)
