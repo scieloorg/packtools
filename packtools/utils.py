@@ -540,10 +540,14 @@ class XMLWebOptimiser(object):
         except exceptions.SPPackageError as exc:
             self._handle_image_exception(exc)
         else:
-            web_image_generator = WebImageGenerator(
-                image_filename, self.work_dir, image_file_bytes
-            )
-            return web_image_generator
+            try:
+                web_image_generator = WebImageGenerator(
+                    image_filename, self.work_dir, image_file_bytes
+                )
+            except exceptions.WebImageGeneratorError as exc:
+                self._handle_image_exception(exc)
+            else:
+                return web_image_generator
 
     def _add_optimised_image(self, image_filename):
         web_image_generator = self._get_web_image_generator(image_filename)
