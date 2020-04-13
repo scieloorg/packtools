@@ -512,7 +512,9 @@ class XMLWebOptimiser(object):
         ]
         for image in itertools.chain(*iterators):
             if is_image_to_optimise(image):
-                yield image.attrib["{http://www.w3.org/1999/xlink}href"], image
+                image_filename = image.attrib["{http://www.w3.org/1999/xlink}href"]
+                LOGGER.debug('Found <%s xlink:href="%s">', image.tag, image_filename)
+                yield image_filename, image
 
     def _get_all_images_to_thumbnail(self):
         namespaces = {"xlink": "http://www.w3.org/1999/xlink"}
@@ -573,11 +575,12 @@ class XMLWebOptimiser(object):
         for filename in self._image_filenames:
             filename_root, filename_ext = os.path.splitext(filename)
             if filename_root == image_filename and ".tif" in filename_ext:
+                LOGGER.debug('Found similar file name: "%s"', image_filename)
                 return True, filename
         else:
             msg_error = 'No file named "%s" in package'
             if self.stop_if_error:
-                raise exceptions.XMLWebOptimiserError(msg_error, image_filename)
+                raise exceptions.XMLWebOptimiserError(msg_error % image_filename)
             else:
                 LOGGER.error(msg_error, image_filename)
                 return False, None
@@ -585,8 +588,10 @@ class XMLWebOptimiser(object):
     def _get_optimised_image_with_filename(self, image_filename, add_image):
         optimise = True
         if image_filename not in self._image_filenames:
+            LOGGER.debug('"%s" not found in package_files', image_filename)
             optimise, image_filename = self._get_similar_filename(image_filename)
         if optimise:
+            LOGGER.debug('Optimising image file "%s"', image_filename)
             return add_image(image_filename)
 
     def _add_alternative_to_alternatives_tag(
@@ -702,20 +707,25 @@ class SPPackage(object):
             # Write optimised XML to new Zipfile
             optimised_xml = xml_web_optimiser.get_xml_file()
             xml_zip_info = self._package_file.getinfo(xml_filename)
+            LOGGER.debug('Writing XML file "%s" in package', xml_filename)
             new_zip_file.writestr(
                 xml_filename, optimised_xml, xml_zip_info.compress_type
             )
             zipped_files.append(xml_filename)
             # Write optimised assets to new Zipfile
+            LOGGER.debug('Writing asset files in package')
             for asset_filename, asset_bytes in xml_web_optimiser.get_optimised_assets():
                 if asset_bytes is not None:
+                    LOGGER.debug('Writing file "%s"', asset_filename)
                     new_zip_file.writestr(asset_filename, asset_bytes)
                     zipped_files.append(asset_filename)
+            LOGGER.debug('Writing asset thumbnail files in package')
             for (
                 asset_filename,
                 asset_bytes,
             ) in xml_web_optimiser.get_assets_thumbnails():
                 if asset_bytes is not None:
+                    LOGGER.debug('Writing file "%s"', asset_filename)
                     new_zip_file.writestr(asset_filename, asset_bytes)
                     zipped_files.append(asset_filename)
             return zipped_files
@@ -725,6 +735,7 @@ class SPPackage(object):
         with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
             for file_to_write in files_to_write:
                 zip_info = self._package_file.getinfo(file_to_write)
+                LOGGER.debug('Writing file "%s"', file_to_write)
                 new_zip_file.writestr(
                     file_to_write,
                     self._package_file.read(file_to_write),
@@ -790,6 +801,9 @@ class SPPackage(object):
                 new_package_file_path, xml_filename, zipped_filenames
             )
 
+        LOGGER.info(
+            "Writing remained files from package in new SciELO Publishing Package"
+        )
         self._write_files_left(
             new_package_file_path, set(zipped_filenames) - set(optimised_filenames)
         )
