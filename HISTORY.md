@@ -1,6 +1,12 @@
 # History
 
 
+## 2.6.2 (2020-04-13)
+
+* Fixes XML WEB optimiser stop execution in case linked image file format are not supported
+* Adds debug logs
+
+
 ## 2.6.1 (2020-04-08)
 
 * SPS Package WEB optimiser code refactoring
