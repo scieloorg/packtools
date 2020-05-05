@@ -459,7 +459,8 @@ class XMLWebOptimiser(object):
                 "Error instantiating XMLWebOptimiser: read_file cannot be None"
             )
         self._read_file = read_file
-        self._xml_file = XML(io.BytesIO(self._read_file(filename)))
+        self._xml_file = XML(io.BytesIO(self._read_file(filename)), load_dtd=False)
+        self._xml_doctype = self._xml_file.docinfo.doctype
         self._image_filenames = self._get_all_graphic_images_from_xml(image_filenames)
 
     def _get_all_graphic_images_from_xml(self, image_filenames):
@@ -646,6 +647,7 @@ class XMLWebOptimiser(object):
 
         return etree.tostring(
             self._xml_file,
+            doctype=self._xml_doctype or None,
             xml_declaration=True,
             method="xml",
             encoding="utf-8",
