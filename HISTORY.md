@@ -1,6 +1,12 @@
 # History
 
 
+## 2.6.3 (2020-05-07)
+
+* Changes XML reading in WEB optimiser to not to load DTD
+* Preserves XML DOCTYPE after XML reading in WEB optimiser
+
+
 ## 2.6.2 (2020-04-13)
 
 * Fixes XML WEB optimiser stop execution in case linked image file format are not supported
