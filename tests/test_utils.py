@@ -7,6 +7,11 @@ import os
 import io
 import shutil
 
+try:
+    from unittest import mock
+except:
+    import mock
+
 from PIL import Image, ImageFile
 from lxml import etree
 
@@ -238,6 +243,22 @@ class TestWebImageGenerator(unittest.TestCase):
         )
         self.assertEqual(
             web_image_generator._image_object.tobytes(), mocked_image.tobytes()
+        )
+
+    @mock.patch.object(ImageFile.Parser, "feed")
+    def test__get_image_object_large_image_file_security_error(
+        self, mk_img_parser_feed
+    ):
+        mk_img_parser_feed.side_effect = Image.DecompressionBombError("ERROR!")
+        mocked_image_io = io.BytesIO()
+        mocked_image = Image.new("RGB", (10, 10))
+        mocked_image.save(mocked_image_io, "TIFF")
+        web_image_generator = utils.WebImageGenerator("image_tiff_2.tiff", ".")
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator._get_image_object(mocked_image_io.getvalue())
+        self.assertEqual(
+            str(exc_info.exception),
+            'Error reading image "image_tiff_2.tiff": ERROR!',
         )
 
     def test_convert2png_file_does_not_exist(self):
