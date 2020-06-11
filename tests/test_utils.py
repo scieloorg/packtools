@@ -359,6 +359,24 @@ class TestWebImageGenerator(unittest.TestCase):
             os.path.exists(os.path.join(self.extracted_package, "file.png"))
         )
 
+    @mock.patch.object(Image, "open")
+    def test_create_thumbnail_large_image_file_security_error(self, mk_open):
+        mk_open.side_effect = Image.DecompressionBombError("ERROR!")
+        text_file_path = os.path.join(self.extracted_package, "file.txt")
+        with open(text_file_path, "w") as fp:
+            fp.write("Text file content.")
+
+        web_image_generator = utils.WebImageGenerator(
+            "file.txt", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.create_thumbnail()
+        self.assertIn("Error opening image file ", str(exc_info.exception))
+        self.assertIn("file.txt", str(exc_info.exception))
+        self.assertFalse(
+            os.path.exists(os.path.join(self.extracted_package, "file.png"))
+        )
+
     def test_create_thumbnail_ok(self):
         filename = os.path.join(self.extracted_package, "image_tiff_1.png")
         create_image_file(filename, "PNG")
