@@ -314,7 +314,7 @@ class WebImageGenerator:
             try:
                 parser.feed(file_bytes)
                 image = parser.close()
-            except IOError as exc:
+            except (Image.DecompressionBombError, IOError) as exc:
                 raise exceptions.WebImageGeneratorError(
                     'Error reading image "%s": %s' % (self.filename, str(exc))
                 )
