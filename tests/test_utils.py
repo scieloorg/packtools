@@ -289,6 +289,18 @@ class TestWebImageGenerator(unittest.TestCase):
             os.path.exists(os.path.join(self.extracted_package, "file.png"))
         )
 
+    @mock.patch.object(Image, "open")
+    def test_convert2png_large_image_file_security_error(self, mk_open):
+        mk_open.side_effect = Image.DecompressionBombError("ERROR!")
+        text_file_path = os.path.join(self.extracted_package, "file.txt")
+        web_image_generator = utils.WebImageGenerator(
+            "file.txt", self.extracted_package
+        )
+        with self.assertRaises(exceptions.WebImageGeneratorError) as exc_info:
+            web_image_generator.convert2png()
+        self.assertIn("Error opening image file ", str(exc_info.exception))
+        self.assertIn("file.txt", str(exc_info.exception))
+
     def test_convert2png_ok(self):
         web_image_generator = utils.WebImageGenerator(
             "image_tiff_2.tif", self.extracted_package
