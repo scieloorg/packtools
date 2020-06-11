@@ -364,7 +364,7 @@ class WebImageGenerator:
         """
         try:
             image_file = Image.open(self.image_file_path)
-        except (OSError, IOError, ValueError) as exc:
+        except (Image.DecompressionBombError, OSError, IOError, ValueError) as exc:
             raise exceptions.WebImageGeneratorError(
                 'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
             )
