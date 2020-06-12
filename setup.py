@@ -52,7 +52,7 @@ else:
     EXTRAS_REQUIRE[':python_version<"3.4"'] = ['pathlib>=1.0.1']
 
 if sys.version_info[0:2] == (2, 7):
-    TESTS_REQUIRE.append('mock')
+    TESTS_REQUIRE.append('mock==3.0.5')
 
 setup(
     name="packtools",
