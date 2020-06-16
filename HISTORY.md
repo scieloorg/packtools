@@ -1,6 +1,11 @@
 # History
 
 
+## 2.6.4 (2020-06-16)
+
+* WEB optimiser minor fix to not to externalize an error of one dependent library.
+
+
 ## 2.6.3 (2020-05-07)
 
 * Changes XML reading in WEB optimiser to not to load DTD
