@@ -6250,20 +6250,20 @@ class RoleTests(PhaseBasedTestCase):
 
     def test_CRediT_taxonomy_urls(self):
         for value in [
-            "https://dictionary.casrai.org/Contributor_Roles/Conceptualization",
-            "https://dictionary.casrai.org/Contributor_Roles/Data_curation",
-            "https://dictionary.casrai.org/Contributor_Roles/Formal_analysis",
-            "https://dictionary.casrai.org/Contributor_Roles/Funding_acquisition",
-            "https://dictionary.casrai.org/Contributor_Roles/Investigation",
-            "https://dictionary.casrai.org/Contributor_Roles/Methodology",
-            "https://dictionary.casrai.org/Contributor_Roles/Project_administration",
-            "https://dictionary.casrai.org/Contributor_Roles/Resources",
-            "https://dictionary.casrai.org/Contributor_Roles/Software",
-            "https://dictionary.casrai.org/Contributor_Roles/Supervision",
-            "https://dictionary.casrai.org/Contributor_Roles/Validation",
-            "https://dictionary.casrai.org/Contributor_Roles/Visualization",
-            "https://dictionary.casrai.org/Contributor_Roles/Writing_original_draft",
-            "https://dictionary.casrai.org/Contributor_Roles/Writing_review_editing",
+            "https://casrai.org/term/contributor-roles-conceptualization",
+            "https://casrai.org/term/contributor-roles-data-curation",
+            "https://casrai.org/term/contributor-roles-formal-analysis",
+            "https://casrai.org/term/contributor-roles-funding-acquisition",
+            "https://casrai.org/term/contributor-roles-investigation",
+            "https://casrai.org/term/contributor-roles-methodology",
+            "https://casrai.org/term/contributor-roles-project-administration",
+            "https://casrai.org/term/contributor-roles-resources",
+            "https://casrai.org/term/contributor-roles-software",
+            "https://casrai.org/term/contributor-roles-supervision",
+            "https://casrai.org/term/contributor-roles-validation",
+            "https://web.archive.org/web/20180313224017/http://dictionary.casrai.org/Contributor_Roles/Visualization",
+            "https://casrai.org/term/contributor-roles-writing-original-draft",
+            "https://casrai.org/term/contributor-roles-writing-review-editing",
             ]:
             sample = u"""<article>
                           <front>
