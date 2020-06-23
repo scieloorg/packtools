@@ -1744,20 +1744,20 @@ code for more information.
 
   <pattern id="role_content-type-values">
     <rule context="//contrib-group/contrib/role[@content-type]">
-      <assert test="@content-type = 'https://dictionary.casrai.org/Contributor_Roles/Conceptualization' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Data_curation' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Formal_analysis' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Funding_acquisition' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Investigation' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Methodology' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Project_administration' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Resources' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Software' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Supervision' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Validation' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Visualization' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Writing_original_draft' or
-                    @content-type = 'https://dictionary.casrai.org/Contributor_Roles/Writing_review_editing'">
+      <assert test="@content-type = 'https://casrai.org/term/contributor-roles-conceptualization' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-data-curation' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-formal-analysis' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-funding-acquisition' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-investigation' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-methodology' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-project-administration' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-resources' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-software' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-supervision' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-validation' or
+                    @content-type = 'https://web.archive.org/web/20180313224017/http://dictionary.casrai.org/Contributor_Roles/Visualization' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-writing-original-draft' or
+                    @content-type = 'https://casrai.org/term/contributor-roles-writing-review-editing'">
         Element 'role', attribute content-type: Invalid value '<value-of select="@content-type"/>'.
       </assert>
     </rule>
