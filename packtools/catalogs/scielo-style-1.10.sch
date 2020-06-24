@@ -1202,7 +1202,8 @@ code for more information.
             @article-type = 'product-review' or
             @article-type = 'dissertation' or
             @article-type = 'translation' or
-            @article-type = 'data-article'">
+            @article-type = 'data-article' or
+            @article-type = 'referee-report'">
         Element 'article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
       </assert>
     </rule>
