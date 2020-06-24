@@ -1432,7 +1432,8 @@ code for more information.
       <assert test="@article-type = 'abstract' or 
                     @article-type = 'letter' or 
                     @article-type = 'reply' or 
-                    @article-type = 'translation'">
+                    @article-type = 'translation' or
+                    @article-type = 'referee-report'">
         Element 'sub-article', attribute article-type: Invalid value '<value-of select="@article-type"/>'.
       </assert>
     </rule>

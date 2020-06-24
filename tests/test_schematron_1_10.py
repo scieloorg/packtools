@@ -5059,7 +5059,7 @@ class SubArticleAttributesTests(PhaseBasedTestCase):
     sch_phase = 'phase.sub-article-attrs'
 
     def test_allowed_article_types(self):
-        for art_type in ['abstract', 'letter', 'reply', 'translation']:
+        for art_type in ['abstract', 'letter', 'reply', 'translation', 'referee-report']:
             sample = u"""<article article-type="research-article" xml:lang="en" dtd-version="1.0" specific-use="sps-1.10">
                            <sub-article article-type="%s" xml:lang="pt" id="sa1"></sub-article>
                          </article>
