@@ -2525,7 +2525,8 @@ class HistoryTests(PhaseBasedTestCase):
 
     def test_date_type_allowed_values(self):
         for pub_type in ['accepted', 'corrected', 'pub', 'preprint',
-                'retracted', 'received', 'rev-recd', 'rev-request']:
+                'retracted', 'received', 'rev-recd', 'rev-request',
+                'referee-report-received']:
             sample = u"""<article>
                           <front>
                             <article-meta>
