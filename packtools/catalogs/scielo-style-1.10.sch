@@ -748,7 +748,8 @@ code for more information.
                     @date-type = 'preprint' or
                     @date-type = 'retracted' or
                     @date-type = 'rev-request' or
-                    @date-type = 'rev-recd'">
+                    @date-type = 'rev-recd' or
+                    @date-type = 'referee-report-received'">
         Element 'date', attribute date-type: Invalid value "<value-of select="@date-type"/>".
       </assert>
     </rule>
