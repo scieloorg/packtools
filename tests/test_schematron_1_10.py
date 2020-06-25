@@ -2523,18 +2523,6 @@ class HistoryTests(PhaseBasedTestCase):
 
         self.assertTrue(self._run_validation(sample))
 
-    def test_(self):
-        sample = u"""<article>
-                      <front>
-                        <article-meta>
-                        </article-meta>
-                      </front>
-                    </article>
-                 """
-        sample = io.BytesIO(sample.encode('utf-8'))
-
-        self.assertTrue(self._run_validation(sample))
-
     def test_date_type_allowed_values(self):
         for pub_type in ['accepted', 'corrected', 'pub', 'preprint',
                 'retracted', 'received', 'rev-recd', 'rev-request']:
