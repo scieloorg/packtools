@@ -6302,3 +6302,124 @@ class RoleTests(PhaseBasedTestCase):
 
             self.assertFalse(self._run_validation(sample))
 
+
+class RefereeReportTests(PhaseBasedTestCase):
+    """
+    Validations related to open peer-review.
+
+    Tests for article[@article-type = "referee-report"] elements.
+    """
+    sch_phase = 'phase.referee-report'
+
+    def test_related_object_is_mandatory(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            xlink:href="10.1590/abd1806-4841.20142998" 
+                            ext-link-type="doi"/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertTrue(self._run_validation(sample))
+
+    def test_missing_related_object(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_object_with_missing_xlinkhref(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            ext-link-type="doi"/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_object_with_empty_xlinkhref(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            xlink:href="" 
+                            ext-link-type="doi"/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_object_with_empty_ext_link_type(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            xlink:href="10.1590/abd1806-4841.20142998" 
+                            ext-link-type=""/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_object_with_missing_ext_link_type(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            xlink:href="10.1590/abd1806-4841.20142998"/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_object_with_invalid_ext_link_type(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            xlink:href="10.1590/abd1806-4841.20142998" 
+                            ext-link-type="unknown"/>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+

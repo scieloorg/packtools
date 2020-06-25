@@ -304,6 +304,11 @@ code for more information.
     <active pattern="role_content-type-values"/>
   </phase>
 
+  <phase id="phase.referee-report">
+    <active pattern="referee-report_mandatory_elements"/>
+    <active pattern="referee-report_related-object_href_notempty"/>
+  </phase>
+
   <!--
    Patterns - sets of rules.
   -->
@@ -1764,5 +1769,25 @@ code for more information.
       </assert>
     </rule>
   </pattern>
+
+  <pattern id="referee-report_mandatory_elements">
+    <rule context="article[@article-type = 'referee-report']/front/article-meta">
+      <assert test="related-object/@object-type = 'peer-reviewed-material'">
+        Element 'article-meta': missing element related-object with object-type='peer-reviewed-material'.
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="referee-report_related-object_href_notempty">
+    <rule context="article[@article-type = 'referee-report']/front/article-meta/related-object[@object-type='peer-reviewed-material']">
+      <assert test="string-length(normalize-space(@xlink:href)) > 0">
+        Element 'related-object', attribute xlink:href: Missing value.
+      </assert>
+      <assert test="@ext-link-type = 'doi'">
+        Element 'related-object': Missing attribute ext-link-type='doi'. 
+      </assert>
+    </rule>
+  </pattern>
+
 </schema>
 
