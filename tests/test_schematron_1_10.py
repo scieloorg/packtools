@@ -6412,3 +6412,131 @@ class RefereeReportTests(PhaseBasedTestCase):
 
         self.assertFalse(self._run_validation(sample))
 
+    def test_role_is_mandatory(self):
+        for role in ["reviewer", "editor"]:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                          <front>
+                            <article-meta>
+                              <related-object 
+                                object-type="peer-reviewed-material" 
+                                id="r01" 
+                                xlink:href="10.1590/abd1806-4841.20142998" 
+                                ext-link-type="doi"/>
+                              <contrib-group>
+                                <contrib>
+                                  <role specific-use="%s">%s</role>
+                                </contrib>
+                              </contrib-group>
+                            </article-meta>
+                          </front>
+                        </article>
+                     """ % (role, role.title())
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_role_with_missing_specific_use(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            xlink:href="10.1590/abd1806-4841.20142998" 
+                            ext-link-type="doi"/>
+                          <contrib-group>
+                            <contrib>
+                              <role>Reviewer</role>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_role_with_unknown_specific_use(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="referee-report">
+                      <front>
+                        <article-meta>
+                          <related-object 
+                            object-type="peer-reviewed-material" 
+                            id="r01" 
+                            xlink:href="10.1590/abd1806-4841.20142998" 
+                            ext-link-type="doi"/>
+                          <contrib-group>
+                            <contrib>
+                              <role specific-use="unknown">Unknown</role>
+                            </contrib>
+                          </contrib-group>
+                        </article-meta>
+                      </front>
+                    </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+
+class RefereeReportSubArticleTests(PhaseBasedTestCase):
+    """
+    Validations related to open peer-review.
+
+    Tests for article/sub-article[@article-type = "referee-report"] elements.
+    """
+    sch_phase = 'phase.referee-report_sub-article'
+
+    def test_related_object_is_mandatory(self):
+        for role in ["reviewer", "editor"]:
+            sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                           <sub-article article-type="referee-report">
+                             <front-stub>
+                               <contrib-group>
+                                 <contrib>
+                                   <role specific-use="%s">%s</role>
+                                 </contrib>
+                               </contrib-group>
+                             </front-stub>
+                           </sub-article>
+                         </article>
+                     """ % (role, role.title())
+            sample = io.BytesIO(sample.encode('utf-8'))
+
+            self.assertTrue(self._run_validation(sample))
+
+    def test_related_with_missing_specific_use(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                       <sub-article article-type="referee-report">
+                         <front-stub>
+                           <contrib-group>
+                             <contrib>
+                               <role>Unknown</role>
+                             </contrib>
+                           </contrib-group>
+                         </front-stub>
+                       </sub-article>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
+    def test_related_with_unknown_specific_use(self):
+        sample = u"""<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                       <sub-article article-type="referee-report">
+                         <front-stub>
+                           <contrib-group>
+                             <contrib>
+                               <role specific-use="unknown">Unknown</role>
+                             </contrib>
+                           </contrib-group>
+                         </front-stub>
+                       </sub-article>
+                     </article>
+                 """
+        sample = io.BytesIO(sample.encode('utf-8'))
+
+        self.assertFalse(self._run_validation(sample))
+
