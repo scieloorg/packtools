@@ -307,6 +307,11 @@ code for more information.
   <phase id="phase.referee-report">
     <active pattern="referee-report_mandatory_elements"/>
     <active pattern="referee-report_related-object_href_notempty"/>
+    <active pattern="referee-report_role_specific-use_values"/>
+  </phase>
+
+  <phase id="phase.referee-report_sub-article">
+    <active pattern="referee-report_role_specific-use_values"/>
   </phase>
 
   <!--
@@ -1786,6 +1791,15 @@ code for more information.
       </assert>
       <assert test="@ext-link-type = 'doi'">
         Element 'related-object': Missing attribute ext-link-type='doi'. 
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="referee-report_role_specific-use_values">
+    <rule context="article[@article-type = 'referee-report']/front/article-meta/contrib-group/contrib | article/sub-article[@article-type = 'referee-report']/front-stub/contrib-group/contrib">
+      <assert test="role/@specific-use = 'reviewer' or
+                    role/@specific-use = 'editor'">
+        Element 'contrib': missing element role with specific-use='reviewer' or specific-use='editor'.
       </assert>
     </rule>
   </pattern>
