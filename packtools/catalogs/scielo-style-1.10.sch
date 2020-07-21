@@ -1796,9 +1796,8 @@ code for more information.
   </pattern>
 
   <pattern id="referee-report_role_specific-use_values">
-    <rule context="article[@article-type = 'referee-report']/front/article-meta/contrib-group/contrib | article/sub-article[@article-type = 'referee-report']/front-stub/contrib-group/contrib">
-      <assert test="role/@specific-use = 'reviewer' or
-                    role/@specific-use = 'editor'">
+    <rule context="article[@article-type = 'referee-report']/front/article-meta/contrib-group | article/sub-article[@article-type = 'referee-report']/front-stub/contrib-group">
+      <assert test="count(contrib/role[@specific-use = 'reviewer'] | contrib/role[@specific-use = 'editor']) > 0">
         Element 'contrib': missing element role with specific-use='reviewer' or specific-use='editor'.
       </assert>
     </rule>
