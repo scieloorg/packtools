@@ -641,11 +641,12 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         self.assertTrue(len(thumb_tag) > 0
           )
 
-    def test_graphic_images_alternatives_must_prioritize_scielo_in_modal(self):
+    def test_graphic_images_alternatives_must_prioritize_scielo_web_attribute_in_modal(self):
         graphic1 = """
         <fig id="e01">
             <alternatives>
-                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.png" specific-use="scielo-web" />
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e03.png" specific-use="scielo-web" />
                 <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
             </alternatives>
         </fig>
@@ -657,9 +658,10 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = etree.parse(fp)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
-            '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e03.png"]'
         )
         self.assertTrue(len(thumb_tag) > 0)
+
 
     def test_graphic_images_alternatives_must_get_first_graphic_in_modal_when_not_scielo_web_and_not_content_type_atribute(self):
         graphic1 = """
