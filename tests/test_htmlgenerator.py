@@ -618,7 +618,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
             html.find('//p//img[@src="1234-5678-rctb-45-05-0110-e02.jpg"]')
         )
 
-    def test_graphic_images_alternatives_must_prioritize_scielo_web_in_fig(self):
+    def test_graphic_images_alternatives_must_prioritize_scielo_web_and_content_type_in_fig_when_thumb(self):
         graphic1 = """
         <fig id="e01">
             <alternatives>
@@ -636,7 +636,48 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
-            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.png);"]'
+            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.thumbnail.jpg);"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0
+          )
+
+    def test_graphic_images_alternatives_must_prioritize_scielo_in_modal(self):
+        graphic1 = """
+        <fig id="e01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.png" specific-use="scielo-web" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+            </alternatives>
+        </fig>
+        """
+        graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0)
+
+    def test_graphic_images_alternatives_must_get_first_graphic_in_modal_when_not_scielo_web_and_not_content_type_atribute(self):
+        graphic1 = """
+        <fig id="e01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.png"/>
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+            </alternatives>
+        </fig>
+        """
+        graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
+        fp = io.BytesIO(
+            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+        )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertTrue(len(thumb_tag) > 0)
 

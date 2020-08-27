@@ -17,7 +17,9 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="fig[graphic]">
-        <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"></xsl:apply-templates></xsl:variable>
+        <xsl:variable name="location">
+            <xsl:apply-templates select="." mode="file-location-thumb"></xsl:apply-templates>
+        </xsl:variable>
         <div class="row fig" id="{@id}">
             <a name="{@id}"></a>
             <div class="col-md-4 col-sm-4">
@@ -36,7 +38,7 @@
 
     <xsl:template match="fig[.//graphic]">
         <xsl:variable name="location">
-            <xsl:apply-templates select="alternatives | graphic" mode="file-location"></xsl:apply-templates>
+            <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"></xsl:apply-templates>
         </xsl:variable>
         <div class="row fig" id="{@id}">
             <a name="{@id}"></a>
