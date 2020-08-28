@@ -9,7 +9,7 @@
         <xsl:variable name="location"><xsl:apply-templates select="@xlink:href"></xsl:apply-templates></xsl:variable>
         <xsl:variable name="s"><xsl:value-of select="substring($location,string-length($location)-3)"/></xsl:variable>
         <xsl:variable name="ext"><xsl:if test="contains($s,'.')">.<xsl:value-of select="substring-after($s,'.')"/></xsl:if></xsl:variable>
-        
+
         <xsl:choose>
             <xsl:when test="$ext='.svg'">
                 <object type="image/svg+xml">
@@ -23,13 +23,15 @@
                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
                 </img>
             </xsl:otherwise>
-        </xsl:choose>      
+        </xsl:choose>
         <!--
         <xsl:comment><xsl:value-of select="$s"/> </xsl:comment>
         -->
     </xsl:template>
 
     <xsl:template match="graphic | inline-graphic" mode="file-location"><xsl:apply-templates select="@xlink:href"/></xsl:template>
+
+    <xsl:template match="graphic | inline-graphic" mode="file-location-thumb"><xsl:apply-templates select="@xlink:href"/></xsl:template>
 
     <xsl:template match="graphic/@xlink:href | inline-graphic/@xlink:href">
         <xsl:variable name="s"><xsl:value-of select="substring(.,string-length(.)-4)"/></xsl:variable>
@@ -38,6 +40,6 @@
             <xsl:when test="$ext='.tif' or $ext='.tiff'"><xsl:value-of select="substring-before(.,$ext)"/>.jpg</xsl:when>
             <xsl:when test="$ext=''"><xsl:value-of select="."/>.jpg</xsl:when>
             <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
-        </xsl:choose>      
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
