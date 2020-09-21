@@ -994,6 +994,78 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         )
         self.assertTrue(len(thumb_tag) > 0)
 
+    def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_scielo_web_and_no_content_type_because_xlink_href_is_empty(self):
+        graphic1 = """
+          <fig id="f01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
+                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="" />
+            </alternatives>
+          </fig>
+          """
+        graphic2 = ""
+        fp = io.BytesIO(
+              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+          )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@class="row fig"]'
+            '//div[@class="thumb" and @style="background-image: url('
+            '1234-5678-rctb-45-05-0110-e01.png'
+            ');"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0)
+
+    def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_no_scielo_web_and_no_content_type_because_xlink_href_is_empty(self):
+        graphic1 = """
+          <fig id="f01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.jpg" />
+                <graphic specific-use="scielo-web" xlink:href="" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="" />
+            </alternatives>
+          </fig>
+          """
+        graphic2 = ""
+        fp = io.BytesIO(
+              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+          )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@class="row fig"]'
+            '//div[@class="thumb" and @style="background-image: url('
+            '1234-5678-rctb-45-05-0110-e01.jpg'
+            ');"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0)
+
+    def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_no_scielo_web_and_no_content_type_because_xlink_href_is_absent(self):
+        graphic1 = """
+          <fig id="f01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.jpg" />
+                <graphic specific-use="scielo-web" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" />
+            </alternatives>
+          </fig>
+          """
+        graphic2 = ""
+        fp = io.BytesIO(
+              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+          )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@class="row fig"]'
+            '//div[@class="thumb" and @style="background-image: url('
+            '1234-5678-rctb-45-05-0110-e01.jpg'
+            ');"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0)
+
     def test_article_text_alternatives_mode_file_location_must_choose_graphic_with_xlink_href_not_empty(self):
         graphic1 = """
           <fig id="f01">
@@ -1022,3 +1094,5 @@ class HTMLGeneratorFigTests(unittest.TestCase):
             '"]'
         )
         self.assertTrue(len(img) == 0)
+
+
