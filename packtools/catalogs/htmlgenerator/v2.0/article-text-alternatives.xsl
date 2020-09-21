@@ -11,8 +11,8 @@
             <xsl:when test="inline-graphic[@specific-use='scielo-web']">
                 <xsl:apply-templates select="inline-graphic[@specific-use='scielo-web']" />
             </xsl:when>
-            <xsl:when test="graphic[@specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-'))]">
-                <xsl:apply-templates select="graphic[@specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-'))]" />
+            <xsl:when test="graphic[@specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-')) and @xlink:href!='']">
+                <xsl:apply-templates select="graphic[@specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-')) and @xlink:href!='']" />
             </xsl:when>
             <xsl:when test=".//graphic[not(@specific-use) and not(@content-type) and @xlink:href!='']">
                 <xsl:apply-templates select=".//graphic[not(@specific-use) and not(@content-type) and @xlink:href!=''][1]" />
