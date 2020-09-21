@@ -1095,4 +1095,47 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         )
         self.assertTrue(len(img) == 0)
 
+    def test_article_text_alternatives_chooses_graphic_with_no_scielo_web_and_no_content_type_because_xlink_href_is_empty(self):
+        graphic1 = """
+          <fig id="f01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+                <graphic specific-use="scielo-web" xlink:href="" />
+                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.jpg" />
+            </alternatives>
+          </fig>
+          """
+        graphic2 = ""
+        fp = io.BytesIO(
+              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+          )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        img_tag = html.xpath(
+            '//div[@class="modal-body"]/img[@src="'
+            '1234-5678-rctb-45-05-0110-e01.png'
+            '"]'
+        )
+        self.assertTrue(len(img_tag) > 0)
 
+    def test_article_text_alternatives_chooses_graphic_with_no_scielo_web_and_no_content_type_because_xlink_href_is_absent(self):
+        graphic1 = """
+          <fig id="f01">
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.jpg" />
+                <graphic specific-use="scielo-web" />
+            </alternatives>
+          </fig>
+          """
+        graphic2 = ""
+        fp = io.BytesIO(
+              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+          )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        img_tag = html.xpath(
+            '//div[@class="modal-body"]/img[@src="'
+            '1234-5678-rctb-45-05-0110-e01.jpg'
+            '"]'
+        )
+        self.assertTrue(len(img_tag) > 0)
