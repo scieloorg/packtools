@@ -968,3 +968,30 @@ class HTMLGeneratorFigTests(unittest.TestCase):
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
         )
         self.assertIsNotNone(modal_body)
+
+    def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_xlink_href_not_empty(self):
+        graphic1 = """
+          <fig id="f01">
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1678-992X/Wfy9dhFgfVFZgBbxg4WGVQM/a.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1678-992X/Wfy9dhFgfVFZgBbxg4WGVQM/b.jpg"/>
+          </alternatives>
+          </fig>
+          """
+        graphic2 = ""
+        fp = io.BytesIO(
+              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+          )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        thumb_tag = html.xpath(
+            '//div[@class="row fig"]'
+            '//div[@class="thumb" and @style="background-image: url('
+            'https://minio.scielo.br/documentstore/1678-992X/'
+            'Wfy9dhFgfVFZgBbxg4WGVQM/a.jpg'
+            ');"]'
+        )
+        self.assertTrue(len(thumb_tag) > 0)
+
+
