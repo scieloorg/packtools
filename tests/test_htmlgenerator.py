@@ -994,4 +994,31 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         )
         self.assertTrue(len(thumb_tag) > 0)
 
-
+    def test_article_text_alternatives_mode_file_location_must_choose_graphic_with_xlink_href_not_empty(self):
+        graphic1 = """
+          <fig id="f01">
+            <alternatives>
+              <graphic xlink:href="" />
+              <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
+              <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.jpg" />
+          </alternatives>
+          </fig>
+          """
+        graphic2 = ""
+        fp = io.BytesIO(
+              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
+          )
+        et = etree.parse(fp)
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        img = html.xpath(
+            '//div[@class="modal-body"]/img[@src="'
+            '1234-5678-rctb-45-05-0110-e01.png'
+            '"]'
+        )
+        self.assertTrue(len(img) > 0)
+        img = html.xpath(
+            '//div[@class="modal-body"]/img[@src="'
+            '1234-5678-rctb-45-05-0110-e01.jpg'
+            '"]'
+        )
+        self.assertTrue(len(img) == 0)
