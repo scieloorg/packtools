@@ -30,16 +30,16 @@
                 <xsl:apply-templates select="inline-graphic[@specific-use='scielo-web']" mode="file-location"/>
             </xsl:when>
 
-            <xsl:when test="graphic[@specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]">
-                <xsl:apply-templates select="graphic[@specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]" mode="file-location" />
+            <xsl:when test="graphic[@specific-use='scielo-web' and starts-with(@content-type, 'scielo-') and @xlink:href!='']">
+                <xsl:apply-templates select="graphic[@specific-use='scielo-web' and starts-with(@content-type, 'scielo-') and @xlink:href!='']" mode="file-location" />
             </xsl:when>
 
-            <xsl:when test="graphic[not(@specific-use) and not(@content-type)]">
-                <xsl:apply-templates select="graphic[not(@specific-use) and not(@content-type)]" mode="file-location" />
+            <xsl:when test="graphic[not(@specific-use) and not(@content-type) and @xlink:href!='']">
+                <xsl:apply-templates select=".//graphic[not(@specific-use) and not(@content-type) and @xlink:href!=''][1]" mode="file-location" />
             </xsl:when>
 
             <xsl:otherwise>
-                <xsl:apply-templates select="*[name()!='graphic'][1]" mode="file-location"></xsl:apply-templates>
+                <xsl:apply-templates select="*[name()!='graphic' and @xlink:href!=''][1]" mode="file-location"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
