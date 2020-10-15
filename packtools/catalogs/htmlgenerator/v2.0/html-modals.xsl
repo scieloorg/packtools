@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:template match="*" mode="article-modals">
+    <xsl:template match="article" mode="article-modals">
         <!--
             Cria todos os modals do documento
         -->
@@ -24,7 +24,7 @@
         <xsl:apply-templates select="." mode="modal-how2cite"/>
     </xsl:template>
     
-    <xsl:template match="*" mode="table-individual-modal">
+    <xsl:template match="article" mode="table-individual-modal">
         <!-- cria um modal para cada tabela -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -36,7 +36,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*" mode="scheme-individual-modal">
+    <xsl:template match="article" mode="scheme-individual-modal">
         <!-- cria um modal para cada fórmula -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -48,7 +48,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*" mode="fig-individual-modal">
+    <xsl:template match="article" mode="fig-individual-modal">
         <!-- cria um modal para cada figura -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -65,7 +65,7 @@
         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal"></xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="*" mode="modal-grouped-figs-tables-schemes">
+    <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">
         <!-- modal que apresenta juntos figuras, tabelas e fórmulas -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
