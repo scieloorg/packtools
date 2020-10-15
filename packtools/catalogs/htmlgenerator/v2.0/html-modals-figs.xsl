@@ -19,12 +19,13 @@
                             </span>
                         </button>
                         <!-- FIXME -->
-                        <xsl:if test="graphic">
+                        <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
+                        <xsl:if test="$location!=''">
                         <a class="link-newWindow showTooltip" target="_blank" data-placement="left">
                             <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
                                 <xsl:with-param name="text">Open new window</xsl:with-param>
                             </xsl:apply-templates></xsl:attribute>
-                            <xsl:attribute name="href"><xsl:apply-templates select="." mode="file-location"/></xsl:attribute>
+                            <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
                             <span class="sci-ico-newWindow"></span>
                         </a>
                         </xsl:if>
@@ -46,9 +47,17 @@
     </xsl:template>
     
     <xsl:template match="fig-group" mode="file-location">
-        <xsl:apply-templates select="fig[graphic]" mode="file-location"></xsl:apply-templates>
+        <!--
+            Localização da imagem ampliada
+        -->
+        <xsl:apply-templates select="fig" mode="file-location"/>
     </xsl:template>
 
-    <xsl:template match="fig[graphic]" mode="file-location"><xsl:apply-templates select="graphic" mode="file-location"/></xsl:template>
+    <xsl:template match="fig" mode="file-location">
+        <!--
+            Localização da imagem ampliada
+        -->
+        <xsl:apply-templates select="graphic | alternatives" mode="file-location"/>
+    </xsl:template>
 
 </xsl:stylesheet>
