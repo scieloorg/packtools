@@ -99,7 +99,17 @@
             em um dado idioma do texto do artigo
         -->
         <!-- FIXME -->
-         <xsl:if test=".//fig or .//table-wrap or .//disp-formula[@id]">
+        <xsl:variable name="total_figs">
+            <xsl:apply-templates select="." mode="get-total-figs"/>
+        </xsl:variable>
+        <xsl:variable name="total_tables">
+            <xsl:apply-templates select="." mode="get-total-tables"/>
+        </xsl:variable>
+        <xsl:variable name="total_formulas">
+            <xsl:apply-templates select="." mode="get-total-formulas"/>
+        </xsl:variable>
+
+        <xsl:if test="number($total_figs) + number($total_tables) + number($total_formulas) &gt; 0">
              <div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true">
                  <div class="modal-dialog">
                      <div class="modal-content">
@@ -116,7 +126,7 @@
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">
-                                <xsl:if test=".//fig">
+                                <xsl:if test="number($total_figs) &gt; 0">
                                     <!--
                                         cria aba com rótulo "Figures" e quantidade de figuras
                                     -->
@@ -125,43 +135,43 @@
                                              <xsl:apply-templates select="." mode="interface">
                                                  <xsl:with-param name="text">Figures</xsl:with-param>
                                              </xsl:apply-templates>
-                                             (<xsl:value-of select="count(.//fig-group[@id])+count(.//fig[@id])"/>)
+                                             (<xsl:value-of select="$total_figs"/>)
                                          </a>
                                      </li>
                                  </xsl:if>
-                                 <xsl:if test=".//table-wrap">
+                                 <xsl:if test="number($total_tables) &gt; 0">
                                      <!--
                                         cria aba com rótulo "Tables" e quantidade de tabelas
                                     -->
                                      <li role="presentation">
-                                         <xsl:attribute name="class">col-md-4 col-sm-4 <xsl:if test="not(.//fig)"> active</xsl:if></xsl:attribute>
+                                         <xsl:attribute name="class">col-md-4 col-sm-4 <xsl:if test="number($total_figs) = 0"> active</xsl:if></xsl:attribute>
                                          <a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">
                                              <xsl:apply-templates select="." mode="interface">
                                                  <xsl:with-param name="text">Tables</xsl:with-param>
                                              </xsl:apply-templates>
-                                             (<xsl:value-of select="count(.//table-wrap-group)+count(.//*[table-wrap and name()!='table-wrap-group']//table-wrap)"/>)
+                                             (<xsl:value-of select="$total_tables"/>)
                                          </a>
                                      </li>
                                  </xsl:if>
-                                 <xsl:if test=".//disp-formula[@id]">
+                                 <xsl:if test="number($total_formulas) &gt; 0">
                                      <!--
                                         cria aba com rótulo "Scheme" e quantidade de fórmulas
                                     -->
                                      <li role="presentation">
-                                         <xsl:attribute name="class">col-md-4 col-sm-4<xsl:if test="not(.//fig) and not(.//table-wrap)"> active</xsl:if></xsl:attribute>
+                                         <xsl:attribute name="class">col-md-4 col-sm-4<xsl:if test="number($total_figs) + number($total_tables) = 0"> active</xsl:if></xsl:attribute>
                                          
                                          <a href="#schemes" aria-controls="schemes" role="tab" data-toggle="tab">
                                              <xsl:apply-templates select="." mode="interface">
                                                  <xsl:with-param name="text">Formulas</xsl:with-param>
                                              </xsl:apply-templates>
-                                             (<xsl:value-of select="count(.//disp-formula[@id])"/>)
+                                             (<xsl:value-of select="$total_formulas"/>)
                                          </a>
                                      </li>
                                  </xsl:if>
                              </ul>
                              <div class="clearfix"></div>
                              <div class="tab-content">
-                                 <xsl:if test=".//fig">
+                                 <xsl:if test="number($total_figs) &gt; 0">
                                     <!--
                                         cria o conteúdo da aba com rótulo "Figures"
                                     -->
@@ -169,23 +179,23 @@
                                          <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="tab-content"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
-                                 <xsl:if test=".//table-wrap">
+                                 <xsl:if test="number($total_tables) &gt; 0">
                                     <!--
                                         cria o conteúdo da aba com rótulo "Tables"
                                     -->
                                      <div role="tabpanel">
-                                         <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig)"> active</xsl:if></xsl:attribute>
+                                         <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) = 0"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">tables</xsl:attribute>
                                          
                                          <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
-                                 <xsl:if test=".//disp-formula[@id]">
+                                 <xsl:if test="number($total_formulas) &gt; 0">
                                     <!--
                                         cria o conteúdo da aba com rótulo "Formulas"
                                     -->
                                      <div role="tabpanel">
-                                         <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig) and not(.//table-wrap)"> active</xsl:if></xsl:attribute>
+                                         <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) + number($total_tables) = 0"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">schemes</xsl:attribute>
                                          
                                          <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"></xsl:apply-templates>
