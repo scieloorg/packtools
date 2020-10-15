@@ -9,22 +9,22 @@
         <xsl:apply-templates select="." mode="modal-contribs"/>
 
         <!-- modal que apresenta juntos figuras, tabelas e fórmulas -->
-        <xsl:apply-templates select="." mode="modal-all-items"/>
+        <xsl:apply-templates select="." mode="modal-grouped-figs-tables-schemes"/>
 
         <!-- cria um modal para cada figura -->
-        <xsl:apply-templates select="." mode="modal-figs"/>
+        <xsl:apply-templates select="." mode="fig-individual-modal"/>
         
         <!-- cria um modal para cada tabela -->
-        <xsl:apply-templates select="." mode="modal-tables"/>
+        <xsl:apply-templates select="." mode="table-individual-modal"/>
         
         <!-- cria um modal para cada fórmula -->
-        <xsl:apply-templates select="." mode="modal-disp-formulas"/>
+        <xsl:apply-templates select="." mode="scheme-individual-modal"/>
         
         <!-- cria um modal para como citar -->
         <xsl:apply-templates select="." mode="modal-how2cite"/>
     </xsl:template>
     
-    <xsl:template match="*" mode="modal-tables">
+    <xsl:template match="*" mode="table-individual-modal">
         <!-- cria um modal para cada tabela -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -36,7 +36,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*" mode="modal-disp-formulas">
+    <xsl:template match="*" mode="scheme-individual-modal">
         <!-- cria um modal para cada fórmula -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -48,36 +48,36 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*" mode="modal-figs">
+    <xsl:template match="*" mode="fig-individual-modal">
         <!-- cria um modal para cada figura -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body" mode="modal-figs"/>
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body" mode="fig-individual-modal"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="./body" mode="modal-figs"/>                    
+                <xsl:apply-templates select="./body" mode="fig-individual-modal"/>                    
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="body" mode="modal-figs">
+    <xsl:template match="body" mode="fig-individual-modal">
         <!-- cria um modal para cada figura existente no body-->
         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal"></xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="*" mode="modal-all-items">
+    <xsl:template match="*" mode="modal-grouped-figs-tables-schemes">
         <!-- modal que apresenta juntos figuras, tabelas e fórmulas -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body" mode="modal-all-items"/>
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body" mode="modal-grouped-figs-tables-schemes"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="./body" mode="modal-all-items"/>                    
+                <xsl:apply-templates select="./body" mode="modal-grouped-figs-tables-schemes"/>                    
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="body" mode="modal-all-items">
+    <xsl:template match="body" mode="modal-grouped-figs-tables-schemes">
         <!-- modal que apresenta juntos figuras, tabelas e fórmulas presentes dentro de body-->
          <xsl:if test=".//fig or .//table-wrap or .//disp-formula[@id]">
              <div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true">
@@ -146,7 +146,7 @@
                                         cria o conteúdo da aba com rótulo "Figures"
                                     -->
                                      <div role="tabpanel" class="tab-pane active" id="figures">
-                                         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal-all-item"></xsl:apply-templates>
+                                         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="tab-content"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test=".//table-wrap">
@@ -157,7 +157,7 @@
                                          <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig)"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">tables</xsl:attribute>
                                          
-                                         <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="modal-all-item"></xsl:apply-templates>
+                                         <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test=".//disp-formula[@id]">
@@ -168,7 +168,7 @@
                                          <xsl:attribute name="class">tab-pane <xsl:if test="not(.//fig) and not(.//table-wrap)"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">schemes</xsl:attribute>
                                          
-                                         <xsl:apply-templates select=".//disp-formula[@id]" mode="modal-all-item"></xsl:apply-templates>
+                                         <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"></xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                              </div>
@@ -179,30 +179,30 @@
          </xsl:if>
     </xsl:template>
     
-    <xsl:template match="fig-group[@id]" mode="modal-all-item">
+    <xsl:template match="fig-group[@id]" mode="tab-content">
         <!--
             cria no conteúdo da ABA "Figures" a miniatura e legenda de uma figura
             (cujo label e caption estão em mais de um idioma)
         -->       
         <div class="row fig">
-            <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
-            <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="modal-all-item-info"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
+            <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="tab-content-label-and-caption"></xsl:apply-templates>
         </div>        
     </xsl:template>
-    <xsl:template match="fig[@id]" mode="modal-all-item">
+    <xsl:template match="fig[@id]" mode="tab-content">
         <!--
             cria no conteúdo da ABA "Figures" a miniatura e legenda de uma figura
             (cujo label e caption estão em apenas um idioma)
         -->         
         <div class="row fig">
             <!-- miniatura -->
-            <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
             <!-- legenda -->
-            <xsl:apply-templates select="." mode="modal-all-item-info"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
         </div>        
     </xsl:template>
     
-    <xsl:template match="fig[@id] | fig-group[@id]" mode="modal-all-item-display">
+    <xsl:template match="fig[@id] | fig-group[@id]" mode="tab-content-thumbnail">
         <!--
             cria a miniatura de uma figura no conteúdo da ABA "Figures" 
         --> 
@@ -230,7 +230,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="fig" mode="modal-all-item-info">
+    <xsl:template match="fig" mode="tab-content-label-and-caption">
         <!--
             cria a legenda de uma figura no conteúdo da ABA "Figures" 
         -->
@@ -239,33 +239,33 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="table-wrap-group[table-wrap]" mode="modal-all-item">
+    <xsl:template match="table-wrap-group[table-wrap]" mode="tab-content">
         <!--
             cria no conteúdo da ABA "Tables" a miniatura e legenda de uma tabela
             do idioma selecionado
         -->         
         <div class="row table">
             <!-- miniatura -->
-            <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
             <!-- legenda -->
-            <xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG]" mode="modal-all-item-info"></xsl:apply-templates>
+            <xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG]" mode="tab-content-label-and-caption"></xsl:apply-templates>
         </div>        
     </xsl:template>
     
-    <xsl:template match="table-wrap[not(@xml:lang)]" mode="modal-all-item">
+    <xsl:template match="table-wrap[not(@xml:lang)]" mode="tab-content">
         <!--
             cria no conteúdo da ABA "Tables" a miniatura e legenda de uma tabela
             que não depende do idioma
         -->       
         <div class="row table">
             <!-- miniatura -->
-            <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
             <!-- legenda -->
-            <xsl:apply-templates select="." mode="modal-all-item-info"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
         </div>        
     </xsl:template>
     
-    <xsl:template match="table-wrap | table-wrap-group" mode="modal-all-item-display">
+    <xsl:template match="table-wrap | table-wrap-group" mode="tab-content-thumbnail">
         <!--
             cria no conteúdo da ABA "Tables" a miniatura de uma tabela
             que não depende do idioma
@@ -281,7 +281,7 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="table-wrap" mode="modal-all-item-info">
+    <xsl:template match="table-wrap" mode="tab-content-label-and-caption">
         <!--
             cria no conteúdo da ABA "Tables" a legenda de uma tabela
         -->
@@ -290,19 +290,19 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="disp-formula[@id]" mode="modal-all-item">
+    <xsl:template match="disp-formula[@id]" mode="tab-content">
         <!--
             cria no conteúdo da ABA "Scheme" a miniatura e legenda de uma fórmula
         -->       
         <div class="row fig">
             <!-- miniatura -->
-            <xsl:apply-templates select="." mode="modal-all-item-display"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
             <!-- legenda -->
-            <xsl:apply-templates select="." mode="modal-all-item-info"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
         </div>        
     </xsl:template>
      
-    <xsl:template match="disp-formula[@id]" mode="modal-all-item-display">
+    <xsl:template match="disp-formula[@id]" mode="tab-content-thumbnail">
         <!--
             cria no conteúdo da ABA "Schemes" a miniatura de uma fórmula
         -->
@@ -326,7 +326,7 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="disp-formula[@id]" mode="modal-all-item-info">
+    <xsl:template match="disp-formula[@id]" mode="tab-content-label-and-caption">
         <!--
             cria no conteúdo da ABA "Schemes" a legenda de uma fórmula
         -->
