@@ -176,7 +176,7 @@
                                         cria o conteúdo da aba com rótulo "Figures"
                                     -->
                                      <div role="tabpanel" class="tab-pane active" id="figures">
-                                         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="tab-content"></xsl:apply-templates>
+                                         <xsl:apply-templates select="." mode="figs-tab-content"/>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test="number($total_tables) &gt; 0">
@@ -187,7 +187,7 @@
                                          <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) = 0"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">tables</xsl:attribute>
                                          
-                                         <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"></xsl:apply-templates>
+                                         <xsl:apply-templates select="." mode="tables-tab-content"/>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test="number($total_formulas) &gt; 0">
@@ -198,7 +198,7 @@
                                          <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) + number($total_tables) = 0"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">schemes</xsl:attribute>
                                          
-                                         <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"></xsl:apply-templates>
+                                         <xsl:apply-templates select="." mode="schemes-tab-content"/>
                                      </div>
                                  </xsl:if>
                              </div>
@@ -209,6 +209,95 @@
          </xsl:if>
     </xsl:template>
     
+    <xsl:template match="article" mode="figs-tab-content">
+        <!-- 
+        Conteúdo da aba "Figures", selecionando todas as figuras relacionadas
+        com o idioma do texto selecionado
+        -->
+        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+
+        <xsl:choose>
+            <xsl:when test="$translation">
+                <xsl:apply-templates select="front | $translation | back" mode="figs-tab-content"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front | body | back" mode="figs-tab-content"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+ 
+    <xsl:template match="article" mode="tables-tab-content">
+        <!-- 
+        Conteúdo da aba "Tables", selecionando todas as tabelas relacionadas
+        com o idioma do texto selecionado
+        -->
+        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+
+        <xsl:choose>
+            <xsl:when test="$translation">
+                <xsl:apply-templates select="front | $translation | back" mode="tables-tab-content"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front | body | back" mode="tables-tab-content"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+ 
+    <xsl:template match="article" mode="schemes-tab-content">
+        <!-- 
+        Conteúdo da aba "Schemes", selecionando todas as fórmulas relacionadas
+        com o idioma do texto selecionado
+        -->
+        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+
+        <xsl:choose>
+            <xsl:when test="$translation">
+                <xsl:apply-templates select="front | $translation | back" mode="schemes-tab-content"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front | body | back" mode="schemes-tab-content"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+ 
+    <xsl:template match="sub-article | front | body | back" mode="figs-tab-content">
+        <!-- 
+        Seleciona os elementos que contém "fig",
+        para criar o conteúdo de cada fig no Modal na aba "Figures"
+        -->
+        <xsl:apply-templates select=".//*[fig]" mode="figs-tab-content"/>
+    </xsl:template>
+    
+    <xsl:template match="*[fig]" mode="figs-tab-content">
+        <!-- 
+        cria o conteúdo de uma figura no Modal na aba "Figures"
+        -->
+        <xsl:choose>
+            <xsl:when test="name()='fig-group'">
+                <xsl:apply-templates select="." mode="tab-content"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//fig" mode="tab-content"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="sub-article | front | body | back" mode="tables-tab-content">
+        <!-- 
+        Seleciona os elementos de tabela para
+        criar o conteúdo de cada tabela no Modal na aba "Tables"
+        -->
+        <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"/>
+    </xsl:template>
+
+    <xsl:template match="sub-article | front | body | back" mode="schemes-tab-content">
+        <!-- 
+        Seleciona os elementos disp-formula para
+        criar o conteúdo de cada fórmula no Modal na aba "Schemes"
+        -->
+        <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"/>
+    </xsl:template>
+
     <xsl:template match="fig-group[@id]" mode="tab-content">
         <!--
             cria no conteúdo da ABA "Figures" a miniatura e legenda de uma figura
