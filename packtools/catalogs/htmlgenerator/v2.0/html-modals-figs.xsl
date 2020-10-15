@@ -45,4 +45,10 @@
         </div>
     </xsl:template>
     
+    <xsl:template match="fig-group" mode="file-location">
+        <xsl:apply-templates select="fig[graphic]" mode="file-location"></xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="fig[graphic]" mode="file-location"><xsl:apply-templates select="graphic" mode="file-location"/></xsl:template>
+
 </xsl:stylesheet>
