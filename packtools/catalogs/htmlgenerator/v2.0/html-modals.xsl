@@ -25,60 +25,80 @@
     </xsl:template>
     
     <xsl:template match="article" mode="table-individual-modal">
-        <!-- cria um modal para cada tabela -->
+        <!--
+            Cria um modal para cada tabela
+            encontrada em article,
+            de acordo com o idioma selecionado para o texto
+        -->
+        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body//table-wrap" mode="modal"/>
+            <xsl:when test="$translation">
+                <xsl:apply-templates select="front | $translation | back" mode="table-individual-modal"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="./body//table-wrap" mode="modal"/>                    
+                <xsl:apply-templates select="front | body | back" mode="table-individual-modal"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="front | body | back | sub-article" mode="table-individual-modal">
+        <!-- cria um modal para cada tabela existente no body-->
+        <xsl:apply-templates select=".//table-wrap[@xml:lang=$TEXT_LANG] | .//table-wrap[not(@xml:lang)]" mode="modal"/>
     </xsl:template>
     
     <xsl:template match="article" mode="scheme-individual-modal">
-        <!-- cria um modal para cada fórmula -->
+        <!--
+            Cria um modal para cada fórmula
+            encontrada em article,
+            de acordo com o idioma selecionado para o texto
+        -->
+        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body//disp-formula" mode="modal"/>
+            <xsl:when test="$translation">
+                <xsl:apply-templates select="front | $translation | back" mode="scheme-individual-modal"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="./body//disp-formula" mode="modal"/>                    
+                <xsl:apply-templates select="front | body | back" mode="scheme-individual-modal"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="front | body | back | sub-article" mode="scheme-individual-modal">
+        <!-- cria um modal para cada formula existente no body-->
+        <xsl:apply-templates select=".//disp-formula[@id]" mode="modal"/>
     </xsl:template>
     
     <xsl:template match="article" mode="fig-individual-modal">
-        <!-- cria um modal para cada figura -->
+        <!--
+            Cria um modal para cada figura
+            encontrada em article,
+            de acordo com o idioma selecionado para o texto
+        -->
+        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body" mode="fig-individual-modal"/>
+            <xsl:when test="$translation">
+                <xsl:apply-templates select="front | $translation | back" mode="fig-individual-modal"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="./body" mode="fig-individual-modal"/>                    
+                <xsl:apply-templates select="front | body | back" mode="fig-individual-modal"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="body" mode="fig-individual-modal">
+    <xsl:template match="front | body | back | sub-article" mode="fig-individual-modal">
         <!-- cria um modal para cada figura existente no body-->
         <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">
-        <!-- modal que apresenta juntos figuras, tabelas e fórmulas -->
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body" mode="modal-grouped-figs-tables-schemes"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="./body" mode="modal-grouped-figs-tables-schemes"/>                    
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="body" mode="modal-grouped-figs-tables-schemes">
-        <!-- modal que apresenta juntos figuras, tabelas e fórmulas presentes dentro de body-->
+        <!-- 
+            Modal que apresenta juntos figuras, tabelas e fórmulas presentes
+            em um dado idioma do texto do artigo
+        -->
+        <!-- FIXME -->
          <xsl:if test=".//fig or .//table-wrap or .//disp-formula[@id]">
              <div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true">
                  <div class="modal-dialog">
