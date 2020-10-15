@@ -16,25 +16,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="fig[graphic]">
-        <xsl:variable name="location">
-            <xsl:apply-templates select="." mode="file-location-thumb"></xsl:apply-templates>
-        </xsl:variable>
-        <div class="row fig" id="{@id}">
-            <a name="{@id}"></a>
-            <div class="col-md-4 col-sm-4">
-                <a href="" data-toggle="modal" data-target="#ModalFig{@id}">
-                    <div class="thumb" style="background-image: url({$location});">
-                        Thumbnail
-                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-8 col-sm-8">
-                <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
-            </div>
-        </div>
-    </xsl:template>
 
     <xsl:template match="fig[.//graphic]">
         <xsl:variable name="location">
