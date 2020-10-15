@@ -37,21 +37,6 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="abstract[@abstract-type='graphical']//fig[graphic]">
-        <xsl:variable name="location">
-            <xsl:apply-templates select="." mode="file-location"></xsl:apply-templates>
-        </xsl:variable>
-        <div>
-            <span><xsl:apply-templates select="caption"/></span>
-           <img>
-                <xsl:attribute name="style">max-width:100%</xsl:attribute>
-                <xsl:attribute name="src">
-                    <xsl:value-of select="$location"/>
-                </xsl:attribute>
-            </img>
-        </div>
-    </xsl:template>
-
     <xsl:template match="fig-group" mode="file-location">
         <xsl:apply-templates select="fig[graphic]" mode="file-location"></xsl:apply-templates>
     </xsl:template>
