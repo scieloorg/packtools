@@ -88,6 +88,9 @@
             <xsl:when test="front/article-meta/pub-date[@date-type='collection']">
                 <xsl:apply-templates  select="front/article-meta/pub-date[@date-type='collection']"></xsl:apply-templates>
             </xsl:when>
+            <xsl:when test="front/article-meta/pub-date[@date-type='pub']">
+                <xsl:apply-templates select="front/article-meta/pub-date[@date-type='pub']"/>
+            </xsl:when>
             <xsl:when test="front/article-meta/pub-date[@pub-type='collection']">
                 <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='collection']"></xsl:apply-templates>
             </xsl:when>
@@ -100,9 +103,6 @@
             <xsl:when test="front/article-meta/pub-date[@pub-type='epub-ppub']">
                 <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='epub-ppub']"></xsl:apply-templates>
             </xsl:when>
-            <!--xsl:otherwise>
-                <xsl:apply-templates  select="front/article-meta/pub-date"></xsl:apply-templates>
-            </xsl:otherwise-->
         </xsl:choose>
     </xsl:template>
 
