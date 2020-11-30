@@ -185,6 +185,7 @@
                             <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
                             <xsl:text> </xsl:text>
                             <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
+                            <span class="_separator"> • </span>
                             <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
                         </span>
                         <span class="_separator"> • </span>
