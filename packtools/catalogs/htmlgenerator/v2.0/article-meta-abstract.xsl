@@ -2,17 +2,10 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="article" mode="article-meta-abstract">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//abstract">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="article-meta-abstract"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:when test="front/article-meta//abstract">
-                <xsl:if test="$q_abstract_title=0">
-                    <xsl:apply-templates select="." mode="abstract-anchor"></xsl:apply-templates>
-                </xsl:if>
-                <xsl:apply-templates select="front/article-meta//abstract|front/article-meta//trans-abstract" mode="layout"></xsl:apply-templates>
-            </xsl:when>
-        </xsl:choose>
+        <xsl:if test="$q_abstract_title=0">
+            <xsl:apply-templates select="." mode="abstract-anchor"></xsl:apply-templates>
+        </xsl:if>
+        <xsl:apply-templates select=".//abstract|.//trans-abstract" mode="layout"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="article" mode="article-meta-no-abstract-keywords">
@@ -27,13 +20,7 @@
             </xsl:choose>
         </xsl:if>
     </xsl:template>
-    
-    <xsl:template match="sub-article[@article-type='translation']" mode="article-meta-abstract">
-        <xsl:if test="$q_abstract_title=0">
-            <xsl:apply-templates select="." mode="abstract-anchor"></xsl:apply-templates>
-        </xsl:if>
-        <xsl:apply-templates select=".//abstract|.//trans-abstract" mode="layout"></xsl:apply-templates>
-    </xsl:template>
+
     <xsl:template match="*" mode="abstract-anchor">
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
