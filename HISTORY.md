@@ -1,6 +1,32 @@
 # History
 
 
+## 2.6.9 (2020-12-04)
+
+* Generate modals to all images, even without id attribute.
+
+
+## 2.6.8 (2020-11-30)
+
+* Show collection date in the bibliographic strip for all documents types, except Ahead of Prints
+
+
+## 2.6.7 (2020-10-20)
+
+* Fix thumbnail in modal where elements are grouped in tabs.
+* Generate modals to figs located in front, back and sub-article.
+
+
+## 2.6.6 (2020-09-23)
+
+* Check if there is thumbnail graphic alternative xlink:href before using it in HTMLGenerator.
+
+
+## 2.6.5 (2020-08-31)
+
+* Use of thumbnail graphic alternative to build HTML in HTMLGenerator.
+
+
 ## 2.6.4 (2020-06-16)
 
 * WEB optimiser minor fix to not to externalize an error of one dependent library.
