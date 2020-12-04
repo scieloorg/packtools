@@ -90,7 +90,7 @@
     
     <xsl:template match="front | body | back | sub-article" mode="fig-individual-modal">
         <!-- cria um modal para cada figura existente no body-->
-        <xsl:apply-templates select=".//fig-group[@id] | .//fig[@id]" mode="modal"></xsl:apply-templates>
+        <xsl:apply-templates select=".//fig-group[@id] | .//fig" mode="modal"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">
