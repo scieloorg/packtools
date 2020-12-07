@@ -1,6 +1,11 @@
 # History
 
 
+## 2.6.10 (2020-12-07)
+
+* Fix HTMLGenerator to show all the abstracts in each translated article page.
+
+
 ## 2.6.9 (2020-12-04)
 
 * Generate modals to all images, even without id attribute.
