@@ -136,6 +136,125 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         self.assertRaises(ValueError, lambda: gen.generate('ru'))
 
+    def test_no_abstract_title_if_there_is_a_title_for_abstract(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="en">
+                      <front>
+                        <article-meta>
+                          <abstract>
+                            <title>Abstract</title>
+                            <p>Abstract Content</p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+
+        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        self.assertEqual(len(title_tags), 1)
+        self.assertEqual(title_tags[0].text, "Abstract")
+
+    def test_abstract_title_if_no_title_for_abstract(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="en">
+                      <front>
+                        <article-meta>
+                          <abstract>
+                            <p>Abstract Content</p>
+                          </abstract>
+                        </article-meta>
+                      </front>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+
+        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        self.assertEqual(len(title_tags), 1)
+        self.assertEqual(title_tags[0].text, "Abstract")
+
+    def test_no_abstract_title_if_there_are_titles_for_abstracts(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="en">
+                      <front>
+                        <article-meta>
+                          <abstract>
+                            <title>Abstract</title>
+                            <p>Abstract Content</p>
+                          </abstract>
+                          <trans-abstract xml:lang="es">
+                            <title>Resumen</title>
+                            <p>Contenido del Resumen</p>
+                          </trans-abstract>
+                        </article-meta>
+                      </front>
+                      <sub-article article-type="translation" xml:lang="pt">
+                        <front-stub>
+                          <abstract>
+                            <title>Resumo</title>
+                            <p>Conteúdo do Resumo</p>
+                          </abstract>
+                        </front-stub>
+                      </sub-article>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+
+        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        self.assertEqual(len(title_tags), 3)
+        self.assertEqual(
+            {title_tag.text for title_tag in title_tags},
+            set(["Abstract", "Resumen", "Resumo"])
+        )
+
+    def test_abstract_title_if_no_titles_for_abstracts(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="en">
+                      <front>
+                        <article-meta>
+                          <abstract>
+                            <p>Abstract Content</p>
+                          </abstract>
+                          <trans-abstract xml:lang="es">
+                            <p>Contenido del Resumen</p>
+                          </trans-abstract>
+                        </article-meta>
+                      </front>
+                      <sub-article article-type="translation" xml:lang="pt">
+                        <front-stub>
+                          <abstract>
+                            <p>Conteúdo do Resumo</p>
+                          </abstract>
+                        </front-stub>
+                      </sub-article>
+                    </article>"""
+
+        fp = io.BytesIO(sample.encode('utf-8'))
+        et = etree.parse(fp)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+
+        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        self.assertEqual(len(title_tags), 1)
+        self.assertEqual(title_tags[0].text, "Abstracts")
+
     def test_if_visual_abstract_image_present_in_html(self):
         sample = u"""<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
                       <front>

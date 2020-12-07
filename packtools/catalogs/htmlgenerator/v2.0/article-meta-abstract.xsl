@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="article" mode="article-meta-abstract">
-        <xsl:if test="$q_abstract_title=0">
+        <xsl:if test="$q_abstract &gt; 0 and $q_abstract_title &lt; $q_abstract">
             <xsl:apply-templates select="." mode="abstract-anchor"></xsl:apply-templates>
         </xsl:if>
         <xsl:apply-templates select=".//abstract|.//trans-abstract" mode="layout"></xsl:apply-templates>
