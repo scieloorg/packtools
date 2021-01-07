@@ -5,7 +5,7 @@ Flask-BabelEx==0.9.3
 Flask-WTF==0.14.2
 itsdangerous==1.1.0
 Jinja2==2.10.1
-lxml==4.3.3
+lxml==4.6.2
 MarkupSafe==1.1.1
 picles.plumber==0.11
 pytz==2019.1
