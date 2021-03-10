@@ -466,7 +466,9 @@ class HTMLGenerator(object):
     :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
     :param css: (optional) URI for a CSS file.
     """
-    def __init__(self, file, xslt=None, css=None, print_css=None, js=None, permlink=None, url_article_page=None, url_download_ris=None):
+    def __init__(self, file, xslt=None, css=None, print_css=None, js=None,
+                 permlink=None, url_article_page=None, url_download_ris=None,
+                 gs_abstract_lang=None):
         assert isinstance(file, etree._ElementTree)
 
         self.lxml = file
@@ -477,6 +479,7 @@ class HTMLGenerator(object):
         self.permlink = permlink
         self.url_article_page = url_article_page
         self.url_download_ris = url_download_ris
+        self.gs_abstract_lang = gs_abstract_lang
 
     @classmethod
     def parse(cls, file, valid_only=True, **kwargs):
@@ -584,4 +587,5 @@ class HTMLGenerator(object):
                 permlink=etree.XSLT.strparam(self.permlink or ''),
                 url_article_page=etree.XSLT.strparam(self.url_article_page or ''),
                 url_download_ris=etree.XSLT.strparam(self.url_download_ris or ''),
+                gs_abstract_lang=etree.XSLT.strparam(self.gs_abstract_lang or ''),
         )
