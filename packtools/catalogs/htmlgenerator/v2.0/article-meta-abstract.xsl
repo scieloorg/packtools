@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
+
     <xsl:template match="article" mode="article-meta-abstract">
         <xsl:if test="$q_abstract &gt; 0 and $q_abstract_title &lt; $q_abstract">
             <xsl:apply-templates select="." mode="abstract-anchor"></xsl:apply-templates>
@@ -20,6 +21,7 @@
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+
 
     <xsl:template match="*" mode="abstract-anchor">
         <div class="articleSection">
@@ -92,6 +94,17 @@
     <xsl:template match="kwd"><xsl:apply-templates select="*|text()"></xsl:apply-templates><xsl:if test="position()!=last()">; </xsl:if>
     </xsl:template>
     
-    
+    <xsl:template match="article" mode="article-meta-abstract-gs">
+        <xsl:choose>
+            <xsl:when test="@xml:lang=$gs_abstract_lang">
+                <!-- idioma selecionado é o mesmo que o do texto completo -->
+                <xsl:apply-templates select=".//article-meta/abstract" mode="layout"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//trans-abstract[@xml:lang=$gs_abstract_lang]" mode="layout"/>
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$gs_abstract_lang]//abstract" mode="layout"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
       
 </xsl:stylesheet>
