@@ -1163,3 +1163,72 @@ class HTMLGeneratorFigTests(unittest.TestCase):
             '"]'
         )
         self.assertTrue(len(img_tag) > 0)
+
+
+def get_html(filename, gs_abstract_lang):
+    et = get_xml_tree_from_file(filename)
+    return domain.HTMLGenerator.parse(
+      et, gs_abstract_lang=gs_abstract_lang,
+      valid_only=False).generate(gs_abstract_lang)
+
+
+class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
+
+    def test_generate_html_for_en_abstract(self):
+        html = get_html(
+          "article-abstract-en-sub-articles-pt-es.xml", "en")
+        find_text = (
+          'the correlations between these two years were high in all th'
+          'e dimensions analyzed. The evaluation of competence progress'
+          'ion in the context of clinical practice in nursing universit'
+          'y studies allows us to optimize these practices to the maxim'
+          'um and establish professional profiles with a greater degree'
+          ' of adaptation to the professional future. '
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)
+
+    def test_generate_html_for_es_abstract_in_subarticle(self):
+        html = get_html(
+          "article-abstract-en-sub-articles-pt-es.xml", "es")
+        find_text = (
+          ' las correlaciones entre estos dos años fueron altas en toda'
+          's las dimensiones analizadas. La evaluación de la progresión'
+          ' de competencias, en el contexto de la práctica clínica, en '
+          'los estudios universitarios de enfermería, nos permite optim'
+          'izar estas prácticas al máximo y establecer perfiles profesi'
+          'onales con un mayor grado de adaptación al futuro profesiona'
+          'l.'
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)
+
+    def test_generate_html_for_pt_abstract_in_subarticle(self):
+        html = get_html(
+          "article-abstract-en-sub-articles-pt-es.xml", "pt")
+        find_text = (
+          'este estudo transversal descritivo foi realizado no contexto'
+          ' das disciplinas de prática clínica do curso de enfermagem. '
+          'O desenvolvimento de competências de 323 alunos foi analisad'
+          'o usando um questionário '
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)
+
+    def test_generate_html_for_pt_trans_abstract(self):
+        html = get_html(
+          "article-abstract-and-trans-abstract.xml", "en")
+        find_text = (
+            'Estudo multicêntrico, transversal, que ocorreu entre 2008 e '
+            '2009 em 10 cidades brasileiras. Foram recrutados 3.746 homen'
+            's que fazem sexo com homens pela técnica amostral Respondent'
+            ' Driven Sampling. O conhecimento em HIV/Aids foi apurado a p'
+            'artir de dez afirmativas da entrevista realizada face a face'
+            ' e os escores foram obtidos utilizando o modelo logístico de'
+            ' dois parâmetros (discriminação e dificuldade) da Teoria de '
+            'Resposta ao Item. O funcionamento diferencial dos itens foi '
+            'verificado, analisando as curvas características dos itens p'
+            'ela idade e escolaridade.'
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)
