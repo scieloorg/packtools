@@ -186,23 +186,10 @@
         <section class="articleCtt">
             <div class="container">
                 <div class="articleTxt">
-                    <div class="articleBadge-editionMeta-doi-copyLink">
-                        <span class="_articleBadge"><xsl:apply-templates select="." mode="article-meta-subject"/></span>
-                        <span class="_separator"> • </span>
-                        <span class="_editionMeta">
-                            <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
-                            <span class="_separator"> • </span>
-                            <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
-                        </span>
-                        <span class="_separator"> • </span>
+                    <xsl:apply-templates select="." mode="articleBadge-editionMeta-doi-copyLink"/>
 
-                        <span class="group-doi">
-                            <xsl:apply-templates select="." mode="article-meta-doi"/>
-                        </span>
-                    </div>
-                    <xsl:apply-templates select="." mode="article-meta-related-article"></xsl:apply-templates>
+                    <xsl:apply-templates select="." mode="article-meta-related-article"/>
+
                     <h1 class="article-title">
                         <span class="sci-ico-openAccess showTooltip" data-toggle="tooltip">
                             <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
@@ -243,6 +230,24 @@
         </section>
 
 
+    </xsl:template>
+    <xsl:template match="article" mode="articleBadge-editionMeta-doi-copyLink">
+        <div class="articleBadge-editionMeta-doi-copyLink">
+            <span class="_articleBadge"><xsl:apply-templates select="." mode="article-meta-subject"/></span>
+            <span class="_separator"> • </span>
+            <span class="_editionMeta">
+                <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
+                <span class="_separator"> • </span>
+                <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
+            </span>
+            <span class="_separator"> • </span>
+
+            <span class="group-doi">
+                <xsl:apply-templates select="." mode="article-meta-doi"/>
+            </span>
+        </div>
     </xsl:template>
 
 </xsl:stylesheet>
