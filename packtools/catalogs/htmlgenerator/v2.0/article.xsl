@@ -93,46 +93,54 @@
             <body class="journal article">
                 <a name="top"/>
                 <div id="standalonearticle">
+                    <!--
+                        este id='standalonearticle' é usado pelo opac para
+                        extrair o que interessa apresentar no site 
+                    -->
                     <xsl:apply-templates select="." mode="article"/>
                     <xsl:apply-templates select="." mode="article-modals"/>
                 </div>
-                <xsl:if test="$graphic_elements_title!=''">
-                    <ul class="floatingMenu fm-slidein" data-fm-toogle="hover">
-
-
-                        <li class="fm-wrap">
-                            <a href="javascript:;" class="fm-button-main">
-                                <span class="sci-ico-floatingMenuDefault glyphFloatMenu"/>
-                                <span class="sci-ico-floatingMenuClose glyphFloatMenu"/>
-                            </a>
-                            <ul class="fm-list">
-                                <li>
-                                    <a class="fm-button-child"
-                                        data-fm-label="{$graphic_elements_title}"
-                                        data-toggle="modal" data-target="#ModalTablesFigures">
-                                        <span class="sci-ico-figures glyphFloatMenu"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="fm-button-child" data-toggle="modal"
-                                        data-target="#ModalArticles">
-                                        <xsl:attribute name="data-fm-label">
-                                            <xsl:apply-templates select="." mode="text-labels">
-                                                <xsl:with-param name="text">How to
-                                                  cite</xsl:with-param>
-                                            </xsl:apply-templates>
-                                        </xsl:attribute>
-                                        <span class="sci-ico-citation glyphFloatMenu"/>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </xsl:if>
-
+                <!--
+                    isso não fará parte do site,
+                    o site tem seus próprios 
+                -->
+                <xsl:apply-templates select="." mode="graphic-elements-title"/>
                 <xsl:apply-templates select="." mode="js"/>
             </body>
         </html>
+    </xsl:template>
+    <xsl:template match="/" mode="graphic-elements-title">
+        <xsl:if test="$graphic_elements_title!=''">
+            <ul class="floatingMenu fm-slidein" data-fm-toogle="hover">
+                <li class="fm-wrap">
+                    <a href="javascript:;" class="fm-button-main">
+                        <span class="sci-ico-floatingMenuDefault glyphFloatMenu"/>
+                        <span class="sci-ico-floatingMenuClose glyphFloatMenu"/>
+                    </a>
+                    <ul class="fm-list">
+                        <li>
+                            <a class="fm-button-child"
+                                data-fm-label="{$graphic_elements_title}"
+                                data-toggle="modal" data-target="#ModalTablesFigures">
+                                <span class="sci-ico-figures glyphFloatMenu"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="fm-button-child" data-toggle="modal"
+                                data-target="#ModalArticles">
+                                <xsl:attribute name="data-fm-label">
+                                    <xsl:apply-templates select="." mode="text-labels">
+                                        <xsl:with-param name="text">How to
+                                          cite</xsl:with-param>
+                                    </xsl:apply-templates>
+                                </xsl:attribute>
+                                <span class="sci-ico-citation glyphFloatMenu"/>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="/" mode="css">
 
