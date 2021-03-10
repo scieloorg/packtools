@@ -197,13 +197,24 @@
                     </div>
                     <xsl:apply-templates select="." mode="article-meta-contrib"/>
                     
-                    <div class="row">
-                        <ul class="col-md-2 hidden-sm articleMenu"> </ul>
-                        <xsl:apply-templates select="." mode="div-article"/>
-                    </div>
+                    <xsl:apply-templates select="." mode="article-or-abstract"/>
                 </div>
             </div>
         </section>
+    </xsl:template>
+
+    <xsl:template match="article" mode="article-or-abstract">
+        <div class="row">
+            <ul class="col-md-2 hidden-sm articleMenu"> </ul>
+            <xsl:choose>
+                <xsl:when test="$gs_abstract_lang">
+                    <xsl:apply-templates select="." mode="div-abstract"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="." mode="div-article"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
     </xsl:template>
 
     <xsl:template match="article" mode="div-article">
@@ -226,6 +237,13 @@
                     </div>
                 </div>
             </section>
+        </article>
+    </xsl:template>
+
+    <xsl:template match="article" mode="div-abstract">
+        <article id="articleText"
+            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+            <xsl:apply-templates select="." mode="article-meta-abstract-gs"/>
         </article>
     </xsl:template>
 
