@@ -190,47 +190,45 @@
 
                     <xsl:apply-templates select="." mode="article-meta-related-article"/>
 
-                    <h1 class="article-title">
-                        <span class="sci-ico-openAccess showTooltip" data-toggle="tooltip">
-                            <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
-                        </span>
-                        <xsl:apply-templates select="." mode="article-meta-title"/>
-                        <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>
-                    </h1>
+                    <xsl:apply-templates select="." mode="article-title"/>
+
                     <xsl:apply-templates select="." mode="article-meta-trans-title"/>
                     <div class="articleMeta">
                     </div>
                     <xsl:apply-templates select="." mode="article-meta-contrib"/>
+                    
                     <div class="row">
                         <ul class="col-md-2 hidden-sm articleMenu"> </ul>
-
-                        <article id="articleText"
-                            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
-                            <xsl:apply-templates select="." mode="article-meta-product"/>
-                            <xsl:apply-templates select="." mode="article-meta-abstract"/>
-                            <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
-                            <xsl:apply-templates select="." mode="text-body"/>
-                            <xsl:apply-templates select="." mode="text-back"/>
-                            <xsl:apply-templates select="." mode="text-fn"/>
-                            <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
-                            <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
-                            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
-
-                            <section class="documentLicense">
-                                <div class="container-license">
-                                    <div class="row">
-                                        <xsl:apply-templates select="." mode="article-meta-permissions"></xsl:apply-templates>
-                                    </div>
-                                </div>
-                            </section>
-                        </article>
+                        <xsl:apply-templates select="." mode="div-article"/>
                     </div>
                 </div>
             </div>
         </section>
-
-
     </xsl:template>
+
+    <xsl:template match="article" mode="div-article">
+        <article id="articleText"
+            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+            <xsl:apply-templates select="." mode="article-meta-product"/>
+            <xsl:apply-templates select="." mode="article-meta-abstract"/>
+            <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
+            <xsl:apply-templates select="." mode="text-body"/>
+            <xsl:apply-templates select="." mode="text-back"/>
+            <xsl:apply-templates select="." mode="text-fn"/>
+            <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
+            <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
+            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
+
+            <section class="documentLicense">
+                <div class="container-license">
+                    <div class="row">
+                        <xsl:apply-templates select="." mode="article-meta-permissions"></xsl:apply-templates>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </xsl:template>
+
     <xsl:template match="article" mode="articleBadge-editionMeta-doi-copyLink">
         <div class="articleBadge-editionMeta-doi-copyLink">
             <span class="_articleBadge"><xsl:apply-templates select="." mode="article-meta-subject"/></span>
@@ -250,4 +248,13 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="article" mode="article-title">
+        <h1 class="article-title">
+            <span class="sci-ico-openAccess showTooltip" data-toggle="tooltip">
+                <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
+            </span>
+            <xsl:apply-templates select="." mode="article-meta-title"/>
+            <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>
+        </h1>
+    </xsl:template>
 </xsl:stylesheet>
