@@ -22,7 +22,7 @@ class XMLError(Exception):
 def get_htmlgenerator(
     xmlpath, no_network, no_checks, css, print_css, js, permlink,
     url_article_page, url_download_ris,
-    gs_abstract_lang,
+    gs_abstract,
 ):
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
@@ -39,7 +39,7 @@ def get_htmlgenerator(
             permlink=permlink,
             url_article_page=url_article_page,
             url_download_ris=url_download_ris,
-            gs_abstract_lang=gs_abstract_lang,
+            gs_abstract=gs_abstract,
             )
     except ValueError as e:
         raise XMLError('Error reading %s. %s.' % (xmlpath, e))
@@ -57,8 +57,9 @@ def main():
                         help='prevents the retrieval of the DTD through the network')
     parser.add_argument('--nochecks', action='store_true',
                         help='prevents the validation against SciELO PS spec')
-    parser.add_argument('--gs_abstract_lang', default=False,
-                        help='Abstract language for Google Scholar')
+    parser.add_argument('--gs_abstract', default=False,
+                        action='store_true',
+                        help='Abstract for Google Scholar')
     parser.add_argument('--css', default=catalogs.HTML_GEN_DEFAULT_CSS_PATH,
                         help='URL or full path of the CSS file to use with generated htmls')
     parser.add_argument('--print_css', default=catalogs.HTML_GEN_DEFAULT_PRINT_CSS_PATH,
@@ -89,7 +90,7 @@ def main():
                 xml, args.nonetwork, args.nochecks,
                 args.css, args.print_css, args.js,
                 args.permlink, args.url_article_page, args.url_download_ris,
-                args.gs_abstract_lang,
+                args.gs_abstract,
                 )
             LOGGER.debug('HTMLGenerator repr: %s' % repr(html_generator))
         except XMLError as e:
@@ -98,9 +99,10 @@ def main():
             continue
 
         try:
+            abstract_suffix = args.gs_abstract and '.abstract' or ''
             for lang, trans_result in html_generator:
                 fname, fext = xml.rsplit('.', 1)
-                out_fname = '.'.join([fname, lang, 'html'])
+                out_fname = '.'.join([fname, lang + abstract_suffix, 'html'])
 
                 with open(out_fname, 'wb') as fp:
                     fp.write(etree.tostring(trans_result, pretty_print=True,
