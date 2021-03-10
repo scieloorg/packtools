@@ -1165,12 +1165,11 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         self.assertTrue(len(img_tag) > 0)
 
 
-def get_html(filename, gs_abstract_lang, article_lang=None):
-    article_lang = article_lang or gs_abstract_lang
+def get_html(filename, gs_abstract_lang):
     et = get_xml_tree_from_file(filename)
     return domain.HTMLGenerator.parse(
-      et, gs_abstract_lang=gs_abstract_lang,
-      valid_only=False).generate(article_lang)
+      et, gs_abstract=True,
+      valid_only=False).generate(gs_abstract_lang)
 
 
 class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
@@ -1218,7 +1217,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
 
     def test_generate_html_for_pt_trans_abstract(self):
         html = get_html(
-          "article-abstract-and-trans-abstract.xml", "pt", "en")
+          "article-abstract-and-trans-abstract.xml", "pt")
         find_text = (
             'Estudo multicêntrico, transversal, que ocorreu entre 2008 e '
             '2009 em 10 cidades brasileiras. Foram recrutados 3.746 homen'
