@@ -1,0 +1,1740 @@
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Rev Lat Am Enfermagem</journal-id>
+      <journal-id journal-id-type="publisher-id">rlae</journal-id>
+      <journal-title-group>
+        <journal-title>Revista Latino-Americana de Enfermagem</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Rev. Latino-Am. Enfermagem</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">1518-8345</issn>
+      <publisher>
+        <publisher-name>Escola de Enfermagem de Ribeirão Preto / Universidade de São Paulo</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+      <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+      <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+      <article-id pub-id-type="other">00303</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Original Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Analysis of the evolution of competences in the clinical practice of the nursing degree<xref ref-type="fn" rid="fn1">*</xref>
+				</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
+          <name>
+            <surname>Martínez-Momblán</surname>
+            <given-names>Maria Antonia</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
+          <name>
+            <surname>Colina-Torralva</surname>
+            <given-names>Javier</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1578-1009</contrib-id>
+          <name>
+            <surname>Cueva-Ariza</surname>
+            <given-names>Laura De la</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9866-7265</contrib-id>
+          <name>
+            <surname>Guix-Comellas</surname>
+            <given-names>Eva Maria</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-7093-5982</contrib-id>
+          <name>
+            <surname>Romero-García</surname>
+            <given-names>Marta</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+          <xref ref-type="corresp" rid="c1"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-7077-3648</contrib-id>
+          <name>
+            <surname>Delgado-Hito</surname>
+            <given-names>Pilar</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <aff id="aff1">
+          <label>1</label>
+          <institution content-type="orgname">University of Barcelona</institution>
+          <institution content-type="orgdiv1">School of Nursing</institution>
+          <institution content-type="orgdiv2">L’Hospitalet de Llobregat</institution>
+          <addr-line>
+            <city>Barcelona</city>
+          </addr-line>
+          <country country="ES">Espanha</country>
+          <institution content-type="original">University of Barcelona, School of Nursing, L’Hospitalet de Llobregat, Barcelona, Espanha.</institution>
+        </aff>
+      </contrib-group>
+      <author-notes>
+        <corresp id="c1">Corresponding author: Marta Romero-García. E-mail: <email>martaromero@ub.edu</email>
+				</corresp>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>03</day>
+        <month>02</month>
+        <year>2020</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2020</year>
+      </pub-date>
+      <volume>28</volume>
+      <elocation-id>e3231</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>08</day>
+          <month>11</month>
+          <year>2018</year>
+        </date>
+        <date date-type="accepted">
+          <day>16</day>
+          <month>09</month>
+          <year>2019</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Copyright © 2020 Revista Latino-Americana de Enfermagem</copyright-statement>
+        <copyright-year>2020</copyright-year>
+        <copyright-holder>Revista Latino-Americana de Enfermagem</copyright-holder>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <sec>
+          <title>Objective:</title>
+          <p>to analyze the student’s progression in the acquisition of specific and transversal competences in relation to the competence dimensions.</p>
+          <p><bold>Method:</bold> the cross-sectional descriptive study was carried out in the clinical practice subjects included in the Nursing Degree. We included 323 students and we contemplated the development of competences through an ad-hoc questionnaire with 4 dimensions: delivery and care management, therapeutic communication, professional development and care management. </p>
+        </sec>
+        <sec>
+          <title>Results:</title>
+          <p>the academic results between the practice of the second and third year showed an improvement in care provision and therapeutic communication skills (Clinical Placements I: 12%-29%; Clinical Placements II: 32%-47%) and worsened in professional development and care management (Clinical Placements I: 44%-38%; Clinical Placements II: 44%-26%). </p>
+        </sec>
+        <sec>
+          <title>Conclusion:</title>
+          <p>the correlations between these two years were high in all the dimensions analyzed. The evaluation of competence progression in the context of clinical practice in nursing university studies allows us to optimize these practices to the maximum and establish professional profiles with a greater degree of adaptation to the professional future. </p>
+        </sec>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>Descriptors:</title>
+        <kwd>Learning Environment</kwd>
+        <kwd>Competence</kwd>
+        <kwd>Bachelor’s Degree</kwd>
+        <kwd>Nursing Education</kwd>
+        <kwd>Nursing Students</kwd>
+        <kwd>Nursing Research</kwd>
+      </kwd-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introduction</title>
+      <p>The Tuning Project establishes the conceptual bases for the creation of what would later be called the European Higher Education Area (EHEA) where there are deep transformations in teaching-learning processes, the role to be played by professors and students, the definition of a credit system, and the quality of academic programs, among others. The EHEA established a unifying system, especially the accreditation of nursing training, allowing the mobility of under and post-graduate students to the different universities<sup>(</sup><xref ref-type="bibr" rid="B1">1</xref><sup>-</sup><xref ref-type="bibr" rid="B3">3</xref><sup>)</sup>.</p>
+      <p>The EHEA incorporated an important paradigm shift from education directed to knowledge to competency-based learning. These competences tell us the degree of knowledge, know-how and know-how-to-be within a context of professional practice, a fundamental element to be able to lead the professional activity with optimal levels of quality inside and outside the Spanish State<sup>(</sup><xref ref-type="bibr" rid="B4">4</xref><sup>-</sup><xref ref-type="bibr" rid="B5">5</xref><sup>)</sup>. Therefore, the EHEA appears as a measure to improve the quality of the university system and must be carried out through the establishment of mechanisms and constant processes of evaluation, certification and accreditation of what is done and how it is done<sup>(</sup><xref ref-type="bibr" rid="B6">6</xref><sup>)</sup>.</p>
+      <p>The reality, both nationally and internationally, in the context of competences in the Degree in Nursing, is the implementation of different educational programs with different structures, levels, durations, certifications, professional and social recognition, and access to studies. This aspect led to the establishment of diverse and heterogeneous educational programs at both European level and in the United States (US)<sup>(</sup><xref ref-type="bibr" rid="B3">3</xref><sup>-</sup><xref ref-type="bibr" rid="B5">5</xref><sup>)</sup>.</p>
+      <p>A few years after the implementation of the new Royal Decree 1892/2008, the situation has changed and at present the training offers the establishment of more uniform programs in the content of academic programs<sup>(</sup><xref ref-type="bibr" rid="B7">7</xref><sup>-</sup><xref ref-type="bibr" rid="B9">9</xref><sup>)</sup>. </p>
+      <p>The advantages of learning based on the student’s final competences are numerous: greater responsibility in their learning process, the use of active methodology, the design of practical material, the rationalization of resources and greater cohesion in the training curriculum. Competences represent, therefore, the axis par excellence of the teaching-learning process<sup>(</sup><xref ref-type="bibr" rid="B10">10</xref><sup>-</sup><xref ref-type="bibr" rid="B12">12</xref><sup>)</sup>. Following this guideline, the transformation of the studies from Diploma to Degree, during the academic year 2009/2010, forced the incorporation of a set of learning activities and assessment instruments that guarantee the formative curricula of the Degree in Nursing<sup>(</sup><xref ref-type="bibr" rid="B13">13</xref><sup>)</sup>. </p>
+      <p>In Spain, there are documents that establish competences within the nursing profession, the one developed by the Catalan Council of Specialists and published by the Institut d’Estudis de la Salut is particularly notable; along the same lines we find the European Leonardo Da Vinci Project, led in this same country by the Santa Madrona University School of Nursing (Barcelona), which describes the framework of nursing competences in healthcare management, and also the one carried out by the Coordination and Development Unit of Nursing Research (Instituto de Salud Carlos III- Madrid), for research competencies in healthcare practice and specialized training that the health professionals from different academic levels should have<sup>(</sup><xref ref-type="bibr" rid="B8">8</xref><sup>-</sup><xref ref-type="bibr" rid="B10">10</xref><sup>,</sup><xref ref-type="bibr" rid="B14">14</xref><sup>)</sup>.</p>
+      <p>Similarly, there are many organizations that have focused internationally on analyzing the competence impact within the nursing profession. The Dedicated Education Unit (DEU), the European Federation of Nurse Educators (FINE Europe), and the European Academy of Nursing Science (EANS) stand out internationally. As regards Spain, in January 2017, the Official College of Nurses of Barcelona (COIB) promoted a meeting with representatives from different parts of the world to establish a workshop for the development of nursing competences in the excellence of care.</p>
+      <p>The current state of the issue is given extensively by the documents that establish and create the entire competence framework of the Bachelor Degree in Nursing, but there are few studies that have evaluated and analyzed the acquisition of specific and transversal competences for the professional development of nursing<sup>(</sup><xref ref-type="bibr" rid="B10">10</xref><sup>-</sup><xref ref-type="bibr" rid="B12">12</xref><sup>)</sup>. It is worth highlighting those studies that focus on the creation and validation of instruments used to evaluate competence acquisition, such as the Nursing Competency Scale (ECE), the Nurse Competence Scale (NCS) and the Practice Environment Scale-Nursing Work Index (PES- NWI)<sup>(</sup><xref ref-type="bibr" rid="B15">15</xref><sup>-</sup><xref ref-type="bibr" rid="B18">18</xref><sup>)</sup>. However, these instruments do not jointly evaluate the specific and transversal competences that currently integrate clinical practice subjects, nor the effectiveness of integrated learning activities in said subjects for the acquisition of competences (seminars, clinical skills, workshops, simulation, tutorials, etc.)<sup>(</sup><xref ref-type="bibr" rid="B19">19</xref><sup>)</sup>.</p>
+      <p>On the other hand, current studies establish various teaching methodologies in the context of clinical practice (simulation, tutorials and seminars), as evidence confirms that this methodology represents a structured set of documents prepared by the student, ordered chronologically or thematically, which demonstrates the evolution, progress and degree of compliance with the objectives set out in each delivery, reflecting at the same time the strategies of each student for inquiry, critical-reflective thinking, rigor and analysis<sup>(</sup><xref ref-type="bibr" rid="B11">11</xref><sup>,</sup><xref ref-type="bibr" rid="B20">20</xref><sup>)</sup>.</p>
+      <p>In the face of this situation there are three major problems: the first refers to the complexity of the competences, the second is related to the difficulty to make evaluations with the different teaching methodologies, and the third refers to the lack of tools that centralize and computerize data to be able to establish in-depth analyzes of the reliability and validity of the instruments used for their measurement<sup>(</sup><xref ref-type="bibr" rid="B21">21</xref><sup>-</sup><xref ref-type="bibr" rid="B22">22</xref><sup>)</sup>.</p>
+      <p>Several years after the implementation of the Bachelor in Nursing in Spain, we believe it is vital to evaluate competence acquisition within clinical practice subjects, since the existing plurality of agents involved in them and the numerous institutional cultures and professional profiles that participate make it a complex subject to guarantee that all those specific and transversal competences of the degree have been acquired<sup>(</sup><xref ref-type="bibr" rid="B22">22</xref><sup>-</sup><xref ref-type="bibr" rid="B24">24</xref><sup>)</sup>. This complexity can be minimized by establishing instruments that centralize information and rubric systems that unify the criteria and methodological rigor of the different dimensions that make up the learning activities<sup>(</sup><xref ref-type="bibr" rid="B25">25</xref><sup>-</sup><xref ref-type="bibr" rid="B28">28</xref><sup>)</sup>. </p>
+      <p>The aim was to analyze the student’s progression as regards the acquisition of specific and transversal competences in relation to academic results, basal / average / final academic means and the dimensional correlations of the different competences in clinical practice subjects.</p>
+    </sec>
+    <sec sec-type="methods">
+      <title>Method</title>
+      <p>Descriptive, transversal, retrospective and correlational study.</p>
+      <p>The scope of study was the School of Nursing of the University of Barcelona (UB). The distribution of the curriculum in this school contemplates a total of 84 European Credit Transfer and Accumulation System (ECTS) of obligatory external practical courses. Clinical practice within the Bachelor’s Degree in Nursing is divided into four subjects, organized in such a way so as to incorporate criteria from lower to higher complexity, from the second to the fourth (and last) year. All of them seek the application and integration of specific and transversal competences in relation to nursing care in the different areas of action. We analyzed all 1800 students enrolled on the clinical practice subjects, known as Clinical Placements I (ECI) in the second year and Clinical Placements II (ECII) in the third year, of the Nursing Degree from September 2015 to June 2016, according to a report drawn up by the University in the records for said academic year. Considering the data extracted from the report, with the aim of achieving an accuracy of 5% in the estimation of a proportion through a bilateral 95% confidence interval, the dropout rate is close to 10%, assuming that the proportion of the population of nursing students taking the ECI and ECII subjects is 41%. Consecutive sampling. The final sample was 320 students with a distribution of ECI (n = 166) and ECII (n = 157) with a dropout rate of 10%, estimation accuracy of 5% and a confidence level of 95%. The calculation was made using Ene 3.0 software.</p>
+      <p>The following study variables were collected: i) Sociodemographic variables related to the center of practice: age, sex, health institution where the clinical practice is developed and the practice unit; ii) Variables related to the learning activities linked to the seminars: Reflective journal; (tool to reflect and write about the student’s learning process), Nursing process; (scientific method of the discipline to resolve the health problems that people undergo), Pharmacological management; (assessment and analysis of pharmacological treatments), nutritional assessment; (assessment of nutritional status), Techniques / procedures; (description and analysis based on the evidence of a procedure) and Ethical Dilemma (description of an ethical problem and its solution); iii) Variables related to clinical practice: which refer to the specific competences of the teaching plan: Professional Practice (PP) that includes the attitude during the performance of clinical practice, Care Delivery and Management (PGC) as a set, and the management of activities and services performed during the period of clinical practices, Therapeutic Communication (TC) as the ability to exchange or transmit thoughts, feelings and ideas between student-team and user, Professional Development (DP) that achieves growth and self-realization, and Care Management (CG) that includes the ability to establish scientific systematization in what is done and how it is done.</p>
+      <p>Two instruments were used to collect the variables:</p>
+      <list list-type="simple">
+        <list-item>
+          <p>- Ad-hoc form for the collection of sociodemographic variables and the sample practice center.</p>
+        </list-item>
+        <list-item>
+          <p>- ECI and ECII clinical practice questionnaires. The questionnaires for ECI contain 23 items, and there are 25 for ECII. Each of the items has response options based on a Likert-type scale with 10 response options ranging from 1 (does not perform it or performs poorly) to 10 (it is excellent, or perfect), with a maximum score of 230 and 250, respectively. Each questionnaire has 4 to 5 dimensions related to care.</p>
+        </list-item>
+      </list>
+      <p>In the context of clinical practice, a total of two evaluations were made for ECI (ECI0, ECI1) and three for ECII (ECI0, ECI1 and ECI2), in both the score is collected by means of a Likert scale from 1 to 10.</p>
+      <p>For the description of all the quantitative variables, the mean and the standard deviation (SD) were calculated, or the median and the interquartile range (IQR) as a function of the distribution of the data, and for the qualitative variables the frequencies and percentages were expressed. To analyze the relationship between the competence level, sociodemographic data, practice center, academic results and the teaching methodology of ECI-II in its different dimensions, an inferential analysis was carried out, using a 95% confidence level. The goodness-of-fit test was applied to check the normal distribution and parametric or non-parametric tests were used. If they did not follow a normal distribution, the variables were compared using the Chi-square, Kruskal-Wallis or Mann-Whitney test and the Spearman correlation coefficient. If they followed a normal distribution, they were compared using the Chi-square test, Student’s t test and Pearson’s correlation coefficient. The statistical program IBM SPSS Statistics 21 was used.</p>
+      <p>The recommendations of Organic Law 15/1999, of December 13 (BOE Num. 298, of December 14, 1999), on Personal Data Protection, were taken into account. An information document about the project and its objectives was provided and informed consent was obtained from students and teachers. Permission was granted by the Directorate of the School of Nursing and the approval of the Ethics Committee of the UB.</p>
+    </sec>
+    <sec sec-type="results">
+      <title>Results</title>
+      <p>The ECI students <italic>(n = 166)</italic> had a mean age of 22.60 years <italic>(SD = 5.40),</italic> of which 80% were women <italic>(n = 134)</italic> and the average of those in ECII <italic>(n = 157)</italic> was 23.9 years <italic>(SD = 5.02),</italic> of which 82% were women <italic>(n = 129).</italic> The students performed the internships in 11 centers of the Health Institution Network of the Catalan Health Institute and predominantly in internal medicine units 15% <italic>(n = 23),</italic> surgeries <italic>(n = 53)</italic> and others <italic>(24%).</italic></p>
+      <p>The final grades of the subjects for ECI and ECII did not show statistically significant differences in terms of the students’ academic results in the different evaluated dimensions <italic>(p = &lt;0.109),</italic> where 90% obtained an average grade between excellent and excellent, with a very balanced distribution by dimensions (<xref ref-type="fig" rid="f1">Figures 1</xref>-<xref ref-type="fig" rid="f2">2</xref>). The percentage of failures in ECI and ECII was similar <italic>(</italic>ECI 1.36%, ECII 1.25%).</p>
+      <p>
+        <fig id="f1">
+          <label>Figure 1</label>
+          <caption>
+            <title>Final Academic Results for ECI*</title>
+            <p>*ECI = Clinical Placements I; <sup>†</sup>PP = Professional Practice; <sup>‡</sup>PGC = Care Delivery and Management; <sup>§</sup>TC = Therapeutic Communication; <sup>II</sup>DP = Professional Development; <sup>¶</sup>GC = Care Management</p>
+          </caption>
+          <alternatives>
+            <graphic xlink:href=""/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/93646bf6194a04743642b91240adef621257b46f.jpg"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>
+        <fig id="f2">
+          <label>Figure 2</label>
+          <caption>
+            <title>Final Academic Results for ECII*</title>
+            <p>*ECII = Clinical Placements II; <sup>†</sup>PP = Professional Practice; <sup>‡</sup>PGC = Care Delivery and Management; <sup>§</sup>TC = Therapeutic Communication; <sup>II</sup>DP = Professional Development; <sup>¶</sup>GC = Care Management</p>
+          </caption>
+          <alternatives>
+            <graphic xlink:href=""/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/5f3524d1e244b106e5288bcb109a33e522c9b7ed.jpg"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>The academic results between ECI and ECII; that is, between the second and third years, improved for care delivery and therapeutic communication (ECI: 12% -29%, ECII: 32% -47%), and worsened in professional development and care management (ECI: 44% -38%; ECII: 44% -26%) (<xref ref-type="fig" rid="f3">Figures 3</xref>-<xref ref-type="fig" rid="f4">4</xref>). </p>
+      <p>
+        <fig id="f3">
+          <label>Figure 3</label>
+          <caption>
+            <title>Academic results according to competence dimensions for ECI*</title>
+            <p>*ECI = Clinical Placements I</p>
+          </caption>
+          <alternatives>
+            <graphic xlink:href=""/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/1d06fbf7497ca1990e9f7a913bfd2a55989b1e6b.jpg"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>
+        <fig id="f4">
+          <label>Figure 4</label>
+          <caption>
+            <title>Academic results according to competence dimensions for ECII*</title>
+            <p>*ECII = Clinical Placements II</p>
+          </caption>
+          <alternatives>
+            <graphic xlink:href=""/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/d516f11501af94616a36383c6c8b40fd2e1d9ec9.jpg"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>The mean evaluation between ECI0 and ECI1, from the completion of the ECI Ad-hoc Questionnaire, showed a progression of 1.3; for the completion of the Ad-hoc Questionnaire ECII, the progression between ECI0 and ECI1 progressions was 0.8 and between ECI1 and ECI2 it was 0.52. There is a very similar improvement in each of the dimensions and at each point of determination ECII0, ECII1 and ECII2.</p>
+      <p>The dimensions analyzed, from the completion of the Ad-hoc Questionnaire in ECI1 and ECII2, showed a high correlation coefficient in the dimensions linked to the practice (ECI1: PGC <italic>(r = 0.77),</italic> TC <italic>(r = 0.77 ),</italic> DP <italic>(r = 0.80)</italic> and GC <italic>(r = 0.58),</italic> ECII2<italic>: (r = 0.91),</italic> TC <italic>(r = 0.90),</italic> DP <italic>(r = 0.84)</italic> and GC <italic>( r = 0.84);</italic> however, a low correlation coefficient was obtained in the dimensions related to the complementary learning activities of EC I1 and ECII2 (EC I1 seminars <italic>(r = 0.56),</italic> nursing process <italic>(r = 0.33),</italic> ECII2: seminars <italic>(r = 0.51),</italic> and disease process assessment <italic>(r = 0.36).</italic></p>
+      <p>The correlations between ECI and ECII were high in all the dimensions analyzed, obtaining for professional practice <italic>r = 0.89;</italic> delivery and care manageme<italic>nt r = 0.84;</italic> therapeutic communication <italic>r = 0.88</italic> and professional development <italic>r = 0.90.</italic></p>
+    </sec>
+    <sec sec-type="discussion">
+      <title>Discussion</title>
+      <p>The findings obtained in respect to the academic results reinforce the evidence consulted, where academic qualifications maintain higher means in the results linked to the clinical practice of both ECI and ECII<sup>(</sup><xref ref-type="bibr" rid="B29">29</xref><sup>-</sup><xref ref-type="bibr" rid="B30">30</xref><sup>)</sup><italic>.</italic> This aspect, according to some authors, may be due to the fact that the different agents in charge of evaluating the student find it difficult to penalize low performance in the context of the practice<sup>(</sup><xref ref-type="bibr" rid="B15">15</xref><sup>-</sup><xref ref-type="bibr" rid="B16">16</xref><sup>,</sup><xref ref-type="bibr" rid="B29">29</xref><sup>)</sup><italic>.</italic></p>
+      <p>Other authors consulted establish that the impact of the first contact in the institutional context for the student requires a higher level of adaptation and acceptance, generating a filter that triggers a greater number of failures and dropouts at the beginning of their clinical practice. In our study, the results are similar, and we believe that the reason is the progression and consequently the increase of competence demands between second and third year in the context of the different practice units. Even so, we detected that failure rates are low (ECI 1.36%, ECII 1.25%), meaning that students progressed and passed the different clinical practice subjects, despite their low performance, as confirmed by different authors consulted<sup>(</sup><xref ref-type="bibr" rid="B30">30</xref><sup>-</sup><xref ref-type="bibr" rid="B33">33</xref><sup>)</sup>. </p>
+      <p>The evidence consulted confirms that students improve in therapeutic communication during the development of clinical practice, and we have not found studies that provide information on a student’s evolution in the professional development dimension and care management<sup>(</sup><xref ref-type="bibr" rid="B26">26</xref><sup>,</sup><xref ref-type="bibr" rid="B34">34</xref><sup>)</sup>. </p>
+      <p>The academic results revealed high final means for all the dimensions analyzed with high progression among the different evaluations made throughout the clinical practice (ECI0, ECI1, ECI0, ECII1 and ECII2), this aspect confirms the need to establish transversal cuts in student evaluations when internship periods are very long. This monitoring makes it possible to monitor more closely, it raises the student’s awareness of those aspects that must be improved until the end of the practice and enables the associate tutor of the practice in the learning acquisition process to personalize the adaptation<sup>(</sup><xref ref-type="bibr" rid="B31">31</xref><sup>-</sup><xref ref-type="bibr" rid="B32">32</xref><sup>)</sup>. </p>
+      <p>The instruments used for competence assessment in the context of clinical practice, confirm what different authors state when they refer to the need to use different evaluation methods to evaluate Miller’s pyramid, 17 through different learning activities<sup>(</sup><xref ref-type="bibr" rid="B11">11</xref><sup>,</sup><xref ref-type="bibr" rid="B19">19</xref><sup>-</sup><xref ref-type="bibr" rid="B20">20</xref><sup>)</sup>.</p>
+      <p>The different dimensions analyzed for competency acquisition were evaluated with different evaluation instruments, detecting that those dimensions measured in clinical practice had a high uniform correlation, compared to those dimensions measured in the seminar through other learning activities such as cases, reflective diary, observation activities, etc. This aspect becomes complex when the evaluations of the learning activities must be evaluated by different agents (reference nurse and associate tutor of clinical practice) giving well-differentiated academic results, making it necessary to reflect on the need to unify the reflective gaze in the practice<sup>(</sup><xref ref-type="bibr" rid="B23">23</xref><sup>-</sup><xref ref-type="bibr" rid="B25">25</xref><sup>,</sup><xref ref-type="bibr" rid="B33">33</xref><sup>)</sup>.</p>
+      <p>According to literature, the importance of the clinical facilitator in the context of clinical practice, as an agent that promotes ‘reflection in action’, is fundamental to establish cooperative learning and a collaborative approach that fosters integration between the theory and practice of the different agents involved, mainly students<sup>(</sup><xref ref-type="bibr" rid="B26">26</xref><sup>-</sup><xref ref-type="bibr" rid="B28">28</xref><sup>)</sup>. </p>
+      <p>There are many authors who establish the importance of combining evaluation instruments to unify the triangulation of knowledge, skills and attitudes and thus be able to establish a teaching plan that contemplates not only all the domains of learning, but above all, be able to adapt them to the progression the student makes throughout their degree studies in said triangulation process in their academic training<sup>(</sup><xref ref-type="bibr" rid="B13">13</xref><sup>)</sup>. </p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>Conclusion</title>
+      <p>The academic results of students in the context of clinical practice maintain high academic means, with a low failure rate in both ECI and ECII.</p>
+      <p>The instruments used are adequate for competency acquisition in the different dimensions analyzed, both in ECI and in ECII, detecting a different view in the marks given by the nurse compared with those granted by the associate.</p>
+      <p>Learning activities in the context of practice and seminars should be unified by the methodologies used in both contexts to reduce the low correlation between the institutional tutor or reference nurse and the academic or associate tutor in both subjects. The correlations between the competence dimensions of ECI and ECII are high, an aspect that facilitates the analysis and evaluation of the progression of these dimensions between the second and third years.</p>
+      <p>The study allowed us to carry out the joint analysis of all the competence dimensions that intervene in clinical practice subjects in the Nursing Degree. This analysis serves to establish future lines of research that allow the validation and reliability of the assessment instrument used to measure competence dimensions.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn fn-type="other" id="fn1">
+        <label>*</label>
+        <p>The publication of this article in the Thematic Series “Human Resources in Health and Nursing: Training and Practice in the Americas” is part of Activity 2.2 of Reference Term 2 of the PAHO/WHO Collaborating Center for Nursing Research Development, Brazil.</p>
+      </fn>
+    </fn-group>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1">
+        <label>1</label>
+        <mixed-citation>1 Pons JP, Villaciervos P. El Espacio Europeo de educación superior y las tecnologías de la información y la comunicación. Percepciones y demanda del profesorado. Rev Educ. [Internet] 2005 abril 11 [Acceso 12 enero 2018];337:99-124. Disponible en: <ext-link ext-link-type="uri" xlink:href="https://hdl.handle.net/11441/69000">https://hdl.handle.net/11441/69000</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pons</surname>
+              <given-names>JP</given-names>
+            </name>
+            <name>
+              <surname>Villaciervos</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <article-title>El Espacio Europeo de educación superior y las tecnologías de la información y la comunicación. Percepciones y demanda del profesorado</article-title>
+          <source>Rev Educ.</source>
+          <comment>[Internet]</comment>
+          <day>11</day>
+          <month>04</month>
+          <year>2005</year>
+          <date-in-citation content-type="access-date">12 enero 2018</date-in-citation>
+          <volume>337</volume>
+          <fpage>99</fpage>
+          <lpage>124</lpage>
+          <comment>Disponible en: <ext-link ext-link-type="uri" xlink:href="https://hdl.handle.net/11441/69000">https://hdl.handle.net/11441/69000</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <label>2</label>
+        <mixed-citation>2 Buzon O, Barragan R. Un modelo de enseñanza-aprendizaje para la implantación del nuevo sistema de Créditos Europeos en la materia de Tecnología Educativa. Relatec. [Internet] 2007 enero 29 [Acceso 12 enero 2018];3(1):67-80. Disponible en: <ext-link ext-link-type="uri" xlink:href="https://hdl.handle.net/11441/16860">https://hdl.handle.net/11441/16860</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Buzon</surname>
+              <given-names>O</given-names>
+            </name>
+            <name>
+              <surname>Barragan</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <article-title>Un modelo de enseñanza-aprendizaje para la implantación del nuevo sistema de Créditos Europeos en la materia de Tecnología Educativa</article-title>
+          <source>Relatec</source>
+          <comment>Internet</comment>
+          <day>29</day>
+          <month>01</month>
+          <year>2007</year>
+          <date-in-citation content-type="access-date">12 enero 2018</date-in-citation>
+          <volume>3</volume>
+          <issue>1</issue>
+          <fpage>67</fpage>
+          <lpage>80</lpage>
+          <comment>Disponible en: <ext-link ext-link-type="uri" xlink:href="https://hdl.handle.net/11441/16860">https://hdl.handle.net/11441/16860</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <label>3</label>
+        <mixed-citation>3 Margalef LC, Alvarez JM. La formación del profesorado universitario en el marco del Espacio Europeo de Educación Superior. Comun Pedagogía. [Internet] 2005 mayo [Acceso 12 enero 2018];195:6-11. Disponible en: <ext-link ext-link-type="uri" xlink:href="https://dialnet.unirioja.es/servlet/articulo?codigo=1271347">https://dialnet.unirioja.es/servlet/articulo?codigo=1271347</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Margalef</surname>
+              <given-names>LC</given-names>
+            </name>
+            <name>
+              <surname>Alvarez</surname>
+              <given-names>JM</given-names>
+            </name>
+          </person-group>
+          <article-title>La formación del profesorado universitario en el marco del Espacio Europeo de Educación Superior</article-title>
+          <source>Comun Pedagogía</source>
+          <comment>Internet</comment>
+          <month>05</month>
+          <year>2005</year>
+          <date-in-citation content-type="access-date">12 enero 2018</date-in-citation>
+          <volume>195</volume>
+          <fpage>6</fpage>
+          <lpage>11</lpage>
+          <comment>Disponible en: <ext-link ext-link-type="uri" xlink:href="https://dialnet.unirioja.es/servlet/articulo?codigo=1271347">https://dialnet.unirioja.es/servlet/articulo?codigo=1271347</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <label>4</label>
+        <mixed-citation>4 Kane MT. The assessment of professional competent. Eval Health Prof. 1992 Jun; 15 (2): 163-82. doi:10.1177/016327879201500203.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kane</surname>
+              <given-names>MT</given-names>
+            </name>
+          </person-group>
+          <article-title>The assessment of professional competent</article-title>
+          <source>Eval Health Prof</source>
+          <year>1992</year>
+          <month>06</month>
+          <volume>15</volume>
+          <issue>2</issue>
+          <fpage>163</fpage>
+          <lpage>182</lpage>
+          <pub-id pub-id-type="doi">10.1177/016327879201500203</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <label>5</label>
+        <mixed-citation>5 Nolla M, Pales J, Gual A. Desarrollo de las competencias profesionales. Educ Med. [Internet]. 2002 [Acceso 19 jul 2018];5(2):76-81. Disponible en: <ext-link ext-link-type="uri" xlink:href="http://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;pid= S160740412010000300003&amp;lng=es&amp;nrm=iso">http://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;pid= S160740412010000300003&amp;lng=es&amp;nrm=iso</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nolla</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Pales</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Gual</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Desarrollo de las competencias profesionales</article-title>
+          <source>Educ Med</source>
+          <comment>[Internet]</comment>
+          <year>2002</year>
+          <date-in-citation content-type="access-date">19 jul 2018</date-in-citation>
+          <volume>5</volume>
+          <issue>2</issue>
+          <fpage>76</fpage>
+          <lpage>81</lpage>
+          <comment>Disponible en: <ext-link ext-link-type="uri" xlink:href="http://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;pid= S160740412010000300003&amp;lng=es&amp;nrm=iso">http://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;pid= S160740412010000300003&amp;lng=es&amp;nrm=iso</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <label>6</label>
+        <mixed-citation>6 Juve ME, Muñoz SF, Calvo CM, Monterde Prat DM, Fierro Barrabes GF, Marsal Serra R, et al. ¿Cómo definen los profesionales de enfermería hospitalarios sus competencias asistenciales? Nursing. 2007 Jan; 25(7):50-61. doi: 10.1016/S0212-5382(07)70957-3.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Juve</surname>
+              <given-names>ME</given-names>
+            </name>
+            <name>
+              <surname>Muñoz</surname>
+              <given-names>SF</given-names>
+            </name>
+            <name>
+              <surname>Calvo</surname>
+              <given-names>CM</given-names>
+            </name>
+            <name>
+              <surname>Monterde Prat</surname>
+              <given-names>DM</given-names>
+            </name>
+            <name>
+              <surname>Fierro Barrabes</surname>
+              <given-names>GF</given-names>
+            </name>
+            <name>
+              <surname>Marsal Serra</surname>
+              <given-names>R</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>¿Cómo definen los profesionales de enfermería hospitalarios sus competencias asistenciales?</article-title>
+          <source>Nursing</source>
+          <month>01</month>
+          <year>2007</year>
+          <volume>25</volume>
+          <issue>7</issue>
+          <fpage>50</fpage>
+          <lpage>61</lpage>
+          <pub-id pub-id-type="doi">10.1016/S0212-5382(07)70957-3</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <label>7</label>
+        <mixed-citation>7 McEwen M, White MJ, Pullis BR, Krawtz S. National survey of RN-to-BSN programs. J Nurs Educ. 2012 jul;51(7):373-80. doi: 10.3928/01484834-20120509-02.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>McEwen</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>White</surname>
+              <given-names>MJ</given-names>
+            </name>
+            <name>
+              <surname>Pullis</surname>
+              <given-names>BR</given-names>
+            </name>
+            <name>
+              <surname>Krawtz</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>National survey of RN-to-BSN programs</article-title>
+          <source>J Nurs Educ</source>
+          <year>2012</year>
+          <month>07</month>
+          <volume>51</volume>
+          <issue>7</issue>
+          <fpage>373</fpage>
+          <lpage>380</lpage>
+          <pub-id pub-id-type="doi">10.3928/01484834-20120509-02</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <label>8</label>
+        <mixed-citation>8 Zabalegui A, Cabrera E. [New nursing education structure in Spain]. Nurse Educ Today. 2009 jul;29(5):500-4. doi: 10.1016/j.nedt.2008.11.008.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zabalegui</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Cabrera</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <article-title>[New nursing education structure in Spain]</article-title>
+          <source>Nurse Educ Today</source>
+          <year>2009</year>
+          <month>07</month>
+          <volume>29</volume>
+          <issue>5</issue>
+          <fpage>500</fpage>
+          <lpage>504</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.nedt.2008.11.008</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <label>9</label>
+        <mixed-citation>9 Bentlley R, Engelhard JA, Watzak B. Collaborating to implement Interprofessional Educational Competencies through an International Immersion Experience. Nurse Educ. 2014 Mar-Apr;39(2):77-84. doi: 10.1097/NNE.0000000000000022.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bentlley</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Engelhard</surname>
+              <given-names>JA</given-names>
+            </name>
+            <name>
+              <surname>Watzak</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <article-title>Collaborating to implement Interprofessional Educational Competencies through an International Immersion Experience</article-title>
+          <source>Nurse Educ</source>
+          <season>Mar-Apr</season>
+          <year>2014</year>
+          <volume>39</volume>
+          <issue>2</issue>
+          <fpage>77</fpage>
+          <lpage>84</lpage>
+          <pub-id pub-id-type="doi">10.1097/NNE.0000000000000022</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <label>10</label>
+        <mixed-citation>10 Fahy A. Evaluating clinical competence assessment. Nurs Stand. 2011 Aug 17-23; 25(50):42-8. doi:10.7748/ns2011.08.25.50.42.c8656.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fahy</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Evaluating clinical competence assessment</article-title>
+          <source>Nurs Stand</source>
+          <year>2011</year>
+          <month>08</month>
+          <day>23</day>
+          <volume>25</volume>
+          <issue>50</issue>
+          <fpage>42</fpage>
+          <lpage>48</lpage>
+          <pub-id pub-id-type="doi">10.7748/ns2011.08.25.50.42.c8656</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <label>11</label>
+        <mixed-citation>11 Cassidy I, Butler MP, Quillinan B, Egan G, Mc Namara MC, Tuohy D, et al. Preceptors' views of assessing nursing students using a competency based approach. Nurse Educ Pract. 2012 Nov; 12(6):346-51. doi: 10.1016/j.nepr.2012.04.006</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Cassidy</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Butler</surname>
+              <given-names>MP</given-names>
+            </name>
+            <name>
+              <surname>Quillinan</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Egan</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Mc Namara</surname>
+              <given-names>MC</given-names>
+            </name>
+            <name>
+              <surname>Tuohy</surname>
+              <given-names>D</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Preceptors' views of assessing nursing students using a competency based approach</article-title>
+          <source>Nurse Educ Pract</source>
+          <year>2012</year>
+          <month>11</month>
+          <volume>12</volume>
+          <issue>6</issue>
+          <fpage>346</fpage>
+          <lpage>351</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.nepr.2012.04.006</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <label>12</label>
+        <mixed-citation>12 Bahreini M, Moattari M, Ahmadi F, Kaveh MH, Hayatdavoudy P, Mirzaei M. Comparison of head nurses and practicing nurses in nurse competence assessment. Iran J Nurs Midwifery Res. [Internet]. 2011 Mar 18 [cited Jul 19, 2018]; 16(3):227-34. Available from: <ext-link ext-link-type="uri" xlink:href="https://www.ncbi.nlm.nih.gov/pubmed/22224112">https://www.ncbi.nlm.nih.gov/pubmed/22224112</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bahreini</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Moattari</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Ahmadi</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Kaveh</surname>
+              <given-names>MH</given-names>
+            </name>
+            <name>
+              <surname>Hayatdavoudy</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Mirzaei</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <article-title>Comparison of head nurses and practicing nurses in nurse competence assessment</article-title>
+          <source>Iran J Nurs Midwifery Res</source>
+          <comment>[Internet]</comment>
+          <day>18</day>
+          <month>03</month>
+          <year>2011</year>
+          <date-in-citation content-type="access-date">Jul 19, 2018</date-in-citation>
+          <volume>16</volume>
+          <issue>3</issue>
+          <fpage>227</fpage>
+          <lpage>234</lpage>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="https://www.ncbi.nlm.nih.gov/pubmed/22224112">https://www.ncbi.nlm.nih.gov/pubmed/22224112</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <label>13</label>
+        <mixed-citation>13 Hendricks SM, Taylor C, Walker M, Welch JA. Triangulating Competencies, Concepts, and Professional Development in Curriculum Revisions. Nurse Educ. 2016 Jan-Feb;41(1):33-6. doi: 10.1097/NNE.0000000000000198</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hendricks</surname>
+              <given-names>SM</given-names>
+            </name>
+            <name>
+              <surname>Taylor</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Walker</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Welch</surname>
+              <given-names>JA</given-names>
+            </name>
+          </person-group>
+          <article-title>Triangulating Competencies, Concepts, and Professional Development in Curriculum Revisions</article-title>
+          <source>Nurse Educ</source>
+          <season>Jan-Feb</season>
+          <year>2016</year>
+          <volume>41</volume>
+          <issue>1</issue>
+          <fpage>33</fpage>
+          <lpage>36</lpage>
+          <pub-id pub-id-type="doi">10.1097/NNE.0000000000000198</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <label>14</label>
+        <mixed-citation>14 Davies R. The Bologna process: the quiet revolution in nursing higher education. Nurse Educ Today. 2008 Nov;28(8):935-42. doi: 10.1016/j.nedt.2008.05.008.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Davies</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <article-title>The Bologna process: the quiet revolution in nursing higher education</article-title>
+          <source>Nurse Educ Today</source>
+          <year>2008</year>
+          <month>11</month>
+          <volume>28</volume>
+          <issue>8</issue>
+          <fpage>935</fpage>
+          <lpage>942</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.nedt.2008.05.008</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <label>15</label>
+        <mixed-citation>15 Lima S, Newall F, Kinney S, Jordan HL, Hamilton B. How competent are they? Graduate nurses self-assessment of competence at the start of their careers. Collegian. 2014;21(4):353-8. <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.1016/j.colegn.2013.09.001">doi.org/10.1016/j.colegn.2013.09.001</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lima</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Newall</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Kinney</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Jordan</surname>
+              <given-names>HL</given-names>
+            </name>
+            <name>
+              <surname>Hamilton</surname>
+              <given-names>B.</given-names>
+            </name>
+          </person-group>
+          <article-title>How competent are they? Graduate nurses self-assessment of competence at the start of their careers</article-title>
+          <source>Collegian</source>
+          <year>2014</year>
+          <volume>21</volume>
+          <issue>4</issue>
+          <fpage>353</fpage>
+          <lpage>358</lpage>
+          <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.1016/j.colegn.2013.09.001">doi.org/10.1016/j.colegn.2013.09.001</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <label>16</label>
+        <mixed-citation>16 Wangensteen S, Johansson IS, Björkström ME, Nordström G. Newly graduated nurses' perception of competence and possible predictors: a cross-sectional survey. J Prof Nurs. 2012 May-Jun; 28(3):170-81. doi: 10.1016/j.profnurs.2011.11.014.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wangensteen</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Johansson</surname>
+              <given-names>IS</given-names>
+            </name>
+            <name>
+              <surname>Björkström</surname>
+              <given-names>ME</given-names>
+            </name>
+            <name>
+              <surname>Nordström</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+          <article-title>Newly graduated nurses' perception of competence and possible predictors: a cross-sectional survey</article-title>
+          <source>J Prof Nurs</source>
+          <season>May-Jun</season>
+          <year>2012</year>
+          <volume>28</volume>
+          <issue>3</issue>
+          <fpage>170</fpage>
+          <lpage>181</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.profnurs.2011.11.014</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <label>17</label>
+        <mixed-citation>17 Hanrahan NP. Measuring inpatient psychiatric environments: psychometric properties of the Practice Environment Scale-Nursing Work Indez (PES-NWI). Int J Psychiatr Nurs Res. 2007 May; 12(3):1521-8. doi:10.1002/nur.20172/abstract.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hanrahan</surname>
+              <given-names>NP</given-names>
+            </name>
+          </person-group>
+          <article-title>Measuring inpatient psychiatric environments: psychometric properties of the Practice Environment Scale-Nursing Work Indez (PES-NWI)</article-title>
+          <source>Int J Psychiatr Nurs Res</source>
+          <year>2007</year>
+          <month>05</month>
+          <volume>12</volume>
+          <issue>3</issue>
+          <fpage>1521</fpage>
+          <lpage>1528</lpage>
+          <pub-id pub-id-type="doi">10.1002/nur.20172/abstract</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <label>18</label>
+        <mixed-citation>18 Meretoja R, Isoaho H, Leino-Kilpi H. Nurse Competence Scale: development and psychometric testing. J Adv Nurs. 2004 Jul; 47(2):124-33. doi:10.111/j.1365-2648.2004.03071.x</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Meretoja</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Isoaho</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Leino-Kilpi</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <article-title>Nurse Competence Scale: development and psychometric testing</article-title>
+          <source>J Adv Nurs</source>
+          <year>2004</year>
+          <month>07</month>
+          <volume>47</volume>
+          <issue>2</issue>
+          <fpage>124</fpage>
+          <lpage>133</lpage>
+          <pub-id pub-id-type="doi">10.111/j.1365-2648.2004.03071.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <label>19</label>
+        <mixed-citation>19 de-Souza-Cruz, MC, Mariscal-Crespo, MI. Competencies and Clinical learning environment in nursing: self perception of advanced students in Uruguay. Enferm Global. [Internet]. 2016 Jan [cited Jul 19, 2018];15(41):121-34. Available from: <ext-link ext-link-type="uri" xlink:href="http://hdl.handle.net/10201/47430">http://hdl.handle.net/10201/47430</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>de-Souza-Cruz</surname>
+              <given-names>MC</given-names>
+            </name>
+            <name>
+              <surname>Mariscal-Crespo</surname>
+              <given-names>MI</given-names>
+            </name>
+          </person-group>
+          <article-title>Competencies and Clinical learning environment in nursing: self perception of advanced students in Uruguay</article-title>
+          <source>Enferm Global</source>
+          <comment>[Internet]</comment>
+          <month>01</month>
+          <year>2016</year>
+          <date-in-citation content-type="access-date">Jul 19, 2018</date-in-citation>
+          <volume>15</volume>
+          <issue>41</issue>
+          <fpage>121</fpage>
+          <lpage>134</lpage>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://hdl.handle.net/10201/47430">http://hdl.handle.net/10201/47430</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <label>20</label>
+        <mixed-citation>20 Avila J, Sostmann K, Breckwoldt J, Peters H. Evaluation of the free, open source software WordPress as electronic portfolio system in undergraduate medical education. BMC Med Educ. 2016 Jun 3; 16:157. doi: 10.1186/s12909-016-0678-1.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Avila</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Sostmann</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Breckwoldt</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Peters</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <article-title>Evaluation of the free, open source software WordPress as electronic portfolio system in undergraduate medical education</article-title>
+          <source>BMC Med Educ</source>
+          <year>2016</year>
+          <month>06</month>
+          <day>03</day>
+          <volume>16</volume>
+          <fpage>157</fpage>
+          <lpage>157</lpage>
+          <pub-id pub-id-type="doi">10.1186/s12909-016-0678-1</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <label>21</label>
+        <mixed-citation>21 Cassidy S. Competent-bases education: learning disability nursing in Wales. Nurs Stand. 2012 Nov 8; 27(10):42-7. doi: 10.7748/ns.27.10.42.s54.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Cassidy</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>Competent-bases education: learning disability nursing in Wales</article-title>
+          <source>Nurs Stand</source>
+          <year>2012</year>
+          <month>11</month>
+          <day>08</day>
+          <volume>27</volume>
+          <issue>10</issue>
+          <fpage>42</fpage>
+          <lpage>47</lpage>
+          <pub-id pub-id-type="doi">10.7748/ns.27.10.42.s54</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <label>22</label>
+        <mixed-citation>22 Fernandez RS, Tran DT, Ramjan L, Ho C, Gill B. Comparison of four teaching methods on Evidence-based Practice skills of postgraduate nursing students. Nurse Educ Today. 2014 Jan; 34(1): 61-6. doi: 10.1016/j.nedt.2012.10.005.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fernandez</surname>
+              <given-names>RS</given-names>
+            </name>
+            <name>
+              <surname>Tran</surname>
+              <given-names>DT</given-names>
+            </name>
+            <name>
+              <surname>Ramjan</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Ho</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Gill</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <article-title>Comparison of four teaching methods on Evidence-based Practice skills of postgraduate nursing students</article-title>
+          <source>Nurse Educ Today</source>
+          <year>2014</year>
+          <month>01</month>
+          <volume>34</volume>
+          <issue>1</issue>
+          <fpage>61</fpage>
+          <lpage>66</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.nedt.2012.10.005</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <label>23</label>
+        <mixed-citation>23 Leal Costa C, Díaz Agea JL, Rojo Rojo A, Juguera Rodríguez L, López Arroyo MªJ, 2014. Practicum and Clinical simulation in the Defree in Nursing, an experience of teaching innovation. REDU. [Internet]. 2014 Apr [cited Jul 19, 2018];12(2):421-51. Available from: <ext-link ext-link-type="uri" xlink:href="https://polipapers.upv.es/index.php/REDU/arcicle/view/5658">https://polipapers.upv.es/index.php/REDU/arcicle/view/5658</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Leal Costa</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Díaz Agea</surname>
+              <given-names>JL</given-names>
+            </name>
+            <name>
+              <surname>Rojo Rojo</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Juguera Rodríguez</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>López Arroyo</surname>
+              <given-names>MªJ</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>Practicum and Clinical simulation in the Defree in Nursing, an experience of teaching innovation</article-title>
+          <source>REDU</source>
+          <comment>[Internet]</comment>
+          <month>04</month>
+          <date-in-citation content-type="access-date">Jul 19, 2018</date-in-citation>
+          <volume>12</volume>
+          <issue>2</issue>
+          <fpage>421</fpage>
+          <lpage>451</lpage>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="https://polipapers.upv.es/index.php/REDU/arcicle/view/5658">https://polipapers.upv.es/index.php/REDU/arcicle/view/5658</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <label>24</label>
+        <mixed-citation>24 Samanes EB. [Management of professional action competition]. RIE. [Internet]. 2002 Jan [cited Jul 19, 2018]; 20(1):7-43. Available from: <ext-link ext-link-type="uri" xlink:href="http://revistas.um.es/rie/article/view/97411">http://revistas.um.es/rie/article/view/97411</ext-link>
+				</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Samanes</surname>
+              <given-names>EB.</given-names>
+            </name>
+          </person-group>
+          <article-title>Management of professional action competition</article-title>
+          <source>RIE</source>
+          <comment>Internet</comment>
+          <month>01</month>
+          <year>2002</year>
+          <date-in-citation content-type="access-date">Jul 19, 2018</date-in-citation>
+          <volume>20</volume>
+          <issue>1</issue>
+          <fpage>7</fpage>
+          <lpage>43</lpage>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://revistas.um.es/rie/article/view/97411">http://revistas.um.es/rie/article/view/97411</ext-link>
+					</comment>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <label>25</label>
+        <mixed-citation>25 Hunt LA, Mc Gee P, Gutteridge R, Hughes M. Assessment of student nurses in practice: A comparison of theoretical and practical assessment results in England. Nurse Educ Today. 2012 May;32 (4):351-5. doi: 10.1016/j.nedt.2011.05.010.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hunt</surname>
+              <given-names>LA</given-names>
+            </name>
+            <name>
+              <surname>Mc Gee</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Gutteridge</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Hughes</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <article-title>Assessment of student nurses in practice: A comparison of theoretical and practical assessment results in England</article-title>
+          <source>Nurse Educ Today</source>
+          <year>2012</year>
+          <month>05</month>
+          <volume>32</volume>
+          <issue>4</issue>
+          <fpage>351</fpage>
+          <lpage>355</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.nedt.2011.05.010</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <label>26</label>
+        <mixed-citation>26 Needham J, McMurray A, Shaban RZ, 2016. Best practice in clinical facilitation of undergraduate nursing students. Nurse Educ Pract. 2016 Sep; 20:131-8. doi: 10.1016/j.nepr.2016.08.003</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Needham</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>McMurray</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Shaban</surname>
+              <given-names>RZ</given-names>
+            </name>
+            <collab>2016</collab>
+          </person-group>
+          <article-title>Best practice in clinical facilitation of undergraduate nursing students</article-title>
+          <source>Nurse Educ Pract</source>
+          <year>2016</year>
+          <month>09</month>
+          <volume>20</volume>
+          <fpage>131</fpage>
+          <lpage>138</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.nepr.2016.08.003</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <label>27</label>
+        <mixed-citation>27 Molesworth M, Lewitt M. Preregistration nursing students' perspectives on the learning, teaching and application of bioscience knowledge within practice. J Clin Nurs. 2016 Mar; 25(5-6):725-32. doi: 10.1111/jocn.13020.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Molesworth</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Lewitt</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <article-title>Preregistration nursing students' perspectives on the learning, teaching and application of bioscience knowledge within practice</article-title>
+          <source>J Clin Nurs</source>
+          <year>2016</year>
+          <month>03</month>
+          <volume>25</volume>
+          <issue>5-6</issue>
+          <fpage>725</fpage>
+          <lpage>732</lpage>
+          <pub-id pub-id-type="doi">10.1111/jocn.13020</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <label>28</label>
+        <mixed-citation>28 Ginsburg LR, Tregunno D, Norton PG. Self-reported patient safety competence among new graduates in medicine, nursing and pharmacy. BMJ Qual Saf. 2013 Feb; 22(2):147-54. doi: 10.1136/bmjqs-2012-001308</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ginsburg</surname>
+              <given-names>LR</given-names>
+            </name>
+            <name>
+              <surname>Tregunno</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Norton</surname>
+              <given-names>PG</given-names>
+            </name>
+          </person-group>
+          <article-title>Self-reported patient safety competence among new graduates in medicine, nursing and pharmacy</article-title>
+          <source>BMJ Qual Saf</source>
+          <year>2013</year>
+          <month>02</month>
+          <volume>22</volume>
+          <issue>2</issue>
+          <fpage>147</fpage>
+          <lpage>154</lpage>
+          <pub-id pub-id-type="doi">10.1136/bmjqs-2012-001308</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <label>29</label>
+        <mixed-citation>29 Fero LJ, Witsberger CM, Wesmiller SW, Zullo TG, Hoffman LA. Critical thinking ability of new graduate and experienced nurses. J Adv Nurs. 2009 Jan;65(1):139-48. doi: 10.1111/j.1365-2648.2008.04834.x</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fero</surname>
+              <given-names>LJ</given-names>
+            </name>
+            <name>
+              <surname>Witsberger</surname>
+              <given-names>CM</given-names>
+            </name>
+            <name>
+              <surname>Wesmiller</surname>
+              <given-names>SW</given-names>
+            </name>
+            <name>
+              <surname>Zullo</surname>
+              <given-names>TG</given-names>
+            </name>
+            <name>
+              <surname>Hoffman</surname>
+              <given-names>LA</given-names>
+            </name>
+          </person-group>
+          <article-title>Critical thinking ability of new graduate and experienced nurses</article-title>
+          <source>J Adv Nurs</source>
+          <year>2009</year>
+          <month>01</month>
+          <volume>65</volume>
+          <issue>1</issue>
+          <fpage>139</fpage>
+          <lpage>148</lpage>
+          <pub-id pub-id-type="doi">10.1111/j.1365-2648.2008.04834.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <label>30</label>
+        <mixed-citation>30 Kevin, J. Problems in the supervision and assessment of student nurses. Contemp Nurse. 2006 Jul; 22(1):36-45. doi:10.5555/conu.2006.22.1.36</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kevin</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <article-title>Problems in the supervision and assessment of student nurses</article-title>
+          <source>Contemp Nurse</source>
+          <year>2006</year>
+          <month>07</month>
+          <volume>22</volume>
+          <issue>1</issue>
+          <fpage>36</fpage>
+          <lpage>45</lpage>
+          <pub-id pub-id-type="doi">10.5555/conu.2006.22.1.36</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <label>31</label>
+        <mixed-citation>31 Luhanga F, Yonge O, Myrick F. Hallmarks of unsafe practice: what preceptors Know. J Nurse Staff Dev. 2008 Nov-Dec;24(6):257-64. doi: 10.1097/01.NND.0000342233.74753.ad.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Luhanga</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Yonge</surname>
+              <given-names>O</given-names>
+            </name>
+            <name>
+              <surname>Myrick</surname>
+              <given-names>F.</given-names>
+            </name>
+          </person-group>
+          <article-title>Hallmarks of unsafe practice: what preceptors Know</article-title>
+          <source>J Nurse Staff Dev</source>
+          <season>Nov-Dec</season>
+          <year>2008</year>
+          <volume>24</volume>
+          <issue>6</issue>
+          <fpage>257</fpage>
+          <lpage>264</lpage>
+          <pub-id pub-id-type="doi">10.1097/01.NND.0000342233.74753.ad</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <label>32</label>
+        <mixed-citation>32 Luhanga F, Yonge O, Myrick F. Strategies for precepting the unsafe student. J Nurses Staff Dev. 2008 Sep-Oct;24(5):214-9. doi: 10.1097/01.NND.0000320693.08888.30.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Luhanga</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Yonge</surname>
+              <given-names>O</given-names>
+            </name>
+            <name>
+              <surname>Myrick</surname>
+              <given-names>F.</given-names>
+            </name>
+          </person-group>
+          <article-title>Strategies for precepting the unsafe student</article-title>
+          <source>J Nurses Staff Dev</source>
+          <season>Sep-Oct</season>
+          <year>2008</year>
+          <volume>24</volume>
+          <issue>5</issue>
+          <fpage>214</fpage>
+          <lpage>219</lpage>
+          <pub-id pub-id-type="doi">10.1097/01.NND.0000320693.08888.30</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <label>33</label>
+        <mixed-citation>33 Hunt LA, McGee P, Gutteridge R, Hughes M. Assement of student nurses in practice: A comparison of theoretical and practical assessment results in England. Nurse Educ Today. 2012 May, 32 (4):351-55. doi: 10.1016/j.nedt.2011.05.010.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hunt</surname>
+              <given-names>LA</given-names>
+            </name>
+            <name>
+              <surname>McGee</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Gutteridge</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Hughes</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <article-title>Assement of student nurses in practice: A comparison of theoretical and practical assessment results in England</article-title>
+          <source>Nurse Educ Today</source>
+          <month>05</month>
+          <year>2012</year>
+          <volume>32</volume>
+          <issue>4</issue>
+          <fpage>351</fpage>
+          <lpage>355</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.nedt.2011.05.010</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <label>34</label>
+        <mixed-citation>34 Matthias AD, Kim-Godwin YS. RN-BSN Students' Perceptions of the Differences in Practice of the ADN-and BSN-Prepared RN. Nurse Educ. 2016 Jul-Aug;41(4): 208-11. doi: 10.1097/NNE.0000000000000244.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Matthias</surname>
+              <given-names>AD</given-names>
+            </name>
+            <name>
+              <surname>Kim-Godwin</surname>
+              <given-names>YS</given-names>
+            </name>
+          </person-group>
+          <article-title>RN-BSN Students' Perceptions of the Differences in Practice of the ADN-and BSN-Prepared RN</article-title>
+          <source>Nurse Educ</source>
+          <season>Jul-Aug</season>
+          <year>2016</year>
+          <volume>41</volume>
+          <issue>4</issue>
+          <fpage>208</fpage>
+          <lpage>211</lpage>
+          <pub-id pub-id-type="doi">10.1097/NNE.0000000000000244</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <sub-article article-type="translation" id="s1" xml:lang="pt">
+    <front-stub>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Artigo Original</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Análise da evolução de competências da prática clínica no curso de enfermagem<xref ref-type="fn" rid="fn2">*</xref>
+				</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
+          <name>
+            <surname>Martínez-Momblán</surname>
+            <given-names>Maria Antonia</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
+          <name>
+            <surname>Colina-Torralva</surname>
+            <given-names>Javier</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1578-1009</contrib-id>
+          <name>
+            <surname>Cueva-Ariza</surname>
+            <given-names>Laura De la</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9866-7265</contrib-id>
+          <name>
+            <surname>Guix-Comellas</surname>
+            <given-names>Eva Maria</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-7093-5982</contrib-id>
+          <name>
+            <surname>Romero-García</surname>
+            <given-names>Marta</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">1</xref>
+          <xref ref-type="corresp" rid="c2"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-7077-3648</contrib-id>
+          <name>
+            <surname>Delgado-Hito</surname>
+            <given-names>Pilar</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">1</xref>
+        </contrib>
+        <aff id="aff2">
+          <label>1</label>
+          <institution content-type="original">University of Barcelona, School of Nursing, L’Hospitalet de Llobregat, Barcelona, Espanha.</institution>
+        </aff>
+      </contrib-group>
+      <author-notes>
+        <corresp id="c2">Autor correspondente: Marta Romero-García. E-mail: <email>martaromero@ub.edu</email>
+				</corresp>
+      </author-notes>
+      <abstract>
+        <sec>
+          <title>Objetivo:</title>
+          <p>analisar a progressão de estudantes na aquisição de competências específicas e transversais em relação às dimensões de competência. </p>
+        </sec>
+        <sec>
+          <title>Método:</title>
+          <p>este estudo transversal descritivo foi realizado no contexto das disciplinas de prática clínica do curso de enfermagem. O desenvolvimento de competências de 323 alunos foi analisado usando um questionário <italic>ad-hoc</italic> com quatro dimensões: provisão e gerenciamento do cuidado; comunicação terapêutica; desenvolvimento profissional; e gerenciamento do cuidado. </p>
+        </sec>
+        <sec>
+          <title>Resultados:</title>
+          <p>os resultados acadêmicos obtidos no segundo e terceiro anos apresentaram melhora nas habilidades referentes à provisão do cuidado e comunicação terapêutica (Práticas Clínicas I: 12%-29%; Práticas Clínicas II: 32%-47%) e uma piora no desenvolvimento profissional e gerenciamento do cuidado (Práticas Clínicas I: 44%-38%; Práticas Clínicas II: 44%-26%). </p>
+        </sec>
+        <sec>
+          <title>Conclusão:</title>
+          <p>as correlações entre estes dois anos foram altas em todas as dimensões analisadas. A avaliação da progressão de competências no contexto da prática clínica do curso de enfermagem nos permite otimizar estas práticas ao máximo e estabelecer perfis profissionais com maior grau de adaptação para o futuro profissional. </p>
+        </sec>
+      </abstract>
+      <kwd-group xml:lang="pt">
+        <title>Descritores:</title>
+        <kwd>Ambiente de Aprendizagem</kwd>
+        <kwd>Competições</kwd>
+        <kwd>Escolaridade</kwd>
+        <kwd>Educação em Enfermagem</kwd>
+        <kwd>Estudantes de Enfermagem</kwd>
+        <kwd>Pesquisa em Enfermagem</kwd>
+      </kwd-group>
+    </front-stub>
+    <body>
+      <sec sec-type="intro">
+        <title>Introdução</title>
+        <p>O Projeto Tuning estabeleceu as bases conceituais para a criação do que seria mais tarde chamado de Espaço Europeu de Ensino Superior (EEES) onde profundas transformações foram realizadas nos processos de ensino-aprendizado, nos papéis de professores e estudantes, na definição do sistema de créditos, e na qualidade dos programas acadêmicos, entre outros. O EEES estabeleceu um sistema unificado, especialmente a acreditação da formação em enfermagem, permitindo a mobilidade de alunos de graduação e pós graduação de diferentes universidades<sup>(</sup><xref ref-type="bibr" rid="B1">1</xref><sup>))-</sup><xref ref-type="bibr" rid="B3">3</xref><sup>)))</sup>.</p>
+        <p>O EEES incorporou uma importante mudança de paradigma da educação focada no conhecimento para o aprendizado baseado em competências. Essas competências nos informam o grau do conhecimento, <italic>know-how</italic> e <italic>know-how-to-be</italic> dentro de um contexto da prática profissional, um elemento fundamental para ser capaz de liderar uma atividade profissional com níveis ótimos de qualidade dentro e fora do Estado espanhol<sup>(</sup><xref ref-type="bibr" rid="B4">4</xref><sup>))-</sup><xref ref-type="bibr" rid="B5">5</xref><sup>)))</sup>. Portanto, o EEES aparece como uma medida para melhorar a qualidade do sistema universitário e deve ser implementado através do estabelecimento de mecanismos e processos constantes de avaliação, certificação e acreditação do que é feito e como é feito<sup>(</sup><xref ref-type="bibr" rid="B6">6</xref><sup>)))</sup>.</p>
+        <p>A realidade, tanto nacional quanto internacional, no contexto de competências na formação em enfermagem, inclui a implementação de diferentes programas educacionais com diferentes estruturas, níveis, durações, certificações, reconhecimento social e profissional, e acesso aos estudos levando ao estabelecimento de programas educacionais diversos e heterogêneos tanto na Europa como nos Estados Unidos<sup>(</sup><xref ref-type="bibr" rid="B3">3</xref><sup>))-</sup><xref ref-type="bibr" rid="B5">5</xref><sup>)))</sup>.</p>
+        <p>Alguns anos depois da implementação do Decreto Real 1892/2008, a situação mudou e no momento programas mais uniformes têm sido oferecidos em termos de conteúdo acadêmico<sup>(</sup><xref ref-type="bibr" rid="B7">7</xref><sup>))-</sup><xref ref-type="bibr" rid="B9">9</xref><sup>)))</sup>. </p>
+        <p>As vantagens do aprendizado baseado nas competências finais do estudante são inúmeras: maior responsabilidade nos processos de aprendizado; uso de metodologia ativa; <italic>design</italic> de material prático; racionalização de recursos; e maior coesão no currículo de formação. Portanto, as competências representam o eixo por excelência do processo de ensino-aprendizagem<sup>(</sup><xref ref-type="bibr" rid="B10">10</xref><sup>))-</sup><xref ref-type="bibr" rid="B12">12</xref><sup>)))</sup>. Seguindo esse diretriz, a transformação dos estudos da Licenciatura ao Bacharelado, durante o ano acadêmico 2009/2010, forçou a incorporação de um conjunto de atividades de aprendizado e instrumentos de avaliação que garante os currículos formativos do curso em Enfermagem<sup>(</sup><xref ref-type="bibr" rid="B13">13</xref><sup>)))</sup>. </p>
+        <p>Na Espanha, esses são os documentos que estabelecem competências dentro da profissão de enfermagem. O documento desenvolvido pelo Conselho Catalão de Especialistas e publicado pelo <italic>Institut d’Estudis de la Salut</italic> [Instituto de Estudos da Saúde] é particularmente notável. O Projeto Europeu Leonardo Da Vinci seguiu a mesma linha e foi liderado no mesmo país pela Universidade Santa Madrona, Escola de Enfermagem (Barcelona). O mesmo descreve o arcabouço de competências de enfermagem no gerenciamento da atenção à saúde. Outro documento foi redigido pela Unidade de Coordenação e Desenvolvimento de Pesquisa em Enfermagem (Instituto de Salud Carlos III- Madrid), para competências em pesquisa na prática de atenção à saúde e formação especializada que os profissionais da área de saúde de diferentes níveis acadêmicos devem ter<sup>(</sup><xref ref-type="bibr" rid="B8">8</xref><sup>))-</sup><xref ref-type="bibr" rid="B10">10</xref><sup>)),</sup><xref ref-type="bibr" rid="B14">14</xref><sup>)))</sup>.</p>
+        <p>Da mesma forma, existem muitas organizações que focam internacionalmente na análise do impacto de competências dentro da profissão de enfermagem. As <italic>Dedicated Education Units</italic> (DEU) [Unidades de Educação Dedicadas], a Federação Europeia de Reguladores de Enfermagem (FEPI), e a <italic>European Academy of Nursing Science</italic> (EANS) [Academia Europeia de Ciências da Enfermagem] se destacam internacionalmente. Em relação à Espanha, o <italic>Collegi Oficial d’Infermeres i Infermers de Barcelona</italic> (COIB) [Escola Oficial de Enfermeiras de Barcelona] promoveu em Janeiro de 2017, uma reunião com os representantes de diversas partes do mundo para promover um <italic>workshop</italic> visando o desenvolvimento de competências de enfermagem na excelência da atenção à saúde.</p>
+        <p>O estado atual desta questão é relatado de forma extensa por documentos que estabelecem e criam todo o arcabouço de competência para o bacharelado em Enfermagem, mas apenas alguns estudos avaliaram e analisaram a aquisição de competências específicas e transversais para o desenvolvimento do profissional de enfermagem<sup>(</sup><xref ref-type="bibr" rid="B10">10</xref><sup>))-</sup><xref ref-type="bibr" rid="B12">12</xref><sup>)))</sup>. Vale destacar estudos que se concentram na criação e validação de instrumentos usados para avaliar a aquisição de competências, como o Escala de Competência de Enfermagem (ACE), <italic>Nurse Competence Scale</italic> (NCS), e <italic>Practice Environment Scale-Nursing Work Index</italic> (PES-NWI)<sup>(</sup><xref ref-type="bibr" rid="B15">15</xref><sup>))-</sup><xref ref-type="bibr" rid="B18">18</xref><sup>)))</sup>. No entanto, estes instrumentos não avaliam conjuntamente competências específicas e transversais que atualmente integram disciplinas da prática clinica nem tão pouco a efetividade de atividades de aprendizado integradas nesses disciplinas para a aquisição de competências (seminários, habilidades clínicas, oficinas, simulações, tutoriais, etc.)<sup>(</sup><xref ref-type="bibr" rid="B19">19</xref><sup>)))</sup>.</p>
+        <p>Por outro lado, estudos recentes estabelecem várias metodologias de ensino no contexto da prática clínica (simulação, tutoriais e seminários), considerando que evidências confirmam que esta metodologia representa um conjunto estruturado de documentos preparados pelo aluno, ordenado de forma cronológica ou temática, que demonstra a evolução, progresso e grau em que os objetivos estabelecidos são cumpridos, refletindo ao mesmo tempo as estratégias de cada aluno para investigação, pensamento crítico-reflexivo, rigor e análise<sup>(</sup><xref ref-type="bibr" rid="B11">11</xref><sup>)),</sup><xref ref-type="bibr" rid="B20">20</xref><sup>)))</sup>.</p>
+        <p>Três grandes problemas se apresentam nesta situação: o primeiro se refere à complexidade das competências; a segunda é relacionada à dificuldade de fazer avaliações usando diferentes metodologias de ensino; e a terceira dificuldade se refere à uma falta de ferramentas que centralizam e calculam dados de forma a estabelecer análises aprofundadas da confiabilidade e validade dos instrumentos usados na medição<sup>(</sup><xref ref-type="bibr" rid="B21">21</xref><sup>))-</sup><xref ref-type="bibr" rid="B22">22</xref><sup>)))</sup>.</p>
+        <p>Muitos anos depois do bacharelado em enfermagem ter sido implementado na Espanha, acreditamos que seja vital avaliar a aquisição de competências dentro das disciplinas da prática clínica, considerando a atual pluralidade dos agentes envolvidos e as inúmeras culturas institucionais e perfis profissionais que tornam este um assunto complexo, com vistas a garantir que todas as competências especificas e transversais do curso sejam adquiridas<sup>(</sup><xref ref-type="bibr" rid="B22">22</xref><sup>))-</sup><xref ref-type="bibr" rid="B24">24</xref><sup>)))</sup>. Esta complexidade pode ser minimizada com o estabelecimento de instrumentos que centralizam a informação e sistemas de rubrica unificando os critérios e rigor metodológicos das diferentes dimensões que compõem as atividades de aprendizagem<sup>(</sup><xref ref-type="bibr" rid="B25">25</xref><sup>))-</sup><xref ref-type="bibr" rid="B28">28</xref><sup>)))</sup>. </p>
+        <p>O objetivo foi analisar a progressão dos alunos na aquisição de competências específicas e transversais em relação aos resultados acadêmicos (basais, intermediários e finais) e as correlações dimensionais das diferentes competências nas disciplinas de prática clínica. </p>
+      </sec>
+      <sec sec-type="methods">
+        <title>Método</title>
+        <p>Estudo descritivo, transversal, retrospectivo e correlacional. O cenário do estudo foi a Escola de Enfermagem da Universidade de Barcelona (UB). A distribuição do curriculum nesta escola inclui um total de 84 <italic>European Credit Transfer and Accumulation System (ACTS)</italic> [Sistema Europeu de Transferência de Créditos] de cursos práticos externos obrigatórios. A prática clínica dentro do Bacharelado de Enfermagem é dividida em quatro disciplinas, organizadas de forma a incorporar critérios dos mais baixos aos mais altos níveis de complexidade, do segundo ao quarto (e último) ano. O propósito de todas estas disciplinas é aplicar e integrar competências específicas e transversais do cuidado de enfermagem nas diferentes áreas de ação. Analisamos todos os 1800 alunos matriculados nas disciplinas de prática clínica, conhecidas como <italic>Clinical Placements</italic> I (ECI) [Práticas Clínicas] no segundo ano e <italic>Clinical Placements</italic> II (ECII) [Práticas Clínicas] no terceiro ano do curso de enfermagem de setembro 2015 à junho 2016 de acordo com um relatório elaborado pela universidade nos registros para o referido ano acadêmico. Considerando os dados extraídos deste relatório, para se alcançar uma precisão de 5% na estimativa de uma proporção por meio de um intervalo de confiança bilateral, a taxa de abandono chega perto de 10% assumindo que a proporção da população de estudantes de enfermagem que cursam as disciplinas ECI e ECII seja de 41%. Usando amostragem consecutiva, a amostra final foi de 320 alunos com uma distribuição de ECI (n=166) e ECII (n=157) com uma taxa de abandono de 10%, estimativa de precisão de 5% e nível de confiança de 95%. O cálculo foi feito usando o software Ene 3.0.</p>
+        <p>As seguintes variáveis de estudo foram coletadas: i) Variáveis sociodemográficas relacionadas ao centro de prática: idade, sexo, instituição de saúde onde a prática clínica é desenvolvida e a unidade; ii) Variáveis relacionadas às atividades de aprendizado ligadas aos seminários: Diário reflexivo (ferramenta para refletir e escrever sobre o processo de aprendizado do aluno), Processo de enfermagem (método científico da disciplina para resolver problemas de saúde das pessoas); Gerenciamento farmacológico (avaliação e análise de tratamentos farmacológicos); avaliação nutricional (avaliação do estado nutricional); Técnicas/procedimentos (descrição e análise de um procedimento baseadas em evidência); e Dilema Ético (descrição de um problema ético e sua solução); iii) Variáveis relacionadas à prática clínica, que se refere às competências específicas do plano de ensino; Prática Profissional (PP) que inclui a atitude do aluno durante a realização da prática clínica; Provisão do Cuidado e Gerenciamento como um grupo, e o gerenciamento de atividades e serviços realizados durante o período da prática clínica; Comunicação Terapêutica, ou seja, habilidade para trocar ou transmitir pensamentos, sentimentos e ideias entre a equipe de alunos e usuário; Desenvolvimento Profissional (DP) que é o alcance de crescimento e auto-realização; e Gerenciamento do Cuidado que inclui a habilidade de estabelecer sistematização científica no que é feito e como é feito.</p>
+        <p>Dois instrumentos foram usados para coletar as variáveis:</p>
+        <list list-type="simple">
+          <list-item>
+            <p>- Um formulário <italic>ad-hoc</italic> para a coleta de variáveis sociodemográficas e do centro onde a prática é realizada.</p>
+          </list-item>
+          <list-item>
+            <p>- Questionários ECI e ECII da prática clínica. O questionário para o ECI contém 23 itens e o questionário para o ECII contém 25. Cada um dos itens tem uma opção de resposta baseada numa escala tipo Likert com 10 opções de resposta, variando de 1 (não realiza ou realiza mal) até 10 (excelente ou perfeito) com escore máximo de 230 e 250, respectivamente. Cada questionário tem 4 a 5 dimensões relacionadas ao cuidado.</p>
+          </list-item>
+        </list>
+        <p>Duas avaliações foram realizadas no contexto da prática clínica para ECI (ECI0, ECI1) e três para ECII (ECI0, ECI1 e ECI2) e em ambas as respostas se baseiam numa escala tipo Likert de 1 à 10.</p>
+        <p>Média e desvio padrão (DP) foram calculados para descrever todas as variáveis quantitativas, ou mediana e intervalo interquartil (IIQ) como uma função da distribuição dos dados, enquanto que frequências e porcentagens foram verificadas para as variáveis qualitativas. Para analisar a relação entre o nível de competência, dados sociodemográficos, centro de prática, resultados acadêmicos, e metodologia de ensino da disciplina ECI-II em suas diferentes dimensões, uma análise diferencial foi realizada considerando um intervalo de confiança a 95%. Foi aplicado um teste para qualidade do ajustamento para verificar se a distribuição era normal usando testes paramétricos e não paramétricos. Quando a distribuição não era normal, as variáveis foram comparadas usando o teste Qui-quadrado, Kruskal-Wallis ou Mann-Whitney e o Coeficiente de Correlação de Spearman. No caso de distribuição normal, as variáveis foram comparadas usando o teste Qui-quadrado, teste t de Student e Coeficiente de Correlação de Pearson. O programa estatístico <italic>IBM SPSS Statistics</italic> 2.1 foi usado.</p>
+        <p>Seguimos as recomendações estabelecidas pela Lei Orgânica 15/1999, 13 de dezembro (BOE No. 298, de 14 de dezembro de 1999) sobre Proteção de Dados Pessoais. Um documento informativo sobre o projeto e seus objetivos foi preparado e o consentimento livre e informado foi obtido dos alunos e professores. Tanto a Diretoria da Escola de Enfermagem como o Comitê de Ética da Universidade de Barcelona autorização a realização deste estudo.</p>
+      </sec>
+      <sec sec-type="results">
+        <title>Resultados</title>
+        <p>Os alunos da disciplina ECI <italic>(n=166)</italic> tinham 22.60 anos de idade em média <italic>(DP=5.40),</italic> dos quais 80% eram mulheres <italic>(n=134),</italic> enquanto que os alunos na ECII <italic>(n=157)</italic> tinham 23.9 anos em média <italic>(SD=5.02),</italic> dos quais 82% eram mulheres <italic>(n=129).</italic> Os alunos realizaram estágios em 11 centros da Rede de Instituições de Saúde do Instituto Catalão de Saúde, predominantemente em unidades de medicina internas 15% <italic>(n=23),</italic> cirúrgicas <italic>(n=53)</italic> e outras <italic>(24%).</italic></p>
+        <p>As notas finais obtidas nas disciplinas ECI e ECII não apresentaram diferenças estatisticamente significantes em termos de resultados acadêmicos nas diferentes dimensões avaliadas <italic>(p=&lt;0.109),</italic> onde 90% dos alunos obtiveram uma nota média entre moderado e excelente, com uma distribuição bem balanceada por dimensões (<xref ref-type="fig" rid="f5">Figuras 1</xref>-<xref ref-type="fig" rid="f6">2</xref>). A porcentagem de reprovações nas ECI e ECII foi similar (ECI 1.36%, ECII 1.25%).</p>
+        <p>
+          <fig id="f5">
+            <label>Figura 1 </label>
+            <caption>
+              <title>Resultados Acadêmicos Finais para ECI*</title>
+              <p>*ECI = Práticas clínicas I; <sup>†</sup>PP = Prática Profissional; <sup>‡</sup>PGC = Provisão e Gerenciamento do Cuidado; <sup>§</sup>TC = Comunicação terapêutica; <sup>II</sup>DP = Desenvolvimento Profissional; <sup>¶</sup>GC = Gerenciamento do Cuidado</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/1220d448278828c3f2bd40eaa77226b031853f82.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>
+          <fig id="f6">
+            <label>Figura 2 </label>
+            <caption>
+              <title>Resultados Acadêmicos Finais para ECII*</title>
+              <p>*ECI = Práticas clínicas I; <sup>†</sup>PP = Prática Profissional; <sup>‡</sup>PGC = Provisão e Gerenciamento do Cuidado; <sup>§</sup>TC = Comunicação terapêutica; <sup>II</sup>DP = Desenvolvimento Profissional; <sup>¶</sup>GC = Gerenciamento do Cuidado</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/d845a5ae0b8a6e0a367397c83edf2c586a85f2fd.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>Os resultados acadêmicos entre ECI e ECII, ou seja, entre o segundo e terceiro anos, melhoraram para provisão do cuidado e comunicação terapêutica (ECI: 12% -29%, ECII: 32% -47%), e piorou para desenvolvimento profissional e gerenciamento do cuidado (ECI: 44%-38%; ECII: 44% -26%) (<xref ref-type="fig" rid="f7">Figuras 3</xref>-<xref ref-type="fig" rid="f8">4</xref>). </p>
+        <p>
+          <fig id="f7">
+            <label>Figura 3</label>
+            <caption>
+              <title>Resultados acadêmicos de acordo com as dimensões de competência para ECI*</title>
+              <p>*ECI = Práticas Clínicas I</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/2a4e4f87fbd557668f7cfb8837e49755c2af0df2.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>
+          <fig id="f8">
+            <label>Figura 4</label>
+            <caption>
+              <title>Resultados acadêmicos de acordo com as dimensões de competência para ECII*</title>
+              <p>*ECII = Práticas Clínicas II</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/c2b0bf26fdf24208c35c6f95781862019fdb4895.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>A média de avaliação entre ECI0 e ECI1, de acordo com o obtido no questionário ECI <italic>Ad-hoc,</italic> apresentou um aumento de 1.3; para o questionário ECII <italic>Ad-hoc</italic>, a progressão entre ECI0 e ECI1 foi de 0.8 e entre ECI1 e ECI2 o aumento foi de 0.52. Houve uma melhora bastante parecida em cada uma das dimensões e em cada ponto de corte das ECII0, ECII1 e ECII2.</p>
+        <p>As dimensões analisadas, de acordo com o Questionário <italic>Ad-hoc</italic> para ECI1 e ECII2 apresentaram um alto coeficiente de correlação nas dimensões ligadas à prática (ECI1: PGC <italic>(r=0.77),</italic> TC <italic>(r=0.77 ),</italic> DP <italic>(r=0.80)</italic> e GC <italic>(r=0.58),</italic> ECII2<italic>: (r=0.91),</italic> TC <italic>(r=0.90),</italic> DP <italic>(r=0.84)</italic> e GC <italic>(r=0.84);</italic> entretanto, um baixo coeficiente de correlação foi obtido nas dimensões relacionadas às atividades complementares de aprendizagem das ECI1 e ECII2 (EC I1 seminários <italic>(r=0.56),</italic> processo de enfermagem <italic>(r=0.33),</italic> ECII2: seminários <italic>(r=0.51),</italic> e avaliação do processo de doença <italic>(r=0.36).</italic></p>
+        <p>As correlações entre ECI e ECII foram altas em todas as dimensões analisadas: prática profissional <italic>r=0.89;</italic> provisão e gerenciamento do cuidado <italic>r=0.84;</italic> comunicação terapêutica <italic>r=0.88</italic> e desenvolvimento profissional <italic>r=0.90.</italic></p>
+      </sec>
+      <sec sec-type="discussion">
+        <title>Discussão</title>
+        <p>Os resultados obtidos em relação aos resultados acadêmicos reforçam evidências de que qualificações acadêmicas mantém altas médias nos resultados ligados à prática clinica de ambas ECI e ECII<sup>(</sup><xref ref-type="bibr" rid="B29">29</xref><sup>))-</sup><xref ref-type="bibr" rid="B30">30</xref><sup>)))</sup><italic>.</italic> De acordo com alguns autores, este resultado pode ser explicado pelo fato de que diferentes agentes responsáveis por avaliar o aluno acham difícil penalizar baixo desempenho no contexto da prática<sup>(</sup><xref ref-type="bibr" rid="B15">15</xref><sup>))-</sup><xref ref-type="bibr" rid="B16">16</xref><sup>)),</sup><xref ref-type="bibr" rid="B29">29</xref><sup>)))</sup><italic>.</italic></p>
+        <p>Outros autores afirmam que o impacto do primeiro contato do aluno com o contexto institucional requer um alto nível de adaptação e aceitação, gerando um filtro que resulta num grande número de reprovações e desistências no começo da prática clínica. Neste estudo, os resultados foram similares e acreditamos que a razão é a progressão e consequente aumento das demandas de competência entre o segundo e o terceiro ano no contexto de diferentes unidades de prática. Mesmo assim, verificamos que as taxas de reprovação foram baixas (ECI 1.36%, ECII 1.25%), o que significa que os alunos progrediram e passaram nas diferentes disciplinas de prática clínica, apesar do baixo desempenho, como confirmado por vários autores<sup>(</sup><xref ref-type="bibr" rid="B30">30</xref><sup>))-</sup><xref ref-type="bibr" rid="B33">33</xref><sup>)))</sup>. </p>
+        <p>As evidências confirmam que os alunos melhoraram na comunicação terapêutica durante o desenvolvimento da prática clínica e não encontramos estudos informando sobre a evolução de alunos nas dimensões desenvolvimento profissional e gerenciamento do cuidado<sup>(</sup><xref ref-type="bibr" rid="B26">26</xref><sup>)),</sup><xref ref-type="bibr" rid="B34">34</xref><sup>)))</sup>. </p>
+        <p>Os resultados acadêmicos revelaram médias finais altas para todas as dimensões analisadas com alta progressão entre as diferentes avaliações conduzidas durante a prática clínica (ECI0, ECI1, ECI0, ECII1 e ECII2). Este aspecto confirma a necessidade de estabelecer cortes transversais nas avaliações dos alunos quando os períodos de estágios são muito longos. Desta forma é possível monitorar o aluno mais de perto, aumentar a conscientização dos alunos sobre aspectos que devem ser melhorados até a conclusão da prática, e permitir que o tutor personalize adaptação no processo de aquisição de aprendizado<sup>(</sup><xref ref-type="bibr" rid="B31">31</xref><sup>))-</sup><xref ref-type="bibr" rid="B32">32</xref><sup>)))</sup>. </p>
+        <p>Os instrumentos utilizados para avaliar competências no contexto da prática clínica, confirmam o que diferentes autores afirmam quando se referem à necessidade de usar diferentes métodos de avaliação para avaliar a pirâmide de Miller<sup>(</sup><xref ref-type="bibr" rid="B17">17</xref><sup>)))</sup> através de diferentes atividades de aprendizado<sup>(</sup><xref ref-type="bibr" rid="B11">11</xref><sup>)),</sup><xref ref-type="bibr" rid="B19">19</xref><sup>))-</sup><xref ref-type="bibr" rid="B20">20</xref><sup>)))</sup>.</p>
+        <p>As diferentes dimensões analisadas considerando a aquisição de competências foram avaliadas com diferentes instrumentos de avaliação, revelando que aquelas dimensões medidas na prática clínica tinham alta correlação, comparadas àquelas dimensões medidas num seminário através de atividades de aprendizado como por exemplo casos, diário reflexivo, atividades de observação, etc. Este aspecto torna-se complexo quando a avaliação de atividades de aprendizado devem ser avaliadas por diferentes agentes (enfermeiro(a) de referência e tutor associado de prática clínica) apresentando resultados acadêmicos bem diferenciados e indicando que é importante considerar a necessidade de unificar o olhar reflexivo na prática<sup>(</sup><xref ref-type="bibr" rid="B23">23</xref><sup>))-</sup><xref ref-type="bibr" rid="B25">25</xref><sup>)),</sup><xref ref-type="bibr" rid="B33">33</xref><sup>)))</sup>.</p>
+        <p>De acordo com a literatura, a importância de ter um facilitador clínico no contexto da prática clínica, como um agente que promove ‘reflexão durante a ação’, é fundamental para estabelecer aprendizado cooperativo e uma abordagem colaborativa que promove integração entre teoria e prática entre os vários agentes envolvidos, principalmente os alunos<sup>(</sup><xref ref-type="bibr" rid="B26">26</xref><sup>))-</sup><xref ref-type="bibr" rid="B28">28</xref><sup>)))</sup>. </p>
+        <p>Muitos autores estabelecem a importância de combinar instrumentos de avaliação para unificar a triangulação do conhecimento, habilidades e atitudes, e portanto ser capaz de estabelecer um plano de ensino que contempla não apenas todos os domínios do aprendizado, mas acima de tudo, ser capaz de adaptá-los à progressão que o aluno realiza ao longo de seus estudos de graduação no referido processo de triangulação em sua formação acadêmica<sup>(</sup><xref ref-type="bibr" rid="B13">13</xref><sup>)))</sup>. </p>
+      </sec>
+      <sec sec-type="conclusions">
+        <title>Conclusão</title>
+        <p>Os resultados acadêmicos dos estudantes no contexto da prática clínica apresentaram médias altas, com uma baixa taxa de reprovação tanto na ECI como na ECII.</p>
+        <p>Os instrumentos usados são adequados para a avaliar aquisição de competência nas diferentes dimensões analisadas para ambas ECI e ECII, detectando uma visão diferente nas notas dadas pelo(a) enfermeiro(a) quando comparadas àquelas dados pelo tutor associado.</p>
+        <p>As atividades de aprendizado no contexto da prática e seminários devem ser unificadas pelas metodologias usadas em ambos os contextos para reduzir a baixa correlação entre o tutor institucional ou o(a) enfermeiro(a) de referência e o tutor associado ou acadêmico em ambas disciplinas. As correlações entre as dimensões da ECI e ECII foram altas, um aspecto que facilita a análise e avaliação da progressão dessas dimensões entre o segundo e terceiro anos.</p>
+        <p>Este estudo permitiu conduzir uma análise conjunta de todas as dimensões das competências que intervêm nas disciplinas de prática clínica no curso de enfermagem. Este análise serve para estabelecer futuras linhas de pesquisa que permitam a validação e confiabilidade do instrumento de avaliação usado para medir as dimensões de competência.</p>
+      </sec>
+    </body>
+    <back>
+      <fn-group>
+        <fn fn-type="other" id="fn2">
+          <label>*</label>
+          <p>A publicação deste artigo na Série Temática “Recursos Humanos em Saúde e Enfermagem” se insere na atividade 2.2 do Termo de Referência 2 do Plano de Trabalho do Centro Colaborador da OPAS/OMS para o Desenvolvimento da Pesquisa em Enfermagem, Brasil.</p>
+        </fn>
+      </fn-group>
+    </back>
+  </sub-article>
+  <sub-article article-type="translation" id="s2" xml:lang="es">
+    <front-stub>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Artículo Original</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Análisis de la evolución de las competencias en la práctica clínica del grado en enfermeira<xref ref-type="fn" rid="fn3">*</xref>
+				</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
+          <name>
+            <surname>Martínez-Momblán</surname>
+            <given-names>Maria Antonia</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
+          <name>
+            <surname>Colina-Torralva</surname>
+            <given-names>Javier</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1578-1009</contrib-id>
+          <name>
+            <surname>Cueva-Ariza</surname>
+            <given-names>Laura De la</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9866-7265</contrib-id>
+          <name>
+            <surname>Guix-Comellas</surname>
+            <given-names>Eva Maria</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-7093-5982</contrib-id>
+          <name>
+            <surname>Romero-García</surname>
+            <given-names>Marta</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">1</xref>
+          <xref ref-type="corresp" rid="c3"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-7077-3648</contrib-id>
+          <name>
+            <surname>Delgado-Hito</surname>
+            <given-names>Pilar</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">1</xref>
+        </contrib>
+        <aff id="aff3">
+          <label>1</label>
+          <institution content-type="original">University of Barcelona, School of Nursing, L’Hospitalet de Llobregat, Barcelona, Espanha.</institution>
+        </aff>
+      </contrib-group>
+      <author-notes>
+        <corresp id="c3">Autor correspondiente: Marta Romero-García. E-mail: <email>martaromero@ub.edu</email>
+				</corresp>
+      </author-notes>
+      <abstract>
+        <sec>
+          <title>Objetivo: </title>
+          <p>analizar la progresión del alumno en la adquisición de competencias específicas y transversales en relación con las dimensiones de competencia.</p>
+        </sec>
+        <sec>
+          <title>Método:</title>
+          <p> el estudio descriptivo transversal se realizó en los sujetos de práctica clínica incluidos en la licenciatura de Enfermería. Incluimos 323 estudiantes y contemplamos el desarrollo de competencias a través de un cuestionario <italic>ad hoc</italic> con 4 dimensiones: suministro y gestión del cuidado; comunicación terapéutica; desarrollo profesional; y, gestión del cuidado. </p>
+        </sec>
+        <sec>
+          <title>Resultados:</title>
+          <p> los resultados académicos entre la práctica del segundo y tercer año mostraron una mejora en la provisión del cuidado y en las habilidades de comunicación terapéutica: (Colocaciones clínicas I: 12% -29%; Colocaciones clínicas II: 32% -47%) y empeoraron en el desarrollo profesional y en la gestión del cuidado (Colocaciones clínicas I: 44%-38%; Colocaciones clínicas II: 44%-26%). </p>
+        </sec>
+        <sec>
+          <title>Conclusión:</title>
+          <p> las correlaciones entre estos dos años fueron altas en todas las dimensiones analizadas. La evaluación de la progresión de competencias, en el contexto de la práctica clínica, en los estudios universitarios de enfermería, nos permite optimizar estas prácticas al máximo y establecer perfiles profesionales con un mayor grado de adaptación al futuro profesional.</p>
+        </sec>
+      </abstract>
+      <kwd-group xml:lang="es">
+        <title>Descriptores:</title>
+        <kwd>Entorno de Aprendizaje</kwd>
+        <kwd>Competencias</kwd>
+        <kwd>Licenciatura</kwd>
+        <kwd>Educación en Enfermería</kwd>
+        <kwd>Estudiantes de Enfermería</kwd>
+        <kwd>Investigación en Enfermería</kwd>
+      </kwd-group>
+    </front-stub>
+    <body>
+      <sec sec-type="intro">
+        <title>Introducción</title>
+        <p>El Proyecto Tuning establece las bases conceptuales para la creación de lo que, más tarde, se llamaría el Espacio Europeo de Educación Superior (EEES), en el cual se encuentran profundas transformaciones en los procesos de enseñanza-aprendizaje, en el papel a ser desempeñado por los profesores y estudiantes, en la definición de un sistema de crédito y en la calidad académica de los programas, entre otros. El EEES estableció un sistema unificador, especialmente en la acreditación del entrenamiento en enfermería que permitirá la movilidad de estudiantes de pregrado y posgrado a diferentes universidades<xref ref-type="bibr" rid="B1">1</xref><sup>))-</sup><xref ref-type="bibr" rid="B3">3</xref><sup>))</sup>.</p>
+        <p>El EEES incorporó un importante cambio de paradigma en la educación dirigida al conocimiento del aprendizaje basado en competencias. Estas competencias nos indican el grado de conocimiento, el <italic>know-how</italic> y el <italic>know-how-to-be</italic>, dentro de un contexto de práctica profesional, que es un elemento fundamental para poder liderar la actividad profesional, con niveles óptimos de calidad dentro y fuera de España<xref ref-type="bibr" rid="B4">4</xref><sup>))-</sup><xref ref-type="bibr" rid="B5">5</xref><sup>))</sup>. Por lo tanto, el EEES aparece como una medida para mejorar la calidad del sistema universitario, lo que debe realizarse mediante el establecimiento de mecanismos y procesos constantes de evaluación, certificación y acreditación de lo que se hace y de cómo se hace<xref ref-type="bibr" rid="B6">6</xref><sup>))</sup>.</p>
+        <p>La realidad tanto a nivel nacional como internacional, en el contexto de las competencias en la Graduación en Enfermería, es la necesidad de implementar diferentes programas educativos (con diferentes estructuras, niveles, duraciones, certificaciones) que conduzcan al reconocimiento profesional y social, y al acceso a los estudios. Este aspecto condujo al establecimiento de diversos y heterogéneos programas educativos, tanto a nivel europeo como en los Estados Unidos (EE. UU.)<xref ref-type="bibr" rid="B3">3</xref><sup>))-</sup><xref ref-type="bibr" rid="B5">5</xref><sup>))</sup>.</p>
+        <p>Pocos años después de la implementación del nuevo Decreto Real 1892/2008, la situación ha cambiado; actualmente, la formación ofrece el establecimiento de programas más uniformes en lo que se refiere al contenido de los programas académicos<xref ref-type="bibr" rid="B7">7</xref><sup>))-</sup><xref ref-type="bibr" rid="B9">9</xref><sup>))</sup>. </p>
+        <p>Las ventajas del aprendizaje basado en las competencias finales del alumno son numerosas: mayor responsabilidad en su proceso de aprendizaje; el uso de metodología activa; el diseño de material práctico; la racionalización de recursos; y, una mayor cohesión en el currículo de formación. Por tanto, las competencias representan el eje por excelencia del proceso de enseñanza-aprendizaje<xref ref-type="bibr" rid="B10">10</xref><sup>))-</sup><xref ref-type="bibr" rid="B12">12</xref><sup>))</sup>. Siguiendo esta directriz, la transformación de los estudios, desde el Diploma a la Graduación, durante el año académico 2009/2010 forzó la incorporación de un conjunto de actividades y de instrumentos de evaluación que garantizan los currículos formativos de la Licenciatura en Enfermería<xref ref-type="bibr" rid="B13">13</xref><sup>))</sup>. </p>
+        <p>En España, existen documentos que establecen competencias dentro de la profesión de enfermería; el desarrollado por el Consejo de Especialistas de Cataluña y publicado por el <italic>Institut d’Estudis de la Salut</italic>, es particularmente notable. En la misma línea de pensamiento encontramos el Proyecto Europeo Leonardo Da Vinci, liderado en España por la <italic>Santa Madrona University School of Nursing</italic> (Barcelona), la que describe el marco de las competencias de enfermería en la gestión del cuidado de la salud; también, el realizado por la Unidad de Coordinación y Desarrollo de Investigación en Enfermería (Instituto de Salud Carlos III- Madrid), que investiga competencias para la práctica del cuidado en salud y la formación especializada que los profesionales de la salud, de diferentes niveles académicos, deben poseer<xref ref-type="bibr" rid="B8">8</xref><sup>))-</sup><xref ref-type="bibr" rid="B10">10</xref><sup>)),</sup><xref ref-type="bibr" rid="B14">14</xref><sup>))</sup>.</p>
+        <p>Del mismo modo, existen muchas organizaciones que se han centrado internacionalmente en analizar el impacto de la competencia dentro de la profesión de enfermería; como: la Unidad de Educación Dedicada (UED), la Federación Europea de Educadores de Enfermería (FINE Europa) y la Academia Europea de Ciencias de Enfermería (AECE), se destacan internacionalmente. En lo que se refiere a España, en enero de 2017, el Colegio Oficial de Enfermeras de Barcelona (COEB) promovió un encuentro con representantes de diferentes partes del mundo, para establecer un <italic>workshop</italic> para el desarrollo de competencias de enfermería orientadas a “atención de excelencia”.</p>
+        <p>El estado actual de este asunto está ampliamente tratado por los documentos que establecen y crean todo el marco de competencias de la Licenciatura en Enfermería; sin embargo, existen pocos estudios que han evaluado y analizado la adquisición de competencias específicas y transversales para el desarrollo profesional de la enfermería<xref ref-type="bibr" rid="B10">10</xref><sup>))-</sup><xref ref-type="bibr" rid="B12">12</xref><sup>))</sup>. Vale la pena destacar aquellos estudios que se enfocan en la creación y validación de instrumentos utilizados para evaluar la adquisición de competencias, como la Escala de competencia de enfermería (ECE), la Escala de competencia del enfermero (NCS) y el Índice de Trabajo para la Escala del Ambiente de Práctica de Enfermería (PES-NWI)<xref ref-type="bibr" rid="B15">15</xref><sup>))-</sup><xref ref-type="bibr" rid="B18">18</xref><sup>))</sup>. Sin embargo, Estos instrumentos no evalúan conjuntamente las competencias específicas y transversales que actualmente integran las materias de la práctica clínica, tampoco la efectividad de las actividades integradas de aprendizaje en dichas materias para la adquisición de competencias (seminarios, habilidades clínicas, talleres, simulaciones, tutoriales, etc.)<xref ref-type="bibr" rid="B19">19</xref><sup>))</sup>.</p>
+        <p>Por otro lado, los estudios actuales establecen diversas metodologías de enseñanza, en el contexto de la práctica clínica (simulación, tutoriales y seminarios), como la evidencia confirma que ésta metodología representa un conjunto estructurado de documentos preparados por el estudiante, ordenado cronológica o temáticamente, lo que demuestra la evolución, el progreso y el grado de conformidad con los objetivos establecidos en cada entrega, reflejando al mismo tiempo las estrategias de cada estudiante para la indagación, el pensamiento crítico-reflexivo, el rigor y el análisis<xref ref-type="bibr" rid="B11">11</xref><sup>)),</sup><xref ref-type="bibr" rid="B20">20</xref><sup>))</sup>.</p>
+        <p>Ante esta situación, existen tres problemas principales: el primero se refiere a la complejidad de las competencias; el segundo está relacionado con la dificultad de realizar evaluaciones con las diferentes metodologías de enseñanza; y, el tercero se refiere a la falta de herramientas que centralicen y computaricen los datos, para poder realizar un análisis en profundidad de la confiabilidad y validez de los instrumentos utilizados para su medición<xref ref-type="bibr" rid="B21">21</xref><sup>))-</sup><xref ref-type="bibr" rid="B22">22</xref><sup>))</sup>.</p>
+        <p>Varios años después de la implementación de la Licenciatura en Enfermería en España, creemos que es vital evaluar la adquisición de competencias dentro de los temas de la práctica clínica, ya que la pluralidad existente de los agentes involucrados en ellos y las numerosas culturas institucionales y perfiles profesionales que participan, hacen que sea un tema complejo el poder garantizar que todas esas competencias específicas y transversales del curso, puedan ser adquiridas<xref ref-type="bibr" rid="B22">22</xref><sup>))-</sup><xref ref-type="bibr" rid="B24">24</xref><sup>))</sup>. Esta complejidad puede ser minimizada estableciendo instrumentos que centralicen la información y sistemas de reglas que unifican el criterio y el rigor metodológico de las diferentes dimensiones que componen las actividades de aprendizaje<xref ref-type="bibr" rid="B25">25</xref><sup>))-</sup><xref ref-type="bibr" rid="B28">28</xref><sup>))</sup>. </p>
+        <p>El objetivo de este estudio fue analizar la progresión del estudiante, en cuanto a la adquisición de competencias específicas y transversales, en relación con los medios académicos de resultados (basales, medios y finales) y las correlaciones dimensionales de las diferentes competencias en las asignaturas de la práctica clínica.</p>
+      </sec>
+      <sec sec-type="methods">
+        <title>Método</title>
+        <p>Se trata de un estudio descriptivo, transversal, retrospectivo y correlacional. El ámbito de estudio fue la Escuela de Enfermería de la Universidad de Barcelona (UB). La distribución del plan de estudios, en esta universidad, contempla un total de 84 Sistemas Europeos de Transferencia y Acumulación de Créditos (ECTS) de cursos prácticos externos obligatorios. La práctica clínica dentro de la Licenciatura en Enfermería se divide en cuatro temas, organizados de tal manera que incorporan criterios de menor a mayor complejidad, a partir del segundo al cuarto (último) año. Todos ellos buscan la aplicación e integración de competencias específicas y transversales, en relación con la atención de enfermería en las diferentes áreas de actuación. Analizamos a todos los 1.800 estudiantes matriculados en los temas de práctica clínica, conocidos como Colocaciones Clínicas I (ECI) en el segundo año y Colocaciones Clínicas II (ECII) en el tercer año, de la Licenciatura en Enfermería de septiembre de 2015 a junio de 2016, de acuerdo con un informe elaborado por la Universidad en los registros de dicho año académico. Considerando los datos extraídos del informe, con el objetivo de lograr una precisión del 5% en la estimación de una proporción, utilizando un intervalo de confianza bilateral del 95%, con una tasa de abandono de cercana al 10%, y suponiendo que la proporción de la población de estudiantes de enfermería que toman las materias ECI y ECII es del 41%. La muestra final fué de 320 estudiantes con una distribución de ECI (n = 166) y ECII (n = 157), con tasa de abandono del 10%, precisión estimada del 5% y nivel de confianza del 95%. El cálculo se realizó con el <italic>software</italic> Ene 3.0.</p>
+        <p>Se recopilaron las siguientes variables de estudio: i) Variables sociodemográficas relacionadas con el centro de práctica: edad, sexo, institución de salud donde se desarrolla la práctica clínica y la unidad de práctica; ii) Variables relacionadas con las actividades de aprendizaje vinculadas a los seminarios: Diario reflexivo (herramienta para reflexionar y escribir sobre el proceso de aprendizaje del alumno), Proceso de enfermería (método científico de la disciplina para solucionar los problemas de salud que afectan a las personas), Administración farmacológica (evaluación y análisis de tratamientos farmacológicos), Evaluación nutricional (evaluación del estado nutricional), Técnicas/procedimientos (descripción y análisis basados en evidencias de procedimientos) y Dilema ético (descripción de un problema ético y su solución); iii) Variables relacionadas con la práctica clínica (se refieren a las competencias específicas del plan de enseñanza): Práctica Profesional (PP) incluye la actitud durante el desempeño de la práctica clínica; Suministro del Cuidado y Administración (PGC) como un conjunto, y la gestión de actividades y servicios realizados durante el período de prácticas clínicas; Comunicación terapéutica (TC) como la capacidad de intercambiar o transmitir pensamientos, sentimientos e ideas entre el equipo de estudiantes y el usuario; Desarrollo Profesional (DP) que logra crecimiento y autorrealización; y, Administración del Cuidado (CG) incluye la capacidad de establecer una sistematización científica en lo que se hace y en cómo se hace.</p>
+        <p>Se utilizaron dos instrumentos para recolectar las variables: 1) Formulario <italic>ad hoc</italic> para la recopilación de variables sociodemográficas y de la muestra del centro de práctica. 2) ECI y ECII cuestionarios de práctica clínica. </p>
+        <p>Los cuestionarios para ECI contienen 23 ítems y para ECII 25. Cada uno de los ítems tiene opciones de respuesta basadas en una escala tipo Likert con 10 opciones de respuesta, que van desde 1 (no desempeña o desempeña mal) a 10 (excelente o perfecto), con un puntaje máximo de 230 y 250, respectivamente. Cada cuestionario tiene de 4 a 5 dimensiones relacionadas con el cuidado.</p>
+        <p>En el contexto de la práctica clínica, se realizaron un total de dos evaluaciones para ECI (ECI0, ECI1) y tres para ECII (ECI0, ECI1 y ECI2), en ambos el puntaje se recopila mediante una escala Likert de 1 a 10.</p>
+        <p>Para la descripción de todas las variables cuantitativas, se calculó la media y la desviación estándar (DE), o la mediana y el rango intercuartil (IQR), como una función de la distribución de los datos; las variables cualitativas se expresaron como frecuencias y porcentajes. Para analizar la relación entre el nivel de competencia, los datos sociodemográficos, el centro de práctica, los resultados académicos y la metodología de enseñanza de ECI-II en sus diferentes dimensiones, se realizó un análisis inferencial, utilizando un nivel de confianza del 95%. La prueba de calidad de ajuste se aplicó para verificar la distribución normal y se utilizaron pruebas paramétricas o no paramétricas. Si ellas no siguen una distribución normal, las variables se comparan mediante la prueba de Chi-Cuadrado, Kruskal-Wallis o Mann-Whitney y el coeficiente de correlación de Spearman. Si ellas siguen una distribución normal, se comparan usando la prueba de Chi-Cuadrado, la prueba t de Student y el coeficiente de correlación de Pearson. Se utilizó el programa estadístico IBM SPSS <italic>Statistics</italic> 21.</p>
+        <p>Fueron tomados en cuenta las recomendaciones de la Ley Orgánica 15/1999, de 13 de diciembre (BOE Num. 298, de 14 de diciembre de 1999), sobre Protección de Datos Personales. Se proporcionó un documento informativo sobre el proyecto y sus objetivos; también se obtuvo el consentimiento informado de estudiantes y maestros. El permiso fue otorgado por la Dirección de la Escuela de Enfermería y se obtuvo la aprobación del Comité de Ética de la UB.</p>
+      </sec>
+      <sec sec-type="results">
+        <title>Resultados</title>
+        <p>Los estudiantes de ECI (n = 166) tuvieron una edad media de 22,60 años (DE = 5,40), de los cuales el 80% eran mujeres (n = 134); el promedio de estudiantes de ECII (n = 157) fue de 23,9 años (DE = 5,02), de los cuales 82% eran mujeres (n = 129). Los alumnos realizaron las prácticas en 11 centros de la Red de Instituciones de Salud del Instituto Catalán de la Salud y predominantemente en unidades de medicina interna 15% (n = 23), cirugías (n = 53) y otras (24%).</p>
+        <p>Las calificaciones finales de las materias para ECI y ECII no mostraron diferencias estadísticamente significativas, en términos de los resultados académicos de los estudiantes, en las diferentes dimensiones evaluadas (p = &lt;0.109), donde el 90% obtuvo una calificación promedio entre notable y excelente, con una distribución por dimensiones muy equilibrada (<xref ref-type="fig" rid="f9">Figuras 1</xref>-<xref ref-type="fig" rid="f10">2</xref>). El porcentaje de fallas en ECI y ECII fue similar (ECI 1.36%, ECII 1.25%).</p>
+        <p>
+          <fig id="f9">
+            <label>Figura 1</label>
+            <caption>
+              <title>Resultados académicos finales para ECI*</title>
+              <p>*ECI = Colocaciones clínicas I; <sup>†</sup>PP = Práctica profesional; <sup>‡</sup>PGC = Prestación del cuidado y Administración; <sup>§</sup>TC = Comunicación terapéutica; <sup>II</sup>DP = Desarrollo profesional; <sup>¶</sup>GC = Gestión del cuidado</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/d2e9223357ecded20f89ff86e99444af34747dc0.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>
+          <fig id="f10">
+            <label>Figura 2</label>
+            <caption>
+              <title>Resultados académicos finales para ECII*</title>
+              <p>*ECII = Colocaciones Clínicas II; <sup>†</sup>PP = Práctica Profesional; <sup>‡</sup>PGC = Prestación del Cuidado y Gestión; <sup>§</sup>TC = Comunicación Terapéutica; <sup>II</sup>DP = Desarrollo Profesional; <sup>¶</sup>GC = Gestión del cuidado</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/e90a144cfc46900dff7cb6b6a309e0faee31bd56.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>Los resultados académicos entre ECI y ECII (entre el segundo y el tercer año) mejoró en la prestación de cuidados y en la comunicación terapéutica (ECI: 12% -29%, ECII: 32% -47%), y empeoró en el desarrollo profesional y la administración de cuidados (ECI: 44% -38%; ECII: 44% -26%) (<xref ref-type="fig" rid="f11">Figuras 3</xref>-<xref ref-type="fig" rid="f12">4</xref>). </p>
+        <p>
+          <fig id="f11">
+            <label>Figura 3</label>
+            <caption>
+              <title>Resultados académicos según dimensiones de competencia para ECI*</title>
+              <p>*ECI = Colocaciones clínicas I</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/90501522bca33731d7e0eb641c3bf7482f9ffe76.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>
+          <fig id="f12">
+            <label>Figura 4</label>
+            <caption>
+              <title>Resultados académicos según dimensiones de competencia para ECII*</title>
+              <p>*ECII = Colocaciones Clínicas II</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href=""/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/TPg77CCrGj4wcbLCh9vG8bS/c9fe8eaf7dba17a9b146ae56d21923553f56412a.jpg"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>La evaluación media entre ECI0 y ECI1, en la finalización del Cuestionario <italic>Ad Hoc</italic> ECI, mostró una progresión de 1,3; para la finalización del Cuestionario <italic>Ad Hoc</italic> ECII, la progresión entre ECI0 y ECI1 fue de 0,8 y entre ECI1 y ECI2 de 0,52. Hay una mejora muy similar en cada una de las dimensiones y en cada punto de determinación ECII0, ECII1 y ECII2.</p>
+        <p>Las dimensiones analizadas, en la finalización del Cuestionario <italic>Ad Hoc</italic> en ECI1 y ECII2, mostraron un alto coeficiente de correlación en las dimensiones vinculadas a la práctica (ECI1: PGC <italic>(r = 0,77),</italic> TC <italic>(r = 0,77 ),</italic> DE <italic>(r = 0,80)</italic> and GC <italic>(r = 0,58),</italic> ECII2<italic>: (r = 0,91),</italic> TC <italic>(r = 0,90),</italic> DE <italic>(r = 0,84)</italic> and GC <italic>(r = 0,84));</italic> sin embargo, se obtuvo un bajo coeficiente de correlación en las dimensiones relacionadas con las actividades de aprendizaje complementarias de EC I1 y ECII2 (EC I1 seminarios <italic>(r = 0,56),</italic> proceso de enfermería <italic>(r = 0,33),</italic> ECII2: seminarios <italic>(r = 0,51),</italic> y evaluación del proceso de enfermedad <italic>(r = 0,36).</italic></p>
+        <p>Las correlaciones entre ECI y ECII fueron altas en todas las dimensiones analizadas, obteniendo para la práctica profesional <italic>r = 0,89;</italic> entrega y gestión de la atención <italic>r = 0,84;</italic> comunicación terapéutica <italic>r = 0,88</italic> y desarrollo profesional <italic>r = 0,90.</italic></p>
+      </sec>
+      <sec sec-type="discussion">
+        <title>Discusión</title>
+        <p>Los hallazgos obtenidos referentes a los resultados académicos, refuerzan la evidencia consultada. Las calificaciones académicas mantienen medias más altas en los resultados vinculados a la práctica clínica de ECI y ECII<xref ref-type="bibr" rid="B29">29</xref><sup>))-</sup><xref ref-type="bibr" rid="B30">30</xref><sup>))</sup><italic>.</italic> Este aspecto, de acuerdo con algunos autores, puede deberse al hecho de que los diferentes agentes encargados de evaluar al estudiante encuentran difícil penalizar el bajo rendimiento en el contexto de la práctica<xref ref-type="bibr" rid="B15">15</xref><sup>))-</sup><xref ref-type="bibr" rid="B16">16</xref><sup>)),</sup><xref ref-type="bibr" rid="B29">29</xref><sup>))</sup><italic>.</italic></p>
+        <p>Otros autores consultados establecen que el impacto del primer contacto, con el contexto institucional requiere del alumno un mayor nivel de adaptación y aceptación; así, generando un filtro que desencadena un mayor número de fallas y abandonos al comienzo de la práctica clínica. En nuestro estudio los resultados fueron similares. Pensamos que la razón de esto es la progresión, que produce un aumento de las demandas de competencia, entre el segundo y el tercer año, en el contexto de las diferentes unidades de práctica. Aún así, detectamos que las tasas de fracaso son bajas (ECI 1,36%, ECII 1,25%), lo que significa que los estudiantes progresaron y aprobaron las diferentes materias de la práctica clínica, a pesar de su bajo rendimiento, según es confirmado por los diferentes autores consultados<xref ref-type="bibr" rid="B30">30</xref><sup>))-</sup><xref ref-type="bibr" rid="B33">33</xref><sup>))</sup>. </p>
+        <p>La evidencia consultada confirma que los estudiantes mejoran la comunicación terapéutica durante el desarrollo de la práctica clínica. No encontramos estudios que contengan información sobre la evolución del estudiante, en la dimensión de desarrollo profesional y gestión del cuidado<xref ref-type="bibr" rid="B26">26</xref><sup>)),</sup><xref ref-type="bibr" rid="B34">34</xref><sup>))</sup>. </p>
+        <p>Los resultados académicos revelaron altas medias finales para todas las dimensiones analizadas, con alta progresión entre las diferentes evaluaciones realizadas a lo largo de la práctica clínica (ECI0, ECI1, ECI0, ECII1 y ECII2); este aspecto confirma la necesidad de establecer cortes transversales en las evaluaciones de los estudiantes, cuando los períodos de prácticas son muy largos. Este monitoreo permite controlar con más proximidad el aumento de la conciencia del estudiante sobre aquellos aspectos que deben ser mejorados hasta el final de la práctica y permite al profesor - tutor de la práctica en el proceso de adquisición de aprendizaje - personalizar la adaptación<xref ref-type="bibr" rid="B31">31</xref><sup>))-</sup><xref ref-type="bibr" rid="B32">32</xref><sup>))</sup>. </p>
+        <p>Los instrumentos utilizados para evaluación de la competencia, en el contexto de la práctica clínica, confirman lo que afirman diferentes autores cuando se refieren a la necesidad de usar diferentes métodos para evaluar la pirámide de Miller (17) a través de diferentes actividades de aprendizaje<xref ref-type="bibr" rid="B11">11</xref><sup>)),</sup><xref ref-type="bibr" rid="B19">19</xref><sup>))-</sup><xref ref-type="bibr" rid="B20">20</xref><sup>))</sup>.</p>
+        <p>Las diferentes dimensiones analizadas para la adquisición de competencias se evaluaron con diferentes instrumentos de evaluación, detectando que esas dimensiones, medidas en la práctica clínica, tenían una alta correlación uniforme, en comparación con las dimensiones medidas en el seminario a través de otras actividades de aprendizaje como estudio de casos, diario reflexivo, actividades de observación y otros. Este aspecto se vuelve complejo cuando las evaluaciones de las actividades de aprendizaje deben ser evaluadas por diferentes agentes (enfermera de referencia y tutor asociado de práctica clínica) dando resultados académicos bien diferenciados; así, es necesario apurar la necesidad de unificar y profundizar la perspectiva sobre la práctica<xref ref-type="bibr" rid="B23">23</xref><sup>))-</sup><xref ref-type="bibr" rid="B25">25</xref><sup>)),</sup><xref ref-type="bibr" rid="B33">33</xref><sup>))</sup>.</p>
+        <p>De acuerdo con la literatura, la importancia del facilitador clínico en el contexto de la práctica clínica, como agente que promueve la “reflexión en acción”, es fundamental para establecer un aprendizaje cooperativo y un abordaje colaborativo, que fomente la integración entre la teoría y la práctica de los diferentes agentes involucrados, principalmente los estudiantes<xref ref-type="bibr" rid="B26">26</xref><sup>))-</sup><xref ref-type="bibr" rid="B28">28</xref><sup>))</sup>. </p>
+        <p>Hay muchos autores que establecen la importancia de combinar instrumentos de evaluación para unificar la triangulación del conocimiento, las habilidades y actitudes y de ese modo poder establecer un plan de enseñanza que contemple no solo todos los dominios del aprendizaje, pero sobre todo, el poder adaptarlos a la progresión que el estudiante realiza a través de sus estudios de grado, en el mencionado proceso de triangulación de su formación académica<xref ref-type="bibr" rid="B13">13</xref><sup>))</sup>. </p>
+      </sec>
+      <sec sec-type="conclusions">
+        <title>Conclusión</title>
+        <p>Los resultados académicos de los estudiantes en el contexto de la práctica clínica mantienen altas medias académicas, con una baja tasa de fracaso, tanto en ECI como en ECII.</p>
+        <p>Los instrumentos utilizados son adecuados para la adquisición de competencias en las diferentes dimensiones analizadas, tanto en ECI como en ECII, detectando una visión diferente en las evaluaciones otorgadas por la enfermera en comparación con las otorgadas por el tutor.</p>
+        <p>Las actividades de aprendizaje en el contexto de la práctica y en los seminarios deben ser unificadas por las metodologías utilizadas en ambos contextos para reducir la baja correlación entre el tutor institucional o la enfermera de referencia y el tutor académico o asociado, en los dos aspectos. Las correlaciones entre las dimensiones de competencia de ECI y ECII son altas; este aspecto facilita el análisis y la evaluación de la progresión de estas dimensiones entre el segundo y el tercer año.</p>
+        <p>El estudio nos permitió realizar un análisis conjunto de todas las dimensiones de competencia que intervienen en las materias de la práctica clínica y en los estudios de Graduación de Enfermería. Este análisis sirve para establecer futuras líneas de investigación que permitan la validación y confiabilidad del instrumento de evaluación utilizado para evaluar las dimensiones de competencia.</p>
+      </sec>
+    </body>
+    <back>
+      <fn-group>
+        <fn fn-type="other" id="fn3">
+          <label>*</label>
+          <p>La publicación de este artículo en la Serie Temática “Recursos Humanos en Salud y Enfermería” es parte de la Actividad 2.2 del Término de Referencia 2 del Plan de Trabajo del Centro Colaborador de la OPS/OMS para el Desarrollo de la investigación en Enfermería, Brasil.</p>
+        </fn>
+      </fn-group>
+    </back>
+  </sub-article>
+</article>

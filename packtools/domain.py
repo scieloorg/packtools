@@ -466,7 +466,9 @@ class HTMLGenerator(object):
     :param xslt: (optional) etree.XSLT instance. If not provided, the default XSLT is used.
     :param css: (optional) URI for a CSS file.
     """
-    def __init__(self, file, xslt=None, css=None, print_css=None, js=None, permlink=None, url_article_page=None, url_download_ris=None):
+    def __init__(self, file, xslt=None, css=None, print_css=None, js=None,
+                 permlink=None, url_article_page=None, url_download_ris=None,
+                 gs_abstract=None):
         assert isinstance(file, etree._ElementTree)
 
         self.lxml = file
@@ -477,6 +479,7 @@ class HTMLGenerator(object):
         self.permlink = permlink
         self.url_article_page = url_article_page
         self.url_download_ris = url_download_ris
+        self.gs_abstract = gs_abstract
 
     @classmethod
     def parse(cls, file, valid_only=True, **kwargs):
@@ -516,6 +519,16 @@ class HTMLGenerator(object):
         except IndexError:
             return None
 
+    @property
+    def abstract_languages(self):
+        """The language of the main document plus all translations.
+        """
+        return self.lxml.xpath(
+            '/article/@xml:lang | '
+            '//sub-article[@article-type="translation"]/@xml:lang | '
+            '//trans-abstract/@xml:lang'
+        )
+
     def _is_aop(self):
         """ Has the document been published ahead-of-print?
         """
@@ -554,7 +567,11 @@ class HTMLGenerator(object):
     def __iter__(self):
         """Iterates thru all languages and generates the HTML for each one.
         """
-        for lang in self.languages:
+        if self.gs_abstract:
+            languages = self.abstract_languages
+        else:
+            languages = self.languages
+        for lang in languages:
             res_html = self.generate(lang)
             yield lang, res_html
 
@@ -568,7 +585,10 @@ class HTMLGenerator(object):
             raise exceptions.HTMLGenerationError('main document language is '
                                                  'undefined.')
 
-        if lang not in self.languages:
+        expected_langs = self.languages
+        if self.gs_abstract:
+            expected_langs = self.abstract_languages
+        if lang not in expected_langs:
             raise ValueError('unrecognized language: "%s"' % lang)
 
         is_translation = lang != main_language
@@ -584,4 +604,5 @@ class HTMLGenerator(object):
                 permlink=etree.XSLT.strparam(self.permlink or ''),
                 url_article_page=etree.XSLT.strparam(self.url_article_page or ''),
                 url_download_ris=etree.XSLT.strparam(self.url_download_ris or ''),
+                gs_abstract_lang=etree.XSLT.strparam(self.gs_abstract and lang or ''),
         )

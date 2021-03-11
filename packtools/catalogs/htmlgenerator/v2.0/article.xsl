@@ -93,46 +93,54 @@
             <body class="journal article">
                 <a name="top"/>
                 <div id="standalonearticle">
+                    <!--
+                        este id='standalonearticle' é usado pelo opac para
+                        extrair o que interessa apresentar no site 
+                    -->
                     <xsl:apply-templates select="." mode="article"/>
                     <xsl:apply-templates select="." mode="article-modals"/>
                 </div>
-                <xsl:if test="$graphic_elements_title!=''">
-                    <ul class="floatingMenu fm-slidein" data-fm-toogle="hover">
-
-
-                        <li class="fm-wrap">
-                            <a href="javascript:;" class="fm-button-main">
-                                <span class="sci-ico-floatingMenuDefault glyphFloatMenu"/>
-                                <span class="sci-ico-floatingMenuClose glyphFloatMenu"/>
-                            </a>
-                            <ul class="fm-list">
-                                <li>
-                                    <a class="fm-button-child"
-                                        data-fm-label="{$graphic_elements_title}"
-                                        data-toggle="modal" data-target="#ModalTablesFigures">
-                                        <span class="sci-ico-figures glyphFloatMenu"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="fm-button-child" data-toggle="modal"
-                                        data-target="#ModalArticles">
-                                        <xsl:attribute name="data-fm-label">
-                                            <xsl:apply-templates select="." mode="text-labels">
-                                                <xsl:with-param name="text">How to
-                                                  cite</xsl:with-param>
-                                            </xsl:apply-templates>
-                                        </xsl:attribute>
-                                        <span class="sci-ico-citation glyphFloatMenu"/>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </xsl:if>
-
+                <!--
+                    isso não fará parte do site,
+                    o site tem seus próprios 
+                -->
+                <xsl:apply-templates select="." mode="graphic-elements-title"/>
                 <xsl:apply-templates select="." mode="js"/>
             </body>
         </html>
+    </xsl:template>
+    <xsl:template match="/" mode="graphic-elements-title">
+        <xsl:if test="$graphic_elements_title!=''">
+            <ul class="floatingMenu fm-slidein" data-fm-toogle="hover">
+                <li class="fm-wrap">
+                    <a href="javascript:;" class="fm-button-main">
+                        <span class="sci-ico-floatingMenuDefault glyphFloatMenu"/>
+                        <span class="sci-ico-floatingMenuClose glyphFloatMenu"/>
+                    </a>
+                    <ul class="fm-list">
+                        <li>
+                            <a class="fm-button-child"
+                                data-fm-label="{$graphic_elements_title}"
+                                data-toggle="modal" data-target="#ModalTablesFigures">
+                                <span class="sci-ico-figures glyphFloatMenu"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="fm-button-child" data-toggle="modal"
+                                data-target="#ModalArticles">
+                                <xsl:attribute name="data-fm-label">
+                                    <xsl:apply-templates select="." mode="text-labels">
+                                        <xsl:with-param name="text">How to
+                                          cite</xsl:with-param>
+                                    </xsl:apply-templates>
+                                </xsl:attribute>
+                                <span class="sci-ico-citation glyphFloatMenu"/>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="/" mode="css">
 
@@ -178,63 +186,93 @@
         <section class="articleCtt">
             <div class="container">
                 <div class="articleTxt">
-                    <div class="articleBadge-editionMeta-doi-copyLink">
-                        <span class="_articleBadge"><xsl:apply-templates select="." mode="article-meta-subject"/></span>
-                        <span class="_separator"> • </span>
-                        <span class="_editionMeta">
-                            <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
-                            <span class="_separator"> • </span>
-                            <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
-                        </span>
-                        <span class="_separator"> • </span>
+                    <xsl:apply-templates select="." mode="articleBadge-editionMeta-doi-copyLink"/>
 
-                        <span class="group-doi">
-                            <xsl:apply-templates select="." mode="article-meta-doi"/>
-                        </span>
-                    </div>
-                    <xsl:apply-templates select="." mode="article-meta-related-article"></xsl:apply-templates>
-                    <h1 class="article-title">
-                        <span class="sci-ico-openAccess showTooltip" data-toggle="tooltip">
-                            <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
-                        </span>
-                        <xsl:apply-templates select="." mode="article-meta-title"/>
-                        <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>
-                    </h1>
+                    <xsl:apply-templates select="." mode="article-meta-related-article"/>
+
+                    <xsl:apply-templates select="." mode="article-title"/>
+
                     <xsl:apply-templates select="." mode="article-meta-trans-title"/>
                     <div class="articleMeta">
                     </div>
                     <xsl:apply-templates select="." mode="article-meta-contrib"/>
-                    <div class="row">
-                        <ul class="col-md-2 hidden-sm articleMenu"> </ul>
-
-                        <article id="articleText"
-                            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
-                            <xsl:apply-templates select="." mode="article-meta-product"/>
-                            <xsl:apply-templates select="." mode="article-meta-abstract"/>
-                            <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
-                            <xsl:apply-templates select="." mode="text-body"/>
-                            <xsl:apply-templates select="." mode="text-back"/>
-                            <xsl:apply-templates select="." mode="text-fn"/>
-                            <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
-                            <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
-                            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
-
-                            <section class="documentLicense">
-                                <div class="container-license">
-                                    <div class="row">
-                                        <xsl:apply-templates select="." mode="article-meta-permissions"></xsl:apply-templates>
-                                    </div>
-                                </div>
-                            </section>
-                        </article>
-                    </div>
+                    
+                    <xsl:apply-templates select="." mode="article-or-abstract"/>
                 </div>
             </div>
         </section>
-
-
     </xsl:template>
 
+    <xsl:template match="article" mode="article-or-abstract">
+        <div class="row">
+            <ul class="col-md-2 hidden-sm articleMenu"> </ul>
+            <xsl:choose>
+                <xsl:when test="$gs_abstract_lang">
+                    <xsl:apply-templates select="." mode="div-abstract"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="." mode="div-article"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="article" mode="div-article">
+        <article id="articleText"
+            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+            <xsl:apply-templates select="." mode="article-meta-product"/>
+            <xsl:apply-templates select="." mode="article-meta-abstract"/>
+            <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
+            <xsl:apply-templates select="." mode="text-body"/>
+            <xsl:apply-templates select="." mode="text-back"/>
+            <xsl:apply-templates select="." mode="text-fn"/>
+            <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
+            <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
+            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
+
+            <section class="documentLicense">
+                <div class="container-license">
+                    <div class="row">
+                        <xsl:apply-templates select="." mode="article-meta-permissions"></xsl:apply-templates>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </xsl:template>
+
+    <xsl:template match="article" mode="div-abstract">
+        <article id="articleText"
+            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+            <xsl:apply-templates select="." mode="article-meta-abstract-gs"/>
+        </article>
+    </xsl:template>
+
+    <xsl:template match="article" mode="articleBadge-editionMeta-doi-copyLink">
+        <div class="articleBadge-editionMeta-doi-copyLink">
+            <span class="_articleBadge"><xsl:apply-templates select="." mode="article-meta-subject"/></span>
+            <span class="_separator"> • </span>
+            <span class="_editionMeta">
+                <xsl:apply-templates select="." mode="journal-meta-bibstrip-title"/>
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates select="." mode="journal-meta-bibstrip-issue"/>
+                <span class="_separator"> • </span>
+                <xsl:apply-templates select="." mode="issue-meta-pub-dates"/>
+            </span>
+            <span class="_separator"> • </span>
+
+            <span class="group-doi">
+                <xsl:apply-templates select="." mode="article-meta-doi"/>
+            </span>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="article" mode="article-title">
+        <h1 class="article-title">
+            <span class="sci-ico-openAccess showTooltip" data-toggle="tooltip">
+                <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
+            </span>
+            <xsl:apply-templates select="." mode="article-meta-title"/>
+            <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>
+        </h1>
+    </xsl:template>
 </xsl:stylesheet>

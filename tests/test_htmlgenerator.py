@@ -27,6 +27,14 @@ SAMPLES_PATH = os.path.join(
     'samples')
 
 
+def get_xml_tree_from_string(text='<a><b>bar</b></a>'):
+    return etree.parse(io.BytesIO(text.encode('utf-8')))
+
+
+def get_xml_tree_from_file(filename):
+    return etree.parse(os.path.join(SAMPLES_PATH, filename))
+
+
 class HTMLGeneratorTests(unittest.TestCase):
 
     @setup_tmpfile
@@ -34,9 +42,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         self.assertTrue(domain.HTMLGenerator.parse(self.valid_tmpfile.name, valid_only=False))
 
     def test_initializes_with_etree(self):
-        fp = io.BytesIO(b'<a><b>bar</b></a>')
-        et = etree.parse(fp)
-
+        et = get_xml_tree_from_string('<a><b>bar</b></a>')
         self.assertTrue(domain.HTMLGenerator.parse(et, valid_only=False))
 
     def test_languages(self):
@@ -47,9 +53,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                        </sub-article>
                     </article>
                  """
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
-
+        et = get_xml_tree_from_string(sample)
         self.assertEqual(domain.HTMLGenerator.parse(et, valid_only=False).languages, ['pt', 'en', 'es'])
 
     def test_language(self):
@@ -60,9 +64,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                        </sub-article>
                     </article>
                  """
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
-
+        et = get_xml_tree_from_string(sample)
         self.assertEqual(domain.HTMLGenerator.parse(et, valid_only=False).language, 'pt')
 
     def test_language_missing_data(self):
@@ -75,9 +77,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                        </sub-article>
                     </article>
                  """
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
-
+        et = get_xml_tree_from_string(sample)
         self.assertEquals(domain.HTMLGenerator.parse(
             et, valid_only=False).language, None)
 
@@ -103,8 +103,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </front>
                     </article>
                  """
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         self.assertEqual(domain.HTMLGenerator.parse(et, valid_only=False)._get_bibliographic_legend(),
                          u'Rev. Saude Publica vol.10 no.2 Mar 17, 2014')
@@ -129,8 +128,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                        </sub-article>
                     </article>
                  """
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         gen = domain.HTMLGenerator.parse(et, valid_only=False)
 
@@ -151,8 +149,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </front>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
@@ -174,8 +171,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </front>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
@@ -210,8 +206,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </sub-article>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
@@ -246,8 +241,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </sub-article>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
@@ -274,8 +268,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </front>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
@@ -302,8 +295,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </front>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
 
@@ -330,8 +322,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </front>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
 
@@ -358,8 +349,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </front>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
 
@@ -386,8 +376,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                       </sub-article>
                     </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
@@ -396,9 +385,8 @@ class HTMLGeneratorTests(unittest.TestCase):
         self.assertIn('<img style="max-width:100%" src="2175-8239-jbn-2018-0058-vf01-EN.jpg">', html_string)
 
     def test_if_history_section_is_present_in_primary_language(self):
-      sample = os.path.join(SAMPLES_PATH, '0034-7094-rba-69-03-0227.xml')
-      et = etree.parse(sample)
 
+      et = get_xml_tree_from_file('0034-7094-rba-69-03-0227.xml')
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
       html_string = etree.tostring(html, encoding='unicode', method='html')
 
@@ -408,8 +396,7 @@ class HTMLGeneratorTests(unittest.TestCase):
       self.assertIn('<strong>Published</strong><br>26 Apr 2019</li>', html_string)
 
     def test_if_history_section_is_present_in_sub_article(self):
-      sample = os.path.join(SAMPLES_PATH, '0034-7094-rba-69-03-0227.xml')
-      et = etree.parse(sample)
+      et = get_xml_tree_from_file('0034-7094-rba-69-03-0227.xml')
 
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
       html_string = etree.tostring(html, encoding='unicode', method='html')
@@ -433,8 +420,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         </front>
       </article>"""
 
-      fp = io.BytesIO(sample.encode('utf-8'))
-      et = etree.parse(fp)
+      et = get_xml_tree_from_string(sample)
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
       html_string = etree.tostring(html, encoding='unicode', method='html')
 
@@ -457,9 +443,7 @@ class HTMLGeneratorTests(unittest.TestCase):
           </article-meta>
         </front>
       </article>"""
-
-      fp = io.BytesIO(sample.encode('utf-8'))
-      et = etree.parse(fp)
+      et = get_xml_tree_from_string(sample)
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
       html_string = etree.tostring(html, encoding='unicode', method='html')
 
@@ -479,8 +463,7 @@ class HTMLGeneratorTests(unittest.TestCase):
           </front>
         </article>"""
 
-        fp = io.BytesIO(sample.encode('utf-8'))
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(sample)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         html_string = etree.tostring(html, encoding='unicode', method='html')
 
@@ -500,8 +483,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         </front>
       </article>"""
 
-      fp = io.BytesIO(sample.encode('utf-8'))
-      et = etree.parse(fp)
+      et = get_xml_tree_from_string(sample)
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
       html_string = etree.tostring(html, encoding='unicode', method='html')
 
@@ -525,8 +507,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         </front>
       </article>"""
 
-      fp = io.BytesIO(sample.encode('utf-8'))
-      et = etree.parse(fp)
+      et = get_xml_tree_from_string(sample)
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
       html_string = etree.tostring(html, encoding='unicode', method='html')
 
@@ -550,8 +531,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         </front>
       </article>"""
 
-      fp = io.BytesIO(sample.encode('utf-8'))
-      et = etree.parse(fp)
+      et = get_xml_tree_from_string(sample)
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
       html_string = etree.tostring(html, encoding='unicode', method='html')
 
@@ -631,8 +611,7 @@ class HTMLGeneratorTests(unittest.TestCase):
           </article-meta>
         </front>
       </article>"""
-      fp = io.BytesIO(sample.encode('utf-8'))
-      et = etree.parse(fp)
+      et = get_xml_tree_from_string(sample)
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
       html_string = etree.tostring(html, encoding='unicode', method='html')
       self.assertIn(
@@ -650,8 +629,7 @@ class HTMLGeneratorTests(unittest.TestCase):
           </article-meta>
         </front>
       </article>"""
-      fp = io.BytesIO(sample.encode("utf-8"))
-      et = etree.parse(fp)
+      et = get_xml_tree_from_string(sample)
       html = domain.HTMLGenerator.parse(et, valid_only=False).generate("en")
       html_string = etree.tostring(html, encoding="unicode", method="html")
 
@@ -702,10 +680,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </disp-formula>
         """
         graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff" /><inline-graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         self.assertIsNotNone(
             html.find(
@@ -723,10 +698,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </disp-formula>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         self.assertIsNotNone(
             html.find(
@@ -748,17 +720,13 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff" /><inline-graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
             'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.thumbnail.jpg);"]'
         )
-        self.assertTrue(len(thumb_tag) > 0
-          )
+        self.assertTrue(len(thumb_tag) > 0)
 
     def test_graphic_images_alternatives_must_prioritize_scielo_web_attribute_in_modal(self):
         graphic1 = """
@@ -771,16 +739,12 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e03.png"]'
         )
         self.assertTrue(len(thumb_tag) > 0)
-
 
     def test_graphic_images_alternatives_must_get_first_graphic_in_modal_when_not_scielo_web_and_not_content_type_atribute(self):
         graphic1 = """
@@ -792,10 +756,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
@@ -809,10 +770,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
@@ -831,10 +789,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </disp-formula>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
@@ -848,10 +803,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </disp-formula>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
@@ -869,10 +821,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
@@ -886,10 +835,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
@@ -907,10 +853,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </table-wrap>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
@@ -924,10 +867,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         </table-wrap>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
@@ -967,6 +907,10 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </body>
       </article>"""
 
+    def get_xml_tree_from_string(self, graphic1, graphic2):
+        return get_xml_tree_from_string(
+          self.sample.format(graphic1=graphic1, graphic2=graphic2))
+
     def test_graphic_images_alternatives_must_prioritize_scielo_web_and_content_type_in_fig_when_thumb(self):
         graphic1 = """
         <fig id="e01">
@@ -978,10 +922,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff" /><inline-graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
@@ -1001,10 +942,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e03.png"]'
@@ -1022,10 +960,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
@@ -1039,10 +974,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
@@ -1061,10 +993,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
@@ -1078,10 +1007,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         </fig>
         """
         graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        fp = io.BytesIO(
-            self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-        )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
             '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
@@ -1099,10 +1025,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </fig>
           """
         graphic2 = ""
-        fp = io.BytesIO(
-              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-          )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
@@ -1124,10 +1047,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </fig>
           """
         graphic2 = ""
-        fp = io.BytesIO(
-              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-          )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
@@ -1148,10 +1068,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </fig>
           """
         graphic2 = ""
-        fp = io.BytesIO(
-              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-          )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
@@ -1172,10 +1089,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </fig>
           """
         graphic2 = ""
-        fp = io.BytesIO(
-              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-          )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
@@ -1196,10 +1110,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </fig>
           """
         graphic2 = ""
-        fp = io.BytesIO(
-              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-          )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img = html.xpath(
             '//div[@class="modal-body"]/img[@src="'
@@ -1225,10 +1136,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </fig>
           """
         graphic2 = ""
-        fp = io.BytesIO(
-              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-          )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img_tag = html.xpath(
             '//div[@class="modal-body"]/img[@src="'
@@ -1247,10 +1155,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
           </fig>
           """
         graphic2 = ""
-        fp = io.BytesIO(
-              self.sample.format(graphic1=graphic1, graphic2=graphic2).encode('utf-8')
-          )
-        et = etree.parse(fp)
+        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img_tag = html.xpath(
             '//div[@class="modal-body"]/img[@src="'
@@ -1258,3 +1163,72 @@ class HTMLGeneratorFigTests(unittest.TestCase):
             '"]'
         )
         self.assertTrue(len(img_tag) > 0)
+
+
+def get_html(filename, gs_abstract_lang):
+    et = get_xml_tree_from_file(filename)
+    return domain.HTMLGenerator.parse(
+      et, gs_abstract=True,
+      valid_only=False).generate(gs_abstract_lang)
+
+
+class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
+
+    def test_generate_html_for_en_abstract(self):
+        html = get_html(
+          "article-abstract-en-sub-articles-pt-es.xml", "en")
+        find_text = (
+          'the correlations between these two years were high in all th'
+          'e dimensions analyzed. The evaluation of competence progress'
+          'ion in the context of clinical practice in nursing universit'
+          'y studies allows us to optimize these practices to the maxim'
+          'um and establish professional profiles with a greater degree'
+          ' of adaptation to the professional future. '
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)
+
+    def test_generate_html_for_es_abstract_in_subarticle(self):
+        html = get_html(
+          "article-abstract-en-sub-articles-pt-es.xml", "es")
+        find_text = (
+          ' las correlaciones entre estos dos años fueron altas en toda'
+          's las dimensiones analizadas. La evaluación de la progresión'
+          ' de competencias, en el contexto de la práctica clínica, en '
+          'los estudios universitarios de enfermería, nos permite optim'
+          'izar estas prácticas al máximo y establecer perfiles profesi'
+          'onales con un mayor grado de adaptación al futuro profesiona'
+          'l.'
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)
+
+    def test_generate_html_for_pt_abstract_in_subarticle(self):
+        html = get_html(
+          "article-abstract-en-sub-articles-pt-es.xml", "pt")
+        find_text = (
+          'este estudo transversal descritivo foi realizado no contexto'
+          ' das disciplinas de prática clínica do curso de enfermagem. '
+          'O desenvolvimento de competências de 323 alunos foi analisad'
+          'o usando um questionário '
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)
+
+    def test_generate_html_for_pt_trans_abstract(self):
+        html = get_html(
+          "article-abstract-and-trans-abstract.xml", "pt")
+        find_text = (
+            'Estudo multicêntrico, transversal, que ocorreu entre 2008 e '
+            '2009 em 10 cidades brasileiras. Foram recrutados 3.746 homen'
+            's que fazem sexo com homens pela técnica amostral Respondent'
+            ' Driven Sampling. O conhecimento em HIV/Aids foi apurado a p'
+            'artir de dez afirmativas da entrevista realizada face a face'
+            ' e os escores foram obtidos utilizando o modelo logístico de'
+            ' dois parâmetros (discriminação e dificuldade) da Teoria de '
+            'Resposta ao Item. O funcionamento diferencial dos itens foi '
+            'verificado, analisando as curvas características dos itens p'
+            'ela idade e escolaridade.'
+        )
+        p_texts = [p.text for p in html.findall('//p')]
+        self.assertIn(find_text, p_texts)

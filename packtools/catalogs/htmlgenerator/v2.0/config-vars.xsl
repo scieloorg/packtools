@@ -7,6 +7,8 @@
     <xsl:param name="styles_css_path" />
     <xsl:param name="print_styles_css_path" />
     <xsl:param name="js_path" />
+    <!-- google scholar abstract -->
+    <xsl:param name="gs_abstract_lang" />
 
     <xsl:param name="permlink" />
     <xsl:param name="url_article_page" />
@@ -30,5 +32,7 @@
     <xsl:variable name="PRINT_CSS_PATH"><xsl:value-of select="$print_styles_css_path"/></xsl:variable>
     <xsl:variable name="CSS_PATH"><xsl:value-of select="$styles_css_path"/></xsl:variable>
     <xsl:variable name="JS_PATH"><xsl:value-of select="$js_path"/></xsl:variable>
+
+    
 
 </xsl:stylesheet>
