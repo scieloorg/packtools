@@ -1,10 +1,13 @@
 # History
 
 
+## 2.6.11 (2021-03-11)
+
+* Generate HTML for abstracts, one for file, for Google Scholar Indexing.
+
 ## 2.6.10 (2020-12-07)
 
 * Fix HTMLGenerator to show all the abstracts in each translated article page.
-
 
 ## 2.6.9 (2020-12-04)
 
