@@ -127,7 +127,7 @@ class XMLValidatorTests(unittest.TestCase):
         err_xml = xml.annotate_errors()
         xml_text = etree.tostring(err_xml)
 
-        self.assertIn(u"<!--SPS-ERROR: Element 'c': This element is not expected. Expected is ( b ).-->", xml_text.decode())
+        self.assertIn(u"<!-- SPS-ERROR: Element 'c': This element is not expected. Expected is ( b ). -->", xml_text.decode())
 
     def test_validation_schematron(self):
         fp = etree.parse(io.BytesIO(b'<Total><Percent>70</Percent><Percent>30</Percent></Total>'))
@@ -159,7 +159,7 @@ class XMLValidatorTests(unittest.TestCase):
         err_xml = xml.annotate_errors()
         xml_text = etree.tostring(err_xml)
 
-        self.assertIn(u"<!--SPS-ERROR: Element 'Total': Sum is not 100%.-->", xml_text.decode())
+        self.assertIn(u"<!-- SPS-ERROR: Element 'Total': Sum is not 100%. -->", xml_text.decode())
 
     def test_fails_without_doctype_declaration(self):
         fp = io.BytesIO(b'<a><b>bar</b></a>')
