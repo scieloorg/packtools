@@ -28,11 +28,13 @@
             </xsl:element>
         </div>
     </xsl:template>
-    <xsl:template match="table/* | table/*/* | table/*/*/*">
+
+    <xsl:template match="tr | td | th | col | colgroup | thead | tfoot | tbody">
         <xsl:element name="{name()}">
             <xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
         </xsl:element>
     </xsl:template>
+
     <xsl:template match="table-wrap/caption">
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
     </xsl:template>
