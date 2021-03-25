@@ -1,6 +1,13 @@
 # History
 
 
+## 2.6.12 (2021-03-25)
+
+* Workaround the presence of `--` in a XML comment. Inherent problem of SGML languages (#254)
+* Fix HTMLGenerator to transform `graphic` in `table` (#248)
+* Fix HTMLGenerator to transform `inline-graphic` in `xref` (#250)
+
+
 ## 2.6.11 (2021-03-11)
 
 * Generate HTML for abstracts, one for file, for Google Scholar Indexing.
