@@ -123,7 +123,8 @@
     <xsl:template match="xref[@ref-type='fn']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <span class="ref footnote">
-            <sup class="xref"><xsl:apply-templates select="sup|text()"></xsl:apply-templates></sup>
+            <!-- asterisco pode ser inclusive inline-graphic -->
+            <sup class="xref"><xsl:apply-templates select="*|text()"/></sup>
             <span class="refCtt closed">
                 <span class="refCttPadding">
                     <xsl:apply-templates select="$article//fn[@id=$id]" mode="xref"></xsl:apply-templates>
