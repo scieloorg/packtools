@@ -369,7 +369,10 @@ class XMLValidator(object):
         """
         notice_element = etree.Element('SPS-ERROR')
         notice_element.text = error
-        element.addprevious(etree.Comment('SPS-ERROR: %s' % error))
+        element.addprevious(
+            etree.Comment(
+                ' SPS-ERROR: %s ' % error.replace("--", "- -"))
+        )
 
     def annotate_errors(self, fail_fast=False):
         """Add notes on all elements that have errors.
