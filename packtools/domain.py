@@ -471,7 +471,7 @@ class HTMLGenerator(object):
     """
     def __init__(self, file, xslt=None, css=None, print_css=None, js=None,
                  permlink=None, url_article_page=None, url_download_ris=None,
-                 gs_abstract=None):
+                 gs_abstract=None, output_style=None):
         assert isinstance(file, etree._ElementTree)
 
         self.lxml = file
@@ -483,6 +483,7 @@ class HTMLGenerator(object):
         self.url_article_page = url_article_page
         self.url_download_ris = url_download_ris
         self.gs_abstract = gs_abstract
+        self.output_style = output_style
 
     @classmethod
     def parse(cls, file, valid_only=True, **kwargs):
@@ -608,4 +609,5 @@ class HTMLGenerator(object):
                 url_article_page=etree.XSLT.strparam(self.url_article_page or ''),
                 url_download_ris=etree.XSLT.strparam(self.url_download_ris or ''),
                 gs_abstract_lang=etree.XSLT.strparam(self.gs_abstract and lang or ''),
+                output_style=etree.XSLT.strparam(self.output_style or ''),
         )
