@@ -1,5 +1,8 @@
 # History
 
+## 2.7.0 (2021-03-31)
+
+* Generate HTML specially for the website (#258)
 
 ## 2.6.12 (2021-03-25)
 
