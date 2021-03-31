@@ -82,7 +82,14 @@
     </xsl:variable>
     
     <xsl:template match="/">
-        <xsl:apply-templates select="." mode="default"/>
+        <xsl:choose>
+            <xsl:when test="$output_style='website'">
+                <xsl:apply-templates select="." mode="website"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="default"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="/" mode="default">
