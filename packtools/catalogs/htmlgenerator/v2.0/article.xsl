@@ -80,7 +80,12 @@
     <xsl:variable name="q_abstract">
         <xsl:apply-templates select="article" mode="count_abstracts"/>
     </xsl:variable>
+    
     <xsl:template match="/">
+        <xsl:apply-templates select="." mode="default"/>
+    </xsl:template>
+
+    <xsl:template match="/" mode="default">
         <html class="no-js">
             <head>
                 <meta charset="utf-8"/>
