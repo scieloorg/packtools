@@ -15,6 +15,8 @@
     <xsl:param name="url_download_ris" />
     <xsl:param name="legendary"></xsl:param>
     <xsl:param name="abbr_contrib"></xsl:param>
+
+    <xsl:param name="output_style"/>
     
     <xsl:variable name="MATHJAX">https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML</xsl:variable>
     <xsl:variable name="ABBR_CONTRIB"><xsl:choose>

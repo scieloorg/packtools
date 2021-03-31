@@ -80,7 +80,19 @@
     <xsl:variable name="q_abstract">
         <xsl:apply-templates select="article" mode="count_abstracts"/>
     </xsl:variable>
+    
     <xsl:template match="/">
+        <xsl:choose>
+            <xsl:when test="$output_style='website'">
+                <xsl:apply-templates select="." mode="website"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="default"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="/" mode="default">
         <html class="no-js">
             <head>
                 <meta charset="utf-8"/>
@@ -92,22 +104,25 @@
             </head>
             <body class="journal article">
                 <a name="top"/>
-                <div id="standalonearticle">
-                    <!--
-                        este id='standalonearticle' é usado pelo opac para
-                        extrair o que interessa apresentar no site 
-                    -->
-                    <xsl:apply-templates select="." mode="article"/>
-                    <xsl:apply-templates select="." mode="article-modals"/>
-                </div>
+                <xsl:apply-templates select="." mode="website"/>
                 <!--
                     isso não fará parte do site,
-                    o site tem seus próprios 
+                    o site tem seus próprios
                 -->
                 <xsl:apply-templates select="." mode="graphic-elements-title"/>
                 <xsl:apply-templates select="." mode="js"/>
             </body>
         </html>
+    </xsl:template>
+    <xsl:template match="/" mode="website">
+        <div id="standalonearticle">
+            <!--
+                este id='standalonearticle' é usado pelo opac para
+                extrair o que interessa apresentar no site
+            -->
+            <xsl:apply-templates select="." mode="article"/>
+            <xsl:apply-templates select="." mode="article-modals"/>
+        </div>
     </xsl:template>
     <xsl:template match="/" mode="graphic-elements-title">
         <xsl:if test="$graphic_elements_title!=''">
