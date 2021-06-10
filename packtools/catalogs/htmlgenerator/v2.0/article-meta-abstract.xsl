@@ -3,10 +3,12 @@
     version="1.0">
 
     <xsl:template match="article" mode="article-meta-abstract">
-        <xsl:if test="$q_abstract &gt; 0 and $q_abstract_title &lt; $q_abstract">
-            <xsl:apply-templates select="." mode="abstract-anchor"></xsl:apply-templates>
+        <!-- apresenta todos os resumos que existir -->
+        <xsl:variable name="q" select="count(.//abstract[.//text()])+count(.//trans-abstract[.//text()])"/>
+        <xsl:if test="$q &gt; 0">
+            <xsl:apply-templates select="." mode="abstract-anchor"/>
+            <xsl:apply-templates select=".//abstract|.//trans-abstract" mode="layout"/>
         </xsl:if>
-        <xsl:apply-templates select=".//abstract|.//trans-abstract" mode="layout"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="article" mode="article-meta-no-abstract-keywords">
