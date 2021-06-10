@@ -12,6 +12,7 @@
     </xsl:template>
     
     <xsl:template match="article" mode="article-meta-no-abstract-keywords">
+        <!-- Apresenta keywords para artigos sem resumo -->
         <xsl:if test="not(.//abstract)">
             <xsl:choose>
                 <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//kwd-group">
