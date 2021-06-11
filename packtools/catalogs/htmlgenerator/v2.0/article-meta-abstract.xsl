@@ -65,16 +65,30 @@
             <xsl:apply-templates select="*[name()!='title']"/>
 
             <!-- Apresenta as palavras-chave no idioma correspondente -->
-            <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"></xsl:apply-templates>
-            <xsl:if test="not(../kwd-group[@xml:lang=$lang])">
-                <xsl:apply-templates select="../kwd-group[1]" mode="keywords"/>
-            </xsl:if>
+            <xsl:apply-templates select="." mode="keywords"/>
         </div>
         <xsl:if test="not(title)">
         <hr/>
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="abstract[not(@xml:lang)] | trans-abstract[not(@xml:lang)]" mode="keywords">
+        <!-- apresenta as palavras-chaves no idioma de article/@xml:lang ou sub-article/@xml:lang -->
+        <xsl:variable name="lang">
+            <xsl:choose>
+                <xsl:when test="../../@xml:lang"><xsl:value-of select="../../@xml:lang"/></xsl:when>
+                <xsl:when test="../../../@xml:lang"><xsl:value-of select="../../../@xml:lang"/></xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"/>
+    </xsl:template>
+
+    <xsl:template match="abstract[@xml:lang] | trans-abstract[@xml:lang]" mode="keywords">
+        <!-- apresenta as palavras-chaves no idioma correspondente -->
+        <xsl:variable name="lang" select="@xml:lang"/>
+        <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"/>
+    </xsl:template>
+
     <xsl:template match="abstract[not(title)] | trans-abstract[not(title)]" mode="anchor-and-title">
     </xsl:template>
 
