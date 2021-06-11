@@ -25,7 +25,6 @@
         </xsl:if>
     </xsl:template>
 
-
     <xsl:template match="*" mode="create-anchor-and-title-for-abstracts-without-title">
         <xsl:variable name="q_titles" select="count(.//abstract[title])+count(.//trans-abstract[title])"/>
         <xsl:if test="$q_titles = 0">
@@ -59,21 +58,13 @@
         <xsl:variable name="lang" select="@xml:lang"/>
         <xsl:variable name="index"><xsl:apply-templates select="..//*[contains(name(),'abstract') and title]" mode="index"><xsl:with-param name="lang" select="$lang"></xsl:with-param></xsl:apply-templates></xsl:variable>
         <div>
-            <xsl:if test="title">
-                <xsl:attribute name="class">articleSection</xsl:attribute>
-                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
-            </xsl:if>
-            <xsl:if test="@xml:lang='ar'">
-                <xsl:attribute name="dir">rtl</xsl:attribute>
-            </xsl:if>
-                
-            <xsl:if test="title">
-                <h1>
-                    <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
-                    <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
-                </h1>
-            </xsl:if>
+            <!-- Apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
+            <xsl:apply-templates select="." mode="anchor-and-title"/>
+
+            <!-- Apresenta os demais elementos do resumo -->
             <xsl:apply-templates select="*[name()!='title']"/>
+
+            <!-- Apresenta as palavras-chave no idioma correspondente -->
             <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"></xsl:apply-templates>
             <xsl:if test="not(../kwd-group[@xml:lang=$lang])">
                 <xsl:apply-templates select="../kwd-group[1]" mode="keywords"/>
@@ -84,6 +75,26 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="abstract[not(title)] | trans-abstract[not(title)]" mode="anchor-and-title">
+    </xsl:template>
+
+    <xsl:template match="abstract[title] | trans-abstract[title]" mode="anchor-and-title">
+        <!-- Apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
+
+        <!-- âncora -->
+        <xsl:attribute name="class">articleSection</xsl:attribute>
+        <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+        <xsl:if test="@xml:lang='ar'">
+            <xsl:attribute name="dir">rtl</xsl:attribute>
+        </xsl:if>
+
+        <!-- título -->
+        <h1>
+            <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
+            <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
+        </h1>
+    </xsl:template>
+
     <xsl:template match="abstract/title | trans-abstract/title">
         <xsl:apply-templates select="*|text()"/>
     </xsl:template>
