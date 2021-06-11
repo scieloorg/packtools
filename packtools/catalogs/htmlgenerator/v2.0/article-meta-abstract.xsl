@@ -65,7 +65,9 @@
             <xsl:apply-templates select="*[name()!='title']"/>
 
             <!-- Apresenta as palavras-chave no idioma correspondente -->
-            <xsl:apply-templates select="." mode="keywords"/>
+            <xsl:if test="not(@abstract-type) or @abstract-type!='key-points'">
+                <xsl:apply-templates select="." mode="keywords"/>
+            </xsl:if>
         </div>
         <xsl:if test="not(title)">
         <hr/>
