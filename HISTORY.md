@@ -1,5 +1,9 @@
 # History
 
+## 2.7.1 (2021-06-14)
+
+* Fix abstracts (#265)
+
 ## 2.7.0 (2021-03-31)
 
 * Generate HTML specially for the website (#258)
