@@ -63,8 +63,8 @@ setup(
     long_description_content_type="text/markdown",
     author="SciELO",
     author_email="scielo-dev@googlegroups.com",
-    maintainer="Gustavo Fonseca",
-    maintainer_email="gustavo.fonseca@scielo.org",
+    maintainer="SciELO Team",
+    maintainer_email="scielo-dev@googlegroups.com",
     license="BSD License",
     url="http://docs.scielo.org",
     packages=setuptools.find_packages(
