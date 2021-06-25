@@ -18,24 +18,24 @@
     <xsl:template match="list">
         <xsl:param name="position"></xsl:param>
         <xsl:choose>
-            <xsl:when test="@list-type!='bullet'">
-                <ol>
-                    <xsl:apply-templates select="@*|*">
-                        <xsl:with-param name="position" select="position()"></xsl:with-param>
-                    </xsl:apply-templates>
-                </ol>
-            </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="@list-type='bullet'">
                 <ul>
                     <xsl:apply-templates select="@*|*">
                         <xsl:with-param name="position" select="position()"></xsl:with-param>
                     </xsl:apply-templates>
                 </ul>
+            </xsl:when>
+            <xsl:otherwise>
+                <ol>
+                    <xsl:apply-templates select="@*|*">
+                        <xsl:with-param name="position" select="position()"></xsl:with-param>
+                    </xsl:apply-templates>
+                </ol>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="@list-type">
+    <xsl:template match="@list-type[.!='bullet']">
         <!-- 1|a|A|i|I -->
         <xsl:attribute name="type">
             <xsl:choose>
