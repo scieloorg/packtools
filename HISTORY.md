@@ -1,5 +1,10 @@
 # History
 
+## 2.7.2 (2021-06-28)
+
+* Considere there are more allowed children elements of `xref` (#267)
+
+
 ## 2.7.1 (2021-06-14)
 
 * Fix abstracts (#265)

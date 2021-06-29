@@ -42,7 +42,7 @@
         <span class="ref">
             <xsl:element name="{$elem}">
                 <xsl:attribute name="class">xref xrefblue</xsl:attribute>
-                <xsl:apply-templates select="sup|text()"></xsl:apply-templates>
+                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
             </xsl:element>
             <span class="refCtt closed">
                 <xsl:choose>
