@@ -176,7 +176,7 @@ class ResolveSchematronFilepathTests(unittest.TestCase):
                 lambda: utils.resolve_schematron_filepath(None))
 
     def test_non_existing_builtin(self):
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                 lambda: utils.resolve_schematron_filepath('@notexists'))
 
     def test_existing_filepath(self):
@@ -185,7 +185,7 @@ class ResolveSchematronFilepathTests(unittest.TestCase):
 
     def test_non_existing_filepath(self):
         path = list(self.sch_schemas.values())[0] + '.notexists'
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                 lambda: utils.resolve_schematron_filepath(path))
 
 
@@ -503,18 +503,19 @@ class TestXMLWebOptimiser(unittest.TestCase):
             return fp.read()
 
     def test_get_all_graphic_images_from_xml(self):
-        expected = {
+        expected = sorted([
             "1234-5678-rctb-45-05-0110-e01.tif",
             "1234-5678-rctb-45-05-0110-e02.tiff",
             "1234-5678-rctb-45-05-0110-gf03.tiff",
             "1234-5678-rctb-45-05-0110-gf03.png",
             "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
             "1234-5678-rctb-45-05-0110-e04.tif",
-        }
+        ])
         result = self.xml_web_optimiser._get_all_graphic_images_from_xml(
             self.image_filenames
         )
-        for graphic_filename, expected_filename in zip(result, expected):
+
+        for graphic_filename, expected_filename in zip(sorted(result), expected):
             self.assertEqual(graphic_filename, expected_filename)
 
     def test_create_XMLWebOptimiser(self):
@@ -717,18 +718,18 @@ class TestXMLWebOptimiserGraphicsWithNoFileExtention(unittest.TestCase):
             return fp.read()
 
     def test_get_all_graphic_images_from_xml(self):
-        expected = {
+        expected = sorted([
             "1234-5678-rctb-45-05-0110-e01.tif",
             "1234-5678-rctb-45-05-0110-e02.tiff",
             "1234-5678-rctb-45-05-0110-gf03.tiff",
             "1234-5678-rctb-45-05-0110-gf03.png",
             "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
             "1234-5678-rctb-45-05-0110-e04.tif",
-        }
+        ])
         result = self.xml_web_optimiser._get_all_graphic_images_from_xml(
             self.image_filenames
         )
-        for graphic_filename, expected_filename in zip(result, expected):
+        for graphic_filename, expected_filename in zip(sorted(result), expected):
             self.assertEqual(graphic_filename, expected_filename)
 
     def test_get_all_images_to_optimise(self):
@@ -826,15 +827,15 @@ class TestXMLWebOptimiserValidations(unittest.TestCase):
         result = xml_web_optimiser._get_all_graphic_images_from_xml(
             self.image_filenames
         )
-        expected = {
+        expected = sorted([
             "1234-5678-rctb-45-05-0110-e01.jpg",
             "1234-5678-rctb-45-05-0110-e02.gif",
             "1234-5678-rctb-45-05-0110-gf03.tiff",
             "1234-5678-rctb-45-05-0110-gf03.png",
             "1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg",
             "1234-5678-rctb-45-05-0110-e04.tif",
-        }
-        for graphic_filename, expected_filename in zip(result, expected):
+        ])
+        for graphic_filename, expected_filename in zip(sorted(result), expected):
             self.assertEqual(graphic_filename, expected_filename)
 
     def test_get_all_images_to_optimise_does_not_return_optimised_images(self):
