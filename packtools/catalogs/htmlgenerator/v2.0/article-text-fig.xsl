@@ -10,7 +10,7 @@
         <!--
         Cria a miniatura no texto completo, que ao ser clicada mostra a figura
         ampliada
-        --> 
+        -->
         <xsl:variable name="location">
             <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"/>
         </xsl:variable>
@@ -27,14 +27,15 @@
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location != ''">
-                                <xsl:attribute name="class">thumb</xsl:attribute>
-                                <xsl:attribute name="style">background-image: url(<xsl:value-of select="$location"/>);</xsl:attribute>
+                                <xsl:attribute name="class">thumbImg</xsl:attribute>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:attribute name="class">thumbOff</xsl:attribute>
                             </xsl:otherwise>
                         </xsl:choose>
-                        Thumbnail
+                        <img>
+                            <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                        </img>
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
                     </div>
                 </a>
