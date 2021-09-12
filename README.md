@@ -45,7 +45,27 @@ and an HTML previewer is provided:
 ```bash
 $ pip install packtools[webapp]
 ```
+## Tests
 
+To run tests execute:
+
+```bash
+python setup.py test
+```
+
+To run a specific module of tests, type:
+
+```bash
+python setup.py test -s tests.test_htmlgenerator
+```
+
+## Command line execute
+
+```bash
+htmlgenerator example.xml --loglevel=error --nochecks --nonetwork
+```
+
+It will generate the result in the same path of the .xml file.
 
 ## Running the web application
 
