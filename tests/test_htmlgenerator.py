@@ -724,7 +724,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
-            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.thumbnail.jpg);"]'
+            'div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -774,7 +774,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
-            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.jpg);"]'
+            'div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -926,7 +926,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
-            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.thumbnail.jpg);"]'
+            'div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0
           )
@@ -978,7 +978,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
-            'div[@class="thumb" and @style="background-image: url(1234-5678-rctb-45-05-0110-e01.jpg);"]'
+            'div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -1029,10 +1029,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
-            '//div[@class="thumb" and @style="background-image: url('
-            'https://minio.scielo.br/documentstore/1678-992X/'
-            'Wfy9dhFgfVFZgBbxg4WGVQM/a.jpg'
-            ');"]'
+            '//div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -1051,9 +1048,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
-            '//div[@class="thumb" and @style="background-image: url('
-            '1234-5678-rctb-45-05-0110-e01.png'
-            ');"]'
+            '//div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -1072,9 +1067,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
-            '//div[@class="thumb" and @style="background-image: url('
-            '1234-5678-rctb-45-05-0110-e01.jpg'
-            ');"]'
+            '//div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -1093,9 +1086,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
-            '//div[@class="thumb" and @style="background-image: url('
-            '1234-5678-rctb-45-05-0110-e01.jpg'
-            ');"]'
+            '//div[@class="thumbImg"]/img'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
