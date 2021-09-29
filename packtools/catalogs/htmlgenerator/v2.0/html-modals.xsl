@@ -339,8 +339,9 @@
                 <div>
                     <xsl:choose>
                         <xsl:when test="$location != ''">
-                            <xsl:attribute name="class">thumb</xsl:attribute>
-                            <xsl:attribute name="style">background-image: url(<xsl:value-of select="$location"/>);</xsl:attribute>
+                            <img>
+                                <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                            </img>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:attribute name="class">thumbOff</xsl:attribute>
@@ -435,8 +436,9 @@
                 <div>
                     <xsl:choose>
                         <xsl:when test="graphic">
-                            <xsl:attribute name="class">thumb</xsl:attribute>
-                            <xsl:attribute name="style">background-image: url(<xsl:value-of select="$location"/>);</xsl:attribute>
+                            <img>
+                                <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                            </img>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:attribute name="class">thumbOff</xsl:attribute>
