@@ -21,7 +21,7 @@
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     <xsl:include href="article-meta-product.xsl"/>
-    <xsl:include href="article-meta-related-article.xsl"/>
+    <!-- <xsl:include href="article-meta-related-article.xsl"/> -->
 
     <xsl:include href="generic-history.xsl"/>
     <xsl:include href="generic-pub-date.xsl"/>
@@ -80,7 +80,7 @@
     <xsl:variable name="q_abstract">
         <xsl:apply-templates select="article" mode="count_abstracts"/>
     </xsl:variable>
-    
+
     <xsl:template match="/">
         <xsl:choose>
             <xsl:when test="$output_style='website'">
@@ -211,7 +211,6 @@
                     <div class="articleMeta">
                     </div>
                     <xsl:apply-templates select="." mode="article-meta-contrib"/>
-                    
                     <xsl:apply-templates select="." mode="article-or-abstract"/>
                 </div>
             </div>

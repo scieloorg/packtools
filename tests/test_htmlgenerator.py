@@ -406,6 +406,7 @@ class HTMLGeneratorTests(unittest.TestCase):
       self.assertIn('<strong>Aceito</strong><br>14 Jan 2019</li>', html_string)
       self.assertIn('<strong>Publicado</strong><br>31 Maio 2019</li>', html_string)
 
+    @unittest.skip("""A caixa de retratação está sendo gerada pela aplicação, caso deseje que seja gerado pelo XSLT descomentar a linha 24 do arquivo article.xsl""")
     def test_show_retraction_box_if_article_is_an_retraction(self):
       sample = u"""<article article-type="retraction" dtd-version="1.1"
         specific-use="sps-1.8" xml:lang="pt"
@@ -430,6 +431,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         html_string
       )
 
+    @unittest.skip("""A caixa de retratação está sendo gerada pela aplicação, caso deseje que seja gerado pelo XSLT descomentar a linha 24 do arquivo article.xsl""")
     def test_should_translate_retraction_to_english(self):
       sample = u"""<article article-type="retraction" dtd-version="1.1"
         specific-use="sps-1.8" xml:lang="en"
@@ -449,7 +451,9 @@ class HTMLGeneratorTests(unittest.TestCase):
 
       self.assertIn(u'This retraction retracts the following document', html_string)
 
+    @unittest.skip("""A caixa de retratação está sendo gerada pela aplicação, caso deseje que seja gerado pelo XSLT descomentar a linha 24 do arquivo article.xsl""")
     def test_do_not_show_retraction_box_if_article_is_not_a_retraction(self):
+
         sample = u"""<article article-type="research-article" dtd-version="1.1"
           specific-use="sps-1.8" xml:lang="pt"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
@@ -469,7 +473,9 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         self.assertNotIn(u'This retraction retracts the following document', html_string)
 
+    @unittest.skip("""A caixa de retratação está sendo gerada pela aplicação, caso deseje que seja gerado pelo XSLT descomentar a linha 24 do arquivo article.xsl""")
     def test_show_retraction_box_if_article_is_an_partial_retraction(self):
+
       sample = u"""<article article-type="partial-retraction" dtd-version="1.1"
         specific-use="sps-1.8" xml:lang="pt"
         xmlns:mml="http://www.w3.org/1998/Math/MathML"
@@ -493,6 +499,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         html_string
       )
 
+    @unittest.skip("""A caixa de retratação está sendo gerada pela aplicação, caso deseje que seja gerado pelo XSLT descomentar a linha 24 do arquivo article.xsl""")
     def test_presents_link_to_retreted_document_using_pid(self):
       sample = u"""<article article-type="partial-retraction" dtd-version="1.1"
         specific-use="sps-1.8" xml:lang="pt"
@@ -517,6 +524,7 @@ class HTMLGeneratorTests(unittest.TestCase):
         html_string
       )
 
+    @unittest.skip("""A caixa de retratação está sendo gerada pela aplicação, caso deseje que seja gerado pelo XSLT descomentar a linha 24 do arquivo article.xsl""")
     def test_presents_link_to_retreted_document_using_aid(self):
       sample = u"""<article article-type="partial-retraction" dtd-version="1.1"
         specific-use="sps-1.8" xml:lang="pt"
