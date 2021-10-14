@@ -203,7 +203,7 @@
                 <div class="articleTxt">
                     <xsl:apply-templates select="." mode="articleBadge-editionMeta-doi-copyLink"/>
 
-                    <xsl:apply-templates select="." mode="article-meta-related-article"/>
+                    <!-- <xsl:apply-templates select="." mode="article-meta-related-article"/> -->
 
                     <xsl:apply-templates select="." mode="article-title"/>
 
