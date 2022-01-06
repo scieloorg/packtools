@@ -23,7 +23,8 @@
         <div class="row fig" id="{$figid}">
             <a name="{$figid}"></a>
             <div class="col-md-4 col-sm-4">
-                <a href="" data-toggle="modal" data-target="#ModalFig{$figid}">
+                <!-- <a href="" data-toggle="modal" data-target="#ModalFig{$figid}"> -->
+                    <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location != ''">
@@ -38,7 +39,7 @@
                         </img>
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
                     </div>
-                </a>
+                <!-- </a> -->
             </div>
             <div class="col-md-8 col-sm-8">
                 <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>

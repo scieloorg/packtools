@@ -12,16 +12,22 @@
 
         <xsl:choose>
             <xsl:when test="$ext='.svg'">
-                <object type="image/svg+xml">
-                    <xsl:attribute name="style">max-width:100%</xsl:attribute>
-                    <xsl:attribute name="data"><xsl:value-of select="$location"/></xsl:attribute>
-                </object>
+                <a>
+                    <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
+                    <object type="image/svg+xml">
+                        <xsl:attribute name="style">max-width:100%</xsl:attribute>
+                        <xsl:attribute name="data"><xsl:value-of select="$location"/></xsl:attribute>
+                    </object>
+                </a>
             </xsl:when>
             <xsl:otherwise>
-                <img>
-                    <xsl:attribute name="style">max-width:100%</xsl:attribute>
-                    <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
-                </img>
+                <a>
+                    <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
+                    <img>
+                        <xsl:attribute name="style">max-width:100%</xsl:attribute>
+                        <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                    </img>
+                </a>
             </xsl:otherwise>
         </xsl:choose>
         <!--
