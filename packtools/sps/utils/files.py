@@ -194,3 +194,15 @@ def extract_issn_from_zip_uri(zip_uri):
     match = re.search(r'.*/ingress/packages/(\d{4}-\d{4})/.*.zip', zip_uri)
     if match:
         return match.group(1)
+
+
+def is_valid_file(file_path, check_mimetype=False):
+    if os.path.exists(file_path):
+        if check_mimetype:
+            if get_mimetype(file_path) not in ('text/plain', 'application/xml'):
+                return False
+
+        return True
+
+    return False
+
