@@ -40,11 +40,25 @@
                 <span class="sci-ico-newWindow"></span></a -->
             <h4 class="modal-title">
                 <span class="sci-ico-fileTable"></span>
-                <xsl:apply-templates select="." mode="label-caption"/>
+                <xsl:apply-templates select="." mode="modal-header-label-caption"/>
             </h4>
         </div>
     </xsl:template>
     
+    <xsl:template match="table-wrap-group[@id]" mode="modal-header-label-caption">
+        <!--
+        Template para os títulos da tabela
+        -->
+        <xsl:apply-templates select="table-wrap" mode="modal-header-label-caption"/>
+    </xsl:template>
+
+    <xsl:template match="table-wrap" mode="modal-header-label-caption">
+        <!--
+        Template para o título da tabela
+        -->
+        <xsl:apply-templates select="." mode="label-caption"/><br/>
+    </xsl:template>
+
     <xsl:template match="table-wrap-group[@id]" mode="modal-body-and-footer">
         <xsl:apply-templates select="table-wrap" mode="modal-body-and-footer"/>
     </xsl:template>
