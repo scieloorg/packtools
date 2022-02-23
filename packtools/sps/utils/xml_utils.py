@@ -245,3 +245,53 @@ VALIDATE_FUNCTIONS = dict((
     ("scielo_pid_v2", is_valid_value_for_pid_v2),
 ))
 
+
+def is_allowed_to_update(xml_sps, attr_name, attr_new_value):
+    """
+    Se há uma função de validação associada com o atributo,
+    verificar se é permitido atualizar o atributo, dados seus valores
+    atual e/ou novo
+    """
+    validate_function = VALIDATE_FUNCTIONS.get(attr_name)
+    if validate_function is None:
+        # não há nenhuma validação, então é permitido fazer a atualização
+        return True
+
+    curr_value = getattr(xml_sps, attr_name)
+
+    if attr_new_value == curr_value:
+        # desnecessario atualizar
+        return False
+
+    try:
+        # valida o valor atual do atributo
+        validate_function(curr_value)
+
+    except (ValueError, exceptions.InvalidValueForOrderError):
+        # o valor atual do atributo é inválido,
+        # então continuar para verificar o valor "novo"
+        pass
+
+    else:
+        # o valor atual do atributo é válido,
+        # então não permitir atualização
+        raise exceptions.NotAllowedtoChangeAttributeValueError(
+            "Not allowed to update %s (%s) with %s, "
+            "because current is valid" %
+            (attr_name, curr_value, attr_new_value))
+
+    try:
+        # valida o valor novo para o atributo
+        validate_function(attr_new_value)
+
+    except (ValueError, exceptions.InvalidValueForOrderError):
+        # o valor novo é inválido, então não permitir atualização
+        raise exceptions.InvalidAttributeValueError(
+            "Not allowed to update %s (%s) with %s, "
+            "because new value is invalid" %
+            (attr_name, curr_value, attr_new_value))
+
+    else:
+        # o valor novo é válido, então não permitir atualização
+        return True
+
