@@ -5,8 +5,10 @@ from packtools.sps.utils import file_utils
 from zipfile import ZipFile
 
 
-class Package:
+logger = logging.getLogger(__name__)
 
+
+class Package:
     def __init__(self, source, name):
         self._source = source
         self._xml = None
