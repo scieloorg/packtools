@@ -26,3 +26,30 @@ def make_package_from_paths(paths, zip_folder=None):
 
     return package_metadata
 
+
+def make_package_from_uris(xml_uri, renditions_uris_and_names=[], zip_folder=None):
+    package_metadata = {}
+
+    try:
+        sps_package = _get_xml_sps_from_uri(xml_uri)
+    except exceptions.SPSDownloadXMLError:
+        raise
+
+    # guarda uri e nome de renditions em dicionário package
+    package_metadata['renditions'] = renditions_uris_and_names
+
+    # extra uri e nome de todos os assets registrados no XML
+    package_metadata['assets'] = _get_assets_uris_and_names(sps_package)
+
+    # extrai uri e nome do xml
+    package_metadata['xml'] = _get_xml_uri_and_name(sps_package, xml_uri)
+
+    # reúne todos os uris e nomes associados ao XML
+    uris_and_names = [package_metadata['xml']] + package_metadata['assets'] + package_metadata['renditions']
+
+    zip_filename = _get_zip_filename(sps_package)
+
+    # cria um arquivo ZIP temporário com os arquivos das uris baixados
+    package_metadata['temp-zipfile'] = _zip_files_from_uris_and_names(zip_filename, uris_and_names, zip_folder)
+
+    return package_metadata
