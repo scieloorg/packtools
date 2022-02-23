@@ -915,12 +915,6 @@ class SPS_Asset:
 #         return True
 
 
-def is_valid_value_for_pid_v2(value):
-    if len(value or "") != 23:
-        raise ValueError
-    return True
-
-
 # def is_valid_value_for_language(value):
 #     if len(value or "") != 2:
 #         raise ValueError
@@ -947,14 +941,6 @@ def is_valid_value_for_pid_v2(value):
 #             f"Expected dict which keys are 'epub' and/or 'ppub'. Found {issns_dict}")
 #     return True
 
-
-VALIDATE_FUNCTIONS = dict((
-#    ("article_id_which_id_type_is_other", is_valid_value_for_order),
-    ("scielo_pid_v2", is_valid_value_for_pid_v2),
-    # ("aop_pid", is_valid_value_for_pid_v2),
-    # ("original_language", is_valid_value_for_language),
-    # ("issns", is_valid_value_for_issns),
-))
 
 
 def _is_allowed_to_update(xml_sps, attr_name, attr_new_value):
