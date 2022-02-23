@@ -817,10 +817,12 @@ class SPS_Asset:
 
     @property
     def suffix(self):
+        parent_node_id = self._parent_node_with_id.get('id') if self._parent_node_with_id else ''
+
         if self.content_type:
-            alternative_id = f"-{self.content_type}"
+            alternative_id = f"{parent_node_id}-{self.content_type}"
         else:
-            alternative_id = self.id or ""
+            alternative_id = parent_node_id or self.id
         return f"-{self.type}{alternative_id}"
 
     @property
