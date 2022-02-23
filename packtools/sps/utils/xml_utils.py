@@ -10,8 +10,6 @@ from packtools.sps.utils import file_utils
 logger = logging.getLogger(__name__)
 
 
-class LoadToXMLError(Exception):
-    ...
 
 
 def fix_xml(xml_str):
