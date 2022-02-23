@@ -110,3 +110,9 @@ def _get_zip_filename(xml_sps, output=None):
     else:
         return output
 
+
+def _zip_files_from_uris_and_names(zip_name, uris_and_names, zip_folder=None):
+    uris_and_names = _remove_invalid_uris(uris_and_names)
+    downloaded_files = async_download.download_files(uris_and_names)
+    return file_utils.create_zip_file(downloaded_files, zip_name, zip_folder)
+
