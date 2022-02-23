@@ -922,6 +922,7 @@ class TestSPS_Assets(TestCase):
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-gf01.tif",
                 "node": nodes[0],
+                "uri": '',
                 "tag": "fig",
                 "id": "f01",
                 "content_type": "",
@@ -931,6 +932,7 @@ class TestSPS_Assets(TestCase):
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-gf01.jpg",
                 "node": nodes[1],
+                "uri": '',
                 "tag": "fig",
                 "id": "f01",
                 "content_type": "",
@@ -940,6 +942,7 @@ class TestSPS_Assets(TestCase):
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-gf01.png",
                 "node": nodes[2],
+                "uri": '',
                 "tag": "fig",
                 "id": "f01",
                 "content_type": "",
@@ -949,7 +952,7 @@ class TestSPS_Assets(TestCase):
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertEqual(item["xlink_href"], result[i].uri)
+                self.assertEqual(item["uri"], result[i].uri)
                 self.assertEqual(item["xlink_href"], result[i].filename)
                 self.assertEqual(item["xlink_href"], result[i].xlink_href)
                 self.assertEqual(item["tag"], result[i].tag)
@@ -987,6 +990,7 @@ class TestSPS_Assets(TestCase):
             )
         expected = [
             {
+                "uri": "",
                 "xlink_href": "2318-0889-tinf-33-e200025-gf01.tif",
                 "node": nodes[0],
                 "tag": "fig",
@@ -996,6 +1000,7 @@ class TestSPS_Assets(TestCase):
                 "ext": ".tif",
             },
             {
+                "uri": "",
                 "xlink_href": "2318-0889-tinf-33-e200025-gf02.tif",
                 "node": nodes[1],
                 "tag": "fig",
@@ -1007,7 +1012,7 @@ class TestSPS_Assets(TestCase):
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertEqual(item["xlink_href"], result[i].uri)
+                self.assertEqual(item["uri"], result[i].uri)
                 self.assertEqual(item["xlink_href"], result[i].filename)
                 self.assertEqual(item["xlink_href"], result[i].xlink_href)
                 self.assertEqual(item["tag"], result[i].tag)
@@ -1038,6 +1043,7 @@ class TestSPS_Assets(TestCase):
         expected = [
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-gt01.tif",
+                "uri": '',
                 "node": nodes[0],
                 "tag": "table-wrap",
                 "id": "t01",
@@ -1046,7 +1052,7 @@ class TestSPS_Assets(TestCase):
                 "ext": ".tif",
             },
         ]
-        self.assertEqual(expected[0]["xlink_href"], result[0].uri)
+        self.assertEqual(expected[0]["uri"], result[0].uri)
         self.assertEqual(expected[0]["xlink_href"], result[0].filename)
         self.assertEqual(expected[0]["xlink_href"], result[0].xlink_href)
         self.assertEqual(expected[0]["tag"], result[0].tag)
