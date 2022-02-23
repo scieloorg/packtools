@@ -2,7 +2,11 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
-    <xsl:template match="table-wrap" mode="modal">
+    <xsl:template match="table-wrap" mode="modal"/>
+    <xsl:template match="table-wrap" mode="modal-header"/>
+    <xsl:template match="table-wrap" mode="modal-body-and-footer"/>
+    
+    <xsl:template match="table-wrap[@id] | table-wrap-group[@id]" mode="modal">
         <div class="modal fade ModalTables" id="ModalTable{@id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -14,8 +18,8 @@
             </div>
         </div>
     </xsl:template>
-    
-    <xsl:template match="table-wrap" mode="modal-header">
+
+    <xsl:template match="table-wrap[@id] | table-wrap-group[@id]" mode="modal-header">
         <!--
         Template para criar a área do título da tabela
         -->
@@ -34,13 +38,20 @@
                     <xsl:with-param name="text">Open new window</xsl:with-param>
                 </xsl:apply-templates></xsl:attribute>
                 <span class="sci-ico-newWindow"></span></a -->
-            <h4 class="modal-title"><span class="sci-ico-fileTable"></span> <xsl:apply-templates select="." mode="label-caption"/></h4>
+            <h4 class="modal-title">
+                <span class="sci-ico-fileTable"></span>
+                <xsl:apply-templates select="." mode="label-caption"/>
+            </h4>
         </div>
     </xsl:template>
     
-    <xsl:template match="table-wrap" mode="modal-body-and-footer">
+    <xsl:template match="table-wrap-group[@id]" mode="modal-body-and-footer">
+        <xsl:apply-templates select="table-wrap" mode="modal-body-and-footer"/>
+    </xsl:template>
+    
+    <xsl:template match="table-wrap[table] | table-wrap[graphic] | table-wrap[alternatives]" mode="modal-body-and-footer">
         <!--
-        Template para criar a área do corpo da tabela
+        Template para criar a área do corpo e nota de rodapé da tabela
         -->
         <div class="modal-body">
             <xsl:choose>
@@ -48,7 +59,7 @@
                     <xsl:apply-templates select="table"/>
                 </xsl:when>
                 <xsl:when test="graphic">
-                    <xsl:apply-templates select="graphic"></xsl:apply-templates>
+                    <xsl:apply-templates select="graphic"/>
                 </xsl:when>
                 <xsl:when test="alternatives">
                     <xsl:apply-templates select="alternatives"/>
