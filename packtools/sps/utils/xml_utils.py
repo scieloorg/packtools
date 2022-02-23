@@ -210,3 +210,14 @@ def extract_number_and_supplment_from_issue_element(issue):
             return splitted[0], splitted[2]
     # match ????
     return "".join(splitted), None
+
+
+def parse_value(value):
+    value = value.lower()
+    if value.isdigit():
+        return value.zfill(2)
+    if "spe" in value:
+        return "spe"
+    if "sup" in value:
+        return "s"
+    return value

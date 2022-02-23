@@ -903,20 +903,6 @@ class SPS_Asset:
 # Funções
 
 
-
-
-
-def parse_value(value):
-    value = value.lower()
-    if value.isdigit():
-        return value.zfill(2)
-    if "spe" in value:
-        return "spe"
-    if "sup" in value:
-        return "s"
-    return value
-
-
 def parse_issue(issue):
     issue = " ".join([item for item in issue.split()])
     parts = issue.split()
