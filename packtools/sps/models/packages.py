@@ -15,14 +15,14 @@ class Package:
         self._assets = {}
         self._renditions = {}
         self._name = name
-        self.zip_file_path = is_zipfile(source) and source
+        self.zip_file_path = file_utils.is_zipfile(source) and source
 
     @property
     def name(self):
         return self._name
 
     def file_path(self, file_path):
-        if is_folder(self._source):
+        if file_utils.is_folder(self._source):
             return os.path.join(self._source, file_path)
         return file_path
 
@@ -75,7 +75,7 @@ class Package:
 
     @property
     def xml_content(self):
-        if is_folder(self._source):
+        if file_utils.is_folder(self._source):
             with open(self.xml, "rb") as fp:
                 return fp.read()
         with ZipFile(self._source) as zf:
@@ -154,11 +154,11 @@ def _explore_folder(folder):
     -------
     dict
     """
-    if is_folder(folder):
+    if file_utils.is_folder(folder):
         data = _group_files_by_xml_filename(
             folder,
-            xml_files_list(folder),
-            files_list(folder),
+            file_utils.xml_files_list(folder),
+            file_utils.files_list(folder),
         )
         return data
 
@@ -177,12 +177,12 @@ def _explore_zipfile(zip_path):
     -------
     dict
     """
-    if is_zipfile(zip_path):
+    if file_utils.is_zipfile(zip_path):
         with ZipFile(zip_path, 'r'):
             data = _group_files_by_xml_filename(
                 zip_path,
-                xml_files_list_from_zipfile(zip_path),
-                files_list_from_zipfile(zip_path),
+                file_utils.xml_files_list_from_zipfile(zip_path),
+                file_utils.files_list_from_zipfile(zip_path),
             )
             return data
 
