@@ -609,16 +609,6 @@ class TestSPS_Package(TestCase):
         result = self.xml_sps.order
         self.assertEqual(expected, result)
 
-#     def test__get_scielo_pid(self, specific_use):
-#         expected = None
-#         result = self.xml_sps.xxx
-#         self.assertEqual(expected, result)
-
-#     def test__set_scielo_pid(self, attr_value, specific_use, value):
-#         expected = None
-#         result = self.xml_sps.xxx
-#         self.assertEqual(expected, result)
-
     def test_scielo_pid_v1(self):
         expected = None
         result = self.xml_sps.scielo_pid_v1
@@ -864,11 +854,6 @@ class Test_sps_package(TestCase):
         result = get_year_month_day(root.find("date"))
         self.assertEqual(expected, result)
 
-#     def test_create_alternatives(self):
-#         expected = None
-#         result = sps_package.create_alternatives(node, assets_data)
-#         self.assertEqual(expected, result)
-
     def test_formatted_text(self):
         expected = (
             "<p>"
@@ -882,11 +867,6 @@ class Test_sps_package(TestCase):
         )
         result = formatted_text(root)
         self.assertEqual(expected, result)
-
-#     def test_nodes_with_lang(self):
-#         expected = None
-#         result = sps_package.nodes_with_lang(root, lang_xpath, child_xpath=None)
-#         self.assertEqual(expected, result)
 
 
 class TestIdentity(TestCase):
