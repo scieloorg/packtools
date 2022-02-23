@@ -57,13 +57,6 @@ def get_xml_tree(content):
     try:
         content = _get_xml_content(content)
         xml_tree = etree.XML(content, parser)
-        # if isinstance(content, str):
-        #     # xml_tree = etree.parse(BytesIO(content.encode("utf-8")), parser)
-        #     xml_tree = etree.parse(StringIO(content), parser)
-        # else:
-        #     # content == zipfile.read(sps_xml_file)
-    # except ValueError as exc:
-    #     xml_tree = etree.XML(content, parser)
     except etree.XMLSyntaxError as exc:
         raise LoadToXMLError(str(exc)) from None
     else:
