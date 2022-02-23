@@ -95,7 +95,7 @@ def create_zip_file(files, zip_name, zip_folder=None):
     zip_folder = zip_folder or tempfile.mkdtemp()
 
     zip_path = os.path.join(zip_folder, zip_name)
-    with ZipFile(zip_path, 'w') as myzip:
+    with ZipFile(zip_path, 'w', ZIP_DEFLATED) as myzip:
         for f in files:
             myzip.write(f, os.path.basename(f))
     return zip_path
