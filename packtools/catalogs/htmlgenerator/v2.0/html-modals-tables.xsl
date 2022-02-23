@@ -6,23 +6,9 @@
         <div class="modal fade ModalTables" id="ModalTable{@id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&#xd7;</span>
-                            <span class="sr-only">
-                                <xsl:apply-templates select="." mode="interface">
-                                    <xsl:with-param name="text">Close</xsl:with-param>
-                                </xsl:apply-templates>
-                            </span>
-                        </button>
-                        <!-- FIXME -->
-                        <!-- a class="link-newWindow showTooltip" href="" target="_blank"  data-placement="left">
-                            <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
-                                <xsl:with-param name="text">Open new window</xsl:with-param>
-                            </xsl:apply-templates></xsl:attribute>
-                            <span class="sci-ico-newWindow"></span></a -->
-                        <h4 class="modal-title"><span class="sci-ico-fileTable"></span> <xsl:apply-templates select="." mode="label-caption"/></h4>
-                    </div>
+
+                    <xsl:apply-templates select="." mode="modal-header"/>
+
                     <div class="modal-body">
                         <xsl:choose>
                             <xsl:when test="table">
@@ -42,6 +28,30 @@
                 </div>
             </div>
         </div>          
+
+    </xsl:template>
+    
+    <xsl:template match="table-wrap" mode="modal-header">
+        <!--
+        Template para criar a área do título da tabela
+        -->
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&#xd7;</span>
+                <span class="sr-only">
+                    <xsl:apply-templates select="." mode="interface">
+                        <xsl:with-param name="text">Close</xsl:with-param>
+                    </xsl:apply-templates>
+                </span>
+            </button>
+            <!-- FIXME -->
+            <!-- a class="link-newWindow showTooltip" href="" target="_blank"  data-placement="left">
+                <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">Open new window</xsl:with-param>
+                </xsl:apply-templates></xsl:attribute>
+                <span class="sci-ico-newWindow"></span></a -->
+            <h4 class="modal-title"><span class="sci-ico-fileTable"></span> <xsl:apply-templates select="." mode="label-caption"/></h4>
+        </div>
     </xsl:template>
     
     <xsl:template match="ref" mode="select">
