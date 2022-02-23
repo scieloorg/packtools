@@ -128,7 +128,7 @@ class SPS_Package:
 
     @property
     def article_title(self):
-        return formatted_text(
+        return xml_utils.formatted_text(
             self.xmltree.find(".//article-meta//article-title"))
 
     @property
@@ -138,13 +138,13 @@ class SPS_Package:
 
         for node, lang in self._nodes_with_lang(
                 ".//article-meta//trans-title-group", "trans-title"):
-            data[lang] = formatted_text(node)
+            data[lang] = xml_utils.formatted_text(node)
 
         for node, lang in self._nodes_with_lang(
                 ".//sub-article[@article-type='translation']",
                 ".//front-stub/article-title"
                 ):
-            data[lang] = formatted_text(node)
+            data[lang] = xml_utils.formatted_text(node)
         return data
 
     def get_regular_abstract(self, xpath=".//article-meta//abstract"):
@@ -157,7 +157,7 @@ class SPS_Package:
 
     @property
     def abstract(self):
-        return formatted_text(
+        return xml_utils.formatted_text(
             self.get_regular_abstract(".//article-meta//abstract"))
 
     @property
@@ -167,12 +167,12 @@ class SPS_Package:
 
         for node, lang in self._nodes_with_lang(
                 ".//article-meta//trans-abstract"):
-            data[lang] = formatted_text(node)
+            data[lang] = xml_utils.formatted_text(node)
 
         for node, lang in self._nodes_with_lang(
                 ".//sub-article[@article-type='translation']",
                 ".//front-stub/abstract"):
-            data[lang] = formatted_text(node)
+            data[lang] = xml_utils.formatted_text(node)
         return data
 
     @property
@@ -181,7 +181,7 @@ class SPS_Package:
         for node, lang in self._nodes_with_lang(".//kwd-group"):
             data[lang] = []
             for kwd in node.findall(".//kwd"):
-                data[lang].append(formatted_text(kwd))
+                data[lang].append(xml_utils.formatted_text(kwd))
         return data
 
     @property
@@ -196,7 +196,7 @@ class SPS_Package:
             </subj-group>
         </article-categories>
         """
-        return formatted_text(
+        return xml_utils.formatted_text(
             self.xmltree.find(
                 './/subj-group[@subj-group-type="heading"]/subject'
             )
@@ -220,7 +220,7 @@ class SPS_Package:
                 './/sub-article',
                 './/subj-group[@subj-group-type="heading"]/subject'
                 ):
-            data[lang] = formatted_text(subj)
+            data[lang] = xml_utils.formatted_text(subj)
         return data
 
     @property
@@ -429,7 +429,7 @@ class Identity:
 
     @scielo_pid_v2.setter
     def scielo_pid_v2(self, value):
-        if not _is_allowed_to_update(self, "scielo_pid_v2", value):
+        if not xml_utils.is_allowed_to_update(self, "scielo_pid_v2", value):
             return
         self._set_scielo_pid(self.scielo_pid_v2, "scielo-v2", value)
 
@@ -453,7 +453,7 @@ class Identity:
 
     @aop_pid.setter
     def aop_pid(self, value):
-        if not _is_allowed_to_update(self, "aop_pid", value):
+        if not xml_utils.is_allowed_to_update(self, "aop_pid", value):
             return
         if self.aop_pid is None:
             pid_node = etree.Element("article-id")
@@ -592,14 +592,14 @@ class Identity:
 
     @property
     def number(self):
-        n, s = extract_number_and_supplment_from_issue_element(
+        n, s = xml_utils.extract_number_and_supplment_from_issue_element(
             self.article_meta.findtext("issue")
         )
         return n
 
     @property
     def supplement(self):
-        n, s = extract_number_and_supplment_from_issue_element(
+        n, s = xml_utils.extract_number_and_supplment_from_issue_element(
             self.article_meta.findtext("issue")
         )
         return s
@@ -611,7 +611,7 @@ class Identity:
             'pub-date[@date-type="pub"]',
             "pub-date",
         )
-        return get_year_month_day(_match_pubdate(self.article_meta, xpaths))
+        return xml_utils.get_year_month_day(xml_utils.match_pubdate(self.article_meta, xpaths))
 
     @property
     def documents_bundle_pubdate(self):
@@ -621,7 +621,7 @@ class Identity:
             'pub-date[@date-type="collection"]',
             "pub-date",
         )
-        return get_year_month_day(_match_pubdate(self.article_meta, xpaths))
+        return xml_utils.get_year_month_day(xml_utils.match_pubdate(self.article_meta, xpaths))
 
     @property
     def year(self):
