@@ -103,3 +103,10 @@ def _get_xml_uri_and_name(xml_sps, xml_uri=None):
         "uri": xml_uri
     }
 
+
+def _get_zip_filename(xml_sps, output=None):
+    if not output:
+        return f'{xml_sps.package_name}.zip'
+    else:
+        return output
+
