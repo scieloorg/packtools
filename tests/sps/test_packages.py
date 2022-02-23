@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from dsm.utils import packages
+from packtools.sps.models import packages
 
 
 class Test_get_component(TestCase):
