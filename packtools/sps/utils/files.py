@@ -206,3 +206,8 @@ def is_valid_file(file_path, check_mimetype=False):
 
     return False
 
+
+def get_mimetype(file_path):
+    with open(file_path, 'rb') as fin:
+        return magic.from_buffer(fin.read(2048), mime=True)
+
