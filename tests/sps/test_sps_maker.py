@@ -51,3 +51,15 @@ class Test_get_assets_uris_and_names(TestCase):
             with self.subTest(i):
                 self.assertEqual(item["uri"], assets_uris_and_names[i]['uri'])
                 self.assertEqual(item["name"], assets_uris_and_names[i]['name'])
+
+
+class Test_get_zip_filename(TestCase):
+
+    def test__get_zip_filename(self):
+        xml_sps = sps_package.SPS_Package("./tests/sps/fixtures/document2.xml")
+
+        zip_filename = sps_maker._get_zip_filename(xml_sps)
+        expected = '1414-431X-bjmbr-54-10-e11439.zip'
+
+        self.assertEqual(expected, zip_filename)
+
