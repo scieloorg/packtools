@@ -73,3 +73,14 @@ def _get_xml_sps_from_uri(xml_uri):
     else:
         raise exceptions.SPSXMLLinkError(f'{xml_uri} is not a valid link. Please, inform a link address (e.g. http://...')
 
+
+def _get_xml_sps_from_path(xml_path):
+    if file_utils.is_valid_file(xml_path):
+        with open(xml_path) as fin:
+            content = fin.read()
+
+            if content:
+                return sps_package.SPS_Package(content)
+    else:
+        raise exceptions.SPSXMLFileError(f'{xml_path} is invalid. Please, provide a valid XML path.')
+
