@@ -873,4 +873,11 @@ class SPS_Asset:
         return f"{package_name}{self.suffix}{self.ext}"
 
 
+def discover_asset_name(xml_sps, asset_path):
+    asset_path_basename = os.path.basename(asset_path)
 
+    for a in xml_sps.assets.items:
+        if asset_path_basename in a.xlink_href or asset_path_basename in a.uri:
+            return a.get_name(xml_sps.package_name)
+    
+    return asset_path_basename
