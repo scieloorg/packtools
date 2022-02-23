@@ -145,7 +145,7 @@ class TestZipFile(TestCase):
         2318-0889-tinf-33-e200071.xml
         """
         pkg = packages.Package(
-            "./tests/fixtures/package.zip", "package")
+            "./tests/sps/fixtures/package.zip", "package")
         pkg.xml = "2318-0889-tinf-33-e200071.xml"
         pkg._renditions = {
             "original": "2318-0889-tinf-33-e200071.pdf"
@@ -161,7 +161,7 @@ class TestZipFile(TestCase):
                 "2318-0889-tinf-33-e200071-gf04.tif",
         }
         result = packages._explore_zipfile(
-            "./tests/fixtures/package.zip")
+            "./tests/sps/fixtures/package.zip")
         self.assertEqual(
             pkg.xml,
             result["2318-0889-tinf-33-e200071"].xml)
@@ -188,16 +188,16 @@ class TestZipFile(TestCase):
         └── 2318-0889-tinf-33-e200050.xml
         """
         result = packages._explore_zipfile(
-            "./tests/fixtures/package_with_subdir.zip")
+            "./tests/sps/fixtures/package_with_subdir.zip")
         pkg_09 = packages.Package(
-            "./tests/fixtures/package_with_subdir.zip", "package")
+            "./tests/sps/fixtures/package_with_subdir.zip", "package")
         pkg_09.xml = "2318-0889-tinf-33-0121/0103-3786-tinf-33-e200009.xml"
         pkg_09._renditions = {
             "original": "2318-0889-tinf-33-0121/0103-3786-tinf-33-e200009.pdf"
         }
 
         pkg_25 = packages.Package(
-            "./tests/fixtures/package_with_subdir.zip", "package")
+            "./tests/sps/fixtures/package_with_subdir.zip", "package")
         pkg_25.xml = "2318-0889-tinf-33-0121/2318-0889-tinf-33-e200025.xml"
         pkg_25._renditions = {
             "original": "2318-0889-tinf-33-0121/2318-0889-tinf-33-e200025.pdf"
@@ -212,7 +212,7 @@ class TestZipFile(TestCase):
         }
 
         pkg_39 = packages.Package(
-            "./tests/fixtures/package_with_subdir.zip", "package")
+            "./tests/sps/fixtures/package_with_subdir.zip", "package")
         pkg_39.xml = "2318-0889-tinf-33-0121/2318-0889-tinf-33-e200039.xml"
         pkg_39._renditions = {
             "original": "2318-0889-tinf-33-0121/2318-0889-tinf-33-e200039.pdf"
@@ -224,7 +224,7 @@ class TestZipFile(TestCase):
         }
 
         pkg_50 = packages.Package(
-            "./tests/fixtures/package_with_subdir.zip", "package")
+            "./tests/sps/fixtures/package_with_subdir.zip", "package")
         pkg_50.xml = "2318-0889-tinf-33-0121/2318-0889-tinf-33-e200050.xml"
         pkg_50._renditions = {
             "original": "2318-0889-tinf-33-0121/2318-0889-tinf-33-e200050.pdf"
@@ -281,27 +281,27 @@ class TestFolder(TestCase):
         2318-0889-tinf-33-e200068-gf01.tif
         2318-0889-tinf-33-e200068-gf02.tif
         """
-        result = packages._explore_folder("./tests/fixtures/package_folder")
-        pkg1 = packages.Package("./tests/fixtures/package_folder", "folder")
+        result = packages._explore_folder("./tests/sps/fixtures/package_folder")
+        pkg1 = packages.Package("./tests/sps/fixtures/package_folder", "folder")
         pkg1.xml = "2318-0889-tinf-33-e200057.xml"
         pkg1._renditions = {
             "original":
-            "./tests/fixtures/package_folder/2318-0889-tinf-33-e200057.pdf"}
+            "./tests/sps/fixtures/package_folder/2318-0889-tinf-33-e200057.pdf"}
 
-        pkg2 = packages.Package("./tests/fixtures/package_folder", "folder")
+        pkg2 = packages.Package("./tests/sps/fixtures/package_folder", "folder")
         pkg2.xml = "2318-0889-tinf-33-e200068.xml"
         pkg2._renditions = {
             "original":
-            "./tests/fixtures/package_folder/2318-0889-tinf-33-e200068.pdf",
+            "./tests/sps/fixtures/package_folder/2318-0889-tinf-33-e200068.pdf",
             "es":
-            "./tests/fixtures/package_folder/2318-0889-tinf-33-e200068-es.pdf",
+            "./tests/sps/fixtures/package_folder/2318-0889-tinf-33-e200068-es.pdf",
         }
         pkg2._assets = {
             "2318-0889-tinf-33-e200068-gf01.tif":
-                "./tests/fixtures/package_folder/"
+                "./tests/sps/fixtures/package_folder/"
                 "2318-0889-tinf-33-e200068-gf01.tif",
             "2318-0889-tinf-33-e200068-gf02.tif":
-                "./tests/fixtures/package_folder/"
+                "./tests/sps/fixtures/package_folder/"
                 "2318-0889-tinf-33-e200068-gf02.tif"
         }
 
