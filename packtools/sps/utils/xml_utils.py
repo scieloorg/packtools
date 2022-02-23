@@ -44,7 +44,7 @@ def fix_namespace_prefix_w(content):
 def _get_xml_content(xml):
     if isinstance(xml, str):
         try:
-            content = read_file(xml)
+            content = file_utils.read_file(xml)
         except (FileNotFoundError, OSError):
             content = xml
         content = fix_xml(content)
@@ -58,7 +58,7 @@ def get_xml_tree(content):
         content = _get_xml_content(content)
         xml_tree = etree.XML(content, parser)
     except etree.XMLSyntaxError as exc:
-        raise LoadToXMLError(str(exc)) from None
+        raise exceptions.SPSLoadToXMLError(str(exc)) from None
     else:
         return xml_tree
 
