@@ -1079,7 +1079,7 @@ class TestSPS_Assets(TestCase):
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-g1.tif",
                 "node": nodes[0],
-                "id": "1",
+                "id": 1,
                 "content_type": "",
                 "suffix": "-g1",
                 "ext": ".tif",
@@ -1087,7 +1087,7 @@ class TestSPS_Assets(TestCase):
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-g2.tif",
                 "node": nodes[1],
-                "id": "2",
+                "id": 2,
                 "content_type": "",
                 "suffix": "-g2",
                 "ext": ".tif",
@@ -1095,7 +1095,7 @@ class TestSPS_Assets(TestCase):
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-g3.tif",
                 "node": nodes[2],
-                "id": "3",
+                "id": 3,
                 "content_type": "",
                 "suffix": "-g3",
                 "ext": ".tif",
@@ -1103,7 +1103,7 @@ class TestSPS_Assets(TestCase):
             {
                 "xlink_href": "2318-0889-tinf-33-e200025-g4.tif",
                 "node": nodes[3],
-                "id": "4",
+                "id": 4,
                 "content_type": "",
                 "suffix": "-g4",
                 "ext": ".tif",
