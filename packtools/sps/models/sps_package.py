@@ -904,29 +904,6 @@ class SPS_Asset:
 
 
 
-def get_year_month_day(node):
-    """
-    Retorna os valores respectivos dos elementos "year", "month", "day".
-
-    Parameters
-    ----------
-    node : lxml.etree.Element
-        Elemento do tipo _date_, que tem os elementos "year", "month", "day".
-
-    Returns
-    -------
-    tuple of strings
-        ("YYYY", "MM", "DD")
-    None se node is None
-
-    """
-    if node is not None:
-        return tuple(
-            [(node.findtext(item) or "").zfill(2)
-             for item in ["year", "month", "day"]]
-        )
-
-
 def create_alternatives(node, assets_data):
     """
     ```xml
