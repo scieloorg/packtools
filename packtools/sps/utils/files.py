@@ -108,12 +108,6 @@ def delete_folder(path):
         pass
 
 
-def date_now_as_folder_name():
-    # >>> datetime.now().isoformat()
-    # >>> '2021-08-11T17:54:50.556715'
-    return datetime.utcnow().isoformat().replace(":", "")
-
-
 def create_temp_file(filename, content=None, mode='w'):
     file_path = tempfile.mkdtemp()
     file_path = os.path.join(file_path, filename)
