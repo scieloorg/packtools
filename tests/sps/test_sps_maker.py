@@ -106,3 +106,18 @@ class Test_get_xml_sps_from_uri(TestCase):
         with self.assertRaises(sps_maker.exceptions.SPSLoadToXMLError):
             sps_maker._get_xml_sps_from_uri(xml_uri)
 
+
+class Test_get_xml_sps_from_path(TestCase):
+    
+    def test_get_sps_package_from_path_file_error(self):
+        xml_path = './tests/sps/fixtures/document_unavailable.xml'
+
+        with self.assertRaises(sps_maker.exceptions.SPSXMLFileError):
+            sps_maker._get_xml_sps_from_path(xml_path)
+
+
+    def test_get_sps_package_from_path_success(self):
+        xml_path = './tests/sps/fixtures/document2.xml'
+        xml_sps = sps_maker._get_xml_sps_from_path(xml_path)
+
+        self.assertEqual(xml_sps.doi, '10.1590/1414-431X2021e11439')
