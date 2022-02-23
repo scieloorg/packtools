@@ -117,6 +117,14 @@ def _zip_files_from_uris_and_names(zip_name, uris_and_names, zip_folder=None):
     return file_utils.create_zip_file(downloaded_files, zip_name, zip_folder)
 
 
+def _remove_invalid_uris(uris_and_names):
+    return [
+        item
+        for item in uris_and_names
+        if item["uri"].startswith("http")
+    ]
+
+
 def _zip_files_from_paths(zip_name, xml_sps, paths, zip_folder=None):
     renamed_paths = _change_files_paths(xml_sps, paths)
     return file_utils.create_zip_file(renamed_paths, zip_name, zip_folder)
