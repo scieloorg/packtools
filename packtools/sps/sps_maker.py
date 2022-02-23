@@ -128,3 +128,18 @@ def _remove_invalid_uris(uris_and_names):
 def _zip_files_from_paths(zip_name, xml_sps, paths, zip_folder=None):
     renamed_paths = _change_files_paths(xml_sps, paths)
     return file_utils.create_zip_file(renamed_paths, zip_name, zip_folder)
+
+
+def _check_keys_and_files(paths: dict):
+    for k in FILE_PATHS_REQUIRED_KEYS:
+        if k not in paths.keys():
+            raise exceptions.SPSMakePackageFromPathsMissingKeyError(f'Paths error: key {k} is missing.')
+
+        if k != 'xml':
+            for f in paths[k]:
+                if not file_utils.is_valid_file(f):
+                    raise exceptions.SPSAssetOrRenditionFileError(f'Invalid asset or rendition path: {f}')
+        else:
+            if not file_utils.is_valid_file(paths[k]):
+                raise exceptions.SPSXMLFileError(f'Invalid XML path or content: {paths[k]}')
+
