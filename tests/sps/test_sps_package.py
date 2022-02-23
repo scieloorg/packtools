@@ -1,14 +1,16 @@
 
-from dsm.core.sps_package import (
-    NotAllowedtoChangeAttributeValueError,
+from packtools.sps.models.sps_package import (
     SPS_Package,
     Identity,
     SPS_Assets,
+)
+from packtools.sps.utils.xml_utils import (
     extract_number_and_supplment_from_issue_element,
     parse_issue,
     get_year_month_day,
-    formatted_text,
+    formatted_text
 )
+from packtools.sps.exceptions import NotAllowedtoChangeAttributeValueError
 
 from unittest import TestCase, skip
 
