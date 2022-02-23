@@ -74,7 +74,7 @@ def tostring(node, doctype=None, pretty_print=False):
     ).decode("utf-8")
 
 
-def node_text(node, doctype=None, pretty_print=False):
+def node_text(node):
     items = [node.text or ""]
     for child in node.getchildren():
         items.append(
