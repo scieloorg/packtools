@@ -382,17 +382,6 @@ class SPS_Package:
         """
         self.assets.remote_to_local(package_name)
 
-    # def asset_name(self, img_filename):
-    #     if self._original_asset_name_prefix is None:
-    #         raise ValueError(
-    #             "SPS_Package._original_asset_name_prefix has an invalid value."
-    #         )
-    #     filename, ext = os.path.splitext(self._original_asset_name_prefix)
-    #     suffix = img_filename
-    #     if img_filename.startswith(filename):
-    #         suffix = img_filename[len(filename) :]
-    #     return "-g".join([self.package_name, suffix])
-
 
 class Identity:
     def __init__(self, xml_tree):
