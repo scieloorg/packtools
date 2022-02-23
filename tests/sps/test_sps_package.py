@@ -1182,21 +1182,24 @@ class TestRemoteToLocal(TestCase):
         xml_sps = self._create_xml_sps(xml_text)
         xml_sps.assets.remote_to_local("2318-0889-tinf-33-e200025")
         expected = [
-            ("https://minio.scielo.br/bla/bal/PIDV3/"
-                "2318-0889-tinf-33-e200025-gf01.tif",
-                "2318-0889-tinf-33-e200025-gf01.tif"),
-            ("https://minio.scielo.br/bla/bal/PIDV3/"
-                "2318-0889-tinf-33-e200025-gf01.jpg",
-                "2318-0889-tinf-33-e200025-gf01.jpg"),
-            ("https://minio.scielo.br/bla/bal/PIDV3/"
-                "2318-0889-tinf-33-e200025-gf01.png",
-                "2318-0889-tinf-33-e200025-gf01.png"),
+            {
+                'uri': "",
+                'name': "2318-0889-tinf-33-e200025-gf01.tif"
+            },
+            {
+                'uri': "",
+                'name': "2318-0889-tinf-33-e200025-gf01.jpg"
+            },
+            {
+                'uri': "",
+                'name': "2318-0889-tinf-33-e200025-gf01.png"
+            },
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(
-                    item[0], xml_sps.assets.items[i].uri
+                    item['uri'], xml_sps.assets.items[i].uri
                 )
                 self.assertEqual(
-                    item[1], xml_sps.assets.items[i].filename
+                    item['name'], xml_sps.assets.items[i].filename
                 )
