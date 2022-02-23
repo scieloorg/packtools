@@ -902,19 +902,6 @@ class SPS_Asset:
 
 # Funções
 
-
-def parse_issue(issue):
-    issue = " ".join([item for item in issue.split()])
-    parts = issue.split()
-    parts = [parse_value(item) for item in parts]
-    s = "-".join(parts)
-    s = s.replace("spe-", "spe")
-    s = s.replace("s-", "s")
-    if s.endswith("s"):
-        s += "0"
-    return s
-
-
 # def is_valid_value_for_order(value):
 #     try:
 #         if not (0 < int(value) <= 99999):
