@@ -72,7 +72,7 @@ async def _bound_download_file(sem, session, uri, download_filename, download_fo
 
 
 async def _download_files(
-    uris_and_names,
+    uris_names,
     downloads_path,
     ssl=False,
     semaphore_value=20,
@@ -88,13 +88,13 @@ async def _download_files(
             connector=aiohttp.TCPConnector(ssl=False)
         ) as session:
 
-            for uri_and_name in uris_and_names:
+            for uri_name in uris_names:
                 tasks.append(
                     _bound_download_file(
                         sem,
                         session,
-                        uri_and_name["uri"],
-                        uri_and_name["name"],
+                        uri_name['uri'],
+                        uri_name['name'],
                         downloads_path,
                     )
                 )
