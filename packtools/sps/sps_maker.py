@@ -143,3 +143,23 @@ def _check_keys_and_files(paths: dict):
             if not file_utils.is_valid_file(paths[k]):
                 raise exceptions.SPSXMLFileError(f'Invalid XML path or content: {paths[k]}')
 
+
+def _change_files_paths(xml_sps, paths):
+    new_paths = []
+
+    for k in FILE_PATHS_REQUIRED_KEYS:
+        if k == 'xml':
+            target = _get_xml_uri_and_name(xml_sps)['name']
+            new_paths.append(file_utils.copy_file(paths[k], target))
+
+        elif k == 'renditions':
+            # Is not possible to discover the correct rendition name
+            new_paths.extend(paths[k])
+
+        elif k == 'assets':
+            for v in paths[k]:
+                # We use the information inside sps_package.assets.items to discover each asset's name
+                target = sps_package.discover_asset_name(xml_sps, v)
+                new_paths.append(file_utils.copy_file(v, target))
+
+    return new_paths
