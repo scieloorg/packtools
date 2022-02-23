@@ -1,0 +1,1188 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="rapid-communication" dtd-version="1.1" specific-use="sps-1.8" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Braz J Med Biol Res</journal-id>
+      <journal-id journal-id-type="publisher-id">bjmbr</journal-id>
+      <journal-title-group>
+        <journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Braz. J. Med. Biol. Res.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">1414-431X</issn>
+      <publisher>
+        <publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ywDM7t6mxHzCRWp7kGF9rXQ</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0100-879X2021001000551</article-id>
+      <article-id pub-id-type="other">00551</article-id>
+      <article-id pub-id-type="doi">10.1590/1414-431X2021e11439</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Short Communication</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Decreased levels of cathepsin Z mRNA expressed by immune blood cells: diagnostic and prognostic implications in prostate cancer</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-0579-3754</contrib-id>
+          <name>
+            <surname>Batista</surname>
+            <given-names>A.A.S.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+          <xref ref-type="fn" rid="fn1">*</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-2353-2574</contrib-id>
+          <name>
+            <surname>Franco</surname>
+            <given-names>B.M.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+          <xref ref-type="fn" rid="fn1">*</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-0066-6422</contrib-id>
+          <name>
+            <surname>Perez</surname>
+            <given-names>M.M.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">2</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-4840-1949</contrib-id>
+          <name>
+            <surname>Pereira</surname>
+            <given-names>E.G.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1277-0224</contrib-id>
+          <name>
+            <surname>Rodrigues</surname>
+            <given-names>T.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-6835-9085</contrib-id>
+          <name>
+            <surname>Wroclawski</surname>
+            <given-names>M.L.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">3</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1223-1589</contrib-id>
+          <name>
+            <surname>Fonseca</surname>
+            <given-names>F.L.A.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">2</xref>
+          <xref ref-type="aff" rid="aff4">4</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-0521-1056</contrib-id>
+          <name>
+            <surname>Suarez</surname>
+            <given-names>E.R.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+          <xref ref-type="corresp" rid="cor1"/>
+        </contrib>
+        <aff id="aff1"><label>1</label><institution content-type="orgname">Centro de Ciências Naturais e Humanas, Universidade Federal do ABC</institution>, <addr-line><named-content content-type="city">Santo André</named-content><named-content content-type="state">SP</named-content></addr-line><country country="BR">Brasil</country><institution content-type="original">Centro de Ciências Naturais e Humanas, Universidade Federal do ABC, Santo André, SP, Brasil</institution></aff>
+        <aff id="aff2"><label>2</label><institution content-type="orgname">Centro Universitário Faculdade de Medicina do ABC</institution>, <institution content-type="orgdiv1">Laboratório de Análises Clínicas</institution>, <addr-line><named-content content-type="city">Santo André</named-content><named-content content-type="state">SP</named-content></addr-line><country country="BR">Brasil</country><institution content-type="original">Laboratório de Análises Clínicas, Centro Universitário Faculdade de Medicina do ABC, Santo André, SP, Brasil</institution></aff>
+        <aff id="aff3"><label>3</label><institution content-type="orgname">Hospital Israelita Albert Einstein</institution>, <addr-line><named-content content-type="city">Santo André</named-content><named-content content-type="state">SP</named-content></addr-line><country country="BR">Brasil</country><institution content-type="original">Hospital Israelita Albert Einstein, Santo André, SP, Brasil</institution></aff>
+        <aff id="aff4"><label>4</label><institution content-type="orgname">Departamento de Ciências Farmacêuticas, Universidade Federal de São Paulo</institution>, <addr-line><named-content content-type="city">Diadema</named-content><named-content content-type="state">SP</named-content></addr-line><country country="BR">Brasil</country><institution content-type="original">Departamento de Ciências Farmacêuticas, Universidade Federal de São Paulo, Diadema, SP, Brasil</institution></aff>
+      </contrib-group>
+      <author-notes>
+        <corresp id="cor1">Correspondence: E.R. Suarez: &lt;<email>eloah.suarez@ufabc.edu.br</email>&gt;</corresp>
+        <fn fn-type="equal" id="fn1">
+          <label>*</label>
+          <p>These authors contributed equally to this work.</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="epub">
+        <day>06</day>
+        <month>08</month>
+        <year>2021</year>
+      </pub-date>
+      <pub-date pub-type="collection">
+        <year>2021</year>
+      </pub-date>
+      <volume>54</volume>
+      <issue>10</issue>
+      <elocation-id>e11439</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>30</day>
+          <month>03</month>
+          <year>2021</year>
+        </date>
+        <date date-type="accepted">
+          <day>10</day>
+          <month>06</month>
+          <year>2021</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <p>Cathepsin Z (CTSZ) is a cysteine protease responsible for the adhesion and migration of both immune and tumor cells. Due to its dual role, we hypothesized that the site of CTSZ expression could be determinant of the pro- or anti-tumorigenic effects of this enzyme. To test this hypothesis, we analyzed CTSZ expression data in healthy and tumor tissues by bioinformatics and evaluated the expression levels of CTSZ mRNA in the blood cells of prostate cancer (PCa) patients by qRT-PCR compared with healthy subjects, evaluating its diagnostic and prognostic implications for this type of cancer. Immune cells present in the blood of healthy patients overexpress CTSZ. In PCa, we found decreased CTSZ mRNA levels in blood cells, 75% lower than in healthy subjects, that diminished even more during biochemical relapse. CTSZ mRNA in the blood cells had an area under the curve for PCa diagnosis of 0.832, with a 93.3% specificity, and a positive likelihood ratio of 9.4. The site of CTSZ mRNA expression is fundamental to determine its final role as a protective determinant in PCa, such as CTSZ mRNA in the blood cells, or a malignant determinant, such as found for CTSZ expressed in high levels by different types of primary and metastatic tumors. Low CTSZ mRNA expression in the total blood is a possible PCa marker complementary to prostate-specific antigen (PSA) for biopsy decisions, with the potential to eliminate unnecessary biopsies.</p>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <kwd>Cathepsin X</kwd>
+        <kwd>Cathepsin K</kwd>
+        <kwd>Prostate-specific antigen</kwd>
+        <kwd>Biopsy</kwd>
+        <kwd>Biomarker</kwd>
+        <kwd>Prostate cancer</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>FAPESP</funding-source>
+          <award-id>2018/17656-0</award-id>
+        </award-group>
+      </funding-group>
+      <counts>
+        <fig-count count="2"/>
+        <table-count count="1"/>
+        <equation-count count="0"/>
+        <ref-count count="19"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introduction</title>
+      <p>Prostate cancer (PCa) is the second most incident type of cancer worldwide and the first in the male population, representing the second leading cause of male cancer death in the United States (<xref ref-type="bibr" rid="B01">1</xref>). Prostate-specific antigen (PSA) is a glycoprotein widely used as a molecular marker for PCa screening due to its high sensitivity (<xref ref-type="bibr" rid="B02">2</xref>,<xref ref-type="bibr" rid="B03">3</xref>). PSA testing improved PCa screening; however, the specificity, positive likelihood ratio (+LR), and positive predictive value are low (<xref ref-type="bibr" rid="B02">2</xref>,<xref ref-type="bibr" rid="B03">3</xref>), and approximately one-third of the men with an elevated PSA have PCa detected on biopsy. These data raise concerns since numerous patients are submitted unnecessarily to the risks and discomforts of a prostate biopsy, such as bleeding, infection, and pain.</p>
+      <p>Cathepsin Z (CTSZ), also known as X or P, is a differentiated member of the cathepsins that has only mono- and dipeptidyl carboxypeptidase activity, being responsible for cleavage and activation of some molecules, such as the integrin called lymphocyte function-associated antigen (LFA-1), the focal adhesion kinase (FAK), the SRC kinase, and others. The cleavage of LFA-1 changes cell morphology, promoting cell migration (<xref ref-type="bibr" rid="B04">4</xref>). Still, the RNAi silencing of CTSZ in T cells remarkably decreases its spreading, demonstrating the importance of this enzyme for the function of this cell type (<xref ref-type="bibr" rid="B05">5</xref>). The interaction between T cells and endothelial cells of blood vessels can coordinate T cells' efficient circulation in the tumor microenvironment. CTSZ can improve adhesion and the consequent migration of T cells through the endothelia, increasing the levels of tumor-infiltrated CD8 T cells, a well-known marker of good prognosis and survival in patients with several types of cancer (<xref ref-type="bibr" rid="B06">6</xref>). Immune cells, such as monocytes, macrophages, and dendritic cells, regularly express CTSZ (<xref ref-type="bibr" rid="B07">7</xref>). CTSZ is overexpressed in several primary tumor types, such as PCa, colorectal, gastric, liver, melanoma, and pancreatic neuroendocrine tumors (<xref ref-type="bibr" rid="B04">4</xref>). In some of these studies, CTSZ was found in tumor-associated macrophages, indicating that this protease plays a role in the antitumor immune response. In all these cases, the CTSZ relationship with integrin receptors is fundamental to allow cell dissemination through the extracellular matrix (<xref ref-type="bibr" rid="B07">7</xref>).</p>
+      <p>Here, we analyzed CTSZ expression in healthy and tumor tissues and evaluated the diagnostic and prognostic implications of CTSZ mRNA expressed by blood cells in prostate cancer.</p>
+    </sec>
+    <sec sec-type="materials|methods">
+      <title>Material and Methods</title>
+      <sec>
+        <title>Bioinformatics data</title>
+        <p>We selected the RNA-seq data of human CTSZ mRNA expression from the Human Protein Atlas (HPA) RNA-seq normal tissues project (<ext-link ext-link-type="uri" xlink:href="https://www.proteinatlas.org/">https://www.proteinatlas.org/</ext-link>), the Genotype-Tissue Expression (GTEx) Project (<xref ref-type="bibr" rid="B08">8</xref>), and from the Pan-Cancer Analysis of Whole Genomes (<ext-link ext-link-type="uri" xlink:href="https://dcc.icgc.org/pcawg">https://dcc.icgc.org/pcawg</ext-link>). The bioinformatics data presented herein are available at the Expression Atlas website (<xref ref-type="bibr" rid="B09">9</xref>). For the HPA data, the RNA-seq was performed on tissue samples from 95 people representing 27 different tissues to determine tissue-specificity of all protein-coding genes (BioProject accession number PRJEB4337 in the DDBJ BioProject database (<xref ref-type="bibr" rid="B10">10</xref>). The GTEx Project has the RNA-seq from 53 human tissue samples (<xref ref-type="bibr" rid="B08">8</xref>), and the Pan-Cancer Analysis of Whole Genomes has RNA-seq data of more than 2800 cancer patients, including 20 different primary sites. We built a heat map and a graph of CTSZ mRNA expression from healthy and cancer tissues to compare their mRNA expression in TPM (transcripts per kilobase million). The CTSZ mRNA expression in different immune cells from the human blood was obtained from the Human Protein Atlas Website (<ext-link ext-link-type="uri" xlink:href="https://www.proteinatlas.org">https://www.proteinatlas.org</ext-link>) (<xref ref-type="bibr" rid="B11">11</xref>).</p>
+      </sec>
+      <sec>
+        <title>Patients and study design</title>
+        <p>This cross-sectional retrospective pilot study included thirty patients with PCa and twenty healthy male subjects from the Urologic Oncology Clinic at the Faculdade de Medicina do ABC, Brazil. As inclusion criteria for the case group, we selected patients with PCa diagnosis, without previous treatment, and over 18 years of age. All subjects had undergone 12-core transrectal ultrasound-guided prostate biopsy due to elevated PSA levels or abnormal digital rectal exam. The exclusion criteria were other associated comorbidities that could influence the inflammatory status, such as autoimmune diseases, allergies, and infections. The control group inclusion criteria were a negative personal, first, or second-degree family history of cancer, negative PSA (≤2.5 ng/mL, in accordance with the American Cancer Society Recommendation for Prostate Cancer Early Detection), and carcinoembryonic antigen (CEA). The PSA distribution in the control and case group is presented in Supplementary Figure S1. The FMABC Institutional Review Board approved this research (CAAE: 57559516.3.0000.0082), and all participants included in this study signed informed consent. Blood samples were collected with EDTA as an anticoagulant, before and six months after the different treatments, according to disease stage: radical prostatectomy or radiotherapy plus androgen deprivation therapy (ADT) (for localized PCa) and ADT (for advanced PCa). Treatment was chosen according to clinical criteria. A more detailed schematic representation of the study design is presented in Supplementary Figure S2.</p>
+        <p>The CTSZ expression was analyzed and compared to the following clinical-pathological characteristics: ISUP (International Society of Urological Pathology) grade group on biopsy, ISUP grade group on the tumor, clinical stage, type of treatment, pathologic stage, tumor margin positives, biochemical relapse, and death by cancer. For the analysis of the ISUP grade group for biopsy or tumor, we divided the samples into three groups: a low-risk group, constituted by patients with ISUP score of 1, an intermediate-risk group for patients with ISUP score of 2 or 3, and a high-risk group for ISUP score of 4 or 5. For the clinical-stage, we subdivided the patients into three groups: localized disease (T1N0M0 or T2N0M0), locally advanced (T3N0M0), or metastatic disease (TXNXM1). We grouped the patients according to the types of treatment performed as radical prostatectomy (P), hormone therapy (H), and radiotherapy plus hormone therapy (R+H). For the pathological stage, T2N0orX had the tumor confined inside the prostate, T3aN0orX had extra-capsular involvement of the tumor, and T3bN0orX were tumors presenting invasion of the seminal vesicle. The tumor margin was considered negative (free) or positive (committed), and the occurrence of biochemical relapse or death by cancer was designated as yes or no. We defined biochemical recurrence whenever the PSA level surpassed 0.2 ng/mL after prostatectomy or a rise of 2 ng/mL or more above the lowest PSA levels after radio-hormonal therapies.</p>
+      </sec>
+      <sec>
+        <title>RNA extraction, RT-PCR, and real-time PCR (qPCR)</title>
+        <p>RNA from total blood was extracted using Trizol LS (GE Healthcare, USA) following the manufacturer's instructions. The RNA was submitted to reverse transcription using the ImProm-II (TM) Reverse Transcription System kit (Promega, USA). <italic>CTSZ</italic> and housekeeping genes were amplified using 2 µL of cDNA of each sample previously diluted 1:15, 5 µL of Power SYBR Green Master Mix (2X) (Thermo Scientific, USA), and 1.5 µL of primers sense and antisense (6 µM). The samples were amplified in the Applied Biosystems<sup>®</sup> 7500 Real-Time PCR System (Life Technologies, USA) for 40 cycles of 15 s at 95°C, followed by 60 s at 60°C. The following primer sequences were used: <italic>CTSZ</italic> sense: 5′ <named-content content-type="gene">CATCCCTGACGAGACCTG</named-content> 3′, <italic>CTSZ</italic> antisense: 5′ <named-content content-type="gene">GCATGTCCCACATTGGTTAAA</named-content> 3′; ribosomal protein 13a (<italic>RPL13a</italic>) sense: 5′ <named-content content-type="gene">CCACCCTGGAGGAGA</named-content> 3′ and <italic>RPL13A</italic> antisense: 5′ <named-content content-type="gene">CCTGTTTCCGTAGCCTCAT</named-content> 3′. All experiments were performed in triplicate for each sample. CTSZ mRNA expression was firstly normalized by the housekeeping gene RPL13a (2<sup>-ΔCt</sup>) and then corrected by the CTSZ mRNA expression from the healthy control group (2<sup>-ΔCt</sup>). RPL13a was previously used to correct CTSZ expression from the control group.</p>
+      </sec>
+      <sec>
+        <title>Statistical analysis</title>
+        <p>The statistical significance of the data was analyzed using the IBM SPSS Statistics 20 software (IBM<sup>®</sup> Inc; USA). The variables were analyzed for normality by the Kolmogorov-Smirnov test. Mann-Whitney or Kruskal-Wallis tests were used to compare non-parametric variables of two or more than two groups, respectively. A <italic>t-</italic>test or ANOVA followed by a Bonferroni post-test was applied to compare parametric variables of two or more than two groups, respectively. We considered a two-tailed analysis and a significance level of 0.05. The ROC curve was calculated for CTSZ mRNA in the blood as a molecular marker for PCa diagnoses or biochemical recurrence.</p>
+      </sec>
+    </sec>
+    <sec sec-type="results">
+      <title>Results</title>
+      <sec>
+        <title>Comparative analysis of CTSZ mRNA levels in healthy and primary cancer tissues</title>
+        <p>We first provided a comparative overview of the CTSZ mRNA expression in different tumor and non-tumor sites in the body, including the whole blood of healthy patients, analyzing RNA-seq data of CTSZ mRNA expression in large cohorts of subjects (<xref ref-type="fig" rid="f01">Figure 1</xref>). Interestingly, we found that the blood of healthy subjects presented high CTSZ mRNA levels (<xref ref-type="fig" rid="f01">Figure 1A</xref>). We can note in <xref ref-type="fig" rid="f01">Figure 1B</xref> that the expression of CTSZ mRNA was very high in the immune blood cells of healthy patients. These data associated with the CTSZ known function of promoting immune cell adhesion, with consequent migration through the endothelia to solid tissues, suggest a possible protective potential against cancer development. In solid tissue sites, all healthy tissues expressed less CTSZ than malignant tumors, except low-grade gliomas (<xref ref-type="fig" rid="f01">Figure 1A and B, P</xref>=0.010). The intense expression of CTSZ mRNA in malignant tumor sites can be explained, at least in part, by the immune infiltration that often occurs in cancer tissues. This can be explained by the fact that regular sites adjacent to tumors and a few specific sites that have, in common, high levels of mucosa-associated lymphoid tissue/immune system cells (e.g., lung, blood, salivary glands, thyroid, breast, transverse/sigmoid colon, and esophagus) also have high levels of CTSZ (<xref ref-type="fig" rid="f01">Figure 1A</xref>).</p>
+        <fig id="f01">
+          <label>Figure 1</label>
+          <caption>
+            <title>Bioinformatics data of cathepsin Z (CTSZ) expression. <bold>A</bold>, Heat map of CTSZ mRNA expression from several normal and cancer tissues. The red arrow indicates the expression of CTSZ mRNA in the blood of healthy subjects. Black font: healthy tissues; Red font: tumors. *RNA-seq mRNA expression from the HPA RNA-seq normal tissues project (<ext-link ext-link-type="uri" xlink:href="https://www.proteinatlas.org">https://www.proteinatlas.org</ext-link>), **RNA-seq data from the Genotype-Tissue Expression (GTEx) Project, and ***RNA-seq m from the Pan-Cancer Analysis of Whole Genomes (<ext-link ext-link-type="uri" xlink:href="https://dcc.icgc.org/pcawg">https://dcc.icgc.org/pcawg</ext-link>, data available in the Expression Atlas website). TPM: transcripts per kilobase million. <bold>B</bold>, CTSZ mRNA expression in different human immune cells from healthy subjects' blood. <bold>C</bold>, CTSZ mRNA expression in normal tissues versus tumors. *P&lt;0.05 (<italic>t</italic>-test). We adapted the data presented in panel B from the Human Protein Atlas website (<ext-link ext-link-type="uri" xlink:href="https://www.proteinatlas.org">https://www.proteinatlas.org</ext-link>).</title>
+          </caption>
+          <alternatives>
+            <graphic mimetype="image" xlink:href="1414-431X-bjmbr-54-10-e11439-gf001.jpg"/>
+            <graphic xlink:href="1414-431X-bjmbr-54-10-e11439-gf001.thumbnail.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+        <p>Since no data about the concentration of CTSZ mRNA in the total blood of cancer patients were available in the databases evaluated, we decided to explore this in a pilot clinical study based on blood samples of PCa patients.</p>
+      </sec>
+      <sec>
+        <title>CTSZ mRNA expression in the blood as a predictive factor for PCa diagnosis</title>
+        <p><xref ref-type="table" rid="t01">Table 1</xref> shows the relative and the absolute number of cases by each clinical-pathological feature analyzed. The relative expression of CTSZ mRNA in the total blood of patients with PCa before treatment was 75% lower than the CTSZ mRNA expression observed in the control group (<xref ref-type="fig" rid="f02">Figure 2A</xref>; P=0.002). This variable was considered as a good predictive factor for the diagnosis of PCa, as determined by the ROC curve analysis (<xref ref-type="fig" rid="f02">Figure 2B</xref>), which presented an area under the curve (AUC) of 0.832±0.062 (95%CI: 0.711-0.953), P&lt;0.001. This wide confidence interval indicates an interference of the sample size of this pilot study, however even with this limitation, we can note that the lowest value of the CI is higher than 0.7, reinforcing CTSZ mRNA as a good marker for PCa diagnosis. The estimated sensitivity of a CTSZ mRNA is 63% for PCa detection, but this test's specificity is high, achieving 93.3% considering a cut-off &lt;0.0049. Furthermore, the CTSZ mRNA positive likelihood ratio (+LR) is 9.4, while the negative likelihood ratio (-LR) is close to 0.4.</p>
+        <p>
+          <table-wrap id="t01">
+            <label>Table 1</label>
+            <caption>
+              <title>The relative and the absolute number of patients by clinical-pathological features.</title>
+            </caption>
+            <table frame="hsides" rules="groups" width="center">
+              <colgroup>
+                <col align="left"/>
+                <col align="center"/>
+                <col align="center"/>
+              </colgroup>
+              <thead style="border-bottom: thin solid; border-top: thin solid; border-color: #000000">
+                <tr>
+                  <th/>
+                  <th align="center">Sample size (N)</th>
+                  <th align="center">Percentage (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="left">Control group</td>
+                  <td align="center">20</td>
+                  <td align="center">40</td>
+                </tr>
+                <tr>
+                  <td align="left">Prostate cancer patients</td>
+                  <td align="center">30</td>
+                  <td align="center">60</td>
+                </tr>
+                <tr>
+                  <td align="left">All cases</td>
+                  <td align="center">50</td>
+                  <td align="center">100</td>
+                </tr>
+                <tr>
+                  <td align="left">Age<sup>*</sup> (years)</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">Control group</td>
+                  <td align="center">69±7</td>
+                  <td align="center">N/A</td>
+                </tr>
+                <tr>
+                  <td align="left">Prostate cancer group</td>
+                  <td align="center">66±8</td>
+                  <td align="center">N/A</td>
+                </tr>
+                <tr>
+                  <td align="left">Race** (Control group/ Prostate cancer group)</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">White</td>
+                  <td align="center">9/12</td>
+                  <td align="center">45/40</td>
+                </tr>
+                <tr>
+                  <td align="left">Pardo<sup>†</sup></td>
+                  <td align="center">8/10</td>
+                  <td align="center">40/34</td>
+                </tr>
+                <tr>
+                  <td align="left">Afro-American</td>
+                  <td align="center">3/7</td>
+                  <td align="center">15/23</td>
+                </tr>
+                <tr>
+                  <td align="left">Asian</td>
+                  <td align="center">0/1</td>
+                  <td align="center">0/3</td>
+                </tr>
+                <tr>
+                  <td align="left">ISUP grade biopsy - Risk</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">Low (=1)</td>
+                  <td align="center">11</td>
+                  <td align="center">36.7</td>
+                </tr>
+                <tr>
+                  <td align="left">Intermediate (=2 and 3)</td>
+                  <td align="center">13</td>
+                  <td align="center">43.3</td>
+                </tr>
+                <tr>
+                  <td align="left">High (≥4)</td>
+                  <td align="center">6</td>
+                  <td align="center">20.0</td>
+                </tr>
+                <tr>
+                  <td align="left">Clinical Stage</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">Localized</td>
+                  <td align="center">26</td>
+                  <td align="center">86.7</td>
+                </tr>
+                <tr>
+                  <td align="left">Locally advanced</td>
+                  <td align="center">2</td>
+                  <td align="center">6.7</td>
+                </tr>
+                <tr>
+                  <td align="left">Metastatic</td>
+                  <td align="center">2</td>
+                  <td align="center">6.7</td>
+                </tr>
+                <tr>
+                  <td align="left">Treatment</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">Prostatectomy</td>
+                  <td align="center">20</td>
+                  <td align="center">66.7</td>
+                </tr>
+                <tr>
+                  <td align="left">Hormonal therapy</td>
+                  <td align="center">6</td>
+                  <td align="center">20.0</td>
+                </tr>
+                <tr>
+                  <td align="left">Radio + hormonal therapy</td>
+                  <td align="center">4</td>
+                  <td align="center">13.3</td>
+                </tr>
+                <tr>
+                  <td align="left">Pathologic Stage</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">T2N0orX</td>
+                  <td align="center">13</td>
+                  <td align="center">43.3</td>
+                </tr>
+                <tr>
+                  <td align="left">T3aN0orX</td>
+                  <td align="center">4</td>
+                  <td align="center">13.3</td>
+                </tr>
+                <tr>
+                  <td align="left">T3bN0orX</td>
+                  <td align="center">3</td>
+                  <td align="center">10.0</td>
+                </tr>
+                <tr>
+                  <td align="left">N/A</td>
+                  <td align="center">10</td>
+                  <td align="center">33.3</td>
+                </tr>
+                <tr>
+                  <td align="left">ISUP grade tumor - risk</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">Low (=1)</td>
+                  <td align="center">7</td>
+                  <td align="center">23.3</td>
+                </tr>
+                <tr>
+                  <td align="left">Intermediate (=2 and 3)</td>
+                  <td align="center">11</td>
+                  <td align="center">36.7</td>
+                </tr>
+                <tr>
+                  <td align="left">High (≥4)</td>
+                  <td align="center">2</td>
+                  <td align="center">6.7</td>
+                </tr>
+                <tr>
+                  <td align="left">N/A</td>
+                  <td align="center">10</td>
+                  <td align="center">33.3</td>
+                </tr>
+                <tr>
+                  <td align="left">Tumor margin</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">Negative</td>
+                  <td align="center">14</td>
+                  <td align="center">46.7</td>
+                </tr>
+                <tr>
+                  <td align="left">Positive</td>
+                  <td align="center">6</td>
+                  <td align="center">20.0</td>
+                </tr>
+                <tr>
+                  <td align="left">N/A</td>
+                  <td align="center">10</td>
+                  <td align="center">33.3</td>
+                </tr>
+                <tr>
+                  <td align="left">Biochemical relapse</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">No</td>
+                  <td align="center">20</td>
+                  <td align="center">83.3</td>
+                </tr>
+                <tr>
+                  <td align="left">Yes</td>
+                  <td align="center">4</td>
+                  <td align="center">16.7</td>
+                </tr>
+                <tr>
+                  <td align="left">Death by cancer</td>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td align="left">No</td>
+                  <td align="center">18</td>
+                  <td align="center">60.0</td>
+                </tr>
+                <tr>
+                  <td align="left">Yes</td>
+                  <td align="center">3</td>
+                  <td align="center">10.0</td>
+                </tr>
+                <tr>
+                  <td align="left">N/A</td>
+                  <td align="center">9</td>
+                  <td align="center">30.0</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN01t01">
+                <p>P=0.215 for age; N/A: Not applicable; **P=0.728 for race; <sup>†</sup>mixed Afro-American and White race. ISUP: International Society of Urological Pathology.</p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <fig id="f02">
+          <label>Figure 2</label>
+          <caption>
+            <title><bold>A</bold>, Relative expression of cathepsin Z (CTSZ) mRNA in the blood of patients with prostate cancer (PCa) before treatment compared with healthy subjects (control) determined by real-time polymerase chain reaction (qPCR). Data are reported as means±SD. *P=0.002 (<italic>t</italic>-test). <bold>B</bold>, Receiver operating characteristic (ROC) curve of CTSZ mRNA as a molecular marker of PCa, with an area under the curve (AUC) of 0.832±0.062, P&lt;0.001.</title>
+          </caption>
+          <alternatives>
+            <graphic mimetype="image" xlink:href="1414-431X-bjmbr-54-10-e11439-gf002.jpg"/>
+            <graphic xlink:href="1414-431X-bjmbr-54-10-e11439-gf002.thumbnail.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </sec>
+      <sec>
+        <title>Clinical pathological features and CTSZ mRNA levels in the blood</title>
+        <p>We have also analyzed CTSZ mRNA expression in terms of different clinical parameters related to the malignancy status, and we found that the group with intermediate/high risk according to the ISUP grade group for the resected tumor (Supplementary Figure S3A) presented a 71% decrease compared to the low-risk group (p=0.050). Furthermore, patients with biochemical relapse had a 54% decrease in the CTSZ mRNA expression (P=0.024) compared with PCa patients with no relapse (Supplementary Figure S3B). For this relationship, we calculated a ROC curve, which presented an AUC of 0.763 (95%CI: 0.546-0.979), but it was not statistically significant (P=0.104). For the other parameters analyzed (Supplementary Figure S3C-H) and for the patients submitted to prostatectomy, where we evaluated the expression of CTSZ mRNA in the blood before and six months after the surgical excision of the tumor, no significant difference was found in CTSZ mRNA expression among the groups (Supplementary Figure S4). It is important to point out that both control and case groups were statistically homogeneous in terms of age (P=0.215) and race (P=0.718).</p>
+      </sec>
+    </sec>
+    <sec sec-type="discussion">
+      <title>Discussion</title>
+      <p>Considering the current markers used for PCa diagnosis, PSA is still the gold standard for PCa screening in men. PSA is regarded as a high sensitivity test for PCa diagnosis in most studies, varying from 67 to 90%; however, this test's specificity is low, ranging from 28 to 59% (<xref ref-type="bibr" rid="B02">2</xref>,<xref ref-type="bibr" rid="B03">3</xref>,<xref ref-type="bibr" rid="B12">12</xref>). CTSZ mRNA can be considered as a molecular marker with similar sensitivity to PSA, but superior specificity for PCa diagnosis, at least in the population analyzed in this study. The +LR for CTSZ mRNA levels &lt;0.0049 was 9.4, which means that it is 9.4 times more common in men with PCa than in those without the disease, increasing the probability of PCa by approximately 45%. For comparison purposes, +LR for PSA is only 1.28 (<xref ref-type="bibr" rid="B02">2</xref>), which means that a positive test increases the disease's probability by less than 15%. The -LR for CTSX mRNA is very similar to PSA, being close to 0.4 (<xref ref-type="bibr" rid="B02">2</xref>), which means that a negative result (CTSZ mRNA &gt;0.0049) decreases the PCa probability by almost 20%. Since clinical decisions are guided by estimations of the likelihood of disease, decisions derived from interval LR use may be more informative than sensitivity and specificity. The comparison between CTSZ mRNA and PSA performance as molecular markers for PCa detection must be evaluated with caution since this pilot study had a limited number of patients, while PSA data used for comparison were collected from several large clinical trials. It is interesting to note that the AUC for CTSZ mRNA is higher than most published AUC for markers in PCa diagnosis, including PSA, the 4-kallikrein panel, Prostate Health Index (PHI), multiparametric magnetic resonance imaging (mpMRI), and the association of PHI and mpMRI. However, the superior performance of CTSZ mRNA in PCa diagnosis observed in this study may have been influenced by the reduced sample size of this pilot study, associated with its retrospective nature, with the absence of a biopsy performance in the control group and the use of PSA as the leading guide for the pre-diagnostic selection of this group. Therefore, future large prospective cohort trials must be designed to evaluate CTSZ mRNA as well as CTSZ protein expression as potential diagnostic biomarkers for PCa. In these studies, a vital inclusion criterion would be a negative biopsy result for the control group members. With this in mind, we can summarize that CTSZ mRNA expression (2<sup>-ΔCt</sup>) is a molecular marker of high specificity and +LR when compared with PSA. However, CTSZ mRNA has a similar sensitivity and -LR compared to PSA. Thus, CTSZ mRNA would be helpful as a complement of PSA to confirm the positive diagnosis of PCa in patients with a slightly high PSA, or cases of a suspicious digital rectal exam with normal PSA, with the potential to eliminate the necessity of biopsy in many instances, avoiding its associated risks, such as bleeding, infection, discomfort, and pain.</p>
+      <p>Low levels of CTSZ mRNA were found in PCa patients' blood in general and even lower levels were found in patients who had a biochemical relapse. In healthy subjects, this enzyme is expressed in high levels by specific immune cells, such as B cells, monocytes, neutrophils, and dendritic cells, highlighting the functional importance for T cell migration (<xref ref-type="bibr" rid="B05">5</xref>). T cells expressing CTSZ can infiltrate better into the tumor microenvironment through LFA-1 modulation, increasing the number of functional tumor-infiltrating lymphocytes (TILs) that could improve cytotoxic activity, contributing to avoid biochemical relapse and consequent progression of prostate tumors. If CTSZ is not expressed in high levels by immune cells from the blood, they do not achieve tumor sites efficiently, and the response against cancer cells can be impaired. The favorable prognostic value of cytotoxic (CD8) TILs has been demonstrated in multiple solid tumor types (<xref ref-type="bibr" rid="B13">13</xref>), including PCa (<xref ref-type="bibr" rid="B14">14</xref>,<xref ref-type="bibr" rid="B15">15</xref>).</p>
+      <p>Despite the widely available data regarding CTSZ mRNA levels in different types of primary malignant tumors, the information about CTSZ mRNA expression in the whole blood of cancer patients is limited. It is known that CTSZ protein levels in the serum of patients with inflammatory breast cancer are lower than in healthy subjects (<xref ref-type="bibr" rid="B16">16</xref>). However, for colorectal cancer patients, the serum levels did not differ from the control group (<xref ref-type="bibr" rid="B17">17</xref>). CTSZ protein levels in serum were significantly higher for lung cancer than in the healthy control subjects and presented short overall survival rates (<xref ref-type="bibr" rid="B18">18</xref>). None of these studies have used total blood as a sample, and none of them analyzed CTSZ mRNA, which hinders a proper comparison of the data. It must be determined if the CTSZ mRNA downregulation in the blood is a feature explicitly observed for PCa patients or if it can also occur in the total blood of patients with different tumor types.</p>
+      <p>PCa presents itself with both aggressive and indolent forms. Despite the controversy surrounding its use, PSA screening ultimately leads to a more significant number of diagnosed patients. One of the biggest challenges in clinical practice is selecting suitable patients for biopsy and, among diagnosed patients, differentiating tumors with an indolent course from those with an unfavorable prognosis to determine the best therapeutic decision for each case, avoiding unnecessary interventions. Currently, several types of biomarkers are available for clinical use in patients with PCa, which include blood-based tests (prostate-specific antigen, Prostate Health Index<sup>®</sup>, 4K score<sup>®</sup>), urine sample-based tests (PCA3, SelectMDx<sup>®</sup>, ExoDx Prostate IntelliScore<sup>®</sup>), and tissue-based tests (ConfirmMDx<sup>®</sup>, Oncotype<sup>®</sup>, Prolaris<sup>®</sup>, Decipher<sup>®</sup>) (<xref ref-type="bibr" rid="B19">19</xref>). However, although promising, the routine clinical use of PCa biomarkers still lacks strong evidence to be incorporated in the daily practice of the majority of urologists and oncologists. CSTZ may add necessary information to this scenario, and it has the potential to be included in biomarker tests developed in the future.</p>
+      <p>Our findings suggested that the body site of CTSZ mRNA expression was fundamental to determine its final role as a protective factor against cancer, such as CTSZ mRNA in blood cells, or a malignant determinant, such as found for CTSZ expressed in high levels by different types of primary and metastatic tumors. CTSZ mRNA expression in the blood was a molecular marker of high specificity and +LR for PCa in our cohort, with the potential to be helpful as a complementary biomarker to PSA to improve biopsy decision accuracy. The mechanisms regulating the expression of CTSZ mRNA in the blood of PCa patients still must be elucidated.</p>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgments</title>
+      <p>We thank the São Paulo Research Foundation (FAPESP, grant number 2018/17656-0) for financial support.</p>
+    </ack>
+    <ref-list>
+      <title>References</title>
+      <ref id="B01">
+        <label>1</label>
+        <mixed-citation>1. Siegel RL, Miller KD, Goding Sauer A, Fedewa SA, Butterly LF, Anderson JC, et al. Colorectal cancer statistics, 2020. CA Cancer J Clin 2020; 70: 145–164, doi: 10.3322/caac.21601.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Siegel</surname>
+              <given-names>RL</given-names>
+            </name>
+            <name>
+              <surname>Miller</surname>
+              <given-names>KD</given-names>
+            </name>
+            <name>
+              <surname>Goding Sauer</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Fedewa</surname>
+              <given-names>SA</given-names>
+            </name>
+            <name>
+              <surname>Butterly</surname>
+              <given-names>LF</given-names>
+            </name>
+            <name>
+              <surname>Anderson</surname>
+              <given-names>JC</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Colorectal cancer statistics, 2020</article-title>
+          <source>CA Cancer J Clin</source>
+          <year>2020</year>
+          <volume>70</volume>
+          <fpage>145</fpage>
+          <lpage>164</lpage>
+          <pub-id pub-id-type="doi">10.3322/caac.21601</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B02">
+        <label>2</label>
+        <mixed-citation>2. Hoffman RM, Gilliland FD, Adams-Cameron M, Hunt WC, Key CR. Prostate-specific antigen testing accuracy in community practice. BMC Fam Pract 2002; 3: 19, doi: 10.1186/1471-2296-3-19.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hoffman</surname>
+              <given-names>RM</given-names>
+            </name>
+            <name>
+              <surname>Gilliland</surname>
+              <given-names>FD</given-names>
+            </name>
+            <name>
+              <surname>Adams-Cameron</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Hunt</surname>
+              <given-names>WC</given-names>
+            </name>
+            <name>
+              <surname>Key</surname>
+              <given-names>CR</given-names>
+            </name>
+          </person-group>
+          <article-title>Prostate-specific antigen testing accuracy in community practice</article-title>
+          <source>BMC Fam Pract</source>
+          <year>2002</year>
+          <volume>3</volume>
+          <fpage>19</fpage>
+          <pub-id pub-id-type="doi">10.1186/1471-2296-3-19</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B03">
+        <label>3</label>
+        <mixed-citation>3. Catalona WJ, Richie JP, deKernion JB, Ahmann FR, Ratliff TL, Dalkin BL, et al. Comparison of prostate specific antigen concentration versus prostate specific antigen density in the early detection of prostate cancer: receiver operating characteristic curves. J Urol 1994; 152: 2031–2036, doi: 10.1016/S0022-5347(17)32299-1.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Catalona</surname>
+              <given-names>WJ</given-names>
+            </name>
+            <name>
+              <surname>Richie</surname>
+              <given-names>JP</given-names>
+            </name>
+            <name>
+              <surname>deKernion</surname>
+              <given-names>JB</given-names>
+            </name>
+            <name>
+              <surname>Ahmann</surname>
+              <given-names>FR</given-names>
+            </name>
+            <name>
+              <surname>Ratliff</surname>
+              <given-names>TL</given-names>
+            </name>
+            <name>
+              <surname>Dalkin</surname>
+              <given-names>BL</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Comparison of prostate specific antigen concentration versus prostate specific antigen density in the early detection of prostate cancer: receiver operating characteristic curves</article-title>
+          <source>J Urol</source>
+          <year>1994</year>
+          <volume>152</volume>
+          <fpage>2031</fpage>
+          <lpage>2036</lpage>
+          <pub-id pub-id-type="doi">10.1016/S0022-5347(17)32299-1</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B04">
+        <label>4</label>
+        <mixed-citation>4. Olson OC, Joyce JA. Cysteine cathepsin proteases: regulators of cancer progression and therapeutic response. Nat Rev Cancer 2015; 15: 712–729, doi: 10.1038/nrc4027.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Olson</surname>
+              <given-names>OC</given-names>
+            </name>
+            <name>
+              <surname>Joyce</surname>
+              <given-names>JA</given-names>
+            </name>
+          </person-group>
+          <article-title>Cysteine cathepsin proteases: regulators of cancer progression and therapeutic response</article-title>
+          <source>Nat Rev Cancer</source>
+          <year>2015</year>
+          <volume>15</volume>
+          <fpage>712</fpage>
+          <lpage>729</lpage>
+          <pub-id pub-id-type="doi">10.1038/nrc4027</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B05">
+        <label>5</label>
+        <mixed-citation>5. Jevnikar Z, Obermajer N, Doljak B, Turk S, Gobec S, Svajger U, et al. Cathepsin X cleavage of the beta2 integrin regulates talin-binding and LFA-1 affinity in T cells. J Leukoc Biol 2011; 90: 99–109, doi: 10.1189/jlb.1110622.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jevnikar</surname>
+              <given-names>Z</given-names>
+            </name>
+            <name>
+              <surname>Obermajer</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Doljak</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Turk</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Gobec</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Svajger</surname>
+              <given-names>U</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Cathepsin X cleavage of the beta2 integrin regulates talin-binding and LFA-1 affinity in T cells</article-title>
+          <source>J Leukoc Biol</source>
+          <year>2011</year>
+          <volume>90</volume>
+          <fpage>99</fpage>
+          <lpage>109</lpage>
+          <pub-id pub-id-type="doi">10.1189/jlb.1110622</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B06">
+        <label>6</label>
+        <mixed-citation>6. Fisher DT, Chen Q, Appenheimer MM, Skitzki J, Wang WC, Odunsi K, et al. Hurdles to lymphocyte trafficking in the tumor microenvironment: implications for effective immunotherapy. Immunol Invest 2006; 35: 251–277, doi: 10.1080/08820130600745430.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fisher</surname>
+              <given-names>DT</given-names>
+            </name>
+            <name>
+              <surname>Chen</surname>
+              <given-names>Q</given-names>
+            </name>
+            <name>
+              <surname>Appenheimer</surname>
+              <given-names>MM</given-names>
+            </name>
+            <name>
+              <surname>Skitzki</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Wang</surname>
+              <given-names>WC</given-names>
+            </name>
+            <name>
+              <surname>Odunsi</surname>
+              <given-names>K</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Hurdles to lymphocyte trafficking in the tumor microenvironment: implications for effective immunotherapy</article-title>
+          <source>Immunol Invest</source>
+          <year>2006</year>
+          <volume>35</volume>
+          <fpage>251</fpage>
+          <lpage>277</lpage>
+          <pub-id pub-id-type="doi">10.1080/08820130600745430</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B07">
+        <label>7</label>
+        <mixed-citation>7. Jechorek D, Votapek J, Meyer F, Kandulski A, Roessner A, Franke S. Characterization of cathepsin X in colorectal cancer development and progression. Pathol Res Pract 2014; 210: 822–829, doi: 10.1016/j.prp.2014.08.014.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jechorek</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Votapek</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Meyer</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Kandulski</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Roessner</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Franke</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>Characterization of cathepsin X in colorectal cancer development and progression</article-title>
+          <source>Pathol Res Pract</source>
+          <year>2014</year>
+          <volume>210</volume>
+          <fpage>822</fpage>
+          <lpage>829</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.prp.2014.08.014</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B08">
+        <label>8</label>
+        <mixed-citation>8. Consortium GTEx. The genotype-tissue expression (GTEx) project. Nat Genet 2013; 45: 580–585, doi: 10.1038/ng.2653.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Consortium</surname>
+              <given-names>GTEx</given-names>
+            </name>
+          </person-group>
+          <article-title>The genotype-tissue expression (GTEx) project</article-title>
+          <source>Nat Genet</source>
+          <year>2013</year>
+          <volume>45</volume>
+          <fpage>580</fpage>
+          <lpage>585</lpage>
+          <pub-id pub-id-type="doi">10.1038/ng.2653</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B09">
+        <label>9</label>
+        <mixed-citation>9. Stein LD, Knoppers BM, Campbell P, Getz G, Korbel JO. Data analysis: Create a cloud commons. Nature 2015; 523: 149–151, doi: 10.1038/523149a.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Stein</surname>
+              <given-names>LD</given-names>
+            </name>
+            <name>
+              <surname>Knoppers</surname>
+              <given-names>BM</given-names>
+            </name>
+            <name>
+              <surname>Campbell</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Getz</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Korbel</surname>
+              <given-names>JO</given-names>
+            </name>
+          </person-group>
+          <article-title>Data analysis: Create a cloud commons</article-title>
+          <source>Nature</source>
+          <year>2015</year>
+          <volume>523</volume>
+          <fpage>149</fpage>
+          <lpage>151</lpage>
+          <pub-id pub-id-type="doi">10.1038/523149a</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <label>10</label>
+        <mixed-citation>10. Fagerberg L, Hallstrom BM, Oksvold P, Kampf C, Djureinovic D, Odeberg J, et al. Analysis of the human tissue-specific expression by genome-wide integration of transcriptomics and antibody-based proteomics. Mol Cell Proteomics 2014; 13: 397–406, doi: 10.1074/mcp.M113.035600.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fagerberg</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Hallstrom</surname>
+              <given-names>BM</given-names>
+            </name>
+            <name>
+              <surname>Oksvold</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Kampf</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Djureinovic</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Odeberg</surname>
+              <given-names>J</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Analysis of the human tissue-specific expression by genome-wide integration of transcriptomics and antibody-based proteomics</article-title>
+          <source>Mol Cell Proteomics</source>
+          <year>2014</year>
+          <volume>13</volume>
+          <fpage>397</fpage>
+          <lpage>406</lpage>
+          <pub-id pub-id-type="doi">10.1074/mcp.M113.035600</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <label>11</label>
+        <mixed-citation>11. Uhlen M, Fagerberg L, Hallstrom BM, Lindskog C, Oksvold P, Mardinoglu A, et al. Proteomics. Tissue-based map of the human proteome. Science 2015; 347: 1260419, doi: 10.1126/science.1260419.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Uhlen</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Fagerberg</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Hallstrom</surname>
+              <given-names>BM</given-names>
+            </name>
+            <name>
+              <surname>Lindskog</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Oksvold</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Mardinoglu</surname>
+              <given-names>A</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Proteomics. Tissue-based map of the human proteome</article-title>
+          <source>Science</source>
+          <year>2015</year>
+          <volume>347</volume>
+          <fpage>1260419</fpage>
+          <pub-id pub-id-type="doi">10.1126/science.1260419</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <label>12</label>
+        <mixed-citation>12. Babaian RJ, Mettlin C, Kane R, Murphy GP, Lee F, Drago JR, et al. The relationship of prostate-specific antigen to digital rectal examination and transrectal ultrasonography. Findings of the American Cancer Society National Prostate Cancer Detection Project. Cancer 1992; 69: 1195–1200, doi: 10.1002/cncr.2820690521.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Babaian</surname>
+              <given-names>RJ</given-names>
+            </name>
+            <name>
+              <surname>Mettlin</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Kane</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Murphy</surname>
+              <given-names>GP</given-names>
+            </name>
+            <name>
+              <surname>Lee</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Drago</surname>
+              <given-names>JR</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>The relationship of prostate-specific antigen to digital rectal examination and transrectal ultrasonography. Findings of the American Cancer Society National Prostate Cancer Detection Project</article-title>
+          <source>Cancer</source>
+          <year>1992</year>
+          <volume>69</volume>
+          <fpage>1195</fpage>
+          <lpage>1200</lpage>
+          <pub-id pub-id-type="doi">10.1002/cncr.2820690521</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <label>13</label>
+        <mixed-citation>13. Ziai J, Gilbert HN, Foreman O, Eastham-Anderson J, Chu F, Huseni M, et al. CD8+ T cell infiltration in breast and colon cancer: A histologic and statistical analysis. PloS One 2018; 13: e0190158, doi: 10.1371/journal.pone.0190158.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ziai</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Gilbert</surname>
+              <given-names>HN</given-names>
+            </name>
+            <name>
+              <surname>Foreman</surname>
+              <given-names>O</given-names>
+            </name>
+            <name>
+              <surname>Eastham-Anderson</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Chu</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Huseni</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>CD8+ T cell infiltration in breast and colon cancer: A histologic and statistical analysis</article-title>
+          <source>PloS One</source>
+          <year>2018</year>
+          <volume>13</volume>
+          <fpage>e0190158</fpage>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0190158</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <label>14</label>
+        <mixed-citation>14. Karja V, Aaltomaa S, Lipponen P, Isotalo T, Talja M, Mokka R. Tumour-infiltrating lymphocytes: a prognostic factor of PSA-free survival in patients with local prostate carcinoma treated by radical prostatectomy. Anticancer Res 2005; 25: 4435–4438.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Karja</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Aaltomaa</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Lipponen</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Isotalo</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Talja</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Mokka</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <article-title>Tumour-infiltrating lymphocytes: a prognostic factor of PSA-free survival in patients with local prostate carcinoma treated by radical prostatectomy</article-title>
+          <source>Anticancer Res</source>
+          <year>2005</year>
+          <volume>25</volume>
+          <fpage>4435</fpage>
+          <lpage>4438</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <label>15</label>
+        <mixed-citation>15. Vesalainen S, Lipponen P, Talja M, Syrjanen K. Histological grade, perineural infiltration, tumour-infiltrating lymphocytes and apoptosis as determinants of long-term prognosis in prostatic adenocarcinoma. Eur J Cancer 1994; 30A: 1797–1803, doi: 10.1016/0959-8049(94)E0159-2.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vesalainen</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Lipponen</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Talja</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Syrjanen</surname>
+              <given-names>K</given-names>
+            </name>
+          </person-group>
+          <article-title>Histological grade, perineural infiltration, tumour-infiltrating lymphocytes and apoptosis as determinants of long-term prognosis in prostatic adenocarcinoma</article-title>
+          <source>Eur J Cancer</source>
+          <year>1994</year>
+          <volume>30A</volume>
+          <fpage>1797</fpage>
+          <lpage>1803</lpage>
+          <pub-id pub-id-type="doi">10.1016/0959-8049(94)E0159-2</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <label>16</label>
+        <mixed-citation>16. Decock J, Obermajer N, Vozelj S, Hendrickx W, Paridaens R, Kos J. Cathepsin B, cathepsin H, cathepsin X and cystatin C in sera of patients with early-stage and inflammatory breast cancer. Int J Biol Markers 2008; 23: 161–168, doi: 10.1177/172460080802300305.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Decock</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Obermajer</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Vozelj</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Hendrickx</surname>
+              <given-names>W</given-names>
+            </name>
+            <name>
+              <surname>Paridaens</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Kos</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <article-title>Cathepsin B, cathepsin H, cathepsin X and cystatin C in sera of patients with early-stage and inflammatory breast cancer</article-title>
+          <source>Int J Biol Markers</source>
+          <year>2008</year>
+          <volume>23</volume>
+          <fpage>161</fpage>
+          <lpage>168</lpage>
+          <pub-id pub-id-type="doi">10.1177/172460080802300305</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <label>17</label>
+        <mixed-citation>17. Vizin T, Christensen IJ, Wilhelmsen M, Nielsen HJ, Kos J. Prognostic and predictive value of cathepsin X in serum from colorectal cancer patients. BMC Cancer 2014; 14: 259, doi: 10.1186/1471-2407-14-259.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vizin</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Christensen</surname>
+              <given-names>IJ</given-names>
+            </name>
+            <name>
+              <surname>Wilhelmsen</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Nielsen</surname>
+              <given-names>HJ</given-names>
+            </name>
+            <name>
+              <surname>Kos</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <article-title>Prognostic and predictive value of cathepsin X in serum from colorectal cancer patients</article-title>
+          <source>BMC Cancer</source>
+          <year>2014</year>
+          <volume>14</volume>
+          <fpage>259</fpage>
+          <pub-id pub-id-type="doi">10.1186/1471-2407-14-259</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <label>18</label>
+        <mixed-citation>18. Zhang X, Hou Y, Niu Z, Li W, Meng X, Zhang N, et al. Clinical significance of detection of cathepsin X and cystatin C in the sera of patients with lung cancer [in Chinese]. Zhongguo Fei Ai Za Zhi 2013; 16: 411–416.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zhang</surname>
+              <given-names>X</given-names>
+            </name>
+            <name>
+              <surname>Hou</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Niu</surname>
+              <given-names>Z</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>W</given-names>
+            </name>
+            <name>
+              <surname>Meng</surname>
+              <given-names>X</given-names>
+            </name>
+            <name>
+              <surname>Zhang</surname>
+              <given-names>N</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Clinical significance of detection of cathepsin X and cystatin C in the sera of patients with lung cancer [in Chinese]</article-title>
+          <source>Zhongguo Fei Ai Za Zhi</source>
+          <year>2013</year>
+          <volume>16</volume>
+          <fpage>411</fpage>
+          <lpage>416</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <label>19</label>
+        <mixed-citation>19. Carneiro A, Priante Kayano P, Gomes Barbosa AR, Langer Wroclawski M, Ko Chen C, Cavlini GC, et al. Are localized prostate cancer biomarkers useful in the clinical practice? Tumour Biol 2018; 40: 1010428318799255, doi: 10.1177/1010428318799255.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Carneiro</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Priante Kayano</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Gomes Barbosa</surname>
+              <given-names>AR</given-names>
+            </name>
+            <name>
+              <surname>Langer Wroclawski</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Ko Chen</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Cavlini</surname>
+              <given-names>GC</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Are localized prostate cancer biomarkers useful in the clinical practice?</article-title>
+          <source>Tumour Biol</source>
+          <year>2018</year>
+          <volume>40</volume>
+          <fpage>1010428318799255</fpage>
+          <pub-id pub-id-type="doi">10.1177/1010428318799255</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <app-group>
+      <app id="app01">
+        <label>Supplementary Material</label>
+        <p>Click here to view [<ext-link ext-link-type="uri" xlink:href="http://bjournal.org/supplementary_material/11439.pdf">pdf</ext-link>].</p>
+      </app>
+    </app-group>
+  </back>
+</article>
