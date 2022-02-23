@@ -63,3 +63,31 @@ class Test_get_zip_filename(TestCase):
 
         self.assertEqual(expected, zip_filename)
 
+
+class Test_zip_files(TestCase):
+
+    def test__zip_files(self):
+        xml_sps = sps_package.SPS_Package("./tests/sps/fixtures/document2.xml")
+        uris_and_names = [
+            {
+                'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
+                    'ywDM7t6mxHzCRWp7kGF9rXQ/'
+                    'fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg',
+                'name' :'1414-431X-bjmbr-54-10-e11439-gf01.jpg'
+            },
+            {
+                'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
+                    'ywDM7t6mxHzCRWp7kGF9rXQ/'
+                    '0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg',
+                'name': '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg'
+            }
+        ]
+        expected_files_list = sorted([f['name'] for f in uris_and_names])
+
+        zip_filename = sps_maker._get_zip_filename(xml_sps)
+        zip_file_path = sps_maker._zip_files_from_uris_and_names(zip_filename, uris_and_names)
+        zf_files_list = sorted([f.filename for f in zipfile.ZipFile(zip_file_path).filelist])
+
+        for i, item in enumerate(expected_files_list):
+            with self.subTest(i):
+                self.assertEqual(item, zf_files_list[i])
