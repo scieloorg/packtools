@@ -1,8 +1,10 @@
 import logging
 import re
-from lxml import etree
 
-from dsm.utils.files import read_file
+from copy import deepcopy
+from lxml import etree
+from packtools.sps import exceptions
+from packtools.sps.utils import file_utils
 
 
 logger = logging.getLogger(__name__)
