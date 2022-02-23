@@ -84,3 +84,15 @@ def _get_xml_sps_from_path(xml_path):
     else:
         raise exceptions.SPSXMLFileError(f'{xml_path} is invalid. Please, provide a valid XML path.')
 
+
+def _get_assets_uris_and_names(xml_sps):
+    uris_and_filenames = []
+    
+    for asset in xml_sps.assets.items:
+        uris_and_filenames.append({
+            "uri": asset.uri or asset.xlink_href,
+            "name": asset.get_name(xml_sps.package_name),
+        })
+    
+    return uris_and_filenames
+
