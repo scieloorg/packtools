@@ -211,3 +211,6 @@ def get_mimetype(file_path):
     with open(file_path, 'rb') as fin:
         return magic.from_buffer(fin.read(2048), mime=True)
 
+
+def get_filename(file_path):
+    return os.path.basename(file_path)
