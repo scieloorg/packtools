@@ -78,7 +78,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                     </article>
                  """
         et = get_xml_tree_from_string(sample)
-        self.assertEquals(domain.HTMLGenerator.parse(
+        self.assertEqual(domain.HTMLGenerator.parse(
             et, valid_only=False).language, None)
 
     @unittest.skip('aguardando definicao')
@@ -642,7 +642,7 @@ class HTMLGeneratorTests(unittest.TestCase):
       html_string = etree.tostring(html, encoding="unicode", method="html")
 
       article_header_dois = html.xpath("//span[contains(@class, 'group-doi')]//a[contains(@class, '_doi')]")
-      self.assertEquals(len(article_header_dois), 1)
+      self.assertEqual(len(article_header_dois), 1)
 
 
 class HTMLGeneratorDispFormulaTests(unittest.TestCase):
@@ -1231,3 +1231,94 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
         )
         p_texts = [p.text for p in html.findall('//p')]
         self.assertIn(find_text, p_texts)
+
+
+class HTMLGeneratorTableGroupTests(unittest.TestCase):
+
+    def test_table_wrap(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <table-wrap-group id="t1">
+        <table-wrap xml:lang="pt">
+        <label>Tabela 1</label>
+        <caption>
+        <title>Classifica&#x00E7;&#x00E3;o Sucessional adotada por alguns autores ao longo dos anos.</title>
+        </caption>
+        </table-wrap>
+        <table-wrap xml:lang="en">
+        <label>Table 1</label>
+        <caption>
+        <title>Sucessional classification adopted by some authors over the years.</title>
+        </caption>
+        <table>
+        <thead>
+        <tr>
+        <th valign="top" align="left">Ano</th>
+        <th valign="top" align="center">Autor</th>
+        <th valign="top" align="center">Classifica&#x00E7;&#x00E3;o</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td valign="top" align="left">1965</td>
+        <td valign="top" align="center">Budowski</td>
+        <td valign="top" align="center">Pioneira, secund&#x00E1;ria inicial, secund&#x00E1;ria tardia e cl&#x00ED;max</td>
+        </tr>
+        <tr>
+        <td valign="top" align="left">1971</td>
+        <td valign="top" align="center">G&#x00F3;mez-Pompa</td>
+        <td valign="top" align="center">Prim&#x00E1;ria e secund&#x00E1;ria</td>
+        </tr>
+        <tr>
+        <td valign="top" align="left">2017</td>
+        <td valign="top" align="center">Moura &#x0026; Mantovani</td>
+        <td valign="top" align="center">Pioneira, secund&#x00E1;ria inicial, secund&#x00E1;ria tardia e sub-bosque</td>
+        </tr>
+        </tbody>
+        </table>
+        </table-wrap>
+        </table-wrap-group>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        div_modal_tables = html.xpath(
+            '//div[@id="ModalTablet1"]'
+        )
+        self.assertIsNotNone(div_modal_tables)
+        table = div_modal_tables[0].find(
+            './/div[@class="modal-body"]//table'
+        )
+        self.assertIsNotNone(table)
+        found_text = div_modal_tables[0].findtext(
+            './/div[@class="modal-body"]//table/thead/tr/th'
+        )
+        self.assertEqual("Ano", found_text)
+        found_nodes = div_modal_tables[0].findall(
+            './/h4[@class="modal-title"]//strong'
+        )
+        self.assertEqual("Tabela 1", found_nodes[0].text)
+        self.assertEqual("Table 1", found_nodes[1].text)
+
+"""
+<div class="modal fade ModalTables" id="ModalTablet1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">
+<span aria-hidden="true">×</span>
+<span class="sr-only">Close</span>
+</button>
+<h4 class="modal-title">
+<span class="sci-ico-fileTable">
+</span>
+<strong>Tabela 1.</strong>    Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</h4>
+</div>
+<div class="modal-body">
+<div class="table table-hover">
+<table>
+"""
