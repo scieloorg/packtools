@@ -15,3 +15,39 @@ class Test_get_xml_uri_and_name(TestCase):
         expected = {'name': '1414-431X-bjmbr-54-10-e11439.xml', 'uri': 'https://kernel.scielo.br/documents/ywDM7t6mxHzCRWp7kGF9rXQ'}
 
         self.assertDictEqual(expected, xml_uri_and_name)
+
+
+class Test_get_assets_uris_and_names(TestCase):
+
+    def test__get_assets_uris_and_names(self):
+        xml_sps = sps_package.SPS_Package("./tests/sps/fixtures/document2.xml")
+
+        assets_uris_and_names = sps_maker._get_assets_uris_and_names(xml_sps)
+        expected = [
+            {
+                'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
+                    'ywDM7t6mxHzCRWp7kGF9rXQ/'
+                    'fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg', 
+                'name': '1414-431X-bjmbr-54-10-e11439-gf01.jpg'}, 
+            {
+                'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
+                'ywDM7t6mxHzCRWp7kGF9rXQ/'
+                '0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg', 
+                'name': '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg'}, 
+            {
+                'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
+                'ywDM7t6mxHzCRWp7kGF9rXQ/'
+                'afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg', 
+                'name': '1414-431X-bjmbr-54-10-e11439-gf02.jpg'}, 
+            {
+                'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
+                'ywDM7t6mxHzCRWp7kGF9rXQ/'
+                'c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg', 
+                'name': '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item["uri"], assets_uris_and_names[i]['uri'])
+                self.assertEqual(item["name"], assets_uris_and_names[i]['name'])
