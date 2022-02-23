@@ -856,6 +856,7 @@ class SPS_Asset:
     def uri(self, value):
         if "/" in value:
             self._uri = value
+        self._uri = ''
 
     @property
     def filename(self):
