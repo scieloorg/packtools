@@ -1,10 +1,12 @@
 import os
-import shutil
 import logging
-import tempfile
+import magic
 import re
-from datetime import datetime
-from zipfile import ZipFile
+import shutil
+import tempfile
+
+from zipfile import ZipFile, ZIP_DEFLATED
+
 
 logger = logging.getLogger(__name__)
 
