@@ -34,3 +34,46 @@ def _get_rendition_dict(rendition_uri_or_path):
         'uri': rendition_uri_or_path,
         'name': file_utils.get_filename(rendition_uri_or_path),
     }
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Article package maker CLI utility")
+    parser.add_argument('--output_dir', default='.', help='Output directory where the package will be generated')
+    parser.add_argument("--loglevel", default="WARNING")
+
+    subparsers = parser.add_subparsers(title='Commands', dest='command')
+
+    uris_parser = subparsers.add_parser('uris', help='Make package from URIs')
+    uris_parser.add_argument('--xml', help='XML URI')
+    uris_parser.add_argument('--renditions', nargs='+', help='Renditions URI')
+
+    paths_parser = subparsers.add_parser('paths', help='Make package from files paths')
+    paths_parser.add_argument('--xml', help='XML file path', required=True)
+    paths_parser.add_argument('--renditions', nargs='+', help='Renditions file path')
+    paths_parser.add_argument('--assets', nargs='+', help='Assets file path')
+
+    args = parser.parse_args()
+
+    logging.basicConfig(level=getattr(logging, args.loglevel.upper()))
+
+    if args.command == 'uris':
+        uris_dict = generate_uris_dict(args.xml, args.renditions)
+        sps_maker.make_package_from_uris(
+            uris_dict['xml'],
+            uris_dict['renditions'], 
+            args.output_dir,
+        )
+
+    elif args.command == 'paths':
+        paths_dict = generate_paths_dict(args.xml, args.assets, args.renditions)
+        sps_maker.make_package_from_paths(
+            paths_dict,
+            args.output_dir,
+        )
+
+    else:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    main()
