@@ -601,8 +601,8 @@ class TestExtractNumberAndSupplmentFromIssueElement(TestCase):
 class TestSPS_Package(TestCase):
 
     def setUp(self):
-        self.xml_sps = SPS_Package("./tests/fixtures/document.xml")
-        self.xml_sps_3 = SPS_Package("./tests/fixtures/document3.xml")
+        self.xml_sps = SPS_Package("./tests/sps/fixtures/document.xml")
+        self.xml_sps_3 = SPS_Package("./tests/sps/fixtures/document3.xml")
 
     def test_order(self):
         expected = 1
@@ -893,9 +893,9 @@ class TestIdentity(TestCase):
 
     def setUp(self):
         self.xml_sps = SPS_Package(
-            "./tests/fixtures/document.xml")
+            "./tests/sps/fixtures/document.xml")
         self.xml_sps_3 = SPS_Package(
-            "./tests/fixtures/document3.xml")
+            "./tests/sps/fixtures/document3.xml")
         self.identity = Identity(self.xml_sps._xmltree)
         self.identity_3 = Identity(self.xml_sps_3._xmltree)
 
