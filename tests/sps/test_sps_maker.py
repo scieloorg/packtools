@@ -183,3 +183,51 @@ class Test_make_package_from_uris(TestCase):
                 expected_files,
                 set(zf.namelist()),
             )
+
+
+class Test_make_package_from_paths(TestCase):
+
+    def test_make_package_from_paths_raises_xml_path_error(self):
+        paths = {
+            'xml': "unavailable-file.xml",
+            'renditions': [],
+            'assets': []
+        }
+
+        with self.assertRaises(sps_maker.exceptions.SPSXMLFileError):
+            sps_maker.make_package_from_paths(paths)
+
+    def test_make_package_from_paths_raises_missing_key_error(self):
+        paths = {}
+
+        with self.assertRaises(sps_maker.exceptions.SPSMakePackageFromPathsMissingKeyError):
+            sps_maker.make_package_from_paths(paths)
+        
+    def test_make_package_from_paths_has_expected_files(self):
+        paths = {
+            'xml': './tests/sps/fixtures/article_content/ca7d37e62e72840c1715ba83dda9893424ad31ec_kernel.xml',
+            'renditions': ['./tests/sps/fixtures/article_content/aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf'],
+            'assets': [
+                './tests/sps/fixtures/article_content/0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg',
+                './tests/sps/fixtures/article_content/c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg',
+                './tests/sps/fixtures/article_content/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg',
+                './tests/sps/fixtures/article_content/afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg',
+            ]
+        }
+
+        package_metadata = sps_maker.make_package_from_paths(paths)
+
+        expected_files = set([
+            'aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf',
+            '1414-431X-bjmbr-54-10-e11439.xml',
+            '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf01.jpg',
+        ])
+                
+        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+            self.assertSetEqual(
+                expected_files,
+                set(zf.namelist()),
+            )
