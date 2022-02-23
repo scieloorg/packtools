@@ -121,3 +121,65 @@ class Test_get_xml_sps_from_path(TestCase):
         xml_sps = sps_maker._get_xml_sps_from_path(xml_path)
 
         self.assertEqual(xml_sps.doi, '10.1590/1414-431X2021e11439')
+
+
+class Test_make_package_from_uris(TestCase):
+
+    def test_make_package_from_uris_raises_xml_download_error(self):        
+        xml_uri = "https://minio.scielo.br/documentstore/1414-431X/"
+        "ywDM7t6mxHzCRWp7kGF9rXQ/"
+        "fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml"
+        
+        renditions_uris_and_names = [{
+            "uri": "https://minio.scielo.br/documentstore/1414-431X/"
+                "ywDM7t6mxHzCRWp7kGF9rXQ/"
+                "fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg",
+            "name": "1414-431X-bjmbr-54-10-e11439-gf01.jpg"
+        }]
+
+        with self.assertRaises(sps_maker.exceptions.SPSDownloadXMLError):
+            sps_maker.make_package_from_uris(xml_uri, renditions_uris_and_names)
+
+    def test_make_package_from_uris_without_renditions(self):
+        xml_uri_kernel = 'http://0.0.0.0:6543/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
+        package_metadata = sps_maker.make_package_from_uris(xml_uri_kernel)
+
+        expected_files = set([
+            "1414-431X-bjmbr-54-10-e11439.xml",
+            '1414-431X-bjmbr-54-10-e11439-gf01.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
+        ])
+                
+        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+            self.assertSetEqual(
+                expected_files,
+                set(zf.namelist()),
+            )
+
+    def test_make_package_from_uris_has_expected_files(self):        
+        xml_uri_kernel = 'http://0.0.0.0:6543/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
+        renditions_uris_and_names = [{
+            "uri": "https://minio.scielo.br/documentstore/1414-431X/"
+                "ywDM7t6mxHzCRWp7kGF9rXQ/"
+                "aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf",
+            "name": "1414-431X-bjmbr-54-10-e11439.pdf"
+        }]
+
+        package_metadata = sps_maker.make_package_from_uris(xml_uri_kernel, renditions_uris_and_names)
+
+        expected_files = set([
+            "1414-431X-bjmbr-54-10-e11439.pdf",
+            "1414-431X-bjmbr-54-10-e11439.xml",
+            '1414-431X-bjmbr-54-10-e11439-gf01.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
+        ])
+                
+        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+            self.assertSetEqual(
+                expected_files,
+                set(zf.namelist()),
+            )
