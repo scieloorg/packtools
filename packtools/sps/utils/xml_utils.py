@@ -111,3 +111,56 @@ def get_year_month_day(node):
             [(node.findtext(item) or "").zfill(2)
              for item in ["year", "month", "day"]]
         )
+
+
+def create_alternatives(node, assets_data):
+    """
+    ```xml
+    <alternatives>
+        <graphic
+            xlink:href="https://minio.scielo.br/documentstore/1678-2674/
+            rQRTPbt6jkrncZTsPdCyXsn/
+            6d6b2cfaa2dc5bd1fb84644218506cbfbc4dfb1e.tif"/>
+        <graphic
+            xlink:href="https://minio.scielo.br/documentstore/1678-2674/
+            rQRTPbt6jkrncZTsPdCyXsn/
+            b810735a45beb5f829d4eb07e4cf68842f57313f.png"
+            specific-use="scielo-web"/>
+        <graphic
+            xlink:href="https://minio.scielo.br/documentstore/1678-2674/
+            rQRTPbt6jkrncZTsPdCyXsn/
+            e9d0cd6430c85a125e7490629ce43f227d00ef5e.jpg"
+            specific-use="scielo-web"
+            content-type="scielo-267x140"/>
+    </alternatives>
+    ```
+    """
+    if node is None or not assets_data:
+        return
+    parent = node.getparent()
+    if parent is None:
+        return
+    if len(assets_data) == 1:
+        for extension, uri in assets_data.items():
+            node.set("{http://www.w3.org/1999/xlink}href", uri)
+            if extension in [".tif", ".tiff"]:
+                pass
+            elif extension in [".png"]:
+                node.set("specific-use", "scielo-web")
+            else:
+                node.set("specific-use", "scielo-web")
+                node.set("content-type", "scielo-267x140")
+    else:
+        alternative_node = etree.Element("alternatives")
+        for extension, uri in assets_data.items():
+            _node = etree.Element("graphic")
+            _node.set("{http://www.w3.org/1999/xlink}href", uri)
+            alternative_node.append(_node)
+            if extension in [".tif", ".tiff"]:
+                pass
+            elif extension in [".png"]:
+                _node.set("specific-use", "scielo-web")
+            else:
+                _node.set("specific-use", "scielo-web")
+                _node.set("content-type", "scielo-267x140")
+        parent.replace(node, alternative_node)
