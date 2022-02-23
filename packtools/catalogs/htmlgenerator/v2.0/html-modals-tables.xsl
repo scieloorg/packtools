@@ -8,27 +8,11 @@
                 <div class="modal-content">
 
                     <xsl:apply-templates select="." mode="modal-header"/>
+                    <xsl:apply-templates select="." mode="modal-body-and-footer"/>
 
-                    <div class="modal-body">
-                        <xsl:choose>
-                            <xsl:when test="table">
-                                <xsl:apply-templates select="table"/>
-                            </xsl:when>
-                            <xsl:when test="graphic">
-                                <xsl:apply-templates select="graphic"></xsl:apply-templates>
-                            </xsl:when>
-                            <xsl:when test="alternatives">
-                                <xsl:apply-templates select="alternatives"/>
-                            </xsl:when>
-                        </xsl:choose>
-                    </div>
-                    <div class="modal-footer">
-                        <xsl:apply-templates select="table-wrap-foot"></xsl:apply-templates>
-                    </div>
                 </div>
             </div>
-        </div>          
-
+        </div>
     </xsl:template>
     
     <xsl:template match="table-wrap" mode="modal-header">
@@ -51,6 +35,28 @@
                 </xsl:apply-templates></xsl:attribute>
                 <span class="sci-ico-newWindow"></span></a -->
             <h4 class="modal-title"><span class="sci-ico-fileTable"></span> <xsl:apply-templates select="." mode="label-caption"/></h4>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="table-wrap" mode="modal-body-and-footer">
+        <!--
+        Template para criar a área do corpo da tabela
+        -->
+        <div class="modal-body">
+            <xsl:choose>
+                <xsl:when test="table">
+                    <xsl:apply-templates select="table"/>
+                </xsl:when>
+                <xsl:when test="graphic">
+                    <xsl:apply-templates select="graphic"></xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="alternatives">
+                    <xsl:apply-templates select="alternatives"/>
+                </xsl:when>
+            </xsl:choose>
+        </div>
+        <div class="modal-footer">
+            <xsl:apply-templates select="table-wrap-foot"></xsl:apply-templates>
         </div>
     </xsl:template>
     
