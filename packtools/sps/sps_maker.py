@@ -5,3 +5,8 @@ from packtools.sps import exceptions
 
 
 FILE_PATHS_REQUIRED_KEYS = ['xml', 'assets', 'renditions']
+
+
+def get_names_and_packages(path):
+    return packages.explore_source(path)
+
