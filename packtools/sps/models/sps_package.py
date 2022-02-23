@@ -980,16 +980,6 @@ def create_alternatives(node, assets_data):
         parent.replace(node, alternative_node)
 
 
-def formatted_text(any_article_title_node):
-    if any_article_title_node is None:
-        return
-    node = deepcopy(any_article_title_node)
-    for xref in node.findall(".//xref"):
-        parent = xref.getparent()
-        parent.remove(xref)
-    return xml_utils.node_text(node)
-
-
 def extract_number_and_supplment_from_issue_element(issue):
     """
     Extrai do conteúdo de <issue>xxxx</issue>, os valores number e suppl.

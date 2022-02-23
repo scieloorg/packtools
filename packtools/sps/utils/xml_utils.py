@@ -10,6 +10,17 @@ from packtools.sps.utils import file_utils
 logger = logging.getLogger(__name__)
 
 
+def formatted_text(title_node):
+    if title_node is None:
+        return
+
+    node = deepcopy(title_node)
+
+    for xref in node.findall(".//xref"):
+        parent = xref.getparent()
+        parent.remove(xref)
+
+    return node_text(node)
 
 
 def fix_xml(xml_str):
