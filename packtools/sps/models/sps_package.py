@@ -8,18 +8,6 @@ from packtools.sps.utils import xml_utils
 logger = logging.getLogger(__name__)
 
 
-class NotAllowedtoChangeAttributeValueError(Exception):
-    pass
-
-
-class InvalidAttributeValueError(Exception):
-    pass
-
-
-class InvalidValueForOrderError(Exception):
-    pass
-
-
 class SPS_Package:
     def __init__(self, xml, original_filename=None):
         self.xmltree = xml_utils.get_xml_tree(xml)
