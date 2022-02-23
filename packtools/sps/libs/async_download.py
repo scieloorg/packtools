@@ -1,11 +1,11 @@
+import asyncio
+import aiohttp
+import logging
 import os
 import tempfile
 
-import logging
-import asyncio
-
-import aiohttp
 from tenacity import retry, wait_exponential
+
 
 LOGGER_FORMAT = u"%(asctime)s %(levelname)-5.5s %(message)s"
 logging.basicConfig(format=LOGGER_FORMAT, level=logging.DEBUG)
