@@ -18,6 +18,10 @@ class Package:
         self.zip_file_path = file_utils.is_zipfile(source) and source
 
     @property
+    def assets(self):
+        return self._assets
+
+    @property
     def name(self):
         return self._name
 
@@ -287,3 +291,4 @@ def _eval_file(prefix, file_path):
             ftype=ext[1:],
             file_path=file_path,
         )
+
