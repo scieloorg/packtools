@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from dsm.utils import xml_utils
+from packtools.sps.utils import xml_utils
 
 
 class TestXMLUtils(TestCase):
