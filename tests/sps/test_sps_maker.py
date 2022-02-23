@@ -91,3 +91,18 @@ class Test_zip_files(TestCase):
         for i, item in enumerate(expected_files_list):
             with self.subTest(i):
                 self.assertEqual(item, zf_files_list[i])
+
+
+class Test_get_xml_sps_from_uri(TestCase):
+    
+    def test_get_sps_package_from_path_raises_xml_link_error(self):
+        xml_uri = 'some-invalid-link'
+        with self.assertRaises(sps_maker.exceptions.SPSXMLLinkError):
+            sps_maker._get_xml_sps_from_uri(xml_uri)
+
+    def test_get_sps_package_from_path_raises_xml_download_error(self):
+        xml_uri = 'https://scielo.br'
+
+        with self.assertRaises(sps_maker.exceptions.SPSLoadToXMLError):
+            sps_maker._get_xml_sps_from_uri(xml_uri)
+
