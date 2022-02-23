@@ -53,3 +53,23 @@ def make_package_from_uris(xml_uri, renditions_uris_and_names=[], zip_folder=Non
     package_metadata['temp-zipfile'] = _zip_files_from_uris_and_names(zip_filename, uris_and_names, zip_folder)
 
     return package_metadata
+
+
+def _get_xml_sps_from_uri(xml_uri):
+    if xml_uri == '':
+        raise exceptions.SPSXMLLinkError('XML URI is empty. Please, informe a link address.')
+
+    if 'http' in xml_uri:
+        content = reqs.requests_get_content(xml_uri)
+        
+        if not content:
+            raise exceptions.SPSDownloadXMLError(f'It was not possible to download the XML file {xml_uri}.')
+
+        try:
+            return sps_package.SPS_Package(content)
+        except:
+            raise
+        
+    else:
+        raise exceptions.SPSXMLLinkError(f'{xml_uri} is not a valid link. Please, inform a link address (e.g. http://...')
+
