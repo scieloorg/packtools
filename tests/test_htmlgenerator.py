@@ -1235,7 +1235,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
 
 class HTMLGeneratorTableGroupTests(unittest.TestCase):
 
-    def test_table_wrap(self):
+    def setUp(self):
         sample = u"""<article
                       xmlns:mml="http://www.w3.org/1998/Math/MathML"
                       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -1284,9 +1284,10 @@ class HTMLGeneratorTableGroupTests(unittest.TestCase):
         </body></article>
         """
         et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
 
-        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-        div_modal_tables = html.xpath(
+    def test_table_wrap_group_modal(self):
+        div_modal_tables = self.html.xpath(
             '//div[@id="ModalTablet1"]'
         )
         self.assertIsNotNone(div_modal_tables)
@@ -1304,21 +1305,17 @@ class HTMLGeneratorTableGroupTests(unittest.TestCase):
         self.assertEqual("Tabela 1", found_nodes[0].text)
         self.assertEqual("Table 1", found_nodes[1].text)
 
-"""
-<div class="modal fade ModalTables" id="ModalTablet1" tabindex="-1" role="dialog" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal">
-<span aria-hidden="true">×</span>
-<span class="sr-only">Close</span>
-</button>
-<h4 class="modal-title">
-<span class="sci-ico-fileTable">
-</span>
-<strong>Tabela 1.</strong>    Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</h4>
-</div>
-<div class="modal-body">
-<div class="table table-hover">
-<table>
-"""
+    def test_table_wrap_group_thumbnail(self):
+        div_thumbnail = self.html.find(
+            '//div[@id="t1"]'
+        )
+        self.assertIsNotNone(div_thumbnail)
+        div_thumbnail_divs = div_thumbnail.findall(
+            'div'
+        )
+        self.assertIsNotNone(div_thumbnail_divs)
+        texts = etree.tostring(div_thumbnail_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Tabela 1", texts)
+        self.assertIn("Classificação Sucessional adotada por alguns autores ao longo dos anos.", texts)
+        self.assertIn("Tabela 1", texts)
+        self.assertIn("Sucessional classification adopted by some authors over the years.", texts)
