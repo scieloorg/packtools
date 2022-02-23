@@ -889,44 +889,4 @@ class SPS_Asset:
         return f"{package_name}{self.suffix}{self.ext}"
 
 
-# Funções
-
-# def is_valid_value_for_order(value):
-#     try:
-#         if not (0 < int(value) <= 99999):
-#             raise ValueError
-#     except (ValueError, TypeError):
-#         raise InvalidValueForOrderError(
-#             "Invalid value for 'order': %s" %
-#             value
-#         )
-#     else:
-#         return True
-
-
-# def is_valid_value_for_language(value):
-#     if len(value or "") != 2:
-#         raise ValueError
-#     return True
-
-
-# def is_valid_value_for_issns(issns_dict):
-#     """
-#     Expected issns_dict is a dict
-#     keys: 'epub' and/or 'ppub'
-#     values: issn (1234-5678)
-#     """
-#     try:
-#         if len(issns_dict) == 0 or not set(issns_dict.keys()).issubset({'epub', 'ppub'}):
-#             raise ValueError(
-#                 f"Expected dict which keys are 'epub' and/or 'ppub'. Found {issns_dict}")
-#         if len(issns_dict.keys()) != len(set(issns_dict.values())):
-#             raise ValueError(f"{issns_dict} has duplicated values")
-#         for v in issns_dict.values():
-#             if len(v) != 9 or v[4] != "-":
-#                 raise ValueError(f"{v} is not an ISSN")
-#     except AttributeError:
-#         raise ValueError(
-#             f"Expected dict which keys are 'epub' and/or 'ppub'. Found {issns_dict}")
-#     return True
 
