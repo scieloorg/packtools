@@ -837,7 +837,7 @@ class TestSPS_Package(TestCase):
         result = self.xml_sps_3.assets.items
 
         self.assertEqual(expected[0][0], result[0].filename)
-        self.assertEqual(type(expected[0][1]), type(result[0]._child))
+        self.assertEqual(type(expected[0][1]), type(result[0].asset_node))
 
 
 class Test_sps_package(TestCase):
@@ -1112,7 +1112,7 @@ class TestSPS_Assets(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(item["xlink_href"], result[i].xlink_href)
-                self.assertEqual(item["node"], result[i]._child)
+                self.assertEqual(item["node"], result[i].asset_node)
                 self.assertEqual(item["id"], result[i]._id)
                 self.assertEqual(item["content_type"], result[i].content_type)
                 self.assertEqual(item["suffix"], result[i].suffix)
