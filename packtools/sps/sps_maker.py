@@ -96,3 +96,10 @@ def _get_assets_uris_and_names(xml_sps):
     
     return uris_and_filenames
 
+
+def _get_xml_uri_and_name(xml_sps, xml_uri=None):
+    return {
+        'name': f"{xml_sps.package_name}.xml",
+        "uri": xml_uri
+    }
+
