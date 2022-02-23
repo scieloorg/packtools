@@ -1,12 +1,8 @@
-import itertools
-import os
 import logging
-from copy import deepcopy
+import os
 
 from lxml import etree
-
-from dsm.utils import xml_utils
-from dsm.utils.files import read_file
+from packtools.sps.utils import xml_utils
 
 
 logger = logging.getLogger(__name__)
