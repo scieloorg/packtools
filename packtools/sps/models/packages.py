@@ -1,13 +1,8 @@
+import logging
 import os
+
+from packtools.sps.utils import file_utils
 from zipfile import ZipFile
-from dsm.utils.files import (
-    xml_files_list,
-    files_list,
-    xml_files_list_from_zipfile,
-    files_list_from_zipfile,
-    is_folder,
-    is_zipfile,
-)
 
 
 class Package:
