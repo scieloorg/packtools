@@ -115,6 +115,14 @@ def create_temp_file(filename, content=None, mode='w'):
     return file_path
 
 
+def copy_file(source, target):
+    tmpdir = tempfile.mkdtemp()
+    fullpath_target = os.path.join(tmpdir, target)
+    
+    logger.info(f'Copying file {source} to {fullpath_target}')
+    return shutil.copyfile(source, fullpath_target)
+
+
 def size(file_path):
     return os.path.getsize(file_path)
 
