@@ -1319,3 +1319,63 @@ class HTMLGeneratorTableGroupTests(unittest.TestCase):
         self.assertIn("Classificação Sucessional adotada por alguns autores ao longo dos anos.", texts)
         self.assertIn("Tabela 1", texts)
         self.assertIn("Sucessional classification adopted by some authors over the years.", texts)
+
+
+class HTMLGeneratorFigGroupTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <fig-group id="f1">
+            <fig xml:lang="pt">
+                <label>Figura 1</label>
+                <caption>
+                    <title>Mapa com a localiza&#x00E7;&#x00E3;o das tr&#x00EA;s &#x00E1;reas de estudo, Parque Estadual da Cantareira, S&#x00E3;o Paulo, SP, Brasil. Elaborado por Marina Kanashiro, 2019.</title>
+                </caption>
+            </fig>
+            <fig xml:lang="en">
+                <label>Figure 1</label>
+                <caption>
+                    <title>Map with the location of the three study areas, Parque Estadual da Cantareira, S&#x00E3;o Paulo, S&#x00E3;o Paulo State, Brasil. Prepared by Marina Kanashiro, 2019.</title>
+                </caption>
+                <graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="2236-8906-hoehnea-49-e1082020-gf01.tif"/>
+            </fig>
+        </fig-group>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_fig_group_modal(self):
+        div_modal_figs = self.html.xpath(
+            '//div[@id="ModalFigf1"]'
+        )
+        self.assertIsNotNone(div_modal_figs)
+        # fig = div_modal_figs[0].find(
+        #     './/div[@class="modal-body"]//img'
+        # )
+        # self.assertIsNotNone(fig)
+        text = etree.tostring(
+            div_modal_figs[0].find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+        self.assertIn("Figura 1", text)
+        self.assertIn("Figure 1", text)
+
+    def test_fig_group_thumbnail(self):
+        div_thumbnail = self.html.find(
+            '//div[@id="f1"]'
+        )
+        self.assertIsNotNone(div_thumbnail)
+        div_thumbnail_divs = div_thumbnail.findall(
+            'div'
+        )
+        self.assertIsNotNone(div_thumbnail_divs)
+        texts = etree.tostring(div_thumbnail_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn("Mapa com a localização das três áreas de estudo, Parque Estadual da Cantareira, São Paulo, SP, Brasil. Elaborado por Marina Kanashiro, 2019.", texts)
+        self.assertIn("Figure 1", texts)
+        self.assertIn("Map with the location of the three study areas, Parque Estadual da Cantareira, São Paulo, São Paulo State, Brasil. Prepared by Marina Kanashiro, 2019.", texts)

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:template match="fig-group" mode="label-caption">
-        <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="label-caption"></xsl:apply-templates>
+
+    <xsl:template match="fig-group[@id]" mode="fig-label-caption">
+        <xsl:apply-templates select="fig" mode="fig-label-caption"/>
+    </xsl:template>
+
+    <xsl:template match="fig" mode="fig-label-caption">
+        <xsl:apply-templates select="." mode="label-caption"/><br/>
     </xsl:template>
     
     <xsl:template match="fig | fig-group" mode="modal">
-        <xsl:variable name="figid">
-            <xsl:choose>
-                <xsl:when test="@id"><xsl:value-of select="@id"/></xsl:when>
-                <xsl:otherwise>IDMISSING</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>    
+        <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>    
         <div class="modal fade ModalFigs" id="ModalFig{$figid}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -35,24 +35,17 @@
                             <span class="sci-ico-newWindow"></span>
                         </a>
                         </xsl:if>
-                        <h4 class="modal-title"><span class="sci-ico-fileFigure"></span> <xsl:apply-templates select="." mode="label-caption"></xsl:apply-templates></h4>                 
+                        <h4 class="modal-title"><span class="sci-ico-fileFigure"></span> <xsl:apply-templates select="." mode="fig-label-caption"></xsl:apply-templates></h4>                 
                     </div>
                     <div class="modal-body">
-                        <xsl:apply-templates select="alternatives | graphic"/>
-                        <xsl:apply-templates select="disp-formula"></xsl:apply-templates>
-                        <xsl:apply-templates select="attrib"></xsl:apply-templates>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- 
-                        <h4 class="modal-title"><span class="sci-ico-fileFigure"></span> <xsl:apply-templates select="." mode="label-caption"></xsl:apply-templates></h4>
-                        -->                        
+                        <xsl:apply-templates select="." mode="fig-modal-body"/>
                     </div>
                 </div>
             </div>
         </div>
     </xsl:template>
     
-    <xsl:template match="fig-group" mode="file-location">
+    <xsl:template match="fig-group[@id]" mode="file-location">
         <!--
             Localização da imagem ampliada
         -->
@@ -66,4 +59,19 @@
         <xsl:apply-templates select="graphic | alternatives" mode="file-location"/>
     </xsl:template>
 
+    <xsl:template match="fig-group[@id]" mode="fig-modal-body">
+        <!--
+            <img/>
+        -->
+        <xsl:apply-templates select="fig" mode="fig-modal-body"/>
+    </xsl:template>
+
+    <xsl:template match="fig" mode="fig-modal-body">
+        <!--
+            <img/>
+        -->
+        <xsl:apply-templates select="alternatives | graphic"/>
+        <xsl:apply-templates select="disp-formula"></xsl:apply-templates>
+        <xsl:apply-templates select="attrib"></xsl:apply-templates>
+    </xsl:template>
 </xsl:stylesheet>
