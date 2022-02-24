@@ -76,48 +76,26 @@
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">
-                                <xsl:if test="number($total_figs) &gt; 0">
-                                    <!--
-                                        cria aba com rótulo "Figures" e quantidade de figuras
-                                    -->
-                                    <li role="presentation" class="col-md-4 col-sm-4 active">
-                                         <a href="#figures" aria-controls="figures" role="tab" data-toggle="tab">
-                                             <xsl:apply-templates select="." mode="interface">
-                                                 <xsl:with-param name="text">Figures</xsl:with-param>
-                                             </xsl:apply-templates>
-                                             (<xsl:value-of select="$total_figs"/>)
-                                         </a>
-                                     </li>
-                                 </xsl:if>
-                                 <xsl:if test="number($total_tables) &gt; 0">
-                                     <!--
-                                        cria aba com rótulo "Tables" e quantidade de tabelas
-                                    -->
-                                     <li role="presentation">
-                                         <xsl:attribute name="class">col-md-4 col-sm-4 <xsl:if test="number($total_figs) = 0"> active</xsl:if></xsl:attribute>
-                                         <a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">
-                                             <xsl:apply-templates select="." mode="interface">
-                                                 <xsl:with-param name="text">Tables</xsl:with-param>
-                                             </xsl:apply-templates>
-                                             (<xsl:value-of select="$total_tables"/>)
-                                         </a>
-                                     </li>
-                                 </xsl:if>
-                                 <xsl:if test="number($total_formulas) &gt; 0">
-                                     <!--
-                                        cria aba com rótulo "Scheme" e quantidade de fórmulas
-                                    -->
-                                     <li role="presentation">
-                                         <xsl:attribute name="class">col-md-4 col-sm-4<xsl:if test="number($total_figs) + number($total_tables) = 0"> active</xsl:if></xsl:attribute>
+                                <xsl:apply-templates select="." mode="generic-tab-content-title-and-total">
+                                    <xsl:with-param name="previous_tab_total">0</xsl:with-param>
+                                    <xsl:with-param name="total" select="$total_figs"/>
+                                    <xsl:with-param name="title">Figures</xsl:with-param>
+                                    <xsl:with-param name="content_type">figures</xsl:with-param>
+                                </xsl:apply-templates>
 
-                                         <a href="#schemes" aria-controls="schemes" role="tab" data-toggle="tab">
-                                             <xsl:apply-templates select="." mode="interface">
-                                                 <xsl:with-param name="text">Formulas</xsl:with-param>
-                                             </xsl:apply-templates>
-                                             (<xsl:value-of select="$total_formulas"/>)
-                                         </a>
-                                     </li>
-                                 </xsl:if>
+                                <xsl:apply-templates select="." mode="generic-tab-content-title-and-total">
+                                    <xsl:with-param name="previous_tab_total"><xsl:value-of select="$total_figs"/></xsl:with-param>
+                                    <xsl:with-param name="total" select="$total_tables"/>
+                                    <xsl:with-param name="title">Tables</xsl:with-param>
+                                    <xsl:with-param name="content_type">tables</xsl:with-param>
+                                </xsl:apply-templates>
+
+                                <xsl:apply-templates select="." mode="generic-tab-content-title-and-total">
+                                    <xsl:with-param name="previous_tab_total"><xsl:value-of select="number($total_figs)+number($total_formulas)"/></xsl:with-param>
+                                    <xsl:with-param name="total" select="$total_formulas"/>
+                                    <xsl:with-param name="title">Formulas</xsl:with-param>
+                                    <xsl:with-param name="content_type">schemes</xsl:with-param>
+                                </xsl:apply-templates>
                              </ul>
                              <div class="clearfix"></div>
                              <div class="tab-content">
@@ -163,6 +141,28 @@
                  </div>
              </div>
          </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="article" mode="generic-tab-content-title-and-total">
+        <xsl:param name="previous_tab_total">0</xsl:param>
+        <xsl:param name="total"/>
+        <xsl:param name="title"/>
+        <xsl:param name="content_type"/>
+
+        <xsl:if test="number($total) &gt; 0">
+            <!--
+                cria aba com rótulo "$title ($total)" 
+            -->
+            <li role="presentation">
+                <xsl:attribute name="class">col-md-4 col-sm-4 <xsl:if test="number($previous_tab_total) = 0"> active</xsl:if></xsl:attribute>
+                <a href="#{$content_type}" aria-controls="{$content_type}" role="tab" data-toggle="tab">
+                    <xsl:apply-templates select="." mode="interface">
+                        <xsl:with-param name="text" select="$title"/>
+                    </xsl:apply-templates>
+                    (<xsl:value-of select="$total"/>)
+                </a>
+            </li>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="article" mode="generic-tab-content">
