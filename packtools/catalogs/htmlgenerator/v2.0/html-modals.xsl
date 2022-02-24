@@ -90,7 +90,7 @@
 
     <xsl:template match="front | body | back | sub-article" mode="fig-individual-modal">
         <!-- cria um modal para cada figura existente no body-->
-        <xsl:apply-templates select=".//fig-group[@id] | .//fig" mode="modal"></xsl:apply-templates>
+        <xsl:apply-templates select=".//*[fig]" mode="fig-modal"></xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">
@@ -266,6 +266,20 @@
         para criar o conteúdo de cada fig no Modal na aba "Figures"
         -->
         <xsl:apply-templates select=".//*[fig]" mode="figs-tab-content"/>
+    </xsl:template>
+
+    <xsl:template match="*[fig]" mode="fig-modal">
+        <!--
+        cria o conteúdo de uma figura no Modal na aba "Figures"
+        -->
+        <xsl:choose>
+            <xsl:when test="name()='fig-group'">
+                <xsl:apply-templates select="." mode="modal"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//fig" mode="modal"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="*[fig]" mode="figs-tab-content">

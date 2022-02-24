@@ -50,7 +50,7 @@
         <xsl:apply-templates select="." mode="label-caption-thumb"/><br/>
     </xsl:template>
 
-    <xsl:template match="fig[@id] | fig-group[@id]" mode="figure-id">
+    <xsl:template match="fig | fig-group[@id]" mode="figure-id">
         <xsl:value-of select="@id"/>
     </xsl:template>
 
