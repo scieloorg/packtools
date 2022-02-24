@@ -832,7 +832,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/a/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            '//div[@class="modal-body"]/a//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -1004,7 +1004,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            '//div[@class="modal-body"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -1112,7 +1112,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img = html.xpath(
-            '//div[@class="modal-body"]/img[@src="'
+            '//div[@class="modal-body"]//img[@src="'
             '1234-5678-rctb-45-05-0110-e01.png'
             '"]'
         )
@@ -1138,7 +1138,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img_tag = html.xpath(
-            '//div[@class="modal-body"]/img[@src="'
+            '//div[@class="modal-body"]//img[@src="'
             '1234-5678-rctb-45-05-0110-e01.png'
             '"]'
         )
@@ -1157,7 +1157,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img_tag = html.xpath(
-            '//div[@class="modal-body"]/img[@src="'
+            '//div[@class="modal-body"]//img[@src="'
             '1234-5678-rctb-45-05-0110-e01.jpg'
             '"]'
         )
