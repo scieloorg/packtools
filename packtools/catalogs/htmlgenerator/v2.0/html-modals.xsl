@@ -312,25 +312,21 @@
         <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"/>
     </xsl:template>
 
-    <xsl:template match="fig-group[@id]" mode="tab-content">
+    <xsl:template match="fig-group[@id] | fig" mode="tab-content">
         <!--
-            cria no conteúdo da ABA "Figures" a miniatura e legenda de uma figura
-            (cujo label e caption estão em mais de um idioma)
-        -->
-        <div class="row fig">
-            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
-            <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="tab-content-label-and-caption"></xsl:apply-templates>
-        </div>
-    </xsl:template>
-    <xsl:template match="fig" mode="tab-content">
-        <!--
-            cria no conteúdo da ABA "Figures" a miniatura e legenda de uma figura
-            (cujo label e caption estão em apenas um idioma)
+            Para fig-group e fig, cria no conteúdo da ABA "Figures":
+            - a miniatura
+
+            Para fig-group:
+            - legendas de uma figura (label e caption em mais de um idioma)
+
+            Para fig:
+            - legenda de uma figura (label e caption em um idioma)
         -->
         <div class="row fig">
             <!-- miniatura -->
             <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
-            <!-- legenda -->
+            <!-- legenda(s) -->
             <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
         </div>
     </xsl:template>
@@ -369,6 +365,13 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="fig-group" mode="tab-content-label-and-caption">
+        <!--
+            cria as legendas de uma figura no conteúdo da ABA "Figures"
+        -->
+        <xsl:apply-templates select="fig" mode="tab-content-label-and-caption"/>
+    </xsl:template>
+
     <xsl:template match="fig" mode="tab-content-label-and-caption">
         <!--
             cria a legenda de uma figura no conteúdo da ABA "Figures"
@@ -378,23 +381,15 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="table-wrap-group[table-wrap]" mode="tab-content">
+    <xsl:template match="table-wrap-group[table-wrap] | table-wrap[not(@xml:lang)]" mode="tab-content">
         <!--
-            cria no conteúdo da ABA "Tables" a miniatura e legenda de uma tabela
-            do idioma selecionado
-        -->
-        <div class="row table">
-            <!-- miniatura -->
-            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
-            <!-- legenda -->
-            <xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG]" mode="tab-content-label-and-caption"></xsl:apply-templates>
-        </div>
-    </xsl:template>
+            Para table-wrap-group e table-wrap, cria no conteúdo da ABA "Tables":
+            - a miniatura
 
-    <xsl:template match="table-wrap[not(@xml:lang)]" mode="tab-content">
-        <!--
-            cria no conteúdo da ABA "Tables" a miniatura e legenda de uma tabela
-            que não depende do idioma
+            Para table-wrap-group:
+            - legendas de uma tabela em mais de 1 idioma
+            Para table-wrap:
+            - legenda de uma tabela em 1 idioma
         -->
         <div class="row table">
             <!-- miniatura -->
@@ -418,6 +413,13 @@
                 </div>
             </a>
         </div>
+    </xsl:template>
+
+    <xsl:template match="table-wrap-group" mode="tab-content-label-and-caption">
+        <!--
+            cria no conteúdo da ABA "Tables" a legenda de uma tabela
+        -->
+        <xsl:apply-templates select="table-wrap" mode="tab-content-label-and-caption"/>
     </xsl:template>
 
     <xsl:template match="table-wrap" mode="tab-content-label-and-caption">
