@@ -120,7 +120,9 @@
                                         cria o conteúdo da aba com rótulo "Figures"
                                     -->
                                      <div role="tabpanel" class="tab-pane active" id="figures">
-                                         <xsl:apply-templates select="." mode="figs-tab-content"/>
+                                         <xsl:apply-templates select="." mode="generic-tab-content">
+                                            <xsl:with-param name="tab_content_type">figures</xsl:with-param>
+                                         </xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test="number($total_tables) &gt; 0">
@@ -131,7 +133,9 @@
                                          <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) = 0"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">tables</xsl:attribute>
 
-                                         <xsl:apply-templates select="." mode="tables-tab-content"/>
+                                         <xsl:apply-templates select="." mode="generic-tab-content">
+                                            <xsl:with-param name="tab_content_type">tables</xsl:with-param>
+                                         </xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                                  <xsl:if test="number($total_formulas) &gt; 0">
@@ -142,7 +146,9 @@
                                          <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) + number($total_tables) = 0"> active</xsl:if></xsl:attribute>
                                          <xsl:attribute name="id">schemes</xsl:attribute>
 
-                                         <xsl:apply-templates select="." mode="schemes-tab-content"/>
+                                         <xsl:apply-templates select="." mode="generic-tab-content">
+                                            <xsl:with-param name="tab_content_type">schemes</xsl:with-param>
+                                         </xsl:apply-templates>
                                      </div>
                                  </xsl:if>
                              </div>
@@ -153,63 +159,42 @@
          </xsl:if>
     </xsl:template>
 
-    <xsl:template match="article" mode="figs-tab-content">
-        <!--
-        Conteúdo da aba "Figures", selecionando todas as figuras relacionadas
-        com o idioma do texto selecionado
-        -->
+    <xsl:template match="article" mode="generic-tab-content">
+        <xsl:param name="tab_content_type"/>
+
         <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
 
         <xsl:choose>
             <xsl:when test="$translation">
-                <xsl:apply-templates select="front | $translation | back" mode="figs-tab-content"/>
+                <xsl:apply-templates select="front | $translation | back" mode="generic-tab-content">
+                    <xsl:with-param name="tab_content_type" select="$tab_content_type"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="front | body | back" mode="figs-tab-content"/>
+                <xsl:apply-templates select="front | body | back" mode="generic-tab-content">
+                    <xsl:with-param name="tab_content_type" select="$tab_content_type"/>
+                </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="article" mode="tables-tab-content">
-        <!--
-        Conteúdo da aba "Tables", selecionando todas as tabelas relacionadas
-        com o idioma do texto selecionado
-        -->
-        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
-
-        <xsl:choose>
-            <xsl:when test="$translation">
-                <xsl:apply-templates select="front | $translation | back" mode="tables-tab-content"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="front | body | back" mode="tables-tab-content"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="article" mode="schemes-tab-content">
-        <!--
-        Conteúdo da aba "Schemes", selecionando todas as fórmulas relacionadas
-        com o idioma do texto selecionado
-        -->
-        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
-
-        <xsl:choose>
-            <xsl:when test="$translation">
-                <xsl:apply-templates select="front | $translation | back" mode="schemes-tab-content"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="front | body | back" mode="schemes-tab-content"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="sub-article | front | body | back" mode="figs-tab-content">
+    <xsl:template match="sub-article | front | body | back" mode="generic-tab-content">
+        <xsl:param name="tab_content_type"/>
         <!--
         Seleciona os elementos que contém "fig",
         para criar o conteúdo de cada fig no Modal na aba "Figures"
         -->
-        <xsl:apply-templates select=".//*[fig]" mode="figs-tab-content"/>
+        <xsl:choose>
+            <xsl:when test="$tab_content_type='figures'">
+                <xsl:apply-templates select=".//*[fig]" mode="figs-tab-content"/>
+            </xsl:when>
+            <xsl:when test="$tab_content_type='tables'">
+                <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"/>
+            </xsl:when>
+            <xsl:when test="$tab_content_type='schemes'">
+                <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"/>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="*[fig]" mode="fig-modal">
@@ -238,22 +223,6 @@
                 <xsl:apply-templates select=".//fig" mode="tab-content"/>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="sub-article | front | body | back" mode="tables-tab-content">
-        <!--
-        Seleciona os elementos de tabela para
-        criar o conteúdo de cada tabela no Modal na aba "Tables"
-        -->
-        <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"/>
-    </xsl:template>
-
-    <xsl:template match="sub-article | front | body | back" mode="schemes-tab-content">
-        <!--
-        Seleciona os elementos disp-formula para
-        criar o conteúdo de cada fórmula no Modal na aba "Schemes"
-        -->
-        <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"/>
     </xsl:template>
 
     <xsl:template match="fig-group[@id] | fig" mode="tab-content">
@@ -409,24 +378,6 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="body" mode="get-total-tables"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        </xsl:variable>
-        <xsl:value-of select="number($f)+number($b)+number($bk)"/>
-    </xsl:template>
-
-    <xsl:template match="article" mode="get-total-formulas">
-        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
-
-        <xsl:variable name="f"><xsl:apply-templates select="front" mode="get-total-formulas"/></xsl:variable>
-        <xsl:variable name="bk"><xsl:apply-templates select="back" mode="get-total-formulas"/></xsl:variable>
-        <xsl:variable name="b">
-        <xsl:choose>
-            <xsl:when test="$translation">
-                <xsl:apply-templates select="$translation" mode="get-total-formulas"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="body" mode="get-total-formulas"/>
             </xsl:otherwise>
         </xsl:choose>
         </xsl:variable>
