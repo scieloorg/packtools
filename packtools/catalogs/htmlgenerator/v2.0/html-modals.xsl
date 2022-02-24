@@ -42,7 +42,6 @@
             Modal que apresenta juntos figuras, tabelas e fórmulas presentes
             em um dado idioma do texto do artigo
         -->
-        <!-- FIXME -->
         <xsl:variable name="total_figs">
             <xsl:apply-templates select="." mode="get-total">
                 <xsl:with-param name="content_type">figures</xsl:with-param>
@@ -182,8 +181,7 @@
     <xsl:template match="sub-article | front | body | back" mode="generic-tab-content">
         <xsl:param name="tab_content_type"/>
         <!--
-        Seleciona os elementos que contém "fig",
-        para criar o conteúdo de cada fig no Modal na aba "Figures"
+        Apresenta o conteúdo da aba
         -->
         <xsl:choose>
             <xsl:when test="$tab_content_type='figures'">
