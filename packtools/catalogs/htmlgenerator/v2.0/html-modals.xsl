@@ -76,21 +76,21 @@
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">
-                                <xsl:apply-templates select="." mode="generic-tab-content-title-and-total">
+                                <xsl:apply-templates select="." mode="generic-tab-title-and-total">
                                     <xsl:with-param name="previous_tab_total">0</xsl:with-param>
                                     <xsl:with-param name="total" select="$total_figs"/>
                                     <xsl:with-param name="title">Figures</xsl:with-param>
                                     <xsl:with-param name="content_type">figures</xsl:with-param>
                                 </xsl:apply-templates>
 
-                                <xsl:apply-templates select="." mode="generic-tab-content-title-and-total">
+                                <xsl:apply-templates select="." mode="generic-tab-title-and-total">
                                     <xsl:with-param name="previous_tab_total"><xsl:value-of select="$total_figs"/></xsl:with-param>
                                     <xsl:with-param name="total" select="$total_tables"/>
                                     <xsl:with-param name="title">Tables</xsl:with-param>
                                     <xsl:with-param name="content_type">tables</xsl:with-param>
                                 </xsl:apply-templates>
 
-                                <xsl:apply-templates select="." mode="generic-tab-content-title-and-total">
+                                <xsl:apply-templates select="." mode="generic-tab-title-and-total">
                                     <xsl:with-param name="previous_tab_total"><xsl:value-of select="number($total_figs)+number($total_formulas)"/></xsl:with-param>
                                     <xsl:with-param name="total" select="$total_formulas"/>
                                     <xsl:with-param name="title">Formulas</xsl:with-param>
@@ -99,42 +99,23 @@
                              </ul>
                              <div class="clearfix"></div>
                              <div class="tab-content">
-                                 <xsl:if test="number($total_figs) &gt; 0">
-                                    <!--
-                                        cria o conteúdo da aba com rótulo "Figures"
-                                    -->
-                                     <div role="tabpanel" class="tab-pane active" id="figures">
-                                         <xsl:apply-templates select="." mode="generic-tab-content">
-                                            <xsl:with-param name="tab_content_type">figures</xsl:with-param>
-                                         </xsl:apply-templates>
-                                     </div>
-                                 </xsl:if>
-                                 <xsl:if test="number($total_tables) &gt; 0">
-                                    <!--
-                                        cria o conteúdo da aba com rótulo "Tables"
-                                    -->
-                                     <div role="tabpanel">
-                                         <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) = 0"> active</xsl:if></xsl:attribute>
-                                         <xsl:attribute name="id">tables</xsl:attribute>
+                                <xsl:apply-templates select="." mode="generic-tab-panel">
+                                    <xsl:with-param name="previous_tab_total">0</xsl:with-param>
+                                    <xsl:with-param name="total" select="$total_figs"/>
+                                    <xsl:with-param name="content_type">figures</xsl:with-param>
+                                </xsl:apply-templates>
 
-                                         <xsl:apply-templates select="." mode="generic-tab-content">
-                                            <xsl:with-param name="tab_content_type">tables</xsl:with-param>
-                                         </xsl:apply-templates>
-                                     </div>
-                                 </xsl:if>
-                                 <xsl:if test="number($total_formulas) &gt; 0">
-                                    <!--
-                                        cria o conteúdo da aba com rótulo "Formulas"
-                                    -->
-                                     <div role="tabpanel">
-                                         <xsl:attribute name="class">tab-pane <xsl:if test="number($total_figs) + number($total_tables) = 0"> active</xsl:if></xsl:attribute>
-                                         <xsl:attribute name="id">schemes</xsl:attribute>
+                                <xsl:apply-templates select="." mode="generic-tab-panel">
+                                    <xsl:with-param name="previous_tab_total"><xsl:value-of select="$total_figs"/></xsl:with-param>
+                                    <xsl:with-param name="total" select="$total_tables"/>
+                                    <xsl:with-param name="content_type">tables</xsl:with-param>
+                                </xsl:apply-templates>
 
-                                         <xsl:apply-templates select="." mode="generic-tab-content">
-                                            <xsl:with-param name="tab_content_type">schemes</xsl:with-param>
-                                         </xsl:apply-templates>
-                                     </div>
-                                 </xsl:if>
+                                <xsl:apply-templates select="." mode="generic-tab-panel">
+                                    <xsl:with-param name="previous_tab_total"><xsl:value-of select="number($total_figs)+number($total_formulas)"/></xsl:with-param>
+                                    <xsl:with-param name="total" select="$total_formulas"/>
+                                    <xsl:with-param name="content_type">schemes</xsl:with-param>
+                                </xsl:apply-templates>
                              </div>
                          </div>
                      </div>
@@ -143,7 +124,7 @@
          </xsl:if>
     </xsl:template>
 
-    <xsl:template match="article" mode="generic-tab-content-title-and-total">
+    <xsl:template match="article" mode="generic-tab-title-and-total">
         <xsl:param name="previous_tab_total">0</xsl:param>
         <xsl:param name="total"/>
         <xsl:param name="title"/>
@@ -154,7 +135,7 @@
                 cria aba com rótulo "$title ($total)" 
             -->
             <li role="presentation">
-                <xsl:attribute name="class">col-md-4 col-sm-4 <xsl:if test="number($previous_tab_total) = 0"> active</xsl:if></xsl:attribute>
+                <xsl:attribute name="class">col-md-4 col-sm-4 <xsl:if test="number($previous_tab_total) = 0">active</xsl:if></xsl:attribute>
                 <a href="#{$content_type}" aria-controls="{$content_type}" role="tab" data-toggle="tab">
                     <xsl:apply-templates select="." mode="interface">
                         <xsl:with-param name="text" select="$title"/>
@@ -165,23 +146,37 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="article" mode="generic-tab-content">
-        <xsl:param name="tab_content_type"/>
+    <xsl:template match="article" mode="generic-tab-panel">
+        <xsl:param name="previous_tab_total">0</xsl:param>
+        <xsl:param name="total"/>
+        <xsl:param name="content_type"/>
 
-        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+        <xsl:if test="number($total) &gt; 0">
+            <!--
+                cria o conteúdo da aba do rótulo "$title ($total)" 
+            -->
+            <div role="tabpanel">
+                <xsl:attribute name="class">tab-pane <xsl:if test="number($previous_tab_total) = 0">active</xsl:if></xsl:attribute>
 
-        <xsl:choose>
-            <xsl:when test="$translation">
-                <xsl:apply-templates select="front | $translation | back" mode="generic-tab-content">
-                    <xsl:with-param name="tab_content_type" select="$tab_content_type"/>
-                </xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="front | body | back" mode="generic-tab-content">
-                    <xsl:with-param name="tab_content_type" select="$tab_content_type"/>
-                </xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
+                <xsl:attribute name="id"><xsl:value-of select="$content_type"/></xsl:attribute>
+
+                <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+
+                <xsl:choose>
+                    <xsl:when test="$translation">
+                        <xsl:apply-templates select="front | $translation | back" mode="generic-tab-content">
+                            <xsl:with-param name="tab_content_type" select="$content_type"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="front | body | back" mode="generic-tab-content">
+                            <xsl:with-param name="tab_content_type" select="$content_type"/>
+                        </xsl:apply-templates>
+                    </xsl:otherwise>
+                </xsl:choose>
+
+            </div>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="sub-article | front | body | back" mode="generic-tab-content">
