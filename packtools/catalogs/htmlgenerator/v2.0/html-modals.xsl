@@ -44,13 +44,19 @@
         -->
         <!-- FIXME -->
         <xsl:variable name="total_figs">
-            <xsl:apply-templates select="." mode="get-total-figs"/>
+            <xsl:apply-templates select="." mode="get-total">
+                <xsl:with-param name="content_type">figures</xsl:with-param>
+            </xsl:apply-templates>
         </xsl:variable>
         <xsl:variable name="total_tables">
-            <xsl:apply-templates select="." mode="get-total-tables"/>
+            <xsl:apply-templates select="." mode="get-total">
+                <xsl:with-param name="content_type">tables</xsl:with-param>
+            </xsl:apply-templates>
         </xsl:variable>
         <xsl:variable name="total_formulas">
-            <xsl:apply-templates select="." mode="get-total-formulas"/>
+            <xsl:apply-templates select="." mode="get-total">
+                <xsl:with-param name="content_type">schemes</xsl:with-param>
+            </xsl:apply-templates>
         </xsl:variable>
 
         <xsl:if test="number($total_figs) + number($total_tables) + number($total_formulas) &gt; 0">
@@ -348,51 +354,51 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="article" mode="get-total-figs">
-        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+    <xsl:template match="article" mode="get-total">
+        <xsl:param name="content_type"/>
 
-        <xsl:variable name="f"><xsl:apply-templates select="front" mode="get-total-figs"/></xsl:variable>
-        <xsl:variable name="bk"><xsl:apply-templates select="back" mode="get-total-figs"/></xsl:variable>
+        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+        <xsl:variable name="f">
+            <xsl:apply-templates select="front" mode="get-total">
+                <xsl:with-param name="content_type" select="$content_type"/>
+            </xsl:apply-templates>
+        </xsl:variable>
+        <xsl:variable name="bk">
+            <xsl:apply-templates select="back" mode="get-total">
+                <xsl:with-param name="content_type" select="$content_type"/>
+            </xsl:apply-templates>
+        </xsl:variable>
         <xsl:variable name="b">
         <xsl:choose>
             <xsl:when test="$translation">
-                <xsl:apply-templates select="$translation" mode="get-total-figs"/>
+                <xsl:apply-templates select="$translation" mode="get-total">
+                    <xsl:with-param name="content_type" select="$content_type"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="body" mode="get-total-figs"/>
+                <xsl:apply-templates select="body" mode="get-total">
+                    <xsl:with-param name="content_type" select="$content_type"/>
+                </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
         </xsl:variable>
         <xsl:value-of select="number($f)+number($b)+number($bk)"/>
     </xsl:template>
 
-    <xsl:template match="article" mode="get-total-tables">
-        <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
+    <xsl:template match="sub-article | front | body | back" mode="get-total">
+        <xsl:param name="content_type"/>
 
-        <xsl:variable name="f"><xsl:apply-templates select="front" mode="get-total-tables"/></xsl:variable>
-        <xsl:variable name="bk"><xsl:apply-templates select="back" mode="get-total-tables"/></xsl:variable>
-        <xsl:variable name="b">
         <xsl:choose>
-            <xsl:when test="$translation">
-                <xsl:apply-templates select="$translation" mode="get-total-tables"/>
+            <xsl:when test="$content_type='figures'">
+                <xsl:value-of select="count(.//fig-group[@id]/fig[@xml:lang][1]) + count(.//fig[not(@xml:lang)])"/>
             </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="body" mode="get-total-tables"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        </xsl:variable>
-        <xsl:value-of select="number($f)+number($b)+number($bk)"/>
+            <xsl:when test="$content_type='tables'">
+                <xsl:value-of select="count(.//table-wrap-group) + count(.//*[table-wrap and name()!='table-wrap-group']//table-wrap)"/>
+            </xsl:when>
+            <xsl:when test="$content_type='schemes'">
+                <xsl:value-of select="count(.//disp-formula[@id])"/>
+            </xsl:when>
+        </xsl:choose>        
     </xsl:template>
 
-    <xsl:template match="sub-article | front | body | back" mode="get-total-figs">
-        <xsl:value-of select="count(.//fig-group[@id]/fig[@xml:lang][1]) + count(.//fig[not(@xml:lang)])"/>
-    </xsl:template>
-
-    <xsl:template match="sub-article | front | body | back" mode="get-total-tables">
-        <xsl:value-of select="count(.//table-wrap-group) + count(.//*[table-wrap and name()!='table-wrap-group']//table-wrap)"/>
-    </xsl:template>
-
-    <xsl:template match="sub-article | front | body | back" mode="get-total-formulas">
-        <xsl:value-of select="count(.//disp-formula[@id])"/>
-    </xsl:template>
 </xsl:stylesheet>
