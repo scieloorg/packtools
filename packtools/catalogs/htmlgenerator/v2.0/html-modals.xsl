@@ -44,7 +44,7 @@
 
     <xsl:template match="front | body | back | sub-article" mode="table-individual-modal">
         <!-- cria um modal para cada tabela existente no body-->
-        <xsl:apply-templates select=".//table-wrap[@xml:lang=$TEXT_LANG] | .//table-wrap[not(@xml:lang)]" mode="modal"/>
+        <xsl:apply-templates select=".//table-wrap[@id] | .//table-wrap-group[@id]" mode="modal"/>
     </xsl:template>
 
     <xsl:template match="article" mode="scheme-individual-modal">

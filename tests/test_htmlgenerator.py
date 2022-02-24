@@ -78,7 +78,7 @@ class HTMLGeneratorTests(unittest.TestCase):
                     </article>
                  """
         et = get_xml_tree_from_string(sample)
-        self.assertEquals(domain.HTMLGenerator.parse(
+        self.assertEqual(domain.HTMLGenerator.parse(
             et, valid_only=False).language, None)
 
     @unittest.skip('aguardando definicao')
@@ -642,7 +642,7 @@ class HTMLGeneratorTests(unittest.TestCase):
       html_string = etree.tostring(html, encoding="unicode", method="html")
 
       article_header_dois = html.xpath("//span[contains(@class, 'group-doi')]//a[contains(@class, '_doi')]")
-      self.assertEquals(len(article_header_dois), 1)
+      self.assertEqual(len(article_header_dois), 1)
 
 
 class HTMLGeneratorDispFormulaTests(unittest.TestCase):
@@ -832,7 +832,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/a/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            '//div[@class="modal-body"]/a//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -1004,7 +1004,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            '//div[@class="modal-body"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -1112,7 +1112,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img = html.xpath(
-            '//div[@class="modal-body"]/img[@src="'
+            '//div[@class="modal-body"]//img[@src="'
             '1234-5678-rctb-45-05-0110-e01.png'
             '"]'
         )
@@ -1138,7 +1138,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img_tag = html.xpath(
-            '//div[@class="modal-body"]/img[@src="'
+            '//div[@class="modal-body"]//img[@src="'
             '1234-5678-rctb-45-05-0110-e01.png'
             '"]'
         )
@@ -1157,7 +1157,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         img_tag = html.xpath(
-            '//div[@class="modal-body"]/img[@src="'
+            '//div[@class="modal-body"]//img[@src="'
             '1234-5678-rctb-45-05-0110-e01.jpg'
             '"]'
         )
@@ -1231,3 +1231,151 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
         )
         p_texts = [p.text for p in html.findall('//p')]
         self.assertIn(find_text, p_texts)
+
+
+class HTMLGeneratorTableGroupTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <table-wrap-group id="t1">
+        <table-wrap xml:lang="pt">
+        <label>Tabela 1</label>
+        <caption>
+        <title>Classifica&#x00E7;&#x00E3;o Sucessional adotada por alguns autores ao longo dos anos.</title>
+        </caption>
+        </table-wrap>
+        <table-wrap xml:lang="en">
+        <label>Table 1</label>
+        <caption>
+        <title>Sucessional classification adopted by some authors over the years.</title>
+        </caption>
+        <table>
+        <thead>
+        <tr>
+        <th valign="top" align="left">Ano</th>
+        <th valign="top" align="center">Autor</th>
+        <th valign="top" align="center">Classifica&#x00E7;&#x00E3;o</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td valign="top" align="left">1965</td>
+        <td valign="top" align="center">Budowski</td>
+        <td valign="top" align="center">Pioneira, secund&#x00E1;ria inicial, secund&#x00E1;ria tardia e cl&#x00ED;max</td>
+        </tr>
+        <tr>
+        <td valign="top" align="left">1971</td>
+        <td valign="top" align="center">G&#x00F3;mez-Pompa</td>
+        <td valign="top" align="center">Prim&#x00E1;ria e secund&#x00E1;ria</td>
+        </tr>
+        <tr>
+        <td valign="top" align="left">2017</td>
+        <td valign="top" align="center">Moura &#x0026; Mantovani</td>
+        <td valign="top" align="center">Pioneira, secund&#x00E1;ria inicial, secund&#x00E1;ria tardia e sub-bosque</td>
+        </tr>
+        </tbody>
+        </table>
+        </table-wrap>
+        </table-wrap-group>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_table_wrap_group_modal(self):
+        div_modal_tables = self.html.xpath(
+            '//div[@id="ModalTablet1"]'
+        )
+        self.assertIsNotNone(div_modal_tables)
+        table = div_modal_tables[0].find(
+            './/div[@class="modal-body"]//table'
+        )
+        self.assertIsNotNone(table)
+        found_text = div_modal_tables[0].findtext(
+            './/div[@class="modal-body"]//table/thead/tr/th'
+        )
+        self.assertEqual("Ano", found_text)
+        found_nodes = div_modal_tables[0].findall(
+            './/h4[@class="modal-title"]//strong'
+        )
+        self.assertEqual("Tabela 1", found_nodes[0].text)
+        self.assertEqual("Table 1", found_nodes[1].text)
+
+    def test_table_wrap_group_thumbnail(self):
+        div_thumbnail = self.html.find(
+            '//div[@id="t1"]'
+        )
+        self.assertIsNotNone(div_thumbnail)
+        div_thumbnail_divs = div_thumbnail.findall(
+            'div'
+        )
+        self.assertIsNotNone(div_thumbnail_divs)
+        texts = etree.tostring(div_thumbnail_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Tabela 1", texts)
+        self.assertIn("Classificação Sucessional adotada por alguns autores ao longo dos anos.", texts)
+        self.assertIn("Tabela 1", texts)
+        self.assertIn("Sucessional classification adopted by some authors over the years.", texts)
+
+
+class HTMLGeneratorFigGroupTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <fig-group id="f1">
+            <fig xml:lang="pt">
+                <label>Figura 1</label>
+                <caption>
+                    <title>Mapa com a localiza&#x00E7;&#x00E3;o das tr&#x00EA;s &#x00E1;reas de estudo, Parque Estadual da Cantareira, S&#x00E3;o Paulo, SP, Brasil. Elaborado por Marina Kanashiro, 2019.</title>
+                </caption>
+            </fig>
+            <fig xml:lang="en">
+                <label>Figure 1</label>
+                <caption>
+                    <title>Map with the location of the three study areas, Parque Estadual da Cantareira, S&#x00E3;o Paulo, S&#x00E3;o Paulo State, Brasil. Prepared by Marina Kanashiro, 2019.</title>
+                </caption>
+                <graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="2236-8906-hoehnea-49-e1082020-gf01.tif"/>
+            </fig>
+        </fig-group>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_fig_group_modal(self):
+        div_modal_figs = self.html.xpath(
+            '//div[@id="ModalFigf1"]'
+        )
+        self.assertIsNotNone(div_modal_figs)
+        # fig = div_modal_figs[0].find(
+        #     './/div[@class="modal-body"]//img'
+        # )
+        # self.assertIsNotNone(fig)
+        text = etree.tostring(
+            div_modal_figs[0].find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+        self.assertIn("Figura 1", text)
+        self.assertIn("Figure 1", text)
+
+    def test_fig_group_thumbnail(self):
+        div_thumbnail = self.html.find(
+            '//div[@id="f1"]'
+        )
+        self.assertIsNotNone(div_thumbnail)
+        div_thumbnail_divs = div_thumbnail.findall(
+            'div'
+        )
+        self.assertIsNotNone(div_thumbnail_divs)
+        texts = etree.tostring(div_thumbnail_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn("Mapa com a localização das três áreas de estudo, Parque Estadual da Cantareira, São Paulo, SP, Brasil. Elaborado por Marina Kanashiro, 2019.", texts)
+        self.assertIn("Figure 1", texts)
+        self.assertIn("Map with the location of the three study areas, Parque Estadual da Cantareira, São Paulo, São Paulo State, Brasil. Prepared by Marina Kanashiro, 2019.", texts)
