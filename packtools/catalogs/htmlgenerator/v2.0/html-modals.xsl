@@ -308,7 +308,7 @@
             <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="tab-content-label-and-caption"></xsl:apply-templates>
         </div>
     </xsl:template>
-    <xsl:template match="fig[@id]" mode="tab-content">
+    <xsl:template match="fig" mode="tab-content">
         <!--
             cria no conteúdo da ABA "Figures" a miniatura e legenda de uma figura
             (cujo label e caption estão em apenas um idioma)
@@ -328,7 +328,7 @@
         <xsl:variable name="figid">
             <xsl:choose>
                 <xsl:when test="@id"><xsl:value-of select="@id"/></xsl:when>
-                <xsl:otherwise>IDMISSING</xsl:otherwise>
+                <xsl:otherwise></xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="location">
@@ -339,6 +339,7 @@
                 <div>
                     <xsl:choose>
                         <xsl:when test="$location != ''">
+                            <xsl:attribute name="class">thumbImg</xsl:attribute>
                             <img>
                                 <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
                             </img>
