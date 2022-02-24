@@ -325,43 +325,30 @@
         -->
         <div class="row fig">
             <!-- miniatura -->
-            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
+            <xsl:variable name="location">
+                <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"/>
+            </xsl:variable>
+            <div class="col-md-4">
+                <a data-toggle="modal" data-target="#ModalFig{@id}">
+                    <div>
+                        <xsl:choose>
+                            <xsl:when test="$location != ''">
+                                <xsl:attribute name="class">thumbImg</xsl:attribute>
+                                <img>
+                                    <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                                </img>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="class">thumbOff</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
             <!-- legenda(s) -->
             <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="fig | fig-group" mode="tab-content-thumbnail">
-        <!--
-            cria a miniatura de uma figura no conteúdo da ABA "Figures"
-        -->
-        <xsl:variable name="figid">
-            <xsl:choose>
-                <xsl:when test="@id"><xsl:value-of select="@id"/></xsl:when>
-                <xsl:otherwise></xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="location">
-            <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"/>
-        </xsl:variable>
-        <div class="col-md-4">
-            <a data-toggle="modal" data-target="#ModalFig{$figid}">
-                <div>
-                    <xsl:choose>
-                        <xsl:when test="$location != ''">
-                            <xsl:attribute name="class">thumbImg</xsl:attribute>
-                            <img>
-                                <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
-                            </img>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:attribute name="class">thumbOff</xsl:attribute>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    Thumbnail
-                    <div class="zoom"><span class="sci-ico-zoom"></span></div>
-                </div>
-            </a>
         </div>
     </xsl:template>
 
@@ -393,25 +380,16 @@
         -->
         <div class="row table">
             <!-- miniatura -->
-            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
+            <div class="col-md-4">
+                <a data-toggle="modal" data-target="#ModalTable{@id}">
+                    <div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
             <!-- legenda -->
             <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="table-wrap | table-wrap-group" mode="tab-content-thumbnail">
-        <!--
-            cria no conteúdo da ABA "Tables" a miniatura de uma tabela
-            que não depende do idioma
-        -->
-        <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
-        <div class="col-md-4">
-            <a data-toggle="modal" data-target="#ModalTable{@id}">
-                <div class="thumbOff">
-                    Thumbnail
-                    <div class="zoom"><span class="sci-ico-zoom"></span></div>
-                </div>
-            </a>
         </div>
     </xsl:template>
 
@@ -437,34 +415,28 @@
         -->
         <div class="row fig">
             <!-- miniatura -->
-            <xsl:apply-templates select="." mode="tab-content-thumbnail"></xsl:apply-templates>
+            <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
+            <div class="col-md-4">
+                <a data-toggle="modal" data-target="#ModalScheme{@id}">
+                    <div>
+                        <xsl:choose>
+                            <xsl:when test="graphic">
+                                <xsl:attribute name="class">thumbImg</xsl:attribute>
+                                <img>
+                                    <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                                </img>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="class">thumbOff</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
             <!-- legenda -->
             <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="disp-formula[@id]" mode="tab-content-thumbnail">
-        <!--
-            cria no conteúdo da ABA "Schemes" a miniatura de uma fórmula
-        -->
-        <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
-        <div class="col-md-4">
-            <a data-toggle="modal" data-target="#ModalScheme{@id}">
-                <div>
-                    <xsl:choose>
-                        <xsl:when test="graphic">
-                            <img>
-                                <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
-                            </img>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:attribute name="class">thumbOff</xsl:attribute>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    Thumbnail
-                    <div class="zoom"><span class="sci-ico-zoom"></span></div>
-                </div>
-            </a>
         </div>
     </xsl:template>
 
