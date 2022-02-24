@@ -352,16 +352,18 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="fig-group" mode="tab-content-label-and-caption">
+    <xsl:template match="fig-group | table-wrap-group" mode="tab-content-label-and-caption">
         <!--
             cria as legendas de uma figura no conteúdo da ABA "Figures"
+            cria no conteúdo da ABA "Tables" as legendas de uma tabela
         -->
-        <xsl:apply-templates select="fig" mode="tab-content-label-and-caption"/>
+        <xsl:apply-templates select="fig | table-wrap" mode="tab-content-label-and-caption"/>
     </xsl:template>
 
-    <xsl:template match="fig" mode="tab-content-label-and-caption">
+    <xsl:template match="fig | table-wrap" mode="tab-content-label-and-caption">
         <!--
-            cria a legenda de uma figura no conteúdo da ABA "Figures"
+            Cria a legenda de uma figura no conteúdo da ABA "Figures" ou
+            Cria a legenda de uma tabela no conteúdo da ABA "Tables"
         -->
         <div class="col-md-8">
             <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
@@ -390,22 +392,6 @@
             </div>
             <!-- legenda -->
             <xsl:apply-templates select="." mode="tab-content-label-and-caption"></xsl:apply-templates>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="table-wrap-group" mode="tab-content-label-and-caption">
-        <!--
-            cria no conteúdo da ABA "Tables" a legenda de uma tabela
-        -->
-        <xsl:apply-templates select="table-wrap" mode="tab-content-label-and-caption"/>
-    </xsl:template>
-
-    <xsl:template match="table-wrap" mode="tab-content-label-and-caption">
-        <!--
-            cria no conteúdo da ABA "Tables" a legenda de uma tabela
-        -->
-        <div class="col-md-8">
-            <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
         </div>
     </xsl:template>
 
