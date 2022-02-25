@@ -135,6 +135,20 @@ def _zip_files_from_uris_and_names(zip_name, uris_and_names, zip_folder=None):
 
 
 def _remove_invalid_uris(uris_and_names):
+    """
+    Remove as URIs inválidas, isto é, que não inicializam com o termo http.
+
+    Parameters
+    ----------
+    uris_and_names : list
+        Uma lista contendo dicionários do tipo {"uri": str, "name": str}.
+
+    Returns
+    -------
+    list
+        Uma lista contendo dicionários, porém, sem os registros de URIs consideradas inválidas
+
+    """
     return [
         item
         for item in uris_and_names
