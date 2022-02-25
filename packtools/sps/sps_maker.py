@@ -157,7 +157,7 @@ def _remove_invalid_uris(uris_and_names):
 
 
 def _zip_files_from_paths(zip_name, xml_sps, paths, zip_folder=None):
-    renamed_paths = _change_files_paths(xml_sps, paths)
+    renamed_paths = _get_canonical_files_paths(xml_sps, paths)
     return file_utils.create_zip_file(renamed_paths, zip_name, zip_folder)
 
 
@@ -200,7 +200,36 @@ def _check_keys_and_files(paths: dict):
 
     return True
 
-def _change_files_paths(xml_sps, paths):
+
+def _get_canonical_files_paths(xml_sps, paths):
+    """
+    Obtém nome canônico dos caminhos dos arquivos que comporão o pacote zip.
+
+    Parameters
+    ----------
+    xml_sps : packtools.sps.models.sps_package.SPS_Package
+    paths: dict
+        Dicionário de caminhos no formato
+            {
+                "xml": "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml",
+                "renditions": [
+                    ...
+                ],
+                "assets": [
+                    "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg",
+                    ...,
+                ]
+            }
+
+    Returns
+    -------
+    list
+        [
+            "/home/user/1414-431X-bjmbr-54-10-e11439.xml",
+            "/home/user/1414-431X-bjmbr-54-10-e11439-gf01.jpg",
+                ...,
+        ]
+    """
     new_paths = []
 
     for k in FILE_PATHS_REQUIRED_KEYS:
