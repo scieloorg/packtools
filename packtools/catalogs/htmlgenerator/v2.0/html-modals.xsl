@@ -32,7 +32,7 @@
 
     <xsl:template match="front | body | back | sub-article" mode="individual-modal">
         <!-- cria um modal para cada figura, tabela e fórmula existente no body-->
-        <xsl:apply-templates select=".//*[fig]" mode="fig-modal"></xsl:apply-templates>
+        <xsl:apply-templates select=".//*[fig] | fig" mode="fig-modal"></xsl:apply-templates>
         <xsl:apply-templates select=".//table-wrap[@id] | .//table-wrap-group[@id]" mode="modal"/>
         <xsl:apply-templates select=".//disp-formula[@id]" mode="modal"/>
     </xsl:template>
@@ -57,7 +57,6 @@
                 <xsl:with-param name="content_type">schemes</xsl:with-param>
             </xsl:apply-templates>
         </xsl:variable>
-
         <xsl:if test="number($total_figs) + number($total_tables) + number($total_formulas) &gt; 0">
              <div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true">
                  <div class="modal-dialog">
@@ -185,15 +184,19 @@
         -->
         <xsl:choose>
             <xsl:when test="$tab_content_type='figures'">
-                <xsl:apply-templates select=".//*[fig]" mode="figs-tab-content"/>
+                <xsl:apply-templates select="fig | .//*[fig]" mode="figs-tab-content"/>
             </xsl:when>
             <xsl:when test="$tab_content_type='tables'">
-                <xsl:apply-templates select=".//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"/>
+                <xsl:apply-templates select="table-wrap | .//table-wrap-group[table-wrap] | .//*[table-wrap and name()!='table-wrap-group']/table-wrap" mode="tab-content"/>
             </xsl:when>
             <xsl:when test="$tab_content_type='schemes'">
                 <xsl:apply-templates select=".//disp-formula[@id]" mode="tab-content"/>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="fig" mode="fig-modal">
+        <xsl:apply-templates select="." mode="modal"/>
     </xsl:template>
 
     <xsl:template match="*[fig]" mode="fig-modal">
@@ -208,6 +211,10 @@
                 <xsl:apply-templates select=".//fig" mode="modal"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="fig" mode="figs-tab-content">
+        <xsl:apply-templates select="." mode="tab-content"/>
     </xsl:template>
 
     <xsl:template match="*[fig]" mode="figs-tab-content">
@@ -352,27 +359,38 @@
 
         <xsl:variable name="translation" select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']"/>
         <xsl:variable name="f">
-            <xsl:apply-templates select="front" mode="get-total">
-                <xsl:with-param name="content_type" select="$content_type"/>
-            </xsl:apply-templates>
+            <xsl:choose>
+                <xsl:when test="front">
+                    <xsl:apply-templates select="front" mode="get-total">
+                        <xsl:with-param name="content_type" select="$content_type"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="bk">
-            <xsl:apply-templates select="back" mode="get-total">
-                <xsl:with-param name="content_type" select="$content_type"/>
-            </xsl:apply-templates>
+            <xsl:choose>
+                <xsl:when test="back">
+                    <xsl:apply-templates select="back" mode="get-total">
+                        <xsl:with-param name="content_type" select="$content_type"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="b">
         <xsl:choose>
             <xsl:when test="$translation">
                 <xsl:apply-templates select="$translation" mode="get-total">
-                    <xsl:with-param name="content_type" select="$content_type"/>
+                    <xsl:with-param name="content_type"><xsl:value-of select="$content_type"/></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="body">
                 <xsl:apply-templates select="body" mode="get-total">
                     <xsl:with-param name="content_type" select="$content_type"/>
                 </xsl:apply-templates>
-            </xsl:otherwise>
+            </xsl:when>
+            <xsl:otherwise>0</xsl:otherwise>
         </xsl:choose>
         </xsl:variable>
         <xsl:value-of select="number($f)+number($b)+number($bk)"/>
@@ -383,10 +401,10 @@
 
         <xsl:choose>
             <xsl:when test="$content_type='figures'">
-                <xsl:value-of select="count(.//fig-group[@id]/fig[@xml:lang][1]) + count(.//fig[not(@xml:lang)])"/>
+                <xsl:value-of select="count(fig)"/>
             </xsl:when>
             <xsl:when test="$content_type='tables'">
-                <xsl:value-of select="count(.//table-wrap-group) + count(.//*[table-wrap and name()!='table-wrap-group']//table-wrap)"/>
+                <xsl:value-of select="count(./table-wrap) + count(.//table-wrap-group) + count(.//*[table-wrap and name()!='table-wrap-group']//table-wrap)"/>
             </xsl:when>
             <xsl:when test="$content_type='schemes'">
                 <xsl:value-of select="count(.//disp-formula[@id])"/>
