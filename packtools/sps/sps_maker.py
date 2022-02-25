@@ -90,13 +90,13 @@ def _get_xml_sps_from_path(xml_path):
 
 def _get_assets_uris_and_names(xml_sps):
     uris_and_filenames = []
-    
+
     for asset in xml_sps.assets.items:
         uris_and_filenames.append({
             "uri": asset.uri or asset.xlink_href,
             "name": asset.get_name(xml_sps.package_name),
         })
-    
+
     return uris_and_filenames
 
 
@@ -107,11 +107,25 @@ def _get_xml_uri_and_name(xml_sps, xml_uri=None):
     }
 
 
-def _get_zip_filename(xml_sps, output=None):
-    if not output:
+def _get_zip_filename(xml_sps, output_filename=None):
+    """
+    Obtém o nome canônico de um arquivo ZIP a partir de `xml_sps: packtools.sps.models.sps_package.SPS_Package`.
+
+    Parameters
+    ----------
+    xml_sps : packtools.sps.models.sps_package.SPS_Package
+    output_filename: nome do arquivo zip
+
+    Returns
+    -------
+    str
+        "1414-431X-bjmbr-54-10-e11439.zip"
+
+    """
+    if not output_filename:
         return f'{xml_sps.package_name}.zip'
     else:
-        return output
+        return output_filename
 
 
 def _zip_files_from_uris_and_names(zip_name, uris_and_names, zip_folder=None):
