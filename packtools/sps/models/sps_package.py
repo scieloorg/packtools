@@ -2,6 +2,7 @@ import logging
 import os
 
 from lxml import etree
+from packtools import normalizer
 from packtools.sps.utils import xml_utils
 
 
@@ -592,14 +593,14 @@ class Identity:
 
     @property
     def number(self):
-        n, s = xml_utils.extract_number_and_supplment_from_issue_element(
+        n, s = normalizer.extract_number_and_supplment_from_issue_element(
             self.article_meta.findtext("issue")
         )
         return n
 
     @property
     def supplement(self):
-        n, s = xml_utils.extract_number_and_supplment_from_issue_element(
+        n, s = normalizer.extract_number_and_supplment_from_issue_element(
             self.article_meta.findtext("issue")
         )
         return s

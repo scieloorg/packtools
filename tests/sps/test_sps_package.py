@@ -1,11 +1,10 @@
-
+from packtools.normalizer import extract_number_and_supplment_from_issue_element
 from packtools.sps.models.sps_package import (
     SPS_Package,
     Identity,
     SPS_Assets,
 )
 from packtools.sps.utils.xml_utils import (
-    extract_number_and_supplment_from_issue_element,
     parse_issue,
     get_year_month_day,
     formatted_text
