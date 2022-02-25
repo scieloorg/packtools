@@ -857,9 +857,13 @@ class SPS_Asset:
 
     @uri.setter
     def uri(self, value):
+        # se há barra de espaço no valor `value`, então, provavelmente, um link
         if "/" in value:
             self._uri = value
-        self._uri = ''
+
+        # se não é uma string com link, atribui string vazia
+        else:
+            self._uri = ''
 
     @property
     def filename(self):
