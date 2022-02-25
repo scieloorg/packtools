@@ -23,8 +23,13 @@ class SHA1Error(Exception):
     """
 
 
+class SPSHTTPError(Exception):
+    """ To handle HTTP errors.
+    """
+
+
 class SPSDownloadXMLError(Exception):
-    """ To handle XML file download failures. 
+    """ To handle XML file download failures.
     """
 
 
@@ -33,8 +38,13 @@ class SPSXMLLinkError(Exception):
     """
 
 
+class SPSXMLContentError(Exception):
+    """ To handle invalid XML content.
+    """
+
+
 class SPSXMLFileError(Exception):
-    """ To handle invalid XML files. 
+    """ To handle invalid XML files.
     """
 
 
