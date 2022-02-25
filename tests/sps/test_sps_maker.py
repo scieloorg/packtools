@@ -159,6 +159,7 @@ class Test_make_package_from_uris(TestCase):
         with self.assertRaises(sps_maker.exceptions.SPSDownloadXMLError):
             sps_maker.make_package_from_uris(xml_uri, renditions_uris_and_names)
 
+    @skip("Exige conexão com VPN SciELO")
     def test_make_package_from_uris_without_renditions(self):
         xml_uri_kernel = 'http://kernel.scielo.br/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
         package_metadata = sps_maker.make_package_from_uris(xml_uri_kernel)
@@ -177,7 +178,7 @@ class Test_make_package_from_uris(TestCase):
                 set(zf.namelist()),
             )
 
-    def test_make_package_from_uris_has_expected_files(self):        
+    @skip("Exige conexão com VPN SciELO")
     def test_make_package_from_uris_has_expected_files(self):
         xml_uri_kernel = 'http://kernel.scielo.br/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
         renditions_uris_and_names = [{
