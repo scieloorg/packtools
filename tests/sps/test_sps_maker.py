@@ -160,7 +160,7 @@ class Test_make_package_from_uris(TestCase):
             sps_maker.make_package_from_uris(xml_uri, renditions_uris_and_names)
 
     def test_make_package_from_uris_without_renditions(self):
-        xml_uri_kernel = 'http://0.0.0.0:6543/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
+        xml_uri_kernel = 'http://kernel.scielo.br/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
         package_metadata = sps_maker.make_package_from_uris(xml_uri_kernel)
 
         expected_files = set([
@@ -178,7 +178,8 @@ class Test_make_package_from_uris(TestCase):
             )
 
     def test_make_package_from_uris_has_expected_files(self):        
-        xml_uri_kernel = 'http://0.0.0.0:6543/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
+    def test_make_package_from_uris_has_expected_files(self):
+        xml_uri_kernel = 'http://kernel.scielo.br/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
         renditions_uris_and_names = [{
             "uri": "https://minio.scielo.br/documentstore/1414-431X/"
                 "ywDM7t6mxHzCRWp7kGF9rXQ/"
@@ -221,7 +222,7 @@ class Test_make_package_from_paths(TestCase):
 
         with self.assertRaises(sps_maker.exceptions.SPSMakePackageFromPathsMissingKeyError):
             sps_maker.make_package_from_paths(paths)
-        
+
     def test_make_package_from_paths_has_expected_files(self):
         paths = {
             'xml': './tests/sps/fixtures/article_content/ca7d37e62e72840c1715ba83dda9893424ad31ec_kernel.xml',
