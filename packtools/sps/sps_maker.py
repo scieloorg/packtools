@@ -69,7 +69,7 @@ def _get_xml_sps_from_uri(xml_uri):
             return sps_package.SPS_Package(content)
         except:
             raise
-        
+
     else:
         raise exceptions.SPSXMLLinkError(f'{xml_uri} is not a valid link. Please, inform a link address (e.g. http://...')
 

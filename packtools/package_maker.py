@@ -10,15 +10,15 @@ LOGGER = logging.getLogger(__name__)
 
 def generate_paths_dict(xml_path, assets_paths, renditions_paths):
     return {
-        'xml': xml_path or '', 
-        'assets': assets_paths or [], 
+        'xml': xml_path or '',
+        'assets': assets_paths or [],
         'renditions': renditions_paths or [],
     }
 
 
 def generate_uris_dict(xml_uri, renditions_uris):
     uris_dict = {
-        'xml': xml_uri or '', 
+        'xml': xml_uri or '',
         'renditions': [],
     }
 
@@ -60,7 +60,7 @@ def main():
         uris_dict = generate_uris_dict(args.xml, args.renditions)
         sps_maker.make_package_from_uris(
             uris_dict['xml'],
-            uris_dict['renditions'], 
+            uris_dict['renditions'],
             args.output_dir,
         )
 
