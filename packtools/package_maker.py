@@ -19,7 +19,7 @@ def generate_paths_dict(xml_path, assets_paths, renditions_paths):
 def generate_uris_dict(xml_uri, renditions_uris):
     uris_dict = {
         'xml': xml_uri or '',
-        'renditions': [],
+        'renditions': renditions_uris or [],
     }
 
     for ru in renditions_uris:
@@ -45,12 +45,12 @@ def main():
 
     uris_parser = subparsers.add_parser('uris', help='Make package from URIs')
     uris_parser.add_argument('--xml', help='XML URI')
-    uris_parser.add_argument('--renditions', nargs='+', help='Renditions URI')
+    uris_parser.add_argument('--renditions', default=[], nargs='+', help='Renditions URI')
 
     paths_parser = subparsers.add_parser('paths', help='Make package from files paths')
     paths_parser.add_argument('--xml', help='XML file path', required=True)
-    paths_parser.add_argument('--renditions', nargs='+', help='Renditions file path')
-    paths_parser.add_argument('--assets', nargs='+', help='Assets file path')
+    paths_parser.add_argument('--renditions', default=[], nargs='+', help='Renditions file path')
+    paths_parser.add_argument('--assets', default=[], nargs='+', help='Assets file path')
 
     args = parser.parse_args()
 
