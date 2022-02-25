@@ -1598,3 +1598,209 @@ class HTMLGeneratorFigWithoutIdTests(unittest.TestCase):
         self.assertIn(
             "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
 
+
+class HTMLGeneratorFigWithIdTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <fig id="f1">
+            <label>Figura 1.</label>
+            <caption>
+                <title>Correlação entre o teor de fenóis totais e CE50 de espécies de <italic>Senna</italic> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</title>
+            </caption>
+            <graphic xlink:href="2236-8906-hoehnea-49-e1112020-gf1.jpg"/>
+            <attrib><xref ref-type="fig" rid="f1">Figure 1</xref>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</attrib>
+        </fig>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        # print(etree.tostring(self.html))
+
+    def test_fig_modal(self):
+        """
+        Test de modal
+        <div class="modal fade ModalFigs" id="ModalFigf1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <span class="sci-ico-newWindow"></span>
+                    </a>
+                    <h4 class="modal-title">
+                        <span class="sci-ico-fileFigure"></span>Figura 1.   Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.<br>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <a href="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <img style="max-width:100%" src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                    </a>
+                    <small>
+                        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf1">
+                            <span class="sci-ico-fileFigure"></span>Figure 1</a>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</small>
+                </div>
+            </div>
+            </div>
+        </div>
+        """
+        # div[@id='ModalFig'] (sem id)
+        div_modal_fig = self.html.find('.//div[@id="ModalFigf1"]')
+
+        # class="modal-header" has href with figure path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-header']/a").get("href")
+        )
+
+        # class="modal-title" has label and caption content
+        text = etree.tostring(
+            div_modal_fig.find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+
+        self.assertIn("Figura 1", text)
+        self.assertIn("Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", text)
+
+        # class="modal-body" has link to image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-body']/a").get("href")
+        )
+
+        # class="modal-body" has src with image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-body']/a/img").get("src")
+        )
+
+        # class="modal-body" has `attrib` text presented inner `<small/>`
+        small = div_modal_fig.find(".//div[@class='modal-body']/small")
+        self.assertIn(
+            "Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.",
+            etree.tostring(small, encoding="utf-8").decode("utf-8")
+        )
+
+    def test_fig_in_text__thumbnail_and_label(self):
+        """
+        Test the html expected to display thumbnail, label and caption
+        in the text
+
+        <div class="row fig" id="">
+            <a name=""></a>
+            <div class="col-md-4 col-sm-4">
+                <a href="2236-8906-hoehnea-49-e1112020-gf1.jpg" data-toggle="modal" data-target="#ModalFig">
+                    <div class="thumbImg">
+                        <img src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 col-sm-8">
+                <strong>Figura 1.</strong>
+                <br>Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.<br>
+            </div>
+        </div>
+        """
+        div_row_fig = self.html.find(
+            '//div[@class="row fig"]'
+        )
+        self.assertEqual("f1", div_row_fig.get("id"))
+        div_row_fig_divs = div_row_fig.xpath("div")
+
+        div_modal_fig_0_a = div_row_fig_divs[0].find("a")
+
+        # div_row_fig_divs[0] has link to image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig_0_a.get("href")
+        )
+        # div_row_fig_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalFigf1",
+            div_modal_fig_0_a.get("data-target")
+        )
+
+        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig_0_a.find("div[@class='thumbImg']/img").get("src")
+        )
+
+        # div_modal_fig[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_fig_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn(
+            "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
+
+    def test_fig_in_pannel_content(self):
+        """
+        Test de modal em tabs
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="figures">
+
+        <div class="row fig">
+            <div class="col-md-4">
+                <a data-toggle="modal" data-target="#ModalFig">
+                    <div class="thumbImg">
+                        <img src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        Thumbnail
+                        <div class="zoom">
+                            <span class="sci-ico-zoom"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8">
+                <strong>Figura 1.</strong><br>Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</div>
+        </div>
+        </div>
+        """
+        div_tab_panel = self.html.find(
+            './/div[@class="tab-content"]'
+        )
+        div_tab_panel = div_tab_panel.find(
+            './/div[@class="tab-pane active"]'
+        )
+        self.assertEqual("figures", div_tab_panel.get("id"))
+
+        div_row_fig = div_tab_panel.find(
+            './/div[@class="row fig"]'
+        )
+        div_row_fig_divs = div_row_fig.xpath("./div")
+
+        div_row_fig_div_0_a = div_row_fig_divs[0].find("a")
+
+        # div_row_fig_divs[0] has link to image path
+        self.assertEqual(
+            "modal",
+            div_row_fig_div_0_a.get("data-toggle")
+        )
+        # div_row_fig_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalFigf1",
+            div_row_fig_div_0_a.get("data-target")
+        )
+
+        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_row_fig_div_0_a.find("div[@class='thumbImg']/img").get("src")
+        )
+
+        # div_modal_fig[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_fig_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn(
+            "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
+
