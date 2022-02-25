@@ -108,6 +108,12 @@ class Test_get_xml_sps_from_uri(TestCase):
         with self.assertRaises(sps_maker.exceptions.SPSLoadToXMLError):
             sps_maker._get_xml_sps_from_uri(xml_uri)
 
+    def test_get_xml_sps_from_uri_raises_download_xml_error(self):
+        xml_uri = 'https://kernel.scielo.br'
+
+        with self.assertRaises(sps_maker.exceptions.SPSDownloadXMLError):
+            sps_maker._get_xml_sps_from_uri(xml_uri)
+
 
 class Test_get_xml_sps_from_path(TestCase):
 
@@ -117,6 +123,17 @@ class Test_get_xml_sps_from_path(TestCase):
         with self.assertRaises(sps_maker.exceptions.SPSXMLFileError):
             sps_maker._get_xml_sps_from_path(xml_path)
 
+    def test_get_sps_package_from_path_without_content_error(self):
+        xml_path = './tests/sps/fixtures/document4.xml'
+
+        with self.assertRaises(sps_maker.exceptions.SPSXMLContentError):
+            sps_maker._get_xml_sps_from_path(xml_path)
+
+    def test_get_sps_package_from_path_with_invalid_content(self):
+        xml_path = './tests/sps/fixtures/document5.xml'
+
+        with self.assertRaises(sps_maker.exceptions.SPSLoadToXMLError):
+            sps_maker._get_xml_sps_from_path(xml_path)
 
     def test_get_sps_package_from_path_success(self):
         xml_path = './tests/sps/fixtures/document2.xml'
@@ -233,3 +250,86 @@ class Test_make_package_from_paths(TestCase):
                 expected_files,
                 set(zf.namelist()),
             )
+
+
+class Test_remove_invalid_uris(TestCase):
+
+    def test_remove_invalid_uris(self):
+        paths = [
+            {"uri": "article_content/ca7d37e62e72840c1715ba83dda9893424ad31ec_kernel.xml", "name": ""},
+            {"uri": "fixtures/article_content/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg", "name": ""},
+            {"uri": "https://minio.scielo.br/documentstore/1414-431X/", "name": ""},
+            {"uri": "https://minio.scielo.br/documentstore/1414-431X/", "name": ""}
+        ]
+
+        expected = [
+            {"uri": "https://minio.scielo.br/documentstore/1414-431X/", "name": ""},
+            {"uri": "https://minio.scielo.br/documentstore/1414-431X/", "name": ""}
+        ]
+
+        obtained = sps_maker._remove_invalid_uris(paths)
+
+        self.assertListEqual(expected, obtained)
+
+
+class Test_check_keys_and_files(TestCase):
+
+    def test_check_keys_and_files_success(self):
+        paths = {
+            'xml': './tests/sps/fixtures/article_content/ca7d37e62e72840c1715ba83dda9893424ad31ec_kernel.xml',
+            'renditions': ['./tests/sps/fixtures/article_content/aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf'],
+            'assets': [
+                './tests/sps/fixtures/article_content/0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg',
+                './tests/sps/fixtures/article_content/c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg',
+                './tests/sps/fixtures/article_content/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg',
+                './tests/sps/fixtures/article_content/afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg',
+            ]
+        }
+
+        self.assertTrue(sps_maker._check_keys_and_files(paths))
+
+    def test_check_keys_and_files_raises(self):
+        paths = {
+            "xml": "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml",
+            "renditions": [
+                "/home/user/aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf",
+                ...
+            ],
+            "assets": [
+                "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg",
+                ...,
+            ]
+        }
+
+        with self.assertRaises(SPSXMLFileError):
+            sps_maker._check_keys_and_files(paths)
+
+
+class Test_get_canonical_files_paths(TestCase):
+
+    def test_get_canonical_files_paths(self):
+        xml_path = './tests/sps/fixtures/article_content/ca7d37e62e72840c1715ba83dda9893424ad31ec_kernel.xml'
+        xml_sps = sps_maker._get_xml_sps_from_path(xml_path)
+        paths = {
+            'xml': './tests/sps/fixtures/article_content/ca7d37e62e72840c1715ba83dda9893424ad31ec_kernel.xml',
+            'renditions': ['./tests/sps/fixtures/article_content/aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf'],
+            'assets': [
+                './tests/sps/fixtures/article_content/0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg',
+                './tests/sps/fixtures/article_content/c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg',
+                './tests/sps/fixtures/article_content/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg',
+                './tests/sps/fixtures/article_content/afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg',
+            ]
+        }
+
+        expected_files_names = sorted([
+            '1414-431X-bjmbr-54-10-e11439.xml',
+            '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf01.jpg',
+            '1414-431X-bjmbr-54-10-e11439-gf02.jpg',
+            'aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf'
+        ])
+
+        obtained_file_names = sorted([os.path.basename(f) for f in sps_maker._get_canonical_files_paths(xml_sps, paths)])
+
+        self.assertListEqual(expected_files_names, obtained_file_names)
