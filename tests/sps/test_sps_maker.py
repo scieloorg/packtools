@@ -1,7 +1,9 @@
-from unittest import TestCase
+from unittest import TestCase, skip
+from packtools.sps.exceptions import SPSXMLFileError
 from packtools.sps.models import sps_package
 from packtools.sps import sps_maker
 
+import os
 import zipfile
 
 
@@ -10,7 +12,7 @@ class Test_get_xml_uri_and_name(TestCase):
     def test__get_xml_uri_and_name(self):
         xml_sps = sps_package.SPS_Package("./tests/sps/fixtures/document2.xml")
         xml_uri = 'https://kernel.scielo.br/documents/ywDM7t6mxHzCRWp7kGF9rXQ'
-        
+
         xml_uri_and_name = sps_maker._get_xml_uri_and_name(xml_sps, xml_uri)
         expected = {'name': '1414-431X-bjmbr-54-10-e11439.xml', 'uri': 'https://kernel.scielo.br/documents/ywDM7t6mxHzCRWp7kGF9rXQ'}
 
@@ -27,22 +29,22 @@ class Test_get_assets_uris_and_names(TestCase):
             {
                 'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
                     'ywDM7t6mxHzCRWp7kGF9rXQ/'
-                    'fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg', 
-                'name': '1414-431X-bjmbr-54-10-e11439-gf01.jpg'}, 
+                    'fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg',
+                'name': '1414-431X-bjmbr-54-10-e11439-gf01.jpg'},
             {
                 'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
                 'ywDM7t6mxHzCRWp7kGF9rXQ/'
-                '0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg', 
-                'name': '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg'}, 
+                '0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg',
+                'name': '1414-431X-bjmbr-54-10-e11439-gf01-scielo-267x140.jpg'},
             {
                 'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
                 'ywDM7t6mxHzCRWp7kGF9rXQ/'
-                'afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg', 
-                'name': '1414-431X-bjmbr-54-10-e11439-gf02.jpg'}, 
+                'afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg',
+                'name': '1414-431X-bjmbr-54-10-e11439-gf02.jpg'},
             {
                 'uri': 'https://minio.scielo.br/documentstore/1414-431X/'
                 'ywDM7t6mxHzCRWp7kGF9rXQ/'
-                'c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg', 
+                'c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg',
                 'name': '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
             }
         ]
@@ -94,13 +96,13 @@ class Test_zip_files(TestCase):
 
 
 class Test_get_xml_sps_from_uri(TestCase):
-    
-    def test_get_sps_package_from_path_raises_xml_link_error(self):
+
+    def test_get_sps_package_from_uri_raises_xml_link_error(self):
         xml_uri = 'some-invalid-link'
         with self.assertRaises(sps_maker.exceptions.SPSXMLLinkError):
             sps_maker._get_xml_sps_from_uri(xml_uri)
 
-    def test_get_sps_package_from_path_raises_xml_download_error(self):
+    def test_get_sps_package_from_uri_raises_sps_load_to_xml_error(self):
         xml_uri = 'https://scielo.br'
 
         with self.assertRaises(sps_maker.exceptions.SPSLoadToXMLError):
@@ -108,7 +110,7 @@ class Test_get_xml_sps_from_uri(TestCase):
 
 
 class Test_get_xml_sps_from_path(TestCase):
-    
+
     def test_get_sps_package_from_path_file_error(self):
         xml_path = './tests/sps/fixtures/document_unavailable.xml'
 
@@ -125,11 +127,11 @@ class Test_get_xml_sps_from_path(TestCase):
 
 class Test_make_package_from_uris(TestCase):
 
-    def test_make_package_from_uris_raises_xml_download_error(self):        
+    def test_make_package_from_uris_raises_xml_download_error(self):
         xml_uri = "https://minio.scielo.br/documentstore/1414-431X/"
         "ywDM7t6mxHzCRWp7kGF9rXQ/"
         "fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml"
-        
+
         renditions_uris_and_names = [{
             "uri": "https://minio.scielo.br/documentstore/1414-431X/"
                 "ywDM7t6mxHzCRWp7kGF9rXQ/"
@@ -151,7 +153,7 @@ class Test_make_package_from_uris(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf02.jpg',
             '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
         ])
-                
+
         with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
             self.assertSetEqual(
                 expected_files,
@@ -177,7 +179,7 @@ class Test_make_package_from_uris(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf02.jpg',
             '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
         ])
-                
+
         with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
             self.assertSetEqual(
                 expected_files,
@@ -225,7 +227,7 @@ class Test_make_package_from_paths(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg',
             '1414-431X-bjmbr-54-10-e11439-gf01.jpg',
         ])
-                
+
         with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
             self.assertSetEqual(
                 expected_files,
