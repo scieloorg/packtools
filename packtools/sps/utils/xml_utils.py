@@ -3,6 +3,7 @@ import re
 
 from copy import deepcopy
 from lxml import etree
+from packtools import validations
 from packtools.sps import exceptions
 from packtools import file_utils
 
@@ -182,24 +183,13 @@ def parse_issue(issue):
     return s
 
 
-def is_valid_value_for_pid_v2(value):
-    if len(value or "") != 23:
-        raise ValueError
-    return True
-
-
-VALIDATE_FUNCTIONS = dict((
-    ("scielo_pid_v2", is_valid_value_for_pid_v2),
-))
-
-
 def is_allowed_to_update(xml_sps, attr_name, attr_new_value):
     """
     Se há uma função de validação associada com o atributo,
     verificar se é permitido atualizar o atributo, dados seus valores
     atual e/ou novo
     """
-    validate_function = VALIDATE_FUNCTIONS.get(attr_name)
+    validate_function = validations.VALIDATE_FUNCTIONS.get(attr_name)
     if validate_function is None:
         # não há nenhuma validação, então é permitido fazer a atualização
         return True
