@@ -1,3 +1,4 @@
+from urllib.error import HTTPError
 from packtools.sps.models import packages, sps_package
 from packtools.sps.libs import async_download, reqs
 from packtools import file_utils
@@ -60,10 +61,10 @@ def _get_xml_sps_from_uri(xml_uri):
         raise exceptions.SPSXMLLinkError('XML URI is empty. Please, informe a link address.')
 
     if 'http' in xml_uri:
-        content = reqs.requests_get_content(xml_uri)
-        
-        if not content:
-            raise exceptions.SPSDownloadXMLError(f'It was not possible to download the XML file {xml_uri}.')
+        try:
+            content = reqs.requests_get_content(xml_uri)
+        except exceptions.SPSHTTPError as e:
+            raise exceptions.SPSDownloadXMLError(f'It was not possible to download the XML file {xml_uri}. Status code {e}')
 
         try:
             return sps_package.SPS_Package(content)
@@ -81,6 +82,8 @@ def _get_xml_sps_from_path(xml_path):
 
             if content:
                 return sps_package.SPS_Package(content)
+            else:
+                raise exceptions.SPSXMLContentError(f'It was not possible to read {xml_path}. Please, provide a valid XML path.')
     else:
         raise exceptions.SPSXMLFileError(f'{xml_path} is invalid. Please, provide a valid XML path.')
 
