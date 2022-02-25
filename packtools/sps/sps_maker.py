@@ -162,6 +162,30 @@ def _zip_files_from_paths(zip_name, xml_sps, paths, zip_folder=None):
 
 
 def _check_keys_and_files(paths: dict):
+    """
+    Verifica se todos as chaves esperadas do dicionário de caminhos foram informadas.
+    São esperadas as chaves presentes em `FILE_PATHS_REQUIRED_KEYS`.
+    Verifica se os arquivos informados existem.
+
+    Parameters
+    ----------
+    paths : dict
+        {
+            "xml": "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml",
+            "renditions": [
+                "/home/user/aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf",
+                ...
+            ],
+            "assets": [
+                "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg",
+                ...,
+            ]
+        }
+
+    Returns
+    -------
+    boolean
+    """
     for k in FILE_PATHS_REQUIRED_KEYS:
         if k not in paths.keys():
             raise exceptions.SPSMakePackageFromPathsMissingKeyError(f'Paths error: key {k} is missing.')
@@ -174,6 +198,7 @@ def _check_keys_and_files(paths: dict):
             if not file_utils.is_valid_file(paths[k]):
                 raise exceptions.SPSXMLFileError(f'Invalid XML path or content: {paths[k]}')
 
+    return True
 
 def _change_files_paths(xml_sps, paths):
     new_paths = []
