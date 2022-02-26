@@ -1804,3 +1804,244 @@ class HTMLGeneratorFigWithIdTests(unittest.TestCase):
         self.assertIn(
             "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
 
+
+class HTMLGeneratorTableWrapWithIdTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <table-wrap id="t1">
+            <label>Tabela 1.</label>
+            <caption>
+                <title>Identificação das espécies de <italic>Senna</italic> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</title>
+            </caption>
+            <table>
+                <colgroup>
+                    <col/>
+                    <col/>
+                    <col/>
+                    <col/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th align="left">Espécies</th>
+                        <th align="left">Nome popular</th>
+                        <th align="center">Local de coleta</th>
+                        <th align="center">No. HUVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="left"><italic>S. alata</italic> (L.) Roxb.</td>
+                        <td align="left">fedegoso-gigante</td>
+                        <td align="center">Sobral</td>
+                        <td align="center">21547</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. obtusifolia</italic> (L.) H.S.Irwin &amp; Barneby</td>
+                        <td align="left">fedegoso-brando</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21775</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. occidentalis</italic> (L.) Link</td>
+                        <td align="left">café-negro</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21774</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. siamea</italic> (Lam.) H.S.Irwin &amp; Barneby<sup>*</sup></td>
+                        <td align="left">cássia-de-sião</td>
+                        <td align="center">Sobral</td>
+                        <td align="center">21578</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. trachypus</italic> (Benth.) H.S.Irwin &amp; Barneby<sup>**</sup></td>
+                        <td align="left">pau-de-besouro</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21776</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table-wrap-foot>
+                <fn id="TFN1">
+                    <p><xref ref-type="table" rid="t1">Table 1</xref>Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                </fn>
+            </table-wrap-foot>
+        </table-wrap>
+
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        # print(etree.tostring(self.html))
+
+    def test_table_wrap_modal(self):
+        """
+        Test de modal
+
+        <div class="modal fade ModalTables" id="ModalTablet1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+        <span class="sci-ico-fileTable"></span><strong>Tabela 1.</strong>    Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).<br>
+        </h4>
+        </div>
+        <div class="modal-body"><div class="table table-hover"><table>
+        <colgroup>
+        <col>
+        <col>
+        <col>
+        <col>
+        </colgroup>
+        <thead><tr>
+        <th align="left">Espécies</th>
+        <th align="left">Nome popular</th>
+        <th align="center">Local de coleta</th>
+        <th align="center">No. HUVA</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+        <td align="left">
+        <i>S. alata</i> (L.) Roxb.</td>
+        <td align="left">fedegoso-gigante</td>
+        <td align="center">Sobral</td>
+        <td align="center">21547</td>
+        </tr>
+        </tbody>
+        </table></div></div>
+        <div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li><div>
+        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTablet1"><span class="sci-ico-fileTable"></span>Table 1</a>Identification of <i>Senna Senna</i> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</div></li></ul></div></div>
+        </div></div></div>
+        """
+        # div[@id='ModalFig'] (sem id)
+        div_modal = self.html.find('.//div[@id="ModalTablet1"]')
+
+        # class="modal-title" has label and caption content
+        text = etree.tostring(
+            div_modal.find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+
+        self.assertIn("Tabela 1", text)
+        self.assertIn("Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).", text)
+
+        # class="modal-body" has link to image path
+        self.assertIsNotNone(
+            div_modal.find(".//div[@class='modal-body']//table")
+        )
+
+        # class="modal-body" has `attrib` text presented inner `<small/>`
+        footer = div_modal.find(".//div[@class='modal-footer']")
+        self.assertIn(
+            "Identification of <i>Senna Senna</i> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).",
+            etree.tostring(footer, encoding="utf-8").decode("utf-8")
+        )
+
+    def test_table_wrap_in_text__thumbnail_and_label(self):
+        """
+        Test the html expected to display thumbnail, label and caption
+        in the text
+
+        <div class="row table" id="t1">
+            <a name="t1"></a>
+            <div class="col-md-4 col-sm-4">
+                <a data-toggle="modal" data-target="#ModalTablet1">
+                    <div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 col-sm-8">
+            <strong><strong>Tabela 1.</strong></strong><br> Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).<br>
+            </div>
+        </div>
+        """
+        div_row_table = self.html.find(
+            '//div[@class="row table"]'
+        )
+        self.assertEqual("t1", div_row_table.get("id"))
+        div_row_table_divs = div_row_table.xpath("div")
+
+        div_modal_table_0_a = div_row_table_divs[0].find("a")
+
+        # div_row_table_divs[0] has `@data-target` = #ModalTablet1
+        self.assertEqual(
+            "#ModalTablet1",
+            div_modal_table_0_a.get("data-target")
+        )
+
+        # div_row_table_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertIsNotNone(
+            div_modal_table_0_a.find("div[@class='thumbOff']")
+        )
+
+        # div_modal_table[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_table_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Tabela 1.", texts)
+        self.assertIn(
+            "Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).", texts)
+
+    def test_table_wrap_in_pannel_content(self):
+        """
+        Test de modal em tabs
+
+        <div role="tabpanel" class="tab-pane " id="tables">
+            <div class="row table">
+                <div class="col-md-4">
+                    <a data-toggle="modal" data-target="#ModalTablet1">
+                        <div class="thumbOff">
+                            Thumbnail
+                            <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <strong><strong>Tabela 1.</strong></strong><br> Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</div>
+            </div>
+        </div>
+        """
+        div_tab_panel = self.html.find(
+            './/div[@class="tab-content"]'
+        )
+        div_tab_panel = div_tab_panel.find(
+            './/div[@class="tab-pane active"]'
+        )
+        self.assertEqual("tables", div_tab_panel.get("id"))
+
+        div_row_table = div_tab_panel.find(
+            './/div[@class="row table"]'
+        )
+        div_row_table_divs = div_row_table.xpath("./div")
+
+        div_row_table_div_0_a = div_row_table_divs[0].find("a")
+
+        # div_row_table_divs[0] has link to image path
+        self.assertEqual(
+            "modal",
+            div_row_table_div_0_a.get("data-toggle")
+        )
+        # div_row_table_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalTablet1",
+            div_row_table_div_0_a.get("data-target")
+        )
+
+        # div_row_table_divs[0] must have div[@class='thumbOff'] to display image
+        # as thumbnail
+        self.assertIsNotNone(
+            div_row_table_div_0_a.find("div[@class='thumbOff']")
+        )
+
+        # div_modal_table[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_table_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Tabela 1.", texts)
+        self.assertIn(
+            "Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).", texts)
+
