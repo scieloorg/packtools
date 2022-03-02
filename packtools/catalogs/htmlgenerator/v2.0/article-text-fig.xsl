@@ -6,7 +6,7 @@
     exclude-result-prefixes="xlink mml"
     version="1.0">
 
-    <xsl:template match="fig[@id] | fig-group[@id]">
+    <xsl:template match="fig | fig-group[@id]">
         <!--
         Cria a miniatura no texto completo, que ao ser clicada mostra a figura
         ampliada
@@ -50,7 +50,7 @@
         <xsl:apply-templates select="." mode="label-caption-thumb"/><br/>
     </xsl:template>
 
-    <xsl:template match="fig[@id] | fig-group[@id]" mode="figure-id">
+    <xsl:template match="fig | fig-group[@id]" mode="figure-id">
         <xsl:value-of select="@id"/>
     </xsl:template>
 

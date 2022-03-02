@@ -9,6 +9,18 @@ from lxml import etree
 from packtools import domain
 
 
+NAMESPACES = {
+    "xlink": "http://www.w3.org/1999/xlink",
+}
+
+
+def _get_ns_attr(node, attr):
+    if node is not None:
+        ns, attr = attr.split(":")
+        ns = "{" + f'{NAMESPACES.get(ns)}' + "}"
+        return node.attrib.get(ns + attr)
+
+
 def setup_tmpfile(method):
     def wrapper(self):
         valid_tmpfile = NamedTemporaryFile()
@@ -1379,3 +1391,802 @@ class HTMLGeneratorFigGroupTests(unittest.TestCase):
         self.assertIn("Mapa com a localização das três áreas de estudo, Parque Estadual da Cantareira, São Paulo, SP, Brasil. Elaborado por Marina Kanashiro, 2019.", texts)
         self.assertIn("Figure 1", texts)
         self.assertIn("Map with the location of the three study areas, Parque Estadual da Cantareira, São Paulo, São Paulo State, Brasil. Prepared by Marina Kanashiro, 2019.", texts)
+
+
+class HTMLGeneratorFigWithoutIdTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <fig>
+            <label>Figura 1.</label>
+            <caption>
+                <title>Correlação entre o teor de fenóis totais e CE50 de espécies de <italic>Senna</italic> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</title>
+            </caption>
+            <graphic xlink:href="2236-8906-hoehnea-49-e1112020-gf1.jpg"/>
+            <attrib><xref ref-type="fig" rid="f1">Figure 1</xref>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</attrib>
+        </fig>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        # print(etree.tostring(self.html))
+
+    def test_fig_modal(self):
+        """
+        Test de modal
+        <div class="modal fade ModalFigs" id="ModalFig" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <span class="sci-ico-newWindow"></span>
+                    </a>
+                    <h4 class="modal-title">
+                        <span class="sci-ico-fileFigure"></span>Figura 1.   Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.<br>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <a href="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <img style="max-width:100%" src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                    </a>
+                    <small>
+                        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf1">
+                            <span class="sci-ico-fileFigure"></span>Figure 1</a>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</small>
+                </div>
+            </div>
+            </div>
+        </div>
+        """
+        # div[@id='ModalFig'] (sem id)
+        div_modal_fig = self.html.find('.//div[@id="ModalFig"]')
+
+        # class="modal-header" has href with figure path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-header']/a").get("href")
+        )
+
+        # class="modal-title" has label and caption content
+        text = etree.tostring(
+            div_modal_fig.find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+
+        self.assertIn("Figura 1", text)
+        self.assertIn("Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", text)
+
+        # class="modal-body" has link to image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-body']/a").get("href")
+        )
+
+        # class="modal-body" has src with image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-body']/a/img").get("src")
+        )
+
+        # class="modal-body" has `attrib` text presented inner `<small/>`
+        small = div_modal_fig.find(".//div[@class='modal-body']/small")
+        self.assertIn(
+            "Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.",
+            etree.tostring(small, encoding="utf-8").decode("utf-8")
+        )
+
+    def test_fig_in_text__thumbnail_and_label(self):
+        """
+        Test the html expected to display thumbnail, label and caption
+        in the text
+
+        <div class="row fig" id="">
+            <a name=""></a>
+            <div class="col-md-4 col-sm-4">
+                <a href="2236-8906-hoehnea-49-e1112020-gf1.jpg" data-toggle="modal" data-target="#ModalFig">
+                    <div class="thumbImg">
+                        <img src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 col-sm-8">
+                <strong>Figura 1.</strong>
+                <br>Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.<br>
+            </div>
+        </div>
+        """
+        div_row_fig = self.html.find(
+            '//div[@class="row fig"]'
+        )
+        self.assertEqual("", div_row_fig.get("id"))
+        div_row_fig_divs = div_row_fig.xpath("div")
+
+        div_modal_fig_0_a = div_row_fig_divs[0].find("a")
+
+        # div_row_fig_divs[0] has link to image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig_0_a.get("href")
+        )
+        # div_row_fig_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalFig",
+            div_modal_fig_0_a.get("data-target")
+        )
+
+        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig_0_a.find("div[@class='thumbImg']/img").get("src")
+        )
+
+        # div_modal_fig[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_fig_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn(
+            "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
+
+    def test_fig_in_pannel_content(self):
+        """
+        Test de modal em tabs
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="figures">
+
+        <div class="row fig">
+            <div class="col-md-4">
+                <a data-toggle="modal" data-target="#ModalFig">
+                    <div class="thumbImg">
+                        <img src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        Thumbnail
+                        <div class="zoom">
+                            <span class="sci-ico-zoom"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8">
+                <strong>Figura 1.</strong><br>Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</div>
+        </div>
+        </div>
+        """
+        div_tab_panel = self.html.find(
+            './/div[@class="tab-content"]'
+        )
+        div_tab_panel = div_tab_panel.find(
+            './/div[@class="tab-pane active"]'
+        )
+        self.assertEqual("figures", div_tab_panel.get("id"))
+
+        div_row_fig = div_tab_panel.find(
+            './/div[@class="row fig"]'
+        )
+        div_row_fig_divs = div_row_fig.xpath("./div")
+
+        div_row_fig_div_0_a = div_row_fig_divs[0].find("a")
+
+        # div_row_fig_divs[0] has link to image path
+        self.assertEqual(
+            "modal",
+            div_row_fig_div_0_a.get("data-toggle")
+        )
+        # div_row_fig_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalFig",
+            div_row_fig_div_0_a.get("data-target")
+        )
+
+        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_row_fig_div_0_a.find("div[@class='thumbImg']/img").get("src")
+        )
+
+        # div_modal_fig[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_fig_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn(
+            "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
+
+
+class HTMLGeneratorFigWithIdTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <fig id="f1">
+            <label>Figura 1.</label>
+            <caption>
+                <title>Correlação entre o teor de fenóis totais e CE50 de espécies de <italic>Senna</italic> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</title>
+            </caption>
+            <graphic xlink:href="2236-8906-hoehnea-49-e1112020-gf1.jpg"/>
+            <attrib><xref ref-type="fig" rid="f1">Figure 1</xref>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</attrib>
+        </fig>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        # print(etree.tostring(self.html))
+
+    def test_fig_modal(self):
+        """
+        Test de modal
+        <div class="modal fade ModalFigs" id="ModalFigf1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <span class="sci-ico-newWindow"></span>
+                    </a>
+                    <h4 class="modal-title">
+                        <span class="sci-ico-fileFigure"></span>Figura 1.   Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.<br>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <a href="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <img style="max-width:100%" src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                    </a>
+                    <small>
+                        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf1">
+                            <span class="sci-ico-fileFigure"></span>Figure 1</a>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</small>
+                </div>
+            </div>
+            </div>
+        </div>
+        """
+        # div[@id='ModalFig'] (sem id)
+        div_modal_fig = self.html.find('.//div[@id="ModalFigf1"]')
+
+        # class="modal-header" has href with figure path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-header']/a").get("href")
+        )
+
+        # class="modal-title" has label and caption content
+        text = etree.tostring(
+            div_modal_fig.find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+
+        self.assertIn("Figura 1", text)
+        self.assertIn("Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", text)
+
+        # class="modal-body" has link to image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-body']/a").get("href")
+        )
+
+        # class="modal-body" has src with image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig.find(".//div[@class='modal-body']/a/img").get("src")
+        )
+
+        # class="modal-body" has `attrib` text presented inner `<small/>`
+        small = div_modal_fig.find(".//div[@class='modal-body']/small")
+        self.assertIn(
+            "Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.",
+            etree.tostring(small, encoding="utf-8").decode("utf-8")
+        )
+
+    def test_fig_in_text__thumbnail_and_label(self):
+        """
+        Test the html expected to display thumbnail, label and caption
+        in the text
+
+        <div class="row fig" id="">
+            <a name=""></a>
+            <div class="col-md-4 col-sm-4">
+                <a href="2236-8906-hoehnea-49-e1112020-gf1.jpg" data-toggle="modal" data-target="#ModalFig">
+                    <div class="thumbImg">
+                        <img src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 col-sm-8">
+                <strong>Figura 1.</strong>
+                <br>Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.<br>
+            </div>
+        </div>
+        """
+        div_row_fig = self.html.find(
+            '//div[@class="row fig"]'
+        )
+        self.assertEqual("f1", div_row_fig.get("id"))
+        div_row_fig_divs = div_row_fig.xpath("div")
+
+        div_modal_fig_0_a = div_row_fig_divs[0].find("a")
+
+        # div_row_fig_divs[0] has link to image path
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig_0_a.get("href")
+        )
+        # div_row_fig_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalFigf1",
+            div_modal_fig_0_a.get("data-target")
+        )
+
+        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_modal_fig_0_a.find("div[@class='thumbImg']/img").get("src")
+        )
+
+        # div_modal_fig[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_fig_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn(
+            "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
+
+    def test_fig_in_pannel_content(self):
+        """
+        Test de modal em tabs
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="figures">
+
+        <div class="row fig">
+            <div class="col-md-4">
+                <a data-toggle="modal" data-target="#ModalFig">
+                    <div class="thumbImg">
+                        <img src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
+                        Thumbnail
+                        <div class="zoom">
+                            <span class="sci-ico-zoom"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8">
+                <strong>Figura 1.</strong><br>Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</div>
+        </div>
+        </div>
+        """
+        div_tab_panel = self.html.find(
+            './/div[@class="tab-content"]'
+        )
+        div_tab_panel = div_tab_panel.find(
+            './/div[@class="tab-pane active"]'
+        )
+        self.assertEqual("figures", div_tab_panel.get("id"))
+
+        div_row_fig = div_tab_panel.find(
+            './/div[@class="row fig"]'
+        )
+        div_row_fig_divs = div_row_fig.xpath("./div")
+
+        div_row_fig_div_0_a = div_row_fig_divs[0].find("a")
+
+        # div_row_fig_divs[0] has link to image path
+        self.assertEqual(
+            "modal",
+            div_row_fig_div_0_a.get("data-toggle")
+        )
+        # div_row_fig_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalFigf1",
+            div_row_fig_div_0_a.get("data-target")
+        )
+
+        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertEqual(
+            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            div_row_fig_div_0_a.find("div[@class='thumbImg']/img").get("src")
+        )
+
+        # div_modal_fig[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_fig_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Figura 1", texts)
+        self.assertIn(
+            "Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", texts)
+
+
+class HTMLGeneratorTableWrapWithIdTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <table-wrap id="t1">
+            <label>Tabela 1.</label>
+            <caption>
+                <title>Identificação das espécies de <italic>Senna</italic> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</title>
+            </caption>
+            <table>
+                <colgroup>
+                    <col/>
+                    <col/>
+                    <col/>
+                    <col/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th align="left">Espécies</th>
+                        <th align="left">Nome popular</th>
+                        <th align="center">Local de coleta</th>
+                        <th align="center">No. HUVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="left"><italic>S. alata</italic> (L.) Roxb.</td>
+                        <td align="left">fedegoso-gigante</td>
+                        <td align="center">Sobral</td>
+                        <td align="center">21547</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. obtusifolia</italic> (L.) H.S.Irwin &amp; Barneby</td>
+                        <td align="left">fedegoso-brando</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21775</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. occidentalis</italic> (L.) Link</td>
+                        <td align="left">café-negro</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21774</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. siamea</italic> (Lam.) H.S.Irwin &amp; Barneby<sup>*</sup></td>
+                        <td align="left">cássia-de-sião</td>
+                        <td align="center">Sobral</td>
+                        <td align="center">21578</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. trachypus</italic> (Benth.) H.S.Irwin &amp; Barneby<sup>**</sup></td>
+                        <td align="left">pau-de-besouro</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21776</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table-wrap-foot>
+                <fn id="TFN1">
+                    <p><xref ref-type="table" rid="t1">Table 1</xref>Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                </fn>
+            </table-wrap-foot>
+        </table-wrap>
+
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        # print(etree.tostring(self.html))
+
+    def test_table_wrap_modal(self):
+        """
+        Test de modal
+
+        <div class="modal fade ModalTables" id="ModalTablet1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+        <span class="sci-ico-fileTable"></span><strong>Tabela 1.</strong>    Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).<br>
+        </h4>
+        </div>
+        <div class="modal-body"><div class="table table-hover"><table>
+        <colgroup>
+        <col>
+        <col>
+        <col>
+        <col>
+        </colgroup>
+        <thead><tr>
+        <th align="left">Espécies</th>
+        <th align="left">Nome popular</th>
+        <th align="center">Local de coleta</th>
+        <th align="center">No. HUVA</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+        <td align="left">
+        <i>S. alata</i> (L.) Roxb.</td>
+        <td align="left">fedegoso-gigante</td>
+        <td align="center">Sobral</td>
+        <td align="center">21547</td>
+        </tr>
+        </tbody>
+        </table></div></div>
+        <div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li><div>
+        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTablet1"><span class="sci-ico-fileTable"></span>Table 1</a>Identification of <i>Senna Senna</i> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</div></li></ul></div></div>
+        </div></div></div>
+        """
+        # div[@id='ModalFig'] (sem id)
+        div_modal = self.html.find('.//div[@id="ModalTablet1"]')
+
+        # class="modal-title" has label and caption content
+        text = etree.tostring(
+            div_modal.find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+
+        self.assertIn("Tabela 1", text)
+        self.assertIn("Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).", text)
+
+        # class="modal-body" has link to image path
+        self.assertIsNotNone(
+            div_modal.find(".//div[@class='modal-body']//table")
+        )
+
+        # class="modal-body" has `attrib` text presented inner `<small/>`
+        footer = div_modal.find(".//div[@class='modal-footer']")
+        self.assertIn(
+            "Identification of <i>Senna Senna</i> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).",
+            etree.tostring(footer, encoding="utf-8").decode("utf-8")
+        )
+
+    def test_table_wrap_in_text__thumbnail_and_label(self):
+        """
+        Test the html expected to display thumbnail, label and caption
+        in the text
+
+        <div class="row table" id="t1">
+            <a name="t1"></a>
+            <div class="col-md-4 col-sm-4">
+                <a data-toggle="modal" data-target="#ModalTablet1">
+                    <div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 col-sm-8">
+            <strong><strong>Tabela 1.</strong></strong><br> Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).<br>
+            </div>
+        </div>
+        """
+        div_row_table = self.html.find(
+            '//div[@class="row table"]'
+        )
+        self.assertEqual("t1", div_row_table.get("id"))
+        div_row_table_divs = div_row_table.xpath("div")
+
+        div_modal_table_0_a = div_row_table_divs[0].find("a")
+
+        # div_row_table_divs[0] has `@data-target` = #ModalTablet1
+        self.assertEqual(
+            "#ModalTablet1",
+            div_modal_table_0_a.get("data-target")
+        )
+
+        # div_row_table_divs[0] must have div[@class='thumbImg'] to display image
+        # as thumbnail
+        self.assertIsNotNone(
+            div_modal_table_0_a.find("div[@class='thumbOff']")
+        )
+
+        # div_modal_table[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_table_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Tabela 1.", texts)
+        self.assertIn(
+            "Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).", texts)
+
+    def test_table_wrap_in_pannel_content(self):
+        """
+        Test de modal em tabs
+
+        <div role="tabpanel" class="tab-pane " id="tables">
+            <div class="row table">
+                <div class="col-md-4">
+                    <a data-toggle="modal" data-target="#ModalTablet1">
+                        <div class="thumbOff">
+                            Thumbnail
+                            <div class="zoom"><span class="sci-ico-zoom"></span></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <strong><strong>Tabela 1.</strong></strong><br> Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</div>
+            </div>
+        </div>
+        """
+        div_tab_panel = self.html.find(
+            './/div[@class="tab-content"]'
+        )
+        div_tab_panel = div_tab_panel.find(
+            './/div[@class="tab-pane active"]'
+        )
+        self.assertEqual("tables", div_tab_panel.get("id"))
+
+        div_row_table = div_tab_panel.find(
+            './/div[@class="row table"]'
+        )
+        div_row_table_divs = div_row_table.xpath("./div")
+
+        div_row_table_div_0_a = div_row_table_divs[0].find("a")
+
+        # div_row_table_divs[0] has link to image path
+        self.assertEqual(
+            "modal",
+            div_row_table_div_0_a.get("data-toggle")
+        )
+        # div_row_table_divs[0] has `@data-target` = #ModalFig
+        self.assertEqual(
+            "#ModalTablet1",
+            div_row_table_div_0_a.get("data-target")
+        )
+
+        # div_row_table_divs[0] must have div[@class='thumbOff'] to display image
+        # as thumbnail
+        self.assertIsNotNone(
+            div_row_table_div_0_a.find("div[@class='thumbOff']")
+        )
+
+        # div_modal_table[1] has label and caption texts
+        texts = etree.tostring(
+            div_row_table_divs[1], encoding="utf-8").decode("utf-8")
+        self.assertIn("Tabela 1.", texts)
+        self.assertIn(
+            "Identificação das espécies de <i>Senna</i> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).", texts)
+
+
+
+class HTMLGeneratorModalWithFiguresAndTablesTests(unittest.TestCase):
+
+    def setUp(self):
+        sample = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <fig id="f1">
+            <label>Figura 1.</label>
+            <caption>
+                <title>Correlação entre o teor de fenóis totais e CE50 de espécies de <italic>Senna</italic> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</title>
+            </caption>
+            <graphic xlink:href="2236-8906-hoehnea-49-e1112020-gf1.jpg"/>
+            <attrib><xref ref-type="fig" rid="f1">Figure 1</xref>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</attrib>
+        </fig>
+        <table-wrap id="t1">
+            <label>Tabela 1.</label>
+            <caption>
+                <title>Identificação das espécies de <italic>Senna</italic> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</title>
+            </caption>
+            <table>
+                <colgroup>
+                    <col/>
+                    <col/>
+                    <col/>
+                    <col/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th align="left">Espécies</th>
+                        <th align="left">Nome popular</th>
+                        <th align="center">Local de coleta</th>
+                        <th align="center">No. HUVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="left"><italic>S. alata</italic> (L.) Roxb.</td>
+                        <td align="left">fedegoso-gigante</td>
+                        <td align="center">Sobral</td>
+                        <td align="center">21547</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. obtusifolia</italic> (L.) H.S.Irwin &amp; Barneby</td>
+                        <td align="left">fedegoso-brando</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21775</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. occidentalis</italic> (L.) Link</td>
+                        <td align="left">café-negro</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21774</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. siamea</italic> (Lam.) H.S.Irwin &amp; Barneby<sup>*</sup></td>
+                        <td align="left">cássia-de-sião</td>
+                        <td align="center">Sobral</td>
+                        <td align="center">21578</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><italic>S. trachypus</italic> (Benth.) H.S.Irwin &amp; Barneby<sup>**</sup></td>
+                        <td align="left">pau-de-besouro</td>
+                        <td align="center">Graça</td>
+                        <td align="center">21776</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table-wrap-foot>
+                <fn id="TFN1">
+                    <p><xref ref-type="table" rid="t1">Table 1</xref>Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                </fn>
+            </table-wrap-foot>
+        </table-wrap>
+        </body></article>
+        """
+        et = get_xml_tree_from_string(sample)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+        # print(etree.tostring(self.html))
+
+    def test_tabs_modal(self):
+        """
+        Test de modal
+        
+        <div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title">Figuras | Tabelas</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs md-tabs" role="tablist">
+                            <li role="presentation" class="col-md-4 col-sm-4 active">
+                                <a href="#figures" aria-controls="figures" role="tab" data-toggle="tab">Figuras (1)</a>
+                            </li>
+                            <li role="presentation" class="col-md-4 col-sm-4 ">
+                                <a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">Tabelas (1)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """
+        # div[@id='ModalFig'] (sem id)
+        div_modal = self.html.find('.//div[@id="ModalTablesFigures"]')
+
+        h4 = div_modal.find(".//div[@class='modal-header']/h4")
+        text = etree.tostring(h4, encoding="utf-8").decode("utf-8")
+        self.assertIn("Figuras | Tabelas", text)
+
+        # class="modal-title" has label and caption content
+        text = etree.tostring(
+            div_modal.find('.//h4[@class="modal-title"]'),
+            encoding="utf-8"
+        ).decode("utf-8")
+
+        # modal-body
+        modal_body = div_modal.find('.//div[@class="modal-body"]')
+        li = modal_body.findall(".//li")
+        self.assertEqual(len(li), 2)
+
+        fig_text = etree.tostring(li[0], encoding="utf-8").decode("utf-8")
+        fig_text = " ".join([w for w in fig_text.split()])
+        self.assertIn("Figuras (1)", fig_text)
+
+        a = li[0].find("a")
+        self.assertEqual(a.get("href"), "#figures")
+        self.assertEqual(a.get("aria-controls"), "figures")
+        self.assertEqual(a.get("data-toggle"), "tab")
+
+        table_text = etree.tostring(li[1], encoding="utf-8").decode("utf-8")
+        table_text = " ".join([w for w in table_text.split()])
+        self.assertIn("Tabelas (1)", table_text)
+
+        a = li[1].find("a")
+        self.assertEqual(a.get("href"), "#tables")
+        self.assertEqual(a.get("aria-controls"), "tables")
+        self.assertEqual(a.get("data-toggle"), "tab")
