@@ -7,6 +7,40 @@
     version="1.0">
 
     <xsl:template match="alternatives">
+        <!-- primeiro -->
+        <xsl:apply-templates select="*[1]"/>
+    </xsl:template>
+
+    <xsl:template match="disp-formula/alternatives | inline-formula/alternatives">
+        <xsl:choose>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='tex-math' and tex-math">
+                <xsl:apply-templates select="tex-math" />
+            </xsl:when>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='math' and math">
+                <xsl:apply-templates select="math" />
+            </xsl:when>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='mml:math' and mml:math">
+                <xsl:apply-templates select="mml:math" />
+            </xsl:when>
+            <xsl:when test="tex-math">
+                <xsl:apply-templates select="tex-math" />
+            </xsl:when>
+            <xsl:when test="mml:math">
+                <xsl:apply-templates select="mml:math" />
+            </xsl:when>
+            <xsl:when test="math">
+                <xsl:apply-templates select="math" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[1]"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>    
+    </xsl:template>
+
+    <xsl:template match="fig/alternatives">
+        <!-- 
+            Apresentar a imagem padrão 
+        -->
         <xsl:choose>
             <xsl:when test="inline-graphic[@specific-use='scielo-web']">
                 <xsl:apply-templates select="inline-graphic[@specific-use='scielo-web']" />
