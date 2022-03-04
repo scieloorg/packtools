@@ -187,9 +187,19 @@
                 <script src="{$JS_PATH}/js/min/main-min.js"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test=".//math or .//mml:math">
-            <script type="text/javascript"
-                    src="{$MATHJAX}">
+        <xsl:if test=".//tex-math or .//math or .//mml:math">
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              },
+              svg: {
+                fontCache: 'global'
+              }
+            };
+            </script>
+            <script type="text/javascript" id="MathJax-script" async="true"
+              src="{$MATHJAX}">
             </script>
         </xsl:if>
     </xsl:template>
