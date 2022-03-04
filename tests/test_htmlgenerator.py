@@ -1511,7 +1511,7 @@ class HTMLGeneratorFigWithoutIdTests(unittest.TestCase):
 
         # div_row_fig_divs[0] has link to image path
         self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            "",
             div_modal_fig_0_a.get("href")
         )
         # div_row_fig_divs[0] has `@data-target` = #ModalFig
@@ -1694,7 +1694,7 @@ class HTMLGeneratorFigWithIdTests(unittest.TestCase):
         <div class="row fig" id="">
             <a name=""></a>
             <div class="col-md-4 col-sm-4">
-                <a href="2236-8906-hoehnea-49-e1112020-gf1.jpg" data-toggle="modal" data-target="#ModalFig">
+                <a href="" data-toggle="modal" data-target="#ModalFig">
                     <div class="thumbImg">
                         <img src="2236-8906-hoehnea-49-e1112020-gf1.jpg">
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
@@ -1716,8 +1716,9 @@ class HTMLGeneratorFigWithIdTests(unittest.TestCase):
         div_modal_fig_0_a = div_row_fig_divs[0].find("a")
 
         # div_row_fig_divs[0] has link to image path
+		
         self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
+            "",
             div_modal_fig_0_a.get("href")
         )
         # div_row_fig_divs[0] has `@data-target` = #ModalFig
