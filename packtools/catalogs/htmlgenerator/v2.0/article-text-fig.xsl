@@ -18,8 +18,8 @@
         <div class="row fig" id="{$figid}">
             <a name="{$figid}"></a>
             <div class="col-md-4 col-sm-4">
+                <!-- manter href="" -->
                 <a href="" data-toggle="modal" data-target="#ModalFig{$figid}">
-                    <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location != ''">
