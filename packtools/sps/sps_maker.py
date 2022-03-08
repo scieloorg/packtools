@@ -67,7 +67,7 @@ def make_package_from_paths(paths, zip_folder=None):
     package_metadata['assets'] = paths['assets']
 
     zip_filename = _get_zip_filename(xml_sps)
-    package_metadata['temp-zipfile'] = _zip_files_from_paths(zip_filename, xml_sps, paths, zip_folder)
+    package_metadata['zip'] = _zip_files_from_paths(zip_filename, xml_sps, paths, zip_folder)
 
     return package_metadata
 
@@ -95,7 +95,7 @@ def make_package_from_uris(xml_uri, renditions_uris_and_names=[], zip_folder=Non
     zip_filename = _get_zip_filename(sps_package)
 
     # cria um arquivo ZIP temporário com os arquivos das uris baixados
-    package_metadata['temp-zipfile'] = _zip_files_from_uris_and_names(zip_filename, uris_and_names, zip_folder)
+    package_metadata['zip'] = _zip_files_from_uris_and_names(zip_filename, uris_and_names, zip_folder)
 
     return package_metadata
 
