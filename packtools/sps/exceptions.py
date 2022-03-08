@@ -23,8 +23,38 @@ class SHA1Error(Exception):
     """
 
 
+class SPSConnectionError(Exception):
+    """ To handle connection errors.
+    """
+
+
 class SPSHTTPError(Exception):
     """ To handle HTTP errors.
+    """
+
+
+class SPSHTTPForbiddenError(Exception):
+    """ To handle forbidden request errors.
+    """
+
+
+class SPSHTTPResourceNotFoundError(Exception):
+    """ To handle resource not found errors.
+    """
+
+
+class SPSHTTPInternalServerError(Exception):
+    """ To handle internal server errors.
+    """
+
+
+class SPSHTTPBadGatewayError(Exception):
+    """ To handle bad gateway errors.
+    """
+
+
+class SPSHTTPServiceUnavailableError(Exception):
+    """ To handle service unavailable errors.
     """
 
 
