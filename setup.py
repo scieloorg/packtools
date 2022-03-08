@@ -89,6 +89,7 @@ setup(
             "stylechecker=packtools.stylechecker:main",
             "htmlgenerator=packtools.htmlgenerator:main",
             "package_optimiser=packtools.package_optimiser:main",
+            "package_maker=packtools.package_maker:main",
         ]
     }
 )

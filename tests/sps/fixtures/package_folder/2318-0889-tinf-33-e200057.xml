@@ -1,0 +1,1781 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "../../../../JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.1" specific-use="sps-1.9" article-type="research-article" xml:lang="pt">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="publisher-id">tinf</journal-id>
+            <journal-title-group>
+                <journal-title>Transinformação</journal-title>
+                <abbrev-journal-title abbrev-type="publisher">Transinformação</abbrev-journal-title>
+            </journal-title-group>
+            <issn pub-type="ppub">0103-3786</issn>
+            <issn pub-type="epub">2318-0889</issn>
+            <publisher>
+                <publisher-name>Pontifícia Universidade Católica de Campinas</publisher-name>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="other">00505</article-id>
+
+            <article-id pub-id-type="doi">10.1590/2318-0889202133e200057</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>ORIGINAL</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>Compromiso de los Ayuntamientos Malagueños con la divulgación de información responsable</article-title>
+                <trans-title-group xml:lang="en">
+                    <trans-title>The Málaga city councils commitment on the dissemination of responsible information</trans-title>
+                </trans-title-group>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0002-6670-5818</contrib-id>
+                    <name>
+                        <surname>PACHE-DURÁN</surname>
+                        <given-names>María</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff01">1</xref>
+                    <xref ref-type="corresp" rid="c01"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0002-4924-0908</contrib-id>
+                    <name>
+                        <surname>NEVADO-GIL</surname>
+                        <given-names>María Teresa</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff02">2</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="aff01">
+                <label>1</label>
+                <institution content-type="orgname">Universidad de Málaga</institution>
+                <institution content-type="orgdiv1">Facultad de Ciencias Económicas y Empresariales</institution>
+                <addr-line>
+                    <named-content content-type="city">Málaga</named-content>
+                </addr-line>
+                <country country="ES">España</country>
+                <institution content-type="original">Universidad de Málaga, Facultad de Ciencias Económicas y Empresariales. C/Ejido 6, 29013, Málaga, España</institution>
+            </aff>
+            <aff id="aff02">
+                <label>2</label>
+                <institution content-type="orgname">Universidad de Extremadura</institution>
+                <institution content-type="orgdiv1">Facultad de Empresa, Finanzas y Turismo</institution>
+                <addr-line>
+                    <named-content content-type="city">Cáceres</named-content>
+                </addr-line>
+                <country country="ES">España</country>
+                <institution content-type="original">Universidad de Extremadura, Facultad de Empresa, Finanzas y Turismo. Cáceres, España.</institution>
+            </aff>
+            <author-notes>
+                <corresp id="c01">Dirección de correspondencia/Correspondence to: M. PACHE-DURÁN. E-mail: <email>mpache@unex.es</email>.</corresp>
+                <fn fn-type="con" id="fn01">
+                    <label>Colaboradores</label>
+                    <p>M. PACHE-DURÁN ha contribuido en la revisión de la literatura, en el diseño metodológico del estudio, en la explotación final de los datos, sus correspondientes análisis estadísticos, en el análisis de los resultados y en las conclusiones. M. T. NEVADO-GIL ha contribuido en la revisión de la literatura, en la redacción, en el diseño metodológico y en las conclusiones.</p>
+                </fn>
+            </author-notes>
+            <pub-date publication-format="electronic" date-type="pub">
+                <day>09</day>
+                <month>04</month>
+                <year>2021</year>
+            </pub-date>
+            <pub-date publication-format="electronic" date-type="collection">
+                <year>2021</year>
+            </pub-date>
+            <volume>33</volume>
+            <elocation-id>e200057</elocation-id>
+            <history>
+                <date date-type="received">
+                    <day>04</day>
+                    <month>09</month>
+                    <year>2020</year>
+                </date>
+                <date date-type="rev-recd">
+                    <day>17</day>
+                    <month>12</month>
+                    <year>2020</year>
+                </date>
+                <date date-type="accepted">
+                    <day>23</day>
+                    <month>02</month>
+                    <year>2021</year>
+                </date>
+            </history>
+            <permissions>
+                <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+                    <license-p>Este é um artigo publicado em acesso aberto (<italic>Open Access</italic>) sob a licença <italic>Creative Commons Attribution</italic>, que permite uso, distribuição e reprodução em qualquer meio, sem restrições desde que o trabalho original seja corretamente citado.</license-p>
+                </license>
+            </permissions>
+            <abstract>
+                <title>Resumen</title>
+                <p>La divulgación de información sobre Responsabilidad Social se desarrolló en el sector privado, hecho que ha ido extendiéndose de forma paulatina al sector público, donde las administraciones locales o entidades gubernamentales presentan sus informes al respecto. En este contexto, el presente estudio se centra en analizar el grado de divulgación de información sobre Responsabilidad Social que ofrecen los ayuntamientos malagueños a través de sus páginas <italic>webs</italic>, utilizando la técnica de análisis de contenido. Los resultados muestran que el grado de información divulgado es alto, como lo revela el índice de divulgación total (70,34%), y que la información que más se divulga es la social, seguida de la información medioambiental y la económica. La información divulgada sobre servicios y obras públicas es la menos divulgada. De entre los ayuntamientos analizados, destaca de forma notable el compromiso de la capital Malagueña. El estudio persigue un doble objetivo. Por un lado, supone una contribución a la explicación de lo que ocurre con relación a la divulgación de información sobre Responsabilidad Social en el ámbito local. Por otro, fomenta la cultura informativa responsable de los propios ayuntamientos, con el objetivo de que incorporen en sus respectivas páginas <italic>web</italic> la información necesaria o complementaria en materia de Responsabilidad Social, lo cual contribuye a lograr un aumento del nivel de la información útil e importante que ofrecen a los ciudadanos y a la sociedad en general.</p>
+            </abstract>
+            <trans-abstract xml:lang="en">
+                <title>Abstract</title>
+                <p>The dissemination of information on corporate social responsibility was developed in the private sector, and it has gradually extended to the public sector, where local administrations or government entities present their reports on the subject. In this context, this study focuses on analysing the degree of dissemination of the information on Social Responsibility offered by Malaga's local councils through their websites, using the technique of content analysis. The results show that the degree of information disclosed is high, as revealed by the total disclosure rate (70.34%), and that the most widely disclosed information is social, followed by environmental and economic information. Adversely, information on services and public works is the least disclosed one. Among the town halls analysed, the commitment of the Malaga capital stands out notably. The study has a twofold objective. On the one hand, it contributes to explaining the dissemination of information on Social Responsibility in the local sphere. On the other hand, it promotes a culture of responsible information in the local councils themselves, with the aim of incorporating the necessary or complementary information on Social Responsibility in their respective websites, which contributes to increasing the level of useful and important information that they offer to citizens and society in general.</p>
+            </trans-abstract>
+            <kwd-group xml:lang="pt">
+                <title>Palabras-clave</title>
+                <kwd>Divulgación de información</kwd>
+                <kwd>Málaga</kwd>
+                <kwd>Páginas <italic>web</italic></kwd>
+                <kwd>Responsabilidad Social</kwd>
+            </kwd-group>
+            <kwd-group xml:lang="en">
+                <title>Keywords</title>
+                <kwd>Information Disclosure</kwd>
+                <kwd>Málaga</kwd>
+                <kwd>Websites</kwd>
+                <kwd>Social Responsibility</kwd>
+            </kwd-group>
+            <counts>
+                <fig-count count="0"/>
+                <table-count count="2"/>
+                <equation-count count="0"/>
+                <ref-count count="28"/>
+            </counts>
+        </article-meta>
+    </front>
+    <body>
+        <sec sec-type="intro">
+            <title>Introducción</title>
+            <p>En los últimos años, la transparencia, el acceso a la información y las normas de buen gobierno se han convertido en los ejes fundamentales de toda acción llevada a cabo por las administraciones públicas. Este hecho ha ocasionado que las entidades del sector público sean cada vez más conscientes de la importancia de las acciones responsables con el fin de que la información pueda ser difundida a todos los ciudadanos. A pesar de este compromiso social, la difusión y la transparencia de la información pública sigue siendo escasa (<xref ref-type="bibr" rid="B09">Dumay; Guthrie; Farneti, 2010</xref>; <xref ref-type="bibr" rid="B18">Navarro; Alcaraz; Ortiz, 2010</xref>; <xref ref-type="bibr" rid="B13">Frías-Aceituno; Marques; Rodríguez-Ariza, 2013</xref>).</p>
+            <p>La divulgación de información sobre Responsabilidad Social (RS) se desarrolló en el sector privado, hecho que ha ido extendiéndose de forma paulatina al sector público, donde las instituciones gubernamentales presentan sus informes al respecto. En la revisión de la literatura se pueden encontrar distintos términos para referirse a la divulgación de información responsable, como puede ser: “divulgación de información sobre la Responsabilidad Social”, “divulgación de información no financiera” o “divulgación de información sobre los aspectos ambientales, sociales y de gobernanza (ASG)”. Desde el año 2000 se viene realizando en la Unión Europea una multitud de acciones para impulsar medidas responsables en el sector público (<xref ref-type="bibr" rid="B24">Perrini, 2006</xref>; <xref ref-type="bibr" rid="B04">Breitbarth; Harris; Aitken, 2009</xref>). A pesar ello, a día de hoy no existen unas normas específicas para que las instituciones elaboren sus informes responsables.</p>
+            <p>En las últimas décadas, una de las vías de transparencia en la administración pública que ha ido alcanzando una importancia relevante por medio del uso de las Tecnologías de la Información y las Comunicaciones es la divulgación de información a través de los sitios <italic>web</italic> (<xref ref-type="bibr" rid="B02">Ayuso; Martínez, 2005</xref>; <xref ref-type="bibr" rid="B07">Chaín; Muñoz; Más, 2008</xref>). Así, <italic>internet</italic> se ha convertido en un canal para llegar a todos los grupos de interés de las administraciones públicas, fomentando una nueva era transparente, responsable y eficiente. El principio de transparencia es reconocido por numerosos organismos internacionales, entre ellos, Transparencia Internacional España elabora los Índices de Transparencia de las instituciones públicas, entre ellos los índices de los ayuntamientos, una herramienta para medir el nivel de transparencia ante los ciudadanos y la sociedad de los ayuntamientos españoles.</p>
+            <p>La revisión de la literatura pone de manifiesto en los últimos años el incremento de estudios que se centran en el análisis de la información divulgada en los organismos públicos. Así, encontramos estudios recientes a nivel nacional como los de <xref ref-type="bibr" rid="B23">Pache y Nevado (2019)</xref>, que analizan la RS de los sitios <italic>web</italic> de las 50 capitales de provincias españolas; <xref ref-type="bibr" rid="B19">Nevado, Gallardo y Sánchez (2016)</xref> que se centra en el estudio de las <italic>webs</italic> de los principales municipios de la comunidad extremeña; <xref ref-type="bibr" rid="B01">Alcaraz-Quiles, Navarro-Galera y Ortiz-Rodríguez (2015)</xref>, que se encargan de analizar 55 gobiernos locales españoles; <xref ref-type="bibr" rid="B26">Prado, García y Cuadrado (2012)</xref>, cuyo estudio se centró en el análisis de los 78 municipios españoles de más de 100.000 habitantes; y <xref ref-type="bibr" rid="B18">Navarro, Alcaraz y Ortiz (2010)</xref>, que analizan la RS de las páginas <italic>web</italic> de 55 gobiernos locales, entre otros.</p>
+            <p>La organización de la Administración Pública española está basada en tres niveles básicos de Administraciones: la Administración General del Estado, las Administraciones Autonómicas y las Administraciones Locales. Según el Art. 11.2 de la Ley nº 7/1985 de Bases de Régimen Local, la organización del municipio es uno de sus elementos esenciales, junto con la población y el territorio (<xref ref-type="bibr" rid="B11">España, 1985</xref>). De este modo, el gobierno y la administración municipal corresponden al Ayuntamiento. Para llevar a cabo el presente trabajo, se toma como muestra de estudio dentro del territorio español la provincia andaluza de Málaga.</p>
+            <p>Málaga es una de las ocho provincias españolas que pertenecen a la comunidad autónoma de Andalucía, al sur de España. Tiene una superficie de 7308 km<sup>2</sup> distribuida en 103 municipios. Cuenta con una población de 1.683.271 habitantes, lo que la convierte en la segunda provincia más poblada de Andalucía y la sexta de España. Su economía es la segunda del conjunto de todas las provincias andaluzas. El turismo y la construcción son los motores de la economía provincial, a pesar de que la provincia cuenta también con un importante tejido industrial, destacable en el sector de las nuevas tecnologías. El sector servicios genera las tres cuartas partes de la actividad y aproximadamente un 70% del empleo, mientras que la agricultura se encuentra en retroceso.</p>
+            <p>El objetivo del presente trabajo consiste en analizar la relevancia que la RS adquiere en los municipios, concretamente en las Administraciones Locales de la provincia de Málaga, observando la información que divulgan a través de sus <italic>webs</italic>. Para ello, se realiza un análisis exhaustivo de los sitios <italic>web</italic> de los ayuntamientos a partir de una serie de indicadores construidos, tomando como referencia la literatura existente. Para alcanzar el objetivo propuesto se emplea la técnica de análisis de contenido. De acuerdo con el objetivo principal, se plantea la siguiente pregunta de investigación: ¿fomentan los propios ayuntamientos la información necesaria sobre la cultura informativa responsable a los ciudadanos a través de sus <italic>webs</italic>? Con el presente estudio se tratará de dar respuesta a dicha cuestión.</p>
+        </sec>
+        <sec sec-type="methods">
+            <title>Procedimientos Metodológicos</title>
+            <p>El presente estudio persigue realizar un análisis de la información sobre RS que ofrecen los ayuntamientos de la provincia de Málaga a través de sus páginas <italic>web</italic>, utilizando la técnica de análisis de contenido. Se estudia, por tanto, tres vías distintas: por un lado, conocer si realmente los gobiernos locales malagueños divulgan información responsable a través de sus <italic>webs</italic>, por otro lado, analizar qué grado de información es divulgada y, por último, analizar qué ayuntamientos son los que más se preocupan en divulgar información. Con respecto a la muestra, se eligieron los ayuntamientos de la provincia de Málaga con más de 5.000 habitantes, según una distinción que establece el Art. 20 de la Ley nº 7/1985, del 2 de abril, Reguladora de las Bases del Régimen Local, en función de la organización municipal (<xref ref-type="bibr" rid="B11">España, 1985</xref>). Los 28 ayuntamientos seleccionados suman un total de 1.533.170 habitantes, según la revisión del padrón de 2019 (<xref ref-type="bibr" rid="B16">Instituto Nacional de Estadística, 2019</xref>), lo que representa, sobre una población total de 1.661.785 habitantes, el 92,26% de la población Malagueña. Se considera, por tanto, una muestra capaz de arrojar resultados significativos respecto al nivel de divulgación de información, puesto que se considera relevante estudiar hasta qué punto los ayuntamientos de la muestra están desarrollando una adecuada labor de difusión por medio de las Tecnologías de la Información y las Comunicaciones para contribuir a la divulgación de información responsable en la provincia andaluza.</p>
+            <p>El estudio parte de la recogida de información sobre RS, difundida por los ayuntamientos seleccionados a través de sus páginas <italic>web</italic> corporativas, utilizando la técnica de análisis de contenido. <xref ref-type="bibr" rid="B03">Berelson (1952)</xref> define esta técnica como una investigación que pretende ser objetiva, sistemática y cuantitativa en el estudio del contenido manifiesto de la comunicación. Décadas más tarde, <xref ref-type="bibr" rid="B13">Frías-Aceituno, Marques y Rodríguez-Ariza (2013)</xref>, la interpretan como una base esencial para realizar un análisis cuya finalidad es estudiar la información existente online mediante la comprobación de una serie de epígrafes acerca de la información divulgada en las páginas <italic>web</italic>. Son numerosos los estudios que han utilizado este método para estudiar la información de las páginas <italic>web</italic> (<xref ref-type="bibr" rid="B15">Huizingh, 2000</xref>; <xref ref-type="bibr" rid="B25">Pina; Torres; Royo, 2007</xref>; <xref ref-type="bibr" rid="B28">Stewart; Featherstone, 2007</xref>; Navarro; Alcaraz; Ortiz, 2010; <xref ref-type="bibr" rid="B17">Moneva; Martín, 2012</xref>; <xref ref-type="bibr" rid="B27">Rodríguez; Pérez; Saura, 2017</xref>; entre otros). El proceso utilizado para analizar el nivel de divulgación sobre RS fue identificar la presencia o ausencia del ítem divulgado por la empresa estudiada, es decir, asignar el valor (1) si el ítem es divulgado por la empresa, o (0), en caso contrario (<xref ref-type="bibr" rid="B12">Ettredge; Vernon; Scholz, 2001</xref>, <xref ref-type="bibr" rid="B20">Nevado; Gallardo, 2016</xref>; Nevado; Gallardo; Sánchez, 2016; <xref ref-type="bibr" rid="B06">Carvalho; Pérez; Pache, 2019</xref>; <xref ref-type="bibr" rid="B22">Pache; Nevado, 2020</xref>, entre otros).</p>
+            <p>Con el objetivo de medir la información analizada y conocer el tipo y grado de información que contienen las páginas <italic>web</italic> de los ayuntamientos malagueños se elabora, a partir de los trabajos de <xref ref-type="bibr" rid="B21">Nevado, Gallardo y Sánchez (2013</xref>; <xref ref-type="bibr" rid="B19">2016)</xref>, un cuadro de 96 indicadores para la realización del estudio, divididos en cinco ejes de análisis. Así, el eje de análisis 1 contiene 23 indicadores relativos a información general, que se divide a su vez en cuatro grupos: estrategia y análisis (4), información sobre los representantes electos (9), información sobre la organización y el funcionamiento (5) y gobierno y compromiso (5); el eje 2, 21 indicadores referentes a información social, los cuales se dividen en dos grupos: características de la <italic>web</italic> del ayuntamiento (4) e información y atención al ciudadano (17); el eje 3 incluye 15 indicadores sobre contratación de servicios y obras públicas, que se dividen a su vez en tres: procedimientos en la contratación de servicios (8), información sobre el orden del territorio (4) e información urbana (3); el eje de análisis 4, con 18 indicadores de información económica agrupados en tres: información contable y presupuestaria (9), deudas municipales (5) e ingresos y gastos (4); y, por último, el eje 5, que contiene 19 indicadores sobre información medioambiental. Además, se ha realizado un análisis de consistencia interna mediante el coeficiente Alfa de Cronbach (<xref ref-type="bibr" rid="B08">Cronbach, 1951</xref>) y se ha obtenido un valor de 0,853, lo que indica una fiabilidad alta respecto a los indicadores propuestos (<xref ref-type="bibr" rid="B14">George; Mallery, 2003</xref>).</p>
+            <p>A continuación, siguiendo los índices de divulgación propuestos por <xref ref-type="bibr" rid="B05">Carvalho, Gallardo y Nevado (2018)</xref>, se lleva a cabo una medición de la divulgación de información en dos niveles. En primer lugar, se mide la divulgación por ayuntamiento en cada uno de los ejes de análisis a partir de un índice de partida, Índice de Divulgación por Ayuntamiento y Eje de análisis (IDAE) y, en segundo lugar, se calcula un nuevo índice con el objetivo de medir la información total en cada ayuntamiento, Índice de Divulgación por Ayuntamiento (IDA). A continuación, se calcula la divulgación total de cada indicador, Índice de Divulgación por Ítem (IDI), a partir del cual se calcula la divulgación de cada uno de los ejes de análisis, Índice de Divulgación por Eje de análisis (IDE), finalizando con la medición del Índice de Divulgación Total de la muestra (IDT).</p>
+        </sec>
+        <sec sec-type="results">
+            <title>Resultados</title>
+            <p>La <xref ref-type="table" rid="t01">Tabla 1</xref> recoge los índices de divulgación por cada eje de análisis analizado (IDE), cuya suma da lugar al IDT. Así, el eje que estudia la información social es el más divulgado (15,54%), seguido del eje de información general (14,72%), del eje de análisis de información medioambiental (14,59%) y del eje de información económica (13,53%). El menos divulgado es el eje de análisis correspondiente a la contratación de servicios y obras públicas (11,95%).</p>
+            <table-wrap id="t01">
+                <label>Tabla 1</label>
+                <caption>
+                    <title>Índices de divulgación por ítems y por bloques.</title>
+                </caption>
+                <table frame="hsides" rules="groups">
+                    <thead>
+                        <tr align="left">
+                            <th colspan="2">Eje de análisis 1: Información general</th>
+                            <th align="center">IDI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td colspan="3">Estrategia y análisis</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.1. Se identifica un área en la página <italic>web</italic> dedicada únicamente a la RS.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.2. Hay una indicación de la persona responsable del área de sostenibilidad.</td>
+                            <td align="center">46,43</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.3. Se divulgan las prioridades y estrategias que deben alcanzarse en términos de sostenibilidad.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.4. Divulga información sobre los acontecimientos, logros y fracasos registrados por el municipio en este ámbito.</td>
+                            <td align="center">39,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Información sobre los representantes electos</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.5. Se publican los datos biográficos del presidente y de los consejeros (miembros del poder ejecutivo).</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.6. Se publican los contactos del presidente y de los concejales.</td>
+                            <td align="center">60,71</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.7. Se publican los sueldos del presidente y de los concejales.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.8. Se publica el registro de intereses o conflictos de intereses del presidente y concejales.</td>
+                            <td align="center">92,86</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.9. Se publican los costes de representación de los órganos de gobierno municipal.</td>
+                            <td align="center">53,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.10. Se publicarán las listas de los miembros de la Mesa de la Presidencia y de los consejeros.</td>
+                            <td align="center">96,43</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.11. Se publican los informes de las oficinas técnicas y las carteras del consejo municipal.</td>
+                            <td align="center">60,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.12. Se publica información sobre los procesos de selección de personal.</td>
+                            <td align="center">92,86</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.13. Se publican los contratos de servicios.</td>
+                            <td align="center">89,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Información sobre la organización y el funcionamiento</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.14. Se publica información sobre los diferentes órganos del ejecutivo, las oficinas y sus funciones.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.15. Se publica el código de ética o de buen gobierno del municipio.</td>
+                            <td align="center">67,86</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.16. Se publica el calendario de reuniones de los órganos municipales (CM+AM).</td>
+                            <td align="center">57,14</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.17. Se publican las actas de las reuniones de los órganos municipales (CM+AM).</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.18. Se publican los acuerdos de las entidades municipales (CM+AM).</td>
+                            <td align="center">78,57</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Gobierno y compromiso</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.19. Identificación de la persona u organismo responsable.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.20. Publicación del programa de gobernanza.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.21. Se identifican los compromisos asumidos por el programa del gobierno.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>1.22. Publicación de los resultados de las elecciones.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>1.23. Publicación de la Agenda 21.</td>
+                            <td align="center">53,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>Índice de divulgación del eje de análisis 1 (IDE1)</td>
+                            <td align="center">14,72</td>
+                        </tr>
+                        <tr align="left" style="border-bottom-width:thin;border-bottom-style:solid;border-top-width:thin;border-top-style:solid">
+                            <td colspan="2">Eje de análisis 2: Información Social</td>
+                            <td align="center">IDI</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td colspan="3">Características de la <italic>web</italic> del ayuntamiento</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.1. Hay un mapa de la propia página <italic>web</italic> del ayuntamiento.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.2. Hay un buscador interno dentro de la página.</td>
+                            <td align="center">89,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.3. Existe la posibilidad de escuchar la página.</td>
+                            <td align="center">3,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.4. Hay enlaces a redes sociales.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Información y atención al ciudadano</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.5. Existe un sistema de información municipal (tráfico, incendios...).</td>
+                            <td align="center">96,43</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.6. Existe la posibilidad de realizar trámites administrativos, autorizaciones o licencias en la página <italic>web</italic> (online).</td>
+                            <td align="center">78,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.7. Hay información sobre los proveedores del municipio (direcciones de correo electrónico / contacto, <italic>etc</italic>.).</td>
+                            <td align="center">53,57</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.8. Se publican los horarios y precios de las instalaciones culturales y deportivas.</td>
+                            <td align="center">67,86</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.9. Existe un buzón de atención al ciudadano o una sección de quejas y sugerencias.</td>
+                            <td align="center">92,86</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.10. Se difunde información sobre los cursos de formación personal.</td>
+                            <td align="center">100,00</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.11. Se publican las noticias y lo más destacado.</td>
+                            <td align="center">100,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.12. Existe una Oficina de Apoyo al Emprendedor.</td>
+                            <td align="center">67,86</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.13. Se publican las ofertas públicas de empleo.</td>
+                            <td align="center">100,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.14. Hay un presupuesto participativo y una forma de participar a través de la página <italic>web</italic>.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.15. Se divulga información sobre aspectos relacionados con el área social.</td>
+                            <td align="center">89,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.16. Se publican las ayudas y subvenciones concedidas.</td>
+                            <td align="center">78,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.17. Hay información sobre la obtención de premios o distinciones para los RS.</td>
+                            <td align="center">92,86</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.18. La información sobre las acciones de capacitación en RS se difunde a la comunidad.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.19. Hay un espacio para las asociaciones.</td>
+                            <td align="center">89,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>2.20. Hay canales de participación, como foros o servicios de chat.</td>
+                            <td align="center">46,43</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>2.21. Se publica un Boletín Municipal.</td>
+                            <td align="center">50,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>Índice de divulgación del eje de análisis 2 (IDE2)</td>
+                            <td align="center">15,54</td>
+                        </tr>
+                        <tr align="left" style="border-bottom-width:thin;border-bottom-style:solid;border-top-width:thin;border-top-style:solid;background-color:#e7e7e7">
+                            <td colspan="2">Eje de análisis 3: Contratación de servicios y obras públicas</td>
+                            <td align="center">IDI</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Procedimientos en la contratación de servicios</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.1. Se publican los bienes y servicios adquiridos sin licitación (por acuerdo directo u otros procedimientos), proveedores y valores que justifican esta modalidad.</td>
+                            <td align="center">35,71</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>3.2. Se publican las licitaciones en curso de bienes y servicios.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.3. Se publicará la resolución de las propuestas para cada procedimiento de quiebra.</td>
+                            <td align="center">53,57</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>3.4. Se publican los licitantes y las entidades competidoras.</td>
+                            <td align="center">35,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.5. Se publican los contratos firmados.</td>
+                            <td align="center">35,71</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>3.6. Se publican informes de seguimiento y/o evaluación del desempeño del proveedor / proveedor de servicios / contratista.</td>
+                            <td align="center">60,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.7. Se publicará el número de contratos adjudicados por cada proveedor.</td>
+                            <td align="center">42,86</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>3.8. Se publican los informes de auditoría.</td>
+                            <td align="center">67,86</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td colspan="3">Información sobre el orden del territorio</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>3.9. Hay una sección con contenidos sobre planificación territorial y urbanística.</td>
+                            <td align="center">89,29</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.10. Se publica el Plan Director Municipal (PDM).</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>3.11. Se publican los planes urbanos y parciales en curso, aprobados y en revisión.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.12. Se publican los resultados de la discusión pública de los Planes de Ordenación del Territorio Municipal.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Información urbana</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.13. Se publica información sobre los cambios en los proyectos.</td>
+                            <td align="center">100,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>3.14. Se publican las listas de intercambios y ventas de terrenos municipales.</td>
+                            <td align="center">57,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>3.15. Se publican las listas de desapego de bienes municipales de dominio público.</td>
+                            <td align="center">28,57</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>Índice de divulgación del eje de análisis 3 (IDE3)</td>
+                            <td align="center">11,95</td>
+                        </tr>
+                        <tr align="left" style="border-bottom-width:thin;border-bottom-style:solid;border-top-width:thin;border-top-style:solid;background-color:#e7e7e7">
+                            <td colspan="2">Eje de análisis 4: Información económica</td>
+                            <td align="center">IDI</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Información contable y presupuestaria</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.1. Se divulga el presupuesto del ayuntamiento.</td>
+                            <td align="center">100,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>4.2. Se publica el balance o balance consolidado.</td>
+                            <td align="center">46,43</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.3. Se publican las cuentas de resultados individuales o consolidadas.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left">
+
+                            <td>&nbsp;</td>
+                            <td>4.4. Los informes de gestión se publicarán.</td>
+                            <td align="center">57,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.5. Se publican los diagramas de flujo de caja.</td>
+                            <td align="center">39,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>4.6. Se publicarán informes periódicos sobre la ejecución del presupuesto.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.7. Los planes de inversión se publican por parroquia (lista de gastos incurridos por la parroquia).</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>4.8. Informes sobre modificaciones de presupuesto.</td>
+                            <td align="center">92,86</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.9. Se publica información económica importante, como el PIB o la tasa de desempleo del municipio.</td>
+                            <td align="center">57,14</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Deudas municipales</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.10. Se publica la lista de acreedores.</td>
+                            <td align="center">25,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>4.11. Se publican las listas de préstamos a bancos y sus respectivos vencimientos.</td>
+                            <td align="center">67,86</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.12. Deudas/otras deudas, se publican las deudas con terceros.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>4.13. Se publican las tasas de endeudamiento por habitante.</td>
+                            <td align="center">53,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.14. Se proporciona información sobre la evolución de la deuda.</td>
+                            <td align="center">96,43</td>
+                        </tr>
+                        <tr align="left">
+                            <td colspan="3">Ingresos y gastos</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.15. Se publican las subvenciones recibidas y concedidas.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>4.16. Se publican los ingresos fiscales por habitante.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>4.17. Se publica el gasto per cápita.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>4.18. Se publican las listas con el valor de los impuestos, tasas, honorarios y emolumentos practicados por el Ayuntamiento.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>Índice de divulgación del eje de análisis 4 (IDE4)</td>
+                            <td align="center">13,53</td>
+                        </tr>
+                        <tr align="left" style="border-bottom-width:thin;border-bottom-style:solid;border-top-width:thin;border-top-style:solid">
+                            <td colspan="2">Eje de análisis 5: Información medioambiental</td>
+                            <td align="center">IDI</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.1. Información actualizada sobre la situación del medio ambiente.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.2. Divulgación de las iniciativas adoptadas para mitigar los impactos ambientales.</td>
+                            <td align="center">78,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.3. Se publica información sobre la medida en que se ha reducido el impacto ambiental.</td>
+                            <td align="center">78,57</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.4. Divulgación de las medidas adoptadas para aumentar el ahorro de energía.</td>
+                            <td align="center">78,57</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.5. Información sobre iniciativas para promover el consumo eficiente de energía.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.6. Información sobre el impacto de las iniciativas anteriores en el ahorro de energía.</td>
+                            <td align="center">71,43</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.7. Información sobre vertidos de aguas residuales y destinos.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.8. Información sobre el total de gastos e inversiones ambientales.</td>
+                            <td align="center">57,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.9. Información sobre los puntos de recolección de basura.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.10. Información sobre los puntos de reciclaje.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.11. Acciones para promover la conciencia ambiental de los ciudadanos.</td>
+                            <td align="center">82,14</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.12. Información sobre el consumo de energía.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.13. Información sobre el consumo total de agua.</td>
+                            <td align="center">75,00</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.14. Información sobre sanciones e incumplimiento de la legislación medioambiental.</td>
+                            <td align="center">85,71</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.15. Información sobre el total de emisiones de gases de efecto invernadero.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.16. Difusión de información sobre políticas medioambientales.</td>
+                            <td align="center">67,86</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.17. Se divulga información sobre el sistema de gestión ambiental.</td>
+                            <td align="center">67,86</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>5.18. Hay información sobre la obtención de premios ambientales.</td>
+                            <td align="center">57,14</td>
+                        </tr>
+                        <tr align="left" style="background-color:#e7e7e7">
+                            <td>&nbsp;</td>
+                            <td>5.19. Se dispone de información actualizada sobre contaminación atmosférica y acústica en las diferentes áreas del municipio.</td>
+                            <td align="center">64,29</td>
+                        </tr>
+                        <tr align="left">
+                            <td>&nbsp;</td>
+                            <td>Índice de divulgación del eje de análisis 5 (IDE5)</td>
+                            <td align="center">14,59</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn>
+                        <p>Fuente: Elaborado por los autores (2020).</p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+            <p>Por su parte, podemos observar los resultados que se extraen de los índices de divulgación de información por ítems (IDI). En primer lugar, en lo que respecta al eje de información general, la mayoría de los ayuntamientos publica información sobre procesos de selección de personal y conflictos de intereses del presidente y concejales (92,86%), así como los contratos de servicios (89,29%). Sin embargo, tal solo el 46,43% indica la persona responsable del área de sostenibilidad y el 39,29% divulga información sobre los acontecimientos, logros y fracasos registrados por el municipio en este ámbito.</p>
+            <p>Con respecto a la información social, todos los ayuntamientos de la muestra difunden información sobre cursos de formación de personal, publican ofertas públicas de empleo y noticias al respecto. Además, en el 96,43% existe un sistema de información municipal y en el 92,86% existe un buzón de atención al ciudadano y hay información sobre la obtención de premios o distinciones para los RS. Por su parte, el 46,43% tienen canales de participación, como foros o servicios de chat y tan solo en el 3,57% existe la posibilidad de escuchar la página.</p>
+            <p>Del análisis del eje de análisis 3, correspondiente a contratación de servicios y obras públicas, se puede observar cómo todos los ayuntamientos publican información sobre los cambios en los proyectos, el 89,29% tiene una sección con contenidos sobre planificación territorial y urbanística y el 85,71% publica la discusión de los resultados de la discusión pública de los planes de ordenación del territorio municipal. Sin embargo, tan solo el 28,57% publica las listas de desapego de bienes municipales de dominio público y solo el 35,71% publica los licitantes y las entidades competidoras, los contratos firmados, los bienes y servicios adquiridos por licitación, proveedores y valores que justifican esta modalidad.</p>
+            <p>En el cuarto eje de análisis, información económica, se observa como todos los ayuntamientos divulgan su presupuesto (100,00%) y el 92,86% informa sobre su modificación. Además, el 96,43% proporciona información sobre la evaluación de la deuda y el 82,14% publica los informes periódicos sobre la ejecución del presupuesto y las subvenciones concedidas y recibidas. Por su parte, el 75% publica el gasto per cápita. En contraposición, se puede afirmar que tan solo el 25% de los ayuntamientos de la muestra publica las listas de acreedores y el 39,29% los flujos de caja.</p>
+            <p>En el último eje de análisis que corresponde a la información medioambiental, el 85,71% de los ayuntamientos ofrecen información sobre sanciones e incumplimiento de la legislación medioambiental y de los vertidos de aguas residuales y destinos, el 82,14% ofrece información sobre los puntos de reciclaje y sobre acciones para promover la conciencia ambiental de los ciudadanos. Además, el 78,57% divulga las iniciativas adoptadas para mitigar los impactos ambientales, así como las medidas adoptadas para aumentar el ahorro de energía, publicando información sobre la medida en que se ha reducido el impacto ambiental. Este eje de análisis se caracteriza ya que, al menos, el 50,00% de los ayuntamientos de la muestra cumplen los indicadores del mismo.</p>
+            <p>En el presente estudio se analiza, además, el IDT, el cual indica que los ayuntamientos de más de 5.000 habitantes de la provincia de Málaga divulgan de media el 70,34% de la información total en materia de RS. Por ello, se puede afirmar que existe una elevada cantidad de información divulgada en materia de RS por parte de los ayuntamientos malagueños analizados, por lo que gobiernos locales de la muestra deben intentar mejorar sus prácticas de divulgación en tan solo un 29,66% para ofrecer una divulgación plena en materia de RS.</p>
+            <p>En lo que se refiere a los IDA, en la <xref ref-type="table" rid="t02">Tabla 2</xref> se puede observar el <italic>ranking</italic> de los ayuntamientos con respecto al nivel de información divulgada. De la información divulgada, Málaga y Vélez-Málaga son los primeros ayuntamientos del <italic>ranking</italic>, con un índice de divulgación del 85,87%, seguido de Marbella (84,59%), Nerja (84,00%), Benahavís (81,31%). Los ayuntamientos que ocupan las últimas posiciones del <italic>ranking</italic> son Algarrobo (53,81%), Villanueva del Trabuco (55,07%), Archidona (56,18%), Manilva (58,76%) y Mollina (59,39%). A pesar de ello, puede observarse que todos los ayuntamientos divulgan por encima del 50,00% de los indicadores que se proponen en el estudio. En cuanto a las posibles razones del resultado de la elevada información en materia de RS divulgada por parte de los ayuntamientos analizados, cabe destacar la exigencia de responsabilidad por parte de las instituciones públicas que ampara la Ley nº 19/2013, del 9 de diciembre, de Transparencia, Acceso a la Información Pública y Buen Gobierno, cuyo principal objetivo es incrementar y reforzar la transparencia en la actividad pública, reconocer y garantizar el acceso a la información pública y establecer las obligaciones de buen gobierno que deben cumplir los responsables públicos, así como las consecuencias derivadas de su incumplimiento (<xref ref-type="bibr" rid="B10">España, 2013</xref>). Además, podríamos hacer mención a la importancia que reciben los Índices de Transparencia que elabora y publica Transparencia Internacional España, dirigidos en exclusiva a medir el nivel de transparencia de las instituciones públicas.</p>
+            <table-wrap id="t02">
+                <label>Tabla 2</label>
+                <caption>
+                    <title>Índices de divulgación de los ayuntamientos malagueños.</title>
+                </caption>
+                <table frame="hsides" rules="groups">
+                    <thead>
+                        <tr align="center">
+                            <th align="left">Ayuntamientos</th>
+                            <th>IDAE1</th>
+                            <th>IDAE2</th>
+                            <th>IDAE3</th>
+                            <th>IDAE4</th>
+                            <th>IDAE5</th>
+                            <th>IDA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Málaga</td>
+                            <td>17,39</td>
+                            <td>17,14</td>
+                            <td>14,67</td>
+                            <td>16,67</td>
+                            <td>20,00</td>
+                            <td>85,87</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Marbella</td>
+                            <td>18,26</td>
+                            <td>18,10</td>
+                            <td>14,67</td>
+                            <td>17,78</td>
+                            <td>15,79</td>
+                            <td>84,59</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Vélez-Málaga</td>
+                            <td>20,00</td>
+                            <td>16,19</td>
+                            <td>16,00</td>
+                            <td>14,44</td>
+                            <td>18,95</td>
+                            <td>85,58</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Mijas</td>
+                            <td>18,26</td>
+                            <td>18,10</td>
+                            <td>12,00</td>
+                            <td>14,44</td>
+                            <td>15,79</td>
+                            <td>78,59</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Fuengirola</td>
+                            <td>16,52</td>
+                            <td>16,19</td>
+                            <td>16,00</td>
+                            <td>15,56</td>
+                            <td>14,74</td>
+                            <td>79,00</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Torremolinos</td>
+                            <td>16,52</td>
+                            <td>15,24</td>
+                            <td>12,00</td>
+                            <td>14,44</td>
+                            <td>7,37</td>
+                            <td>65,57</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Benalmádena</td>
+                            <td>18,26</td>
+                            <td>17,14</td>
+                            <td>14,67</td>
+                            <td>11,11</td>
+                            <td>13,68</td>
+                            <td>74,87</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Estepona</td>
+                            <td>18,26</td>
+                            <td>18,10</td>
+                            <td>10,67</td>
+                            <td>13,33</td>
+                            <td>18,95</td>
+                            <td>79,30</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Rincón de la Victoria</td>
+                            <td>14,78</td>
+                            <td>17,14</td>
+                            <td>10,67</td>
+                            <td>14,44</td>
+                            <td>15,79</td>
+                            <td>72,83</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Antequera</td>
+                            <td>15,65</td>
+                            <td>15,24</td>
+                            <td>10,67</td>
+                            <td>17,78</td>
+                            <td>15,79</td>
+                            <td>75,12</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Alharín de la Torre</td>
+                            <td>17,39</td>
+                            <td>12,38</td>
+                            <td>13,33</td>
+                            <td>14,44</td>
+                            <td>15,79</td>
+                            <td>73,34</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Ronda</td>
+                            <td>14,78</td>
+                            <td>16,19</td>
+                            <td>12,00</td>
+                            <td>12,22</td>
+                            <td>12,63</td>
+                            <td>67,83</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Cártama</td>
+                            <td>15,65</td>
+                            <td>15,24</td>
+                            <td>09,33</td>
+                            <td>15,56</td>
+                            <td>14,74</td>
+                            <td>70,52</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Alharín el Grande</td>
+                            <td>14,78</td>
+                            <td>14,29</td>
+                            <td>10,67</td>
+                            <td>11,11</td>
+                            <td>13,68</td>
+                            <td>64,53</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Coín</td>
+                            <td>15,65</td>
+                            <td>16,19</td>
+                            <td>13,33</td>
+                            <td>14,44</td>
+                            <td>00,00</td>
+                            <td>59,62</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Nerja</td>
+                            <td>17,39</td>
+                            <td>18,10</td>
+                            <td>16,00</td>
+                            <td>17,78</td>
+                            <td>14,74</td>
+                            <td>84,00</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Torrox</td>
+                            <td>14,78</td>
+                            <td>14,29</td>
+                            <td>16,00</td>
+                            <td>15,56</td>
+                            <td>17,89</td>
+                            <td>78,52</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Manilva</td>
+                            <td>07,83</td>
+                            <td>11,43</td>
+                            <td>09,33</td>
+                            <td>13,33</td>
+                            <td>16,84</td>
+                            <td>58,76</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Álora</td>
+                            <td>13,91</td>
+                            <td>15,24</td>
+                            <td>12,00</td>
+                            <td>12,22</td>
+                            <td>15,79</td>
+                            <td>69,16</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Pizarra</td>
+                            <td>15,65</td>
+                            <td>17,14</td>
+                            <td>05,33</td>
+                            <td>12,22</td>
+                            <td>13,68</td>
+                            <td>64,03</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Campillos</td>
+                            <td>14,78</td>
+                            <td>17,14</td>
+                            <td>12,00</td>
+                            <td>11,11</td>
+                            <td>15,79</td>
+                            <td>70,83</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Archidona</td>
+                            <td>10,43</td>
+                            <td>14,29</td>
+                            <td>06,67</td>
+                            <td>11,11</td>
+                            <td>13,68</td>
+                            <td>56,18</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Benahavís</td>
+                            <td>13,91</td>
+                            <td>14,29</td>
+                            <td>18,67</td>
+                            <td>14,44</td>
+                            <td>20,00</td>
+                            <td>81,31</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Algarrobo</td>
+                            <td>09,57</td>
+                            <td>13,33</td>
+                            <td>09,33</td>
+                            <td>10,00</td>
+                            <td>11,58</td>
+                            <td>53,81</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Casares</td>
+                            <td>09,57</td>
+                            <td>17,14</td>
+                            <td>10,67</td>
+                            <td>10,00</td>
+                            <td>13,68</td>
+                            <td>61,06</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Alameda</td>
+                            <td>10,43</td>
+                            <td>11,43</td>
+                            <td>08,00</td>
+                            <td>14,44</td>
+                            <td>15,79</td>
+                            <td>60,10</td>
+                        </tr>
+                        <tr align="center" style="background-color:#e7e7e7">
+                            <td align="left">Villanueva del Trabuco</td>
+                            <td>10,43</td>
+                            <td>14,29</td>
+                            <td>06,67</td>
+                            <td>10,00</td>
+                            <td>13,68</td>
+                            <td>55,07</td>
+                        </tr>
+                        <tr align="center">
+                            <td align="left">Mollina</td>
+                            <td>11,30</td>
+                            <td>14,29</td>
+                            <td>13,33</td>
+                            <td>08,89</td>
+                            <td>11,58</td>
+                            <td>59,39</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn>
+                        <p>Fuente: Elaborado por los autores (2020).</p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+        </sec>
+        <sec sec-type="discussion">
+            <title>Discusión</title>
+            <p>Los resultados del presente estudio, en lo que respecta al IDT, que alcanza un valor del 70,34%, mejoran de forma notable los resultados obtenidos en otros trabajos previos como los de Pache y Nevado (2019), para una muestra de 50 municipios españoles, con un nivel de divulgación del 62,36%; el trabajo realizado por <xref ref-type="bibr" rid="B19">Nevado y Gallardo (2016)</xref>, que se centra en una muestra de 58 municipios alentejos, alcanzando un nivel del 30,69%; el de <xref ref-type="bibr" rid="B18">Navarro, Alcaraz y Ortiz (2010)</xref>, para una muestra de 55 gobiernos locales españoles y una divulgación de información del 40,42%; o el de <xref ref-type="bibr" rid="B21">Nevado, Gallardo y Sánchez (2013)</xref>, para 40 municipios de la comunidad extremeña con el 19,19% de información divulgada. A raíz de los resultados obtenidos se puede concluir, por tanto, que los ayuntamientos malagueños divulgan información responsable a través de sus correspondientes páginas <italic>web</italic>, siendo el grado de información divulgado alto, si se compara con estudios previos.</p>
+            <p>Con respecto al tipo de información que se divulga, se puede observar cómo los ayuntamientos malagueños ofrecen más información sobre información social, tal y como ocurre en los estudios de <xref ref-type="bibr" rid="B18">Navarro, Alcaraz y Ortiz (2010)</xref>, <xref ref-type="bibr" rid="B21">Nevado, Gallardo y Sánchez (2013)</xref> y <xref ref-type="bibr" rid="B19">Nevado y Gallardo (2016)</xref>. También detectamos una alta divulgación en los otros dos ejes de análisis, medioambiental y económico. Se puede considerar que uno de los motivos que influyen en la alta divulgación de información económica que ofrecen los ayuntamientos malagueños esté relacionada con la aprobación de la Ley nº 19/2013, del 9 de diciembre, de Transparencia, Acceso a la Información Pública y Buen Gobierno (<xref ref-type="bibr" rid="B23">Pache; Nevado, 2019</xref>). Sin embargo, las mayores carencias obedecen a la información sobre contratación de servicios y obras públicas, al igual que ocurre en el estudio realizado por <xref ref-type="bibr" rid="B19">Nevado y Gallardo (2016)</xref>, en contraposición al estudio de <xref ref-type="bibr" rid="B23">Pache y Nevado (2019)</xref>, donde los gobiernos locales de las capitales de provincias españolas ofrecen más información.</p>
+        </sec>
+        <sec sec-type="conclusions">
+            <title>Conclusión</title>
+            <p>El presente trabajo estudia el grado y el tipo de información que divulgan los ayuntamientos de más de 5.000 habitantes de la provincia de Málaga a través de sus sitios <italic>web</italic>, contribuyendo al tema de la RS en el ámbito de las administraciones públicas españolas, puesto que a día de hoy no existe una normativa legal que guíe a los gobiernos locales en su difusión sistemática. Estas lagunas existentes ponen de manifiesto la necesidad de proponer unas guías de RS a los ayuntamientos de las comunidades de toda España, con el objetivo de realizar una mejor difusión y transparencia de la información pública responsable a través de sus páginas <italic>web</italic>.</p>
+            <p>Con respecto a la naturaleza de la información que se divulga, tal y como se comentaba en el apartado de discusión, los aspectos sociales son los más divulgados (15,54%), dado que todos los ayuntamientos malagueños del estudio obtienen información sobre cursos de formación de personal, publican ofertas públicas de empleo y noticias al respecto, y casi en su totalidad existe un sistema de información municipal. En lo que respecta a la información medioambiental reportada (14,59%), destaca una actitud proactiva en los ayuntamientos, puesto que el 50% de los ayuntamientos de la muestra cumplen todos los indicadores de dicho eje. En lo que respecta al eje económico (13,53%), todos los ayuntamientos divulgan su presupuesto y casi en su mayoría informan sobre aspectos relacionados. Por último, el bloque menos divulgado es el correspondiente a la contratación de servicios y obras públicas (11,95%).</p>
+            <p>De entre los ayuntamientos analizados, destaca de forma notable el compromiso de la capital Malagueña, el cual elabora desde 2009 el Marco Estratégico de Responsabilidad Social que permite pensar en Global (Ayuntamiento), pero trabajar en Local (Organismo, Área, o Empresa), el cual sirve de ejemplo para el resto de las localidades de la provincia andaluza. Además de Málaga, los ayuntamientos que más información en materia de RS ofrecen son Vélez-Málaga, Marbella, Nerja y Benahavís, mientras que localidades como Algarrobo, Villanueva del Trabuco y Archidona son las que presentan unos índices de divulgación menores, si bien superan el 50% de los indicadores propuestos.</p>
+            <p>En cuanto a las implicaciones de los resultados obtenidos, consideramos que, para el ámbito académico, nuestro estudio supone una contribución a la explicación de lo que ocurre con relación a la divulgación de información de RS en el ámbito local. El hecho de haber centrado el estudio exclusivamente en el análisis de una provincia de la Comunidad Autónoma de Andalucía nos permite comparar los resultados obtenidos con los de otras regiones. Como futura línea de investigación, se contempla la ampliación de la dimensión espacial del estudio, en primer lugar, por provincias y, en segundo lugar, por comunidad. Además, cabe señalar que no se pueden realizar inferencias ya que se trata de un estudio meramente descriptivo, de corte transversal, por lo que otra futura línea de investigación sería analizar los factores explicativos del desarrollo de estas prácticas de divulgación, considerando además su evolución en el tiempo.</p>
+            <p>El presente estudio persigue fomentar, además, la cultura informativa responsable de los propios ayuntamientos, con el objetivo de que incorporen en sus respectivas páginas <italic>web</italic> la información necesaria o complementaria, lo cual contribuye a lograr un aumento del nivel de la información útil e importante que ofrecen a los ciudadanos y a la sociedad en general. Además, se llegan a conocer aquellos aspectos en los cuales los ayuntamientos, en nuestro caso de la provincia de Málaga, a un nivel conjunto, presentan mayores o menores niveles de transparencia, en cuanto a su información general, económica, medioambiental, social y de servicios y obras públicas.</p>
+        </sec>
+    </body>
+    <back>
+        <fn-group>
+            <title>Como citar este artículo/<italic>How to cite this article</italic></title>
+            <fn fn-type="other" id="fn02">
+                <p>Pache-Durán, M.; Nevado-Gil, M. T. Compromiso de los Ayuntamientos Malagueños con la divulgación de información responsable. <italic>Transinformação</italic>, v. 33, e200057, 2021. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/2318-0889202133e200057">https://doi.org/10.1590/2318-0889202133e200057</ext-link></p>
+            </fn>
+        </fn-group>
+        <ref-list>
+            <title>Referencias</title>
+            <ref id="B01">
+
+                <mixed-citation>Alcaraz-Quiles, F. J.; Navarro-Galera, A.; Ortiz-Rodríguez, D. Factors determining online sustainability reporting by Local Governments. <italic>International Review of Administrative Sciences</italic>, v. 81, n. 1, p. 79-109, 2015. Doi: https://doi.org/10.1177/0020852314541564.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Alcaraz-Quiles</surname>
+                            <given-names>F. J.</given-names>
+                        </name>
+                        <name>
+                            <surname>Navarro-Galera</surname>
+                            <given-names>A.</given-names>
+                        </name>
+                        <name>
+                            <surname>Ortiz-Rodríguez</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Factors determining online sustainability reporting by Local Governments</article-title>
+                    <source>International Review of Administrative Sciences</source>
+                    <volume>81</volume>
+                    <issue>1</issue>
+                    <fpage>79</fpage>
+                    <lpage>109</lpage>
+                    <year>2015</year>
+                    <pub-id pub-id-type="doi">10.1177/0020852314541564</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B02">
+
+                <mixed-citation>Ayuso, M. D.; Martínez, V. Gobierno electrónico: contenidos y organización de las sedes webs de los parlamentos autonómicos. <italic>Revista Española de Documentación Científica</italic>, v. 28, n. 4, p. 462-478, 2005. Doi: https://doi.org/10.3989/redc.2005.v28.i4.175.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Ayuso</surname>
+                            <given-names>M. D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Martínez</surname>
+                            <given-names>V.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Gobierno electrónico: contenidos y organización de las sedes webs de los parlamentos autonómicos</article-title>
+                    <source>Revista Española de Documentación Científica</source>
+                    <volume>28</volume>
+                    <issue>4</issue>
+                    <fpage>462</fpage>
+                    <lpage>478</lpage>
+                    <year>2005</year>
+                    <pub-id pub-id-type="doi">10.3989/redc.2005.v28.i4.175</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B03">
+
+                <mixed-citation>Berelson, B. <italic>Content analysis in communication research</italic>. Glencoe: Free Press, 1952.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Berelson</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Content analysis in communication research</source>
+                    <publisher-loc>Glencoe</publisher-loc>
+                    <publisher-name>Free Press</publisher-name>
+                    <year>1952</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B04">
+
+                <mixed-citation>Breitbarth, T.; Harris, P.; Aitken, R. Corporate social responsibility in the European Union: a new trade barrier? <italic>Journal of Public Affairs: International Journal</italic>, v. 9, n. 4, p. 239-255, 2009. Doi: https://doi.org/10.1002/pa.333.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Breitbarth</surname>
+                            <given-names>T.</given-names>
+                        </name>
+                        <name>
+                            <surname>Harris</surname>
+                            <given-names>P.</given-names>
+                        </name>
+                        <name>
+                            <surname>Aitken</surname>
+                            <given-names>R.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Corporate social responsibility in the European Union: a new trade barrier?</article-title>
+                    <source>Journal of Public Affairs: International Journal</source>
+                    <volume>9</volume>
+                    <issue>4</issue>
+                    <fpage>239</fpage>
+                    <lpage>255</lpage>
+                    <year>2009</year>
+                    <pub-id pub-id-type="doi">10.1002/pa.333</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B05">
+
+                <mixed-citation>Carvalho, L. C.; Gallardo, D.; Nevado, M. T. Local municipalities&#x2019; involvement in promoting entrepreneurship: an analysis of web page orientation to the entrepreneurs in Portuguese municipalities. <italic>In</italic>: Carvalho, L. C. (ed.). <italic>Handbook of Research on Entrepreneurial Ecosystems and Social Dynamics in a Globalized World</italic>. Évora: IGI Global, 2018. p. 1-19. Doi: https://doi.org/10.4018/978-1-5225-3525-6.ch001.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Carvalho</surname>
+                            <given-names>L. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Gallardo</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Nevado</surname>
+                            <given-names>M. T.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>Local municipalities&#x2019; involvement in promoting entrepreneurship: an analysis of web page orientation to the entrepreneurs in Portuguese municipalities</chapter-title>
+                    <person-group person-group-type="editor">
+                        <name>
+                            <surname>Carvalho</surname>
+                            <given-names>L. C.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Handbook of Research on Entrepreneurial Ecosystems and Social Dynamics in a Globalized World</source>
+                    <publisher-loc>Évora</publisher-loc>
+                    <publisher-name>IGI Global</publisher-name>
+                    <year>2018</year>
+                    <fpage>1</fpage>
+                    <lpage>19</lpage>
+                    <pub-id pub-id-type="doi">10.4018/978-1-5225-3525-6.ch001</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B06">
+
+                <mixed-citation>Carvalho, L. C.; Pérez, E.; Pache, M. Implicación de los gobiernos locales en la promoción del emprendimiento: evidencia para España. <italic>Revista Española de Documentación Científica</italic>, v. 42, n. 1, p. 226, 2019. Doi: https://doi.org/10.3989/redc.2019.1.1559.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Carvalho</surname>
+                            <given-names>L. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Pérez</surname>
+                            <given-names>E.</given-names>
+                        </name>
+                        <name>
+                            <surname>Pache</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Implicación de los gobiernos locales en la promoción del emprendimiento: evidencia para España</article-title>
+                    <source>Revista Española de Documentación Científica</source>
+                    <volume>42</volume>
+                    <issue>1</issue>
+                    <fpage>226</fpage>
+                    <lpage>226</lpage>
+                    <year>2019</year>
+                    <pub-id pub-id-type="doi">10.3989/redc.2019.1.1559</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B07">
+
+                <mixed-citation>Chaín, C.; Muñoz, A.; Más, A. La gestión de información en las sedes webs de los ayuntamientos españoles. <italic>Revista Española de Documentación Científica</italic>, v. 31, n. 4, p. 612-638, 2008. Doi: https://doi.org/10.3989/redc.2008.4.662.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Chaín</surname>
+                            <given-names>C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Muñoz</surname>
+                            <given-names>A.</given-names>
+                        </name>
+                        <name>
+                            <surname>Más</surname>
+                            <given-names>A.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>La gestión de información en las sedes webs de los ayuntamientos españoles</article-title>
+                    <source>Revista Española de Documentación Científica</source>
+                    <volume>31</volume>
+                    <issue>4</issue>
+                    <fpage>612</fpage>
+                    <lpage>638</lpage>
+                    <year>2008</year>
+                    <pub-id pub-id-type="doi">10.3989/redc.2008.4.662</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B08">
+
+                <mixed-citation>Cronbach, L. J. Coefficient alpha and the internal structure of tests. <italic>Psychometrika</italic>, v. 16, n. 3, p. 297-334, 1951. Doi: https://doi.org/10.1007/BF02310555.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Cronbach</surname>
+                            <given-names>L. J.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Coefficient alpha and the internal structure of tests</article-title>
+                    <source>Psychometrika</source>
+                    <volume>16</volume>
+                    <issue>3</issue>
+                    <fpage>297</fpage>
+                    <lpage>334</lpage>
+                    <year>1951</year>
+                    <pub-id pub-id-type="doi">10.1007/BF02310555</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B09">
+
+                <mixed-citation>Dumay, J. C.; Guthrie, J.; Farneti, F. GRI sustainability reporting guidelines for public and third sector organizations. <italic>Public Management Review</italic>, v. 12, n. 4, p. 531-548, 2010. Doi: https://doi.org/10.1080/14719037.2010.496266.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Dumay</surname>
+                            <given-names>J. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Guthrie</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                        <name>
+                            <surname>Farneti</surname>
+                            <given-names>F.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>GRI sustainability reporting guidelines for public and third sector organizations</article-title>
+                    <source>Public Management Review</source>
+                    <volume>12</volume>
+                    <issue>4</issue>
+                    <fpage>531</fpage>
+                    <lpage>548</lpage>
+                    <year>2010</year>
+                    <pub-id pub-id-type="doi">10.1080/14719037.2010.496266</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B10">
+
+                <mixed-citation>España. Ley n&#xBA; 19/2013, de 9 de diciembre, de 2013. Transparencia, Acceso a la Información Pública y Buen Gobierno. España: <italic>Boletín Oficial del Estado</italic>, 2013.</mixed-citation>
+
+                <element-citation publication-type="legal-doc">
+                    <person-group person-group-type="author">
+                        <collab>España</collab>
+                    </person-group>
+                    <article-title>Ley n&#xBA; 19/2013, de 9 de diciembre, de 2013</article-title>
+                    <comment>Transparencia, Acceso a la Información Pública y Buen Gobierno</comment>
+                    <publisher-loc>España</publisher-loc>
+                    <source>Boletín Oficial del Estado</source>
+                    <year>2013</year>
+
+
+                </element-citation>
+            </ref>
+            <ref id="B11">
+
+                <mixed-citation>España. Ley n&#xBA; 7/1985, de 2 de abril de 1985. Reguladora de las Bases del Régimen Local. <italic>Boletín Oficial del Estado</italic>: seção 80, p. 8945-8964, 1985.</mixed-citation>
+
+                <element-citation publication-type="legal-doc">
+                    <person-group person-group-type="author">
+                        <collab>España</collab>
+                    </person-group>
+                    <article-title>Ley n&#xBA; 7/1985, de 2 de abril de 1985</article-title>
+                    <comment>Reguladora de las Bases del Régimen Local</comment>
+                    <source>Boletín Oficial del Estado</source>
+                    <publisher-name>seção 80</publisher-name>
+                    <fpage>8945</fpage>
+                    <lpage>8964</lpage>
+                    <year>1985</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B12">
+
+                <mixed-citation>Ettredge, M.; Vernon, J. R.; Scholz, S. The presentation of financial information at corporate web sites. <italic>International Journal of Accounting Information Systems</italic>, v. 2, n. 3, p. 149-168, 2001. Doi: https://doi.org/10.1016/S1467-0895(00)00017-8.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Ettredge</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Vernon</surname>
+                            <given-names>J. R.</given-names>
+                        </name>
+                        <name>
+                            <surname>Scholz</surname>
+                            <given-names>S.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>The presentation of financial information at corporate web sites</article-title>
+                    <source>International Journal of Accounting Information Systems</source>
+                    <volume>2</volume>
+                    <issue>3</issue>
+                    <fpage>149</fpage>
+                    <lpage>168</lpage>
+                    <year>2001</year>
+                    <pub-id pub-id-type="doi">10.1016/S1467-0895(00)00017-8</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B13">
+
+                <mixed-citation>Frías-Aceituno, J. V.; Marques, M.; Rodríguez-Ariza, L. Divulgación de información sostenible: &iquest;se adapta a las expectativas de la sociedad? <italic>Spanish Accounting Review: Revista de Contabilidad</italic>, v. 16, n. 2, p. 147-158, 2013. Doi: https://doi.org/10.1016/j.rcsar.2013.07.004.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Frías-Aceituno</surname>
+                            <given-names>J. V.</given-names>
+                        </name>
+                        <name>
+                            <surname>Marques</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Rodríguez-Ariza</surname>
+                            <given-names>L.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Divulgación de información sostenible: &iquest;se adapta a las expectativas de la sociedad?</article-title>
+                    <source>Spanish Accounting Review: Revista de Contabilidad</source>
+                    <volume>16</volume>
+                    <issue>2</issue>
+                    <fpage>147</fpage>
+                    <lpage>158</lpage>
+                    <year>2013</year>
+                    <pub-id pub-id-type="doi">10.1016/j.rcsar.2013.07.004</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B14">
+
+                <mixed-citation>George, D.; Mallery, P. <italic>Using SPSS for Windows step by step</italic>: a simple guide and reference. 4. ed. Boston: Allyn &amp; Bacon, 2003.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>George</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Mallery</surname>
+                            <given-names>P.</given-names>
+                        </name>
+                    </person-group>
+                    <source><italic>Using SPSS for Windows step by step</italic>: a simple guide and reference</source>
+                    <edition>4. ed</edition>
+                    <publisher-loc>Boston</publisher-loc>
+                    <publisher-name>Allyn &amp; Bacon</publisher-name>
+                    <year>2003</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B15">
+
+                <mixed-citation>Huizingh, E. K. The content and design of web sites: an empirical study. <italic>Information &amp; Management</italic>, v. 37, n. 3, p. 123-134, 2000. Doi: https://doi.org/10.1016/S0378-7206(99)00044-0.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Huizingh</surname>
+                            <given-names>E. K.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>The content and design of web sites: an empirical study</article-title>
+                    <source>Information &amp; Management</source>
+                    <volume>37</volume>
+                    <issue>3</issue>
+                    <fpage>123</fpage>
+                    <lpage>134</lpage>
+                    <year>2000</year>
+                    <pub-id pub-id-type="doi">10.1016/S0378-7206(99)00044-0</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B16">
+
+                <mixed-citation>Instituto Nacional de Estadística. <italic>Cifras oficiales de población resultantes de la revisión del Padrón municipal a 1 de enero</italic>. España: INE, 2019. Disponible en: https://www.ine.es/dynt3/inebase/es/index.htm?padre=517&amp;capsel=525. Acceso en: 9 marzo 2021.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <collab>Instituto Nacional de Estadística</collab>
+                    </person-group>
+                    <source>Cifras oficiales de población resultantes de la revisión del Padrón municipal a 1 de enero</source>
+                    <publisher-loc>España</publisher-loc>
+                    <publisher-name>INE</publisher-name>
+                    <year>2019</year>
+                    <comment>Disponible en: <ext-link ext-link-type="uri" xlink:href="https://www.ine.es/dynt3/inebase/es/index.htm?padre=517&amp;capsel=525">https://www.ine.es/dynt3/inebase/es/index.htm?padre=517&amp;capsel=525</ext-link></comment>
+                    <date-in-citation content-type="access-date">9 marzo 2021</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B17">
+
+                <mixed-citation>Moneva, J. M.; Martín, E. Universidad y Desarrollo sostenible: análisis de la rendición de cuentas de las universidades públicas desde un enfoque de responsabilidad social. <italic>Revista Iberoamericana de Contabilidad de Gestión</italic>, v. 10, n. 19, p. 1-18, 2012.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Moneva</surname>
+                            <given-names>J. M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Martín</surname>
+                            <given-names>E.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Universidad y Desarrollo sostenible: análisis de la rendición de cuentas de las universidades públicas desde un enfoque de responsabilidad social</article-title>
+                    <source>Revista Iberoamericana de Contabilidad de Gestión</source>
+                    <volume>10</volume>
+                    <issue>19</issue>
+                    <fpage>1</fpage>
+                    <lpage>18</lpage>
+                    <year>2012</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B18">
+
+                <mixed-citation>Navarro, A.; Alcaraz, F. J.; Ortiz, D. La divulgación de información sobre responsabilidad corporativa en administraciones públicas: un estudio empírico en gobiernos locales. <italic>Revista de Contabilidad</italic>, v. 13, n. 2, p. 285-314, 2010. Doi: https://doi.org/10.1016/S1138-4891(10)70019-4.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Navarro</surname>
+                            <given-names>A.</given-names>
+                        </name>
+                        <name>
+                            <surname>Alcaraz</surname>
+                            <given-names>F. J.</given-names>
+                        </name>
+                        <name>
+                            <surname>Ortiz</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>La divulgación de información sobre responsabilidad corporativa en administraciones públicas: un estudio empírico en gobiernos locales</article-title>
+                    <source>Revista de Contabilidad</source>
+                    <volume>13</volume>
+                    <issue>2</issue>
+                    <fpage>285</fpage>
+                    <lpage>314</lpage>
+                    <year>2010</year>
+                    <pub-id pub-id-type="doi">10.1016/S1138-4891(10)70019-4</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B19">
+
+                <mixed-citation>Nevado, M. T.; Gallardo, D. Información sobre Responsabilidad Social contenida en las páginas web de los ayuntamientos: estudio en la región del Alentejo. <italic>Revista Española de Documentación Científica</italic>, v. 39, n. 4, p. 150, 2016. Doi: https://doi.org/10.3989/redc.2016.4.1353.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Nevado</surname>
+                            <given-names>M. T.</given-names>
+                        </name>
+                        <name>
+                            <surname>Gallardo</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Información sobre Responsabilidad Social contenida en las páginas web de los ayuntamientos: estudio en la región del Alentejo</article-title>
+                    <source>Revista Española de Documentación Científica</source>
+                    <volume>39</volume>
+                    <issue>4</issue>
+                    <fpage>150</fpage>
+                    <lpage>150</lpage>
+                    <year>2016</year>
+                    <pub-id pub-id-type="doi">10.3989/redc.2016.4.1353</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B20">
+
+                <mixed-citation>Nevado, M. T.; Gallardo, D.; Sánchez, M. I. Análisis del grado de divulgación de información sobre responsabilidad social en las webs de los principales municipios extremeños. <italic>Auditoría Pública</italic>, n. 67, p. 77-92, 2016.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Nevado</surname>
+                            <given-names>M. T.</given-names>
+                        </name>
+                        <name>
+                            <surname>Gallardo</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Sánchez</surname>
+                            <given-names>M. I.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Análisis del grado de divulgación de información sobre responsabilidad social en las webs de los principales municipios extremeños</article-title>
+                    <source>Auditoría Pública</source>
+                    <issue>67</issue>
+                    <fpage>77</fpage>
+                    <lpage>92</lpage>
+                    <year>2016</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B21">
+
+                <mixed-citation>Nevado, M. T.; Gallardo, D.; Sánchez, M. I. La administración local y su implicación en la creación de una cultura socialmente responsable. <italic>Revista de Ciencias Sociales</italic>, v. 10, p. 64-118, 2013.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Nevado</surname>
+                            <given-names>M. T.</given-names>
+                        </name>
+                        <name>
+                            <surname>Gallardo</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Sánchez</surname>
+                            <given-names>M. I.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>La administración local y su implicación en la creación de una cultura socialmente responsable</article-title>
+                    <source>Revista de Ciencias Sociales</source>
+                    <volume>10</volume>
+                    <fpage>64</fpage>
+                    <lpage>118</lpage>
+                    <year>2013</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B22">
+
+                <mixed-citation>Pache, M.; Nevado, M. T. Compromiso de las empresas españolas del Dow Jones Sustainability World Index 2018 con la divulgación de información responsable. <italic>Revista Española de Documentación Científica</italic>, v. 43, n. 1, e255, 2020. Doi: https://doi.org/10.3989/redc.2020.1.1658.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Pache</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Nevado</surname>
+                            <given-names>M. T.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Compromiso de las empresas españolas del Dow Jones Sustainability World Index 2018 con la divulgación de información responsable</article-title>
+                    <source>Revista Española de Documentación Científica</source>
+                    <volume>43</volume>
+                    <issue>1</issue>
+                    <elocation-id>e255</elocation-id>
+                    <year>2020</year>
+                    <pub-id pub-id-type="doi">10.3989/redc.2020.1.1658</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B23">
+
+                <mixed-citation>Pache, M.; Nevado, M. T. Divulgación de información responsable por los gobiernos locales españoles. <italic>Investigación Bibliotecológica</italic>, v. 33, n. 81, p. 111-134, 2019. Doi: http://dx.doi.org/10.22201/iibi.24488321xe.2019.81.58043.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Pache</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Nevado</surname>
+                            <given-names>M. T.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Divulgación de información responsable por los gobiernos locales españoles</article-title>
+                    <source>Investigación Bibliotecológica</source>
+                    <volume>33</volume>
+                    <issue>81</issue>
+                    <fpage>111</fpage>
+                    <lpage>134</lpage>
+                    <year>2019</year>
+                    <pub-id pub-id-type="doi">10.22201/iibi.24488321xe.2019.81.58043</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B24">
+
+                <mixed-citation>Perrini, F. <italic>Developing corporate social responsibility</italic>: a European perspective. Cheltenham: Edward Elgar Publishing, 2006.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Perrini</surname>
+                            <given-names>F.</given-names>
+                        </name>
+                    </person-group>
+                    <source><italic>Developing corporate social responsibility</italic>: a European perspective</source>
+                    <publisher-loc>Cheltenham</publisher-loc>
+                    <publisher-name>Edward Elgar Publishing</publisher-name>
+                    <year>2006</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B25">
+
+                <mixed-citation>Pina, V.; Torres, L.; Royo, S. Are ICTs improving transparency and accountability in the EU regional and local goverments? An empirical study. <italic>Public Administration</italic>, v. 85, n. 2, p. 449-472, 2007. Doi: https://doi.org/10.1111/j.1467-9299.2007.00654.x.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Pina</surname>
+                            <given-names>V.</given-names>
+                        </name>
+                        <name>
+                            <surname>Torres</surname>
+                            <given-names>L.</given-names>
+                        </name>
+                        <name>
+                            <surname>Royo</surname>
+                            <given-names>S.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Are ICTs improving transparency and accountability in the EU regional and local goverments? An empirical study</article-title>
+                    <source>Public Administration</source>
+                    <volume>85</volume>
+                    <issue>2</issue>
+                    <fpage>449</fpage>
+                    <lpage>472</lpage>
+                    <year>2007</year>
+                    <pub-id pub-id-type="doi">10.1111/j.1467-9299.2007.00654.x</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B26">
+
+                <mixed-citation>Prado, J. M.; García, I. M.; Cuadrado, B. Sustainable cities: do political factors determine the quality of life? <italic>Journal of Cleaner Production</italic>, v. 21, n. 1, p. 34-44, 2012. Doi: https://doi.org/10.1016/j.jclepro.2011.08.021.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Prado</surname>
+                            <given-names>J. M.</given-names>
+                        </name>
+                        <name>
+                            <surname>García</surname>
+                            <given-names>I. M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Cuadrado</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Sustainable cities: do political factors determine the quality of life?</article-title>
+                    <source>Journal of Cleaner Production</source>
+                    <volume>21</volume>
+                    <issue>1</issue>
+                    <fpage>34</fpage>
+                    <lpage>44</lpage>
+                    <year>2012</year>
+                    <pub-id pub-id-type="doi">10.1016/j.jclepro.2011.08.021</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B27">
+
+                <mixed-citation>Rodríguez, B.; Pérez, D.; Saura, J. R. Clasificación de información en redes sociales: análisis de contenido en Twitter de empresas de comercio electrónico. <italic>Revista Espacios</italic>, v. 38, n. 52, p. 17, 2017.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Rodríguez</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                        <name>
+                            <surname>Pérez</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Saura</surname>
+                            <given-names>J. R.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Clasificación de información en redes sociales: análisis de contenido en Twitter de empresas de comercio electrónico</article-title>
+                    <source>Revista Espacios</source>
+                    <volume>38</volume>
+                    <issue>52</issue>
+                    <fpage>17</fpage>
+                    <lpage>17</lpage>
+                    <year>2017</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B28">
+
+                <mixed-citation>Stewart, A.; Featherstone, M. D. A comparison of web use in marketing by local government in the United States and Australia. <italic>Journal of Database Marketing &amp; Customer Strategy Management</italic>, v. 14, n. 4, p. 297-310, 2007. Doi: https://doi.org/10.1057/palgrave.dbm.3250057.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Stewart</surname>
+                            <given-names>A.</given-names>
+                        </name>
+                        <name>
+                            <surname>Featherstone</surname>
+                            <given-names>M. D.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>A comparison of web use in marketing by local government in the United States and Australia</article-title>
+                    <source>Journal of Database Marketing &amp; Customer Strategy Management</source>
+                    <volume>14</volume>
+                    <issue>4</issue>
+                    <fpage>297</fpage>
+                    <lpage>310</lpage>
+                    <year>2007</year>
+                    <pub-id pub-id-type="doi">10.1057/palgrave.dbm.3250057</pub-id>
+
+                </element-citation>
+            </ref>
+
+        </ref-list>
+    </back>
+</article>

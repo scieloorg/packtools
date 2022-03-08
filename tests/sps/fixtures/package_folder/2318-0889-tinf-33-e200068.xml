@@ -1,0 +1,1706 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "../../../../JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.1" specific-use="sps-1.9" article-type="research-article" xml:lang="en">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="publisher-id">tinf</journal-id>
+            <journal-title-group>
+                <journal-title>Transinformação</journal-title>
+                <abbrev-journal-title abbrev-type="publisher">Transinformação</abbrev-journal-title>
+            </journal-title-group>
+            <issn pub-type="ppub">0103-3786</issn>
+            <issn pub-type="epub">2318-0889</issn>
+            <publisher>
+                <publisher-name>Pontifícia Universidade Católica de Campinas</publisher-name>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="other">00506</article-id>
+            <article-id pub-id-type="doi">10.1590/2318-0889202133e200068</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>ORIGINAL</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>The intellectual foundation of the elite of Brazilian researchers on knowledge organization domain</article-title>
+                <trans-title-group xml:lang="pt">
+                    <trans-title>Bases intelectuais da elite de pesquisadores brasileiros no domínio da organização do conhecimento</trans-title>
+                </trans-title-group>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0003-4608-752X</contrib-id>
+                    <name>
+                        <surname>ARAÚJO</surname>
+                        <given-names>Paula Carina de</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff01">1</xref>
+                    <xref ref-type="aff" rid="aff02">2</xref>
+                    <xref ref-type="corresp" rid="c01"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0002-3620-0632</contrib-id>
+                    <name>
+                        <surname>BUFREM</surname>
+                        <given-names>Leilah Santiago</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff01">1</xref>
+                    <xref ref-type="aff" rid="aff03">3</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="aff01">
+                <label>1</label>
+                <institution content-type="orgname">Universidade Federal do Paraná</institution>
+                <institution content-type="orgdiv1">Departamento de Ciência e Gestão da Informação</institution>
+                <institution content-type="orgdiv2">Programa de Pós-Graduação em Gestão da Informação</institution>
+                <addr-line>
+                    <named-content content-type="city">Curitiba</named-content>
+                    <named-content content-type="state">PR</named-content>
+                </addr-line>
+                <country country="BR">Brasil</country>
+                <institution content-type="original">Universidade Federal do Paraná, Departamento de Ciência e Gestão da Informação, Programa de Pós-Graduação em Gestão da Informação. Av. Lothário Meissner, 632, Jardim Botânico, 80210-170, Curitiba, PR, Brasil.</institution>
+            </aff>
+            <aff id="aff02">
+                <label>2</label>
+                <institution content-type="orgname">Universidade do Estado de Santa Catarina</institution>
+                <institution content-type="orgdiv1">Centro de Ciências Humanas e da Educação</institution>
+                <institution content-type="orgdiv2">Programa de Pós-Graduação em Gestão da Informação</institution>
+                <addr-line>
+                    <named-content content-type="city">Florianópolis</named-content>
+                    <named-content content-type="state">SC</named-content>
+                </addr-line>
+                <country country="BR">Brasil</country>
+                <institution content-type="original">Universidade do Estado de Santa Catarina, Centro de Ciências Humanas e da Educação, Programa de Pós-Graduação em Gestão da Informação. Florianópolis, SC, Brasil.</institution>
+            </aff>
+            <aff id="aff03">
+                <label>3</label>
+                <institution content-type="orgname">Universidade Federal da Paraíba</institution>
+                <institution content-type="orgdiv1">Programa de Pós-Graduação em Ciência da Informação</institution>
+                <addr-line>
+                    <named-content content-type="city">João Pessoa</named-content>
+                    <named-content content-type="state">PB</named-content>
+                </addr-line>
+                <country country="BR">Brasil</country>
+                <institution content-type="original">Universidade Federal da Paraíba, Programa de Pós-Graduação em Ciência da Informação. João Pessoa, PB, Brasil.</institution>
+            </aff>
+            <author-notes>
+                <corresp id="c01">Correspondência para/Correspondence to: P.C. ARAÚJO. E-mail: <email>paulacarina@ufpr.br</email>.</corresp>
+                <fn fn-type="con" id="fn02">
+                    <label>Colaboradores</label>
+                    <p>P. C. ARAÚJO was responsible for the study conception and design, data collection, data analysis and interpretation, review and approval of the final version of the manuscript. L. S. BUFREM was responsible for the study conception and contributed to the study design, data analysis and interpretation, review and approval of the final version of the manuscript.</p>
+                </fn>
+            </author-notes>
+            <pub-date publication-format="electronic" date-type="pub">
+                <day>09</day>
+                <month>04</month>
+                <year>2021</year>
+            </pub-date>
+            <pub-date publication-format="electronic" date-type="collection">
+                <year>2021</year>
+            </pub-date>
+            <volume>33</volume>
+            <elocation-id>e200068</elocation-id>
+            <history>
+                <date date-type="received">
+                    <day>27</day>
+                    <month>10</month>
+                    <year>2020</year>
+                </date>
+                <date date-type="rev-recd">
+                    <day>21</day>
+                    <month>01</month>
+                    <year>2021</year>
+                </date>
+                <date date-type="accepted">
+                    <day>22</day>
+                    <month>02</month>
+                    <year>2021</year>
+                </date>
+            </history>
+            <permissions>
+                <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+                    <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+                </license>
+            </permissions>
+            <abstract>
+                <title>Abstract</title>
+                <p>This study aims to analyze the intellectual foundation of the literature on knowledge organization published from 1972 to 2018 by authors enrolled in the Research Productivity Fellowship from <italic>Conselho Nacional de Desenvolvimento Científico e Tecnológico</italic>, in Brazil. The <italic>corpus</italic> of analysis is composed of 166 papers indexed in <italic>Base de Dados Referencial de Artigos de Periódicos em Ciência da Informação</italic>, which is a database that gathers the scientific literature published in Information Science journals in Brazil. It is an exploratory study that uses citation analysis as the methodological procedure, through author co-citation analysis and author bibliographic coupling. Fujita is identified as the most productive author, with 18 articles. Dahlberg is the most cited author, with 53 citations. The highest frequency of author co-citation is between Hjørland and Dahlberg; Tálamo and Kobashi. They are the seminal authors to the Brazilian scientists studied in this paper. The strongest relationships in the author bibliographic coupling network are between Lara and Bufrem, Lara and Guimarães, and Bufrem and Fujita. They cited 9 authors in common in the papers analyzed in this research. The conclusion is that there is an influence of European literature among the scientists addressed in this study. The results indicate the possibility of developing diachronic studies on the continuing influences of cited authors, especially from seminal authors, to analyze their permanence or transience over time.</p>
+            </abstract>
+            <trans-abstract xml:lang="pt">
+                <title>Resumo</title>
+                <p>Este trabalho tem como objetivo analisar a base intelectual da literatura científica no domínio da organização do conhecimento, publicada de 1972 a 2018 pelos pesquisadores com Bolsa de Produtividade em Pesquisa do Conselho Nacional de Desenvolvimento Científico e Tecnológico no Brasil. O corpus de análise é composto por 166 artigos indexados na Base de Dados Referencial de Artigos de Periódicos em Ciência da Informação, que reúne a literatura científica publicada nos periódicos de ciência da informação no Brasil. Ao desenvolver uma pesquisa exploratória e usar a análise de citação por meio da análise de cocitação de autor e do acoplamento bibliográfico de autor, identifica Fujita como a autora mais produtiva, com 18 artigos, e Dahlberg como a autora mais citada, com 53 citações. A maior frequência de cocitação de autor é entre Hjørland e Dahlberg e entre Tálamo e Kobashi. Eles são autores seminais para os pesquisadores brasileiros estudados neste artigo. A relação mais forte na rede de acoplamento bibliográfico de autor é entre Lara e Bufrem, Lara e Guimarães e Bufrem e Fujita, que citam nove autores em comum nos artigos analisados nesta pesquisa. Conclui-se que há uma influência da literatura europeia entre os pesquisadores considerados neste estudo. Os resultados sugerem a possibilidade de realização de estudos diacrônicos sobre a continuidade das influências perceptíveis dos autores citados, especialmente dos autores seminais, para análise de sua permanência ou transitoriedade no tempo.</p>
+            </trans-abstract>
+            <kwd-group xml:lang="en">
+                <title>Keywords</title>
+                <kwd>Knowledge organization</kwd>
+                <kwd>Scholarly productivity</kwd>
+                <kwd>Co-citation analysis</kwd>
+                <kwd>Bibliographic coupling</kwd>
+            </kwd-group>
+            <kwd-group xml:lang="pt">
+                <title>Palabras-clave</title>
+                <kwd>Organização do conhecimento</kwd>
+                <kwd>Produção científica</kwd>
+                <kwd>Análise de cocitação</kwd>
+                <kwd>Acoplamento Bibliográfico</kwd>
+            </kwd-group>
+            <counts>
+                <fig-count count="2"/>
+                <table-count count="2"/>
+                <equation-count count="0"/>
+                <ref-count count="44"/>
+            </counts>
+        </article-meta>
+    </front>
+    <body>
+        <sec sec-type="intro">
+            <title>Introduction</title>
+            <p>The study of a researcher’s intellectual foundation within a domain allows to uncover their theoretical, epistemological, and methodological influences. This kind of study embraces the analysis and description of a <italic>corpus</italic> of study composed by the references cited by the authors, providing an overview of the theoretical backgrounds and their implications in the domain.</p>
+            <p>In understanding the Brazilian intellectual foundation, it is possible to visualize its connection with researchers from other countries. Moreover, by recognizing the authors that influence them, it is possible to delineate the intellectual genealogy in the domain (<xref ref-type="bibr" rid="B38">Russell; Sugimoto, 2009</xref>; <xref ref-type="bibr" rid="B05">Bufrem, 2016</xref>).</p>
+            <p>The set of references cited in a specific scientific literature may represent a discursive community. It shows the interaction between citing and cited authors as evidence of the theoretical, epistemological, or methodological proximity among them, delineating the features of the domain (<xref ref-type="bibr" rid="B15">Grácio, 2016</xref>; <xref ref-type="bibr" rid="B17">Grácio; Oliveira, 2017</xref>).</p>
+            <p><xref ref-type="bibr" rid="B19">Guimarães, Grácio and Matos (2014)</xref> analyzed the scientific literature published in Brazilian Information Science journals by some of the scientists enrolled in a specific fellowship funded by <italic>Conselho Nacional de Desenvolvimento Científico e Tecnológico</italic> (CNPq, National Council for Scientific and Technological Development). The research demonstrated that those scientists represent a scientifically productive and mature group. There is also a good degree of scientific dialogue, but it still lacks greater international insertion.</p>
+            <p><italic>Conselho Nacional de Desenvolvimento Científico e Tecnológico</italic> is the main federal government research agency in Brazil. Its role is to promote scientific and technological research and encourage the education of Brazilian scientists (<xref ref-type="bibr" rid="B11">Conselho Nacional de Desenvolvimento Científico e Tecnológico, 2020</xref>). The agency has a funding program called Research Productivity, composed of scientists that stand out among their peers through their projects. They are considered the research elite from all areas of knowledge in Brazil. The Research Productivity scholarship is divided into two main levels: Research Productivity 1 (PQ1) and Research Productivity 2 (PQ2).</p>
+            <p><xref ref-type="bibr" rid="B04">Bufrem (2015)</xref> also studied the scientific literature published by scientists enrolled in this Fellowship. However, her study focused on papers about Knowledge Organization (KO). The results confirmed that the researches are diverse and there is an organic representation of scientists from the domain.</p>
+            <p>From another point of view, a study investigated the academic genealogy of the scientists enrolled in the Fellowship by CNPq. <xref ref-type="bibr" rid="B36">Oliveira <italic>et al</italic>. (2018)</xref> mapped the knowledge propagation by analyzing the scientists’ advising activity with masters and PhD students. This kind of study is also an effective approach to analyze a domain. The authors concluded that the results allowed to fill an existing gap in the analysis of those scientists’ features.</p>
+            <p>Thus, it is stated that bibliometric studies constitute a consistent and objective approach to analyze and characterize a domain. <xref ref-type="bibr" rid="B23">Hjørland (2002a)</xref> indicates them as one of the eleven approaches to domain analysis. Besides, citation analysis is acknowledged as an effective method to recognize a domain’s epistemological and theoretical influences. According to <xref ref-type="bibr" rid="B42">Smiraglia (2014, p.87)</xref> “citation analysis produces a social network that is a way to associate a study to an author showing evidence of connections within the domain or even out of it”.</p>
+            <p>When studying the historical and epistemological trajectory of citation studies in Brazil through national scientific journal papers, <xref ref-type="bibr" rid="B40">Silveira and Caregnato (2017)</xref> discuss the importance of Brazilian citation studies approaching citation and references as a phenomenon in the scientific context. The authors also expect deeper theoretical discussions on the object of study for further citation studies.</p>
+            <p>Citation analysis has a social, historical, and dynamic nature. Moreover, it relies on the scientific literature (<xref ref-type="bibr" rid="B21">Hjørland, 2013</xref>), through which it is possible to identify the groups of scientists, their publications, the authors with higher impact, their paradigms and methodological procedures (<xref ref-type="bibr" rid="B14">Glänzel, 2003</xref>; <xref ref-type="bibr" rid="B15">Grácio, 2016</xref>).</p>
+            <p>As the previous examples show, the scientific literature and the activities of those scientists are an interesting object of study to Information Science. Furthermore, many studies have used a bibliometric approach to recognize domain features (<xref ref-type="bibr" rid="B44">Wainer; Vieira, 2013</xref>; Guimarães; Grácio; Matos, 2014; <xref ref-type="bibr" rid="B04">Bufrem, 2015</xref>; <xref ref-type="bibr" rid="B36">Oliveira <italic>et al</italic>., 2018</xref>). However, it is important to state that those studies only analyze the scientific literature of the scientists from level 1 of the Research Productivity Fellowship. Additionally, even the study that specifically analyzes the knowledge organization literature focuses only on level 1 of the Research Productivity Fellowship, and with a different approach. Therefore, this study fills a gap by analyzing the scientific literature on knowledge organization, considering the scientists from both levels funded by this Fellowship.</p>
+            <p>In this light, 50 Information Science researchers enrolled in the Research Productivity Fellowship from CNPq were selected. These researchers stood out among their peers due to their innovative research projects. Moreover, they play an important role among the Information Science community in Brazil, since the results from their studies supposedly represent a model to their peers. This legitimates the curiosity about their scholarly literature.</p>
+            <p>The <italic>corpus</italic> of this study is formed by the scientific literature on KO published by the researchers enrolled in the Research Productivity Fellowship from CNPq and indexed on <italic>Base de Dados Referencial de Artigos de Periódicos em Ciência da Informação</italic> (Brapci, Referential Database of Journal Papers in Information Science). Brapci is a specialized database that has been gathering the scientific literature on Information Science in Brazil since 1972, when the first national journals in the area were published.</p>
+            <p>Studies on the domain of knowledge organization are a nuclear field in Information Science. The scientific literature on KO also gained international attention after the Brazilian chapter of the International Society for Knowledge Organization was created (<xref ref-type="bibr" rid="B39">Silva; Evangelista; Guimarães, 2019</xref>). <xref ref-type="bibr" rid="B07">Castanha and Wolfram (2018)</xref> presented an international perspective of the KO domain. The authors analyzed the most prolific contributing authors to the journal Knowledge Organization, the sources they cite and the citations they receive for the period 1993 to 2016. Therefore, this study is a necessary contribution to understand this domain from a national perspective.</p>
+            <p>The study was conducted through Author Co-Citation Analysis (ACA) and Author Bibliographic Coupling (ABC) in order to identify the seminal theoretical components in the KO domain in Brazil. This kind of relational citation analysis allows to perceive the connections between documents and researchers, as recognized by the scientific community and stated by <xref ref-type="bibr" rid="B15">Grácio (2016)</xref>. This method is able to highlight the authors that influence the researchers enrolled in the Research Productivity Fellowship from CNPq.</p>
+            <p>This research seeks to respond the question: what is the theoretical influence of the scientists enrolled in the Research Productivity Fellowship considering their scholarly literature on knowledge organization? Therefore, this paper aims to analyze the intellectual foundation of the scientific literature on KO, published from 1972 to 2018, by Information Science researchers enrolled in the Research Productivity Fellowship. The data collection was made in 2019. As the paper presents a bibliometric study, the authors collected papers published until 2018.</p>
+            <p>The study also indicates five specific objectives for the achievement of this research’s main goal. They are: to identify the publications from scientists enrolled in the Research Productivity Fellowship from CNPq indexed in Brapci; to define the research front of this study; to indicate the most productive author; to apply the ACA and ABC; to demonstrate the results obtained through the ACA and ABC network.</p>
+            <p>The motivation to conduct this research lays on the belief that the objective of the scientific research is to develop the criticism about their field allowing a wider visualization of the knowledge domain objects, approaches and dynamics. It is focused on the scholarly literature of the domain. That statement is supported by <xref ref-type="bibr" rid="B31">Lloyd’s (1995)</xref> arguments that science is not a discourse that intend or achieve the absolute objectivity, but a set of practices socially constructed to progressively discover the causal structures of reality.</p>
+            <p>The foundations of the scholarly literature from the researchers enrolled in the Research Productivity Fellowship is of interest to the authors and it is also part of a wider project. The epistemology of knowledge organization is also the focus of the authors research. Therefore, to recognize epistemic and discourse communities support that kind of study, what explain the interest in the study presented in this paper.</p>
+            <p>Examining knowledge expression through different theoretical roots may evidence connections and identities among researchers and the authors that influence their studies. Such connections and influences may be related to the research content, context, and the way it is developed.</p>
+        </sec>
+        <sec sec-type="methods">
+            <title>Methodological Procedures</title>
+            <p>An exploratory study was conducted through the collection of scientific papers indexed on the Brapci database. The Information Science researchers enrolled in the Research Productivity Fellowship from CNPq are the universe of this study. The steps to develop the study were as follows:</p>
+            <list list-type="alpha-lower">
+                <list-item>
+                    <p>Identifying the research universe: the list of the Information Science researchers enrolled in the Research Productivity Fellowship was retrieved from CNPq’s website. As a result, 50 researchers from different Brazilian research institutions and from both levels (PQ1 and PQ2) were identified.</p>
+                </list-item>
+                <list-item>
+                    <p>Search for papers on Brapci: the search for their names on Brapci was limited to papers published from 1972 to 2018, considering that the coverage of the database initiates in 1972. A total of 2,142 papers were found published in journals and in the proceedings of <italic>Encontro Brasileiro de Bibliometria e Cientometria</italic> and <italic>Encontro Nacional de Pesquisa em Ciência da Informação</italic>, two important conferences of the field in Brazil.</p>
+                </list-item>
+                <list-item>
+                    <p>Selection of the <italic>corpus</italic>: at this level, titles, abstracts, and keywords of each paper were analyzed to identify the studies on KO. This resulted in 426 articles published by 41 researchers, which means that 9 out of the 50 researchers have not published studies on KO. The second criteria regarded the authorship pattern. Only the papers that have the researcher as the single or the first author were selected. It was considered that, in order to analyze the intellectual influences, it is important that the author is the main responsible for the knowledge created. This selection resulted in 166 articles.</p>
+                </list-item>
+                <list-item>
+                    <p>Organization of the data: the <italic>corpus</italic> of this research is formed by 166 articles published by 30 authors (12 PQ1; 18 PQ2). The references from each paper were collected, and the authors that were cited at least twice were included in the study. The exclusion criteria ruled out the references with authorship attributed to groups and institutions, as well as self-citations. This selection resulted in 666 authors cited at least twice.</p>
+                </list-item>
+                <list-item>
+                    <p>Defining the research front: Price Elitism Law was applied to identify the research front, that is, the set of authors most cited in the papers of the <italic>corpus</italic>. <xref ref-type="bibr" rid="B37">Price and Beaver (1966)</xref> state that every population of size N has an elite of size &#x221a;¯N. In applying the law, an elite of 25,8 authors was identified. Therefore, the author co-citation analysis (ACA) and author bibliographic coupling (ABC) analysis was created from 26 authors from the <italic>corpus</italic> of this research.</p>
+                </list-item>
+                <list-item>
+                    <p>Creating the ACA and ABC networks: the Excel software was used to create the co-citation and bibliographic coupling matrix. Then, the VosViewer software was used to develop the networks. Since 5 researchers did not cite any authors from the research front of this study, they were excluded from the ABC matrix. This resulted in a network formed by 25 nodes.</p>
+                </list-item>
+            </list>
+            <p>Following the steps described in this section, the goal to map the scientific literature on KO published by the elite of Information Science researchers in Brazil was achieved. The results and discussion of this study are presented in the next section.</p>
+            <sec>
+                <title>The intellectual foundation of Brazilian research on KO</title>
+                <p>Studies about specific domains of knowledge represent an opportunity to analyze and comprehend their influences taken from the scientific literature, and from other authors and their characteristics. It is a way to demonstrate the singularity of a path constituted by the influence of other intellectual minds.</p>
+                <p>When approaching this subject and its nuances, it is important to comprehend the complexity of the scientific construction and the dynamics of the constitution of a domain. <xref ref-type="bibr" rid="B28">Hjørland and Albrechtsen (1995)</xref> state that the way we communicate and organize knowledge, information systems, and the relevance criteria is reflected in the scientific community. In that sense, the study of researchers’ intellectual foundation contributes to the understanding of the epistemological consolidation of the area, as <xref ref-type="bibr" rid="B03">Barité (2001)</xref> states by proposing a set of premises in KO. Those premises represent the importance of KO and its intellectual meaning in the domain.</p>
+                <p>According to <xref ref-type="bibr" rid="B42">Smiraglia (2014</xref>; <xref ref-type="bibr" rid="B41">2015)</xref>, the presence of a theoretical basis in a domain, whether a single theory or a system of theoretical statements, implies not just the importance of the scientists in the domain, but also the importance of their scholarly productivity. In the same context, <xref ref-type="bibr" rid="B27">Hjørland (2015</xref>; <xref ref-type="bibr" rid="B24">2017)</xref> discusses the importance of the study of theories like KO, specially related to the construction and evaluation of the domain. This argument is present in papers that approached the nuclear role of KO in Information Science, considering domain analysis and its methodological contribution to scientific research. Following the same thought, <xref ref-type="bibr" rid="B18">Guimarães (2017)</xref> approaches the epistemological dimension of KO and the challenge to point out the different theoretical and methodological paths and their intersections, seeking the consolidation of KO as a domain of knowledge and the configuration of interdisciplinary investigative spaces.</p>
+                <p>The expression of the authors’ theoretical background in a domain may be observed in studies about their intellectual influences, but it may also be found in studies about the methodological configuration of their scientific production, for example. In this direction, <xref ref-type="bibr" rid="B33">Martínez-Ávila, Semidão e Ferreira (2016)</xref> analyzed the critical theories in KO, presenting them as a response to ethical problems that affect some groups in universal classification systems. In order to achieve their objective, the authors analyzed the epistemic stances and methodological implications of three critical theory instances applied to KO. As a result, they presented three steps in the methodological dynamic of critical theories in classification and KO: aporetic, theoretical framework, and proposition. They concluded that certain epistemologies, such as pragmatist positions, present a methodology closely related to that structure (<xref ref-type="bibr" rid="B34">Martínez-Ávila; Beak, 2016</xref>).</p>
+                <p>Similar conclusions are related to the analysis of a group, considering its intellectual basis and looking at the foundations of a domain. It is possible to establish an intellectual genealogy and recognize that the ideas are defined by generations of authors that work in the same domain. This argument can be found in <xref ref-type="bibr" rid="B01">Andraos’ (2005)</xref> where the author shows how a type of study acquires meaning to help solving problems, as well as confirming previous evidences that may show the connection among scientific ideas. <xref ref-type="bibr" rid="B01">Andraos (2005)</xref> also explains that genealogical studies allow us to comprehend the historical scientific evolution and to identify the relation among researchers, ideas and the knowledge flow created. <xref ref-type="table" rid="t01">Table 1</xref> shows the 30 researchers whose scientific literature was analyzed in this research.</p>
+                <table-wrap id="t01">
+                    <label>Table 1</label>
+                    <caption>
+                        <title>Research sample.</title>
+                    </caption>
+                    <table frame="hsides" rules="groups">
+                        <thead>
+                            <tr align="left">
+                                <th>Author</th>
+                                <th align="center">Institution</th>
+                                <th align="center">Papers analyzed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align="left">
+                                <td>Fujita MSL</td>
+                                <td>Universidade Estadual Paulista Júlio de Mesquita Filho (UNESP)</td>
+                                <td align="center">18</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Campos MLA</td>
+                                <td>Universidade Federal Fluminense (UFF)</td>
+                                <td align="center">16</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Almeia MB</td>
+                                <td>Universidade Federal de Minas Gerais (UFMG)</td>
+                                <td align="center">12</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Lara MLG</td>
+                                <td>Universidade de São Paulo (USP)</td>
+                                <td align="center">12</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Monteiro SD</td>
+                                <td>Universidade Estadual de Londrina (UEL)</td>
+                                <td align="center">10</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Kobashi KY</td>
+                                <td>Universidade de São Paulo (USP)</td>
+                                <td align="center">9</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Lima GA</td>
+                                <td>Universidade Federal de Minas Gerais (UFMG)</td>
+                                <td align="center">9</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Guimarães JAC</td>
+                                <td>Universidade Estadual Paulista Júlio de Mesquita Filho (UNESP)</td>
+                                <td align="center">8</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Almeida CHM</td>
+                                <td>Universidade Federal Fluminense (UFF)</td>
+                                <td align="center">7</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Bufrem LS</td>
+                                <td>Universidade Federal de Pernambuco (UFPE)</td>
+                                <td align="center">7</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Saldanha GS</td>
+                                <td>Instituto Brasileiro de Informação em Ciência e Tecnologia (IBICT)</td>
+                                <td align="center">7</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Orrico EGD</td>
+                                <td>Universidade Federal do Estado do Rio de Janeiro (UNIRIO)</td>
+                                <td align="center">5</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Pinho FA</td>
+                                <td>Universidade Federal de Pernambuco (UFPE)</td>
+                                <td align="center">5</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Crippa G</td>
+                                <td>Universidade de São Paulo (USP)</td>
+                                <td align="center">4</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Gonzalez-Degomez MN</td>
+                                <td>Universidade Federal Fluminense (UFF)</td>
+                                <td align="center">4</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Tálamo MFGM</td>
+                                <td>Universidade de São Paulo (USP)</td>
+                                <td align="center">4</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Pinto AL</td>
+                                <td>Universidade Federal de Santa Catarina (UFSC)</td>
+                                <td align="center">3</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Araujo CAA</td>
+                                <td>Universidade Federal de Minas Gerais (UFMG)</td>
+                                <td align="center">3</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Ferneda E</td>
+                                <td>Universidade Estadual Paulista Júlio de Mesquita Filho (UNESP)</td>
+                                <td align="center">3</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Medeiros MBB</td>
+                                <td>Universidade Federal de Santa Catarina (UFSC)</td>
+                                <td align="center">3</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Souza RR</td>
+                                <td>Universidade Federal de Minas Gerais (UFMG)</td>
+                                <td align="center">3</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Almeida CC</td>
+                                <td>Universidade Estadual Paulista Júlio de Mesquita Filho (UNESP)</td>
+                                <td align="center">2</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Dodebei VLDLM</td>
+                                <td>Universidade Federal do Estado do Rio de Janeiro (UNIRIO)</td>
+                                <td align="center">2</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Pinheiro LVR</td>
+                                <td>Instituto Brasileiro de Informação em Ciência e Tecnologia (IBICT)</td>
+                                <td align="center">2</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Pinto VB</td>
+                                <td>Universidade Federal do Ceará (UFC)</td>
+                                <td align="center">2</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Thiesen I</td>
+                                <td>Universidade Federal do Estado do Rio de Janeiro (UNIRIO)</td>
+                                <td align="center">2</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Almeida MA</td>
+                                <td>Universidade de São Paulo (USP)</td>
+                                <td align="center">1</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Dias GA</td>
+                                <td>Universidade Federal da Paraíba (UFPB)</td>
+                                <td align="center">1</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Lopez APA</td>
+                                <td>Universidade de Brasília (UnB)</td>
+                                <td align="center">1</td>
+                            </tr>
+                            <tr align="left">
+                                <td>Santos RNM</td>
+                                <td>Universidade Federal de Pernambuco (UFPE)</td>
+                                <td align="center">1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table-wrap-foot>
+                        <fn>
+                            <p>Source: Elaborated by the authors (2019).</p>
+                        </fn>
+                    </table-wrap-foot>
+                </table-wrap>
+                <p>Fujita MSL is the most productive author, with 52 articles on KO retrieved from the database. However, after applying the inclusion criteria, considering single authorship and the scientist as the main author of the paper, only 18 articles written by Fujita MSL were analyzed. Other studies also had similar results. A study about the scientific literature on indexing identified Fujita MSL as one of the most productive authors (<xref ref-type="bibr" rid="B08">Castro; Oliveira, 2016</xref>). She is also one of the most productive authors considering the articles published in the journal Knowledge Organization. Furthermore, Guimarães JAC, Pinho FA, Souza RR, Lima GA, Almeida, CC, Almeida MB, and Campos MLA were indicated as some of the most productive authors by the same research (<xref ref-type="bibr" rid="B39">Silva; Evangelista; Guimarães, 2019</xref>).</p>
+                <p>The research front of this study (26 cited authors) is presented in <xref ref-type="table" rid="t02">Table 2</xref>, where there are indicated citations, the number of papers where they were cited, and the citation average. Dahlberg I is the most cited author (53 citations), and Smith B and Fujita MLS have the highest citation average considering the <italic>corpus</italic> of this research. <xref ref-type="bibr" rid="B06">Bufrem, Silva and Sobral (2017)</xref> recognized <xref ref-type="bibr" rid="B12">Dahlberg (1978)</xref> as the second most cited author in a similar study.</p>
+                <table-wrap id="t02">
+                    <label>Table 2</label>
+                    <caption>
+                        <title>Research Sample.</title>
+                    </caption>
+                    <table frame="hsides" rules="groups">
+                        <thead>
+                            <tr align="center">
+                                <th align="left">Author</th>
+                                <th>Citations</th>
+                                <th>Papers</th>
+                                <th>Citation average</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align="center">
+                                <td align="left">Dahlberg I</td>
+                                <td>53</td>
+                                <td>31</td>
+                                <td>1,70</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Gardin JC</td>
+                                <td>52</td>
+                                <td>16</td>
+                                <td>3,25</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Smith B</td>
+                                <td>51</td>
+                                <td>14</td>
+                                <td>3,60</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Hjørland B</td>
+                                <td>50</td>
+                                <td>32</td>
+                                <td>1,50</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Tálamo MFGM</td>
+                                <td>45</td>
+                                <td>19</td>
+                                <td>2,30</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Guarino N</td>
+                                <td>40</td>
+                                <td>16</td>
+                                <td>2,50</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Ranganathan SR</td>
+                                <td>35</td>
+                                <td>15</td>
+                                <td>2,30</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Kobashi NY</td>
+                                <td>30</td>
+                                <td>29</td>
+                                <td>1,10</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Campos MLA</td>
+                                <td>30</td>
+                                <td>23</td>
+                                <td>1,30</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Cintra AMM</td>
+                                <td>30</td>
+                                <td>19</td>
+                                <td>1,50</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Garcia Gutierrez A</td>
+                                <td>30</td>
+                                <td>19</td>
+                                <td>1,50</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Lara MLG</td>
+                                <td>30</td>
+                                <td>14</td>
+                                <td>2,10</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Lancaster FW</td>
+                                <td>29</td>
+                                <td>25</td>
+                                <td>1,16</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Lévy P</td>
+                                <td>29</td>
+                                <td>16</td>
+                                <td>1,80</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Vickery BC</td>
+                                <td>27</td>
+                                <td>20</td>
+                                <td>1,30</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Deleuze G</td>
+                                <td>24</td>
+                                <td>13</td>
+                                <td>1,80</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Wittgenstein L</td>
+                                <td>23</td>
+                                <td>13</td>
+                                <td>1,70</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Guimarães JAC</td>
+                                <td>22</td>
+                                <td>20</td>
+                                <td>1,10</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Capurro R</td>
+                                <td>22</td>
+                                <td>17</td>
+                                <td>1,30</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Frohmann B</td>
+                                <td>22</td>
+                                <td>13</td>
+                                <td>1,70</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Eco U</td>
+                                <td>21</td>
+                                <td>16</td>
+                                <td>1,30</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Foucault M</td>
+                                <td>21</td>
+                                <td>15</td>
+                                <td>1,40</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Smit JW</td>
+                                <td>21</td>
+                                <td>13</td>
+                                <td>1,60</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Beghtol C</td>
+                                <td>19</td>
+                                <td>10</td>
+                                <td>1,90</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Fujita MLS</td>
+                                <td>18</td>
+                                <td>5</td>
+                                <td>3,60</td>
+                            </tr>
+                            <tr align="center">
+                                <td align="left">Saracevic T</td>
+                                <td>18</td>
+                                <td>11</td>
+                                <td>1,60</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table-wrap-foot>
+                        <fn>
+                            <p>Source: Elaborated by the authors (2019).</p>
+                        </fn>
+                    </table-wrap-foot>
+                </table-wrap>
+                <p>The ACA shows details and connections between pairs of authors. Those connections represent the explicit recognition of dependency among papers, scientists, fields, approaches and theories, for example (<xref ref-type="bibr" rid="B23">Hjørland, 2002a</xref>). <xref ref-type="bibr" rid="B09">Chen, Ibekwe-Sanjuan and Hou (2010, p.1387)</xref> explains that “[a]n ACA study typically focuses on a network of cited authors connected by co-citation links”. Thus, the ACA developed in this study aims to identify underlying specialties within a field in terms of groups of authors who were cited together in the literature analyzed.</p>
+                <p>The ACA network is found in <xref ref-type="fig" rid="f01">Figure 1</xref>. There are 26 nodes and each of them represents one of the 26 most cited authors in the papers from the <italic>corpus</italic> of this study. The network has 3 clusters and 213 links and 358 total link strength. The density of the network is 1,1015. Tálamo MFGM has the major out centrality degree (33), followed by Hjørland B (33). The density of the network is 0,6677. Therefore, there is a total of 66% of connections represented by the co-authorship in the ACA network.</p>
+                <fig id="f01">
+                    <label>Figure 1</label>
+                    <caption>
+                        <title>Author cocitation network.</title>
+                    </caption>
+                    <graphic xlink:href="2318-0889-tinf-33-e200068-gf01.tif"/>
+                    <attrib>Source: Elaborated by the authors based on data collected from Brapci (2020).</attrib>
+                </fig>
+                <p>The highest frequency of co-citation identified is between Hjørland B and Dahlberg I; Tálamo MFGM and Kobashi NY. They are the closest authors in the network, considering they were cited together many times. It can also be stated that they are the seminal authors to the Brazilian scientists studied in this paper. A future content analysis of the co-cited authors’ papers could highlight evidences of their epistemological consensus as proposed by <xref ref-type="bibr" rid="B42">Smiraglia (2014)</xref>.</p>
+                <p>There is also a strong relation between Campos MLA and Vickery BC, Cintra, AMM and Kobashi NY, Gardin JC and Tálamo MFGM, Hjørland B and Guimarães JAC, Kobashi NY and Guimarães JAC, Levy P and Wittgenstein L. Those authors were cited together four times.</p>
+                <p>The ABC network was conceived in order to identify the authors that influence the domain of KO in Brazil and to recognize the proximity of citation among the scientists investigated in this study. There are 25 nodes in the ABC network presented in <xref ref-type="fig" rid="f02">Figure 2</xref>. These nodes represent the 25 researchers from whom the scientific literature is analyzed in this study.</p>
+                <fig id="f02">
+                    <label>Figure 2</label>
+                    <caption>
+                        <title>Author bibliographic coupling network.</title>
+                    </caption>
+                    <graphic xlink:href="2318-0889-tinf-33-e200068-gf02.tif"/>
+                    <attrib>Source: Elaborated by the authors based on data collected from Brapci (2020).</attrib>
+                </fig>
+                <p>The network has 25 nodes that form 3 cluster and there are a total of 221 links and the total link strength is 571. Bufrem LS has the major out centrality degree (73), followed by Almeida MB (62). The density of the network is 0,3683. Thus, there is a total of 36% of connections are represented by the co-authorship in the ABC network.</p>
+                <p>The strongest relationships in the ABC network are between Lara LMG and Bufrem L, Lara LMG and Guimarães JAC, and Bufrem L and Fujita MSP. Each pair of researchers cited nine authors in common in the papers analyzed. Lara, Bufrem and Guimarães cited fundamental authors to the domain in their papers: Campos MLA, Cintra AMM, Dahlberg I, Frohman B, García Gutiérrez A, Gardin JC, Guimarães JAC, Hjørland B, Kobashi NY, Lara MLG, Ranganathan SR, Smit JW and Tálamo MFGM.</p>
+                <p>In light of this data, there is evidence of the influence of European literature in Brazilian research on KO. Moreover, the intellectual environment in which these researchers work configures and demonstrates the tacit relationship among them.</p>
+            </sec>
+        </sec>
+        <sec sec-type="discussion">
+            <title>Discussion</title>
+            <p>The results presented in this article represent the citation studies’ possibilities regarded to the connections among the actors in a scientific community. The thoughts presented through the arguments discussed lead to two different approaches, epistemic and discourse communities. Although they come from different concepts, both approaches are regarded to different types of citation analysis. They reflect its social, historical, dynamic nature and, its dependence to scholarly literature (<xref ref-type="bibr" rid="B21">Hjørland, 2013</xref>).</p>
+            <p>Therefore, the citation analysis leads to the identification of the communities of scientists and their publications. It also highlights the scientists’ impact in the domain, as <xref ref-type="bibr" rid="B14">Glänzel (2003)</xref> argued. It is possible to state that the bibliographic coupling network favors the visualization of a discourse community through the identification of the relations among its actors. On the other side, the cocitation network leads to the visualize of epistemic community, its consensus and features (<xref ref-type="bibr" rid="B16">Grácio, 2020</xref>).</p>
+            <p>“An epistemic community is a network of professionals with recognized expertise and competence in a particular domain and an authoritative claim to policy-relevant knowledge within that domain or issue-area” (<xref ref-type="bibr" rid="B20">Haas, 1992</xref>, p.3). Furthermore, they are “communities concerned with producing and disseminating knowledge” (<xref ref-type="bibr" rid="B35">Meyer; Molyneux-Hodgson, 2010</xref>, p.1).</p>
+            <p>Figure 1 shows an author co-citation network which represents the epistemic community that influences the KO domain in Brazil regarded to the data analyzed in this study. Other studies have also showed that kind of relationship in the KO domain (<xref ref-type="bibr" rid="B02">Araújo; Guimarães, 2017</xref>; <xref ref-type="bibr" rid="B06">Bufrem; Silva; Sobral, 2017</xref>; <xref ref-type="bibr" rid="B39">Silva; Evangelista; Guimarães, 2019</xref>).</p>
+            <p><xref ref-type="bibr" rid="B20">Haas (1992, p.3)</xref> argues that an epistemic community have a shared set of normative and principled beliefs, casual beliefs, notions of validity and a set of common practices associated with a set of issues. When the study presents the proximity between authors in the network, as well as its connection frequency, it elucidates the actors “shared belief or faith in the verity and the applicability of particular forms of knowledge or specific truths”.</p>
+            <p>The proximity between Hjørland B and Dahlberg I, Tálamo MFGM and Kobashi NY, indicating the highest frequency of co-citation in the network, shows that those author “share intersubjective understandings; have a shared way of knowing; have shared patterns of reasoning; have a policy project drawing on shared values, shared causal beliefs, and the use of shared discursive practices; and have a shared commitment to the application and production of knowledge” (<xref ref-type="bibr" rid="B20">Haas, 1992</xref>, p.3).</p>
+            <p>Hjørland and Dahlberg proximity in the network (<xref ref-type="fig" rid="f01">Figure 1</xref>) may have to do with the connection between they thoughts, for example, regarded to the Concept Theory created by Dahlberg in the 1970s and studied by <xref ref-type="bibr" rid="B26">Hjørland (2003</xref>; <xref ref-type="bibr" rid="B22">2009)</xref> through the years taking at times a pragmatist point of view. Besides, their theoretical studies are central to the understanding of the domain and also to the creation of new theories and practices in KO.</p>
+            <p>The connection between Tálamo MFGM and Kobashi NY also demonstrate the evidence of the existence of a epistemic community. Both authors work at the same institution and they have a consolidated research partnership (<xref ref-type="bibr" rid="B30">Kobashi; Smit; Tálamo, 2001</xref>; <xref ref-type="bibr" rid="B43">Smit; Kobashi; Tálamo, 2004</xref>; <xref ref-type="bibr" rid="B10">Cintra <italic>et al</italic>., 2005</xref>). Their research on documentary analysis and terminology are fundamental to the KO domain in Brazil, what explains its influence in the literature analyzed in this research.</p>
+            <p>Connectivity is important to epistemic communities, specially by connecting objects and subjects, people and places, production and distributions, individuals and collectives, histories and futures, the virtual and the concrete. “An analysis of where and how these connections are made and remade and the epistemic and political consequences of these processes is, we believe, a way to further our understanding of the matter and the texture of epistemic communities” (<xref ref-type="bibr" rid="B35">Meyer; Molyneux-Hodgson, 2010</xref>, p.5).</p>
+            <p>On the other hand, Figure 2 shows the discourse community through the author bibliographic coupling network of the scholarly literature in the KO domain in Brazil. Their proximity is regarded to the authors they have cited in their studies.</p>
+            <p>The concept of discourse communities was presented by <xref ref-type="bibr" rid="B28">Hjørland and Albrechtsen (1995)</xref> when they discussed the domain analyses paradigm. They state that “the best way to understand information in IS is to study the knowledge-domains as thought or discourse communities, which are parts of society’s division of labor”. Furthermore, the author recognizes that “knowledge organization, structures, cooperation patters, language and communications forms, information systems, and relevance criteria are reflections of the objects of the work of these communities and of their role in society” (<xref ref-type="bibr" rid="B28">Hjørland; Albrechtsen, 1995</xref>, p.400).</p>
+            <p><xref ref-type="bibr" rid="B29">Hjørland and Hartel (2003, p.105)</xref> acknowledge that “people may [&#x2026;] be seen as members of discourse communities and be studied as such. We may study the social division of labor and the dependency between different people and groups of people”. This study shows the importance of that statement since it proposes the discovery of the discourse community that influence the KO domain in Brazil.</p>
+            <p>According to <xref ref-type="bibr" rid="B13">Dousa (2010, p.68)</xref> Hjørland’s “domain-analytic idea that the universe of knowledge consists of different domains correlated to different epistemic communities is consonant with Dewey’s pluralist vision of multiple communities”. That assertion demonstrates Dewey’s thought deep impact on the Pragmatist perspective for KO developed by Hjørland which is regarded to the understanding of discourse communities.</p>
+            <p>Discourse communities are a way of understanding the pragmatic, institutional and discourse dimension of knowledge domains through domain analysis (<xref ref-type="bibr" rid="B23">Hjørland, 2002a</xref>; <xref ref-type="bibr" rid="B32">Marteleto; Carvalho, 2015</xref>). Furthermore, they are constituted as configurations formed from epistemic attitudes in the context of a domain (<xref ref-type="bibr" rid="B25">Hjørland 2002b</xref>, 257; <xref ref-type="bibr" rid="B32">Marteleto; Carvalho, 2015</xref>).</p>
+            <p>As the pairs of cocited authors are recognized in this study (Lara LMG and Bufrem L, Lara LMG and Guimarães JAC, and Bufrem L and Fujita MSP) and also the main authors they cited (Campos MLA, Cintra AMM, Dahlberg I, Frohman B, García Gutiérrez A, Gardin JC, Guimarães JAC, Hjørland B, Kobashi NY, Lara MLG, Ranganathan SR, Smit JW and Tálamo MFGM), it is possible to acknowledge the connection and epistemological, theoretical and methodological relations among them. That acknowledgement is an evidence of the creation of a discourse community, since “author co-citation analysis is one approach for visualizing discourse in a domain” (<xref ref-type="bibr" rid="B41">Smiraglia, 2015</xref>, p.606).</p>
+        </sec>
+        <sec sec-type="conclusions">
+            <title>Conclusion</title>
+            <p>This study analyzed the intellectual foundation of the scientific literature on KO published by researchers enrolled in the Research Productivity Fellowship from CNPq in Brazil. The <italic>corpus</italic> is composed of 166 papers by 41 authors published in journals and proceedings from 1972 to 2018 and indexed at Brapci.</p>
+            <p>The ACA analysis is illustrated by 26 nodes that represent the most cited authors in the papers included in this study. The highest co-citation frequency occurred between Hjørland and Dahlberg, and Tálamo and Kobashi. They are the closest authors in the network and their research represents the main intellectual influence on Brazilian researchers analyzed in this study. Hjørland and Dahlberg are some of the main intellectuals in the KO domain. Besides, they have similar research approaches, which led to the expectation of their presence among the co-cited authors. The same can be noted about Tálamo and Kobashi in the Brazilian context.</p>
+            <p>The ABC allowed the comprehension of the main authors’ influence on the domain of KO, regarding the proximity of citation among the researchers. There are 25 nodes in the ABC network, representing the 25 authors from the research <italic>corpus</italic>. The strongest connections in the network are between Lara and Bufrem, Lara and Guimarães, and Bufrem and Fujita. Each pair of authors cited 9 authors in common.</p>
+            <p>The research shows that those authors have similar influences in their researches on the KO domain. However, a future analysis of the papers cited by the authors whose connection was demonstrated in the ABC network may demonstrate their theoretical influences through a study of intellectual genealogy.</p>
+            <p>This study contributes to show that the application of ACA and ABC together is fundamental to improve the visualization of the domain. Moreover, it identifies the scientists from the domain, defines the intellectual genealogy, and delineates the epistemic and discourse community. The results also indicate the possibility of developing diachronic studies on the continuing influences of cited authors, especially from seminal authors, to analyze their permanence or transience over time.</p>
+            <p>Lastly, the influence of European literature among the researchers considered to this study is evident. The presuppositions about the importance of this kind of relational study were confirmed as a means to understand the diachronic evolution of a scientific domain and to identify the context in which the cognitive connections were created. The methodological procedures employed in this research, as well as the theoretical foundation on KO and domain analysis, allow for a broader visualization of the relationships among researchers, ideas, and knowledge flow.</p>
+        </sec>
+    </body>
+    <back>
+        <ack>
+            <title>Acknowledgment</title>
+            <p>We thank the Centro de Assessoria de Publicação Acadêmica (CAPA, Academic Publishing Advisory Center) of the <italic>Universidade Federal do Paraná</italic> (UFPR, Federal University of Paraná) for assistance with English language editing.</p>
+        </ack>
+        <fn-group>
+            <title>Como citar este artículo/<italic>How to cite this article</italic></title>
+            <fn fn-type="other" id="fn03">
+                <p>PAraújo, P. C.; Bufrem, L. S. The intellectual foundation of the elite of Brazilian researchers on knowledge organization domain. <italic>Transinformação</italic>, v. 33, e200068, 2021. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/2318-0889202133e200068">https://doi.org/10.1590/2318-0889202133e200068</ext-link></p>
+            </fn>
+        </fn-group>
+        <ref-list>
+            <title>Referencias</title>
+            <ref id="B01">
+
+                <mixed-citation>Andraos, J. Scientific genealogies of physical and mechanistic organic chemists. <italic>Canadian Journal of Chemistry</italic>, v. 83, n. 9, p. 1400-1414, 2005. Doi: https://doi.org/10.1139/v05-158.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Andraos</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Scientific genealogies of physical and mechanistic organic chemists</article-title>
+                    <source>Canadian Journal of Chemistry</source>
+                    <volume>83</volume>
+                    <issue>9</issue>
+                    <fpage>1400</fpage>
+                    <lpage>1414</lpage>
+                    <year>2005</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B02">
+
+                <mixed-citation>Araújo, P. C.; Guimarães, J. A. C. Análise de citação da produção científica do domínio de epistemologia da organização do conhecimento. <italic>In</italic>: Encontro Nacional de Pesquisa em Ciência da Informação, 18., 2017, Marília. <italic>Anais</italic> [...]. Marília: UNESP, 2017. p. 1-20.</mixed-citation>
+
+                <element-citation publication-type="confproc">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Araújo</surname>
+                            <given-names>P. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Guimarães</surname>
+                            <given-names>J. A. C.</given-names>
+                        </name>
+                    </person-group>
+                    <comment>Análise de citação da produção científica do domínio de epistemologia da organização do conhecimento</comment>
+                    <conf-name>Encontro Nacional de Pesquisa em Ciência da Informação</conf-name>
+                    <edition>18.</edition>
+                    <conf-date>2017</conf-date>
+                    <conf-loc>Marília</conf-loc>
+                    <source>Anais</source>
+                    <publisher-loc>Marília</publisher-loc>
+                    <publisher-name>UNESP</publisher-name>
+                    <year>2017</year>
+                    <fpage>1</fpage>
+                    <lpage>20</lpage>
+
+                </element-citation>
+            </ref>
+            <ref id="B03">
+
+                <mixed-citation>Barité, M. Organización del conocimiento: un nuevo marco teórico-conceptual en Bibliotecología y Documentación. <italic>In</italic>: Carrara, K. (ed.). <italic>Educação, universidade e pesquisa</italic>. Marília: UNESP, 2001. p. 35-60.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Barité</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>Organización del conocimiento: un nuevo marco teórico-conceptual en Bibliotecología y Documentación</chapter-title>
+                    <person-group person-group-type="editor">
+                        <name>
+                            <surname>Carrara</surname>
+                            <given-names>K.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Educação, universidade e pesquisa</source>
+                    <publisher-loc>Marília</publisher-loc>
+                    <publisher-name>UNESP</publisher-name>
+                    <year>2001</year>
+                    <fpage>35</fpage>
+                    <lpage>60</lpage>
+
+                </element-citation>
+            </ref>
+            <ref id="B04">
+
+                <mixed-citation>Bufrem, L. S. Perspectivas da pesquisa sobre organização do conhecimento no Brasil. <italic>In</italic>: Guimarães, J. A. C.; Dodebei, V. <italic>Organização do conhecimento e diversidade cultural</italic>. Marília: ISKO, 2015. p. 709-724. Disponível em: http://isko-brasil.org.br/wp-content/uploads/2013/02/Organiza%C3%83%C2%A7%C3%83%C2%A3o-do-Conhecimento-e-Diversidade-Cultural-ISKO-BRASIL-2015.pdf. Acesso em: 14 jul. 2020.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Bufrem</surname>
+                            <given-names>L. S.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>Perspectivas da pesquisa sobre organização do conhecimento no Brasil</chapter-title>
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Guimarães</surname>
+                            <given-names>J. A. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Dodebei</surname>
+                            <given-names>V.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Organização do conhecimento e diversidade cultural</source>
+                    <publisher-loc>Marília</publisher-loc>
+                    <publisher-name>ISKO</publisher-name>
+                    <year>2015</year>
+                    <fpage>709</fpage>
+                    <lpage>724</lpage>
+                    <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://isko-brasil.org.br/wp-content/uploads/2013/02/Organiza%C3%83%C2%A7%C3%83%C2%A3o-do-Conhecimento-e-Diversidade-Cultural-ISKO-BRASIL-2015.pdf">http://isko-brasil.org.br/wp-content/uploads/2013/02/Organiza%C3%83%C2%A7%C3%83%C2%A3o-do-Conhecimento-e-Diversidade-Cultural-ISKO-BRASIL-2015.pdf</ext-link></comment>
+                    <date-in-citation content-type="access-date">14 jul. 2020</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B05">
+
+                <mixed-citation>Bufrem, L. S. <italic>Quadros teóricos seminais na prática da pesquisa em ciência da informação no Brasil</italic>. Brasília: CNPq, 2016.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Bufrem</surname>
+                            <given-names>L. S.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Quadros teóricos seminais na prática da pesquisa em ciência da informação no Brasil</source>
+                    <publisher-loc>Brasília</publisher-loc>
+                    <publisher-name>CNPq</publisher-name>
+                    <year>2016</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B06">
+
+                <mixed-citation>Bufrem, L. S.; Silva, F. M.; Sobral, N. V. Análise das influências intelectuais na produção científica da área de Ciência da Informação: um estudo sobre os bolsistas de produtividade em pesquisa (PQ-CNPq). <italic>Em Questão</italic>, v. 23, n. 5, p. 115-141, 2017. Doi: https://doi.org/10.19132/1808-5245230.115-141.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Bufrem</surname>
+                            <given-names>L. S.</given-names>
+                        </name>
+                        <name>
+                            <surname>Silva</surname>
+                            <given-names>F. M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Sobral</surname>
+                            <given-names>N. V.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Análise das influências intelectuais na produção científica da área de Ciência da Informação: um estudo sobre os bolsistas de produtividade em pesquisa (PQ-CNPq)</article-title>
+                    <source>Em Questão</source>
+                    <volume>23</volume>
+                    <issue>5</issue>
+                    <fpage>115</fpage>
+                    <lpage>141</lpage>
+                    <year>2017</year>
+                    <pub-id pub-id-type="doi">10.19132/1808-5245230.115-141</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B07">
+
+                <mixed-citation>Castanha, R. C. G.; Wolfram, D. The domain of knowledge organization: a bibliometric analysis of prolific authors and their intellectual space. <italic>Knowledge Organization</italic>, v. 45, n. 1, p. 13-22, 2018. Doi: https://doi.org/10.5771/0943-7444-2018-1-13.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Castanha</surname>
+                            <given-names>R. C. G.</given-names>
+                        </name>
+                        <name>
+                            <surname>Wolfram</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>The domain of knowledge organization: a bibliometric analysis of prolific authors and their intellectual space</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>45</volume>
+                    <issue>1</issue>
+                    <fpage>13</fpage>
+                    <lpage>22</lpage>
+                    <year>2018</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2018-1-13</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B08">
+
+                <mixed-citation>Castro, I. R.; Oliveira, M. Análise bibliométrica da produção científica sobre as linguagens de indexação publicadas nos anais de congresso do ENANCIB no período de 2012 a 2015. <italic>Biblionline</italic>, v. 12, n. 3, p. 48-60, 2016. Disponível em: https://periodicos.ufpb.br/ojs2/index.php/biblio/article/view/29876. Acesso em: 11 ago. 2020.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Castro</surname>
+                            <given-names>I. R.</given-names>
+                        </name>
+                        <name>
+                            <surname>Oliveira</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Análise bibliométrica da produção científica sobre as linguagens de indexação publicadas nos anais de congresso do ENANCIB no período de 2012 a 2015</article-title>
+                    <source>Biblionline</source>
+                    <volume>12</volume>
+                    <issue>3</issue>
+                    <fpage>48</fpage>
+                    <lpage>60</lpage>
+                    <year>2016</year>
+                    <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://periodicos.ufpb.br/ojs2/index.php/biblio/article/view/29876">https://periodicos.ufpb.br/ojs2/index.php/biblio/article/view/29876</ext-link></comment>
+                    <date-in-citation content-type="access-date">11 ago. 2020</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B09">
+
+                <mixed-citation>Chen, C.; Ibekwe-Sanjuan, F.; Hou, J. The structure and dynamics of cocitation clusters: a multiple-perspective cocitation analysis. <italic>Journal of the American Society for Information Science and Technology</italic>, v. 61, n. 7, p. 1386-1409, 2010. Doi: https://doi.org/10.1002/asi.21309.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Chen</surname>
+                            <given-names>C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Ibekwe-Sanjuan</surname>
+                            <given-names>F.</given-names>
+                        </name>
+                        <name>
+                            <surname>Hou</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>The structure and dynamics of cocitation clusters: a multiple-perspective cocitation analysis</article-title>
+                    <source>Journal of the American Society for Information Science and Technology</source>
+                    <volume>61</volume>
+                    <issue>7</issue>
+                    <fpage>1386</fpage>
+                    <lpage>1409</lpage>
+                    <year>2010</year>
+                    <pub-id pub-id-type="doi">10.1002/asi.21309</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B10">
+
+                <mixed-citation>Cintra, A. M. M. <italic>et al</italic>. <italic>Para entender as linguagens documentárias</italic>. São Paulo: Polis, 1994.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Cintra</surname>
+                            <given-names>A. M. M.</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <source>Para entender as linguagens documentárias</source>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Polis</publisher-name>
+                    <year>1994</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B11">
+
+                <mixed-citation>Conselho Nacional de Desenvolvimento Científico e Tecnológico. <italic>Apresentação</italic>. Brasília: Ministério da Ciência, Tecnologia e Inovações, 2020. Disponível em: http://cnpq.br/apresentacao_institucional/. Acesso em: 15 jul. 2020.</mixed-citation>
+
+                <element-citation publication-type="webpage">
+                    <person-group person-group-type="author">
+                        <collab>Conselho Nacional de Desenvolvimento Científico e Tecnológico</collab>
+                    </person-group>
+                    <source>Apresentação</source>
+                    <publisher-loc>Brasília</publisher-loc>
+                    <publisher-name>Ministério da Ciência</publisher-name>
+                    <publisher-name>Tecnologia e Inovações</publisher-name>
+                    <year>2020</year>
+                    <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://cnpq.br/apresentacao_institucional/">http://cnpq.br/apresentacao_institucional/</ext-link></comment>
+                    <date-in-citation content-type="access-date">15 jul. 2020</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B12">
+
+                <mixed-citation>Dahlberg, I. Teoria do conceito. <italic>Ciência da Informação</italic>, v. 7, n. 2, p. 101-107, 1978. Disponível em: http://revista.ibict.br/ciinf/article/view/115. Acesso em: 11 ago. 2020.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Dahlberg</surname>
+                            <given-names>I.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Teoria do conceito</article-title>
+                    <source>Ciência da Informação</source>
+                    <volume>7</volume>
+                    <issue>2</issue>
+                    <fpage>101</fpage>
+                    <lpage>107</lpage>
+                    <year>1978</year>
+                    <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://revista.ibict.br/ciinf/article/view/115">http://revista.ibict.br/ciinf/article/view/115</ext-link></comment>
+                    <date-in-citation content-type="access-date">11 ago. 2020</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B13">
+
+                <mixed-citation>Dousa, T. M. Classical pragmatism and its varieties: on a pluriform metatheoretical perspective for knowledge organization. <italic>Knowledge Organization</italic>, v. 37, n. 1, p. 65-71, 2010. Doi: https://doi.org/10.5771/0943-7444-2010-1-65.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Dousa</surname>
+                            <given-names>T. M.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Classical pragmatism and its varieties: on a pluriform metatheoretical perspective for knowledge organization</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>37</volume>
+                    <issue>1</issue>
+                    <fpage>65</fpage>
+                    <lpage>71</lpage>
+                    <year>2010</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2010-1-65</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B14">
+
+                <mixed-citation>Glänzel, W. <italic>Bibliometrics as a research field</italic>: a course on theory and application of bibliometric indicators. Bélgica, 2003. Available from: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.97.5311&amp;rep=rep1&amp;type=pdf. Cited: Jan. 9, 2011.</mixed-citation>
+
+                <element-citation publication-type="webpage">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Glänzel</surname>
+                            <given-names>W.</given-names>
+                        </name>
+                    </person-group>
+                    <source><italic>Bibliometrics as a research field</italic>: a course on theory and application of bibliometric indicators</source>
+                    <publisher-loc>Bélgica</publisher-loc>
+                    <year>2003</year>
+                    <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.97.5311&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.97.5311&amp;rep=rep1&amp;type=pdf</ext-link></comment>
+
+                </element-citation>
+            </ref>
+            <ref id="B15">
+
+                <mixed-citation>Grácio, M. C. C. Acoplamento bibliográfico e análise de cocitação: revisão teórico-conceitual. <italic>Encontros Bibli: Revista Eletrônica de Biblioteconomia e Ciência da Informação</italic>, v. 21, n. 47, p. 82-99, 2016. Doi: https://doi.org/10.5007/1518-2924.2016v21n47p82.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Grácio</surname>
+                            <given-names>M. C. C.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Acoplamento bibliográfico e análise de cocitação: revisão teórico-conceitual</article-title>
+                    <source>Encontros Bibli: Revista Eletrônica de Biblioteconomia e Ciência da Informação</source>
+                    <volume>21</volume>
+                    <issue>47</issue>
+                    <fpage>82</fpage>
+                    <lpage>99</lpage>
+                    <year>2016</year>
+                    <pub-id pub-id-type="doi">10.5007/1518-2924.2016v21n47p82</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B16">
+
+                <mixed-citation>Grácio, M. C. C. <italic>Análises relacionais de citação como método para identificação de domínios científicos</italic>. Porto Alegre: PPGCIN/UFRGS, 2020. 1 vídeo (104 min). Disponível em: https://www.youtube.com/watch?v=TQXSHoM3jmE. Acesso em: 5 jan. 2021.</mixed-citation>
+
+                <element-citation publication-type="webpage">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Grácio</surname>
+                            <given-names>M. C. C.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Análises relacionais de citação como método para identificação de domínios científicos</source>
+                    <publisher-loc>Porto Alegre</publisher-loc>
+                    <publisher-name>PPGCIN/UFRGS</publisher-name>
+                    <year>2020</year>
+                    <comment>1 vídeo (104 min). Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.youtube.com/watch?v=TQXSHoM3jmE">https://www.youtube.com/watch?v=TQXSHoM3jmE</ext-link></comment>
+                    <date-in-citation content-type="access-date">5 jan. 2021</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B17">
+
+                <mixed-citation>Grácio, M. C. C.; Oliveira, E. F. T. A pesquisa brasileira em estudos métricos da informação: proximidade entre pesquisadores de destaque e áreas afins. <italic>Informação &amp; Sociedade: Estudos</italic>, v. 27, n. 2, p. 105-116, 2017. Doi: http://doi.org/10.22478/ufpb.1809-4783.2017v27n2.32483.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Grácio</surname>
+                            <given-names>M. C. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Oliveira</surname>
+                            <given-names>E. F. T.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>A pesquisa brasileira em estudos métricos da informação: proximidade entre pesquisadores de destaque e áreas afins</article-title>
+                    <source>Informação &amp; Sociedade: Estudos</source>
+                    <volume>27</volume>
+                    <issue>2</issue>
+                    <fpage>105</fpage>
+                    <lpage>116</lpage>
+                    <year>2017</year>
+                    <pub-id pub-id-type="doi">10.22478/ufpb.1809-4783.2017v27n2.32483</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B18">
+
+                <mixed-citation>Guimarães, J. A. C. Organização do conhecimento: passado, presente e futuro sob a perspectiva da ISKO. <italic>Informação &amp; Informação</italic>, v. 22, n. 2, p. 84-98, 2017. Doi: http://doi.org/10.5433/1981-8920.2017v22n2p84.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Guimarães</surname>
+                            <given-names>J. A. C.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Organização do conhecimento: passado, presente e futuro sob a perspectiva da ISKO</article-title>
+                    <source>Informação &amp; Informação</source>
+                    <volume>22</volume>
+                    <issue>2</issue>
+                    <fpage>84</fpage>
+                    <lpage>98</lpage>
+                    <year>2017</year>
+                    <pub-id pub-id-type="doi">10.5433/1981-8920.2017v22n2p84</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B19">
+
+                <mixed-citation>Guimarães, J. A. C.; Grácio, M. C. C.; Matos, D. F. O. Produção científica de bolsistas pesquisa em ciência da informação do conselho nacional de desenvolvimento científico e tecnológico (CNPq) &#x2013; um estudo com artigos de periódicos. <italic>DataGramaZero</italic>, v. 15, n. 2, p. 1-7, 2014. Disponível em: http://hdl.handle.net/20.500.11959/brapci/8279. Acesso em: 22 ago. 2020.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Guimarães</surname>
+                            <given-names>J. A. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Grácio</surname>
+                            <given-names>M. C. C.</given-names>
+                        </name>
+                        <name>
+                            <surname>Matos</surname>
+                            <given-names>D. F. O.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Produção científica de bolsistas pesquisa em ciência da informação do conselho nacional de desenvolvimento científico e tecnológico (CNPq) &#x2013; um estudo com artigos de periódicos</article-title>
+                    <source>DataGramaZero</source>
+                    <volume>15</volume>
+                    <issue>2</issue>
+                    <fpage>1</fpage>
+                    <lpage>7</lpage>
+                    <year>2014</year>
+                    <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://hdl.handle.net/20.500.11959/brapci/8279">http://hdl.handle.net/20.500.11959/brapci/8279</ext-link></comment>
+                    <date-in-citation content-type="acess-date">22 ago. 2020</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B20">
+
+                <mixed-citation>Haas, P. M. Introduction: epistemic communities and international policy coordination. <italic>International Organization</italic>, v. 46, n. 1, p. 1-35, 1992. Available from: http://www.jstor.org/stable/2706951. Cited: May 23, 2016.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Haas</surname>
+                            <given-names>P. M.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Introduction: epistemic communities and international policy coordination</article-title>
+                    <source>International Organization</source>
+                    <volume>46</volume>
+                    <issue>1</issue>
+                    <fpage>1</fpage>
+                    <lpage>35</lpage>
+                    <year>1992</year>
+                    <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://www.jstor.org/stable/2706951">http://www.jstor.org/stable/2706951</ext-link></comment>
+                    <date-in-citation content-type="acess-date">May 23, 2016</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B21">
+
+                <mixed-citation>Hjørland, B. Citation analysis: a social and dynamic approach to knowledge organization. <italic>Information Processing and Management</italic>, v. 49, n. 6, p. 1313-1325, 2013. Doi: http://doi.org/10.1016/j.ipm.2013.07.001.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Citation analysis: a social and dynamic approach to knowledge organization</article-title>
+                    <source>Information Processing and Management</source>
+                    <volume>49</volume>
+                    <issue>6</issue>
+                    <fpage>1313</fpage>
+                    <lpage>1325</lpage>
+                    <year>2013</year>
+                    <pub-id pub-id-type="doi">10.1016/j.ipm.2013.07.001</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B22">
+
+                <mixed-citation>Hjørland, B. Concept theory. <italic>Journal of the American Society for Information Science and Technology</italic>, v. 60, n. 8, p. 1519-1536, 2009. Doi: http://doi.org/10.1002/asi.21082.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Concept theory</article-title>
+                    <source>Journal of the American Society for Information Science and Technology</source>
+                    <volume>60</volume>
+                    <issue>8</issue>
+                    <fpage>1519</fpage>
+                    <lpage>1536</lpage>
+                    <year>2009</year>
+                    <pub-id pub-id-type="doi">10.1002/asi.21082</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B23">
+
+                <mixed-citation>Hjørland, B. Domain analysis in information science: eleven approaches: traditional as well as innovative. <italic>Journal of Documentation</italic>, v. 58, n. 4, p. 422-462, 2002a. Doi: http://doi.org/10.1108/00220410210431136.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Domain analysis in information science: eleven approaches: traditional as well as innovative</article-title>
+                    <source>Journal of Documentation</source>
+                    <volume>58</volume>
+                    <issue>4</issue>
+                    <fpage>422</fpage>
+                    <lpage>462</lpage>
+                    <year>2002a</year>
+                    <pub-id pub-id-type="doi">10.1108/00220410210431136</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B24">
+
+                <mixed-citation>Hjørland, B. Domain analysis. <italic>Knowledge Organization</italic>, v. 44, n. 6, p. 436-464, 2017. Doi: http://doi.org/10.5771/0943-7444-2017-6-436.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Domain analysis</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>44</volume>
+                    <issue>6</issue>
+                    <fpage>436</fpage>
+                    <lpage>464</lpage>
+                    <year>2017</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2017-6-436</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B25">
+
+                <mixed-citation>Hjørland, B. Epistemology and the socio-cognitive perspective in information science. <italic>Journal of the American Society for Information Science and Technology</italic>, v. 53, n. 4, p. 257-270, 2002b. Doi: http://doi.org/10.1002/asi.10042.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Epistemology and the socio-cognitive perspective in information science</article-title>
+                    <source>Journal of the American Society for Information Science and Technology</source>
+                    <volume>53</volume>
+                    <issue>4</issue>
+                    <fpage>257</fpage>
+                    <lpage>270</lpage>
+                    <year>2002b</year>
+                    <pub-id pub-id-type="doi">10.1002/asi.10042</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B26">
+
+                <mixed-citation>Hjørland, B. Fundamentals of knowledge organization. <italic>Knowledge Organization</italic>, v. 30, n. 2, p. 87-111, 2003. Doi: http://doi.org/10.5771/0943-7444-2003-2-87.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Fundamentals of knowledge organization</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>30</volume>
+                    <issue>2</issue>
+                    <fpage>87</fpage>
+                    <lpage>111</lpage>
+                    <year>2003</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2003-2-87</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B27">
+
+                <mixed-citation>Hjørland, B. Theories are Knowledge Organizing Systems (KOS). <italic>Knowledge Organization</italic>, v. 42, n. 2, p. 113-128, 2015. Available from: http://offcampus.lib.washington.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&amp;db=lls&amp;AN=103041685&amp;site=ehost-live. Cited: May 11, 2020.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Theories are Knowledge Organizing Systems (KOS)</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>42</volume>
+                    <issue>2</issue>
+                    <fpage>113</fpage>
+                    <lpage>128</lpage>
+                    <year>2015</year>
+                    <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://offcampus.lib.washington.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&amp;db=lls&amp;AN=103041685&amp;site=ehost-live">http://offcampus.lib.washington.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&amp;db=lls&amp;AN=103041685&amp;site=ehost-live</ext-link></comment>
+                    <date-in-citation content-type="access-date">May 11, 2020</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B28">
+
+                <mixed-citation>Hjørland, B.; Albrechtsen, H. Toward a new horizon in information science: domain-analysis. <italic>Journal of The American Society for Information Science</italic>, v. 46, n. 6, p. 400-425, 1995. Doi: http://doi.org/10.1002/(SICI)1097-4571(199507)46:6&lt;400::AID-ASI2&gt;3.0.CO;2-Y.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                        <name>
+                            <surname>Albrechtsen</surname>
+                            <given-names>H.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Toward a new horizon in information science: domain-analysis</article-title>
+                    <source>Journal of The American Society for Information Science</source>
+                    <volume>46</volume>
+                    <issue>6</issue>
+                    <fpage>400</fpage>
+                    <lpage>425</lpage>
+                    <year>1995</year>
+                    <pub-id pub-id-type="doi">10.1002/(SICI)1097-4571(199507)46:6&lt;400::AID-ASI2&gt;3.0.CO;2-Y</pub-id>
+
+
+                </element-citation>
+            </ref>
+            <ref id="B29">
+
+                <mixed-citation>Hjørland, B.; Hartel, J. Afterword: ontological, epistemological and sociological dimensions of domains. <italic>Knowledge Organization</italic>, v. 30, n. 3-4, p. 239-245, 2003.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Hjørland</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                        <name>
+                            <surname>Hartel</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Afterword: ontological, epistemological and sociological dimensions of domains</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>30</volume>
+                    <issue>3-4</issue>
+                    <fpage>239</fpage>
+                    <lpage>245</lpage>
+                    <year>2003</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B30">
+
+                <mixed-citation>Kobashi, N. Y.; Smit, J. W.; Tálamo, M. F. G. M. A função da terminologia na construção do objeto da ciência da informação. <italic>DataGramaZero</italic>, v. 2, n. 2, 2001. Disponível em: http://hdl.handle.net/20.500.11959/brapci/4867. Acesso em: 28 fev. 2021.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Kobashi</surname>
+                            <given-names>N. Y.</given-names>
+                        </name>
+                        <name>
+                            <surname>Smit</surname>
+                            <given-names>J. W.</given-names>
+                        </name>
+                        <name>
+                            <surname>Tálamo</surname>
+                            <given-names>M. F. G. M.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>A função da terminologia na construção do objeto da ciência da informação</article-title>
+                    <source>DataGramaZero</source>
+                    <volume>2</volume>
+                    <issue>2</issue>
+                    <year>2001</year>
+                    <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://hdl.handle.net/20.500.11959/brapci/4867">http://hdl.handle.net/20.500.11959/brapci/4867</ext-link></comment>
+                    <date-in-citation content-type="access-date">28 fev. 2021</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B31">
+
+                <mixed-citation>Lloyd, C. <italic>As estruturas da história</italic>. Rio de Janeiro: Zahar, 1995.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Lloyd</surname>
+                            <given-names>C.</given-names>
+                        </name>
+                    </person-group>
+                    <source>As estruturas da história</source>
+                    <publisher-loc>Rio de Janeiro</publisher-loc>
+                    <publisher-name>Zahar</publisher-name>
+                    <year>1995</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B32">
+
+                <mixed-citation>Marteleto, R. M.; Carvalho, L. S. Health as a knowledge domain and social field: dialogues with Birger Hjorland and Pierre Bourdieu. <italic>Knowledge Organization</italic>, v. 42, n. 8, p. 581-590, 2015. Doi: http://doi.org/10.5771/0943-7444-2015-8-581.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Marteleto</surname>
+                            <given-names>R. M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Carvalho</surname>
+                            <given-names>L. S.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Health as a knowledge domain and social field: dialogues with Birger Hjorland and Pierre Bourdieu</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>42</volume>
+                    <issue>8</issue>
+                    <fpage>581</fpage>
+                    <lpage>590</lpage>
+                    <year>2015</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2015-8-581</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B33">
+
+                <mixed-citation>Martínez-Ávila, D.; Beak, J. Methods, theoretical frameworks and hope for knowledge organization. <italic>Knowledge Organization</italic>, v. 43, n. 5, p. 358-366, 2016. Doi: http://doi.org/10.5771/0943-7444-2016-5-358.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Martínez-Ávila</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Beak</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Methods, theoretical frameworks and hope for knowledge organization</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>43</volume>
+                    <issue>5</issue>
+                    <fpage>358</fpage>
+                    <lpage>366</lpage>
+                    <year>2016</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2016-5-358</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B34">
+
+                <mixed-citation>Martinez-Ávila, D.; Semidão, R.; Ferreira, M. Methodological aspects of critical theories in knowledge organization. <italic>Knowledge Organization</italic>, v. 43, n. 2, p. 118-125, 2016. Doi: http://doi.org/10.5771/0943-7444-2016-2.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Martinez-Ávila</surname>
+                            <given-names>D.</given-names>
+                        </name>
+                        <name>
+                            <surname>Semidão</surname>
+                            <given-names>R.</given-names>
+                        </name>
+                        <name>
+                            <surname>Ferreira</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Methodological aspects of critical theories in knowledge organization</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>43</volume>
+                    <issue>2</issue>
+                    <fpage>118</fpage>
+                    <lpage>125</lpage>
+                    <year>2016</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2016-2</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B35">
+
+                <mixed-citation>Meyer, M.; Molyneux-Hodgson, S. Introduction: the dynamics of epistemic communities. <italic>Sociological Research Online</italic>, v. 15, n. 2, p. 1-7, 2010. Doi: http://doi.org/10.5153/sro.2154.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Meyer</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Molyneux-Hodgson</surname>
+                            <given-names>S.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Introduction: the dynamics of epistemic communities</article-title>
+                    <source>Sociological Research Online</source>
+                    <volume>15</volume>
+                    <issue>2</issue>
+                    <fpage>1</fpage>
+                    <lpage>7</lpage>
+                    <year>2010</year>
+                    <pub-id pub-id-type="doi">10.5153/sro.2154</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B36">
+
+                <mixed-citation>Oliveira, C. A. <italic>et al</italic>. Genealogia acadêmica dos pesquisadores da área de ciência da informação: um estudo sobre os bolsistas de produtividade em pesquisa (PQ-CNPQ). <italic>Em Questão</italic>, v. 24, p. 278-298, 2018. Doi: http://doi.org/10.19132/1808-5245240.278-298.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Oliveira</surname>
+                            <given-names>C. A.</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <article-title>Genealogia acadêmica dos pesquisadores da área de ciência da informação: um estudo sobre os bolsistas de produtividade em pesquisa (PQ-CNPQ)</article-title>
+                    <source>Em Questão</source>
+                    <volume>24</volume>
+                    <fpage>278</fpage>
+                    <lpage>298</lpage>
+                    <year>2018</year>
+                    <pub-id pub-id-type="doi">10.19132/1808-5245240.278-298</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B37">
+
+                <mixed-citation>Price, D. J. S.; Beaver, D. Collaboration in an invisible college. <italic>American Psychologist</italic>, v. 21, n. 11, p. 1011-1018, 1966. Doi: http://doi.org/10.1037/h0024051.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Price</surname>
+                            <given-names>D. J. S.</given-names>
+                        </name>
+                        <name>
+                            <surname>Beaver</surname>
+                            <given-names>D</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Collaboration in an invisible college</article-title>
+                    <source>American Psychologist</source>
+                    <volume>21</volume>
+                    <issue>11</issue>
+                    <fpage>1011</fpage>
+                    <lpage>1018</lpage>
+                    <year>1966</year>
+                    <pub-id pub-id-type="doi">10.1037/h0024051</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B38">
+
+                <mixed-citation>Russell, T. G.; Sugimoto, C. R. MPACT family trees: quantifying academic genealogy in library and information science. <italic>Journal of Education for Library and Information Science</italic>, v. 50, n. 4, p. 248-262, 2009. Available from: http://www.jstor.org/stable/40732587. Cited: May 11, 2020.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Russell</surname>
+                            <given-names>T. G.</given-names>
+                        </name>
+                        <name>
+                            <surname>Sugimoto</surname>
+                            <given-names>C. R.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>MPACT family trees: quantifying academic genealogy in library and information science</article-title>
+                    <source>Journal of Education for Library and Information Science</source>
+                    <volume>50</volume>
+                    <issue>4</issue>
+                    <fpage>248</fpage>
+                    <lpage>262</lpage>
+                    <year>2009</year>
+                    <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://www.jstor.org/stable/40732587">http://www.jstor.org/stable/40732587</ext-link></comment>
+                    <date-in-citation content-type="access-date">May 11, 2020</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B39">
+
+                <mixed-citation>Silva, M. F.; Evangelista, I. V.; Guimarães, J. A. C. A presença da produção científica brasileira na revista Knowledge Organization no século XXI. <italic>Informação &amp; Informação</italic>, v. 24, n. 3, p. 28-42, 2019. Doi: http://doi.org/10.5433/1981-8920.2019v24n3p28.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Silva</surname>
+                            <given-names>M. F.</given-names>
+                        </name>
+                        <name>
+                            <surname>Evangelista</surname>
+                            <given-names>I. V.</given-names>
+                        </name>
+                        <name>
+                            <surname>Guimarães</surname>
+                            <given-names>J. A. C.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>A presença da produção científica brasileira na revista Knowledge Organization no século XXI</article-title>
+                    <source>Informação &amp; Informação</source>
+                    <volume>24</volume>
+                    <issue>3</issue>
+                    <fpage>28</fpage>
+                    <lpage>42</lpage>
+                    <year>2019</year>
+                    <pub-id pub-id-type="doi">10.5433/1981-8920.2019v24n3p28</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B40">
+
+                <mixed-citation>Silveira, M. A. A.; Caregnato, S. E. Percurso histórico-epistemo-lógico dos estudos de citação no Brasil. <italic>Transinformação</italic>, v. 29, n. 1, p. 39-55, 2017. Doi: http://doi.org/10.1590/2318-08892017000100005.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Silveira</surname>
+                            <given-names>M. A. A.</given-names>
+                        </name>
+                        <name>
+                            <surname>Caregnato</surname>
+                            <given-names>S. E.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Percurso histórico-epistemo-lógico dos estudos de citação no Brasil</article-title>
+                    <source>Transinformação</source>
+                    <volume>29</volume>
+                    <issue>1</issue>
+                    <fpage>39</fpage>
+                    <lpage>55</lpage>
+                    <year>2017</year>
+                    <pub-id pub-id-type="doi">10.1590/2318-08892017000100005</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B41">
+
+                <mixed-citation>Smiraglia, R. P. Domain analysis of domain analysis for knowledge organization: observations on an emergent methodological cluster. <italic>Knowledge Organization</italic>, v. 42, n. 8, p. 602-611, 2015. Doi: http://doi.org/10.5771/0943-7444-2015-8-602.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Smiraglia</surname>
+                            <given-names>R. P.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Domain analysis of domain analysis for knowledge organization: observations on an emergent methodological cluster</article-title>
+                    <source>Knowledge Organization</source>
+                    <volume>42</volume>
+                    <issue>8</issue>
+                    <fpage>602</fpage>
+                    <lpage>611</lpage>
+                    <year>2015</year>
+                    <pub-id pub-id-type="doi">10.5771/0943-7444-2015-8-602</pub-id>
+
+                </element-citation>
+            </ref>
+            <ref id="B42">
+
+                <mixed-citation>Smiraglia, R. P. <italic>The elements of knowledge organization</italic>. Switzerland: Springer, 2014.</mixed-citation>
+
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Smiraglia</surname>
+                            <given-names>R. P.</given-names>
+                        </name>
+                    </person-group>
+                    <source>The elements of knowledge organization</source>
+                    <publisher-loc>Switzerland</publisher-loc>
+                    <publisher-name>Springer</publisher-name>
+                    <year>2014</year>
+
+                </element-citation>
+            </ref>
+            <ref id="B43">
+
+                <mixed-citation>Smit, J. W.; Tálamo, M. F. G. M.; Kobashi, N. Y. A determinação do campo científico da ciência da informação: uma abordagem terminológica. <italic>DataGramaZero</italic>, v. 5, n. 1, 2004. Disponível em: http://hdl.handle.net/20.500.11959/brapci/5524. Acesso em: 28 fev. 2021.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Smit</surname>
+                            <given-names>J. W.</given-names>
+                        </name>
+                        <name>
+                            <surname>Tálamo</surname>
+                            <given-names>M. F. G. M.</given-names>
+                        </name>
+                        <name>
+                            <surname>Kobashi</surname>
+                            <given-names>N. Y.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>A determinação do campo científico da ciência da informação: uma abordagem terminológica</article-title>
+                    <source>DataGramaZero</source>
+                    <volume>5</volume>
+                    <issue>1</issue>
+                    <year>2004</year>
+                    <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://hdl.handle.net/20.500.11959/brapci/5524">http://hdl.handle.net/20.500.11959/brapci/5524</ext-link></comment>
+                    <date-in-citation content-type="access-date">28 fev. 2021</date-in-citation>
+
+                </element-citation>
+            </ref>
+            <ref id="B44">
+
+                <mixed-citation>Wainer, J.; Vieira, P. Avaliação de bolsas de produtividade do CNPq e medidas bibliométricas: correlações para todas as grandes áreas. <italic>Perspectivas em Ciência da Informação</italic>, v. 18, n. 2, p. 60-78, 2013. Doi: http://doi.org/10.1590/S1413-99362013000200005.</mixed-citation>
+
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>Wainer</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                        <name>
+                            <surname>Vieira</surname>
+                            <given-names>P.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Avaliação de bolsas de produtividade do CNPq e medidas bibliométricas: correlações para todas as grandes áreas</article-title>
+                    <source>Perspectivas em Ciência da Informação</source>
+                    <volume>18</volume>
+                    <issue>2</issue>
+                    <fpage>60</fpage>
+                    <lpage>78</lpage>
+                    <year>2013</year>
+                    <pub-id pub-id-type="doi">10.1590/S1413-99362013000200005</pub-id>
+
+                </element-citation>
+            </ref>
+
+        </ref-list>
+    </back>
+</article>
