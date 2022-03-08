@@ -111,7 +111,7 @@ class Test_get_xml_sps_from_uri(TestCase):
     def test_get_xml_sps_from_uri_raises_download_xml_error(self):
         xml_uri = 'https://kernel.scielo.br'
 
-        with self.assertRaises(sps_maker.exceptions.SPSDownloadXMLError):
+        with self.assertRaises(sps_maker.exceptions.SPSHTTPResourceNotFoundError):
             sps_maker._get_xml_sps_from_uri(xml_uri)
 
 
@@ -156,7 +156,7 @@ class Test_make_package_from_uris(TestCase):
             "name": "1414-431X-bjmbr-54-10-e11439-gf01.jpg"
         }]
 
-        with self.assertRaises(sps_maker.exceptions.SPSDownloadXMLError):
+        with self.assertRaises(sps_maker.exceptions.SPSHTTPResourceNotFoundError):
             sps_maker.make_package_from_uris(xml_uri, renditions_uris_and_names)
 
     @skip("Exige conexão com VPN SciELO")
@@ -172,7 +172,7 @@ class Test_make_package_from_uris(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
         ])
 
-        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+        with zipfile.ZipFile(package_metadata['zip']) as zf:
             self.assertSetEqual(
                 expected_files,
                 set(zf.namelist()),
@@ -199,7 +199,7 @@ class Test_make_package_from_uris(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
         ])
 
-        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+        with zipfile.ZipFile(package_metadata['zip']) as zf:
             self.assertSetEqual(
                 expected_files,
                 set(zf.namelist()),
@@ -247,7 +247,7 @@ class Test_make_package_from_paths(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf01.jpg',
         ])
 
-        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+        with zipfile.ZipFile(package_metadata['zip']) as zf:
             self.assertSetEqual(
                 expected_files,
                 set(zf.namelist()),
