@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-    <xsl:template match="table-wrap">
+    <xsl:template match="table-wrap[@id] | table-wrap-group[@id]">
         <div class="row table" id="{@id}">
         <a name="{@id}"/>
             
@@ -14,10 +14,22 @@
                 </a>
             </div>
             <div class="col-md-8 col-sm-8">
-                <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
+                <!-- apresenta a legenda -->
+                <xsl:apply-templates select="." mode="table-label-caption-thumb"/>
             </div>
         </div>
     </xsl:template>
+
+    <xsl:template match="table-wrap-group[@id]" mode="table-label-caption-thumb">
+        <!-- apresenta as legendas -->
+        <xsl:apply-templates select="table-wrap" mode="table-label-caption-thumb"/>
+    </xsl:template>
+
+    <xsl:template match="table-wrap" mode="table-label-caption-thumb">
+        <!-- apresenta a legenda -->
+        <xsl:apply-templates select="." mode="label-caption-thumb"/><br/>
+    </xsl:template>
+
     <xsl:template match="table-wrap/table/@*">
         <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
     </xsl:template>

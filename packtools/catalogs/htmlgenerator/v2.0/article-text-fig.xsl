@@ -6,7 +6,7 @@
     exclude-result-prefixes="xlink mml"
     version="1.0">
 
-    <xsl:template match="fig | fig-group">
+    <xsl:template match="fig | fig-group[@id]">
         <!--
         Cria a miniatura no texto completo, que ao ser clicada mostra a figura
         ampliada
@@ -14,17 +14,12 @@
         <xsl:variable name="location">
             <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"/>
         </xsl:variable>
-        <xsl:variable name="figid">
-            <xsl:choose>
-                <xsl:when test="@id"><xsl:value-of select="@id"/></xsl:when>
-                <xsl:otherwise>IDMISSING</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+        <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>
         <div class="row fig" id="{$figid}">
             <a name="{$figid}"></a>
             <div class="col-md-4 col-sm-4">
+                <!-- manter href="" -->
                 <a href="" data-toggle="modal" data-target="#ModalFig{$figid}">
-                    <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location != ''">
@@ -42,13 +37,21 @@
                 </a>
             </div>
             <div class="col-md-8 col-sm-8">
-                <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
+                <xsl:apply-templates select="." mode="fig-label-caption-thumb"/>
             </div>
         </div>
     </xsl:template>
 
-    <xsl:template match="fig-group" mode="label-caption">
-        <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="label-caption"></xsl:apply-templates>
+    <xsl:template match="fig-group[@id]" mode="fig-label-caption-thumb">
+        <xsl:apply-templates select="fig" mode="fig-label-caption-thumb"/>
+    </xsl:template>
+
+    <xsl:template match="fig" mode="fig-label-caption-thumb">
+        <xsl:apply-templates select="." mode="label-caption-thumb"/><br/>
+    </xsl:template>
+
+    <xsl:template match="fig | fig-group[@id]" mode="figure-id">
+        <xsl:value-of select="@id"/>
     </xsl:template>
 
 </xsl:stylesheet>

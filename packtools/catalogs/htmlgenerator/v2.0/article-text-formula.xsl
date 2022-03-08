@@ -25,15 +25,34 @@
         <xsl:apply-templates select="alternatives" />
     </xsl:template>
 
-    <xsl:template match="tex-math">
+    <xsl:template match="inline-formula/tex-math | inline-formula/alternatives/tex-math">
+        <xsl:choose>
+            <xsl:when test="starts-with(.,'\begin') and contains(.,'\end')">
+                <xsl:value-of select="."/>
+            </xsl:when>
+            <xsl:when test="starts-with(.,'\(') and ends-with(.,'\)')">
+                <xsl:value-of select="."/>
+            </xsl:when>
+            <xsl:when test="starts-with(.,'$') and ends-with(.,'$')">
+                <xsl:value-of select="."/>
+            </xsl:when>
+            <xsl:otherwise>\(<xsl:value-of select="."/>\)</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="disp-formula/tex-math | disp-formula/alternatives/tex-math">
         <span class="formula-body">
             <xsl:choose>
-                <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
-                    <xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
-                </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="starts-with(.,'\begin') and contains(.,'\end')">
                     <xsl:value-of select="."/>
-                </xsl:otherwise>
+                </xsl:when>
+                <xsl:when test="starts-with(.,'\[') and ends-with(.,'\]')">
+                    <xsl:value-of select="."/>
+                </xsl:when>
+                <xsl:when test="starts-with(.,'$$') and ends-with(.,'$$')">
+                    <xsl:value-of select="."/>
+                </xsl:when>
+                <xsl:otherwise>\[<xsl:value-of select="."/>\]</xsl:otherwise>
             </xsl:choose>
         </span>
     </xsl:template>

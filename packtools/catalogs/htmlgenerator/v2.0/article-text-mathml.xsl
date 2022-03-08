@@ -5,7 +5,7 @@
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     exclude-result-prefixes="xlink mml"
     version="1.0">
-    <xsl:template match="mml:math">
+    <xsl:template match="mml:math | math">
         <xsl:copy-of select="."/>
     </xsl:template>
 </xsl:stylesheet>
