@@ -172,7 +172,7 @@ class Test_make_package_from_uris(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
         ])
 
-        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+        with zipfile.ZipFile(package_metadata['zip']) as zf:
             self.assertSetEqual(
                 expected_files,
                 set(zf.namelist()),
@@ -199,7 +199,7 @@ class Test_make_package_from_uris(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf02-scielo-267x140.jpg'
         ])
 
-        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+        with zipfile.ZipFile(package_metadata['zip']) as zf:
             self.assertSetEqual(
                 expected_files,
                 set(zf.namelist()),
@@ -247,7 +247,7 @@ class Test_make_package_from_paths(TestCase):
             '1414-431X-bjmbr-54-10-e11439-gf01.jpg',
         ])
 
-        with zipfile.ZipFile(package_metadata['temp-zipfile']) as zf:
+        with zipfile.ZipFile(package_metadata['zip']) as zf:
             self.assertSetEqual(
                 expected_files,
                 set(zf.namelist()),
