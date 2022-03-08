@@ -12,6 +12,51 @@ def get_names_and_packages(path):
 
 
 def make_package_from_paths(paths, zip_folder=None):
+    """
+    Constrói pacote a partir de caminhos de arquivos
+
+    Parameters
+    ----------
+    paths : dict
+        {
+            "xml": "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml",
+            "renditions": [
+                "/home/user/aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf",
+                ...
+            ],
+            "assets": [
+                "/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg",
+                ...,
+            ]
+        }
+
+    Returns
+    -------
+    dict: dict
+        Um dicionário contendo os dados do pacote gerado
+            {
+                'zip': '1414-431X-bjmbr-54-10-e11439.zip',
+                'xml': {
+                    'uri': '/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml',
+                    'name: '1414-431X-bjmbr-54-10-e11439.xml',
+                },
+                'assets': [
+                    {
+                        'uri': '/home/user/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg'
+                        'name': '1414-431X-bjmbr-54-10-e11439-gf01.jpg'
+                    },
+                    ...
+                ],
+                'renditions': [
+                    {
+                        'uri': '/home/user/aed92928a9b5e04e17fa5777d83e8430b9f98f6d.pdf',
+                        'name': '1414-431X-bjmbr-54-10-e11439.pdf'
+                    },
+                    ...
+                ]
+            }
+    """
+
     _check_keys_and_files(paths)
 
     package_metadata = {}
