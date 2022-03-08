@@ -111,7 +111,7 @@ class Test_get_xml_sps_from_uri(TestCase):
     def test_get_xml_sps_from_uri_raises_download_xml_error(self):
         xml_uri = 'https://kernel.scielo.br'
 
-        with self.assertRaises(sps_maker.exceptions.SPSDownloadXMLError):
+        with self.assertRaises(sps_maker.exceptions.SPSHTTPResourceNotFoundError):
             sps_maker._get_xml_sps_from_uri(xml_uri)
 
 
@@ -156,7 +156,7 @@ class Test_make_package_from_uris(TestCase):
             "name": "1414-431X-bjmbr-54-10-e11439-gf01.jpg"
         }]
 
-        with self.assertRaises(sps_maker.exceptions.SPSDownloadXMLError):
+        with self.assertRaises(sps_maker.exceptions.SPSHTTPResourceNotFoundError):
             sps_maker.make_package_from_uris(xml_uri, renditions_uris_and_names)
 
     @skip("Exige conexão com VPN SciELO")
