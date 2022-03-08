@@ -1,4 +1,3 @@
-from urllib.error import HTTPError
 from packtools.sps.models import packages, sps_package
 from packtools.sps.libs import async_download, reqs
 from packtools import file_utils
