@@ -44,7 +44,7 @@ def main():
     subparsers = parser.add_subparsers(title='Commands', dest='command')
 
     uris_parser = subparsers.add_parser('uris', help='Make package from URIs')
-    uris_parser.add_argument('--xml', help='XML URI')
+    uris_parser.add_argument('--xml', help='XML URI', required=True)
     uris_parser.add_argument('--renditions', default=[], nargs='+', help='Renditions URI')
 
     paths_parser = subparsers.add_parser('paths', help='Make package from files paths')
