@@ -29,7 +29,7 @@ EXTRAS_REQUIRE = {
         'Flask',
         'Flask-BabelEx',
         'Flask-WTF',
-        'Werkzeug==0.16.1',
+        'Werkzeug==2.0.3',
     ]
 }
 
