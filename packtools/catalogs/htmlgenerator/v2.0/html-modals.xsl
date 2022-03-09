@@ -247,8 +247,9 @@
             <xsl:variable name="location">
                 <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"/>
             </xsl:variable>
+            <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>
             <div class="col-md-4">
-                <a data-toggle="modal" data-target="#ModalFig{@id}">
+                <a data-toggle="modal" data-target="#ModalFig{$figid}">
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location != ''">
