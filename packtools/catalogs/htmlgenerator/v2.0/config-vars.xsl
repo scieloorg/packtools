@@ -30,7 +30,7 @@
     <xsl:variable name="MATHJAX">
         <xsl:choose>
             <xsl:when test="$math_js!=''"><xsl:value-of select="$math_js"/></xsl:when>
-            <xsl:otherwise>https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js</xsl:otherwise>
+            <xsl:otherwise>https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mmlmath-chtml.js</xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
 
