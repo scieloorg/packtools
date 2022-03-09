@@ -300,10 +300,11 @@
             Para table-wrap:
             - legenda de uma tabela em 1 idioma
         -->
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="table-id"/></xsl:variable>
         <div class="row table">
             <!-- miniatura -->
             <div class="col-md-4">
-                <a data-toggle="modal" data-target="#ModalTable{@id}">
+                <a data-toggle="modal" data-target="#ModalTable{$id}">
                     <div class="thumbOff">
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
