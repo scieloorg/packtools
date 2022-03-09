@@ -2,9 +2,16 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     version="1.0">
+
+    <xsl:template match="disp-formula" mode="disp-formula-id">
+        <xsl:value-of select="translate(@id,'.','_')"/>
+    </xsl:template>
+
     <xsl:template match="disp-formula" mode="modal">
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="disp-formula-id"/></xsl:variable>
+
         <xsl:if test="@id">
-            <div class="modal fade ModalFigs" id="ModalScheme{@id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade ModalFigs" id="ModalScheme{$id}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">

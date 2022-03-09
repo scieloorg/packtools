@@ -7,8 +7,9 @@
     version="1.0">
     
     <xsl:template match="disp-formula">
-        <div class="row formula" id="e{@id}">
-            <a name="{@id}"></a>
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="disp-formula-id"/></xsl:variable>
+        <div class="row formula" id="e{$id}">
+            <a name="{$id}"></a>
             <div class="col-md-12">
                 <div class="formula-container">
                     <xsl:apply-templates select="*|text()"></xsl:apply-templates>

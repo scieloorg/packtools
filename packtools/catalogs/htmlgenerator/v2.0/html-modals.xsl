@@ -323,8 +323,10 @@
         <div class="row fig">
             <!-- miniatura -->
             <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="disp-formula-id"/></xsl:variable>
+
             <div class="col-md-4">
-                <a data-toggle="modal" data-target="#ModalScheme{@id}">
+                <a data-toggle="modal" data-target="#ModalScheme{$id}">
                     <div>
                         <xsl:choose>
                             <xsl:when test="graphic">
