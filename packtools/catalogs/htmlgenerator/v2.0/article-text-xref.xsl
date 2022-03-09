@@ -8,21 +8,21 @@
     
     <xsl:template match="xref[@ref-type='equation' or @ref-type='disp-formula']">
         <!-- <a href="#{@rid}" class="goto"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="*|text()"></xsl:apply-templates></a> -->
-        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalScheme{@rid}">
+        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalScheme{translate(@rid,'.','_')}">
             <span class="sci-ico-fileFormula"></span> 
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </a>
     </xsl:template>
     
     <xsl:template match="xref[@ref-type='fig']">
-        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFig{@rid}">
+        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFig{translate(@rid,'.','_')}">
             <span class="sci-ico-fileFigure"></span> 
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </a>        
     </xsl:template>
     
     <xsl:template match="xref[@ref-type='table']">
-        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTable{@rid}">
+        <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTable{translate(@rid,'.','_')}">
             <span class="sci-ico-fileTable"></span> 
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </a>        
