@@ -402,7 +402,7 @@
 
         <xsl:choose>
             <xsl:when test="$content_type='figures'">
-                <xsl:value-of select="count(fig)"/>
+                <xsl:value-of select="count(./fig) + count(.//fig-group) + count(.//*[fig and name()!='fig-group']//fig)"/>
             </xsl:when>
             <xsl:when test="$content_type='tables'">
                 <xsl:value-of select="count(./table-wrap) + count(.//table-wrap-group) + count(.//*[table-wrap and name()!='table-wrap-group']//table-wrap)"/>
