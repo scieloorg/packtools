@@ -51,7 +51,7 @@
     </xsl:template>
 
     <xsl:template match="fig | fig-group[@id]" mode="figure-id">
-        <xsl:value-of select="@id"/>
+        <xsl:value-of select="translate(@id,'.','_')"/>
     </xsl:template>
 
 </xsl:stylesheet>

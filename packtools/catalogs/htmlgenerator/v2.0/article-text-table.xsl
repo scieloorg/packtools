@@ -2,11 +2,12 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:template match="table-wrap[@id] | table-wrap-group[@id]">
-        <div class="row table" id="{@id}">
-        <a name="{@id}"/>
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="table-id"/></xsl:variable>
+        <div class="row table" id="{$id}">
+        <a name="{$id}"/>
             
             <div class="col-md-4 col-sm-4">
-                <a data-toggle="modal" data-target="#ModalTable{@id}">
+                <a data-toggle="modal" data-target="#ModalTable{$id}">
                     <div class="thumbOff">
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>

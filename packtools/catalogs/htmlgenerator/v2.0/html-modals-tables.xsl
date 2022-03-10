@@ -6,8 +6,14 @@
     <xsl:template match="table-wrap" mode="modal-header"/>
     <xsl:template match="table-wrap" mode="modal-body-and-footer"/>
     
+    <xsl:template match="table-wrap[@id] | table-wrap-group[@id]" mode="table-id">
+        <xsl:value-of select="translate(@id,'.','_')"/>
+    </xsl:template>
+
     <xsl:template match="table-wrap[@id] | table-wrap-group[@id]" mode="modal">
-        <div class="modal fade ModalTables" id="ModalTable{@id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="table-id"/></xsl:variable>
+
+        <div class="modal fade ModalTables" id="ModalTable{$id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
