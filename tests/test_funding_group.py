@@ -46,3 +46,30 @@ class FundingGroupOneFundingSourceNAwardIdTests(unittest.TestCase):
         self.assertEqual(expected, result)
 
 
+class FundingGroupOneFundingSourceOneAwardIdTests(unittest.TestCase):
+    def setUp(self):
+        xml = (
+            """
+            <article> 
+                <funding-group>
+                     <award-group>
+                         <funding-source>CNPq</funding-source>
+                         <award-id>1685X6-7</award-id>
+                     </award-group>
+                </funding-group>
+            </article>
+            """
+        )
+        self.funding_group = FundingGroup(xml)
+
+    def test_funding_sources(self):
+        expected = ['CNPq']
+        result = self.funding_group.funding_sources
+        self.assertEqual(expected, result)
+
+    def test_award_groups(self):
+        expected = [
+            {'funding-source': ['CNPq'], 'award-id': ['1685X6-7']}
+        ]
+        result = self.funding_group.award_groups
+        self.assertEqual(expected, result)
