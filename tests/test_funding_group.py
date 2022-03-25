@@ -73,6 +73,8 @@ class FundingGroupOneFundingSourceOneAwardIdTests(unittest.TestCase):
         ]
         result = self.funding_group.award_groups
         self.assertEqual(expected, result)
+
+
 class FundingGroupNFundingSourceOneAwardIdTests(unittest.TestCase):
     def setUp(self):
         xml = (
@@ -98,6 +100,42 @@ class FundingGroupNFundingSourceOneAwardIdTests(unittest.TestCase):
     def test_award_groups(self):
         expected = [
             {'funding-source': ['CNPq', 'FAPESP'], 'award-id': ['#09/06953-4']}
+        ]
+        result = self.funding_group.award_groups
+        self.assertEqual(expected, result)
+
+
+class FundingGroupNFundingSourceOneAwardIdWithFundingStatementTests(unittest.TestCase):
+    def setUp(self):
+        xml = (
+            """
+            <article> 
+                <funding-group>
+                    <award-group>
+                        <funding-source>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior</funding-source>
+                        <funding-source> Fundação de Amparo à Pesquisa do Estado de São Paulo</funding-source>
+                        <award-id>04/08142-0</award-id>
+                    </award-group>
+                    <funding-statement>This study was supported in part by Coordenação
+                    de Aperfeiçoamento de Pessoal de Nível Superior (Capes — Brasília,
+                    Brazil), Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP —
+                    Grant no. 04/08142-0; São Paulo, Brazil)</funding-statement>
+                </funding-group>
+            </article>
+            """
+        )
+        self.funding_group = FundingGroup(xml)
+
+    def test_funding_sources(self):
+        expected = ['Coordenação de Aperfeiçoamento de Pessoal de Nível Superior',
+                    ' Fundação de Amparo à Pesquisa do Estado de São Paulo']
+        result = self.funding_group.funding_sources
+        self.assertEqual(expected, result)
+
+    def test_award_groups(self):
+        expected = [
+            {'funding-source': ['Coordenação de Aperfeiçoamento de Pessoal de Nível Superior',
+                                ' Fundação de Amparo à Pesquisa do Estado de São Paulo'], 'award-id': ['04/08142-0']}
         ]
         result = self.funding_group.award_groups
         self.assertEqual(expected, result)
