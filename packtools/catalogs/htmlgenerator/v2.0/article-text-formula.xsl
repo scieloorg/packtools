@@ -28,6 +28,9 @@
 
     <xsl:template match="inline-formula/tex-math | inline-formula/alternatives/tex-math">
         <xsl:choose>
+            <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                <xsl:value-of select="normalize-space(substring-after(substring-before(.,'\end{document}'),'\begin{document}'))"/>
+            </xsl:when>
             <xsl:when test="starts-with(.,'\begin') and contains(.,'\end')">
                 <xsl:value-of select="."/>
             </xsl:when>
@@ -44,6 +47,10 @@
     <xsl:template match="disp-formula/tex-math | disp-formula/alternatives/tex-math">
         <span class="formula-body">
             <xsl:choose>
+                <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                    <span>
+                    <xsl:value-of select="normalize-space(substring-after(substring-before(.,'\end{document}'),'\begin{document}'))"/></span>
+                </xsl:when>
                 <xsl:when test="starts-with(.,'\begin') and contains(.,'\end')">
                     <xsl:value-of select="."/>
                 </xsl:when>
