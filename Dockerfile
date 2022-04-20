@@ -10,14 +10,16 @@ FROM python:3.7-alpine
 
 COPY --from=build /deps/* /deps/
 COPY requirements.txt .
+COPY optional-requirements.txt .
 
 RUN apk add --no-cache --virtual .build-deps \
-        make gcc libxml2-dev libxslt-dev musl-dev g++ \
-    && apk add libxml2 libxslt \
+    make gcc libxml2-dev libxslt-dev musl-dev g++ \
+    && apk add libxml2 libxslt jpeg-dev \
     && pip install --no-cache-dir --upgrade pip setuptools \
     && pip install --no-cache-dir gunicorn \
     && pip install --no-cache-dir raven \
     && pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir -r optional-requirements.txt \
     && pip install --no-index --find-links=file:///deps -U packtools[webapp] \
     && apk --purge del .build-deps \
     && rm requirements.txt \
