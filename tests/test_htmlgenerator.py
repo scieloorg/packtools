@@ -2534,3 +2534,318 @@ class HTMLGeneratorTableWrapWithAlternativeTableAndGraphicTests(unittest.TestCas
             '//a[@href="" and @class="open-asset-modal" and @data-target="#ModalTablet01"]'
         )
         self.assertEqual(len(nodes), 1)
+
+
+class HTMLGeneratorTableWrapGroupWithDataInTableWrapTests(unittest.TestCase):
+
+    def setUp(self):
+        xml = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <p>The Eh measurements... <xref ref-type="table" rid="t01">Tabel 1</xref>:</p>
+        <p>
+        <table-wrap-group id="t01">
+            <table-wrap xml:lang="pt">
+                <label>Tabela 1</label>
+                <caption>
+                    <title>Classificação Sucessional adotada por alguns autores ao longo dos anos.</title>
+                </caption>
+                <table-wrap-foot>
+                    <fn id="TFN1">
+                        <p>Nota da tabela em pt</p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+            <table-wrap xml:lang="en">
+                <label>Table 1</label>
+                <caption>
+                    <title>Sucessional classification adopted by some authors over the years.</title>
+                </caption>
+                <table></table>
+                <table-wrap-foot>
+                    <fn id="TFN1">
+                        <p><xref ref-type="table" rid="t1">Table 1</xref>'
+                        'Identification of <italic>Senna Senna</italic> Mill. '
+                        '(Fabaceae) species collected in different locations in '
+                        'northwestern Ceará State. <sup>*</sup> Exotic, '
+                        '<sup>**</sup> Endemic to Brazil. Source: Herbário '
+                        'Francisco José de Abreu Matos (HUVA).</p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+        </table-wrap-group></p>
+            </body></article>
+        """
+        et = get_xml_tree_from_string(xml)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_thumbnail_label(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 1')
+        self.assertEqual(nodes[1].text, 'Table 1')
+
+    def test_thumbnail_caption(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+        )
+        text = etree.tostring(nodes[0], encoding="utf-8").decode("utf-8")
+        self.assertIn(
+            'Classificação Sucessional adotada por alguns autores ao '
+            'longo dos anos.',
+            text,
+        )
+        self.assertIn(
+            'Sucessional classification adopted by some authors over the '
+            'years.',
+            text,
+        )
+
+    def test_thumbnail_label_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table"]'
+            '/div[@class="col-md-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 1')
+        self.assertEqual(nodes[1].text, 'Table 1')
+
+    def test_thumbnail_caption_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table"]'
+            '/div[@class="col-md-8"]'
+            '/br'
+        )
+        self.assertEqual(
+            nodes[0].tail.strip(),
+            'Classificação Sucessional adotada por alguns autores ao '
+            'longo dos anos.')
+        self.assertEqual(
+            nodes[1].tail.strip(),
+            'Sucessional classification adopted by some authors over the '
+            'years.')
+
+    def test_footnotes(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalTables" and @id="ModalTablet01"]'
+            '/div[@class="modal-dialog modal-lg"]'
+            '/div[@class="modal-content"]'
+            '/div[@class="modal-footer"]'
+            '/div[@class="ref-list"]'
+            '/ul[@class="refList footnote"]'
+        )
+        texts = [
+            etree.tostring(node, encoding="utf-8").decode("utf-8")
+            for node in nodes
+        ]
+        texts[1] = " ".join([w.strip() for w in texts[1].split()])
+        print(texts[1])
+        note = (
+            '<a href="#ModalTablet01">Table 1</a>'
+            'Identification of <i>Senna Senna</i> Mill. '
+            '(Fabaceae) species collected in different locations in '
+            'northwestern Ceará State. <sup>*</sup> Exotic, '
+            '<sup>**</sup> Endemic to Brazil. Source: Herbário '
+            'Francisco José de Abreu Matos (HUVA)'
+        )
+        self.assertIn("Nota da tabela em pt", texts[0])
+        self.assertIn("(HUVA)", texts[1])
+
+    def test_thumbnail_in_text(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_thumbnail_in_tabpanel(self):
+        # <div class="modal fade ModalTables" id="ModalTable{$id}"
+        nodes = self.html.xpath(
+            '//div[@class="tab-content"]'
+            '/div[@role="tabpanel" and @id="tables"]'
+            '/div[@class="row table"]'
+            '/div[@class="col-md-4"]'
+            '/a[@data-toggle="modal" and @data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_total_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//a[@href="#tables" and @role="tab"]'
+        )
+        self.assertIn("(1)", nodes[0].text)
+
+    def test_enlarged_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalTables" and @id="ModalTablet01"]'
+            '/div[@class="modal-dialog modal-lg"]'
+            '/div[@class="modal-content"]'
+            '/div[@class="modal-body"]'
+            '/div[@class="table table-hover"]'
+            '/table'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_xref_presentation(self):
+        nodes = self.html.xpath(
+            '//a[@href="" and @class="open-asset-modal" and @data-target="#ModalTablet01"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+
+class HTMLGeneratorTableWrapGroupWithDataInTableWrapGroupTests(unittest.TestCase):
+
+    def setUp(self):
+        xml = u"""<article
+                      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xml:lang="pt">
+                      <body>
+        <p>The Eh measurements... <xref ref-type="table" rid="t01">Tabel 1</xref>:</p>
+        <table-wrap-group id="t1">
+            <table-wrap xml:lang="pt">
+                <label>Tabela 1</label>
+                <caption>
+                    <title>Classifica&#x00E7;&#x00E3;o Sucessional adotada por alguns autores ao longo dos anos.</title>
+                </caption>
+            </table-wrap>
+            <table-wrap xml:lang="en">
+                <label>Table 1</label>
+                <caption>
+                    <title>Sucessional classification adopted by some authors over the years.</title>
+                </caption>
+            </table-wrap>
+            <table></table>
+            <table-wrap-foot>
+                <fn id="TFN1">
+                    <p><xref ref-type="table" rid="t1">Table 1</xref>'
+                    'Identification of <italic>Senna Senna</italic> Mill. '
+                    '(Fabaceae) species collected in different locations in '
+                    'northwestern Ceará State. <sup>*</sup> Exotic, '
+                    '<sup>**</sup> Endemic to Brazil. Source: Herbário '
+                    'Francisco José de Abreu Matos (HUVA).</p>
+                </fn>
+            </table-wrap-foot>
+        </table-wrap-group>
+            </body></article>
+        """
+        et = get_xml_tree_from_string(xml)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_thumbnail_label(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 1')
+        self.assertEqual(nodes[1].text, 'Table 1')
+
+    def test_thumbnail_caption(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/br'
+        )
+        self.assertEqual(
+            nodes[0].tail.strip(),
+            'Classificação Sucessional adotada por alguns autores ao '
+            'longo dos anos.')
+        self.assertEqual(
+            nodes[1].tail.strip(),
+            'Sucessional classification adopted by some authors over the '
+            'years.')
+
+    def test_thumbnail_label_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table"]'
+            '/div[@class="col-md-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 1')
+        self.assertEqual(nodes[1].text, 'Table 1')
+
+    def test_thumbnail_caption_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table"]'
+            '/div[@class="col-md-8"]'
+            '/br'
+        )
+        self.assertEqual(
+            nodes[0].tail.strip(),
+            'Classificação Sucessional adotada por alguns autores ao '
+            'longo dos anos.')
+        self.assertEqual(
+            nodes[1].tail.strip(),
+            'Sucessional classification adopted by some authors over the '
+            'years.')
+
+    def test_footnotes(self):
+        nodes = self.html.xpath(
+            '//div[@class="ref-list"]'
+            '/ul[@class="refList footnote"]'
+            '/li'
+            '/div'
+        )
+        text = (
+            '<a href="#ModalTablet01">Table 1</a>'
+            'Identification of <i>Senna Senna</i> Mill. '
+            '(Fabaceae) species collected in different locations in '
+            'northwestern Ceará State. <sup>*</sup> Exotic, '
+            '<sup>**</sup> Endemic to Brazil. Source: Herbário '
+            'Francisco José de Abreu Matos (HUVA).'
+        )
+        self.assertEqual(nodes[0].text.strip(), text)
+
+    def test_thumbnail_in_text(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_thumbnail_in_tabpanel(self):
+        # <div class="modal fade ModalTables" id="ModalTable{$id}"
+        nodes = self.html.xpath(
+            '//div[@class="tab-content"]'
+            '/div[@role="tabpanel" and @id="tables"]'
+            '/div[@class="row table"]'
+            '/div[@class="col-md-4"]'
+            '/a[@data-toggle="modal" and @data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_total_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//a[@href="#tables" and @role="tab"]'
+        )
+        self.assertIn("(1)", nodes[0].text)
+
+    def test_enlarged_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalTables" and @id="ModalTablet01"]'
+            '/div[@class="modal-dialog modal-lg"]'
+            '/div[@class="modal-content"]'
+            '/div[@class="modal-body"]'
+            '/div[@class="table table-hover"]'
+            '/table'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_xref_presentation(self):
+        nodes = self.html.xpath(
+            '//a[@href="" and @class="open-asset-modal" and @data-target="#ModalTablet01"]'
+        )
+        self.assertEqual(len(nodes), 1)
