@@ -11,6 +11,48 @@
         <xsl:apply-templates select="*[1]"/>
     </xsl:template>
 
+    <xsl:template match="alternatives" mode="enlarged_image">
+        <!-- 
+            Apresentar a imagem ampliada (ampliada.png)
+
+            Padrão de alternatives esperado, mas não necessariamente ocorre 100% das vezes
+
+            <alternatives>
+                <graphic xlink:href="original.tif"/>
+                <graphic xlink:href="ampliada.png" specific-use="scielo-web"/>
+                <graphic xlink:href="mini.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+        -->
+        <xsl:choose>
+            <xsl:when test="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)]">
+                <!-- imagem ampliada -->
+                <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" />
+            </xsl:when>
+            <xsl:when test="*[@xlink:href!='' and not(@specific-use) and @content-type]">
+                <!-- imagem miniatura -->
+                <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and @content-type][1]" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[@xlink:href!=''][1]"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="table-wrap/alternatives | table-wrap-group/alternatives">
+        <!-- 
+            Em caso de haver somente elementos gráficos, seleciona a imagem ampliada
+            Em caso de tabela codificada e gráfico, selecionar o primeiro
+        -->
+        <xsl:choose>
+            <xsl:when test="count(*[@xlink:href])=count(*)">
+                <xsl:apply-templates select="." mode="enlarged_image"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[1]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template match="disp-formula/alternatives | inline-formula/alternatives">
         <xsl:choose>
             <xsl:when test="$MATH_ELEM_PREFERENCE='tex-math' and tex-math">

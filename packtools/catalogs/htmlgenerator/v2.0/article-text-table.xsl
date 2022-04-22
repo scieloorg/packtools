@@ -34,7 +34,7 @@
     <xsl:template match="table-wrap/table/@*">
         <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
     </xsl:template>
-    <xsl:template match="table-wrap/table">
+    <xsl:template match="table-wrap/table | table-wrap/alternatives/table">
         <div class="table table-hover">
             <xsl:element name="{name()}">
                 <xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
@@ -57,12 +57,7 @@
     <xsl:template match="table-wrap/caption/title"><xsl:text> </xsl:text>
         <xsl:apply-templates select="*|text()"></xsl:apply-templates>
     </xsl:template>
-    <xsl:template match="table-wrap/label">
-        <strong><xsl:apply-templates></xsl:apply-templates> </strong>
-    </xsl:template>
-    <xsl:template match="table-wrap[alternatives]">
-        <xsl:apply-templates select="alternatives" />
-    </xsl:template>
+
     <xsl:template match="table-wrap-foot">
         <div class="ref-list">
             <ul class="refList footnote">

@@ -4,7 +4,8 @@
     
     <xsl:template match="table-wrap" mode="modal"/>
     <xsl:template match="table-wrap" mode="modal-header"/>
-    <xsl:template match="table-wrap" mode="modal-body-and-footer"/>
+    <xsl:template match="table-wrap" mode="modal-body"/>
+    <xsl:template match="table-wrap" mode="modal-footer"/>
     
     <xsl:template match="table-wrap[@id] | table-wrap-group[@id]" mode="table-id">
         <xsl:value-of select="translate(@id,'.','_')"/>
@@ -18,7 +19,11 @@
                 <div class="modal-content">
 
                     <xsl:apply-templates select="." mode="modal-header"/>
-                    <xsl:apply-templates select="." mode="modal-body-and-footer"/>
+                    <xsl:apply-templates select="." mode="modal-body"/>
+                    
+                    <div class="modal-footer">
+                        <xsl:apply-templates select="." mode="modal-footer"/>
+                    </div>
 
                 </div>
             </div>
@@ -65,11 +70,15 @@
         <xsl:apply-templates select="." mode="label-caption"/><br/>
     </xsl:template>
 
-    <xsl:template match="table-wrap-group[@id]" mode="modal-body-and-footer">
-        <xsl:apply-templates select="table-wrap" mode="modal-body-and-footer"/>
+    <xsl:template match="table-wrap-group[@id]" mode="modal-body">
+        <xsl:apply-templates select="table-wrap" mode="modal-body"/>
+    </xsl:template>
+
+    <xsl:template match="table-wrap-group[@id]" mode="modal-footer">
+        <xsl:apply-templates select="table-wrap" mode="modal-footer"/>
     </xsl:template>
     
-    <xsl:template match="table-wrap[table] | table-wrap[graphic] | table-wrap[alternatives]" mode="modal-body-and-footer">
+    <xsl:template match="table-wrap[table] | table-wrap[graphic] | table-wrap[alternatives]" mode="modal-body">
         <!--
         Template para criar a área do corpo e nota de rodapé da tabela
         -->
@@ -86,9 +95,13 @@
                 </xsl:when>
             </xsl:choose>
         </div>
-        <div class="modal-footer">
-            <xsl:apply-templates select="table-wrap-foot"></xsl:apply-templates>
-        </div>
+    </xsl:template>   
+    
+    <xsl:template match="table-wrap[table-wrap-foot]" mode="modal-footer">
+        <!--
+        Template para criar a área do corpo e nota de rodapé da tabela
+        -->
+        <xsl:apply-templates select="table-wrap-foot"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="ref" mode="select">
