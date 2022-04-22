@@ -2191,3 +2191,346 @@ class HTMLGeneratorModalWithFiguresAndTablesTests(unittest.TestCase):
         self.assertEqual(a.get("href"), "#tables")
         self.assertEqual(a.get("aria-controls"), "tables")
         self.assertEqual(a.get("data-toggle"), "tab")
+
+
+class HTMLGeneratorTableLabelAndCaptionFootnoteTests(unittest.TestCase):
+    def setUp(self):
+        xml = u"""<article article-type="research-article" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+          <body>
+            <sec>
+                <p>The Eh measurements... <xref ref-type="table" rid="t01">Tabela 1</xref>:</p>
+                <p>
+                    <table-wrap id="t01">
+                        <label>Tabela 1</label>
+                        <caption>
+                            <title>Classificação Sucessional adotada</title>
+                        </caption>
+                        <alternatives>
+                            <graphic xlink:href="original.tif" />
+                            <graphic xlink:href="ampliada.png" specific-use="scielo-web" />
+                            <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                        </alternatives>
+                    </table-wrap>
+                    <table-wrap id="t02">
+                        <label>Tabela 2</label>
+                        <caption>
+                            <title>Classificação ao longo dos anos.</title>
+                        </caption>
+                        <alternatives>
+                            <graphic xlink:href="original_t2.tif" />
+                            <graphic xlink:href="ampliada_t2.png" specific-use="scielo-web" />
+                            <graphic xlink:href="miniatura_t2.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                        </alternatives>
+                        <table-wrap-foot>
+                            <fn-group>
+                                <fn id="TF1-150"><p>Data not available for 1 trial.</p></fn>
+                                <fn id="TF1-151"><p>P&#x003C;0.05 (random effects model).</p></fn>
+                            </fn-group>
+                        </table-wrap-foot>
+                    </table-wrap>
+                </p>
+            </sec>
+          </body>
+        </article>"""
+        et = get_xml_tree_from_string(xml)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_thumbnail_label(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 1')
+
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t02"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 2')
+
+    def test_thumbnail_caption(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/br'
+        )
+        self.assertEqual(nodes[0].tail.strip(), 'Classificação Sucessional adotada')
+
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t02"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/br'
+        )
+        self.assertEqual(nodes[0].tail.strip(), 'Classificação ao longo dos anos.')
+
+    def test_thumbnail_label_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table"]'
+            '/div[@class="col-md-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 1')
+        self.assertEqual(nodes[1].text, 'Tabela 2')
+
+    def test_thumbnail_caption_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table"]'
+            '/div[@class="col-md-8"]'
+            '/br'
+        )
+        self.assertEqual(nodes[0].tail.strip(), 'Classificação Sucessional adotada')
+        self.assertEqual(nodes[1].tail.strip(), 'Classificação ao longo dos anos.')
+
+    def test_footnotes(self):
+        nodes = self.html.xpath(
+            '//div[@class="ref-list"]'
+            '/ul[@class="refList footnote"]'
+            '/li'
+            '/div'
+        )
+        self.assertEqual(nodes[0].text.strip(), 'Data not available for 1 trial.')
+        self.assertEqual(nodes[1].text.strip(), 'P<0.05 (random effects model).')
+
+
+class HTMLGeneratorTableWrapWithAlternativeGraphicsOnlyTests(unittest.TestCase):
+    def setUp(self):
+        xml = u"""<article article-type="research-article" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+          <body>
+            <sec>
+                <p>The Eh measurements... <xref ref-type="table" rid="t01">Tabela 1</xref>:</p>
+                <p>
+                    <table-wrap id="t01">
+                        <label>Tabela 1</label>
+                        <caption>
+                            <title>Classificação Sucessional adotada</title>
+                        </caption>
+                        <alternatives>
+                            <graphic xlink:href="original.tif" />
+                            <graphic xlink:href="ampliada.png" specific-use="scielo-web" />
+                            <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                        </alternatives>
+                    </table-wrap>
+                    <table-wrap id="t02">
+                        <label>Tabela 2</label>
+                        <caption>
+                            <title>Classificação ao longo dos anos.</title>
+                        </caption>
+                        <alternatives>
+                            <graphic xlink:href="original_t2.tif" />
+                            <graphic xlink:href="ampliada_t2.png" specific-use="scielo-web" />
+                            <graphic xlink:href="miniatura_t2.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                        </alternatives>
+                    </table-wrap>
+                </p>
+            </sec>
+          </body>
+        </article>"""
+        et = get_xml_tree_from_string(xml)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_thumbnail_in_text(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t02"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalTablet02"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_thumbnail_label(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 1')
+
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t02"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/strong'
+        )
+        self.assertEqual(nodes[0].text, 'Tabela 2')
+
+    def test_thumbnail_caption(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/br'
+        )
+        self.assertEqual(nodes[0].tail.strip(), 'Classificação Sucessional adotada')
+
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t02"]'
+            '/div[@class="col-md-8 col-sm-8"]'
+            '/br'
+        )
+        self.assertEqual(nodes[0].tail.strip(), 'Classificação ao longo dos anos.')
+
+    def test_thumbnail_in_tabpanel(self):
+        # <div class="modal fade ModalTables" id="ModalTable{$id}"
+        nodes = self.html.xpath(
+            '//div[@class="tab-content"]'
+            '/div[@role="tabpanel" and @id="tables"]'
+            '/div[@class="row table"]'
+            '/div[@class="col-md-4"]'
+            '/a[@data-toggle="modal" and @data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+        nodes = self.html.xpath(
+            '//div[@class="tab-content"]'
+            '/div[@role="tabpanel" and @id="tables"]'
+            '/div[@class="row table"]'
+            '/div[@class="col-md-4"]'
+            '/a[@data-toggle="modal" and @data-target="#ModalTablet02"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_total_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//a[@href="#tables" and @role="tab"]'
+        )
+        self.assertIn("(2)", nodes[0].text)
+
+    def test_enlarged_img_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal-body"]'
+            '/a[@href="ampliada.png"]'
+            '/img[@src="ampliada.png"]'
+        )
+        self.assertEqual(len(nodes), 1)
+        nodes = self.html.xpath(
+            '//div[@class="modal-body"]'
+            '/a[@href="ampliada_t2.png"]'
+            '/img[@src="ampliada_t2.png"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_xref_presentation(self):
+        nodes = self.html.xpath(
+            '//a[@href="" and @class="open-asset-modal" and @data-target="#ModalTablet01"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+
+class HTMLGeneratorTableWrapWithAlternativeTableAndGraphicTests(unittest.TestCase):
+    def setUp(self):
+        xml = u"""<article article-type="research-article" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="pt"
+        xmlns:mml="http://www.w3.org/1998/Math/MathML"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+          <body>
+            <sec>
+                <p>The Eh measurements... <xref ref-type="table" rid="t01">Tabel 1</xref>:</p>
+                <p>
+                    <table-wrap id="t01">
+                        <alternatives>
+                            <table>
+                                <tr><td>Conteúdo da tabela</td></tr>
+                            </table>
+                            <graphic xlink:href="original1.tif" />
+                        </alternatives>
+                    </table-wrap>
+                    <table-wrap id="t02">
+                        <alternatives>
+                            <graphic xlink:href="original2.tif" />
+                            <table>
+                                <tr><td>Conteúdo da tabela</td></tr>
+                            </table>
+                        </alternatives>
+                    </table-wrap>
+                </p>
+            </sec>
+          </body>
+        </article>"""
+        et = get_xml_tree_from_string(xml)
+        self.html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
+
+    def test_thumbnail_in_text(self):
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+        nodes = self.html.xpath(
+            '//div[@class="row table" and @id="t02"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalTablet02"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_thumbnail_in_tabpanel(self):
+        # <div class="modal fade ModalTables" id="ModalTable{$id}"
+        nodes = self.html.xpath(
+            '//div[@class="tab-content"]'
+            '/div[@role="tabpanel" and @id="tables"]'
+            '/div[@class="row table"]'
+            '/div[@class="col-md-4"]'
+            '/a[@data-toggle="modal" and @data-target="#ModalTablet01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+        nodes = self.html.xpath(
+            '//div[@class="tab-content"]'
+            '/div[@role="tabpanel" and @id="tables"]'
+            '/div[@class="row table"]'
+            '/div[@class="col-md-4"]'
+            '/a[@data-toggle="modal" and @data-target="#ModalTablet02"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_total_in_tabpanel(self):
+        nodes = self.html.xpath(
+            '//a[@href="#tables" and @role="tab"]'
+        )
+        self.assertIn("(2)", nodes[0].text)
+
+    def test_enlarged_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalTables" and @id="ModalTablet01"]'
+            '/div[@class="modal-dialog modal-lg"]'
+            '/div[@class="modal-content"]'
+            '/div[@class="modal-body"]'
+            '/div[@class="table table-hover"]'
+            '/table/tr/td'
+        )
+        self.assertEqual(nodes[0].text, 'Conteúdo da tabela')
+
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalTables" and @id="ModalTablet02"]'
+            '/div[@class="modal-dialog modal-lg"]'
+            '/div[@class="modal-content"]'
+            '/div[@class="modal-body"]'
+            '/a[@href="original2.jpg"]'
+            '/img[@src="original2.jpg"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_xref_presentation(self):
+        nodes = self.html.xpath(
+            '//a[@href="" and @class="open-asset-modal" and @data-target="#ModalTablet01"]'
+        )
+        self.assertEqual(len(nodes), 1)
