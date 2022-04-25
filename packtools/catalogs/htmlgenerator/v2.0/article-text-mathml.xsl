@@ -19,7 +19,7 @@
     </xsl:template>
     <xsl:template match="@*" mode="no-namespace">
         <xsl:attribute name="{name()}">
-            <xsl:apply-templates select="text()"/>
+            <xsl:value-of select="."/>
         </xsl:attribute>
     </xsl:template>
     <xsl:template match="*" mode="no-namespace">
