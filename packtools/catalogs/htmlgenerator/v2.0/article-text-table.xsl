@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    version="1.0">
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  exclude-result-prefixes="xlink">
+
     <xsl:template match="table-wrap[@id] | table-wrap-group[@id]">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="table-id"/></xsl:variable>
         <div class="row table" id="{$id}">
@@ -28,13 +31,15 @@
 
     <xsl:template match="table-wrap" mode="table-label-caption-thumb">
         <!-- apresenta a legenda -->
-        <xsl:apply-templates select="." mode="label-caption-thumb"/><br/>
+        <xsl:apply-templates select="." mode="label-br-caption"/><br/>
     </xsl:template>
 
-    <xsl:template match="table-wrap/table/@*">
-        <xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
-    </xsl:template>
-    <xsl:template match="table-wrap/table | table-wrap/alternatives/table">
+    <xsl:template match="table">
+        <!--
+            table-wrap-group/table-wrap/table 
+            table-wrap-group/table 
+            table-wrap/table
+        -->
         <div class="table table-hover">
             <xsl:element name="{name()}">
                 <xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
@@ -48,36 +53,5 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="table-wrap/caption">
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-    </xsl:template>
-    <xsl:template match="table-wrap/caption/p">
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-    </xsl:template>
-    <xsl:template match="table-wrap/caption/title"><xsl:text> </xsl:text>
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-    </xsl:template>
 
-    <xsl:template match="table-wrap-foot">
-        <div class="ref-list">
-            <ul class="refList footnote">
-                <xsl:apply-templates select="*"></xsl:apply-templates>
-            </ul>
-        </div>
-    </xsl:template>
-    <xsl:template match="table-wrap-foot/fn">
-        <li>
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-        </li>     
-    </xsl:template>
-    <xsl:template match="table-wrap-foot/fn/label">
-        <sup class="xref big"><xsl:value-of select="."/></sup>
-    </xsl:template>
-    <xsl:template match="table-wrap-foot/fn/p">
-        <div>
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-        </div>
-    </xsl:template>
-   
-    
 </xsl:stylesheet>

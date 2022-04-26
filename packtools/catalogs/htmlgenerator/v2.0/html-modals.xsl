@@ -286,7 +286,7 @@
             Cria a legenda de uma tabela no conteúdo da ABA "Tables"
         -->
         <div class="col-md-8">
-            <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="label-br-caption"></xsl:apply-templates>
         </div>
     </xsl:template>
 

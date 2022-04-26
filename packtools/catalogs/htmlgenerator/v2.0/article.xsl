@@ -60,7 +60,7 @@
     <xsl:include href="html-head.xsl"/>
 
     <xsl:variable name="ref" select="//ref"/>
-    <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"/>
+    <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>
 
     <!--xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
     <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable-->

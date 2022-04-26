@@ -48,4 +48,30 @@
             <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <xsl:template match="@xlink:href" mode="original-file-location"><xsl:apply-templates select="." mode="fix-original-file-location"/></xsl:template>
+
+    <xsl:template match="*" mode="original-file-location">
+        <xsl:choose>
+            <xsl:when test="*">
+                <xsl:apply-templates select="*" mode="original-file-location"/>
+            </xsl:when>
+            <xsl:when test="@xlink:href!='' and not(@specific-use)">
+                <xsl:apply-templates select="@xlink:href" mode="original-file-location"/>
+            </xsl:when>
+            <xsl:otherwise>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="@xlink:href" mode="fix-original-file-location">
+        <xsl:variable name="tail"><xsl:value-of select="substring(.,string-length(.)-5)"/></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="contains($tail, '.')">
+                <xsl:value-of select="."/>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="."/>.jpg</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
 </xsl:stylesheet>
