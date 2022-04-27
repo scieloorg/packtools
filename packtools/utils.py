@@ -147,7 +147,7 @@ def flatten(paths):
 
     Glob expansions are allowed.
 
-    :param paths: Collection of paths. A path can be relative, absolute or a 
+    :param paths: Collection of paths. A path can be relative, absolute or a
                   glob expression.
     """
     def _inner_generator():
@@ -348,7 +348,7 @@ class WebImageGenerator:
                     destination_path, os.path.basename(new_filename)
                 )
             try:
-                png_file.save(new_filename, "PNG")
+                png_file.save(new_filename, "PNG", quality='web_high')
                 return new_filename
             except (ValueError, IOError) as exc:
                 raise exceptions.WebImageGeneratorError(
@@ -377,7 +377,7 @@ class WebImageGenerator:
                 )
             thumbnail_file.thumbnail(self.thumbnail_size)
             try:
-                thumbnail_file.save(new_filename, "JPEG")
+                thumbnail_file.save(new_filename, "JPEG", quality='web_high')
                 return new_filename
             except (ValueError, IOError) as exc:
                 raise exceptions.WebImageGeneratorError(
@@ -438,7 +438,7 @@ class XMLWebOptimiser(object):
         assets_thumbnails = xml_web_optimiser.get_assets_thumbnails()
 
     :param filename: (str) XML file name
-    :param image_filenames: (list) list of image file names 
+    :param image_filenames: (list) list of image file names
     :param read_file: function to read file content from source which raises
         exceptions.SPPackageError if an error occurs during the file reading
     :param work_dir: directory path to work with image optimization
@@ -779,7 +779,7 @@ class SPPackage(object):
         In the end, creates a new SciELO Publishing Package, compressed in a ZIP file,
         with previous content and updates all optimised XMLs and the web images
         versions.
-        
+
         :param new_package_file_path (default=None): Path to optimised SciELO Publishing
             Package file. If not given, it will be the same path and file name of the
             original package file ended with ``_optimised.zip``.

@@ -20,7 +20,7 @@ with open('packtools/version.py') as fp:
 INSTALL_REQUIRES = [
     'lxml>=4.2.0',
     'picles.plumber>=0.11',
-    'Pillow~=6.2',
+    'Pillow',
 ]
 
 
@@ -29,7 +29,7 @@ EXTRAS_REQUIRE = {
         'Flask',
         'Flask-BabelEx',
         'Flask-WTF',
-        'Werkzeug==0.16.1',
+        'Werkzeug',
     ]
 }
 
