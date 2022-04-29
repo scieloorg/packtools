@@ -42,8 +42,6 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="fig | disp-formula" mode="file-location-thumb"><xsl:apply-templates select="graphic | disp-formula | alternatives" mode="file-location-thumb"/></xsl:template>
-
     <xsl:template match="fig-group[@id]" mode="fig-label-caption-thumb">
         <xsl:apply-templates select="fig" mode="fig-label-caption-thumb"/>
     </xsl:template>

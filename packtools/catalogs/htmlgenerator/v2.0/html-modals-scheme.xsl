@@ -23,6 +23,16 @@
                                     </xsl:apply-templates>
                                 </span>
                             </button>
+                            <xsl:variable name="location"><xsl:apply-templates select="." mode="original-file-location"/></xsl:variable>
+                            <xsl:if test="$location!=''">
+                            <a class="link-newWindow showTooltip" target="_blank" data-placement="left">
+                                <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
+                                    <xsl:with-param name="text">Open new window</xsl:with-param>
+                                </xsl:apply-templates></xsl:attribute>
+                                <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
+                                <span class="sci-ico-newWindow"></span>
+                            </a>
+                            </xsl:if>
                             <h4 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="." mode="label-caption"/></h4>
                         </div>
                         <div class="modal-body">

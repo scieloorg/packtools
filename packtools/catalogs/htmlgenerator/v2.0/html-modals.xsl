@@ -320,16 +320,16 @@
         <!--
             cria no conteúdo da ABA "Scheme" a miniatura e legenda de uma fórmula
         -->
-        <div class="row fig">
-            <!-- miniatura -->
-            <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
+        <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location-thumb"/></xsl:variable>
         <xsl:variable name="id"><xsl:apply-templates select="." mode="disp-formula-id"/></xsl:variable>
 
+        <div class="row fig">
+            <!-- miniatura -->
             <div class="col-md-4">
                 <a data-toggle="modal" data-target="#ModalScheme{$id}">
                     <div>
                         <xsl:choose>
-                            <xsl:when test="graphic">
+                            <xsl:when test="$location!=''">
                                 <xsl:attribute name="class">thumbImg</xsl:attribute>
                                 <img>
                                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>

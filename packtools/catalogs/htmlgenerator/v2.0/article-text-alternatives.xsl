@@ -120,10 +120,4 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="alternatives" mode="file-location-thumb">
-        <xsl:if test="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]">
-            <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="file-location-thumb"/>
-        </xsl:if>
-    </xsl:template>
-
 </xsl:stylesheet>

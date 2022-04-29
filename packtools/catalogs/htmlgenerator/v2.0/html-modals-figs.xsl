@@ -24,7 +24,6 @@
                                 </xsl:apply-templates>
                             </span>
                         </button>
-                        <!-- FIXME -->
                         <xsl:variable name="location"><xsl:apply-templates select="." mode="original-file-location"/></xsl:variable>
                         <xsl:if test="$location!=''">
                         <a class="link-newWindow showTooltip" target="_blank" data-placement="left">

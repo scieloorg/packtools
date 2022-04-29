@@ -154,6 +154,23 @@ class HTMLGenerator_Fig_Graphic_Tiff_Tests(unittest.TestCase):
         )
         self.assertEqual(len(nodes), 1)
 
+    def test_thumbnail_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="row fig" and @id="f01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalFigf01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_original_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
+            '//div[@class="modal-header"]'
+            '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
+        )
+        self.assertEqual(nodes[0].get("href"), "figure1.tif")
+
 
 class HTMLGenerator_Fig_Graphic_Png_Tests(unittest.TestCase):
     def setUp(self):
@@ -179,6 +196,23 @@ class HTMLGenerator_Fig_Graphic_Png_Tests(unittest.TestCase):
             '/img[@src="figure1.png"]'
         )
         self.assertEqual(len(nodes), 1)
+
+    def test_thumbnail_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="row fig" and @id="f01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalFigf01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_original_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
+            '//div[@class="modal-header"]'
+            '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
+        )
+        self.assertEqual(nodes[0].get("href"), "figure1.png")
 
 
 class HTMLGenerator_Fig_Graphic_NoExtension_Tests(unittest.TestCase):
@@ -206,6 +240,23 @@ class HTMLGenerator_Fig_Graphic_NoExtension_Tests(unittest.TestCase):
         )
         self.assertEqual(len(nodes), 1)
 
+    def test_thumbnail_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="row fig" and @id="f01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalFigf01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_original_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
+            '//div[@class="modal-header"]'
+            '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
+        )
+        self.assertEqual(nodes[0].get("href"), "figure1.tif")
+
 
 class HTMLGenerator_Fig_Graphic_SVG_Tests(unittest.TestCase):
     def setUp(self):
@@ -230,6 +281,23 @@ class HTMLGenerator_Fig_Graphic_SVG_Tests(unittest.TestCase):
             '//object[@data="figure1.svg"]'
         )
         self.assertEqual(len(nodes), 1)
+
+    def test_thumbnail_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="row fig" and @id="f01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalFigf01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_original_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
+            '//div[@class="modal-header"]'
+            '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
+        )
+        self.assertEqual(nodes[0].get("href"), "figure1.svg")
 
 
 class HTMLGenerator_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -406,6 +474,15 @@ class HTMLGenerator_FigGroup_Graphic_Tests(unittest.TestCase):
         )
         self.assertEqual(len(nodes), 1)
 
+    def test_thumbnail_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="row fig" and @id="f01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalFigf01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
     def test_original_presentation(self):
         # _print_debug(self.html)
         nodes = self.html.xpath(
@@ -413,7 +490,7 @@ class HTMLGenerator_FigGroup_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.jpg")
+        self.assertEqual(nodes[0].get("href"), "original.tif")
 
 
 class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -456,6 +533,16 @@ class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="modal-body"]'
             '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_thumbnail_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="row fig" and @id="f01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalFigf01"]'
+            '/div[@class="thumbImg"]'
+            '/img[@src="miniatura.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
 
@@ -506,13 +593,22 @@ class HTMLGenerator_FigGroup_Fig_Graphic_Tests(unittest.TestCase):
         )
         self.assertEqual(len(nodes), 1)
 
+    def test_thumbnail_presentation(self):
+        nodes = self.html.xpath(
+            '//div[@class="row fig" and @id="f01"]'
+            '/div[@class="col-md-4 col-sm-4"]'
+            '/a[@data-target="#ModalFigf01"]'
+            '/div[@class="thumbOff"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
     def test_original_presentation(self):
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.jpg")
+        self.assertEqual(nodes[0].get("href"), "original.tif")
 
 
 class HTMLGenerator_FigGroup_Fig_Alternatives_Graphics_Tests(unittest.TestCase):

@@ -37,8 +37,6 @@
 
     <xsl:template match="graphic | inline-graphic" mode="file-location"><xsl:apply-templates select="@xlink:href"/></xsl:template>
 
-    <xsl:template match="graphic | inline-graphic" mode="file-location-thumb"><xsl:apply-templates select="@xlink:href"/></xsl:template>
-
     <xsl:template match="graphic/@xlink:href | inline-graphic/@xlink:href">
         <xsl:variable name="s"><xsl:value-of select="substring(.,string-length(.)-4)"/></xsl:variable>
         <xsl:variable name="ext"><xsl:if test="contains($s,'.')">.<xsl:value-of select="substring-after($s,'.')"/></xsl:if></xsl:variable>
@@ -49,28 +47,46 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="@xlink:href" mode="original-file-location"><xsl:apply-templates select="." mode="fix-original-file-location"/></xsl:template>
+    <!-- TIFF -->
+    <xsl:template match="*" mode="original-file-location"><xsl:apply-templates select="." mode="find-original-file-location"/></xsl:template>
+    <xsl:template match="@xlink:href" mode="original-file-location"><xsl:apply-templates select="." mode="find-original-file-location"/></xsl:template>
 
-    <xsl:template match="*" mode="original-file-location">
+    <xsl:template match="@xlink:href" mode="find-original-file-location">
+        <xsl:variable name="tail"><xsl:value-of select="substring(.,string-length(.)-5)"/></xsl:variable>
         <xsl:choose>
-            <xsl:when test="*">
-                <xsl:apply-templates select="*" mode="original-file-location"/>
-            </xsl:when>
-            <xsl:when test="@xlink:href!='' and not(@specific-use)">
-                <xsl:apply-templates select="@xlink:href" mode="original-file-location"/>
-            </xsl:when>
-            <xsl:otherwise>
-            </xsl:otherwise>
+            <xsl:when test="contains($tail, '.')"><xsl:value-of select="."/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="."/>.tif</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="@xlink:href" mode="fix-original-file-location">
+    <xsl:template match="*" mode="find-original-file-location">
+        <xsl:choose>
+            <xsl:when test="@xlink:href!='' and not(@specific-use) and not(@content-type)"><xsl:apply-templates select="@xlink:href" mode="find-original-file-location"/></xsl:when>
+            <xsl:when test="*[@xlink:href!='' and not(@specific-use) and not(@content-type)]"><xsl:apply-templates select="*[@xlink:href!='' and not(@specific-use) and not(@content-type)][1]" mode="find-original-file-location"/></xsl:when>
+            <xsl:when test="*"><xsl:apply-templates select="*" mode="find-original-file-location"/></xsl:when>
+            <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+
+    <!-- THUMBNAIL -->
+    <xsl:template match="*" mode="file-location-thumb"><xsl:apply-templates select="." mode="find-file-location-thumb"/></xsl:template>
+    <xsl:template match="@xlink:href" mode="file-location-thumb"><xsl:apply-templates select="." mode="find-file-location-thumb"/></xsl:template>
+
+    <xsl:template match="@xlink:href" mode="find-file-location-thumb">
         <xsl:variable name="tail"><xsl:value-of select="substring(.,string-length(.)-5)"/></xsl:variable>
         <xsl:choose>
-            <xsl:when test="contains($tail, '.')">
-                <xsl:value-of select="."/>
-            </xsl:when>
+            <xsl:when test="contains($tail, '.')"><xsl:value-of select="."/></xsl:when>
             <xsl:otherwise><xsl:value-of select="."/>.jpg</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="*" mode="find-file-location-thumb">
+        <xsl:choose>
+            <xsl:when test="@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')"><xsl:apply-templates select="@xlink:href" mode="find-file-location-thumb"/></xsl:when>
+            <xsl:when test="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]"><xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="find-file-location-thumb"/></xsl:when>
+            <xsl:when test="*"><xsl:apply-templates select="*" mode="find-file-location-thumb"/></xsl:when>
+            <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
