@@ -267,7 +267,6 @@ class HTMLGenerator_TableWrap_Graphic_NoExtension_Tests(unittest.TestCase):
             </table-wrap>
         """
         self.html = _get_xml(xml)
-        _print_debug(self.html)
 
     def test_enlarged_presentation(self):
         nodes = self.html.xpath(
@@ -682,7 +681,7 @@ class HTMLGenerator_TableWrapGroup_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.jpg")
+        self.assertEqual(nodes[0].get("href"), "original.tif")
 
 
 class HTMLGenerator_TableWrapGroup_Alternatives_TableAndGraphic_Tests(unittest.TestCase):
@@ -891,7 +890,7 @@ class HTMLGenerator_TableWrapGroup_TableWrap_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.jpg")
+        self.assertEqual(nodes[0].get("href"), "original.tif")
 
 
 class HTMLGenerator_TableWrapGroup_TableWrap_Alternatives_TableAndGraphic_Tests(unittest.TestCase):

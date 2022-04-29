@@ -268,7 +268,7 @@ class HTMLGenerator_FigGroup_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.jpg")
+        self.assertEqual(nodes[0].get("href"), "original.tif")
 
 
 class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -375,7 +375,7 @@ class HTMLGenerator_FigGroup_Fig_DispFormula_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.jpg")
+        self.assertEqual(nodes[0].get("href"), "original.tif")
 
 
 class HTMLGenerator_FigGroup_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -560,7 +560,6 @@ class HTMLGenerator_Fig_DispFormula_Tex_Tiff_Tests(unittest.TestCase):
         self.html = _get_xml(xml)
 
     def test_enlarged_presentation(self):
-        _print_debug(self.html)
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '/div[@class="modal-dialog modal-lg"]'
