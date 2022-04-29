@@ -25,7 +25,7 @@
                             </span>
                         </button>
                         <!-- FIXME -->
-                        <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
+                        <xsl:variable name="location"><xsl:apply-templates select="." mode="original-file-location"/></xsl:variable>
                         <xsl:if test="$location!=''">
                         <a class="link-newWindow showTooltip" target="_blank" data-placement="left">
                             <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
@@ -49,7 +49,7 @@
         <!--
             Localização da imagem ampliada
         -->
-        <xsl:apply-templates select="fig" mode="file-location"/>
+        <xsl:apply-templates select="fig | graphic | alternatives | disp-formula" mode="file-location"/>
     </xsl:template>
 
     <xsl:template match="fig" mode="file-location">
@@ -59,19 +59,23 @@
         <xsl:apply-templates select="graphic | alternatives" mode="file-location"/>
     </xsl:template>
 
+    <xsl:template match="*" mode="fig-modal-body">
+        <!-- graphic | alternatives | disp-formula -->
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+
     <xsl:template match="fig-group[@id]" mode="fig-modal-body">
         <!--
             <img/>
         -->
-        <xsl:apply-templates select="fig" mode="fig-modal-body"/>
+        <xsl:apply-templates select="fig | graphic | alternatives | disp-formula" mode="fig-modal-body"/>
     </xsl:template>
 
     <xsl:template match="fig" mode="fig-modal-body">
         <!--
             <img/>
         -->
-        <xsl:apply-templates select="alternatives | graphic"/>
-        <xsl:apply-templates select="disp-formula"></xsl:apply-templates>
-        <xsl:apply-templates select="attrib"></xsl:apply-templates>
+        <xsl:apply-templates select="alternatives | graphic | disp-formula"/>
+        <xsl:apply-templates select="attrib"/>
     </xsl:template>
 </xsl:stylesheet>

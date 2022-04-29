@@ -74,12 +74,12 @@
                 <xsl:apply-templates select="math" />
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="*[1]"></xsl:apply-templates>
+                <xsl:apply-templates select="." mode="enlarged_image"/>
             </xsl:otherwise>
         </xsl:choose>    
     </xsl:template>
 
-    <xsl:template match="fig/alternatives">
+    <xsl:template match="fig/alternatives | fig-group/alternatives">
         <!-- 
             Apresentar a imagem padrão 
         -->
@@ -121,29 +121,9 @@
     </xsl:template>
 
     <xsl:template match="alternatives" mode="file-location-thumb">
-        <xsl:choose>
-
-            <xsl:when test="inline-graphic[@xlink:href!='' and @specific-use='scielo-web']">
-                <xsl:apply-templates select="inline-graphic[@xlink:href!='' and @specific-use='scielo-web']" mode="file-location-thumb"/>
-            </xsl:when>
-            <xsl:when test="inline-graphic[@xlink:href!='' and not(@specific-use='scielo-web')]">
-                <xsl:apply-templates select="inline-graphic[@xlink:href!='' and not(@specific-use='scielo-web')]" mode="file-location-thumb"/>
-            </xsl:when>
-
-            <xsl:when test="graphic[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]">
-                <xsl:apply-templates select="graphic[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]" mode="file-location-thumb" />
-            </xsl:when>
-            <xsl:when test="graphic[@xlink:href!='' and @specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-'))]">
-                <xsl:apply-templates select="graphic[@xlink:href!='' and @specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-'))]" mode="file-location-thumb" />
-            </xsl:when>
-            <xsl:when test=".//graphic[@xlink:href!='']">
-                <xsl:apply-templates select=".//graphic[@xlink:href!=''][1]" mode="file-location-thumb" />
-            </xsl:when>
-
-            <xsl:otherwise>
-                <xsl:apply-templates select="*[name()!='graphic'][1]" mode="file-location-thumb"></xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:if test="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]">
+            <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="file-location-thumb"/>
+        </xsl:if>
     </xsl:template>
 
 </xsl:stylesheet>
