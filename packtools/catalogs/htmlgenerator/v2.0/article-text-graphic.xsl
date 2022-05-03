@@ -6,87 +6,169 @@
   exclude-result-prefixes="xlink mml">
 
     <xsl:template match="graphic | inline-graphic">
-        <xsl:variable name="location"><xsl:apply-templates select="@xlink:href"></xsl:apply-templates></xsl:variable>
+        <!-- APRESENTA UM ELEMENTO GRÁFICO EM TAMANHO PADRAO -->
+        <xsl:apply-templates select="." mode="display-graphic"/>
+    </xsl:template>
+
+    <xsl:template match="p/alternatives | p/graphic">
+        <!-- CRIA THUMBNAIL DE IMAGE NAO ASSOCIADA A FIGURAS -->
+        <xsl:apply-templates select="." mode="thumbnail-div"/>
+    </xsl:template>
+
+    <xsl:template match="graphic | inline-graphic" mode="display-graphic">
+        <!-- APRESENTA UM ELEMENTO GRÁFICO EM TAMANHO PADRAO -->
+        <xsl:variable name="location"><xsl:apply-templates select="@xlink:href" mode="fix_extension"/></xsl:variable>
         <xsl:variable name="s"><xsl:value-of select="substring($location,string-length($location)-3)"/></xsl:variable>
         <xsl:variable name="ext"><xsl:if test="contains($s,'.')">.<xsl:value-of select="substring-after($s,'.')"/></xsl:if></xsl:variable>
-
         <xsl:choose>
             <xsl:when test="$ext='.svg'">
-                <a>
-                    <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
-                    <object type="image/svg+xml">
-                        <xsl:attribute name="style">max-width:100%</xsl:attribute>
-                        <xsl:attribute name="data"><xsl:value-of select="$location"/></xsl:attribute>
-                    </object>
-                </a>
+                <object type="image/svg+xml">
+                    <xsl:attribute name="style">max-width:100%</xsl:attribute>
+                    <xsl:attribute name="data"><xsl:value-of select="$location"/></xsl:attribute>
+                </object>
             </xsl:when>
             <xsl:otherwise>
-                <a>
-                    <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
-                    <img>
-                        <xsl:attribute name="style">max-width:100%</xsl:attribute>
-                        <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
-                    </img>
-                </a>
+                <img>
+                    <xsl:attribute name="style">max-width:100%</xsl:attribute>
+                    <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                </img>
             </xsl:otherwise>
         </xsl:choose>
-        <!--
-        <xsl:comment><xsl:value-of select="$s"/> </xsl:comment>
+    </xsl:template>
+
+    <xsl:template match="alternatives" mode="thumbnail-div">
+        <!-- 
+            CRIA UM BLOCO PARA A MINIATURA DE UM GRAPHIC NAO ASSOCIADO A UMA FIGURA
         -->
+        <xsl:apply-templates select="graphic[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]" mode="thumbnail-div">
+            <xsl:with-param name="regular_size_img_location"><xsl:apply-templates select="." mode="file-location"/></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="graphic | inline-graphic" mode="file-location"><xsl:apply-templates select="@xlink:href"/></xsl:template>
+    <xsl:template match="graphic" mode="thumbnail-div">
+        <xsl:param name="regular_size_img_location" select="@xlink:href"/>
+        <!-- 
+            CRIA UM BLOCO PARA A MINIATURA DE UM GRAPHIC NAO ASSOCIADO A UMA FIGURA
+        -->
+        <xsl:variable name="img_id">
+            <xsl:apply-templates select="." mode="image-id">
+                <xsl:with-param name="regular_size_img_location"><xsl:value-of select="$regular_size_img_location"/></xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:variable> 
 
-    <xsl:template match="graphic/@xlink:href | inline-graphic/@xlink:href">
-        <xsl:variable name="s"><xsl:value-of select="substring(.,string-length(.)-4)"/></xsl:variable>
-        <xsl:variable name="ext"><xsl:if test="contains($s,'.')">.<xsl:value-of select="substring-after($s,'.')"/></xsl:if></xsl:variable>
+        <div class="row fig" id="{$img_id}">
+            <a name="{$img_id}"></a>
+            <div class="col-md-4 col-sm-4">
+                <!-- manter href="" -->
+                <a href="" data-toggle="modal" data-target="#ModalImg{$img_id}">
+                    <div>
+                       <xsl:apply-templates select="." mode="display-graphic"/>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </xsl:template>
+
+    <!-- MODAL FILE LOCATION -->
+    <xsl:template match="*" mode="file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM DO MODAL (TAMANHO NORMAL)
+        -->
+        <xsl:apply-templates select="*" mode="file-location"/>
+    </xsl:template>
+
+    <xsl:template match="alternatives" mode="file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM DO MODAL (TAMANHO NORMAL)
+        -->
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="file-location"/>
+    </xsl:template>
+
+    <xsl:template match="graphic | inline-graphic" mode="file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM DO MODAL (TAMANHO NORMAL)
+        -->
+        <xsl:apply-templates select="@xlink:href" mode="fix_extension"/>
+    </xsl:template>
+
+    <xsl:template match="alternatives/graphic | alternatives/inline-graphic" mode="file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM DO MODAL (TAMANHO NORMAL)
+        -->
+        <xsl:value-of select="@xlink:href"/>
+    </xsl:template>
+
+    <!-- ORIGINAL FILE LOCATION -->
+    <xsl:template match="*" mode="original-file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR)
+        -->
+        <xsl:apply-templates select="*" mode="original-file-location"/>
+    </xsl:template>
+
+    <xsl:template match="alternatives" mode="original-file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR)
+        -->
+            <xsl:apply-templates select="*[@xlink:href!='' and not(@specific-use) and not(@content-type)][1]" mode="original-file-location"/>
+    </xsl:template>
+
+    <xsl:template match="graphic | inline-graphic" mode="original-file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR | TIFF)
+        -->
+        <xsl:apply-templates select="@xlink:href" mode="fix_extension"/>
+    </xsl:template>
+
+    <xsl:template match="alternatives/graphic | alternatives/inline-graphic" mode="original-file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR | TIFF)
+        -->
+        <xsl:value-of select="@xlink:href"/>
+    </xsl:template>
+
+    <!-- THUMBNAIL FILE LOCATION -->
+    <xsl:template match="*" mode="file-location-thumb">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM MINIATURA
+        -->
+        <xsl:apply-templates select="*" mode="file-location-thumb"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="file-location-thumb">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM MINIATURA
+        -->
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="file-location-thumb"/>
+    </xsl:template>
+
+    <xsl:template match="graphic | inline-graphic" mode="file-location-thumb">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM MINIATURA
+        -->
+        <xsl:apply-templates select="@xlink:href" mode="fix_extension"/>
+    </xsl:template>
+    
+    <xsl:template match="alternatives/graphic | alternatives/inline-graphic" mode="file-location-thumb">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM MINIATURA
+        -->
+        <xsl:value-of select="@xlink:href"/>
+    </xsl:template>
+
+    <xsl:template match="@xlink:href" mode="fix_extension">
+        <!-- 
+            CONSERTA A EXTENSÃO
+            PARA EXTENSÃO AUSENTE OU PARA TIFF, COLOCAR JPG
+            INICIALMENTE NA ADOÇÃO DO SPS, NÃO ERA EXIGIDO A EXTENSÃO, POIS ERA ASSUMIDO QUE HAVIA A JPG E TIFF
+            NO ENTANTO, MANTIVEMOS A JPG NO SITE, FICANDO TIFF SÓ EM BACKUP
+        -->
+        <xsl:variable name="last_five_chars"><xsl:value-of select="substring(.,string-length(.)-5)"/></xsl:variable>
+        <xsl:variable name="ext"><xsl:if test="contains($last_five_chars,'.')"><xsl:value-of select="substring-after($last_five_chars,'.')"/></xsl:if></xsl:variable>
         <xsl:choose>
-            <xsl:when test="$ext='.tif' or $ext='.tiff'"><xsl:value-of select="substring-before(.,$ext)"/>.jpg</xsl:when>
             <xsl:when test="$ext=''"><xsl:value-of select="."/>.jpg</xsl:when>
+            <xsl:when test="contains($ext, 'tif')"><xsl:value-of select="substring-before(.,$ext)"/>jpg</xsl:when>
             <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <!-- TIFF -->
-    <xsl:template match="*" mode="original-file-location"><xsl:apply-templates select="." mode="find-original-file-location"/></xsl:template>
-    <xsl:template match="@xlink:href" mode="original-file-location"><xsl:apply-templates select="." mode="find-original-file-location"/></xsl:template>
-
-    <xsl:template match="@xlink:href" mode="find-original-file-location">
-        <xsl:variable name="tail"><xsl:value-of select="substring(.,string-length(.)-5)"/></xsl:variable>
-        <xsl:choose>
-            <xsl:when test="contains($tail, '.')"><xsl:value-of select="."/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="."/>.tif</xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="*" mode="find-original-file-location">
-        <xsl:choose>
-            <xsl:when test="@xlink:href!='' and not(@specific-use) and not(@content-type)"><xsl:apply-templates select="@xlink:href" mode="find-original-file-location"/></xsl:when>
-            <xsl:when test="*[@xlink:href!='' and not(@specific-use) and not(@content-type)]"><xsl:apply-templates select="*[@xlink:href!='' and not(@specific-use) and not(@content-type)][1]" mode="find-original-file-location"/></xsl:when>
-            <xsl:when test="*"><xsl:apply-templates select="*" mode="find-original-file-location"/></xsl:when>
-            <xsl:otherwise></xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-
-    <!-- THUMBNAIL -->
-    <xsl:template match="*" mode="file-location-thumb"><xsl:apply-templates select="." mode="find-file-location-thumb"/></xsl:template>
-    <xsl:template match="@xlink:href" mode="file-location-thumb"><xsl:apply-templates select="." mode="find-file-location-thumb"/></xsl:template>
-
-    <xsl:template match="@xlink:href" mode="find-file-location-thumb">
-        <xsl:variable name="tail"><xsl:value-of select="substring(.,string-length(.)-5)"/></xsl:variable>
-        <xsl:choose>
-            <xsl:when test="contains($tail, '.')"><xsl:value-of select="."/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="."/>.jpg</xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="*" mode="find-file-location-thumb">
-        <xsl:choose>
-            <xsl:when test="@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')"><xsl:apply-templates select="@xlink:href" mode="find-file-location-thumb"/></xsl:when>
-            <xsl:when test="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]"><xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="find-file-location-thumb"/></xsl:when>
-            <xsl:when test="*"><xsl:apply-templates select="*" mode="find-file-location-thumb"/></xsl:when>
-            <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 

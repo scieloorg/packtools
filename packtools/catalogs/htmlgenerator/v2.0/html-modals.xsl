@@ -32,9 +32,10 @@
 
     <xsl:template match="front | body | back | sub-article" mode="individual-modal">
         <!-- cria um modal para cada figura, tabela e fórmula existente no body-->
-        <xsl:apply-templates select=".//*[fig] | fig" mode="fig-modal"></xsl:apply-templates>
+        <xsl:apply-templates select=".//*[fig] | fig" mode="fig-modal"/>
         <xsl:apply-templates select=".//table-wrap[@id] | .//table-wrap-group[@id]" mode="modal"/>
         <xsl:apply-templates select=".//disp-formula[@id]" mode="modal"/>
+        <xsl:apply-templates select=".//*[graphic]" mode="graphic-modal"/>
     </xsl:template>
 
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">

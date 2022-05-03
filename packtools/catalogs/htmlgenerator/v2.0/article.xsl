@@ -32,7 +32,6 @@
     <xsl:include href="article-text.xsl"/>
     <xsl:include href="article-text-mathml.xsl"/>
     <xsl:include href="article-text-def-list.xsl"/>
-    <xsl:include href="article-text-alternatives.xsl"/>
 
     <xsl:include href="article-text-boxed-text.xsl"/>
     <xsl:include href="article-text-list.xsl"/>
@@ -54,10 +53,13 @@
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
+    <xsl:include href="html-modals-graphics.xsl"/>
     <xsl:include href="html-modals-figs.xsl"/>
     <xsl:include href="html-modals-scheme.xsl"/>
     <xsl:include href="html-modals-how2cite.xsl"/>
     <xsl:include href="html-head.xsl"/>
+
+    <xsl:include href="article-text-alternatives.xsl"/>
 
     <xsl:variable name="ref" select="//ref"/>
     <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>

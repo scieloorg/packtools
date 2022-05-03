@@ -81,42 +81,19 @@
 
     <xsl:template match="fig/alternatives | fig-group/alternatives">
         <!-- 
-            Apresentar a imagem padrão 
+            APRESENTAÇÃO DA IMAGEM DO MODAL (TAMANHO NORMAL)
         -->
-        <xsl:choose>
-            <xsl:when test="inline-graphic[@specific-use='scielo-web']">
-                <xsl:apply-templates select="inline-graphic[@specific-use='scielo-web']" />
-            </xsl:when>
-            <xsl:when test="graphic[@specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-')) and @xlink:href!='']">
-                <xsl:apply-templates select="graphic[@specific-use='scielo-web' and not(starts-with(@content-type, 'scielo-')) and @xlink:href!='']" />
-            </xsl:when>
-            <xsl:when test=".//graphic[not(@specific-use) and not(@content-type) and @xlink:href!='']">
-                <xsl:apply-templates select=".//graphic[not(@specific-use) and not(@content-type) and @xlink:href!=''][1]" />
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="*[name()!='graphic'][1]"></xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]"/>
     </xsl:template>
 
     <xsl:template match="alternatives" mode="file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM DO MODAL (TAMANHO NORMAL)
+        -->
         <xsl:choose>
-
-            <xsl:when test="inline-graphic[@specific-use='scielo-web']">
-                <xsl:apply-templates select="inline-graphic[@specific-use='scielo-web']" mode="file-location"/>
-            </xsl:when>
-
-            <xsl:when test="graphic[@specific-use='scielo-web' and starts-with(@content-type, 'scielo-') and @xlink:href!='']">
-                <xsl:apply-templates select="graphic[@specific-use='scielo-web' and starts-with(@content-type, 'scielo-') and @xlink:href!='']" mode="file-location" />
-            </xsl:when>
-
-            <xsl:when test="graphic[not(@specific-use) and not(@content-type) and @xlink:href!='']">
-                <xsl:apply-templates select=".//graphic[not(@specific-use) and not(@content-type) and @xlink:href!=''][1]" mode="file-location" />
-            </xsl:when>
-
-            <xsl:otherwise>
-                <xsl:apply-templates select="*[name()!='graphic' and @xlink:href!=''][1]" mode="file-location"/>
-            </xsl:otherwise>
+            <xsl:when test="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)]">
+                <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="file-location"/></xsl:when>
+            <xsl:otherwise><xsl:apply-templates select="*" mode="file-location"/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
