@@ -11,9 +11,12 @@
         Cria a miniatura no texto completo, que ao ser clicada mostra a figura
         ampliada
         -->
+
+        <!-- LOCATION OF EXPLICIT THUMBNAIL IMAGE -->
         <xsl:variable name="location">
-            <xsl:apply-templates select="alternatives | graphic | fig | disp-formula" mode="file-location-thumb"/>
+            <xsl:apply-templates select=".//alternatives" mode="file-location-thumb"/>
         </xsl:variable>
+
         <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>
         <div class="row fig" id="{$figid}">
             <a name="{$figid}"></a>

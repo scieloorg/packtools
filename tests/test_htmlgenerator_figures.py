@@ -149,7 +149,6 @@ class HTMLGenerator_Fig_Graphic_Tiff_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="figure1.jpg"]'
             '/img[@src="figure1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -164,12 +163,16 @@ class HTMLGenerator_Fig_Graphic_Tiff_Tests(unittest.TestCase):
         self.assertEqual(len(nodes), 1)
 
     def test_original_presentation(self):
+        # CONSERTA A EXTENSÃO
+        # PARA EXTENSÃO AUSENTE OU PARA TIFF, COLOCAR JPG
+        # INICIALMENTE NA ADOÇÃO DO SPS, NÃO ERA EXIGIDO A EXTENSÃO, POIS ERA ASSUMIDO QUE HAVIA A JPG E TIFF
+        # NO ENTANTO, MANTIVEMOS A JPG NO SITE, FICANDO TIFF SÓ EM BACKUP
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "figure1.tif")
+        self.assertEqual(nodes[0].get("href"), "figure1.jpg")
 
 
 class HTMLGenerator_Fig_Graphic_Png_Tests(unittest.TestCase):
@@ -192,7 +195,6 @@ class HTMLGenerator_Fig_Graphic_Png_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="figure1.png"]'
             '/img[@src="figure1.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -235,7 +237,6 @@ class HTMLGenerator_Fig_Graphic_NoExtension_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a'
             '/img[@src="figure1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -250,12 +251,17 @@ class HTMLGenerator_Fig_Graphic_NoExtension_Tests(unittest.TestCase):
         self.assertEqual(len(nodes), 1)
 
     def test_original_presentation(self):
+        # CONSERTA A EXTENSÃO
+        # PARA EXTENSÃO AUSENTE OU PARA TIFF, COLOCAR JPG
+        # INICIALMENTE NA ADOÇÃO DO SPS, NÃO ERA EXIGIDO A EXTENSÃO, POIS ERA ASSUMIDO QUE HAVIA A JPG E TIFF
+        # NO ENTANTO, MANTIVEMOS A JPG NO SITE, FICANDO TIFF SÓ EM BACKUP
+
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "figure1.tif")
+        self.assertEqual(nodes[0].get("href"), "figure1.jpg")
 
 
 class HTMLGenerator_Fig_Graphic_SVG_Tests(unittest.TestCase):
@@ -324,7 +330,6 @@ class HTMLGenerator_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -469,7 +474,6 @@ class HTMLGenerator_FigGroup_Graphic_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="original.jpg"]'
             '/img[@src="original.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -484,13 +488,16 @@ class HTMLGenerator_FigGroup_Graphic_Tests(unittest.TestCase):
         self.assertEqual(len(nodes), 1)
 
     def test_original_presentation(self):
-        # _print_debug(self.html)
+        # CONSERTA A EXTENSÃO
+        # PARA EXTENSÃO AUSENTE OU PARA TIFF, COLOCAR JPG
+        # INICIALMENTE NA ADOÇÃO DO SPS, NÃO ERA EXIGIDO A EXTENSÃO, POIS ERA ASSUMIDO QUE HAVIA A JPG E TIFF
+        # NO ENTANTO, MANTIVEMOS A JPG NO SITE, FICANDO TIFF SÓ EM BACKUP
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.tif")
+        self.assertEqual(nodes[0].get("href"), "original.jpg")
 
 
 class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -526,12 +533,12 @@ class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
         self.html = _get_xml(xml)
 
     def test_enlarged_presentation(self):
+        _print_debug(self.html)
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -588,7 +595,6 @@ class HTMLGenerator_FigGroup_Fig_Graphic_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="original.jpg"]'
             '/img[@src="original.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -603,12 +609,16 @@ class HTMLGenerator_FigGroup_Fig_Graphic_Tests(unittest.TestCase):
         self.assertEqual(len(nodes), 1)
 
     def test_original_presentation(self):
+        # CONSERTA A EXTENSÃO
+        # PARA EXTENSÃO AUSENTE OU PARA TIFF, COLOCAR JPG
+        # INICIALMENTE NA ADOÇÃO DO SPS, NÃO ERA EXIGIDO A EXTENSÃO, POIS ERA ASSUMIDO QUE HAVIA A JPG E TIFF
+        # NO ENTANTO, MANTIVEMOS A JPG NO SITE, FICANDO TIFF SÓ EM BACKUP
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.tif")
+        self.assertEqual(nodes[0].get("href"), "original.jpg")
 
 
 class HTMLGenerator_FigGroup_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -649,7 +659,6 @@ class HTMLGenerator_FigGroup_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
