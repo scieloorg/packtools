@@ -10,7 +10,12 @@
         <xsl:apply-templates select="." mode="display-graphic"/>
     </xsl:template>
 
-    <xsl:template match="p/alternatives | p/graphic">
+    <xsl:template match="p/alternatives[inline-graphic]">
+        <!-- CRIA THUMBNAIL DE IMAGEM NAO ASSOCIADA A FIGURAS -->
+        <xsl:apply-templates select="." mode="display-graphic"/>
+    </xsl:template>
+
+    <xsl:template match="p/alternatives[graphic] | p/graphic">
         <!-- CRIA THUMBNAIL DE IMAGEM NAO ASSOCIADA A FIGURAS -->
         <xsl:apply-templates select="." mode="thumbnail-div"/>
     </xsl:template>
@@ -35,7 +40,24 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="alternatives" mode="thumbnail-div">
+    <xsl:template match="alternatives" mode="display-graphic">
+        <!-- 
+            APRESENTA A IMAGEM PADRÃO DENTRE AS ALTERNATIVAS
+        -->
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="display-graphic"/>
+        <xsl:if test="not(*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)])">
+            <xsl:apply-templates select="*[@xlink:href!='' and not(@content-type)][1]" mode="display-graphic"/>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="alternatives[graphic]" mode="display-thubmnail-graphic">
+        <!-- 
+            APRESENTA A IMAGEM MINIATURA DENTRE AS ALTERNATIVAS, SE APLICAVEL
+        -->
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="display-graphic"/>
+    </xsl:template>
+
+    <xsl:template match="alternatives[graphic]" mode="thumbnail-div">
         <!-- 
             CRIA UM BLOCO PARA A IMAGEM NO TEXTO (IMAGEM NAO ASSOCIADO A UMA FIGURA)
             APRESENTA PREFERENCIALMENTE A MINIATURA PARA EXPANDIR OU
@@ -48,10 +70,7 @@
                 <!-- manter href="" -->
                 <a href="" data-toggle="modal" data-target="#ModalImg{$img_id}">
                     <div class="thumbImg">
-                        <img>
-                            <xsl:attribute name="style">max-width:100%</xsl:attribute>
-                            <xsl:attribute name="src"><xsl:apply-templates select="." mode="file-location-thumb"/></xsl:attribute>
-                        </img>
+                        <xsl:apply-templates select="." mode="display-thubmnail-graphic"/>
                     </div>
                 </a>
             </div>
@@ -73,7 +92,6 @@
                     <div class="thumbImg">
                        <xsl:apply-templates select="." mode="display-graphic"/>
                     </div>
-                    <div class="zoom"><span class="sci-ico-zoom"></span></div>
                 </a>
             </div>
         </div>

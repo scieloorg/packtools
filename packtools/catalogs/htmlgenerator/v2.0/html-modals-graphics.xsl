@@ -16,9 +16,15 @@
         <!--
             MODAL PARA GRAPHIC NAO ASSOCIADO COM FIGURA
         -->
-        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="graphic-modal">
+        <xsl:apply-templates select="graphic[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="graphic-modal">
             <xsl:with-param name="original_location"><xsl:apply-templates select="." mode="original-file-location"/></xsl:with-param>
         </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="inline-graphic" mode="graphic-modal">
+        <!--
+            NOT APPLICABLE, DO NOTHING
+        -->
     </xsl:template>
 
     <xsl:template match="graphic" mode="graphic-modal">

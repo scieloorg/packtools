@@ -694,24 +694,16 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
       </article>"""
 
     def test_graphic_images_alternatives_must_prioritize_scielo_web_in_disp_formula(self):
-        graphic1 = """
-        <disp-formula id="e01">
+        
+        graphic2 = """
             <alternatives>
-                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
-                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
-                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
+                <inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tif" />
+                <inline-graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e02.png" />
+                <inline-graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e02.thumbnail.jpg" />
             </alternatives>
-        </disp-formula>
         """
-        graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff" /><inline-graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
+        et = get_xml_tree_from_string(self.sample.format(graphic1="", graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-
-        self.assertIsNotNone(
-            html.find(
-                '//div[@class="formula-container"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
-            )
-        )
         self.assertIsNotNone(
             html.find('//p//img[@src="1234-5678-rctb-45-05-0110-e02.png"]')
         )
@@ -788,21 +780,6 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         )
         self.assertTrue(len(thumb_tag) > 0)
 
-    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_fig(self):
-        graphic1 = """
-        <fig id="e01">
-            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
-        </fig>
-        """
-        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
-        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-        thumb_tag = html.xpath(
-            '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
-            'div[@class="thumbImg"]/img'
-        )
-        self.assertTrue(len(thumb_tag) > 0)
-
     def test_graphic_images_alternatives_must_prioritize_scielo_web_in_modal_disp_formula(self):
         graphic1 = """
         <disp-formula id="e01">
@@ -843,38 +820,6 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         )
         self.assertIsNotNone(modal_body)
 
-    def test_graphic_images_alternatives_must_prioritize_scielo_web_in_modal_fig(self):
-        graphic1 = """
-        <fig id="e01">
-            <alternatives>
-                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
-                <graphic specific-use="scielo-web" xlink:href="1234-5678-rctb-45-05-0110-e01.png" />
-                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
-            </alternatives>
-        </fig>
-        """
-        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
-        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-        modal_body = html.find(
-            '//div[@class="modal-body"]/a//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
-        )
-        self.assertIsNotNone(modal_body)
-
-    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_modal_fig(self):
-        graphic1 = """
-        <fig id="e01">
-            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
-        </fig>
-        """
-        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
-        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-        modal_body = html.find(
-            '//div[@class="modal-body"]/a/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
-        )
-        self.assertIsNotNone(modal_body)
-
     def test_graphic_images_alternatives_must_prioritize_scielo_web_in_modal_table_wrap(self):
         graphic1 = """
         <table-wrap id="e01">
@@ -889,7 +834,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/a/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -903,7 +848,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/a/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
+            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -982,24 +927,6 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         )
         self.assertTrue(len(thumb_tag) > 0)
 
-
-    def test_graphic_images_alternatives_must_get_first_graphic_in_modal_when_not_scielo_web_and_not_content_type_atribute(self):
-        graphic1 = """
-        <fig id="e01">
-            <alternatives>
-                <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.png"/>
-                <graphic specific-use="scielo-web" content-type="scielo-20x20" xlink:href="1234-5678-rctb-45-05-0110-e01.thumbnail.jpg" />
-            </alternatives>
-        </fig>
-        """
-        graphic2 = '<alternatives><inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.png" /></alternatives>'
-        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
-        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-        thumb_tag = html.xpath(
-            '//div[@id="ModalFige01"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
-        )
-        self.assertTrue(len(thumb_tag) > 0)
-
     def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_fig(self):
         graphic1 = """
         <fig id="e01">
@@ -1011,7 +938,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="articleSection"]/div[@class="row fig"]//a[@data-toggle="modal"]/'
-            'div[@class="thumbImg"]/img'
+            'div[@class="thumbOff"]'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -1033,39 +960,6 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         )
         self.assertIsNotNone(modal_body)
 
-    def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_modal_fig(self):
-        graphic1 = """
-        <fig id="e01">
-            <graphic xlink:href="1234-5678-rctb-45-05-0110-e01.tif" />
-        </fig>
-        """
-        graphic2 = '<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e02.tiff"/>'
-        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
-        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-        modal_body = html.find(
-            '//div[@class="modal-body"]/a/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
-        )
-        self.assertIsNotNone(modal_body)
-
-    def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_xlink_href_not_empty(self):
-        graphic1 = """
-          <fig id="f01">
-            <alternatives>
-              <graphic xlink:href=""/>
-              <graphic xlink:href="https://minio.scielo.br/documentstore/1678-992X/Wfy9dhFgfVFZgBbxg4WGVQM/a.jpg"/>
-              <graphic xlink:href="https://minio.scielo.br/documentstore/1678-992X/Wfy9dhFgfVFZgBbxg4WGVQM/b.jpg"/>
-          </alternatives>
-          </fig>
-          """
-        graphic2 = ""
-        et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
-        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
-        thumb_tag = html.xpath(
-            '//div[@class="row fig"]'
-            '//div[@class="thumbImg"]/img'
-        )
-        self.assertTrue(len(thumb_tag) > 0)
-
     def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_scielo_web_and_no_content_type_because_xlink_href_is_empty(self):
         graphic1 = """
           <fig id="f01">
@@ -1081,11 +975,11 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
-            '//div[@class="thumbImg"]/img'
+            '//div[@class="thumbOff"]'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
-    def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_no_scielo_web_and_no_content_type_because_xlink_href_is_empty(self):
+    def test_article_text_alternatives_mode_file_location_thumb_returns_none_because_xlink_href_is_empty(self):
         graphic1 = """
           <fig id="f01">
             <alternatives>
@@ -1100,11 +994,11 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
-            '//div[@class="thumbImg"]/img'
+            '//div[@class="thumbOff"]'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
-    def test_article_text_alternatives_mode_file_location_thumb_must_choose_graphic_with_no_scielo_web_and_no_content_type_because_xlink_href_is_absent(self):
+    def test_article_text_alternatives_mode_file_location_thumb_returns_none_because_xlink_href_is_absent(self):
         graphic1 = """
           <fig id="f01">
             <alternatives>
@@ -1119,7 +1013,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         thumb_tag = html.xpath(
             '//div[@class="row fig"]'
-            '//div[@class="thumbImg"]/img'
+            '//div[@class="thumbOff"]'
         )
         self.assertTrue(len(thumb_tag) > 0)
 
@@ -1474,16 +1368,10 @@ class HTMLGeneratorFigWithoutIdTests(unittest.TestCase):
         self.assertIn("Figura 1", text)
         self.assertIn("Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", text)
 
-        # class="modal-body" has link to image path
-        self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_modal_fig.find(".//div[@class='modal-body']/a").get("href")
-        )
-
         # class="modal-body" has src with image path
         self.assertEqual(
             "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_modal_fig.find(".//div[@class='modal-body']/a/img").get("src")
+            div_modal_fig.find(".//div[@class='modal-body']/img").get("src")
         )
 
         # class="modal-body" has `attrib` text presented inner `<small/>`
@@ -1533,12 +1421,8 @@ class HTMLGeneratorFigWithoutIdTests(unittest.TestCase):
             div_modal_fig_0_a.get("data-target")
         )
 
-        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
-        # as thumbnail
-        self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_modal_fig_0_a.find("div[@class='thumbImg']/img").get("src")
-        )
+        # apresentar thumbnail somente para as imagens explicitamente miniaturas (alternatives)
+        self.assertIsNotNone(div_modal_fig_0_a.find("div[@class='thumbOff']"))
 
         # div_modal_fig[1] has label and caption texts
         texts = etree.tostring(
@@ -1597,12 +1481,8 @@ class HTMLGeneratorFigWithoutIdTests(unittest.TestCase):
             div_row_fig_div_0_a.get("data-target")
         )
 
-        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
-        # as thumbnail
-        self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_row_fig_div_0_a.find("div[@class='thumbImg']/img").get("src")
-        )
+        # apresentar thumbnail somente para as imagens explicitamente miniaturas (alternatives)
+        self.assertIsNotNone(div_row_fig_div_0_a.find("div[@class='thumbOff']"))
 
         # div_modal_fig[1] has label and caption texts
         texts = etree.tostring(
@@ -1680,16 +1560,10 @@ class HTMLGeneratorFigWithIdTests(unittest.TestCase):
         self.assertIn("Figura 1", text)
         self.assertIn("Correlação entre o teor de fenóis totais e CE50 de espécies de <i>Senna</i> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.", text)
 
-        # class="modal-body" has link to image path
-        self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_modal_fig.find(".//div[@class='modal-body']/a").get("href")
-        )
-
         # class="modal-body" has src with image path
         self.assertEqual(
             "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_modal_fig.find(".//div[@class='modal-body']/a/img").get("src")
+            div_modal_fig.find(".//div[@class='modal-body']/img").get("src")
         )
 
         # class="modal-body" has `attrib` text presented inner `<small/>`
@@ -1742,10 +1616,7 @@ class HTMLGeneratorFigWithIdTests(unittest.TestCase):
 
         # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
         # as thumbnail
-        self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_modal_fig_0_a.find("div[@class='thumbImg']/img").get("src")
-        )
+        self.assertIsNotNone(div_modal_fig_0_a.find("div[@class='thumbOff']"))
 
         # div_modal_fig[1] has label and caption texts
         texts = etree.tostring(
@@ -1804,12 +1675,8 @@ class HTMLGeneratorFigWithIdTests(unittest.TestCase):
             div_row_fig_div_0_a.get("data-target")
         )
 
-        # div_row_fig_divs[0] must have div[@class='thumbImg'] to display image
-        # as thumbnail
-        self.assertEqual(
-            "2236-8906-hoehnea-49-e1112020-gf1.jpg",
-            div_row_fig_div_0_a.find("div[@class='thumbImg']/img").get("src")
-        )
+        # Apresenta thubmnail somente para imagens explicitamente miniaturas (alternatives)
+        self.assertIsNotNone(div_row_fig_div_0_a.find("div[@class='thumbOff']"))
 
         # div_modal_fig[1] has label and caption texts
         texts = etree.tostring(
