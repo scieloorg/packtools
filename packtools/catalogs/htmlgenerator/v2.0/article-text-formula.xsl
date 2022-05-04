@@ -22,8 +22,34 @@
 		<span class="label"><xsl:value-of select="."/></span>
 	</xsl:template>
 
-    <xsl:template match="disp-formula[alternatives]" mode="file-location">
-        <xsl:apply-templates select="alternatives" />
+    <xsl:template match="disp-formula/alternatives | inline-formula/alternatives">
+        <xsl:choose>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='tex-math' and tex-math">
+                <xsl:apply-templates select="tex-math" />
+            </xsl:when>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='math' and math">
+                <xsl:apply-templates select="math" />
+            </xsl:when>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='mml:math' and mml:math">
+                <xsl:apply-templates select="mml:math" />
+            </xsl:when>
+            <xsl:when test="tex-math and (math or mml:math)">
+                <!-- obtém o primeiro -->
+                <xsl:apply-templates select="*[1]" />
+            </xsl:when>
+            <xsl:when test="tex-math">
+                <xsl:apply-templates select="tex-math" />
+            </xsl:when>
+            <xsl:when test="mml:math">
+                <xsl:apply-templates select="mml:math" />
+            </xsl:when>
+            <xsl:when test="math">
+                <xsl:apply-templates select="math" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="display-graphic"/>
+            </xsl:otherwise>
+        </xsl:choose>    
     </xsl:template>
 
     <xsl:template match="inline-formula/tex-math | inline-formula/alternatives/tex-math">

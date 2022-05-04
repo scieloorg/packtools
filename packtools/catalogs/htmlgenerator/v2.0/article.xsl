@@ -59,8 +59,6 @@
     <xsl:include href="html-modals-how2cite.xsl"/>
     <xsl:include href="html-head.xsl"/>
 
-    <xsl:include href="article-text-alternatives.xsl"/>
-
     <xsl:variable name="ref" select="//ref"/>
     <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>
 

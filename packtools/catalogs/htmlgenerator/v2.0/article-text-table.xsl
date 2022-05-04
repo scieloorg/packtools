@@ -53,5 +53,19 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="table-wrap/alternatives | table-wrap-group/alternatives">
+        <!-- 
+            Em caso de haver somente elementos gráficos, seleciona a imagem ampliada
+            Em caso de tabela codificada e gráfico, selecionar o primeiro
+        -->
+        <xsl:choose>
+            <xsl:when test="count(*[@xlink:href])=count(*)">
+                <xsl:apply-templates select="." mode="display-graphic"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[1]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
 </xsl:stylesheet>
