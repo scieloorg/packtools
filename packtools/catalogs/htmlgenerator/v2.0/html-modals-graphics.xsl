@@ -64,21 +64,30 @@
         <xsl:apply-templates select="." mode="display-graphic"/>
     </xsl:template>
 
+    <xsl:template match="alternatives" mode="image-id">
+        <!-- OBTEM O ID DA IMAGEM PARA O MODAL, RETORNANDO SOMENTE O NOME DO ARQUIVO SEM EXTENSAO -->
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="image-id"/>
+
+        <xsl:if test="not(*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)])">
+            <xsl:apply-templates select="*[@xlink:href!='' and not(@content-type)][1]" mode="image-idS"/>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template match="graphic" mode="image-id">
-        <!-- OBTEM O ID DA IMAGEM RETORNANDO SOMENTE O NOME DO ARQUIVO DA IMAGEM SEM EXTENSAO PARA O MODAL -->
-        <xsl:param name="regular_size_img_location"/>
+        <!-- OBTEM O ID DA IMAGEM PARA O MODAL, RETORNANDO SOMENTE O NOME DO ARQUIVO SEM EXTENSAO -->
+        <xsl:param name="path" select="@xlink:href"/>
         <xsl:choose>
-            <xsl:when test="contains($regular_size_img_location, '/')">
+            <xsl:when test="contains($path, '/')">
                 <xsl:apply-templates select="." mode="image-id">
-                    <xsl:with-param name="regular_size_img_location"><xsl:value-of select="substring-after($regular_size_img_location, '/')"/></xsl:with-param>
+                    <xsl:with-param name="path"><xsl:value-of select="substring-after($path, '/')"/></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>
-            <xsl:when test="contains($regular_size_img_location, '.')">
+            <xsl:when test="contains($path, '.')">
                 <xsl:apply-templates select="." mode="image-id">
-                    <xsl:with-param name="regular_size_img_location"><xsl:value-of select="substring-before($regular_size_img_location, '.')"/></xsl:with-param>
+                    <xsl:with-param name="path"><xsl:value-of select="substring-before($path, '.')"/></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="$regular_size_img_location"/></xsl:otherwise>
+            <xsl:otherwise><xsl:value-of select="$path"/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 

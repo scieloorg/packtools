@@ -11,12 +11,12 @@
     </xsl:template>
 
     <xsl:template match="p/alternatives | p/graphic">
-        <!-- CRIA THUMBNAIL DE IMAGE NAO ASSOCIADA A FIGURAS -->
+        <!-- CRIA THUMBNAIL DE IMAGEM NAO ASSOCIADA A FIGURAS -->
         <xsl:apply-templates select="." mode="thumbnail-div"/>
     </xsl:template>
 
     <xsl:template match="graphic | inline-graphic" mode="display-graphic">
-        <!-- APRESENTA UM ELEMENTO GRÁFICO EM TAMANHO PADRAO -->
+        <!-- APRESENTA O ELEMENTO GRÁFICO, NAO IMPORTA O TAMANHO -->
         <xsl:variable name="location"><xsl:apply-templates select="@xlink:href" mode="fix_extension"/></xsl:variable>
         <xsl:variable name="ext"><xsl:value-of select="substring($location,string-length($location)-3)"/></xsl:variable>
         <xsl:choose>
@@ -37,22 +37,34 @@
 
     <xsl:template match="alternatives" mode="thumbnail-div">
         <!-- 
-            CRIA UM BLOCO PARA A MINIATURA DE UM GRAPHIC NAO ASSOCIADO A UMA FIGURA
+            CRIA UM BLOCO PARA A IMAGEM NO TEXTO (IMAGEM NAO ASSOCIADO A UMA FIGURA)
+            APRESENTA PREFERENCIALMENTE A MINIATURA PARA EXPANDIR OU
+            NA AUSÊNCIA DA MINIATURA, APRESENTA A IMAGEM PADRÃO
         -->
-        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="thumbnail-div"/>
+        <xsl:variable name="img_id"><xsl:apply-templates select="." mode="image-id"/></xsl:variable> 
+        <div class="row fig" id="{$img_id}">
+            <a name="{$img_id}"></a>
+            <div class="col-md-4 col-sm-4">
+                <!-- manter href="" -->
+                <a href="" data-toggle="modal" data-target="#ModalImg{$img_id}">
+                    <div>
+                        <img>
+                            <xsl:attribute name="style">max-width:100%</xsl:attribute>
+                            <xsl:attribute name="src"><xsl:apply-templates select="." mode="file-location-thumb"/></xsl:attribute>
+                        </img>
+                    </div>
+                </a>
+            </div>
+        </div>
     </xsl:template>
 
     <xsl:template match="graphic" mode="thumbnail-div">
-        <xsl:variable name="regular_size_img_location"><xsl:apply-templates select=".." mode="file-location"/></xsl:variable>
         <!-- 
-            CRIA UM BLOCO PARA A MINIATURA DE UM GRAPHIC NAO ASSOCIADO A UMA FIGURA
+            CRIA UM BLOCO PARA A IMAGEM NO TEXTO (IMAGEM NAO ASSOCIADO A UMA FIGURA)
+            APRESENTA PREFERENCIALMENTE A MINIATURA PARA EXPANDIR OU
+            NA AUSÊNCIA DA MINIATURA, APRESENTA A IMAGEM PADRÃO
         -->
-        <xsl:variable name="img_id">
-            <xsl:apply-templates select="." mode="image-id">
-                <xsl:with-param name="regular_size_img_location"><xsl:value-of select="$regular_size_img_location"/></xsl:with-param>
-            </xsl:apply-templates>
-        </xsl:variable> 
-
+        <xsl:variable name="img_id"><xsl:apply-templates select="." mode="image-id"/></xsl:variable> 
         <div class="row fig" id="{$img_id}">
             <a name="{$img_id}"></a>
             <div class="col-md-4 col-sm-4">
