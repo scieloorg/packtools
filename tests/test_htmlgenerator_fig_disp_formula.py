@@ -77,7 +77,6 @@ class HTMLGenerator_Fig_DispFormula_Graphic_Tiff_Tests(unittest.TestCase):
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="figure1.jpg"]'
             '/img[@src="figure1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -106,7 +105,6 @@ class HTMLGenerator_Fig_DispFormula_Graphic_Png_Tests(unittest.TestCase):
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="figure1.png"]'
             '/img[@src="figure1.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -135,7 +133,6 @@ class HTMLGenerator_Fig_DispFormula_Graphic_NoExtension_Tests(unittest.TestCase)
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a'
             '/img[@src="figure1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -161,7 +158,10 @@ class HTMLGenerator_Fig_DispFormula_Graphic_SVG_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '//object[@data="figure1.svg"]'
+            '/div[@class="row formula"]'
+            '/div[@class="col-md-12"]'
+            '/div[@class="formula-container"]'
+            '/object[@data="figure1.svg"]'
         )
         self.assertEqual(len(nodes), 1)
 
@@ -195,7 +195,6 @@ class HTMLGenerator_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -256,19 +255,17 @@ class HTMLGenerator_FigGroup_Graphic_Tests(unittest.TestCase):
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="original.jpg"]'
             '/img[@src="original.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
 
     def test_original_presentation(self):
-        # _print_debug(self.html)
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.tif")
+        self.assertEqual(nodes[0].get("href"), "original.jpg")
 
 
 class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -314,7 +311,6 @@ class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -364,7 +360,6 @@ class HTMLGenerator_FigGroup_Fig_DispFormula_Graphic_Tests(unittest.TestCase):
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="original.jpg"]'
             '/img[@src="original.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -375,7 +370,7 @@ class HTMLGenerator_FigGroup_Fig_DispFormula_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.tif")
+        self.assertEqual(nodes[0].get("href"), "original.jpg")
 
 
 class HTMLGenerator_FigGroup_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
@@ -421,7 +416,6 @@ class HTMLGenerator_FigGroup_Fig_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="row formula"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)

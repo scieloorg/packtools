@@ -18,8 +18,7 @@
     <xsl:template match="graphic | inline-graphic" mode="display-graphic">
         <!-- APRESENTA UM ELEMENTO GRÁFICO EM TAMANHO PADRAO -->
         <xsl:variable name="location"><xsl:apply-templates select="@xlink:href" mode="fix_extension"/></xsl:variable>
-        <xsl:variable name="s"><xsl:value-of select="substring($location,string-length($location)-3)"/></xsl:variable>
-        <xsl:variable name="ext"><xsl:if test="contains($s,'.')">.<xsl:value-of select="substring-after($s,'.')"/></xsl:if></xsl:variable>
+        <xsl:variable name="ext"><xsl:value-of select="substring($location,string-length($location)-3)"/></xsl:variable>
         <xsl:choose>
             <xsl:when test="$ext='.svg'">
                 <object type="image/svg+xml">
@@ -40,13 +39,11 @@
         <!-- 
             CRIA UM BLOCO PARA A MINIATURA DE UM GRAPHIC NAO ASSOCIADO A UMA FIGURA
         -->
-        <xsl:apply-templates select="graphic[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')]" mode="thumbnail-div">
-            <xsl:with-param name="regular_size_img_location"><xsl:apply-templates select="." mode="file-location"/></xsl:with-param>
-        </xsl:apply-templates>
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and starts-with(@content-type, 'scielo-')][1]" mode="thumbnail-div"/>
     </xsl:template>
 
     <xsl:template match="graphic" mode="thumbnail-div">
-        <xsl:param name="regular_size_img_location" select="@xlink:href"/>
+        <xsl:variable name="regular_size_img_location"><xsl:apply-templates select=".." mode="file-location"/></xsl:variable>
         <!-- 
             CRIA UM BLOCO PARA A MINIATURA DE UM GRAPHIC NAO ASSOCIADO A UMA FIGURA
         -->
@@ -82,6 +79,9 @@
             CAMINHO DO ARQUIVO DA IMAGEM DO MODAL (TAMANHO NORMAL)
         -->
         <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="file-location"/>
+        <xsl:if test="not(*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)])">
+            <xsl:apply-templates select="*[@xlink:href!='' and not(@content-type)][1]" mode="file-location"/>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="graphic | inline-graphic" mode="file-location">
@@ -110,7 +110,7 @@
         <!-- 
             CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR)
         -->
-            <xsl:apply-templates select="*[@xlink:href!='' and not(@specific-use) and not(@content-type)][1]" mode="original-file-location"/>
+        <xsl:apply-templates select="*[@xlink:href!='' and not(@specific-use) and not(@content-type)][1]" mode="original-file-location"/>
     </xsl:template>
 
     <xsl:template match="graphic | inline-graphic" mode="original-file-location">
@@ -135,7 +135,7 @@
         <xsl:apply-templates select="*" mode="file-location-thumb"/>
     </xsl:template>
 
-    <xsl:template match="*" mode="file-location-thumb">
+    <xsl:template match="alternatives" mode="file-location-thumb">
         <!-- 
             CAMINHO DO ARQUIVO DA IMAGEM MINIATURA
         -->

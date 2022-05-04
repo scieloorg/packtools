@@ -168,7 +168,6 @@ class HTMLGenerator_DispFormula_Graphic_Tiff_Tests(unittest.TestCase):
             '//div[@class="row formula" and @id="ee01"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="equation1.jpg"]'
             '/img[@src="equation1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -179,7 +178,6 @@ class HTMLGenerator_DispFormula_Graphic_Tiff_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="equation1.jpg"]'
             '/img[@src="equation1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -200,7 +198,7 @@ class HTMLGenerator_DispFormula_Graphic_Tiff_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "equation1.tif")
+        self.assertEqual(nodes[0].get("href"), "equation1.jpg")
 
 
 class HTMLGenerator_DispFormula_Graphic_Png_Tests(unittest.TestCase):
@@ -218,7 +216,6 @@ class HTMLGenerator_DispFormula_Graphic_Png_Tests(unittest.TestCase):
             '//div[@class="row formula" and @id="ee01"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="equation1.png"]'
             '/img[@src="equation1.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -229,7 +226,7 @@ class HTMLGenerator_DispFormula_Graphic_Png_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a/img[@src="equation1.png"]'
+            '/img[@src="equation1.png"]'
         )
         self.assertEqual(len(nodes), 1)
 
@@ -267,7 +264,6 @@ class HTMLGenerator_DispFormula_Graphic_NoExtension_Tests(unittest.TestCase):
             '//div[@class="row formula" and @id="ee01"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="equation1.jpg"]'
             '/img[@src="equation1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -278,7 +274,7 @@ class HTMLGenerator_DispFormula_Graphic_NoExtension_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a/img[@src="equation1.jpg"]'
+            '/img[@src="equation1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
 
@@ -298,7 +294,7 @@ class HTMLGenerator_DispFormula_Graphic_NoExtension_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "equation1.tif")
+        self.assertEqual(nodes[0].get("href"), "equation1.jpg")
 
 
 class HTMLGenerator_DispFormula_Graphic_SVG_Tests(unittest.TestCase):
@@ -368,7 +364,6 @@ class HTMLGenerator_Dispformula_Alternatives_Graphics_Tests(unittest.TestCase):
             '//div[@class="row formula" and @id="ee01"]'
             '/div[@class="col-md-12"]'
             '/div[@class="formula-container"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -379,7 +374,7 @@ class HTMLGenerator_Dispformula_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a/img[@src="ampliada.png"]'
+            '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
 

@@ -212,7 +212,6 @@ class HTMLGenerator_TableWrap_Graphic_Tiff_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="table1.jpg"]'
             '/img[@src="table1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -243,7 +242,6 @@ class HTMLGenerator_TableWrap_Graphic_Png_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="table1.png"]'
             '/img[@src="table1.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -274,7 +272,6 @@ class HTMLGenerator_TableWrap_Graphic_NoExtension_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a'
             '/img[@src="table1.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -472,7 +469,6 @@ class HTMLGenerator_TableWrap_Alternatives_Graphics_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -669,7 +665,6 @@ class HTMLGenerator_TableWrapGroup_Graphic_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="original.jpg"]'
             '/img[@src="original.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -681,7 +676,7 @@ class HTMLGenerator_TableWrapGroup_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.tif")
+        self.assertEqual(nodes[0].get("href"), "original.jpg")
 
 
 class HTMLGenerator_TableWrapGroup_Alternatives_TableAndGraphic_Tests(unittest.TestCase):
@@ -784,7 +779,6 @@ class HTMLGenerator_TableWrapGroup_Alternatives_Graphics_Tests(unittest.TestCase
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -879,7 +873,6 @@ class HTMLGenerator_TableWrapGroup_TableWrap_Graphic_Tests(unittest.TestCase):
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="original.jpg"]'
             '/img[@src="original.jpg"]'
         )
         self.assertEqual(len(nodes), 1)
@@ -890,7 +883,7 @@ class HTMLGenerator_TableWrapGroup_TableWrap_Graphic_Tests(unittest.TestCase):
             '//div[@class="modal-header"]'
             '/a[@class="link-newWindow showTooltip" and @target="_blank"]'
         )
-        self.assertEqual(nodes[0].get("href"), "original.tif")
+        self.assertEqual(nodes[0].get("href"), "original.jpg")
 
 
 class HTMLGenerator_TableWrapGroup_TableWrap_Alternatives_TableAndGraphic_Tests(unittest.TestCase):
@@ -991,7 +984,6 @@ class HTMLGenerator_TableWrapGroup_TableWrap_Alternatives_Graphics_Tests(unittes
             '/div[@class="modal-dialog modal-lg"]'
             '/div[@class="modal-content"]'
             '/div[@class="modal-body"]'
-            '/a[@href="ampliada.png"]'
             '/img[@src="ampliada.png"]'
         )
         self.assertEqual(len(nodes), 1)

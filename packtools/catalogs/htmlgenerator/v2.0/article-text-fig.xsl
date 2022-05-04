@@ -27,14 +27,14 @@
                         <xsl:choose>
                             <xsl:when test="$location != ''">
                                 <xsl:attribute name="class">thumbImg</xsl:attribute>
+                                <img>
+                                    <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                                </img>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:attribute name="class">thumbOff</xsl:attribute>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <img>
-                            <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
-                        </img>
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
                     </div>
                 </a>

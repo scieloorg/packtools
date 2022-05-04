@@ -169,8 +169,6 @@ class HTMLGenerator_Graphic_SVG_Tests(unittest.TestCase):
         self.assertEqual(len(nodes), 1)
 
     def test_thumbnail_presentation(self):
-        _print_debug(self.html)
-
         nodes = self.html.xpath(
             '//div[@class="row fig" and @id="figure1"]'
             '/div[@class="col-md-4 col-sm-4"]'

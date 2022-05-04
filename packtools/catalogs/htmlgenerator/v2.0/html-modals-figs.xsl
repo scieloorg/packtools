@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    version="1.0">
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML"
+>
 
     <xsl:template match="fig-group[@id]" mode="fig-label-caption">
         <xsl:apply-templates select="fig" mode="fig-label-caption"/>
@@ -44,26 +47,12 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="fig-group[@id]" mode="file-location">
-        <!--
-            Localização da imagem ampliada
-        -->
-        <xsl:apply-templates select="fig | graphic | alternatives | disp-formula" mode="file-location"/>
-    </xsl:template>
-
-    <xsl:template match="fig" mode="file-location">
-        <!--
-            Localização da imagem ampliada
-        -->
-        <xsl:apply-templates select="graphic | alternatives" mode="file-location"/>
-    </xsl:template>
-
     <xsl:template match="*" mode="fig-modal-body">
         <!-- graphic | alternatives | disp-formula -->
-        <xsl:apply-templates select="."/>
+        <xsl:apply-templates select="*" mode="fig-modal-body"/>
     </xsl:template>
 
-    <xsl:template match="fig-group[@id]" mode="fig-modal-body">
+    <xsl:template match="fig-group" mode="fig-modal-body">
         <!--
             <img/>
         -->
@@ -74,7 +63,29 @@
         <!--
             <img/>
         -->
-        <xsl:apply-templates select="alternatives | graphic | disp-formula"/>
+        <xsl:apply-templates select="alternatives | graphic | disp-formula" mode="fig-modal-body"/>
         <xsl:apply-templates select="attrib"/>
+    </xsl:template>
+
+    <xsl:template match="disp-formula" mode="fig-modal-body">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="alternatives" mode="fig-modal-body">
+        <xsl:choose>
+            <xsl:when test="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)]">
+                <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="fig-modal-body"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[@xlink:href != '' and not(@content-type)][1]" mode="fig-modal-body"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="graphic" mode="fig-modal-body">
+        <!--
+            <img/>
+        -->
+        <xsl:apply-templates select="." mode="display-graphic"/>
     </xsl:template>
 </xsl:stylesheet>

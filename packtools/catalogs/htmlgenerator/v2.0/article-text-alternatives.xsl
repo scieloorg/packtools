@@ -79,22 +79,15 @@
         </xsl:choose>    
     </xsl:template>
 
-    <xsl:template match="fig/alternatives | fig-group/alternatives">
+    <xsl:template match="alternatives" mode="graphic-modal">
         <!-- 
             APRESENTAÇÃO DA IMAGEM DO MODAL (TAMANHO NORMAL)
         -->
-        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]"/>
-    </xsl:template>
-
-    <xsl:template match="alternatives" mode="file-location">
-        <!-- 
-            CAMINHO DO ARQUIVO DA IMAGEM DO MODAL (TAMANHO NORMAL)
-        -->
-        <xsl:choose>
-            <xsl:when test="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)]">
-                <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="file-location"/></xsl:when>
-            <xsl:otherwise><xsl:apply-templates select="*" mode="file-location"/></xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="graphic-modal"/>
+        <xsl:if test="not(*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)])">
+            <!-- NA AUSÊNCIA DA IMAGEM IDEAL, ESCOLHER AQUELA QUE NAO É THUMBNAIL -->
+            <xsl:apply-templates select="*[@xlink:href!='' and not(@content-type)][1]" mode="graphic-modal"/>
+        </xsl:if>
     </xsl:template>
 
 </xsl:stylesheet>

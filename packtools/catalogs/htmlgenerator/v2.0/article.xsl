@@ -50,10 +50,10 @@
 
     <xsl:include href="article-text-sub-article.xsl"/>
 
+    <xsl:include href="html-modals-graphics.xsl"/>
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
-    <xsl:include href="html-modals-graphics.xsl"/>
     <xsl:include href="html-modals-figs.xsl"/>
     <xsl:include href="html-modals-scheme.xsl"/>
     <xsl:include href="html-modals-how2cite.xsl"/>

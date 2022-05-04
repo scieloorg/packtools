@@ -35,7 +35,7 @@
         <xsl:apply-templates select=".//*[fig] | fig" mode="fig-modal"/>
         <xsl:apply-templates select=".//table-wrap[@id] | .//table-wrap-group[@id]" mode="modal"/>
         <xsl:apply-templates select=".//disp-formula[@id]" mode="modal"/>
-        <xsl:apply-templates select=".//*[graphic]" mode="graphic-modal"/>
+        <xsl:apply-templates select="p | sec" mode="graphic-modal"/>
     </xsl:template>
 
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">
@@ -321,7 +321,7 @@
         <!--
             cria no conteúdo da ABA "Scheme" a miniatura e legenda de uma fórmula
         -->
-        <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location-thumb"/></xsl:variable>
+        <xsl:variable name="location"><xsl:apply-templates select="alternatives" mode="file-location-thumb"/></xsl:variable>
         <xsl:variable name="id"><xsl:apply-templates select="." mode="disp-formula-id"/></xsl:variable>
 
         <div class="row fig">

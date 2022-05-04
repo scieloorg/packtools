@@ -533,7 +533,6 @@ class HTMLGenerator_FigGroup_Alternatives_Graphics_Tests(unittest.TestCase):
         self.html = _get_xml(xml)
 
     def test_enlarged_presentation(self):
-        _print_debug(self.html)
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalFigs" and @id="ModalFigf01"]'
             '/div[@class="modal-dialog modal-lg"]'

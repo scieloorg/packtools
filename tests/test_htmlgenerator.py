@@ -1327,7 +1327,6 @@ class HTMLGenerator_TableGroupTests(unittest.TestCase):
         found_nodes = div_modal_tables[0].findall(
             './/h4[@class="modal-title"]//strong'
         )
-        _print_debug(self.html)
         self.assertEqual("Tabela 1", found_nodes[0].text)
         self.assertEqual("Table 1", found_nodes[1].text)
 
