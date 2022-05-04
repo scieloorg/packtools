@@ -35,7 +35,7 @@
         <xsl:apply-templates select=".//*[fig] | fig" mode="fig-modal"/>
         <xsl:apply-templates select=".//table-wrap[@id] | .//table-wrap-group[@id]" mode="modal"/>
         <xsl:apply-templates select=".//disp-formula[@id]" mode="modal"/>
-        <xsl:apply-templates select="p | sec" mode="graphic-modal"/>
+        <xsl:apply-templates select="p | sec | body/p | body/sec" mode="graphic-modal"/>
     </xsl:template>
 
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">

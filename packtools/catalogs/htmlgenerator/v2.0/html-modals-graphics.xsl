@@ -22,15 +22,11 @@
     </xsl:template>
 
     <xsl:template match="graphic" mode="graphic-modal">
+        <xsl:param name="original_location"/>
         <!--
             MODAL PARA GRAPHIC NAO ASSOCIADO COM FIGURA
         -->
-        <xsl:variable name="img_id">
-            <xsl:apply-templates select="." mode="image-id">
-                <xsl:with-param name="regular_size_img_location"><xsl:value-of select="@xlink:href"/></xsl:with-param>
-            </xsl:apply-templates>
-        </xsl:variable> 
-        <xsl:variable name="original_location"><xsl:apply-templates select=".." mode="original-file-location"/></xsl:variable>
+        <xsl:variable name="img_id"><xsl:apply-templates select="." mode="image-id"/></xsl:variable> 
         <div class="modal fade ModalFigs" id="ModalImg{$img_id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -69,7 +65,7 @@
         <xsl:apply-templates select="*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)][1]" mode="image-id"/>
 
         <xsl:if test="not(*[@xlink:href!='' and @specific-use='scielo-web' and not(@content-type)])">
-            <xsl:apply-templates select="*[@xlink:href!='' and not(@content-type)][1]" mode="image-idS"/>
+            <xsl:apply-templates select="*[@xlink:href!='' and not(@content-type)][1]" mode="image-id"/>
         </xsl:if>
     </xsl:template>
 

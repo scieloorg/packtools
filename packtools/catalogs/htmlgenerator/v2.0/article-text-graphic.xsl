@@ -47,7 +47,7 @@
             <div class="col-md-4 col-sm-4">
                 <!-- manter href="" -->
                 <a href="" data-toggle="modal" data-target="#ModalImg{$img_id}">
-                    <div>
+                    <div class="thumbImg">
                         <img>
                             <xsl:attribute name="style">max-width:100%</xsl:attribute>
                             <xsl:attribute name="src"><xsl:apply-templates select="." mode="file-location-thumb"/></xsl:attribute>
@@ -70,9 +70,10 @@
             <div class="col-md-4 col-sm-4">
                 <!-- manter href="" -->
                 <a href="" data-toggle="modal" data-target="#ModalImg{$img_id}">
-                    <div>
+                    <div class="thumbImg">
                        <xsl:apply-templates select="." mode="display-graphic"/>
                     </div>
+                    <div class="zoom"><span class="sci-ico-zoom"></span></div>
                 </a>
             </div>
         </div>
