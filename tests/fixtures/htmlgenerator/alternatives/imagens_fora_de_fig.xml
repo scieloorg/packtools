@@ -1,0 +1,563 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Rev Lat Am Enfermagem</journal-id>
+      <journal-id journal-id-type="publisher-id">rlae</journal-id>
+      <journal-title-group>
+        <journal-title>Revista Latino-Americana de Enfermagem</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Rev. Latino-Am. Enfermagem</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">1518-8345</issn>
+      <issn pub-type="ppub">0104-1169</issn>
+      <publisher>
+        <publisher-name>Escola de Enfermagem de Ribeirão Preto / Universidade de São Paulo</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">L34w8qg8ccfQxW79FZH3Bnh</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0104-11692021000100203</article-id>
+      <article-id pub-id-type="other">00203</article-id>
+      <article-id pub-id-type="doi">10.1590/1518-8345.0000.3285</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Editorial</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Diabetes and COVID-19: What we learned from the two ongoing pandemics</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6374-2189</contrib-id>
+          <name>
+            <surname>Torquato</surname>
+            <given-names>Maria Teresa da Costa Gonçalves</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9915-447X</contrib-id>
+          <name>
+            <surname>Santis</surname>
+            <given-names>Gil Cunha De</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">2</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1656-6626</contrib-id>
+          <name>
+            <surname>Zanetti</surname>
+            <given-names>Maria Lucia</given-names>
+          </name>
+          <xref ref-type="corresp" rid="c1"/>
+          <xref ref-type="aff" rid="aff3">3</xref>
+          <xref ref-type="aff" rid="aff4">4</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>1</label>
+        <institution content-type="orgname">Secretaria Municipal de Saúde de Ribeirão Preto</institution>
+        <institution content-type="orgdiv1">Programa de Aprimoramento Multiprofissional em Hipertensão Arterial e Diabetes Mellitus</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <institution content-type="original">Secretaria Municipal de Saúde de Ribeirão Preto, Programa de Aprimoramento Multiprofissional em Hipertensão Arterial e Diabetes Mellitus, Ribeirão Preto, SP, Brazil.</institution>
+      </aff>
+      <aff id="aff2">
+        <label>2</label>
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Hospital das Clínicas, Hemocentro</institution>
+        <institution content-type="orgdiv2">Faculdade Medicina de Ribeirão Preto</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <institution content-type="original">Universidade de São Paulo, Faculdade Medicina de Ribeirão Preto, Hospital das Clínicas, Hemocentro, Ribeirão Preto, SP, Brazil.</institution>
+      </aff>
+      <aff id="aff3">
+        <label>3</label>
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Escola de Enfermagem de Ribeirão Preto</institution>
+        <institution content-type="orgdiv2">PAHO/WHO Collaborating Centre for Nursing Research Development</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <institution content-type="original">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto, PAHO/WHO Collaborating Centre for Nursing Research Development, Ribeirão Preto, SP, Brazil.</institution>
+      </aff>
+      <aff id="aff4">
+        <label>4</label>
+        <institution content-type="orgname">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto</institution>
+        <institution content-type="orgdiv1">PAHO/WHO Collaborating Centre for Nursing Research Development</institution>
+        <institution content-type="orgdiv2">Revista Latino-Americana de Enfermagem</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brazil.</country>
+        <institution content-type="original">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto, PAHO/WHO Collaborating Centre for Nursing Research Development, Revista Latino-Americana de Enfermagem, Ribeirão Preto, SP, Brazil.</institution>
+      </aff>
+      <author-notes>
+        <corresp id="c1">Autor de correspondencia: Maria Lucia Zanetti E-mail: <email>zanetti@eerp.usp.br</email> <ext-link ext-link-type="uri" xlink:href="https://orcid.org/0000-0003-1656-6626">https://orcid.org/0000-0003-1656-6626</ext-link></corresp>
+      </author-notes>
+      <pub-date publication-format="electronic" date-type="pub">
+        <day>29</day>
+        <month>10</month>
+        <year>2021</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2021</year>
+      </pub-date>
+      <volume>29</volume>
+      <elocation-id>e3285</elocation-id>
+      <permissions>
+        <copyright-statement>Copyright © 2021 Revista Latino-Americana de Enfermagem</copyright-statement>
+        <copyright-year>2021</copyright-year>
+        <copyright-holder>Revista Latino-Americana de Enfermagem</copyright-holder>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+    </article-meta>
+  </front>
+  <body>
+    <p>
+      <alternatives>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/8d6031a105ac49f92d2bac1dab55785ec62ed139.tif"/>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png" specific-use="scielo-web"/>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+      </alternatives>
+    </p>
+    <p>The pandemic due to COVID-19, an infection caused by the SARS-CoV-2 coronavirus initiated in Wuhan(China) in 2019, overlapped with a pre-existing pandemic, that of Type2 Diabetes Mellitus(DM2)<sup>(<xref ref-type="bibr" rid="B1">1</xref>)</sup>. The literature shows that DM2 represents a risk factor for the unfavorable evolution of COVID-19, as well as for contracting the disease, which means greater susceptibility to the virus. It was also shown that diabetic patients with good control presented more favorable evolutions when compared to those not controlled<sup>(<xref ref-type="bibr" rid="B1">1</xref>-<xref ref-type="bibr" rid="B2">2</xref>)</sup>.</p>
+    <p>
+      <alternatives>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/6c7e45494816692122f9467ee9b5ee7a88f86e01.tif"/>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png" specific-use="scielo-web"/>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+      </alternatives>
+    </p>
+    <p>The UK Prospective Diabetes Study(UKPDS) showed that DM2 control prevents chronic complications<sup>(<xref ref-type="bibr" rid="B3">3</xref>)</sup>. In view of COVID-19, new knowledge reiterates the importance of controlling DM2, now focusing on preventing the severe form of an acute infectious disease.</p>
+    <p>
+      <alternatives>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/7172c66d1c5fa56dc230efa7123dea014f21e62f.tif"/>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png" specific-use="scielo-web"/>
+        <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+      </alternatives>
+    </p>
+    <p>DM2 is defined by changes in glucose homeostasis and by a chronic inflammation condition, but it also induces changes in the immune system, making the patient affected by this disease more susceptible to infections, including those caused by viruses such as SARS-CoV-2. DM2 also causes activation of the renin-angiotensin-aldosterone system and endothelial damage, with a consequent increase in the risk of thrombosis. However, COVID-19 is a disease that can cause hyperinflammation and has been associated with an increased risk of occurrence of thromboembolic phenomena, especially pulmonary thromboembolism, more frequently observed in patients with severe pneumonia admitted to intensive care units(ICUs)<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>. The reasons for the association between DM2 and COVID-19 are as follows: lower functional reserve of organs caused by DM2, which can go unnoticed under normal circumstances, but comes to light as soon as a challenge of such magnitude as COVID-19 arises<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>. It is to be noted that the chronic inflammatory disease caused by DM2 is superimposed by the inflammation resulting from COVID-19, which then has its consequences greatly amplified.</p>
+    <p>In addition to the aforementioned aspects, DM2 is associated with other clinical conditions such as obesity, hypertension, coronary artery disease and chronic kidney disease, which are risk factors for the development of the severe form of COVID-19. Acute renal failure has been commonly observed in patients admitted to ICUs, especially in those with DM2<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+    <p>COVID-19 has caused significant sequelae, mainly in patients affected by the severe form of this disease, such as those who required mechanical ventilation. Apparently, sequelae are seen more frequently, and in a more severe form, in patients with DM2. The explanation would be linked to the lower functional reserve of the organs, in addition to an acute injury of greater magnitude, possibly caused by hyperinflammation. It remains to be determined whether the group of patients who survived COVID-19 will not have their DM2 condition worsened, as, in fact, seems to be the case. COVID-19 affects the pancreas, which could cause loss of beta cells, with possible worsening of DM2, for example, with the need to administer insulin, or require higher doses of oral antidiabetics. In addition, it does not seem unreasonable to us to assume that the diabetes complications may appear earlier and more severely.</p>
+    <p>In view of the COVID-19 pandemic, the health services initially closed their schedules for routine in-person appointments, recommending that patients with diabetes maintained social isolation, in addition to adopting other protective measures, such as use of masks and of alcohol gel. There was a need to restructure the services, organize schedules and the waiting room, regulate teleconsultation and train health professionals to provide safe care to patients with and without flu symptoms<sup>(<xref ref-type="bibr" rid="B5">5</xref>)</sup>. The pandemic has conclusively shown a chronic problem in the health services, that is, the need for multidisciplinary care for patients with diabetes.</p>
+    <p>Given the seasonality of viral diseases, vaccination against influenza was accelerated. Special attention must be given to the vaccination schedule of patients with DM2 for pneumonia<sup>(<xref ref-type="bibr" rid="B5">5</xref>)</sup> and COVID-19 in accordance with the current protocols. It is to be noted that there is still no consensus on the tests to assess the immunization degree in people vaccinated for COVID-19<sup>(<xref ref-type="bibr" rid="B6">6</xref>)</sup>.</p>
+    <p>Considering the importance of good blood glucose control for lower susceptibility and better evolution of COVID-19 in people with diabetes, it is fundamental to intensify blood glucose monitoring for both asymptomatic individuals and more rigorously for those with flu symptoms or during an acute decompensation episode<sup>(<xref ref-type="bibr" rid="B1">1</xref>-<xref ref-type="bibr" rid="B4">4</xref>)</sup> .</p>
+    <p>Healthy eating(avoiding ultra-processed foods, for example) is recommended<sup>(<xref ref-type="bibr" rid="B2">2</xref>-<xref ref-type="bibr" rid="B5">5</xref>)</sup>. Increasing consumption of industrially unprocessed vegetables, reducing the intake of food products characterized as fastfood and adopting habits such as adequate hydration should be encouraged. There are still no consistent data showing that dietary supplements can contribute to COVID-19 prevention and treatment.</p>
+    <p>Physical activity must be encouraged and adapted to the new context, as it regulates and strengthens the immune system of patients with diabetes, in addition to cardiovascular benefits and stress reduction<sup>(<xref ref-type="bibr" rid="B2">2</xref>)</sup>. Walking, reducing the time in a sitting position, practicing guided activities(in-person or virtually) outdoors, and adhering to the protocol for COVID-19 prevention can be considered safe measures. Performing lower limb and breathing exercises at home should be encouraged.</p>
+    <p>In relation to the COVID-19 diagnosis, it is important to reinforce the importance of not performing tests without a medical request and not taking medications without the guidance of a health professional; seeking early medical assistance in services structured to treat the disease; keeping prescribed medications to control diabetes; and remembering that therapeutic changes may be necessary.<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+    <p>Serious situations can require hospitalization, so that management of hospitalized patients with DM2, which was already a challenge before COVID-19, has had its importance intensified. Training of the multidisciplinary team and treatment customization are key aspects for the good evolution of the patient, with or without COVID-19. Adequate insulinization and reassessment of the prescription of oral medications, depending on the severity of the disease, increased this in-hospital challenge.</p>
+    <p>Patients with diabetes can present acute problems that require urgent care, for example, acute myocardial infarction or diabetic ketoacidosis, which must be early diagnosed and treated. It is necessary to advise the population not to be afraid to seek health services in the midst of the pandemic whenever they present symptoms suggestive of the aforementioned complications.</p>
+    <p>Given the complexity of the two pandemics, the patients must follow the health team’s recommendations and care. The messages conveyed by several types of media may not contribute scientific rigor(fake news) and veracity of the necessary information to define appropriate behaviors in the prevention and treatment of diabetes and COVID-19.</p>
+    <p>There are still several questions that could be answered in future studies, such as the consequences of the aggression to the pancreatic islet by COVID-19; whether there will be an increase in the incidence of DM1 and in the prevalence of DM2; and whether the pandemic will impose behavioral changes that favor greater control of chronic diseases such as diabetes.</p>
+  </body>
+  <back>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1">
+        <label>1</label>
+        <mixed-citation>1 Anghebem MI, Rego FGM, Picheth G. COVID-19 and Diabetes: two distinct pandemics and their relationship. Rev Bras Anal Clin. 2020;52(2):154-9. doi: <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.21877/2448-3877.20200001">http://doi.org/10.21877/2448-3877.20200001</ext-link></mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Anghebem</surname>
+              <given-names>MI</given-names>
+            </name>
+            <name>
+              <surname>Rego</surname>
+              <given-names>FGM</given-names>
+            </name>
+            <name>
+              <surname>Picheth</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+          <article-title>COVID-19 and Diabetes: two distinct pandemics and their relationship</article-title>
+          <source>Rev Bras Anal Clin</source>
+          <year>2020</year>
+          <volume>52</volume>
+          <issue>2</issue>
+          <fpage>154</fpage>
+          <lpage>9</lpage>
+          <comment>doi: <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.21877/2448-3877.20200001">http://doi.org/10.21877/2448-3877.20200001</ext-link></comment>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <label>2</label>
+        <mixed-citation>2 Rahmani-Kukia N, Abbasi A. Physiological and Immunological Causes of the Susceptibility of Chronic Inflammatory Patients to COVID-19. Infection: Focus on Diabetes. Front Endocrinol (Lausanne). 2021;12:576412. doi: <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.3389/fendo.2021.576412">http://doi.org/10.3389/fendo.2021.576412</ext-link></mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rahmani-Kukia</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Abbasi</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Physiological and Immunological Causes of the Susceptibility of Chronic Inflammatory Patients to COVID-19. Infection: Focus on Diabetes</article-title>
+          <source>Front Endocrinol (Lausanne)</source>
+          <year>2021</year>
+          <volume>12</volume>
+          <fpage>576412</fpage>
+          <comment>doi: <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.3389/fendo.2021.576412">http://doi.org/10.3389/fendo.2021.576412</ext-link></comment>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <label>3</label>
+        <mixed-citation>3 UK Prospective Diabetes Study (UKPDS) Group. Intensive blood-glucose control with sulphonylureas or insulin compared with conventional treatment and risk of complications in patients with type 2 diabetes (UKPDS 33). Lancet. 1998;352:837-53</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <collab>UK Prospective Diabetes Study (UKPDS) Group</collab>
+          </person-group>
+          <article-title>Intensive blood-glucose control with sulphonylureas or insulin compared with conventional treatment and risk of complications in patients with type 2 diabetes (UKPDS 33)</article-title>
+          <source>Lancet</source>
+          <year>1998</year>
+          <volume>352</volume>
+          <fpage>837</fpage>
+          <lpage>53</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <label>4</label>
+        <mixed-citation>4 Lim S, Bae JH, Kwon, HS, Nauck MA. COVID-19 and diabetes mellitus: from pathophysiology to clinical management. Nat Rev Endocrinol. 2021;17:11-30 <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1038/s41574-020-00435-4">https://doi.org/10.1038/s41574-020-00435-4</ext-link></mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lim</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Bae</surname>
+              <given-names>JH</given-names>
+            </name>
+            <name>
+              <surname>Kwon</surname>
+              <given-names>HS</given-names>
+            </name>
+            <name>
+              <surname>Nauck</surname>
+              <given-names>MA</given-names>
+            </name>
+          </person-group>
+          <article-title>COVID-19 and diabetes mellitus: from pathophysiology to clinical management</article-title>
+          <source>Nat Rev Endocrinol</source>
+          <year>2021</year>
+          <volume>17</volume>
+          <fpage>11</fpage>
+          <lpage>30</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1038/s41574-020-00435-4">https://doi.org/10.1038/s41574-020-00435-4</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <label>5</label>
+        <mixed-citation>5 American Diabetes Association. 5. Facilitating Behavior Change and well-being to improve health outcomes. Standards of Medical Care in Diabetes - 2020. Diabetes Care. 2021, 44(suppl.1):S53-S72. doi: <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.2337/dc20-S005">http://doi.org/10.2337/dc20-S005</ext-link></mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <collab>American Diabetes Association</collab>
+          </person-group>
+          <article-title>5</article-title>
+          <source>Facilitating Behavior Change and well-being to improve health outcomes. Standards of Medical Care in Diabetes - 2020. Diabetes Care</source>
+          <year>2021</year>
+          <volume>44</volume>
+          <issue>suppl.1</issue>
+          <fpage>S53</fpage>
+          <lpage>S72</lpage>
+          <comment>doi: <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.2337/dc20-S005">http://doi.org/10.2337/dc20-S005</ext-link></comment>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <label>6</label>
+        <mixed-citation>6 Levi M, Levi JE. Nota Técnica SBIm: SBIm não recomenda a realização de sorologia para avaliar resposta imunológica às vacinas COVID-19 [Internet]. 26 mar 2021 [Acesso 8 jun 2021]. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://sbim.org.br/images/files/notas-tecnicas/nota-tecnica-sbim-sorologia-pos-vacinacao-210326.pdf">https://sbim.org.br/images/files/notas-tecnicas/nota-tecnica-sbim-sorologia-pos-vacinacao-210326.pdf</ext-link></mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Levi</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Levi</surname>
+              <given-names>JE</given-names>
+            </name>
+          </person-group>
+          <article-title>Nota Técnica SBIm: SBIm não recomenda a realização de sorologia para avaliar resposta imunológica às vacinas COVID-19 [Internet]</article-title>
+          <source>26 mar 2021 [Acesso 8 jun</source>
+          <year>2021</year>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://sbim.org.br/images/files/notas-tecnicas/nota-tecnica-sbim-sorologia-pos-vacinacao-210326.pdf">https://sbim.org.br/images/files/notas-tecnicas/nota-tecnica-sbim-sorologia-pos-vacinacao-210326.pdf</ext-link></comment>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <sub-article article-type="translation" id="s1" xml:lang="es">
+    <front-stub>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Editorial</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Diabetes y Covid-19: lo que aprendimos de las dos pandemias en curso</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6374-2189</contrib-id>
+          <name>
+            <surname>Torquato</surname>
+            <given-names>Maria Teresa da Costa Gonçalves</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff5">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9915-447X</contrib-id>
+          <name>
+            <surname>Santis</surname>
+            <given-names>Gil Cunha De</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff6">2</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1656-6626</contrib-id>
+          <name>
+            <surname>Zanetti</surname>
+            <given-names>Maria Lucia</given-names>
+          </name>
+          <xref ref-type="corresp" rid="c2"/>
+          <xref ref-type="aff" rid="aff7">3</xref>
+          <xref ref-type="aff" rid="aff8">4</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff5">
+        <label>1</label>
+        <institution content-type="orgname">Secretaria Municipal de Saúde de Ribeirão Preto</institution>
+        <institution content-type="orgdiv1">Programa de Aprimoramento Multiprofissional em Hipertensão Arterial e Diabetes Mellitus</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Secretaria Municipal de Saúde de Ribeirão Preto, Programa de Aprimoramento Multiprofissional em Hipertensão Arterial e Diabetes Mellitus, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <aff id="aff6">
+        <label>2</label>
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Hospital das Clínicas, Hemocentro</institution>
+        <institution content-type="orgdiv2">Faculdade Medicina de Ribeirão Preto</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil.</country>
+        <institution content-type="original">Universidade de São Paulo, Faculdade Medicina de Ribeirão Preto, Hospital das Clínicas, Hemocentro, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <aff id="aff7">
+        <label>3</label>
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Escola de Enfermagem de Ribeirão Preto</institution>
+        <institution content-type="orgdiv2">Centro Colaborador de la OPS/OMS para el Desarrollo de la Investigación en Enfermería</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto, Centro Colaborador de la OPS/OMS para el Desarrollo de la Investigación en Enfermería, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <aff id="aff8">
+        <label>4</label>
+        <institution content-type="orgname">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto</institution>
+        <institution content-type="orgdiv1">Centro Colaborador de la OPS/OMS para el Desarrollo de la Investigación en Enfermería</institution>
+        <institution content-type="orgdiv2">Revista Latino-Americana de Enfermagem</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto, Centro Colaborador de la OPS/OMS para el Desarrollo de la Investigación en Enfermería, Revista Latino-Americana de Enfermagem, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <author-notes>
+        <corresp id="c2">Autor de correspondencia: Maria Lucia Zanetti E-mail: <email>zanetti@eerp.usp.br</email> <ext-link ext-link-type="uri" xlink:href="https://orcid.org/0000-0003-1656-6626">https://orcid.org/0000-0003-1656-6626</ext-link></corresp>
+      </author-notes>
+    </front-stub>
+    <body>
+      <p>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/9a4a202884a687ad4858fc95fbf3be801e63215b.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </p>
+      <p>La pandemia de COVID-19, una infección causada por el coronavirus SARS-CoV-2, que comenzó en Wuhan (China) en 2019, se superpuso a una pandemia preexistente, la de Diabetes Mellitus tipo 2 (DM2)<sup>(<xref ref-type="bibr" rid="B1">1</xref>)</sup>. La literatura muestra que la DM2 es un factor de riesgo tanto para la evolución desfavorable del COVID-19, como para contraerlo, lo que significa una mayor susceptibilidad al virus. También se demostró que los pacientes que tenían un buen control de la diabetes tuvieron una evolución más favorable que aquellos que no la controlaban<sup>(<xref ref-type="bibr" rid="B1">1</xref>-<xref ref-type="bibr" rid="B2">2</xref>)</sup>.</p>
+      <p>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/1fdbee345fae2065d9bd0fd0b4b09a4f77e99e90.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </p>
+      <p>El UK Prospective Diabetes Study (UKPDS) demostró que el control de la DM2 previene las complicaciones crónicas<sup>(<xref ref-type="bibr" rid="B3">3</xref>)</sup>. Ante el COVID-19, hay nuevos conocimientos que reiteran la importancia de controlar la DM2, que ahora se enfocan en la prevención de la forma severa de una enfermedad infecciosa aguda.</p>
+      <p>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/aa495447d05a9156d0d15f5f95f8890ee1d55743.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </p>
+      <p>La DM2 es definida por cambios en la homeostasis de la glucosa y por un cuadro de inflamación crónica, pero también induce cambios en el sistema inmunológico, haciendo que el paciente afectado por esta enfermedad sea más susceptible a infecciones, incluso a las causadas por virus como el SARS-CoV-2. La DM2 también provoca la activación del sistema renina-angiotensina-aldosterona y daño endotelial, con un consecuente aumento del riesgo de trombosis. El COVID-19 es una enfermedad que puede causar hiperinflamación y se ha asociado con un mayor riesgo de aparición de fenómenos tromboembólicos, especialmente tromboembolismo pulmonar, que se observa con mayor frecuencia en pacientes con neumonía grave ingresados en unidades de terapia intensiva (UTI)<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>. Las razones por las cuales la DM2 y el COVID-19 se asocian son: una menor reserva funcional de los órganos provocada por la DM2, que en circunstancias normales puede pasar desapercibida, pero que sale a la luz cuando surge un desafío de la magnitud del COVID-19<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>. Cabe señalar que la enfermedad inflamatoria crónica causada por la DM2 se superpone a la inflamación resultante del COVID-19, lo que genera que se magnifiquen enormemente sus consecuencias.</p>
+      <p>Además de los aspectos mencionados anteriormente, la DM2 se asocia con otras condiciones clínicas, como obesidad, hipertensión arterial, enfermedad arterial coronaria y enfermedad renal crónica, que son factores de riesgo para el desarrollo de la forma grave de COVID-19. Se ha observado comúnmente insuficiencia renal aguda en pacientes ingresados en la UTI, especialmente en pacientes con DM2<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+      <p>El COVID-19 ha causado secuelas importantes, especialmente en pacientes que tenían la forma grave de la enfermedad, como los que requieren ventilación mecánica. Al parecer, las secuelas se observan con mayor frecuencia y de forma más grave en pacientes con DM2. Esto se debería a la menor reserva funcional de los órganos, sumada a una lesión aguda de mayor magnitud, posiblemente provocada por hiperinflamación. Aún no se sabe si la DM2 de los pacientes que sobrevivieron al COVID-19 no se agravó, como, de hecho, parece ser el caso. El COVID-19 afecta al páncreas, lo que podría provocar la pérdida de células beta, con posible agravamiento de la DM2, como, por ejemplo, la necesidad de administrar insulina, o requerir dosis más altas de antidiabéticos orales. Además, no es irracional suponer que las complicaciones de la diabetes pueden aparecer antes y con mayor gravedad.</p>
+      <p>Ante la pandemia de COVID-19, los servicios de salud inicialmente cancelaron sus horarios de atención rutinaria presencial, recomendando que los pacientes con diabetes mantengan el aislamiento social y que adopten otras medidas de protección, como el uso de mascarillas y de alcohol en gel. Era necesario reestructurar los servicios, organizar los horarios y la sala de espera, regular la teleconsulta y capacitar a los profesionales de la salud para brindar una atención segura a los pacientes con y sin síntomas gripales<sup>(<xref ref-type="bibr" rid="B5">5</xref>)</sup>. La pandemia ha demostrado fehacientemente un problema crónico en los servicios de salud, es decir, la necesidad de una atención multidisciplinaria para los pacientes con diabetes.</p>
+      <p>Debido a la estacionalidad de las enfermedades virales, se aceleró la vacunación contra la influenza. Se debe prestar especial atención al calendario de vacunación de los pacientes con DM2 contra la neumonía<sup>(<xref ref-type="bibr" rid="B5">5</xref>)</sup> y el COVID-19 según los protocolos vigentes. Cabe destacar que aún no existe un consenso sobre las pruebas para evaluar el grado de inmunización de las personas vacunadas contra el COVID-19<sup>(<xref ref-type="bibr" rid="B6">6</xref>)</sup>.</p>
+      <p>Al considerar la importancia de un buen control de la glicemia para que las personas con diabetes tengan una menor susceptibilidad y una mejor evolución del cuadro de COVID-19, es fundamental intensificar el control de la glicemia de las personas asintomáticas y de forma más estricta en los casos de quienes tienen síntomas gripales o padecen descompensación aguda<sup>(<xref ref-type="bibr" rid="B1">1</xref>-<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+      <p>Se recomienda una alimentación saludable (sin, por ejemplo, alimentos ultraprocesados)<sup>(<xref ref-type="bibr" rid="B2">2</xref>-<xref ref-type="bibr" rid="B5">5</xref>)</sup>. Se debe fomentar el aumento del consumo de verduras que no hayan pasado por un proceso de industrialización, la disminución de la ingesta de alimentos catalogados como fast food y la adopción de hábitos como una adecuada hidratación. Todavía no hay datos consistentes que demuestren que los suplementos dietéticos pueden contribuir a la prevención y el tratamiento del COVID-19.</p>
+      <p>Se debe incentivar y adaptar la actividad física al nuevo contexto, ya que regula y fortalece el sistema inmunológico de los pacientes con diabetes, además brinda beneficios cardiovasculares y reduce el estrés<sup>(<xref ref-type="bibr" rid="B2">2</xref>)</sup>. Caminar, reducir el tiempo que se pasa sentado, practicar actividades guiadas (presenciales o virtuales), al aire libre, y adherir al protocolo de prevención de COVID-19 pueden ser medidas seguras. Hay que estimular al paciente para que realice ejercicios de respiración y para las extremidades inferiores en casa.</p>
+      <p>En cuanto al diagnóstico de COVID-19, es importante enfatizar la importancia de no realizar pruebas sin una solicitud médica y no tomar medicamentos sin la guía de un profesional de la salud; buscar asistencia médica temprana, en servicios estructurados para atender la enfermedad; continuar con los medicamentos recetados para controlar la diabetes y recordar que puede ser necesarios realizar cambios terapéuticos<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+      <p>Las situaciones graves pueden requerir hospitalización, por ende, el manejo de pacientes hospitalizados con DM2, que ya era un desafío antes del COVID-19, ha cobrado mayor relevancia. La formación del equipo multidisciplinario y la individualización del tratamiento son aspectos clave para la buena evolución del paciente, con o sin COVID-19. La insulinización adecuada y la reevaluación de la prescripción de medicamentos orales, dependiendo de la gravedad de la enfermedad, aumentaron este desafío hospitalario.</p>
+      <p>Los pacientes con diabetes pueden tener problemas agudos que requieran atención urgente, como, un infarto agudo de miocardio o cetoacidosis diabética, que deben diagnosticarse y tratarse tempranamente. Es necesario orientar a la población para que no tenga miedo de acudir al servicio de salud durante la pandemia, siempre que presenten síntomas sugestivos de las complicaciones mencionadas.</p>
+      <p>Dada la complejidad de las dos pandemias, los pacientes deben seguir las recomendaciones y la atención médica del equipo de salud. Los mensajes comunicados a través de diversos medios pueden no tener el rigor científico (fake news) y la veracidad de la información necesaria para definir los comportamientos adecuados para la prevención y el tratamiento de la diabetes y el COVID-19.</p>
+      <p>Aún quedan varias interrogantes que podrían ser respondidas en futuros estudios, como las consecuencias de la agresión al islote pancreático causa por el COVID-19; si habrá un aumento en la incidencia de DM1 y la prevalencia de DM2; si la pandemia impondrá cambios de comportamiento que favorezcan un mayor control de enfermedades crónicas como la diabetes.</p>
+    </body>
+  </sub-article>
+  <sub-article article-type="translation" id="s2" xml:lang="pt">
+    <front-stub>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Editorial</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Diabetes e Covid-19: o que aprendemos com as duas pandemias em curso</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6374-2189</contrib-id>
+          <name>
+            <surname>Torquato</surname>
+            <given-names>Maria Teresa da Costa Gonçalves</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff9">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9915-447X</contrib-id>
+          <name>
+            <surname>Santis</surname>
+            <given-names>Gil Cunha De</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff10">2</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1656-6626</contrib-id>
+          <name>
+            <surname>Zanetti</surname>
+            <given-names>Maria Lucia</given-names>
+          </name>
+          <xref ref-type="corresp" rid="c3"/>
+          <xref ref-type="aff" rid="aff11">3</xref>
+          <xref ref-type="aff" rid="aff12">4</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff9">
+        <label>1</label>
+        <institution content-type="orgname">Secretaria Municipal de Saúde de Ribeirão Preto</institution>
+        <institution content-type="orgdiv1">Programa de Aprimoramento Multiprofissional em Hipertensão Arterial e Diabetes Mellitus</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Secretaria Municipal de Saúde de Ribeirão Preto, Programa de Aprimoramento Multiprofissional em Hipertensão Arterial e Diabetes Mellitus, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <aff id="aff10">
+        <label>2</label>
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Hospital das Clínicas, Hemocentro</institution>
+        <institution content-type="orgdiv2">Faculdade Medicina de Ribeirão Preto</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Universidade de São Paulo, Faculdade Medicina de Ribeirão Preto, Hospital das Clínicas, Hemocentro, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <aff id="aff11">
+        <label>3</label>
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Escola de Enfermagem de Ribeirão Preto</institution>
+        <institution content-type="orgdiv2">Centro Colaborador da OPAS/OMS para o Desenvolvimento da Pesquisa em Enfermagem</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto, Centro Colaborador da OPAS/OMS para o Desenvolvimento da Pesquisa em Enfermagem, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <aff id="aff12">
+        <label>4</label>
+        <institution content-type="orgname">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto</institution>
+        <institution content-type="orgdiv1">Centro Colaborador da OPAS/OMS para o Desenvolvimento da Pesquisa em Enfermagem</institution>
+        <institution content-type="orgdiv2">Revista Latino-Americana de Enfermagem</institution>
+        <addr-line>
+          <city>Ribeirão Preto</city>
+          <state>SP</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Universidade de São Paulo, Escola de Enfermagem de Ribeirão Preto, Centro Colaborador da OPAS/OMS para o Desenvolvimento da Pesquisa em Enfermagem, Revista Latino-Americana de Enfermagem, Ribeirão Preto, SP, Brasil.</institution>
+      </aff>
+      <author-notes>
+        <corresp id="c3">Autor correspondente: Maria Lucia Zanetti E-mail: <email>zanetti@eerp.usp.br</email> <ext-link ext-link-type="uri" xlink:href="https://orcid.org/0000-0003-1656-6626">https://orcid.org/0000-0003-1656-6626</ext-link></corresp>
+      </author-notes>
+    </front-stub>
+    <body>
+      <p>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/e971ae023bce641ced89dfbdc40d62be94c4c738.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </p>
+      <p>A pandemia pela COVID-19, infecção causada pelo coronavírus SARS-CoV-2, iniciada em Wuhan (China), em 2019, se sobrepôs a uma pandemia pré-existente, a do Diabetes Mellitus Tipo 2 (DM2)<sup>(<xref ref-type="bibr" rid="B1">1</xref>)</sup>. A literatura mostra que o DM2 constitui fator de risco para a evolução desfavorável da COVID-19, assim como para contraí-la, o que significa uma maior susceptibilidade ao vírus. Também foi demonstrado que pacientes com diabetes com bom controle apresentavam evolução mais favorável em relação aos não controlados<sup>(<xref ref-type="bibr" rid="B1">1</xref>-<xref ref-type="bibr" rid="B2">2</xref>)</sup>.</p>
+      <p>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/30d718ea67b77dd98bcda9d3acba9cb296fcba9e.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </p>
+      <p>O UK Prospective Diabetes Study (UKPDS) mostrou que o controle do DM2 previne complicações crônicas<sup>(<xref ref-type="bibr" rid="B3">3</xref>)</sup>. Diante da COVID-19, novos conhecimentos reiteram a importância do controle do DM2, agora enfocando a prevenção da forma grave de uma doença infecciosa aguda.</p>
+      <p>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/b824ebf96bd03d51ee26edc6c3807c3092bf1901.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </p>
+      <p>O DM2 é definido por alterações na homeostase da glicose e por um quadro de inflamação crônica, mas também induz alterações no sistema imune, tornando o paciente acometido por essa doença mais susceptível a infecções, inclusive causada por vírus, como o SARS-CoV-2. O DM2 também provoca ativação do sistema renina-angiotensina-aldosterona e lesão endotelial, com consequente aumento do risco de trombose. Ora, a COVID-19 é uma doença que pode provocar hiperinflamação e tem sido associada ao risco aumentado de ocorrência de fenômenos tromboembólicos, especialmente o tromboembolismo pulmonar, mais frequentemente observado em pacientes com pneumonia grave, internados em unidades de terapia intensiva (UTI)<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>. As razões para a associação de DM2 e COVID-19 são: a menor reserva funcional de órgãos provocada pelo DM2, que pode passar despercebida em circunstâncias normais, mas que vem à tona assim que surge um desafio da magnitude da COVID-19<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>. Cumpre salientar que a doença inflamatória crônica causada pelo DM2 é sobreposta pela inflamação decorrente da COVID-19, que tem então suas consequências grandemente amplificadas.</p>
+      <p>Além dos aspectos mencionados acima, o DM2 está associado a outras condições clínicas, como obesidade, hipertensão arterial, coronariopatia e doença renal crônica, fatores de risco para o desenvolvimento da forma grave da COVID-19. A insuficiência renal aguda tem sido comumente observada em pacientes internados em UTI, especialmente nos pacientes com DM2<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+      <p>A COVID-19 tem provocado sequelas significativas, principalmente em pacientes que tiveram a forma grave dessa doença, como aqueles que requereram ventilação mecânica. Aparentemente, as sequelas são observadas com maior frequência, e em forma mais grave, em pacientes com DM2. A explicação seria a menor reserva funcional dos órgãos, além de lesão aguda de maior magnitude, possivelmente provocada pelo hiperinflamação. Resta saber ainda se o grupo de pacientes que sobreviveu à COVID-19 não terá agravado o DM2, como, aliás, parece ser o caso. A COVID-19 acomete o pâncreas, o que poderia causar perda de células beta, com possível agravamento do DM2, por exemplo, com a necessidade de administrar insulina, ou requerer doses mais altas dos antidiabéticos orais. Ademais, não nos parece irrazoável presumir que as complicações do diabetes possam aparecer mais precocemente e de forma mais grave.</p>
+      <p>Frente à pandemia da COVID-19, inicialmente os serviços de saúde fecharam suas agendas para atendimento de rotina presencial, com a recomendação de que pacientes com diabetes mantivessem o isolamento social, além de adotar as outras medidas de proteção, como o uso de máscara e a utilização de álcool gel. Houve a necessidade de reestruturação dos serviços, organização de agendas e sala de espera, regulamentação da teleconsulta e capacitação dos profissionais de saúde para atendimento seguro dos pacientes com e sem sintomas gripais<sup>(<xref ref-type="bibr" rid="B5">5</xref>)</sup>. A pandemia mostrou de maneira contundente um problema crônico dos serviços de saúde, ou seja, a necessidade do atendimento multiprofissional aos pacientes com diabetes.</p>
+      <p>Diante da sazonalidade das doenças virais, a vacinação contra a influenza foi acelerada. Atenção especial deve ser dada ao esquema vacinal do paciente com DM2 para pneumonia<sup>(<xref ref-type="bibr" rid="B5">5</xref>)</sup> e COVID-19 de acordo com os protocolos vigentes. Cabe destacar que ainda não há consenso sobre os testes para avaliar o grau de imunização nas pessoas vacinadas para COVID-19<sup>(<xref ref-type="bibr" rid="B6">6</xref>)</sup>.</p>
+      <p>Ao considerar a importância do bom controle da glicemia para menor susceptibilidade e melhor evolução da COVID-19, em pessoas com diabetes, intensificar o monitoramento da glicemia tanto dos assintomáticos, e mais rigorosamente daqueles com quadro gripal ou durante um quadro de descompensação aguda é fundamental<sup>(<xref ref-type="bibr" rid="B1">1</xref>-<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+      <p>A alimentação saudável (sem, por exemplo, alimentos ultraprocessados) é recomendada<sup>(<xref ref-type="bibr" rid="B2">2</xref>-<xref ref-type="bibr" rid="B5">5</xref>)</sup>. Aumentar o consumo de vegetais não processados industrialmente, diminuir a ingestão de alimentos caracterizados como fast food e adotar hábitos como a hidratação adequada devem ser estimulados. Ainda não se dispõem de dados consistentes que mostrem que suplementos alimentares possam contribuir para a prevenção e tratamento da COVID-19.</p>
+      <p>A atividade física deve ser estimulada e adaptada ao novo contexto, pois ela regula e fortalece o sistema imune dos pacientes com diabetes, além dos benefícios cardiovasculares e da redução do estresse<sup>(<xref ref-type="bibr" rid="B2">2</xref>)</sup>. Caminhar, diminuir o tempo sentado, praticar atividade orientada (presencial ou virtual), ao ar livre e aderir ao protocolo para prevenção de COVID-19 podem constituir medidas seguras. A realização de exercícios de membros inferiores e respiratórios no domicilio deve ser estimulada.</p>
+      <p>Com relação ao diagnóstico da COVID-19, é importante reforçar a importância de não realizar testes sem solicitação médica e não se medicar sem a orientação por profissional da saúde; procurar assistência médica precoce, em serviços estruturados para o atendimento da doença; manter medicamentos prescritos para o controle do diabetes e lembrar que mudanças terapêuticas podem ser necessárias<sup>(<xref ref-type="bibr" rid="B4">4</xref>)</sup>.</p>
+      <p>Situações graves podem requerer internação hospitalar, de modo que o manejo do paciente hospitalizado com DM2, que já era um desafio antes da COVID-19, teve exacerbada a sua importância. A capacitação da equipe multiprofissional e a individualização do tratamento são aspectos-chave para a boa evolução do paciente, com ou sem COVID-19. A insulinização adequada e a reavaliação da prescrição de medicamentos orais, a depender da gravidade da doença, aumentaram este desafio intra-hospitalar.</p>
+      <p>Pacientes com diabetes podem apresentar problemas agudos que necessitam atendimento de urgência, por exemplo, um infarto agudo do miocárdio ou cetoacidose diabética, que devem ser diagnosticados e tratados precocemente. É necessário orientar a população a não ter receio de procurar serviço de saúde em meio à pandemia sempre que apresentar sintomas sugestivos das complicações mencionadas.</p>
+      <p>Diante da complexidade das duas pandemias, os pacientes devem seguir as recomendações e cuidados da equipe de saúde. As mensagens comunicadas por vários tipos de mídia podem não trazer o rigor científico (fake news) e a veracidade da informação necessária para definir comportamentos adequados na prevenção e tratamento do diabetes e da COVID-19.</p>
+      <p>Restam ainda várias questões, que poderão ser respondidas em estudos futuros, como as consequências da agressão à ilhota pancreática pela COVID-19; se haverá aumento na incidência de DM1 e da prevalência do DM2; se a pandemia imporá mudanças de comportamento que favoreçam maior controle de doenças crônicas como o diabetes.</p>
+    </body>
+  </sub-article>
+</article>

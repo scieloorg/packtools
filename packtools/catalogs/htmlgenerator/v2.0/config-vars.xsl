@@ -23,8 +23,9 @@
     
     <xsl:variable name="MATH_ELEM_PREFERENCE">
         <xsl:choose>
+            <xsl:when test="$math_elem_preference='tex-math'">tex-math</xsl:when>
             <xsl:when test="$math_elem_preference='mml:math'">mml:math</xsl:when>
-            <xsl:otherwise>tex-math</xsl:otherwise>
+            <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="MATHJAX">

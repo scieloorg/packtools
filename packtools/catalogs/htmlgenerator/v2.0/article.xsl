@@ -32,7 +32,6 @@
     <xsl:include href="article-text.xsl"/>
     <xsl:include href="article-text-mathml.xsl"/>
     <xsl:include href="article-text-def-list.xsl"/>
-    <xsl:include href="article-text-alternatives.xsl"/>
 
     <xsl:include href="article-text-boxed-text.xsl"/>
     <xsl:include href="article-text-list.xsl"/>
@@ -51,6 +50,7 @@
 
     <xsl:include href="article-text-sub-article.xsl"/>
 
+    <xsl:include href="html-modals-graphics.xsl"/>
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
@@ -60,7 +60,7 @@
     <xsl:include href="html-head.xsl"/>
 
     <xsl:variable name="ref" select="//ref"/>
-    <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"/>
+    <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>
 
     <!--xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
     <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable-->
