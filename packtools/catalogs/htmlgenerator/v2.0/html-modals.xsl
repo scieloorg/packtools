@@ -246,7 +246,7 @@
         <div class="row fig">
             <!-- miniatura -->
             <xsl:variable name="location">
-                <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"/>
+                <xsl:apply-templates select=".//alternatives" mode="file-location-thumb"/>
             </xsl:variable>
             <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>
             <div class="col-md-4">
@@ -321,7 +321,7 @@
         <!--
             cria no conteúdo da ABA "Scheme" a miniatura e legenda de uma fórmula
         -->
-        <xsl:variable name="location"><xsl:apply-templates select="alternatives" mode="file-location-thumb"/></xsl:variable>
+        <xsl:variable name="location"><xsl:apply-templates select=".//alternatives" mode="file-location-thumb"/></xsl:variable>
         <xsl:variable name="id"><xsl:apply-templates select="." mode="disp-formula-id"/></xsl:variable>
 
         <div class="row fig">

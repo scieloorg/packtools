@@ -156,16 +156,11 @@
 
     <xsl:template match="graphic | inline-graphic" mode="file-location-thumb">
         <!-- 
-            CAMINHO DO ARQUIVO DA IMAGEM MINIATURA
+            CAMINHO DO ARQUIVO DA IMAGEM MINIATURA, SE APLICÁVEL
         -->
-        <xsl:apply-templates select="@xlink:href" mode="fix_extension"/>
-    </xsl:template>
-    
-    <xsl:template match="alternatives/graphic | alternatives/inline-graphic" mode="file-location-thumb">
-        <!-- 
-            CAMINHO DO ARQUIVO DA IMAGEM MINIATURA
-        -->
-        <xsl:value-of select="@xlink:href"/>
+        <xsl:if test="@specific-use='scielo-web' and starts-with(@content-type, 'scielo-')">
+            <xsl:value-of select="@xlink:href"/>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="@xlink:href" mode="fix_extension">
