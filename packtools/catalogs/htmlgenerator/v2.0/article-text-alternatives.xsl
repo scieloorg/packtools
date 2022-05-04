@@ -64,6 +64,10 @@
             <xsl:when test="$MATH_ELEM_PREFERENCE='mml:math' and mml:math">
                 <xsl:apply-templates select="mml:math" />
             </xsl:when>
+            <xsl:when test="tex-math and (math or mml:math)">
+                <!-- obtém o primeiro -->
+                <xsl:apply-templates select="*[1]" />
+            </xsl:when>
             <xsl:when test="tex-math">
                 <xsl:apply-templates select="tex-math" />
             </xsl:when>
