@@ -355,7 +355,7 @@
             cria no conteúdo da ABA "Schemes" a legenda de uma fórmula
         -->
         <div class="col-md-8">
-            <xsl:apply-templates select="label"></xsl:apply-templates>
+            <xsl:apply-templates select="label" mode="label-caption"/>
         </div>
     </xsl:template>
 

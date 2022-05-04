@@ -18,9 +18,13 @@
         </div>
     </xsl:template>
 
-	<xsl:template match="disp-formula/label">
-		<span class="label"><xsl:value-of select="."/></span>
-	</xsl:template>
+    <xsl:template match="disp-formula/label">
+        <span class="label"><xsl:value-of select="."/></span>
+    </xsl:template>
+
+    <xsl:template match="disp-formula/label" mode="label-caption">
+        <strong><xsl:value-of select="."/></strong>
+    </xsl:template>
 
     <xsl:template match="disp-formula/alternatives | inline-formula/alternatives">
         <xsl:choose>
