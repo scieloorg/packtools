@@ -167,3 +167,22 @@ class TestArticleId(TestCase):
         article_id = ArticleId(_get_xmltree())
         self.assertIsNone(article_id.doi)
   
+    def test_update_v3(self):
+        self.article_id.v3 = "novo_v3"
+        self.assertEqual("novo_v3", self.article_id.v3)
+
+    def test_update_aop_pid(self):
+        self.article_id.aop_pid = "novo_aop_pid"
+        self.assertEqual("novo_aop_pid", self.article_id.aop_pid)
+
+    def test_update_v2_raises_AttributeError(self):
+        with self.assertRaises(AttributeError):
+            self.article_id.v2 = "xxxx"
+
+    def test_update_doi_raises_AttributeError(self):
+        with self.assertRaises(AttributeError):
+            self.article_id.doi = "xxxx"
+
+    def test_update_other_raises_AttributeError(self):
+        with self.assertRaises(AttributeError):
+            self.article_id.other = "xxxx"
