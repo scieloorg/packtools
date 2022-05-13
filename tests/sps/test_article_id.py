@@ -54,6 +54,7 @@ class TestArticleId(TestCase):
         expected = {
              "v3": "P3swRmPHQfy37r9xRbLCw8G",
              "v2": "S1678-69712003000100108",
+             "aop_pid": "S1678-69712002005000108",
              "other": "123",
              "doi": "10.1590/1678-69712003/administracao.v4n1p108-123",
         }

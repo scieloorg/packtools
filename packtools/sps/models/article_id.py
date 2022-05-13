@@ -51,6 +51,8 @@ class ArticleId:
             _data["v3"] = self.v3
         if self.v2:
             _data["v2"] = self.v2
+        if self.aop_pid:
+            _data["aop_pid"] = self.aop_pid
         if self.other:
             _data["other"] = self.other
         if self.doi:
