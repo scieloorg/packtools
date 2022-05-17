@@ -24,15 +24,22 @@ class ArticleMetaIssue:
     def data(self):
         attr_names = (
             "volume", "number", "suppl",
-            "elocation", "fpage", "fpage_seq", "lpage",
+            "fpage", "fpage_seq", "lpage",
+            "elocation_id",
         )
         _data = {}
         for k in attr_names:
-            value = getattr(self, k)
-            if value:
-                _data[k] = getattr(self, k)
-        _data["elocation"] = self.elocation_id
-        _data["pub_year"] = self.collection_date["year"]
+            try:
+                value = getattr(self, k)
+            except AttributeError:
+                continue
+            else:
+                if value:
+                    _data[k] = value
+        try:
+            _data["pub_year"] = self.collection_date["year"]
+        except (KeyError, TypeError):
+            pass
         return _data
 
     @property

@@ -93,6 +93,19 @@ class ArticleMetaIssueTest(TestCase):
     def test_number(self):
         self.assertEqual("1", self.issue.number)
 
+    def test_data(self):
+        expected = {
+            "volume": "4",
+            "number": "1",
+            "suppl": "B",
+            "fpage": "108",
+            "fpage_seq": "A",
+            "lpage": "123",
+            "elocation_id": "123",
+            "pub_year": "2003",
+        }
+        self.assertEqual(expected, self.issue.data)
+
 
 class ArticleMetaIssueWithAbsentDataTest(TestCase):
 
@@ -126,3 +139,7 @@ class ArticleMetaIssueWithAbsentDataTest(TestCase):
 
     def test_number(self):
         self.assertIsNone(self.issue.number)
+
+    def test_data(self):
+        expected = {}
+        self.assertEqual(expected, self.issue.data)
