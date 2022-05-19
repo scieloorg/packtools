@@ -6,7 +6,9 @@
         <xsl:choose>
             <xsl:when test="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                 <!-- apply sub-article[@article-type='translation']/sub-article (not translation) -->
-                <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="sub-article-not-translation"/>
+                <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="sub-article-not-translation">
+                    <xsl:with-param name="reflist" select="sub-article[@article-type!='translation']//ref-list"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <!-- article/sub-article[@article-type!='translation'] -->
@@ -40,12 +42,20 @@
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type='translation']" mode="sub-article-not-translation">
-        <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="sub-article-not-translation"/>
+        <xsl:param name="reflist"/>
+        <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="sub-article-not-translation">
+            <xsl:with-param name="reflist" select="$reflist"/>
+        </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type!='translation'] | response" mode="sub-article-not-translation">
+        <xsl:param name="reflist"/>
+
         <!-- Bloco do sub-article (not translation) ou response -->
         <xsl:apply-templates select="." mode="sub-article-not-translation-components"/>
+        <xsl:if test="$reflist">
+            <xsl:apply-templates select="$reflist"/>
+        </xsl:if>
         <xsl:apply-templates select="." mode="generic-history"></xsl:apply-templates>    
     </xsl:template>
     
