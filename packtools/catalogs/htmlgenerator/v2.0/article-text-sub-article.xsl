@@ -51,7 +51,13 @@
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type!='translation'] | response" mode="sub-article-not-translation-components">
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        <!-- Componentes do Bloco do sub-article (not translation) ou response -->
+        <xsl:apply-templates select="*|text()" mode="sub-article-not-translation-component"/>
+    </xsl:template>
+
+    <xsl:template match="*" mode="sub-article-not-translation-component">
+        <!-- Apresentação padrão de um compontente do Bloco do sub-article (not translation) ou response -->
+        <xsl:apply-templates select="."/>
     </xsl:template>
 
     <xsl:template match="sub-article[@article-type!='translation']/back | response/back">
