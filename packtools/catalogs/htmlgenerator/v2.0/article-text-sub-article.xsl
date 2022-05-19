@@ -5,8 +5,8 @@
     <xsl:template match="article" mode="article-text-sub-articles">
         <xsl:choose>
             <xsl:when test="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <!-- sub-article[@article-type='translation']/sub-article (not translation) -->
-                <!-- TODO -->
+                <!-- apply sub-article[@article-type='translation']/sub-article (not translation) -->
+                <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="sub-article-not-translation"/>
             </xsl:when>
             <xsl:otherwise>
                 <!-- article/sub-article[@article-type!='translation'] -->
@@ -37,6 +37,10 @@
     <xsl:template match="sub-article[@article-type!='translation']//aff | response//aff">
     </xsl:template>
     <xsl:template match="sub-article[@article-type!='translation']//history | response//history">
+    </xsl:template>
+    
+    <xsl:template match="sub-article[@article-type='translation']" mode="sub-article-not-translation">
+        <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="sub-article-not-translation"/>
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type!='translation'] | response" mode="sub-article-not-translation">
