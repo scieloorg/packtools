@@ -46,10 +46,14 @@
                 <xsl:with-param name="text" select="concat(@article-type,@response-type)"/>
             </xsl:apply-templates></xsl:attribute> 
         </div>
-        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        <xsl:apply-templates select="." mode="sub-article-not-translation-components"/>
         <xsl:apply-templates select="." mode="generic-history"></xsl:apply-templates>    
     </xsl:template>
     
+    <xsl:template match="sub-article[@article-type!='translation'] | response" mode="sub-article-not-translation-components">
+        <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+    </xsl:template>
+
     <xsl:template match="sub-article[@article-type!='translation']/back | response/back">
         <xsl:apply-templates select="*" mode="back-section"></xsl:apply-templates>
     </xsl:template>
