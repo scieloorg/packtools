@@ -41,11 +41,6 @@
     
     <xsl:template match="sub-article[@article-type!='translation'] | response" mode="sub-article-not-translation">
         <!-- Bloco do sub-article (not translation) ou response -->
-        <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
-                <xsl:with-param name="text" select="concat(@article-type,@response-type)"/>
-            </xsl:apply-templates></xsl:attribute> 
-        </div>
         <xsl:apply-templates select="." mode="sub-article-not-translation-components"/>
         <xsl:apply-templates select="." mode="generic-history"></xsl:apply-templates>    
     </xsl:template>
@@ -58,6 +53,21 @@
     <xsl:template match="*" mode="sub-article-not-translation-component">
         <!-- Apresentação padrão de um compontente do Bloco do sub-article (not translation) ou response -->
         <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="front-stub" mode="sub-article-not-translation-component">
+        <xsl:apply-templates select="title-group" mode="sub-article-not-translation-component"/>
+        <xsl:apply-templates select="contrib-group" mode="sub-article-not-translation-component"/>
+    </xsl:template>
+
+    <xsl:template match="title-group" mode="sub-article-not-translation-component">
+        <!-- Apresentação padrão de um compontente do Bloco do sub-article (not translation) ou response -->
+        <div class="articleSection">
+            <xsl:attribute name="data-anchor">
+                <xsl:apply-templates select=".//article-title"/>
+            </xsl:attribute> 
+        </div>
+        <xsl:apply-templates select="*" mode="sub-article-not-translation-component"/>
     </xsl:template>
 
     <xsl:template match="sub-article[@article-type!='translation']/back | response/back">
