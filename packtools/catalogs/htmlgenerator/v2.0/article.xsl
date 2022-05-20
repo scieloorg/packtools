@@ -250,9 +250,10 @@
             <xsl:apply-templates select="." mode="text-body"/>
             <xsl:apply-templates select="." mode="text-back"/>
             <xsl:apply-templates select="." mode="text-fn"/>
+            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
+
             <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
             <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
-            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
 
             <section class="documentLicense">
                 <div class="container-license">

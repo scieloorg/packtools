@@ -31,7 +31,7 @@
     <xsl:template match="article" mode="article-meta-title">
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//*/title-group/article-title"></xsl:apply-templates>
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/front-stub/title-group/article-title"/>
             </xsl:when>
             <xsl:when test="front/article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title">
                 <xsl:apply-templates select="front/article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title"></xsl:apply-templates>
