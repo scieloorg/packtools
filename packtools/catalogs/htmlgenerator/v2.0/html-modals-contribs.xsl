@@ -3,7 +3,7 @@
     version="1.0">
 
     <xsl:template match="front | front-stub" mode="modal-id"><xsl:value-of select="../@id"/></xsl:template>
-    <xsl:template match="article-meta | sub-article[@article-type='translation']//front | sub-article[@article-type='translation']//front-stub" mode="modal-id">    
+    <xsl:template match="article-meta | sub-article[@article-type='translation']/front | sub-article[@article-type='translation']/front-stub" mode="modal-id">    
     </xsl:template>
     
     <xsl:variable name="xref_fn" select="$article//xref[@ref-type='fn']"></xsl:variable>
