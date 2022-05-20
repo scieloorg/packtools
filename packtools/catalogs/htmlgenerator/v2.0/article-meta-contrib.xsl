@@ -23,7 +23,7 @@
     <xsl:template match="sub-article" mode="contrib-group">
         <div>
             <xsl:attribute name="class">contribGroup</xsl:attribute>
-            <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
+            <xsl:apply-templates select="front-stub/contrib-group | front/contrib-group"></xsl:apply-templates>
             <xsl:if test="not(.//contrib) and ../@article-type='translation'">
                 <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
             </xsl:if>
