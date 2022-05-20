@@ -11,9 +11,9 @@
     <xsl:template match="article" mode="modal-contribs">
         <xsl:choose>
             <xsl:when
-                test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                test="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
                 <xsl:apply-templates
-                    select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="front/article-meta" mode="modal-contrib"></xsl:apply-templates>
@@ -23,11 +23,11 @@
     </xsl:template>
     
     <xsl:template match="sub-article | response" mode="modal-contrib">
-        <xsl:apply-templates select=".//front | .//front-stub" mode="modal-contrib"></xsl:apply-templates>
+        <xsl:apply-templates select="front | front-stub" mode="modal-contrib"></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="article-meta | front | front-stub" mode="modal-contrib">
-        <xsl:if test=".//contrib or .//author-notes">
+        <xsl:if test="contrib-group/contrib or contrib-group/author-notes">
             <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
             <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">            
                 
