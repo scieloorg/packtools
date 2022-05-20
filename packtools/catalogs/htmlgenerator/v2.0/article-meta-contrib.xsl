@@ -31,7 +31,7 @@
     </xsl:template>
     
     <xsl:template match="front/contrib-group | front-stub/contrib-group" mode="modal-id"><xsl:value-of select="../../@id"/></xsl:template>
-    <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']//contrib-group" mode="modal-id"></xsl:template>
+    <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']/*/contrib-group" mode="modal-id"></xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
