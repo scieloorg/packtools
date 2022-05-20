@@ -43,9 +43,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="info">
-                            <xsl:apply-templates select=".//contrib" mode="modal-contrib"></xsl:apply-templates>
-                            <xsl:if test="not(.//contrib) and ../@article-type='translation'">
-                                <xsl:apply-templates select="$article//article-meta//contrib" mode="modal-contrib"></xsl:apply-templates>
+                            <xsl:apply-templates select="contrib-group/contrib" mode="modal-contrib"></xsl:apply-templates>
+                            <xsl:if test="not(contrib-group/contrib) and ../@article-type='translation'">
+                                <xsl:apply-templates select="$article//article-meta/front/contrib-group/contrib" mode="modal-contrib"></xsl:apply-templates>
                             </xsl:if>
                         </div>
                         <xsl:apply-templates select=".//author-notes" mode="modal-contrib"></xsl:apply-templates>
