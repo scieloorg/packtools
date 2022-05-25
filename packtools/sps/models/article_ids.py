@@ -1,7 +1,7 @@
 from lxml import etree
 
 
-class ArticleId:
+class ArticleIds:
 
     """
     Torna acessível os dados representados pelos elementos `article-id`

@@ -1,8 +1,8 @@
 from unittest import TestCase, skip
 
 from lxml import etree
-from packtools.sps.models.article_id import (
-    ArticleId,
+from packtools.sps.models.article_ids import (
+    ArticleIds,
 )
 
 
@@ -20,7 +20,7 @@ def _get_xmltree(xml=None):
     return etree.fromstring(s)
 
 
-class TestArticleId(TestCase):
+class TestArticleIds(TestCase):
     """
     Estes testes são para explicitar a saída de
     parse_issue usando o contéudo de <issue></issue>
@@ -33,7 +33,7 @@ class TestArticleId(TestCase):
             '<article-id pub-id-type="doi">10.1590/1678-69712003/administracao.v4n1p108-123</article-id>'
             '<article-id pub-id-type="other">123</article-id>'
         )
-        self.article_id = ArticleId(_get_xmltree(xml))
+        self.article_id = ArticleIds(_get_xmltree(xml))
 
     def test_v3(self):
         self.assertEqual("P3swRmPHQfy37r9xRbLCw8G", self.article_id.v3)
@@ -61,19 +61,19 @@ class TestArticleId(TestCase):
         self.assertDictEqual(expected, self.article_id.data)
 
     def test_absent_v3(self):
-        article_id = ArticleId(_get_xmltree())
+        article_id = ArticleIds(_get_xmltree())
         self.assertIsNone(article_id.v3)
 
     def test_absent_v2(self):
-        article_id = ArticleId(_get_xmltree())
+        article_id = ArticleIds(_get_xmltree())
         self.assertIsNone(article_id.v2)
 
     def test_absent_other(self):
-        article_id = ArticleId(_get_xmltree())
+        article_id = ArticleIds(_get_xmltree())
         self.assertIsNone(article_id.other)
 
     def test_absent_doi(self):
-        article_id = ArticleId(_get_xmltree())
+        article_id = ArticleIds(_get_xmltree())
         self.assertIsNone(article_id.doi)
   
     def test_update_v3(self):
