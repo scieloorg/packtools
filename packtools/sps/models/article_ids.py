@@ -59,6 +59,19 @@ class ArticleIds:
             _data["doi"] = self.doi
         return _data
 
+    @v2.setter
+    def v2(self, value):
+        node = self._get_node(
+                './/article-id[@specific-use="scielo-v2"]'
+            )
+        if node is None:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "publisher-id")
+            node.set("specific-use", "scielo-v2")
+            self.am.insert(1, node)
+        if node is not None:
+            node.text = value
+
     @v3.setter
     def v3(self, value):
         node = self._get_node(
