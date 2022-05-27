@@ -37,9 +37,11 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&#xd7;</span><span class="sr-only"><xsl:apply-templates select="." mode="interface">
                             <xsl:with-param name="text">Close</xsl:with-param>
                         </xsl:apply-templates></span></button>
-                        <h4 class="modal-title"><xsl:apply-templates select="." mode="text-labels">
-                            <xsl:with-param name="text">About the authors</xsl:with-param>
-                        </xsl:apply-templates></h4>
+                        <h4 class="modal-title">
+                            <xsl:apply-templates select="." mode="interface">
+                                <xsl:with-param name="text">About the author<xsl:if test="count(contrib-group/contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
+                            </xsl:apply-templates>
+                        </h4>
                     </div>
                     <div class="modal-body">
                         <div class="info">
@@ -56,8 +58,17 @@
         </xsl:if>    
     </xsl:template>
     
+    <xsl:template match="contrib" mode="modal-contrib-type">
+        <xsl:if test="@contrib-type!='author'">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text"><xsl:value-of select="@contrib-type"/></xsl:with-param>
+        </xsl:apply-templates><br/>
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template match="contrib" mode="modal-contrib">
         <div class="tutors">
+            <xsl:apply-templates select="." mode="modal-contrib-type"/>
             <strong><xsl:apply-templates select="name|collab|on-behalf-of"/></strong>
             <xsl:if test="xref[@ref-type='corresp']">
                 <xsl:apply-templates select="xref[@ref-type='corresp']" />
