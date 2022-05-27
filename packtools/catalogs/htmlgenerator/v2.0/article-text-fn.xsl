@@ -4,29 +4,40 @@
     
     <xsl:template match="article" mode="text-fn">  
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body//*[(fn or fn-group) and name()!='table-wrap-foot']">
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body">
                 <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body" mode="text-fn"/>
             </xsl:when>
-            <xsl:when test="body//*[(fn or fn-group) and name()!='table-wrap-foot']">
-                <xsl:apply-templates select="./body" mode="text-fn"/>
+            <xsl:when test="body">
+                <xsl:apply-templates select="body" mode="text-fn"/>
             </xsl:when>
         </xsl:choose>            
     </xsl:template>
     
     <xsl:template match="body" mode="text-fn">
-        <div class="articleSection">
-            <h2></h2>
-            <div class="ref-list">
-                <ul class="refList footnote"> 
-                    <!--
-                    <xsl:comment> body note </xsl:comment>
-                    -->
-                    <xsl:apply-templates select=".//*[(fn or fn-group) and name()!='table-wrap-foot']/*[contains(name(),'fn')]" mode="display-body-footnotes"></xsl:apply-templates>
-                </ul>
+        <xsl:variable name="footnotes"><xsl:apply-templates select=".//fn" mode="text-fn"/></xsl:variable>
+        <xsl:if test="normalize-space($footnotes) != ''">
+            <div class="articleSection">
+                <h2></h2>
+                <div class="ref-list">
+                    <xsl:value-of select="$footnotes"/>
+                </div>
             </div>
-        </div>        
+        </xsl:if>
     </xsl:template>
     
+    <xsl:template match="fn" mode="text-fn">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    
+    <xsl:template match="table-wrap-foot//fn" mode="text-fn">
+    </xsl:template>
+        
+    <xsl:template match="fn">
+        <li>
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </li>
+    </xsl:template>
+
     <xsl:template match="fn/label">
         <xsl:choose>
             <xsl:when test="string-length(normalize-space(text())) &gt; 3">
@@ -43,25 +54,11 @@
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </div>
     </xsl:template>
-    
-    <xsl:template match="body//*[(fn or fn-group) and name()!='table-wrap-foot']/fn | body//*[(fn or fn-group) and name()!='table-wrap-foot']/fn-group">
-        <!--
-        <xsl:comment> skip p/fn </xsl:comment>
-        -->
+        
+    <xsl:template match="fn/title">
+        <h2><xsl:apply-templates select="*|text()"></xsl:apply-templates></h2>        
     </xsl:template>
-    
-    <xsl:template match="*" mode="display-body-footnotes">
-    </xsl:template>
-    
-    <xsl:template match="fn|fn-group" mode="display-body-footnotes">
-        <!--
-        <xsl:comment> list body//fn </xsl:comment>
-        -->
-        <li>
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-        </li>
-    </xsl:template>
-    
+
     <xsl:template match="back/fn | back/fn-group" mode="back-section-content">
             <div class="ref-list">
                 <ul class="refList footnote">
@@ -69,15 +66,5 @@
                 </ul>
             </div>
     </xsl:template>
-    
-    <xsl:template match="back/fn-group/fn">
-        <li>
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-        </li>
-    </xsl:template>
-    
-    <xsl:template match="fn-group/fn/title">
-        <h2><xsl:apply-templates select="*|text()"></xsl:apply-templates></h2>        
-    </xsl:template>
-        
+
 </xsl:stylesheet>

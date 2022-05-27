@@ -32,9 +32,10 @@
 
     <xsl:template match="front | body | back | sub-article" mode="individual-modal">
         <!-- cria um modal para cada figura, tabela e fórmula existente no body-->
-        <xsl:apply-templates select=".//*[fig] | fig" mode="fig-modal"></xsl:apply-templates>
+        <xsl:apply-templates select=".//*[fig] | fig" mode="fig-modal"/>
         <xsl:apply-templates select=".//table-wrap[@id] | .//table-wrap-group[@id]" mode="modal"/>
         <xsl:apply-templates select=".//disp-formula[@id]" mode="modal"/>
+        <xsl:apply-templates select="p | sec | body/p | body/sec" mode="graphic-modal"/>
     </xsl:template>
 
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">
@@ -245,7 +246,7 @@
         <div class="row fig">
             <!-- miniatura -->
             <xsl:variable name="location">
-                <xsl:apply-templates select="alternatives | graphic" mode="file-location-thumb"/>
+                <xsl:apply-templates select=".//alternatives" mode="file-location-thumb"/>
             </xsl:variable>
             <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>
             <div class="col-md-4">
@@ -286,7 +287,7 @@
             Cria a legenda de uma tabela no conteúdo da ABA "Tables"
         -->
         <div class="col-md-8">
-            <xsl:apply-templates select="." mode="label-caption-thumb"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="label-br-caption"></xsl:apply-templates>
         </div>
     </xsl:template>
 
@@ -320,16 +321,16 @@
         <!--
             cria no conteúdo da ABA "Scheme" a miniatura e legenda de uma fórmula
         -->
-        <div class="row fig">
-            <!-- miniatura -->
-            <xsl:variable name="location"><xsl:apply-templates select="." mode="file-location"/></xsl:variable>
+        <xsl:variable name="location"><xsl:apply-templates select=".//alternatives" mode="file-location-thumb"/></xsl:variable>
         <xsl:variable name="id"><xsl:apply-templates select="." mode="disp-formula-id"/></xsl:variable>
 
+        <div class="row fig">
+            <!-- miniatura -->
             <div class="col-md-4">
                 <a data-toggle="modal" data-target="#ModalScheme{$id}">
                     <div>
                         <xsl:choose>
-                            <xsl:when test="graphic">
+                            <xsl:when test="$location!=''">
                                 <xsl:attribute name="class">thumbImg</xsl:attribute>
                                 <img>
                                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
@@ -354,7 +355,7 @@
             cria no conteúdo da ABA "Schemes" a legenda de uma fórmula
         -->
         <div class="col-md-8">
-            <xsl:apply-templates select="label"></xsl:apply-templates>
+            <xsl:apply-templates select="label" mode="label-caption"/>
         </div>
     </xsl:template>
 

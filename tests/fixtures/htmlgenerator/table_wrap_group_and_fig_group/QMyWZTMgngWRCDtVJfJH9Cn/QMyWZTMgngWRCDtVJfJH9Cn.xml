@@ -1,0 +1,1924 @@
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">ce</journal-id>
+      <journal-title-group>
+        <journal-title>Cerâmica</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Cerâmica</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0366-6913</issn>
+      <issn pub-type="epub">1678-4553</issn>
+      <publisher>
+        <publisher-name>Associação Brasileira de Cerâmica</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">QMyWZTMgngWRCDtVJfJH9Cn</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0366-69132021000400388</article-id>
+      <article-id pub-id-type="doi">10.1590/0366-69132021673843037</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Articles</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Análise de desempenho de placas cerâmicas porosas obtidas com resíduo de vidro e lama de cal para aplicação em fachadas ventiladas</article-title>
+        <trans-title-group xml:lang="en">
+          <trans-title>Performance analysis of porous ceramic plates obtained with glass residue and lime mud for application on ventilated facades</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9991-8329</contrib-id>
+          <name>
+            <surname>Pizzatto</surname>
+            <given-names>F. O.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+          <xref ref-type="corresp" rid="c1">*</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Pizzatto</surname>
+            <given-names>S. M. S.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Arcaro</surname>
+            <given-names>S.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Montedo</surname>
+            <given-names>O. R. K.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Junca</surname>
+            <given-names>E.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <aff id="aff1">
+          <label>1</label>
+          <institution content-type="original">Universidade do Extremo Sul Catarinense, Programa de Pós-graduação em Ciência e Engenharia de Materiais, Laboratório de Cerâmica Técnica, Criciúma, SC, Brasil</institution>
+          <institution content-type="orgname">Universidade do Extremo Sul Catarinense</institution>
+          <institution content-type="orgdiv1">Programa de Pós-graduação em Ciência e Engenharia de Materiais</institution>
+          <institution content-type="orgdiv2">Laboratório de Cerâmica Técnica</institution>
+          <addr-line>
+            <city>Criciúma</city>
+            <state>SC</state>
+          </addr-line>
+          <country country="BR">Brasil</country>
+        </aff>
+      </contrib-group>
+      <author-notes>
+        <corresp id="c1">
+          <label>*</label>
+          <email>fernandop@unesc.net</email>
+        </corresp>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>26</day>
+        <month>11</month>
+        <year>2021</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <season>Oct-Dec</season>
+        <year>2021</year>
+      </pub-date>
+      <volume>67</volume>
+      <issue>384</issue>
+      <fpage>388</fpage>
+      <lpage>398</lpage>
+      <history>
+        <date date-type="received">
+          <day>21</day>
+          <month>12</month>
+          <year>2020</year>
+        </date>
+        <date date-type="rev-recd">
+          <day>22</day>
+          <month>03</month>
+          <year>2021</year>
+        </date>
+        <date date-type="accepted">
+          <day>15</day>
+          <month>05</month>
+          <year>2021</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by-nc/4.0/" xml:lang="pt">
+          <license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Resumo</title>
+        <p>Desenvolveu-se uma placa cerâmica porosa utilizando resíduo de vidro e lama de cal e simulou-se a aplicação em fachada ventilada. O resíduo de vidro foi usado como substituto total (100%) do feldspato. A lama de cal foi usada como material porogênico. Foi realizado um planejamento experimental com variações de 20% a 40% de lama de cal e temperatura de queima entre 860 e 1020 °C. As placas obtidas foram submetidas a testes de tensão da ruptura à flexão e porosidade total. Na melhor condição experimental, a placa contendo 40% de lama de cal queimada a 1020 °C apresentou tensão de ruptura à flexão de 7,25 MPa, porosidade total de 37,5% e absorção de água de 21,8%. No ensaio de desempenho quanto ao isolamento térmico das placas, esta amostra apresentou melhor desempenho térmico em relação à amostra comercial avaliada.</p>
+      </abstract>
+      <trans-abstract xml:lang="en">
+        <title>Abstract</title>
+        <p>A porous ceramic plate was developed using glass residue and lime mud and simulated application on a ventilated facade. The glass residue replaced 100% feldspar. Lime mud was used as a porogenic material. An experimental design was carried out with variations of 20% to 40% of lime mud and firing temperature between 860 and 1020 °C. The obtained plates were submitted to tests of flexural strength and total porosity. In the best experimental condition, the plate containing 40% of lime mud fired at 1020 °C had a flexural strength of 7.25 MPa, total porosity of 37.5%, and water absorption of 21.8%. In the thermal insulation performance test of the plates, this sample presented a better thermal performance in relation to the commercial sample evaluated.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="pt">
+        <title>Palavras-chave:</title>
+        <kwd>cerâmicas porosas</kwd>
+        <kwd>lama de cal</kwd>
+        <kwd>resíduo de vidro</kwd>
+        <kwd>fachada ventilada</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>porous ceramics</kwd>
+        <kwd>lime mud</kwd>
+        <kwd>glass residue</kwd>
+        <kwd>ventilated facade</kwd>
+      </kwd-group>
+      <counts>
+        <equation-count count="4"/>
+        <ref-count count="25"/>
+        <page-count count="11"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>INTRODUÇÃO</title>
+      <p>As fachadas ventiladas são sistemas de revestimento externo não aderidos, compostos por painéis fixos a um conjunto metálico localizado na parede da edificação. Entre o revestimento e a parede forma-se um espaço vazio que canaliza a circulação do ar por convecção: o ar frio entra pela parte inferior do vão, é aquecido e sai pela parte superior, criando um efeito de isolamento térmico. As fachadas ventiladas buscam ocupar um papel importante, não só por seu potencial estético e impacto visual na construção civil, mas sim por seu potencial técnico para contribuição de uma forma decisiva no desempenho térmico e estrutural do conjunto arquitetônico da obra. Para este sistema, podem ser empregados diversos materiais, tais como as placas cerâmicas e as placas de pedras naturais, normalmente em grandes formatos <xref ref-type="bibr" rid="B1"><sup>1</sup></xref>. Habitualmente no mercado são especificados revestimentos cerâmicos (porcelanato) com absorção de água nula ou quase nula. No presente estudo, buscou-se desenvolver e analisar um revestimento cerâmico poroso a ser utilizado em sistemas de fachadas ventiladas. Esses materiais são porosos, o que proporciona maior leveza, além de ampliar o isolamento térmico e acústico. </p>
+      <p>Por outro lado, no setor cerâmico, a utilização de matérias-primas alternativas vem ganhando aceitação no mercado, devido principalmente à preocupação com a energia e meio ambiente por este setor <xref ref-type="bibr" rid="B2"><sup>2</sup></xref>. Muitos trabalhos são encontrados na literatura demonstrando a capacidade da área cerâmica agregar reíduos ao seu processo produtivo <xref ref-type="bibr" rid="B3"><sup>3</sup></xref><sup>), (</sup><xref ref-type="bibr" rid="B4"><sup>4</sup></xref>. A adição de resíduos de vidro também chama atenção neste setor <xref ref-type="bibr" rid="B5"><sup>5</sup></xref><sup>)- (</sup><xref ref-type="bibr" rid="B7"><sup>7</sup></xref>. Mundialmente, o montante de vidro descartado representa aproximadamente 7,5% do peso total do lixo doméstico. Os valores no Brasil são estimados em 5,57 kg/habitante/ano. Já nos EUA a estimativa é de 30 kg/habitante/ano. O Brasil produz em média 1.332.827 ton de embalagens de vidro por ano, sendo que atualmente o destino deste material é o aterro sanitário. Cabe ressaltar que no Brasil são descartados 47% das embalagens de vidro em aterros, tornando este resíduo um problema tanto do ponto de vista financeiro quanto ambiental <xref ref-type="bibr" rid="B8"><sup>8</sup></xref>. O descarte de resíduos de vidro tornou-se um dos principais motivos que contribui para a preocupação, devido à crescente demanda por espaço de aterro e recursos. Embora o vidro seja um material inerte, todos os produtos de vidro têm uma vida útil limitada, o que leva muitos pesquisadores a procurar maneiras de redirecionar a quantidade de resíduos de vidro descartada em aterros sanitários <xref ref-type="bibr" rid="B9"><sup>9</sup></xref><sup>)- (</sup><xref ref-type="bibr" rid="B11"><sup>11</sup></xref>. Assim, com a reutilização do vidro, tem-se a possibilidade de produção de novos materiais, por exemplo, produtos com excelentes propriedades acústicas, térmicas e mecânicas <xref ref-type="bibr" rid="B10"><sup>10</sup></xref><sup>), (</sup><xref ref-type="bibr" rid="B11"><sup>11</sup></xref>. Uma outra possibilidade é a utilização do resíduo de vidro em substituição ao fundente, como o feldspato, em massas cerâmicas, uma vez que os vidros em sua composição apresentam altos teores de óxido de sódio <xref ref-type="bibr" rid="B12"><sup>12</sup></xref>. Paralelamente ao uso de materiais alternativos na massa cerâmica, para obtenção de cerâmicas porosas é necessária a adição de agentes porogênicos. Neste sentido, o resíduo de lama de cal é constituído basicamente de carbonato de cálcio (CaCO<sub>3</sub>) e possui outros óxidos em pequenas proporções como Al<sub>2</sub>O<sub>3</sub>, MgO, Fe<sub>2</sub>O<sub>3</sub> e CaO, cujo teor pode variar de acordo com a eficiência do processo <xref ref-type="bibr" rid="B13"><sup>13</sup></xref>. O CaCO<sub>3</sub> é tradicionalmente conhecido como um agente porogênico <xref ref-type="bibr" rid="B3"><sup>3</sup></xref><sup>), (</sup><xref ref-type="bibr" rid="B14"><sup>14</sup></xref>. O resíduo de lama de cal é proveniente da indústria de papel e celulose, onde a cada 5,5 ton de celulose produzidas gera aproximadamente 1 ton de resíduo, sendo o mesmo descartado na natureza <xref ref-type="bibr" rid="B15"><sup>15</sup></xref>. </p>
+      <p>Dentro deste contexto, o objetivo deste trabalho é avaliar o emprego de placas cerâmicas porosas obtidas a partir da adição de resíduos de vidro e lama de cal, com relação ao seu desempenho mecânico e térmico em fachada ventilada. Vale salientar que a obtenção da porosidade nas placas com o uso de lama de cal como agente porogênico, somada a inserção de resíduo de vidro substituindo totalmente o feldspato, é uma opção ainda não observada na literatura. </p>
+    </sec>
+    <sec sec-type="materials|methods">
+      <title>MATERIAIS E MÉTODOS</title>
+      <p><italic>Materiais de partida e caracterização</italic>: para a confecção das placas cerâmicas porosas, as matérias-primas utilizadas foram caulim, argila plástica, quartzo, com grau de pureza industrial (Colorminas Colorífico e Mineração), lama de cal fornecida por uma empresa de papel e celulose localizada no planalto serrano de Santa Catarina, Brasil, e vidro tipo soda-cal fornecido por uma vidraçaria localizada no município de Tubarão/SC, Brasil. Apenas o vidro foi moído com um moinho gira jarros (CE-500/D, CienlaB) com bolas de zircônia durante 20 min. As demais matérias-primas e resíduos já se encontravam em pó, passante em peneira de malha 500 μm (35 mesh). A caracterização química dos materiais foi realizada por espectroscopia por fluorescência de raios X (FRX, WRFDX Axios Max, Panalytical). A caracterização mineralógica foi realizada por difração de raios X (DRX, XRD 6000, Shimadzu), tensão de 30 kV e corrente de 30 mA. A análise foi feita de 3° a 80° (2θ) com velocidade de 0,02 º/s. O tamanho de partícula dos resíduos foi determinado por granulometria a laser (PSA 1064, CILAS). O comportamento térmico foi avaliado por análise termogravimétrica (TG, SDT Analyzer Q600, TA Instrum.), com taxa de aquecimento de 10 ºC/min em atmosfera de ar sintético. Para o resíduo de vidro e a lama de cal, o ensaio foi realizado de 30 a 1495 ºC.</p>
+      <p><italic>Definição e caracterização das composições</italic>: as composições cerâmicas foram obtidas com 45% de argila plástica, 3% de quartzo, 12% de caulim e 40% de resíduo de vidro. A lama de cal foi utilizada em três diferentes teores (20, 30 e 40%) a partir da melhor composição obtida por Milak et al. <xref ref-type="bibr" rid="B16"><sup>16</sup></xref>, que foi considerada como referência ao nosso trabalho. A <xref ref-type="table" rid="t1">Tabela I</xref> apresenta as formulações das massas cerâmicas confeccionadas <xref ref-type="bibr" rid="B17"><sup>17</sup></xref>. As temperaturas de queima foram definidas no ensaio de dilatometria óptica (Misura 3 HSM 1600-50, Expert Syst. Solut.) em amostras de cada composição (F20, F30, F40) com dimensões de 15x5x3 μm, de 25 a 1295 ºC, com uma taxa de aquecimento de 10 ºC/min. Determinou-se que as temperaturas de sinterização estudadas seriam de 860, 940 e 1020 ºC. Foi desenvolvido um planejamento experimental para analisar o teor de lama de cal e a temperatura de queima necessários para obter uma placa cerâmica porosa com resistência mecânica para a aplicação sugerida. O modelo selecionado foi o fatorial 2<sup>k</sup> com um ponto central em duplicata, onde se teve o fatorial k em dois níveis. Neste caso houve duas variáveis: a lama de cal utilizada em três proporções (20%, 30% e 40%) e a temperatura de queima, determinada por meio do ensaio de dilatometria óptica. Essas variáveis foram analisadas em dois níveis (-1 e +1), com objetivo de se obter o planejamento fatorial de 2<sup>2 (</sup><xref ref-type="bibr" rid="B16"><sup>16</sup></xref>. Desta forma, a variável de resposta foi a porosidade das placas cerâmicas, tendo assim dois níveis para cada fator e dois pontos centrais demostrados na <xref ref-type="table" rid="t2">Tabela II</xref>. </p>
+      <p>
+        <table-wrap-group id="t1">
+          <table-wrap xml:lang="pt">
+            <label>Tabela I</label>
+            <caption>
+              <title>Formulação (% em massa) das composições F20, F30 e F40.</title>
+            </caption>
+          </table-wrap>
+          <table-wrap xml:lang="en">
+            <label>Table I</label>
+            <caption>
+              <title>Formulation (wt%) of the compositions F20, F30, and F40.</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center">Formulação</th>
+                  <th align="center">F20</th>
+                  <th align="center">F30</th>
+                  <th align="center">F40</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">Argila</td>
+                  <td align="center">37,50</td>
+                  <td align="center">34,61</td>
+                  <td align="center">32,14</td>
+                </tr>
+                <tr>
+                  <td align="center">Quartzo</td>
+                  <td align="center">2,50</td>
+                  <td align="center">2,30</td>
+                  <td align="center">2,15</td>
+                </tr>
+                <tr>
+                  <td align="center">Caulim</td>
+                  <td align="center">10,00</td>
+                  <td align="center">9,23</td>
+                  <td align="center">8,57</td>
+                </tr>
+                <tr>
+                  <td align="center">Vidro</td>
+                  <td align="center">33,33</td>
+                  <td align="center">30,78</td>
+                  <td align="center">28,57</td>
+                </tr>
+                <tr>
+                  <td align="center">Lama de cal</td>
+                  <td align="center">16,67</td>
+                  <td align="center">23,08</td>
+                  <td align="center">28,57</td>
+                </tr>
+                <tr>
+                  <td align="center">Total</td>
+                  <td align="center">100,00</td>
+                  <td align="center">100,00</td>
+                  <td align="center">100,00</td>
+                </tr>
+              </tbody>
+            </table>
+          </table-wrap>
+        </table-wrap-group>
+      </p>
+      <p>
+        <table-wrap-group id="t2">
+          <table-wrap xml:lang="pt">
+            <label>Tabela II</label>
+            <caption>
+              <title>Nomenclatura das composições cerâmicas estudadas.</title>
+            </caption>
+          </table-wrap>
+          <table-wrap xml:lang="en">
+            <label>Table II</label>
+            <caption>
+              <title>Sample code of the studied ceramic compositions.</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center">Corrida</th>
+                  <th align="center">1</th>
+                  <th align="center">2</th>
+                  <th align="center">3</th>
+                  <th align="center">4</th>
+                  <th align="center">5</th>
+                  <th align="center">6</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">Formulação</td>
+                  <td align="center">F20T860</td>
+                  <td align="center">F40T860</td>
+                  <td align="center">F20T1020</td>
+                  <td align="center">F40T1020</td>
+                  <td align="center">F30T940</td>
+                  <td align="center">F30T940</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN1">
+                <p>
+                  <italic>F: formulação; T: temperatura de sinterização.</italic>
+                </p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+        </table-wrap-group>
+      </p>
+      <p>Inicialmente, foi feita a secagem das matérias-primas individuais e dos resíduos em uma estufa (CE-220/100, CienlaB) a 100±5 ºC por 24 h. Em seguida, a argila foi destorroada manualmente em um almofariz e pesada para elaboração da barbotina; já o vidro foi submetido ao processo de moagem à seco, utilizando o moinho de jarros com intervalo de tempo variando de 10 em 10 min e para um tempo total de moagem de 60 min. A suspensão (barbotina) foi feita com 50% de teor de sólidos e submetida à agitação mecânica de 20 rpm por 15 min. Após esse período, a barbotina foi encaminhada novamente à estufa a 100±5 ºC por 24 h. Posteriormente à secagem, a massa cerâmica seca foi desagregada e destorroada manualmente, utilizando-se um almofariz para obtenção de uma massa cerâmica em pó. Este foi então umedecido com 10% de água com o auxílio de um pulverizador para obtenção de uma massa cerâmica úmida. Esta foi passada em uma peneira de malha 500 μm (35 mesh), sendo em seguida colocada em um saco plástico e posteriormente lacrado para homogeneização da umidade (por 24 h). A etapa de prensagem foi feita em uma prensa hidráulica (GT 0785, Gabrielli). O processo de prensagem ocorreu em três etapas, sendo usada na primeira etapa uma pressão de 5 MPa, na segunda 5 MPa e na terceira 6 MPa. Foram preparados 5 corpos de prova para cada formulação com valores médios de 118,57 μm de largura, 61,77 μm de altura e 3,14 μm de espessura. Os corpos foram secados em uma estufa a 80 °C por 24 h. Em seguida, foram queimados nas temperaturas de 860, 940 e 1020 ºC, com taxa de aquecimento de 10 ºC/min e tempo de permanência na temperatura máxima de 5 min. Após a queima as placas cerâmicas porosas obtidas foram submetidas à caracterização <xref ref-type="bibr" rid="B18"><sup>18</sup></xref>.</p>
+      <p>A densidade aparente, ϱ<sub>ap</sub> (g/cm<sup>3</sup>), foi obtida a partir do método geométrico. Neste caso, as dimensões das peças foram medidas com paquímetro, onde foram tomadas três medidas para cada dimensão, e a massa da amostra pesada em uma balança (BL3200H, Marte) com precisão de 0,01 g; a densidade foi calculada por <xref ref-type="bibr" rid="B19"><sup>19</sup></xref>:</p>
+      <p>
+        <disp-formula id="e1">
+          <mml:math>
+            <mml:msub>
+              <mml:mi>ρ</mml:mi>
+              <mml:mrow>
+                <mml:mi>a</mml:mi>
+                <mml:mi>p</mml:mi>
+              </mml:mrow>
+            </mml:msub>
+            <mml:mo>=</mml:mo>
+            <mml:mfrac>
+              <mml:mi>m</mml:mi>
+              <mml:mi>v</mml:mi>
+            </mml:mfrac>
+          </mml:math>
+          <label>(A)</label>
+        </disp-formula>
+      </p>
+      <p>onde m é a massa corpo de prova (g) e v o volume corpo de prova (cm<sup>3</sup>). A densidade real, ϱ<sub>real</sub> (g/cm<sup>3</sup>), foi obtida por picnometria a gás hélio (Ultrapyc 1200e, Quantachrome), em que a mesma foi calculada a partir do pó triturado das amostras queimadas. O volume real do sólido foi determinado por variação da pressão de gás em uma câmara de volume conhecido. Essa técnica pode ser utilizada mesmo o sólido sendo poroso. A densidade real foi medida para cada temperatura de queima. O cálculo da porosidade total, ε<sub>t</sub> (%), foi obtido com a relação entre a densidade aparente a seco e a densidade real por:</p>
+      <p>
+        <disp-formula id="e2">
+          <mml:math>
+            <mml:msub>
+              <mml:mi>ε</mml:mi>
+              <mml:mi>t</mml:mi>
+            </mml:msub>
+            <mml:mo>=</mml:mo>
+            <mml:mfenced>
+              <mml:mfrac>
+                <mml:msub>
+                  <mml:mi>ρ</mml:mi>
+                  <mml:mrow>
+                    <mml:mi>a</mml:mi>
+                    <mml:mi>p</mml:mi>
+                  </mml:mrow>
+                </mml:msub>
+                <mml:msub>
+                  <mml:mi>ρ</mml:mi>
+                  <mml:mrow>
+                    <mml:mi>r</mml:mi>
+                    <mml:mi>e</mml:mi>
+                    <mml:mi>a</mml:mi>
+                    <mml:mi>l</mml:mi>
+                  </mml:mrow>
+                </mml:msub>
+              </mml:mfrac>
+            </mml:mfenced>
+            <mml:mo>·</mml:mo>
+            <mml:mn>100</mml:mn>
+          </mml:math>
+          <label>(B)</label>
+        </disp-formula>
+      </p>
+      <p>A difração de raios X foi utilizada para investigar as fases cristalinas obtidas após a queima. Para selecionar a composição com maior potencial de aplicação, utilizou-se o planejamento estatístico com os resultados dos ensaios de porosidade e tensão de ruptura à flexão dos corpos de prova das seis formulações. Os resultados das variáveis de respostas foram analisados com o software Estatística v.7 (StatSoft). Foi adotado um valor de p≤0,05, mostrando um nível de significância igual ou maior que 95%. Para a escolha da condição experimental foi estudada a análise de variância e a superfície de resposta da tensão de ruptura à flexão e porosidade. Após a definição, foram confeccionados novos corpos de prova, queimados nas condições adequadas com o objetivo de se efetuar a avaliação do desempenho a partir de análises de densidade aparente, real e porosidade, conforme descrito. Além disso, foi realizado o ensaio de absorção de água de acordo com a norma ABNT NBR 13818, anexo B. Foram utilizados 4 corpos de prova para este teste. A absorção de água, Abs (%), foi calculada de acordo com:</p>
+      <p>
+        <disp-formula id="e3">
+          <mml:math>
+            <mml:mi>A</mml:mi>
+            <mml:mi>b</mml:mi>
+            <mml:mi>s</mml:mi>
+            <mml:mfenced>
+              <mml:mo>%</mml:mo>
+            </mml:mfenced>
+            <mml:mo>=</mml:mo>
+            <mml:mfrac>
+              <mml:mrow>
+                <mml:msub>
+                  <mml:mi>m</mml:mi>
+                  <mml:mn>2</mml:mn>
+                </mml:msub>
+                <mml:mo>-</mml:mo>
+                <mml:msub>
+                  <mml:mi>m</mml:mi>
+                  <mml:mn>1</mml:mn>
+                </mml:msub>
+              </mml:mrow>
+              <mml:msub>
+                <mml:mi>m</mml:mi>
+                <mml:mn>1</mml:mn>
+              </mml:msub>
+            </mml:mfrac>
+            <mml:mo>·</mml:mo>
+            <mml:mn>100</mml:mn>
+          </mml:math>
+          <label>(C)</label>
+        </disp-formula>
+      </p>
+      <p>onde m<sub>1</sub> é a massa seca (g) e m<sub>2</sub> a massa saturada (g). A avaliação da microestrutura da peça cerâmica da formulação escolhida foi realizada em microscópio eletrônico de varredura (MEV, EVO-MA10, Zeiss). A tensão de ruptura à flexão das placas de cerâmicas porosas após a queima foi determinada utilizando-se uma máquina de ensaios universal (DL10000, Emic) com base na norma ASTM 1161-02. Para o módulo de elasticidade foi utilizado um equipamento Sonelastic (ATCP Eng. Fís.).</p>
+      <p>O ensaio de comportamento térmico teve como objetivo reproduzir uma fachada normal e uma fachada ventilada e simular o isolamento térmico de uma fachada ventilada com uma placa cerâmica porosa produzida neste trabalho, comparando-a com uma placa cerâmica comercial. O porcelanato Laminum (Eliane Revest.) foi utilizado como material de referência. Para isso, foi desenvolvido um aparato instrumental (<xref ref-type="fig" rid="f1">Fig. 1</xref>) constituído de duas caixas de madeira e uma estrutura metálica para fixar as placas cerâmicas. Como fonte de calor, foi utilizada uma estufa (EL-1.3, Odontobrás) com precisão de controle de ±15 ºC, que foi programada na temperatura de 75 ºC em um ambiente com temperatura controlada em 21 ºC. Foi utilizado um registrador de dados (FieldLogger, Novus) para leitura e armazenamento dos dados dos termopares. Foram alocados um termopar no centro da estufa (T1), um termopar no centro das peças cerâmicas (T2), um termopar no centro da câmera de ar (T3), um termopar no centro da parede de gesso (T4) e um termopar na caixa 2 (T5). As placas cerâmicas apresentaram dimensões de 120x62x3 μm. Estas foram fixadas com 1 μm de espaçamento entre cada placa, utilizando selante refratário resistente à temperatura. Também foi investigada a influência da distância entre a parede de placas cerâmicas até a caixa 2 sobre a temperatura no interior da caixa 2. Para isso, foram feitas variações nas distancias de 5, 7,5 e 10 cm. Com os dados de temperatura dos ensaios foram calculadas as variações de temperatura por: </p>
+      <p>
+        <disp-formula id="e4">
+          <mml:math>
+            <mml:mi>Δ</mml:mi>
+            <mml:mi>T</mml:mi>
+            <mml:mo>=</mml:mo>
+            <mml:msub>
+              <mml:mi>M</mml:mi>
+              <mml:mrow>
+                <mml:mi>t</mml:mi>
+                <mml:mi>t</mml:mi>
+              </mml:mrow>
+            </mml:msub>
+            <mml:mo>-</mml:mo>
+            <mml:msub>
+              <mml:mi>M</mml:mi>
+              <mml:mrow>
+                <mml:mi>t</mml:mi>
+                <mml:mi>e</mml:mi>
+              </mml:mrow>
+            </mml:msub>
+          </mml:math>
+          <label>(D)</label>
+        </disp-formula>
+      </p>
+      <p>onde ΔT é a variação de temperatura (°C), M<sub>tt</sub> a média de temperatura do termopar (°C) e M<sub>te</sub> a média de temperatura da estufa (°C). As variações das temperaturas representaram a redução de temperatura de cada termopar em relação à temperatura do termopar T1 (estufa).</p>
+      <p>
+        <fig-group id="f1">
+          <fig xml:lang="pt">
+            <label>Figura 1:</label>
+            <caption>
+              <title>Esquema do aparato térmico mostrando detalhes da caixa de madeira e estufa.</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 1:</label>
+            <caption>
+              <title>Schematic of the thermal apparatus showing details of the wooden box and oven.</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/ee603e9f2ce12625c161fc10c221a4ceb14a6836.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/238c910d5067f6ee61ce4030a8696fca5ca82ac8.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/5710558d7a09d34ef3c5bf8aa81c3cd9202d6b48.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p><italic>Caracterização ambiental</italic>: a caracterização ambiental do resíduo de vidro e lama de cal ocorreu por ensaio ecotoxicológico utilizando <italic>Allium cepa</italic> L. (cebola) e <italic>Lactuca satica</italic> L. (alface) como bioindicadores [20]. Foram misturados 50 g do resíduo de vidro em 1 L de água destilada em um recipiente. Da mesma forma ocorreu com a lama de cal. As misturas permaneceram em mesa agitadora microprocessada (Q225M, Quimis) com velocidade de 100 rpm por 24 h. Após o tempo de agitação, a filtragem destas soluções ocorreu com auxílio de uma bomba de vácuo (Prismatec). Os lixiviados foram usados ao longo do estudo. O pH dos lixiviados foi determinado com o uso de fita universal de pH (MColorpHast). A inibição do crescimento radicular em <italic>Allium cepa</italic> L. foi observada para examinar a toxicidade subcrônica no efluente. Para este ensaio, foi removido todo o material constituído por raízes velhas presas ao bulbo. Foram removidas as cascas (catafilo externo) secas da cebola. Em seguida foram utilizados 7 bulbos para cada resíduo e para o grupo controle. Em tubos cônicos tipo Falcon, os bulbos foram expostos a 50 mL do efluente de cada resíduo e do grupo controle, à temperatura ambiente por 7 dias, em local fechado e ao abrigo da luz. O grupo de controle negativo correspondeu à água mineral comercial. As soluções de efluentes foram substituídas diariamente. Ao final do período de exposição, o comprimento da raiz mais longa de cada bulbo e a massa total de todas as raízes foram medidos e comparados ao grupo controle. Para a análise do crescimento radicular, foi removido com um bisturi o material constituído de raízes novas que estavam presas ao prato (disco) do bulbo. Foi registrado o número de raízes crescidas em cada bulbo. Com auxílio de um paquímetro digital Caliper 150 μm (6”), com precisão de 0,01 μm, foi coletado o tamanho da maior raiz e com uma balança analítica eletrônica (FA-2104N, Bioprecisa), com leitura de 0,0001 g, foi obtida a massa de todas as raízes. Foi realizada a análise estatística usando-se a análise de variância (ANOVA), complementada com o pós-teste de Dunnet dos parâmetros: número de raízes, massas das raízes e comprimento da maior raiz, em relação às amostras de controle. Para o ensaio com <italic>Lactuca satica</italic> L., foi cortado um disco de papel-filtro e disposto em placa de Petri (90 μm). Com auxílio de uma pipeta automática, o papel foi embebido em 2 mL da amostra do efluente em estudo. Cada efluente (lama de cal e vidro) e grupo de controle foram colocados em uma placa de Petri. Para o grupo controle foi usada a água mineral comercial. Foram colocados sobre cada placa 10 sementes de alface Grand Rapids TBR (Feltrin Sementes), que foram expostas à temperatura ambiente por 3 dias em local fechado e ao abrigo da luz. Para a análise do crescimento da raiz primária, foram registrados os números de sementes germinadas e não germinadas em cada placa e o crescimento das mudas. Para cada raiz germinada, foi medida a radícula e o hipocótilo com o uso de um paquímetro digital Caliper 150 μm (6”), com precisão de 0,01 μm. Foi realizada a análise estatística usando-se a análise de variância (ANOVA) complementada com o pós-teste de Dunnet da porcentagem de germinação e o crescimento em cada tratamento, sempre comparados ao grupo controle. Todos os resultados dos bioensaios foram analisados no <italic>software</italic> GraphPad Prism 5.0. </p>
+    </sec>
+    <sec sec-type="results|discussion">
+      <title>RESULTADOS E DISCUSSÃO</title>
+      <p><italic>Caracterização dos materiais</italic>: a <xref ref-type="table" rid="t3">Tabela III</xref> apresenta as composições químicas da lama de cal, resíduo de vidro, caulim, argila e quartzo utilizados. A lama de cal possuiu em sua composição 52,47% de CaO, com uma perda ao fogo de 42,28% devido à calcinação do carbonato de cálcio. O vidro foi composto por 71,04% de sílica (SiO<sub>2</sub>), além de apresentar 12,53% de Na<sub>2</sub>O e 3,86% de MgO. A perda ao fogo do vidro foi de 2,01%. O caulim possuiu em sua composição 47,21% de SiO<sub>2</sub> e 38,45% de Al<sub>2</sub>O<sub>3</sub>, com uma perda ao fogo de 13,1%. A argila foi composta por 68,77% de SiO<sub>2</sub>, além de apresentar 19,8% de Al<sub>2</sub>O<sub>3</sub>, com uma perda ao fogo de 7,03%. O quartzo foi composto majoritariamente de SiO<sub>2</sub> (98,89%), com baixa perda ao fogo (0,16%). A <xref ref-type="fig" rid="f2">Fig. 2a</xref> mostra o difratograma de raios X do resíduo de vidro utilizado. Foi possível observar a ausência de fases cristalinas, indicando que o resíduo apresentou característica amorfa, como esperado <xref ref-type="bibr" rid="B4"><sup>4</sup></xref>. A presença de CaO no resíduo lama de cal pôde ser confirmada na análise mineralógica, que mostrou majoritariamente a presença da fase calcita (CaCO<sub>3</sub>), conforme apresentado na <xref ref-type="fig" rid="f2">Fig. 2b</xref>.</p>
+      <p>
+        <table-wrap-group id="t3">
+          <table-wrap xml:lang="pt">
+            <label>Tabela III</label>
+            <caption>
+              <title>Composição química (% em massa) das matérias-primas comerciais e resíduos utilizados na confecção das placas cerâmicas porosas.</title>
+            </caption>
+          </table-wrap>
+          <table-wrap xml:lang="en">
+            <label>Table III</label>
+            <caption>
+              <title>Chemical composition (wt%) of commercial raw materials and residues used in the preparation of porous ceramic plates.</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col span="3"/>
+                <col span="2"/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center" rowspan="2">Óxido</th>
+                  <th align="center" colspan="3">Resíduos </th>
+                  <th align="center" colspan="2">Matérias-primas comerciais </th>
+                </tr>
+                <tr>
+                  <th align="center">Lama de cal</th>
+                  <th align="center">Vidro</th>
+                  <th align="center">Caulim</th>
+                  <th align="center">Argila</th>
+                  <th align="center">Quartzo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">Al<sub>2</sub>O<sub>3</sub></td>
+                  <td align="center">0,28</td>
+                  <td align="center">0,97</td>
+                  <td align="center">38,45</td>
+                  <td align="center">19,82</td>
+                  <td align="center">0,66</td>
+                </tr>
+                <tr>
+                  <td align="center">CaO</td>
+                  <td align="center">52,47</td>
+                  <td align="center">8,46</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">0,08</td>
+                  <td align="center">&lt;0,05</td>
+                </tr>
+                <tr>
+                  <td align="center">Fe<sub>2</sub>O<sub>3</sub></td>
+                  <td align="center">0,16</td>
+                  <td align="center">0,42</td>
+                  <td align="center">0,35</td>
+                  <td align="center">1,66</td>
+                  <td align="center">0,07</td>
+                </tr>
+                <tr>
+                  <td align="center">K<sub>2</sub>O</td>
+                  <td align="center">0,11</td>
+                  <td align="center">0,27</td>
+                  <td align="center">0,74</td>
+                  <td align="center">0,75</td>
+                  <td align="center">0,05</td>
+                </tr>
+                <tr>
+                  <td align="center">MgO</td>
+                  <td align="center">0,52</td>
+                  <td align="center">3,86</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">0,37</td>
+                  <td align="center">0,07</td>
+                </tr>
+                <tr>
+                  <td align="center">MnO</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">&lt;0,05</td>
+                </tr>
+                <tr>
+                  <td align="center">Na<sub>2</sub>O</td>
+                  <td align="center">2,00</td>
+                  <td align="center">12,53</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">0,11</td>
+                  <td align="center">&lt;0,05</td>
+                </tr>
+                <tr>
+                  <td align="center">P<sub>2</sub>O<sub>5</sub></td>
+                  <td align="center">0,78</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">0,05</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">&lt;0,05</td>
+                </tr>
+                <tr>
+                  <td align="center">SiO<sub>2</sub></td>
+                  <td align="center">1,35</td>
+                  <td align="center">71,04</td>
+                  <td align="center">47,21</td>
+                  <td align="center">68,77</td>
+                  <td align="center">98,89</td>
+                </tr>
+                <tr>
+                  <td align="center">TiO<sub>2</sub></td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">&lt;0,05</td>
+                  <td align="center">1,37</td>
+                  <td align="center">0,07</td>
+                </tr>
+                <tr>
+                  <td align="center">PbO</td>
+                  <td align="center">0</td>
+                  <td align="center">0,15</td>
+                  <td align="center">0</td>
+                  <td align="center">0</td>
+                  <td align="center">0</td>
+                </tr>
+                <tr>
+                  <td align="center">SrO</td>
+                  <td align="center">0</td>
+                  <td align="center">0,08</td>
+                  <td align="center">0</td>
+                  <td align="center">0</td>
+                  <td align="center">0</td>
+                </tr>
+                <tr>
+                  <td align="center">Perda ao fogo</td>
+                  <td align="center">42,28</td>
+                  <td align="center">2,01</td>
+                  <td align="center">13,10</td>
+                  <td align="center">7,03</td>
+                  <td align="center">0,16</td>
+                </tr>
+              </tbody>
+            </table>
+          </table-wrap>
+        </table-wrap-group>
+      </p>
+      <p>
+        <fig-group id="f2">
+          <fig xml:lang="pt">
+            <label>Figura 2:</label>
+            <caption>
+              <title>Difratogramas de raios X do pó de vidro (a) e lama de cal (b).</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 2:</label>
+            <caption>
+              <title>X-ray diffraction patterns of glass powder (a) and lime mud (b).</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/8045bb5fc5489bb024e952913918d69a456cbef8.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/87e2f8af4dffe9ddbec7f4ec321f541551e82fa9.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/1111d842ab1df19124216caf208cc080f6a3797a.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p><italic>Caracterização das composições</italic>: as composições químicas (obtidas por balanço de massa) para as formulações F20, F30 e F40 estão apresentadas na <xref ref-type="table" rid="t4">Tabela IV</xref>, que mostra que os óxidos de silício e alumínio foram predominantes nas composições. Outro ponto importante nas composições foi a presença de CaO, Na<sub>2</sub>O, MgO e K<sub>2</sub>O, como agentes de fluxo. Estes agentes podem modificar o comportamento térmico do material, aumentando a retração linear, ou seja, diminuindo a temperatura de sinterização <xref ref-type="bibr" rid="B21"><sup>21</sup></xref>. A <xref ref-type="fig" rid="f3">Fig. 3</xref> apresenta o gráfico da perda de massa das formulações F20, F30 e F40. Ocorreu perda de massa de 9% a 700 °C na formulação F20, 10,5% a 723 °C na F30 e 12% a 721 °C na F40, devido à reação decomposição do CaCO<sub>3</sub> (calcita) gerando CO<sub>2</sub>. Ocorreram as seguintes perdas de massa total: 13% para F20, 15,5% para F30 e 17,5% para F40. Os resultados da análise granulométrica das formulações estudadas mostraram que a formulação F20 possuiu 10% das partículas com granulometria inferior a 2,05 μm, com 50% abaixo de 12,17 μm e 90% abaixo de 67,09 μm, chegando a 100% abaixo de 240 μm; a formulação F30 possuiu 10% das partículas com granulometria inferior a 2,04 μm, com 50% abaixo de 12,63 μm e 90% abaixo de 69,94 μm, chegando a 100% abaixo de 300 μm; e a formulação F40 possuiu 10% das partículas com granulometria inferior a 1,95 μm, com 50% abaixo de 11,92 μm e 90% abaixo de 57,02 μm, chegando a 100% abaixo de 180 μm.</p>
+      <p>
+        <table-wrap-group id="t4">
+          <table-wrap xml:lang="pt">
+            <label>Tabela IV</label>
+            <caption>
+              <title>Composição química a verde das formulações F20, F30 e F40 (% em massa).</title>
+            </caption>
+          </table-wrap>
+          <table-wrap xml:lang="en">
+            <label>Table IV</label>
+            <caption>
+              <title>Green chemical composition of formulations F20, F30, and F40 (wt%).</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center">Óxido</th>
+                  <th align="center">F20</th>
+                  <th align="center">F30</th>
+                  <th align="center">F40</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">Al<sub>2</sub>O<sub>3</sub></td>
+                  <td align="center">11,0</td>
+                  <td align="center">11,8</td>
+                  <td align="center">11,0</td>
+                </tr>
+                <tr>
+                  <td align="center">CaO</td>
+                  <td align="center">18,5</td>
+                  <td align="center">23,8</td>
+                  <td align="center">28,6</td>
+                </tr>
+                <tr>
+                  <td align="center">Fe<sub>2</sub>O<sub>3</sub></td>
+                  <td align="center">0,9</td>
+                  <td align="center">0,9</td>
+                  <td align="center">0,8</td>
+                </tr>
+                <tr>
+                  <td align="center">K<sub>2</sub>O</td>
+                  <td align="center">0,5</td>
+                  <td align="center">0,5</td>
+                  <td align="center">0,5</td>
+                </tr>
+                <tr>
+                  <td align="center">MgO</td>
+                  <td align="center">1,7</td>
+                  <td align="center">1,5</td>
+                  <td align="center">1,4</td>
+                </tr>
+                <tr>
+                  <td align="center">Na<sub>2</sub>O</td>
+                  <td align="center">5,6</td>
+                  <td align="center">5,0</td>
+                  <td align="center">5,0</td>
+                </tr>
+                <tr>
+                  <td align="center">PbO</td>
+                  <td align="center">0,1</td>
+                  <td align="center">0,0</td>
+                  <td align="center">0,0</td>
+                </tr>
+                <tr>
+                  <td align="center">SiO<sub>2</sub></td>
+                  <td align="center">61,1</td>
+                  <td align="center">56,0</td>
+                  <td align="center">52,2</td>
+                </tr>
+                <tr>
+                  <td align="center">TiO<sub>2</sub></td>
+                  <td align="center">0,6</td>
+                  <td align="center">0,5</td>
+                  <td align="center">0,5</td>
+                </tr>
+                <tr>
+                  <td align="center">Perda ao fogo</td>
+                  <td align="center">10,8</td>
+                  <td align="center">13,5</td>
+                  <td align="center">15,4</td>
+                </tr>
+              </tbody>
+            </table>
+          </table-wrap>
+        </table-wrap-group>
+      </p>
+      <p>
+        <fig-group id="f3">
+          <fig xml:lang="pt">
+            <label>Figura 3:</label>
+            <caption>
+              <title>Curvas de TG das formulações F20, F30 e F40.</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 3:</label>
+            <caption>
+              <title>TG curves of formulations F20, F30, and F40.</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/c64e6a4c9650a0dd603c101f0ae2242ca29033e7.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/5ea194f356531ff40fb9802b7091cc28576f44f7.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/99430b55887d686b26ad17aefcc329d68c6b0a86.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p>Os resultados da análise de difração de raios X das seis formulações desenvolvidas são mostradas na <xref ref-type="fig" rid="f4">Fig. 4</xref>. Observou-se a presença majoritária de albita (NaAlSi<sub>3</sub>O<sub>8</sub>, JCPDS 9-0466), microclínio (KAlSi<sub>3</sub>O<sub>8</sub>, JCPDS 19-0932) e quartzo (SiO<sub>2</sub>, JCPDS 46-1045), também identificados por Milak et al. <xref ref-type="bibr" rid="B16"><sup>16</sup></xref>. Além disso, foi possível afirmar que para todas as formulações o aumento da temperatura de queima influenciou na diminuição das reflexões características de albita, microclínio e quartzo. Para as amostras F20, F30 e F40 também foram observadas reflexões características de wollastonita (CaSiO<sub>3</sub>, JCPDS 27-0088). Observou-se que com o aumento do teor da lama de cal das formulações ocorreu o aumento na intensidade das reflexões características da wollastonita, tomando-se como base as alturas relativas das reflexões em cada difratograma. </p>
+      <p>
+        <fig-group id="f4">
+          <fig xml:lang="pt">
+            <label>Figura 4:</label>
+            <caption>
+              <title>Difratogramas de raios X das formulações estudadas. ◊ albita; ▲ microclínio; ● quartzo; ■ wollastonita.</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 4:</label>
+            <caption>
+              <title>X-ray diffraction patterns of the studied formulations. ◊ albite; ▲ microcline; ● quartz; ■ wollastonite.</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/bc802c8e11790ebff3ce3ee625f7218028fd8714.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/a872f230e203737a2d28124ce7d60d6e4664734e.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/71db00228605ab4038cb9424dc34129a383f563d.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p>A <xref ref-type="table" rid="t5">Tabela V</xref> mostra os resultados experimentais das seis formulações dos ensaios de densidade aparente a seco, porosidade e tensão de ruptura à flexão. A formulação F40 apresentou densidade aparente de 1,50 g/cm<sup>3</sup>, enquanto a formulação F20 apresentou uma densidade aparente de 1,76 g/cm<sup>3</sup>, demonstrando que a adição de lama de cal proporcionou uma maior geração de poros. A lama de cal é constituída majoritariamente por CaCO<sub>3</sub>, que durante a etapa de queima libera CO<sub>2</sub>, sendo este responsável por formar poros. As formulações F20T1020 e F40T1020 apresentaram tensão de ruptura à flexão de 11,4±2,0 e 8,6±1,9 MPa, respectivamente, indicando que o aumento do teor de lama de cal diminuiu a tensão de ruptura à flexão das placas cerâmicas porosas. Tal fato foi devido ao maior volume de poros formados com o aumento do teor de lama de cal. A presença de maior volume de poros nas placas reduziu a área da seção transversal na qual a carga foi aplicada e atuou como concentradores de tensão <xref ref-type="bibr" rid="B22"><sup>22</sup></xref>, diminuindo a resistência. A tensão de ruptura à flexão das formulações F20T860 e F20T1020 foram de 5,2±2,1 e 11,4±2,0 MPa, respectivamente, indicando que o aumento da temperatura de sinterização ocasionou um aumento da tensão de ruptura à flexão das placas cerâmicas porosas. O aumento da temperatura de sinterização ocasionou um aumento da fração de fase líquida no interior das placas cerâmicas, contribuindo para o aumento da resistência.</p>
+      <p>
+        <table-wrap-group id="t5">
+          <table-wrap xml:lang="pt">
+            <label>Tabela V</label>
+            <caption>
+              <title>Resultados de densidade aparente (ϱ<sub>ap</sub>), porosidade (ε<sub>t</sub>) e tensão de ruptura à flexão (TRF) em relação ao teor de lama de cal e à temperatura de sinterização (T<sub>S</sub>).</title>
+            </caption>
+          </table-wrap>
+          <table-wrap xml:lang="en">
+            <label>Table V</label>
+            <caption>
+              <title>Results of apparent density (ϱ<sub>ap</sub>), porosity (ε<sub>t</sub>), and flexural strength (TRF) in relation to the lime content and sintering temperature.</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col span="3"/>
+                <col span="3"/>
+                <col span="3"/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center" rowspan="2">Teor de lama de cal</th>
+                  <th align="center" colspan="3">T<sub>S</sub>=860 °C </th>
+                  <th align="center" colspan="3">T<sub>S</sub>=940 °C </th>
+                  <th align="center" colspan="3">T<sub>S</sub>=1020 °C </th>
+                </tr>
+                <tr>
+                  <th align="center">ϱ<sub>ap</sub> (g/cm<sup>3</sup>)</th>
+                  <th align="center">ε<sub>t</sub> (%)</th>
+                  <th align="center">TRF (MPa)</th>
+                  <th align="center">ϱ<sub>ap</sub> (g/cm<sup>3</sup>)</th>
+                  <th align="center">ε<sub>t</sub> (%)</th>
+                  <th align="center">TRF (MPa)</th>
+                  <th align="center">ϱ<sub>ap</sub> (g/cm<sup>3</sup>)</th>
+                  <th align="center">ε<sub>t</sub> (%)</th>
+                  <th align="center">TRF (MPa)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">20%</td>
+                  <td align="center">1,74±0,03</td>
+                  <td align="center">32,2±1,2</td>
+                  <td align="center">5,2±2,1</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">1,76±0,01</td>
+                  <td align="center">32,5±0,5</td>
+                  <td align="center">11,4±2,0</td>
+                </tr>
+                <tr>
+                  <td align="center" rowspan="2">30%</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">1,68±0,01</td>
+                  <td align="center">35,6±0,3</td>
+                  <td align="center">5,8±1,3</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">1,67±0,02</td>
+                  <td align="center">36,9±0,8</td>
+                  <td align="center">6,6±1,1</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td align="center">40%</td>
+                  <td align="center">1,50±0,05</td>
+                  <td align="center">40,9 ±1,9</td>
+                  <td align="center">0,3±0,6</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">1,59±0,02</td>
+                  <td align="center">39,7±1,5</td>
+                  <td align="center">8,6±1,9</td>
+                </tr>
+              </tbody>
+            </table>
+          </table-wrap>
+        </table-wrap-group>
+      </p>
+      <p><italic>Análise estatística</italic>: a <xref ref-type="table" rid="t6">Tabela VI</xref> apresenta os resultados da análise de variância para a influência do teor de lama de cal e temperatura de sinterização sobre a porosidade e tensão de ruptura à flexão das placas cerâmicas porosas. O valor de p mostrou uma significância de 99,85% de confiabilidade, indicando que a adição de lama de cal influenciou diretamente na porosidade das placas cerâmicas. Por outro lado, para temperatura de sinterização foi obtido um p de 38,61%, indicando que a temperatura não apresentou significância para obtenção de poros nas placas cerâmicas. Na tensão de ruptura à flexão, os resultados mostraram que o valor de p foi de 98,84% para o efeito da lama de cal e de 99,67% para a temperatura de sinterização, indicando que as duas variáveis influenciaram. Analisando-se os parâmetros do fator de Fisher, a temperatura de sinterização apresentou um valor de 298,02 e o teor de lama de cal apresentou um valor de 84,81, concluindo-se que a temperatura de sinterização foi a variável que mais influenciou no aumento da tensão de ruptura à flexão das formulações. Os resultados da análise de variância mostraram que a formulação F40T1020 apresentou uma melhor relação entre o volume de poros aliado com tensão de ruptura à flexão. Para a resistência mecânica ser aceitável, comparou-se com placas de pedras naturais porosas que apresentaram uma tensão de ruptura à flexão de 7,4 MPa (23). Portanto, a formulação F40T1020 foi escolhida para dar sequência ao estudo.</p>
+      <p>
+        <table-wrap-group id="t6">
+          <table-wrap xml:lang="pt">
+            <label>Tabela VI</label>
+            <caption>
+              <title>Resultados da análise de variância para a porosidade e tensão de ruptura à flexão.</title>
+            </caption>
+          </table-wrap>
+          <table-wrap xml:lang="en">
+            <label>Table VI</label>
+            <caption>
+              <title>Results of analysis of variance for porosity and flexural strength.</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col span="5"/>
+                <col span="5"/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center" rowspan="2">Fator</th>
+                  <th align="center" colspan="5">Porosidade </th>
+                  <th align="center" colspan="5">Tensão de ruptura à flexão </th>
+                </tr>
+                <tr>
+                  <th align="center">SS</th>
+                  <th align="center">df</th>
+                  <th align="center">MS</th>
+                  <th align="center">F</th>
+                  <th align="center">p</th>
+                  <th align="center">SS</th>
+                  <th align="center">df</th>
+                  <th align="center">MS</th>
+                  <th align="center">F</th>
+                  <th align="center">p</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">1-Teor de lama de cal</td>
+                  <td align="center">62,750</td>
+                  <td align="center">1</td>
+                  <td align="center">62,750</td>
+                  <td align="center">129,595</td>
+                  <td align="center">0,0015</td>
+                  <td align="center">15,132</td>
+                  <td align="center">1</td>
+                  <td align="center">15,132</td>
+                  <td align="center">84,810</td>
+                  <td align="center">0,0116</td>
+                </tr>
+                <tr>
+                  <td align="center">2-Temperatura de queima</td>
+                  <td align="center">0,152</td>
+                  <td align="center">1</td>
+                  <td align="center">0,152</td>
+                  <td align="center">0,315</td>
+                  <td align="center">0,6139</td>
+                  <td align="center">53,173</td>
+                  <td align="center">1</td>
+                  <td align="center">53,173</td>
+                  <td align="center">298,016</td>
+                  <td align="center">0,0033</td>
+                </tr>
+                <tr>
+                  <td align="center">1 em relação a 2</td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center">1,100</td>
+                  <td align="center">1</td>
+                  <td align="center">1,100</td>
+                  <td align="center">6,167</td>
+                  <td align="center">0,1310</td>
+                </tr>
+                <tr>
+                  <td align="center">Erro</td>
+                  <td align="center">1,453</td>
+                  <td align="center">3</td>
+                  <td align="center">0,484</td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center">0,357</td>
+                  <td align="center">2</td>
+                  <td align="center">0,178</td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                </tr>
+                <tr>
+                  <td align="center">Total SS</td>
+                  <td align="center">64,355</td>
+                  <td align="center">5</td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center">69,763</td>
+                  <td align="center">5</td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                  <td align="center"> </td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN2">
+                <p>
+                  <italic>SS: soma quadrática; df: graus de liberdade; MS: médias quadráticas; F: fator de Fisher; p: teste de confiabilidade.</italic>
+                </p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+        </table-wrap-group>
+      </p>
+      <p><italic>Avaliação do desempenho das características finais da placa selecionada</italic>: a placa cerâmica selecionada apresentou densidade aparente de 1,63 g/cm<sup>3</sup>, porosidade total de 37,5% e absorção de água de 21,8% <xref ref-type="bibr" rid="B19"><sup>19</sup></xref>. Além disso, o resultado de tensão de ruptura à flexão foi de 7,2±4,1 MPa e o módulo de elasticidade de 10,7±5,3 GPa. A micrografia referente a F40T1020 (<xref ref-type="fig" rid="f5">Fig. 5</xref>) mostra a homogeneidade da peça cerâmica, onde é possível observar a presença de poros em toda a amostra. Trata-se de uma microestrutura característica da superfície de fratura, onde se nota uma estrutura porosa <xref ref-type="bibr" rid="B19"><sup>19</sup></xref>. Ficou evidente que a placa cerâmica porosa F40T1020 apresentou aparentemente dois tipos de poros: poros arredondados (PA) oriundos da descarbonatação do carbonato de cálcio e poros irregulares (PI) ocasionados pelo processo de prensagem (<xref ref-type="fig" rid="f5">Fig. 5</xref>).</p>
+      <p>
+        <fig-group id="f5">
+          <fig xml:lang="pt">
+            <label>Figura 5:</label>
+            <caption>
+              <title>Imagem de MEV da amostra F40T1020.</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 5:</label>
+            <caption>
+              <title>SEM image of the F40T1020 sample.</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/8aeedfc60ac566781e0a7e61f424004f2fc638f2.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/0abc5e4aeb8a6b439acaf2a7686d072017dde824.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/3f42ce9d8219ce70b6b1d4592bea979d8614f076.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p>A <xref ref-type="table" rid="t7">Tabela VII</xref> apresenta os resultados do desempenho da placa cerâmica porosa (F40T1020) e da amostra de porcelanato comercial quanto ao isolamento térmico. Os resultados mostraram que a variável distância da câmara de ar não influenciou na variação da temperatura, não interferindo nos resultados de isolamento térmico. Os dados também demonstraram que para uma distância da câmara de ar de 5 cm, o valor de ΔT5 para o ensaio de fachada ventilada com a placa cerâmica porosa F40T1020 foi de 60,4 °C, enquanto para a cerâmica comercial o valor do ΔT5 foi de 56,2 °C. Tais informações sugeriram que a utilização da placa cerâmica porosa, em relação à placa cerâmica comercial em fachadas ventiladas, tende a proporcionar um maior conforto térmico no interior de uma edificação. A redução de temperatura dos termopares foi expressa pela variação de cada termopar. Esta redução se deu em relação à temperatura T1 da estufa (<xref ref-type="fig" rid="f6">Fig. 6</xref>). Nos ensaios realizados, o ΔT do revestimento F40T1020, onde estava localizado o T2, demonstrou maior redução de temperatura, conforme demonstrado pela linha de tendência (<xref ref-type="fig" rid="f6">Fig. 6</xref>). Analisando-se os dados descritos na <xref ref-type="table" rid="t7">Tabela VII</xref>, a redução de temperatura (ΔT) foi de 23,2 °C para a amostra comercial e 24,4 °C para a amostra F40T1020. Pôde-se concluir que a amostra F40T1020 apresentou maior eficiência em relação à amostra do porcelanato comercial. Isto ocorreu devido à menor condutividade térmica dos materiais cerâmicos porosos em relação aos materiais cerâmicos densos <xref ref-type="bibr" rid="B24"><sup>24</sup></xref>.</p>
+      <p>
+        <table-wrap-group id="t7">
+          <table-wrap xml:lang="pt">
+            <label>Tabela VII</label>
+            <caption>
+              <title>Resultados de ΔT no T2, T4 e T5 em função da temperatura T1.</title>
+            </caption>
+          </table-wrap>
+          <table-wrap xml:lang="en">
+            <label>Table VII</label>
+            <caption>
+              <title>Results of ΔT in T2, T4, and T5 as a function of temperature T1.</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center">Ensaio</th>
+                  <th align="center">Distância (cm)</th>
+                  <th align="center">T1 (°C)</th>
+                  <th align="center">T2 (°C)</th>
+                  <th align="center">T3 (°C)</th>
+                  <th align="center">T4 (°C)</th>
+                  <th align="center">T5 (°C)</th>
+                  <th align="center">ΔT2 (°C)</th>
+                  <th align="center">ΔT4 (°C)</th>
+                  <th align="center">ΔT5 (°C)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">FT</td>
+                  <td align="center">-</td>
+                  <td align="center">83,5</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">67,3</td>
+                  <td align="center">34,6</td>
+                  <td align="center">-</td>
+                  <td align="center">16,2</td>
+                  <td align="center">48,9</td>
+                </tr>
+                <tr>
+                  <td align="center" rowspan="3">FV: comercial</td>
+                  <td align="center">5</td>
+                  <td align="center">80,4</td>
+                  <td align="center">57,2</td>
+                  <td align="center">20,7</td>
+                  <td align="center">26,2</td>
+                  <td align="center">24,2</td>
+                  <td align="center">23,2</td>
+                  <td align="center">54,2</td>
+                  <td align="center">56,2</td>
+                </tr>
+                <tr>
+                  <td align="center">7,5</td>
+                  <td align="center">80,4</td>
+                  <td align="center">58,0</td>
+                  <td align="center">20,1</td>
+                  <td align="center">25,3</td>
+                  <td align="center">24,8</td>
+                  <td align="center">22,4</td>
+                  <td align="center">55,1</td>
+                  <td align="center">55,6</td>
+                </tr>
+                <tr>
+                  <td align="center">10</td>
+                  <td align="center">81,1</td>
+                  <td align="center">57,4</td>
+                  <td align="center">20,2</td>
+                  <td align="center">25,2</td>
+                  <td align="center">24,9</td>
+                  <td align="center">23,7</td>
+                  <td align="center">55,8</td>
+                  <td align="center">56,1</td>
+                </tr>
+                <tr>
+                  <td align="center" rowspan="3">FV: F40T1020</td>
+                  <td align="center">5</td>
+                  <td align="center">80,6</td>
+                  <td align="center">56,3</td>
+                  <td align="center">23,3</td>
+                  <td align="center">26,5</td>
+                  <td align="center">20,3</td>
+                  <td align="center">24,4</td>
+                  <td align="center">54,3</td>
+                  <td align="center">60,4</td>
+                </tr>
+                <tr>
+                  <td align="center">7,5</td>
+                  <td align="center">83,5</td>
+                  <td align="center">60,7</td>
+                  <td align="center">24,2</td>
+                  <td align="center">27,2</td>
+                  <td align="center">22,1</td>
+                  <td align="center">22,8</td>
+                  <td align="center">56,3</td>
+                  <td align="center">61,4</td>
+                </tr>
+                <tr>
+                  <td align="center">10</td>
+                  <td align="center">85,4</td>
+                  <td align="center">61,3</td>
+                  <td align="center">21,0</td>
+                  <td align="center">28,5</td>
+                  <td align="center">22,1</td>
+                  <td align="center">24,2</td>
+                  <td align="center">56,9</td>
+                  <td align="center">63,3</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN3">
+                <p>
+                  <italic>T: temperatura em cada termopar: T1: estufa, T2: revestimento, T3: chaminé, T4: parede, T5: caixa de madeira; ΔT2: revestimento, ΔT4: parede de gesso, ΔT5: caixa de madeira; FT: fachada tradicional, FV: fachada ventilada.</italic>
+                </p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+        </table-wrap-group>
+      </p>
+      <p>
+        <fig-group id="f6">
+          <fig xml:lang="pt">
+            <label>Figura 6:</label>
+            <caption>
+              <title>Resultados de ΔT da temperatura do termopar T2 em função da temperatura da estufa para as amostras F40T1100 e comercial.</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 6:</label>
+            <caption>
+              <title>ΔT results of thermocouple T2 temperature as a function of oven temperature for F40T1100 and commercial samples.</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/b8d71222f700d9ad8a7b79912356e8b139a5192b.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/d6294c92c0c5f4783856a8df653dcd85d979e331.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/90b2b010379d93132fec4a901a43af0c97f2d3e8.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p>Os valores de ΔT das temperaturas do termopar T4 em relação ao termopar T1 são demonstrados na <xref ref-type="fig" rid="f7">Fig. 7a</xref>. O termopar T4 demonstrou a temperatura da parede de gesso em função da temperatura da estufa. A amostra comercial apresentou redução de 54,2 °C e a amostra F40T1020 apresentou redução de 54,3 °C e a parede de gesso da fachada tradicional apresentou valor de 16,2 °C. Estes resultados demonstraram que os ensaios com as fachadas ventiladas apresentaram ser mais eficientes do que a fachada tradicional. Os valores de ΔT das temperaturas do termopar T5 em relação à temperatura da estufa estão expressas na <xref ref-type="fig" rid="f7">Fig. 7b</xref>, para as três fachadas. Observou-se que ocorreu uma redução da temperatura da caixa de madeira com a existência das fachadas ventiladas, em relação à fachada tradicional, como também é mostrado nos resultados da <xref ref-type="table" rid="t7">Tabela VII</xref>. A redução de temperatura da fachada tradicional foi de 48,9 °C, da fachada comercial de 56,2 °C e da amostra F40T1020 foi de 60,4 °C. Com estes resultados observou-se que os resultados com as fachadas ventiladas demonstraram ser mais eficientes do que a fachada tradicional.</p>
+      <p>
+        <fig-group id="f7">
+          <fig xml:lang="pt">
+            <label>Figura 7:</label>
+            <caption>
+              <title>Resultados de ΔT das temperaturas do termopar T4, parede de gesso com os revestimentos (a), e termopar T5, caixa de madeira (b), em função da temperatura da estufa T1 para a fachada tradicional e fachadas ventiladas com amostras comercial e F40T1020.</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 7:</label>
+            <caption>
+              <title>ΔT results of the temperatures of thermocouple T4, plaster wall with coatings (a), and thermocouple T5, wooden box (b), as a function of oven temperature T1 for the traditional facade and ventilated facades with commercial and F40T1020 samples.</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/85effd9f66bb08a115c9d1f2d5992b4e9c1d67d8.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/5930f5265e5e4517af04af54af87d43ee177e7d9.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/4ec2ad482497b6c75c205ee2c4e3543ec9da0e08.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p><italic>Caracterização ambiental</italic>: esta caracterização é determinante para a aplicação de fato dos materiais produzidos. Por isso, foram realizadas as caracterizações ambientais, tanto dos resíduos de vidro e lama de cal quanto da composição com maior potencial de aplicação, ou seja, da amostra F40T1020. Para os resíduos, inicialmente foi avaliado o pH a partir da análise de extrato lixiviado. O pH da lama de cal foi 11, do resíduo de vidro foi 8, enquanto da referência (água) foi 7. Desta forma, as amostras apresentaram pH inferior a 12,5 e superior a 2,0 demonstrando que os materiais não são corrosivos, conforme descrito na NBR 10004 <xref ref-type="bibr" rid="B25"><sup>25</sup></xref>. Para os resíduos de vidro e lama de cal, a análise de toxicidade usou o parâmetro de confiabilidade *=p&lt;0,05 (95% de confiabilidade que o material é tóxico se comparado com a referência - água). Tanto para os ensaios de <italic>Allium cepa</italic> L. (cebola) quanto para a <italic>Lactuca satica</italic> L. (alface), este parâmetro de confiabilidade foi utilizado. O pós-teste de Dunnet elenca os níveis de confiabilidade em <xref ref-type="bibr" rid="B20"><sup>20</sup></xref>: **=p&lt;0,01 (99%); ***=p&lt;0,001 (99,9%); ****=p&lt;0,0001 (99,99%). Para analisar os efeitos subcrônicos, utilizaram-se <italic>Allium cepa</italic> L. e <italic>Lactuca satic</italic>a L. Nas amostras utilizando <italic>Allium cepa</italic> L., foram colocadas 7 cebolas para cada resíduo e 7 para o grupo de referência, onde as mesmas foram expostas por 7 dias à concentração dos efluentes. As <xref ref-type="fig" rid="f8">Figs. 8a</xref> a <xref ref-type="fig" rid="f8">8c</xref> apresentam os resultados do ensaio com <italic>Allium cepa</italic> L., dos efeitos tóxicos dos efluentes e do grupo controle, no quesito germinação de raízes, ganho de massa e tamanho. Na germinação das raízes (<xref ref-type="fig" rid="f8">Fig. 8a</xref>), a lama de cal cresceu similar ao grupo controle, porém o vidro aparentou uma diminuição na germinação. As massas das raízes dos recém-nascidos do efluente da lama de cal apresentaram diminuição se comparadas com as raízes dos recém-nascidos do grupo controle (<xref ref-type="fig" rid="f8">Fig. 8b</xref>). O vidro apresentou similaridade com o grupo controle. A <xref ref-type="fig" rid="f8">Fig. 8c</xref> apresenta uma diminuição de comprimento dos efluentes de vidro e lama de cal em relação ao grupo controle. Portanto, os resultados indicaram que os efluentes podem ser tóxicos para as plantas superiores, onde demonstrou ser tóxica com 99% (**) de confiabilidade, conforme os níveis de confiabilidade do pós-teste de Dunnet. Nas amostras utilizando <italic>Lactuca satica</italic> L., foram colocadas 10 sementes para cada resíduo e 10 para o grupo de controle, onde as mesmas foram expostas por 3 dias aos efluentes <xref ref-type="bibr" rid="B20"><sup>20</sup></xref>. A <xref ref-type="fig" rid="f8">Fig. 8d</xref> apresenta os resultados no quesito germinação das raízes de <italic>Lactuca satic</italic>a L. As sementes dos efluentes de lama de cal e de vidro germinaram de forma similar, quando comparadas com o grupo controle. No crescimento, as sementes dos efluentes apresentaram uma diminuição principalmente no quesito radículas, quando comparadas com o grupo controle (<xref ref-type="fig" rid="f8">Fig. 8f</xref>). Conforme <xref ref-type="fig" rid="f8">Fig. 8d</xref>, ocorreu uma diminuição do crescimento total das raízes dos efluentes de vidro e lama de cal, quando comparadas ao grupo controle. As <xref ref-type="fig" rid="f8">Figs. 8d</xref> e <xref ref-type="fig" rid="f8">8f</xref> demonstram que a lama de cal é tóxica com 99% de confiabilidade (**) e o resíduo de vidro apresenta ser tóxico com 99,99% de confiabilidade (****), conforme os níveis de confiabilidade do pós-teste de Dunnet.</p>
+      <p>
+        <fig-group id="f8">
+          <fig xml:lang="pt">
+            <label>Figura 8:</label>
+            <caption>
+              <title>Efeitos tóxicos dos efluentes do resíduo de vidro, lama de cal, placa cerâmica F40T1020 e referência na Allium cepa L. (a-c) e em sementes de Lactuca satica L. (d-f).</title>
+            </caption>
+          </fig>
+          <fig xml:lang="en">
+            <label>Figure 8:</label>
+            <caption>
+              <title>Toxic effects of effluents of glass residue, lime mud, ceramic plate F40T1020, and reference on Allium cepa L. (a-c) and in seeds of Lactuca satica L. (d-f).</title>
+            </caption>
+          </fig>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/289fd0e5e22e895b3fa64310bc30fd1834b56a84.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/aecb618ca26fa97b16212768e29d56dacfe75612.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4553/QMyWZTMgngWRCDtVJfJH9Cn/7917bc10c5108617001d5a4aa4b8de6b691cece5.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig-group>
+      </p>
+      <p>Para a caracterização ambiental da amostra F40T1020, observou-se que o material lixiviado apresentou pH 7, assim o define como não corrosivo <xref ref-type="bibr" rid="B25"><sup>25</sup></xref>. Nesta amostra, a análise de toxicidade usou o parâmetro de confiabilidade *=p&lt;0,05 (95% de confiabilidade que o material é tóxico se comparado com a referência - água), conforme os níveis de confiabilidade do pós-teste de Dunnet <xref ref-type="bibr" rid="B20"><sup>20</sup></xref>. Este requisito foi utilizado tanto para a <italic>Allium cepa</italic> L. (cebola) quanto para a <italic>Lactuca satica</italic> L. (alface). As <xref ref-type="fig" rid="f8">Figs. 8a</xref> a <xref ref-type="fig" rid="f8">8c</xref> mostram os resultados de toxicidade da placa cerâmica para a <italic>Allium cepa</italic> L. A massa apresentou diminuição (<xref ref-type="fig" rid="f8">Fig. 8b</xref>). O comprimento das raízes também apresentou diminuição, quando comparado com o grupo controle (<xref ref-type="fig" rid="f8">Fig. 8c</xref>). Quando o efluente da placa cerâmica foi submetido ao ensaio de toxicidade, o mesmo não apresentou toxicidade, segundo os parâmetros do pós-teste de Dunnet. O intuito do trabalho foi a substituição de uma matéria-prima comercial por resíduo. Com o ensaio de ecotoxicidade com a <italic>Allium cepa</italic> L., concluiu-se que pode ser retirado um resíduo tóxico do ambiente, concedendo um novo uso, gerando uma placa não tóxica. As <xref ref-type="fig" rid="f8">Figs. 8d</xref> a <xref ref-type="fig" rid="f8">8f</xref> mostram os resultados do ensaio de toxicidade com sementes de <italic>Lactuca satica</italic> L. A <xref ref-type="fig" rid="f8">Fig. 8d</xref> demonstra que ocorreu diminuição no tamanho das raízes primárias em comparação com o grupo controle. Segundo os dados de confiabilidade do pós-teste de Dunnet, a placa cerâmica foi considerada tóxica em 99,99% (****). A <xref ref-type="fig" rid="f8">Fig. 8f</xref> demonstra que ocorreu diminuição no tamanho das radículas na placa em estudo em relação ao grupo controle, mostrando ser tóxica com 99,99% (****) de confiabilidade, segundo o pós-teste de Dunnet. Fazendo-se uma comparação entre os resultados de toxicidade da <italic>Allium cepa</italic> L. e da <italic>Lactuca satica</italic> L., a toxicidade empregada para placa cerâmica na análise com a <italic>Lactuca satica</italic> L. pode estar associada ao fato de que a mesma seja mais sensível que a <italic>Allium cepa</italic> L.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>CONCLUSÕES</title>
+      <p>Foi possível produzir com sucesso placas porosas a partir de uma massa cerâmica com adição de resíduos de vidro e de lama de cal em substituição ao fundente e como agente porogênico, respectivamente. A análise estatística mostrou que a tensão de ruptura à flexão foi influenciada pela temperatura de sinterização. Os resultados demonstraram que a formulação sinterizada a 860 °C apresentou tensão de ruptura à flexão de 0,3 MPa, enquanto a formulação com 40% de lama de cal queimada a 1020 °C obteve tensão de ruptura à flexão de 11,4 MPa, indicando um aumento de ~4000%. A formulação com 20% de lama de cal queimada a 860 °C apresentou porosidade de 32,2%, enquanto a formulação com 40% de lama de cal queimada a 1020 °C apresentou porosidade de 39,7%, indicando que a adição de lama de cal na formulação das placas cerâmicas influenciou na porosidade final das peças. Os ensaios térmicos demonstraram que o uso de placas cerâmicas porosas no sistema desenvolvido apresentou diminuição de temperatura no interior da estrutura de 7,5% em relação ao ensaio com uma placa comercial, indicando que o uso de placas cerâmicas porosas pode proporcionar maior isolamento térmico no interior da edificação com a parte externa. A placa cerâmica em estudo não apresentou toxicidade para <italic>Allium cepa</italic> L., porém para <italic>Lactuca satica</italic> L. demonstrou ser tóxica. A toxicidade empregada para placa cerâmica na análise com a <italic>Lactuca satica</italic> L. pode estar associada ao fato desta ser mais sensível que a <italic>Allium cepa</italic> L., indicando que com a rota proposta foi possível tornar um resíduo caracterizado como tóxico em uma placa cerâmica porosa não tóxica. Os resultados mostraram que as placas cerâmicas porosas obtidas são candidatas em potencial para trabalhar como isolantes térmicos com propriedades apropriadas para aplicação em fachadas ventiladas.</p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>REFERÊNCIAS</title>
+      <ref id="B1">
+        <label>1</label>
+        <mixed-citation>1 A. Müller, O.E. Alarcon, Cerâmica 51, 320 (2005) 354. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Müller</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Alarcon</surname>
+              <given-names>O.E.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>51</volume>
+          <issue>320</issue>
+          <year>2005</year>
+          <fpage>354</fpage>
+          <lpage>354</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <label>2</label>
+        <mixed-citation>2 P. Milak, M.T. Souza, C.P. Bom, P. Mantas, F. Raupp-Pereira, A.P.N. de Oliveira, Cerâmica 63, 368 (2017) 490.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Milak</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>M.T.</given-names>
+            </name>
+            <name>
+              <surname>Bom</surname>
+              <given-names>C.P.</given-names>
+            </name>
+            <name>
+              <surname>Mantas</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name>
+              <surname>Raupp-Pereira</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>A.P.N. de</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>63</volume>
+          <issue>368</issue>
+          <year>2017</year>
+          <fpage>490</fpage>
+          <lpage>490</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <label>3</label>
+        <mixed-citation>3 S. Arcaro, A. Albertin, F.R. Cesconeto, B.G. de Oliveira Maia, C. Siligardi, A.P.N. de Oliveira, Cerâmica 62, 361 (2016) 32.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Arcaro</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Albertin</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Cesconeto</surname>
+              <given-names>F.R.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira Maia</surname>
+              <given-names>B.G. de</given-names>
+            </name>
+            <name>
+              <surname>Siligardi</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>A.P.N. de</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>62</volume>
+          <issue>361</issue>
+          <year>2016</year>
+          <fpage>32</fpage>
+          <lpage>32</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <label>4</label>
+        <mixed-citation>4 A.C.P. Galvão, A.C.M. Farias, J.U.L. Mendes, Cerâmica 61, 359 (2015) 367.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Galvão</surname>
+              <given-names>A.C.P.</given-names>
+            </name>
+            <name>
+              <surname>Farias</surname>
+              <given-names>A.C.M.</given-names>
+            </name>
+            <name>
+              <surname>Mendes</surname>
+              <given-names>J.U.L.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>61</volume>
+          <issue>359</issue>
+          <year>2015</year>
+          <fpage>367</fpage>
+          <lpage>367</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <label>5</label>
+        <mixed-citation>5 O.R.K. Montedo, T.O. Guidolin, A.P.N. de Oliveira, Cerâm. Ind. 23, 3 (2018) 21.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Montedo</surname>
+              <given-names>O.R.K.</given-names>
+            </name>
+            <name>
+              <surname>Guidolin</surname>
+              <given-names>T.O.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>A.P.N. de</given-names>
+            </name>
+          </person-group>
+          <source>Cerâm. Ind.</source>
+          <volume>23</volume>
+          <issue>3</issue>
+          <year>2018</year>
+          <fpage>21</fpage>
+          <lpage>21</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <label>6</label>
+        <mixed-citation>6 C.M.F. Vieira, A.S.C. Morais, S.N. Monteiro, G.C.G. Delaqua, Cerâmica 62, 364 (2016) 376.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vieira</surname>
+              <given-names>C.M.F.</given-names>
+            </name>
+            <name>
+              <surname>Morais</surname>
+              <given-names>A.S.C.</given-names>
+            </name>
+            <name>
+              <surname>Monteiro</surname>
+              <given-names>S.N.</given-names>
+            </name>
+            <name>
+              <surname>Delaqua</surname>
+              <given-names>G.C.G.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>62</volume>
+          <issue>364</issue>
+          <year>2016</year>
+          <fpage>376</fpage>
+          <lpage>376</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <label>7</label>
+        <mixed-citation>7 A.P. Luz, S. Ribeiro, Matéria 13, 1 (2008) 96.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Luz</surname>
+              <given-names>A.P.</given-names>
+            </name>
+            <name>
+              <surname>Ribeiro</surname>
+              <given-names>S.</given-names>
+            </name>
+          </person-group>
+          <source>Matéria</source>
+          <volume>13</volume>
+          <issue>1</issue>
+          <year>2008</year>
+          <fpage>96</fpage>
+          <lpage>96</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <label>8</label>
+        <mixed-citation>8 A. Gonçalves, R. Lopes, J. Exact Sci. 21, 2 (2019) 5.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gonçalves</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Lopes</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <source>J. Exact Sci.</source>
+          <volume>21</volume>
+          <issue>2</issue>
+          <year>2019</year>
+          <fpage>5</fpage>
+          <lpage>5</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <label>9</label>
+        <mixed-citation>9 A. Mohajerani, J. Vajna, T.H.H. Cheung, H. Kurmus, A. Arulrajah, S. Horpibulsuk, Constr. Build. Mater. 156 (2017) 443.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mohajerani</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Vajna</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Cheung</surname>
+              <given-names>T.H.H.</given-names>
+            </name>
+            <name>
+              <surname>Kurmus</surname>
+              <given-names>H.</given-names>
+            </name>
+            <name>
+              <surname>Arulrajah</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Horpibulsuk</surname>
+              <given-names>S.</given-names>
+            </name>
+          </person-group>
+          <source>Constr. Build. Mater.</source>
+          <volume>156</volume>
+          <year>2017</year>
+          <fpage>443</fpage>
+          <lpage>443</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <label>10</label>
+        <mixed-citation>10 G.K.O. D’Amore, M. Caniato, A. Travan, G. Turco, L. Marsich, A. Ferluga, C. Schmid, J. Clean. Prod. 165 (2017) 1306. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>D’Amore</surname>
+              <given-names>G.K.O.</given-names>
+            </name>
+            <name>
+              <surname>Caniato</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Travan</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Turco</surname>
+              <given-names>G.</given-names>
+            </name>
+            <name>
+              <surname>Marsich</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Ferluga</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Schmid</surname>
+              <given-names>C.</given-names>
+            </name>
+          </person-group>
+          <source>J. Clean. Prod.</source>
+          <volume>165</volume>
+          <year>2017</year>
+          <fpage>1306</fpage>
+          <lpage>1306</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <label>11</label>
+        <mixed-citation>11 M.T. Souza, B.G.O. Maia, L.B. Teixeira, K.G. de Oliveira, A.H.B. Teixeira, A.P.N. de Oliveira, Process Saf. Environ. Prot. 111 (2017) 60.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Souza</surname>
+              <given-names>M.T.</given-names>
+            </name>
+            <name>
+              <surname>Maia</surname>
+              <given-names>B.G.O.</given-names>
+            </name>
+            <name>
+              <surname>Teixeira</surname>
+              <given-names>L.B.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>K.G. de</given-names>
+            </name>
+            <name>
+              <surname>Teixeira</surname>
+              <given-names>A.H.B.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>A.P.N. de</given-names>
+            </name>
+          </person-group>
+          <source>Process Saf. Environ. Prot.</source>
+          <volume>111</volume>
+          <year>2017</year>
+          <fpage>60</fpage>
+          <lpage>60</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <label>12</label>
+        <mixed-citation>12 A. Mehta, D.K. Ashish, J. Build. Eng. 29 (2020) 100888.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mehta</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Ashish</surname>
+              <given-names>D.K.</given-names>
+            </name>
+          </person-group>
+          <source>J. Build. Eng.</source>
+          <volume>29</volume>
+          <year>2020</year>
+          <fpage>100888</fpage>
+          <lpage>100888</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <label>13</label>
+        <mixed-citation>13 F.H.S.F. de Toledo, N. Venturin, L. Carlos, B.A.S. Dias, R.P. Venturin, R.L.G. Macedo, Rev. Bras. Eng. Agric. Ambient. 19, 7 (2015) 711.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Toledo</surname>
+              <given-names>F.H.S.F. de</given-names>
+            </name>
+            <name>
+              <surname>Venturin</surname>
+              <given-names>N.</given-names>
+            </name>
+            <name>
+              <surname>Carlos</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Dias</surname>
+              <given-names>B.A.S.</given-names>
+            </name>
+            <name>
+              <surname>Venturin</surname>
+              <given-names>R.P.</given-names>
+            </name>
+            <name>
+              <surname>Macedo</surname>
+              <given-names>R.L.G.</given-names>
+            </name>
+          </person-group>
+          <source>Rev. Bras. Eng. Agric. Ambient.</source>
+          <volume>19</volume>
+          <issue>7</issue>
+          <year>2015</year>
+          <fpage>711</fpage>
+          <lpage>711</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <label>14</label>
+        <mixed-citation>14 F. Zenikheri, A. Harabi, B. Boudaira, F. Bouzerara, A. Guechi, S.-E. Barama, L. Foughali, N. Karbona, Cerâmica 62, 363 (2016) 242.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zenikheri</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Harabi</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Boudaira</surname>
+              <given-names>B.</given-names>
+            </name>
+            <name>
+              <surname>Bouzerara</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Guechi</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Barama</surname>
+              <given-names>S.-E.</given-names>
+            </name>
+            <name>
+              <surname>Foughali</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Karbona</surname>
+              <given-names>N.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>62</volume>
+          <issue>363</issue>
+          <year>2016</year>
+          <fpage>242</fpage>
+          <lpage>242</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <label>15</label>
+        <mixed-citation>15 L.H. Buruberri, M.P. Seabra, J.A. Labrincha, J. Hazard. Mater. 286 (2015) 252.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Buruberri</surname>
+              <given-names>L.H.</given-names>
+            </name>
+            <name>
+              <surname>Seabra</surname>
+              <given-names>M.P.</given-names>
+            </name>
+            <name>
+              <surname>Labrincha</surname>
+              <given-names>J.A.</given-names>
+            </name>
+          </person-group>
+          <source>J. Hazard. Mater.</source>
+          <volume>286</volume>
+          <year>2015</year>
+          <fpage>252</fpage>
+          <lpage>252</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <label>16</label>
+        <mixed-citation>16 G.B. Milak, B.I. Nazario, M.D.M. Innocentini, F. Raupp-Pereira, O.R.K. Montedo, Cerâmica 65, 375 (2019) 416.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Milak</surname>
+              <given-names>G.B.</given-names>
+            </name>
+            <name>
+              <surname>Nazario</surname>
+              <given-names>B.I.</given-names>
+            </name>
+            <name>
+              <surname>Innocentini</surname>
+              <given-names>M.D.M.</given-names>
+            </name>
+            <name>
+              <surname>Raupp-Pereira</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Montedo</surname>
+              <given-names>O.R.K.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>65</volume>
+          <issue>375</issue>
+          <year>2019</year>
+          <fpage>416</fpage>
+          <lpage>416</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <label>17</label>
+        <mixed-citation>17 C. Zanelli, M. Raimondo, G. Guarini, M. Dondi, J. Non. Cryst. Solids 357, 16-17 (2011) 3251.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zanelli</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>Raimondo</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Guarini</surname>
+              <given-names>G.</given-names>
+            </name>
+            <name>
+              <surname>Dondi</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source>J. Non. Cryst. Solids</source>
+          <volume>357</volume>
+          <issue>16-17</issue>
+          <year>2011</year>
+          <fpage>3251</fpage>
+          <lpage>3251</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <label>18</label>
+        <mixed-citation>18 J.L. Amorós Albaro, Cerâm. Ind. 6, 3 (2001) 26.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Amorós Albaro</surname>
+              <given-names>J.L.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâm. Ind.</source>
+          <volume>6</volume>
+          <issue>3</issue>
+          <year>2001</year>
+          <fpage>26</fpage>
+          <lpage>26</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <label>19</label>
+        <mixed-citation>19 NBR 13818, “Placas cerâmicas para revestimento: especificação e métodos de ensaio”, Ass. Bras. Norm. Técn., Rio Janeiro (1997).</mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>NBR</collab>
+          </person-group>
+          <pub-id pub-id-type="other">13818</pub-id>
+          <source>Placas cerâmicas para revestimento: especificação e métodos de ensaio</source>
+          <publisher-name>Ass. Bras. Norm. Técn.</publisher-name>
+          <publisher-loc>Rio Janeiro</publisher-loc>
+          <year>1997</year>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <label>20</label>
+        <mixed-citation>20 T. Bortolotto, J. Da Silva, A.C. Sant’Ana, K.O. Tomazi, R. Geremias, E. Angioletto, C.T. Pich, Ecotoxicol. Environ. Saf. 143 (2017) 259.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bortolotto</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>J. Da</given-names>
+            </name>
+            <name>
+              <surname>Sant’Ana</surname>
+              <given-names>A.C.</given-names>
+            </name>
+            <name>
+              <surname>Tomazi</surname>
+              <given-names>K.O.</given-names>
+            </name>
+            <name>
+              <surname>Geremias</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>Angioletto</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>Pich</surname>
+              <given-names>C.T.</given-names>
+            </name>
+          </person-group>
+          <source>Ecotoxicol. Environ. Saf.</source>
+          <volume>143</volume>
+          <year>2017</year>
+          <fpage>259</fpage>
+          <lpage>259</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <label>21</label>
+        <mixed-citation>21 L. Simão, R.F. Caldato, M.D.M. Innocentini, O.R.K. Montedo, Ceram. Int. 41, 3 (2015) 4782.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Simão</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Caldato</surname>
+              <given-names>R.F.</given-names>
+            </name>
+            <name>
+              <surname>Innocentini</surname>
+              <given-names>M.D.M.</given-names>
+            </name>
+            <name>
+              <surname>Montedo</surname>
+              <given-names>O.R.K.</given-names>
+            </name>
+          </person-group>
+          <source>Ceram. Int.</source>
+          <volume>41</volume>
+          <issue>3</issue>
+          <year>2015</year>
+          <fpage>4782</fpage>
+          <lpage>4782</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <label>22</label>
+        <mixed-citation>22 B.C.A. Pinheiro, J.N.F. Holanda, Cerâmica 56, 339 (2010) 237.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pinheiro</surname>
+              <given-names>B.C.A.</given-names>
+            </name>
+            <name>
+              <surname>Holanda</surname>
+              <given-names>J.N.F.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>56</volume>
+          <issue>339</issue>
+          <year>2010</year>
+          <fpage>237</fpage>
+          <lpage>237</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <label>23</label>
+        <mixed-citation>23 D. Menegazzo, A.P.M. Paschoal, J.O.A. Andrade, A.M. Carvalho, J.C. Gouvêa, Cerâm. Ind. 7, 1 (2002) 24.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Menegazzo</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Paschoal</surname>
+              <given-names>A.P.M.</given-names>
+            </name>
+            <name>
+              <surname>Andrade</surname>
+              <given-names>J.O.A.</given-names>
+            </name>
+            <name>
+              <surname>Carvalho</surname>
+              <given-names>A.M.</given-names>
+            </name>
+            <name>
+              <surname>Gouvêa</surname>
+              <given-names>J.C.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâm. Ind.</source>
+          <volume>7</volume>
+          <issue>1</issue>
+          <year>2002</year>
+          <fpage>24</fpage>
+          <lpage>24</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <label>24</label>
+        <mixed-citation>24 D.O. Vivaldini, A.A.C. Mourão, V.R. Salvini, V.C. Pandolfelli, Cerâmica 60, 354 (2014) 297. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vivaldini</surname>
+              <given-names>D.O.</given-names>
+            </name>
+            <name>
+              <surname>Mourão</surname>
+              <given-names>A.A.C.</given-names>
+            </name>
+            <name>
+              <surname>Salvini</surname>
+              <given-names>V.R.</given-names>
+            </name>
+            <name>
+              <surname>Pandolfelli</surname>
+              <given-names>V.C.</given-names>
+            </name>
+          </person-group>
+          <source>Cerâmica</source>
+          <volume>60</volume>
+          <issue>354</issue>
+          <year>2014</year>
+          <fpage>297</fpage>
+          <lpage>297</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <label>25</label>
+        <mixed-citation>25 NBR 10004, “Resíduos sólidos: classificação”, Ass. Bras. Norm. Técn., Rio Janeiro (2004).</mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>NBR</collab>
+          </person-group>
+          <pub-id pub-id-type="other">10004</pub-id>
+          <source>Resíduos sólidos: classificação</source>
+          <publisher-name>Ass. Bras. Norm. Técn.</publisher-name>
+          <publisher-loc>Rio Janeiro</publisher-loc>
+          <year>2004</year>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>

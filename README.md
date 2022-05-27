@@ -22,6 +22,12 @@ Python Package Index (recommended):
 $ pip install packtools
 ```
 
+or just:
+
+```bash
+pip install -r requirements.txt
+```
+
 
 Pip + git (versão de desenvolvimento):
 
@@ -38,13 +44,19 @@ $ cd packtools
 $ python setup.py install
 ```
 
-
 Installation as a web application, where a graphical interface for `stylechecker`
 and an HTML previewer is provided:
 
 ```bash
 $ pip install packtools[webapp]
 ```
+
+or
+
+```bash
+pip install -r requirements.txt && pip install -r optional-requirements.txt
+```
+
 ## Tests
 
 To run tests execute:

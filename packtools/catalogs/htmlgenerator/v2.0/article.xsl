@@ -32,7 +32,6 @@
     <xsl:include href="article-text.xsl"/>
     <xsl:include href="article-text-mathml.xsl"/>
     <xsl:include href="article-text-def-list.xsl"/>
-    <xsl:include href="article-text-alternatives.xsl"/>
 
     <xsl:include href="article-text-boxed-text.xsl"/>
     <xsl:include href="article-text-list.xsl"/>
@@ -51,6 +50,7 @@
 
     <xsl:include href="article-text-sub-article.xsl"/>
 
+    <xsl:include href="html-modals-graphics.xsl"/>
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
@@ -60,7 +60,7 @@
     <xsl:include href="html-head.xsl"/>
 
     <xsl:variable name="ref" select="//ref"/>
-    <xsl:variable name="fn" select="//*[name()!='table-wrap']//fn"/>
+    <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>
 
     <!--xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
     <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable-->
@@ -250,9 +250,10 @@
             <xsl:apply-templates select="." mode="text-body"/>
             <xsl:apply-templates select="." mode="text-back"/>
             <xsl:apply-templates select="." mode="text-fn"/>
+            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
+
             <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
             <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
-            <xsl:apply-templates select="." mode="article-text-sub-articles"/>
 
             <section class="documentLicense">
                 <div class="container-license">

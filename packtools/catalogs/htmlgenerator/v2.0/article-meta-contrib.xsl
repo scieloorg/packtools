@@ -23,7 +23,7 @@
     <xsl:template match="sub-article" mode="contrib-group">
         <div>
             <xsl:attribute name="class">contribGroup</xsl:attribute>
-            <xsl:apply-templates select=".//front-stub//contrib-group | .//front//contrib-group"></xsl:apply-templates>
+            <xsl:apply-templates select="front-stub/contrib-group | front/contrib-group"></xsl:apply-templates>
             <xsl:if test="not(.//contrib) and ../@article-type='translation'">
                 <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
             </xsl:if>
@@ -31,7 +31,7 @@
     </xsl:template>
     
     <xsl:template match="front/contrib-group | front-stub/contrib-group" mode="modal-id"><xsl:value-of select="../../@id"/></xsl:template>
-    <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']//contrib-group" mode="modal-id"></xsl:template>
+    <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']/*/contrib-group" mode="modal-id"></xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
@@ -46,7 +46,7 @@
         </xsl:if>
     </xsl:template>
    
-    <xsl:template match="contrib" mode="article-meta-contrib">
+    <!--xsl:template match="contrib" mode="article-meta-contrib">
         <xsl:choose>
             <xsl:when test="*[name()!='name' and name()!='collab']">
                 <xsl:variable name="id">
@@ -84,6 +84,46 @@
             </xsl:otherwise>
         </xsl:choose>
         
+    </xsl:template-->
+
+    <xsl:template match="contrib" mode="article-meta-contrib">
+        <xsl:variable name="id">
+            <xsl:value-of select="position()"/>
+        </xsl:variable>
+        <span class="dropdown">
+            <a id="contribGroupTutor{$id}">
+                <xsl:attribute name="class">dropdown-toggle</xsl:attribute>
+                <xsl:attribute name="data-toggle">dropdown</xsl:attribute>
+                <span>
+                    <xsl:choose>
+                        <xsl:when test="$ABBR_CONTRIB='true'">
+                            <xsl:apply-templates select="name|collab|on-behalf-of" mode="abbrev"/>
+                        </xsl:when>
+                        <xsl:otherwise><xsl:apply-templates select="name|collab|on-behalf-of"/></xsl:otherwise>
+                    </xsl:choose>
+                </span>
+            </a>
+            <xsl:apply-templates select="." mode="contrib-dropdown-menu">
+                <xsl:with-param name="id">
+                    <xsl:value-of select="$id"/>
+                </xsl:with-param>
+            </xsl:apply-templates>
+        </span>
+    </xsl:template>
+
+    <xsl:template match="sub-article[@article-type!='translation']//contrib" mode="article-meta-contrib">
+        <span class="dropdown"> 
+            <xsl:if test="position() != 1"><span> • </span></xsl:if>
+            <span>
+                <xsl:choose>
+                    <xsl:when test="$ABBR_CONTRIB='true'">
+                        <xsl:apply-templates select="name|collab|on-behalf-of" mode="abbrev"/>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:apply-templates select="name|collab|on-behalf-of"/></xsl:otherwise>
+                </xsl:choose>
+            </span>
+            
+        </span>
     </xsl:template>
     
     <xsl:template match="contrib/role | contrib/bio">
@@ -107,9 +147,7 @@
     <xsl:template match="contrib/xref" mode="contrib-dropdown-menu">
         <xsl:variable name="rid" select="@rid"/>
         <xsl:apply-templates select="$article//author-notes/corresp[@id=$rid]" mode="contrib-dropdown-menu"/>
-        <xsl:if test="* or normalize-space(text()) != ''">
             <xsl:apply-templates select="$article//aff[@id=$rid]" mode="contrib-dropdown-menu"/>
-        </xsl:if>
         <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
     </xsl:template>
     

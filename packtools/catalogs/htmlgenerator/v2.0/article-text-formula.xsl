@@ -18,16 +18,49 @@
         </div>
     </xsl:template>
 
-	<xsl:template match="disp-formula/label">
-		<span class="label"><xsl:value-of select="."/></span>
-	</xsl:template>
+    <xsl:template match="disp-formula/label">
+        <span class="label"><xsl:value-of select="."/></span>
+    </xsl:template>
 
-    <xsl:template match="disp-formula[alternatives]" mode="file-location">
-        <xsl:apply-templates select="alternatives" />
+    <xsl:template match="disp-formula/label" mode="label-caption">
+        <strong><xsl:value-of select="."/></strong>
+    </xsl:template>
+
+    <xsl:template match="disp-formula/alternatives | inline-formula/alternatives">
+        <xsl:choose>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='tex-math' and tex-math">
+                <xsl:apply-templates select="tex-math" />
+            </xsl:when>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='math' and math">
+                <xsl:apply-templates select="math" />
+            </xsl:when>
+            <xsl:when test="$MATH_ELEM_PREFERENCE='mml:math' and mml:math">
+                <xsl:apply-templates select="mml:math" />
+            </xsl:when>
+            <xsl:when test="tex-math and (math or mml:math)">
+                <!-- obtém o primeiro -->
+                <xsl:apply-templates select="*[1]" />
+            </xsl:when>
+            <xsl:when test="tex-math">
+                <xsl:apply-templates select="tex-math" />
+            </xsl:when>
+            <xsl:when test="mml:math">
+                <xsl:apply-templates select="mml:math" />
+            </xsl:when>
+            <xsl:when test="math">
+                <xsl:apply-templates select="math" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="display-graphic"/>
+            </xsl:otherwise>
+        </xsl:choose>    
     </xsl:template>
 
     <xsl:template match="inline-formula/tex-math | inline-formula/alternatives/tex-math">
         <xsl:choose>
+            <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                <xsl:value-of select="normalize-space(substring-after(substring-before(.,'\end{document}'),'\begin{document}'))"/>
+            </xsl:when>
             <xsl:when test="starts-with(.,'\begin') and contains(.,'\end')">
                 <xsl:value-of select="."/>
             </xsl:when>
@@ -44,6 +77,10 @@
     <xsl:template match="disp-formula/tex-math | disp-formula/alternatives/tex-math">
         <span class="formula-body">
             <xsl:choose>
+                <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                    <span>
+                    <xsl:value-of select="normalize-space(substring-after(substring-before(.,'\end{document}'),'\begin{document}'))"/></span>
+                </xsl:when>
                 <xsl:when test="starts-with(.,'\begin') and contains(.,'\end')">
                     <xsl:value-of select="."/>
                 </xsl:when>
