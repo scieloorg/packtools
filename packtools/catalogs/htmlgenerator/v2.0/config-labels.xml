@@ -385,4 +385,10 @@
         <name lang="pt">Publicação nesta coleção</name>
         <name lang="es">Publicación en esta colección</name>
     </term>
+    <term>
+        <name>translator</name>
+        <name lang="en">Translation of</name>
+        <name lang="pt">Tradução de</name>
+        <name lang="es">Traducción de</name>
+    </term>
 </labels>

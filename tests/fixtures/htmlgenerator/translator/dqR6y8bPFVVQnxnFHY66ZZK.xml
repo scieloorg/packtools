@@ -1,0 +1,1540 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.0" specific-use="sps-1.5" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">gal</journal-id>
+      <journal-title-group>
+        <journal-title>Galáxia (São Paulo)</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Galáxia (São Paulo)</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1519-311X</issn>
+      <issn pub-type="epub">1982-2553</issn>
+      <publisher>
+        <publisher-name>Programa de Estudos Pós-graduados em Comunicação e Semiótica - PUC-SP</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id" specific-use="scielo-v3">dqR6y8bPFVVQnxnFHY66ZZK</article-id>
+      <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S1982-25532017000100020</article-id>
+      <article-id pub-id-type="doi">10.1590/1982-2554201729575</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Articles</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>A Animação do Cinema</article-title>
+        <trans-title-group xml:lang="en">
+          <trans-title>The animation of cinema</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Cholodenko</surname>
+            <given-names>Alan</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff01"/>
+        </contrib>
+        <contrib contrib-type="translator">
+          <name>
+            <surname>Sousa</surname>
+            <given-names>Adriano C. A. e</given-names>
+          </name>
+          <xref ref-type="fn" rid="fn26"/>
+        </contrib>
+      </contrib-group>
+      <aff id="aff01"><institution content-type="normalized">University of Sydney</institution><institution content-type="orgname">Universidade de Sydney</institution><institution content-type="orgdiv1">Estudos Fílmicos e de Animação</institution><country country="AU">Australia</country> alan.cholodenko@sydney.edu.au <institution content-type="original">Alan Cholodenko é Senior Lecturer em Estudos Fílmicos e de Animação e Honorary Associate da Universidade de Sydney, tendo organizado e publicado, entre outros, The Illusion of Life: Essays on Animation, primeiro livro de ensaios acadêmicos que teorizou animação do mundo(Power Publications in association with the Australian Film Commission, 1991). alan.cholodenko@sydney.edu.au</institution>
+			</aff>
+      <pub-date pub-type="epub-ppub">
+        <season>Jan-Apr</season>
+        <year>2017</year>
+      </pub-date>
+      <issue>34</issue>
+      <fpage>20</fpage>
+      <lpage>54</lpage>
+      <history>
+        <date date-type="received">
+          <month>09</month>
+          <year>2016</year>
+        </date>
+        <date date-type="accepted">
+          <month>12</month>
+          <year>2016</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+          <license-p>Este é um artigo publicado em acesso aberto (<italic>Open Access</italic>) sob a licença <italic>Creative Commons Attribution</italic>, que permite uso, distribuição e reprodução em qualquer meio, sem restrições desde que o trabalho original seja corretamente citado.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Resumo</title>
+        <p>Este ensaio procura reavivar o nome, a obra e as realizações do mais significante pioneiro animador do filme, na melhor das hipóteses, marginalizado e, na pior, apagado pelos <italic>Film Studies</italic> e <italic>Animation Studies</italic> de língua inglesa: Émile Reynaud. Ele ganhou o Prêmio McLaren-Lambart da Society for Animation Studies (SAS) de melhor ensaio. E continua seu trabalho autoral sobre teorizações da animação, iniciado em 1991, quando organizou <italic>A Ilusão da Vida: Ensaios sobre</italic>
+ <italic>Animação</italic>, a primeira antologia do mundo com ensaios acadêmicos teorizando animação.</p>
+      </abstract>
+      <trans-abstract xml:lang="en">
+        <title>Abstract</title>
+        <p>This essay seeks to resurrect the name, work and achievements of the most significant pioneering film animator at best marginalized, at worst effaced, by English language <italic>Film Studies</italic> and <italic>Animation Studies</italic>: Émile Reynaud. It won the 2010 McLaren-Lambart Award from the Society for Animation Studies for best essay. It continues the author’s work on the theorising of animation begun in 1991 when he edited <italic>The Illusion of</italic>
+ <italic>Life: Essays on Animation</italic>, the world’s first anthology of scholarly essays theorising animation.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="pt">
+        <title>Palavras-chave</title>
+        <kwd>Émile Reynaud</kwd>
+        <kwd>Théâtre Optique</kwd>
+        <kwd>animação</kwd>
+        <kwd>cinema</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="en">
+        <title>Keywords</title>
+        <kwd>Émile Reynaud</kwd>
+        <kwd>Théâtre Optique</kwd>
+        <kwd>animation</kwd>
+        <kwd>cinema</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="27"/>
+        <table-count count="0"/>
+        <equation-count count="0"/>
+        <ref-count count="50"/>
+        <page-count count="35"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec>
+      <title>I</title>
+      <p>Foi o que a minha tia de 91 anos de idade, direto de Nova Jersey, falou ao telefone; eu estava em Sydney, no dia 4 de fevereiro do ano passado! Não lhe disse à época que, para nós, a animação jamais deixou de ser “o grande lance em filme”, que, a cada encontro com o filme, há um outro com a animação-cinema, ou seja, com o filme <italic>live action</italic>. Sendo assim, não é o caso de que apenas recentemente, com o advento da animação digital, o filme tenha se tornado animação.</p>
+      <p>Para nós, o filme jamais deixou de ser animação.</p>
+      <p>Eis, então, a premissa-chave com a qual este artigo deslancha, a premissa-chave que entrelaça várias de minhas publicações sobre animação – não apenas é a animação uma forma de filme, mas o filme, todo filme, o filme <italic>como tal</italic>, é uma forma de animação. Para nós, não apenas a animação jamais deixou de animar o cinema, a animação jamais deixou de assombrá-lo, curiosamente retornando a ele e o reanimando: o filme, os <italic>Film Studies</italic> e a teoria do filme como cinema de animação, filme de animação, <italic>film animation studies</italic> e teoria do filme de animação – mesmo se ela – a animação – passa despercebida, inexplorada, irreconhecida. Em suma, para nós, a animação é a primeira, última e permanente atração do cinema, do filme.</p>
+      <p>A animação em sua forma contemporânea, especialmente aquela gerada por computador (tanto quanto o <italic>anime</italic>), encaminhou essa noção – a de que todo filme é uma forma de animação – de volta às <italic>origens</italic> e com uma vingança, devolvendo a animação ao que ela jamais deixou ou ao que jamais a deixou, colocando a animação em primeiro plano como o verdadeiro <italic>núcleo</italic> do cinema contemporâneo. De fato, o verdadeiro <italic>núcleo</italic> da contemporânea cultura de massas hipermidiatizada e imediata – da “cultura da animação”, para usar o termo de Lev <xref ref-type="bibr" rid="B30">Manovich (2006)</xref> –, ao mesmo tempo que a animação, jamais deixou de ser para nós o verdadeiro <italic>núcleo</italic> do cinema e cultura “como tal”, certamente não apenas da cultura “como tal”, mas do mundo “como tal”, do universo “como tal” – mundo-animação, universo-animação.</p>
+      <p>Levando tudo isso em conta, a marginalização, o apagamento da animação dos <italic>Film Studies</italic> (e outras disciplinas), fez da animação o seu (e o delas) <italic>ponto cego</italic> (<xref ref-type="bibr" rid="B16">CHOLODENKO, 2007c</xref>). Contudo, essa verdadeira transformação da animação em <italic>ponto cego</italic> trouxe à tona outro sentido, um tanto diferente, de <italic>ponto cego</italic> e de animação como <italic>ponto cego</italic>. Neste sentido, ponto cego é aquela entidade que ao mesmo tempo não é vista, que de fato jamais é vista, mas que permite a alguém vê-la, sendo ela a verdadeira condição para a possibilidade de <italic>vis</italic>ão – a cegueira que torna a vista ao mesmo tempo possível e impossível. Sob esse prisma, a animação torna-se o ponto cego do ponto cego, o ponto cego <italic>como tal</italic>. Por outro lado, não é mais algo que os <italic>Film Studies</italic>, qualquer coisa ou qualquer um que sejam, não <italic>querem</italic> ver, mas, em vez disso, <italic>não</italic> podem ver, <italic>jamais</italic> podem, quer queiram, quer não. Isso significa que, se não se pode ver a animação como tal, não se pode ver a vida como tal, nem o movimento como tal<xref ref-type="fn" rid="fn01">1</xref>, tampouco o que os anima – a animação/animando da animação/animando. De fato, para nós, não apenas não se pode vê-la, como também não há <italic>como tal</italic> para ela, a pedir marcas de citação em torno de <italic>como tal</italic> sempre que é referenciada. Além disso, esse ponto cego permite ver qualquer coisa ou qualquer um como tal, permite ver até mesmo a si próprio como tal, mas permite bem menos ver-se vendo a si próprio – a verdadeira premissa da reflexividade sobre si, da autorreflexão – impossível <italic>per se</italic>.</p>
+      <p>No decorrer deste artigo, oferecerei um resumo de aspectos-chave históricos, historiográficos e teóricos e implicações da proposição segundo a qual o cinema é uma forma de animação e jamais deixou de ser animação. Sem dúvida, para nós, esses componentes históricos, historiográficos e teóricos estão necessária e inextricavelmente misturados, mesmo quando são também inevitavelmente especulativos, em especial por causa do que dissemos sobre o ponto cego do ponto cego – o verdadeiro objeto de nossas especulações – e o <italic>como tal</italic>. Sua implicação é a de que ninguém pode determinar ou concluir sobre uma origem pura para a animação, nem mesmo para o filme; com efeito, para qualquer ou todas as coisas que a animação anima.</p>
+      <p>Tendo essa advertência em mente, prosseguirei com a minha proposição: o cinema é uma forma de animação, jamais deixou de ser animação.</p>
+    </sec>
+    <sec>
+      <title>II</title>
+      <p>Aqui, história e historiografia serão requisitadas desde o princípio.</p>
+      <p>Uma expressão frequentemente citada sobre esse problema, segundo o qual o cinema é uma forma de animação, encontra-se na assertiva de <xref ref-type="bibr" rid="B29">Lev Manovich (2001, 2002, p. 302)</xref>: “nascido da animação, o cinema afastou a animação para sua periferia, apenas para, por fim [o cinema digital] tornar-se um caso particular de animação”.</p>
+      <p>Embora, infelizmente, Manovich seja o único que eu encontro sendo citado hoje em dia por essa proposição, não foi o único nem o primeiro a publicar a afirmativa segundo a qual todo filme é uma forma de animação. Eu a tornei o primeiro ponto-chave de minha “Introdução” a <italic>The Illusion of Life</italic> (A Ilusão da Vida), publicado em 1991, ou seja, dez anos antes – alegando que não apenas é a animação uma forma de filme, mas o filme, todo filme, o filme <italic>como tal</italic>, é uma forma de animação<xref ref-type="fn" rid="fn02">2</xref>.</p>
+      <p>De imediato, isso significa que preciso modificar a afirmativa de Manovich: para mim, o “por fim” ao qual Manovich se refere está desde sempre no começo.</p>
+      <p>Por outro lado, é crucial afirmar que eu não fui o primeiro a reivindicar que o filme <italic>per se</italic> é uma forma de animação.</p>
+      <p>Ao escrever, em 1973, sobre Émile Reynaud, o aclamado animador Alexandre Alexeïeff diz:</p>
+      <disp-quote>
+        <p>De certo, a invenção do <italic>cinema</italic> foi patenteada por Reynaud, que não teve dinheiro suficiente para processar os irmãos Lumière e vencer. Em todo caso, é legítimo considerar o cinema como um tipo específico de animação, uma espécie de substituto vulgar, industrial (...) o qual era destinado a substituir o trabalho criativo de um artista, tal como Émile Reynaud, pela fotografia de modelos humanos <italic>em movimento</italic>. (<xref ref-type="bibr" rid="B02">ALEXEÏEFF, 1994</xref>, p. xix e xx)</p>
+      </disp-quote>
+      <p>Ainda em 1973, Ralph Stephenson declarou sobre Reynaud:</p>
+      <disp-quote>
+        <p>Quaisquer que sejam seus méritos como um artista genuíno, não há dúvidas sobre o seu lugar na história da animação. Ele não apenas inventou a técnica, mas originou uma nova arte e foi o primeiro a desenvolver o filme animado (na verdade, o cinema, caso se entenda por cinema o movimento, não a fotografia) em um espetáculo. (<xref ref-type="bibr" rid="B45">STEPHENSON, 1973</xref>, p. 26)</p>
+      </disp-quote>
+      <p>Permita-me acrescentar: mesmo antes de Alexeïeff e Stephenson, o filósofo de filmes e mídia japonês Taihei Imamura teve a mesma ideia em seu livro de 1948, <italic>Theory of Animation</italic> (Teoria da Animação), ao postular a animação como anterior ao filme e como sua base, um postulado sobre o qual nos informa <xref ref-type="bibr" rid="B24">Mark Driscoll (2002, p. 280)</xref>.</p>
+      <p>Serguei <xref ref-type="bibr" rid="B25">Eisenstein (1988)</xref> convenceu-se disso ainda antes, entre 1940 e 1943, no que se tornaria <italic>Eisenstein on Disney</italic>, quando postulou a animação como a essência do filme<xref ref-type="fn" rid="fn03">3</xref>.</p>
+      <p>Se você está se perguntando agora “quem foi Émile Reynaud?”, você está dando sustentação ao meu argumento.</p>
+      <p>Ok, eu explico. Émile Reynaud inventou o Praxinoscópio, o Teatro Praxinoscópio e o <italic>Théâtre Optique</italic>.</p>
+      <p>Todavia, antes de prosseguir com minha explicação das realizações de Reynaud, vejamos como ele é conhecido na literatura de <italic>Film Studies</italic> e estudos de animação.</p>
+      <p>Aqui vão três premissas: uma arqueologia extensa e intensa do tratamento dado a Reynaud por essa literatura encontra-se além do alcance deste artigo; minha pesquisa é, em grande parte, restrita à literatura em inglês quanto a esses campos<xref ref-type="fn" rid="fn04">4</xref>; e, mesmo assim, minha pesquisa de <italic>Film Studies</italic> na literatura de língua inglesa ainda está em processo. Então, posso apenas oferecer um relato provisório sobre a literatura desse campo: Émile Reynaud é um nome que geralmente se procura em vão nos índices remissivos de livros em língua inglesa sobre história do filme, bem como a palavra animação!<xref ref-type="fn" rid="fn05">5</xref> Nas ocasiões em que seu nome aparece, e isso ocorre com uma certa frequência, é colocado na pré-história do cinema: ora ele e seu Praxinoscópio são meramente incluídos em uma lista de dispositivos ópticos proto-cinemáticos; ora ele e a variedade de suas invenções recebem um tratamento mais sinóptico, no máximo chegando a um parágrafo.</p>
+      <p>Tudo isso já era de se esperar, visto que tais textos basearam-se em uma teleologia que faz do cinema, ou seja, do filme fotográfico, não apenas o objetivo, mas a medida. Por esse prisma, seu <italic>Théâtre Optique</italic> é visto como um dos dispositivos proto-cinemáticos que prepararam o caminho para o cinema, para os irmãos Lumière, aos quais é dado permanentemente o lugar de honra. O caso-limite disso, para mim, é aquele de <xref ref-type="bibr" rid="B47">Dai Vaughan (1990, p. 63)</xref> em seu adequadamente intitulado “<italic>Let there be Lumière</italic>” (!), no qual ela equipara suas primeiras projeções públicas à singularidade do <italic>Big Bang</italic>! Porém, isso também é verdadeiro mesmo quando um esforço para complicar o advento do cinema é subestimado, como na seção de <xref ref-type="bibr" rid="B34">Roberta Pearson (1996, p. 14)</xref>, “<italic>Early Cinema</italic>”, do <italic>The Oxford History of World Cinema</italic>. O aspecto mais triste do livro é que Reynaud não é encontrado no índice remissivo (nem em nenhum outro lugar, tanto quanto pude perceber), nem mesmo na seção “<italic>Tricks and Animation</italic>” (Trucagens e Animação), ponto ao qual retornarei.</p>
+      <p>No máximo, o <italic>Théâtre Optique</italic> é considerado por historiadores como tão próximo do cinema quanto um tal dispositivo poderia estar sem ser cinema. Segundo <xref ref-type="bibr" rid="B33">David Parkinson (1995, p. 12)</xref> escreve, “as animações encantadoras [de Reynaud] (...) trouxeram o cinema para o limiar da existência”. No entender de <xref ref-type="bibr" rid="B44">Robert Sklar (1993, p. 18)</xref>, o <italic>Théâtre Optique</italic> é uma “tela de entretenimento [que] falhou naquilo que o cinema viria a fornecer. Apenas a falta de um nome mais adequado deve tê-lo mantido distante de uma fama duradoura como um símbolo de frivolidade tecnológica, tal como o Stanley Steamer, o automóvel movido a vapor, que fracassou ao enfrentar o motor de combustão interna”! Para <xref ref-type="bibr" rid="B18">Peter Cowie (1971, p. 192)</xref>, o <italic>Théâtre Optique</italic> é um “reconhecimento” (visto que Reynaud usou fotografia no período mais tardio da operação desta) “de que o futuro pertencia à fotografia”. <xref ref-type="bibr" rid="B07">Noël Burch (1990, p. 9)</xref> observa isso como “uma espécie de beco sem saída”. <xref ref-type="bibr" rid="B01">Richard Abel (1994, p. 15)</xref> designa-o meramente como um lugar de exibição de filmes no momento em que surgiram os irmãos Lumière, Méliès, Pathé, etc. (O subtítulo de Abel diz tudo: “Cinema Francês, 1896-1914”). E, então, há a caracterização de Reynaud feita por <xref ref-type="bibr" rid="B38">Eric Rhode (1976, p. 25)</xref>, com estas palavras isoladas: “Émile Reynaud, que supostamente jogou suas máquinas no Sena”! Talvez, a passagem mais estranha e contundente esteja no índice remissivo de Steve <xref ref-type="bibr" rid="B31">Neale (1985)</xref> em <italic>Cinema and Technology: Image, Sound, Colour</italic>, no qual o <italic>Théâtre Optique</italic> é listado, mas sem a localização da página, a única entrada sem informação!</p>
+      <p>Em textos assim, que, de fato, o mencionam, não há análise real sobre Reynaud nem envolvimento com ele, nem com o <italic>Théâtre Optique</italic> por seus próprios méritos. Ao contrário, Reynaud é tipicamente marginalizado, apresentado como um acompanhamento opcional em relação ao curso/atração principal dos irmãos Lumière, bem como a própria animação é tratada em relação ao cinema. Ocasionalmente, a bajulação acompanha o escárnio, explícito ou implícito, de sua obra como sendo insuficientemente cinema, como acontece em certos casos com a própria animação. Nesse sentido, é exemplar o tratamento que Reynaud recebe das mãos de C.W. <xref ref-type="bibr" rid="B08">Ceram (1965)</xref> no texto canônico <italic>The Archaeology of Cinema</italic> (A Arqueologia do Cinema), que parece configurar o padrão para o tratamento equivocado que Reynaud sofreu, na melhor das hipóteses, nas histórias do filme em língua inglesa, que, de algum modo, lhe dão tratamento <italic>significante</italic>. Ceram está dividido, ao mesmo tempo elogiando e condenando Reynaud, dentro de seu projeto maior para diminuí-lo e marginalizá-lo. Ele escreve:</p>
+      <disp-quote>
+        <p>Os shows [de Reynaud] continuaram a atrair fregueses até bem depois de filmes genuínos serem oferecidos em numerosos cinemas. De fato, as imagens em movimento de Reynaud (...) têm um curioso encanto até hoje. Talvez isto baseie-se na irrealidade com a qual as figuras um pouco fantasmagóricas movem-se através de espaços curiosamente mortos (<italic>ibidem</italic>, p. 194).<xref ref-type="fn" rid="fn06">6</xref>
+				</p>
+      </disp-quote>
+      <p>Então, contradizendo o efeito da palavra <italic>genuíno</italic> (e dos dois usos de <italic>curioso</italic>), o autor dá uma reviravolta e declara: “de um ponto de vista relativo, a realização de Reynaud é extraordinária. Ele projetou imagens coloridas, contínuas e genuínas, numa época em que ninguém mais estava fazendo isso (...)”.</p>
+      <p>Todavia, qualquer reconhecimento significativo de Ceram (<italic>ibidem</italic>) em relação a Reynaud, neste caso, é imediatamente sabotado pelas palavras “ponto de vista relativo” e o fato de que, para Ceram, as “imagens coloridas, contínuas e genuínas” não poderiam ser consideradas, não mais do que as “imagens em movimento” de Reynaud, como “filmes genuínos”!</p>
+      <p>Com efeito, ao prosseguir, Ceram (<italic>ibidem</italic>) muda os termos de novo e volta-se contra qualquer <italic>quantum</italic> de reconhecimento de Reynaud que tenha aparecido até então, com estas palavras: “porém, com toda a objetividade, devemos reconhecer que Reynaud era um desenhista medíocre, um visionário encantador, mas dificilmente um artista...”</p>
+      <p>Quanto ao tratamento dado a Reynaud na literatura dos estudos de animação em língua inglesa, é decepcionante, não parece ser em larga medida melhor do que a sua contraparte nos <italic>Film Studies</italic>. Talvez, Donald Crafton tenha dado o tom e os termos para esse entendimento de Reynaud nos estudos de animação no mundo anglófono, mesmo que, ao tratar de Reynaud, siga a deixa de Ceram e não a de Stephenson. Nem, acrescento, a deixa de Robert Russett e de Cecile Starr (1976), que deram a Reynaud uma única sentença de reconhecimento em seu <italic>Experimental Animation: Origins of a New Art</italic> (Animação Experimental: Origens de uma Nova Arte), na página intitulada “<italic>A Note on the Origins of Animation</italic>” (Uma Nota sobre as Origens da Animação):</p>
+      <disp-quote>
+        <p>No início, toda animação era experimental. Provinha do Teatro Óptico (1892) de Émile Reynaud, o qual, embora não fotografado para reprodução em massa, superou outros dispositivos de movimento-ilusão (tais como o Phenakistiscópio de Joseph Plateau e o próprio Praxinoscópio de Reynaud) na habilidade para retratar uma história inteira diante de um grande público em uma tela maior do que o tamanho natural. (<xref ref-type="bibr" rid="B39">STARR; RUSSETT, 1976</xref>, p. 32)</p>
+      </disp-quote>
+      <p>O próprio subtítulo do livro pioneiro e igualmente canônico de <xref ref-type="bibr" rid="B19">Crafton (1982)</xref>, <italic>Before Mickey: The Animated Film 1898-1928</italic> (Antes de Mickey: O Filme Animado 1898-1928), já evidencia o problema, dado que o <italic>Thé</italic>â<italic>tre Optique</italic> de Reynaud estreou em 1892! Baseando suas análises em Ceram, que é de modo explícito indicado em rodapé, Crafton (<italic>ibidem</italic>, p. 6) coloca de lado todos os dispositivos ópticos anteriores a 1895 ao escrever: “uma certeza é que o cinema de animação não poderia ter existido antes de o cinema vir a existir por volta de 1895”. Ao fazer dos filmes de animação meramente “uma subespécie de filme [i.e. cinema <italic>live action</italic>] em geral”, Crafton (<italic>ibidem</italic>) maquinalmente exclui a possibilidade de considerar Reynaud um animador. De fato, afirma que Reynaud “tem sido de forma ludibriosa chamado de ‘o pai do desenho animado”’ (<italic>ibidem</italic>). Assim, a obra de Reynaud não é considerada animação por ele. No máximo, declara, mesmo deixando a questão para nós (como ficará claro na parte III deste <italic>paper</italic>): “porque seu aparelho utilizou muitos princípios gerais do cinema e porque ele projetou ‘imagens em movimento’ para um público, Reynaud pode ser legitimamente considerado um precursor do cinema” (<italic>ibidem</italic>, p. 7)! Depois, Crafton muda os termos de suas análises para o problema da influência, sugerindo:</p>
+      <disp-quote>
+        <p>Todavia, sua contribuição atual para a história do filme animado é mais romântica do que real. Conceitualmente, seus programas não estavam muito distantes dos <italic>shows</italic> de lanterna do século XIX, e não há sinais de que suas encantadoras peças de Pierrô tenham influenciado algum dos primeiros animadores. O método de desenhar de Reynaud, diretamente sobre o filme, tinha uma pequena instrução a oferecer (<italic>ibidem</italic>).</p>
+      </disp-quote>
+      <p>Permita-me interromper: acredito que alguém poderia ler o trabalho de pintura na película dos famosos animadores Norman McLaren e Len Lye como uma refutação de qualquer tentativa de considerar tal prática como não animação, não <italic>verdadeira</italic> animação, em outras palavras, uma defesa implícita de Reynaud como um animador. Crafton continua:</p>
+      <disp-quote>
+        <p>É improvável que algum dos pioneiros da animação tenha visitado suas produções no Musée Grévin (as quais, aliás, foram substituídas por projeções cinematográficas pouco depois de 1900), ou sequer sabido de seu trabalho. (<italic>ibidem</italic>)</p>
+      </disp-quote>
+      <p>Dadas as 500 mil pessoas que assistiram às projeções de Reynaud em 8 anos, é difícil compreender como Crafton pode dizer que é <italic>improvável</italic> que algum dos pioneiros da animação tenha feito isso.</p>
+      <p>Na verdade, para nós, a maior parte das asserções de Crafton é problemática, levantando sérios questionamentos sobre sua conclusão de que Reynaud não é um animador. De fato, quanto à questão da influência, em seu subsequente livro <italic>Émile Cohl, Caricature and Film</italic> (Émile Cohl, Caricatura e Filme), <xref ref-type="bibr" rid="B20">Crafton (1990, p. 91)</xref> revê sua posição, dizendo sobre Cohl: “é possível também que o protocinemático ‘Pantomimas Luminosas’ de Reynaud o tenha atraído”. Contudo, para fazer referência novamente a <italic>The Oxford History of World Cinema</italic>, na seção “<italic>Tricks and Animation</italic>”, <xref ref-type="bibr" rid="B20">Crafton (1990a, p. 71)</xref>, lamentavelmente, abstém-se de fazer qualquer menção a Reynaud, dizendo: “a história geral do filme animado começa com o uso de efeitos transitórios de trucagens em filmes por volta da virada do século” (pergunto: o que é o “geral” em “história geral”?!). Assim, nesta publicação que vende a si própria na capa como “A História Definitiva do Cinema Mundial”, Reynaud não merece sequer um olhar, seja em termos de história do filme de animação, seja do cinema!</p>
+      <p>Parece que, após <italic>Before Mickey,</italic> de Crafton, referências a Reynaud se tornaram raras em livros de língua inglesa sobre animação, apenas Giannalberto Bendazzi (em tradução), Paul Wells e Esther Leslie reconhecem sua existência. Por outro lado, pode-se questionar que, desde então, boa parte das publicações surgidas abordam temas diferentes da <italic>proto-animação</italic>, assim, a ausência de Reynaud não é algo calculado e levado em conta. De todo modo, gostaria de pensar que este artigo pode ajudar a iniciar tal retorno e reconsideração, até mesmo servir como uma recuperação de Reynaud, na verdade, uma reanimação, uma volta dos mortos, entre os quais ele estava, para os estudos de animação e <italic>Film Studies</italic>, paralelamente com o projeto maior de recuperar, de reanimar a história da animação para os estudos de animação, para os <italic>Film Studies</italic> e, sem dúvida, para todos os estudos.</p>
+      <p>Felizmente, a publicação italiana de 1988, de Bendazzi, <italic>Cartoons: Il Cinema d’Animazione 1888-1988</italic> foi traduzida e publicada em inglês, em 1994, como <italic>Cartoons: One Hundred Years of Cinema Animation</italic> (Cartoons: 100 Anos de Cinema de Animação). Com o seu tratamento e sua abordagem ponderados das invenções de Reynaud focados no <italic>Théâtre Optique</italic>, Bendazzi (1994, p. xv) começa a situá-lo a partir de Ceram e Crafton. Ele reconhece que “os primeiros <italic>shows</italic> animados (<italic>Pantomimes lumineuses</italic>, Paris, 1892)” foram os de Reynaud e o descreve como “o inventor da animação” (<italic>ibidem</italic>, p. 6), cuja:</p>
+      <disp-quote>
+        <p>(...) contribuição única (...) expandiu a dimensão do tempo e teoricamente abriu ilimitadas possibilidades para imagens em sucessão rápida (...). Daquele momento em diante, as imagens (...) iriam flutuar, contando uma história, formando um movimento narrativo (<italic>ibidem</italic>).</p>
+      </disp-quote>
+      <p>É também aqui, no Prefácio do livro, que encontramos a homenagem de Alexeïeff a Reynaud como inventor não apenas do filme de animação, mas do <italic>cinema</italic> como uma de suas formas<xref ref-type="fn" rid="fn07">7</xref>.</p>
+      <p>Quanto a <xref ref-type="bibr" rid="B49">Wells (1998)</xref>, em seu favor, devemos dizer que, em sua “Introdução” a <italic>Understanding Animation,</italic> faz referência à reivindicação de Stephenson, até mesmo cita sua apreciação laudatória palavra por palavra. Ao mesmo tempo, não está claro se ele subscreve a abordagem de Stephenson, dado que, até na citação, Wells categoriza o <italic>Théâtre Optique</italic> de Reynaud como “proto-cinema”, não parece considerá-lo animação e presume a “questão mais significativa” <italic>re</italic>: o <italic>Théâtre Optique</italic> é um caso de indústria, não de arte<xref ref-type="fn" rid="fn08">8</xref>. Em 2002, Wells parece rever sua posição, situando Reynaud sob o termo “proto-animação” no Glossário, em <italic>Animation: Genre and Authorship</italic> (Animação: Gênero e Autoria). <xref ref-type="bibr" rid="B50">Ali, Wells (2002, p. 136)</xref> afirma que o “<italic>Theatre</italic> [sic] <italic>Optique</italic> (...) pode reivindicar ser o primeiro mecanismo autêntico a aparentemente projetar imagens animadas em uma tela”. A palavra “aparentemente”, no entanto, continua inexplicada. Em todo caso, com essa publicação, Wells reconhece a natureza duplamente progênita de Reynaud – proto-cinema, proto-animação – embora, diferente de Stephenson, Alexeïeff e Bendazzi, ele hesite em nomeá-lo como animador.</p>
+      <p>Quanto a <xref ref-type="bibr" rid="B28">Leslie (2002)</xref>, refere-se a Reynaud em seu <italic>Hollywood Flatlands: Animation, Critical Theory and the Avant-Garde</italic> (Planícies de Hollywood: Animação, Teoria Crítica e as Vanguardas). Contudo, trata-o de forma apressada e, surpreendentemente, até se omite de afirmar com clareza que o <italic>Théâtre Optique</italic> não projetava apenas para “família e amigos” (<italic>ibidem</italic>, p. 3), mas para um público eventualmente em número de 500 mil espectadores, e outros detalhes-chave relacionados a isso, para não mencionar o postulado de que o papel de Reynaud fora decisivo em animar o filme de animação. Em vez de ser colocado em primeiro plano por Leslie, ele aparece largamente emaranhado na tessitura das páginas iniciais de seu texto, em que Émile Cohl, Étienne-Jules Marey e outros têm grande presença.</p>
+      <p>Aqui, devo acrescentar que <xref ref-type="bibr" rid="B29">Manovich (2001, 2002)</xref>, em <italic>The Language of New Media</italic>, ocupa-se do Teatro Praxinoscópico de Reynaud, de 1879, mas informa a data equivocada de 1892, sugerindo que ele quis se referir em vez disso ao <italic>Théâtre Optique</italic> de Reynaud, embora sua descrição pareça adequar-se melhor ao Teatro Praxinoscópico, principalmente porque seu parágrafo seguinte é sobre “os mais imediatos predecessores do cinema” e seu uso do <italic>looping</italic>. Mesmo aí onde esperarávamos abordagens até privilegiadas de Reynaud e seu <italic>Théâtre Optique</italic>, elas estão faltando. A contribuição singular de Reynaud é decepcionantemente preterida, tanto por Manovich quanto por Leslie.</p>
+      <p>Dessa forma, enquanto vários livros sobre animação nem ao menos referenciam Reynaud, mesmo entre aqueles que o fazem, vários lhe dão bem menos reconhecimento do que, a nosso ver, ele merece. Em suma, onde Reynaud é de algum modo considerado, tende-se a encontrar estudiosos do cinema em publicações de língua inglesa situando-o, não como um cineasta, ou não como um <italic>verdadeiro, genuíno</italic> cineasta, mas, em vez disso, como um precursor do filme, do cinema: um proto-cinemático. E estudiosos de animação em publicações de língua inglesa fazem o mesmo com a sua própria <italic>disciplina</italic>, situando-o não como um animador, ou não como um <italic>verdadeiro, genuíno</italic> animador, e na melhor das hipóteses, como um precursor da animação: como proto-animação.</p>
+    </sec>
+    <sec>
+      <title>III</title>
+      <p>Portanto, Reynaud sofreu uma histórica marginalização, até mesmo um apagamento, pelo cinema e por seus profissionais, a exemplo do que o cinema e seus profissionais fizeram com a animação em si; a literatura inglesa dos <italic>Film Studies</italic> pesquisada até agora e a literatura de língua inglesa de estudos sobre animação têm, em larga medida, duplicado isso. Assim, proponho que, se a animação tem sido marginalizada, e até apagada pelos <italic>Film Studies</italic>, Reynaud revela-se para mim o mais marginalizado, o mais apagado, a figura singular na história do cinema e da animação, e não apenas nos <italic>Film Studies</italic>, mas também nos estudos de animação. Sua contribuição é, em grande parte, não reconhecida, ou muito pouco admitida. Nesses livros que o postulam como “proto-cinemático” ou “proto-animador”, na melhor das hipóteses, Reynaud é tratado como um Moisés, um líder que traz seu povo para a Terra Prometida, mas não pode, ele mesmo, atravessá-la.</p>
+      <p>Todavia, para nós, alguma coisa dele deve fazer essa travessia, por dentro, com e sem aqueles que assim o fazem. Em outras palavras, ele é uma figura da fronteira, das bordas; e dessas que são sempre perturbadoras, até mesmo para o pensamento e para localizá-las. Para nós, uma tal figura é privilegiada em animação, porque é um <italic>in-betweener</italic>.<xref ref-type="fn" rid="fn09">9</xref> Um <italic>in-betweener</italic> como o espectro; e para mim, Reynaud é um espectro singular, transformando o proto- em proteu e assombrando, como as figuras em suas <italic>Pantomimes lumineueses</italic>, (o advento) não apenas (d)a animação, mas (d)o cinema, mesmo quando esse espectro (incluindo o de Reynaud) assombra os estudos de animação e os <italic>Film Studies</italic>.<xref ref-type="fn" rid="fn10">10</xref> Para nós, portanto, seu trabalho seria, ao mesmo tempo, filme de proto-animação e filme de animação, nem simplesmente filme de proto-animação nem filme de animação; ao mesmo tempo ambos, proto-cinema e cinema, nem meramente proto-cinema nem cinema; ao mesmo tempo, instituindo de modo singular o filme de animação e o cinema, instituindo singularmente todo filme como uma forma de animação.</p>
+      <p>Assim, não é de surpreender, e por várias razões, que Reynaud não seja bem conhecido no mundo anglófono, nem sequer como animador do filme animado. Todavia, e minhas palavras agora mesmo o indicaram, para mim e também para Alexeïeff e Stephenson, Reynaud fez mais com seu <italic>Théâtre Optique</italic>: ele animou não apenas o filme animado, mas o cinema.</p>
+      <fig id="f01">
+        <label>Fig.1</label>
+        <caption>
+          <title>Reynaud com o <italic>Théâtre Optique</italic></title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/46116dc002c57e01f30b8b65b32c7edfd972286f.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Não que pudesse haver um único animador do cinema, porém ele é privilegiado, na verdade, singular, em sua relação com isso. Foi seu aparelho que me levou a reivindicar em minha “Introdução” a <italic>The Illusion of Life</italic> que:</p>
+      <disp-quote>
+        <p>(...) o filme de animação não apenas precedeu o advento do cinema, mas o engendrou; que o desenvolvimento de todas essas tecnologias do século XIX – brinquedos ópticos, estudos em persistência da visão, o projetor, a tira de celuloide etc. –, <italic>exceto para a fotografia</italic>, deveria resultar em sua combinação/sintetização no aparelho de animação do <italic>Théâtre Optique</italic> de Émile Reynaud, em 1892; que, invertendo a sabedoria convencional [essa animação era o enteado do cinema, sua forma mais inferior, como uma criança para o adulto cinema (isto é, caso pertencesse ao cinema de algum modo)], o cinema pode então ser pensado como um “enteado” da animação. (<xref ref-type="bibr" rid="B09">CHOLODENKO, 1991</xref>, p. 9-10)<xref ref-type="fn" rid="fn11">11</xref>
+				</p>
+      </disp-quote>
+      <p>Uma inversão desse tipo jamais fez o cinema deixar de ser um “caso particular de animação”, e os <italic>Film Studies</italic>, como estudo de cinema, nunca foram um caso particular, portanto, de estudos de animação.</p>
+      <fig id="f02">
+        <label>Fig. 2</label>
+        <caption>
+          <title>Interior do Cabinet</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/3aea587e263fcc5611591d465415e228ef4e57c2.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f03">
+        <label>Fig. 3</label>
+        <caption>
+          <title>Fotografia exterior do museu com poster à esquerda</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/3ad428bcc880c06681fffaec4853cc6caf622ccd.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Ao assegurar sua patente para o <italic>Théâtre Optique</italic> em 14 de janeiro de 1889, Reynaud iniciou as projeções do que Ceram (1965), em <italic>Archaeology of the Cinema</italic>, chama de “imagens vivas” de Reynaud, no Cabinet Fantastique, do Museu Grévin em Paris, em 28 de outubro de 1892, eventualmente projetando seu <italic>Théâtre Optique</italic> 12.800 vezes para mais de 500 mil espectadores, como indiquei, até a <italic>performance</italic> de encerramento em 28 de fevereiro de 1900.<xref ref-type="fn" rid="fn12">12</xref>
+			</p>
+      <p>Ao olhar mais de perto essa imagem externa do Museu Grévin, pode-se ver, à esquerda, o poster de Jules Chéret para o que Reynaud chamava de “<italic>Pantomimes Lumineuses</italic>”.</p>
+      <p>Aqui, segue um <italic>close-up</italic> do poster.</p>
+      <fig id="f04">
+        <label>Fig. 4</label>
+        <caption>
+          <title>Poster de <italic>Pantomimes Lumineuses</italic></title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/f24fc3f2ac5bca6ce052677eb23dbeed4b89a245.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f05">
+        <label>Fig. 5</label>
+        <caption>
+          <title>Imagem de fitas de filmes</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/9af35f7ae4ea0fcf4a0b2c32f3946ac21b05be9c.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f06">
+        <label>Fig. 6</label>
+        <caption>
+          <title>Imagem da grande roda</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/0446838bdf86e1dda846ef9efd40358b25abab40.jpg"/>
+        </alternatives>
+      </fig>
+      <p>As projeções de Reynaud consistiam em filmes curtos (com ao menos 10 minutos de duração) de narrativas curtas, compostas por desenhos coloridos retroprojetados em uma tela para um público espectador. Os desenhos vinham sobre fitas de celuloide transparente<xref ref-type="fn" rid="fn13">13</xref>. Cada quadro era separado do seguinte por uma perfuração que funcionava (<xref ref-type="fig" rid="f06">imagem 6</xref>) com um pino na bobina metálica, essa grande roda, para mover os filmes para frente e para trás. Seu dispositivo de perfuração/pino havia sido nomeado pelo famoso historiador de filme francês <xref ref-type="bibr" rid="B40">Georges Sadoul (1945, p. 18)</xref> “a primeira forma de filme sem a qual o cinema teria sido apenas um sonho de um inventor imaginativo e romântico” e reivindicado por <xref ref-type="bibr" rid="B36">Paul Reynaud (1945, p. 31)</xref> como objeto de seu pai que fora “apropriado” pelos irmãos Lumière, para seu cinematógrafo<xref ref-type="fn" rid="fn14">14</xref>, o qual teve sua estreia pública em 28 de dezembro de 1895, três anos e dois meses depois do <italic>Théâtre Optique</italic> de Reynaud.</p>
+      <p>Na verdade, <xref ref-type="bibr" rid="B04">Dominique Auzel (1992, p. 60-62)</xref> relata que, em janeiro ou fevereiro de 1894, os irmãos Lumière pediram o favor de assistir, nos bastidores, ao funcionamento do aparelho operado por Reynaud, tanto quanto reitera a anedota de Maurice Noverre de que tiveram uma demonstração completa em sua fábrica, forçando Reynaud a comentar, posteriormente, que “esses homens vêm ver esses aparelhos com uma frequência um pouco demasiada”<xref ref-type="fn" rid="fn15">15</xref>. O argumento está, portanto, claramente construído, o de que Reynaud influenciou os irmãos Lumière, influência esta que eles jamais reconheceram. Uma questão é suscitada: é possível que, com um uso tão amplo do termo <italic>animado</italic>, os Lumière o evitassem em sua própria publicidade, seus programas impressos, etc., como um artifício para tentar mascarar sua relação com o <italic>Théâtre Optique</italic> de Reynaud, ao mesmo tempo que suas declarações publicadas parecem ter sempre evitado mencionar Reynaud?!<xref ref-type="fn" rid="fn16">16</xref> Outro ponto: na aplicação de patente para o <italic>Théâtre Optique</italic> de Reynaud, em 1º de dezembro de 1888, ele afirma: “as poses [sucessivas] podem ser desenhadas à mão ou impressas por qualquer procedimento de reprodução, em preto ou em cores, ou obtidas a partir da natureza <italic>por meio da fotografia</italic>” (<italic>les poses [successives] peuvent être dessinées à la main ou imprimées par un procédé quelconque de reproduction, en noir ou en couleurs, ou obtenues d’après nature</italic> par la Photographie) (<xref ref-type="bibr" rid="B37">REYNAUD, 1945</xref>, p. 58). Isso significa que Reynaud antevia seu dispositivo projetando não apenas imagens desenhadas, mas fotografadas, e poderia ter entrado com uma ação legal contra os irmãos Lumière (e Edison) por violação de patente.</p>
+      <p>Aqui vai outra imagem do <italic>Théâtre Optique</italic> de Reynaud.</p>
+      <fig id="f07">
+        <label>Fig. 7</label>
+        <caption>
+          <title>Segunda imagem do <italic>Théâtre Optique</italic></title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/7ecb390769f8e2ea6732a6baaa4185c986b00481.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Para mim, Reynaud e seu aparelho de animação se deparam com dois caminhos de uma só vez: para trás, em direção aos primeiros dispositivos de animação anteriores ao seu <italic>Théâtre Optique</italic>, até mesmo brinquedos filosóficos, entre eles os seus próprios, o Praxinoscópio e o Teatro Praxinoscópio – na verdade, de volta para o primórdio de dispositivos que oferecem a ilusão da vida e a vida da ilusão (incluindo autômatos e teatro de autômatos, a Fantasmagoria de Robertson, nos anos de 1790, etc. – tudo o que Ceram exclui da pré-história do cinema<xref ref-type="fn" rid="fn17">17</xref>) –, e, para frente, em direção ao cinema, ao Cinematógrafo (nome que os irmãos Lumière deram a seu dispositivo, mas que serve, para nós, como termo genérico para o aparelho cinematográfico), dispositivo que, a meu ver, do mesmo modo, anima a ilusão da vida e a vida da ilusão<xref ref-type="fn" rid="fn18">18</xref>.</p>
+      <fig id="f08">
+        <label>Fig. 8</label>
+        <caption>
+          <title>Sujets Animés</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/a7a97c078359ce1dc059c172144a9ba5ff03092e.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f09">
+        <label>Fig. 9</label>
+        <caption>
+          <title>Jouet d’optique</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/0f5bdddab886b169765db09fb295bff27dae4ac2.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f10">
+        <label>Fig. 10</label>
+        <caption>
+          <title>Praxinoscope-Théâtre</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/bcdf2d1e5bf68bf4d416a8efe4e2ae901834264e.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f11">
+        <label>Fig. 11</label>
+        <caption>
+          <title>Projections animées</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/9ffeb5b8c379195d199b8aab9dfead4e2eea1b2e.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f12">
+        <label>Fig. 12</label>
+        <caption>
+          <title>Appareil nouveau</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/405c1ce005fa6047f8eb22004c8cb36f440bb5a2.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f13">
+        <label>Fig. 13</label>
+        <caption>
+          <title>Poster do <italic>Musée Grévin</italic></title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/f96cdf4bc753372dc1c1bf2840995b48734ffc3d.jpg"/>
+        </alternatives>
+      </fig>
+      <p>De tal forma Reynaud acreditava estar fazendo animação, que isso estava ali para todos verem: ele colocou em primeiro plano o termo-chave <italic>animado</italic> na publicidade de seu trabalho. O termo segue adiante em suas propagandas para o Praxinoscópio em 1877 – “temas animados” e “temas animados a cores” (<xref ref-type="fig" rid="f08">imagem 8</xref>), em um anúncio, e “os desenhos animados do Praxinoscópio”, seu “brinquedo óptico produzindo a ilusão de movimento” (<xref ref-type="fig" rid="f09">imagem 9</xref>), em outro –, em seu anúncio do Teatro Praxinoscópio em 1879 – “cenas animadas curiosas” (<xref ref-type="fig" rid="f10">imagem 10</xref>) –, em seu anúncio de 1880 para as Projeções do Praxinoscópio – como “projeções animadas” e “temas que animam a si próprios” (<xref ref-type="fig" rid="f11">imagem 11</xref>) –, em sua vinheta publicitária de 1892 para o <italic>Théâtre Optique</italic> – “cenas animadas” (<xref ref-type="fig" rid="f12">imagem 12</xref>) –, e em seu programa posterior do <italic>Théâtre Optique</italic> – “projeções animadas” (<xref ref-type="fig" rid="f13">imagem 13</xref>).</p>
+      <p>Crucial para nossa temática, o termo-chave de Reynaud, <italic>animado</italic>, prossegue com a expressão-chave <italic>fotografias animadas</italic>, por meio da qual o <italic>cinema foi conhecido em seus primeiros tempos</italic>, ao menos na França, Inglaterra e colônias desta.</p>
+      <p>Se o espaço permitisse, eu teria desconstruído esta expressão demasiado carregada – <italic>fotografias animadas</italic> – de modo mais amplo do que o esquema simples a seguir, o qual, apesar de tudo, funciona: a animação – como gráficos animados, isto é, desenhos animados (escrituras animadas, também) – subordina o cinema – como um <italic>foto</italic>-gráfico animado, uma subcategoria do gráfico, cuja predicação é também marcada no termo familiar <italic>cinemato</italic>-grafia e que <xref ref-type="bibr" rid="B23">Jacques Derrida (1976, p. 9)</xref> explicitamente nomeia uma forma da grafia como escritura. Na medida em que a foto-<italic>grafia</italic> é um caso particular de grafia, a escritura/desenho com a luz; e a cinemato-<italic>grafia</italic> é um caso particular de <italic>grafia</italic>, a escritura/desenho com o movimento (<italic>kinema, kinesis</italic>), no caso da fotografia, a animação engloba e subordina ambas, a escritura/desenho com vida e movimento, a vida e o movimento de tudo e todos.</p>
+      <p>Assim, em resposta ao fato de os <italic>Film Studies</italic> terem expulsado a animação de seu campo, considerando-a uma não forma de filme e, em vez disso, uma forma do gráfico, gostaríamos de dizer que sim, a animação é uma forma do gráfico. Todavia, <italic>também o</italic> é o cinema, quer dizer, os <italic>Film Studies</italic> se equivocaram e erraram ao não considerar o cinema uma forma do gráfico! Forma de escritura e desenho, até mesmo do modo como Derrida trata do gráfico, e eu o faço seguindo Derrida em meus artigos “<italic>Who Framed Roger Rabbit, or the Framing of Animation</italic>” (Uma Cilada para Roger Rabbit, ou Uma Cilada para a Animação) e “<italic>The Illusion of the Beginning: A Theory of Drawing and Animation</italic>” (A Ilusão dos Primórdios: Uma Teoria do Desenho e Animação) (<xref ref-type="bibr" rid="B11">CHOLODENKO, 2000</xref>).</p>
+      <p>Em poucas palavras, a animação subordina o cinema. O cinema é uma forma de animação, um caso singular, uma forma reduzida e condicional de animação! E o <italic>Théâtre Optique</italic> de Reynaud é um exemplar privilegiado dessa subordinação do cinema à animação, seus gráficos animados projetados para um público em uma sala são cronologicamente anteriores, subentendem de modo lógico e gramatológico, modelam teoricamente, para não mencionar a possibilidade de influenciar, direta e historicamente, a animação de fotografias animadas dos irmãos Lumière e seus avatares.</p>
+      <p>Poderíamos acrescentar uma questão correlata: tal reviravolta significa que a animação não pode mais ser marginalizada pelos <italic>Film Studies</italic> do modo complacente que adotou, vendo-a como a mais baixa, a menos significativa forma de cinema, do filme.</p>
+      <p>Aqui, permita-me chamar sua atenção para algumas imagens que increvem a animação na primeira história do cinema, imagens que marcam seus realizadores como animadores, o que eles fizeram como animações, e seus exibidores como expositores da animação.</p>
+      <p>Primeiro, a Inglaterra e suas colônias. Aqui vai um anúncio britânico (<xref ref-type="fig" rid="f14">imagem 14</xref>) para o Teatrógrafo de Robert W. Paul em 1º de dezembro de 1896. Está escrito: “Fotografias animadas”.</p>
+      <fig id="f14">
+        <label>Fig. 14</label>
+        <caption>
+          <title>Paul’s Theatrograph</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/0cd4c48c23f1aa8e535c972d1e8024726f8775bc.jpg"/>
+        </alternatives>
+      </fig>
+      <fig id="f15">
+        <label>Fig. 15</label>
+        <caption>
+          <title>Exterior do <italic>Egyptian Hall</italic></title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/e4064787d7f61be47086b13b9509eb6b2e99fc0b.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Aqui, temos o exterior do Salão Egípcio em Londres, onde, em 1896, David Devant apresentou o Teatrógrafo de Paul – renomeado, significativamente para nossos propósitos, Animatógrafo – em seu show de magia. Note as palavras: “<italic>Improved animated photographs. The finest in London</italic>” (fotografias animadas aprimoradas. As mais refinadas em Londres).</p>
+      <p>Aqui, é necessária uma observação: na medida em que o termo de Paul, <italic>animatógrafo</italic>, marca para mim a inextricável coimplicação desconstrutiva do gráfico e da animação – ao mesmo tempo, a escritura/desenho da animação e a animação da escritura/desenho –, cujas coimplicações desconstrutivas eu elaboro a partir de Derrida em “<italic>Who Framed Roger Rabbit, or the Framing of Animation</italic>” e “<italic>The Illusion of The Beginning</italic>” e cujas formas nomeio como grafemático e o animático – e, na medida em que o <italic>Théâtre Optique</italic> de Reynaud atualiza essa coimplicação em sua performance, ele poderia ter sido chamado por esse nome, <italic>animatógrafo</italic>, subordinando o cinematográfico ao animatográfico.</p>
+      <p>A meu ver, o desenho precisa ser pensado de formas mais amplas, desafiadoras e complexas, por meio do grafemático e do animático.<xref ref-type="fn" rid="fn19">19</xref> A coimplicação de escritura/desenho – como o grafemático – e a animação – como o animático – significa que a escritura/desenho é uma forma de animação e esta, por sua vez, é uma forma de escritura/desenho. Como um exemplo privilegiado dessa coimplicação, o <italic>Théâtre Optique</italic> de Reynaud anima seus desenhos no processo de fazê-los aparecer e ao mesmo tempo desaparecer, na verdade, movendo-os adiante e retirando-os para então colocá-los novamente à mostra. Em todos os modos de desenho que eu delineio nesses dois artigos, até mesmo no âmbito do aparelho animatográfico, na verdade, animático, seguindo a lógica de ambos o grafemático e o animático, Reynaud está animando suas charmosas, encantadoras e sedutoras <italic>Pantomimas Luminosas</italic>, doravante para seu público nos teatros.</p>
+      <p>A consequência dessa coimplicação desconstrutiva do grafemático e do animático no <italic>animatográfico</italic> é que, ao transformar fotografias em fotografias animadas, isto é, em <italic>cinema</italic>, a animação duplica a si própria como uma animação atualizada pelo filme, da animação virtual presente desde sempre na fotografia como uma forma do gráfico. De modo que, agora, em vez de continuar a dizer que a animação engendrou, isto é, animou o cinema, <italic>exceto pela fotografia</italic>, podemos dizer que a animação animou o cinema <italic>incluindo a fotografia</italic>, incluindo a animação em fotografia, dado que a fotografia é a forma de animação que a animação reanimou como cinema.</p>
+      <p>Deve-se notar que isso constitui uma correção à diferença, que Stephenson esboça na citação acima, entre cinema como movimento (portanto, animação para ele) e cinema como fotografia (portanto, não animação para ele). Tal retificação é permitida porque localizamos o movimento (portanto, animação) na fotografia.</p>
+      <p>Assim, para todos aqueles teóricos do filme, como Siegfried Kracauer, no dizer de <xref ref-type="bibr" rid="B03">Dudley Andrew (1976, p. 111)</xref>, que fazem da “fotografia (...) o primeiro e básico ingrediente do cinema”, o que incluiria o outro teórico <italic>realista</italic> do filme, André Bazin, gostaríamos de propor que há dois ingredientes-chave <italic>anteriores</italic> à fotografia, incluindo e, a meu ver, subordinando gráfico e animação, cada um coimplicado no outro, inextricavelmente. A fotografia é uma forma de animação, do animatográfico, na verdade, do animático, uma proposição que eu desenvolvo não apenas em “<italic>The Illusion of the Beginning</italic>”, mas também em meu “<italic>Still Photography?</italic>”.</p>
+      <p>Nesse sentido, apesar de Gilles <xref ref-type="bibr" rid="B22">Deleuze (1986)</xref> afirmar em <italic>Cinema 1: A Imagem em Movimento</italic> que o fotograma é imóvel e que o cinema nos dá não o fotograma, mas, em vez disso, uma imagem intermediária, ele parece ao mesmo tempo insinuar que o fotograma não é absolutamente imóvel, mas, em vez disso, uma duração pequena de tempo e movimento. Diríamos que o fotograma (o <italic>still</italic> fílmico) anima e é animado por essa pequena duração.<xref ref-type="fn" rid="fn20">20</xref>
+			</p>
+      <fig id="f16">
+        <label>Fig. 16</label>
+        <caption>
+          <title>Poster do <italic>Egyptian Hall</italic></title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/2df4ef9e5d8b589a1468354505c04d3b1420e0f4.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Aqui, um poster do Salão Egípcio, apresentando o Mutagraph de John Neville Maskelyne, patenteado em 1897. Maskelyne era o diretor do Salão. Está escrito: “Fotografias animadas... As primeiras e (novamente) mais refinadas de Londres”.</p>
+      <fig id="f17">
+        <label>Fig. 17</label>
+        <caption>
+          <title>Carl Hertz</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/20cf609d557c82ff812bda9c139a2e05d5455813.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Temos aqui o primeiro poster de filme na Austrália, de Carl Hertz, 1896. Lê-se no alto: “A maior atração do século”. E, na parte de baixo: “Fotografias animadas em cores naturais”. Até onde eu pude precisar, foi o Animatógrafo de Paul que ele adquiriu e trouxe, e não o Cinematógrafo dos irmãos Lumière! Então, isso é um caso de propaganda enganosa!</p>
+      <fig id="f18">
+        <label>Fig. 18</label>
+        <caption>
+          <title>Charles Urban</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/5b78994b15eeb6f64cd630de30a71531564d2b3f.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Vemos aí a Companhia de Comércio de Charles Urban, em Londres, 1900, distribuindo os <italic>Star Films</italic> de Georges Méliès para o mundo. Na vitrine, pode-se ler: “Produtores e exportadores essenciais a todos os requisitos pertinentes à fotografia animada”.</p>
+      <p>E, agora, vão algumas imagens da França.</p>
+      <fig id="f19">
+        <label>Fig. 19</label>
+        <caption>
+          <title>Le Monde Animé par L’aléthorama</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/7901cada37412a543ad43908c5666bdc7378ef1a.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Primeiro, um poster de 1896 para “O Aléthorama”. Do significado grego de visão da verdade, de <italic>aletheia</italic>. Lê-se, arrebatadoramente, para nós: “<italic>Le Monde animé Par L’Aléthorama</italic>”. (O Mundo animado Pelo Aléthorama).</p>
+      <fig id="f20">
+        <label>Fig. 20</label>
+        <caption>
+          <title>Le Gioscope</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/ddab4d08d5209ccb960a6e0e93242f3e87c81ef7.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Segundo, um poster de 1899 para o Gioscope. Aqui, novamente: “<italic>Photographies animées</italic>” (Fotografias Animadas). Note-se a imagem, típica para o período, de um trem chegando na estação.</p>
+      <fig id="f21">
+        <label>Fig. 21</label>
+        <caption>
+          <title>Le Biophonographe</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/686f3c7468110cd1294b4a0ba2e560624d1f2201.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Terceiro, um poster de 1900 para o <italic>Biophonographe</italic> de Auguste Baron. Novamente (embora seja difícil perceber no feixe de luz do projetor): “<italic>Photographie animée et parlante</italic>” (Fotografia animada e falante).</p>
+      <fig id="f22">
+        <label>Fig. 22</label>
+        <caption>
+          <title>Ballon Cinéorama</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/e82ad4c4931410f3e7808c2680919fb28213742d.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Por último, um anúncio do Balão Cineorama de Raoul Grimoin-Sanson, para a Feira Mundial de 1900, em Paris. Lê-se: “<italic>La grande attraction nouvelle</italic>” (A Grande Nova Atração), com “<italic>Projections panoramiques animées</italic>” (Projeções Panorâmicas Animadas) escrito no balão.<xref ref-type="fn" rid="fn21">21</xref> Infelizmente, ele não “saiu do chão” como projeto.</p>
+      <fig id="f23">
+        <label>Fig. 23</label>
+        <caption>
+          <title>Das Lebende Bild</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/6237e7dbe6912bdfb315dec8c9bab31fb205d621.jpg"/>
+        </alternatives>
+      </fig>
+      <p>E, aqui, da Alemanha, uma imagem “<italic>Shop Cinema</italic>” de Karl Knubbel, em 1903, em Berlim. Lê-se: “<italic>Das lebende bild”</italic>. A Imagem em Movimento, a Imagem Viva. Esses termos, “animado” e “vivo”, usados antes do termo “fotografia<italic>”</italic>, assim como o próprio termo “fotografia<italic>”</italic>, por si só, serão deixados de lado em favor das expressões “imagens em movimento<italic>”</italic> (<italic>moving pictures</italic> – britânico) ou “figuras em movimento<italic>”</italic> (<italic>motion pictures</italic> – notadamente, América do Norte), quando ter conhecimento dessas imagens como “animadas<italic>”</italic>, como “vivas<italic>”</italic>, irá, do mesmo modo, desaparecer.</p>
+      <p>Todavia, a <italic>animação</italic> como termo não desaparece por inteiro. O fato de aparecer em nomes de brinquedos filosóficos proto-cinemáticos, nomes tão carregados como Zootrópio (o tropo, girando, da vida – W.G. Horner, 1834), Praxinoscópio (exibição de ações – <xref ref-type="bibr" rid="B37">Reynaud, 1877</xref>), Zoopraxinoscópio (visualização ao vivo – Eadweard Muybridge, 1880), Viviscópio (visualização da vida – criador e data desconhecidos) – que inscrevem a vida e o movimento da animação – e de passar igualmente aos nomes dos primeiros dispositivos cinemáticos, não apenas o Animatógrafo de Paul (UK) e o Mutagráfico de W.K.L. Dickson (USA), mas o Bioscópio (visualização da vida) – fez da palavra uma designação usada por tantos inventores que se tornou para <xref ref-type="fn" rid="fn12">Ceram (1965, p. 187)</xref> um termo evocando “mais que qualquer outro (...) os primeiros tempos da projeção”, quando, “para muitos, os seguidores das imagens dos primeiros tempos, aquela palavra mágica resumia todo o entretenimento”.</p>
+      <p>O nome Bioscópio foi usado por Jules Dubosq e Léon Foucauld em seus primeiros projetores, assim como por Georges Demeny, Birt Acres, Robert W. Paul, Charles Urban e, como <italic>Bioscop</italic>, pelos irmãos Skladanowsky, na Alemanha. E a esses nomes acrescentaríamos o Vitascópio (visualização da vida – USA), de J. Stuart Blackton. Tais animados e animantes nomes também significam para mim o dom do aparelho da animação em si, da vida e do movimento, até mesmo a reanimação do mundo e o tema que tenho proposto em uma variedade de publicações, que as palavras grandiosas no poster do Alethorama anunciam.<xref ref-type="fn" rid="fn22">22</xref>
+			</p>
+      <fig id="f24">
+        <label>Fig. 24</label>
+        <caption>
+          <title>Mutoscope</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/fefe2d713601f2d0f01950e4170f328931112bcd.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Na medida em que prefixos como <italic>bio-</italic> e <italic>vita-</italic> persistem em dispositivos cinemáticos, como o <italic>Biograph</italic>, e em nomes de companhias, tais como (i<xref ref-type="fig" rid="f24">magem 24</xref>) American Mutoscope e Biograph (fundada por Elias Koopman, Harry Marvin, Herman Casler e W.K.L. Dickson, em 1896) e Vitagraph (criada por J. Stuart Blackton e Albert Smith em 1897), a marca da animação igualmente persiste nesse registro para além dos primeiros cinco anos do século XX, como, aliás, tem sido no novo século, com o American Zoetrope de Francis Ford Coppola.<xref ref-type="fn" rid="fn23">23</xref> Obviamente, isso também ocorre com o <italic>Cinématographe</italic> (França), visto que registra a escritura do movimento. Do grego <italic>kinema, kinein</italic>, podemos entender <italic>figurar</italic> a animação como dotada de e com movimento, isto é, a escritura/desenho, como o fizeram o Kinetógrafo de Edison, como câmera fotográfica (1891), e seu Kinetoscópio, como aparelho de visualização (1891) antes dele.</p>
+      <fig id="f25">
+        <label>Fig. 25</label>
+        <caption>
+          <title>Cinématographe</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/9df5224abd674ce4e68c3276184ee4a6182eafe6.jpg"/>
+        </alternatives>
+      </fig>
+      <p>E essa marca da animação deve ser encontrada também na dedicatória em homenagem aos irmãos Lumière, no lado de fora do <italic>Grand Café</italic>, em cujo interior, eles apresentaram suas primeiras projeções em Paris, onde se lê: “Aqui, em 28 de dezembro de 1895, aconteceram as primeiras projeções públicas de fotografia animada com auxílio do aparelho cinematográfico inventado pelos irmãos Lumière” (<xref ref-type="bibr" rid="B04">AUZEL, 1992</xref>, p. 94).<xref ref-type="fn" rid="fn24">24</xref>
+			</p>
+      <fig id="f26">
+        <label>Fig. 26</label>
+        <caption>
+          <title>Empire Theatre Program</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/d7c8063c1b942f7c6250912f903060831902ac39.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Gostaria de reiterar minha afirmação de 1991, com o acréscimo das palavras “o aparelho animatográfico”, que deveria ser lida como: “fotografia animada com auxílio do aparelho animatográfico, o aparelho animático!” (exceto por causa da redundância!) (<xref ref-type="bibr" rid="B09">CHOLODENKO, 1991a</xref>, p. 19) – aparelho da ilusão de vida (<xref ref-type="fig" rid="f26">imagem 26</xref>) e a vida da ilusão, incluindo a <italic>foto</italic>grafia animada.</p>
+      <p>Observamos o Programa do <italic>Empire Theatre</italic>, em inglês, para os filmes dos irmãos Lumière e, na parte inferior, as seguintes palavras-chave “<italic>illusion of life</italic>” (ilusão da vida).</p>
+      <p>Na mesma fachada do prédio, que mostra a dedicatória em homenagem aos irmãos Lumière, Dominique Auzel (1992, p. 96) nos diz que há uma placa bem pequena (tanto que não percebi quando lá estive), muito frágil, um <italic>post-scriptum</italic> ou um codicilo para a gravura indelével consagrada aos irmãos Lumière, no qual se pode ler: “Para Reynaud, Marey, Demeny, Lumière e Méliès, pioneiros do cinema, homenagem dos profissionais, por ocasião do cinquentenário 28-12-1945”.</p>
+      <p>Ora, essa organização considerou Reynaud um pioneiro do cinema!</p>
+      <fig id="f27">
+        <label>Fig. 27</label>
+        <caption>
+          <title>Musée Grévin Tableau</title>
+        </caption>
+        <alternatives>
+          <graphic xlink:href=""/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/1982-2553/dqR6y8bPFVVQnxnFHY66ZZK/4f61baf3e91f36bc307ea40fbed032f95e966ec5.jpg"/>
+        </alternatives>
+      </fig>
+      <p>Aqui, mostro um incrível <italic>tableau</italic> (“<italic>non-vivant</italic>”), instalado no Museu Grévin. Vi, pessoalmente, oito anos atrás. Apresenta Émile Reynaud demonstrando seu <italic>Théâtre Optique</italic> a Georges Méliès, em pé à esquerda, Auguste Lumière, sentado à esquerda, Louis Lumière, sentado à direita, e Gabriel Thomas, diretor do museu, em pé, atrás de Reynaud, à direita.</p>
+      <p>De certo, isso animou meu pensamento sobre as relações da animação com o cinema!</p>
+      <p>E isso inclui como alguém deve pensar nesta afirmativa de Manovich:</p>
+      <disp-quote>
+        <p>(...) a construção manual de imagens no cinema digital representa um retorno às práticas pro-cinemáticas do século XIX, quando imagens eram pintadas e animadas à mão. Na virada do século XX, o cinema iria delegar essas técnicas manuais à animação e definir-se como mídia de gravação. À medida que o cinema entra na era digital, essas técnicas vão se tornando novamente lugar-comum no processo de filmagem. Consequentemente, o cinema não pode mais ser claramente diferenciado da animação. (<xref ref-type="bibr" rid="B29">MANOVICH, 2001, 2002</xref>, p. 295)</p>
+      </disp-quote>
+      <p>Essa imagem de Reynaud demonstrando seu <italic>Théâtre Optique</italic> aos irmãos Lumière e a Georges Méliès ilustra as afirmações que propus e as análises que desenvolvi, sustenta uma proposição bem diferente e uma mudança na reivindicação de Manovich. A animação delegou sua subforma, o fotográfico, ao cinema e, portanto, o cinema jamais poderia ser claramente distinto da animação! Isso quer dizer também que, depois de tanto tempo na sombra dos irmãos Lumière (<italic>lumière</italic>, é claro, significa “luz” em francês) e de Méliès, com a minha análise e aquela mudança, Reynaud passa a ser visto como jamais tendo estado na sombra deles, fazendo-os juntar-se a ele em sua sombra, seu espectro. Isso também significa que o filme digital “retorna às práticas pro-cinemáticas do século XIX, quando imagens eram pintadas e animadas à mão”, como declara Manovich. É um retorno pre-eminente para nós a Reynaud, primeiro “pintor do filme”, exatamente como Auzel afirma, que não fora abandonado pelo filme digital nem jamais o deixou”<xref ref-type="fn" rid="fn25">25</xref>.</p>
+      <p>Eu os deixo com uma imagem e sua proposição, com a esperança de que animem seu pensamento sobre as relações da animação com o cinema, um pensamento que, para mim, também deve reanimar aquele espectro que assombra não apenas o filme de animação, mas o cinema, que assombra, na verdade, não apenas o filme de animação, mas seu próprio advento, o espectro cujo nome é Émile Reynaud.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn fn-type="other" id="fn01">
+        <label>1</label>
+        <p>Ver: <xref ref-type="bibr" rid="B06">BROADFOOT, K.; BUTLER, R., 1991</xref>.</p>
+      </fn>
+      <fn fn-type="other" id="fn02">
+        <label>2</label>
+        <p><xref ref-type="bibr" rid="B09">CHOLODENKO, 1991a</xref>, p. 10, 22, 23 e 29. Ver também: CHOLODENKO, “<italic>Who Framed Roger Rabbit, or the Framing of Animation</italic>”, 1991b, p. 213. Permitam-me acrescentar aqui: Manovich não é o primeiro e único, depois de mim, a postular que todo filme é uma forma de animação. <xref ref-type="bibr" rid="B26">Griffin (1994, p. 107)</xref> o fez em seu “<italic>Pronoun Trouble: The ‘Queerness’ of Animation</italic>”.</p>
+      </fn>
+      <fn fn-type="other" id="fn03">
+        <label>3</label>
+        <p>Uma complicação das datas surge aqui: <xref ref-type="bibr" rid="B24">Driscoll (2002, p. 270)</xref> afirma que Imamura “publicou os primeiros ensaios do seu <italic>Theory of Animation</italic>, de 1948, na mesma época de seu mais famoso texto de 1940, <italic>Theory of Documentary Film</italic>”. Então, se os primeiros ensaios de Imamura foram publicados em 1940 e, tal como Naum Kleiman (1988, p. xii) escreve na “Introdução” a <italic>Eisenstein on Disney</italic>, “os primeiros fragmentos de <italic>Disney</italic> foram escritos em setembro e outubro de 1940”, não apenas os primeiros ensaios de Imamura e seu livro foram publicados décadas antes, eles foram possíveis, não apenas publicados, mas escritos antes que Eisenstein elaborasse os primeiros fragmentos do que se tornaria <italic>Eisenstein on Disney</italic>. Uma pesquisa posterior seria necessária aqui, porém, basta dizer que 1940 surge como um ano-chave para dois textos decisivos sobre a animação.</p>
+      </fn>
+      <fn fn-type="other" id="fn04">
+        <label>4</label>
+        <p>Como se pode inferir de minha discussão segundo a qual ainda não há, infelizmente, monografias sobre Reynaud em inglês, há três publicações em francês, nenhuma das quais, obviamente, traduzida para o inglês e em cujas informações eu tenho baseado minhas análises. Tais obras serviram para resgatar Reynaud, na França, do histórico esquecimento forjado por lá, não apenas pelo cinematógrafo dos irmãos Lumière e o cinema que se seguiu a partir dele, mas por aqueles que escreveram a história do cinema, incluindo a do cinema francês. As monografias reanimadoras de Reynaud são: <italic>La Verité sur l’invention de la projection animée:</italic> Émile <italic>Reynaud, sa vie et ses travaux</italic> (<xref ref-type="bibr" rid="B32">NOVERRE, 1926</xref>); Émile <italic>Reynaud, Peintre de films 1844-1918</italic> (L’OFFICE FRANÇAIS D’EDITION, 1945) e Émile <italic>Reynaud et l’image s’anima</italic> (<xref ref-type="bibr" rid="B04">AUZEL, 1992</xref>). A de Noverre ocupa o lugar de honra ao ser o primeiro livro ou, no caso, uma brochura, cujo objetivo é fazer Reynaud ressurgir, retornar à visibilidade e ser reconhecido por suas contribuições. Em seu prefácio, o próprio <xref ref-type="bibr" rid="B32">Noverre (1926, p. 5)</xref> é congratulado por ensinar ao mundo todo que “o inventor das projeções animadas e da cinematografia em movimento contínuo do filme é Émile Reynaud, um francês”. De fato, a invocação de um <xref ref-type="bibr" rid="B37">Reynaud Prometeu (<italic>ibidem</italic>, p. 61)</xref> feita por Noverre é reiterada por <xref ref-type="bibr" rid="B02">Alexeïeff (1994, p. xix)</xref>.</p>
+        <p>Quanto ao livro primoroso de <xref ref-type="bibr" rid="B04">Auzel (1992, p. 43-44)</xref>, o qual repete a história de Sadoul sobre essa projeção de fotografias animadas, primeira no mundo, diante de numerosas personalidades e antecipando em treze anos aquela dos irmãos Lumière, alguém poderia apenas desejar que fosse imediatamente traduzida para o inglês. Para Auzel (<italic>ibidem</italic>, p. 48), Reynaud, com seu aparelho <italic>Théâtre Optique</italic>, patenteia “a alma da projeção animada”. Por causa disso, Auzel (<italic>ibidem</italic>, p. 104) afirma que Reynaud é o “criador da sétima arte”, isto é, do cinema. Todavia, em nenhum lugar pude encontrá-lo afirmando explicitamente que o cinema fotográfico é uma forma de animação. Em vez disso, enfatiza as diferenças entre animação e cinema em Reynaud, o qual via o cinema como “vulgar e ‘antiartístico’” (<italic>ibidem</italic>, p. 101), usou fotografia e, quando o fez, como um meio, não um fim, sempre retocou a imagem fotográfica com seu próprio desenho e pinturas. De fato, Auzel (<italic>ibidem</italic>, p. 110) designa Reynaud como “pintor de filmes”, reiterando o título da monografia de 1945, a primeira na história do cinema. Também distingue entre os <italic>dessins animés</italic> (desenhos animados) e <italic>filmes de animação</italic> “no sentido estrito do termo: reprodução cinematográfica de desenhos inteira e anteriormente realizados”, dizendo que Reynaud “não é o primeiro a ter realizado um filme de animação”, considerando-o “um dos mais imediatos precursores do <italic>film d’animation</italic>”. Ele apoia essa distinção declarando que “o cinema de animação foi inventado duas vezes na França. Primeiro, vinte anos, bem antes (...) com Reynaud, pioneiro desafortunado e desencorajado, depois por um outro pioneiro solitário, Émile Cohl” (<italic>ibidem</italic>, p. 107). Na medida em que o sentido estrito do termo define, a meu ver, uma forma de filme de animação e Reynaud animou o filme <italic>como tal</italic>, criou não apenas o filme de animação, mas a animação de filme, a distinção de Auzel não é determinante para o nosso debate. De fato, não importa quão esforçadamente Auzel tente obrigar a definir Reynaud, e ele o tenta com bastante empenho, para nós, ele parece escorregar após uma série de posições contraditórias. Por exemplo, Reynaud fez <italic>dessin animé</italic>, mas ele não fez <italic>dessin animé</italic>; a obra de Reynaud é um microcosmo de cinema, mas não é cinema; seu trabalho está deste ou daquele lado do cinema; ele é o criador da sétima arte, mas ele não fez, de fato, era antagonista ao cinema, etc.</p>
+        <p>Acrescento: não apenas Auzeul (<italic>ibidem</italic>) declara Reynaud “criador da sétima arte”, do cinema, procurando por sua origem em sua obra, como é parcialmente antecipador do que Manovich virá nos dizer em 2001:</p>
+        <p>
+          <disp-quote>
+            <p>No momento do <italic>animatique</italic> (ou animação de imagens sintéticas de computador), último campo de exploração do cinema imagem por imagem, o paradoxo é que o cinema fotográfico constitui um parêntese frágil, enquanto o de Émile Reynaud, com seu conceito de ‘animação de um suporte’, permanece operativo e exemplarmente nas fronteiras das tecnologias de ponta (<xref ref-type="bibr" rid="B29">MANOVICH, 2001</xref>, p. 22).</p>
+          </disp-quote>
+        </p>
+        <p>Ele acrescenta: “o <italic>animatique</italic> (...) é certamente o último campo de exploração do cinema sem câmera, prefigurado por Reynaud” (<italic>ibidem</italic>, p. 109). Em outras palavras, a animação de computador é o avatar do <italic>Théâtre Optique</italic> de Reynaud e dos filmes animados que ele criou. Contudo, em nenhum lugar, como disse, encontrei Auzel explicitamente declarando que o cinema fotográfico é uma forma de animação. Longe disso, parece desejar manter a diferença entre eles. Por fim, recentemente, uma história do cinema francês foi traduzida para o inglês, qual seja, <italic>Cinema is 100 Years Old</italic> (<xref ref-type="bibr" rid="B46">TOULET, 1995</xref>). Nele, Emmanuelle Toulet (<italic>ibidem</italic>, p. 70-71) traz uma seção sobre Reynaud, intitulada “O Filme Animado Nasceu”, mas ela sugere, contraditoriamente, que o <italic>Théâtre Optique</italic> “o levou ao limiar da invenção do filme”.</p>
+      </fn>
+      <fn fn-type="other" id="fn05">
+        <label>5</label>
+        <p>Em alguns índices remissivos, a palavra aparece ocasionalmente. Todavia, em geral, é apenas uma referência! E esta é frequentemente um desperdício, dando a sensação de que se está livre para ignorar a consideração sobre a animação seja de quem for! Como em <italic>The Major Film Theories</italic> (<xref ref-type="bibr" rid="B03">ANDREW, 1976</xref>), em que aparece sob “<italic>Animated Film</italic>” (Filme Animado), que se refere a Siegfried Kracauer ter se sentido livre para ignorá-la em sua consideração da natureza do cinema como baseado na fotografia.</p>
+      </fn>
+      <fn fn-type="other" id="fn06">
+        <label>6</label>
+        <p>Esta caracterização do fantasmal e do morto cruza-se com meus “<italic>The Crypt, the Haunted House, of Cinema</italic>” (<xref ref-type="bibr" rid="B12">CHOLODENKO, 2004</xref>); “<italic>Still Photography</italic>?” (<xref ref-type="bibr" rid="B13">CHOLODENKO, 2005</xref>), republicado no <italic>site</italic> do <italic>International Journal of Baudrillard Studies</italic> (2008); tanto quanto com o meu <italic>“(The) Death (of) the Animator, or: The Felicity of Felix</italic>”, partes I e II. A parte II está em <italic>Animation Studies</italic>, no <italic>site</italic> da <italic>Society for Animation Studies</italic> (<xref ref-type="bibr" rid="B17">CHOLODENKO, 2007d</xref>). A parte I irá juntar-se àquela em breve. Ver nota 10 <italic>infra</italic>.</p>
+      </fn>
+      <fn fn-type="other" id="fn07">
+        <label>7</label>
+        <p>E Bendazzi também faz homenagem a Reynaud como artista, um reconhecimento, ao contrário do desdém de Ceram. Nesse sentido, eles seguem <xref ref-type="bibr" rid="B40">Georges Sadoul (1945, p. 24)</xref>, que é só elogios quanto ao lado artístico em Reynaud, dizendo de seu <italic>Autour d’une cabine</italic>: “para voltar a ver um desenho animado com tal duração, tal perfeição e espírito, será necessário aguardar o amadurecimento de Walt Disney”. Ver também <xref ref-type="bibr" rid="B41">Sadoul (1972a, p. 215)</xref>, em que há uma entrada para Reynaud, descrevendo-o como “criador imaginativo dos desenhos animados do pré-cinema, que foi o primeiro a organizar apresentações regulares de imagens animadas (em cores e com acompanhamento sonoro) no <italic>Musée Grévin</italic> em Paris, em 1892. Um artista de gênio e um maravilhoso ‘pintor no filme’”. E <xref ref-type="bibr" rid="B42">Sadoul (1972b, p. 19, 278)</xref>, curiosamente, nomeia <italic>Pauvre Pierrot</italic> (1891) e <italic>Autour d’une cabine</italic> (1894), ambos de Reynaud, “as primeiras obras-primas do desenho animado”! De fato, <xref ref-type="bibr" rid="B04">Auzel (1992, p. 112)</xref> afirma sobre Sadoul: “certos historiadores do cinema, como Georges Sadoul, têm razão em considerar a obra de Reynaud como um momento capital da criação cinematográfica e do cinema de animação (...)”.</p>
+      </fn>
+      <fn fn-type="other" id="fn08">
+        <label>8</label>
+        <p>Em sua brochura anterior, <italic>Around the World in Animation</italic>, <xref ref-type="bibr" rid="B48">Wells (1997)</xref> também situou Reynaud em termos de cinema, ao escrever sobre o “proto-cinema pioneiro do <italic>Théâtre Optique</italic> criado pelo francês Émile Reynaud”.</p>
+      </fn>
+      <fn fn-type="other" id="fn09">
+        <label>9</label>
+        <p>Ver meu ensaio “<italic>Who Framed Roger Rabbit</italic>”, sobre esta figura <italic>re</italic>: o quadro, o litoral, etc.</p>
+      </fn>
+      <fn fn-type="other" id="fn10">
+        <label>10</label>
+        <p>Ver meu trabalho sobre o espectro e o <italic>Cryptic Complex</italic> como figuras privilegiadas da animação, cinema, filme e fotografia nos artigos listados na nota 6 <italic>supra</italic>.</p>
+      </fn>
+      <fn fn-type="other" id="fn11">
+        <label>11</label>
+        <p>Ver também o que <xref ref-type="bibr" rid="B06">Broadfoot e Butler (1991, p. 284)</xref> dizem sobre Reynaud. Ao mesmo tempo que nomeio Reynaud na “Introdução” e em meu ensaio “<italic>Who Framed Roger Rabbit</italic>” (<xref ref-type="bibr" rid="B09">CHOLODENKO, 1991</xref>, p. 113), este ensaio retoma e desenvolve a partir de tais inscrições, procurando elaborar e, portanto, reanimar o lugar de Reynaud na história do filme de animação e animação do filme.</p>
+      </fn>
+      <fn fn-type="other" id="fn12">
+        <label>12</label>
+        <p>Ver: <xref ref-type="bibr" rid="B08">CERAM, 1965</xref>, p. 193-194; e <xref ref-type="bibr" rid="B04">AUZEL, 1992</xref>, p. 75. Ver também: <xref ref-type="bibr" rid="B35">QUIGLEY, 1948</xref>, p. 147-148. De imediato, Quigley (<italic>ibidem</italic>, p. 148) também destaca a contribuição de Reynaud por seu “pioneirismo no uso dramático da mídia, tanto quanto introdutor de dispositivos técnicos os quais foram prontamente adaptáveis ao uso de imagens em movimento”, porém, ao mesmo tempo, situa-o como um <italic>showman</italic> de sombras mágicas que influenciou a arte-ciência “da válida imagem em movimento” (<italic>ibidem</italic>) muito mais do que pertencendo a isso. Gostaria de dizer que Reynaud, tal como a (sua) animação, assustadoramente duplica o cinema, pertencendo-lhe sem pertencer-lhe. É uma parte e aparte dele ao mesmo tempo, um pertencimento assustador que “provoca mal-estar à verdadeira propriedade do próprio pertencimento”, para citar William Schaffer, com referência a “<italic>Who Framed Roger Rabbit</italic>”. Ver: <xref ref-type="bibr" rid="B43">SCHAFFER, 2007</xref>, p. 483, n. 2.</p>
+      </fn>
+      <fn fn-type="other" id="fn13">
+        <label>13</label>
+        <p>Que ele tenha usado tiras ou fitas de celuloide é assegurado por <xref ref-type="bibr" rid="B45">Stephenson (1973, p. 25)</xref>, <xref ref-type="bibr" rid="B19">Crafton (1982, 1987, p. 7)</xref> e <xref ref-type="bibr" rid="B20">Crafton (1990, p. 122)</xref>. <xref ref-type="bibr" rid="B05">Bendazzi (1994, p. 5)</xref> diz “uma grande fita, um verdadeiro filme com o apoio de uma tela...”. Em <xref ref-type="bibr" rid="B40">Sadoul (1945, p. 63)</xref>, lê-se: “uma série horizontal de imagens desenhadas sobre cristaloide (placa de gelatina)”. Toulet também diz que ele pintava as imagens em gelatina. A imagem da fita em Auzel (<xref ref-type="bibr" rid="B46">TOULET, 1995</xref>, p. 61) surge para mostrar uma tira sozinha de celuloide. O filme de Celuloide (nitrato de celulose) foi inventado nos anos de 1880 e Reynaud aparenta ter tirado vantagem disso para o seu <italic>Théâtre Optique</italic>. Todavia, seja celuloide ou gelatina (como um distinto do celuloide), uma coisa parece clara: suas tiras ou fitas não eram feitas de placas de vidro, como havia sido sugerido.</p>
+      </fn>
+      <fn fn-type="other" id="fn14">
+        <label>14</label>
+        <p><xref ref-type="bibr" rid="B37">Paul Reynaud (1945, p. 31)</xref>, o filho de Émile, fez tal afirmação em <italic>L’Office Français d’édition</italic> (repetida em Auzel [1992, p. 49]). Ver os debates sobre a controvérsia em torno da placa dedicada aos Lumière no Apêndice à publicação de Noverre, de 1926, em particular, os comentários de Pierre Noguès, especialmente sua carta publicada em réplica a outra dos irmãos Lumière, na qual reivindicam o privilégio da invenção da cinematografia. <xref ref-type="bibr" rid="B32">Noguès (1926, p. 84)</xref> sustenta o argumento de que o sistema de perfuração criado por Reynaud seria a base para o Cinematógrafo Lumière, cuja glória e sucesso, segundo ele, são exclusivamente devidos àquele.</p>
+      </fn>
+      <fn fn-type="other" id="fn15">
+        <label>15</label>
+        <p><xref ref-type="bibr" rid="B36">Paul Reynaud (1945, p. 31)</xref> também registra a visita aos bastidores e reflete sobre ela. Reynaud também observa que Thomas Alva Edison veio ver o <italic>Théâtre Optique</italic> de seu pai na Exposição Universal em Paris, no ano de 1889 (<italic>ibidem</italic>, p. 30-31), algo que Auzel também constata, acrescentando que os irmãos Lumière, igualmente, o viram lá (<italic>ibidem</italic>, p. 48). Ambos, Paul Reynaud e Auzel concluem que Edison, tanto quanto os irmãos Lumière, falsificou o sistema de perfuração patenteado e criado por Reynaud.</p>
+      </fn>
+      <fn fn-type="other" id="fn16">
+        <label>16</label>
+        <p>Além disso, Auzel (1992, p. 62) comenta que a resenha sobre o aparelho dos Lumière em <italic>La Revue générale</italic>, ao concluir com estas palavras – “<italic>Le cinématographe permet de montrer à toute une assemblée, en les projetant sur un écran, des scènes animées, durant près d’une minute</italic>” (O cinematógrafo permite mostrar cenas animadas projetadas sobre uma tela, para um público, durante quase um minuto) –, visto não ser encontrada a palavra <italic>fotográfico</italic> entre <italic>cenas</italic> e <italic>animadas</italic>, “subentende uma negação total do <italic>Théâtre Optique</italic>”. Contudo, para nós, o verdadeiro termo <italic>animado</italic> serve para inscrever Reynaud, seu uso, em um reconhecimento implícito.</p>
+      </fn>
+      <fn fn-type="other" id="fn17">
+        <label>17</label>
+        <p>As várias exclusões de <xref ref-type="bibr" rid="B08">Ceram (1965, p. 15, 17, 21)</xref> como desempenhando “nenhum papel na história da cinematografia” incluem: “<italic>cenas</italic> animadas”, teatros de sombra chineses, indianos e javaneses, os autômatos barrocos, o teatro de marionetes, “o escritor” de “Jacques Dros” [sic] e as sugestões de “Heron [sic] de Alexandria” de seu <italic>Peri automatopoietikes</italic> (Construção de Teatros Autômatos). Ver: “<italic>Speculations on the Animatic Automaton</italic>” (<xref ref-type="bibr" rid="B15">CHOLODENKO, 2007b</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn18">
+        <label>18</label>
+        <p>Para uma enumeração de todos os modos segundo os quais o <italic>Théâtre Optique</italic> prefigurou o cinema, incluindo as trucagens de Méliès, o cinema sonoro, o musical, o filme a cores, etc., ver: <xref ref-type="bibr" rid="B04">AUZEL, 1992</xref>, p. 94-114. E isso inclui, obviamente, a inauguração da narrativa fílmica por Reynaud.</p>
+      </fn>
+      <fn fn-type="other" id="fn19">
+        <label>19</label>
+        <p>Um argumento dado por mim em “<italic>The Illusion of the Beginning</italic>” (<xref ref-type="bibr" rid="B11">CHOLODENKO, 2000</xref>, p. 10). Também meus artigos “<italic>Who Framed Roger Rabbit</italic>” (<italic>idem</italic>, 1991b) e “<italic>The Illusion of the Beginning</italic>” se empenham em fazê-lo, bem como meu “<italic>Still Photography?</italic>” (<italic>idem</italic>, 2005). “<italic>The Illusion of the Beginning</italic>” trata do gráfico como desenho, pensado a partir de Derrida, de Baudrillard e de Borges, relacionando-o com a animação. Meu ensaio “<italic>Who Framed Roger Rabbit</italic>” debate o gráfico como escritura, pensado a partir de Derrida, vinculando-o à animação, enquanto meu “<italic>Still Photography?</italic>” discute o gráfico como fotografia e filme, pensado a partir de Baudrillard, relacionando-o com a animação. Uso o termo <italic>animático</italic> em todos esses ensaios e o termo <italic>grafemático</italic> em “<italic>The Illusion of the Beginning</italic>”.</p>
+      </fn>
+      <fn fn-type="other" id="fn20">
+        <label>20</label>
+        <p>Portanto, relacionando Deleuze com Jean Baudrillard, como eu o faço sobre a <italic>stillness</italic> da fotografia em “<italic>Still Photography?</italic>” (<xref ref-type="bibr" rid="B13">CHOLODENKO, 2005</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn21">
+        <label>21</label>
+        <p>Para mim, a demarcação de fotografias animadas como “<italic>The greatest attraction of the century</italic>” no poster de Carl Hertz, no ano de 1896, e, aqui, como “<italic>The Grand New Attraction</italic>” aproxima meus artigos da noção canônica elaborada por Tom Gunning, de “cinema de atrações”, especialmente meu “<italic>The Crypt, the Haunted House, of Cinema</italic>” (<xref ref-type="bibr" rid="B12">CHOLODENKO, 2004</xref>) e “<italic>(The) Death (of) the Animator, or: The Felicity of Felix</italic>”, Part II (<italic>idem</italic>, 2007d). O ponto mais significante no retorno ao envolvimento com Gunning neste último artigo é que, ao elaborar a natureza de seu cinema de atrações, Gunning involuntariamente torna a animação a primeira, a última e permanente atração de cinema, portanto, também involuntariamente torna seu cinema de atrações, animação de atrações.</p>
+      </fn>
+      <fn fn-type="other" id="fn22">
+        <label>22</label>
+        <p>Sobre essa reanimação, ver: CHOLODENKO, 1991, p. 18, 21 e 36, nota 34; <italic>idem</italic>, 2004, p. 110-111; <italic>idem</italic>, <xref ref-type="bibr" rid="B14">2007a</xref>, p. 20-23, 69; e <italic>idem</italic>, 2007b, p. 496.</p>
+      </fn>
+      <fn fn-type="other" id="fn23">
+        <label>23</label>
+        <p><italic>Muta</italic>- e <italic>muto</italic>-, como em Mutoscópio, do latin <italic>mutare</italic>, mudar, são prefixos que também demarcam a animação, na medida em que a animação tem a ver com mutação, metamorfose.</p>
+      </fn>
+      <fn fn-type="other" id="fn24">
+        <label>24</label>
+        <p>A dedicatória também é citada em <xref ref-type="bibr" rid="B10">Cholodenko (1991, p. 19)</xref>. Nota: Auzel diz que a inscrição para os Lumière é gravada diretamente na fachada do número 14 do <italic>Boulevard des Capucines</italic>. Não recordo disso. De fato, pensava ter visto uma placa, conforme disse em Cholodenko, 1991. Contudo, não percebi a placa dedicada aos outros!</p>
+      </fn>
+      <fn fn-type="other" id="fn25">
+        <label>25</label>
+        <p>Quando <xref ref-type="bibr" rid="B29">Manovich (2001, p. 304)</xref> declara que “a pintura digital à mão é (...) o mais óbvio exemplo do retorno do cinema às suas origens no século XIX – neste caso, as imagens de slides em lanterna mágica feitos à mão, o Phenakitiscópio e o Zootrópio”, ele infelizmente exime-se de mencionar, quanto mais de colocar em primeiro plano, Reynaud e suas invenções.</p>
+      </fn>
+      <fn fn-type="other" id="fn26">
+        <label>26</label>
+        <p>Essa tradução foi possível graças a uma bolsa PNPD/CAPES concedida pelo Programa de Pós-Graduação em Educação, Arte e História da Cultura, da Universidade Mackenzie-SP. Incorporei sugestões de revisão feitas por Christine Veras, doutoranda pela School of Art, Design and Media, da Nanyang Technological University em Cingapura.</p>
+      </fn>
+    </fn-group>
+    <fn-group>
+      <title>Fontes das imagens</title>
+      <fn fn-type="other" id="fn27">
+        <p>Dominique Auzel, <bold>Émile Reynaud et l’image s’anima</bold>, Paris: Du May, 1992.</p>
+      </fn>
+      <fn fn-type="other" id="fn28">
+        <p>Erik Barnouw, <bold>The Magician and the Cinema</bold>, New York: Oxford University Press, 1981.</p>
+      </fn>
+      <fn fn-type="other" id="fn29">
+        <p>C.W. Ceram, <bold>Archaeology of the Cinema</bold>, London: Thames and Hudson, 1965.</p>
+      </fn>
+      <fn fn-type="other" id="fn30">
+        <p>L’Office Français d’Edition (ed.), <bold>Émile Reynaud, Peintre de films 1844-1918</bold>, Paris: Cinémathèque Française, 1945.</p>
+      </fn>
+      <fn fn-type="other" id="fn31">
+        <p>Emmanuelle Toulet, <bold>Cinema is 100 Years Old</bold>, trad. Susan Emanuel, London: Thames and Hudson, 1995.</p>
+      </fn>
+    </fn-group>
+    <ref-list>
+      <title>Referências</title>
+      <ref id="B01">
+        <mixed-citation>ABEL, R. <bold>The Ciné Goes to Town</bold>: French Cinema, 1896-1914. Berkeley: University of California Press, 1994.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ABEL</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <source><bold>The Ciné Goes to Town</bold>: French Cinema, 1896-1914</source>
+          <publisher-loc>Berkeley</publisher-loc>
+          <publisher-name>University of California Press</publisher-name>
+          <year>1994</year>
+        </element-citation>
+      </ref>
+      <ref id="B02">
+        <mixed-citation>ALEXEIEFF, A. Preface. In: BENDAZZI, Giannalberto. <bold>Cartoons</bold>: One Hundred Years of Cinema Animation. London: John Libbey, 1994.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ALEXEIEFF</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Preface</chapter-title>
+          <person-group person-group-type="author">
+            <name>
+              <surname>BENDAZZI</surname>
+              <given-names>Giannalberto</given-names>
+            </name>
+          </person-group>
+          <source><bold>Cartoons</bold>: One Hundred Years of Cinema Animation</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>John Libbey</publisher-name>
+          <year>1994</year>
+        </element-citation>
+      </ref>
+      <ref id="B03">
+        <mixed-citation>ANDREW, D. <bold>The Major Film Theories</bold>. London: Oxford University Press, 1976.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ANDREW</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <source>The Major Film Theories</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Oxford University Press</publisher-name>
+          <year>1976</year>
+        </element-citation>
+      </ref>
+      <ref id="B04">
+        <mixed-citation>AUZEL, D. <bold>Émile Reynaud et l'image s'anima</bold>. Paris: Du May, 1992.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>AUZEL</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <source>Émile Reynaud et l'image s'anima</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Du May</publisher-name>
+          <year>1992</year>
+        </element-citation>
+      </ref>
+      <ref id="B05">
+        <mixed-citation>BENDAZZI, G. <bold>Cartoons</bold>: One Hundred Years of Cinema Animation. London: John Libbey, 1994. (Tradução de <bold>Cartoons</bold>: Il Cinema d'Animazione 1888-1988. Venezia: Marilio Editori, 1988).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BENDAZZI</surname>
+              <given-names>G.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Cartoons</bold>: One Hundred Years of Cinema Animation</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>John Libbey</publisher-name>
+          <year>1994</year>
+          <comment>Tradução de <bold>Cartoons</bold>: Il Cinema d'Animazione 1888-1988. Venezia: Marilio Editori, 1988</comment>
+        </element-citation>
+      </ref>
+      <ref id="B06">
+        <mixed-citation>BROADFOOT, K.; BUTLER, R. The Illusion of Illusion. CHOLODENKO, A. (ed.). <bold>The Illusion of Life</bold>: Essays on Animation. Sydney: Power Publications and the Australian Film Commission, 1991.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BROADFOOT</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name>
+              <surname>BUTLER</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>The Illusion of Illusion</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source><bold>The Illusion of Life</bold>: Essays on Animation</source>
+          <publisher-loc>Sydney</publisher-loc>
+          <publisher-name>Power Publications and the Australian Film Commission</publisher-name>
+          <year>1991</year>
+        </element-citation>
+      </ref>
+      <ref id="B07">
+        <mixed-citation>BURCH, N. <bold>Life to Those Shadows</bold>. Berkeley: University of California Press, 1990.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BURCH</surname>
+              <given-names>N.</given-names>
+            </name>
+          </person-group>
+          <source>Life to Those Shadows</source>
+          <publisher-loc>Berkeley</publisher-loc>
+          <publisher-name>University of California Press</publisher-name>
+          <year>1990</year>
+        </element-citation>
+      </ref>
+      <ref id="B08">
+        <mixed-citation>CERAM, C.W. <bold>Archaeology of the Cinema</bold>. London: Thames and Hudson, 1965.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CERAM</surname>
+              <given-names>C.W.</given-names>
+            </name>
+          </person-group>
+          <source>Archaeology of the Cinema</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Thames and Hudson</publisher-name>
+          <year>1965</year>
+        </element-citation>
+      </ref>
+      <ref id="B09">
+        <mixed-citation>CHOLODENKO, A. Introduction. In: CHOLODENKO, A. (ed.). <bold>The Illusion of Life</bold>: Essays on Animation. Sydney: Power Publications and the Australian Film Commission, 1991a.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Introduction</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source><bold>The Illusion of Life</bold>: Essays on Animation</source>
+          <publisher-loc>Sydney</publisher-loc>
+          <publisher-name>Power Publications and the Australian Film Commission</publisher-name>
+          <year>1991a</year>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>_______. <bold>Who Framed Roger Rabbit</bold>, or The Framing of Animation. In: CHOLODENKO, A. (ed.). <bold>The Illusion of Life: Essays on Animation</bold>. Sydney: Power Publications and the Australian Film Commission, 1991b.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <chapter-title><bold>Who Framed Roger Rabbit</bold>, or The Framing of Animation</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source>The Illusion of Life: Essays on Animation</source>
+          <publisher-loc>Sydney</publisher-loc>
+          <publisher-name>Power Publications and the Australian Film Commission</publisher-name>
+          <year>1991b</year>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>_______. The Illusion of the Beginning: A Theory of Drawing and Animation. <bold>Afterimage</bold>, v. 28, n. 1, July/Aug., 2000.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <article-title>The Illusion of the Beginning: A Theory of Drawing and Animation</article-title>
+          <source>Afterimage</source>
+          <volume>28</volume>
+          <issue>1</issue>
+          <season>July/Aug</season>
+          <year>2000</year>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>_______. The Crypt, the Haunted House, of Cinema. <bold>Cultural Studies Review</bold>, v. 10, n. 2, Sept., 2004.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <article-title>The Crypt, the Haunted House, of Cinema</article-title>
+          <source>Cultural Studies Review</source>
+          <volume>10</volume>
+          <issue>2</issue>
+          <month>09</month>
+          <year>2004</year>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>_______. Still Photography? <bold>Afterimage</bold>, v. 32, n. 5, Mar./Apr., 2005. Reimpresso em <bold>The International Journal of Baudrillard Studies website</bold>, v. 5, n. 1, Jan. 2008. Disponível em: &lt;<ext-link ext-link-type="uri" xlink:href="http://www2.ubishops.ca/baudrillardstudies/vol5_1/v5-1-article5-cholodenko.html">http://www2.ubishops.ca/baudrillardstudies/vol5_1/v5-1-article5-cholodenko.html</ext-link>&gt;. Acesso em: 20 Set. 2016.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Still Photography?</article-title>
+          <source>Afterimage</source>
+          <volume>32</volume>
+          <issue>5</issue>
+          <season>Mar./Apr</season>
+          <year>2005</year>
+          <comment>Reimpresso em <bold>The International Journal of Baudrillard Studies website</bold>, v. 5, n. 1, Jan. 2008</comment>
+          <comment>Disponível em: &lt; <ext-link ext-link-type="uri" xlink:href="http://www2.ubishops.ca/baudrillardstudies/vol5_1/v5-1-article5-cholodenko.html">http://www2.ubishops.ca/baudrillardstudies/vol5_1/v5-1-article5-cholodenko.html</ext-link>&gt;</comment>
+          <date-in-citation content-type="access-date">20 Set. 2016</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>_______. Introduction. In: CHOLODENKO, A. (ed.). <bold>The Illusion of Life 2</bold>: More Essays on Animation. Sydney: Power Publications, 2007a.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Introduction</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source><bold>The Illusion of Life 2</bold>: More Essays on Animation</source>
+          <publisher-loc>Sydney</publisher-loc>
+          <publisher-name>Power Publications</publisher-name>
+          <year>2007a</year>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>_______. Speculations on the Animatic Automaton. In: CHOLODENKO, A. (ed.). <bold>The Illusion of Life 2</bold>: More Essays on Animation. Sydney: Power Publications, 2007b.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Speculations on the Animatic Automaton</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source><bold>The Illusion of Life 2</bold>: More Essays on Animation</source>
+          <publisher-loc>Sydney</publisher-loc>
+          <publisher-name>Power Publications</publisher-name>
+          <year>2007b</year>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>_______. Introduction to SCMS Panel: Animation - Film and Media Studies' "Blind Spot". <bold>The Society for Animation Studies Newsletter</bold>, v. 20, n. 1, Spring, 2007c.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Introduction to SCMS Panel: Animation - Film and Media Studies' "Blind Spot"</article-title>
+          <source>The Society for Animation Studies Newsletter</source>
+          <volume>20</volume>
+          <issue>1</issue>
+          <season>Spring</season>
+          <year>2007c</year>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>_______. (The) Death (of) the Animator, or: The Felicity of Felix, Parts I and II. <bold>The Society for Animation Studies</bold>, 2007d. Disponíveis respectivamente em: &lt;<ext-link ext-link-type="uri" xlink:href="https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix-part-i/">https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix-part-i/</ext-link>&gt; e &lt;<ext-link ext-link-type="uri" xlink:href="https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix/">https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix/</ext-link>&gt;. Acesso em: 21 Set. 2016.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <article-title>(The) Death (of) the Animator, or: The Felicity of Felix, Parts I and II</article-title>
+          <source>The Society for Animation Studies</source>
+          <year>2007d</year>
+          <comment>Disponíveis respectivamente em: &lt; <ext-link ext-link-type="uri" xlink:href="https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix-part-i/">https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix-part-i/</ext-link>&gt; e &lt; <ext-link ext-link-type="uri" xlink:href="https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix/">https://journal.animationstudies.org/the-death-of-the-animator-or-the-felicity-of-felix/</ext-link>&gt;</comment>
+          <date-in-citation content-type="access-date">21 Set. 2016</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>COWIE, P. <bold>A Concise History of the Cinema</bold>, v. 1: Before 1940. London/New York: Zwemmer/ Barnes, 1971.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>COWIE</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>A Concise History of the Cinema</source>
+          <volume>1</volume>
+          <comment>Before 1940</comment>
+          <publisher-loc>London</publisher-loc>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Zwemmer</publisher-name>
+          <publisher-name>Barnes</publisher-name>
+          <year>1971</year>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>CRAFTON, D. <bold>Before Mickey</bold>: The Animated Film 1898-1928. Cambridge, MA: The MIT Press, 1982, 1987.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CRAFTON</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Before Mickey</bold>: The Animated Film 1898-1928</source>
+          <publisher-loc>Cambridge, MA</publisher-loc>
+          <publisher-name>The MIT Press</publisher-name>
+          <year>1982</year>
+          <year>1987</year>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>_______. <bold>Émile Cohl, Caricature, and Film</bold>. Princeton: Princeton University Press, 1990.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CRAFTON</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <source>Émile Cohl, Caricature, and Film</source>
+          <publisher-loc>Princeton</publisher-loc>
+          <publisher-name>Princeton University Press</publisher-name>
+          <year>1990</year>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>_______. Tricks and Animation. In: NOWELL-SMITH, G. (ed.). <bold>The Oxford History of World Cinema</bold>. Oxford: Oxford University Press, 1996.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CRAFTON</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Tricks and Animation</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>NOWELL-SMITH</surname>
+              <given-names>G.</given-names>
+            </name>
+          </person-group>
+          <source>The Oxford History of World Cinema</source>
+          <publisher-loc>Oxford</publisher-loc>
+          <publisher-name>Oxford University Press</publisher-name>
+          <year>1996</year>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>DELEUZE, G. <bold>Cinema 1</bold>: The Movement-Image. Trans. Hugh Tomlinson and Barbara Habberjam. London: The Athlone Press, 1986.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DELEUZE</surname>
+              <given-names>G.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Cinema 1</bold>: The Movement-Image</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Tomlinson</surname>
+              <given-names>Hugh</given-names>
+            </name>
+            <name>
+              <surname>Habberjam</surname>
+              <given-names>Barbara</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>The Athlone Press</publisher-name>
+          <year>1986</year>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>DERRIDA, J. <bold>Of Grammatology</bold>. Baltimore: The Johns Hopkins University Press, 1976.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DERRIDA</surname>
+              <given-names>J.</given-names>
+            </name>
+          </person-group>
+          <source>Of Grammatology</source>
+          <publisher-loc>Baltimore</publisher-loc>
+          <publisher-name>The Johns Hopkins University Press</publisher-name>
+          <year>1976</year>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>DRISCOLL, M. From Kino-Eye to Anime-Eye/ai: The Filmed and the Animated in Imamura Taihei's Media Theory. <bold>Japan Forum</bold>, v. 14, n. 2, 2002.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DRISCOLL</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <article-title>From Kino-Eye to Anime-Eye/ai: The Filmed and the Animated in Imamura Taihei's Media Theory</article-title>
+          <source>Japan Forum</source>
+          <volume>14</volume>
+          <issue>2</issue>
+          <year>2002</year>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>EISENSTEIN, S. <bold>Eisenstein on Disney</bold>. Trans. Alan Upchurch, London: Methuen, 1988.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>EISENSTEIN</surname>
+              <given-names>S.</given-names>
+            </name>
+          </person-group>
+          <source>Eisenstein on Disney</source>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Upchurch</surname>
+              <given-names>Alan</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Methuen</publisher-name>
+          <year>1988</year>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation>GRIFFIN, S. Pronoun Trouble: The "Queerness" of Animation. <bold>Spectator</bold>, University of Southern California, 1994. Dossier: "Do You Read Me?: Queer Theory and Social Praxis", Eric Freedman (ed.).</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GRIFFIN</surname>
+              <given-names>S.</given-names>
+            </name>
+          </person-group>
+          <article-title>Pronoun Trouble: The "Queerness" of Animation</article-title>
+          <source>Spectator</source>
+          <publisher-name>University of Southern California</publisher-name>
+          <year>1994</year>
+          <comment>Dossier: "Do You Read Me?: Queer Theory and Social Praxis", Eric Freedman (ed.)</comment>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation>L'OFFICE Français d'Edition (ed.). <bold>Émile Reynaud, Peintre de films 1844-1918</bold>. Paris: Cinémathèque Française, 1945.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="editor">
+            <collab>L'OFFICE Français d'Edition</collab>
+          </person-group>
+          <source>Émile Reynaud, Peintre de films 1844-1918</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Cinémathèque Française</publisher-name>
+          <year>1945</year>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <mixed-citation>LESLIE, E. <bold>Hollywood Flatlands</bold>: Animation, Critical Theory and the Avant-Garde. London: Verso, 2002.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LESLIE</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Hollywood Flatlands</bold>: Animation, Critical Theory and the Avant-Garde</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Verso</publisher-name>
+          <year>2002</year>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation>MANOVICH, L. <bold>The Language of New Media</bold>, Cambridge: The MIT Press, 2001, 2002.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MANOVICH</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <source>The Language of New Media</source>
+          <publisher-loc>Cambridge</publisher-loc>
+          <publisher-name>The MIT Press</publisher-name>
+          <year>2001, 2002</year>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation>_______. Quoted in the Sage Publications flyer announcing its new. <bold>Animation</bold>: An Interdisciplinary Journal, 2006.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MANOVICH</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <article-title>Quoted in the Sage Publications flyer announcing its new</article-title>
+          <source>Animation: An Interdisciplinary Journal</source>
+          <year>2006</year>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation>NEALE, S. <bold>Cinema and Technology</bold>: Image, Sound, Colour. London: BFI, Macmillan, 1985.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>NEALE</surname>
+              <given-names>S.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Cinema and Technology</bold>: Image, Sound, Colour</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>BFI</publisher-name>
+          <publisher-name>Macmillan</publisher-name>
+          <year>1985</year>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation>NOVERRE, M. <bold>La Verité sur l'invention de la projection animée</bold>: Émile Reynaud, sa vie et ses travaux. Brest: Imprimé pour L'auteur, 1926.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>NOVERRE</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source><bold>La Verité sur l'invention de la projection animée</bold>: Émile Reynaud, sa vie et ses travaux</source>
+          <publisher-loc>Brest</publisher-loc>
+          <publisher-name>Imprimé pour L'auteur</publisher-name>
+          <year>1926</year>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation>PARKINSON, D. <bold>History of Film</bold>. London: Thames and Hudson, 1995.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PARKINSON</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <source>History of Film</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Thames and Hudson</publisher-name>
+          <year>1995</year>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <mixed-citation>PEARSON, R. Early Cinema. In: NOWELL-SMITH, Geoffrey (ed.). <bold>The Oxford History of World Cinema</bold>. Oxford: Oxford University Press, 1996.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PEARSON</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Early Cinema</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>NOWELL-SMITH</surname>
+              <given-names>Geoffrey</given-names>
+            </name>
+          </person-group>
+          <source>The Oxford History of World Cinema</source>
+          <publisher-loc>Oxford</publisher-loc>
+          <publisher-name>Oxford University Press</publisher-name>
+          <year>1996</year>
+        </element-citation>
+      </ref>
+      <ref id="B35">
+        <mixed-citation>QUIGLEY, JR., Martin. <bold>Magic Shadows:</bold> The Story of the Origin of Motion Pictures. Washington, D.C.: Georgetown University Press, 1948.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>QUIGLEY</surname>
+              <given-names>Martin</given-names>
+              <suffix>JR.</suffix>
+            </name>
+          </person-group>
+          <source><bold>Magic Shadows:</bold> The Story of the Origin of Motion Pictures</source>
+          <publisher-loc>Washington, D.C.</publisher-loc>
+          <publisher-name>Georgetown University Press</publisher-name>
+          <year>1948</year>
+        </element-citation>
+      </ref>
+      <ref id="B36">
+        <mixed-citation>REYNAUD, E. Le brevet du "Théâtre Optique". In: L'OFFICE Français d'Edition (ed.). <bold>Émile Reynaud, Peintre de films 1844-1918</bold>. Paris: Cinémathèque Française, 1945.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>REYNAUD</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Le brevet du "Théâtre Optique"</chapter-title>
+          <person-group person-group-type="editor">
+            <collab>L'OFFICE Français d'Edition</collab>
+          </person-group>
+          <source>Émile Reynaud, Peintre de films 1844-1918</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Cinémathèque Française</publisher-name>
+          <year>1945</year>
+        </element-citation>
+      </ref>
+      <ref id="B37">
+        <mixed-citation>REYNAUD, P. Les Débuts de la Cinématographie: Les Dessins animés d'Émile Reynaud. In: L'OFFICE Français d'Edition (ed.). <bold>Émile Reynaud, Peintre de films 1844-1918</bold>. Paris: Cinémathèque Française, 1945.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>REYNAUD</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Les Débuts de la Cinématographie: Les Dessins animés d'Émile Reynaud</chapter-title>
+          <person-group person-group-type="editor">
+            <collab>L'OFFICE Français d'Edition</collab>
+          </person-group>
+          <source>Émile Reynaud, Peintre de films 1844-1918</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Cinémathèque Française</publisher-name>
+          <year>1945</year>
+        </element-citation>
+      </ref>
+      <ref id="B38">
+        <mixed-citation>RHODE, E. <bold>A History of the Cinema from its Origins to 1970</bold>. New York: Hill and Wang, 1976.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>RHODE</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source>A History of the Cinema from its Origins to 1970</source>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Hill and Wang</publisher-name>
+          <year>1976</year>
+        </element-citation>
+      </ref>
+      <ref id="B39">
+        <mixed-citation>RUSSETT, R.; STARR, C. <bold>Experimental Animation</bold>: Origins of a New Art. Rev. ed., New York: Da Capo Press, 1976.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>RUSSETT</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>STARR</surname>
+              <given-names>C.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Experimental Animation</bold>: Origins of a New Art. Rev. ed.</source>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Da Capo Press</publisher-name>
+          <year>1976</year>
+        </element-citation>
+      </ref>
+      <ref id="B40">
+        <mixed-citation>SADOUL, G. Le centenaire d'Émile Reynaud. In: L'OFFICE Français d'Edition (ed.). <bold>Émile Reynaud, Peintre de films 1844-1918</bold>. Paris: Cinémathèque Française, 1945.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SADOUL</surname>
+              <given-names>G.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Le centenaire d'Émile Reynaud</chapter-title>
+          <person-group person-group-type="editor">
+            <collab>L'OFFICE Français d'Edition</collab>
+          </person-group>
+          <source>Émile Reynaud, Peintre de films 1844-1918</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Cinémathèque Française</publisher-name>
+          <year>1945</year>
+        </element-citation>
+      </ref>
+      <ref id="B41">
+        <mixed-citation>_______. <bold>Dictionary of Film Makers</bold>. Ed. and trans. Peter Morris. Berkeley: University of California Press, 1972a. (originalmente publicado como <bold>Dictionnaire des Cinéastes</bold>, Paris: Editions du Seuil, 1965).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SADOUL</surname>
+              <given-names>G.</given-names>
+            </name>
+          </person-group>
+          <source>Dictionary of Film Makers</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Morris</surname>
+              <given-names>Peter</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Berkeley</publisher-loc>
+          <publisher-name>University of California Press</publisher-name>
+          <year>1972a</year>
+          <comment>originalmente publicado como <bold>Dictionnaire des Cinéastes</bold>, Paris: Editions du Seuil, 1965</comment>
+        </element-citation>
+      </ref>
+      <ref id="B42">
+        <mixed-citation>_______. <bold>Dictionary of Films</bold>. Ed. and trans. Peter Morris. Berkeley: University of California Press, 1972b. (Originalmente publicado em Paris: Editions du Seuil, 1965).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SADOUL</surname>
+              <given-names>G.</given-names>
+            </name>
+          </person-group>
+          <source>Dictionary of Films</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Morris</surname>
+              <given-names>Peter</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Berkeley</publisher-loc>
+          <publisher-name>University of California Press</publisher-name>
+          <year>1972b</year>
+          <comment>Originalmente publicado em Paris: Editions du Seuil, 1965</comment>
+        </element-citation>
+      </ref>
+      <ref id="B43">
+        <mixed-citation>SCHAFFER, W Animation 1: The Control-Image. In: CHOLODENKO, A. (ed.). <bold>The Illusion of Life 2</bold>: More Essays on Animation. Sydney: Power Publications, 2007.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SCHAFFER</surname>
+              <given-names>W</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Animation 1: The Control-Image</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>CHOLODENKO</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source><bold>The Illusion of Life 2</bold>: More Essays on Animation</source>
+          <publisher-loc>Sydney</publisher-loc>
+          <publisher-name>Power Publications</publisher-name>
+          <year>2007</year>
+        </element-citation>
+      </ref>
+      <ref id="B44">
+        <mixed-citation>SKLAR, R. <bold>Film</bold>: An International History of the Medium. New York: Harry N. Abrams, 1993.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SKLAR</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Film</bold>: An International History of the Medium</source>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Harry N. Abrams</publisher-name>
+          <year>1993</year>
+        </element-citation>
+      </ref>
+      <ref id="B45">
+        <mixed-citation>STEPHENSON, R. <bold>The Animated Film</bold>. London/New York: The Tantivy Press/A. S. Barnes &amp; Co, 1973.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>STEPHENSON</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <source>The Animated Film</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>The Tantivy Press</publisher-name>
+          <publisher-name>A. S. Barnes &amp; Co</publisher-name>
+          <year>1973</year>
+        </element-citation>
+      </ref>
+      <ref id="B46">
+        <mixed-citation>TOULET, E. <bold>Cinema is 100 Years Old</bold>. Trans. Susan Emanuel. London: Thames and Hudson, 1995. (Originalmente publicado em Paris: Gaflimard/Réunion des Musées Nationaux, 1998).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>TOULET</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source>Cinema is 100 Years Old</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Emanuel</surname>
+              <given-names>Susan</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Thames and Hudson</publisher-name>
+          <year>1995</year>
+          <comment>Originalmente publicado em Paris: Gaflimard/Réunion des Musées Nationaux, 1998</comment>
+        </element-citation>
+      </ref>
+      <ref id="B47">
+        <mixed-citation>VAUGHAN, D. Let there be Lumière. In: ELSAESSER, T. (ed.). <bold>Early Cinema</bold>: Space, Frame Narrative. London: BFI Publishing, 1990.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>VAUGHAN</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Let there be Lumière</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>ELSAESSER</surname>
+              <given-names>T.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Early Cinema</bold>: Space, Frame Narrative</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>BFI Publishing</publisher-name>
+          <year>1990</year>
+        </element-citation>
+      </ref>
+      <ref id="B48">
+        <mixed-citation>WELLS, P. <bold>Around the World in Animation</bold>. London: BFI, 1997.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>WELLS</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>Around the World in Animation</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>BFI</publisher-name>
+          <year>1997</year>
+        </element-citation>
+      </ref>
+      <ref id="B49">
+        <mixed-citation>_______. <bold>Understanding Animation</bold>. London: Routledge, 1998.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>WELLS</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>Understanding Animation</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Routledge</publisher-name>
+          <year>1998</year>
+        </element-citation>
+      </ref>
+      <ref id="B50">
+        <mixed-citation>_______. <bold>Animation:</bold> Genre and Authorship. London: Wallflower, 2002.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>WELLS</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source><bold>Animation:</bold> Genre and Authorship</source>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Wallflower</publisher-name>
+          <year>2002</year>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>

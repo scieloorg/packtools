@@ -35,12 +35,12 @@
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
-        <xsl:apply-templates select="contrib" mode="article-meta-contrib"/>
+        <xsl:apply-templates select="contrib[@contrib-type='author']" mode="article-meta-contrib"/>
         <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
             <a href="" class="outlineFadeLink" data-toggle="modal"
                 data-target="#ModalTutors{$id}">
                 <xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">About the author<xsl:if test="count(contrib)&gt;1">s</xsl:if></xsl:with-param>
+                    <xsl:with-param name="text">About the author<xsl:if test="count(contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
                 </xsl:apply-templates>
             </a>
         </xsl:if>
@@ -125,7 +125,7 @@
             
         </span>
     </xsl:template>
-    
+
     <xsl:template match="contrib/role | contrib/bio">
         <div>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
