@@ -1,6 +1,6 @@
 from packtools.sps.models import packages, sps_package
 from packtools.sps.libs import async_download, reqs
-from packtools import file_utils
+from packtools import file_utils, file_utils_mimetype
 from packtools.sps import exceptions
 
 
@@ -120,7 +120,7 @@ def _get_xml_sps_from_uri(xml_uri):
 
 
 def _get_xml_sps_from_path(xml_path):
-    if file_utils.is_valid_file(xml_path):
+    if file_utils_mimetype.is_valid_file(xml_path):
         with open(xml_path) as fin:
             content = fin.read()
 
@@ -236,10 +236,10 @@ def _check_keys_and_files(paths: dict):
 
         if k != 'xml':
             for f in paths[k]:
-                if not file_utils.is_valid_file(f):
+                if not file_utils_mimetype.is_valid_file(f):
                     raise exceptions.SPSAssetOrRenditionFileError(f'Invalid asset or rendition path: {f}')
         else:
-            if not file_utils.is_valid_file(paths[k]):
+            if not file_utils_mimetype.is_valid_file(paths[k]):
                 raise exceptions.SPSXMLFileError(f'Invalid XML path or content: {paths[k]}')
 
     return True
