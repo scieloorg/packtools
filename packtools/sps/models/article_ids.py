@@ -87,10 +87,10 @@ class ArticleIds:
 
     @aop_pid.setter
     def aop_pid(self, value):
-        node = self.am.xpath(
+        node = self._get_node(
                 './/article-id[@specific-use="previous-pid" and '
                 '@pub-id-type="publisher-id"]'
-            )[0]
+            )
         if node is None:
             node = etree.Element("article-id")
             node.set("pub-id-type", "publisher-id")
