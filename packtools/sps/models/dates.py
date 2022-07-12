@@ -49,8 +49,12 @@ class ArticleDates:
     @property
     def epub_date(self):
         for _date in self.pub_dates:
-            if _date.get("type") == "epub":
+            if _date.get("type") == "pub":
                 return _date
+
+    @property
+    def article_date(self):
+        return self.epub_date
 
     @property
     def collection_date(self):
