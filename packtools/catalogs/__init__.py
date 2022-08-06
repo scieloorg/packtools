@@ -42,7 +42,12 @@ default_catalog = {
         'HTML_GEN_XSLTS': {
             'root-html-1.2.xslt': os.path.join(_CWD, 'htmlgenerator/root-html-1.2.xslt'),
             'root-html-2.0.xslt': os.path.join(_CWD, 'htmlgenerator/root-html-2.0.xslt'),
+            'root-html-3.0.xslt': os.path.join(_CWD, 'htmlgenerator/root-html-3.0.xslt'),
         },
+        'HTML_GEN_BOOTSTRAP_CSS_PATH': os.path.join(_CWD,
+            'htmlgenerator/v3.0/css/bootstrap.css'),
+        'HTML_GEN_ARTICLE_CSS_PATH': os.path.join(_CWD,
+            'htmlgenerator/v3.0/css/article.css'),
         'HTML_GEN_DEFAULT_PRINT_CSS_PATH': os.path.join(_CWD,
             'htmlgenerator/static/scielo-bundle-print.css'),
         'HTML_GEN_DEFAULT_CSS_PATH': os.path.join(_CWD,

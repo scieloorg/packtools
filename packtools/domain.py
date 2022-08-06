@@ -473,6 +473,7 @@ class HTMLGenerator(object):
                  math_elem_preference=None, math_js=None,
                  permlink=None, url_article_page=None, url_download_ris=None,
                  gs_abstract=None, output_style=None,
+                 bootstrap_css=None, article_css=None,
                  ):
         assert isinstance(file, etree._ElementTree)
         self.lxml = file
@@ -481,6 +482,8 @@ class HTMLGenerator(object):
         self.xslt = xslt or XSLT('root-html-3.0.xslt')
         self.css = css
         self.print_css = print_css
+        self.bootstrap_css = bootstrap_css
+        self.article_css = article_css
         self.js = js
         self.permlink = permlink
         self.url_article_page = url_article_page
@@ -609,6 +612,8 @@ class HTMLGenerator(object):
                 issue_label=etree.XSLT.strparam(self._get_issue_label()),
                 styles_css_path=etree.XSLT.strparam(self.css or ''),
                 print_styles_css_path=etree.XSLT.strparam(self.print_css or ''),
+                article_css_path=etree.XSLT.strparam(self.article_css or ''),
+                bootstrap_css_path=etree.XSLT.strparam(self.print_css or ''),
                 js_path=etree.XSLT.strparam(self.js or ''),
                 permlink=etree.XSLT.strparam(self.permlink or ''),
                 url_article_page=etree.XSLT.strparam(self.url_article_page or ''),

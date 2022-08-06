@@ -27,6 +27,8 @@ def get_htmlgenerator(
     gs_abstract,
     output_style,
     xslt,
+    bootstrap_css,
+    article_css,
 ):
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
@@ -47,6 +49,8 @@ def get_htmlgenerator(
             gs_abstract=gs_abstract,
             output_style=output_style,
             xslt=xslt,
+            bootstrap_css=bootstrap_css,
+            article_css=article_css,
             )
     except ValueError as e:
         raise XMLError('Error reading %s. %s.' % (xmlpath, e))
@@ -75,13 +79,19 @@ def main():
                         )
     parser.add_argument('--css', default=catalogs.HTML_GEN_DEFAULT_CSS_PATH,
                         help='URL or full path of the CSS file to use with generated htmls')
+    parser.add_argument('--print_css', default=catalogs.HTML_GEN_DEFAULT_PRINT_CSS_PATH,
+                        help='URL or full path of the CSS (media: print) file to use with generated htmls')
+    parser.add_argument('--bootstrap_css', default=catalogs.HTML_GEN_BOOTSTRAP_CSS_PATH,
+                        help='URL or full path of the CSS file to use with generated htmls')
+    parser.add_argument('--article_css', default=catalogs.HTML_GEN_ARTICLE_CSS_PATH,
+                        help='URL or full path of the CSS file to use with generated htmls')
+
+
     parser.add_argument('--math_js', default='https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-svg.js',
                         help='URL Math renderer')
     parser.add_argument('--math_elem_preference', default='mml:math',
                         choices=['text-math', 'mml:math'],
                         help='Math element preference')
-    parser.add_argument('--print_css', default=catalogs.HTML_GEN_DEFAULT_PRINT_CSS_PATH,
-                        help='URL or full path of the CSS (media: print) file to use with generated htmls')
     parser.add_argument('--js', default=catalogs.HTML_GEN_DEFAULT_JS_PATH,
                         help='URL or full path of the JS file to use with generated htmls')
     parser.add_argument('--permlink', default='',
@@ -112,6 +122,8 @@ def main():
                 args.gs_abstract,
                 args.output_style,
                 args.xslt,
+                args.bootstrap_css,
+                args.article_css,
             )
             LOGGER.debug('HTMLGenerator repr: %s' % repr(html_generator))
         except XMLError as e:

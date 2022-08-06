@@ -6,6 +6,8 @@
     <xsl:param name="issue_label" />
     <xsl:param name="styles_css_path" />
     <xsl:param name="print_styles_css_path" />
+    <xsl:param name="bootstrap_css_path" />
+    <xsl:param name="article_css_path" />
     <xsl:param name="js_path" />
     <!-- google scholar abstract -->
     <xsl:param name="gs_abstract_lang" />
@@ -51,6 +53,10 @@
 
     <xsl:variable name="PRINT_CSS_PATH"><xsl:value-of select="$print_styles_css_path"/></xsl:variable>
     <xsl:variable name="CSS_PATH"><xsl:value-of select="$styles_css_path"/></xsl:variable>
+
+    <xsl:variable name="ARTICLE_CSS_PATH"><xsl:value-of select="$article_css_path"/></xsl:variable>
+    <xsl:variable name="BOOTSTRAP_CSS_PATH"><xsl:value-of select="$bootstrap_css_path"/></xsl:variable>
+
     <xsl:variable name="JS_PATH"><xsl:value-of select="$js_path"/></xsl:variable>
 
     
