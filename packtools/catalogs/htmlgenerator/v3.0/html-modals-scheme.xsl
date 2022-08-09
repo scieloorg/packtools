@@ -15,6 +15,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
+                            <h5 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="label" mode="label-caption"/></h5>
                             <button type="button" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&#xd7;</span>
                                 <span class="sr-only">
@@ -33,7 +34,6 @@
                                 <span class="sci-ico-newWindow"></span>
                             </a>
                             </xsl:if>
-                            <h5 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="label" mode="label-caption"/></h5>
                         </div>
                         <div class="modal-body">
                             <xsl:choose>

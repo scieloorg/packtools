@@ -30,6 +30,10 @@
         Template para criar a área do título da tabela
         -->
         <div class="modal-header">
+            <h5 class="modal-title">
+                <span class="sci-ico-fileTable"></span>
+                <xsl:apply-templates select="." mode="modal-header-label-caption"/>
+            </h5>
             <button type="button" class="close" data-dismiss="modal">
                 <span aria-hidden="true">&#xd7;</span>
                 <span class="sr-only">
@@ -46,11 +50,6 @@
                 </xsl:apply-templates></xsl:attribute>
                 <span class="sci-ico-newWindow"></span></a>
             </xsl:if>
-            
-            <h5 class="modal-title">
-                <span class="sci-ico-fileTable"></span>
-                <xsl:apply-templates select="." mode="modal-header-label-caption"/>
-            </h5>
         </div>
     </xsl:template>
     

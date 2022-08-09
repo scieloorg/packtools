@@ -19,6 +19,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h5 class="modal-title">
+                            <xsl:apply-templates select="." mode="text-labels">
+                                <xsl:with-param name="text">How to cite</xsl:with-param>
+                            </xsl:apply-templates>
+                        </h5>
                         <button type="button" class="close" data-dismiss="modal">
                             <span aria-hidden="true">&#xd7;</span>
                             <span class="sr-only">
@@ -27,11 +32,6 @@
                                 </xsl:apply-templates>
                             </span>
                         </button>
-                        <h5 class="modal-title">
-                            <xsl:apply-templates select="." mode="text-labels">
-                                <xsl:with-param name="text">How to cite</xsl:with-param>
-                            </xsl:apply-templates>
-                        </h5>
                     </div>
                     <div class="modal-body">
                         <p id="citation">

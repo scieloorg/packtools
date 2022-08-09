@@ -63,6 +63,7 @@
                  <div class="modal-dialog">
                      <div class="modal-content">
                          <div class="modal-header">
+                             <h5 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h5>
                              <button type="button" class="close" data-dismiss="modal">
                                  <span aria-hidden="true">&#xd7;</span>
                                  <span class="sr-only">
@@ -71,7 +72,6 @@
                                      </xsl:apply-templates>
                                  </span>
                              </button>
-                             <h5 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h5>
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">

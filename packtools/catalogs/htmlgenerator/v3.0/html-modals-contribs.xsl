@@ -34,14 +34,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&#xd7;</span><span class="sr-only"><xsl:apply-templates select="." mode="interface">
-                            <xsl:with-param name="text">Close</xsl:with-param>
-                        </xsl:apply-templates></span></button>
                         <h5 class="modal-title">
                             <xsl:apply-templates select="." mode="interface">
                                 <xsl:with-param name="text">About the author<xsl:if test="count(contrib-group/contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
                             </xsl:apply-templates>
                         </h5>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&#xd7;</span><span class="sr-only"><xsl:apply-templates select="." mode="interface">
+                            <xsl:with-param name="text">Close</xsl:with-param>
+                        </xsl:apply-templates></span></button>
                     </div>
                     <div class="modal-body">
                         <div class="info">
