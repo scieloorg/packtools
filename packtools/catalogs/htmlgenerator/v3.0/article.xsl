@@ -293,7 +293,10 @@
 
     <xsl:template match="article" mode="article-title">
         <h1 class="article-title">
-            <span class="sci-ico-openAccess showTooltip" data-toggle="tooltip">
+            <span 
+                class="sci-ico-openAccess showTooltip"
+                data-toggle="tooltip"
+                >
                 <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
             </span>
             <xsl:apply-templates select="." mode="article-meta-title"/>
