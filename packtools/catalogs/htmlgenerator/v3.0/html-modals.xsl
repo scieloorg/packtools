@@ -250,7 +250,7 @@
             </xsl:variable>
             <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>
             <div class="col-md-4">
-                <a data-toggle="modal" data-target="#ModalFig{$figid}">
+                <a data-bs-toggle="modal" data-bs-target="#ModalFig{$figid}">
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location != ''">
@@ -305,7 +305,7 @@
         <div class="row table">
             <!-- miniatura -->
             <div class="col-md-4">
-                <a data-toggle="modal" data-target="#ModalTable{$id}">
+                <a data-bs-toggle="modal" data-bs-target="#ModalTable{$id}">
                     <div class="thumbOff">
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
@@ -327,7 +327,7 @@
         <div class="row fig">
             <!-- miniatura -->
             <div class="col-md-4">
-                <a data-toggle="modal" data-target="#ModalScheme{$id}">
+                <a data-bs-toggle="modal" data-bs-target="#ModalScheme{$id}">
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location!=''">

@@ -136,13 +136,13 @@
                         <li>
                             <a class="fm-button-child"
                                 data-fm-label="{$graphic_elements_title}"
-                                data-toggle="modal" data-target="#ModalTablesFigures">
+                                data-bs-toggle="modal" data-bs-target="#ModalTablesFigures">
                                 <span class="sci-ico-figures glyphFloatMenu"/>
                             </a>
                         </li>
                         <li>
-                            <a class="fm-button-child" data-toggle="modal"
-                                data-target="#ModalArticles">
+                            <a class="fm-button-child" data-bs-toggle="modal"
+                                data-bs-target="#ModalArticles">
                                 <xsl:attribute name="data-fm-label">
                                     <xsl:apply-templates select="." mode="text-labels">
                                         <xsl:with-param name="text">How to
