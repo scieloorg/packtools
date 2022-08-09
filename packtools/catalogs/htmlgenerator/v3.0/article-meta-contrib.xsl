@@ -51,18 +51,18 @@
             <xsl:value-of select="position()"/>
         </xsl:variable>
         <div class="dropdown">
-            <a id="contribGroupTutor{$id}">
-                <xsl:attribute name="class">dropdown-toggle</xsl:attribute>
-                <xsl:attribute name="data-toggle">dropdown</xsl:attribute>
-                <span>
-                    <xsl:choose>
-                        <xsl:when test="$ABBR_CONTRIB='true'">
-                            <xsl:apply-templates select="name|collab|on-behalf-of" mode="abbrev"/>
-                        </xsl:when>
-                        <xsl:otherwise><xsl:apply-templates select="name|collab|on-behalf-of"/></xsl:otherwise>
-                    </xsl:choose>
-                </span>
-            </a>
+            <button id="contribGroupTutor{$id}">
+                <xsl:attribute name="class">btn btn-secondary dropdown-toggle</xsl:attribute>
+                <xsl:attribute name="type">button</xsl:attribute>
+                <xsl:attribute name="data-bs-toggle">dropdown</xsl:attribute>
+                <xsl:attribute name="aria-expanded">false</xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="$ABBR_CONTRIB='true'">
+                        <xsl:apply-templates select="name|collab|on-behalf-of" mode="abbrev"/>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:apply-templates select="name|collab|on-behalf-of"/></xsl:otherwise>
+                </xsl:choose>
+            </button>
             <xsl:apply-templates select="." mode="contrib-dropdown-menu">
                 <xsl:with-param name="id">
                     <xsl:value-of select="$id"/>
