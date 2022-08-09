@@ -61,21 +61,21 @@
     </xsl:template>
     
     <xsl:template match="body/sec/title">
-        <h1 class="articleSectionTitle">
+        <h3 class="articleSectionTitle">
             <xsl:apply-templates select="*|text()"/>
-        </h1>
+        </h3>
     </xsl:template>
     
     <xsl:template match="sec/sec/title">
-        <h2>
+        <h4>
             <xsl:apply-templates select="*|text()"/>
-        </h2>
+        </h4>
     </xsl:template>
     
     <xsl:template match="sec/sec/sec/title">
-        <h3>
+        <h5>
             <xsl:apply-templates select="*|text()"/>
-        </h3>
+        </h5>
     </xsl:template>
              
     <xsl:template match="sig-block">

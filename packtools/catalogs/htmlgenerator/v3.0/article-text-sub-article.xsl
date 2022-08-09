@@ -23,7 +23,7 @@
     
     
     <xsl:template match="sub-article[@article-type!='translation']//subject | response//subject">
-        <h1 class="articleSectionTitle"><xsl:apply-templates select="*|text()"></xsl:apply-templates></h1>
+        <h3 class="articleSectionTitle"><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>
      </xsl:template>
     
     <xsl:template match="sub-article[@article-type!='translation']//article-title | response//article-title">

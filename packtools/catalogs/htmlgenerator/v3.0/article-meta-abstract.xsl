@@ -88,7 +88,7 @@
             
             <!-- insere a âncora e o título -->
             <div class="articleSection" data-anchor="{$title}">
-                <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
+                <h3 class="articleSectionTitle"><xsl:value-of select="$title"/></h3>
             </div>
         </xsl:if>
     </xsl:template>
@@ -156,10 +156,10 @@
         </xsl:if>
 
         <!-- título -->
-        <h1>
+        <h3>
             <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
             <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
-        </h1>
+        </h3>
     </xsl:template>
 
     <xsl:template match="abstract/title | trans-abstract/title">

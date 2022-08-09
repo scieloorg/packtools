@@ -8,9 +8,9 @@
              <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text">History</xsl:with-param>
              </xsl:apply-templates></xsl:attribute>
-             <h1 class="articleSectionTitle"><xsl:apply-templates select="." mode="text-labels">
+             <h3 class="articleSectionTitle"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text">History</xsl:with-param>
-             </xsl:apply-templates></h1>
+             </xsl:apply-templates></h3>
              <div class="row">
                  <div class="col-md-12 col-sm-12">
                      <ul class="articleTimeline">
