@@ -293,12 +293,14 @@
 
     <xsl:template match="article" mode="article-title">
         <h1 class="article-title">
-            <span 
-                class="sci-ico-openAccess showTooltip"
-                data-toggle="tooltip"
+            <img
+                src=".//img/logo-open-access.svg"
+                alt="Open-access"
+                class="logo-open-access"
+                data-bs-toggle="tooltip"
                 >
                 <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
-            </span>
+            </img>
             <xsl:apply-templates select="." mode="article-meta-title"/>
             <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>
         </h1>
