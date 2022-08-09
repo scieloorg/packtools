@@ -20,7 +20,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            <span class="sci-ico-fileFigure"></span> 
+                            <span class="material-icons-outlined">image</span> 
                             <xsl:apply-templates select="." mode="fig-label-caption"></xsl:apply-templates>
                         </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
