@@ -64,14 +64,13 @@
                      <div class="modal-content">
                          <div class="modal-header">
                              <h5 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h5>
-                             <button type="button" class="close" data-dismiss="modal">
-                                 <span aria-hidden="true">&#xd7;</span>
-                                 <span class="sr-only">
-                                     <xsl:apply-templates select="." mode="interface">
-                                         <xsl:with-param name="text">Close</xsl:with-param>
-                                     </xsl:apply-templates>
-                                 </span>
-                             </button>
+                             <button class="btn-close" data-bs-dismiss="modal">
+                                <xsl:attribute name="aria-label">
+                                    <xsl:apply-templates select="." mode="interface">
+                                        <xsl:with-param name="text">Close</xsl:with-param>
+                                    </xsl:apply-templates>
+                                </xsl:attribute>
+                            </button>
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">

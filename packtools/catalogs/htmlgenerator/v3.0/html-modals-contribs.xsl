@@ -39,9 +39,13 @@
                                 <xsl:with-param name="text">About the author<xsl:if test="count(contrib-group/contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
                             </xsl:apply-templates>
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&#xd7;</span><span class="sr-only"><xsl:apply-templates select="." mode="interface">
-                            <xsl:with-param name="text">Close</xsl:with-param>
-                        </xsl:apply-templates></span></button>
+                        <button class="btn-close" data-bs-dismiss="modal">
+                            <xsl:attribute name="aria-label">
+                                <xsl:apply-templates select="." mode="interface">
+                                    <xsl:with-param name="text">Close</xsl:with-param>
+                                </xsl:apply-templates>
+                            </xsl:attribute>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <div class="info">

@@ -16,13 +16,12 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="label" mode="label-caption"/></h5>
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&#xd7;</span>
-                                <span class="sr-only">
+                            <button class="btn-close" data-bs-dismiss="modal">
+                                <xsl:attribute name="aria-label">
                                     <xsl:apply-templates select="." mode="interface">
                                         <xsl:with-param name="text">Close</xsl:with-param>
                                     </xsl:apply-templates>
-                                </span>
+                                </xsl:attribute>
                             </button>
                             <xsl:variable name="location"><xsl:apply-templates select="." mode="original-file-location"/></xsl:variable>
                             <xsl:if test="$location!=''">
