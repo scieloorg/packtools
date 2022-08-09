@@ -96,7 +96,6 @@
         <xsl:param name="id"/>
         <xsl:if test="role or xref or contrib-id or bio">
             <ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor{$id}">
-                <strong></strong>
                 <xsl:apply-templates select="role | bio"/>
                 <xsl:apply-templates select="xref" mode="contrib-dropdown-menu"/>
                 <xsl:apply-templates select="contrib-id"/>
@@ -104,6 +103,24 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="contrib" mode="contrib-dropdown-menu-general">
+        <xsl:if test="role or xref[@ref-type!='corresp'] or contrib-id or bio">
+            <li>
+                <xsl:apply-templates select="role | bio"/>
+                <xsl:apply-templates select="xref[@ref-type!='corresp']" mode="contrib-dropdown-menu"/>
+                <xsl:apply-templates select="contrib-id"/>
+            </li>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="contrib" mode="contrib-dropdown-menu-corresp">
+        <xsl:if test="xref[@ref-type='corresp']">
+            <li>
+                <xsl:apply-templates select="xref[@ref-type!='corresp']" mode="contrib-dropdown-menu"/>
+            </li>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template match="contrib/xref" mode="contrib-dropdown-menu">
         <xsl:variable name="rid" select="@rid"/>
         <xsl:apply-templates select="$article//author-notes/corresp[@id=$rid]" mode="contrib-dropdown-menu"/>
