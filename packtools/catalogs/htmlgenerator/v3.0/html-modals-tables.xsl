@@ -31,7 +31,7 @@
         -->
         <div class="modal-header">
             <h5 class="modal-title">
-                <span class="sci-ico-fileTable"></span>
+                <span class="material-icons-outlined">table_chart</span>
                 <xsl:apply-templates select="." mode="modal-header-label-caption"/>
             </h5>
             <button class="btn-close" data-bs-dismiss="modal">
