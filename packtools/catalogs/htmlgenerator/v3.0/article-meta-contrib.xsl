@@ -96,9 +96,8 @@
         <xsl:param name="id"/>
         <xsl:if test="role or xref or contrib-id or bio">
             <ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor{$id}">
-                <xsl:apply-templates select="role | bio"/>
-                <xsl:apply-templates select="xref" mode="contrib-dropdown-menu"/>
-                <xsl:apply-templates select="contrib-id"/>
+                <xsl:apply-templates select="." mode="contrib-dropdown-menu-general"/>
+                <xsl:apply-templates select="." mode="contrib-dropdown-menu-corresp"/>
             </ul>
         </xsl:if>
     </xsl:template>
