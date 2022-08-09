@@ -38,7 +38,7 @@
                         <input id="citationCut" type="text" value=""></input>
                         <a class="copyLink">
                             <xsl:attribute name="data-clipboard-target">#citationCut</xsl:attribute>
-                            <span class="glyphBtn copyIcon"/> 
+                            <span class="material-icons-outlined">content_copy</span>
                             <xsl:apply-templates select="." mode="interface">
                                 <xsl:with-param name="text">copy</xsl:with-param>
                             </xsl:apply-templates>
