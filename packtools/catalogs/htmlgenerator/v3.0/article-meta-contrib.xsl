@@ -46,46 +46,6 @@
         </xsl:if>
     </xsl:template>
    
-    <!--xsl:template match="contrib" mode="article-meta-contrib">
-        <xsl:choose>
-            <xsl:when test="*[name()!='name' and name()!='collab']">
-                <xsl:variable name="id">
-                    <xsl:value-of select="position()"/>
-                </xsl:variable>
-                <span class="dropdown">
-                    <a id="contribGroupTutor{$id}">
-                        <xsl:attribute name="class">dropdown-toggle</xsl:attribute>
-                        <xsl:attribute name="data-toggle">dropdown</xsl:attribute>
-                        <span>
-                            <xsl:choose>
-                                <xsl:when test="$ABBR_CONTRIB='true'">
-                                    <xsl:apply-templates select="name|collab|on-behalf-of" mode="abbrev"/>
-                                </xsl:when>
-                                <xsl:otherwise><xsl:apply-templates select="name|collab|on-behalf-of"/></xsl:otherwise>
-                            </xsl:choose>
-                        </span>
-                    </a>
-                    <xsl:apply-templates select="." mode="contrib-dropdown-menu">
-                        <xsl:with-param name="id">
-                            <xsl:value-of select="$id"/>
-                        </xsl:with-param>
-                    </xsl:apply-templates>
-                </span>
-            </xsl:when>
-            <xsl:otherwise>
-                <span class="dropdown"><span>
-                    <xsl:choose>
-                        <xsl:when test="$ABBR_CONTRIB='true'">
-                            <xsl:apply-templates select="name|collab|on-behalf-of" mode="abbrev"/>
-                        </xsl:when>
-                        <xsl:otherwise><xsl:apply-templates select="name|collab|on-behalf-of"/></xsl:otherwise>
-                    </xsl:choose>
-                </span></span>
-            </xsl:otherwise>
-        </xsl:choose>
-        
-    </xsl:template-->
-
     <xsl:template match="contrib" mode="article-meta-contrib">
         <xsl:variable name="id">
             <xsl:value-of select="position()"/>
