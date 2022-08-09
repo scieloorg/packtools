@@ -76,7 +76,8 @@
         &#160;
 
         <a 
-            class="copyLink"
+            href="javascript:;"
+            class="btn btn-secondary btn-sm scielo__btn-with-icon--left copyLink"
             data-clipboard-text="{$link}">
             <span class="material-icons-outlined">link</span>
             <xsl:apply-templates select="." mode="interface">
