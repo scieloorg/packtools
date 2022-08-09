@@ -229,7 +229,7 @@
 
     <xsl:template match="article" mode="article-or-abstract">
         <div class="row">
-            <ul class="col-md-2 hidden-sm articleMenu"> </ul>
+            <ul class="d-none d-lg-block col-lg-2 articleMenu"> </ul>
             <xsl:choose>
                 <xsl:when test="$gs_abstract_lang">
                     <xsl:apply-templates select="." mode="div-abstract"/>
@@ -243,7 +243,7 @@
 
     <xsl:template match="article" mode="div-article">
         <article id="articleText"
-            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+            class="col-sm-12 col-lg-10 offset-lg-2">
             <xsl:apply-templates select="." mode="article-meta-product"/>
             <xsl:apply-templates select="." mode="article-meta-abstract"/>
             <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
