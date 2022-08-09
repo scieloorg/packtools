@@ -30,7 +30,7 @@
                                     <xsl:with-param name="text">Open new window</xsl:with-param>
                                 </xsl:apply-templates></xsl:attribute>
                                 <xsl:attribute name="href"><xsl:value-of select="$location"/></xsl:attribute>
-                                <span class="sci-ico-newWindow"></span>
+                                <span class="material-icons-outlined">open_in_new</span>
                             </a>
                             </xsl:if>
                         </h5>
