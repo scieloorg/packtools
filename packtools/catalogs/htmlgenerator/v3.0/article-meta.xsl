@@ -75,7 +75,7 @@
         <a href="{$link}" class="_doi" target="_blank"><xsl:value-of select="$link"/></a>
         &#160;
         <a class="copyLink" data-clipboard-text="{$link}">
-            <span class="sci-ico-link"/>
+            <span class="material-icons-outlined">link</span>
             <xsl:apply-templates select="." mode="interface">
                 <xsl:with-param name="text">copy</xsl:with-param>
             </xsl:apply-templates>
