@@ -71,7 +71,7 @@
                                      </xsl:apply-templates>
                                  </span>
                              </button>
-                             <h4 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h4>
+                             <h5 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h5>
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">

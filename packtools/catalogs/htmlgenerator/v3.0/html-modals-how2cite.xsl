@@ -27,11 +27,11 @@
                                 </xsl:apply-templates>
                             </span>
                         </button>
-                        <h4 class="modal-title">
+                        <h5 class="modal-title">
                             <xsl:apply-templates select="." mode="text-labels">
                                 <xsl:with-param name="text">How to cite</xsl:with-param>
                             </xsl:apply-templates>
-                        </h4>
+                        </h5>
                     </div>
                     <div class="modal-body">
                         <p id="citation">

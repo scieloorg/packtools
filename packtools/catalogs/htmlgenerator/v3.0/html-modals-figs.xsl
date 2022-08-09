@@ -37,7 +37,7 @@
                             <span class="sci-ico-newWindow"></span>
                         </a>
                         </xsl:if>
-                        <h4 class="modal-title"><span class="sci-ico-fileFigure"></span> <xsl:apply-templates select="." mode="fig-label-caption"></xsl:apply-templates></h4>                 
+                        <h5 class="modal-title"><span class="sci-ico-fileFigure"></span> <xsl:apply-templates select="." mode="fig-label-caption"></xsl:apply-templates></h5>                 
                     </div>
                     <div class="modal-body">
                         <xsl:apply-templates select="." mode="fig-modal-body"/>

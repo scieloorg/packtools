@@ -47,10 +47,10 @@
                 <span class="sci-ico-newWindow"></span></a>
             </xsl:if>
             
-            <h4 class="modal-title">
+            <h5 class="modal-title">
                 <span class="sci-ico-fileTable"></span>
                 <xsl:apply-templates select="." mode="modal-header-label-caption"/>
-            </h4>
+            </h5>
         </div>
     </xsl:template>
     
