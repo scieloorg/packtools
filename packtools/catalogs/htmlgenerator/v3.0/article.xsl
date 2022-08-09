@@ -21,7 +21,6 @@
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     <xsl:include href="article-meta-product.xsl"/>
-    <!-- <xsl:include href="article-meta-related-article.xsl"/> -->
 
     <xsl:include href="generic-history.xsl"/>
     <xsl:include href="generic-pub-date.xsl"/>
@@ -298,9 +297,9 @@
                 class="logo-open-access"
                 data-bs-toggle="tooltip"
                 >
-                <xsl:apply-templates name="img_src_attribute">
+                <xsl:call-template name="img_src_attribute">
                     <xsl:with-param name="basename">logo-open-access.svg</xsl:with-param>
-                </xsl:apply-templates>
+                </xsl:call-template>
                 <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
             </img>
             <xsl:apply-templates select="." mode="article-meta-title"/>
