@@ -19,7 +19,10 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><span class="sci-ico-fileFigure"></span> <xsl:apply-templates select="." mode="fig-label-caption"></xsl:apply-templates></h5>
+                        <h5 class="modal-title">
+                            <span class="sci-ico-fileFigure"></span> 
+                            <xsl:apply-templates select="." mode="fig-label-caption"></xsl:apply-templates>
+                        </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
                             <xsl:attribute name="aria-label">
                                 <xsl:apply-templates select="." mode="interface">
