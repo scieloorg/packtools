@@ -50,7 +50,7 @@
         <xsl:variable name="id">
             <xsl:value-of select="position()"/>
         </xsl:variable>
-        <span class="dropdown">
+        <div class="dropdown">
             <a id="contribGroupTutor{$id}">
                 <xsl:attribute name="class">dropdown-toggle</xsl:attribute>
                 <xsl:attribute name="data-toggle">dropdown</xsl:attribute>
@@ -68,7 +68,7 @@
                     <xsl:value-of select="$id"/>
                 </xsl:with-param>
             </xsl:apply-templates>
-        </span>
+        </div>
     </xsl:template>
 
     <xsl:template match="sub-article[@article-type!='translation']//contrib" mode="article-meta-contrib">
