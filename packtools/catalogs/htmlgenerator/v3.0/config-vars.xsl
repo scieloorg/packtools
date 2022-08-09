@@ -8,6 +8,7 @@
     <xsl:param name="print_styles_css_path" />
     <xsl:param name="bootstrap_css_path" />
     <xsl:param name="article_css_path" />
+    <xsl:param name="design_system_static_img_path" />
     <xsl:param name="js_path" />
     <!-- google scholar abstract -->
     <xsl:param name="gs_abstract_lang" />
@@ -59,6 +60,12 @@
 
     <xsl:variable name="JS_PATH"><xsl:value-of select="$js_path"/></xsl:variable>
 
-    
+
+    <xsl:template name="img_src_attribute">
+        <xsl:param name="basename"/>
+        <xsl:attribute name="src">
+            <xsl:value-of select="$design_system_static_img_path"/>/<xsl:value-of select="$basename"/>
+        </xsl:attribute>
+    </xsl:template>
 
 </xsl:stylesheet>
