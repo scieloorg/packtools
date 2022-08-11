@@ -51,3 +51,16 @@ class Asset:
     def name(self):
         return self.node.attrib["{http://www.w3.org/1999/xlink}href"]
 
+    @property
+    def id(self):
+        current_node = self.node
+
+        while current_node is not None and hasattr(current_node, 'attrib') and 'id' not in current_node.attrib:
+            current_node = self.parent_map.get(current_node)
+
+        if not current_node or not hasattr(current_node, 'attrib'):
+            return
+
+        current_node_attrib = getattr(current_node, 'attrib')
+        if current_node_attrib:
+            return current_node_attrib.get('id')
