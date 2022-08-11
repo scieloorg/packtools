@@ -46,3 +46,8 @@ class Asset:
     def __init__(self, node, parent_map):
         self.node = node
         self.parent_map = parent_map
+
+    @property
+    def name(self):
+        return self.node.attrib["{http://www.w3.org/1999/xlink}href"]
+
