@@ -15,6 +15,22 @@ class ArticleAssets:
         self.parent_map = dict(
             (c, p) for p in self.xmltree.iter() for c in p
         )
+
+    @property
+    def article_assets(self):
+        _assets = []
+
+        for node in self.xmltree.xpath(
+            ".//*[@xlink:href]", 
+            namespaces={"xlink": "http://www.w3.org/1999/xlink"}
+        ):            
+            if self._is_asset(node):
+                asset = Asset(node, self.parent_map)
+
+                _assets.append(asset)
+
+        return _assets
+
     def _is_asset(self, node):
         if node.tag in (
             'graphic',
