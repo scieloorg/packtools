@@ -15,3 +15,12 @@ class ArticleAssets:
         self.parent_map = dict(
             (c, p) for p in self.xmltree.iter() for c in p
         )
+    def _is_asset(self, node):
+        if node.tag in (
+            'graphic',
+            'media',
+            'inline-graphic',
+            'supplementary-material',
+            'inline-supplementary-material',
+        ):
+            return True
