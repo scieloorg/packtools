@@ -40,3 +40,9 @@ class ArticleAssets:
             'inline-supplementary-material',
         ):
             return True
+
+
+class Asset:
+    def __init__(self, node, parent_map):
+        self.node = node
+        self.parent_map = parent_map
