@@ -6,3 +6,6 @@ class ArticleAssets:
     './/supplementary-material[@xlink:href]',
     './/inline-supplementary-material[@xlink:href]',
     """
+
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
