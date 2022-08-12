@@ -5,6 +5,32 @@ from packtools.sps.utils import xml_utils
 from packtools.sps.models.article_assets import ArticleAssets
 
 
+def generate_xmltree(snippet):
+    xml = """
+    <article xmlns:xlink="http://www.w3.org/1999/xlink">
+      <body>
+        <sec>
+          <p>The Eh measurements... <xref ref-type="fig" rid="f01">Figura 1</xref>:</p>
+          <p>
+            {0}
+          </p>
+          <p>
+          <fig id="f02">
+              <label>Figura 2</label>
+              <caption>
+                  <title>Caption Figura 2</title>
+              </caption>
+              <graphic xlink:href="figura2.jpg"/>
+              <attrib>Fonte: Dados originais da pesquisa</attrib>
+          </fig>
+          </p>
+        </sec>
+      </body>
+    </article>
+    """
+    return xml_utils.get_xml_tree(xml.format(snippet))
+
+
 class ArticleAssetsTest(TestCase):
     def test_article_assets_with_one_figure(self):
       data = open('tests/sps/fixtures/document3.xml').read()
