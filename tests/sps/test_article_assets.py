@@ -217,3 +217,44 @@ class ArticleAssetsTest(TestCase):
         obtained[a_id].append(a_name)
 
       self.assertDictEqual(expected, obtained)
+
+
+    def test_article_assets_with_inline_graphic(self):
+      data = """
+      <article xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+          </article-meta>
+        </front>
+        <body>
+          <sec>
+            <p>The Eh measurements... <xref ref-type="disp-formula" rid="e01">equation 1</xref>(in mV):</p>
+            <disp-formula id="e01">
+              {}
+            </disp-formula>
+            <p>We also used an... {}.</p>
+          </sec>
+          <p>We also used an ... based on the equation:<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e04.tif"/>.</p>
+        </body>
+      </article>
+      """
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        None: [
+          '1234-5678-rctb-45-05-0110-e04.tif',
+        ]
+      }
+      obtained = {}
+
+      for asset in ArticleAssets(xmltree).article_assets:
+        a_id = asset.id
+        a_name = asset.name
+
+        if a_id not in obtained:
+          obtained[a_id] = []
+
+        obtained[a_id].append(a_name)
+
+      self.assertDictEqual(expected, obtained)
+
