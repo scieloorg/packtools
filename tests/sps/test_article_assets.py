@@ -562,3 +562,57 @@ class ArticleAssetsTest(TestCase):
         obtained[a_id].append(a_name)
 
       self.assertDictEqual(expected, obtained)
+
+
+    def test_article_assets_with_fig_group_graphic_alternatives(self):
+      snippet = """
+      <fig-group id="f01">
+        <fig xml:lang="pt">
+          <label>Figura 1</label>
+          <caption>
+            <title>Caption Figura PT</title>
+          </caption>
+          <attrib>
+            <p>Nota da tabela em pt</p>
+          </attrib>
+        </fig>
+        <fig xml:lang="en">
+          <label>Figure 1</label>
+          <caption>
+            <title>Caption Figura EN</title>
+          </caption>
+          <attrib>
+            <p><xref ref-type="fig" rid="f01">Figure 1</xref> Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+          </attrib>
+        </fig>
+        <alternatives>
+          <graphic xlink:href="original.tif" />
+          <graphic xlink:href="ampliada.png" specific-use="scielo-web" />
+          <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+        </alternatives>
+      </fig-group>
+      """
+      xmltree = generate_xmltree(snippet)
+
+      expected = {
+        'f01': [
+          'original.tif',
+          'ampliada.png',
+          'miniatura.jpg',
+        ],
+        'f02': [
+          'figura2.jpg',
+        ]
+      }
+      obtained = {}
+
+      for asset in ArticleAssets(xmltree).article_assets:
+        a_id = asset.id
+        a_name = asset.name
+
+        if a_id not in obtained:
+          obtained[a_id] = []
+
+        obtained[a_id].append(a_name)
+
+      self.assertDictEqual(expected, obtained)
