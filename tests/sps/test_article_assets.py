@@ -376,3 +376,37 @@ class ArticleAssetsTest(TestCase):
       self.assertDictEqual(expected, obtained)
 
 
+            </fig>
+          </div>
+        </body>
+      </article>
+      """
+
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        'S1': [
+          '1471-2105-1-1-s1.pdf',
+        ],
+        None: [
+          '1234-5678-rctb-45-05-0110-m01.mp4',
+        ],
+        'f01': [
+          'original.tif',
+          'ampliada.png',
+          'miniatura.jpg',
+        ]
+      }
+
+      obtained = {}
+
+      for asset in ArticleAssets(xmltree).article_assets:
+        a_id = asset.id
+        a_name = asset.name
+
+        if a_id not in obtained:
+          obtained[a_id] = []
+
+        obtained[a_id].append(a_name)
+
+      self.assertDictEqual(expected, obtained)
