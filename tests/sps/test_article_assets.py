@@ -376,6 +376,35 @@ class ArticleAssetsTest(TestCase):
       self.assertDictEqual(expected, obtained)
 
 
+    def test_article_assets_with_supplementary_material_and_media_and_graphic(self):
+      data = """
+      <article xmlns:xlink="http://www.w3.org/1999/xlink">
+        <body>
+          <supplementary-material id="S1"
+                                  xlink:title="local_file"
+                                  xlink:href="1471-2105-1-1-s1.pdf"
+                                  mimetype="application"
+                                  mime-subtype="pdf">
+            <label>Additional material</label>
+            <caption>
+              <p>Supplementary PDF file supplied by authors.</p>
+            </caption>
+          </supplementary-material>
+          <p><media mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
+          <div>
+            <fig id="f01">
+              <label>Figura 1</label>
+              <caption>
+                  <title>Caption Figura 1</title>
+              </caption>
+              <disp-formula>
+              <alternatives>
+                  <graphic xlink:href="original.tif" />
+                  <graphic xlink:href="ampliada.png" specific-use="scielo-web" />
+                  <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+              </alternatives>
+              </disp-formula>
+              <attrib>Fonte: Dados originais da pesquisa</attrib>
             </fig>
           </div>
         </body>
