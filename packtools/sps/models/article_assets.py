@@ -25,13 +25,10 @@ class ArticleAssets:
         _assets = []
 
         for node in self.xmltree.xpath(
-            ".//*[@xlink:href]", 
+            ArticleAssets.XPATH_FOR_IDENTIFYING_ASSETS,
             namespaces={"xlink": "http://www.w3.org/1999/xlink"}
-        ):            
-            if self._is_asset(node):
-                asset = Asset(node, self.parent_map)
-
-                _assets.append(asset)
+        ):
+            _assets.append(Asset(node, self.parent_map))
 
         return _assets
 
