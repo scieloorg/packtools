@@ -142,3 +142,30 @@ class ArticleAssetsTest(TestCase):
         obtained[a_id].append(a_name)
 
       self.assertDictEqual(expected, obtained)
+
+
+    def test_article_assets_with_media(self):
+      data = """
+      <article xmlns:xlink="http://www.w3.org/1999/xlink">
+        <body>
+          <p><media mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
+        </body>
+      </article>
+      """
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {None: ['1234-5678-rctb-45-05-0110-m01.mp4'],}
+      obtained = {}
+
+      for asset in ArticleAssets(xmltree).article_assets:
+        a_id = asset.id
+        a_name = asset.name
+
+        if a_id not in obtained:
+          obtained[a_id] = []
+
+        obtained[a_id].append(a_name)
+
+      self.assertDictEqual(expected, obtained)
+  
+
