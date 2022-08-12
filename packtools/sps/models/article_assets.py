@@ -35,16 +35,6 @@ class ArticleAssets:
 
         return _assets
 
-    def _is_asset(self, node):
-        if node.tag in (
-            'graphic',
-            'media',
-            'inline-graphic',
-            'supplementary-material',
-            'inline-supplementary-material',
-        ):
-            return True
-
 
 class Asset:
     def __init__(self, node, parent_map):
