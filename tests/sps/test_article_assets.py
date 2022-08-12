@@ -258,3 +258,80 @@ class ArticleAssetsTest(TestCase):
 
       self.assertDictEqual(expected, obtained)
 
+
+    def test_article_assets_with_inline_graphic_and_others(self):
+      data = """
+      <article xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+          </article-meta>
+        </front>
+        <body>
+          <sec>
+            <p>The Eh measurements... <xref ref-type="disp-formula" rid="e01">equation 1</xref>(in mV):</p>
+            <disp-formula id="e01">
+              {}
+            </disp-formula>
+            <p>We also used an... {}.</p>
+          </sec>
+          <fig id="f01">
+            <label>Figura 1</label>
+            <caption>
+                <title>Caption Figura 1</title>
+            </caption>
+            <disp-formula>
+            <alternatives>
+                <graphic xlink:href="original.tif" />
+                <graphic xlink:href="ampliada.png" specific-use="scielo-web" />
+                <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+            </alternatives>
+            </disp-formula>
+            <attrib>Fonte: Dados originais da pesquisa</attrib>
+          </fig>
+          <fig id="f03">
+            <label>Fig. 3</label>
+            <caption>
+                <title>titulo da imagem</title>
+            </caption>
+            <alternatives>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-gf03.tiff"/>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-gf03.png" specific-use="scielo-web"/>
+                <graphic xlink:href="1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+          <p>We also used an ... based on the equation:<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e04.tif"/>.</p>
+          <p><media mimetype="video" mime-subtype="mp4" xlink:href="1234-5678-rctb-45-05-0110-m01.mp4"/></p>
+        </body>
+      </article>
+      """
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        'f01': [
+          'original.tif',
+          'ampliada.png',
+          'miniatura.jpg',
+        ],
+        'f03': [
+          '1234-5678-rctb-45-05-0110-gf03.tiff',
+          '1234-5678-rctb-45-05-0110-gf03.png',
+          '1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg',
+        ],
+        None: [
+          '1234-5678-rctb-45-05-0110-e04.tif',
+          '1234-5678-rctb-45-05-0110-m01.mp4',
+        ]
+      }
+
+      obtained = {}
+
+      for asset in ArticleAssets(xmltree).article_assets:
+        a_id = asset.id
+        a_name = asset.name
+
+        if a_id not in obtained:
+          obtained[a_id] = []
+
+        obtained[a_id].append(a_name)
+
+      self.assertDictEqual(expected, obtained)
