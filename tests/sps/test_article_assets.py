@@ -335,3 +335,44 @@ class ArticleAssetsTest(TestCase):
         obtained[a_id].append(a_name)
 
       self.assertDictEqual(expected, obtained)
+
+
+    def test_article_assets_with_supplementary_material(self):
+      data = """
+      <article xmlns:xlink="http://www.w3.org/1999/xlink">
+        <body>
+          <supplementary-material id="S1"
+                                  xlink:title="local_file"
+                                  xlink:href="1471-2105-1-1-s1.pdf"
+                                  mimetype="application"
+                                  mime-subtype="pdf">
+            <label>Additional material</label>
+            <caption>
+              <p>Supplementary PDF file supplied by authors.</p>
+            </caption>
+          </supplementary-material>
+        </body>
+      </article>
+      """
+
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        'S1': [
+        '1471-2105-1-1-s1.pdf',
+        ]
+      }
+      obtained = {}
+
+      for asset in ArticleAssets(xmltree).article_assets:
+        a_id = asset.id
+        a_name = asset.name
+
+        if a_id not in obtained:
+          obtained[a_id] = []
+
+        obtained[a_id].append(a_name)
+
+      self.assertDictEqual(expected, obtained)
+
+
