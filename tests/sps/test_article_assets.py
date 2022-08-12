@@ -410,3 +410,53 @@ class ArticleAssetsTest(TestCase):
         obtained[a_id].append(a_name)
 
       self.assertDictEqual(expected, obtained)
+
+
+    def test_article_assets_with_multiple_supplementary_material(self):
+      data = open('tests/sps/fixtures/document-with-supplementary-material.xml').read()
+      xmltree = xml_utils.get_xml_tree(data)
+      self.maxDiff = None
+
+      expected = {
+        'f1': [
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/256bcf2e607f18b0bb3842a31332f6b48620cb09.tif',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c00655410885461df4a98dd77860b81b2e5baa2c.png',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ebd30641f55d890debe55743b8e2946135c74140.jpg',
+        ],
+        'f2': [
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b784533145d2f1557a7df00e05e5c6207fc57e2a.tif',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b298055fb49aba04fa94a1287ed4c38c0680ccf7.png',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c0a10dd209a9da0ef40f92f070ee6c77b0ca220b.jpg',
+        ],
+        'f3': [
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/14717caba8b886eddbbc9e1e4a8c579631730187.tif',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b0b01286ff114d6eda85f9a5afb1217d164e32b5.png',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b03ad3e4bced80bf0a81dfe12fbe6e567982414b.jpg',
+        ],
+        'f4': [
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/407a7771f32d6364ee6536278a011a2c05da3339.tif',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c1ba665e5e0731d623095779a2d4099c808e776b.png',
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/f1da586984d4176883f92f2fb28e9abea946b8d2.jpg',
+        ],
+        'suppl01': [
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/e738857c8fb8bc085b766a812bbe73277c67d346.pdf',
+        ],
+        'suppl02': [
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b72942b47698183bf992f1ad8cebdf61d346e0cf.xls',
+        ],
+        'suppl03': [
+          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ffc50de0245a936540df9f98b7de123c8c597cbf.pdf',
+        ]
+      }
+      obtained = {}
+
+      for asset in ArticleAssets(xmltree).article_assets:
+        a_id = asset.id
+        a_name = asset.name
+
+        if a_id not in obtained:
+          obtained[a_id] = []
+
+        obtained[a_id].append(a_name)
+
+      self.assertDictEqual(expected, obtained)
