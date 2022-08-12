@@ -444,7 +444,6 @@ class ArticleAssetsTest(TestCase):
     def test_article_assets_with_multiple_supplementary_material(self):
       data = open('tests/sps/fixtures/document-with-supplementary-material.xml').read()
       xmltree = xml_utils.get_xml_tree(data)
-      self.maxDiff = None
 
       expected = {
         'f1': [
