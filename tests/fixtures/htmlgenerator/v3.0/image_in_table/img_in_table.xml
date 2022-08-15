@@ -1,0 +1,1730 @@
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">jbchs</journal-id>
+      <journal-title-group>
+        <journal-title>Journal of the Brazilian Chemical Society</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">J. Braz. Chem. Soc.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0103-5053</issn>
+      <issn pub-type="epub">1678-4790</issn>
+      <publisher>
+        <publisher-name>Sociedade Brasileira de Química</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">LgRcS7ZYYQ5wSDKw8wKytSp</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0103-50532021001001956</article-id>
+      <article-id pub-id-type="doi">10.21577/0103-5053.20210086</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Lipase-Mediated Dynamic Kinetic Resolution of 1-Phenylethanol Using Niobium Salts as Racemization Agents</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+          <name>
+            <surname>Higa</surname>
+            <given-names>Vanessa M.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">a</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Rocha</surname>
+            <given-names>Willian S.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">b</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Sairre</surname>
+            <given-names>Mirela Inês de</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">a</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-0115-3485</contrib-id>
+          <name>
+            <surname>Omori</surname>
+            <given-names>Álvaro T.</given-names>
+          </name>
+          <xref ref-type="corresp" rid="c1">*</xref>
+          <xref ref-type="aff" rid="aff1">a</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>a</label>
+        <institution content-type="orgname">Universidade Federal do ABC</institution>
+        <institution content-type="orgdiv1">Centro de Ciências Naturais e Humanas</institution>
+        <addr-line>
+          <city>Santo André</city>
+          <state>SP</state>
+          <postal-code>09210-580</postal-code>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <institution content-type="original">Centro de Ciências Naturais e Humanas, Universidade Federal do ABC, 09210-580 Santo André-SP, Brazil</institution>
+      </aff>
+      <aff id="aff2">
+        <label>b</label>
+        <institution content-type="orgname">Universidade Federal Rural do Rio de Janeiro</institution>
+        <institution content-type="orgdiv1">Instituto de Química</institution>
+        <institution content-type="orgdiv2">Departamento de Química Orgânica</institution>
+        <addr-line>
+          <city>Rio de Janeiro</city>
+          <state>RJ</state>
+          <postal-code>23890-000</postal-code>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <institution content-type="original">Departamento de Química Orgânica, Instituto de Química, Universidade Federal Rural do Rio de Janeiro, 23890-000 Rio de Janeiro-RJ, Brazil</institution>
+      </aff>
+      <author-notes>
+        <corresp id="c1"><label>*</label>e-mail: <email>alvaro.omori@ufabc.edu.br</email></corresp>
+      </author-notes>
+      <pub-date publication-format="electronic" date-type="pub">
+        <day>01</day>
+        <month>10</month>
+        <year>2021</year>
+      </pub-date>
+      <pub-date publication-format="electronic" date-type="collection">
+        <month>10</month>
+        <year>2021</year>
+      </pub-date>
+      <volume>32</volume>
+      <issue>10</issue>
+      <fpage>1956</fpage>
+      <lpage>1962</lpage>
+      <history>
+        <date date-type="received">
+          <day>11</day>
+          <month>04</month>
+          <year>2021</year>
+        </date>
+        <date date-type="accepted">
+          <day>14</day>
+          <month>06</month>
+          <year>2021</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <p>In this work, a racemization method of (<italic>S</italic>)-1-phenylethanol by niobium salts was developed. Among the salts available, the niobium phosphate hydrate (NbOPO<sub>4</sub>.nH<sub>2</sub>O) reduced the enantiomeric excess (<italic>ee</italic>) of the chiral alcohol from 95 to 0% after 24 h at 60 ºC in toluene. This new racemization agent was combined with a lipase (CALB) in order to achieve a chemoenzymatic dynamic kinetic resolution (DKR). Experiments demonstrated that the DKR process is feasible and the corresponding (<italic>R</italic>)-1-phenylethyl acetate was obtained with 92% conversion and 85% <italic>ee</italic>.</p>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>niobium</kwd>
+        <kwd>dynamic kinetic resolution</kwd>
+        <kwd>biocatalysis</kwd>
+        <kwd>racemization agent</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>FAPESP</funding-source>
+          <award-id>2017/18007-2</award-id>
+        </award-group>
+        <funding-statement>We express our gratitude to FAPESP (grant ID is 2017/18007-2) for financial support.</funding-statement>
+      </funding-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introduction</title>
+      <p>Enantiomerically enriched alcohols are important building blocks in the synthesis of several chiral biologically active compounds for pharmaceuticals, agrochemicals, food products.<xref ref-type="bibr" rid="B1">1</xref> In the literature, the chromatographic separation of racemates,<xref ref-type="bibr" rid="B2">2</xref> the chemo- and biocatalytic stereoselective reduction from ketones<xref ref-type="bibr" rid="B3">3</xref> and the kinetic resolution (KR)<xref ref-type="bibr" rid="B4">4</xref> of secondary alcohols are examples of methodologies that have been explored for their preparation.</p>
+      <p>Among the biocatalytic methods to obtain such chiral secondary alcohols, the enzymatic KR is one of the most used methods.<xref ref-type="bibr" rid="B5">5</xref> From a synthetic point of view, the factors that make the resolution quite attractive are the availability of enzymes (hydrolases), the possibility of reaction in organic media and the high rates of selectivity and activity towards a wide range of substrates. The kinetic resolution of racemic secondary alcohols in organic media is promoted through an enzyme-catalyzed enantioselective acylation of one enantiomer of the racemic mixture in the presence of an acyl donor.<xref ref-type="bibr" rid="B6">6</xref></p>
+      <p>Lipases are the most used biocatalysts in this transesterification reaction.<xref ref-type="bibr" rid="B7">7</xref><sup>,</sup><xref ref-type="bibr" rid="B8">8</xref> The ester formed is optically active which can be hydrolyzed to the enantiopure alcohol. However, the main disadvantage of kinetic resolution is the maximum conversion of 50% since one of the enantiomers is reacted more quickly than the other. In order to circumvent the yield issue, the addition of a racemization agent in the resolution is an attractive method. This process is called dynamic kinetic resolution (DKR) and combines the enzyme-catalyzed kinetic resolution (KR) with the <italic>in situ</italic> racemization, providing the product as a single enantiomer in up to 100% yield (<xref ref-type="fig" rid="f1">Scheme 1</xref>).<xref ref-type="bibr" rid="B9">9</xref></p>
+      <p>
+        <fig id="f1">
+          <label>
+            <bold>Scheme 1</bold>
+          </label>
+          <caption>
+            <title>Dynamic kinetic resolution.</title>
+          </caption>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/8e020156ada504272445255504908290edb14efd.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/50100abcbfd799bf9f09442895bce501d684b7c1.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/01800c824abc3222c6e499a5cd850702c1d87f87.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>The racemization agents have the function of racemize the chiral unreacted reagent and are extensively investigated.<xref ref-type="bibr" rid="B2">2</xref> In the review article by Verho and Bäckvall,<xref ref-type="bibr" rid="B5">5</xref> there are examples of metal complexes of Pd, Rh, Ir, Ru and V that have already been tested on various secondary alcohols. Metal salts have also shown the ability to racemize chiral alcohols. VOSO<sub>4</sub>, for example, has been used successfully in combination with the enzyme CALB in the DKR of some secondary alcohols.<xref ref-type="bibr" rid="B10">10</xref> According to the authors, the racemization mechanism using vanadium salts is through the formation of benzyl carbocation, differently from the catalytic cycle of oxidation and reduction (e.g., the Shvo catalyst).<xref ref-type="bibr" rid="B3">3</xref> A disadvantage of most commercial racemization agents is their high cost, making their availability difficult. The Shvo catalyst,<xref ref-type="bibr" rid="B11">11</xref> for example, is one of the most well-known catalysts used in racemization reactions, it costs around R$ 4.106,00 <italic>per</italic> 500 milligrams.<xref ref-type="bibr" rid="B12">12</xref> In addition, many of these racemization catalysts need strong basic conditions or high heating to be activated, which can be considered a difficulty to be faced, considering that these conditions can inhibit enzymatic activity.<xref ref-type="bibr" rid="B2">2</xref> In the case of VOSO<sub>4</sub>, dynamic kinetic resolution was only possible with the use of long chain esters as a transesterification agent and at relatively high temperatures (80 °C).<xref ref-type="bibr" rid="B3">3</xref> Despite several reports in literature on DKR, there are still challenges to overcome in this field such as compatibility of racemization agents with enzymes and environmental issues, high cost and the harsh conditions which can be harmful to enzymes.</p>
+      <p>A metal that has aroused local interest is niobium, since Brazil has 98% of the world’s reserve of this metal.<xref ref-type="bibr" rid="B13">13</xref> The niobium compounds have several applications in various organic reactions and therefore should not be overlooked.<xref ref-type="bibr" rid="B14">14</xref> The most commonly used niobium compound as efficient Lewis acid is niobium pentachloride (NbCl<sub>5</sub>). A variety of applications of NbCl<sub>5</sub> in organic synthesis have been reported, for example, in Diels-Alder reactions, multicomponent reactions (MCR), one-pot reactions, among others.<xref ref-type="bibr" rid="B15">15</xref><sup>,</sup><xref ref-type="bibr" rid="B16">16</xref> Furthermore, the niobium oxide salts (NbOX) are also interesting for synthetic purposes. For instance, niobium pentoxide (Nb<sub>2</sub>O<sub>5</sub>) is considered a useful catalyst for oxidation and dehydration reactions, rearrangements and photocatalysis.<xref ref-type="bibr" rid="B16">16</xref> Niobium phosphate (NbOPO<sub>4</sub>) catalyzes esterification reactions,<xref ref-type="bibr" rid="B17">17</xref> the synthesis of quinoline derivatives<xref ref-type="bibr" rid="B18">18</xref> and lactic acid.<xref ref-type="bibr" rid="B19">19</xref> The use of ammonium niobium oxalate is more recent and has proved to be an efficient catalyst for the synthesis of 2-arylbenzothiazoles and 3-aryl-2<italic>H</italic>-benzo[<italic>b</italic>] [1,4]benzoxazin-2-ones,<xref ref-type="bibr" rid="B20">20</xref> as well as for the synthesis of 3-arylquinoxalin-2(1<italic>H</italic>)-ones.<xref ref-type="bibr" rid="B21">21</xref></p>
+      <p>In a comparative way, still regarding the use of vanadium salts as a racemization agent, we believe that the use of niobium salts could play the same role. According to the literature, there are similarities in terms of oxophilicity<xref ref-type="bibr" rid="B22">22</xref> and acidity (already mentioned use as Lewis acid). Also, there are precedents that the mechanism of formation of benzyl carbocation seen with vanadium salts, could happen with niobium salts. Yadav <italic>et al</italic>.<xref ref-type="bibr" rid="B23">23</xref> reported the nucleophilic substitution reactions of benzylic alcohols catalyzed by NbCl<sub>5</sub>, probably by a carbocation mechanism. To the best of our knowledge, there is no report on the use of these Nb compounds in the racemization process in DKR. Thus, this work reports the dynamic kinetic resolution of secondary alcohols using niobium catalyst as a racemization agent.</p>
+    </sec>
+    <sec>
+      <title>Experimental</title>
+      <sec>
+        <title>General</title>
+        <p>Solvents were purchased from Synth (reagent grade, Diadema, Brazil) and used without further purification. Lipase B (CALB) from <italic>Candida antarctica</italic> lipase (Novozym-435) was purchased from Sigma-Aldrich (St. Louis, USA). Niobium salts (NbOPO<sub>4</sub>.nH<sub>2</sub>O, Nb<sub>2</sub>O<sub>5</sub>.nH<sub>2</sub>O, NbCl<sub>5</sub> and NH<sub>4</sub>[NbO(C<sub>2</sub>O<sub>4</sub>)(H<sub>2</sub>O)x].nH<sub>2</sub>O) was gently donated by Companhia Brasileira de Metalurgia e Mineração (CBMM) (Araxá, Brazil) through Prof Mirela Inês de Sairre (UFABC-CCNH). Mixing and heating of Falcon and glass tubes were made in a Thermomixer<sup>®</sup> (Eppendorf, Hamburg, Germany). Analytical thin-layer chromatography (TLC) was performed with aluminum-backed silica plates coated with a 0.25 mm thickness of silica gel 60 F254 (Merck, Darmstadt, Germany), exposure to vanillin or potassium permanganate solution and heating. Column chromatography separations were followed using 35-70 mm (240-400 mesh) silica gel purchased from Sigma-Aldrich (St. Louis, USA). Chiral gas chromatography with flame ionization detection (GC-FID) analyses were recorded on a 450-GC (Varian, Palo Alto, USA) with a Chiralsil-Dex CB β-cyclodextrin (25 m × 0.25 mm) column using H<sub>2</sub> as the carrier gas. Analysis method for chiral GC to determine the enantiomeric excess (<italic>ee</italic>) values of 1-phenylethanol was adopted from the literature, and the respective retention times are in agreement with the expected results described by Costa and Omori.<xref ref-type="bibr" rid="B24">24</xref> The enantiomeric excess of 1-phenylethanol was calculated according to equation: <inline-formula><mml:math id="e01"><mml:semantics><mml:mstyle mathsize="12.0pt"><mml:mfenced close="]" open="["><mml:mrow><mml:mfenced close=")" open="("><mml:mrow><mml:msub><mml:mi>E</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>−</mml:mo><mml:msub><mml:mi>E</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:mfenced><mml:mo>/</mml:mo><mml:mfenced close=")" open="("><mml:mrow><mml:msub><mml:mi>E</mml:mi><mml:mn>1</mml:mn></mml:msub><mml:mo>+</mml:mo><mml:msub><mml:mi>E</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:mfenced></mml:mrow></mml:mfenced><mml:mo>×</mml:mo><mml:mn>100</mml:mn></mml:mstyle></mml:semantics></mml:math></inline-formula>, where E<sub>1</sub> and E<sub>2</sub> are the amount of enantiomers as determined by chiral GC analyses.</p>
+      </sec>
+      <sec>
+        <title>Synthesis of (<italic>rac</italic>)-1-phenylethanol</title>
+        <p>Synthesis of 1-phenylethanol for GC standard was prepared by reduction of the corresponding acetophenone with sodium borohydride in methanol. To a stirred solution of acetophenone (13.9 mmol, 1.67 g) in methanol (50 mL) at 0 °C, sodium borohydride (13.9 mmol, 529 mg) was added portion wise. After 20 min, the solvent was removed under reduced pressure and the crude product was suspended in ethyl acetate (100 mL). The organic phase was then washed (3 × 50 mL) with saturated solution of ammonium chloride. The organic phase was dried with anhydrous Na<sub>2</sub>SO<sub>4</sub>, filtered and concentrated under reduced pressure. After GC analysis, the product was applied without further purification.</p>
+      </sec>
+      <sec>
+        <title>Enzymatic kinetic resolution of 1-phenylethanol<xref ref-type="bibr" rid="B25">25</xref></title>
+        <p>To a solution of racemic 1-phenylethanol (<bold>1</bold>) (13.5 mmol, 1.642 g) in hexane (80 mL), CALB lipase (250 mg) was added followed by a dropwise addition of vinyl acetate (27 mmol, 2.35 mL). The reaction was kept under orbital stirring at 180 rpm for 4 h. After filtration, the organic phase was concentrated under reduced pressure. The crude product was purified by column chromatography using hexane/ethyl acetate (9:1) as eluent. (<italic>R</italic>)-1-Phenylethyl acetate (<bold>2</bold>)(959 mg, isolated yield: 43%) (<italic>S</italic>)-1-phenylethanol (679 mg, isolated yield: 41%).</p>
+      </sec>
+      <sec>
+        <title>General procedure for racemization of (<italic>S</italic>)-1-phenylethanol</title>
+        <p>The corresponding niobium salt (50 mg) (<xref ref-type="table" rid="t1">Tables 1</xref> to <xref ref-type="table" rid="t4">4</xref>) was added in a 15 mL Falcon tube containing alcohol (<italic>S</italic>)-1-phenylethanol (0.24 mmol) dissolved in 6 mL of an appropriate solvent. The reaction was kept under stirring and heating for the time indicated (<xref ref-type="table" rid="t1">Tables 1</xref> to <xref ref-type="table" rid="t4">4</xref>). 100 μL aliquots for GC analysis were collected after 3, 6 and 24 h of reaction and diluted with 100 μL ethyl acetate in a 1.5 mL microtube. Chromatograms from chiral GC analysis were used to calculate conversion and enantiomeric excess (<italic>ee</italic>) values.</p>
+        <table-wrap id="t1">
+          <label>Table 1</label>
+          <caption>
+            <title>Racemization of (<italic>S</italic>)-1-phenylethanol (<bold>1</bold>) using Nb salts<sup><xref ref-type="table-fn" rid="TFN1">a</xref></sup></title>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <colgroup>
+              <col width="25%"/>
+              <col width="25%"/>
+              <col width="25%"/>
+              <col width="25%"/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="left" colspan="4">
+                  <inline-graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/26a5015940ccb189dc54c3d4e985c98490d294d1.svg"/>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="left">entry</td>
+                <td align="center">Nb salt</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>3 h<sup><xref ref-type="table-fn" rid="TFN2">b</xref></sup> / %</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>24 h<sup><xref ref-type="table-fn" rid="TFN2">b</xref></sup> / %</td>
+              </tr>
+              <tr>
+                <td align="left">1</td>
+                <td align="center">none</td>
+                <td align="center">96</td>
+                <td align="center">94</td>
+              </tr>
+              <tr>
+                <td align="left">2</td>
+                <td align="center">NbOPO<sub>4</sub>.nH<sub>2</sub>O</td>
+                <td align="center">50</td>
+                <td align="center">0</td>
+              </tr>
+              <tr>
+                <td align="left">3</td>
+                <td align="center">Nb<sub>2</sub>O<sub>5</sub>.nH<sub>2</sub>O</td>
+                <td align="center">96</td>
+                <td align="center">94</td>
+              </tr>
+              <tr>
+                <td align="left">4</td>
+                <td align="center">NbCl<sub>5</sub></td>
+                <td align="center">46</td>
+                <td align="center">-<sup><xref ref-type="table-fn" rid="TFN3">c</xref></sup></td>
+              </tr>
+              <tr>
+                <td align="left">5</td>
+                <td align="center">NH<sub>4</sub>[NbO(C<sub>2</sub>O<sub>4</sub>)(H<sub>2</sub>O)<sub>x</sub>].nH<sub>2</sub>O</td>
+                <td align="center">94</td>
+                <td align="center">76</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN1">
+              <label>a</label>
+              <p>(<italic>S</italic>)-1-Phenylethanol (0.24 mmol), Nb salt (50 mg) in toluene (6 mL) were stirred (700 rpm) at 60 °C ;</p>
+            </fn>
+            <fn id="TFN2">
+              <label>b</label>
+              <p>enantiomeric excess (<italic>ee</italic>) was determined by chiral GC analysis;</p>
+            </fn>
+            <fn id="TFN3">
+              <label>c</label>
+              <p>no peaksof 1-phenylethanol was detected.</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+        <table-wrap id="t2">
+          <label>Table 2</label>
+          <caption>
+            <title>Racemization of (<italic>S</italic>)-1-phenylethanol (<bold>1</bold>) varying the quantity of NbOPO<sub>4</sub>.nH<sub>2</sub>O<sup><xref ref-type="table-fn" rid="TFN4">a</xref></sup></title>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <colgroup>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="left" colspan="5">
+                  <inline-graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/af0f0e56cf943c5daadc4d83e7c778c04814c80f.svg"/>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="left">entry</td>
+                <td align="center">NbOPO<sub>4</sub>.nH<sub>2</sub>O /<break/>mg</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>3 h<sup><xref ref-type="table-fn" rid="TFN5">b</xref></sup> / %</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>6 h<sup><xref ref-type="table-fn" rid="TFN5">b</xref></sup> / %</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>24 h<sup><xref ref-type="table-fn" rid="TFN5">b</xref></sup> / %</td>
+              </tr>
+              <tr>
+                <td align="left">1</td>
+                <td align="center">10</td>
+                <td align="center">88</td>
+                <td align="center">84</td>
+                <td align="center">78</td>
+              </tr>
+              <tr>
+                <td align="left">2</td>
+                <td align="center">50</td>
+                <td align="center">50</td>
+                <td align="center">33</td>
+                <td align="center">0</td>
+              </tr>
+              <tr>
+                <td align="left">3</td>
+                <td align="center">100</td>
+                <td align="center">12</td>
+                <td align="center">0</td>
+                <td align="center">1<sup><xref ref-type="table-fn" rid="TFN6">c</xref></sup></td>
+              </tr>
+              <tr>
+                <td align="left">4</td>
+                <td align="center">150</td>
+                <td align="center">6</td>
+                <td align="center">2</td>
+                <td align="center">6<sup><xref ref-type="table-fn" rid="TFN6">c</xref></sup></td>
+              </tr>
+              <tr>
+                <td align="left">5</td>
+                <td align="center">200</td>
+                <td align="center">0</td>
+                <td align="center">1</td>
+                <td align="center">14<sup><xref ref-type="table-fn" rid="TFN6">c</xref></sup></td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN4">
+              <p>(<italic>S</italic>)-1-Phenylethanol (0.24 mmol), NbOPO<sub>4</sub>.nH<sub>2</sub>O in toluene (6 mL) were stirred (700 rpm) at 60 °C ;</p>
+            </fn>
+            <fn id="TFN5">
+              <label>b</label>
+              <p>enantiomeric excess (<italic>ee</italic>) was determined by chiral GC analysis;</p>
+            </fn>
+            <fn id="TFN6">
+              <label>c</label>
+              <p>unknown byproduct formation.</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+        <table-wrap id="t3">
+          <label>Table 3</label>
+          <caption>
+            <title>Racemization of (<italic>S</italic>)-1-phenylethanol (<bold>1</bold>) using NbOPO<sub>4</sub>.nH<sub>2</sub>O, in different temperatures<sup><xref ref-type="table-fn" rid="TFN7">a</xref></sup></title>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <colgroup>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="left" colspan="5">
+                  <inline-graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/815b4ca282364272bb0d59f2f523073280719673.svg"/>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="left">entry</td>
+                <td align="center">Temperature /<break/> °C</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>3 h<sup><xref ref-type="table-fn" rid="TFN8">b</xref></sup> / %</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>6 h<sup><xref ref-type="table-fn" rid="TFN8">b</xref></sup> / %</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>24 h<sup><xref ref-type="table-fn" rid="TFN8">b</xref></sup> / %</td>
+              </tr>
+              <tr>
+                <td align="left">1</td>
+                <td align="center">20</td>
+                <td align="center">&gt; 98</td>
+                <td align="center">&gt; 98</td>
+                <td align="center">&gt; 98</td>
+              </tr>
+              <tr>
+                <td align="left">2</td>
+                <td align="center">40</td>
+                <td align="center">96</td>
+                <td align="center">96</td>
+                <td align="center">86</td>
+              </tr>
+              <tr>
+                <td align="left">3</td>
+                <td align="center">60</td>
+                <td align="center">50</td>
+                <td align="center">33</td>
+                <td align="center">0</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN7">
+              <label>a</label>
+              <p>(<italic>S</italic>)-1-Phenylethanol (0.24 mmol), NbOPO<sub>4</sub>.nH<sub>2</sub>O (50 mg) in toluene (6 mL) were stirred (700 rpm);</p>
+            </fn>
+            <fn id="TFN8">
+              <label>b</label>
+              <p>enantiomeric excess (<italic>ee</italic>) was determined by chiral GC analysis.</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+        <table-wrap id="t4">
+          <label>Table 4</label>
+          <caption>
+            <title>Racemization of (S)-1-phenylethanol (1) using NbOPO<sub>4</sub>.nH<sub>2</sub>O, in different solvents<sup><xref ref-type="table-fn" rid="TFN9">a</xref></sup></title>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <colgroup>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+              <col width="20%"/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="left" colspan="5">
+                  <inline-graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/62c288c9f6fdb78877457afebdc4a2cd1491daba.svg"/>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="left">entry</td>
+                <td align="center">Solvent</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>3 h<sup><xref ref-type="table-fn" rid="TFN10">b</xref></sup> / %</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>6 h<sup><xref ref-type="table-fn" rid="TFN10">b</xref></sup> / %</td>
+                <td align="center"><italic>ee</italic> of <bold>1</bold> after<break/>24 h<sup><xref ref-type="table-fn" rid="TFN10">b</xref></sup> / %</td>
+              </tr>
+              <tr>
+                <td align="left">1</td>
+                <td align="center">toluene</td>
+                <td align="center">76</td>
+                <td align="center">56</td>
+                <td align="center">42</td>
+              </tr>
+              <tr>
+                <td align="left">2</td>
+                <td align="center">hexane</td>
+                <td align="center">88</td>
+                <td align="center">73</td>
+                <td align="center">71</td>
+              </tr>
+              <tr>
+                <td align="left">3</td>
+                <td align="center">1,4-dioxane</td>
+                <td align="center">&gt; 98</td>
+                <td align="center">&gt; 98</td>
+                <td align="center">&gt; 98</td>
+              </tr>
+              <tr>
+                <td align="left">4</td>
+                <td align="center">diethyl ether</td>
+                <td align="center">98</td>
+                <td align="center">-<sup><xref ref-type="table-fn" rid="TFN11">c</xref></sup></td>
+                <td align="center">-<sup><xref ref-type="table-fn" rid="TFN11">c</xref></sup></td>
+              </tr>
+              <tr>
+                <td align="left">5</td>
+                <td align="center">THF</td>
+                <td align="center">&gt; 98</td>
+                <td align="center">-<sup><xref ref-type="table-fn" rid="TFN11">c</xref></sup></td>
+                <td align="center">-<sup><xref ref-type="table-fn" rid="TFN11">c</xref></sup></td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN9">
+              <label>a</label>
+              <p>(<italic>S</italic>)-1-Phenylethanol (4.8 mL), solvent (1 mL), NbOPO<sub>4</sub>.nH<sub>2</sub>O (8 mg) were stirred (700 rpm) at 60 °C ;</p>
+            </fn>
+            <fn id="TFN10">
+              <label>b</label>
+              <p>enantiomeric excess (<italic>ee</italic>) was determined by chiral GC analysis;</p>
+            </fn>
+            <fn id="TFN11">
+              <label>c</label>
+              <p><italic>ee</italic> not measured due to evaporation. THF: tetrahydrofuran.</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </sec>
+      <sec>
+        <title>General procedure for DKR reaction</title>
+        <p>In a 15 mL glass tube with screw top cap, the lipase (10 mg) and the niobium salt (50 mg) were inserted into the tube separated by thin cotton layers. At the end, a solution of racemic 1-phenylethanol (0.24 mmol, 30 mg) in toluene (6 mL) was added followed by vinyl acetate (1 mmol, 86 mg). The tube was closed and the reaction was stirred at 700 rpm at 60 °C. Aliquots were collected after the time indicated in the <xref ref-type="table" rid="t5">Tables 5</xref> and <xref ref-type="table" rid="t6">6</xref>. Chromatograms from chiral GC analysis were used to calculate conversion and <italic>ee</italic> values.</p>
+        <table-wrap id="t5">
+          <label>Table 5</label>
+          <caption>
+            <title>Chromatographic yields of DKR reaction with both catalysts separated in two glass flasks<sup><xref ref-type="table-fn" rid="TFN12">a</xref></sup></title>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <colgroup>
+              <col width="11%"/>
+              <col width="11%"/>
+              <col width="11%"/>
+              <col width="11%"/>
+              <col width="11%"/>
+              <col width="11%"/>
+              <col width="11%"/>
+              <col width="11%"/>
+              <col width="11%"/>
+            </colgroup>
+            <thead>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <th align="left" colspan="9">
+                  <inline-graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/29921317c59ccdda2db407aa59a9b021fe442ff4.svg"/>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="left">No.</td>
+                <td align="center">Reaction time / h</td>
+                <td align="center">Reaction time duration in<break/>flask A / h</td>
+                <td align="center">Reaction time duration in<break/>flask B / h</td>
+                <td align="center">(<italic>R</italic>)-<bold>1</bold> / %</td>
+                <td align="center">(<italic>S</italic>)-<bold>1</bold> / %</td>
+                <td align="center">(<italic>S</italic>)-<bold>2</bold> / %</td>
+                <td align="center">(<italic>R</italic>)-<bold>2</bold> / %</td>
+                <td align="center">Byproduct / %</td>
+              </tr>
+              <tr>
+                <td align="left">1</td>
+                <td align="center">0-1</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">6</td>
+                <td align="center">44</td>
+                <td align="center">1</td>
+                <td align="center">50</td>
+                <td align="center">-</td>
+              </tr>
+              <tr>
+                <td align="left">2</td>
+                <td align="center">1-2</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">2</td>
+                <td align="center">43</td>
+                <td align="center">1</td>
+                <td align="center">54</td>
+                <td align="center">-</td>
+              </tr>
+              <tr>
+                <td align="left">3</td>
+                <td align="center">2-3</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">-</td>
+                <td align="center">43</td>
+                <td align="center">1</td>
+                <td align="center">56</td>
+                <td align="center">-</td>
+              </tr>
+              <tr>
+                <td align="left">4</td>
+                <td align="center">3-6</td>
+                <td align="center">3</td>
+                <td align="center">-</td>
+                <td align="center">0</td>
+                <td align="center">42</td>
+                <td align="center">1</td>
+                <td align="center">57</td>
+                <td align="center">-</td>
+              </tr>
+              <tr>
+                <td align="left">5</td>
+                <td align="center">6-24</td>
+                <td align="center">-</td>
+                <td align="center">18</td>
+                <td align="center">15</td>
+                <td align="center">16</td>
+                <td align="center">4</td>
+                <td align="center">65</td>
+                <td align="center">-</td>
+              </tr>
+              <tr>
+                <td align="left">6</td>
+                <td align="center">24-25</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">6</td>
+                <td align="center">14</td>
+                <td align="center">4</td>
+                <td align="center">70</td>
+                <td align="center">6</td>
+              </tr>
+              <tr>
+                <td align="left">7</td>
+                <td align="center">25-26</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">2</td>
+                <td align="center">15</td>
+                <td align="center">4</td>
+                <td align="center">74</td>
+                <td align="center">5</td>
+              </tr>
+              <tr>
+                <td align="left">8</td>
+                <td align="center">26-27</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">&lt; 1</td>
+                <td align="center">15</td>
+                <td align="center">4</td>
+                <td align="center">75</td>
+                <td align="center">6</td>
+              </tr>
+              <tr>
+                <td align="left">9</td>
+                <td align="center">27-48</td>
+                <td align="center">-</td>
+                <td align="center">21</td>
+                <td align="center">5</td>
+                <td align="center">6</td>
+                <td align="center">6</td>
+                <td align="center">77</td>
+                <td align="center">6</td>
+              </tr>
+              <tr>
+                <td align="left">10</td>
+                <td align="center">48-49</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">3</td>
+                <td align="center">5</td>
+                <td align="center">6</td>
+                <td align="center">78</td>
+                <td align="center">6</td>
+              </tr>
+              <tr>
+                <td align="left">11</td>
+                <td align="center">49-50</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">2</td>
+                <td align="center">6</td>
+                <td align="center">7</td>
+                <td align="center">79</td>
+                <td align="center">7</td>
+              </tr>
+              <tr>
+                <td align="left">12</td>
+                <td align="center">50-51</td>
+                <td align="center">1</td>
+                <td align="center">-</td>
+                <td align="center">1</td>
+                <td align="center">5</td>
+                <td align="center">6</td>
+                <td align="center">69</td>
+                <td align="center">5</td>
+              </tr>
+              <tr>
+                <td align="left">13</td>
+                <td align="center">51-72</td>
+                <td align="center">-</td>
+                <td align="center">21</td>
+                <td align="center">2.5</td>
+                <td align="center">2.5</td>
+                <td align="center">8</td>
+                <td align="center">80</td>
+                <td align="center">7</td>
+              </tr>
+              <tr>
+                <td align="left">14</td>
+                <td align="center">72-74</td>
+                <td align="center">2</td>
+                <td align="center">-</td>
+                <td align="center">0.5</td>
+                <td align="center">1.5</td>
+                <td align="center">8</td>
+                <td align="center">84</td>
+                <td align="center">6</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN12">
+              <label>a</label>
+              <p>Reaction conditions: (<italic>S</italic>)-1-phenylethanol (30 mg), toluene (6 mL), NbOPO<sub>4</sub>.nH<sub>2</sub>O (50 mg), vinyl acetate (86 mg), 700 rpm at 60 °C .</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+        <table-wrap id="t6">
+          <label>Table 6</label>
+          <caption>
+            <title>Chromatographic yields of DKR reaction with both catalysts separated by thin cotton layer in a single bottom glass flask<sup><xref ref-type="table-fn" rid="TFN13">a</xref></sup></title>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <colgroup>
+              <col width="12%"/>
+              <col width="12%"/>
+              <col width="12%"/>
+              <col width="12%"/>
+              <col width="12%"/>
+              <col width="12%"/>
+              <col width="12%"/>
+              <col width="12%"/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="left" colspan="8">
+                  <inline-graphic xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/6ea9420b46e9f99481767231c2b3588541fb8046.svg"/>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="left">time / h</td>
+                <td align="center">Flask</td>
+                <td align="center">(<italic>R</italic>)-<bold>1</bold> / %</td>
+                <td align="center">(<italic>S</italic>)-<bold>1</bold> / %</td>
+                <td align="center">(<italic>S</italic>)-<bold>2</bold> / %</td>
+                <td align="center">(<italic>R</italic>)-<bold>2</bold> / %</td>
+                <td align="center"><italic>ee</italic> (<italic>R</italic>)-<bold>2</bold> / %</td>
+                <td align="center">Byproduct / %</td>
+              </tr>
+              <tr>
+                <td align="left" rowspan="2">1</td>
+                <td align="center">A</td>
+                <td align="center">37</td>
+                <td align="center">50</td>
+                <td align="center">1</td>
+                <td align="center">9</td>
+                <td align="center">80</td>
+                <td align="center">2</td>
+              </tr>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="center">B</td>
+                <td align="center">18</td>
+                <td align="center">45</td>
+                <td align="center">1</td>
+                <td align="center">33</td>
+                <td align="center">94</td>
+                <td align="center">2</td>
+              </tr>
+              <tr>
+                <td align="left" rowspan="2">2</td>
+                <td align="center">A</td>
+                <td align="center">30</td>
+                <td align="center">46</td>
+                <td align="center">1</td>
+                <td align="center">19</td>
+                <td align="center">90</td>
+                <td align="center">4</td>
+              </tr>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="center">B</td>
+                <td align="center">9</td>
+                <td align="center">43</td>
+                <td align="center">1</td>
+                <td align="center">45</td>
+                <td align="center">&gt; 95</td>
+                <td align="center">2</td>
+              </tr>
+              <tr>
+                <td align="left" rowspan="2">4</td>
+                <td align="center">A</td>
+                <td align="center">16</td>
+                <td align="center">39</td>
+                <td align="center">2</td>
+                <td align="center">41</td>
+                <td align="center">91</td>
+                <td align="center">2</td>
+              </tr>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="center">B</td>
+                <td align="center">4</td>
+                <td align="center">42</td>
+                <td align="center">1</td>
+                <td align="center">51</td>
+                <td align="center">&gt; 95</td>
+                <td align="center">1</td>
+              </tr>
+              <tr>
+                <td align="left" rowspan="2">6</td>
+                <td align="center">A</td>
+                <td align="center">6</td>
+                <td align="center">28</td>
+                <td align="center">3</td>
+                <td align="center">59</td>
+                <td align="center">90</td>
+                <td align="center">2</td>
+              </tr>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="center">B</td>
+                <td align="center">2</td>
+                <td align="center">38</td>
+                <td align="center">2</td>
+                <td align="center">56</td>
+                <td align="center">93</td>
+                <td align="center">3</td>
+              </tr>
+              <tr>
+                <td align="left" rowspan="2">24</td>
+                <td align="center">A</td>
+                <td align="center">&lt; 1</td>
+                <td align="center">7</td>
+                <td align="center">7</td>
+                <td align="center">85</td>
+                <td align="center">85</td>
+                <td align="center">2</td>
+              </tr>
+              <tr style="border-bottom-width:thin;border-bottom-style:solid">
+                <td align="center">B</td>
+                <td align="center">&lt; 1</td>
+                <td align="center">18</td>
+                <td align="center">5</td>
+                <td align="center">75</td>
+                <td align="center">88</td>
+                <td align="center">2</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN13">
+              <label>a</label>
+              <p>Reaction conditions: (<italic>S</italic>)-1-phenylethanol (30 mg), toluene (6 mL), NbOPO<sub>4</sub>.nH<sub>2</sub>O (50 mg), vinyl acetate (86 mg), 700 rpm at 60 °C . <italic>ee</italic>: enantiomeric excess.</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </sec>
+    </sec>
+    <sec sec-type="results|discussion">
+      <title>Results and Discussion</title>
+      <sec>
+        <title>Racemization reaction</title>
+        <p>Initially, we focused on the optimization of conditions for the racemization of chiral 1-phenylethanol. For this purpose, four available niobium salts were screened for their activity with compound <bold>1</bold> in toluene at 60 °C. The enantiomeric excesses of <bold>1</bold> were measured after 3 and 24 h, and the results are summarized in <xref ref-type="table" rid="t1">Table 1</xref>.</p>
+        <p>Among all Nb salts examined, NbOPO<sub>4</sub>.nH<sub>2</sub>O showed the highest activity for the racemization of (<italic>S</italic>)-1-phenylethanol, giving 0% <italic>ee</italic> in 24 h of reaction (<xref ref-type="table" rid="t1">Table 1</xref>, entry 2). Possible byproduct formation was observed in the reaction using NbCl<sub>5</sub>. In this case, GC analysis after 24 h did not indicate the presence of starting material (entry 4). NbCl<sub>5</sub> hydrolyzes rapidly in contact with moisture, releasing HCl in the medium which may have contributed to possible 1-phenylethanol dehydration and styrene formation.<xref ref-type="bibr" rid="B26">26</xref> This screening result corroborates with the higher catalytic activity of niobium phosphates observed by Bassan <italic>et al</italic>.<xref ref-type="bibr" rid="B27">27</xref> The authors also pointed that niobium phosphate presents higher concentration of Brønsted acid sites than the niobium oxide. The niobium oxide phosphate hydrate (NbOPO<sub>4</sub>.nH<sub>2</sub>O) was then selected for further investigation.</p>
+        <p>Next, the effect of catalyst amount was evaluated in the racemization of (<italic>S</italic>)-1-phenylethanol catalyzed by niobium phosphate. Catalyst loadings from 10 to 200 mg were selected and the results were presented in <xref ref-type="table" rid="t2">Table 2</xref>.</p>
+        <p>A small decrease of <italic>ee</italic> was observed when 10 mg of niobium phosphate was used (<xref ref-type="table" rid="t2">Table 2</xref>, entry 1) even after 24 h of reaction, indicating the necessity of higher quantities. The amount of 50 mg of niobium phosphate was chosen for further experiments. Besides the high activity with 100 mg of catalyst (entry 3), the reaction mixture presented a slurry aspect which could also compromise the DKR setup. Also, above the amount of 50 mg, we noticed the formation of a byproduct after 24 h of reaction (entries 3 to 5). In order to detect possible interferences in the reaction, we observed later that this byproduct is generated from the plastic Falcon tube in contact with warm toluene. Indeed, further tests with glass tubes indicated that there is no formation of this byproduct.</p>
+        <p>Next step was to evaluate the ideal temperature for the racemization. In this case, the reaction was conducted at 20, 40 and 60 °C. The results are summarized in <xref ref-type="table" rid="t3">Table 3</xref>.</p>
+        <p>The enantiomeric excess of the reaction at 60 °C (entry 3) was smaller than the reactions at 20 and 40 °C (entries 1 and 2). As expected, the heating affects the reaction kinetics and thus the temperature at 60 °C was preferred for subsequent reactions. Reactions above 60 °C were not conducted for safety issues since the solvent used is volatile and to avoid energy waste. Besides, very high temperatures can compromise the efficiency of the lipases to be tested in DKR.</p>
+        <p>In a recent report by Milagre and co-workers,<xref ref-type="bibr" rid="B28">28</xref> the VOSO<sub>4</sub> catalyzed racemization of (<italic>S</italic>)-1-phenylethanol is faster at 80 °C but a byproduct formation was also observed. They concluded that decreasing the temperature resulted in better selectivity.</p>
+        <p>The effect of the solvent was also evaluated in the racemization of (<italic>S</italic>)-<bold>1</bold>. Using the optimized conditions (60 °C, 50 mg of NbOPO<sub>4</sub>.nH<sub>2</sub>O), five common solvents for DKR were tested (<xref ref-type="table" rid="t4">Table 4</xref>).</p>
+        <p>The control reaction (entry 1) gave undesired high values of <italic>ee</italic>. We attribute this lower performance due to lower reaction scale (less than 5 μL of starting material was used). Differently from toluene, the other solvents tested in this screening gave poor results. In the case of tetrahydrofuran (THF) and diethyl ether, we faced difficulties to maintain the solvent at 60 °C. Besides, based on the inertness with dioxane, we believe the oxygenated solvents are not suitable due to the oxyphilic character of niobium. Thus, we chose toluene not only because of the high boiling point but also because it provided the best performance of the deracemization reaction.</p>
+      </sec>
+      <sec>
+        <title>DKR reaction</title>
+        <p>With the optimized racemization conditions in hands, the next step was to provide a suitable setup for DKR using niobium phosphate as a racemization catalyst. CALB (Novozym-435) was the lipase of choice because of the high reproducibility and the vast literature applying this enzyme for resolution of 1-phenylethanol.<xref ref-type="bibr" rid="B29">29</xref> Initial attempts for DKR reaction were carried out mixing all reagents (<italic>rac</italic>-1-phenylethanol, CALB, niobium phosphate, vinyl acetate and toluene) in a glass tube. In this case, only traces of the desired acetate were observed even after 6 h of reaction.</p>
+        <p>To verify a possible inhibition of the biocatalyst by the niobium salt, another experiment was carried out with the lipase and NbOPO<sub>4</sub> in different glass flask and the reaction medium (supernatant) was transferred from time to time from one flask to another. The results are summarized in <xref ref-type="table" rid="t5">Table 5</xref>.</p>
+        <p>According to the <xref ref-type="table" rid="t5">Table 5</xref>, it is evident that the combination of both reactions (racemization and kinetic resolution) is feasible and the niobium salt is reusable. However, due to the long reaction time for racemization, it was necessary 74 h to achieve the desired chiral acetate (<italic>R</italic>)-<bold>2</bold> in 92% of conversion and 83% <italic>ee</italic> (entry 14). This long reaction time is associated to the fact both reactions occurred separately. Nevertheless, similarly to Wuyts <italic>et al</italic>.<xref ref-type="bibr" rid="B10">10</xref> and Milagre and co-workers<xref ref-type="bibr" rid="B28">28</xref> reports, this result shows a direct evidence for the necessity to physically separate the lipase and the niobium oxide phosphate hydrate.</p>
+        <p>In order to decrease the reaction time and simultaneously maintain the separation of the catalysts, a different setup was necessary. Attempts to use an inner glass tube filled with one of the catalysts capped with cotton caused leak issues. Thus, a setup similar to a fixed bed system developed by Souza and co-workers<xref ref-type="bibr" rid="B30">30</xref> was adapted. In this case, both the CALB and the NbOPO<sub>4</sub> were added separated by thin cotton layers at the bottom of a single reaction tube. The results are summarized in <xref ref-type="table" rid="t6">Table 6</xref>. Two different flasks were prepared, flasks A and B, which the sequence of the CALB and NbOPO<sub>4</sub> were alternated.</p>
+        <p>Considering the first 4 h of reaction, the flask B produced more (<italic>R</italic>)-1-phenylethyl acetate (<bold>2</bold>) than flask A. However, after 6 h the conversion to compound <bold>2</bold> is higher in flask A. Since the enzymatic resolution is faster than the racemization, we presume when the lipase is in the upper layer, the enzymatic resolution prevails since the enantiomeric excess of the 1-phenylethanol is relatively higher during the reaction. On the other hand, when the niobium salt is in the upper layer, the enantiomeric excess of the starting material is maintained relatively low all over the reaction.</p>
+        <p>After 24 h, we obtained the same result to the last setup (92% conversion and 85% <italic>ee</italic>). Both flasks furnished the desired acetate in excellent value of conversion and good enantiomeric excess. Nonetheless, the flask A was considered a better setup because we could isolate 25 mg of crude product after solvent removal, while for flask B, we obtained only 5 mg.</p>
+        <p>In comparison to the DKR reactions published using VOSO<sub>4</sub>,<xref ref-type="bibr" rid="B10">10</xref><sup>,</sup><xref ref-type="bibr" rid="B27">27</xref> this long time (24 h) presented in this work would suggests a drawback. However, the use of NbOPO<sub>4</sub> as racemizing reagent gave better values of conversion and <italic>ee</italic> with vinyl acetate as acyl donor.</p>
+      </sec>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>Conclusions</title>
+      <p>In conclusion, this new intriguing reactivity of niobium phosphate reinforces the strategic importance of continuing to investigate this important metal, considered almost exclusive in the Brazilian territory. Similar reactivity with vanadium in racemization of (<italic>S</italic>)-1-phenylethanol was observed. More studies regarding the substrate tolerance, benzyl cation mechanism, acyl donor influence and scalability are ongoing in our research group.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn fn-type="supplementary-material">
+        <p>
+          <bold>Supplementary Information</bold>
+        </p>
+        <p>Supplementary information (chromatograms from chiral GC analysis) is available free of charge at <ext-link ext-link-type="uri" xlink:href="http://jbcs.sbq.org.br">http://jbcs.sbq.org.br</ext-link> as <inline-supplementary-material xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/818bf2b94169513756c9f4734c24d9bc774a3795.pdf" mimetype="application" mime-subtype="pdf">PDF</inline-supplementary-material> file.</p>
+      </fn>
+    </fn-group>
+    <ack>
+      <title>Acknowledgments</title>
+      <p>We express our gratitude to FAPESP (grant ID is 2017/18007-2) for financial support.</p>
+    </ack>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1">
+        <label>1</label>
+        <mixed-citation>1 Calcaterra, A.; D’Acquarica, I.; <italic>J. Pharm. Biomed. Anal.</italic> <bold>2018</bold>, <italic>147</italic>, 323; Jeschke, P.; <italic>Pest Manage. Sci.</italic> <bold>2018</bold>, <italic>74</italic>, 2389.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Calcaterra</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>D’Acquarica</surname>
+              <given-names>I.</given-names>
+            </name>
+          </person-group>
+          <source>J. Pharm. Biomed. Anal.</source>
+          <year>2018</year>
+          <volume>147</volume>
+          <fpage>323</fpage>
+          <lpage>323</lpage>
+          <comment>Jeschke, P.; <italic>Pest Manage. Sci.</italic> <bold>2018</bold>, <italic>74</italic>, 2389.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <label>2</label>
+        <mixed-citation>2 Shen, J.; Okamoto, Y.; <italic>Chem. Rev.</italic> <bold>2016</bold>, <italic>116</italic>, 1094.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Shen</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Okamoto</surname>
+              <given-names>Y.</given-names>
+            </name>
+          </person-group>
+          <source>Chem. Rev.</source>
+          <year>2016</year>
+          <volume>116</volume>
+          <fpage>1094</fpage>
+          <lpage>1094</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <label>3</label>
+        <mixed-citation>3 Ni, Y.; Xu, J.-H.; <italic>Biotechnol. Adv</italic>. <bold>2012</bold>, <italic>30</italic>, 1279.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ni</surname>
+              <given-names>Y.</given-names>
+            </name>
+            <name>
+              <surname>Xu</surname>
+              <given-names>J.-H.</given-names>
+            </name>
+          </person-group>
+          <source>Biotechnol. Adv.</source>
+          <year>2012</year>
+          <volume>30</volume>
+          <fpage>1279</fpage>
+          <lpage>1279</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <label>4</label>
+        <mixed-citation>4 Pellissier, H.; <italic>Adv. Synth. Catal.</italic> <bold>2011</bold>, <italic>353</italic>, 1613.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pellissier</surname>
+              <given-names>H.</given-names>
+            </name>
+          </person-group>
+          <source>Adv. Synth. Catal.</source>
+          <year>2011</year>
+          <volume>353</volume>
+          <fpage>1613</fpage>
+          <lpage>1613</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <label>5</label>
+        <mixed-citation>5 Verho, O.; Bäckvall, J.-E.; <italic>J. Am. Chem. Soc.</italic> <bold>2015</bold>, <italic>137</italic>, 3996.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Verho</surname>
+              <given-names>O.</given-names>
+            </name>
+            <name>
+              <surname>Bäckvall</surname>
+              <given-names>J.-E.</given-names>
+            </name>
+          </person-group>
+          <source>J. Am. Chem. Soc.</source>
+          <year>2015</year>
+          <volume>137</volume>
+          <fpage>3996</fpage>
+          <lpage>3996</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <label>6</label>
+        <mixed-citation>6 Chen, B.; Souza, F. Z. R.; <italic>RSC Adv.</italic> <bold>2019</bold>, 9, 2102.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chen</surname>
+              <given-names>B.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>F. Z. R.</given-names>
+            </name>
+          </person-group>
+          <source>RSC Adv.</source>
+          <year>2019</year>
+          <volume>9</volume>
+          <fpage>2102</fpage>
+          <lpage>2102</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <label>7</label>
+        <mixed-citation>7 Gotor-Fernández, V.; Brieva, R.; Gotor, V.; <italic>J. Mol. Catal. B: Enzym.</italic> <bold>2006</bold>, <italic>40</italic>, 111.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gotor-Fernández</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>Brieva</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>Gotor</surname>
+              <given-names>V.</given-names>
+            </name>
+          </person-group>
+          <source>J. Mol. Catal. B: Enzym.</source>
+          <year>2006</year>
+          <volume>40</volume>
+          <fpage>111</fpage>
+          <lpage>111</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <label>8</label>
+        <mixed-citation>8 Carvalho, A. C. L. M.; Fonseca, T. S.; de Mattos, M. C.; de Oliveira, M. D. F.; de Lemos, T. L. G.; Molinari, F.; Romano, D.; Serra, I.; <italic>Int. J. Mol. Sci.</italic> <bold>2015</bold>, <italic>16</italic>, 29682.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Carvalho</surname>
+              <given-names>A. C. L. M.</given-names>
+            </name>
+            <name>
+              <surname>Fonseca</surname>
+              <given-names>T. S.</given-names>
+            </name>
+            <name>
+              <surname>de Mattos</surname>
+              <given-names>M. C.</given-names>
+            </name>
+            <name>
+              <surname>de Oliveira</surname>
+              <given-names>M. D. F.</given-names>
+            </name>
+            <name>
+              <surname>de Lemos</surname>
+              <given-names>T. L. G.</given-names>
+            </name>
+            <name>
+              <surname>Molinari</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Romano</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Serra</surname>
+              <given-names>I.</given-names>
+            </name>
+          </person-group>
+          <source>Int. J. Mol. Sci.</source>
+          <year>2015</year>
+          <volume>16</volume>
+          <fpage>29682</fpage>
+          <lpage>29682</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <label>9</label>
+        <mixed-citation>9 de Miranda, A. S.; Miranda, L. S. M.; de Souza, R. O. M. A.; <italic>Biotechnol. Adv</italic>. <bold>2015</bold>, <italic>33</italic>, 372.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>de Miranda</surname>
+              <given-names>A. S.</given-names>
+            </name>
+            <name>
+              <surname>Miranda</surname>
+              <given-names>L. S. M.</given-names>
+            </name>
+            <name>
+              <surname>de Souza</surname>
+              <given-names>R. O. M. A.</given-names>
+            </name>
+          </person-group>
+          <source>Biotechnol. Adv.</source>
+          <year>2015</year>
+          <volume>33</volume>
+          <fpage>372</fpage>
+          <lpage>372</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <label>10</label>
+        <mixed-citation>10 Wuyts, S.; Wahlen, J.; Jacobs, P. A.; de Vos, D. E.; <italic>Green Chem.</italic> <bold>2007</bold>, 9, 1104.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wuyts</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Wahlen</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Jacobs</surname>
+              <given-names>P. A.</given-names>
+            </name>
+            <name>
+              <surname>de Vos</surname>
+              <given-names>D. E.</given-names>
+            </name>
+          </person-group>
+          <source>Green Chem.</source>
+          <year>2007</year>
+          <volume>9</volume>
+          <fpage>1104</fpage>
+          <lpage>1104</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <label>11</label>
+        <mixed-citation>11 Conley, B. L.; Pennington-Boggio, M. K.; Boz, E.; Williams, T. J.; <italic>Chem. Rev.</italic> <bold>2010</bold>, <italic>110</italic>, 2294.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Conley</surname>
+              <given-names>B. L.</given-names>
+            </name>
+            <name>
+              <surname>Pennington-Boggio</surname>
+              <given-names>M. K.</given-names>
+            </name>
+            <name>
+              <surname>Boz</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>Williams</surname>
+              <given-names>T. J.</given-names>
+            </name>
+          </person-group>
+          <source>Chem. Rev.</source>
+          <year>2010</year>
+          <volume>110</volume>
+          <fpage>2294</fpage>
+          <lpage>2294</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <label>12</label>
+        <mixed-citation>12 <ext-link ext-link-type="uri" xlink:href="https://www.sigmaaldrich.com/catalog/product/aldrich/668281?lang=pt®ion=BR">https://www.sigmaaldrich.com/catalog/product/aldrich/668281?lang=pt®ion=BR</ext-link>, accessed in March 2021.</mixed-citation>
+        <element-citation publication-type="webpage">
+          <ext-link ext-link-type="uri" xlink:href="https://www.sigmaaldrich.com/catalog/product/aldrich/668281?lang=pt®ion=BR">https://www.sigmaaldrich.com/catalog/product/aldrich/668281?lang=pt®ion=BR</ext-link>
+          <date-in-citation content-type="access-date">March 2021</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <label>13</label>
+        <mixed-citation>13 Alves, A. R.; Coutinho, A. R.; <italic>Mater. Res.</italic> <bold>2015</bold>, <italic>18</italic>, 106.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Alves</surname>
+              <given-names>A. R.</given-names>
+            </name>
+            <name>
+              <surname>Coutinho</surname>
+              <given-names>A. R.</given-names>
+            </name>
+          </person-group>
+          <source>Mater. Res.</source>
+          <year>2015</year>
+          <volume>18</volume>
+          <fpage>106</fpage>
+          <lpage>106</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <label>14</label>
+        <mixed-citation>14 Lacerda, V.; dos Santos, D. A.; da Silva, L. C.; Greco, S. J.; dos Santos, R. B.; <italic>Aldrichimica Acta</italic> <bold>2012</bold>, <italic>45</italic>, 19; Satoh, Y.; Obora, Y.; <italic>Eur. J. Org. Chem.</italic> <bold>2015</bold>, 5041.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lacerda</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>dos Santos</surname>
+              <given-names>D. A.</given-names>
+            </name>
+            <name>
+              <surname>da Silva</surname>
+              <given-names>L. C.</given-names>
+            </name>
+            <name>
+              <surname>Greco</surname>
+              <given-names>S. J.</given-names>
+            </name>
+            <name>
+              <surname>dos Santos</surname>
+              <given-names>R. B.</given-names>
+            </name>
+          </person-group>
+          <source>Aldrichimica Acta</source>
+          <year>2012</year>
+          <volume>45</volume>
+          <fpage>19</fpage>
+          <lpage>19</lpage>
+          <comment>Satoh, Y.; Obora, Y.; <italic>Eur. J. Org. Chem.</italic> <bold>2015</bold>, 5041.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <label>15</label>
+        <mixed-citation>15 Rodrigues, S. M. M.; Previdi, D.; Baviera, G. S.; Matias, A. A.; Donate, P. M.; <italic>Synthesis</italic> <bold>2019</bold>, <italic>51</italic>, 4498.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>S. M. M.</given-names>
+            </name>
+            <name>
+              <surname>Previdi</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Baviera</surname>
+              <given-names>G. S.</given-names>
+            </name>
+            <name>
+              <surname>Matias</surname>
+              <given-names>A. A.</given-names>
+            </name>
+            <name>
+              <surname>Donate</surname>
+              <given-names>P. M.</given-names>
+            </name>
+          </person-group>
+          <source>Synthesis</source>
+          <year>2019</year>
+          <volume>51</volume>
+          <fpage>4498</fpage>
+          <lpage>4498</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <label>16</label>
+        <mixed-citation>16 Arpini, B. H.; Bartolomeu, A. A.; Andrade, C. K. Z.; Silva-Filho, L. C.; Lacerda, V.; <italic>Curr. Org. Synth.</italic> <bold>2015</bold>, <italic>12</italic>, 570.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Arpini</surname>
+              <given-names>B. H.</given-names>
+            </name>
+            <name>
+              <surname>Bartolomeu</surname>
+              <given-names>A. A.</given-names>
+            </name>
+            <name>
+              <surname>Andrade</surname>
+              <given-names>C. K. Z.</given-names>
+            </name>
+            <name>
+              <surname>Silva-Filho</surname>
+              <given-names>L. C.</given-names>
+            </name>
+            <name>
+              <surname>Lacerda</surname>
+              <given-names>V.</given-names>
+            </name>
+          </person-group>
+          <source>Curr. Org. Synth.</source>
+          <year>2015</year>
+          <volume>12</volume>
+          <fpage>570</fpage>
+          <lpage>570</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <label>17</label>
+        <mixed-citation>17 Rade, L. L.; Lemos, C. O. T.; Barrozo, M. A. S.; Ribas, R. M.; Monteiro, R. S.; Hori, C. E.; <italic>Renewable Energy</italic> <bold>2019</bold>, <italic>131</italic>, 348.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rade</surname>
+              <given-names>L. L.</given-names>
+            </name>
+            <name>
+              <surname>Lemos</surname>
+              <given-names>C. O. T.</given-names>
+            </name>
+            <name>
+              <surname>Barrozo</surname>
+              <given-names>M. A. S.</given-names>
+            </name>
+            <name>
+              <surname>Ribas</surname>
+              <given-names>R. M.</given-names>
+            </name>
+            <name>
+              <surname>Monteiro</surname>
+              <given-names>R. S.</given-names>
+            </name>
+            <name>
+              <surname>Hori</surname>
+              <given-names>C. E.</given-names>
+            </name>
+          </person-group>
+          <source>Renewable Energy</source>
+          <year>2019</year>
+          <volume>131</volume>
+          <fpage>348</fpage>
+          <lpage>348</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <label>18</label>
+        <mixed-citation>18 Jin, J.; Guidi, S.; Abada, Z.; Amara, Z.; Selva, M.; George, M. W.; Poliakoff, M.; <italic>Green Chem.</italic> <bold>2017</bold>, <italic>19</italic>, 2439.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jin</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Guidi</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Abada</surname>
+              <given-names>Z.</given-names>
+            </name>
+            <name>
+              <surname>Amara</surname>
+              <given-names>Z.</given-names>
+            </name>
+            <name>
+              <surname>Selva</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>George</surname>
+              <given-names>M. W.</given-names>
+            </name>
+            <name>
+              <surname>Poliakoff</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source>Green Chem.</source>
+          <year>2017</year>
+          <volume>19</volume>
+          <fpage>2439</fpage>
+          <lpage>2439</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <label>19</label>
+        <mixed-citation>19 Wang, X.; Song, Y.; Huang, C.; Wang, B.; <italic>Sustainable Energy Fuels</italic> <bold>2018</bold>, 2, 1530.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wang</surname>
+              <given-names>X.</given-names>
+            </name>
+            <name>
+              <surname>Song</surname>
+              <given-names>Y.</given-names>
+            </name>
+            <name>
+              <surname>Huang</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>Wang</surname>
+              <given-names>B.</given-names>
+            </name>
+          </person-group>
+          <source>Sustainable Energy Fuels</source>
+          <year>2018</year>
+          <volume>2</volume>
+          <fpage>1530</fpage>
+          <lpage>1530</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <label>20</label>
+        <mixed-citation>20 Penteado, F.; Vieira, M. M.; Perin, G.; Alves, D.; Jacob, R. G.; Santi, C.; Lenardão, E. J.; <italic>Green Chem.</italic> <bold>2016</bold>, <italic>18</italic>, 6675.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Penteado</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Vieira</surname>
+              <given-names>M. M.</given-names>
+            </name>
+            <name>
+              <surname>Perin</surname>
+              <given-names>G.</given-names>
+            </name>
+            <name>
+              <surname>Alves</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Jacob</surname>
+              <given-names>R. G.</given-names>
+            </name>
+            <name>
+              <surname>Santi</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>Lenardão</surname>
+              <given-names>E. J.</given-names>
+            </name>
+          </person-group>
+          <source>Green Chem.</source>
+          <year>2016</year>
+          <volume>18</volume>
+          <fpage>6675</fpage>
+          <lpage>6675</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <label>21</label>
+        <mixed-citation>21 Ebersol, C.; Rocha, N.; Penteado, F.; Silva, M. S.; Hartwig, D.; Lenardão, E. J.; Jacob, R. G.; <italic>Green Chem.</italic> <bold>2019</bold>, <italic>21</italic>, 6154.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ebersol</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>Rocha</surname>
+              <given-names>N.</given-names>
+            </name>
+            <name>
+              <surname>Penteado</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>M. S.</given-names>
+            </name>
+            <name>
+              <surname>Hartwig</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Lenardão</surname>
+              <given-names>E. J.</given-names>
+            </name>
+            <name>
+              <surname>Jacob</surname>
+              <given-names>R. G.</given-names>
+            </name>
+          </person-group>
+          <source>Green Chem.</source>
+          <year>2019</year>
+          <volume>21</volume>
+          <fpage>6154</fpage>
+          <lpage>6154</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <label>22</label>
+        <mixed-citation>22 Kepp, K. P.; <italic>Inorg. Chem</italic>. <bold>2016</bold>, <italic>55</italic>, 9461.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kepp</surname>
+              <given-names>K. P.</given-names>
+            </name>
+          </person-group>
+          <source>Inorg. Chem.</source>
+          <year>2016</year>
+          <volume>55</volume>
+          <fpage>9461</fpage>
+          <lpage>9461</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <label>23</label>
+        <mixed-citation>23 Yadav, J. S.; Bhunia, D. C.; Krishna, K. V.; Srihari, P.; <italic>Tetrahedron Lett.</italic> <bold>2007</bold>, <italic>48</italic>, 8306.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Yadav</surname>
+              <given-names>J. S.</given-names>
+            </name>
+            <name>
+              <surname>Bhunia</surname>
+              <given-names>D. C.</given-names>
+            </name>
+            <name>
+              <surname>Krishna</surname>
+              <given-names>K. V.</given-names>
+            </name>
+            <name>
+              <surname>Srihari</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>Tetrahedron Lett.</source>
+          <year>2007</year>
+          <volume>48</volume>
+          <fpage>8306</fpage>
+          <lpage>8306</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <label>24</label>
+        <mixed-citation>24 Costa, M. R.; Omori, A. T.; <italic>Food Technol. Biotechnol.</italic> <bold>2017</bold>, <italic>55</italic>, 231.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Costa</surname>
+              <given-names>M. R.</given-names>
+            </name>
+            <name>
+              <surname>Omori</surname>
+              <given-names>A. T.</given-names>
+            </name>
+          </person-group>
+          <source>Food Technol. Biotechnol.</source>
+          <year>2017</year>
+          <volume>55</volume>
+          <fpage>231</fpage>
+          <lpage>231</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <label>25</label>
+        <mixed-citation>25 Omori, A. T.; Assis, L. F.; Andrade, L. H.; Comasseto, J. V.; Porto, A. L. M.; <italic>Tetrahedron: Asymmetry</italic> <bold>2007</bold>, <italic>18</italic>, 1048.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Omori</surname>
+              <given-names>A. T.</given-names>
+            </name>
+            <name>
+              <surname>Assis</surname>
+              <given-names>L. F.</given-names>
+            </name>
+            <name>
+              <surname>Andrade</surname>
+              <given-names>L. H.</given-names>
+            </name>
+            <name>
+              <surname>Comasseto</surname>
+              <given-names>J. V.</given-names>
+            </name>
+            <name>
+              <surname>Porto</surname>
+              <given-names>A. L. M.</given-names>
+            </name>
+          </person-group>
+          <source>Tetrahedron: Asymmetry</source>
+          <year>2007</year>
+          <volume>18</volume>
+          <fpage>1048</fpage>
+          <lpage>1048</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <label>26</label>
+        <mixed-citation>26 Bertero, N. M.; Trasarti, A. F.; Apesteguía, C. R.; Marchi, A. J.; <italic>Appl. Catal., A</italic> <bold>2013</bold>, <italic>458</italic>, 28.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bertero</surname>
+              <given-names>N. M.</given-names>
+            </name>
+            <name>
+              <surname>Trasarti</surname>
+              <given-names>A. F.</given-names>
+            </name>
+            <name>
+              <surname>Apesteguía</surname>
+              <given-names>C. R.</given-names>
+            </name>
+            <name>
+              <surname>Marchi</surname>
+              <given-names>A. J.</given-names>
+            </name>
+          </person-group>
+          <source>Appl. Catal., A</source>
+          <year>2013</year>
+          <volume>458</volume>
+          <fpage>28</fpage>
+          <lpage>28</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <label>27</label>
+        <mixed-citation>27 Bassan, I. A. L.; Nascimento, D. R.; Gil, R. A. S. S.; Silva, M. I. P.; Moreira, C. R.; Gonzalez, W. A.; Faro Jr., A. C.; Onfroy, T.; Latchter, E. R.; <italic>Fuel Process. Technol.</italic> <bold>2013</bold>, <italic>106</italic>, 619.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bassan</surname>
+              <given-names>I. A. L.</given-names>
+            </name>
+            <name>
+              <surname>Nascimento</surname>
+              <given-names>D. R.</given-names>
+            </name>
+            <name>
+              <surname>Gil</surname>
+              <given-names>R. A. S. S.</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>M. I. P.</given-names>
+            </name>
+            <name>
+              <surname>Moreira</surname>
+              <given-names>C. R.</given-names>
+            </name>
+            <name>
+              <surname>Gonzalez</surname>
+              <given-names>W. A.</given-names>
+            </name>
+            <name>
+              <surname>Faro</surname>
+              <given-names>A. C.</given-names>
+              <suffix>Jr.</suffix>
+            </name>
+            <name>
+              <surname>Onfroy</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>Latchter</surname>
+              <given-names>E. R.</given-names>
+            </name>
+          </person-group>
+          <source>Fuel Process. Technol.</source>
+          <year>2013</year>
+          <volume>106</volume>
+          <fpage>619</fpage>
+          <lpage>619</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <label>28</label>
+        <mixed-citation>28 Almeida, L. A.; Marcondes, T. H.; Milagre, C. D. F.; Milagre, H. M. S.; <italic>ChemCatChem</italic> <bold>2020</bold>, <italic>12</italic>, 2849.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Almeida</surname>
+              <given-names>L. A.</given-names>
+            </name>
+            <name>
+              <surname>Marcondes</surname>
+              <given-names>T. H.</given-names>
+            </name>
+            <name>
+              <surname>Milagre</surname>
+              <given-names>C. D. F.</given-names>
+            </name>
+            <name>
+              <surname>Milagre</surname>
+              <given-names>H. M. S.</given-names>
+            </name>
+          </person-group>
+          <source>ChemCatChem</source>
+          <year>2020</year>
+          <volume>12</volume>
+          <fpage>2849</fpage>
+          <lpage>2849</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <label>29</label>
+        <mixed-citation>29 Enantioselective acylation of 1-phenylethanol with vinyl acetate in the presence of CALB is considered a model reaction for alcohol resolution, see de los Ríos, A. P.; van Ranjwijk, F.; Sheldon, R. A.; <italic>Green Chem.</italic> <bold>2012</bold>, <italic>14</italic>, 1584; Mittersteiner, M.; Machado, T. M.; de Jesus, P. C.; Brondani, P. B.; Scharf, D. R.; Wendhausen Jr., R.; <italic>J. Braz. Chem. Soc.</italic> <bold>2017</bold>, <italic>28</italic>, 1185.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Enantioselective acylation of 1-phenylethanol with vinyl acetate in the presence of CALB is considered a model reaction for alcohol resolution</article-title>
+          <person-group person-group-type="author">
+            <name>
+              <surname>see de los Ríos</surname>
+              <given-names>A. P.</given-names>
+            </name>
+            <name>
+              <surname>van Ranjwijk</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Sheldon</surname>
+              <given-names>R. A.</given-names>
+            </name>
+          </person-group>
+          <source>Green Chem.</source>
+          <year>2012</year>
+          <volume>14</volume>
+          <fpage>1584</fpage>
+          <lpage>1584</lpage>
+          <comment>Mittersteiner, M.; Machado, T. M.; de Jesus, P. C.; Brondani, P. B.; Scharf, D. R.; Wendhausen Jr., R.; <italic>J. Braz. Chem. Soc.</italic> <bold>2017</bold>, <italic>28</italic>, 1185.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <label>30</label>
+        <mixed-citation>30 Miranda, A. S.; Silva, M. V. M.; Dias, F. C.; Souza, S. P.; Leão, R. A. C.; Souza, R. O. M. A.; <italic>React. Chem. Eng.</italic> <bold>2017</bold>, 2, 375.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Miranda</surname>
+              <given-names>A. S.</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>M. V. M.</given-names>
+            </name>
+            <name>
+              <surname>Dias</surname>
+              <given-names>F. C.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>S. P.</given-names>
+            </name>
+            <name>
+              <surname>Leão</surname>
+              <given-names>R. A. C.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>R. O. M. A.</given-names>
+            </name>
+          </person-group>
+          <source>React. Chem. Eng.</source>
+          <year>2017</year>
+          <volume>2</volume>
+          <fpage>375</fpage>
+          <lpage>375</lpage>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
