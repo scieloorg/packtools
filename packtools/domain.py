@@ -474,12 +474,13 @@ class HTMLGenerator(object):
                  permlink=None, url_article_page=None, url_download_ris=None,
                  gs_abstract=None, output_style=None,
                  bootstrap_css=None, article_css=None,
+                 design_system_static_img_path=None,
                  ):
         assert isinstance(file, etree._ElementTree)
         self.lxml = file
         if xslt in ['2.0', '3.0']:
             xslt = XSLT(f'root-html-{xslt}.xslt')
-        self.xslt = xslt or XSLT('root-html-3.0.xslt')
+        self.xslt = xslt or XSLT('root-html-2.0.xslt')
         self.css = css
         self.print_css = print_css
         self.bootstrap_css = bootstrap_css
@@ -492,6 +493,7 @@ class HTMLGenerator(object):
         self.output_style = output_style
         self.math_elem_preference = math_elem_preference
         self.math_js = math_js
+        self.design_system_static_img_path = design_system_static_img_path
 
     @classmethod
     def parse(cls, file, valid_only=True, **kwargs):
@@ -613,7 +615,7 @@ class HTMLGenerator(object):
                 styles_css_path=etree.XSLT.strparam(self.css or ''),
                 print_styles_css_path=etree.XSLT.strparam(self.print_css or ''),
                 article_css_path=etree.XSLT.strparam(self.article_css or ''),
-                bootstrap_css_path=etree.XSLT.strparam(self.print_css or ''),
+                bootstrap_css_path=etree.XSLT.strparam(self.bootstrap_css or ''),
                 js_path=etree.XSLT.strparam(self.js or ''),
                 permlink=etree.XSLT.strparam(self.permlink or ''),
                 url_article_page=etree.XSLT.strparam(self.url_article_page or ''),
@@ -622,5 +624,6 @@ class HTMLGenerator(object):
                 output_style=etree.XSLT.strparam(self.output_style or ''),
                 math_elem_preference=etree.XSLT.strparam(self.math_elem_preference or ''),
                 math_js=etree.XSLT.strparam(self.math_js or ''),
+                design_system_static_img_path=etree.XSLT.strparam(self.design_system_static_img_path or ''),
         )
 
