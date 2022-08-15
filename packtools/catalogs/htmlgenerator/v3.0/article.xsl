@@ -163,14 +163,34 @@
                 <link rel="stylesheet" href="{$CSS_PATH}"/>
             </xsl:when>
             <xsl:otherwise>
-                <link rel="stylesheet" href="{$CSS_PATH}/css/bootstrap.min.css"/>
-                <link rel="stylesheet" href="{$CSS_PATH}/css/article-styles.css"/>
-                <link rel="stylesheet" href="{$CSS_PATH}/css/scielo-print.css" media="print"/>
+                <xsl:choose>
+                    <xsl:when test="$BOOTSTRAP_CSS_PATH!=''">
+                        <link rel="stylesheet" href="{$BOOTSTRAP_CSS_PATH}"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <link rel="stylesheet" href="{$CSS_PATH}/css/bootstrap.min.css"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+
+                <xsl:choose>
+                    <xsl:when test="$ARTICLE_CSS_PATH!=''">
+                        <link rel="stylesheet" href="{$ARTICLE_CSS_PATH}"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <link rel="stylesheet" href="{$CSS_PATH}/css/article-styles.css"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+
+                <xsl:choose>
+                    <xsl:when test="$PRINT_CSS_PATH!=''">
+                        <link rel="stylesheet" href="{$PRINT_CSS_PATH}"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <link rel="stylesheet" href="{$CSS_PATH}/css/scielo-print.css" media="print"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="$PRINT_CSS_PATH!=''">
-            <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>
-        </xsl:if>
     </xsl:template>
     <xsl:template match="/" mode="js">
         <xsl:choose>
