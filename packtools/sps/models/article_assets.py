@@ -1,5 +1,5 @@
 class ArticleAssets:
-    ASSET_TYPES = (
+    ASSET_TAGS = (
         'graphic',
         'media',
         'inline-graphic',
@@ -8,7 +8,7 @@ class ArticleAssets:
     )
 
     XPATH_FOR_IDENTIFYING_ASSETS = '|'.join([
-        './/' + at + '[@xlink:href]' for at in ASSET_TYPES
+        './/' + at + '[@xlink:href]' for at in ASSET_TAGS
     ])
 
     def __init__(self, xmltree):
