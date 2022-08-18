@@ -58,6 +58,15 @@ class Asset:
 
     @property
     def type(self):
+        """
+        <alternatives>
+            <graphic xlink:href="original.tif"/>
+            <graphic xlink:href="padrao.png" specific-use="scielo-web"/>
+            <graphic xlink:href="mini.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+
+        In the above case, this property returns 'original' for original.tif, 'optimised' for pattern.png and 'thumbnail' for mini.jpg'.
+        """
         if 'content-type' in self.node.attrib:
             return 'thumbnail'
         elif 'specific-use' in self.node.attrib:
