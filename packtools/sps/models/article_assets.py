@@ -55,3 +55,12 @@ class Asset:
         current_node_attrib = getattr(current_node, 'attrib')
         if current_node_attrib:
             return current_node_attrib.get('id')
+
+    @property
+    def type(self):
+        if 'content-type' in self.node.attrib:
+            return 'thumbnail'
+        elif 'specific-use' in self.node.attrib:
+            return 'optimised'
+        else:
+            return 'original'
