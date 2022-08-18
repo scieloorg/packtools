@@ -31,6 +31,22 @@ def generate_xmltree(snippet):
     return xml_utils.get_xml_tree(xml.format(snippet))
 
 
+def obtain_asset_dict(article_assets):
+  asssets_dict = {}
+
+  for asset in article_assets:
+    a_id = asset.id
+    a_name = asset.name
+    a_type = asset.type
+
+    if a_id not in asssets_dict:
+      asssets_dict[a_id] = []
+
+    asssets_dict[a_id].append({'name': a_name, 'type': a_type})
+
+  return asssets_dict
+
+
 class ArticleAssetsTest(TestCase):
     def test_article_assets_with_one_figure(self):
       data = open('tests/sps/fixtures/document3.xml').read()
