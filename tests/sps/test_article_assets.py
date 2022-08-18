@@ -52,17 +52,8 @@ class ArticleAssetsTest(TestCase):
       data = open('tests/sps/fixtures/document3.xml').read()
       xmltree = xml_utils.get_xml_tree(data)
 
-      expected = {None: ['document3-xdadaf.jpg']}
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      expected = {None: [{'name': 'document3-xdadaf.jpg', 'type': 'original'}]}
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
