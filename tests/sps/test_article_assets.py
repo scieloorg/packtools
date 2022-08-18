@@ -79,17 +79,8 @@ class ArticleAssetsTest(TestCase):
       """
       xmltree = xml_utils.get_xml_tree(data)
 
-      expected = {'f01': ['original.tif', 'ampliada.png', 'miniatura.jpg']}
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      expected = {'f01': [{'name': 'original.tif', 'type': 'original'}, {'name': 'ampliada.png', 'type': 'optimised'}, {'name': 'miniatura.jpg', 'type': 'thumbnail'}]}
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -100,24 +91,15 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f01': [
-          'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg',
-          'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg'
+          {'name': 'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/fd89fb6a2a0f973016f2de7ee2b64b51ca573999.jpg', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/0c10c88b56f3f9b4f4eccfe9ddbca3fd581aac1b.jpg', 'type': 'thumbnail'}
         ],
         'f02': [
-          'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg',
-          'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg'
+          {'name': 'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/afd520e3ff23a23f2c973bbbaa26094e9e50f487.jpg', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1414-431X/ywDM7t6mxHzCRWp7kGF9rXQ/c2e5f2b77881866ef9820b03e99b3fedbb14cb69.jpg', 'type': 'thumbnail'}
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -128,51 +110,42 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         None: [
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/8d6031a105ac49f92d2bac1dab55785ec62ed139.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/6c7e45494816692122f9467ee9b5ee7a88f86e01.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/7172c66d1c5fa56dc230efa7123dea014f21e62f.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg',
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/8d6031a105ac49f92d2bac1dab55785ec62ed139.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/6c7e45494816692122f9467ee9b5ee7a88f86e01.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/7172c66d1c5fa56dc230efa7123dea014f21e62f.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'type': 'thumbnail'},
         ],
         # figures that belong to subarticle s1
         's1': [
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/9a4a202884a687ad4858fc95fbf3be801e63215b.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/1fdbee345fae2065d9bd0fd0b4b09a4f77e99e90.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/aa495447d05a9156d0d15f5f95f8890ee1d55743.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg',
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/9a4a202884a687ad4858fc95fbf3be801e63215b.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/1fdbee345fae2065d9bd0fd0b4b09a4f77e99e90.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/aa495447d05a9156d0d15f5f95f8890ee1d55743.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'type': 'thumbnail'},
         ],
         # figures that belong to subarticle s2
         's2': [
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/e971ae023bce641ced89dfbdc40d62be94c4c738.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/30d718ea67b77dd98bcda9d3acba9cb296fcba9e.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/b824ebf96bd03d51ee26edc6c3807c3092bf1901.tif',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png',
-          'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg',
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/e971ae023bce641ced89dfbdc40d62be94c4c738.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/30d718ea67b77dd98bcda9d3acba9cb296fcba9e.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/b824ebf96bd03d51ee26edc6c3807c3092bf1901.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'type': 'thumbnail'},
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -187,17 +160,8 @@ class ArticleAssetsTest(TestCase):
       """
       xmltree = xml_utils.get_xml_tree(data)
 
-      expected = {None: ['1234-5678-rctb-45-05-0110-m01.mp4'],}
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      expected = {None: [{'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'}],}
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
   
@@ -230,24 +194,15 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         None: [
-          '1234-5678-rctb-45-05-0110-m01.mp4',
+          {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'},
         ],
         'f01': [
-          'original.tif',
-          'ampliada.png',
-          'miniatura.jpg',
+          {'name': 'original.tif', 'type': 'original'},
+          {'name': 'ampliada.png', 'type': 'optimised'},
+          {'name': 'miniatura.jpg', 'type': 'thumbnail'},
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -275,19 +230,10 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         None: [
-          '1234-5678-rctb-45-05-0110-e04.tif',
+          {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original'},
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -341,31 +287,22 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f01': [
-          'original.tif',
-          'ampliada.png',
-          'miniatura.jpg',
+          {'name': 'original.tif', 'type': 'original'},
+          {'name': 'ampliada.png', 'type': 'optimised'},
+          {'name': 'miniatura.jpg', 'type': 'thumbnail'},
         ],
         'f03': [
-          '1234-5678-rctb-45-05-0110-gf03.tiff',
-          '1234-5678-rctb-45-05-0110-gf03.png',
-          '1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg',
+          {'name': '1234-5678-rctb-45-05-0110-gf03.tiff', 'type': 'original'},
+          {'name': '1234-5678-rctb-45-05-0110-gf03.png', 'type': 'optimised'},
+          {'name': '1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg', 'type': 'thumbnail'},
         ],
         None: [
-          '1234-5678-rctb-45-05-0110-e04.tif',
-          '1234-5678-rctb-45-05-0110-m01.mp4',
+          {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original'},
+          {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'},
         ]
       }
 
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -392,19 +329,10 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'S1': [
-        '1471-2105-1-1-s1.pdf',
+        {'name': '1471-2105-1-1-s1.pdf', 'type': 'original'},
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -448,28 +376,19 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'S1': [
-          '1471-2105-1-1-s1.pdf',
+          {'name': '1471-2105-1-1-s1.pdf', 'type': 'original'},
         ],
         None: [
-          '1234-5678-rctb-45-05-0110-m01.mp4',
+          {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'},
         ],
         'f01': [
-          'original.tif',
-          'ampliada.png',
-          'miniatura.jpg',
+          {'name': 'original.tif', 'type': 'original'},
+          {'name': 'ampliada.png', 'type': 'optimised'},
+          {'name': 'miniatura.jpg', 'type': 'thumbnail'},
         ]
       }
 
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -480,45 +399,36 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f1': [
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/256bcf2e607f18b0bb3842a31332f6b48620cb09.tif',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c00655410885461df4a98dd77860b81b2e5baa2c.png',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ebd30641f55d890debe55743b8e2946135c74140.jpg',
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/256bcf2e607f18b0bb3842a31332f6b48620cb09.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c00655410885461df4a98dd77860b81b2e5baa2c.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ebd30641f55d890debe55743b8e2946135c74140.jpg', 'type': 'thumbnail'},
         ],
         'f2': [
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b784533145d2f1557a7df00e05e5c6207fc57e2a.tif',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b298055fb49aba04fa94a1287ed4c38c0680ccf7.png',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c0a10dd209a9da0ef40f92f070ee6c77b0ca220b.jpg',
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b784533145d2f1557a7df00e05e5c6207fc57e2a.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b298055fb49aba04fa94a1287ed4c38c0680ccf7.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c0a10dd209a9da0ef40f92f070ee6c77b0ca220b.jpg', 'type': 'thumbnail'},
         ],
         'f3': [
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/14717caba8b886eddbbc9e1e4a8c579631730187.tif',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b0b01286ff114d6eda85f9a5afb1217d164e32b5.png',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b03ad3e4bced80bf0a81dfe12fbe6e567982414b.jpg',
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/14717caba8b886eddbbc9e1e4a8c579631730187.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b0b01286ff114d6eda85f9a5afb1217d164e32b5.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b03ad3e4bced80bf0a81dfe12fbe6e567982414b.jpg', 'type': 'thumbnail'},
         ],
         'f4': [
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/407a7771f32d6364ee6536278a011a2c05da3339.tif',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c1ba665e5e0731d623095779a2d4099c808e776b.png',
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/f1da586984d4176883f92f2fb28e9abea946b8d2.jpg',
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/407a7771f32d6364ee6536278a011a2c05da3339.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/c1ba665e5e0731d623095779a2d4099c808e776b.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/f1da586984d4176883f92f2fb28e9abea946b8d2.jpg', 'type': 'thumbnail'},
         ],
         'suppl01': [
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/e738857c8fb8bc085b766a812bbe73277c67d346.pdf',
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/e738857c8fb8bc085b766a812bbe73277c67d346.pdf', 'type': 'original'},
         ],
         'suppl02': [
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b72942b47698183bf992f1ad8cebdf61d346e0cf.xls',
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b72942b47698183bf992f1ad8cebdf61d346e0cf.xls', 'type': 'original'},
         ],
         'suppl03': [
-          'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ffc50de0245a936540df9f98b7de123c8c597cbf.pdf',
+          {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ffc50de0245a936540df9f98b7de123c8c597cbf.pdf', 'type': 'original'},
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -551,22 +461,13 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f01': [
-          'original',
+          {'name': 'original', 'type': 'original'}
         ],
         'f02': [
-          'figura2.jpg',
+          {'name': 'figura2.jpg', 'type': 'original'}
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -603,24 +504,15 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f01': [
-          'original.tif',
-          'ampliada.png',
-          'miniatura.jpg',
+          {'name': 'original.tif', 'type': 'original'},
+          {'name': 'ampliada.png', 'type': 'optimised'},
+          {'name': 'miniatura.jpg', 'type': 'thumbnail'},
         ],
         'f02': [
-          'figura2.jpg',
+          {'name': 'figura2.jpg', 'type': 'original'},
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -653,22 +545,13 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f01': [
-          'original',
+          {'name': 'original', 'type': 'original'},
         ],
         'f02': [
-          'figura2.jpg',
+          {'name': 'figura2.jpg', 'type': 'original'},
         ]
       }
-      obtained = {}
-
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
-
-        if a_id not in obtained:
-          obtained[a_id] = []
-
-        obtained[a_id].append(a_name)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
 
@@ -705,23 +588,76 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f01': [
-          'original.tif',
-          'ampliada.png',
-          'miniatura.jpg',
+          {'name': 'original.tif', 'type': 'original'},
+          {'name': 'ampliada.png', 'type': 'optimised'},
+          {'name': 'miniatura.jpg', 'type': 'thumbnail'},
         ],
         'f02': [
-          'figura2.jpg',
+          {'name': 'figura2.jpg', 'type': 'original'},
         ]
       }
-      obtained = {}
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
-      for asset in ArticleAssets(xmltree).article_assets:
-        a_id = asset.id
-        a_name = asset.name
+      self.assertDictEqual(expected, obtained)
 
-        if a_id not in obtained:
-          obtained[a_id] = []
 
-        obtained[a_id].append(a_name)
+    def test_article_assets_optimised_default(self):
+      data = open('tests/sps/fixtures/2318-0889-tinf-33-e200068.xml').read()
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        'f01': [
+          {'name': '2318-0889-tinf-33-e200068-gf01.tif', 'type': 'original'},
+          {'name': '2318-0889-tinf-33-e200068-gf01.png', 'type': 'optimised'},
+          {'name': '2318-0889-tinf-33-e200068-gf01.thumbnail.jpg', 'type': 'thumbnail'}],
+        'f02': [
+          {'name': '2318-0889-tinf-33-e200068-gf02.tif', 'type': 'original'},
+          {'name': '2318-0889-tinf-33-e200068-gf02.png', 'type': 'optimised'},
+          {'name': '2318-0889-tinf-33-e200068-gf02.thumbnail.jpg', 'type': 'thumbnail'}
+        ]
+      }
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
+
+      self.assertDictEqual(expected, obtained)
+
+
+    def test_article_assets_optimised_png_as_original(self):
+      snippet = """
+      <fig-group id="f01">
+        <fig xml:lang="pt">
+          <label>Figura 1</label>
+          <caption>
+            <title>Caption Figura PT</title>
+          </caption>
+          <attrib>
+            <p>Nota da tabela em pt</p>
+          </attrib>
+        </fig>
+        <fig xml:lang="en">
+          <label>Figure 1</label>
+          <caption>
+            <title>Caption Figura EN</title>
+          </caption>
+          <alternatives>
+            <graphic xlink:href="original.png" />
+            <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+          </alternatives>
+          <attrib>
+            <p><xref ref-type="fig" rid="f01">Figure 1</xref> Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+          </attrib>
+        </fig>
+      </fig-group>
+      """
+      xmltree = generate_xmltree(snippet)
+
+      expected = {
+        'f01': [
+          {'name': 'original.png', 'type': 'original'},
+          {'name': 'miniatura.jpg', 'type': 'thumbnail'}],
+        'f02': [
+          {'name': 'figura2.jpg', 'type': 'original'},
+        ]
+      }
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
