@@ -32,19 +32,19 @@ def generate_xmltree(snippet):
 
 
 def obtain_asset_dict(article_assets):
-  asssets_dict = {}
+  assets_dict = {}
 
   for asset in article_assets:
     a_id = asset.id
     a_name = asset.name
     a_type = asset.type
 
-    if a_id not in asssets_dict:
-      asssets_dict[a_id] = []
+    if a_id not in assets_dict:
+      assets_dict[a_id] = []
 
-    asssets_dict[a_id].append({'name': a_name, 'type': a_type})
+    assets_dict[a_id].append({'name': a_name, 'type': a_type})
 
-  return asssets_dict
+  return assets_dict
 
 
 class ArticleAssetsTest(TestCase):
