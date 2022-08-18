@@ -1,5 +1,5 @@
 class ArticleAssets:
-    ASSET_TYPES = (
+    ASSET_TAGS = (
         'graphic',
         'media',
         'inline-graphic',
@@ -8,7 +8,7 @@ class ArticleAssets:
     )
 
     XPATH_FOR_IDENTIFYING_ASSETS = '|'.join([
-        './/' + at + '[@xlink:href]' for at in ASSET_TYPES
+        './/' + at + '[@xlink:href]' for at in ASSET_TAGS
     ])
 
     def __init__(self, xmltree):
@@ -55,3 +55,21 @@ class Asset:
         current_node_attrib = getattr(current_node, 'attrib')
         if current_node_attrib:
             return current_node_attrib.get('id')
+
+    @property
+    def type(self):
+        """
+        <alternatives>
+            <graphic xlink:href="original.tif"/>
+            <graphic xlink:href="padrao.png" specific-use="scielo-web"/>
+            <graphic xlink:href="mini.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+
+        In the above case, this property returns 'original' for original.tif, 'optimised' for pattern.png and 'thumbnail' for mini.jpg'.
+        """
+        if 'content-type' in self.node.attrib:
+            return 'thumbnail'
+        elif 'specific-use' in self.node.attrib:
+            return 'optimised'
+        else:
+            return 'original'
