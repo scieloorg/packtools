@@ -17,3 +17,12 @@ class ArticleRenditions:
 
         return _renditions
 
+
+class Rendition:
+    def __init__(self, node, is_main_language=False):
+        self.node = node
+        self.is_main_language=is_main_language
+
+    @property
+    def language(self):
+        return self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
