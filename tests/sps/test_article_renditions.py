@@ -32,3 +32,13 @@ class ArticleRenditionsTest(TestCase):
       obtained = [r.language for r in ArticleRenditions(xmltree).article_renditions]
 
       self.assertListEqual(expected, obtained)
+
+
+    def test_article_assets_with_two_languages(self):
+      snippet = """<sub-article xml:lang='es' article-type='translation'><front-stub></front-stub></sub-article>"""
+      xmltree = generate_xmltree(snippet)
+
+      expected = ['pt', 'es']
+      obtained = [r.language for r in ArticleRenditions(xmltree).article_renditions]
+
+      self.assertListEqual(expected, obtained)
