@@ -22,3 +22,13 @@ def generate_xmltree(extralang1, extralang2=None, extralang3=None):
     """
     return xml_utils.get_xml_tree(xml.format(extralang1, extralang2, extralang3))
 
+
+class ArticleRenditionsTest(TestCase):
+    def test_article_assets_with_one_language(self):
+      data = """<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang='es'></article>"""
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = ['es']
+      obtained = [r.language for r in ArticleRenditions(xmltree).article_renditions]
+
+      self.assertListEqual(expected, obtained)
