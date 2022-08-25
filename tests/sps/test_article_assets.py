@@ -665,6 +665,92 @@ class ArticleAssetsTest(TestCase):
 
       self.assertDictEqual(expected, obtained)
 
+    def test_replace_names_not_found(self):
+        snippet = """
+        <fig-group id="f01">
+            <fig xml:lang="pt">
+                <label>Figura 1</label>
+                <caption>
+                    <title>Caption Figura PT</title>
+                </caption>
+                <attrib>
+                    <p>Nota da tabela em pt</p>
+                </attrib>
+            </fig>
+            <fig xml:lang="en">
+                <label>Figure 1</label>
+                <caption>
+                    <title>Caption Figura EN</title>
+                </caption>
+                <alternatives>
+                    <graphic xlink:href="original.png" />
+                    <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                </alternatives>
+                <attrib>
+                    <p><xref ref-type="fig" rid="f01">Figure 1</xref> Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                </attrib>
+            </fig>
+        </fig-group>
+        """
+        xmltree = generate_xmltree(snippet)
+
+        from_to = {
+            "original.png": "novo_original.png",
+            "miniatura.jpg": "novo_miniatura.jpg",
+            "figura2.jpg": "novo_figura2.jpg",
+        }
+        article_assets = ArticleAssets(xmltree)
+        not_found = article_assets.replace_names(from_to)
+        self.assertEqual(not_found, [])
+
+        updated = article_assets.article_assets
+        self.assertEqual(updated[0].name, 'novo_original.png')
+        self.assertEqual(updated[1].name, 'novo_miniatura.jpg')
+        self.assertEqual(updated[2].name, 'novo_figura2.jpg')
+
+    def test_replace_names(self):
+        snippet = """
+        <fig-group id="f01">
+            <fig xml:lang="pt">
+                <label>Figura 1</label>
+                <caption>
+                    <title>Caption Figura PT</title>
+                </caption>
+                <attrib>
+                    <p>Nota da tabela em pt</p>
+                </attrib>
+            </fig>
+            <fig xml:lang="en">
+                <label>Figure 1</label>
+                <caption>
+                    <title>Caption Figura EN</title>
+                </caption>
+                <alternatives>
+                    <graphic xlink:href="original.png" />
+                    <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                </alternatives>
+                <attrib>
+                    <p><xref ref-type="fig" rid="f01">Figure 1</xref> Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                </attrib>
+            </fig>
+        </fig-group>
+        """
+        xmltree = generate_xmltree(snippet)
+
+        from_to = {
+            "original.png": "novo_original.png",
+            "miniatura.jpg": "novo_miniatura.jpg",
+            "figura02.jpg": "novo_figura2.jpg",
+        }
+
+        article_assets = ArticleAssets(xmltree)
+        not_found = article_assets.replace_names(from_to)
+
+        updated = article_assets.article_assets
+        self.assertEqual(updated[0].name, 'novo_original.png')
+        self.assertEqual(updated[1].name, 'novo_miniatura.jpg')
+        self.assertEqual(not_found, ["figura2.jpg"])
+
 
 class SupplementaryMaterialsTest(TestCase):
     def _get_xmltree(self, xml):
