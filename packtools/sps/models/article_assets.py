@@ -73,3 +73,24 @@ class Asset:
             return 'optimised'
         else:
             return 'original'
+
+
+class SupplementaryMaterials:
+
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self._assets = ArticleAssets(xmltree)
+
+    @property
+    def items(self):
+        return [item
+                for item in self._assets.article_assets
+                if item.node.tag in ('supplementary-material',
+                                     'inline-supplementary-material')
+                ]
+
+    @property
+    def data(self):
+        return [{"id": item.id, "name": item.name, "name": item.name, }
+                for item in self.items
+                ]
