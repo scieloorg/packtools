@@ -119,6 +119,6 @@ class SupplementaryMaterials:
 
     @property
     def data(self):
-        return [{"id": item.id, "name": item.name, "name": item.name, }
+        return [{"id": item.id, "name": item.name, }
                 for item in self.items
                 ]
