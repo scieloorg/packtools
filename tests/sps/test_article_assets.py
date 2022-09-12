@@ -2,7 +2,10 @@ from unittest import TestCase
 
 from packtools.sps.utils import xml_utils
 
-from packtools.sps.models.article_assets import ArticleAssets
+from packtools.sps.models.article_assets import (
+    ArticleAssets,
+    SupplementaryMaterials,
+)
 
 
 def generate_xmltree(snippet):
@@ -661,3 +664,170 @@ class ArticleAssetsTest(TestCase):
       obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
+
+    def test_replace_names_not_found(self):
+        snippet = """
+        <fig-group id="f01">
+            <fig xml:lang="pt">
+                <label>Figura 1</label>
+                <caption>
+                    <title>Caption Figura PT</title>
+                </caption>
+                <attrib>
+                    <p>Nota da tabela em pt</p>
+                </attrib>
+            </fig>
+            <fig xml:lang="en">
+                <label>Figure 1</label>
+                <caption>
+                    <title>Caption Figura EN</title>
+                </caption>
+                <alternatives>
+                    <graphic xlink:href="original.png" />
+                    <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                </alternatives>
+                <attrib>
+                    <p><xref ref-type="fig" rid="f01">Figure 1</xref> Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                </attrib>
+            </fig>
+        </fig-group>
+        """
+        xmltree = generate_xmltree(snippet)
+
+        from_to = {
+            "original.png": "novo_original.png",
+            "miniatura.jpg": "novo_miniatura.jpg",
+            "figura2.jpg": "novo_figura2.jpg",
+        }
+        article_assets = ArticleAssets(xmltree)
+        not_found = article_assets.replace_names(from_to)
+        self.assertEqual(not_found, [])
+
+        updated = article_assets.article_assets
+        self.assertEqual(updated[0].name, 'novo_original.png')
+        self.assertEqual(updated[1].name, 'novo_miniatura.jpg')
+        self.assertEqual(updated[2].name, 'novo_figura2.jpg')
+
+    def test_replace_names(self):
+        snippet = """
+        <fig-group id="f01">
+            <fig xml:lang="pt">
+                <label>Figura 1</label>
+                <caption>
+                    <title>Caption Figura PT</title>
+                </caption>
+                <attrib>
+                    <p>Nota da tabela em pt</p>
+                </attrib>
+            </fig>
+            <fig xml:lang="en">
+                <label>Figure 1</label>
+                <caption>
+                    <title>Caption Figura EN</title>
+                </caption>
+                <alternatives>
+                    <graphic xlink:href="original.png" />
+                    <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+                </alternatives>
+                <attrib>
+                    <p><xref ref-type="fig" rid="f01">Figure 1</xref> Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                </attrib>
+            </fig>
+        </fig-group>
+        """
+        xmltree = generate_xmltree(snippet)
+
+        from_to = {
+            "original.png": "novo_original.png",
+            "miniatura.jpg": "novo_miniatura.jpg",
+            "figura02.jpg": "novo_figura2.jpg",
+        }
+
+        article_assets = ArticleAssets(xmltree)
+        not_found = article_assets.replace_names(from_to)
+
+        updated = article_assets.article_assets
+        self.assertEqual(updated[0].name, 'novo_original.png')
+        self.assertEqual(updated[1].name, 'novo_miniatura.jpg')
+        self.assertEqual(not_found, ["figura2.jpg"])
+
+
+class SupplementaryMaterialsTest(TestCase):
+    def _get_xmltree(self, xml):
+        return xml_utils.get_xml_tree(xml)
+
+    def test_inline_supplementary_material(self):
+        
+        data = (
+        """<article xmlns:xlink="http://www.w3.org/1999/xlink" >
+<back>
+    <fn-group>
+      <fn fn-type="supplementary-material">
+        <p>
+          <bold>Supplementary Information</bold>
+        </p>
+        <p>Supplementary information (chromatograms from chiral GC analysis) is available free of charge at <ext-link ext-link-type="uri" xlink:href="http://jbcs.sbq.org.br">http://jbcs.sbq.org.br</ext-link> as <inline-supplementary-material xlink:href="https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/818bf2b94169513756c9f4734c24d9bc774a3795.pdf" mimetype="application" mime-subtype="pdf">PDF</inline-supplementary-material> file.</p>
+      </fn>
+    </fn-group></back></article>
+
+        """
+        )
+        xmltree = xml_utils.get_xml_tree(data)
+
+        expected = [
+            (None, 'https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/818bf2b94169513756c9f4734c24d9bc774a3795.pdf'),
+        ]
+
+        for i, item in enumerate(SupplementaryMaterials(xmltree).items):
+            with self.subTest(i):
+                self.assertEqual(item.id, expected[i][0])
+                self.assertEqual(item.name, expected[i][1])
+
+    def test_supplementary_material(self):
+        
+        data = (
+        """<article xmlns:xlink="http://www.w3.org/1999/xlink" >
+<back>
+<app-group>
+<app id="app01">
+<title>Material suplementar</title>
+<p>O seguinte material suplementar está disponível online:</p>
+<p>
+<supplementary-material id="suppl01" mime-subtype="pdf" mimetype="application" xlink:href="c834.pdf">
+<label>Apêndice A –</label>
+<caption>
+<title>
+A relação entre energia e frequência de um
+<italic>quantum</italic>
+obtida por Einstein em 1905
+</title>
+</caption>
+</supplementary-material>
+</p>
+</app>
+<app id="app02">
+<p>
+<supplementary-material id="suppl02" mime-subtype="pdf" mimetype="application" xlink:href="0b97.pdf">
+<label>Apêndice B –</label>
+<caption>
+<title>Equivalência entre o Princípio de Maupertuis (mecânica do ponto material) e de Fermat (Ótica) no contexto não-relativístico.</title>
+</caption>
+</supplementary-material>
+</p>
+</app>
+</app-group></back></article>
+
+        """
+        )
+        xmltree = xml_utils.get_xml_tree(data)
+
+        expected = [
+            ('suppl01', 'c834.pdf'),
+            ('suppl02', '0b97.pdf'),
+        ]
+
+        for i, item in enumerate(SupplementaryMaterials(xmltree).items):
+            with self.subTest(i):
+                self.assertEqual(item.id, expected[i][0])
+                self.assertEqual(item.name, expected[i][1])
+

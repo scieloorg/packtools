@@ -1,3 +1,7 @@
+class AssetReplacementError(Exception):
+    ...
+
+
 class ArticleAssets:
     ASSET_TAGS = (
         'graphic',
@@ -32,6 +36,26 @@ class ArticleAssets:
 
         return _assets
 
+    def replace_names(self, from_to):
+        """
+        Replace names
+
+        Parameters
+        ----------
+        from_to : dict
+
+        Returns
+        -------
+        str list : not found names to replace
+        """
+        not_found = []
+        for asset in self.article_assets:
+            try:
+                asset.name = from_to[asset.name]
+            except KeyError as e:
+                not_found.append(asset.name)
+        return not_found
+
 
 class Asset:
     def __init__(self, node, parent_map):
@@ -41,6 +65,10 @@ class Asset:
     @property
     def name(self):
         return self.node.attrib["{http://www.w3.org/1999/xlink}href"]
+
+    @name.setter
+    def name(self, value):
+        self.node.set("{http://www.w3.org/1999/xlink}href", value)
 
     @property
     def id(self):
@@ -73,3 +101,24 @@ class Asset:
             return 'optimised'
         else:
             return 'original'
+
+
+class SupplementaryMaterials:
+
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self._assets = ArticleAssets(xmltree)
+
+    @property
+    def items(self):
+        return [item
+                for item in self._assets.article_assets
+                if item.node.tag in ('supplementary-material',
+                                     'inline-supplementary-material')
+                ]
+
+    @property
+    def data(self):
+        return [{"id": item.id, "name": item.name, }
+                for item in self.items
+                ]
