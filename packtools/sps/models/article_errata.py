@@ -28,3 +28,16 @@ class ArticleErrata:
 class Erratum:
     def __init__(self, node):
         self.node = node
+
+    @property
+    def label(self):
+        _label = ''
+        try:
+            fc = self.node.getchildren()[0]
+            if fc.tag == 'label':
+                _label = fc.text
+        except IndexError:
+            ...
+        finally:
+            return _label
+
