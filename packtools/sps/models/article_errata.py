@@ -11,11 +11,11 @@
 """
 
 
-class ArticleErrata:
+class ArticleWithErrataNotes:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    @property
+    def footnotes(self, fn_types=None):
     def article_errata(self):
         _errata = []
 
@@ -25,7 +25,7 @@ class ArticleErrata:
         return _errata
 
 
-class Erratum:
+class Footnote:
     def __init__(self, node):
         self.node = node
 
@@ -40,7 +40,6 @@ class Erratum:
             ...
         finally:
             return _label
-
 
     @property
     def text(self):

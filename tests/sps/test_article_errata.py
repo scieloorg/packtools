@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from packtools.sps.utils import xml_utils
 
-from packtools.sps.models.article_errata import ArticleErrata, Erratum
+from packtools.sps.models.article_errata import ArticleWithErrataNotes, Footnote
 
 
 def generate_xmltree(erratum1, erratum2=None):
@@ -23,7 +23,7 @@ def generate_xmltree(erratum1, erratum2=None):
 
 
 class ArticleErrataTest(TestCase):
-    def test_article_erratum_presence(self):
+    def test_footnote_presence(self):
         data = """
         <fn-group>
             <fn fn-type="other">
@@ -37,12 +37,12 @@ class ArticleErrataTest(TestCase):
         """
         xmltree = generate_xmltree(data)
 
-        obtained = ArticleErrata(xmltree).article_errata.pop()
+        obtained = ArticleWithErrataNotes(xmltree).footnotes().pop()
 
-        self.assertIsInstance(obtained, Erratum)
+        self.assertIsInstance(obtained, Footnote)
 
 
-    def test_article_erratum_label(self):
+    def test_footnote_label(self):
         data = """
         <fn-group>
             <fn fn-type="other">
@@ -57,13 +57,13 @@ class ArticleErrataTest(TestCase):
         xmltree = generate_xmltree(data)
 
         expected_label = 'Additions and Corrections'
-        erratum = ArticleErrata(xmltree).article_errata.pop()
-        obtained_label = erratum.label
+        fn = ArticleWithErrataNotes(xmltree).footnotes().pop()
+        obtained_label = fn.label
 
         self.assertEqual(expected_label, obtained_label)
 
 
-    def test_article_erratum_text(self):
+    def test_footnote_text(self):
         data = """
         <fn-group>
             <fn fn-type="other">
@@ -78,13 +78,13 @@ class ArticleErrataTest(TestCase):
         xmltree = generate_xmltree(data)
 
         expected_text = 'Additions and Corrections\nOn page 100, where it was read:\n“Joao S. Costa”\nNow reads:\n“João Silva Costa”'
-        erratum = ArticleErrata(xmltree).article_errata.pop()
-        obtained_text = erratum.text
+        fn = ArticleWithErrataNotes(xmltree).footnotes().pop()
+        obtained_text = fn.text
 
         self.assertEqual(expected_text, obtained_text)
     
 
-    def test_article_errata_with_table(self):
+    def test_footnote_with_table(self):
         data = """
         <fn-group>
             <fn fn-type="other">
@@ -210,13 +210,13 @@ class ArticleErrataTest(TestCase):
         expected_label = 'Corrections'
         expected_text = 'Corrections\nArticle “Risk factors for site complications of intravenous therapy in children and adolescents with cancer”, with number of DOI: \nhttps://doi.org/10.1590/0034-7167-2019-0471\n, published in the journal Revista Brasileira de Enfermagem, 73(4):e20190471, on page 3:\nWhere to read:\nIn the multiple analysis, logistic regression was performed and modeling was achieved when all variables presented p ≤ 0.05.\nRead:\nIn the multiple analysis, Poisson regression with robust variance was performed and modeling was achieved when all variables presented p ≤ 0.05.\nOn page 6, \nTable 5\n, where it read:\nTabela 5\nRegressão Logística das variáveis relacionadas à Terapia Intravenosa prévia associadas à ocorrência de complicação em crianças e adolescentes admitidos em unidades de clínica oncológica pediátrica, Feira de Santana, Bahia, Brasil, 2015 - 2016\nVariables\nComplicações da Terapia Intravenosa\np\nvalue\nRR\nIC\nTerapia Intravenosa periférica prolongada\n3.44\n1.58 - 7.50\n0.002\nAntecedente de complicações\n4.22\n2.84 - 6.26\n<0.001\nUtilização de medicamentos não irritantes/vesicantes\n1.99\n1.26 - 3.15\n0.003\nUtilização de solução vesicante\n2.65\n1.69 - 4.17\n<0.001\nRead:\nTable 5\nPoisson Regression of variables related to previous Intravenous Therapy associated with the occurrence of complications in children and adolescents admitted to pediatric oncology clinic units in the interior of Bahia, Brazil, Apr 2015 - Dec 2016\nVariables\nIntravenous Therapy Complications\np\nvalue\nRR\nCI\nProlonged peripheral IVT\n3.44\n1.58 - 7.50\n0.002\nHystory of complications\n4.22\n2.84 - 6.26\n<0.001\nUse of non-irritating/vesicant medication\n1.99\n1.26 - 3.15\n0.003\nUse of vesicant solution\n2.65\n1.69 - 4.17\n<00001'
 
-        obtained = ArticleErrata(xmltree).article_errata.pop()
+        obtained = ArticleWithErrataNotes(xmltree).footnotes().pop()
 
         self.assertEqual(expected_label, obtained.label)
         self.assertEqual(expected_text, obtained.text)
 
 
-    def test_article_errata_two_errata(self):
+    def test_two_footnotes(self):
         data1 = """
         <fn-group>
             <fn fn-type="other">
@@ -243,10 +243,10 @@ class ArticleErrataTest(TestCase):
         xmltree = generate_xmltree(data1, data2)
 
         expected_labels = ['Erratum number 1', 'Erratum number 2']
-        obtained_labels = [ae.label for ae in ArticleErrata(xmltree).article_errata]
+        obtained_labels = [ae.label for ae in ArticleWithErrataNotes(xmltree).footnotes()]
 
         expected_texts = ['Erratum number 1\nOn page 10, where it was read:\n“Joao S. Costa”\nNow reads:\n“João Silva Costa”', 'Erratum number 2\nOn page 23, where it was read:\n“Joao S. Costa”\nNow reads:\n“SciELO Research Group”']
-        obtained_texts = [ae.text for ae in ArticleErrata(xmltree).article_errata]
+        obtained_texts = [ae.text for ae in ArticleWithErrataNotes(xmltree).footnotes()]
 
         self.assertListEqual(expected_labels, obtained_labels)
         self.assertListEqual(expected_texts, obtained_texts)
