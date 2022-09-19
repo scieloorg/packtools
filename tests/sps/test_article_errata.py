@@ -23,3 +23,21 @@ def generate_xmltree(erratum1, erratum2=None):
 
 
 class ArticleErrataTest(TestCase):
+    def test_article_erratum_presence(self):
+        data = """
+        <fn-group>
+            <fn fn-type="other">
+                <label>Additions and Corrections</label>
+                <p>On page 100, where it was read:</p>
+                <p>“Joao S. Costa”</p>
+                <p>Now reads:</p>
+                <p>“João Silva Costa”</p>
+            </fn>
+        </fn-group>
+        """
+        xmltree = generate_xmltree(data)
+
+        obtained = ArticleErrata(xmltree).article_errata.pop()
+
+        self.assertIsInstance(obtained, Erratum)
+
