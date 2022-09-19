@@ -14,3 +14,13 @@
 class ArticleErrata:
     def __init__(self, xmltree):
         self.xmltree = xmltree
+
+    @property
+    def article_errata(self):
+        _errata = []
+
+        for node in self.xmltree.xpath(".//fn-group//fn[@fn-type='other']"):
+            _errata.append(Erratum(node))
+
+        return _errata
+
