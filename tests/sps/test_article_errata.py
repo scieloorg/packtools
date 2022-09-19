@@ -62,3 +62,24 @@ class ArticleErrataTest(TestCase):
 
         self.assertEqual(expected_label, obtained_label)
 
+
+    def test_article_erratum_text(self):
+        data = """
+        <fn-group>
+            <fn fn-type="other">
+                <label>Additions and Corrections</label>
+                <p>On page 100, where it was read:</p>
+                <p>“Joao S. Costa”</p>
+                <p>Now reads:</p>
+                <p>“João Silva Costa”</p>
+            </fn>
+        </fn-group>
+        """
+        xmltree = generate_xmltree(data)
+
+        expected_text = 'Additions and Corrections\nOn page 100, where it was read:\n“Joao S. Costa”\nNow reads:\n“João Silva Costa”'
+        erratum = ArticleErrata(xmltree).article_errata.pop()
+        obtained_text = erratum.text
+
+        self.assertEqual(expected_text, obtained_text)
+    
