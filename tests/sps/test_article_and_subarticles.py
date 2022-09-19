@@ -6,6 +6,15 @@ from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 
 
 class ArticleAndSubarticlesTest(TestCase):
+    def test_main_lang(self):
+        data = """<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en"></article>"""
+        xmltree = xml_utils.get_xml_tree(data)
+
+        expected = 'en'
+        obtained = ArticleAndSubArticles(xmltree).main_lang
+
+        self.assertEqual(expected, obtained)
+
 
     def test_main_article_type(self):
         data = """<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en"></article>"""
