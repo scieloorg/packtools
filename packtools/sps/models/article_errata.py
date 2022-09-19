@@ -24,3 +24,7 @@ class ArticleErrata:
 
         return _errata
 
+
+class Erratum:
+    def __init__(self, node):
+        self.node = node
