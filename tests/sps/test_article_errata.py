@@ -215,3 +215,38 @@ class ArticleErrataTest(TestCase):
         self.assertEqual(expected_label, obtained.label)
         self.assertEqual(expected_text, obtained.text)
 
+
+    def test_article_errata_two_errata(self):
+        data1 = """
+        <fn-group>
+            <fn fn-type="other">
+                <label>Erratum number 1</label>
+                <p>On page 10, where it was read:</p>
+                <p>“Joao S. Costa”</p>
+                <p>Now reads:</p>
+                <p>“João Silva Costa”</p>
+            </fn>
+        </fn-group>
+        """
+
+        data2 = """
+        <fn-group>
+            <fn fn-type="other">
+                <label>Erratum number 2</label>
+                <p>On page 23, where it was read:</p>
+                <p>“Joao S. Costa”</p>
+                <p>Now reads:</p>
+                <p>“SciELO Research Group”</p>
+            </fn>
+        </fn-group>
+        """
+        xmltree = generate_xmltree(data1, data2)
+
+        expected_labels = ['Erratum number 1', 'Erratum number 2']
+        obtained_labels = [ae.label for ae in ArticleErrata(xmltree).article_errata]
+
+        expected_texts = ['Erratum number 1\nOn page 10, where it was read:\n“Joao S. Costa”\nNow reads:\n“João Silva Costa”', 'Erratum number 2\nOn page 23, where it was read:\n“Joao S. Costa”\nNow reads:\n“SciELO Research Group”']
+        obtained_texts = [ae.text for ae in ArticleErrata(xmltree).article_errata]
+
+        self.assertListEqual(expected_labels, obtained_labels)
+        self.assertListEqual(expected_texts, obtained_texts)
