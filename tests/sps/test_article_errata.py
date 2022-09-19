@@ -250,3 +250,46 @@ class ArticleErrataTest(TestCase):
 
         self.assertListEqual(expected_labels, obtained_labels)
         self.assertListEqual(expected_texts, obtained_texts)
+
+
+    def test_footnote_custom_fn_type(self):
+        data1 = """
+        <fn-group>
+            <fn fn-type="erratum-custom-type">
+                <label>Correction of a custom type</label>
+                <p>On page 100, where it was read:</p>
+                <p>“Joao S. Costa”</p>
+                <p>Now reads:</p>
+                <p>“João Silva Costa”</p>
+            </fn>
+        </fn-group>
+        """
+
+        data2 = """
+        <fn-group>
+            <fn fn-type="other">
+                <label>Default type</label>
+                <p>On page 1, where it was read:</p>
+                <p>Alberto Einstein</p>
+                <p>Now reads:</p>
+                <p>Albert Einstein</p>
+            </fn>
+        </fn-group>
+        """
+        xmltree = generate_xmltree(data1, data2)
+
+        expected_labels = [
+            'Correction of a custom type',
+            'Default type',
+        ]
+        expected_texts = [
+            'Correction of a custom type\nOn page 100, where it was read:\n“Joao S. Costa”\nNow reads:\n“João Silva Costa”', 
+            'Default type\nOn page 1, where it was read:\nAlberto Einstein\nNow reads:\nAlbert Einstein'
+        ]
+        
+        fn = ArticleWithErrataNotes(xmltree).footnotes(fn_types=['erratum-custom-type','other', ])
+        obtained_labels = [f.label for f in fn]
+        obtained_texts = [f.text for f in fn]
+
+        self.assertEqual(expected_labels, obtained_labels)
+        self.assertEqual(expected_texts, obtained_texts)

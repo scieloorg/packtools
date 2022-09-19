@@ -16,11 +16,15 @@ class ArticleWithErrataNotes:
         self.xmltree = xmltree
 
     def footnotes(self, fn_types=None):
-    def article_errata(self):
         _errata = []
 
-        for node in self.xmltree.xpath(".//fn-group//fn[@fn-type='other']"):
-            _errata.append(Erratum(node))
+        if not fn_types:
+            xpath_pattern = ".//fn-group//fn[@fn-type='other']"
+        else:
+            xpath_pattern = "|".join([".//fn-group//fn[@fn-type='{0}']".format(i) for i in fn_types])
+
+        for node in self.xmltree.xpath(xpath_pattern):
+            _errata.append(Footnote(node))
 
         return _errata
 
