@@ -41,3 +41,24 @@ class ArticleErrataTest(TestCase):
 
         self.assertIsInstance(obtained, Erratum)
 
+
+    def test_article_erratum_label(self):
+        data = """
+        <fn-group>
+            <fn fn-type="other">
+                <label>Additions and Corrections</label>
+                <p>On page 100, where it was read:</p>
+                <p>“Joao S. Costa”</p>
+                <p>Now reads:</p>
+                <p>“João Silva Costa”</p>
+            </fn>
+        </fn-group>
+        """
+        xmltree = generate_xmltree(data)
+
+        expected_label = 'Additions and Corrections'
+        erratum = ArticleErrata(xmltree).article_errata.pop()
+        obtained_label = erratum.label
+
+        self.assertEqual(expected_label, obtained_label)
+
