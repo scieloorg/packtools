@@ -41,3 +41,7 @@ class Erratum:
         finally:
             return _label
 
+
+    @property
+    def text(self):
+        return '\n'.join([t for t in self.node.itertext()])
