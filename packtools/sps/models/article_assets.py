@@ -98,8 +98,7 @@ class Asset:
 
     @property
     def _suffix(self):
-        id_number = ''.join([i for i in self.id if i.isdigit()]).zfill(2)
-        return f"-{self._category_name_code}{id_number}{self._content_type or ''}"
+        return f"-{self._category_name_code}{self._id_str}{self._content_type}"
 
     @property
     def _ext(self):
