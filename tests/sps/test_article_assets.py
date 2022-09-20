@@ -811,6 +811,27 @@ class ArticleAssetsTest(TestCase):
       obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='0034-8910-rsp-48-2-0232')
 
       self.assertDictEqual(expected, obtained)
+
+
+    def test_assets_canonical_name_with_subarticles_and_ids_with_lang(self):
+      data = open('tests/samples/0034-8910-rsp-48-2-0240.xml').read()
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        'f01': [{'name': '0034-8910-rsp-48-2-0240-gf01', 'name_canonical': '0034-8910-rsp-48-2-0240-g01', 'type': 'original'}],
+        'f02': [{'name': '0034-8910-rsp-48-2-0240-gf02', 'name_canonical': '0034-8910-rsp-48-2-0240-g02', 'type': 'original'}],
+        'f03': [{'name': '0034-8910-rsp-48-2-0240-gf03', 'name_canonical': '0034-8910-rsp-48-2-0240-g03', 'type': 'original'}],
+        'f04': [{'name': '0034-8910-rsp-48-2-0240-gf04', 'name_canonical': '0034-8910-rsp-48-2-0240-g04', 'type': 'original'}],
+        'f01_en': [{'name': '0034-8910-rsp-48-2-0240-gf01-en', 'name_canonical': '0034-8910-rsp-48-2-0240-g01-en', 'type': 'original'}],
+        'f02_en': [{'name': '0034-8910-rsp-48-2-0240-gf02-en', 'name_canonical': '0034-8910-rsp-48-2-0240-g02-en', 'type': 'original'}],
+        'f03_en': [{'name': '0034-8910-rsp-48-2-0240-gf03-en', 'name_canonical': '0034-8910-rsp-48-2-0240-g03-en', 'type': 'original'}],
+        'f04_en': [{'name': '0034-8910-rsp-48-2-0240-gf04-en', 'name_canonical': '0034-8910-rsp-48-2-0240-g04-en', 'type': 'original'}],
+      }
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='0034-8910-rsp-48-2-0240')
+
+      self.assertDictEqual(expected, obtained)
+
+
 class SupplementaryMaterialsTest(TestCase):
     def _get_xmltree(self, xml):
         return xml_utils.get_xml_tree(xml)
