@@ -34,12 +34,15 @@ def generate_xmltree(snippet):
     return xml_utils.get_xml_tree(xml.format(snippet))
 
 
-def obtain_asset_dict(article_assets):
+def obtain_asset_dict(article_assets, package_name=None):
   assets_dict = {}
 
   for asset in article_assets:
     a_id = asset.id
-    a_name = asset.name
+    if not package_name:
+      a_name = asset.name
+    else:
+      a_name = asset.name_canonical(package_name)
     a_type = asset.type
 
     if a_id not in assets_dict:
