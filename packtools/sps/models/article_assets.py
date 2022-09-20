@@ -121,7 +121,7 @@ class Asset:
         return f"-{current_node.get('{http://www.w3.org/XML/1998/namespace}lang')}" or ""
 
     def name_canonical(self, package_name):
-        return f"{package_name}{self._suffix}{self._ext}"
+        return f"{package_name}{self._suffix}{self._lang}{self._ext}"
 
     @property
     def id(self):
