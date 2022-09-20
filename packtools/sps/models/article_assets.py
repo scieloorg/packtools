@@ -123,6 +123,13 @@ class Asset:
             return current_node_attrib.get('id')
 
     @property
+    def _id_str(self):
+        try:
+            return ''.join([i for i in self.id if i.isdigit()]).zfill(2)
+        except TypeError:
+            return ''
+
+    @property
     def type(self):
         """
         <alternatives>
