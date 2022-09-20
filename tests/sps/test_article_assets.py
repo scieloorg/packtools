@@ -753,8 +753,7 @@ class ArticleAssetsTest(TestCase):
         self.assertEqual(not_found, ["figura2.jpg"])
 
 
-    def test_article_assets_canonical_name(self):
-      self.maxDiff = None
+    def test_assets_canonical_name_without_subarticles(self):
       data = open('tests/sps/fixtures/document-with-supplementary-material.xml').read()
       xmltree = xml_utils.get_xml_tree(data)
 
