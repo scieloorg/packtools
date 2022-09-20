@@ -38,17 +38,15 @@ def obtain_asset_dict(article_assets, package_name=None):
   assets_dict = {}
 
   for asset in article_assets:
-    a_id = asset.id
-    if not package_name:
-      a_name = asset.name
-    else:
-      a_name = asset.name_canonical(package_name)
-    a_type = asset.type
+    asset_metadata = {'name': asset.name, 'type': asset.type}
+    if package_name:
+      asset_metadata['name_canonical'] = asset.name_canonical(package_name)
 
+    a_id = asset.id
     if a_id not in assets_dict:
       assets_dict[a_id] = []
 
-    assets_dict[a_id].append({'name': a_name, 'type': a_type})
+    assets_dict[a_id].append(asset_metadata)
 
   return assets_dict
 
