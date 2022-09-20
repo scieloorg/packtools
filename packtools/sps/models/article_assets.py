@@ -71,6 +71,12 @@ class Asset:
         self.node.set("{http://www.w3.org/1999/xlink}href", value)
 
     @property
+    def _content_type(self):
+        ct = self.node.get('content-type')
+        if ct:
+            return f'-{ct}'
+        return ''
+
     def id(self):
         current_node = self.node
 
