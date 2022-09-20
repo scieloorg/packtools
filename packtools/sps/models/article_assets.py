@@ -93,6 +93,11 @@ class Asset:
             return "i"
         return "g"
 
+    @property
+    def _suffix(self):
+        id_number = ''.join([i for i in self.id if i.isdigit()]).zfill(2)
+        return f"-{self._category_name_code}{id_number}{self._content_type or ''}"
+
     def id(self):
         current_node = self.node
 
