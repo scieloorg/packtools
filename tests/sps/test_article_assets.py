@@ -755,6 +755,47 @@ class ArticleAssetsTest(TestCase):
         self.assertEqual(not_found, ["figura2.jpg"])
 
 
+    def test_article_assets_canonical_name(self):
+      self.maxDiff = None
+      data = open('tests/sps/fixtures/document-with-supplementary-material.xml').read()
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        'f1': [
+          {'name': '1676-0611-bn-2021-1306-g01.tif', 'type': 'original'},
+          {'name': '1676-0611-bn-2021-1306-g01.png', 'type': 'optimised'},
+          {'name': '1676-0611-bn-2021-1306-g01-scielo-267x140.jpg', 'type': 'thumbnail'},
+        ],
+        'f2': [
+          {'name': '1676-0611-bn-2021-1306-g02.tif', 'type': 'original'},
+          {'name': '1676-0611-bn-2021-1306-g02.png', 'type': 'optimised'},
+          {'name': '1676-0611-bn-2021-1306-g02-scielo-267x140.jpg', 'type': 'thumbnail'},
+        ],
+        'f3': [
+          {'name': '1676-0611-bn-2021-1306-g03.tif', 'type': 'original'},
+          {'name': '1676-0611-bn-2021-1306-g03.png', 'type': 'optimised'},
+          {'name': '1676-0611-bn-2021-1306-g03-scielo-267x140.jpg', 'type': 'thumbnail'},
+        ],
+        'f4': [
+          {'name': '1676-0611-bn-2021-1306-g04.tif', 'type': 'original'},
+          {'name': '1676-0611-bn-2021-1306-g04.png', 'type': 'optimised'},
+          {'name': '1676-0611-bn-2021-1306-g04-scielo-267x140.jpg', 'type': 'thumbnail'},
+        ],
+        'suppl01': [
+          {'name': '1676-0611-bn-2021-1306-s01.pdf', 'type': 'original'},
+        ],
+        'suppl02': [
+          {'name': '1676-0611-bn-2021-1306-s02.xls', 'type': 'original'},
+        ],
+        'suppl03': [
+          {'name': '1676-0611-bn-2021-1306-s03.pdf', 'type': 'original'},
+        ]
+      }
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='1676-0611-bn-2021-1306')
+
+      self.assertDictEqual(expected, obtained)
+
+
 class SupplementaryMaterialsTest(TestCase):
     def _get_xmltree(self, xml):
         return xml_utils.get_xml_tree(xml)
