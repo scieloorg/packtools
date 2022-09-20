@@ -77,6 +77,22 @@ class Asset:
             return f'-{ct}'
         return ''
 
+    @property
+    def _category_name_code(self):
+        """
+        -g: figure graphic
+        -i: inline graphic
+        -e: equation
+        -s: supplementary data file
+        """
+        if "display-formula" in self.node.tag:
+            return "e"
+        if "supplementary" in self.node.tag:
+            return "s"
+        if "inline" in self.node.tag:
+            return "i"
+        return "g"
+
     def id(self):
         current_node = self.node
 
