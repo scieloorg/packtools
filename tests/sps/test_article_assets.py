@@ -793,6 +793,24 @@ class ArticleAssetsTest(TestCase):
       self.assertDictEqual(expected, obtained)
 
 
+    def test_assets_canonical_name_with_subarticles_and_without_id(self):
+      data = open('tests/samples/0034-8910-rsp-48-2-0232.xml').read()
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = {
+        # <graphic> sem id associado
+        None: [{'name': '0034-8910-rsp-48-2-0232-ee01', 'name_canonical': '0034-8910-rsp-48-2-0232-g', 'type': 'original'}],
+        # <graphic> sem id associado (o id do sub-article mais próximo é obtido)
+        'TRen': [{'name': '0034-8910-rsp-48-2-0232-ee01-en', 'name_canonical': '0034-8910-rsp-48-2-0232-g00-en', 'type': 'original'}],
+        'app01': [{'name': '0034-8910-rsp-48-2-0232-app01', 'name_canonical': '0034-8910-rsp-48-2-0232-g01-en', 'type': 'original'}],
+        # <graphic> cujo id é f01
+        'f01': [{'name': '0034-8910-rsp-48-2-0232-gf01', 'name_canonical': '0034-8910-rsp-48-2-0232-g01', 'type': 'original'}],
+        # <graphic> cujo id é f01_en
+        'f01_en': [{'name': '0034-8910-rsp-48-2-0232-gf01-en', 'name_canonical': '0034-8910-rsp-48-2-0232-g01-en', 'type': 'original'}],
+      }
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='0034-8910-rsp-48-2-0232')
+
+      self.assertDictEqual(expected, obtained)
 class SupplementaryMaterialsTest(TestCase):
     def _get_xmltree(self, xml):
         return xml_utils.get_xml_tree(xml)
