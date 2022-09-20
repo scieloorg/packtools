@@ -102,6 +102,11 @@ class Asset:
     def _ext(self):
         _, ext = os.path.splitext(self.name)
         return ext
+
+    def name_canonical(self, package_name):
+        return f"{package_name}{self._suffix}{self._ext}"
+
+    @property
     def id(self):
         current_node = self.node
 
