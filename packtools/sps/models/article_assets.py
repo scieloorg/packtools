@@ -105,6 +105,21 @@ class Asset:
         _, ext = os.path.splitext(self.name)
         return ext
 
+    @property
+    def _lang(self):
+        '''
+        Tenta obter lang de assets associados a sub-article, caso contrário, retorna string.
+        Assets cujo lang é representado por uma string vazia possuem um nome canônico sem o idioma.
+        '''
+        current_node = self.parent_map[self.node]
+        while current_node.tag != 'sub-article':
+            try:
+                current_node = self.parent_map[current_node]
+            except KeyError:
+                return ''
+
+        return f"-{current_node.get('{http://www.w3.org/XML/1998/namespace}lang')}" or ""
+
     def name_canonical(self, package_name):
         return f"{package_name}{self._suffix}{self._ext}"
 
