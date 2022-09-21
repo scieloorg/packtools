@@ -67,6 +67,24 @@ class ArticleAssets:
                         number=i))
                     _visited_nodes.append(child_node)
                     i += 1
+
+    def _discover_assets_which_have_no_id(self):
+        self._assets_which_have_no_id = []
+        _visited_nodes = []
+
+        nodes_which_have_id = [i.node for i in self._assets_which_have_id]
+
+        i = 0
+        for child_node in self._asset_nodes():
+            if child_node not in nodes_which_have_id:
+                if child_node not in _visited_nodes:
+                    self._assets_which_have_no_id.append(Asset(
+                        node=child_node,
+                        parent_map=self._parent_map,
+                        number=i
+                    ))
+                    _visited_nodes.append(child_node)
+                    i += 1
         _assets = []
 
         for node in self.xmltree.xpath(
