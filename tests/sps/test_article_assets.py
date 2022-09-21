@@ -120,41 +120,36 @@ class ArticleAssetsTest(TestCase):
       expected = {
 
         '': [
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'type': 'thumbnail'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/6c7e45494816692122f9467ee9b5ee7a88f86e01.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'type': 'thumbnail'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/7172c66d1c5fa56dc230efa7123dea014f21e62f.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'type': 'thumbnail'},
-        ],
-        # figures that belong to subarticle s1
-        's1': [
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/9a4a202884a687ad4858fc95fbf3be801e63215b.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'type': 'thumbnail'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/1fdbee345fae2065d9bd0fd0b4b09a4f77e99e90.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'type': 'thumbnail'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/aa495447d05a9156d0d15f5f95f8890ee1d55743.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'type': 'thumbnail'},
-        ],
-        # figures that belong to subarticle s2
-        's2': [
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/e971ae023bce641ced89dfbdc40d62be94c4c738.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'type': 'thumbnail'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/30d718ea67b77dd98bcda9d3acba9cb296fcba9e.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'type': 'thumbnail'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/b824ebf96bd03d51ee26edc6c3807c3092bf1901.tif', 'type': 'original'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'type': 'optimised'},
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/8d6031a105ac49f92d2bac1dab55785ec62ed139.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n00.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'name_canonical': 'NOME-DO-PACOTE-g-n01.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n02-scielo-267x140.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/6c7e45494816692122f9467ee9b5ee7a88f86e01.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n03.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'name_canonical': 'NOME-DO-PACOTE-g-n04.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n05-scielo-267x140.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/7172c66d1c5fa56dc230efa7123dea014f21e62f.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n06.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'name_canonical': 'NOME-DO-PACOTE-g-n07.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n08-scielo-267x140.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/9a4a202884a687ad4858fc95fbf3be801e63215b.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n09-es.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'name_canonical': 'NOME-DO-PACOTE-g-n10-es.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n11-scielo-267x140-es.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/1fdbee345fae2065d9bd0fd0b4b09a4f77e99e90.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n12-es.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'name_canonical': 'NOME-DO-PACOTE-g-n13-es.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n14-scielo-267x140-es.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/aa495447d05a9156d0d15f5f95f8890ee1d55743.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n15-es.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'name_canonical': 'NOME-DO-PACOTE-g-n16-es.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n17-scielo-267x140-es.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/e971ae023bce641ced89dfbdc40d62be94c4c738.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n18-pt.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'name_canonical': 'NOME-DO-PACOTE-g-n19-pt.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n20-scielo-267x140-pt.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/30d718ea67b77dd98bcda9d3acba9cb296fcba9e.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n21-pt.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/c225686bbd2607bacabd946fcb55b30a10b9e5d2.png', 'name_canonical': 'NOME-DO-PACOTE-g-n22-pt.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d414c6174f0a5069a63c1f4450df8011666a1e35.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n23-scielo-267x140-pt.jpg', 'type': 'thumbnail'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/b824ebf96bd03d51ee26edc6c3807c3092bf1901.tif', 'name_canonical': 'NOME-DO-PACOTE-g-n24-pt.tif', 'type': 'original'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0d201e31cd5186c2a53f178bfd0509401f2d1ca6.png', 'name_canonical': 'NOME-DO-PACOTE-g-n25-pt.png', 'type': 'optimised'},
+          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/0be8783d8e1eb3e4b98cf803ff71ce829a652a1b.jpg', 'name_canonical': 'NOME-DO-PACOTE-g-n26-scielo-267x140-pt.jpg', 'type': 'thumbnail'},
         ]
       }
-      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='NOME-DO-PACOTE')
 
       self.assertDictEqual(expected, obtained)
 
