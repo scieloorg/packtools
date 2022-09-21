@@ -48,6 +48,25 @@ class ArticleAssets:
     def _discover_assets(self):
         self._discover_assets_which_have_id()
         self._discover_assets_which_have_no_id()
+    
+    def _discover_assets_which_have_id(self):
+        self._assets_which_have_id = []
+        _visited_nodes = []
+        
+        for node in self.xmltree.xpath(".//*[@id]"):
+            if node.tag == "sub-article":
+                continue
+        
+            i = 0
+            for child_node in self._asset_nodes(node):
+                if child_node not in _visited_nodes:
+                    self._assets_which_have_id.append(Asset(
+                        node=child_node, 
+                        parent_map=self._parent_map,
+                        parent_node_with_id=node, 
+                        number=i))
+                    _visited_nodes.append(child_node)
+                    i += 1
         _assets = []
 
         for node in self.xmltree.xpath(
