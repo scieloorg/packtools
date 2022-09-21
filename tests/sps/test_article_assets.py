@@ -56,7 +56,7 @@ class ArticleAssetsTest(TestCase):
       data = open('tests/sps/fixtures/document3.xml').read()
       xmltree = xml_utils.get_xml_tree(data)
 
-      expected = {None: [{'name': 'document3-xdadaf.jpg', 'type': 'original'}]}
+      expected = {'': [{'name': 'document3-xdadaf.jpg', 'type': 'original'}]}
       obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
@@ -113,8 +113,8 @@ class ArticleAssetsTest(TestCase):
       xmltree = xml_utils.get_xml_tree(data)
 
       expected = {
-        None: [
-          {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/8d6031a105ac49f92d2bac1dab55785ec62ed139.tif', 'type': 'original'},
+
+        '': [
           {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/d9b80494cba33a6e60786bdfc56a0c9c048125af.png', 'type': 'optimised'},
           {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/352c2528e5e3489f3d2c9d4a958bccd776b2667d.jpg', 'type': 'thumbnail'},
           {'name': 'https://minio.scielo.br/documentstore/1518-8345/L34w8qg8ccfQxW79FZH3Bnh/6c7e45494816692122f9467ee9b5ee7a88f86e01.tif', 'type': 'original'},
@@ -197,7 +197,7 @@ class ArticleAssetsTest(TestCase):
       xmltree = xml_utils.get_xml_tree(data)
 
       expected = {
-        None: [
+        '': [
           {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'},
         ],
         'f01': [
@@ -233,7 +233,7 @@ class ArticleAssetsTest(TestCase):
       xmltree = xml_utils.get_xml_tree(data)
 
       expected = {
-        None: [
+        '': [
           {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original'},
         ]
       }
@@ -300,7 +300,7 @@ class ArticleAssetsTest(TestCase):
           {'name': '1234-5678-rctb-45-05-0110-gf03.png', 'type': 'optimised'},
           {'name': '1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg', 'type': 'thumbnail'},
         ],
-        None: [
+        '': [
           {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original'},
           {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'},
         ]
@@ -382,7 +382,7 @@ class ArticleAssetsTest(TestCase):
         'S1': [
           {'name': '1471-2105-1-1-s1.pdf', 'type': 'original'},
         ],
-        None: [
+        '': [
           {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'},
         ],
         'f01': [
