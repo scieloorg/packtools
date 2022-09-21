@@ -25,10 +25,10 @@ class ArticleAssets:
 
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self.create_parent_map()
+        self._create_parent_map()
 
-    def create_parent_map(self):
-        self.parent_map = dict(
+    def _create_parent_map(self):
+        self._parent_map = dict(
             (c, p) for p in self.xmltree.iter() for c in p
         )
 
