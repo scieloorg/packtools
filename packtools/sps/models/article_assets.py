@@ -35,6 +35,15 @@ class ArticleAssets:
 
     @property
     def article_assets(self):
+        return self.article_assets_which_have_id + self.article_assets_which_have_no_id
+
+    @property
+    def article_assets_which_have_id(self):
+        return self._assets_which_have_id
+
+    @property
+    def article_assets_which_have_no_id(self):
+        return self._assets_which_have_no_id
 
     def _discover_assets(self):
         self._discover_assets_which_have_id()
