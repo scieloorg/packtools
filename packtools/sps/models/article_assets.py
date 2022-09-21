@@ -127,6 +127,19 @@ class Asset:
         self._parent_node_with_id = parent_node_with_id
         self._number = number
 
+    @property
+    def id(self):
+        try:
+            return self.node.attrib['id']
+        except KeyError:
+            ...
+
+        try:
+            return self._parent_node_with_id.get('id')
+        except (AttributeError, TypeError):
+            ...
+
+        return ''
 
     @property
     def name(self):
