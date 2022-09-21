@@ -188,7 +188,7 @@ class Asset:
 
     @property
     def _suffix(self):
-        return f"-{self._category_name_code}{self._id_str}{self._content_type}"
+        return f"-{self._category_name_code}{self._id_str}{self._number_str}{self._content_type}"
 
     @property
     def _ext(self):
