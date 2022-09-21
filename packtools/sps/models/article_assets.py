@@ -26,6 +26,7 @@ class ArticleAssets:
     def __init__(self, xmltree):
         self.xmltree = xmltree
         self._create_parent_map()
+        self._discover_assets()
 
     def _create_parent_map(self):
         self._parent_map = dict(
@@ -34,6 +35,10 @@ class ArticleAssets:
 
     @property
     def article_assets(self):
+
+    def _discover_assets(self):
+        self._discover_assets_which_have_id()
+        self._discover_assets_which_have_no_id()
         _assets = []
 
         for node in self.xmltree.xpath(
