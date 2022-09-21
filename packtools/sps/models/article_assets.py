@@ -198,13 +198,13 @@ class Asset:
     @property
     def _lang(self):
         '''
-        Tenta obter lang de assets associados a sub-article, caso contrário, retorna string.
-        Assets cujo lang é representado por uma string vazia possuem um nome canônico sem o idioma.
+        Tenta obter lang de asset associado a sub-article, caso contrário, retorna string vazia.
+        Asset cujo lang é representado por uma string vazia possui nome canônico sem o idioma.
         '''
-        current_node = self.parent_map[self.node]
+        current_node = self._parent_map[self.node]
         while current_node.tag != 'sub-article':
             try:
-                current_node = self.parent_map[current_node]
+                current_node = self._parent_map[current_node]
             except KeyError:
                 return ''
 
