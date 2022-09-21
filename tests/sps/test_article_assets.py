@@ -164,7 +164,7 @@ class ArticleAssetsTest(TestCase):
       """
       xmltree = xml_utils.get_xml_tree(data)
 
-      expected = {None: [{'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'}],}
+      expected = {'': [{'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'}],}
       obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
 
       self.assertDictEqual(expected, obtained)
@@ -211,7 +211,7 @@ class ArticleAssetsTest(TestCase):
       self.assertDictEqual(expected, obtained)
 
 
-    def test_article_assets_with_inline_graphic(self):
+    def test_article_assets_with_inline_graphic_and_name_canonical(self):
       data = """
       <article xmlns:xlink="http://www.w3.org/1999/xlink">
         <front>
@@ -221,10 +221,6 @@ class ArticleAssetsTest(TestCase):
         <body>
           <sec>
             <p>The Eh measurements... <xref ref-type="disp-formula" rid="e01">equation 1</xref>(in mV):</p>
-            <disp-formula id="e01">
-              {}
-            </disp-formula>
-            <p>We also used an... {}.</p>
           </sec>
           <p>We also used an ... based on the equation:<inline-graphic xlink:href="1234-5678-rctb-45-05-0110-e04.tif"/>.</p>
         </body>
@@ -234,10 +230,10 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         '': [
-          {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original'},
+          {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original', 'name_canonical': 'NOME-DO-PACOTE-g-n00.tif'},
         ]
       }
-      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='NOME-DO-PACOTE')
 
       self.assertDictEqual(expected, obtained)
 
@@ -250,24 +246,17 @@ class ArticleAssetsTest(TestCase):
           </article-meta>
         </front>
         <body>
-          <sec>
-            <p>The Eh measurements... <xref ref-type="disp-formula" rid="e01">equation 1</xref>(in mV):</p>
-            <disp-formula id="e01">
-              {}
-            </disp-formula>
-            <p>We also used an... {}.</p>
-          </sec>
           <fig id="f01">
             <label>Figura 1</label>
             <caption>
                 <title>Caption Figura 1</title>
             </caption>
             <disp-formula>
-            <alternatives>
-                <graphic xlink:href="original.tif" />
-                <graphic xlink:href="ampliada.png" specific-use="scielo-web" />
-                <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
-            </alternatives>
+              <alternatives>
+                  <graphic xlink:href="original.tif" />
+                  <graphic xlink:href="ampliada.png" specific-use="scielo-web" />
+                  <graphic xlink:href="miniatura.jpg" specific-use="scielo-web" content-type="scielo-20x20" />
+              </alternatives>
             </disp-formula>
             <attrib>Fonte: Dados originais da pesquisa</attrib>
           </fig>
@@ -291,22 +280,22 @@ class ArticleAssetsTest(TestCase):
 
       expected = {
         'f01': [
-          {'name': 'original.tif', 'type': 'original'},
-          {'name': 'ampliada.png', 'type': 'optimised'},
-          {'name': 'miniatura.jpg', 'type': 'thumbnail'},
+          {'name': 'original.tif', 'type': 'original', 'name_canonical': 'NOME-DO-PACOTE-g01.tif'},
+          {'name': 'ampliada.png', 'type': 'optimised', 'name_canonical': 'NOME-DO-PACOTE-g01.png'},
+          {'name': 'miniatura.jpg', 'type': 'thumbnail', 'name_canonical': 'NOME-DO-PACOTE-g01-scielo-20x20.jpg'},
         ],
         'f03': [
-          {'name': '1234-5678-rctb-45-05-0110-gf03.tiff', 'type': 'original'},
-          {'name': '1234-5678-rctb-45-05-0110-gf03.png', 'type': 'optimised'},
-          {'name': '1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg', 'type': 'thumbnail'},
+          {'name': '1234-5678-rctb-45-05-0110-gf03.tiff', 'type': 'original', 'name_canonical': 'NOME-DO-PACOTE-g03.tiff'},
+          {'name': '1234-5678-rctb-45-05-0110-gf03.png', 'type': 'optimised', 'name_canonical': 'NOME-DO-PACOTE-g03.png'},
+          {'name': '1234-5678-rctb-45-05-0110-gf03.thumbnail.jpg', 'type': 'thumbnail', 'name_canonical': 'NOME-DO-PACOTE-g03-scielo-267x140.jpg'},
         ],
         '': [
-          {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original'},
-          {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original'},
+          {'name': '1234-5678-rctb-45-05-0110-e04.tif', 'type': 'original', 'name_canonical': 'NOME-DO-PACOTE-g-n00.tif'},
+          {'name': '1234-5678-rctb-45-05-0110-m01.mp4', 'type': 'original', 'name_canonical': 'NOME-DO-PACOTE-g-n01.mp4'},
         ]
       }
 
-      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets)
+      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='NOME-DO-PACOTE')
 
       self.assertDictEqual(expected, obtained)
 
@@ -709,6 +698,7 @@ class ArticleAssetsTest(TestCase):
         self.assertEqual(updated[1].name, 'novo_miniatura.jpg')
         self.assertEqual(updated[2].name, 'novo_figura2.jpg')
 
+
     def test_replace_names(self):
         snippet = """
         <fig-group id="f01">
@@ -788,7 +778,8 @@ class ArticleAssetsTest(TestCase):
           {'name': 'https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ffc50de0245a936540df9f98b7de123c8c597cbf.pdf', 'name_canonical': '1676-0611-bn-2021-1306-s03.pdf', 'type': 'original'},
         ]
       }
-      obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='1676-0611-bn-2021-1306')
+      aa = ArticleAssets(xmltree).article_assets
+      obtained = obtain_asset_dict(aa, package_name='1676-0611-bn-2021-1306')
 
       self.assertDictEqual(expected, obtained)
 
