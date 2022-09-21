@@ -849,14 +849,17 @@ class ArticleAssetsTest(TestCase):
       xmltree = xml_utils.get_xml_tree(data)
 
       expected = {
-        # <graphic> sem id associado
-        None: [{'name': '0034-8910-rsp-48-2-0232-ee01', 'name_canonical': '0034-8910-rsp-48-2-0232-g', 'type': 'original'}],
-        # <graphic> sem id associado (o id do sub-article mais próximo é obtido)
-        'TRen': [{'name': '0034-8910-rsp-48-2-0232-ee01-en', 'name_canonical': '0034-8910-rsp-48-2-0232-g00-en', 'type': 'original'}],
-        'app01': [{'name': '0034-8910-rsp-48-2-0232-app01', 'name_canonical': '0034-8910-rsp-48-2-0232-g01-en', 'type': 'original'}],
-        # <graphic> cujo id é f01
+        '': [
+          # <graphic> dentro de <disp-formula> sem id associado
+          {'name': '0034-8910-rsp-48-2-0232-ee01', 'name_canonical': '0034-8910-rsp-48-2-0232-e-n00', 'type': 'original'},
+          # <graphic> dentro de <disp-formula> sem id associado e em sub-article cujo lang é en
+          {'name': '0034-8910-rsp-48-2-0232-ee01-en', 'name_canonical': '0034-8910-rsp-48-2-0232-e-n01-en', 'type': 'original'}
+        ],
+        # <graphic> dentro de <app> cujo id é app01 e em sub-article cujo lang é en
+        'app01': [{'name': '0034-8910-rsp-48-2-0232-app01', 'name_canonical': '0034-8910-rsp-48-2-0232-s01-en', 'type': 'original'}],
+        # <graphic> dentro de <fig> cujo id é f01
         'f01': [{'name': '0034-8910-rsp-48-2-0232-gf01', 'name_canonical': '0034-8910-rsp-48-2-0232-g01', 'type': 'original'}],
-        # <graphic> cujo id é f01_en
+        # <graphic> dentro de <fig> cujo id é f01_en e em sub-article cujo lang é en
         'f01_en': [{'name': '0034-8910-rsp-48-2-0232-gf01-en', 'name_canonical': '0034-8910-rsp-48-2-0232-g01-en', 'type': 'original'}],
       }
       obtained = obtain_asset_dict(ArticleAssets(xmltree).article_assets, package_name='0034-8910-rsp-48-2-0232')
@@ -906,7 +909,7 @@ class SupplementaryMaterialsTest(TestCase):
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = [
-            (None, 'https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/818bf2b94169513756c9f4734c24d9bc774a3795.pdf'),
+            ('', 'https://minio.scielo.br/documentstore/1678-4790/LgRcS7ZYYQ5wSDKw8wKytSp/818bf2b94169513756c9f4734c24d9bc774a3795.pdf'),
         ]
 
         for i, item in enumerate(SupplementaryMaterials(xmltree).items):
@@ -961,4 +964,3 @@ obtida por Einstein em 1905
             with self.subTest(i):
                 self.assertEqual(item.id, expected[i][0])
                 self.assertEqual(item.name, expected[i][1])
-
