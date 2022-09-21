@@ -214,25 +214,20 @@ class Asset:
         return f"{package_name}{self._suffix}{self._lang}{self._ext}"
 
     @property
-    def id(self):
-        current_node = self.node
-
-        while current_node is not None and hasattr(current_node, 'attrib') and 'id' not in current_node.attrib:
-            current_node = self.parent_map.get(current_node)
-
-        if current_node is None or not hasattr(current_node, 'attrib'):
-            return
-
-        current_node_attrib = getattr(current_node, 'attrib')
-        if current_node_attrib:
-            return current_node_attrib.get('id')
+    def _id_str(self):
+        digits = [i for i in self.id if i.isdigit()]
+        if len(digits) > 0:
+            return ''.join(digits).zfill(2)
+        return ''
 
     @property
-    def _id_str(self):
-        try:
-            return ''.join([i for i in self.id if i.isdigit()]).zfill(2)
-        except TypeError:
-            return ''
+    def _number_str(self):
+        '''
+        Esta propriedade é utilizada em name_canonical quando o Asset não possui um nó próximo com ID, isto é, um _parent_node_with_id.
+        '''
+        if self._id_str == '':
+            return f'-n{str(self._number).zfill(2)}'
+        return ''
 
     @property
     def type(self):
