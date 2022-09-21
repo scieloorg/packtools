@@ -157,6 +157,20 @@ class Asset:
         return ''
 
     @property
+    def tag(self):
+        if self._parent_node_with_id is not None:
+            return self._parent_node_with_id.tag
+        
+        current_node = self._parent_map[self.node]
+        while current_node.tag not in ArticleAssets.ASSET_EXTENDED_TAGS:
+            try:
+                current_node = self._parent_map[current_node]
+            except KeyError:
+                return ''
+
+        return current_node.tag
+
+    @property
     def _category_name_code(self):
         """
         -g: figure graphic
@@ -164,11 +178,11 @@ class Asset:
         -e: equation
         -s: supplementary data file
         """
-        if "display-formula" in self.node.tag:
+        if "disp-formula" in self.tag or "display-formula" in self.tag:
             return "e"
-        if "supplementary" in self.node.tag:
+        if "supplementary" in self.tag or "app" in self.tag:
             return "s"
-        if "inline" in self.node.tag:
+        if "inline" in self.tag:
             return "i"
         return "g"
 
