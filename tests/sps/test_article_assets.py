@@ -108,7 +108,12 @@ class ArticleAssetsTest(TestCase):
       self.assertDictEqual(expected, obtained)
 
 
-    def test_article_assets_images_outside_figure(self):
+    def test_article_assets_images_outside_figure_and_name_canonical(self):
+      # O XML é composto por:
+      #  um artigo principal em Inglês composto por 3 figuras (cada uma com original, otimizado e miniatura)
+      #  um subartigo em Espanhol com 3 figuras (cada uma com original, otimizado e miniatura)
+      #  um subartigo em Português com 3 figuras (cada uma com original, otimizado e miniatura)
+      # Há 27 assets sem ID
       data = open('tests/fixtures/htmlgenerator/alternatives/imagens_fora_de_fig.xml').read()
       xmltree = xml_utils.get_xml_tree(data)
 
