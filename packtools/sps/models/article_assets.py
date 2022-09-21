@@ -121,9 +121,12 @@ class ArticleAssets:
 
 
 class Asset:
-    def __init__(self, node, parent_map):
+    def __init__(self, node, parent_map, parent_node_with_id=None, number=None):
         self.node = node
-        self.parent_map = parent_map
+        self._parent_map = parent_map
+        self._parent_node_with_id = parent_node_with_id
+        self._number = number
+
 
     @property
     def name(self):
