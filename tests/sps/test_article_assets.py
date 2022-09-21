@@ -784,6 +784,66 @@ class ArticleAssetsTest(TestCase):
       self.assertDictEqual(expected, obtained)
 
 
+    def test_assets_category_name_code(self):
+      data = """
+      <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+        <body>
+          <sec sec-type="methods">
+            <disp-formula>
+              <graphic xlink:href="0034-8910-rsp-48-2-0232-ee01"/>
+            </disp-formula>
+          </sec>
+          <sec sec-type="results">
+            <p>
+              <fig id="f01">
+                <label>Figura. </label>
+                <caption>
+                  <title>Curva total da informação do instrumento de adesão ao tratamento da hipertensão arterial sistêmica. Fortaleza, CE, 2012.</title>
+                </caption>
+                <graphic xlink:href="0034-8910-rsp-48-2-0232-gf01"/>
+              </fig>
+            </p>
+          </sec>
+        </body>
+        <sub-article article-type="translation" xml:lang="en" id="TRen">
+          <body>
+            <sec sec-type="methods">
+              <disp-formula>
+                <graphic xlink:href="0034-8910-rsp-48-2-0232-ee01-en"/>
+              </disp-formula>
+            </sec>
+          </body>
+          <back>
+            <app-group>
+              <app id="app01">
+                <label>Annex</label>
+                <title>Questionnaire on adherence to treatment of systemic hypertension (QATSH). Fortaleza, CE, Northeastern Brazil, 2012.</title>
+                <graphic xlink:href="0034-8910-rsp-48-2-0232-app01"/>
+              </app>
+            </app-group>
+          </back>
+        </sub-article>
+      </article>
+      """
+      xmltree = xml_utils.get_xml_tree(data)
+
+      expected = [
+        # <graphic> com cujo parente possui id f01
+        ('g', 'f01', '0034-8910-rsp-48-2-0232-gf01'), 
+        # <supplementary-material> cujo parente possui id app01
+        ('s', 'app01', '0034-8910-rsp-48-2-0232-app01'),
+        # <display-formula> sem parente com id
+        ('e', '', '0034-8910-rsp-48-2-0232-ee01'),
+        # <display-formula> cujo parente com id é sub-article
+        ('e', '', '0034-8910-rsp-48-2-0232-ee01-en'),
+      ]
+
+      aa = ArticleAssets(xmltree).article_assets
+      obtained = [(i._category_name_code, i.id, i.name) for i in aa]
+      
+      self.assertListEqual(expected, obtained)
+
+
     def test_assets_canonical_name_with_subarticles_and_without_id(self):
       data = open('tests/samples/0034-8910-rsp-48-2-0232.xml').read()
       xmltree = xml_utils.get_xml_tree(data)
