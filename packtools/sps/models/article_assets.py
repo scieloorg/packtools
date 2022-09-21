@@ -14,6 +14,11 @@ class ArticleAssets:
         'inline-supplementary-material',
     )
 
+    ASSET_EXTENDED_TAGS = ASSET_TAGS + (
+        'disp-formula',
+        'display-formula',
+    )
+
     XPATH_FOR_IDENTIFYING_ASSETS = '|'.join([
         './/' + at + '[@xlink:href]' for at in ASSET_TAGS
     ])
