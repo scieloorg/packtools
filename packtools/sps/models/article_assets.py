@@ -85,13 +85,17 @@ class ArticleAssets:
                     ))
                     _visited_nodes.append(child_node)
                     i += 1
+
+    def _asset_nodes(self, node=None):
         _assets = []
 
-        for node in self.xmltree.xpath(
+        source = node or self.xmltree
+
+        for node in source.xpath(
             ArticleAssets.XPATH_FOR_IDENTIFYING_ASSETS,
             namespaces={"xlink": "http://www.w3.org/1999/xlink"}
         ):
-            _assets.append(Asset(node, self.parent_map))
+            _assets.append(node)
 
         return _assets
 
