@@ -16,7 +16,6 @@ class ArticleAssets:
 
     ASSET_EXTENDED_TAGS = ASSET_TAGS + (
         'disp-formula',
-        'display-formula',
     )
 
     XPATH_FOR_IDENTIFYING_ASSETS = '|'.join([
@@ -178,7 +177,7 @@ class Asset:
         -e: equation
         -s: supplementary data file
         """
-        if "disp-formula" in self.tag or "display-formula" in self.tag:
+        if "disp-formula" in self.tag:
             return "e"
         if "supplementary" in self.tag or "app" in self.tag:
             return "s"
