@@ -51,3 +51,6 @@ class PackageWithErrata(Package):
 
         if self.xmltree_errata is None:
             raise PackageErratumHasNoErrataXMLFileError()
+
+    def is_valid(self):
+        return erratum.has_compatible_errata_and_document(self.xmltree_errata, self.xmltree_article)
