@@ -18,3 +18,8 @@ class PackageErratumHasNoErrataXMLFileError(Exception):
 class PackageErratumHasNoArticleXMLFileError(Exception):
     ...
 
+
+class Package:
+    def __init__(self, zip_path):
+        self.zip_path = zip_path
+
