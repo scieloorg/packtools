@@ -35,3 +35,19 @@ class PackageWithErrata(Package):
         xmls = get_files_list_filtered(self.zip_path, ['.xml'])
         if len(xmls) != 2:
             raise PackageErratumHasThreeOrMoreXMLFilesError()
+
+        for file_name in xmls:
+            x_file_content = get_file_content_from_zip(file_name, self.zip_path)
+            x_tree = get_xml_tree(x_file_content)
+            x_article_and_subarticles = ArticleAndSubArticles(x_tree)
+
+            if x_article_and_subarticles.main_article_type in self.errata_types:
+                self.xmltree_errata = x_tree
+            else:
+                self.xmltree_article = x_tree
+
+        if self.xmltree_article is None:
+            raise PackageErratumHasNoArticleXMLFileError()
+
+        if self.xmltree_errata is None:
+            raise PackageErratumHasNoErrataXMLFileError()
