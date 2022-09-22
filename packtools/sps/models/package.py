@@ -30,3 +30,5 @@ class PackageWithErrata(Package):
 
         self.errata_types = errata_types
         self.discover_errata_and_article_xmls()
+
+    def discover_errata_and_article_xmls(self):
