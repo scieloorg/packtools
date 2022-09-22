@@ -11,17 +11,45 @@ from packtools import file_utils
 logger = logging.getLogger(__name__)
 
 
-def formatted_text(title_node):
-    if title_node is None:
+def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
+    _items = []
+    for node in xmltree.xpath(lang_xpath):
+        _item = {}
+        if node_xpath:
+            _item["node"] = node.find(node_xpath)
+        else:
+            _item["node"] = node
+        _item["lang"] = node.get('{http://www.w3.org/XML/1998/namespace}lang')
+        _items.append(_item)
+    return _items
+
+
+def node_text_without_xref(node):
+    """
+    Retorna text com subtags, exceto `xref`
+    """
+    if node is None:
         return
 
-    node = deepcopy(title_node)
+    node = deepcopy(node)
 
+    for xref in node.findall(".//xref"):
+        if xref.tail:
+            _next = xref.getnext()
+            if _next is None or _next.tag != "xref":
+                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                xref.addnext(e)
     for xref in node.findall(".//xref"):
         parent = xref.getparent()
         parent.remove(xref)
-
+    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
     return node_text(node)
+
+
+def formatted_text(title_node):
+    # FIXME substituir `formatted_text` por `node_text_without_xref`
+    # por ser mais explícito
+    return node_text_without_xref(title_node)
 
 
 def fix_xml(xml_str):
@@ -76,6 +104,11 @@ def tostring(node, doctype=None, pretty_print=False):
 
 
 def node_text(node):
+    """
+    Retorna todos os node.text, incluindo a subtags
+    Para <title>Text <bold>text</bold> Text</title>, retorna
+    Text <bold>text</bold> Text
+    """
     items = [node.text or ""]
     for child in node.getchildren():
         items.append(
