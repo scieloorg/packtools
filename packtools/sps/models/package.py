@@ -32,3 +32,6 @@ class PackageWithErrata(Package):
         self.discover_errata_and_article_xmls()
 
     def discover_errata_and_article_xmls(self):
+        xmls = get_files_list_filtered(self.zip_path, ['.xml'])
+        if len(xmls) != 2:
+            raise PackageErratumHasThreeOrMoreXMLFilesError()
