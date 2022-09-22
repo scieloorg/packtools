@@ -15,6 +15,17 @@ def has_compatible_errata_and_document(xml_errata, xml_article, articles_types=[
         doi_std = standardizer.document_doi(doi)
         if doi_std:
             article_doi_list.add(doi_std)    
+
+    for doi_and_type in RelatedItems(xml_errata).related_articles:
+        ra_doi = standardizer.document_doi(doi_and_type['href'])
+        ra_type = doi_and_type['related-article-type']
+
+        if ra_doi in article_doi_list and ra_type in articles_types:
+            return True
+
+    return False
+
+
 def has_errata_notes(xml_article):
     errata_notes = ArticleWithErrataNotes(xml_article).footnotes()
     if len(errata_notes) == 0:
