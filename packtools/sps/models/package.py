@@ -23,3 +23,10 @@ class Package:
     def __init__(self, zip_path):
         self.zip_path = zip_path
 
+
+class PackageWithErrata(Package):
+    def __init__(self, zip_path, errata_types=['correction']):
+        super().__init__(zip_path)
+
+        self.errata_types = errata_types
+        self.discover_errata_and_article_xmls()
