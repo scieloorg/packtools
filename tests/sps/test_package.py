@@ -25,3 +25,9 @@ class PackageTest(TestCase):
         with self.assertRaises(PackageErratumHasUnexpectedQuantityOfXMLFilesError):
             PackageWithErrata(zip_path)
 
+    def test_package_with_errata_raises_no_errata_xml_file_error(self):
+        zip_path = './tests/sps/fixtures/errata_packages/without_errata_xml.zip'
+        
+        with self.assertRaises(PackageErratumHasNoErrataXMLFileError):
+            PackageWithErrata(zip_path)
+
