@@ -7,7 +7,7 @@ from packtools.sps.validation import erratum
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 
 
-class PackageErratumHasThreeOrMoreXMLFilesError(Exception):
+class PackageErratumHasUnexpectedQuantityOfXMLFilesError(Exception):
     ...
 
 
@@ -34,7 +34,7 @@ class PackageWithErrata(Package):
     def discover_errata_and_article_xmls(self):
         xmls = get_files_list_filtered(self.zip_path, ['.xml'])
         if len(xmls) != 2:
-            raise PackageErratumHasThreeOrMoreXMLFilesError()
+            raise PackageErratumHasUnexpectedQuantityOfXMLFilesError()
 
         for file_name in xmls:
             x_file_content = get_file_content_from_zip(file_name, self.zip_path)
