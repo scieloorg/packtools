@@ -14,10 +14,6 @@ class ErratumTest(TestCase):
                     <article-id pub-id-type="doi">10.21577/0103-5053.20170069</article-id>
                     <related-article ext-link-type="doi" id="ra4" related-article-type="corrected-article" xlink:href="10.5935/0103-5053.20140192"/>
                 </article-meta>
-                <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/S0103-50532006000200015"/>
-                <related-article ext-link-type="doi" id="ra2" related-article-type="corrected-article" xlink:href="10.1590/S0103-50532008000700007"/>
-                <related-article ext-link-type="doi" id="ra3" related-article-type="corrected-article" xlink:href="10.1590/S0103-50532009000800009"/>
-                <related-article ext-link-type="doi" id="ra4" related-article-type="corrected-article" xlink:href="10.5935/0103-5053.20140192"/>
             </front>
             <body>
                 <sec>
