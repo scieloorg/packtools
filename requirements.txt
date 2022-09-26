@@ -5,3 +5,4 @@ aiohttp==3.7.4
 minio==7.1.0
 requests==2.27.1
 tenacity==8.0.1
+-e git+https://github.com/scieloorg/scielo_scholarly_data#egg=scielo_scholarly_data
