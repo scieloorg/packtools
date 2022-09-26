@@ -6,6 +6,20 @@ from packtools.sps.models.front_journal_meta import ISSN
 class InvalidXMLTreeError(Exception):
     ...
 
+
+def are_similar_articles(xml1, xml2):
+    if not isinstance(xml1, etree.ElementTree) or not isinstance(xml2, etree.ElementTree):
+        raise InvalidXMLTreeError()
+
+    if not have_similar_issn_codes(xml1, xml2):
+        return False
+    
+    if not have_similar_doi_codes(xml1, xml2):
+        return False
+
+    return True
+
+
 def have_similar_doi_codes(xml1, xml2):
     a1_doi_list = [d['value'] for d in DoiWithLang(xml1).data]
     a2_doi_list = [d['value'] for d in DoiWithLang(xml2).data]
