@@ -22,13 +22,13 @@ class PackageErratumHasNoArticleXMLFileError(Exception):
 class Package:
     def __init__(self, zip_path):
         self.zip_path = zip_path
+        self.xmltree_article = None
 
 
 class PackageWithErrata(Package):
     def __init__(self, zip_path, errata_types=['correction']):
         super().__init__(zip_path)
 
-        self.xmltree_article = None
         self.xmltree_errata = None
         self.errata_types = errata_types
         self.discover_errata_and_article_xmls()
@@ -56,3 +56,17 @@ class PackageWithErrata(Package):
 
     def is_valid(self):
         return erratum.has_compatible_errata_and_document(self.xmltree_errata, self.xmltree_article)
+
+
+class PackageArticle(Package):
+    def __init__(self, zip_path):
+        super().__init__(zip_path)
+        self.discover_article_xml()
+
+    def discover_article_xml(self):
+        xmls = get_files_list_filtered(self.zip_path, ['.xml'])
+        if len(xmls) != 1:
+            raise PackageErratumHasUnexpectedQuantityOfXMLFilesError()
+
+        x_file_content = get_file_content_from_zip(xmls.pop(), self.zip_path)
+        self.xmltree_article = get_xml_tree(x_file_content)
