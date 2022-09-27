@@ -16,3 +16,18 @@ def are_journal_issns_compatible(xml_article, issns):
             raise exceptions.ArticleHasIncompatibleJournalISSNError(data={'xml': i, 'issns': issns})
     return True
 
+
+def are_journal_titles_compatible(xml_article, titles):
+    """
+    Params
+    ------
+    xml_article: ElementTree
+    titles: list
+    """
+    obj_journal_title_values = [d['value'] for d in Title(xml_article).data]
+    for t in obj_journal_title_values:
+        if t in titles:
+            return True
+    raise exceptions.ArticleHasIncompatibleJournalTitleError(data={'xml': obj_journal_title_values, 'titles': titles})
+
+
