@@ -85,3 +85,43 @@ class JournalTest(TestCase):
         xml_article = get_xml_tree(xml_article_str)
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalISSNError):
             journal.are_journal_issns_compatible(xml_article, [])
+
+    def test_are_journal_titles_compatible_true(self):
+        xml_article_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <journal-meta>
+                    <journal-id journal-id-type="publisher-id">jbchs</journal-id>
+                    <journal-title-group>
+                        <journal-title>Journal of the Brazilian Chemical Society</journal-title>
+                        <abbrev-journal-title abbrev-type="publisher">J. Braz. Chem. Soc.</abbrev-journal-title>
+                    </journal-title-group>
+                </journal-meta>
+            </front>
+        </article>
+        """
+        xml_article = get_xml_tree(xml_article_str)
+        titles = ['Journal of the Brazilian Chemical Society', 'J. Braz. Chem. Soc.']
+        self.assertTrue(journal.are_journal_titles_compatible(xml_article, titles))        
+        self.assertTrue(journal.are_journal_titles_compatible(xml_article, ['J. Braz. Chem. Soc.']))
+        self.assertTrue(journal.are_journal_titles_compatible(xml_article, ['Journal of the Brazilian Chemical Society']))
+
+
+    def test_are_journal_titles_compatible_title_different_raises_exception(self):
+        xml_article_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <journal-meta>
+                    <journal-title-group>
+                        <journal-title>Journal of the German Chemical Society</journal-title>
+                        <abbrev-journal-title abbrev-type="publisher">J. Ger. Chem. Soc.</abbrev-journal-title>
+                    </journal-title-group>
+                </journal-meta>
+            </front>
+        </article>
+        """
+        xml_article = get_xml_tree(xml_article_str)
+        titles = ['Journal of the Brazilian Chemical Society', 'J. Braz. Chem. Soc.']
+        with self.assertRaises(exceptions.ArticleHasIncompatibleJournalTitleError):
+            journal.are_journal_titles_compatible(xml_article, titles)
+
