@@ -33,3 +33,12 @@ class ISSN:
     def ppub(self):
         return self.xmltree.findtext('.//journal-meta//issn[@pub-type="ppub"]')
  
+
+class Acronym:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def text(self):
+        return self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="publisher-id"]')
+
