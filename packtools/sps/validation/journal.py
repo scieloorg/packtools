@@ -31,3 +31,14 @@ def are_journal_titles_compatible(xml_article, titles):
     raise exceptions.ArticleHasIncompatibleJournalTitleError(data={'xml': obj_journal_title_values, 'titles': titles})
 
 
+def are_journal_acronyms_compatible(xml_article, acronym):
+    """
+    Params
+    ------
+    xml_article: ElementTree
+    acronym: str
+    """
+    xml_acronym = Acronym(xml_article).text
+    if xml_acronym != acronym:
+        raise exceptions.ArticleHasIncompatibleJournalAcronymError(data={'xml': xml_acronym, 'acronym': acronym})
+    return True
