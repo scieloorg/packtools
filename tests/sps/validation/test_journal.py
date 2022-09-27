@@ -125,3 +125,30 @@ class JournalTest(TestCase):
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalTitleError):
             journal.are_journal_titles_compatible(xml_article, titles)
 
+    def test_are_journal_acronyms_compatible_true(self):
+        xml_article_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <journal-meta>
+                    <journal-id journal-id-type="publisher-id">jbchs</journal-id>
+                </journal-meta>
+            </front>
+        </article>
+        """
+        xml_article = get_xml_tree(xml_article_str)
+        self.assertTrue(journal.are_journal_acronyms_compatible(xml_article, 'jbchs'))
+
+    def test_are_journal_acronyms_compatible_acronym_different_raises_error(self):
+        xml_article_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <journal-meta>
+                    <journal-id journal-id-type="publisher-id">jbchs</journal-id>
+                </journal-meta>
+            </front>
+        </article>
+        """
+        xml_article = get_xml_tree(xml_article_str)
+        with self.assertRaises(exceptions.ArticleHasIncompatibleJournalAcronymError):
+            journal.are_journal_acronyms_compatible(xml_article, 'jbch')
+
