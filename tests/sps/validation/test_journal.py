@@ -152,3 +152,62 @@ class JournalTest(TestCase):
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalAcronymError):
             journal.are_journal_acronyms_compatible(xml_article, 'jbch')
 
+    def test_are_article_and_journal_data_compatible_true(self):
+        xml_article_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <journal-meta>
+                    <journal-id journal-id-type="publisher-id">jbchs</journal-id>
+                    <journal-title-group>
+                        <journal-title>Journal of the Brazilian Chemical Society</journal-title>
+                        <abbrev-journal-title abbrev-type="publisher">J. Braz. Chem. Soc.</abbrev-journal-title>
+                    </journal-title-group>
+                    <issn pub-type="ppub">0103-5053</issn>
+                    <issn pub-type="epub">1678-4790</issn>
+                    <publisher>
+                        <publisher-name>Sociedade Brasileira de Química</publisher-name>
+                    </publisher>
+                </journal-meta>
+            </front>
+        </article>
+        """
+        xml_article = get_xml_tree(xml_article_str)
+        self.assertTrue(journal.are_article_and_journal_data_compatible(
+            xml_article,
+            journal_acronym='jbchs',
+            journal_titles=['Journal of the Brazilian Chemical Society', 'J. Braz. Chem. Soc.'],
+            journal_issns=['0103-5053', '1678-4790'] 
+        ))
+
+    def test_are_article_and_journal_data_compatible_raises_exception(self):
+        xml_article_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <journal-meta>
+                    <journal-id journal-id-type="publisher-id">jbchs</journal-id>
+                    <journal-title-group>
+                        <journal-title>Journal of the Brazilian Chemical Society</journal-title>
+                        <abbrev-journal-title abbrev-type="publisher">J. Braz. Chem. Soc.</abbrev-journal-title>
+                    </journal-title-group>
+                    <issn pub-type="ppub">0103-5053</issn>
+                    <issn pub-type="epub">1678-4790</issn>
+                    <publisher>
+                        <publisher-name>Sociedade Brasileira de Química</publisher-name>
+                    </publisher>
+                </journal-meta>
+            </front>
+        </article>
+        """
+        xml_article = get_xml_tree(xml_article_str)
+
+        # se qualquer um dos campos journal_* for distinto do esperado, uma exceção é gerada
+        try:
+            journal.are_article_and_journal_data_compatible(
+                xml_article,
+                journal_acronym='jbchz',
+                journal_titles=['Journal of the Brazilian Chemical Society', 'J. Braz. Chem. Soc.'],
+                journal_issns=['0103-5053', '1678-4790'] 
+            )
+        except exceptions.ArticleHasIncompatibleJournalAcronymError as e:
+            # os valores incompatíveis são registrados no campo e.data
+            self.assertDictEqual(e.data, {'xml': 'jbchs', 'acronym': 'jbchz'})
