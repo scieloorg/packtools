@@ -42,3 +42,29 @@ class Acronym:
     def text(self):
         return self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="publisher-id"]')
 
+class Title:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def data(self):
+        _data = []
+
+        _data.append({
+            'type': 'main',
+            'value': self.journal_title,
+        })
+        _data.append({
+            'type': 'abbreviated',
+            'value': self.abbreviated_journal_title,
+        })
+
+        return _data
+
+    @property
+    def abbreviated_journal_title(self):
+        return self.xmltree.findtext('.//journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]')
+
+    @property
+    def journal_title(self):
+        return self.xmltree.findtext('.//journal-meta//journal-title-group//journal-title')
