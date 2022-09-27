@@ -3,6 +3,37 @@ from packtools.sps import exceptions
 from packtools.sps.models.front_journal_meta import Acronym, ISSN, Title
 
 
+def are_article_and_journal_data_compatible(xml_article, journal_issns, journal_titles, journal_acronym=None):
+    """
+    Params
+    ------
+    xml_article: ElementTree
+    journal_issns: list
+    journal_titles: list
+    journal_acronym: str
+    """
+    if not isinstance(xml_article, etree._Element):
+        raise exceptions.ArticleHasInvalidInstanceError()
+
+    try:
+        are_journal_issns_compatible(xml_article, journal_issns)
+    except exceptions.ArticleHasIncompatibleJournalISSNError:
+        raise
+    
+    try:
+        are_journal_titles_compatible(xml_article, journal_titles)
+    except exceptions.ArticleHasIncompatibleJournalTitleError:
+        raise
+
+    if journal_acronym is not None:
+        try:
+            are_journal_acronyms_compatible(xml_article, journal_acronym)
+        except exceptions.ArticleHasIncompatibleJournalAcronymError:
+            raise
+
+    return True
+    
+
 def are_journal_issns_compatible(xml_article, issns):
     """
     Params
