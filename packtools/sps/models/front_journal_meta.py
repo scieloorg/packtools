@@ -68,3 +68,11 @@ class Title:
     @property
     def journal_title(self):
         return self.xmltree.findtext('.//journal-meta//journal-title-group//journal-title')
+
+class Publisher:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def publisher_name(self):
+        return self.xmltree.findtext('.//journal-meta//publisher//publisher-name')
