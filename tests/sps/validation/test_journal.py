@@ -18,8 +18,9 @@ class JournalTest(TestCase):
         </article>
         """
         xml_article = get_xml_tree(xml_article_str)
-        issns = ['0103-5053', '1678-4790']
-        self.assertTrue(journal.are_journal_issns_compatible(xml_article, issns))
+        issn_print = '0103-5053'
+        issn_electronic = '1678-4790'
+        self.assertTrue(journal.are_journal_issns_compatible(xml_article, issn_print, issn_electronic))
     
     def test_are_journal_issns_compatible_missing_issn_raises_exception(self):
         # Um dos códigos ISSN do XML não está na lista padrão
@@ -33,9 +34,10 @@ class JournalTest(TestCase):
         </article>
         """
         xml_article = get_xml_tree(xml_article_str)
-        issns = ['0103-5053', '1678-4790']
+        issn_print = '0103-5053'
+        issn_electronic = '1678-4790'
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalISSNError):
-            journal.are_journal_issns_compatible(xml_article, issns)
+            journal.are_journal_issns_compatible(xml_article, issn_print, issn_electronic)
 
     def test_are_journal_issns_compatible_one_different_issn_raises_exception(self):
         # Um dos códigos ISSN da lista padrão é diferente do que está no XML
@@ -50,9 +52,10 @@ class JournalTest(TestCase):
         </article>
         """
         xml_article = get_xml_tree(xml_article_str)
-        issns = ['0103-5053', '2222-2222']
+        issn_print = '0103-5053'
+        issn_electronic = '2222-2222'
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalISSNError):
-            journal.are_journal_issns_compatible(xml_article, issns)
+            journal.are_journal_issns_compatible(xml_article, issn_print, issn_electronic)
 
     def test_are_journal_issns_compatible_false_two_different_issn_raises_exception(self):
         # Nenhum código ISSN coincide
@@ -67,9 +70,10 @@ class JournalTest(TestCase):
         </article>
         """
         xml_article = get_xml_tree(xml_article_str)
-        issns = ['0103-0000', '0000-4790']
+        issn_print = '0103-0000'
+        issn_electronic = '0000-4790'
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalISSNError):
-            journal.are_journal_issns_compatible(xml_article, issns)
+            journal.are_journal_issns_compatible(xml_article, issn_print, issn_electronic)
 
     def test_are_journal_issns_compatible_false_empty_issn_list_raises_exception(self):
         xml_article_str = """
@@ -84,7 +88,7 @@ class JournalTest(TestCase):
         """
         xml_article = get_xml_tree(xml_article_str)
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalISSNError):
-            journal.are_journal_issns_compatible(xml_article, [])
+            journal.are_journal_issns_compatible(xml_article, '', '')
 
     def test_are_journal_titles_compatible_true(self):
         xml_article_str = """

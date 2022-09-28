@@ -3,20 +3,20 @@ from packtools.sps import exceptions
 from packtools.sps.models.front_journal_meta import Acronym, ISSN, Title
 
 
-def are_article_and_journal_data_compatible(xml_article, journal_issns, journal_titles, journal_acronym=None):
+def are_article_and_journal_data_compatible(xml_article, journal_print_issn, journal_electronic_issn, journal_titles):
     """
     Params
     ------
     xml_article: ElementTree
-    journal_issns: list
+    journal_print_issn: str
+    journal_electronic_issn: str
     journal_titles: list
-    journal_acronym: str
     """
     if not isinstance(xml_article, etree._Element):
         raise exceptions.ArticleHasInvalidInstanceError()
 
     try:
-        are_journal_issns_compatible(xml_article, journal_issns)
+        are_journal_issns_compatible(xml_article, journal_print_issn, journal_electronic_issn)
     except exceptions.ArticleHasIncompatibleJournalISSNError:
         raise
     
@@ -25,16 +25,10 @@ def are_article_and_journal_data_compatible(xml_article, journal_issns, journal_
     except exceptions.ArticleHasIncompatibleJournalTitleError:
         raise
 
-    if journal_acronym is not None:
-        try:
-            are_journal_acronyms_compatible(xml_article, journal_acronym)
-        except exceptions.ArticleHasIncompatibleJournalAcronymError:
-            raise
-
     return True
     
 
-def are_journal_issns_compatible(xml_article, issns):
+def are_journal_issns_compatible(xml_article, print_issn, electronic_issn):
     """
     Params
     ------
@@ -42,9 +36,17 @@ def are_journal_issns_compatible(xml_article, issns):
     issns: list
     """
     obj_journal_issn = ISSN(xml_article)
-    for i in [j for j in [obj_journal_issn.epub, obj_journal_issn.ppub] if j != '']:
-        if i not in issns:
-            raise exceptions.ArticleHasIncompatibleJournalISSNError(data={'xml': i, 'issns': issns})
+    incompatible_pairs = []
+
+    if obj_journal_issn.ppub != print_issn:
+        incompatible_pairs.append({'xml': obj_journal_issn.ppub, 'print_issn': print_issn})
+
+    if obj_journal_issn.epub != electronic_issn:
+        incompatible_pairs.append({'xml': obj_journal_issn.epub, 'electronic_issn': electronic_issn})
+    
+    if len(incompatible_pairs) > 0:
+        raise exceptions.ArticleHasIncompatibleJournalISSNError(data=incompatible_pairs)
+
     return True
 
 
