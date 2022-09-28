@@ -198,9 +198,9 @@ class JournalTest(TestCase):
         xml_article = get_xml_tree(xml_article_str)
         self.assertTrue(journal.are_article_and_journal_data_compatible(
             xml_article,
-            journal_acronym='jbchs',
             journal_titles=['Journal of the Brazilian Chemical Society', 'J. Braz. Chem. Soc.'],
-            journal_issns=['0103-5053', '1678-4790'] 
+            journal_print_issn='0103-5053',
+            journal_electronic_issn='1678-4790',
         ))
 
     def test_are_article_and_journal_data_compatible_raises_exception(self):
@@ -228,10 +228,12 @@ class JournalTest(TestCase):
         try:
             journal.are_article_and_journal_data_compatible(
                 xml_article,
-                journal_acronym='jbchz',
                 journal_titles=['Journal of the Brazilian Chemical Society', 'J. Braz. Chem. Soc.'],
-                journal_issns=['0103-5053', '1678-4790'] 
+                journal_print_issn='0102-5053',
+                journal_electronic_issn='1678-4790',
             )
-        except exceptions.ArticleHasIncompatibleJournalAcronymError as e:
+            # alerta para indicar que o try/except não capturou exceção
+            self.assertTrue(False)
+        except exceptions.ArticleIncompatibleDataError as e:
             # os valores incompatíveis são registrados no campo e.data
-            self.assertDictEqual(e.data, {'xml': 'jbchs', 'acronym': 'jbchz'})
+            self.assertListEqual(e.data, [{'xml': '0103-5053', 'print_issn': '0102-5053'}])
