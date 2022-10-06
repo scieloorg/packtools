@@ -26,7 +26,9 @@
 
             <xsl:variable name="text"><xsl:apply-templates select="*|text()"/></xsl:variable>
             <xsl:if test="normalize-space($text)=''">
-                <span class="REPLACE_BY_SUPPLEMENTARY_MATERIAL_TEXT"/>
+                <span class="REPLACE_BY_SUPPLEMENTARY_MATERIAL_TEXT">
+                    <xsl:value-of select="@xlink:href"/>
+                </span>
             </xsl:if>
         </a>
     </xsl:template>
