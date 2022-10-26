@@ -5,6 +5,9 @@ from packtools.sps.utils.file_utils import (
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation import erratum
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.models.article_doi_with_lang import DoiWithLang
+from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
+from packtools.sps.models.front_journal_meta import ISSN, Acronym
 
 
 class PackageErratumHasUnexpectedQuantityOfXMLFilesError(Exception):
@@ -70,3 +73,31 @@ class PackageArticle(Package):
 
         x_file_content = get_file_content_from_zip(xmls.pop(), self.zip_path)
         self.xmltree_article = get_xml_tree(x_file_content)
+
+
+class PackageName:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def name(self):
+        dwl = DoiWithLang(self.xmltree)
+        _doi = dwl.main_doi and dwl.main_doi.split("/")[-1]
+
+        ami = ArticleMetaIssue(self.xmltree)
+        _fpage = ami.fpage
+        if ami.fpage_seq:
+            _fpage += ami.fpage_seq
+        last_item = str(_fpage or ami.elocation_id or ami.order or _doi).zfill(5)
+
+        issn = ISSN(self.xmltree)
+        acron = Acronym(self.xmltree)
+        data = (
+            issn.epub or issn.ppub,
+            acron.text,
+            ami.volume,
+            ami.number,
+            ami.suppl and f"s{ami.suppl}",
+            last_item,
+        )
+        return "-".join([str(item).zfill(2) for item in data if item])

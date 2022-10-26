@@ -13,6 +13,7 @@
 </article>
 """
 from packtools.sps.models.dates import ArticleDates
+from packtools.sps.models.article_ids import ArticleIds
 
 
 def _extract_number_and_supplment_from_issue_element(issue):
@@ -136,3 +137,10 @@ class ArticleMetaIssue:
     @property
     def lpage(self):
         return self.xmltree.findtext(".//front/article-meta/lpage")
+
+    @property
+    def order(self):
+        _order = self.xmltree.findtext('.//article-id[@pub-id-type="other"]')
+        if _order is None:
+            _order = ArticleIds(self.xmltree).v2
+        return int(_order)
