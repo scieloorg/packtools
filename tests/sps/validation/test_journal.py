@@ -39,6 +39,27 @@ class JournalTest(TestCase):
         with self.assertRaises(exceptions.ArticleHasIncompatibleJournalISSNError):
             journal.are_journal_issns_compatible(xml_article, issn_print, issn_electronic)
 
+    def test_are_journal_issns_compatible_with_one_xml_issn_and_one_empty_issn_is_true(self):
+        # Um dos códigos ISSN do XML não está na lista padrão
+        xml_article_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <journal-meta>
+                    <issn pub-type="epub">1678-4790</issn>
+                </journal-meta>
+            </front>
+        </article>
+        """
+        # XML possui apenas um código ISSN
+        xml_article = get_xml_tree(xml_article_str)
+
+        # Base de dados ou data possui um ISSN vazio e outro válido
+        issn_print = ''
+        issn_electronic = '1678-4790'
+        
+        # Espera-se que o método que compara os dados decida por True, pois há apenas um ISSN válido
+        journal.are_journal_issns_compatible(xml_article, issn_print, issn_electronic)
+
     def test_are_journal_issns_compatible_one_different_issn_raises_exception(self):
         # Um dos códigos ISSN da lista padrão é diferente do que está no XML
         xml_article_str = """
