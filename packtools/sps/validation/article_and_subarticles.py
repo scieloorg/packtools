@@ -28,7 +28,7 @@ def validate_language(xml):
                 line=i.get('line_number'),
             ))
 
-        if not tag_is_valid(_lang):
+        elif not tag_is_valid(_lang):
             _message = f'XML {_article_type} has an invalid language: {_lang}'
             errors.append(exceptions.ValidationArticleAndSubArticlesHasInvalidLanguage(
                 message=_message,
