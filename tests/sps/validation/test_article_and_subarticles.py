@@ -76,3 +76,29 @@ class ArticleTest(TestCase):
 
         result, _ = validate_language(xml_tree)
         self.assertTrue(result)
+
+
+    def test_article_and_subarticles_with_two_valid_languages_and_one_invalid(self):
+        xml_str = """
+        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="">
+            </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        result, errors = validate_language(xml_tree)
+        
+        self.assertFalse(result)
+
+        self.assertListEqual(
+            ['XML translation has an invalid language: '],
+            [e.message for e in errors]
+        )
+
+        self.assertListEqual(
+            [5],
+            [e.line for e in errors]
+        )
+
