@@ -1,7 +1,7 @@
 langcodes==3.3.0
 lxml==4.3.3
 picles.plumber==0.11
-Pillow==9.1.0
+Pillow==9.1.1
 aiohttp==3.7.4
 minio==7.1.0
 requests==2.27.1
