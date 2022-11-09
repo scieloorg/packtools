@@ -5,6 +5,30 @@ from packtools.sps.validation.article_and_subarticles import validate_language
 
 
 class ArticleAndSubarticlesTest(TestCase):
+    def test_article_has_no_language_attribute(self):
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">zTn4sYXBrfSTMNVPF5Dm7jr</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-50532014001202258</article-id>
+                    <article-id pub-id-type="doi">10.5935/0103-5053.20140192</article-id>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        result, errors = validate_language(xml_tree)
+
+        self.assertFalse(result)
+
+        self.assertListEqual(
+            ['XML research-article has no language.'],
+            [e.message for e in errors]
+        )
+
+
     def test_article_has_valid_language(self):
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
