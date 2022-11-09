@@ -102,3 +102,30 @@ class ArticleTest(TestCase):
             [e.line for e in errors]
         )
 
+
+    def test_article_and_subarticles_with_two_invalid_languages(self):
+        xml_str = """
+        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <sub-article article-type="translation" id="s1" xml:lang="en">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
+            </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        result, errors = validate_language(xml_tree)
+
+        self.assertFalse(result)
+
+        self.assertListEqual(
+            [
+                'XML research-article has an invalid language: portugol',
+                'XML translation has an invalid language: thisisaninvalidlanguagecode'
+            ],
+            [e.message for e in errors]
+        )
+
+        self.assertListEqual(
+            [2, 5],
+            [e.line for e in errors]
+        )
