@@ -1,5 +1,5 @@
 langcodes==3.3.0
-lxml==4.3.3
+lxml==4.9.1
 picles.plumber==0.11
 Pillow==9.1.0
 aiohttp==3.7.4
