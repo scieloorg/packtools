@@ -53,3 +53,26 @@ class ArticleTest(TestCase):
             [2],
             [e.line for e in errors]
         )
+
+
+    def test_article_and_subarticles_have_valid_languages(self):
+        data = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
+        xml_tree = get_xml_tree(data)
+
+        result, _ = validate_language(xml_tree)
+        self.assertTrue(result)
+
+
+    def test_article_and_subarticles_with_three_valid_languages(self):
+        xml_str = """
+        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="es">
+            </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        result, _ = validate_language(xml_tree)
+        self.assertTrue(result)
