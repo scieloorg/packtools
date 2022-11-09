@@ -4,7 +4,7 @@ from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation.article_and_subarticles import validate_language
 
 
-class ArticleTest(TestCase):        
+class ArticleAndSubarticlesTest(TestCase):
     def test_article_has_valid_language(self):
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
