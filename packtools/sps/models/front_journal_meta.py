@@ -27,11 +27,11 @@ class ISSN:
 
     @property
     def epub(self):
-        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="epub"]')
+        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="epub"]') or ''
 
     @property
     def ppub(self):
-        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="ppub"]')
+        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="ppub"]') or ''
  
 
 class Acronym:
