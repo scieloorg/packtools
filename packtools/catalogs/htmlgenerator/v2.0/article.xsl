@@ -37,6 +37,7 @@
     <xsl:include href="article-text-boxed-text.xsl"/>
     <xsl:include href="article-text-list.xsl"/>
     <xsl:include href="article-text-supplementary-material.xsl"/>
+    <xsl:include href="article-text-section-data-availability.xsl"/>
 
     <xsl:include href="article-text-graphic.xsl"/>
     <xsl:include href="article-text-table.xsl"/>
@@ -255,6 +256,7 @@
 
             <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
             <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
+            <xsl:apply-templates select="." mode="data-availability"/>
 
             <section class="documentLicense">
                 <div class="container-license">

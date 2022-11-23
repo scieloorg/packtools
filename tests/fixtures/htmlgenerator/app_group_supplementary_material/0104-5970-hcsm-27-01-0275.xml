@@ -1,0 +1,646 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Hist Cienc Saude Manguinhos</journal-id>
+      <journal-id journal-id-type="publisher-id">hcsm</journal-id>
+      <journal-title-group>
+        <journal-title>História, Ciências, Saúde-Manguinhos</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Hist. cienc. saude-Manguinhos</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0104-5970</issn>
+      <issn pub-type="epub">1678-4758</issn>
+      <publisher>
+        <publisher-name>Casa de Oswaldo Cruz, Fundação Oswaldo Cruz</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">TwZZBvMMN6XQNWb7C5Rc4qr</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0104-59702020000100275</article-id>
+      <article-id pub-id-type="publisher-id">S0104-59702020000100016</article-id>
+      <article-id pub-id-type="doi">10.1590/S0104-59702020000100016</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>FONTES</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>A cochonilha no mundo luso-brasileiro: o manuscrito setecentista editado por Manuel Joaquim Henriques de Paiva</article-title>
+        <trans-title-group xml:lang="en">
+          <trans-title>Cochineals in the Portuguese-Brazilian world: the eighteenth-century manuscript edited by Manuel Joaquim Henriques de Paiva</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-7669-2133</contrib-id>
+          <name>
+            <surname>Santos</surname>
+            <given-names>Clara Braz dos</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>i</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-8793-6623</contrib-id>
+          <name>
+            <surname>Pereira</surname>
+            <given-names>Milena da Silveira</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">
+            <sup>ii</sup>
+          </xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>i</label>
+        <institution content-type="orgdiv1">Programa de Pós-graduação em História</institution>
+        <institution content-type="orgname">Universidade Estadual Paulista Júlio de Mesquita Filho</institution>
+        <addr-line>
+          <named-content content-type="city">Franca</named-content>
+          <named-content content-type="state">SP</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <email>clara.huf@gmail.com</email>
+        <institution content-type="original"> Doutoranda, Programa de Pós-graduação em História/Universidade Estadual Paulista Júlio de Mesquita Filho. Franca – SP – Brasil. clara.huf@gmail.com</institution>
+      </aff>
+      <aff id="aff2">
+        <label>ii</label>
+        <institution content-type="orgdiv1">Programa de Pós-graduação em História</institution>
+        <institution content-type="orgname">Universidade Estadual Paulista Júlio de Mesquita Filho</institution>
+        <addr-line>
+          <named-content content-type="city">Franca</named-content>
+          <named-content content-type="state">SP</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <email>milenasilveirapereira@gmail.com</email>
+        <institution content-type="original"> Docente, Programa de Pós-graduação em História/Universidade Estadual Paulista Júlio de Mesquita Filho. Franca – SP – Brasil. milenasilveirapereira@gmail.com</institution>
+      </aff>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>23</day>
+        <month>03</month>
+        <year>2020</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <season>Jan-Mar</season>
+        <year>2020</year>
+      </pub-date>
+      <volume>27</volume>
+      <issue>1</issue>
+      <fpage>275</fpage>
+      <lpage>303</lpage>
+      <history>
+        <date date-type="received">
+          <day>29</day>
+          <month>07</month>
+          <year>2018</year>
+        </date>
+        <date date-type="accepted">
+          <day>4</day>
+          <month>04</month>
+          <year>2019</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p> This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited. </license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Resumo</title>
+        <p>O documento que o leitor encontrará a seguir é a transcrição inédita e modernizada do manuscrito <italic>História do descobrimento da cochonilha no Brasil</italic>, editado pelo médico e químico Manuel Joaquim Henriques de Paiva entre os anos de 1774 e 1801. O propósito de Paiva, com essa versão revista e anotada do estudo pioneiro de seu irmão, o médico José Henriques Ferreira, era estimular a cultura e o comércio da cochonilha, um inseto produtor de corante avermelhado muito requisitado na Europa. <italic>A História...</italic>, portanto, fornece indícios do papel capital dos saberes ditos científicos para o fomento e engrandecimento do Reino português e de sua principal colônia.</p>
+      </abstract>
+      <trans-abstract xml:lang="en">
+        <title>Abstract</title>
+        <p>A previously unpublished, modernized transcript of the manuscript <italic>História do descobrimento da cochonilha no Brasil</italic> (History of the discovery of the cochineal in Brazil), edited by the physician and chemist Manuel Joaquim Henriques de Paiva between 1774 and 1801, is presented. By bringing out this reviewed, annotated version of the pioneering study by his brother, the physician José Henriques Ferreira, Paiva wanted to encourage the culture and trade of the cochineal, an insect that produced a red dye that was in great demand in Europe. <italic>História...</italic> thus provides indications of the key role of so-called scientific knowledge in the development and growth of the Portuguese kingdom and their primary colony.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="pt">
+        <kwd>história luso-brasileira</kwd>
+        <kwd>saberes científicos</kwd>
+        <kwd>cochonilha</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="en">
+        <kwd>Portuguese-Brazilian history</kwd>
+        <kwd>scientific knowledge</kwd>
+        <kwd>cochineal</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>Fundação de Amparo à Pesquisa do Estado de São Paulo</funding-source>
+          <award-id>17/01498-3</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>Fundação de Amparo à Pesquisa do Estado de São Paulo</funding-source>
+          <award-id>13/14786-6</award-id>
+        </award-group>
+      </funding-group>
+      <counts>
+        <fig-count count="0"/>
+        <table-count count="0"/>
+        <equation-count count="0"/>
+        <ref-count count="25"/>
+        <page-count count="29"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <p>Em 1772, o doutor José Henriques Ferreira (1740-1780) ajudou a fundar, em conjunto com o vice-rei marquês de Lavradio (1729-1790) e outros homens de ciências, a Academia Científica do Rio de Janeiro (1772-1779) e finalizou sua <italic>Dissertação sobre a cochonilha, história sobre seu descobrimento na América</italic>... Pouco tempo depois, o irmão mais jovem de Henriques Ferreira, o promissor médico e químico Manuel Joaquim Henriques de Paiva (1752-1829), reuniu, ampliou e apurou esse trabalho em um novo manuscrito, sob o título de <italic>História do descobrimento da cochonilha no Brasil</italic>..., com o propósito de “publicá-lo com toda a perfeição”. Embora Henriques Ferreira tenha dedicado “seis anos de contínuas e trabalhosas averiguações” à elaboração de seu estudo, Henriques de Paiva acreditava ser necessário realizar algumas reparações para publicar a <italic>Dissertação sobre a cochonilha..</italic>. Longe de desqualificar o conhecimento científico do irmão acerca da cochonilha, Henriques de Paiva buscava precisar nesse estudo algumas informações ausentes no original, devido, sobretudo, à novidade da matéria, à “pouca exatidão com que os antigos e modernos escritores a trataram, e por [Henriques Ferreira] escrever em um país remoto, onde falta[va]m às vezes os livros de uma erudição mais curiosa” (Ferreira, s.d., fl.3).</p>
+    <p>A despeito dos empecilhos que dificultavam o incremento dos estudos ditos científicos no Brasil em finais do século XVIII – como a falta de materiais especializados mencionada por Paiva, além, é claro, da inexistência de cursos superiores e de imprensa local –, é importante enfatizar o despertar de uma preocupação luso-brasileira no fomento desses saberes. Exemplo disso foi a empenhada atuação do vice-rei marquês de Lavradio na fundação, em seu palácio, da pioneira Academia Fluviense, Médica, Cirúrgica, Botânica e Farmacêutica, ou Academia de Medicina e História Natural do Rio de Janeiro, ou simplesmente, como ficou conhecida na historiografia, Academia Científica do Rio de Janeiro. Esse “amante das Ciências Naturais”, juntamente com médicos, químicos, naturalistas, entre outros homens de ciências formados no Velho Mundo, dedicou-se, em associação, à investigação dos reinos animal, vegetal e mineral no Rio de Janeiro e à elaboração de dissertações e memórias acerca da flora e fauna cariocas (<xref ref-type="bibr" rid="B23">Silva, 2013</xref>, p.25-33).</p>
+    <p>Tais aspirações científicas em terras brasileiras aconteciam em simultâneo com a famigerada reforma da Universidade de Coimbra (1772) nos tempos de dom José I (1714-1777) e de seu ministro Sebastião José de Carvalho e Melo (1699-1782), o marquês de Pombal. É sabido, a propósito, que o interesse pelas terras brasílicas aparece nos escritos luso-brasileiros desde o século anterior, intensificado na segunda metade do século XVIII, entre outras motivações, pela demarcação de limites entre as monarquias ibéricas deste lado do Atlântico, pela busca de um equilíbrio na balança comercial portuguesa e pelo financiamento régio de memórias acadêmicas e viagens científicas que estreitaram os laços entre Portugal e o Ultramar e buscaram promover estudos no campo das ciências e sobre a agricultura na América portuguesa (<xref ref-type="bibr" rid="B16">Pataca, 2011</xref>; <xref ref-type="bibr" rid="B18">Raminelli, 2008</xref>; <xref ref-type="bibr" rid="B11">Kury, 2004</xref>; <xref ref-type="bibr" rid="B4">Domingues, 2001</xref>; <xref ref-type="bibr" rid="B22">Serrão, 1988</xref>, p.23-50; <xref ref-type="bibr" rid="B23">Silva, 2013</xref>, p.37).</p>
+    <p>É importante recordar que a situação econômica de Portugal em finais do Setecentos e no alvorecer do Oitocentos não era das melhores. A produção mineradora nos sertões do Brasil havia decaído, os rendimentos do quinto eram instáveis e a concorrência estrangeira no mercado açucareiro aumentava, trazendo à tona a necessidade de incrementação da economia e do comércio. Nesse mesmo momento, nota-se o crescente intento dos monarcas e de seus representantes no além-mar – especialmente os secretários de estado e os vice-reis – de alocar o Império português ao patamar material e intelectual das grandes potências europeias, como França, Inglaterra e mesmo a Espanha. A vizinha ibérica, cabe lembrar também, investiu, desde o século XVI, no conhecimento, na descrição e no controle das riquezas naturais de suas possessões americanas, patrocinando diversas crônicas e páginas de história natural da América produzidas por cronistas, missionários, viajantes, médicos e naturalistas, que buscaram fornecer um panorama detalhado das plantas e dos animais considerados úteis à medicina, à agricultura e ao comércio (<xref ref-type="bibr" rid="B24">Ventura, 2016</xref>; <xref ref-type="bibr" rid="B10">Fonseca, 1999</xref>). Destarte, a promoção de novas culturas, tais como o anil, o linho e a cochonilha – já explorada pelos castelhanos na América espanhola –, e o desenvolvimento de estudos científicos que visavam à melhor utilização dos recursos naturais da América portuguesa foram medidas consideradas fundamentais na tentativa de reestabelecer a economia, fomentar o comércio e adequar os saberes luso-brasileiros àqueles considerados em voga na Europa (<xref ref-type="bibr" rid="B3">Dias, 2005</xref>; <xref ref-type="bibr" rid="B11">Kury, 2004</xref>; <xref ref-type="bibr" rid="B25">Wehling, 1977</xref>).</p>
+    <p>Imbuídos de uma noção pragmática e utilitarista da ciência e comprometidos com as demandas de uma política de estado ilustrada que os estimulava com prêmios, cargos e benesses, os letrados luso-brasileiros – tais como os administradores que exerciam cargos políticos nos trópicos, os naturalistas e eclesiásticos formados na Coimbra reformada ou nas bibliotecas dos seminários existentes na colônia, e os integrantes das academias de caráter científico atuantes nos dois lados do Atlântico – escreveram dezenas de opúsculos, memórias acadêmicas, pareceres, cartas e relatórios destinadas a elaborar um diagnóstico do estado da monarquia com vistas ao seu progresso econômico, social, cultural e moral (<xref ref-type="bibr" rid="B20">Rodrigues, 2017</xref>, p.169; <xref ref-type="bibr" rid="B4">Domingues, 2001</xref>, p.829). Os propósitos de desenvolver um saber que instruísse o povo e promovesse o Estado e sua economia foram, portanto, o que homens como José Henriques Ferreira e Manuel Joaquim Henriques de Paiva buscaram implementar nos seus estudos sobre a cochonilha.</p>
+    <p>Os irmãos Henriques de Paiva e Henriques Ferreira, formados na Universidade de Coimbra, provinham de uma tradicional família de médicos, natural da antiga vila portuguesa de Castelo Branco.<sup><xref ref-type="fn" rid="fn1">1</xref></sup> Entre os ilustres representantes dessa família estavam o pai, cirurgião, boticário e cristão-novo Antônio Ribeiro Paiva (1721-?), os irmãos médicos Francisco Antônio Henriques de Paiva (1757-1831) e Filipe Joaquim Henriques de Paiva (?-?), além do conhecido nome das ciências naturais, seu tio, Antônio Nunes Ribeiro Sanches (1699-1782). José Henriques Ferreira foi o primeiro a aportar em solo americano, em 1763, em companhia do então governador da Bahia, o segundo marquês de Lavradio, Luís de Almeida Portugal Soares de Mascarenhas, para atuar como médico do presídio e comissário do físico-mor do reino. Em 1769, acompanhando a ascensão do marquês de Lavradio, agora como vice-rei do Brasil (1769-1779), Ferreira passou a ocupar, no Rio de Janeiro, o cargo de primeiro médico do Hospital Real Militar e Ultramar, e trouxe para o Brasil o pai, Antônio Ribeiro Paiva, e o irmão Manuel Joaquim Henriques de Paiva, de apenas 17 anos de idade (<xref ref-type="bibr" rid="B2">Dias, 1959</xref>, p.2-3).</p>
+    <p>A primeira estada do jovem irmão em terras do Brasil foi curta, retornando para Portugal, em 1772, pouco tempo depois da fundação da Academia Científica, para ingressar na Universidade de Coimbra, onde se formou em medicina, em 1781. Henriques de Paiva, além de atuar como médico, químico e ocupar diversos cargos e funções em Portugal e no Brasil,<sup><xref ref-type="fn" rid="fn2">2</xref></sup> escreveu, editou e traduziu uma vasta obra sobre medicina, química, farmacopeia, botânica e história natural, e foi o principal organizador e divulgador da obra do irmão (<xref ref-type="bibr" rid="B17">Pita, 1996</xref>, p.177), esforçando-se para tornar públicos estudos como <italic>Discurso crítico em que se mostra o dano que tem feito aos doentes, e aos progressos da medicina em todos os tempos, a introdução, e uso de remédios de segredo, e composições ocultas, não só pelos charlatões, e vagamundos, mas também pelos médicos, que os têm imitado</italic>, publicado com José Henriques Ferreira, em 1785, e a <italic>Dissertação sobre a cochonilha...</italic> (<xref ref-type="bibr" rid="B7">Ferreira, 1772</xref>), trabalho que alimentou o manuscrito <italic>História da cochonilha no Brasil...</italic> (Ferreira, s.d.), em que trata do modo de cultivar, propagar e colher um inseto que produzia uma substância “avermelhada”, muito rentável no mercado têxtil europeu pelas suas propriedades corantes, que passou a despertar o interesse comercial português, especialmente na segunda metade do Setecentos.</p>
+    <p>Assim, os estudos sobre a cochonilha no Brasil foram sistematizados com as pesquisas de Henriques Ferreira, no auge da chamada política fomentista<sup><xref ref-type="fn" rid="fn3">3</xref></sup> portuguesa, e resultaram na mencionada <italic>Dissertação sobre a cochonilha...</italic> (<xref ref-type="bibr" rid="B7">Ferreira, 1772</xref>.) Até então, a produção e o comércio do corante extraído da cochonilha utilizado em Portugal e em suas possessões eram realizados pelos espanhóis no México,<sup><xref ref-type="fn" rid="fn4">4</xref></sup> como bem lembra Henriques Ferreira no estudo aqui transcrito, a saber: “os castelhanos, que não têm os olhos mais perspicazes que nós, souberam fazer dos produtos da História Natural da sua América um negócio de muito rendimento para eles e de muita utilidade para a Europa” (Ferreira, s.d., fl.33). Daí a importância conferida pelos irmãos e pelo próprio vice-rei do Brasil às pesquisas, ao cultivo e à utilidade da cochonilha na América portuguesa (<xref ref-type="bibr" rid="B19">Relatório..., 1812</xref>, p.473-474), pois, se a cultura fosse bem-sucedida, os portugueses não precisariam adquirir o corante de estrangeiros, estimulando a produção local, o seu comércio e, por conseguinte, o aumento da riqueza do Estado português.</p>
+    <p>Além dos benefícios econômicos que tal estudo poderia trazer para Portugal e sua principal colônia – vantagens que conferem à <italic>História do descobrimento da cochonilha no Brasil...</italic> um lugar importante nas produções científicas a serviço do Reino –, outro mérito da obra esteve nas notas de rodapé, grande parte delas produzida por Henriques de Paiva na edição do manuscrito aqui transcrita, em que é possível encontrar um verdadeiro histórico dos estudos sobre a cochonilha, e mesmo de história natural, até aquele momento. O esforço do irmão mais novo para dar a conhecer esse produto era tamanho, que, em suas exaustivas notas, é possível encontrar desde afirmações como as de Pierre Pomet (1658-1699), farmacêutico francês o qual, na sua <italic>História geral das drogas</italic> (de 1694), dizia ser a cochonilha uma semente, ou as do naturalista holandês Anton van Leeuwenhoek (1632-1723), que, num primeiro momento, também definiu a cochonilha, depois de observá-la no seu famoso microscópio, como um fruto; passando por Charles Plumier (1646-1704), monge botânico francês que, na <italic>Descrição das plantas da América</italic> (de 1693), declarou ser a cochonilha um vivente; até as definições mais claras de cronistas espanhóis como Francisco Hernández de Toledo (1517-1587), padre José de Acosta (1539-1600) e Antônio de Herrera (1559-1625) e de outros homens de ciências como Nicolaas Hartsoeker (1656-1725), Philipe de La Hire (1640-1718) e Étienne Louis Geoffroy (1725-1810). Sem esquecer, é claro, a classificação de Carl von Lineu (1707-1778) no seu célebre <italic>Systema Naturae</italic>, de que Paiva chega a questionar algumas definições do conhecido naturalista sueco referentes à classe e ao corpo do inseto.</p>
+    <p>As tentativas de publicação dos estudos sobre a cochonilha, ou partes deles, portanto, não foram poucas. Em 1774, o próprio Henriques Ferreira exprimia o desejo de imprimir sua <italic>Dissertação sobre a cochonilha...</italic>, com o intuito de difundir com mais eficácia as propriedades da cochonilha produzida no Brasil e as instruções para o seu desenvolvimento no reino e na colônia.<sup><xref ref-type="fn" rid="fn5">5</xref></sup> No entanto, foi Henriques de Paiva quem buscou levar a cabo tal empreitada. Embora não seja possível afirmar a data precisa da elaboração da <italic>História do descobrimento da cochonilha no Brasil...</italic>, é provável que Henriques de Paiva tenha realizado a organização e a revisão da obra do irmão entre 1774 e 1801, período em que exerceu os cargos de demonstrador real da química (1773-1777) e de professor da cadeira de farmácia na Universidade de Coimbra (1801), atividades descritas na folha de rosto daquele que acreditamos ser o manuscrito original da obra, localizado no Arquivo Nacional da Torre do Tombo (ANTT) (Ferreira, s.d.). Há, aliás, outro manuscrito da <italic>História do descobrimento da cochonilha no Brasil...</italic> sob a guarda da Academia das Ciências de Lisboa (ACL), que, muito provavelmente, é uma cópia revisada para ser impressa na coleção de memórias dessa instituição (Ferreira, 1780-1811). Apesar de essa versão não conter datação, sabemos que está anexada ao conjunto de memórias “que não tiveram lugar nas coleções da Academia” elaboradas entre 1780 e 1811. Ademais, encontramos a mesma referência presente no manuscrito do ANTT aos cargos exercidos por Henriques de Paiva, o que nos leva a crer que a cópia foi redigida pouco tempo depois do manuscrito original.</p>
+    <p>Ao compararmos os dois manuscritos mencionados da <italic>História do descobrimento da cochonilha no Brasil...</italic> e o da <italic>Dissertação sobre a cochonilha...</italic>, de 1772, notamos que a versão do ANTT é a mais completa, contendo não só as notas de rodapé elaboradas por José Henriques Ferreira, como também aquelas formuladas por Manuel Henriques de Paiva. Além disso, o manuscrito do ANTT reproduz a mesma dedicatória ao marquês de Angeja (1716-1788), presente na <italic>Dissertação sobre a cochonilha...</italic>, solicitando a proteção necessária para a impressão. Tal dedicatória, vale destacar, talvez tenha sido suprimida no manuscrito da ACL pelo simples fato de que, àquela altura, este seria impresso nas <italic>Memórias</italic> organizadas pelos membros da Academia e, portanto, já não demandava a busca de um patrono. Ainda sobre nossa proposição de que a versão da <italic>História do descobrimento da cochonilha no Brasil...</italic> localizada na ACL seja uma cópia, é importante mencionar que, na escrita, encontramos palavras e frases invertidas e algumas passagens suprimidas ou complementadas, demonstrando, assim, tratar-se de uma transcrição do documento do ANTT.</p>
+    <p>Nos séculos seguintes ao manuscrito, pois, foram localizados alguns poucos fragmentos publicados da <italic>História do descobrimento da cochonilha no Brasil...</italic>. O mais citado entre os estudiosos, e frequentemente confundido com uma transcrição desse documento, é o <italic>Sumário da História do descobrimento da cochonilha no Brasil</italic>, publicado por Henriques de Paiva, em 1814, no jornal <italic>O Patriota</italic> (<xref ref-type="bibr" rid="B14">Paiva, 1814</xref>, p.3-30). Esse <italic>Sumário...</italic>, como o próprio título sugere, tinha como propósito sintetizar os principais aspectos da história da cochonilha no Brasil. Uma centúria depois, foi publicada uma obra intitulada <italic>Coleção de opúsculos sobre a cochonilha</italic>. Esse documento da Biblioteca Nacional de Portugal (BNP) – sem data precisa, local e editor – possui apenas alguns trechos da <italic>Dissertação sobre a cochonilha...</italic> (Ferreira, 19--) de Henriques Ferreira; o restante provavelmente se perdeu. Assim, malgrado os esforços empreendidos por Henriques de Paiva e pelo próprio Henriques Ferreira, o trabalho na íntegra sobre a cochonilha, ou melhor, a <italic>História do descobrimento da cochonilha no Brasil...</italic> permanecia ainda em manuscrito.</p>
+    <p>O documento que o leitor encontrará a seguir é, portanto, a edição inédita, modernizada e completa da <italic>História do descobrimento da cochonilha no Brasil...</italic>, elaborada a partir do cotejamento de dois manuscritos organizados por Manuel Joaquim Henriques de Paiva entre o final do século XVIII e o alvorecer do XIX.<sup><xref ref-type="fn" rid="fn6">6</xref></sup> Tal edição baseou-se, pois, na transcrição do manuscrito matriz existente no ANTT e na inclusão de algumas passagens modificadas ou acrescentadas pelo editor da obra, e existentes apenas no documento da ACL.</p>
+  </body>
+  <back>
+    <ack>
+      <title>AGRADECIMENTOS</title>
+      <p>Agradecemos à Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes) e à Fundação de Amparo à Pesquisa do Estado de São Paulo (Fapesp n.17/01498-3) o financiamento das pesquisas que resultaram neste artigo; ao nosso grupo de pesquisa “Escritos sobre os Novos Mundos” (Fapesp n.13/14786-6), bem como à Biblioteca Nacional de Portugal (BNP), à Academia de Ciências de Lisboa (ACL), ao Arquivo Nacional da Torre do Tombo (ANTT) e ao Arquivo Nacional do Rio de Janeiro (ANRJ), instituições que forneceram os documentos utilizados na presente edição.</p>
+    </ack>
+    <ref-list>
+      <title>REFERÊNCIAS</title>
+      <ref id="B1">
+        <mixed-citation>ARAÚJO, Ana Cristina (Coord.). A universidade pombalina: ciência, território e coleções científicas. Coimbra: Universidade de Coimbra. 2017.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>ARAÚJO</surname>
+              <given-names>Ana Cristina</given-names>
+            </name>
+            <role>Coord</role>
+          </person-group>
+          <source>A universidade pombalina: ciência, território e coleções científicas</source>
+          <publisher-loc>Coimbra</publisher-loc>
+          <publisher-name>Universidade de Coimbra</publisher-name>
+          <year>2017</year>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>DIAS, José Lopes. Duas cartas inéditas do Dr. José Henriques Ferreira, comissário do físico-mor e médico do vice-rei do Brasil, a Ribeiro Sanches. Imprensa Médica (separata). 1959.</mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DIAS</surname>
+              <given-names>José Lopes</given-names>
+            </name>
+          </person-group>
+          <source>Duas cartas inéditas do Dr. José Henriques Ferreira, comissário do físico-mor e médico do vice-rei do Brasil, a Ribeiro Sanches</source>
+          <comment>Imprensa Médica (separata)</comment>
+          <year>1959</year>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>DIAS, Maria Odila da Silva. A interiorização da metrópole e outros estudos. São Paulo: Alameda. 2005.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DIAS</surname>
+              <given-names>Maria Odila da Silva</given-names>
+            </name>
+          </person-group>
+          <source>A interiorização da metrópole e outros estudos</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Alameda</publisher-name>
+          <year>2005</year>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>DOMINGUES, Ângela. Para um melhor conhecimento dos domínios coloniais: a constituição de redes de informação no Império português em finais do Setecentos. História, Ciências, Saúde – Manguinhos, v.8, supl., p.823-838. 2001.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DOMINGUES</surname>
+              <given-names>Ângela</given-names>
+            </name>
+          </person-group>
+          <article-title>Para um melhor conhecimento dos domínios coloniais: a constituição de redes de informação no Império português em finais do Setecentos</article-title>
+          <source>História, Ciências, Saúde – Manguinhos</source>
+          <volume>8</volume>
+          <supplement>supl</supplement>
+          <fpage>823</fpage>
+          <lpage>838</lpage>
+          <year>2001</year>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>FERREIRA, José Henriques. Dissertação sobre a cochonilha; história do seu descobrimento na América Portuguesa. In: Coleção de opúsculos sobre a cochonilha. (Biblioteca Nacional de Portugal, Lisboa). [s.l.]: [s.n.] 19--.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FERREIRA</surname>
+              <given-names>José Henriques</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Dissertação sobre a cochonilha; história do seu descobrimento na América Portuguesa</chapter-title>
+          <source>Coleção de opúsculos sobre a cochonilha</source>
+          <publisher-name>Biblioteca Nacional de Portugal</publisher-name>
+          <publisher-loc>Lisboa</publisher-loc>
+          <comment>s.l</comment>
+          <comment>[s.n.] 19--</comment>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>FERREIRA, José Henriques. História do descobrimento da cochonilha no Brasil da sua natureza, geração, criação, colheita e utilidades. Escrita por José Henriques Ferreira, filósofo e médico, sócio e correspondente da Academia Real das Ciências da Suécia, sócio da Academia Real da Medicina de Madrid, presidente e fundador da Academia de Medicina e História Natural do Rio de Janeiro. Publicada e anotada por seu irmão Manoel Joaquim Henriques de Paiva, sócio das mesmas academias, demonstrador real da química e mestre do Laboratório na Universidade de Coimbra, professor ordinário de farmácia e química etc. In: Memórias de física, e econômicas que não tiveram lugar nas coleções da Academia. t.2. Manuscritos da Série Azul, ms n.374, fl.315-347 (Academia de Ciências de Lisboa, Lisboa). 1780-1811.</mixed-citation>
+        <element-citation publication-type="other">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FERREIRA</surname>
+              <given-names>José Henriques</given-names>
+            </name>
+          </person-group>
+          <chapter-title>História do descobrimento da cochonilha no Brasil da sua natureza, geração, criação, colheita e utilidades. Escrita por José Henriques Ferreira, filósofo e médico, sócio e correspondente da Academia Real das Ciências da Suécia, sócio da Academia Real da Medicina de Madrid, presidente e fundador da Academia de Medicina e História Natural do Rio de Janeiro. Publicada e anotada por seu irmão Manoel Joaquim Henriques de Paiva, sócio das mesmas academias, demonstrador real da química e mestre do Laboratório na Universidade de Coimbra, professor ordinário de farmácia e química etc</chapter-title>
+          <source>Memórias de física, e econômicas que não tiveram lugar nas coleções da Academia</source>
+          <comment>t.2. Manuscritos da Série Azul, ms n.374, fl.315-347</comment>
+          <publisher-name>Academia de Ciências de Lisboa</publisher-name>
+          <publisher-loc>Lisboa</publisher-loc>
+          <fpage>1780</fpage>
+          <lpage>1811</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>FERREIRA, José Henriques. Dissertação sobre a cochonilha. História do seu descobrimento na América Portuguesa, escrita por José Henriques Ferreira, médico pela Universidade de Coimbra e sócio da Academia de Suécia etc. etc. Oferecida Ao Ilmo. e Exmo. Sr. Marquês de Anjeja do Conselho de Sua Majestade Fidma. Presidente do Real Erário, inele seu Lugar Ten. e Inspetor da Marinha etc. etc. etc. BR RJANRIO RD.0.DAG.41 (Arquivo Nacional, Rio de Janeiro). [s.l.]: [s.n.] 1772.</mixed-citation>
+        <element-citation publication-type="other">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FERREIRA</surname>
+              <given-names>José Henriques</given-names>
+            </name>
+          </person-group>
+          <source>Dissertação sobre a cochonilha. História do seu descobrimento na América Portuguesa, escrita por José Henriques Ferreira, médico pela Universidade de Coimbra e sócio da Academia de Suécia etc. etc. Oferecida Ao Ilmo. e Exmo. Sr. Marquês de Anjeja do Conselho de Sua Majestade Fidma. Presidente do Real Erário, inele seu Lugar Ten. e Inspetor da Marinha etc. etc. etc. BR RJANRIO RD.0.DAG.41</source>
+          <publisher-name>Arquivo Nacional</publisher-name>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <comment>s.l</comment>
+          <comment>s.n</comment>
+          <year>1772</year>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>FERREIRA, José Henriques. História do descobrimento da cochonilha no Brasil, da sua natureza, geração, criação, colheita e utilidades etc., escrita por José Henriques Ferreira, filósofo e médico, sócio e correspondente da Academia Real das Ciências da Suécia, sócio da Academia Real de Medicina de Madrid, presidente e fundador da Academia de Medicina e Historia Natural do Rio de Janeiro, etc., etc., etc.: Por M * J* H* P*, sócio das mesmas academias, demonstrador real da química, e mestre do Laboratório Químico na Universidade de Coimbra, profesor ordinário de farmácia e química etc., etc., etc. Manuscritos da Livraria, n.0758 (Arquivo Nacional da Torre do Tombo, Lisboa). s.l.: s.n. s.d.</mixed-citation>
+        <element-citation publication-type="other">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FERREIRA</surname>
+              <given-names>José Henriques</given-names>
+            </name>
+          </person-group>
+          <source>História do descobrimento da cochonilha no Brasil, da sua natureza, geração, criação, colheita e utilidades etc., escrita por José Henriques Ferreira, filósofo e médico, sócio e correspondente da Academia Real das Ciências da Suécia, sócio da Academia Real de Medicina de Madrid, presidente e fundador da Academia de Medicina e Historia Natural do Rio de Janeiro, etc., etc., etc.: Por M * J* H* P*, sócio das mesmas academias, demonstrador real da química, e mestre do Laboratório Químico na Universidade de Coimbra, profesor ordinário de farmácia e química etc., etc., etc</source>
+          <comment>Manuscritos da Livraria</comment>
+          <issue>0758</issue>
+          <publisher-name>Arquivo Nacional da Torre do Tombo</publisher-name>
+          <publisher-loc>Lisboa</publisher-loc>
+          <comment>s.l.: s.n. s.d</comment>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>FILGUEIRAS, Carlos A.L. As vicissitudes da ciência periférica: a vida e a obra de Manoel Joaquim Henriques de Paiva. Química Nova, v.14, n.2, p.133-141. 1991.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FILGUEIRAS</surname>
+              <given-names>Carlos A.L</given-names>
+            </name>
+          </person-group>
+          <article-title>As vicissitudes da ciência periférica: a vida e a obra de Manoel Joaquim Henriques de Paiva</article-title>
+          <source>Química Nova</source>
+          <volume>14</volume>
+          <issue>2</issue>
+          <fpage>133</fpage>
+          <lpage>141</lpage>
+          <year>1991</year>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>FONSECA, Maria Rachel Fróes da. La construcción de la patria por el discurso científico: México y Brasil (1770-1830). Secuencia, n.45, p.5-26. 1999.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FONSECA</surname>
+              <given-names>Maria Rachel Fróes da</given-names>
+            </name>
+          </person-group>
+          <article-title>La construcción de la patria por el discurso científico: México y Brasil (1770-1830)</article-title>
+          <source>Secuencia</source>
+          <issue>45</issue>
+          <fpage>5</fpage>
+          <lpage>26</lpage>
+          <year>1999</year>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>KURY, Lorelai. Homens de ciência no Brasil: impérios coloniais e circulação de informações (1780-1810). História, Ciências, Saúde – Manguinhos, v.11, supl.1, p.109-129. 2004.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>KURY</surname>
+              <given-names>Lorelai</given-names>
+            </name>
+          </person-group>
+          <article-title>Homens de ciência no Brasil: impérios coloniais e circulação de informações (1780-1810)</article-title>
+          <source>História, Ciências, Saúde – Manguinhos</source>
+          <volume>11</volume>
+          <supplement>1</supplement>
+          <fpage>109</fpage>
+          <lpage>129</lpage>
+          <year>2004</year>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>MARQUES, Vera Regina Beltrão. Escola de homens de ciência: a Academia Científica do Rio de Janeiro, 1772-1779. Educar, n.25, p.39-57. 2005.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MARQUES</surname>
+              <given-names>Vera Regina Beltrão</given-names>
+            </name>
+          </person-group>
+          <article-title>Escola de homens de ciência: a Academia Científica do Rio de Janeiro, 1772-1779</article-title>
+          <source>Educar</source>
+          <issue>25</issue>
+          <fpage>39</fpage>
+          <lpage>57</lpage>
+          <year>2005</year>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>MORAIS, Francisco; DIAS, José Lopes. Estudantes da Universidade de Coimbra naturais de Castelo Branco. Coimbra: Tipografia Minerva. 1955.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MORAIS</surname>
+              <given-names>Francisco</given-names>
+            </name>
+            <name>
+              <surname>DIAS</surname>
+              <given-names>José Lopes</given-names>
+            </name>
+          </person-group>
+          <source>Estudantes da Universidade de Coimbra naturais de Castelo Branco</source>
+          <publisher-loc>Coimbra</publisher-loc>
+          <publisher-name>Tipografia Minerva</publisher-name>
+          <year>1955</year>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>PAIVA, Manuel Henriques de. Sumário da história do descobrimento da cochonilha no Brasil, e das observações que sobre ela fez no Rio de Janeiro o dr. José Henriques Ferreira, médico do vice-rei o marquês do Lavradio. O Patriota, n.1. jan.-fev. 1814.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PAIVA</surname>
+              <given-names>Manuel Henriques de</given-names>
+            </name>
+          </person-group>
+          <article-title>Sumário da história do descobrimento da cochonilha no Brasil, e das observações que sobre ela fez no Rio de Janeiro o dr. José Henriques Ferreira, médico do vice-rei o marquês do Lavradio</article-title>
+          <source>O Patriota</source>
+          <issue>1</issue>
+          <season>jan.-fev</season>
+          <year>1814</year>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>PAIVA... Paiva, Manuel Joaquim Henriques de. In: Dicionário histórico-biográfico das ciências da saúde no Brasil (1832-1930). Rio de Janeiro: Casa de Oswaldo Cruz/Fiocruz. Disponível em: &lt;<ext-link ext-link-type="uri" xlink:href="http://www.dichistoriasaude.coc.fiocruz.br/iah/pt/verbetes/paimanjohe.htm">http://www.dichistoriasaude.coc.fiocruz.br/iah/pt/verbetes/paimanjohe.htm</ext-link>. Acesso em: 19 out. 2018. 2015.</mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>PAIVA..</collab>
+          </person-group>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Paiva</surname>
+              <given-names>Manuel Joaquim Henriques de</given-names>
+            </name>
+          </person-group>
+          <source>Dicionário histórico-biográfico das ciências da saúde no Brasil (1832-1930)</source>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <publisher-name>Casa de Oswaldo Cruz/Fiocruz</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://www.dichistoriasaude.coc.fiocruz.br/iah/pt/verbetes/paimanjohe.htm">http://www.dichistoriasaude.coc.fiocruz.br/iah/pt/verbetes/paimanjohe.htm</ext-link>
+          </comment>
+          <date-in-citation content-type="access-date">Acesso em: 19 out. 2018</date-in-citation>
+          <year>2015</year>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>PATACA, Ermelinda Moutinho. Coletar, preparar, remeter, transportar: práticas de história natural nas viagens filosóficas portuguesas (1777-1808). Revista Brasileira de História da Ciência, v.4, n.2, p.125-138. 2011.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PATACA</surname>
+              <given-names>Ermelinda Moutinho</given-names>
+            </name>
+          </person-group>
+          <article-title>Coletar, preparar, remeter, transportar: práticas de história natural nas viagens filosóficas portuguesas (1777-1808)</article-title>
+          <source>Revista Brasileira de História da Ciência</source>
+          <volume>4</volume>
+          <issue>2</issue>
+          <fpage>125</fpage>
+          <lpage>138</lpage>
+          <year>2011</year>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>PITA, João Rui. Farmácia, medicina e saúde pública em Portugal (1772-1836). Coimbra: Minerva. 1996.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PITA</surname>
+              <given-names>João Rui</given-names>
+            </name>
+          </person-group>
+          <source>Farmácia, medicina e saúde pública em Portugal (1772-1836)</source>
+          <publisher-loc>Coimbra</publisher-loc>
+          <publisher-name>Minerva</publisher-name>
+          <year>1996</year>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>RAMINELLI, Ronald. Viagens ultramarinas: monarcas, vassalos e governo a distância. São Paulo: Alameda. 2008.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>RAMINELLI</surname>
+              <given-names>Ronald</given-names>
+            </name>
+          </person-group>
+          <source>Viagens ultramarinas: monarcas, vassalos e governo a distância</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Alameda</publisher-name>
+          <year>2008</year>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>RELATÓRIO... Relatório do marquês de Lavradio, vice-rei do Rio de Janeiro, entregando o Governo a Luiz de Vasconcellos e Souza, que o sucedeu no vice-reinado. Revista Trimensal de História e Geografia, ou Jornal do Instituto Histórico Geográfico Brasileiro. t.4. 1812.</mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>RELATÓRIO..</collab>
+          </person-group>
+          <article-title>Relatório do marquês de Lavradio, vice-rei do Rio de Janeiro, entregando o Governo a Luiz de Vasconcellos e Souza, que o sucedeu no vice-reinado</article-title>
+          <source>Revista Trimensal de História e Geografia, ou Jornal do Instituto Histórico Geográfico Brasileiro</source>
+          <comment>t.4</comment>
+          <year>1812</year>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>RODRIGUES, José Damião. Horizontes de reformas e luzes: uma leitura historiográfica a partir da América portuguesa. In: Godoy, Scarlett O’Phelan; Rodríguez García, Margarita Eva (Coord.). El ocaso del Antiguo Régimen en los Imperios Ibéricos. Lima: Pontificia Universidad Católica del Peru; Lisboa: Cham. 2017.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>RODRIGUES</surname>
+              <given-names>José Damião</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Horizontes de reformas e luzes: uma leitura historiográfica a partir da América portuguesa</chapter-title>
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>Godoy</surname>
+              <given-names>Scarlett O’Phelan</given-names>
+            </name>
+            <name>
+              <surname>García</surname>
+              <given-names>Rodríguez</given-names>
+            </name>
+            <name>
+              <surname>Eva</surname>
+              <given-names>Margarita</given-names>
+            </name>
+            <role>Coord</role>
+          </person-group>
+          <source>El ocaso del Antiguo Régimen en los Imperios Ibéricos</source>
+          <publisher-loc>Lima</publisher-loc>
+          <publisher-name>Pontificia Universidad Católica del Peru</publisher-name>
+          <publisher-loc>Lisboa</publisher-loc>
+          <publisher-name>Cham</publisher-name>
+          <year>2017</year>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>SERRANO, Ana Filipa Albano. The red road of the Iberian expansion: cochineal and the global dye trade. Tese (Doutorado em História dos descobrimentos e da expansão portuguesa) – Universidade Nova de Lisboa, Lisboa. 2017.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SERRANO</surname>
+              <given-names>Ana Filipa Albano</given-names>
+            </name>
+          </person-group>
+          <source>The red road of the Iberian expansion: cochineal and the global dye trade</source>
+          <comment>Tese (Doutorado em História dos descobrimentos e da expansão portuguesa)</comment>
+          <publisher-name>– Universidade Nova de Lisboa</publisher-name>
+          <publisher-loc>Lisboa</publisher-loc>
+          <year>2017</year>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>SERRÃO, José Vicente. O pensamento agrário setecentista (pré-fisiocrático): diagnósticos e soluções propostas. In: Cardoso, José Luís (Org.). Contribuições para a história do pensamento económico em Portugal. Lisboa: Dom Quixote. 1988.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SERRÃO</surname>
+              <given-names>José Vicente</given-names>
+            </name>
+          </person-group>
+          <chapter-title>O pensamento agrário setecentista (pré-fisiocrático): diagnósticos e soluções propostas</chapter-title>
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>Cardoso</surname>
+              <given-names>José Luís</given-names>
+            </name>
+            <role>Org</role>
+          </person-group>
+          <source>Contribuições para a história do pensamento económico em Portugal</source>
+          <publisher-loc>Lisboa</publisher-loc>
+          <publisher-name>Dom Quixote</publisher-name>
+          <year>1988</year>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>SILVA, Maria Beatriz Nizza da. Cultura letrada e cultura oral no Rio de Janeiro dos vice-reis. São Paulo: Editora Unesp. 2013.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SILVA</surname>
+              <given-names>Maria Beatriz Nizza da</given-names>
+            </name>
+          </person-group>
+          <source>Cultura letrada e cultura oral no Rio de Janeiro dos vice-reis</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Editora Unesp</publisher-name>
+          <year>2013</year>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>VENTURA, Antoine. Viajeros y naturalistas (s. XV-XIX, Europa-América) o cómo viajar sin precauciones por un tema torrentoso. ELOHI, n.9. Disponível em: &lt;<ext-link ext-link-type="uri" xlink:href="http://doi.org/10.4000/elohi.981">http://doi.org/10.4000/elohi.981</ext-link>. Acesso em: 19. jan. 2019. 2016.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>VENTURA</surname>
+              <given-names>Antoine</given-names>
+            </name>
+          </person-group>
+          <article-title>Viajeros y naturalistas (s. XV-XIX, Europa-América) o cómo viajar sin precauciones por un tema torrentoso</article-title>
+          <source>ELOHI</source>
+          <issue>9</issue>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.4000/elohi.981">http://doi.org/10.4000/elohi.981</ext-link>
+          </comment>
+          <date-in-citation content-type="access-date">Acesso em: 19. jan. 2019</date-in-citation>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>WEHLING, Arno. O fomentismo português no final do século XVIII: doutrinas, mecanismos, exemplificações. Revista do Instituto Histórico e Geográfico Brasileiro, v.316, p.170-278. 1977.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>WEHLING</surname>
+              <given-names>Arno</given-names>
+            </name>
+          </person-group>
+          <article-title>O fomentismo português no final do século XVIII: doutrinas, mecanismos, exemplificações</article-title>
+          <source>Revista do Instituto Histórico e Geográfico Brasileiro</source>
+          <volume>316</volume>
+          <fpage>170</fpage>
+          <lpage>278</lpage>
+          <year>1977</year>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <title>NOTAS</title>
+      <fn fn-type="other" id="fn1">
+        <label>1</label>
+        <p> Para mais informações acerca da família de Manuel Henriques Ferreira, conferir, especialmente, Morais, Dias (1955).</p>
+      </fn>
+      <fn fn-type="other" id="fn2">
+        <label>2</label>
+        <p> Manuel Henriques de Paiva foi demonstrador de química e história natural na Universidade de Coimbra, sócio, juntamente com o irmão e o pai, da referida Academia Científica, ocupando o posto de diretor de farmácia; foi, igualmente, sócio da Academia Real das Ciências de Lisboa, da Academia Real das Ciências da Suécia e da Academia Real de Medicina de Madri; ocupou as funções de médico da Casa Real e deputado ordinário da Real Junta do Proto-Medicato. Em 1808, foi preso por ordem do secretário de Estado dos Negócios do Reino, por ser considerado partidário das ideias napoleônicas, e, em 1809, foi sentenciado a cumprir degredo no Ultramar, ocasião em que regressou ao Brasil. De volta aos trópicos, Henriques de Paiva reconstituiu sua carreira; ocupou, em 1820, a cadeira de Matéria Médica e Farmácia no Colégio Médico-Cirúrgico da Bahia e aqui permaneceu até o fim da sua vida. Cf. Morais, Dias (1955, p.232-250); <xref ref-type="bibr" rid="B1">Araújo (2017</xref>, p.99); <xref ref-type="bibr" rid="B9">Filgueiras (1991)</xref>; <xref ref-type="bibr" rid="B12">Marques (2005)</xref>; Paiva (2015).</p>
+      </fn>
+      <fn fn-type="other" id="fn3">
+        <label>3</label>
+        <p> Arno <xref ref-type="bibr" rid="B25">Wehling (1977</xref>, p.171) destaca que o apogeu “da política fomentista em relação ao anil e à cochonilha situou-se entre 1769 e 1790”.</p>
+      </fn>
+      <fn fn-type="other" id="fn4">
+        <label>4</label>
+        <p> A propósito da cultura da cochonilha na América e sua importância para o comércio dos impérios português e espanhol, conferir o estudo da historiadora Ana Filipa Albano <xref ref-type="bibr" rid="B21">Serrano (2017)</xref>.</p>
+      </fn>
+      <fn fn-type="other" id="fn5">
+        <label>5</label>
+        <p> Em carta de 1774, enviada do Rio de Janeiro a Lisboa para seu tio e médico Antônio Ribeiro Sanches, José Henriques Ferreira faz a seguinte afirmação acerca da sua dissertação: “Ultimamente este ano descobrimos a cochonilha em Santa Catarina e Rio Grande, que não sabiam o que era, ainda que as mulheres tingiam saias e lenços como lá; e a planta onde se criam os tais bichos remeti para Lisboa e aqui tenho no meu quintal a planta que me remeteram de Santa Catarina, na qual há poucos dias vi nascer, com grande gosto meu, muitos bichinhos, e depois de feitas mais algumas averiguações faço tenção [de] publicar sobre ela uma dissertação, pois o que muitos naturalistas têm escrito a respeito do modo da sua produção é errado e muito à parte” (Dias, 1959, p.9).</p>
+      </fn>
+      <fn fn-type="other" id="fn6">
+        <label>6</label>
+        <p> Optamos por modernizar a linguagem dos manuscritos cotejados a fim de tornar a leitura da presente edição mais fluida. No entanto, tivemos sempre a preocupação de preservar as peculiaridades dos documentos. As inclusões de palavras, frases e símbolos foram sinalizadas e justificadas nas notas de rodapé.</p>
+      </fn>
+    </fn-group>
+    <app-group>
+      <app id="app01">
+        <label>FONTES</label>
+        <supplementary-material id="s01" mime-subtype="pdf" mimetype="application" xlink:href="https://minio.scielo.br/documentstore/1678-4758/TwZZBvMMN6XQNWb7C5Rc4qr/51c6856d1570190ab90aaa9b311a6ba1d762657a.pdf"/>
+      </app>
+    </app-group>
+  </back>
+</article>
