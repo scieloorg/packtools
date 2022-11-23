@@ -396,4 +396,41 @@
         <name lang="pt">Tradução de</name>
         <name lang="es">Traducción de</name>
     </term>
+    
+    <term>
+        <name>This retraction retracts</name>
+        <name lang="en">This retraction retracts</name>
+        <name lang="pt">Esta retratação retrata</name>
+        <name lang="es">Esta retractación retrata</name>
+    </term>
+    <term>
+        <name>This document comments</name>
+        <name lang="en">This document comments</name>
+        <name lang="pt">Este documento comenta</name>
+        <name lang="es">Este documento comenta</name>
+    </term>
+    <term>
+        <name>This document is an addendum of</name>
+        <name lang="en">This document is an addendum of</name>
+        <name lang="pt">Este documento é um adendo de</name>
+        <name lang="es">Este documento es un anexo de</name>
+    </term>
+    <term>
+        <name>This article has preprint version</name>
+        <name lang="en">This article has preprint version</name>
+        <name lang="pt">Este artigo tem versão preprint</name>
+        <name lang="es">Este artículo tiene versión preprint</name>
+    </term>
+    <term>
+        <name>Peer reviewed article</name>
+        <name lang="en">Peer reviewed article</name>
+        <name lang="pt">Artigo revisado</name>
+        <name lang="es">Artículo revisado</name>
+    </term>
+    <term>
+        <name>Related to</name>
+        <name lang="en">Related to</name>
+        <name lang="pt">Relacionado com</name>
+        <name lang="es">Relacionado con</name>
+    </term>
 </labels>
