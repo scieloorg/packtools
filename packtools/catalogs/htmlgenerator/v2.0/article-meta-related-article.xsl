@@ -5,12 +5,13 @@
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     >
     <xsl:template match="article | sub-article" mode="article-meta-related-article">
+        <!-- APRESENTA CAIXA DE TEXTO DESTACANDO O RELACIONAMENTO ENTRE DOCUMENTOS -->
         <xsl:choose>
             <xsl:when test="front//related-article">
-                <xsl:apply-templates select="front" mode="article-meta-related-articles"></xsl:apply-templates>
+                <xsl:apply-templates select="front" mode="article-meta-related-article-items"></xsl:apply-templates>
             </xsl:when>
             <xsl:when test="body//related-article">
-                <xsl:apply-templates select="body" mode="article-meta-related-articles"></xsl:apply-templates>
+                <xsl:apply-templates select="body" mode="article-meta-related-article-items"></xsl:apply-templates>
             </xsl:when>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article">
                 <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="article-meta-related-article"></xsl:apply-templates>
@@ -36,7 +37,7 @@
     </xsl:template>
     <!-- /article retraction -->
 
-    <xsl:template match="*" mode="article-meta-related-articles">
+    <xsl:template match="*" mode="article-meta-related-article-items">
         <!-- 
         <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/0102-311X00064615"></related-article>
         <related-article id="RA1" page="142" related-article-type="corrected-article" vol="39">
