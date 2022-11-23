@@ -21,7 +21,8 @@
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     <xsl:include href="article-meta-product.xsl"/>
-    <!-- <xsl:include href="article-meta-related-article.xsl"/> -->
+    <!--  -->
+    <xsl:include href="article-meta-related-article.xsl"/>
 
     <xsl:include href="generic-history.xsl"/>
     <xsl:include href="generic-pub-date.xsl"/>
@@ -214,8 +215,8 @@
                 <div class="articleTxt">
                     <xsl:apply-templates select="." mode="articleBadge-editionMeta-doi-copyLink"/>
 
-                    <!-- <xsl:apply-templates select="." mode="article-meta-related-article"/> -->
-
+                    <!--  -->
+                    <xsl:apply-templates select="." mode="article-meta-related-article"/>
                     <xsl:apply-templates select="." mode="article-title"/>
 
                     <xsl:apply-templates select="." mode="article-meta-trans-title"/>
