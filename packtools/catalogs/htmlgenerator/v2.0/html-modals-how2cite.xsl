@@ -141,16 +141,26 @@
     <xsl:template match="*" mode="how2cite-article-title">
         <xsl:choose>
             <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//article-title">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//article-title"></xsl:apply-templates>.
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//article-title" mode="how2cite-text-title"/>
             </xsl:when>
             <xsl:when test=".//trans-title-group[@xml:lang=$TEXT_LANG]//trans-title">
-                <xsl:apply-templates select=".//trans-title-group[@xml:lang=$TEXT_LANG]//trans-title"></xsl:apply-templates>.
+                <xsl:apply-templates select=".//trans-title-group[@xml:lang=$TEXT_LANG]//trans-title" mode="how2cite-text-title"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select=".//article-title"></xsl:apply-templates>.
+                <xsl:apply-templates select=".//article-title" mode="how2cite-text-title"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <xsl:template match="article-title | trans-title" mode="how2cite-text-title">
+        <xsl:apply-templates select="*|text()" mode="how2cite-text-title-part"/>.
+    </xsl:template>
+
+    <xsl:template match="*" mode="how2cite-text-title-part">|<xsl:apply-templates select="*|text()"/></xsl:template>
+
+    <xsl:template match="text()" mode="how2cite-text-title-part"><xsl:value-of select="normalize-space(.)"/></xsl:template>
+
+    <xsl:template match="xref" mode="how2cite-text-title-part"/>
 
     <xsl:template match="*" mode="how2cite-journal-title">
         <xsl:apply-templates select=".//journal-title"></xsl:apply-templates>
@@ -199,8 +209,7 @@
         <xsl:if test="$howtocite_location!=''">
         [<xsl:apply-templates select="." mode="interface">
             <xsl:with-param name="text">cited</xsl:with-param>
-        </xsl:apply-templates>&#160;CURRENTDATE]
-        </xsl:if>
+        </xsl:apply-templates>&#160;CURRENTDATE]</xsl:if>
     </xsl:template>
 
     <xsl:template match="*" mode="how2cite-pages">

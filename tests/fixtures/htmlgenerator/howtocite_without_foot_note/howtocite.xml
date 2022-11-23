@@ -1,0 +1,1661 @@
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+<front>
+<journal-meta>
+<journal-id journal-id-type="publisher-id">rbeaa</journal-id>
+<journal-title-group>
+<journal-title>Revista Brasileira de Engenharia Agrícola e Ambiental</journal-title>
+<abbrev-journal-title abbrev-type="publisher">Rev. bras. eng. agríc. ambient.</abbrev-journal-title>
+</journal-title-group>
+<issn pub-type="ppub">1415-4366</issn>
+<issn pub-type="epub">1807-1929</issn>
+<publisher>
+<publisher-name>Departamento de Engenharia Agrícola - UFCG</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id specific-use="scielo-v3" pub-id-type="publisher-id">LCpKDzjWV8XXtFgjJt5BVdb</article-id>
+<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1415-43662021000400270</article-id>
+<article-id pub-id-type="doi">10.1590/1807-1929/agriambi.v25n4p270-276</article-id>
+<article-categories>
+<subj-group subj-group-type="heading">
+<subject>Articles</subject>
+</subj-group>
+</article-categories>
+<title-group>
+<article-title>
+Design of a smart LED lamp to monitor insect populations in an integrated pest management approach
+<xref ref-type="fn" rid="fn1">
+<sup>1</sup>
+</xref>
+</article-title>
+<trans-title-group xml:lang="pt">
+<trans-title>Desenvolvimento de uma lâmpada LED inteligente para monitoramento de insetos no manejo integrado de pragas</trans-title>
+</trans-title-group>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0002-5250-8637</contrib-id>
+<name>
+<surname>Carvalho</surname>
+<given-names>Maicon W. M. de</given-names>
+</name>
+<xref ref-type="aff" rid="aff2">
+<sup>2</sup>
+</xref>
+<xref ref-type="corresp" rid="c1">*</xref>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0002-8580-2218</contrib-id>
+<name>
+<surname>Hickel</surname>
+<given-names>Eduardo R.</given-names>
+</name>
+<xref ref-type="aff" rid="aff3">
+<sup>3</sup>
+</xref>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0002-2763-7496</contrib-id>
+<name>
+<surname>Bertoldi</surname>
+<given-names>Bruno</given-names>
+</name>
+<xref ref-type="aff" rid="aff2">
+<sup>2</sup>
+</xref>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0002-3525-9608</contrib-id>
+<name>
+<surname>Knabben</surname>
+<given-names>Gustavo C.</given-names>
+</name>
+<xref ref-type="aff" rid="aff2">
+<sup>2</sup>
+</xref>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0002-0958-6891</contrib-id>
+<name>
+<surname>Novaes</surname>
+<given-names>Yales R. de</given-names>
+</name>
+<xref ref-type="aff" rid="aff2">
+<sup>2</sup>
+</xref>
+</contrib>
+</contrib-group>
+<aff id="aff2">
+<label>2</label>
+<institution content-type="original"> Universidade do Estado de Santa Catarina, Joinville, SC, Brazil</institution>
+<institution content-type="orgname">Universidade do Estado de Santa Catarina</institution>
+<addr-line>
+<city>Joinville</city>
+<state>SC</state>
+</addr-line>
+<country country="BR">Brazil</country>
+</aff>
+<aff id="aff3">
+<label>3</label>
+<institution content-type="original"> Empresa de Pesquisa Agropecuária e Extensão Rural de Santa Catarina, Itajaí, SC, Brazil</institution>
+<institution content-type="orgname">Empresa de Pesquisa Agropecuária e Extensão Rural de Santa Catarina</institution>
+<addr-line>
+<city>Itajaí</city>
+<state>SC</state>
+</addr-line>
+<country country="BR">Brazil</country>
+</aff>
+<author-notes>
+<corresp id="c1">
+<label>*</label>
+Corresponding author - E-mail:
+<email>maiconcarvalho65@gmail.com</email>
+</corresp>
+</author-notes>
+<pub-date publication-format="electronic" date-type="pub">
+<day>25</day>
+<month>03</month>
+<year>2021</year>
+</pub-date>
+<pub-date publication-format="electronic" date-type="collection">
+<month>04</month>
+<year>2021</year>
+</pub-date>
+<volume>25</volume>
+<issue>4</issue>
+<fpage>270</fpage>
+<lpage>276</lpage>
+<history>
+<date date-type="received">
+<day>09</day>
+<month>03</month>
+<year>2020</year>
+</date>
+<date date-type="accepted">
+<day>22</day>
+<month>12</month>
+<year>2020</year>
+</date>
+<date date-type="pub">
+<day>03</day>
+<month>02</month>
+<year>2021</year>
+</date>
+</history>
+<permissions>
+<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+<license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License</license-p>
+</license>
+</permissions>
+<abstract>
+<title>ABSTRACT</title>
+<p>This study aimed to present the design and field test results of an LED (light emitting diode) lamp for integrated pest management (IPM) and other entomological studies. The light spectrum of the LEDs was tuned to optimize insect attraction and lower energy consumption. An electronic circuit with control software was integrated with the lamp, enabling it to operate in standalone mode, automatically identify night and day, monitor and control the battery charge with energy from a photovoltaic solar panel, protect the battery against over-discharge, and provide feedback about the operating status of the system. Additionally, energy consumption is about five times lower than that of the fluorescent lamp, reducing the battery and solar panel size needed for its energy supply. In the 2017/2018 growing season, the smart LED lamp was installed in a Sonne light trap in an irrigated rice field, and the total number of insects captured was compared with the number collected in a conventional light trap fitted with a traditional 15 W black light fluorescent lamp. Total captures in the Sonne trap were approximately three times greater than in the conventional system.</p>
+</abstract>
+<trans-abstract xml:lang="pt">
+<title>RESUMO</title>
+<p>Objetivou-se neste estudo apresentar o projeto e os resultados de testes em campo de uma lâmpada de LEDs (light emitting diodes) para aplicação em manejo integrado de pragas (MIP) e outros estudos entomológicos. O espectro de luz dos LEDs foi otimizado para aumentar a atratividade de insetos da lâmpada e reduzir o consumo de energia. Um circuito eletrônico e um software de controle foram integrados à lâmpada, fazendo-a funcionar de modo autônomo, identificando noite e dia automaticamente, monitorando e controlando a carga da bateria com energia proveniente de um painel solar fotovoltaico, protegendo a bateria contra descarga profunda e apresentando ao usuário informações sobre o estado de funcionamento do sistema. Além disso, seu consumo de energia é cinco vezes menor, reduzindo o tamanho da bateria e do painel solar necessário para alimentar a lâmpada. Na safra de arroz irrigado de 2017/2018, a lâmpada de LEDs inteligente foi instalada em uma armadilha luminosa modelo “Sonne” e as capturas de insetos foram comparadas com aquelas obtidas em uma armadilha convencional equipada com a lâmpada fluorescente tradicional de 15 W do tipo luz negra. A armadilha “Sonne” capturou cerca de três vezes mais insetos que a armadilha convencional.</p>
+</trans-abstract>
+<kwd-group xml:lang="en">
+<title>Key words:</title>
+<kwd>light trap</kwd>
+<kwd>fauna survey</kwd>
+<kwd>light source</kwd>
+<kwd>photovoltaic</kwd>
+<kwd>electronic control</kwd>
+</kwd-group>
+<kwd-group xml:lang="pt">
+<title>Palavras-chave:</title>
+<kwd>armadilha luminosa</kwd>
+<kwd>levantamento faunístico</kwd>
+<kwd>fonte de luz</kwd>
+<kwd>fotovoltaico</kwd>
+<kwd>controle eletrônico</kwd>
+</kwd-group>
+<funding-group>
+<award-group award-type="contract">
+<funding-source>Fundação de Amparo à Pesquisa e Inovação do Estado de Santa Catarina - FAPESC</funding-source>
+<award-id>6946/2011-9</award-id>
+</award-group>
+</funding-group>
+<funding-group>
+<award-group award-type="contract">
+<funding-source>Conselho Nacional de Desenvolvimento Científico e Tecnológico - CNPq</funding-source>
+<award-id>562451/2010-2</award-id>
+</award-group>
+</funding-group>
+<counts>
+<fig-count count="5"/>
+<table-count count="2"/>
+<equation-count count="0"/>
+<ref-count count="29"/>
+<page-count count="7"/>
+</counts>
+</article-meta>
+</front>
+<body>
+<sec sec-type="intro">
+<title>Introduction</title>
+<p>
+Light traps are used to attract and catch nocturnal insects via positive phototropism (
+<xref ref-type="bibr" rid="B25">Shimoda &amp; Honda, 2013</xref>
+;
+<xref ref-type="bibr" rid="B27">Sheikh et al., 2016</xref>
+). This solution is used to monitor pests and their natural enemies in several applications, including integrated pest management (
+<xref ref-type="bibr" rid="B1">Aguiar et al., 2010</xref>
+;
+<xref ref-type="bibr" rid="B11">Hickel et al., 2015</xref>
+;
+<xref ref-type="bibr" rid="B2">Baehaki et al., 2017</xref>
+;
+<xref ref-type="bibr" rid="B24">Silva, 2017</xref>
+;
+<xref ref-type="bibr" rid="B28">Zhang et al., 2020</xref>
+), and research on species diversity and habitat characterization (
+<xref ref-type="bibr" rid="B21">Price &amp; Baker, 2016</xref>
+;
+<xref ref-type="bibr" rid="B14">Infusino et al., 2017</xref>
+). In Brazil, the most widely used model in agriculture is the “Luiz de Queiroz” trap, fitted with a black light fluorescent lamp (
+<xref ref-type="bibr" rid="B26">Silveira Neto et al., 1976</xref>
+). The most common black light fluorescent lamp used in current research and IPM is the 15 W BL T8 (
+<xref ref-type="bibr" rid="B4">Branco et al., 2016</xref>
+;
+<xref ref-type="bibr" rid="B19">Medrano et al., 2019</xref>
+).
+</p>
+<p>
+Using light traps in crops and forests poses technical obstacles because electrical networks are typically not available to provide the energy necessary to operate them. As such, batteries are needed to store electrical energy and photovoltaic solar panels to generate this energy (
+<xref ref-type="bibr" rid="B20">Meshram et al., 2018</xref>
+). Furthermore, due to the high power (15 W) and low efficiency of the fluorescent lamp, high electricity generation and storage capacity are required to provide enough energy for the trap to function properly in standalone mode. Optimal operation of the “Luiz de Queiroz” trap requires a battery with 70 Ah storage capacity and a 60 W solar panel (
+<xref ref-type="bibr" rid="B29">Zanuncio et al., 1991</xref>
+;
+<xref ref-type="bibr" rid="B24">Silva, 2017</xref>
+).
+</p>
+<p>
+The evolution and market consolidation of light emitting diodes (LEDs) and photovoltaic solar panels has paved the way for the development and use of light traps in the field (
+<xref ref-type="bibr" rid="B7">Cohnstaedt et al., 2008</xref>
+;
+<xref ref-type="bibr" rid="B17">Knabben et al., 2019</xref>
+). LEDs allow for more compact, efficient and durable lamps and the electronic circuits needed to drive them are simpler and more efficient than those used to power fluorescent lamps (
+<xref ref-type="bibr" rid="B23">Schubert, 2006</xref>
+). In turn, photovoltaic solar panels ensure portability, without restrictions in agricultural areas.
+</p>
+<p>The aim of this study was to present the design and field test results of a smart LED lamp with a tuned light spectrum and integrated electronic circuit for standalone operation. This new apparatus was designed to replace three different components used in conventional light traps, namely the fluorescent lamp, electronic ballast and control unit. </p>
+</sec>
+<sec sec-type="materials|methods">
+<title>Material and Methods</title>
+<p>The prototype was designed and constructed in 2016 in the laboratory of the Research Center for Alternative and Renewable Energy Microgrids of Santa Catarina State University, in Joinville, Santa Catarina state (SC), Brazil. The field validation test was conducted at the EPAGRI Experimental Station in Itajai (26° 57’ 08.2” S 48° 45’ 39.5” W, and altitude of 5 m), SC during the 2017/2018 rice growing season.</p>
+<p>
+The LED light spectrum was set to achieve maximum efficiency in attracting insects that are economically important to irrigated rice crops, particularly the rice water weevil,
+<italic>Oryzophagus oryzae</italic>
+(Costa Lima) (Coleoptera: Curculionidae). As the target pest, the main color used was based on the conclusions of
+<xref ref-type="bibr" rid="B10">Hickel et al. (2018</xref>
+), who investigated the color preference of this species. As such, a 1:1 mix of ultra-violet (UV 400 nm) and blue (460 nm) LEDs was adopted.
+</p>
+<p>The lamp was designed to operate at night in standalone mode and its power source was the energy stored in a 12 V 7Ah lead acid battery, charged during the day by a 30W photovoltaic solar panel.</p>
+<p>The electronic circuit attached to the lamp has five functions: (i) regulate battery charge and discharge, (ii) control the light intensity of the lamp, (iii) timer, (iv) turn the lamp on at night and off eight hours later, (v) display the battery charge status and total lighting time of the lamp. </p>
+<p>
+<xref ref-type="fig" rid="f1">Figure 1</xref>
+shows a block diagram of the system. The microcontroller circuit contains the logic and timer functions, converts analog signals (battery voltage and solar panel voltage) to digital and processes these signals to activate the switch and LED drivers at the right time.
+</p>
+<p>
+<fig id="f1">
+<label>Figure 1</label>
+<caption>
+<title>Block diagram of the LED lamp</title>
+</caption>
+<alternatives>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/9b82b5df0c83c1ab2e56ad8fd01ec712ea84bfea.jpg"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/9b018a167e3d13feb2165dfa29fb8bc4cfd027d2.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+</alternatives>
+</fig>
+</p>
+<p>
+<xref ref-type="fig" rid="f2">Figure 2</xref>
+shows a circuits diagram of the microcontroller, LED display (
+<xref ref-type="fig" rid="f2">Figure 2</xref>
+A) and LED driver (
+<xref ref-type="fig" rid="f2">Figure 2</xref>
+B). In the microcontroller, solar panel and battery voltages are obtained through V
+<sub>pv</sub>
+pin and V
+<sub>bat</sub>
+pin. The LED driver is activated via the EN pin and the shunt regulator by the Ctrl
+<sub>charge</sub>
+pin.
+</p>
+<p>
+<fig id="f2">
+<label>Figure 2</label>
+<caption>
+<title>Schematic of the microcontroller, switch driver, LED display (A) and LED driver circuit (B)</title>
+</caption>
+<alternatives>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/fac8fb6a1b6cf0758904c1d472a64176b099841f.jpg"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/e78d711c7350228a42344c2a999550d3b67d9784.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+</alternatives>
+</fig>
+</p>
+<p>
+In night mode, the timer counts eight hours, after which the lamp is turned off and LED A, LED B and LED C are turned on until the next night’s operation. The eight-hour lighting time was established by
+<xref ref-type="bibr" rid="B18">Ma &amp; Ma (2012</xref>
+), who demonstrated that more than 80% of total insect catches occur in the first eight hours of the scotophase.
+</p>
+<p>Should the battery voltage reach 10.5 V (low state) during the night, the system turns the lamp off to preserve battery state of health (SOH) and the algorithm saves the remaining time value. When the remaining time is less than 2 h 40 min, LED A and LED B are turned on until the next nighttime cycle. If more than 2 h 40 min and less than 5 h 20 min remain, only LED A is activated until the following night, but should less than 2 h 40 min remain, none of them is activated. This simple procedure indicates to the user whether the lamp is properly working, the battery SOH and if the solar panel power is correctly sized for use in certain geographic regions.</p>
+<p>
+Since the light intensity of the LED lamp is proportional to the intensity of the electrical current, the latter must be controlled in order to maintain constant brightness. The circuit shown in
+<xref ref-type="fig" rid="f2">Figure 2</xref>
+B is a current regulator, a type of electric power converter whose main function is to step up the voltage from its input (battery) to its output (LED string). The TPS61500 integrated circuit controls the current in a closed loop. The LED current is 167 mA, set with an R18 external sensor resistor, and the feedback voltage is regulated to 200 mV by a current mode PWM (pulse width modulation) control loop.
+</p>
+<p>
+The technical specifications of the integrated circuits and step-up DC to DC converter shown in
+<xref ref-type="fig" rid="f2">Figure 2</xref>
+are described in detail in
+<xref ref-type="table" rid="t1">Table 1</xref>
+.
+</p>
+<p>
+<table-wrap id="t1">
+<label>Table 1</label>
+<caption>
+<title>Technical specifications of the integrated circuits and step-up converter used in the smart LED lamp</title>
+</caption>
+<table frame="hsides" rules="groups">
+<thead style="background-color:#794400;color:#ffffff">
+<tr style="border-bottom-width:thin;border-bottom-style:solid">
+<th colspan="3">Low power voltage regulator 3.3 V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Company</td>
+<td align="center" colspan="2">Texas Instruments</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Part number</td>
+<td align="center" colspan="2">LP295</td>
+</tr>
+<tr>
+<td align="center">Main features</td>
+<td align="center" colspan="2">Low Quiescent Current: 75 μA (Typ)</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid;background-color:#794400;color:#ffffff">
+<td align="center" colspan="3">
+<bold>Microcontroller</bold>
+</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid">
+<td align="center">Company</td>
+<td align="center" colspan="2">Texas Instruments</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Part number</td>
+<td align="center" colspan="2">MSP430G2231</td>
+</tr>
+<tr>
+<td align="center">Main features</td>
+<td align="center" colspan="2">16-Bit RISC Architecture; Low power</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid;background-color:#794400;color:#ffffff">
+<td align="center" colspan="3">
+<bold>Switched regulator</bold>
+</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid">
+<td align="center">Company</td>
+<td align="center" colspan="2">Texas Instruments</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Part number</td>
+<td align="center" colspan="2">TPS61500</td>
+</tr>
+<tr>
+<td align="center">Main features</td>
+<td align="center" colspan="2">Boost Converter for High Brightness LED Driver</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid;background-color:#794400;color:#ffffff">
+<td align="center" colspan="3">
+<bold>Requirements specification-Step Up DC/DC converter</bold>
+</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid">
+<td align="center">Input voltage</td>
+<td align="center" colspan="2">12 V</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Output voltage</td>
+<td align="center" colspan="2">18.5 V</td>
+</tr>
+<tr>
+<td align="center">Input current</td>
+<td align="center" colspan="2">0.30 A</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Output current</td>
+<td align="center" colspan="2">0.167 A</td>
+</tr>
+<tr>
+<td align="center">Switch frequency</td>
+<td align="center" colspan="2">250 kHz</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Input current ripple amplitude</td>
+<td align="center" colspan="2">35%</td>
+</tr>
+<tr>
+<td align="center">Output voltage ripple amplitude</td>
+<td align="center" colspan="2">1%</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Duty cycle</td>
+<td align="center" colspan="2">0.552</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid;background-color:#794400;color:#ffffff">
+<td align="center" colspan="3">
+<bold>Power LEDs</bold>
+</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid;background-color:#794400;color:#ffffff">
+<td align="center"/>
+<td align="center">
+<bold>LED1, LED2 and LED3</bold>
+</td>
+<td align="center">
+<bold>LED4, LED5 and LED6</bold>
+</td>
+</tr>
+<tr style="border-top-width:thin;border-top-style:solid">
+<td align="center">Company</td>
+<td align="center">Wayjun</td>
+<td align="center">Inolux</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Part number</td>
+<td align="center">LED-P1-D-Blue</td>
+<td align="center">IN-K2PUV</td>
+</tr>
+<tr>
+<td align="center">Nominal power</td>
+<td align="center">1W</td>
+<td align="center">1W</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Color</td>
+<td align="center">Blue</td>
+<td align="center">Violet</td>
+</tr>
+<tr>
+<td align="center">Central Wavelength</td>
+<td align="center">460 nm</td>
+<td align="center">400 nm</td>
+</tr>
+</tbody>
+</table>
+</table-wrap>
+</p>
+<p>
+<xref ref-type="bibr" rid="B15">James (1997</xref>
+) presents a shunt regulator for photovoltaic charge controllers. Since the solar panel is current-limited by design, it can be short-circuited without damage, the same working principle used in the regulator. This circuit is a simple, cost-effective solution when compared to the Maximum Power Point Tracking (MPPT) technique, which requires a DC-DC switch converter and a current or temperature sensor. When the battery reaches its set point charge, a shunt element (relay or a controlled semiconductor) short-circuits the photovoltaic panel.
+<xref ref-type="fig" rid="f3">Figure 3</xref>
+shows the shunt element (T3) and diode D1 in series with the solar panel pin and battery pin as a blocking element, used to protect the battery.
+</p>
+<p>
+<fig id="f3">
+<label>Figure 3</label>
+<caption>
+<title>Shunt regulator circuit</title>
+</caption>
+<alternatives>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/637fa336b7c00490b37bdba33502e467c228ad3f.jpg"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/7eda7dacb964e577dc9faf00054c1d3ee885884a.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+</alternatives>
+</fig>
+</p>
+<p>
+The light intensity status is obtained by measuring solar panel voltage (V
+<sub>pv</sub>
+) through resistors R8 and R9. High voltage generates electricity, identified as “daytime” by the software, and low voltage (less than 3 V) as “nighttime”, when the lamp is tuned on, activating the EN pin. The battery voltage is obtained by the microcontroller via R6 with the R7 voltage divider. Once the battery reaches 14.5 V, it is completely charged and the algorithm activates the Ctrl
+<sub>charge</sub>
+pin, prompting transistor T3 to cut the energy flow from the solar panel to the battery. LED D switches on to warn the user of the battery charge state. In the event of battery discharge, its voltage reaches 10.5 V and the circuit turns off the LED lamp (deactivating the EN pin), preventing battery damage.
+</p>
+<p>
+The different parts of the smart LED lamp are shown in
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+. The electronic circuits described in
+<xref ref-type="fig" rid="f2">Figures 2</xref>
+and 3 were designed and welded onto a 12.30 x 2.45 cm printed circuit board (PCB) (
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+, part 2). The light source consisting of six power LEDs was electrically connected in series and soldered onto three pieces of PCB, measuring 9.1 x 2.0 cm each (
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+, part 3). This PCB size was calculated to ensure correct LED heat dissipation. The LED PCBs were arranged in a triangular mold to guarantee uniform light distribution around the lamp. An FR-4 PCB (1.6 mm thick and 35 µm layer) was used for both parts, electronic circuits and the light source. The power LED PCB and electronic PCB were packaged in a 24 cm-high transparent acrylic tube with an internal diameter of 2.6 cm (
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+, part 5). The tube was sealed with a plastic cover (
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+, part 1 and 4) and thread seal tape and two pairs of wires were used to connect the photovoltaic solar panel to the battery, passing through the acrylic tube (
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+, part 6).
+</p>
+<p>
+<fig id="f4">
+<label>Figure 4</label>
+<caption>
+<title>LED lamp and its parts: (1) Top plastic cover, (2) Electronic PCB, (3) Power LED PCB, (4) Bottom plastic cover, (5) Acrylic cover, (6) Wire connection</title>
+</caption>
+<alternatives>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/64db9131b4d4d8f025ca09782efc6d197f1a1c57.jpg"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/6b429a7131df052d18846a618ae1593225fdea56.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+</alternatives>
+</fig>
+</p>
+<p>
+An irrigated 1.6 ha rice field was selected for field validation. The area is divided into eight 0.2 ha subareas and surrounded by other rice growing fields. The cultivar used was SCS122 Miura, seeded on September 21, 2017. Crop management was based on recommendations for the water seeded system (
+<xref ref-type="bibr" rid="B8">Eberhardt &amp; Schiocchet, 2015</xref>
+), except for the application of insecticides.
+</p>
+<p>
+Due to logistical and operational restrictions, only two light traps were installed in the area, at a height of 1.7m. The first, a Sonne light trap (
+<xref ref-type="bibr" rid="B17">Knabben et al., 2019</xref>
+) with no electricity network coverage, was suspended on a metal tripod in the middle of the levee, between the first two subareas (26° 56’ 43.6” S 48° 45’ 32.0” W, and altitude of 5 m), and contained the smart LED lamp. The second light trap was a Luiz de Queiroz model equipped with a T8 15W BL fluorescent lamp (conventional) and connected to the electricity network, suspended on a concrete pole on the levee separating the last two subareas (26° 56’ 37.6” S 48° 45’ 31.0” W, and altitude of 5 m). The traps were 175m apart and position rotation was not performed due to the limited range of the electricity network. To limit the capture of larger insects, a nylon mesh (10 x 10 mm) was placed around the trap flaps.
+</p>
+<p>The light traps were activated daily, from September 6, 2017 to March 21, 2018. The Sonne trap was controlled by the integrated electronic circuit of the smart LED lamp and its energy supplied by a 30 W solar panel and 12 V 7 Ah battery. The conventional trap was controlled by an external timer, programmed to operate from 7 p.m. to 3 a.m., and powered by the electrical network. The operating time for both traps was almost the same.</p>
+<p>The insects were trapped in 20-L plastic bags, fixed inside the funnel collector of the traps, from which the specimens were subsequently removed for screening and counting in the laboratory. The weekend counts were cumulative from three collection periods. The total number of rice insect pests in the two traps was submitted to the chi-squared test.</p>
+</sec>
+<sec sec-type="results|discussion">
+<title>Results and Discussion</title>
+<p>Prototype development and field testing of the smart LED lamp made it possible to analyze and compare it with fluorescent lamps already available on the market, based on three aspects: ease of installation, electricity generation and storage demand, and insect attraction efficiency.</p>
+<p>
+The differences between the schematic of fluorescent lamp and smart LED lamp installation is shown in
+<xref ref-type="fig" rid="f5">Figure 5</xref>
+. The fluorescent lamp (
+<xref ref-type="fig" rid="f5">Figure 5</xref>
+A, part 6) requires an electronic ballast (
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+A, part 2), a charge controller (
+<xref ref-type="fig" rid="f5">Figure 5</xref>
+A. part 3), 12 V 70 Ah battery (
+<xref ref-type="fig" rid="f4">Figure 4</xref>
+A, part 5), and 60 W photovoltaic solar panel (
+<xref ref-type="fig" rid="f5">Figure 5</xref>
+A, part 4). Installing the smart LED lamp (
+<xref ref-type="fig" rid="f5">Figure 5</xref>
+B, part 4) in the light trap is easier because the charge controller and LED driver (equivalent to the electronic ballast) are mounted onto the LED lamp.
+</p>
+<p>
+<fig id="f5">
+<label>Figure 5</label>
+<caption>
+<title>Schematic comparison of fluorescent (A) and smart LED lamp (B) installation</title>
+</caption>
+<alternatives>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/235753df1e0b2c5d06839578f56e8763c49d4ac2.jpg"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1807-1929/LCpKDzjWV8XXtFgjJt5BVdb/6d1a30129c07fea3664f2bd1246194c5120f35aa.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+</alternatives>
+</fig>
+</p>
+<p>
+Insects are captured in light traps as a function of light intensity (
+<xref ref-type="bibr" rid="B3">Barrett et al., 1972</xref>
+). In LED technology, the electric current is directly related to light intensity, meaning that controlling the LED current with the boost converter controls light intensity. Since the light intensity is constant, the number of insects caught by a light trap changes only as a result of environmental conditions, such as moonlight intensity, temperature and wind speed (
+<xref ref-type="bibr" rid="B22">Riehs, 2004</xref>
+).
+</p>
+<p>
+Power consumption of the smart LED lamp is 3.13 W, about 20% less than that of the traditional 15 W black light fluorescent lamps typically used. Thus, it is feasible to reduce the energy storage and generation capacities to a 12 V 7 Ah battery and 30 W solar panel. The use of LEDs in light traps has drastically reduced energy consumption, by up to 60% in many cases (
+<xref ref-type="bibr" rid="B13">Hoel et al., 2007</xref>
+;
+<xref ref-type="bibr" rid="B7">Cohnstaedt et al., 2008</xref>
+;
+<xref ref-type="bibr" rid="B17">Knabben et al., 2019</xref>
+).
+</p>
+<p>With respect to electricity generation and battery storage capacities, the fluorescent lamp requires a 60 W photovoltaic solar panel and 70 Ah battery to operate properly. Most of the cost, weight and lifetime problems are battery-related, meaning that decreasing its size is a significant improvement. The field experiment proved that the 12 V 7 Ah battery and 30 W solar panel were correctly sized to ensure standalone operation for the light trap in Itajaí, SC, despite periods of heavy cloud cover during the 2017/2018 growing season.</p>
+<p>
+Four signal LEDs were added to the electronic design to display the battery state of charge and a fault warning for lamp lighting at night. During rainy periods, the battery was unable to charge completely or could be rapidly discharged due to the battery’s state of health. This strategy proved efficient because it allows the user to confirm the number of insects collected during the actual operating time of the lamp. In the solar light trap design presented by
+<xref ref-type="bibr" rid="B20">Meshram et al. (2018</xref>
+), no device was incorporated to display the operating status of the system for users. This feedback is essential in the field for the trap manager to be assured of their correct operation.
+</p>
+<p>
+The number of insect pests collected by the smart LED lamp light trap was greater than that captured by its conventional counterpart, except for the sugarcane beetle (
+<italic>Euetheola</italic>
+spp.) (
+<xref ref-type="table" rid="t2">Table 2</xref>
+).
+</p>
+<p>
+<table-wrap id="t2">
+<label>Table 2</label>
+<caption>
+<title>Total number of individuals of seven insect species collected in the 2017/2018 growing season by two light traps with different lamps in irrigated rice</title>
+</caption>
+<table frame="hsides" rules="groups">
+<thead style="background-color:#794400;color:#ffffff">
+<tr style="border-bottom-width:thin;border-bottom-style:solid">
+<th rowspan="2">Species</th>
+<th colspan="2">
+Lamp
+<sup>1</sup>
+</th>
+</tr>
+<tr>
+<th>Smart LED</th>
+<th>Fluorescent BL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">
+South American rice water weevil (
+<italic>Oryzophagus oryzae</italic>
+)
+</td>
+<td align="center">43684 a</td>
+<td align="center">10877 b</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">
+Pickerelweed weevil
+<sup>2</sup>
+(
+<italic>Onychylis</italic>
+spp.)
+</td>
+<td align="center">3191 a</td>
+<td align="center">1883 b</td>
+</tr>
+<tr>
+<td align="center">
+Oother water weevils (mainly
+<italic>Helodytes</italic>
+sp.)
+</td>
+<td align="center">621 a</td>
+<td align="center">394 b</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">
+Rice stink bug (
+<italic>Oebalus</italic>
+spp.)
+</td>
+<td align="center">1620 a</td>
+<td align="center">1363 b</td>
+</tr>
+<tr>
+<td align="center">
+Rice caseworm (
+<italic>Nymphula</italic>
+spp.)
+</td>
+<td align="center">2426 a</td>
+<td align="center">1411 b</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">
+Rice stem borer (
+<italic>Rupela albinella</italic>
+)
+</td>
+<td align="center">743 a</td>
+<td align="center">144 b</td>
+</tr>
+<tr>
+<td align="center">
+Sugarcane beetle (
+<italic>Euetheola</italic>
+spp.)
+</td>
+<td align="center">557 b</td>
+<td align="center">784 a</td>
+</tr>
+<tr style="background-color:#efe4d6">
+<td align="center">Total number of insects caught</td>
+<td align="center">52842 a</td>
+<td align="center">16856 b</td>
+</tr>
+</tbody>
+</table>
+<table-wrap-foot>
+<fn id="TFN21">
+<p>
+<sup>1/</sup>
+Totals followed by different letters in the row differ according to the chi-squared test (p ≤ 0.001), n = 105
+</p>
+</fn>
+<fn id="TFN22">
+<p>
+<sup>2/</sup>
+Pickerelweed weevils are not rice pests, but occur concurrently with rice water weevils, with which they are confused
+</p>
+</fn>
+</table-wrap-foot>
+</table-wrap>
+</p>
+<p>
+Since the light trap design, environmental conditions, crop management and cultivar were similar in both rice fields where the traps were installed, the difference in captures may be largely due to the light spectrum tuning of the smart LED lamp. The UV (400 nm) spectrum was established to increase
+<italic>O. oryzae</italic>
+capture (
+<xref ref-type="bibr" rid="B10">Hickel et al., 2018</xref>
+) and the blue (460 nm) spectrum, used to lower the production costs of the LED lamp, is equally attractive to several insect species (
+<xref ref-type="bibr" rid="B5">Castrejon &amp; Rojas, 2010</xref>
+;
+<xref ref-type="bibr" rid="B10">Hickel et al., 2018</xref>
+). The BL fluorescent lamp emits light in a wide range of colors, from 300 to 570 nm, but with a marked peak at 350 nm (
+<xref ref-type="bibr" rid="B12">Hienton, 1974</xref>
+).
+</p>
+<p>
+The light spectrum of LED lamps has been studied to make light traps more specific and efficient for several insect species of economic interest.
+<xref ref-type="bibr" rid="B6">Chu et al. (2004</xref>
+) found that the number of whiteflies, aphids and fungus gnats caught in traps increased with the use of lime green LEDs. The use of UV LEDs also increased catches of
+<italic>Euscepes postfasciatus</italic>
+(Fair.) (Coleoptera: Curculionidae) in sweet potato fields (
+<xref ref-type="bibr" rid="B16">Katsuki et al., 2012</xref>
+), whereas red LEDs were better at attracting sandflies (
+<xref ref-type="bibr" rid="B13">Hoel et al., 2007</xref>
+).
+</p>
+<p>
+The absence of position rotation between traps does not seem to be the cause of the difference in insect catches.
+<xref ref-type="bibr" rid="B9">Hickel (2013</xref>
+) operated three fixed light traps in the same irrigated rice area and obtained similar insect captures in all three devices.
+</p>
+<p>Although the field results presented may have been subject to a seasonal effect, in a more equitable scenario, an equal number of insects captured by both the smart LED and conventional light traps would be sufficient to demonstrate the convenience of using the former. </p>
+</sec>
+<sec sec-type="conclusions">
+<title>Conclusions</title>
+<p>
+<list list-type="order">
+<list-item>
+<p>Integration of the LED lamp, charge controller, microcontroller and LED driver into the bulb results in a compact and easy-to-install product.</p>
+</list-item>
+<list-item>
+<p>In regard to the number of individuals and species diversity of the insects caught, the smart LED lamp designed in this study was an efficient substitute for a 15 W black light fluorescent lamp.</p>
+</list-item>
+<list-item>
+<p>Tuning the LED lamp spectrum based on current research regarding insect color preferences is a practical method to optimize electrical energy use and, consequently, the size and cost of the battery and solar panel, since most of the light energy is based on insect color preference.</p>
+</list-item>
+</list>
+</p>
+</sec>
+</body>
+<back>
+<ack>
+<title>Acknowledgments</title>
+<p>To Fundação de Amparo à Pesquisa e Inovação do Estado de Santa Catarina - FAPESC (Process 6946/2011-9) and Conselho Nacional de Desenvolvimento Científico e Tecnológico - CNPq (Process 562451/2010-2) for the funding provided.</p>
+<p>To agronomy student Sérgio Francisco Bervanger for his assistance in collecting and sorting the insects.</p>
+</ack>
+<ref-list>
+<title>Literature Cited</title>
+<ref id="B1">
+<mixed-citation>
+Aguiar, E.B.; Lorenzi, J.O.; Monteiro, D.A.; Bicudo, S.J. Monitoramento do mandarová da mandioca -
+<italic>Erinnyis ello</italic>
+L. 1758, para o controle com baculovirus-
+<italic>Baculovirus erinnyis</italic>
+. Revista Trópica - Ciências Agrárias e Biológicas, v.4, p.55-59, 2010.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Aguiar</surname>
+<given-names>E.B.</given-names>
+</name>
+<name>
+<surname>Lorenzi</surname>
+<given-names>J.O.</given-names>
+</name>
+<name>
+<surname>Monteiro</surname>
+<given-names>D.A.</given-names>
+</name>
+<name>
+<surname>Bicudo</surname>
+<given-names>S.J.</given-names>
+</name>
+</person-group>
+<article-title>Monitoramento do mandarová da mandioca - Erinnyis ello L. 1758, para o controle com baculovirus-Baculovirus erinnyis</article-title>
+<source>Revista Trópica - Ciências Agrárias e Biológicas</source>
+<volume>4</volume>
+<fpage>55</fpage>
+<lpage>59</lpage>
+<year>2010</year>
+</element-citation>
+</ref>
+<ref id="B2">
+<mixed-citation>Baehaki, S.E.; Iswanto, E.H.; Munawar, D. Relationship of predators flight and rice pests that caught on the light trap of mercury (ML-160 Watt) BSE-G3 model and light trap of solar cell - CFL-20 Watt. International Journal of Entomology Research, v.2, p.79-85, 2017.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Baehaki</surname>
+<given-names>S.E.</given-names>
+</name>
+<name>
+<surname>Iswanto</surname>
+<given-names>E.H.</given-names>
+</name>
+<name>
+<surname>Munawar</surname>
+<given-names>D.</given-names>
+</name>
+</person-group>
+<article-title>Relationship of predators flight and rice pests that caught on the light trap of mercury (ML-160 Watt) BSE-G3 model and light trap of solar cell - CFL-20 Watt</article-title>
+<source>International Journal of Entomology Research</source>
+<volume>2</volume>
+<fpage>79</fpage>
+<lpage>85</lpage>
+<year>2017</year>
+</element-citation>
+</ref>
+<ref id="B3">
+<mixed-citation>
+Barrett, J.R.; Harwood, F.W.; Deay, H.O. Functional association of light trap catches to emission of black light fluorescent lamps. Environmental Entomology, v.1, p.285-290, 1972.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1093/ee/1.3.285">https://doi.org/10.1093/ee/1.3.285</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Barrett</surname>
+<given-names>J.R.</given-names>
+</name>
+<name>
+<surname>Harwood</surname>
+<given-names>F.W.</given-names>
+</name>
+<name>
+<surname>Deay</surname>
+<given-names>H.O.</given-names>
+</name>
+</person-group>
+<article-title>Functional association of light trap catches to emission of black light fluorescent lamps</article-title>
+<source>Environmental Entomology</source>
+<volume>1</volume>
+<fpage>285</fpage>
+<lpage>290</lpage>
+<year>1972</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1093/ee/1.3.285">https://doi.org/10.1093/ee/1.3.285</ext-link>
+</element-citation>
+</ref>
+<ref id="B4">
+<mixed-citation>
+Branco, R.T.C.; Silva, P.R.R.; Portela, G.L.F.; Padua, L.E.M.; Santos, O.A.A. Population survey of predatory insects in sugarcane in the municipality of União, Piauí state, Brazil, using light trap. Científica, v.44, p.520, 2016.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.15361/1984-5529.2016v44n4p520-525">https://doi.org/10.15361/1984-5529.2016v44n4p520-525</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Branco</surname>
+<given-names>R.T.C.</given-names>
+</name>
+<name>
+<surname>Silva</surname>
+<given-names>P.R.R.</given-names>
+</name>
+<name>
+<surname>Portela</surname>
+<given-names>G.L.F.</given-names>
+</name>
+<name>
+<surname>Padua</surname>
+<given-names>L.E.M.</given-names>
+</name>
+<name>
+<surname>Santos</surname>
+<given-names>O.A.A.</given-names>
+</name>
+</person-group>
+<article-title>Population survey of predatory insects in sugarcane in the municipality of União, Piauí state, Brazil, using light trap</article-title>
+<source>Científica</source>
+<volume>44</volume>
+<fpage>520</fpage>
+<lpage>520</lpage>
+<year>2016</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.15361/1984-5529.2016v44n4p520-525">https://doi.org/10.15361/1984-5529.2016v44n4p520-525</ext-link>
+</element-citation>
+</ref>
+<ref id="B5">
+<mixed-citation>
+Castrejon, F.; Rojas, J.C. Behavioral responses of larvae and adults of
+<italic>Estigmene acrea</italic>
+Lepidoptera: Arctiidae to light of different wavelengths. Florida Entomologist, v.93, p.505-509, 2010.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1653/024.093.0405">https://doi.org/10.1653/024.093.0405</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Castrejon</surname>
+<given-names>F.</given-names>
+</name>
+<name>
+<surname>Rojas</surname>
+<given-names>J.C.</given-names>
+</name>
+</person-group>
+<article-title>Behavioral responses of larvae and adults of Estigmene acrea Lepidoptera: Arctiidae to light of different wavelengths</article-title>
+<source>Florida Entomologist</source>
+<volume>93</volume>
+<fpage>505</fpage>
+<lpage>509</lpage>
+<year>2010</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1653/024.093.0405">https://doi.org/10.1653/024.093.0405</ext-link>
+</element-citation>
+</ref>
+<ref id="B6">
+<mixed-citation>
+Chu, C.; Simmons, A.M.; Chen, T.Y.; Alexander, P.J.; Henneberry, T.J. Lime green light-emitting diode equipped yellow sticky card traps for monitoring whiteflies, aphids and fungus gnats in greenhouses. Entomologia Sinica, v.11, p.125-133, 2004.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/j.1744-7917.2004.tb00186.x">https://doi.org/10.1111/j.1744-7917.2004.tb00186.x</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Chu</surname>
+<given-names>C.</given-names>
+</name>
+<name>
+<surname>Simmons</surname>
+<given-names>A.M.</given-names>
+</name>
+<name>
+<surname>Chen</surname>
+<given-names>T.Y.</given-names>
+</name>
+<name>
+<surname>Alexander</surname>
+<given-names>P.J.</given-names>
+</name>
+<name>
+<surname>Henneberry</surname>
+<given-names>T.J.</given-names>
+</name>
+</person-group>
+<article-title>Lime green light-emitting diode equipped yellow sticky card traps for monitoring whiteflies, aphids and fungus gnats in greenhouses</article-title>
+<source>Entomologia Sinica</source>
+<volume>11</volume>
+<fpage>125</fpage>
+<lpage>133</lpage>
+<year>2004</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/j.1744-7917.2004.tb00186.x">https://doi.org/10.1111/j.1744-7917.2004.tb00186.x</ext-link>
+</element-citation>
+</ref>
+<ref id="B7">
+<mixed-citation>
+Cohnstaedt, L.; Gillen, J.I.; Munstermann, L.E. Light-emitting diode technology improves insect trapping. Journal of American Mosquito Control Association, v.24, p.331-334, 2008.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.2987/5619.1">https://doi.org/10.2987/5619.1</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Cohnstaedt</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Gillen</surname>
+<given-names>J.I.</given-names>
+</name>
+<name>
+<surname>Munstermann</surname>
+<given-names>L.E.</given-names>
+</name>
+</person-group>
+<article-title>Light-emitting diode technology improves insect trapping</article-title>
+<source>Journal of American Mosquito Control Association</source>
+<volume>24</volume>
+<fpage>331</fpage>
+<lpage>334</lpage>
+<year>2008</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.2987/5619.1">https://doi.org/10.2987/5619.1</ext-link>
+</element-citation>
+</ref>
+<ref id="B8">
+<mixed-citation>Eberhardt, D.S.; Schiocchet, M.A. Recomendações para a produção de arroz irrigado em Santa Catarina - Sistema pré-germinado. Florianópolis: Epagri, 2015. 92p. Epagri. Sistemas de Produção, 48.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Eberhardt</surname>
+<given-names>D.S.</given-names>
+</name>
+<name>
+<surname>Schiocchet</surname>
+<given-names>M.A.</given-names>
+</name>
+</person-group>
+<source>Recomendações para a produção de arroz irrigado em Santa Catarina - Sistema pré-germinado</source>
+<publisher-loc>Florianópolis</publisher-loc>
+<publisher-name>Epagri</publisher-name>
+<year>2015</year>
+<fpage>92p</fpage>
+<lpage>92p</lpage>
+<comment>Epagri. Sistemas de Produção, 48</comment>
+</element-citation>
+</ref>
+<ref id="B9">
+<mixed-citation>
+Hickel, E.R. Flutuação populacional de adultos da bicheira-da-raiz,
+<italic>Oryzophagus oryzae</italic>
+, e de outras espécies de gorgulhos aquáticos em arroz irrigado. Revista de Ciências Agroveterinárias, v.12, p.247-254, 2013.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hickel</surname>
+<given-names>E.R.</given-names>
+</name>
+</person-group>
+<article-title>Flutuação populacional de adultos da bicheira-da-raiz, Oryzophagus oryzae, e de outras espécies de gorgulhos aquáticos em arroz irrigado</article-title>
+<source>Revista de Ciências Agroveterinárias</source>
+<volume>12</volume>
+<fpage>247</fpage>
+<lpage>254</lpage>
+<year>2013</year>
+</element-citation>
+</ref>
+<ref id="B10">
+<mixed-citation>
+Hickel, E.R.; Knabben, G.C.; DalZotto, D.; Carvalho, M.W.M.; Bertoldi, B.; Novaes, Y.R. Attractiveness of light-emitting diodes - LEDs of different wavelengths to the South American rice water weevil. Arquivos do Instituto Biológico, v.85, p.1-6, 2018.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1808-1657000382016">https://doi.org/10.1590/1808-1657000382016</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hickel</surname>
+<given-names>E.R.</given-names>
+</name>
+<name>
+<surname>Knabben</surname>
+<given-names>G.C.</given-names>
+</name>
+<name>
+<surname>DalZotto</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Carvalho</surname>
+<given-names>M.W.M.</given-names>
+</name>
+<name>
+<surname>Bertoldi</surname>
+<given-names>B.</given-names>
+</name>
+<name>
+<surname>Novaes</surname>
+<given-names>Y.R.</given-names>
+</name>
+</person-group>
+<article-title>Attractiveness of light-emitting diodes - LEDs of different wavelengths to the South American rice water weevil</article-title>
+<source>Arquivos do Instituto Biológico</source>
+<volume>85</volume>
+<fpage>1</fpage>
+<lpage>6</lpage>
+<year>2018</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1808-1657000382016">https://doi.org/10.1590/1808-1657000382016</ext-link>
+</element-citation>
+</ref>
+<ref id="B11">
+<mixed-citation>
+Hickel, E.R.; Milanez, J.M.; Hinz, R.H. Infecção artificial de adultos da bicheira-da-raiz com
+<italic>Beauveria bassiana</italic>
+em armadilha luminosa. Agropecuária Catarinense, v.28, p.74-77, 2015.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hickel</surname>
+<given-names>E.R.</given-names>
+</name>
+<name>
+<surname>Milanez</surname>
+<given-names>J.M.</given-names>
+</name>
+<name>
+<surname>Hinz</surname>
+<given-names>R.H.</given-names>
+</name>
+</person-group>
+<article-title>Infecção artificial de adultos da bicheira-da-raiz com Beauveria bassiana em armadilha luminosa</article-title>
+<source>Agropecuária Catarinense</source>
+<volume>28</volume>
+<fpage>74</fpage>
+<lpage>77</lpage>
+<year>2015</year>
+</element-citation>
+</ref>
+<ref id="B12">
+<mixed-citation>Hienton, T.E. Summary of investigations of electric insect traps. Washington: US Department of Agriculture, 1974. 136p. USDA. Technical Bulletin1498</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Hienton</surname>
+<given-names>T.E.</given-names>
+</name>
+</person-group>
+<source>Summary of investigations of electric insect traps</source>
+<publisher-loc>Washington</publisher-loc>
+<publisher-name>US Department of Agriculture</publisher-name>
+<year>1974</year>
+<fpage>136p</fpage>
+<lpage>136p</lpage>
+<comment>USDA. Technical Bulletin1498</comment>
+</element-citation>
+</ref>
+<ref id="B13">
+<mixed-citation>
+Hoel, D.F.; Fawaz, E.Y.; Butler, J.E.; Watany, N.; El-Hossary, S.S.; Villinski, J. Response of phlebotomine sand ﬂies to light-emiting diode-modifed light traps in southern Egypt. Journal of Vector Ecology, v.32, p.302-308, 2007.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3376/1081-1710(2007)32[302:ROPSFT]2.0.CO;2">https://doi.org/10.3376/1081-1710(2007)32[302:ROPSFT]2.0.CO;2</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hoel</surname>
+<given-names>D.F.</given-names>
+</name>
+<name>
+<surname>Fawaz</surname>
+<given-names>E.Y.</given-names>
+</name>
+<name>
+<surname>Butler</surname>
+<given-names>J.E.</given-names>
+</name>
+<name>
+<surname>Watany</surname>
+<given-names>N.</given-names>
+</name>
+<name>
+<surname>El-Hossary</surname>
+<given-names>S.S.</given-names>
+</name>
+<name>
+<surname>Villinski</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<article-title>Response of phlebotomine sand ﬂies to light-emiting diode-modifed light traps in southern Egypt</article-title>
+<source>Journal of Vector Ecology</source>
+<volume>32</volume>
+<fpage>302</fpage>
+<lpage>308</lpage>
+<year>2007</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3376/1081-1710(2007)32[302:ROPSFT]2.0.CO;2">https://doi.org/10.3376/1081-1710(2007)32[302:ROPSFT]2.0.CO;2</ext-link>
+</element-citation>
+</ref>
+<ref id="B14">
+<mixed-citation>
+Infusino, M.; Brehm, G.; Di Marco, C.; Scalercio, S. Assessing the efficiency of UV LEDs as light sources for sampling the diversity of macro-moths (Lepidoptera). European Journal of Entomology, v.114, p.25-33, 2017.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14411/eje.2017.004">https://doi.org/10.14411/eje.2017.004</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Infusino</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Brehm</surname>
+<given-names>G.</given-names>
+</name>
+<name>
+<surname>Di Marco</surname>
+<given-names>C.</given-names>
+</name>
+<name>
+<surname>Scalercio</surname>
+<given-names>S.</given-names>
+</name>
+</person-group>
+<article-title>Assessing the efficiency of UV LEDs as light sources for sampling the diversity of macro-moths (Lepidoptera)</article-title>
+<source>European Journal of Entomology</source>
+<volume>114</volume>
+<fpage>25</fpage>
+<lpage>33</lpage>
+<year>2017</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14411/eje.2017.004">https://doi.org/10.14411/eje.2017.004</ext-link>
+</element-citation>
+</ref>
+<ref id="B15">
+<mixed-citation>James, P.D. Batteries and charge control in standalone photovoltaic systems. Fundamentals and applications. Florida Solar Energy Center. Cocoa: Sandia National Laboratories, 1997. 171p.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>James</surname>
+<given-names>P.D.</given-names>
+</name>
+</person-group>
+<source>Batteries and charge control in standalone photovoltaic systems. Fundamentals and applications</source>
+<comment>Florida Solar Energy Center</comment>
+<publisher-loc>Cocoa</publisher-loc>
+<publisher-name>Sandia National Laboratories</publisher-name>
+<year>1997</year>
+<fpage>171p</fpage>
+<lpage>171p</lpage>
+</element-citation>
+</ref>
+<ref id="B16">
+<mixed-citation>
+Katsuki, M.; Omae, Y.; Okada, K., Kamura, T.; Matsuyama, T.; Haragushi, D.; Kohama, T.; Miyatake, T. Ultraviolet light-emitting diode - UV LED trap the West Indian sweet potato weevil,
+<italic>Euscepes postfasciatus</italic>
+- Coleoptera: Curculionidae. Applied Entomology and Zoology, v.47, p.285-290, 2012.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1007/s13355-012-0113-y">https://doi.org/10.1007/s13355-012-0113-y</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Katsuki</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Omae</surname>
+<given-names>Y.</given-names>
+</name>
+<name>
+<surname>Okada</surname>
+<given-names>T.</given-names>
+</name>
+<name>
+<surname>Matsuyama</surname>
+<given-names>T.</given-names>
+</name>
+<name>
+<surname>Haragushi</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Kohama</surname>
+<given-names>T.</given-names>
+</name>
+<name>
+<surname>Miyatake</surname>
+<given-names>T.</given-names>
+</name>
+</person-group>
+<article-title>Ultraviolet light-emitting diode - UV LED trap the West Indian sweet potato weevil, Euscepes postfasciatus - Coleoptera: Curculionidae</article-title>
+<source>Applied Entomology and Zoology</source>
+<volume>47</volume>
+<fpage>285</fpage>
+<lpage>290</lpage>
+<year>2012</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1007/s13355-012-0113-y">https://doi.org/10.1007/s13355-012-0113-y</ext-link>
+</element-citation>
+</ref>
+<ref id="B17">
+<mixed-citation>
+Knabben, G.C.; Carvalho, M.W.M.; Bertoldi, B.; Novaes, Y.R.; Hickel, E.R.; Hinz, R.H. Sonne - Inovação tecnológica em armadilha luminosa para aplicação no manejo integrado de pragas. Agropecuária Catarinense, v.32, p.41-44, 2019.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.22491/RAC.2019.v32n1.3">https://doi.org/10.22491/RAC.2019.v32n1.3</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Knabben</surname>
+<given-names>G.C.</given-names>
+</name>
+<name>
+<surname>Carvalho</surname>
+<given-names>M.W.M.</given-names>
+</name>
+<name>
+<surname>Bertoldi</surname>
+<given-names>B.</given-names>
+</name>
+<name>
+<surname>Novaes</surname>
+<given-names>Y.R.</given-names>
+</name>
+<name>
+<surname>Hickel</surname>
+<given-names>E.R.</given-names>
+</name>
+<name>
+<surname>Hinz</surname>
+<given-names>R.H.</given-names>
+</name>
+</person-group>
+<article-title>Sonne - Inovação tecnológica em armadilha luminosa para aplicação no manejo integrado de pragas</article-title>
+<source>Agropecuária Catarinense</source>
+<volume>32</volume>
+<fpage>41</fpage>
+<lpage>44</lpage>
+<year>2019</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.22491/RAC.2019.v32n1.3">https://doi.org/10.22491/RAC.2019.v32n1.3</ext-link>
+</element-citation>
+</ref>
+<ref id="B18">
+<mixed-citation>
+Ma, G.; Ma, C. Differences in the nocturnal flight activity of insect pests and beneficial predatory insects recorded by light traps: Possible use of a beneficial-friendly trapping strategy for controlling insect pests. European Journal of Entomology , v.109, p.395-401, 2012.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14411/eje.2012.051">https://doi.org/10.14411/eje.2012.051</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Ma</surname>
+<given-names>G.</given-names>
+</name>
+<name>
+<surname>Ma</surname>
+<given-names>C.</given-names>
+</name>
+</person-group>
+<article-title>Differences in the nocturnal flight activity of insect pests and beneficial predatory insects recorded by light traps: Possible use of a beneficial-friendly trapping strategy for controlling insect pests</article-title>
+<source>European Journal of Entomology</source>
+<volume>109</volume>
+<fpage>395</fpage>
+<lpage>401</lpage>
+<year>2012</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14411/eje.2012.051">https://doi.org/10.14411/eje.2012.051</ext-link>
+</element-citation>
+</ref>
+<ref id="B19">
+<mixed-citation>
+Medrano, F. M.; Specht, A.; Silva, F. A. M.; Otanásio, P. N.; Malaquias, J. V. The population dynamics of three polyphagous owlet moths (Lepidoptera: Noctuidae) and the influence of meteorological factors and ENSO on them. Revista Brasileira de Entomologia, v.63, p.308-315, 2019.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.rbe.2019.07.004">https://doi.org/10.1016/j.rbe.2019.07.004</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Medrano</surname>
+<given-names>F. M.</given-names>
+</name>
+<name>
+<surname>Specht</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Silva</surname>
+<given-names>F. A. M.</given-names>
+</name>
+<name>
+<surname>Otanásio</surname>
+<given-names>P. N.</given-names>
+</name>
+<name>
+<surname>Malaquias</surname>
+<given-names>J. V.</given-names>
+</name>
+</person-group>
+<article-title>The population dynamics of three polyphagous owlet moths (Lepidoptera: Noctuidae) and the influence of meteorological factors and ENSO on them</article-title>
+<source>Revista Brasileira de Entomologia</source>
+<volume>63</volume>
+<fpage>308</fpage>
+<lpage>315</lpage>
+<year>2019</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.rbe.2019.07.004">https://doi.org/10.1016/j.rbe.2019.07.004</ext-link>
+</element-citation>
+</ref>
+<ref id="B20">
+<mixed-citation>Meshram, S.A.; Kapade, S.A.; Chaudhari, A.D.; Nagane, K.B. Design a solar light trap for control of field crop insects. International Research Journal of Engineering and Technology, v.5, p.1252-1254. 2018.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Meshram</surname>
+<given-names>S.A.</given-names>
+</name>
+<name>
+<surname>Kapade</surname>
+<given-names>S.A.</given-names>
+</name>
+<name>
+<surname>Chaudhari</surname>
+<given-names>A.D.</given-names>
+</name>
+<name>
+<surname>Nagane</surname>
+<given-names>K.B.</given-names>
+</name>
+</person-group>
+<article-title>Design a solar light trap for control of field crop insects</article-title>
+<source>International Research Journal of Engineering and Technology</source>
+<volume>5</volume>
+<fpage>1252</fpage>
+<lpage>1254</lpage>
+<year>2018</year>
+</element-citation>
+</ref>
+<ref id="B21">
+<mixed-citation>
+Price, B.; Baker, E.W. NightLife: A cheap, robust, LED based light trap for collecting aquatic insects in remote areas. Biodiversity Data Journal, n.4, p.1-18, 2016.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3897/BDJ.4.e7648">https://doi.org/10.3897/BDJ.4.e7648</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Price</surname>
+<given-names>B.</given-names>
+</name>
+<name>
+<surname>Baker</surname>
+<given-names>E.W.</given-names>
+</name>
+</person-group>
+<article-title>NightLife: A cheap, robust, LED based light trap for collecting aquatic insects in remote areas</article-title>
+<source>Biodiversity Data Journal</source>
+<issue>4</issue>
+<fpage>1</fpage>
+<lpage>18</lpage>
+<year>2016</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3897/BDJ.4.e7648">https://doi.org/10.3897/BDJ.4.e7648</ext-link>
+</element-citation>
+</ref>
+<ref id="B22">
+<mixed-citation>Riehs, P.J. Influência de fatores meteorológicos sobre a atividade de vôo de Dynastinae (Coleoptera, Scarabaeidae) fototácticos do Leste e Centro-Oeste do Paraná, Sul do Brasil. Revista de Ciências Exatas e Naturais, v.6, p.113-126. 2004.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Riehs</surname>
+<given-names>P.J.</given-names>
+</name>
+</person-group>
+<article-title>Influência de fatores meteorológicos sobre a atividade de vôo de Dynastinae (Coleoptera, Scarabaeidae) fototácticos do Leste e Centro-Oeste do Paraná, Sul do Brasil</article-title>
+<source>Revista de Ciências Exatas e Naturais</source>
+<volume>6</volume>
+<fpage>113</fpage>
+<lpage>126</lpage>
+<year>2004</year>
+</element-citation>
+</ref>
+<ref id="B23">
+<mixed-citation>
+Schubert, E.F. Light-emitting diodes. New York: Cambridge University Press, 2006. 422p.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1017/CBO9780511790546">https://doi.org/10.1017/CBO9780511790546</ext-link>
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Schubert</surname>
+<given-names>E.F.</given-names>
+</name>
+</person-group>
+<source>Light-emitting diodes</source>
+<publisher-loc>New York</publisher-loc>
+<publisher-name>Cambridge University Press</publisher-name>
+<comment content-type="award-id">2006</comment>
+<fpage>422p</fpage>
+<lpage>422p</lpage>
+<year>2006</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1017/CBO9780511790546">https://doi.org/10.1017/CBO9780511790546</ext-link>
+</element-citation>
+</ref>
+<ref id="B24">
+<mixed-citation>
+Silva, A.S. Controle biológico de
+<italic>Erinnyis ello</italic>
+- Linnaeus, 1758 Lepidoptera: Sphingidae com parasitoides na cultura da mandioca. Dourados: UFGD, 2017. 86p. Tese Doutorado.
+</mixed-citation>
+<element-citation publication-type="thesis">
+<person-group person-group-type="author">
+<name>
+<surname>Silva</surname>
+<given-names>A.S.</given-names>
+</name>
+</person-group>
+<source>
+Controle biológico de
+<italic>Erinnyis ello</italic>
+- Linnaeus, 1758 Lepidoptera: Sphingidae com parasitoides na cultura da mandioca
+</source>
+<publisher-loc>Dourados</publisher-loc>
+<publisher-name>UFGD</publisher-name>
+<year>2017</year>
+<fpage>86p</fpage>
+<lpage>86p</lpage>
+<comment>Tese Doutorado</comment>
+</element-citation>
+</ref>
+<ref id="B25">
+<mixed-citation>
+Shimoda, M.; Honda, K. Insect reactions to light and its applications to pest management. Applied Entomology and Zoology, v.48, p.413-421, 2013.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1007/s13355-013-0219-x">https://doi.org/10.1007/s13355-013-0219-x</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Shimoda</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Honda</surname>
+<given-names>K.</given-names>
+</name>
+</person-group>
+<article-title>Insect reactions to light and its applications to pest management</article-title>
+<source>Applied Entomology and Zoology</source>
+<volume>48</volume>
+<fpage>413</fpage>
+<lpage>421</lpage>
+<year>2013</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1007/s13355-013-0219-x">https://doi.org/10.1007/s13355-013-0219-x</ext-link>
+</element-citation>
+</ref>
+<ref id="B26">
+<mixed-citation>Silveira Neto, S.; Nakano, O.; Barbin, D.; Villa Nova, N.A. Manual de ecologia dos insetos. São Paulo, Agronômica Ceres, 1976. 419p.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Silveira</surname>
+<given-names>S.</given-names>
+<suffix>Neto</suffix>
+</name>
+<name>
+<surname>Nakano</surname>
+<given-names>O.</given-names>
+</name>
+<name>
+<surname>Barbin</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Villa Nova</surname>
+<given-names>N.A.</given-names>
+</name>
+</person-group>
+<source>Manual de ecologia dos insetos</source>
+<publisher-loc>São Paulo</publisher-loc>
+<publisher-name>Agronômica Ceres</publisher-name>
+<year>1976</year>
+<fpage>419p</fpage>
+<lpage>419p</lpage>
+</element-citation>
+</ref>
+<ref id="B27">
+<mixed-citation>Sheikh, A.H.; Thomas, M.; Bhandari, R.; Bunkar, K. Light trap and insect sampling: An overview. International Journal of Current Research, v.8, p.40868-40873, 2016.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Sheikh</surname>
+<given-names>A.H.</given-names>
+</name>
+<name>
+<surname>Thomas</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Bhandari</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Bunkar</surname>
+<given-names>K.</given-names>
+</name>
+</person-group>
+<article-title>Light trap and insect sampling: An overview</article-title>
+<source>International Journal of Current Research</source>
+<volume>8</volume>
+<fpage>40868</fpage>
+<lpage>40873</lpage>
+<year>2016</year>
+</element-citation>
+</ref>
+<ref id="B28">
+<mixed-citation>
+Zhang, J.; Li, H.; Liu, M.; Zhang, H.; Sun, H.; Wang, H.; Miao, L.; Li, M.; Shu, R.; Qin, Q. A greenhouse test to explore and evaluate light-emitting diode - LED insect traps in the monitoring and control of
+<italic>Trialeurodes vaporariorum</italic>
+. Insects, v.11, p.94, 2020.
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3390/insects11020094">https://doi.org/10.3390/insects11020094</ext-link>
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Zhang</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Li</surname>
+<given-names>H.</given-names>
+</name>
+<name>
+<surname>Liu</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Zhang</surname>
+<given-names>H.</given-names>
+</name>
+<name>
+<surname>Sun</surname>
+<given-names>H.</given-names>
+</name>
+<name>
+<surname>Wang</surname>
+<given-names>H.</given-names>
+</name>
+<name>
+<surname>Miao</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Li</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Shu</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Qin</surname>
+<given-names>Q.</given-names>
+</name>
+</person-group>
+<article-title>A greenhouse test to explore and evaluate light-emitting diode - LED insect traps in the monitoring and control of Trialeurodes vaporariorum</article-title>
+<source>Insects</source>
+<volume>11</volume>
+<fpage>94</fpage>
+<lpage>94</lpage>
+<year>2020</year>
+<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3390/insects11020094">https://doi.org/10.3390/insects11020094</ext-link>
+</element-citation>
+</ref>
+<ref id="B29">
+<mixed-citation>Zanuncio, J.C.; Cominatto Junior, J.L.; Beig, O.; Zanuncio, T.V. Armadilhas luminosas com painel fotovoltaico para monitoramento e supressão populacional de Lepidópteros desafolhadores. Revista Árvore, v.15, p.95-102, 1991.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Zanuncio</surname>
+<given-names>J.C.</given-names>
+</name>
+<name>
+<surname>Cominatto</surname>
+<given-names>J.L.</given-names>
+<suffix>Junior</suffix>
+</name>
+<name>
+<surname>Beig</surname>
+<given-names>O.</given-names>
+</name>
+<name>
+<surname>Zanuncio</surname>
+<given-names>T.V.</given-names>
+</name>
+</person-group>
+<article-title>Armadilhas luminosas com painel fotovoltaico para monitoramento e supressão populacional de Lepidópteros desafolhadores</article-title>
+<source>Revista Árvore</source>
+<volume>15</volume>
+<fpage>95</fpage>
+<lpage>102</lpage>
+<year>1991</year>
+</element-citation>
+</ref>
+</ref-list>
+<fn-group>
+<fn fn-type="other" id="fn1">
+<label>1</label>
+<p>
+<sup>1</sup>
+Research developed at Universidade do Estado de Santa Catarina/Núcleo de Processamento de Energia Elétrica, Joinville, SC, Brazil and Empresa de Pesquisa Agropecuária e Extensão Rural de Santa Catarina/Estação Experimental de Itajaí, Itajaí, SC, Brazil
+</p>
+</fn>
+</fn-group>
+<fn-group>
+<title>Highlights: </title>
+<fn fn-type="other" id="fn2">
+<p>Study presents design and production of an LED lamp for photovoltaic light traps.</p>
+</fn>
+<fn fn-type="other" id="fn3">
+<p>The LED lamp switches on and off automatically, controls the battery charge and indicates the operating status of the system.</p>
+</fn>
+<fn fn-type="other" id="fn4">
+<p>The LED lamp is a superior substitute for the standard fluorescent lamps used in conventional light traps.</p>
+</fn>
+</fn-group>
+<fn-group>
+<fn fn-type="other" id="fn5">
+<p>Edited by: Walter Esfrain Pereira</p>
+</fn>
+</fn-group>
+</back>
+</article>
