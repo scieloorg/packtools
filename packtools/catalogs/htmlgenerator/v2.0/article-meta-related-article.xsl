@@ -63,6 +63,35 @@
     </xsl:template>
     
     
+    <xsl:template match="body//related-article">
+        <xsl:choose>
+            <xsl:when test="@xlink:href">
+                <xsl:apply-templates select="@xlink:href"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="normalize-space(.//text())=''">
+                <xsl:if test="@vol">
+                    <xsl:apply-templates select="@vol"></xsl:apply-templates>
+                </xsl:if>
+                <xsl:if test="@issue">
+                    (<xsl:apply-templates select="@issue"></xsl:apply-templates>)
+                </xsl:if>
+                <xsl:if test="(@vol or @issue) and (@page or @elocation-id)">: </xsl:if>
+                
+                <xsl:if test="@page">
+                    <xsl:apply-templates select="@page"></xsl:apply-templates>
+                </xsl:if>
+                <xsl:if test="@page and @elocation-id">, </xsl:if>
+                <xsl:if test="@elocation-id">
+                    <xsl:apply-templates select="@elocation-id"></xsl:apply-templates>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    
     <xsl:template match="related-article" mode="article-meta-related-article">
         <!-- 
         	<li>
