@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labels>
     <term>
+        <name>Anonymous</name>
+        <name lang="pt">Anônimo</name>
+        <name lang="es">Anónimo</name>
+    </term>
+    <term>
         <name>Text</name>
         <name lang="pt">Texto</name>
         <name lang="es">Texto</name>

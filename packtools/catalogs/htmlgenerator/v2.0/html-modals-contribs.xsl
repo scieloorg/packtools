@@ -69,7 +69,7 @@
     <xsl:template match="contrib" mode="modal-contrib">
         <div class="tutors">
             <xsl:apply-templates select="." mode="modal-contrib-type"/>
-            <strong><xsl:apply-templates select="name|collab|on-behalf-of"/></strong>
+            <strong><xsl:apply-templates select="anonymous|name|collab|on-behalf-of"/></strong>
             <xsl:if test="xref[@ref-type='corresp']">
                 <xsl:apply-templates select="xref[@ref-type='corresp']" />
             </xsl:if>
@@ -84,6 +84,12 @@
             </xsl:if>
             <div class="clearfix"></div>
         </div>
+    </xsl:template>
+    
+    <xsl:template match="anonymous">
+        <xsl:apply-templates select="." mode="interface">
+            <xsl:with-param name="text">Anonymous</xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="contrib/xref" mode="modal-contrib">
