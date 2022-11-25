@@ -433,9 +433,27 @@
         <name lang="es">Artículo revisado</name>
     </term>
     <term>
-        <name>Related to</name>
-        <name lang="en">Related to</name>
-        <name lang="pt">Relacionado com</name>
-        <name lang="es">Relacionado con</name>
+        <name>This document is related to</name>
+        <name lang="en">This document is related to</name>
+        <name lang="pt">Este documento está relacionado com</name>
+        <name lang="es">Este documento está relacionado con</name>
+    </term>
+    <term>
+        <name>This document was retracted by</name>
+        <name lang="en">This document was retracted by</name>
+        <name lang="pt">Este documento foi retratado por</name>
+        <name lang="es">Este documento fue retractado por</name>
+    </term>
+    <term>
+        <name>This document is commented by</name>
+        <name lang="en">This document is commented by</name>
+        <name lang="pt">Este documento foi comentado por</name>
+        <name lang="es">Este documento fue comentado por</name>
+    </term>
+    <term>
+        <name>This document has an addendum</name>
+        <name lang="en">This document has an addendum</name>
+        <name lang="pt">Este documento tem um adendo</name>
+        <name lang="es">Este documento tiene una addenda</name>
     </term>
 </labels>
