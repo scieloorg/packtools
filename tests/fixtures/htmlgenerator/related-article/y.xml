@@ -1,0 +1,647 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="es">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">trans</journal-id>
+      <journal-title-group>
+        <journal-title>Trans/Form/Ação</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Trans/Form/Ação</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0101-3173</issn>
+      <issn pub-type="epub">1980-539X</issn>
+      <publisher>
+        <publisher-name>Universidade Estadual Paulista, Departamento de Filosofia</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">SjTdb8jgPc7Lg6d4X8NNDTN</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0101-31732022000100139</article-id>
+      <article-id pub-id-type="doi">10.1590/0101-3173.2022.v45n1.p139</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Artículo</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Cinismo e indiferenciación: la huella de Glucksmann en el coraje de la verdad de Foucault</article-title>
+        <trans-title-group xml:lang="en">
+          <trans-title>Cynicism and Undifferentiation: Glucksmann’s Mark on Michel Foucault’s the courage of truth</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-2686-0140</contrib-id>
+          <name>
+            <surname>Freitas</surname>
+            <given-names>Juan Horacio de</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+          <xref ref-type="aff" rid="aff2"/>
+        </contrib>
+        <aff id="aff1">
+          <label>1</label>
+          <institution content-type="original"> Colaborador honorífico del Departamento de Filosofía y Sociedad de la Facultad de Filosofía de la Universidad Complutense de Madrid, Madrid - España, e Investigador Asociado del Centro de Investigaciones Filosóficas y Humanísticas de la Universidad Católica Andrés Bello (UCAB), Caracas - Venezuela. E-mail: defreitas.jh@gmail.com; jdefreit@ucm.es.</institution>
+          <institution content-type="orgdiv2">Departamento de Filosofía y Sociedad</institution>
+          <institution content-type="orgdiv1">Facultad de Filosofía</institution>
+          <institution content-type="orgname">Universidad Complutense de Madrid</institution>
+          <addr-line>
+            <city>Madrid</city>
+          </addr-line>
+          <country country="ES">España</country>
+          <email>defreitas.jh@gmail.com</email>
+          <email>jdefreit@ucm.es</email>
+        </aff>
+        <aff id="aff2">
+          <institution content-type="orgdiv1">Centro de Investigaciones Filosóficas y Humanísticas</institution>
+          <institution content-type="orgname">Universidad Católica Andrés Bello</institution>
+          <addr-line>
+            <city>Caracas</city>
+          </addr-line>
+          <country country="ES">Venezuela</country>
+        </aff>
+      </contrib-group>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>16</day>
+        <month>03</month>
+        <year>2022</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <season>Jan-Mar</season>
+        <year>2022</year>
+      </pub-date>
+      <volume>45</volume>
+      <issue>01</issue>
+      <fpage>139</fpage>
+      <lpage>158</lpage>
+      <history>
+        <date date-type="received">
+          <day>17</day>
+          <month>11</month>
+          <year>2020</year>
+        </date>
+        <date date-type="accepted">
+          <day>09</day>
+          <month>08</month>
+          <year>2021</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="es">
+          <license-p>Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Resumen:</title>
+        <p>En <italic>Le courage de la vérité</italic>, justo antes del análisis en torno de la filosofía cínica, se hace referencia a una serie de textos que han abordado en alguna medida la cuestión del influjo del cinismo helenístico más allá de los márgenes de la Antigüedad. El único de los textos mencionados que no es alemán y que tiene como autor a alguien que pertenece al escenario intelectual de Foucault es <italic>Cynisme et passion</italic> de André Glucksmann, trabajo que ha sido obviado por las diferentes investigaciones en torno a la filosofía cínica y por los estudios sobre la “vuelta” foucaultiana a los griegos. En el presente ensayo no procuraremos apenas dejar en evidencia la originalidad y pertinencia de la concepción glucksmanniana del cinismo, sino, además, mostraremos los elementos en los que se descubre un paralelismo entre dicha concepción y lo sostenido por Foucault en el último de sus seminarios impartidos en el Collège.</p>
+      </abstract>
+      <trans-abstract xml:lang="en">
+        <title>Abstract:</title>
+        <p>In <italic>Le courage de la vérité</italic>, just prior to his analysis of Cynicism, Foucault refers to a series of texts that have addressed, to some extent, the influence of Ancient Cynicism beyond the margins of ancient times. Among the texts mentioned, there is only one that is not German, whose author belongs to Foucault’s intellectual environment: André Glucksmann’s <italic>Cynisme et passion</italic>. This work has been ignored by both different pieces of research on Cynicism, and the studies regarding Foucault’s “return” to the Greeks. The present article will not merely highlight the originality and relevance of Glucksmann’s conception of Cynicism, but it will also reveal the elements in which parallelisms can be found between such conception and what Foucault claims in his last course at the Collège de France.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="es">
+        <title>Palabras clave:</title>
+        <kwd>Glucksmann</kwd>
+        <kwd>Cinismo</kwd>
+        <kwd>Foucault</kwd>
+        <kwd>Sade</kwd>
+        <kwd>Indiferenciación</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>Glucksmann</kwd>
+        <kwd>Cynicism</kwd>
+        <kwd>Foucault</kwd>
+        <kwd>Sade</kwd>
+        <kwd>Undifferentiation</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="0"/>
+        <table-count count="0"/>
+        <equation-count count="0"/>
+        <ref-count count="25"/>
+        <page-count count="20"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introducción</title>
+      <p>En la segunda mitad de <italic>Le courage de la vérité</italic> (2009), el último de los seminarios impartidos por Michel Foucault en el Collège de France, se manifiesta la urgencia de emprender un estudio en torno a la posteridad del cinismo, siendo ésta justificada por la escasez de investigaciones que al respecto se habían hecho hasta 1984, fecha en la que se imparte dicho seminario. Si bien en los años ochenta del siglo pasado no eran pocos ni despreciables los trabajos -especialmente de carácter filológico- hallables sobre el movimiento cínico helenístico, no deja de ser cierto que, efectivamente, los estudios sobre su influencia existencial, ética y política más allá de los márgenes de la Antigüedad sí fueran escasos para ese entonces. No obstante, Foucault alude a unos pocos textos germánicos de mediados del siglo XX que tratan la cuestión del cinismo a lo largo de la historia y, especialmente, la relación entre el <italic>Zynismus</italic>, es decir, el cinismo como cierta actitud difusa propia de la cultura europea en la modernidad, y el <italic>Kynismus</italic>, que es el vocablo alemán con el que se reconoce al movimiento filosófico que tiene a Diógenes el sinopense como emblema. En la segunda hora de la clase del 29 de febrero son cuatro los libros mencionados: <italic>Der Mut zum Sein</italic> (1953) de Paul Tillich, <italic>Parmenides und Jona. Vier Studien über das Verhältnis von Philosophie und Mythologie</italic> (1966) de <xref ref-type="bibr" rid="B14">Klaus Heinrich</xref>, <italic>Moral und Hypermoral. Eine pluralistische Ethik</italic> (1969) de <xref ref-type="bibr" rid="B10">Arnold Gehlen</xref>, y uno sobre el que Foucault confiesa tener apenas noticias de su llamativo título y del nombre de su autor, <italic>Kritik der zynischen Vernunft</italic> (1983) de Peter Sloterdijk. En la clase siguiente (7 de marzo de 1984) se hace referencia a dos textos más: el primero de ellos es también alemán y Foucault lamenta conocerlo solo a medias, <italic>Der Kynismus des Diogenes und der Begriff der Zynismus</italic> (1979) de <xref ref-type="bibr" rid="B18">Niehues-Pröbsting</xref>; el otro, por su parte, tiene una doble particularidad respecto a los antes aludidos: en primer lugar, no es un libro alemán, y, segundo, entre su autor y Foucault se dio un interesante y polémico intercambio intelectual, nos referimos a <italic>Cynisme et passion</italic> (1981) de André Glucksmann.</p>
+      <p>De todos estos textos, este último es al que se le dedican menos palabras en el seminario; se le menciona solo de pasada y aparece junto a la solicitud de una disculpa: “Agrego -y aquí les pido, claro, que perdonen mi error- que no les hablé del libro de Glucksmann (<xref ref-type="bibr" rid="B11"><italic>Cinismo y pasión</italic></xref>), donde se trata de una reflexión sobre la posibilidad, las significaciones y los valores que podría tener el cinismo en la hora actual” (<xref ref-type="bibr" rid="B7">FOUCAULT, 2010</xref>, p. 207). Aunque Foucault no se detiene a comentar ningún detalle sobre este texto -quizás, como advierte <xref ref-type="bibr" rid="B2">Chaves (2013</xref>, p. 50), por querer poner el acento en la relación del fenómeno cínico con la experiencia extrema del nazismo en Alemania-, el excusarse por haberlo obviado previamente es un indicativo de su relevancia, y una vez que nos adentramos en él no podemos dejar de advertir una serie de ideas, algunas nada tradicionales, que sin lugar a duda influyeron en el análisis sobre los cínicos que encontramos en el último de los seminarios impartidos por Foucault en el Collège.</p>
+      <p>Si bien son tantísimas las coincidencias entre el capítulo segundo del texto de Glucksmann titulado “Cinismo. O como me pienso a mí mismo en tanto que certidumbre”, y la segunda mitad de <italic>El coraje de la verdad</italic>, la cual es dedicada exclusivamente al cinismo, pensamos, no obstante, que se pueden resumir todas ellas a cuatro puntos generales: primero, la cuestión del cinismo como absoluto dominio de sí, como la práctica de un poder total ejercido sobre la mismidad, en definitiva, como la radicalización de la tradicional <italic>enkrateia</italic>; segundo, el platonismo como punto de confrontación para entender al fenómeno cínico; tercero, la relación entre el cinismo y la literatura del Marqués de Sade -vale recordar que Foucault dice no estar seguro de que Pröbsting aborde a Sade en su investigación, cosa que en efecto no hace-; y, por último, la consideración del cinismo moderno como un despliegue del cinismo antiguo, y no, en cambio, como un fenómeno antitético, en tanto que indigno, respecto a la filosofía antisténica y diogénica. Si bien este último punto sería particularmente importante considerando que es una opinión recurrente entre los especialistas, que suelen hablar de una degeneración de los principios del cinismo ya en el seno del imperio romano (<xref ref-type="bibr" rid="B12">GOULET-CAZÉ; BRACHT BRANHAM, 2000</xref>, p. 16; <xref ref-type="bibr" rid="B24">SLOTERDIJK. 20003</xref>, p. 267 - 270), muy en concordancia con los propios contemporáneos de los cínicos de la época imperial para los cuales <italic>todo cínico pasado fue mejor</italic>, o <italic>todo cínico bueno era una idea</italic>, o, finalmente, <italic>todo cínico auténtico no parecía cínico</italic>; no obstante, nosotros procuraremos desarrollar cada uno de los cuatro puntos de coincidencia ahora mencionados para intentar captar las ideas glucksmannianas que podrían haber resultado influyentes en la perspectiva de Foucault.</p>
+    </sec>
+    <sec>
+      <title>1 Culto a la luz y dominio de la muerte</title>
+      <p>Vayamos, pues, al punto inicial. En el perfil que realiza Glucksmann (1982, p. 96) del cínico lo primero que se destaca es el impulso de éste hacia la autotransparentación: “[…] la fuerza del cínico no reside en la indecencia exhibida sino en la desnudez”. Se podría pensar que este “¡Todo está abierto! ¡Nada está oculto!” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 97) es la característica distintiva del cínico glucksmanniano, un sujeto que se ha sometido a un culto total de la luz en el que lo principal sería practicar incesantemente una ascesis para la eliminación sistemática de “las sombras y el polvo” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 97). No obstante, esta desvergonzada exposición del cuerpo y todos sus quehaceres, así como el resto de los rasgos tradicionales que se le atribuyen al cínico, tales como su cosmopolitismo, su franqueza, su optar por la <italic>physis</italic> en detrimento del <italic>nómos</italic>, etc., serían tan solo, según Glucksmann, las consecuencias, formas y matices de una característica fundamental: el ejercicio del poder sobre sí mismo. Cuando el sabio diogénico se despoja de todos los ornamentos, incluyendo entre estos sus miedos y deseos, el cínico, más que simplemente escenificar un impúdico aleccionamiento social, lo que hace es consumar sobre la materialidad de su existencia un experimento filosófico: se trata de la práctica de una reducción fenomenológica en la cual el filósofo perruno pueda dar con un núcleo fundamental dominable, un principio antropológico sobre el cual tener control -también <xref ref-type="bibr" rid="B7">Foucault (2010</xref>, p. 184 - 185) hablará de la función “reductora” del modo de vida cínico para dar lugar a la verdad-. Sin embargo, dado que este ejercicio cínico de reducción no es meramente intelectual -como en cierto sentido ocurre en la prosecución estoica de la <italic>phantasia kataleptiké</italic> (<xref ref-type="bibr" rid="B13">HADOT, 2013</xref>, p. 187 - 191)-, sino material, el cínico no puede expresar -ni realizar, dado que el pudor, los muros y las puertas son también ornamentos que deben ser sometidos a la reducción- su metodología ni sus resultados de otra forma que a través de la autotrasparentación de cada acto de su vida, y es en ese sentido que el cínico glucksmanniano puede decir: “[…] yo te hago una escena y no soy nada más que esa escena.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 99). Es justo por esto por lo que el cinismo solo logra comunicar su sentido -más allá de su experimentación directa en primera o segunda persona- por medio de “[…] historietas, de escenificaciones rápidas, de agudezas, de comportamientos inesperados y de apotegmas.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 100).</p>
+      <p>Para Glucksmann, que la filosofía se exprese más en obras y acciones cotidianas que en lecciones doctrinales no es algo específicamente diogénico, y en esto el cínico sería más bien un buen heredero de Sócrates, del cual se decía que también cuando jugaba, bebía y comía, cuando estaba en el campo o en negocios, y, finalmente, mientras estaba en la cárcel y bebía la cicuta, siempre se manifestaba en él el uso de la filosofía (<xref ref-type="bibr" rid="B21">PLUTARCO, 2003</xref>, p. 274). Por lo tanto, lo distintivo de los cínicos, estos desfachatados mendigos con manto que han hecho de la plaza pública su hogar, no se encontrará en la continuidad ininterrumpida del quehacer filosófico en cada instante de la existencia, y su trabajo de someterlo todo a la luz, en especial a sí mismo, haciéndose transparente y especular a la vez -“miradme, miraos” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 115)-, sería una más de las formas que toma lo realmente característico del cínico: una despiadada voluntad de poder filosófica que no permite el secreto ni el misterio, que hace de sí mismo un simulacro del mundo, pero bajo el foco omnisciente de la consciencia filosófica que lo ve, desnuda y controla todo. Dice Glucksmann (1982, p. 116): “Diógenes, la cumbre de un pensamiento convertido en puro dominio, el absoluto dominio puro de cualquier pensamiento oculto [...] La forma al fin encontrada de la identidad sin sombra del amo y del pensador”; y en otro momento: “El universo del cínico gira en torno a ese centro en el que el amo y el pensador resultan ser finalmente la misma persona.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 119). También <xref ref-type="bibr" rid="B7">Foucault (2010</xref>, p. 242), inspirado en los textos diogénicos de <xref ref-type="bibr" rid="B4">Dión Crisóstomo (1988</xref>, VI, p. 315 - 334) y, seguramente, en el libro de Glucksmann, desarrolla esta inusitada idea del cínico como figura soberana y hasta tiránica, que en <italic>El coraje de la verdad</italic> sería la “continuidad carnavalesca” de uno de los rasgos tradicionales de la “[…] vida verdadera (<italic>bíos alethés</italic>)” según se entendía en la Antigüedad: la vida que se mantiene en la identidad de su ser gobernándose a sí misma, y que en la radicalización del cinismo toma la forma del “rey miserable e irrisorio.” (<xref ref-type="bibr" rid="B7">FOUCAULT, 2010</xref>, p. 297).</p>
+      <p>Pero si <xref ref-type="bibr" rid="B7">Foucault (2010</xref>, p. 184) se detiene en describir los ejercicios de poder cínico sobre la vida, caracterizados por una regia militancia universal que practica la vigilancia (<italic>episkopountes</italic>), el espionaje (<italic>katáskopos</italic>) o la mensajería (<italic>ángelos</italic>); Glucksmann, en cambio, da un paso más allá, viendo en el cínico el deseo de dominar no solo la vida, sino, sobre todo, la muerte. Un verdadero soberano absoluto no puede ser tal si no puede ejercer su poder sobre la muerte; reinar por encima de ésta sería el punto álgido del auténtico dominio de sí mismo, y una de las teorías sobre la muerte de Diógenes sugiere ese augusto intento por parte del sinopense: “[…] sus discípulos [...] conjeturaron la contención del aliento.” (<xref ref-type="bibr" rid="B3">DIOGENES LAERCIO, VI 77, 2010</xref>, p. 230)<xref ref-type="fn" rid="fn1"><sup>2</sup></xref>. De esta manera, el cínico pretendía hacerse dueño de la muerte a través de un gesto de intenso dominio sobre su impulso vital; “mientras se mordía los labios - dice <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 123) la vida más intensa abrazaba a la muerte más viva”. Así, el cínico, en el gesto definitivo de unir obstinadamente los labios y los dientes<xref ref-type="fn" rid="fn2"><sup>3</sup></xref>, mientras que acercaba la vida a la muerte y viceversa, al punto de hacerlas talesianamente<xref ref-type="fn" rid="fn3"><sup>4</sup></xref> indistinguibles la una de la otra, unía a su vez al pensador que hace de su vida una preparación para la muerte y al amo que hace de su muerte la prueba de un dominio total de la vida. Tenemos, entonces, la estructura cínica glucksmanniana: un poder total ejercido de forma corporal y transparente sobre la (propia) existencia -“[…] los filósofos del tonel son el símbolo de una sabiduría que ha conseguido la absoluta posesión de sí mismo” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 174)-, que al extenderse a los dominios de la muerte termina por borrar las diferencias entre ésta y aquélla hasta hacerlas idénticas.</p>
+    </sec>
+    <sec>
+      <title>2 Diógenes vs. Platón<xref ref-type="fn" rid="fn4"><sup>5</sup></xref> </title>
+      <p>El segundo punto que aborda Glucksmann respecto al cinismo, como ya adelantamos, es la confrontación de éste, representado en la figura icónica de Diógenes, con el que seguramente sea el autor más representativo de lo que entendemos hoy por filosofía occidental, Platón. Este enfrentamiento es ilustrado a través de diez <italic>escenas</italic> que no son más que una continua profundización de una de las anécdotas más célebres entre las varias que narran un encuentro entre el sinopense y el fundador de la Academia: “Como Platón había definido al Hombre como «un animal bípedo sin plumas», y fue celebrado por ello, Diógenes desplumó un gallo, lo metió en la escuela de aquél y dijo: «Éste es el hombre de Platón».” (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VI 40, 2010</xref>, p. 220). Frente a la escenificación diogénica, el ateniense consideró conveniente complementar su concepto añadiendo que además de ser bípedo e implume era <italic>platuónycho</italic> (de uñas anchas) (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO VI, 40, 2010</xref>, p. 220), que claramente hace alusión lúdica al nombre del propio Platón, lo que indicaría, según Glucksmann, que el autor de <italic>La República</italic> no despreció totalmente la objeción diogénica. El sabotaje del cínico, sin embargo, no iría dirigido específicamente a Platón, sino a un fenómeno mucho más general, a “[…] la locura que duerme en toda doctrina, [a] la paranoia que pretende entender al hombre contenido en su definición.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1983</xref>, p. 105).</p>
+      <p>La estrategia cínica para poner en evidencia dicha locura, a pesar de tomar en este caso la forma escandalosa y extravagante de la martirización de un pollo, responde a una lógica modesta y llana gracias a la cual también se puede explicar la retención voluntaria de la respiración del sinopense, así como sus refutaciones a la teoría eleática de la ausencia del movimiento a través de la exhibición de una serena caminata (SEXTO EMPÍRICO <italic>apud</italic><xref ref-type="bibr" rid="B17">MARTÍN GARCÍA. 2008</xref>, p. 188), o la contestación al silogismo megárico -“Lo que no hayas perdido, lo tienes; y no has perdido los cuernos: por tanto, tienes cuernos” (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VII 187, 2010</xref>, p. 293)- llevándose las manos a la cabeza y diciendo “yo no los veo” (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VI, 38, 2010</xref>, p. 220); se trata de la simple ejecución práctica de la definición sobre un cuerpo, o, en otras palabras, de la unión desengañadora de la teoría y la práctica. En este sentido, el cínico no se opone, sino que se limita a <italic>mostrar</italic> lo que se hace. Los recortes metafísicos que ha realizado el creador de definiciones -“[…] no es inanimado, no es cuadrúpedo, no es pájaro…” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 107)- para hablar de una idea indiscutible de hombre, Diógenes los efectúa sobre la materialidad de la existencia evidenciando así que el sueño de la definición perfecta lleva consigo un violento fracaso que se deja ver en el mismo momento en que se la escenifica corporalmente o, en palabras de <xref ref-type="bibr" rid="B7">Foucault (2010</xref>, p. 242)<xref ref-type="fn" rid="fn5"><sup>6</sup></xref>, en el que se la obliga a “gesticular”. Empero, este sujeto -pensador en tanto hombre de acción y hombre de acción en tanto pensador- no es apenas un delator histriónico del error teórico de las doctrinas filosóficas; el Diógenes de Glucksmann es una figura de utilidad para el hombre de conocimiento, en este caso el propio Platón. Frente al peligro de que el “pensador enamorado de su idea” se enclaustre narcisistamente en ésta, el filósofo perruno le salva arrojándole “[…] una indefinición dotada de análogas propiedades reflexivas que se precipita sobre aquél a quien interrumpe”, mostrando de esta manera “[…] que su testamento no está cerrado”, que aún tiene “que engendrar unos cuantos conceptos más.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 110).</p>
+      <p>A pesar del señalamiento de esta complementariedad filosófica, Glucksmann, al igual que Foucault, advierte, gracias a la contraposición entre el intelectual académico y el pensador perruno, un paradigma que sirve para entender dos formas fundamentales y autónomas en la que se desarrolló el espíritu occidental. Mientras el autor de <italic>Las palabras y las cosas</italic> divide estas formas en “metafísicas del alma” - representada sobre todo en el neoplatonismo (<xref ref-type="bibr" rid="B7">FOUCAULT, 2010</xref>, p. 176) - y “estéticas de sí” -que vincula a varias de las doctrinas helenísticas (<xref ref-type="bibr" rid="B8">FOUCAULT, 2005</xref>, p. 239 - 240) -, Glucksmann (1982, p. 130 - 131), por su parte, distingue la “mentalidad órfica” de la “mentalidad dionisíaca”. Ambas mentalidades esquivarían los modos de vida convencionales del mundo griego: éstos escaparían <italic>por abajo</italic>, por el lado animal; y aquéllos, por su parte, <italic>hacia arriba</italic>, a través de una ascética del ayuno y la abstinencia sexual, lo que <xref ref-type="bibr" rid="B7">Foucault (2010</xref>, p. 139) denominará luego “catártica de la verdad”. Dichos modos radicales de pensamiento que dan la espalda a la vida social tendrían a su vez “unos dobles menos extremados” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 131): por el lado órfico están los pitagóricos, más comedidos en su prohibición; por el dionisíaco encontramos a los cínicos que, según Glucksmann, paradójicamente infringen la prohibición más de palabra que de acto<xref ref-type="fn" rid="fn6"><sup>7</sup></xref>. Pero la distinción fundamental de estos herederos respecto a sus báquicos antecesores es que los filósofos caninos permanecen en la ciudad -“[…] acampan al borde del abismo, centro de la ciudad, no dentro” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 131)- y pretenden generar una influencia sobre ésta a través, como antes dijimos, de un <italic>abuso de la luz</italic>, convirtiendo “[…] los comercios más privados en exhibiciones públicas” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 131), mientras que los pitagóricos funcionan en lo oculto, en el misterio, en las iniciaciones y en los rituales, haciendo de la oscuridad el <italic>topos</italic> de su ejecución intelectual. Por esto, a pesar de socrático, el cinismo no se materializará sobre la máxima oracular con la que se abanderó el platonismo, el <italic>gnothi seautón</italic> (conócete a ti mismo), con la respectiva psiconaútica de la penumbrosa interioridad que supone, sino sobre la relación con el prójimo y el placer de “[…] la palabra, la imagen y la escena.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 131).</p>
+    </sec>
+    <sec>
+      <title>3 La transhistoricidad glucksmanniana del cinismo</title>
+      <p>Es a partir de esta bipartición entre formas de mentalidad que Glucksmann emprende, antes que Foucault, una especie de lo que en <italic>El coraje de la verdad</italic> fue denominado <italic>“</italic>transhistoricidad del cinismo” (<xref ref-type="bibr" rid="B7">FOUCAULT, 2010</xref>, p. 187), es decir, una exploración de las diversas reapariciones de los elementos fundamentales que constituían al cínico antiguo en épocas posteriores bajo otros nombres, otros contextos y otras formas, siendo dicha exploración uno de los asuntos más sugerentes de <italic>Cinismo y pasión</italic>. Al respecto, <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 99) se pregunta: “¿Podemos sin excesivo anacronismo perseguir el hilo de Ariadna de una continuidad cínica corriendo a través de la historia de occidente? Por qué no”. En las primeras páginas de su capítulo sobre el cinismo, Glucksmann cita a Léonce Paquet, quien publicó la primera recopilación notable de fragmentos de y sobre los filósofos cínicos en lengua francesa, con el fin de mostrar a través de éste la relevancia del cinismo más allá de los márgenes de la era grecorromana:</p>
+      <disp-quote>
+        <p>[...] los imperativos fundamentales del cinismo antiguo -la libertad interior, el espíritu de independencia, la franqueza, la contestación de las opiniones corrientes, del orden social y de los poderes establecidos, la “huida del mundo”, el retorno a la naturaleza, el cosmopolitismo- reaparecen, en diferentes grados, entre las ideas-fuerza que han inspirado el monaquismo primitivo, las órdenes mendicantes de la Edad Media, los reformadores del siglo XVI, y algunos revolucionarios de los siglos XVIII y XIX. Hay que admitir asimismo que estas ideas están lejos de ser ajenas a algunas aspiraciones muy características de nuestro mundo contemporáneo. (<xref ref-type="bibr" rid="B20">PAQUET, 1975</xref>, p. 19).</p>
+      </disp-quote>
+      <p>Aunque en algún momento <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 97) advierte una influencia del cinismo sobre la tradición monacal<xref ref-type="fn" rid="fn7"><sup>8</sup></xref> basada ante todo en la franqueza (<italic>parrhesía</italic>) -“[…] con la que el monje medieval apostrofa a su Dios”-, el lugar de enlace será otro, justamente aquel que, según su parecer, mejor caracteriza al cinismo: el triunfo de la identificación entre el amo y el pensador a través de un proceso de indistinción activa entre la vida y la muerte y, como consecuencia de ésta, también de todas las demás cosas entre sí. Un ejemplo privilegiado de este mecanismo lo encuentra <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 97) -y también <xref ref-type="bibr" rid="B24">Sloterdijk (2003</xref>, p. 274 - 284) - en la figura del Mefistófeles goetheano, quien “nos obliga a alzar la mirada hacia el poder secreto de un cinismo que no elige el mal contra el bien, sino que concluye con la imposibilidad de distinguirlos”. Pero en tanto activo, este severo ejercicio intelectual <italic>adiafórico</italic>, de indiferenciación de todas las cosas ante ese plano de homogeneización total que es la nada, no se queda en una mera resignación pasiva e inmóvil, sino que sustentándose sobre la identificación de saber y poder “[…] procede a las ejecuciones «críticas».” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 143). A partir de este nihilismo activo, que también se asoma en la interpretación que hacen sobre el cinismo los autores alemanes que mencionamos al principio, Glucksmann realiza una maniobra retórica en la que se permite pasar, a través de un gran salto, de la escandalosa masturbación diogénica en la plaza pública a la figura de Napoleón Bonaparte. El culto a Napoleón no se basaba en lo absoluto, según <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 144), en una adoración de la fuerza bruta o el éxito - “Waterloo no quita nada a la fascinación continuada”-, sino, ante todo, en el entusiasmo de hacer pasar toda intención a la acción, de que todo mundo interior se efectúe en el exterior, de que todo se haga visible, de liquidar toda moral ideal enfrentándola con las participaciones del mundo y la inmundicia:</p>
+      <disp-quote>
+        <p>¡Qué nada permanezca oculto! ¡Qué se abola cualquier diferencia entre lo exotérico y lo estérico! La luz de Austerlitz anuncia el mediodía del cinismo: detrás de la verdad espiritual investida en Napoleón, nos sonríe Diógenes. Las mentes más especulativas, admirando en la Gran Batalla lo que no se atreven a distinguir en la masturbación pública. (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 144).</p>
+      </disp-quote>
+      <p>El espíritu conquistador napoleónico, en tanto expresión moderna del cinismo, le sirve a Glucksmann para enfrentar la imagen muy habitual del cínico en donde se lo representa como un sujeto acurrucado en un escepticismo desilusionado y pasivo. Frente a la imagen tradicional del cínico como un ateo, Glucksmann contrapone al Gran Inquisidor de Dostoievsky -otras de las figuras del “gabinete de los cínicos” sloterdijkiano (<xref ref-type="bibr" rid="B24">SLOTERDIJK, 2003</xref>, p. 285 - 303)- que es un personaje eclesial; el cínico entendido como un insensible ante las manifestaciones de la belleza, es confrontado con el cínico poeta decimonónico que, en obvia alusión a Rimbaud, sienta la belleza sobre sus rodillas y la insulta. El cínico glucksmanniano, al igual que el de Sloterdijk, es reconocido en la refinada escenificación de un poder que se ha inmunizado por medio de un proceso previo de autorreflexión. No obstante, a diferencia del filósofo alemán, para Glucksmann no se puede entender este cinismo como un brote exclusivo de las altas esferas sociopolíticas, sino como la consecuencia de una consciencia que tiene su origen en los <italic>pequeños</italic> de la plaza pública.</p>
+      <p>No fueron pocos los intentos, ya desde la Antigüedad, de descalificar, ocultar y, aún más importante, ningunear la grotesca y singularísima dramaturgia cínica y su descarado arrojo napoleónico a la exterioridad, sosteniendo con falso elogio que tras toda la grosera e impúdica actividad del cinismo se <italic>escondía</italic> un saber que era común a todas las filosofías, logrando así disimular el rostro más despótico de la canalla filosófica. Un claro ejemplo de este proceso de esoterizar -en el sentido de suponer un adentro furtivo más allá de lo que se manifiesta a la vista- el soberbio exoterismo del cinismo se halla en las palabras que usa el emperador Juliano para describir a Diógenes - al que convierte en “un Platón popular” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 147) -, que no son otras que las que dedica Alcibíades a Sócrates en el <italic>Banquete</italic>: “[…] la filosofía cínica «es lo más parecido a esos silenos que hay en los talleres de los escultores y a los que representan los artesanos con la siringa o la flauta y, al abrirlos, parece que tienen en su interior imágenes de los dioses».” (<xref ref-type="bibr" rid="B15">JULIANO, 1979</xref>, p. 126)<xref ref-type="fn" rid="fn8"><sup>9</sup></xref>. El emperador “apóstata” se encargó de trivializar burlonamente los elementos estéticos, materiales y externos del cínico, tales como la mendicidad, la grosería, el báculo, los cabellos largos y desaliñados, el insulto, etc., para, en cambio, destacar de éste su elección por la virtud y su aversión hacia el vicio; “A un lado la apariencia, la mala yerba. Al otro, la realidad, las flores del saber.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 146). A través de la lectura que realiza <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 147) de Juliano, que “[…] pretende eliminar la subversión (aparente) para alcanzar la unidad (interior) de todas las sabidurías”, nos encontramos con una idea que será, a nuestro parecer, la cuestión fundamental de la tesis foucaultiana sobre el cinismo, a saber, la comprensión de éste como un fenómeno que reúne en sí los elementos más comunes, corrientes y banales de la tradición filosófica clásica: la vida virtuosa, el rechazo del desenfreno, el conocerse a sí mismo, etc. No obstante, solo se devela la importancia crucial de esta idea cuando se la considera junto al hecho de que este cinismo también ha sido considerado al mismo tiempo como algo extraño e inaceptable. Ya advierte <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 146): “[…] el cinismo no puede quedar reducido a la simple empresa de una benévola vulgarización, popularizando el tesoro común de todas las filosofías.”</p>
+      <p>Es la combinación de estos dos elementos, común y escandaloso, lo que <xref ref-type="bibr" rid="B7">Foucault (2010</xref>, p. 243) denominará “la paradoja cínica” o “el cinismo como banalidad escandalosa de la filosofía”. Foucault explica la paradoja sin desechar ninguno de los elementos que la constituyen: el cínico no deja nunca de ser la representación de los ideales más tradicionales de la virtud filosófica, pero con tan solo encarnarlos y teatralizarlos invierte escandalosamente dichos principios haciéndolos inadmisibles; esa sería la clave del <italic>parakharattein to nómisma</italic> diogénico. Cuando <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 147 - 148) se pregunta sobre la influencia de cinismo en la cultura occidental llega a una conclusión similar:</p>
+      <disp-quote>
+        <p>¿Acaso el impudor mostrado, durante diez siglos, por los discípulos de Diógenes no desvela la faz oculta de los valores establecidos, el negativo del positivo, el medio sangrante de la pureza de la causa? Los cínicos saben que muestran la otra cara permanente de las medallas [...] Una de sus cualidades principales es la franqueza, la falta de disimulo; al respeto de la costumbre oponen menos la falta de respeto que la verdad, la hacen circular, incluso cuando no es bueno decirla ni agradable verla.</p>
+      </disp-quote>
+    </sec>
+    <sec>
+      <title>4 El perro de Sade</title>
+      <p>Para <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 149), así como para Foucault, la misión oracular de alterar la moneda (<italic>parakharattein tó nómisma</italic>) dada a Diógenes refiere más una revaloración soberana de la moneda -“el arte de gobernar los intercambios”- que una falsificación reactiva de la misma -“acuñar monedas falsas”-, y dicha misión, que reaparecería en el siglo XIX bajo la fórmula de la transmutación de los valores y en el XX con la consigna de la revolución cultural, no se ejecuta por medio de una negación o ruptura respecto a las creencias vigentes, sino “[…] acentuando el radicalismo implícito de toda filosofía.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 149). El ejemplo predilecto de <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 133) para dar cuenta de este mecanismo propiamente cínico de <italic>radicalización de lo mismo</italic> en la Modernidad no se encuentra en Napoleón ni en las obras de Goethe o Dostoievsky, sino en la literatura del Marqués de Sade: “No es posible concebir el cinismo occidental sin imaginarlo sadiano.” Sade hereda del cinismo clásico su capacidad de convertir en grotesca e infame cualquier tradición en el proceso mismo de afirmar y hacer funcionar hasta las últimas consecuencias las tradiciones filosóficas más dignas de Occidente convirtiéndolas, de esta manera, en grotescas e inaceptables. Glucksmann ejemplifica con dos de las nociones más importantes que hemos recibido de la filosofía antigua: la <italic>apatheia</italic> (apatía / no-pasión) y, por supuesto, la <italic>alétheia</italic> (verdad / no-olvido o no-oculto). La impasibilidad socrática que heredará el padre del cinismo (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VI 2, 2010</xref>, p. 209) y que luego se convertirá en el blasón de los filósofos del pórtico gracias, según cuenta la tradición, a la influencia del cínico Crates sobre el fundador del estoicismo (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, I 15, 2010</xref>, p. 34), en los textos de <xref ref-type="bibr" rid="B22">Sade (1797</xref>, p. 149) tomará la forma, activa y gélida, del crimen no-pasional:</p>
+      <disp-quote>
+        <p>Por desgracia, es demasiado común ver que la lujuria extingue la piedad en el corazón del hombre; su efecto común es el endurecimiento: sea porque la mayor parte de sus extravíos necesitan la <italic>apatía</italic> del alma, sea porque la violenta sacudida que esta pasión imprime a la masa de los nervios disminuye la fuerza de su acción; lo cierto es que un libertino raramente es un hombre sensible.</p>
+      </disp-quote>
+      <p>Y el autor agrega una sugerente nota a este pasaje: “Y eso, por la única razón de que la sensibilidad prueba debilidad, y el libertinaje fuerza” (<xref ref-type="bibr" rid="B22">SADE, 1797</xref>, p. 207). Ahora bien, se podría objetar que el héroe sadiano, a diferencia del sabio estoico o incluso el cínico, actúa siempre en función del placer, por lo que su apatía tendrá como excepción la sensación de gozo - “Mi alma es impasible, dijo; desafío a cualquier sentimiento que la alcance, excepto el del placer” (<xref ref-type="bibr" rid="B22">SADE, 1797</xref>, p. 109)-, o será una paradójica herramienta al servicio de su hedonismo -“[…] en esta cruel <italic>apatía</italic> sus abominables pasiones se sienten tan voluptuosamente estimuladas que nada les excita tanto.” (<xref ref-type="bibr" rid="B22">SADE, 1797</xref>, p. 142)-. En ambos casos la apatía queda fuera del juego en el momento en que se realiza el objetivo sádico. A <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 133) no se le escapa esta cuestión, bien sabe que “[…] el héroe sadiano se apunta al placer, no a la vida”. No obstante, habría que preguntarse qué tan distinto es el caso del cínico sinopense quien decía, según cuenta <xref ref-type="bibr" rid="B3">Diógenes Laercio (VI 71, 2010</xref>, p. 228), que “[…] el desprecio del placer mismo es de lo más placentero.” No son pocos los autores, antiguos y contemporáneos, de Máximo de Tiro (XXXII 9, <italic>apud</italic><xref ref-type="bibr" rid="B17">MARTÍN GARCÍA, 2008</xref>, p. 296 - 297) a <xref ref-type="bibr" rid="B19">Michel Onfray (2004</xref>, p. 62, 147), que advierten en el cinismo un tipo de hedonismo que, paradójicamente, no excluye una ascética en pro del endurecimiento de la sensibilidad hasta pasar “[…] ante los ojos del vulgar como una auténtica piedra.” (<xref ref-type="bibr" rid="B5">EPICTETO, III, 1993</xref>, p. 335).</p>
+      <p>Con el objetivo de mostrar de manera aún más nítida la cercanía entre el cínico clásico y el héroe sadiano, <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 136) señala que el placer que ostentan los personajes libertinos de Sade se basa, no en el ardor de la carne y la mera satisfacción del apetito sensual, sino en el cumplimiento exitoso de una “disciplina intelectual” (<italic>askesis</italic>), que pretende un dominio total de sí mismo (<italic>enkrateia</italic>) y del otro bajo “[…] la amenaza (pero también chantaje, excusa o certeza) de la muerte.” No hay en Sade una loa del <italic>dejarse llevar</italic>, lo que se encuentra es una corrección continua y meticulosa de cada impulso, una voluntad que interviene incesantemente sobre la espontaneidad de las pasiones. Se trata, en definitiva, del placer que brinda el ejercicio de un poder intelectual -incluso sobre el placer mismo- que procura la manifestación de la verdad al hacer funcionar dicho poder en la materia. Es claro que estamos bajo una cuestión -<italic>el gobierno de sí, el gobierno de los otros</italic> y su relación con el discurso verdadero- que en tanto idea problemática es previa al cinismo -insistimos que lo cínico en Sade es la forma en que toma la recepción de los principios más tradicionales-, por ello <xref ref-type="bibr" rid="B11">Glucksmann (1982</xref>, p. 135) afirma que el pensamiento sadiano “en el fondo es de lo más clásico”, y que Sade “[…] se preocupa muchísimo de no pensar distintamente que Sócrates o Platón, ni peor que Cristo o Buda.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 139).</p>
+      <p>Unas páginas atrás habíamos señalado la forma en que Glucksmann entiende el suicidio diogénico, a saber, como la pretensión de ejercer un poder más allá de los márgenes de la propia vida intentando extender su dominio hasta la muerte en un gesto de férrea voluntad en la retención del hálito vital, de este modo el sinopense haría coincidir el impulso vital más vigoroso con la muerte más serena al punto de la indistinción. El héroe sadiano, en su avanzada cínica, descubre una ingenuidad en Diógenes: no importa que tan sublime, glorioso, perfecto o ejemplar sea el acto de darse a sí mismo la muerte, nunca se logra realmente dominarla, ella termina reduciendo todo gesto, no importa cuál, a la nada, a una conclusión homogeneizadora; “al final, rey o peón, todos a la misma caja”, dice un célebre proverbio italiano, y podría agregar Sade con saña: “[…] y sin importar que haya hecho uno u otro a lo largo del juego.” Frente a esta consciencia, también cínica, el héroe sadiano no desiste de su voluntad de dominio, pero ahora comparte su soberanía con la muerte -gobernando a su lado, sirviéndole como su ángel o, en el más ideal de los casos, encarnándola-, es decir, decide ejercer “[…] el único poder al que nadie resiste” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 135), el de matar. Pero este poder que se materializa en el asesinato se sostiene sobre un saber del que el cínico sadiano presume ser el único beneficiario: “[…] no se considera diferente, cree que todo el mundo se cree diferente a él, y que puede, mediante el chantaje de la muerte, reducir esa diferencia a cero.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 136). Así pues, el homicidio aparece como prueba de verdad del sadiano, de la misma manera que el defecar, masturbarse o copular expuesto a la luz pública es la prueba de verdad del filósofo diogénico; en ambos casos se banaliza toda diferenciación, sea nómica, moral o estética, confrontándola con una instancia que suele presentarse como evidente -siendo tan ambigua- y superior: la Naturaleza (<italic>Physis</italic>):</p>
+      <disp-quote>
+        <p>¿No añadirán, con cierta certeza, que es <italic>indiferente</italic> al plan general que esto o aquello sea preferentemente bueno o malo; que si el infortunio persigue a la virtud, y la prosperidad acompaña al crimen, <italic>siendo ambas cosas iguales para las intenciones de la Naturaleza</italic>, es infinitamente mejor tomar partido entre los malvados que prosperan, que entre los virtuosos que fracasan? (<xref ref-type="bibr" rid="B22">SADE, 1979</xref>, p. 2 - 3).</p>
+      </disp-quote>
+      <p>La aparentemente inofensiva exposición pública que hace Diógenes de sus expulsiones humorales, que no tienen nada de escandalosas, grotescas o extrañas en sí mismas, no es más <italic>natural</italic> ni <italic>indistingue</italic> más, desde la perspectiva de Sade, que el homicidio. Ya André Bretón descubría, según observamos en su <xref ref-type="bibr" rid="B1"><italic>Antología del humor negro</italic></xref>, una línea que conecta al cínico clásico con Sade -entre uno y otro estaría Swift-, en donde el humorístico y humoralista precepto “[…] en la Naturaleza todo está en todo” (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VI 73, 2010</xref>, p. 229), que profesa el filósofo sinopense y que servirá de inspiración a los posteriores discursos de temática antropofágica, con Sade se transforma en “un discurso-de-la-muerte” que dicta “<italic>todo es uno</italic>” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 165), y que desemboca en el precepto: a los ojos de la Naturaleza todo tiene el mismo valor (<xref ref-type="bibr" rid="B22">SADE, 1797</xref>, p. 210 - 211), máxima que se erguirá en cada instante en que el homicidio se asome en el horizonte de la trama.</p>
+      <disp-quote>
+        <p>Cualquier forma es igual a los <italic>ojos</italic> de la naturaleza, nada se altera en el inmenso crisol donde se llevan a cabo sus variaciones, todas las porciones de la materia que caen en ella se repiten incesantemente bajo otras figuras, y cualesquiera que sean nuestros procedimientos al respecto, sin duda nadie la ultraja, nadie puede ofenderla; nuestra destrucción revive su poder, mantiene su energía; pero nadie la atenúa, nadie la frustra; y qué le importa a su mano creadora que esa masa de carne que hoy conforma al individuo bípedo, se reproduzca mañana en forma de mil insectos diferentes; ¿Nos atrevemos a decir que la construcción de este animal de dos patas le cuesta más que la del gusano, y que debe interesarse más por ella? Entonces, si este grado de apego, o más bien de inferencia, es lo mismo, ¿qué le puede afectar que, por la espada de un hombre, otro hombre se convierta en mosca o en hierba. (<xref ref-type="bibr" rid="B22">SADE, 1797</xref>, p. 210).</p>
+      </disp-quote>
+      <p>Si la realidad es entendida cínicamente, es decir, como una materia caótica, cambiante, porosa, permeable a sí misma, donde todo se junta indistintamente, entonces, desde esta perspectiva, el homicida en realidad no acaba con nada en su quehacer; “[…] el poder de destruir no se le concede al hombre, tiene como mucho el de variar formas” (<xref ref-type="bibr" rid="B22">SADE, 1797</xref>, p. 209). Estamos en el seno de la estrategia cínica de la indiferenciación, “donde no reina ni lo mayor ni lo menor, a fin de cuentas todo es equiparable.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 137). En el cinismo de la Antigüedad los ejemplos de esta estrategia son incontables: lo que es bueno, lo es en privacidad o frente a terceros (ELÍAS, 111, 1 - 32, <italic>apud</italic><xref ref-type="bibr" rid="B17">MARTÍN GARCÍA. 2008</xref>, p. 141), si no está mal comer en privado, entonces no tiene nada de malo hacerlo en público (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, V I 69, 2010</xref>, p. 228); si cuando se tiene hambre, que es una necesidad natural, se come, entonces, cuando se tiene apetito sexual, que también lo es, se copula, y si no se tiene la compañía necesaria, afortunadamente la naturaleza puso la solución a los hombres al alcance de la mano (Epístola pseudodiogénica <italic>apud</italic><xref ref-type="bibr" rid="B17">MARTÍN GARCÍA. 2008</xref>, p. 425); si todo está en todo, entonces importa poco si se come pan o carne humana, dado que uno y otro se contienen (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VI 73, p. 229</xref>); si todos los dedos de nuestra mano son apenas dedos y nada más, ¿por qué el escándalo si se lleva el dedo cordial extendido? (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VI 35, 2010</xref>, p. 219); si todo en el mundo tiene el mismo valor a los ojos de la Naturaleza, entonces el asesinato, que no aniquila nada, sino que tan solo transforma, no es censurable en absoluto:</p>
+      <disp-quote>
+        <p>[…] si nada muere, si nada se destruye, si nada se pierde en la naturaleza, si todas las partes descompuestas de cualquier cuerpo esperan la disolución para reaparecer tan pronto en nuevas formas, ¿qué <italic>indiferencia</italic> no habrá en la acción del asesinato? ¡Y qué tonto sería ser quien se atreviera a encontrar un crimen allí! (<xref ref-type="bibr" rid="B22">SADE, 1797</xref>, p. 323).</p>
+      </disp-quote>
+      <p>Allí donde todas las cosas son “[…] mortales, manejables, iguales” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 137) el asesinato es banalizado para ser justificado, al tiempo que su efectuación prueba la verdad justificante. Para el sadiano, en el acto de matar no hay heroísmo, valor, hazaña, coraje ni nada destacable -en cualquier caso, “[…] la muerte ya está siempre allí” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 137)-, así como tampoco hay nada de esto en el cínico clásico cuando éste se dispone a defecar, masturbarse o copular; lo haga privada o públicamente, argüirá siempre que son apenas movimientos naturales que se realizan cuando la necesidad apremia. El cinismo entendido de esta manera no crea nunca nada -ya decía <xref ref-type="bibr" rid="B25">Tillich (1969</xref>, p. 143) que el cinismo es una postura existencialista no-creativa-, solo cuenta, hace listas, reduce a números, “[…] tanto si hace como si deja de hacer, se lava las manos” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 137), y por ello puede pasar a la acción desapasionadamente, sin pena ni gloria. Más frío y flemático que un anatomista que califica y <italic>distingue</italic> con gravedad las malolientes entrañas de un cuerpo con el fin de permitir que nos reconozcamos a nosotros mismos en ese saco de casquería, solo lo es un contador de “la cultura burocrática” que se limita a “levantar acta” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 137) de la realidad a la que él pertenece como cualquier otro, no para que nos reconozcamos, sino para indistinguirnos.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>Consideraciones finales</title>
+      <p>Vemos, entonces, que el cínico glucksmanniano en tanto maestro adiafórico, genio de la indiferenciación, ángel de la muerte homogeneizadora, difuminador de toda frontera moral, “[…] no cae en el error de la contra-ingenuidad de privilegiar el mal contra el bien.” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 140). Por ello, en <italic>Cinismo y pasión</italic> el ejemplo paradigmático del cínico moderno no será Baudelaire, el gran antólogo (recolector de flores) del mal, ni ningún otro autor del malditismo decimonónico, sino Sade, que no se detiene en la virtud o el vicio, ni intenta ir «más allá» de uno u otro, sino que “[…] le basta con plantearlos indiscernibles” desde el “punto de vista del saber” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 140).</p>
+      <p>A partir de este análisis glucksmanniano de la obra de Sade, el filósofo logra articular un esquema final de lo que para él son las cuatro tesis fundamentales sobre las que el cínico emprende su quehacer, y a partir de las cuales es posible seguir un hilo transhistórico del cinismo. Primera tesis: se ejerce un poder autoafirmante a través de la posibilidad de la muerte que lo iguala todo (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 141) suicidio diogénico / homicidio sadiano. Segunda tesis: “[…] confunde, en lo indiscernible, bien y mal” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 157) “todo está en todo” / “todo es igual”. Tercera tesis: su poder, aunque parezca “animal, salvaje, sin gracia” (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 139), realmente se sostiene sobre un conocimiento refinadísimo de sí mismo; para decirlo con terminología sloterdijkiana, es un poder amortiguado -también podríamos decir <italic>inmunizado</italic>- autoreflexivamente (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 145). Por último, cuarta tesis: todo pensamiento debe realizarse en el exterior, debe encarnarse, debe ser exoterizado y ponerse en relación con los otros; solo así se transvalora la moneda, en los intercambios (<xref ref-type="bibr" rid="B11">GLUCKSMANN, 1982</xref>, p. 157). Son estas las cuatro tesis cínicas que, según Glucksmann, enlazan a Diógenes con Sade y con una parte fundamental de la cultura occidental. No obstante, todas éstas podemos reducirlas a un solo movimiento: el juego de la adecuación indiferenciadora, en donde se encuentran, mezclan y confunden la destrucción y la autoafirmación, el bien y el mal, el conocimiento del yo y del mundo, y lo esotérico con lo exotérico. Al igual que en Foucault, no se trata aquí de ruptura, de contraposición, de antítesis o de rebelión; sino de inaceptable continuidad, intolerable repetición, grotesca coincidencia, lo que en el <italic>Coraje de la verdad</italic> se denomina: “eclecticismo de efecto invertido” (<xref ref-type="bibr" rid="B9">FOUCAULT, 2010</xref>, p. 244).</p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>Referencias</title>
+      <ref id="B1">
+        <mixed-citation>BRETÓN, A. Antología del humor negro. Barcelona: Anagrama, 2005.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BRETÓN</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source>Antología del humor negro</source>
+          <publisher-loc>Barcelona</publisher-loc>
+          <publisher-name>Anagrama</publisher-name>
+          <year>2005</year>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>CHAVES, E. Michel Foucault e a verdade cínica. Campinas, Sp: Editora PHI, 2013 (Trad. personal).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHAVES</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source>Michel Foucault e a verdade cínica</source>
+          <publisher-loc>Campinas, Sp</publisher-loc>
+          <publisher-name>Editora PHI</publisher-name>
+          <year>2013</year>
+          <comment>Trad. personal</comment>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>DIÓGENES LAERCIO. Vidas y opiniones de los filósofos ilustres. Trad. Luis-Andrés Bredlow. Madrid: Lucina, 2010.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LAERCIO</surname>
+              <given-names>DIÓGENES</given-names>
+            </name>
+          </person-group>
+          <source>Vidas y opiniones de los filósofos ilustres</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Bredlow</surname>
+              <given-names>Luis-Andrés</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Lucina</publisher-name>
+          <year>2010</year>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>DIÓN DE PRUSA. Discursos I - XI. Madrid: Gredos, 1988.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PRUSA</surname>
+              <given-names>DIÓN DE</given-names>
+            </name>
+          </person-group>
+          <source>Discursos I - XI</source>
+          <bold>.</bold>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Gredos</publisher-name>
+          <year>1988</year>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>EPICTETO. Disertaciones por Arriano. Madrid: Gredos , 1993.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>EPICTETO</collab>
+          </person-group>
+          <source>Disertaciones por Arriano</source>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Gredos</publisher-name>
+          <year>1993</year>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>FOUCAULT, M. “Gendai no Kenryoku wo Tou”. Conferencia pronunciada en Tokio el 27 de abril de 1978. <italic>Asahi Jaanaru</italic>, 2 de Junio de 1978 (Trad. cast. «La Filosofía Analítica de la Política», en: Estética, Ética y Hermenéutica. Obras Esenciales - v. III. Barcelona: Paidós, 1999).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FOUCAULT</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>“Gendai no Kenryoku wo Tou”. Conferencia pronunciada en Tokio el 27 de abril de 1978. Asahi Jaanaru, 2 de Junio de 1978 (Trad. cast. «La Filosofía Analítica de la Política»</chapter-title>
+          <source>Estética, Ética y Hermenéutica. Obras Esenciales</source>
+          <bold>-</bold>
+          <volume>III</volume>
+          <publisher-loc>Barcelona</publisher-loc>
+          <publisher-name>Paidós</publisher-name>
+          <year>1999</year>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>FOUCAULT, M. L’Herméneutique du Sujet. Cours au Collège de France, 1981 - 1982. Paris: Seuil/Gallimard, 2001 (Trad. cast. La Hermenéutica del Sujeto. Curso en el Colegio de Francia (1981 - 1982). Buenos Aires: Fondo de Cultura Económica, 2002).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FOUCAULT</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source>L’Herméneutique du Sujet. Cours au Collège de France, 1981 - 1982</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Seuil/Gallimard</publisher-name>
+          <year>2001</year>
+          <comment>Trad. cast. La Hermenéutica del Sujeto. Curso en el Colegio de Francia (1981 - 1982). Buenos Aires: Fondo de Cultura Económica, 2002</comment>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>FOUCAULT, M. Le Gouvernement de soi et des autres I. Cours au Collège de France, 1982 - 1983. Paris: Seuil/Gallimard, 2008 (Trad. cast. El gobierno de sí y de los otros I. Curso en el Collége de France (1982 - 1983). Buenos Aires: Fondo de Cultura Económica , 2009).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FOUCAULT</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source>Le Gouvernement de soi et des autres I. Cours au Collège de France, 1982 - 1983</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Seuil/Gallimard</publisher-name>
+          <year>2008</year>
+          <comment>Trad. cast. El gobierno de sí y de los otros I. Curso en el Collége de France (1982 - 1983). Buenos Aires: Fondo de Cultura Económica , 2009</comment>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>FOUCAULT, M. Le Gouvernement de soi et des autres II. Cours au Collège de France: Le Courage de la vétité, 1983 - 1984. Paris: Seuil/Gallimard, 2009 (Trad. cast. El gobierno de sí y de los otros II. El coraje de la verdad. Curso en el Collège de France (1983 - 1984). Buenos Aires: Fondo de Cultura Económica , 2010).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FOUCAULT</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source>Le Gouvernement de soi et des autres II. Cours au Collège de France: Le Courage de la vétité, 1983 - 1984</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Seuil/Gallimard</publisher-name>
+          <year>2009</year>
+          <comment>Trad. cast. El gobierno de sí y de los otros II. El coraje de la verdad. Curso en el Collège de France (1983 - 1984). Buenos Aires: Fondo de Cultura Económica , 2010</comment>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>GEHLEN, A. Moral und Hypermoral. Eine pluralistische Ethik. Frankfurt am Main: Athenäum, 1969 (Trad. port. Moral e hipermoral. Uma ética pluralista. Rio de Janeiro: Tempo Brasileiro, 1984).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GEHLEN</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source>Moral und Hypermoral. Eine pluralistische Ethik</source>
+          <publisher-loc>Frankfurt am Main</publisher-loc>
+          <publisher-name>Athenäum</publisher-name>
+          <year>1969</year>
+          <comment>Trad. port. Moral e hipermoral. Uma ética pluralista. Rio de Janeiro: Tempo Brasileiro, 1984</comment>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>GLUCKSMANN, A. Cynisme et passion. Paris: Grasset, 1981 (Trad. cast. Cinismo y pasión. Barcelona: Anagrama , 1982).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GLUCKSMANN</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source>Cynisme et passion</source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Grasset</publisher-name>
+          <year>1981</year>
+          <comment>Trad. cast. Cinismo y pasión. Barcelona: Anagrama , 1982</comment>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>GOULET-CAZÉ, M.-O; BRACHT BRANHAM. Introducción. <italic>In:</italic> BRANHAM, B.; GOULET-CAZÉ, M.-O. (ed.). Los cínicos. El movimiento cínico en la Antigüedad y su legado. Barcelona: Seix Barral, 2000.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GOULET-CAZÉ</surname>
+              <given-names>M.-O</given-names>
+            </name>
+            <name>
+              <surname>BRANHAM</surname>
+              <given-names>BRACHT</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Introducción</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>BRANHAM</surname>
+              <given-names>B.</given-names>
+            </name>
+            <name>
+              <surname>GOULET-CAZÉ</surname>
+              <given-names>M.-O.</given-names>
+            </name>
+          </person-group>
+          <source>Los cínicos. El movimiento cínico en la Antigüedad y su legado</source>
+          <publisher-loc>Barcelona</publisher-loc>
+          <publisher-name>Seix Barral</publisher-name>
+          <year>2000</year>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>HADOT, P. La ciudadela interior. Introducción a la <italic>Meditaciones</italic> de Marco Aurelio. Salamanca: Alpha Decay, 2013.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HADOT</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>La ciudadela interior. Introducción a la <italic>Meditaciones</italic> de Marco Aurelio</source>
+          <publisher-loc>Salamanca</publisher-loc>
+          <publisher-name>Alpha Decay</publisher-name>
+          <year>2013</year>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>HEINRICH, K. Parmenides und Jona. Vier Studien über das Verhältnis von Philosophie und Mythologie. Frankfurt/Main: Suhrkamp, 1966 (Trad. cast. del apartado sobre los cínicos: Antiguos cínicos y cinismo contemporáneo. Santiago de Chile: Escritos breves. Departamento de Filosofía de la Universidad de Chile, 1972).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HEINRICH</surname>
+              <given-names>K.</given-names>
+            </name>
+          </person-group>
+          <source>Parmenides und Jona. Vier Studien über das Verhältnis von Philosophie und Mythologie</source>
+          <publisher-loc>Frankfurt/Main</publisher-loc>
+          <publisher-name>Suhrkamp</publisher-name>
+          <year>1966</year>
+          <comment>Trad. cast. del apartado sobre los cínicos: Antiguos cínicos y cinismo contemporáneo. Santiago de Chile: Escritos breves. Departamento de Filosofía de la Universidad de Chile, 1972</comment>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>JULIANO. Discursos I - V. Madrid: Gredos , 1979.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>JULIANO</collab>
+          </person-group>
+          <source>Discursos I - V</source>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Gredos</publisher-name>
+          <year>1979</year>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>LUCIANO. Obras I. Madrid: Gredos , 1981.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>LUCIANO</collab>
+          </person-group>
+          <source>Obras I</source>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Gredos</publisher-name>
+          <year>1981</year>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>MARTÍN GARCÍA, J. A. Los filósofos cínicos y la literatura moral serioburlesca. Madrid: Akal, 2008.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MARTÍN GARCÍA</surname>
+              <given-names>J. A.</given-names>
+            </name>
+          </person-group>
+          <source>Los filósofos cínicos y la literatura moral serioburlesca</source>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Akal</publisher-name>
+          <year>2008</year>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>NIEHUES-PRÖBSTING, H. Der Kynismus des Diogenes und der Begriff des Zynismus. Frankfurt: Suhrkamp, 1988.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>NIEHUES-PRÖBSTING</surname>
+              <given-names>H.</given-names>
+            </name>
+          </person-group>
+          <source>Der Kynismus des Diogenes und der Begriff des Zynismus</source>
+          <bold>.</bold>
+          <publisher-loc>Frankfurt</publisher-loc>
+          <publisher-name>Suhrkamp</publisher-name>
+          <year>1988</year>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>ONFRAY, M. Cinismos. Retrato de los filósofos llamados perros. Buenos Aires: Paidós, 2004.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ONFRAY</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source>Cinismos. Retrato de los filósofos llamados perros</source>
+          <publisher-loc>Buenos Aires</publisher-loc>
+          <publisher-name>Paidós</publisher-name>
+          <year>2004</year>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>PAQUET, L. Les Cyniques grecs: fragments et témoignages. Ottawa: L’Université d’Ottawa, 1975.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PAQUET</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <source>Les Cyniques grecs: fragments et témoignages</source>
+          <publisher-loc>Ottawa</publisher-loc>
+          <publisher-name>L’Université d’Ottawa</publisher-name>
+          <year>1975</year>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>PLUTARCO. Sobre el anciano debe intervenir en la política. <italic>In</italic>: Obras morales y de costumbres (Moralia). Madrid: Gredos , 2003.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>PLUTARCO</collab>
+          </person-group>
+          <chapter-title>Sobre el anciano debe intervenir en la política</chapter-title>
+          <source>Obras morales y de costumbres (Moralia)</source>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Gredos</publisher-name>
+          <year>2003</year>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>SADE, D. A. F. La nouvelle Justine, ou les malheurs de la vertu suivie de L’histoire de Juliette, sa sœur. Hollande: 1797 (Trad. cast. Personal).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SADE</surname>
+              <given-names>D. A. F.</given-names>
+            </name>
+          </person-group>
+          <source>La nouvelle Justine, ou les malheurs de la vertu suivie de L’histoire de Juliette, sa sœur</source>
+          <bold>.</bold>
+          <publisher-loc>Hollande</publisher-loc>
+          <year>1797</year>
+          <comment>Trad. cast. Personal</comment>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>SENECA. Epístolas morales a Lucilio I. (Libros I - IX, epístolas 1 - 80). Madrid: Gredos, 1986.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>SENECA</collab>
+          </person-group>
+          <source>Epístolas morales a Lucilio I</source>
+          <bold>.</bold>
+          <comment>Libros I - IX, epístolas 1 - 80</comment>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Gredos</publisher-name>
+          <year>1986</year>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>SLOTERDIJK, P. Kritik der zynischen Vernunft. Frankfurt am Main: Suhrkamp, 1983 (Trad. cast. Crítica de la razón cínica. Madrid: Siruela, 2003).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SLOTERDIJK</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>Kritik der zynischen Vernunft</source>
+          <publisher-loc>Frankfurt am Main</publisher-loc>
+          <publisher-name>Suhrkamp</publisher-name>
+          <year>1983</year>
+          <comment>Trad. cast. Crítica de la razón cínica. Madrid: Siruela, 2003</comment>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>TILLICH, P. Der Mut zum Sein. Steingrüben: Stuttgart, 1953 (Trad. cast. El coraje de existir. Barcelona: Estela, 1969).</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>TILLICH</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>Der Mut zum Sein</source>
+          <publisher-loc>Steingrüben</publisher-loc>
+          <publisher-name>Stuttgart</publisher-name>
+          <year>1953</year>
+          <comment>Trad. cast. El coraje de existir. Barcelona: Estela, 1969</comment>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn fn-type="other" id="fn1">
+        <label>
+          <sup>2</sup>
+        </label>
+        <p> Sobre las diferentes teorías en torno a la muerte de Diógenes conviene revisar las anécdotas recogidas por Martín García en el apartado E de su libro recopilatorio (2008, p. 253-270).</p>
+      </fn>
+      <fn fn-type="other" id="fn2">
+        <label>
+          <sup>3</sup>
+        </label>
+        <p> La alusión a los dientes y los labios en la anécdota de la muerte de Diógenes se encuentra ya narrada en Laercio, el cual recoge un pasaje atribuido a Cérdidas de Megalópolis: “[...] el diente en el labio hincado El alma misma se cortó [...]” (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, VI 76-77, 2010</xref>, p. 230).</p>
+      </fn>
+      <fn fn-type="other" id="fn3">
+        <label>
+          <sup>4</sup>
+        </label>
+        <p> “(Tales de Mileto) decía que la muerte en nada difiere del vivir. Alguien le preguntó: «Y entonces tú ¿por qué no te mueres?». Y respondió: «Porque en nada difiere».” (<xref ref-type="bibr" rid="B3">DIÓGENES LAERCIO, I 35<italic>.,</italic> 2010</xref>, p. 40).</p>
+      </fn>
+      <fn fn-type="other" id="fn4">
+        <label>
+          <sup>5</sup>
+        </label>
+        <p> Conviene señalar que, si bien hay una serie de reflexiones sugerentes en torno a la relación entre el cinismo y el platonismo en <italic>El coraje de la verdad</italic>, el texto foucaultiano en el que se desarrolla con más precisión la confrontación cinismo-Platón es <italic>El gobierno de sí y de los otros</italic> (2009, p. 300-301).</p>
+      </fn>
+      <fn fn-type="other" id="fn5">
+        <label>
+          <sup>6</sup>
+        </label>
+        <p> La descripción del quehacer cínico como una práctica gesticuladora, como un hacer muecas, aparece en <italic>La filosofía analítica de la política</italic> (1978), donde se hace la primera referencia a la filosofía cínica en el itinerario intelectual de <xref ref-type="bibr" rid="B6">Foucault (1999</xref>, p. 786).</p>
+      </fn>
+      <fn fn-type="other" id="fn6">
+        <label>
+          <sup>7</sup>
+        </label>
+        <p> Este paradójico parecer también sería el de <xref ref-type="bibr" rid="B19">Onfray (2004</xref>, p. 136), según el cual Diógenes “[…] solo promueve las transgresiones en el plano verbal y teórico.”</p>
+      </fn>
+      <fn fn-type="other" id="fn7">
+        <label>
+          <sup>8</sup>
+        </label>
+        <p> En esto Foucault también se muestra heredero de <xref ref-type="bibr" rid="B20">Paquet (2010</xref>, p. 194-195), a quien sabemos que leyó.</p>
+      </fn>
+      <fn fn-type="other" id="fn8">
+        <label>
+          <sup>9</sup>
+        </label>
+        <p> Aunque Juliano es el ejemplo predilecto de Glucksmann para hablar de esta edulcoración del cinismo, podemos encontrar el mismo mecanismo en autores como <xref ref-type="bibr" rid="B5">Epicteto (III, 1993</xref>, p. 321), en la descripción que hace Séneca de su amigo cínico Demetrio (<xref ref-type="bibr" rid="B23">1986</xref>, p. 348) o la que hace <xref ref-type="bibr" rid="B16">Luciano</xref> de su maestro Demonacte (1981, p. 130-145).</p>
+      </fn>
+    </fn-group>
+  </back>
+</article>
