@@ -33,8 +33,7 @@
     </xsl:template>
         
     <xsl:template match="fn">
-        <li class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="label"/></xsl:attribute>
+        <li>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
         </li>
     </xsl:template>
@@ -42,7 +41,11 @@
     <xsl:template match="fn/label">
         <xsl:choose>
             <xsl:when test="string-length(normalize-space(text())) &gt; 3">
-                <h3><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>
+                <div>
+                    <xsl:attribute name="class">articleSection</xsl:attribute>
+                    <xsl:attribute name="data-anchor"><xsl:value-of select="."/></xsl:attribute>
+                    <h3><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>
+                </div>
             </xsl:when>
             <xsl:otherwise>
                 <span class="xref big"><xsl:apply-templates select="*|text()"></xsl:apply-templates></span>
