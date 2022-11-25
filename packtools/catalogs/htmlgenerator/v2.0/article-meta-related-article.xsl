@@ -8,16 +8,18 @@
 
     <xsl:template match="article" mode="article-meta-related-article">
         <!-- seleciona dados de article ou sub-article -->
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article">
-                <!-- sub-article -->
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="article-meta-related-article-box"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <!-- article -->
-                <xsl:apply-templates select="." mode="article-meta-related-article-box"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:if test=".//related-article">
+            <xsl:choose>
+                <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article">
+                    <!-- sub-article -->
+                    <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="article-meta-related-article-box"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- article -->
+                    <xsl:apply-templates select="." mode="article-meta-related-article-box"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
 
      <xsl:template match="article | sub-article" mode="article-meta-related-article-box">
@@ -34,7 +36,7 @@
 
             <div class="panel-body">
                 <ul>
-                   <xsl:apply-templates select=".//related-article" mode="article-meta-related-article-item"/>
+                   <xsl:apply-templates select=".//related-article" mode="article-meta-related-article-li"/>
                 </ul>
             </div>
         </div>
@@ -66,48 +68,40 @@
             <bold>2016;39(3):142–8</bold>
         </related-article>
         -->
-        <xsl:choose>
-            <xsl:when test="@xlink:href">
-                <xsl:apply-templates select="@xlink:href"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:when test="normalize-space(.//text())=''">
-                <xsl:if test="@vol">
-                    <xsl:apply-templates select="@vol"></xsl:apply-templates>
-                </xsl:if>
-                <xsl:if test="@issue">
-                    (<xsl:apply-templates select="@issue"></xsl:apply-templates>)
-                </xsl:if>
-                <xsl:if test="(@vol or @issue) and (@page or @elocation-id)">: </xsl:if>
-                
-                <xsl:if test="@page">
-                    <xsl:apply-templates select="@page"></xsl:apply-templates>
-                </xsl:if>
-                <xsl:if test="@page and @elocation-id">, </xsl:if>
-                <xsl:if test="@elocation-id">
-                    <xsl:apply-templates select="@elocation-id"></xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="text"><xsl:apply-templates select="*|text()"/></xsl:variable>
+        <a target="_blank">
+            <xsl:attribute name="href"><xsl:apply-templates select="." mode="article-meta-related-article-href"/></xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="normalize-space($text)='' and @xlink:href">
+                    <xsl:value-of select="@xlink:href"/>
+                </xsl:when>
+                <xsl:when test="normalize-space($text)=''">
+                    <xsl:if test="@vol">
+                        <xsl:apply-templates select="@vol"></xsl:apply-templates>
+                    </xsl:if>
+                    <xsl:if test="@issue">
+                        (<xsl:apply-templates select="@issue"></xsl:apply-templates>)
+                    </xsl:if>
+                    <xsl:if test="(@vol or @issue) and (@page or @elocation-id)">: </xsl:if>
+                    
+                    <xsl:if test="@page">
+                        <xsl:apply-templates select="@page"></xsl:apply-templates>
+                    </xsl:if>
+                    <xsl:if test="@page and @elocation-id">, </xsl:if>
+                    <xsl:if test="@elocation-id">
+                        <xsl:apply-templates select="@elocation-id"></xsl:apply-templates>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+                </xsl:otherwise>
+            </xsl:choose>            
+        </a>
     </xsl:template>
     
-    <xsl:template match="related-article[@ext-link-type='doi']/@xlink:href">
-        <a href="https://doi.org/{.}" target="_blank">
-            <xsl:value-of select="."/>
-        </a>
-    </xsl:template>
-    <xsl:template match="related-article[@ext-link-type='scielo-pid']/@xlink:href">
-        <a href="/article/{.}" target="_blank">
-            <xsl:value-of select="."/>
-        </a>
-    </xsl:template>
-    <xsl:template match="related-article[@ext-link-type='scielo-aid']/@xlink:href">
-        <a href="/article/{.}" target="_blank">
-            <xsl:value-of select="."/>
-        </a>
-    </xsl:template>
+    <xsl:template match="related-article[@ext-link-type='doi']" mode="article-meta-related-article-href">https://doi.org/<xsl:value-of select="@xlink:href"/></xsl:template>
+    <xsl:template match="related-article[@ext-link-type='scielo-pid']" mode="article-meta-related-article-link">/article/<xsl:value-of select="@xlink:href"/></xsl:template>
+    <xsl:template match="related-article[@ext-link-type='scielo-aid']" mode="article-meta-related-article-link">/article/<xsl:value-of select="@xlink:href"/></xsl:template>
 
     <xsl:template match="body//related-article">
         <xsl:apply-templates select="." mode="article-meta-related-article-link"/>
