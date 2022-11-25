@@ -24,38 +24,44 @@
 
      <xsl:template match="article | sub-article" mode="article-meta-related-article-box">
         <!-- APRESENTA CAIXA DE TEXTO DESTACANDO O RELACIONAMENTO ENTRE DOCUMENTOS -->
-        <xsl:variable name="message">
-            <xsl:apply-templates select="@article-type" mode="article-meta-related-article-message"/>
-        </xsl:variable>
         <div class="panel article-correction-title">
-            <div class="panel-heading">
-                <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text"><xsl:value-of select="$message"/></xsl:with-param>
-                </xsl:apply-templates>:
-            </div>
-
+            <xsl:apply-templates select=".//related-article[1]" mode="article-meta-related-article-message"/>
             <div class="panel-body">
                 <ul>
-                   <xsl:apply-templates select=".//related-article" mode="article-meta-related-article-li"/>
+                    <xsl:apply-templates select=".//related-article" mode="article-meta-related-article-item"/>
                 </ul>
             </div>
         </div>
     </xsl:template>
 
-    <xsl:template match="@article-type" mode="article-meta-related-article-message">
+    <xsl:template match="@related-article-type" mode="article-meta-related-article-message">
         <!-- MESSAGE -->
         <xsl:choose>
-            <xsl:when test="contains(.,'retraction')">This retraction retracts</xsl:when>
-            <xsl:when test="contains(.,'corrected-article')">This erratum corrects</xsl:when>
-            <xsl:when test="contains(.,'commentary')">This document comments</xsl:when>
-            <xsl:when test="contains(.,'addendum')">This document is an addendum of</xsl:when>
-            <xsl:when test=".//related-article[@related-article-type='preprint']">This article has preprint version</xsl:when>
-            <xsl:when test=".//related-article[@related-article-type='peer-reviewed-material']">Peer reviewed article</xsl:when>
-            <xsl:otherwise>Related to</xsl:otherwise>
+            <xsl:when test=".='corrected-article'">This erratum corrects</xsl:when>
+            <xsl:when test=".='retracted-article'">This retraction retracts</xsl:when>
+            <xsl:when test=".='commentary-article'">This document comments</xsl:when>
+            <xsl:when test=".='addendum'">This document has an addendum</xsl:when>
+            <xsl:when test=".='retraction'">This document was retracted by</xsl:when>
+            <xsl:when test=".='correction'">This document has corrections</xsl:when>
+            <xsl:when test=".='preprint'">This article has preprint version</xsl:when>
+            <xsl:when test=".='peer-reviewed-material'">Peer reviewed article</xsl:when>
+            <xsl:otherwise>This document is related to</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="related-article" mode="article-meta-related-article-li">
+    <xsl:template match="related-article" mode="article-meta-related-article-message">
+        <xsl:variable name="message">
+            <xsl:apply-templates select="@related-article-type" mode="article-meta-related-article-message"/>
+        </xsl:variable>
+
+        <div class="panel-heading">
+            <xsl:apply-templates select="." mode="text-labels">
+                <xsl:with-param name="text"><xsl:value-of select="$message"/></xsl:with-param>
+            </xsl:apply-templates>:
+        </div>
+    </xsl:template>
+
+    <xsl:template match="related-article" mode="article-meta-related-article-item">
         <li>
             <xsl:apply-templates select="." mode="article-meta-related-article-link"/>
         </li>
