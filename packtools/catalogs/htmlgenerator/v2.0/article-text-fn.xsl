@@ -33,7 +33,7 @@
     </xsl:template>
 
     <xsl:template match="fn">
-        <xsl:variable name="title"><xsl:apply-templates select="label"/><xsl:if test="not(label)"><xsl:value-of select="@fn-type"/></xsl:if></xsl:variable>
+        <xsl:variable name="title"><xsl:apply-templates select="label"/></xsl:variable>
         <li>
             <xsl:choose>
                 <xsl:when test="string-length(normalize-space($title)) &gt; 3">
@@ -92,9 +92,10 @@
     </xsl:template>
     
     <xsl:template match="author-notes/fn" mode="author-notes-as-sections">
+        <!-- não faz nada -->
     </xsl:template>
     
-    <xsl:template match="author-notes/fn[@fn-type='edited-by']|author-notes/fn[@fn-type='other']" mode="author-notes-as-sections">
+    <xsl:template match="author-notes/fn[@fn-type='edited-by']|author-notes/fn[@fn-type='other' and label]" mode="author-notes-as-sections">
         <xsl:variable name="title"><xsl:apply-templates select="label"/><xsl:if test="not(label)"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
              </xsl:apply-templates></xsl:if></xsl:variable>
