@@ -403,6 +403,13 @@
     </term>
     
     <term>
+        <name>edited-by</name>
+        <name lang="en">Edited by</name>
+        <name lang="pt">Editado por</name>
+        <name lang="es">Editado por</name>
+    </term>
+    
+    <term>
         <name>This retraction retracts</name>
         <name lang="en">This retraction retracts</name>
         <name lang="pt">Esta retratação retrata</name>
