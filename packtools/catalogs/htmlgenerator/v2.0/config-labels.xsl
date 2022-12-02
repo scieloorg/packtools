@@ -87,12 +87,6 @@
         </xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="history/date" mode="generated-label">
-        <xsl:apply-templates select="." mode="text-labels">
-            <xsl:with-param name="text"><xsl:value-of select="@date-type"/></xsl:with-param>
-        </xsl:apply-templates>
-    </xsl:template>
-    
     <xsl:template match="*" mode="title">
         <!--
         <xsl:comment> * mode=title </xsl:comment>
