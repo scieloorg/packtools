@@ -131,7 +131,9 @@
     </xsl:template>
 
     <xsl:template match="anonymous" mode="how2cite-contrib">
-        <xsl:value-of select="."/><xsl:if test=".=''"><xsl:value-of select="name()"/></xsl:if>
+        <xsl:value-of select="."/><xsl:if test=".=''"><xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">Anonymous</xsl:with-param>
+        </xsl:apply-templates></xsl:if>
     </xsl:template>
 
     <xsl:template match="name" mode="how2cite-contrib">

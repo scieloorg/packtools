@@ -36,6 +36,12 @@
 
     <xsl:template match="@related-article-type" mode="article-meta-related-article-message">
         <!-- MESSAGE -->
+        <!-- 
+            OBS.: geralmente somente um dos documentos possui related-article.
+            O artigo mencionando geralmente não possui related-article. Mas
+            foi sugerido que passe a ser inserido para que o XML seja autossuficiente. Atualmente o link da volta é feito via aplicação
+            do site.
+        -->
         <xsl:choose>
             <xsl:when test=".='corrected-article'">This erratum corrects</xsl:when>
             <xsl:when test=".='retracted-article'">This retraction retracts</xsl:when>
@@ -44,11 +50,11 @@
             <xsl:when test=".='retraction'">This document was retracted by</xsl:when>
             <xsl:when test=".='correction'">This document has corrections</xsl:when>
             <xsl:when test=".='preprint'">This article has preprint version</xsl:when>
-            <xsl:when test=".='peer-reviewed-material'">Peer reviewed article</xsl:when>
+            <xsl:when test=".='peer-reviewed-material'">This recommendation refers to the article:</xsl:when>
             <xsl:otherwise>This document is related to</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="related-article" mode="article-meta-related-article-message">
         <xsl:variable name="message">
             <xsl:apply-templates select="@related-article-type" mode="article-meta-related-article-message"/>

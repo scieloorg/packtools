@@ -17,7 +17,7 @@
         <a class="copyLink" data-clipboard-text="https://doi.org/10.1590/9999-11112022240116"><span class="sci-ico-link"></span>copiar</a></span>
 </div>
 <div class="panel article-correction-title">
-<div class="panel-heading">Artigo revisado:
+<div class="panel-heading">Esta recomendação é referente ao artigo::
         </div>
 <div class="panel-body"><ul><li><a target="_blank" href="https://doi.org/10.1590/9999-11112021240103">10.1590/9999-11112021240103</a></li></ul></div>
 </div>
@@ -84,7 +84,7 @@
             today.setTime(today.getTime());
             return today.getDate() + " " + months[today.getMonth()] + " " + today.getFullYear();
             }
-            var citation = 'anonymous. PARECER: Y LIYLÉTICY NONGNIVNTV/NÃO-NONGNIVNTV NY. Periódico XXXXXX [online]. 2022, v. 24 [Acessado CURRENTDATE], e400097. Disponível em: &lt;https://doi.org/10.1590/9999-11112022240116&gt;. Epub 18 Jul 2022. ISSN 9999-1111. https://doi.org/10.1590/9999-11112022240116.'.replace('CURRENTDATE', currentDate());
+            var citation = 'Anônimo. PARECER: Y LIYLÉTICY NONGNIVNTV/NÃO-NONGNIVNTV NY. Periódico XXXXXX [online]. 2022, v. 24 [Acessado CURRENTDATE], e400097. Disponível em: &lt;https://doi.org/10.1590/9999-11112022240116&gt;. Epub 18 Jul 2022. ISSN 9999-1111. https://doi.org/10.1590/9999-11112022240116.'.replace('CURRENTDATE', currentDate());
             document.getElementById('citation').innerHTML = citation;
             document.getElementById('citationCut').value = citation.replace('&lt;', '<').replace('&gt;', ">");
         </script>
