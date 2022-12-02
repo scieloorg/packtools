@@ -126,6 +126,18 @@
         <name lang="en">Preprint</name>
     </term>
     <term>
+        <name>date-type-preprint</name>
+        <name lang="pt">Preprint depositado em</name>
+        <name lang="es">Preprint depositado en</name>
+        <name lang="en">Preprint uploaded on</name>
+    </term>
+    <term>
+        <name>reviewer-report-received</name>
+        <name lang="pt">Parecer recebido em</name>
+        <name lang="es">Parecer recibido en</name>
+        <name lang="en">Peer review received</name>
+    </term>
+    <term>
         <name>retracted</name>
         <name lang="pt">Retratado</name>
         <name lang="es">Retractado</name>
@@ -441,16 +453,16 @@
         <name lang="es">Este artículo tiene versión preprint</name>
     </term>
     <term>
-        <name>This recommendation refers to the article:</name>
-        <name lang="en">This recommendation refers to the article:</name>
-        <name lang="pt">Esta recomendação é referente ao artigo:</name>
-        <name lang="es">Esta recomendación se refiere al artículo:</name>
+        <name>This recommendation refers to the article</name>
+        <name lang="en">This recommendation refers to the article</name>
+        <name lang="pt">Esta recomendação é referente ao artigo</name>
+        <name lang="es">Esta recomendación se refiere al artículo</name>
     </term>
     <term>
-        <name>This document has the publication of reviewers' recommendation:</name>
-        <name lang="en">This document has the publication of reviewers' recommendation:</name>
-        <name lang="pt">Este documento tem a publicação de recomendação de pareceristas:</name>
-        <name lang="es">Este documento tiene la publicación de la recomendación de los revisores:</name>
+        <name>This document has the publication of reviewers' recommendation</name>
+        <name lang="en">This document has the publication of reviewers' recommendation</name>
+        <name lang="pt">Este documento tem a publicação de recomendação de pareceristas</name>
+        <name lang="es">Este documento tiene la publicación de la recomendación de los revisores</name>
     </term>
     <term>
         <name>This document is related to</name>
