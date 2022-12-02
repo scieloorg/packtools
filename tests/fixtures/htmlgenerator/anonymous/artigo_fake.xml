@@ -16,14 +16,14 @@
 		</journal-meta>
 		<article-meta>
 		 <article-id pub-id-type="other">00501</article-id>
-			<article-id pub-id-type="doi">10.1590/9999-11112022240116</article-id>
+			<article-id pub-id-type="doi">10.1590/9999-11112022240666</article-id>
 			<article-categories>
 				<subj-group subj-group-type="heading">
-					<subject>PARECERES</subject>
+					<subject>ARTIGOS</subject>
 				</subj-group>
 			</article-categories>
 			<title-group>
-				<article-title>PARECER: Y LIYLÉTICY NONGNIVNTV/NÃO-NONGNIVNTV NY</article-title>
+				<article-title>Y LIYLÉTICY NONGNIVNTV/NÃO-NONGNIVNTV NY</article-title>
 				<trans-title-group xml:lang="es">
 					<trans-title>LY LIALÉNTINA NONGNIVNTV/NO NONGNIVNTV VN LA NONNVPNIÓN LVL MUNLO</trans-title>
 				</trans-title-group>
@@ -63,11 +63,11 @@
 					<license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons</license-p>
 				</license>
 			</permissions>
-			
+			<related-article related-article-type="peer-review" id="r01" xlink:href="10.1590/9999-11112021240103" ext-link-type="doi"/>
 		</article-meta>
 	</front>
 	<body>
-		<p>This peer review can be read at: <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/9999-11112021240103" ext-link-type="doi"/>
+		<p>
 		</p>
 	</body>
 </article>

@@ -117,7 +117,7 @@
             today.setTime(today.getTime());
             return today.getDate() + " " + months[today.getMonth()] + " " + today.getFullYear();
             }
-            var citation = 'Carmo, Miguel Ângelo Oliveira doComentário a “Cinismo e indiferenciación: la huella de Glucksmann en El coraje de la verdad de Foucault”: por uma indiferenciação cínica. Trans/Form/Ação [online]. 2022, v. 45, n. 01 [Acessado CURRENTDATE], pp. 165-170. Disponível em: &lt;https://doi.org/10.1590/0101-3173.2022.v45n1.p165&gt;. Epub 16 Mar 2022. ISSN 1980-539X. https://doi.org/10.1590/0101-3173.2022.v45n1.p165.'.replace('CURRENTDATE', currentDate());
+            var citation = 'Carmo, Miguel Ângelo Oliveira do. Comentário a “Cinismo e indiferenciación: la huella de Glucksmann en El coraje de la verdad de Foucault”: por uma indiferenciação cínica. Trans/Form/Ação [online]. 2022, v. 45, n. 01 [Acessado CURRENTDATE], pp. 165-170. Disponível em: &lt;https://doi.org/10.1590/0101-3173.2022.v45n1.p165&gt;. Epub 16 Mar 2022. ISSN 1980-539X. https://doi.org/10.1590/0101-3173.2022.v45n1.p165.'.replace('CURRENTDATE', currentDate());
             document.getElementById('citation').innerHTML = citation;
             document.getElementById('citationCut').value = citation.replace('&lt;', '<').replace('&gt;', ">");
         </script>

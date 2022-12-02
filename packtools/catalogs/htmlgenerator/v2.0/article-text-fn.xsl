@@ -24,35 +24,34 @@
             </div>
         </xsl:if>
     </xsl:template>
-    
+  
     <xsl:template match="fn" mode="text-fn">
         <xsl:apply-templates select="."/>
     </xsl:template>
     
     <xsl:template match="table-wrap-foot//fn" mode="text-fn">
     </xsl:template>
-        
+
     <xsl:template match="fn">
+        <xsl:variable name="title"><xsl:apply-templates select="label"/></xsl:variable>
         <li>
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+            <xsl:choose>
+                <xsl:when test="string-length(normalize-space($title)) &gt; 3">
+                    <div>
+                        <xsl:attribute name="class">articleSection</xsl:attribute>
+                        <xsl:attribute name="data-anchor"><xsl:value-of select="translate($title, ':', '')"/></xsl:attribute>
+                        <h3><xsl:value-of select="translate($title, ':', '')"/></h3>
+                        <xsl:apply-templates select="*[name()!='label']|text()"/>
+                    </div>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span class="xref big"><xsl:apply-templates select="label"/></span>
+                    <xsl:apply-templates select="*[name()!='label']|text()"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </li>
     </xsl:template>
 
-    <xsl:template match="fn/label">
-        <xsl:choose>
-            <xsl:when test="string-length(normalize-space(text())) &gt; 3">
-                <div>
-                    <xsl:attribute name="class">articleSection</xsl:attribute>
-                    <xsl:attribute name="data-anchor"><xsl:value-of select="."/></xsl:attribute>
-                    <h3><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>
-                </div>
-            </xsl:when>
-            <xsl:otherwise>
-                <span class="xref big"><xsl:apply-templates select="*|text()"></xsl:apply-templates></span>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
     <xsl:template match="fn/p">
         <div>
             <xsl:apply-templates select="*|text()"></xsl:apply-templates>
@@ -69,6 +68,39 @@
                     <xsl:apply-templates select="*[name()!='title']|text()"></xsl:apply-templates>
                 </ul>
             </div>
+    </xsl:template>
+
+    <xsl:template match="article" mode="author-notes-as-sections">  
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//front-stub//author-notes" mode="author-notes-as-sections"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//front//author-notes" mode="author-notes-as-sections"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="author-notes" mode="author-notes-as-sections">
+        <xsl:if test=".//fn">
+            <xsl:apply-templates select=".//fn" mode="author-notes-as-sections"/>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="author-notes/fn" mode="author-notes-as-sections">
+        <!-- não faz nada -->
+    </xsl:template>
+    
+    <xsl:template match="author-notes/fn[@fn-type='edited-by']" mode="author-notes-as-sections">
+        <xsl:variable name="title"><xsl:apply-templates select="label"/><xsl:if test="not(label)"><xsl:apply-templates select="." mode="text-labels">
+                 <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
+             </xsl:apply-templates></xsl:if></xsl:variable>
+        <div>
+            <xsl:attribute name="class">articleSection</xsl:attribute>
+            <xsl:attribute name="data-anchor"><xsl:value-of select="translate($title, ':', '')"/></xsl:attribute>
+            <h3><xsl:value-of select="translate($title, ':', '')"/></h3>
+            <xsl:apply-templates select="*[name()!='label']|text()"/>
+        </div>
     </xsl:template>
 
 </xsl:stylesheet>
