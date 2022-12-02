@@ -15,39 +15,12 @@
                  <div class="col-md-12 col-sm-12">
                      <ul class="articleTimeline">
                          <xsl:apply-templates select="." mode="generic-history-history-dates"></xsl:apply-templates>
-                         <xsl:apply-templates select="." mode="generic-history-errata-date"></xsl:apply-templates>
-                         <xsl:apply-templates select="." mode="generic-history-retraction-date"></xsl:apply-templates>
-                         <xsl:apply-templates select="." mode="generic-history-manisfestation-date"></xsl:apply-templates>
                      </ul>
                  </div>
              </div>
          </div>
        </xsl:if>
     </xsl:template>
-
-    <!--xsl:template match="front-stub | *[name()!='article']/front" mode="generic-history">
-        <div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <h1><xsl:apply-templates select="." mode="text-labels">
-                        <xsl:with-param name="text">History</xsl:with-param>
-                    </xsl:apply-templates></h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <ul class="articleTimeline">
-                        <xsl:apply-templates select="." mode="generic-history-history-dates"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="generic-history-epub-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="generic-history-publication-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="generic-history-errata-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="generic-history-retraction-date"></xsl:apply-templates>
-                        <xsl:apply-templates select="." mode="generic-history-manisfestation-date"></xsl:apply-templates>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </xsl:template-->
 
     <xsl:template match="article-meta" mode="generic-history-history-dates">
         <xsl:choose>
@@ -67,25 +40,22 @@
     <xsl:template match="history/date" mode="generic-history-list-item">
         <li>
             <strong>
-                <xsl:apply-templates select="." mode="generated-label"></xsl:apply-templates>
+                <xsl:apply-templates select="@date-type" mode="history-item-label"/>
             </strong><br/>
             <xsl:apply-templates select="."></xsl:apply-templates>
         </li>
     </xsl:template>
 
-    <xsl:template match="*" mode="generic-history-errata-date">
-        <!-- FIXME -->
-        <!-- li><strong>Errata:</strong><br/> 01/11/2013</li -->
+    <xsl:template match="@date-type" mode="history-item-label">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text"><xsl:value-of select="."/></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="*" mode="generic-history-retraction-date">
-        <!-- FIXME -->
-        <!-- li><strong>Retratação:</strong><br/> 01/11/2013</li -->
-    </xsl:template>
-
-    <xsl:template match="*" mode="generic-history-manisfestation-date">
-        <!-- FIXME -->
-        <!-- li><strong>Manifestação de preocupação:</strong><br/> 01/11/2013</li -->
+    <xsl:template match="@date-type[.='preprint']" mode="history-item-label">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">date-type-<xsl:value-of select="."/></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="*[month or year or day or season]">
