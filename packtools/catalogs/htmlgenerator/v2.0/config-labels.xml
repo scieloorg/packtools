@@ -11,6 +11,11 @@
         <name lang="es">Datos de investigación</name>
     </term>
     <term>
+        <name>Data citations</name>
+        <name lang="pt">Citações de dados</name>
+        <name lang="es">Citaciones de datos</name>
+    </term>
+    <term>
         <name>data-availability</name>
         <name lang="en">Data availability statement</name>
         <name lang="pt">Declaração de disponibilidade de dados</name>

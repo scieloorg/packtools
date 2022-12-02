@@ -255,11 +255,9 @@
             <xsl:apply-templates select="." mode="author-notes-as-sections"/>
             <xsl:apply-templates select="." mode="article-text-sub-articles"/>
 
+            <xsl:apply-templates select="." mode="data-availability"/>
             <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
             <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
-
-            <xsl:apply-templates select="." mode="data-availability"/>
-
             <section class="documentLicense">
                 <div class="container-license">
                     <div class="row">

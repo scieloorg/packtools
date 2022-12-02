@@ -32,6 +32,9 @@
 
     <xsl:template match="ref-list" mode="data-availability">
         <xsl:if test=".//element-citation[@publication-type='data' or @publication-type='database']">
+            <h2><xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">Data citations</xsl:with-param>
+                </xsl:apply-templates></h2>
             <xsl:apply-templates select=".//element-citation[@publication-type='data' or @publication-type='database']" mode="data-availability"/>
         </xsl:if>
     </xsl:template>
