@@ -16,13 +16,13 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- article -->
-                    <xsl:apply-templates select="." mode="article-meta-related-article-box"/>
+                    <xsl:apply-templates select=".//article-meta" mode="article-meta-related-article-box"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
     </xsl:template>
 
-     <xsl:template match="article | sub-article" mode="article-meta-related-article-box">
+     <xsl:template match="article-meta | sub-article" mode="article-meta-related-article-box">
         <!-- APRESENTA CAIXA DE TEXTO DESTACANDO O RELACIONAMENTO ENTRE DOCUMENTOS -->
         <div class="panel article-correction-title">
             <xsl:apply-templates select=".//related-article[1]" mode="article-meta-related-article-message"/>
