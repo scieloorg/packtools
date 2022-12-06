@@ -9,31 +9,33 @@
     <xsl:template match="article" mode="article-meta-related-article">
         <!-- seleciona dados de article ou sub-article -->
         <xsl:if test=".//related-article">
-            <xsl:choose>
-                <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article">
-                    <!-- sub-article -->
-                    <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="article-meta-related-article-box"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!-- article -->
-                    <xsl:apply-templates select=".//article-meta" mode="article-meta-related-article-box"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <!-- caixa amarela -->
+            <div class="panel article-correction-title">
+                <xsl:choose>
+                    <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article">
+                        <!-- sub-article -->
+                        <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article" mode="article-meta-related-article-box-item"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- article -->
+                        <xsl:apply-templates select=".//article-meta//related-article" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select="body//related-article" mode="article-meta-related-article-box-item"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </div>            
         </xsl:if>
     </xsl:template>
 
-     <xsl:template match="article-meta | sub-article" mode="article-meta-related-article-box">
-        <!-- APRESENTA CAIXA DE TEXTO DESTACANDO O RELACIONAMENTO ENTRE DOCUMENTOS -->
-        <div class="panel article-correction-title">
-            <xsl:apply-templates select=".//related-article[1]" mode="article-meta-related-article-message"/>
-            <div class="panel-body">
-                <ul>
-                    <xsl:apply-templates select=".//related-article" mode="article-meta-related-article-item"/>
-                </ul>
-            </div>
+    <xsl:template match="related-article" mode="article-meta-related-article-box-item">
+        <xsl:apply-templates select="." mode="article-meta-related-article-message"/>
+        <div class="panel-body">
+            <ul>
+                <xsl:apply-templates select="." mode="article-meta-related-article-item"/>
+            </ul>
         </div>
     </xsl:template>
 
+            
     <xsl:template match="@related-article-type" mode="article-meta-related-article-message">
         <!-- MESSAGE -->
         <!-- 
