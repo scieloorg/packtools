@@ -33,23 +33,27 @@
     </xsl:template>
 
     <xsl:template match="fn">
-        <xsl:variable name="title"><xsl:apply-templates select="label"/></xsl:variable>
         <li>
-            <xsl:choose>
-                <xsl:when test="string-length(normalize-space($title)) &gt; 3">
-                    <div>
-                        <xsl:attribute name="class">articleSection</xsl:attribute>
-                        <xsl:attribute name="data-anchor"><xsl:value-of select="translate($title, ':', '')"/></xsl:attribute>
-                        <h3><xsl:value-of select="translate($title, ':', '')"/></h3>
-                        <xsl:apply-templates select="*[name()!='label']|text()"/>
-                    </div>
-                </xsl:when>
-                <xsl:otherwise>
-                    <span class="xref big"><xsl:apply-templates select="label"/></span>
-                    <xsl:apply-templates select="*[name()!='label']|text()"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="*|text()"/>
         </li>
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']">
+        <li>
+            <xsl:apply-templates select="." mode="open-science-notes"/>
+        </li>
+    </xsl:template>
+
+    <xsl:template match="fn/label">
+        <xsl:variable name="title"><xsl:apply-templates select="*|text()"/></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space($title)) &gt; 3">
+                <h3><xsl:apply-templates select="*|text()"/></h3>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="xref big"><xsl:apply-templates select="*|text()"/></span>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="fn/p">
@@ -70,7 +74,7 @@
             </div>
     </xsl:template>
 
-    <xsl:template match="article" mode="author-notes-as-sections">  
+    <xsl:template match="article" mode="author-notes-as-sections">
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                 <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//front-stub//author-notes" mode="author-notes-as-sections"/>
@@ -82,16 +86,13 @@
     </xsl:template>
 
     <xsl:template match="author-notes" mode="author-notes-as-sections">
-        <xsl:if test=".//fn">
-            <xsl:apply-templates select=".//fn" mode="author-notes-as-sections"/>
-        </xsl:if>
+        <!--
+            destaca algumas notas de autores, colocando-as no menu esquerdo
+        -->  
+        <xsl:apply-templates select="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="open-science-notes"/>
     </xsl:template>
-    
-    <xsl:template match="author-notes/fn" mode="author-notes-as-sections">
-        <!-- não faz nada -->
-    </xsl:template>
-    
-    <xsl:template match="author-notes/fn[@fn-type='edited-by']" mode="author-notes-as-sections">
+
+    <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="open-science-notes">
         <xsl:variable name="title"><xsl:apply-templates select="label"/><xsl:if test="not(label)"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
              </xsl:apply-templates></xsl:if></xsl:variable>
