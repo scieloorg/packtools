@@ -452,10 +452,10 @@
         <name lang="es">Este documento es un anexo de</name>
     </term>
     <term>
-        <name>This article has preprint version</name>
-        <name lang="en">This article has preprint version</name>
-        <name lang="pt">Este artigo tem versão preprint</name>
-        <name lang="es">Este artículo tiene versión preprint</name>
+        <name>This document has a preprint version</name>
+        <name lang="en">This document has a preprint version</name>
+        <name lang="pt">Este documento possui uma versão em preprint</name>
+        <name lang="es">Este documento tiene una versión preprint</name>
     </term>
     <term>
         <name>This recommendation refers to the article</name>

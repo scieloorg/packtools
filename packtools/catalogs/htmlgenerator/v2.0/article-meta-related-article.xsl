@@ -8,18 +8,19 @@
 
     <xsl:template match="article" mode="article-meta-related-article">
         <!-- seleciona dados de article ou sub-article -->
-        <xsl:if test=".//related-article">
+        <xsl:if test=".//related-article[@related-article-type!='preprint']">
+            <!-- preprint não deve tanto destaque quanto os demais tipos -->
             <!-- caixa amarela -->
             <div class="panel article-correction-title">
                 <xsl:choose>
                     <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article">
                         <!-- sub-article -->
-                        <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- article -->
-                        <xsl:apply-templates select=".//article-meta//related-article" mode="article-meta-related-article-box-item"/>
-                        <xsl:apply-templates select="body//related-article" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select=".//article-meta//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select="body//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </div>            
@@ -34,7 +35,6 @@
             </ul>
         </div>
     </xsl:template>
-
             
     <xsl:template match="@related-article-type" mode="article-meta-related-article-message">
         <!-- MESSAGE -->
@@ -51,7 +51,7 @@
             <xsl:when test=".='addendum'">This document has an addendum</xsl:when>
             <xsl:when test=".='retraction'">This document was retracted by</xsl:when>
             <xsl:when test=".='correction'">This document has corrections</xsl:when>
-            <xsl:when test=".='preprint'">This document has the publication of reviewers' recommendation</xsl:when>
+            <xsl:when test=".='preprint'">This document has a preprint version</xsl:when>
             <xsl:when test=".='peer-reviewed-material'">This recommendation refers to the article</xsl:when>
             <xsl:otherwise>This document is related to</xsl:otherwise>
         </xsl:choose>
@@ -121,4 +121,8 @@
         <xsl:apply-templates select="." mode="article-meta-related-article-link"/>
     </xsl:template>
 
+    <xsl:template match="related-article[@related-article-type='preprint']" mode="hidden-box">
+        <!-- para evitar que a caixa seja inserida via javascript -->
+        <div class="panel article-correction-title" style="visibility: hidden"></div>
+    </xsl:template>
 </xsl:stylesheet>

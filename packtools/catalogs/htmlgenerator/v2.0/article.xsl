@@ -256,6 +256,7 @@
             <xsl:apply-templates select="." mode="article-text-sub-articles"/>
 
             <xsl:apply-templates select="." mode="data-availability"/>
+
             <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
             <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
             <section class="documentLicense">
@@ -265,6 +266,7 @@
                     </div>
                 </div>
             </section>
+            <xsl:apply-templates select=".//related-article[@related-article-type='preprint']" mode="hidden-box"/>
         </article>
     </xsl:template>
 
