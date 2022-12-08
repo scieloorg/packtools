@@ -51,7 +51,7 @@
             <xsl:when test=".='addendum'">This document has an addendum</xsl:when>
             <xsl:when test=".='retraction'">This document was retracted by</xsl:when>
             <xsl:when test=".='correction'">This document has corrections</xsl:when>
-            <xsl:when test=".='preprint'">This document has the publication of reviewers' recommendation</xsl:when>
+            <xsl:when test=".='preprint'">This document has a preprint version</xsl:when>
             <xsl:when test=".='peer-reviewed-material'">This recommendation refers to the article</xsl:when>
             <xsl:otherwise>This document is related to</xsl:otherwise>
         </xsl:choose>
