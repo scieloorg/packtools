@@ -9,6 +9,7 @@
     <xsl:template match="article" mode="article-meta-related-article">
         <!-- seleciona dados de article ou sub-article -->
         <xsl:if test=".//related-article[@related-article-type!='preprint']">
+            <!-- preprint não deve tanto destaque quanto os demais tipos -->
             <!-- caixa amarela -->
             <div class="panel article-correction-title">
                 <xsl:choose>
@@ -120,4 +121,8 @@
         <xsl:apply-templates select="." mode="article-meta-related-article-link"/>
     </xsl:template>
 
+    <xsl:template match="related-article[@related-article-type='preprint']" mode="hidden-box">
+        <!-- para evitar que a caixa seja inserida via javascript -->
+        <div class="panel article-correction-title" style="visibility: hidden"></div>
+    </xsl:template>
 </xsl:stylesheet>

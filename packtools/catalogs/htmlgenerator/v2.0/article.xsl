@@ -266,6 +266,7 @@
                     </div>
                 </div>
             </section>
+            <xsl:apply-templates select=".//related-article[@related-article-type='preprint']" mode="hidden-box"/>
         </article>
     </xsl:template>
 
