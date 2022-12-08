@@ -8,18 +8,18 @@
 
     <xsl:template match="article" mode="article-meta-related-article">
         <!-- seleciona dados de article ou sub-article -->
-        <xsl:if test=".//related-article">
+        <xsl:if test=".//related-article[@related-article-type!='preprint']">
             <!-- caixa amarela -->
             <div class="panel article-correction-title">
                 <xsl:choose>
                     <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article">
                         <!-- sub-article -->
-                        <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- article -->
-                        <xsl:apply-templates select=".//article-meta//related-article" mode="article-meta-related-article-box-item"/>
-                        <xsl:apply-templates select="body//related-article" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select=".//article-meta//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select="body//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </div>            
@@ -34,7 +34,6 @@
             </ul>
         </div>
     </xsl:template>
-
             
     <xsl:template match="@related-article-type" mode="article-meta-related-article-message">
         <!-- MESSAGE -->

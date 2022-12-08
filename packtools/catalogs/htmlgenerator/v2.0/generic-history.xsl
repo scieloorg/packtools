@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
-
+    <xsl:variable name="related_preprint" select="//related-article[@related-article-type='preprint']"/>
     <xsl:template match="article-meta | sub-article | response" mode="generic-history">
        <xsl:if test=".//history">
         <div class="articleSection">
@@ -43,6 +43,10 @@
                 <xsl:apply-templates select="@date-type" mode="history-item-label"/>
             </strong><br/>
             <xsl:apply-templates select="."></xsl:apply-templates>
+            <xsl:if test="@date-type='preprint' and $related_preprint">
+                <br/>
+                <xsl:apply-templates select="$related_preprint[1]" mode="article-meta-related-article-link"/>
+            </xsl:if>
         </li>
     </xsl:template>
 
