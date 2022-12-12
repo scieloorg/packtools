@@ -3,7 +3,7 @@
     version="1.0">
 
     <xsl:template match="article" mode="data-availability">
-        <xsl:if test="article-meta/supplementary-material or .//element-citation[@publication-type='data' or @publication-type='database']">
+        <xsl:if test=".//article-meta/supplementary-material or .//element-citation[@publication-type='data' or @publication-type='database']">
             <xsl:variable name="title">
                 <xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text">Data availability</xsl:with-param>
