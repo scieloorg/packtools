@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    >
+    <xsl:template match="article" mode="article-meta-subject">
+        <!--
+        <xsl:comment> <xsl:value-of select="$TEXT_LANG"/> </xsl:comment>
+        -->
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
+                <xsl:for-each select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//subject">
+                    <xsl:value-of select="text()"/>
+                    <xsl:choose>
+                        <xsl:when test="position() != last()">, </xsl:when>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="front/article-meta//subject">
+                    <xsl:value-of select="text()"/>
+                    <xsl:choose>
+                        <xsl:when test="position() != last()">, </xsl:when>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="article" mode="article-meta-title">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/front-stub/title-group/article-title"/>
+            </xsl:when>
+            <xsl:when test="front/article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title">
+                <xsl:apply-templates select="front/article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front/article-meta//article-title"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="article" mode="article-meta-trans-title">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
+            </xsl:when>
+            <xsl:when test="front/article-meta//trans-title-group[@xml:lang=$TEXT_LANG]/trans-title">
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front/article-meta//trans-title-group//trans-title" mode="translation"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="trans-title" mode="translation">
+        <h2 class="article-title"><xsl:apply-templates select="*|text()"></xsl:apply-templates></h2>
+    </xsl:template>
+
+    <xsl:template match="*" mode="article-meta-doi">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//front-stub//article-id[@pub-id-type='doi']">
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//front-stub//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:apply-templates select="front/article-meta//article-id[@pub-id-type='doi']" mode="display"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="article-id[@pub-id-type='doi']" mode="display">
+        <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
+        <a href="{$link}" class="_doi" target="_blank"><xsl:value-of select="$link"/></a>
+        &#160;
+
+        <a 
+            href="javascript:;"
+            class="btn btn-secondary btn-sm scielo__btn-with-icon--left copyLink"
+            data-clipboard-text="{$link}">
+            <span class="material-icons-outlined">link</span>
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">copy</xsl:with-param>
+            </xsl:apply-templates>
+        </a>
+    </xsl:template>
+
+    <xsl:template match="article" mode="issue-meta-pub-dates">
+
+        <xsl:choose>
+            <xsl:when test="front/article-meta/pub-date[@date-type='collection']">
+                <xsl:apply-templates  select="front/article-meta/pub-date[@date-type='collection']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="front/article-meta/pub-date[@date-type='pub']">
+                <xsl:apply-templates select="front/article-meta/pub-date[@date-type='pub']"/>
+            </xsl:when>
+            <xsl:when test="front/article-meta/pub-date[@pub-type='collection']">
+                <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='collection']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="front/article-meta/pub-date[@pub-type='ppub']">
+                <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='ppub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="front/article-meta/pub-date[@pub-type='ppub-epub']">
+                <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='ppub-epub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="front/article-meta/pub-date[@pub-type='epub-ppub']">
+                <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='epub-ppub']"></xsl:apply-templates>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="article" mode="article-meta-pub-dates">
+        <xsl:apply-templates select="front/article-meta/pub-date[1]" mode="generated-label"></xsl:apply-templates>&#160;
+
+        <xsl:choose>
+            <xsl:when test="front/article-meta/pub-date[@date-type='epub']">
+                <xsl:apply-templates  select="front/article-meta/pub-date[@date-type='epub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="front/article-meta/pub-date[@pub-type='epub']">
+                <xsl:apply-templates  select="front/article-meta/pub-date[@pub-type='epub']"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates  select="front/article-meta/pub-date"></xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+</xsl:stylesheet>
