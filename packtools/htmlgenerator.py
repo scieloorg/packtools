@@ -4,6 +4,7 @@ import argparse
 import sys
 import pkg_resources
 import logging
+import os
 
 from lxml import etree
 
@@ -20,11 +21,29 @@ class XMLError(Exception):
 
 
 def get_htmlgenerator(
-    xmlpath, no_network, no_checks, css, print_css, js, permlink,
+    xmlpath, no_network, no_checks, css, print_css, js,
+    math_elem_preference, math_js,
+    permlink,
     url_article_page, url_download_ris,
     gs_abstract,
     output_style,
+    xslt,
+    bootstrap_css,
+    article_css,
+    design_system_static_img_path,
 ):
+
+    if xslt == "3.0":
+        if bootstrap_css and article_css and os.path.isfile(css):
+            css = os.path.dirname(css)
+        if not design_system_static_img_path:
+            design_system_static_img_path = (
+                os.path.join(
+                    os.path.dirname(os.path.dirname(bootstrap_css)),
+                    "img"
+                )
+            )
+
     try:
         parsed_xml = packtools.XML(xmlpath, no_network=no_network)
     except IOError as e:
@@ -37,11 +56,16 @@ def get_htmlgenerator(
         generator = packtools.HTMLGenerator.parse(
             parsed_xml, valid_only=valid_only, css=css,
             print_css=print_css, js=js,
+            math_elem_preference=math_elem_preference, math_js=math_js,
             permlink=permlink,
             url_article_page=url_article_page,
             url_download_ris=url_download_ris,
             gs_abstract=gs_abstract,
             output_style=output_style,
+            xslt=xslt,
+            bootstrap_css=bootstrap_css,
+            article_css=article_css,
+            design_system_static_img_path=design_system_static_img_path,
             )
     except ValueError as e:
         raise XMLError('Error reading %s. %s.' % (xmlpath, e))
@@ -64,10 +88,26 @@ def main():
                         help='Abstract for Google Scholar')
     parser.add_argument('--output_style', default='',
                         help='Output styles: website or html')
+    parser.add_argument('--xslt', default=None,
+                        choices=['2.0', '3.0'],
+                        help='XSLT Version',
+                        )
     parser.add_argument('--css', default=catalogs.HTML_GEN_DEFAULT_CSS_PATH,
                         help='URL or full path of the CSS file to use with generated htmls')
     parser.add_argument('--print_css', default=catalogs.HTML_GEN_DEFAULT_PRINT_CSS_PATH,
                         help='URL or full path of the CSS (media: print) file to use with generated htmls')
+    parser.add_argument('--bootstrap_css', default=catalogs.HTML_GEN_BOOTSTRAP_CSS_PATH,
+                        help='URL or full path of the CSS file to use with generated htmls')
+    parser.add_argument('--article_css', default=catalogs.HTML_GEN_ARTICLE_CSS_PATH,
+                        help='URL or full path of the CSS file to use with generated htmls')
+    parser.add_argument('--design_system_static_img_path',
+                        help='URL or full path of the Design System Images')
+
+    parser.add_argument('--math_js', default='https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-svg.js',
+                        help='URL Math renderer')
+    parser.add_argument('--math_elem_preference', default='mml:math',
+                        choices=['text-math', 'mml:math'],
+                        help='Math element preference')
     parser.add_argument('--js', default=catalogs.HTML_GEN_DEFAULT_JS_PATH,
                         help='URL or full path of the JS file to use with generated htmls')
     parser.add_argument('--permlink', default='',
@@ -86,39 +126,50 @@ def main():
 
     print('Please wait, this may take a while...', file=sys.stderr)
 
+    if args.xslt:
+        xslt_versions = [args.xslt]
+    else:
+        xslt_versions = ["2.0", "3.0"]
     for xml in packtools.utils.flatten(args.XML):
         LOGGER.info('starting generation of %s' % (xml,))
 
-        try:
-            html_generator = get_htmlgenerator(
-                xml, args.nonetwork, args.nochecks,
-                args.css, args.print_css, args.js,
-                args.permlink, args.url_article_page, args.url_download_ris,
-                args.gs_abstract,
-                args.output_style,
-            )
-            LOGGER.debug('HTMLGenerator repr: %s' % repr(html_generator))
-        except XMLError as e:
-            LOGGER.debug(e)
-            LOGGER.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
-            continue
+        for xslt_version in xslt_versions:
+            version = xslt_version.replace(".", "_")
+            try:
+                html_generator = get_htmlgenerator(
+                    xml, args.nonetwork, args.nochecks,
+                    args.css, args.print_css, args.js,
+                    args.math_elem_preference, args.math_js,
+                    args.permlink, args.url_article_page, args.url_download_ris,
+                    args.gs_abstract,
+                    args.output_style,
+                    xslt_version,
+                    args.bootstrap_css,
+                    args.article_css,
+                    args.design_system_static_img_path,
+                )
+                LOGGER.debug('HTMLGenerator repr: %s' % repr(html_generator))
+            except XMLError as e:
+                LOGGER.debug(e)
+                LOGGER.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
+                continue
 
-        try:
-            abstract_suffix = args.gs_abstract and '.abstract' or ''
-            for lang, trans_result in html_generator:
-                fname, fext = xml.rsplit('.', 1)
-                out_fname = '.'.join([fname, lang + abstract_suffix, 'html'])
+            try:
+                abstract_suffix = args.gs_abstract and '.abstract' or ''
+                for lang, trans_result in html_generator:
+                    fname, fext = xml.rsplit('.', 1)
+                    out_fname = '.'.join([fname, lang + abstract_suffix, version, 'html'])
 
-                with open(out_fname, 'wb') as fp:
-                    fp.write(etree.tostring(trans_result, pretty_print=True,
-                                            encoding='utf-8', method='html',
-                                            doctype=u"<!DOCTYPE html>"))
+                    with open(out_fname, 'wb') as fp:
+                        fp.write(etree.tostring(trans_result, pretty_print=True,
+                                                encoding='utf-8', method='html',
+                                                doctype=u"<!DOCTYPE html>"))
 
-                print('Generated HTML file:', out_fname)
-        except TypeError as e:
-            LOGGER.debug(e)
-            LOGGER.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
-            continue
+                    print('Generated HTML file:', out_fname)
+            except TypeError as e:
+                LOGGER.debug(e)
+                LOGGER.warning('Error generating %s. Skipping. Run with DEBUG for more info.', xml)
+                continue
 
         LOGGER.info('finished generating %s' % (xml,))
 

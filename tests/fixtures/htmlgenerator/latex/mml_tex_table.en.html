@@ -1,0 +1,3054 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-article-standalone.css">
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-bundle-print.css" media="print">
+<link rel="alternate" type="application/rss+xml" title="SciELO" href="">
+</head>
+<body class="journal article">
+<a name="top"></a><div id="standalonearticle">
+<section class="articleCtt"><div class="container"><div class="articleTxt">
+<div class="articleBadge-editionMeta-doi-copyLink">
+<span class="_articleBadge">MATHEMATICAL SCIENCES</span><span class="_separator"> • </span><span class="_editionMeta">An. Acad. Bras. Ciênc. 93 
+                (3)
+            <span class="_separator"> • </span>2021</span><span class="_separator"> • </span><span class="group-doi"><a href="https://doi.org/10.1590/0001-3765202120190961" class="_doi" target="_blank">https://doi.org/10.1590/0001-3765202120190961</a>
+         
+        <a class="copyLink" data-clipboard-text="https://doi.org/10.1590/0001-3765202120190961"><span class="sci-ico-link"></span>copy</a></span>
+</div>
+<h1 class="article-title">
+<span class="sci-ico-openAccess showTooltip" data-toggle="tooltip" data-original-title="by 4.0 "></span>The Weibull Burr XII distribution in lifetime and income analysis<a id="shorten" href="#" class="short-link"><span class="sci-ico-link"></span></a>
+</h1>
+<div class="articleMeta"></div>
+<div class="contribGroup">
+<span class="dropdown"><a id="contribGroupTutor1" class="dropdown-toggle" data-toggle="dropdown"><span> RENATA ROJAS GUERRA </span></a><ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor1">
+<strong></strong>Universidade Federal de Santa Maria, Departamento de Estatística, Cidade Universitária, Av. Roraima, 1000, 97105-900 Santa Maria, RS, Brazil<a href="http://orcid.org/0000-0002-6476-8276" class="btnContribLinks orcid">http://orcid.org/0000-0002-6476-8276</a>
+</ul></span><span class="dropdown"><a id="contribGroupTutor2" class="dropdown-toggle" data-toggle="dropdown"><span> FERNANDO A. PEÑA-RAMÍREZ </span></a><ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor2">
+<strong></strong>Universidade Federal de Santa Maria, Departamento de Estatística, Cidade Universitária, Av. Roraima, 1000, 97105-900 Santa Maria, RS, Brazil<a href="http://orcid.org/0000-0001-9605-1766" class="btnContribLinks orcid">http://orcid.org/0000-0001-9605-1766</a>
+</ul></span><span class="dropdown"><a id="contribGroupTutor3" class="dropdown-toggle" data-toggle="dropdown"><span> GAUSS M. CORDEIRO </span></a><ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor3">
+<strong></strong>Universidade Federal de Pernambuco, Departamento de Estatística, Cidade Universitária, Av. Prof. Moraes Rego, 1235, 50740-540 Recife, PE, Brazil<a href="http://orcid.org/0000-0002-3052-6551" class="btnContribLinks orcid">http://orcid.org/0000-0002-3052-6551</a>
+</ul></span><a href="" class="outlineFadeLink" data-toggle="modal" data-target="#ModalTutors">About the authors</a>
+</div>
+<div class="row">
+<ul class="col-md-2 hidden-sm articleMenu"></ul>
+<article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0"><div class="articleSection" data-anchor="Abstract">
+<h1 class="articleSectionTitle">Abstract</h1>
+<p>We study a five-parameter model called the Weibull Burr XII (WBXII) distribution, which extends several models, including new ones. This model is quite flexible in terms of the hazard function, which exhibits increasing, decreasing, upside-down bathtub, and bathtub shapes. Its density function allows different forms such as left-skewed, right-skewed, reversed-J, and bimodal. We aim to provide some general mathematical quantities for the proposed distribution, which can be useful to real data analysis. We develop a shiny application to provide interactive illustrations of the WBXII density and hazard functions. We estimate the model parameters using maximum likelihood and derive a profile log-likelihood for all members of the Weibull-G family. The survival analysis application reveals that the WBXII model is suitable to accommodate left-skewed tails, which are very common when the variable of interest is the time to failure of a product. The income application is related to player salaries within a professional sports league and it is peculiar because the mean of the player’s salaries is much higher than for most professions. Both applications illustrate that the new distribution provides much better fits than other models with the same and less number of parameters.</p>
+<p><strong>Key words</strong><br>Bimodal distribution; Burr XII distribution; profile log-likelihood; Weibull-G family</p>
+</div>
+<div class="articleSection" data-anchor="Text">
+<h1 class="articleSectionTitle">INTRODUCTION</h1>
+<p>For the Burr XII (BXII) distribution, also known as the Singh-Maddala distribution (<span class="ref"><strong class="xref xrefblue">Singh &amp; Maddala 1975</strong><span class="refCtt closed"><span>SINGH SK &amp; MADDALA GS. 1975. A stochastic process for income distribution and tests for income distribution functions. In: ASA Proceedings of the Business and Economic Statistics Section, p. 551-553.</span></span></span>, <span class="ref"><sup class="xref xrefblue"> 1976</sup><span class="refCtt closed"><span>SINGH SK &amp; MADDALA GS. 1976. A function for the size distribution of incomes. Econometrica 44: 963-970.</span></span></span>) with shape parameters \(d&gt;0\) and \(c&gt;0\) and scale parameter \(s&gt;0\), the cumulative distribution function (cdf) is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} G(x;c,d,s)= 1-\left[1+\left(\frac{x}{s}\right)^{c}\right]^{-d},\qquad x&gt;0.\end{aligned}</span><span class="label">(1)</span>
+</div></div>
+</div> For \(d=1\) and \(s=m^{-1}\), we have the log-logistic (LL) distribution and, for \(c=1\), it reduces to the Lomax distribution. The probability density function (pdf) corresponding to equation (1) is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[g(x;c,d,s)= c\,d\,s^{-c}\,x^{c-1}\left[1+\left(\frac{x}{s}\right)^{c}\right]^{-d-1}.\]</span><span class="label">(2)</span>
+</div></div>
+</div> This distribution is part of the Burr system of distributions (<span class="ref"><strong class="xref xrefblue">Burr 1942</strong><span class="refCtt closed"><span>BURR IW. 1942. Cumulative frequency functions. Annals of Mathematical Statistics 13: 215-232.</span></span></span>) and has extensive use in the context of income data. For recent examples, see <span class="ref"><strong class="xref xrefblue">Brzeziński 2013</strong><span class="refCtt closed"><span>BRZEZIŃSKI M. 2013. Parametric Modelling of Income Distribution in Central and Eastern Europe. Central European Journal of Economic Modelling and Econometrics 5: 207-230.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Jäntti &amp; Jenkins 2010</strong><span class="refCtt closed"><span>JÄNTTI M &amp; JENKINS SP. 2010. The impact of macroeconomic conditions on income inequality. J Econ Inequal 8: 221-240.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Tanak et al. 2015</strong><span class="refCtt closed"><span>TANAK AK, BORZADARAN GM &amp; AHMADI J. 2015. Entropy maximization under the constraints on the generalized Gini index and its application in modeling income distributions. Physica A 438: 657-666.</span></span></span>. <span class="ref"><strong class="xref xrefblue">Cirillo 2010</strong><span class="refCtt closed"><span>CIRILLO P. 2010. An analysis of the size distribution of Italian firms by age. Physica A 389: 459-466. </span></span></span> also applied this model for analyzing the size distribution of Italian firms by age. <span class="ref"><strong class="xref xrefblue">Chotikapanich et al. 2013</strong><span class="refCtt closed"><span>CHOTIKAPANICH D, GRIFFITHS W &amp; RAO DSP. 2013. Calculating Poverty Measures from the Generalised Beta Income Distribution. The Economic Record 89: 46-66. </span></span></span> considered it for calculating poverty measures in countries from South and Southeast Asia. <span class="ref"><strong class="xref xrefblue">Kumar et al. 2013</strong><span class="refCtt closed"><span>KUMAR S, CHANDRA N &amp; KHAN M. 2013. On the Reliability Estimation of Burr Type XII Distribution. Safety and Reliability 33: 29-40.</span></span></span> adopted the BXII distribution on reliability context.</p>
+<p><span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span> pioneered a family of univariate distributions generated by extending the Weibull (W) model applied to the odds ratio \(G(x)/[1-G(x)]\). For any baseline cdf \(G(x;\pmb{\xi})\), which depends on a parameter vector \(\pmb{\xi}\), they defined the <i>Weibull-G</i> family (for \(x \in \mathcal{D}\subseteq \mathbb{R}\)) by the pdf and cdf <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[f(x; \alpha,\beta,\pmb{\xi}) = \alpha\,\beta\, g(x;\pmb{\xi}) \frac{G(x;\pmb{\xi})^{\beta-1}}{1-G(x;\pmb{\xi})^{\beta+1}}\exp\left\{-\alpha\left[\frac{G(x;\pmb{\xi})}{1-G(x;\pmb{\xi})}\right]^{\beta}\right\}\]</span><span class="label">(3)</span>
+</div></div>
+</div> and <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[F(x; \alpha,\beta,\pmb{\xi}) = \int_{0}^{\frac{G(x;\pmb{\xi})}{1-G(x;\pmb{\xi})}}\alpha\,\beta\,t^{\beta-1}\textrm{e}^{-\alpha \, t^{\beta}}\mathrm{d}t = 1 - \exp\left\{-\alpha\left[\frac{G(x;\pmb{\xi})}{1-G(x;\pmb{\xi})}\right]^{\beta}\right\},\]</span><span class="label">(4)</span>
+</div></div>
+</div> respectively. The <i>Weibull-G</i> family has the same parameters of the G distribution plus two shape parameters \(\alpha&gt;0\) and \(\beta &gt; 0\). According to <span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span>, these additional parameters are sought as a manner to furnish more flexible distributions. If \(\beta=1\), it gives the exponential generator (<span class="ref"><strong class="xref xrefblue">Gupta et al. 1998</strong><span class="refCtt closed"><span>GUPTA R, GUPTA P &amp; GUPTA R. 1998. Modeling failure time data by Lehman alternatives. Communications in Statistics - Theory and Methods 27: 887-904. </span></span></span>). <span class="ref"><strong class="xref xrefblue">Cordeiro et al. 2015</strong><span class="refCtt closed"><span>CORDEIRO GM, ORTEGA EMM, &amp; RAMIRES TG. 2015. A new generalized Weibull family of distributions: mathematical properties and applications. J Stat Distrib Applic 2: 1-25.</span></span></span> and <span class="ref"><strong class="xref xrefblue">Tahir et al. 2016</strong><span class="refCtt closed"><span>TAHIR MH, ZUBAIR M, MANSOOR M, CORDEIRO GM, ALIZADEH M &amp; HAMEDANI GG. 2016c. A new Weibull-G family of distributions. Hacettepe Journal of Mathematics and Statistics 45: 629-647.</span></span></span> introduced another two types of <i>Weibull-G</i> families.</p>
+<p>Following the formulation by <span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span>, we define the <i>Weibull-Burr XII</i> (WBXII) distribution and provide some of its mathematical quantities which were not addressed by <span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span>. The new expressions can be helpful for those interested in applying this distribution to real life data.</p>
+<p>In a similar approach, we can refer the reader to six other contributed works addressed to specific baselines of the <i>Weibull-G</i> family. These contributions are listed in Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletI"><span class="sci-ico-fileTable"></span>I</a>.</p>
+<div class="row table" id="tI">
+<a name="tI"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletI"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table I</strong><br>Contributed works on the Weibull-G family.<br>
+</div>
+</div>
+<p>The WBXII distribution is obtained by inserting (1) and (2) in equations (3) and (4). Then, its pdf reduces to (for \(x&gt;0\)) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[f(x) = \frac{\alpha\,\beta\,c\,d\,s^{-c}x^{c-1}}{\left[1+(x/s)^c\right]^{1-d}}\,\exp\left\{-\alpha\,[(1+(x/s)^c)^d-1]^{\beta}\right\}[(1+(x/s)^c)^d-1]^{\beta-1},\]</span><span class="label">(5)</span>
+</div></div>
+</div> where \(\alpha &gt; 0\), \(\beta&gt;0\), \(d &gt; 0\) and \(c &gt; 0\) are shape parameters and \(s &gt; 0\) is a scale parameter. The corresponding cdf is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[F(x) = 1 - \exp\left\{-\alpha\,[(1+(x/s)^c)^d-1]^{\beta}\right\}.\]</span><span class="label">(6)</span>
+</div></div>
+</div> Based on equation (6) we note that \(z(x)= [1+ (x/s)^c] ^d\) is the inverse of the BXII survival function, which is identifiable. Then, \(\alpha\, [z(x)- 1]^\beta\) is identifiable and so the WBXII cdf.</p>
+<p>Two interpretations of (6) are now presented. First, let \(T\) be a BXII random variable with cdf (1) describing a real life phenomenon. If the random variable \(X\) represents the <i>odds</i>, the risk that this stochastic mechanism following the lifetime \(T\) will not occur at time \(x\) is given by \(G(x;c,d,s)/[1- G(x;c,d,s)]\). If we model the randomness \(X\) of these odds by the Weibull density with scale parameter \(\alpha&gt;0\) and shape parameter \(\beta&gt;0\), the cdf of \(X\) is given by (6). For the second interpretation, we take a WBXII random variable \(X\) and a random variable \(T\) with the Weibull density (for \(t &gt;0\)) defined above. We can write \(P(X \leq x) = F(x) = 1 - \exp\left\{-\alpha\,[(1+(x/s)^c)^d-1]^{\beta}\right\}=P\left(T \leq G(x;c,d,s)/[1- G(x;c,d,s)]\right)\). Since the function \(\kappa(x) = G(x;c,d,s)/[1- G(x;c,d,s)]\) is always monotonic and non–decreasing, we obtain \(T=\kappa(X)\), where the equality of random variables refers to equivalence of distributions. So, if \(X\) has the WBXII cdf (6), then \(T = \kappa(X)\) has a Weibull cdf with the above parameters.</p>
+<p>If \(X\) is a random variable with density function (5), we write \(X\sim\text{WBXII}(c,d,s,\alpha,\beta)\). The hazard rate function (hrf) of \(X\) reduces to <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[h(x) = \alpha\,\beta\,c\,d\,s^{-c}x^{c-1}\left[1+(x/s)^c\right]^{d-1}[(1+(x/s)^c)^d-1]^{\beta-1}.\]</span></div></div>
+</div> </p>
+<p>The main contributions of this paper are described below:</p>
+<ol type="1">
+<li><p>In the estimation section, we demonstrate that all members of the Weibull-G family present a semi-closed form for the maximum likelihood estimator (MLE) of \(\alpha\). Thus, the MLEs for any member of the Weibull-G family can also be determined from the profile log-likelihood function, which is much simpler.</p></li>
+<li><p><span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span> obtained general mathematical expressions for the Weibull-G family based on an infinite linear combination of exponentiated-G (exp-G) densities. We derive a new linear representation for the WBXII pdf in a simpler form based directly on the BXII model itself. Besides, we provide some important mathematical and statistical properties of the proposed distribution. These results are especially helpful for applications to real lifetime data.</p></li>
+<li><p>Equation (5) has different forms, including left-skewed, right-skewed, reversed-J, decreasing-increasing-decreasing and bimodal. Plots of the WBXII density function for selected parameter values are displayed in Figure <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf1"><span class="sci-ico-fileFigure"></span>1</a>. We develop a shiny application that allows the reader to access dynamic plots of the WBXII pdf and hrf<span class="ref footnote"><sup class="xref">1</sup><span class="refCtt closed"><span class="refCttPadding">https://newdists.shinyapps.io/WBXIIdist/.</span></span></span>. From those plots, we note that the WBXII density presents bimodality, or the unusual decreasing-increasing-decreasing shape when \(\beta\) is very small, and the baseline shape parameters \(c\) and \(d\) are large. </p></li>
+<li><p>The proposed distribution overcomes a limitation of its baseline, whose hazard function presents only monotonic and unimodal shapes. The WBXII hrf admits the four main characteristics: decreasing, increasing, upside-down bathtub, and bathtub shaped. These are desirable properties for a lifetime distribution. Figure <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf2"><span class="sci-ico-fileFigure"></span>2</a> provides plots of the hrf of \(X\) for selected parameter values.</p></li>
+<li><p>Equation (5) extends at least twenty lifetime distributions, including new ones. In fact, if we combine the Weibull and its two sub-models (exponential and Rayleigh) with seven special cases (Lomax, Fisk, log-logistic, Weibull, exponential and Rayleigh) of the Burr XII distribution including this distribution itself, the WBXII model can generate twenty descendants. Note that the first three models listed in Table 1 published in 2015 are just special cases of the new distribution. For \(\alpha=\beta=1\), the power generalized Weibull (PGW) (<span class="ref"><strong class="xref xrefblue">Dimitrakopoulou et al. 2007</strong><span class="refCtt closed"><span>DIMITRAKOPOULOU T, ADAMIDIS K &amp; LOUKAS S. 2007. A lifetime distribution with an upside-down bathtub-shaped hazard function. IEEE Transactions Reliability 121: 308-311.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Nikulin &amp; Haghighi 2006</strong><span class="refCtt closed"><span>NIKULIN M &amp; HAGHIGHI F. 2006. A chi-squared test for the generalized power Weibull family for the head-and-neck cancer censored data. J Math Sci 133: 1333-1341.</span></span></span>) also arises as a special model.</p></li>
+<li><p>A major advantage of fitting a wider model to real data is that we can easily verify, based on the likelihood ratio (LR) statistics, whether its sub-models (with fewer parameters) can be more properly to the data.</p></li>
+<li><p>Equation (5) can be reduced to a four-parameter distribution by setting the scale parameter to one (<span class="ref"><strong class="xref xrefblue">Afify et al. 2018</strong><span class="refCtt closed"><span>AFIFY AZ, CORDEIRO GM, ORTEGA EMM, YOUSOF HM &amp; BUTT NS. 2018. The Four-Parameter Burr XII Distribution: Properties, Regression Model and Applications. Communications in Statistics - Theory and Methods 47: 2605-2624.</span></span></span>) and then it becomes a very competitive model to all well-known four-parameter lifetime distributions such as the beta Weibull, Kumaraswamy Weibull, Kumaraswamy gamma, beta Dagum, among several others.</p></li>
+<li><p>Although the proposed model has five parameters, it can provide much better fits, based on Anderson-Darling and Kolmogorov-Smirnov statistics, than other models with the same and less number of parameters. This fact is proved empirically in applications to survival analysis and income distribution (see the application section). The survival analysis application illustrates the WBXII superiority to accommodate left-skewed tails, which are very common when the variable of interest is the time to failure of a product or component. The second data set is related to player salaries within a professional sports league. The salary distribution is typically heavy skewed to the right for several professions and also in the macro-economy. For the sports market, the salary distribution is no different from other occupations in terms of the shape. However, according to <span class="ref"><strong class="xref xrefblue">Rockerbie 2003</strong><span class="refCtt closed"><span>ROCKERBIE DW. 2003. The economics of professional sports. Lethbridge, Alberta. </span></span></span>, it is peculiar because their mean is much higher, and those markets are typically a natural monopoly. The WBXII model showed suitable to accommodate these feature as well.</p></li>
+</ol>
+<div class="row fig" id="f1">
+<a name="f1"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf1"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/17badab522aec3711d3f48741ced33bd7de24e5b.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong></strong><br>Plots of the WBXII density with s = 1.<br>
+</div>
+</div>
+<div class="row fig" id="f2">
+<a name="f2"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf2"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/07153a43137a0e923fe7ffd2857fc0126304c9bc.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong></strong><br>Plots of the WBXII hrf with s = 1.<br>
+</div>
+</div>
+<p>An implementation in R language (<span class="ref"><strong class="xref xrefblue">R Core Team 2018</strong><span class="refCtt closed"><span>R CORE TEAM. 2018. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. Vienna, Austria. URL https://www.R-project.org/.</span></span></span>) used to obtain plots, application and simulation for the five-parameter Weibull Burr XII distribution is available in the footnote<span class="ref footnote"><sup class="xref">2</sup><span class="refCtt closed"><span class="refCttPadding">
+          <a href="https://drive.google.com/open?id=1an1YbEeX1XHEbSvwIo8jbEAwkLxFJSxP." target="_blank">https://drive.google.com/open?id=1an1YbEeX1XHEbSvwIo8jbEAwkLxFJSxP.</a>
+        </span></span></span>.</p>
+<p> </p>
+<p>The remainder of the paper is organized as follows. Two useful expansions for the WBXII cdf and pdf are derived. We investigate some of its mathematical properties such as the quantile function (qf), ordinary and incomplete moments, mean deviations, and generating function. We determine the order statistics. The maximum likelihood method is used to estimate the model parameters . Two applications to real data sets are addressed in the application section. Finally, we offer some concluding remarks.</p>
+<h1 class="articleSectionTitle">TWO USEFUL EXPANSIONS</h1>
+<p>Two useful expansions for equations (5) and (6) can be derived by using power series. It follows from <span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span> that the <i>Weibull-G</i> density function can be expressed as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[f(x; \alpha,\beta,\pmb{\xi}) = \sum\limits_{j,k=0}^{\infty}\rho_{j,k}\, g(x; \pmb{\xi})G(x; \pmb{\xi})^{(k+1)\beta + j - 1},\]</span></div></div>
+</div> where <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[\rho_{j,k}= \frac{(-1)^k\, \beta\, \alpha^{k+1}\, \Gamma((k+1)\beta+j+1)}{k!\,j!\,\Gamma((k+1)\beta+1)},\]</span></div></div>
+</div> and \(\Gamma(\cdot)\) is the gamma function. By replacing \(G(x; \pmb{\xi})\) for (1) and \(g(x; \pmb{\xi})\) for (2), we obtain <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[f(x; \alpha,\beta,\pmb{\xi})=c\,d\,s^{-c}\, \sum\limits_{j,k=0}^{\infty}\rho_{j,k}\,x^{c-1}u^{-d-1}\left(1-u^{-d}\right)^{(k+1)\beta + j - 1},\]</span><span class="label">(7)</span>
+</div></div>
+</div> where \(u=1+\left(\frac{x}{s}\right)^{c}\). If \(|z|&lt; 1\) and \(b&gt;0\) is a real non-integer, the power series holds <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \displaystyle (1-z)^{b-1}=\sum_{r=0}^{\infty}\,\frac{(-1)^{r} \Gamma(b)}{r!\,\Gamma(b-r)}\,z^{r}.\end{aligned}</span><span class="label">(8)</span>
+</div></div>
+</div> Using the above expansion for \(\big(1-u^{-d}\big)^{[(k+1)\beta + j - 1]-1}\) in equation (7) and, after some algebraic manipulation, we obtain <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[f(x)= \sum_{r=0}^\infty w_{r}\,g(x;c,(r+1)d,s),\]</span><span class="label">(9)</span>
+</div></div>
+</div> where (for \(r=0,1,\ldots\)) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[w_{r}= \sum^\infty_{k,j=0}\frac{(-1)^{r}\,\rho_{j,k}\,\Gamma((k+1)\beta + j)}{\Gamma((k+1)\beta + j -r)(r+1)!}\]</span><span class="label">(10)</span>
+</div></div>
+</div> and \(g(x;c,(r+1)d,s)\) is the BXII density function with scale parameter \(s\) and shape parameters \((r+1)d\) and \(c\). Equation (9) reveals that the WBXII density is an infinite linear combination of BXII densities. So, several structural properties of the WBXII distribution can be determined from those BXII properties. By integrating equation (9) gives <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[F(x)=\sum_{r=0}^\infty w_{r}\, G(x;c,(r+1)d,s).\]</span><span class="label">(11)</span>
+</div></div>
+</div> Equations (9) and (11) are the main results of this section.</p>
+<h1 class="articleSectionTitle">MATHEMATICAL PROPERTIES</h1>
+<p>In this section, we obtain some mathematical quantities of the WBXII distribution including quantile and random number generation, ordinary and incomplete moments, moment generating function (mgf), mean deviations and Bonferroni and Lorenz curves. By determining analytical expressions for those quantities can be more efficient than computing them directly by numerical integration of the density function ((5)).</p>
+<h2>Density and hazard shapes</h2>
+<p>The WBXII density and hazard functions are quite flexible as can be noted in Figures <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf1"><span class="sci-ico-fileFigure"></span>1</a> and <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf2"><span class="sci-ico-fileFigure"></span>2</a>. They can take various forms depending on the shape parameters \(\alpha,\,\beta,\,c,\) and \(d\). In this section, we illustrate the exact behavior of these functions for some parameter sets by analyzing their limiting behavior and derivatives of their logarithms with respect to \(x\). In addition, we provide interactive plots that allow observing the behavior of these functions for several parameter combinations.</p>
+<p>For the pdf (5), we note that <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[\lim_{x \to 0}f(x)= \begin{cases} \infty &amp;amp; \text{if $\beta,c &lt; 1$},\\ \alpha d s^{-1} &amp;amp; \text{if $\beta=c= 1$},\\ 0 &amp;amp; {\text{if $\beta,c &gt; 1$},}\\ \end{cases}\]</span></div></div>
+</div> and \(\lim\limits_{x \to \infty}f(x)=0.\) </p>
+<p>Some calculations show that <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \frac{\mathrm{d}\! \log f(x)}{\mathrm{d} x}=&amp;amp;\, \frac{1}{x} \left\{c-1+\frac{c\,(x/s)^c}{1+(x/s)^c}\left[d-1 +\frac{d\,(\beta-1)\,[1+(x/s)^c]^{d}}{[1+(x/s)^c]^{d}-1}\right.\right.\nonumber\\ &amp;amp;\left.\left.-\frac{\alpha\,\beta\,d\,[1+(x/s)^c]^{d}}{\{[1+(x/s)^c]^{d}-1\}^{1-\beta}}\right]\right\}.\end{aligned}</span><span class="label">(12)</span>
+</div></div>
+</div> The critical points of the WBXII pdf are the roots of the above equation, and numerical software is required to solve it. Nevertheless, from (12), we can verify that the WBXII density is decreasing if \(\beta\leq1,\,c\leq1,\) and \(d \leq 1\). </p>
+<p>We can analyze the limiting behavior of the WBXII hrf for some parameter sets. We verify that <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[\lim_{x \to 0}h(x)= \begin{cases} \infty &amp;amp; \text{if $\beta,c &lt; 1$},\\ \alpha d s^{-1} &amp;amp; \text{if $\beta=c= 1$},\\ 0 &amp;amp; {\text{if $\beta,c &gt; 1$},}\\ \end{cases}\quad % \end{equation*} \text{and}\quad % \begin{equation*} \lim_{x \to \infty}h(x)= \begin{cases} 0 &amp;amp; \text{if $\beta,c,d &lt; 1$},\\ \alpha s^{-1} &amp;amp; \text{if $\beta=c=d = 1$},\\ \infty &amp;amp; {\text{if $\beta,c,d &gt; 1$}.}\\ \end{cases}\]</span></div></div>
+</div> The critical point of \(h(x)\) are obtained from <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \frac{\mathrm{d}\! \log h(x)}{\mathrm{d} x}= \frac{1}{x} \left\{c-1+\frac{c\,(x/s)^c}{1+(x/s)^c}\left[d-1 +\frac{d\,(\beta-1)\,[1+(x/s)^c]^{d}}{[1+(x/s)^c]^{d}-1}\right]\right\}=0. \end{aligned}</span></div></div>
+</div> From the last equation, we can note that: i) if \(\beta&lt;1,\,c&lt;1\) and \(d&lt;1\), then \(\mathrm{d}\!\log h(x)/\mathrm{d}x &lt; 0\) and the hrf is decreasing; ii) if \(\beta=c=d = 1\), then \(\mathrm{d}\!\log h(x)/\mathrm{d}x = 0\) and the hrf is constant in \(\alpha/s\); and iii) if \(\beta&gt;1,\,c&gt;1\) and \(d&gt;1\), then \(\mathrm{d}\!\log h(x)/\mathrm{d}x &gt; 0\) and the hrf is increasing; iv) the parameter \(\alpha\) does not affect the hrf shapes; and v) numerical softwares are required to obtain the root of this equation.</p>
+<h2>Quantile function and random number generation</h2>
+<p>The qf of \(X\) follows by inverting (6) as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[Q(u)=s\left\{\left[\left(\frac{-\log(1-u)}{\alpha}\right)^{1/\beta}+1\right]^{1/d}-1\right\}^{1/c}.\]</span><span class="label">(13)</span>
+</div></div>
+</div> By setting \(u = 0.5\) in (13) gives the median \(M\) of \(X\). Different quantiles of interest can also be obtained from (13) by replacing appropriate values for \(u\).</p>
+<p>If \(U\) is a uniform variate on the unit interval \((0,1)\), then the random variable \(X=Q(U)\) has pdf given by (5). Thus, the qf can be useful to generate observations from the WBXII distribution using the inverse transformation (see Section SIMULATION STUDY for an example). Another motivation to introduce this quantity is its applicability to obtain alternative expressions for the skewness and kurtosis. The Bowley’s skewness (<span class="ref"><strong class="xref xrefblue">Kenney &amp; Keeping 1962</strong><span class="refCtt closed"><span>KENNEY J &amp; KEEPING E. 1962. Mathematics of Statistics. 3rd ed. New Jersey: Chapman and Hall Ltda. </span></span></span>) based on quartiles is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[B=\frac{Q(3/4)-2Q(1/2)+Q(1/4)}{Q(3/4)-Q(1/4)}.\]</span></div></div>
+</div> The Moors’ kurtosis (<span class="ref"><strong class="xref xrefblue">Moors 1988</strong><span class="refCtt closed"><span>MOORS J. 1988. A quantile alternative for kurtosis. The Statistician 37: 25-32. </span></span></span>) based on octiles is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[K_M=\frac{Q(7/8)-Q(5/8)-Q(3/8)+Q(1/8)}{Q(6/8)-Q(2/8)}.\]</span></div></div>
+</div> These measures are less sensitive to outliers and may exist even for distributions without moments. These quantile-based measures can be obtained for the WBXII model from (13). See the next section for illustrative examples.</p>
+<h2>Moments</h2>
+<p>The \(n\)th ordinary moment of \(X\) can be determined from (9) as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \mu^{\prime}_n=E(X^n)=\sum_{r=0}^\infty w_{r} \int_0^\infty x^n\,g(x;d,(r+1)d,s) dx.\end{aligned}</span></div></div>
+</div> </p>
+<p>Using a result in <span class="ref"><strong class="xref xrefblue">Zimmer et al. 1998</strong><span class="refCtt closed"><span>ZIMMER WJ, KEATS JB &amp; WANG FK. 1998. The Burr XII distribution in reliability analysis. J Qual Technol 30: 386-394.</span></span></span>, we have (for \(n&lt;c\,d\)) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \mu^{\prime}_n=s^{n}\,d\sum_{r=0}^\infty (r+1)w_{r} \,B((r+1)d-n\,c^{-1},1+n\,c^{-1}),\end{aligned}</span><span class="label">(14)</span>
+</div></div>
+</div> where \(B(a,b)\) is the beta function. The central moments (\(\mu_s\)), cumulants (\(\kappa_s\)) and the skewness and kurtosis of \(X\) can be evaluated from (14) using well-known relationships.</p>
+<p>Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletII"><span class="sci-ico-fileTable"></span>II</a> provides a small numerical study by computing the first three moments and the \(B\) and \(K_M\) coefficients for six scenarios, each one with a different parametrization for the WBXII distribution. Figure <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf3"><span class="sci-ico-fileFigure"></span>3</a> displays plots of \(B\) and \(K_M\) for some parameter values. In fact, they indicate that the proposed distribution is quite flexible in terms of variation of the moments, skewness and kurtosis. It can accommodate positive and negative values for both skewness and kurtosis coefficients.</p>
+<div class="row table" id="tII">
+<a name="tII"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table II</strong><br>First three moments and \(B\) and \(K_M\) for some scenarios of the WBXII distribution.<br>
+</div>
+</div>
+<div class="row fig" id="f3">
+<a name="f3"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/d1e9f2e91912e4839b0f33aa020e82898aa1cb6d.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong></strong><br>Skewness and kurtosis of <i>X</i> for some parameter values.<br>
+</div>
+</div>
+<h2>Incomplete moments</h2>
+<p>The \(h\)th incomplete moment of \(X\), say \(T_h(y)=\int_{0}^{y}\,x^{h}\,f(x)dx\), can be expressed as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[T_h(y)= c\,d\,\sum_{r=0}^\infty\, (r+1)\,w_{r}\,\int_{0}^{y}x^{h-1}\,\left(\frac{x}{s}\right)^{c}\,\left[1+\left(\frac{x}{s}\right)^c\right]^{-(r+1)d-1}dx.\]</span></div></div>
+</div> By setting \(t=\left[1+\left(\frac{x}{s}\right)^{c}\right]^{-1}\) in the last equation, we obtain <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} T_h(y)=d\,s^{h}\sum_{r=0}^\infty \,(r+1)\,w_{r}\,\int_{s^{c}/\left(s^{c}+y^{c}\right)}^{1}\,t^{(r+1)d-\frac{h}{c}-1}\,(1-t)^{\frac{h}{c}}dt.\end{aligned}</span></div></div>
+</div> Hence, the \(h\)th incomplete moment of \(X\) reduces to (for \(h &lt; c\,d\)) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned}T_h(y)=d\,s^{h}\sum_{r=0}^\infty\,(r+1)\,w_{r}\,\,B_{s^{c}/s^{c}+y^{c}}((r+1)d-h\,c^{-1},1+h\,c^{-1}),\end{aligned}</span><span class="label">(15)</span>
+</div></div>
+</div> where \(B_{z}(a,b)=\int_z^1 t^{a-1}\,(1-t)^{b-1} dt\) is the upper incomplete beta function.</p>
+<p>An important application of the first incomplete moment refers to the mean deviations about the mean and the median, namely <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[\delta_1=2\mu^{\prime}_1F(\mu^{\prime}_1)-2\,T_1(\mu^{\prime}_1) \qquad \text{and} \qquad \delta_2 = \mu^{\prime}_1-2\,T_1(M),\]</span></div></div>
+</div> respectively, where \(F(\mu^{\prime}_1)\) is easily obtained from (6), \(\mu^{\prime}_1=E(X)\), the median \(M\) of \(X\) follows from (13) as \(M = Q(1/2)\), and (for \(c\,d&gt;1\)) \(T_1(y)\) is the first incomplete moment given by (15) with \(h=1\). An alternative expression for \(T_1(\cdot)\) comes from (9) as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} T_1(y)=c\, d\, s\,\sum_{r=0}^{\infty}(r+1)w_r \int_{0}^{y}x^c\left[1+\left(\frac{x}{s}\right)^c\right]^{-(r+1)d-1}\mathrm{d}x.\end{aligned}</span></div></div>
+</div> Setting \(z=(x/s)^c\), we obtain <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} T_1(y)=d\,s\,\sum_{r=0}^{\infty}(r+1)w_r \int_{0}^{\left(\frac{y}{s}\right)^c}z^{1/c}(1+z)^{-(r+1)d-1}\mathrm{d}z.\end{aligned}</span></div></div>
+</div> Thus, <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} T_1(y)=\frac{c\,d\,s\,y^{c+1}}{1+c}\sum_{r=0}^{\infty}(r+1)\,w_r\,_{2}F_1\left[1+\frac{1}{c},\,\,(r+1)d+1;\,\,2+\frac{1}{c};\,\,-\left(\frac{y}{s}\right)^c\right], \end{aligned}</span></div></div>
+</div> where <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[_{2}F_1(a,b;c;x)=\sum_{k=0}^{\infty}\frac{(a)_k (b)_k}{(c)_k}\frac{x^k}{k!}\]</span></div></div>
+</div> is the hypergeometric function and \((a)_k=a (a+1) (a+k-1)\) is the (rising) Pochhammer symbol if \(k&gt;1\) and \((a)_0=1\).</p>
+<p>The above results are related to the Bonferroni and Lorenz curves. These curves are important in economics for studying income and poverty but can be useful in demography, reliability, insurance, medicine, and several other fields. For a given probability \(\pi\), they are defined by \(B(\pi)=T_1(q)/ (\pi \mu^{\prime}_1)\) and \(L(\pi) = T_1(q)/\mu^{\prime}_1,\) respectively, where \(q = Q(\pi)\) is given by (13). If \(\pi\) is the proportion of units whose income is lower than or equal to \(q\), the values of \(L(\pi)\) yield fractions of the total income and \(B(\pi)\) refers to the relative income levels.</p>
+<h2>Generating function</h2>
+<p>The mgf of \(X\) is defined by \(M(t)=E(\mathrm{e}^{tX})\). Let \(M_{d}(t)\) be the mgf of the BXII\((c,d,s)\) distribution. We can write from (9) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} M(t)=\sum_{r=0}^\infty w_{r}\,M_{(r+1)d}(t),\end{aligned}</span><span class="label">(16)</span>
+</div></div>
+</div> where \(M_{(r+1)d}(t)\) is the BXII\((s,(r+1)d,c)\) generating function and \(M_{d}(t)\) is given by <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} M_{d}(t)= cds^{-c}\int_{0}^\infty x^{c-1}\mathrm{e}^{tx}\left[1+\left(\frac{x}{s}\right)^c\right]^{-d-1}\mathrm{d}x.\end{aligned}</span><span class="label">(17)</span>
+</div></div>
+</div> <span class="ref"><strong class="xref xrefblue">Guerra et al. 2020</strong><span class="refCtt closed"><span>GUERRA RR, PEÑA RAMÍREZ FA, PEÑA RAMÍREZ MR &amp; CORDEIRO GM. 2020. A note on the density expansion and generating function of the beta Burr XII. Math Method Appl Sci 43: 1817-1824.</span></span></span> considered the following expansion in the above equation <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \left[1+\left(\frac{x}{s}\right)^c\right]^{-d-1}=\sum_{j=0}^\infty {-d-1\choose j}\left[\left(\frac{x}{s}\right)^{cj}\boldsymbol{1}_{(0,s]}\left(x\right)+\left(\frac{x}{s}\right)^{-c(j+d+1)}\boldsymbol{1}_{(s,\infty)}\left(x\right)\right],\end{aligned}</span><span class="label">(18)</span>
+</div></div>
+</div> where \(\boldsymbol{1}_{A}(x)\) denotes the indicator function over a given set of real numbers \(A\), i.e., \(\boldsymbol{1}_{A}(x)=1\) if \(x \in A\) and \(\boldsymbol{1}_{A}(x)=0\) elsewhere. Combining (17) and (18), and after some algebra, <span class="ref"><strong class="xref xrefblue">Guerra et al. 2020</strong><span class="refCtt closed"><span>GUERRA RR, PEÑA RAMÍREZ FA, PEÑA RAMÍREZ MR &amp; CORDEIRO GM. 2020. A note on the density expansion and generating function of the beta Burr XII. Math Method Appl Sci 43: 1817-1824.</span></span></span> expressed the BXII mgf as an infinite sum of incomplete gamma functions given by (for \(t&lt;0\)) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} M_d(t)=&amp;amp;\,c\,d\,\sum_{j=0}^\infty{-d-1\choose j}\left[ (-s t)^{-(j+1) c}\,\gamma\left((j+1)c,-s t\right)\right.\nonumber\\ &amp;amp;+\left. (-st)^{(d+j) c}\,\Gamma\left(-(d+j)c,-st\right)%E_{1+c(d+j)}\left(-st\right) \right],\end{aligned}</span><span class="label">(19)</span>
+</div></div>
+</div> where \(\gamma(a,z)=\int^z_0 t^{a-1}\,\mathrm{e}^{-t} \mathrm{d}t\) and \(\Gamma(a,z)=\int^\infty_z t^{a-1}\,\mathrm{e}^{-t} \mathrm{d}t\) are the lower and upper incomplete gamma functions, respectively. Hence, for \(t&lt;0\), the mgf of \(X\) can be follows from (16) and (19) as a double summation <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} M(t)&amp;amp;=&amp;amp;c\,d\sum_{i=0}^\infty (r+1)w_{r}\, \sum_{j=0}^\infty{-(r+1)d-1\choose j}\left[ (-st)^{-(j+1)c}\,\gamma\left((j+1)c,-st\right)\right.\nonumber\\ &amp;amp;+&amp;amp;\left.(-st)^{c[(b+r)d+j]}\,\Gamma\left(-c\left[(r+1)d+j\right],-st\right)%E_{1+c[(b+i)d+j]}\left(-st\right) \right]. \end{aligned}</span><span class="label">(20)</span>
+</div></div>
+</div> Equation (20) is the main result of this section.</p>
+<h2>Stress-strength reliability</h2>
+<p>Let \(X_1\) be the life of a component with a random strength that is subjected to a random stress \(X_2\). We can define stress-strength reliability as \(R= P (X_2 &lt; X_1 )=\int_0^\infty f_1(x)\,F_2(x)\text{d}x\), i.e., the component fails when the stress applied to it exceeds the strength (\(X_2 &gt; X_1\)); otherwise, the component will function well. This measure is very useful in reliability.</p>
+<p>Let \(X_1\) and \(X_2\) have independent WBXII\((c,d_1,s,\alpha_1,\beta_1)\) and WBXII\((c,d_2,s,\alpha_2,\beta_2)\) distributions, respectively, with the same shape parameter \(c\) and scale parameter \(s\). We can derive \(R\) using the results in (9) and (11). Note that the pdf of \(X_1\) and cdf of \(X_2\) can be expressed as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[f_1(x)= \sum_{m=0}^\infty w_{m}\,g(x;c,(m+1)d_1,s)\,\,\,\,\text{and}\,\,\,\, F_2(x)= \sum_{n=0}^\infty w_{n}\,G(x;c,(n+1)d_2,s),\]</span></div></div>
+</div> respectively, where \(w_m\) and \(w_n\) are given by (10). Thus, setting \(u=1+\left(\frac{x}{s}\right)^c\), we obtain <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} R=\sum_{m,n=0}^\infty\frac{(n+1)d_2\, w_m\,w_n\,}{(m+1)d_1+(n+1)d_2}.\end{aligned}</span></div></div>
+</div> </p>
+<h1 class="articleSectionTitle">ORDER STATISTICS</h1>
+<p>Order statistics are important tools in many areas of statistical theory and practice. Let \(X_1,\cdots,X_n\) be a random sample of the Weibull-G family and \(X_{i:n}\) the \(i\)th order statistic. The density \(f_{i:n}(x)\) of \(X_{i:n}\) has the form <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} f_{i:n}(x)= \frac{1}{B(i,n-i+1)}\sum\limits_{j=0}^{n-i}(-1)^{j}\,{n-i \choose j}f(x)\,F(x)^{i+j-1}.\end{aligned}</span><span class="label">(21)</span>
+</div></div>
+</div> Setting \(u=1+(x/s)^c\) and using the power series in (8), we can rewrite \(F(x)^{i+j-1}\) as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \left\{1-\exp\left[-\alpha\,\frac{\left(1-u^{-d}\right)^\beta}{u^{-d\beta}}\right]\right\}^{i+j-1}=\sum_{k=0}^\infty \frac{(-1)^k\,(i+j-1)!}{k!\,(i+j-k-1)!}\exp\left\{-\alpha\,k\,\frac{\left(1-u^{-d}\right)^\beta}{u^{-d\beta}}\right\}.\end{aligned}</span></div></div>
+</div> Inserting the above expansion in (21) and after some algebra, we obtain <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} f_{i:n}(x)=&amp;amp;\, \frac{\alpha\,\beta\,c\,d\,s^{-c}x^{c-1}\,\,u^{-d-1}}{B(i,n-i+1)}\frac{\left(1-u^{-d}\right)^{\beta-1}}{u^{-d(\beta+1)}}\sum_{k=0}^\infty \sum\limits_{j=0}^{n-i}\,{n-i \choose j}\frac{(-1)^{j+k}\,(i+j-1)!}{k!\,(i+j-k-1)!}\\ &amp;amp;\times\,\exp\left\{-\alpha\,(1+k)\,\frac{\left(1-u^{-d}\right)^\beta}{u^{-d\beta}}\right\}.\nonumber\end{aligned}</span><span class="label">(22)</span>
+</div></div>
+</div> By expanding the exponential function in the last equation, rewriting \((u^{-d})^\beta\) as \(\left[1-(1-u^{-d})\right]^\beta\), considering the power series given by (for \(|z| &lt; 1\) and \(b&gt; 0\) real non-integer) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} (1-z)^{-b}=\sum_{j=0}^\infty\frac{\Gamma(b+j)}{j!\,\Gamma(b)}\end{aligned}</span></div></div>
+</div> and inserting both expansions in equation (22), we obtain <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} f_{i:n}(x)=&amp;amp;\, \frac{\beta\,c\,d\,s^{-c}x^{c-1}\,\,u^{-d-1}}{B(i,n-i+1)}\sum_{k,\,l,\,m=0}^\infty \sum\limits_{j=0}^{n-i}\,{n-i \choose j}\frac{(-1)^{j+k+l}\,\alpha^{l+1}\,(1+k)^l\,(i+j-1)!\,}{k!\,l!\,(i+j-k-1)!}\\ &amp;amp;\times\,\frac{\Gamma((l+1)\beta+1+m)}{m!\,\Gamma((l+1)\beta+1)}\left(1-u^{-d}\right)^{(l+1)\beta+m-1}.\nonumber\end{aligned}</span></div></div>
+</div> Finally, expanding \((1-u^{-d})^{(l+1)\beta+m-1}\) in the previous expression as in (8) and after some algebra, we can write <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[f_{i:n}(x)= \sum_{q=0}^\infty \upsilon_{q}\,g(x;c,(q+1)d,s),\]</span><span class="label">(23)</span>
+</div></div>
+</div> where (for \(q=0,1,\ldots\)) <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \upsilon_{q}=&amp;amp; \sum_{k,\,l,\,m=0}^\infty \sum\limits_{j=0}^{n-i}\,{n-i \choose j}\frac{(-1)^{j+k+l+q}\,\beta\,\alpha^{l+1}\,(1+k)^l\,(i+j-1)!}{k!\,l!\,m!\,(q+1)!\,B(i,n-i+1)\,(i+j-k-1)!}\\ &amp;amp;\times\,\frac{\Gamma((l+1)\beta+1+m)\,\Gamma((l+1)\beta+m)}{\Gamma((l+1)\beta+1)\,\Gamma((l+1)\beta+m-q)}\end{aligned}</span></div></div>
+</div> and \(g(x;c,(q+1)d,s)\) is the BXII density function with scale parameter \(s\) and shape parameters \((q+1)d\) and \(c\). Equation (23) is the main result of this section. Based on this linear representation, we can obtain some structural properties of \(X_{i:n}\) using a similar procedure as that one applied for the WBXII mathematical properties.</p>
+<h1 class="articleSectionTitle">MAXIMUM LIKELIHOOD ESTIMATION</h1>
+<p>The maximum likelihood method is an important technique employed to estimate model parameters in distributions. <span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span> determined the MLEs for the <i>Weibull-G</i> parameters from the total log-likelihood function. In this section, we demonstrate alternatively that the MLEs of the<i>Weibull-G</i> family can be determined based on the profile log-likelihood function. We also provide the MLEs for the WBXII distribution.</p>
+<h2>The Weibull-G profile log-likelihood</h2>
+<p>Let \(x_1,\cdots,x_n\) be observed values from the <i>Weibull-G</i> family with parameter vector \(\bm{\Theta}= (\alpha, \beta, \pmb{\xi}^\top)^\top\). As shown by <span class="ref"><strong class="xref xrefblue">Bourguignon et al. 2014</strong><span class="refCtt closed"><span>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</span></span></span>, the total log-likelihood function for \(\bm{\Theta}\) has the form <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \ell(\bm{\Theta}) =&amp;amp; n\,\log(\alpha\,\beta)-\alpha\sum\limits_{i=1}^{n}H(x_i; \pmb{\xi})^\beta + \beta\sum\limits_{i=1}^{n}\log[H(x_i; \pmb{\xi})]\\ &amp;amp;- \sum\limits_{i=1}^{n}\log[G(x_i; \pmb{\xi})] - \sum\limits_{i=1}^{n}\log[1-G(x_i; \pmb{\xi})],\nonumber\end{aligned}</span><span class="label">(24)</span>
+</div></div>
+</div> where \(H(x;\pmb{\xi}) = G(x; \pmb{\xi})/\left[1-G(x; \pmb{\xi})\right]\). Thus, the first component of the score vector \(U(\bm{\Theta}) = \left(U_{\alpha}, U_{\beta}, U_{\pmb{\xi}}^\top\right)^\top\) is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} U_{\alpha} &amp;amp;= \frac{n}{\alpha} - \sum\limits_{i=1}^{n}H(x_i; \pmb{\xi})^\beta.\end{aligned}</span></div></div>
+</div> </p>
+<p>For fixed \(\beta\) and \(\pmb{\xi}\), a semi-closed MLE for \(\alpha\) follows from \(U_{\alpha}=0\) as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \hat{\alpha}(\beta,\pmb{\xi}) &amp;amp;= \frac{n}{\sum\limits_{i=1}^{n}H(x_i; \pmb{\xi})^\beta}.\end{aligned}</span></div></div>
+</div> By replacing \(\alpha\) by \(\hat{\alpha}\) in (24), we obtain the <i>Weibull-G</i> profile log-likelihood for \(\pmb{\Theta_p}= (\beta, \pmb{\xi})^\top\) as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \ell(\pmb{\Theta_p}) = &amp;amp;\,n\,\log(n\,\beta) + \beta\sum\limits_{i=1}^{n}\log[H(x_i; \pmb{\xi})] - \sum\limits_{i=1}^{n}\log[G(x_i; \pmb{\xi})] - \sum\limits_{i=1}^{n}\log[1-G(x_i; \pmb{\xi})]\\ &amp;amp;-n\,\log\left[\sum\limits_{i=1}^{n}H(x_i; \pmb{\xi})^\beta\right] -n.\nonumber \end{aligned}</span><span class="label">(25)</span>
+</div></div>
+</div> Hence, the MLE \(\pmb{\widehat{\Theta}_p}\) of the parameter vector \(\pmb{\Theta_p}\) can be numerically found by maximizing (25) and the MLE of \(\alpha\) is just \(\hat{\alpha}(\pmb{\widehat{\Theta}_p})\). Note that the maximization of the profile log-likelihood might be simpler since it involves one less parameter.</p>
+<h2>The WBXII MLEs</h2>
+<p>Let \(x_1,\cdots, x_n\) be a random sample of size \(n\) from the WBXII\((c,d,s,\alpha,\beta)\) distribution. Let \(\pmb{\Theta} = (c,d,s,\alpha,\beta)^{T}\) be the parameter vector. The \(\log\)-likelihood function for \(\pmb{\Theta}\) follows as <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \ell(\pmb{\Theta}) =&amp;amp;\, n\log (\alpha \, \beta \, c \, d \, s^{-1} ) + (c-1)c^{-1}\sum_{i=1}^{n} \log (u_i-1) +(d-1)\sum_{i=1}^{n} \log u_i\\ &amp;amp;-\alpha \, \sum_{i=1}^{n} \left(u_i^d-1\right)^\beta +(\beta - 1)\sum_{i=1}^{n} \log \left(u_i^d-1\right),\nonumber\end{aligned}</span><span class="label">(26)</span>
+</div></div>
+</div> where \(u_i=1+\left(\frac{x_i}{s}\right)^c\). The estimates of the model parameters can be obtained by maximizing (26).</p>
+<p>Alternatively, we can be differentiating (26) and solving the resulting nonlinear likelihood equations. The components of the score vector \(\pmb{U(\Theta)}\) are <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \displaystyle U_c(\pmb{\Theta}) =&amp;amp;\, n\,c^{-1}+ c^{-1}\sum_{i=1}^{n} \log (u_i-1) +(d-1)\,c^{-1}\sum_{i=1}^{n} (u_i-1) \log \left(u_i-1\right) u_i^{-1} \\ &amp;amp;- \alpha \, \beta \, d\,(c\,s)^{-1} \sum_{i=1}^{n} (u_i-1) \log \left(u_i-1\right) u_i^{d-1} \left(u_i^d-1\right)^{\beta -1}\\ &amp;amp;+d \,(\beta -1)\,(c\,s)^{-1}\sum_{i=1}^{n} (u_i-1) \log \left(u_i-1\right) u_i^{d-1} \left(u_i^d-1\right)^{-1},\\ \displaystyle U_d(\pmb{\Theta}) =&amp;amp;\, n\,d^{-1}+ \sum_{i=1}^{n}\log u_i +(\beta -1)\sum_{i=1}^{n} u_i^d \log u_i \left(u_i^d-1\right)^{-1}\\ &amp;amp;- \alpha \beta \sum_{i=1}^{n} u_i^d \log u_i \left(u_i^d-1\right)^{\beta -1},\\ \displaystyle U_s(\pmb{\Theta}) =&amp;amp;\, -c \, n \, s^{-1} + c(d-1)s^{-1} \sum_{i=1}^{n} (u_i -1) u_i^{-1} \\ &amp;amp;- c \, d \, (\beta -1)\, s^{-1} \sum_{i=1}^{n}(u_i-1) u_i^{d-1} \left(u_i^d-1\right)^{-1}\\ &amp;amp;+\alpha \, \beta \, c \, d \, s^{-1} \sum_{i=1}^{n}(u_i-1) u_i^{d-1} \left(u_i^d-1\right)^{\beta -1},\\ \displaystyle U_\alpha(\pmb{\Theta}) =&amp;amp;\, n \, \alpha^{-1}-\sum_{i=1}^{n} \left( u_i^d-1\right)^\beta \end{aligned}</span></div></div>
+</div> and <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \displaystyle U_\beta(\pmb{\Theta}) &amp;amp;= n \, \beta^{-1}+\sum_{i=1}^{n} \log \left( u_i^d-1\right)-\alpha\sum_{i=1}^{n} \left(u_i^d-1\right)^{\beta } \log \left(u_i^d-1\right).\end{aligned}</span></div></div>
+</div> Setting these expressions to zero, \(\pmb{U(\Theta)}={\bf 0}\), and solving them simultaneously yields the MLEs of the five parameters. These equations cannot be solved analytically, but some statistical softwares can be used to solve them numerically using iterative methods such as the Newton-Raphson type algorithms.</p>
+<p>For fixed \(c, d, s\) and \(\beta\), the MLE of \(\alpha\) is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\[ \hat{\alpha}(c,d,s,\beta)=\frac{n}{\sum_{i=1}^n (u_i^{d}-1)^\beta}.\]</span><span class="label">(27)</span>
+</div></div>
+</div> By fixing \(x_1,\cdots,x_n\), it is easy to verify from (27) that</p>
+<ul list-type="bullet">
+<li><p>\(\hat \alpha \to 1\) when \(\beta \to 0^+\);</p></li>
+<li><p>\(\hat \alpha \to \infty\) when \(s \to \infty\);</p></li>
+<li><p>\(\hat \alpha \to 0^+\) when \(s \to 0^+\);</p></li>
+<li><p>\(\hat \alpha \to 0^+\) when \(d \to \infty\);</p></li>
+<li><p>\(\hat \alpha \to \infty\) when \(d \to 0^+\).</p></li>
+</ul>
+<p>By replacing \(\alpha\) by (27) in equation (26) and letting \(\pmb{\Theta_p} = (c,d,s,\beta)\), the profile log-likelihood function for \(\pmb{\Theta_p}\) has the form <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container">
+<span class="formula-body">\begin{aligned} \ell(\pmb{\Theta_p}) &amp;amp;= n\log (n \, \beta \, c \, d \, s^{-1} ) + (c-1)c^{-1}\sum_{i=1}^{n} \log (u_i-1) +(d-1)\sum_{i=1}^{n} \log u_i\\ &amp;amp;- n \log \, \sum_{i=1}^{n} \left(u_i^d-1\right)^\beta +(\beta - 1)\sum_{i=1}^{n} \log \left(u_i^d-1\right) - n.\nonumber\end{aligned}</span><span class="label">28</span>
+</div></div>
+</div> </p>
+<p>The components of the score vector \(\pmb{U(\Theta_p)}\) of (28) are <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \displaystyle U_c(\pmb{\Theta_p}) &amp;amp;= n\,c^{-1}+ c^{-1}\sum_{i=1}^{n} \log (u_i-1) +(d-1)c^{-1}\sum_{i=1}^{n} \left(u_i-1\right)\log(u_i-1) u_i^{-1} \\ &amp;amp;- n \, \beta \, d\,c^{-1}\left[ \sum_{i=1}^n \left(u_i^d-1\right)^\beta \right] ^{-1}\,\sum_{i=1}^{n} (u_i-1)u_i^{d-1} \left(u_i^d-1\right)^{\beta -1} \log \left(u_i-1\right)\\ &amp;amp;+d \,(\beta -1)\,c^{-1}\sum_{i=1}^{n} (u_i-1) u_i^{d-1} \left(u_i^d-1\right)^{-1}\log \left(u_i-1\right),\\\end{aligned}</span></div></div>
+</div> <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \displaystyle U_d(\pmb{\Theta_p}) &amp;amp;= n\,d^{-1}+ \sum_{i=1}^{n}\log u_i +(\beta -1)\sum_{i=1}^{n} u_i^d \left(u_i^d-1\right)^{-1} \log u_i\\ &amp;amp;- n \beta \left[{\sum_{i=1}^n \left(u_i^d-1\right)^\beta}\right]^{-1}\sum_{i=1}^{n} u_i^d \left(u_i^d-1\right)^{\beta -1}\log u_i,\\ \displaystyle U_s(\pmb{\Theta_p}) &amp;amp;= - n \,c \, s^{-1} + c(d-1)s^{-1} \sum_{i=1}^{n} (u_i-1)u_i^{-1} \\ &amp;amp;- c \, d \, (\beta -1)\, s^{-1} \sum_{i=1}^{n}(u_i-1)\, u_i^{d-1} \left(u_i^d-1\right)^{-1}\\ &amp;amp;+n \, \beta \, c \, d \, s^{-1} \left[ {\sum_{i=1}^n \left(u_i^d-1\right)^\beta}\right]^{-1}\sum_{i=1}^{n}(u_i-1)\,u_i^{d-1} \left(u_i^d-1\right)^{\beta -1} \end{aligned}</span></div></div>
+</div> and <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} \displaystyle U_\beta(\pmb{\Theta_p}) &amp;amp;= n \, \beta^{-1}+\sum_{i=1}^{n} \log \left(u_i^d-1\right)-n\left[{\sum_{i=1}^n \left(u_i^d-1\right)^\beta}\right]^{-1}\sum_{i=1}^{n} \left(u_i^d-1\right)^{\beta } \log \left(u_i^d-1\right).\end{aligned}</span></div></div>
+</div> Solving the equations \(\pmb{U(\Theta_p)}={\bf 0}\) simultaneously yields the MLEs of \(c\), \(d\), \(s\) and \(\beta\). The MLE of \(\alpha\) is just \(\hat{\alpha}(\hat{c},\hat{d},\hat{s},\hat{\beta})\). The maximization of the profile log-likelihood might be simpler since it involves only four parameters.</p>
+<p>For interval estimation of the model parameters, we require the observed information matrix \(\pmb{J(\Theta)}\), whose elements can be obtained from the authors upon request. Under standard regularity conditions, the approximate confidence intervals for the model parameters can be constructed based on the multivariate normal \(N_{5}(0, \pmb{J(\widehat{\Theta})}^{-1})\) distribution.</p>
+<p>A major advantage of fitting the proposed distribution to a real data set is that we can easily verify, based on the likelihood ratio (LR) statistics, whether any of its sub-models (with fewer parameters) can be preferred to these data.</p>
+<p>The maximized (unrestricted and restricted) log-likelihoods are useful to compute LR statistics to verify if WBXII sub-models (with fewer parameters) can be preferred for fitting a given data set. This is a major advantage since the WBXII model extends at least twenty lifetime distributions, including new ones. Let \(\pmb{\Theta_{0}}\) be the restricted parameter vector for a given WBXII sub-model. Thus, hypothesis tests of the type \(H_{0}:\pmb{\Theta}=\pmb{\Theta}_{0}\) versus \(H:\pmb{\Theta} \neq \pmb{\Theta}_{0}\) can be performed using LR statistics. For example, the LR statistic for testing \(H_{0}:\alpha=\beta=1\) (versus \(H:H_{0}\,\,\text{is not true}\)), thus comparing the WBXII and PGW distributions, is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[w=2\{l(\widehat{c},\widehat{d},\widehat{s},\widehat{\alpha},\widehat{\beta}) -l(\widetilde{c},\widetilde{d},\widetilde{s},1,1)\}\overset{d}{\to} \chi^2_2,\]</span></div></div>
+</div> where \(\widehat{s}\), \(\widehat{d}\), \(\widehat{c}\), \(\widehat{\alpha}\), and \(\widehat{\beta}\) are the MLEs under \(H\), \(\widetilde{c}\), \(\widetilde{d},\) and \(\widetilde{s}\) are the estimates under \(H_{0}\) and \(\pmb{\Theta_{0}}=(c,d,s,1,1)^\top\).</p>
+<h1 class="articleSectionTitle">SIMULATION STUDY</h1>
+<p>In this section, we evaluate the performance of the MLEs of the parameters of the WBXII distribution. We conduct Monte Carlo simulations based on 10,000 replications under five different parameter combinations and sample size \(n=\)100, 250 and 500. The simulation study is performed using the optim subroutine and SANN algorithm in R software for maximizing the log-likelihood in (26). Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletIII"><span class="sci-ico-fileTable"></span>III</a> reports the empirical mean estimates and corresponding root mean squared errors (RMSEs). For all parameter combinations, we note that the empirical biases and RMSEs decrease when the sample size increases in agreement with the first-order asymptotic theory.</p>
+<div class="row table" id="tIII">
+<a name="tIII"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletIII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table III</strong><br>Mean estimates and RMSEs of the WBXII distribution.<br>
+</div>
+</div>
+<h1 class="articleSectionTitle">APPLICATIONS</h1>
+<p>In this section, we illustrate the usefulness of the WBXII distribution for modeling income and lifetime data. The first data set represents the times to failure (\(10^3\) h) of 40 suits of turbochargers in one type of diesel engine (<span class="ref"><strong class="xref xrefblue">Xu et al. 2003</strong><span class="refCtt closed"><span>XU K, XIE M, TANG LC &amp; HO SL. 2003. Application of neural networks in forecasting engine systems reliability. Appl Soft Comput 2: 255-268.</span></span></span>). These data were previously considered by <span class="ref"><strong class="xref xrefblue">Benkhelifa 2016</strong><span class="refCtt closed"><span>BENKHELIFA L. 2016. The Weibull Birnbaum-Saunders Distribution: Properties and Applications. arXiv:1502.05180.</span></span></span>. The second data set consists in annual salaries of 862 professional baseball players of the Major League Baseball for the season 2016. The data are measured in American dollars and are available for download at <a href="https://www.usatoday.com/sports/mlb/salaries/2016/player/all/" target="_blank">https://www.usatoday.com/sports/mlb/salaries/2016/player/all/</a>. Both data sets are available in the appendix.</p>
+<p>We use these two data sets to compare the fits of the WBXII distribution with other six related models, i.e., the beta Burr XII (BBXII), Kumaraswamy Burr XII (KwBXII), BXII, LL, PGW, and W distributions. The seven competitive models are defined as follows. The BBXII pdf is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\[f(x)=\frac{cd (x)^{c-1}}{s^{c}B(\alpha,\beta)}\Big\{1-\big[1+(x/s)^{c}\big]^{-d}\Big\} ^{\alpha-1}\big[1+(x/s)^{c}\big]^{-(d\beta+1)},\qquad x&gt;0,\]</span></div></div>
+</div> where \(\alpha&gt;0\) and \(\beta&gt;0\) are shape parameters; the KwBXII density is <div class="row formula" id="e">
+<a name=""></a><div class="col-md-12"><div class="formula-container"><span class="formula-body">\begin{aligned} f(x)&amp;amp;=&amp;amp;\alpha\,\beta\,c\,d\,s^{-c}x^{c-1}\left[1+\left(\frac{x}{s}\right)^{c}\right]^{-d-1} \left\{1-\left[1+\left(\frac{x}{s}\right)^{c}\right]^{-d}\right\}^{\alpha-1}\,\times\nonumber\\ &amp;amp;&amp;amp;\left[1-\left\{1-\left[1+\left(\frac{x}{s}\right)^{c}\right]^{-d}\right\}^{\alpha}\right]^{\beta-1},\,\,\,x&gt;0,\end{aligned}</span></div></div>
+</div> where \(\alpha&gt;0\) and \(\beta&gt;0\) are shape parameters; the BXII density is given by equation (2); the LL is defined by taking \(s=m^{-1}\) and \(d=1\) in (2); and the PGW and W distributions are sub-models of (5) by taking \(\alpha=\beta=1\) and \(\alpha=\beta=d=1\), respectively.</p>
+<p>In each case, the parameters are estimated by maximum likelihood using the AdequacyModel script in the R software (<span class="ref"><strong class="xref xrefblue">Marinho et al. 2016</strong><span class="refCtt closed"><span>MARINHO PRD, BOURGUIGNON M &amp; DIAS CRB. 2016. AdequacyModel: Adequacy of Probabilistic Models and General Purpose Optimization. URL https://CRAN.R-project.org/package=AdequacyModel. R package version 2.0.0.</span><br><a href="https://CRAN.R-project.org/package=AdequacyModel" target="_blank">https://CRAN.R-project.org/package=Adequ...
+            </a></span></span>). We report the MLEs and their corresponding standard errors. We present the following goodness-of-fit statistics: the Akaike information criteria (AIC), consistent Akaike information criteria (CAIC), Hannan-Quinn information criteria (HQIC), corrected Anderson-Darling statistic (\(A^*\)) (<span class="ref"><strong class="xref xrefblue">Chen &amp; Balakrishnan 1995</strong><span class="refCtt closed"><span>CHEN G &amp; BALAKRISHNAN N. 1995. A general purpose approximate goodness-of-fit test. J Qual Technol 27: 154-161. </span></span></span>) and Kolmogorov-Smirnov (KS) statistic. The lower values of these statistics are associated with better fits. We also compute the LR statistics for testing WBXII sub-models.</p>
+<h2>Turbochargers failure time</h2>
+<p>Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletIV"><span class="sci-ico-fileTable"></span>IV</a> provides some descriptive statistics of the turbochargers failure time data. Note that these data present negative skewness (S) and kurtosis (K) and have an amplitude of 7.4. We also have close values for the mean and median. This descriptive summary indicates that the turbochargers data follow a power-law distribution with a left-skewed tail.</p>
+<div class="row table" id="tIV">
+<a name="tIV"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletIV"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table IV</strong><br>Descriptive statistics for turbochargers data.<br>
+</div>
+</div>
+<p>Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletV"><span class="sci-ico-fileTable"></span>V</a> lists the MLEs for the fitted models to these data and their corresponding standard errors. For all fitted models, the parameter estimates are significant. Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletVI"><span class="sci-ico-fileTable"></span>VI</a> gives the goodness-of-fit statistics. The WBXII distribution has the lowest values for all statistics. Note that the WBXII is quite competitive with the W distribution. However, the W model may not be an effective alternative for modeling left-skewed data. Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletVII"><span class="sci-ico-fileTable"></span>VII</a> provides the LR statistics for the PGW and W fitted models. By considering a significance level of 10%, we may reject both sub-models in favor of the WBXII distribution. It is another clear evidence of the WBXII superiority for modeling these data. Figure <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf4"><span class="sci-ico-fileFigure"></span>4</a> displays the histogram and the estimated densities with lower values for goodness-of-fit statistics. We note that the WBXII yields a good adjustment to the current data. In fact, the wider model is more accurate than the W distribution for modeling the right tail and is quite competitive with the BBXII distribution. Thus, we can conclude from Figure <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf4"><span class="sci-ico-fileFigure"></span>4</a> and Tables <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletVI"><span class="sci-ico-fileTable"></span>VI</a> and <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletVII"><span class="sci-ico-fileTable"></span>VII</a> that the WBXII model provides the best fit to the turbocharges failure time data.</p>
+<div class="row table" id="tV">
+<a name="tV"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletV"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table V</strong><br>MLEs of the model parameters and their standard errors in parentheses.<br>
+</div>
+</div>
+<div class="row table" id="tVI">
+<a name="tVI"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletVI"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table VI</strong><br>Goodness-of-fit statistics for the fits to the turbochargers failure time data.<br>
+</div>
+</div>
+<div class="row table" id="tVII">
+<a name="tVII"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletVII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table VII</strong><br>LR statistics for the fits to the turbochargers failure time data.<br>
+</div>
+</div>
+<div class="row fig" id="f4">
+<a name="f4"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/2afedf9e313a06e7f0674ffd74f0168ba2141f7c.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong></strong><br>Histogram and estimated densities of the WBXII, BBXII and W models for the turbochargers failure time data.<br>
+</div>
+</div>
+<div class="row fig" id="f5">
+<a name="f5"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/52967cfe31defef89bfed51181cf410f6950bd9b.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong></strong><br>Histogram and estimated densities of the WBXII, BBXII and KwBXII models for the baseball players data.<br>
+</div>
+</div>
+<h2>Baseball players salaries</h2>
+<p>Some descriptive statistics for the baseball players data are provided in Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletVIII"><span class="sci-ico-fileTable"></span>VIII</a>. These data present positive values for the S and K coefficients, thus indicating right-skew data. We have a high amplitude, variance, and SD. We also note that the mean and median are not so close. This behavior is quite common in income data sets. </p>
+<div class="row table" id="tVIII">
+<a name="tVIII"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletVIII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table VIII</strong><br>Descriptive statistics for baseball players data.<br>
+</div>
+</div>
+<p>Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletIX"><span class="sci-ico-fileTable"></span>IX</a> provides the MLEs and their standard errors for the seven models fitted to the baseball players data. We have significant estimates for all parameters of these models. Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletX"><span class="sci-ico-fileTable"></span>X</a> lists some goodness-of-fit measures for the fitted models. The WBXII distribution presents the lowest values for all statistics. These results indicate that the WBXII distribution yields a better fit than the other fitted models to the baseball players data. The results for the LR tests are given in Table <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTabletXI"><span class="sci-ico-fileTable"></span>XI</a>. Clearly, we reject the PGW and W distributions in favor of the wider model. So, there is a strong evidence of the potential need for the extra shape parameters of the WBXII in the second application. Figure <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf5"><span class="sci-ico-fileFigure"></span>5</a> displays the fitted WBXII, BBXII and KwBXII densities and the histogram for the baseball players data. They confirm that the WBXII model yields the best fit. Finally, we can conclude that the WBXII is an effective alternative to modeling lifetime (see the first data set) and income (see the second data set) data, especially when they present power-law tails. It is quite competitive to the classical Weibull distribution and other BXII generalizations.</p>
+<div class="row table" id="tIX">
+<a name="tIX"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletIX"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table IX</strong><br>MLEs of the model parameters and corresponding standard errors in parentheses.<br>
+</div>
+</div>
+<div class="row table" id="tX">
+<a name="tX"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletX"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table X</strong><br>Goodness-of-fit statistics for the fitted models for baseball players data.<br>
+</div>
+</div>
+<div class="row table" id="tXI">
+<a name="tXI"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTabletXI"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table XI</strong><br>Likelihood ratio statistics for the fits to the baseball players data.<br>
+</div>
+</div>
+<h1 class="articleSectionTitle">CONCLUDING REMARKS</h1>
+<p>The five-parameter <i>Weibull Burr XII</i> distribution is introduced and studied in detail. The proposed model extends at least twenty lifetime distributions, including new ones. Its hazard rate function can be increasing, decreasing, upside-down bathtub, and bathtub-shaped. It is also very flexible in terms of the density function, which has several forms including left-skewed, right-skewed, reversed-J, and bimodal. We emphasize that a shiny application is developed to provide interactive plots and illustrate the behavior of those functions for several parameter combinations. Some mathematical properties of the proposed model are presented, including the ordinary and incomplete moments, quantile and generating functions, mean deviations, stress-strength reliability, and order statistics. We estimate the model parameters using maximum likelihood, present the components of the score vector and the profile log-likelihood. We also derive a general result for the Weibull-G family, which presents a semi-closed form for the maximum likelihood estimator of the parameter \(\alpha\). We provide applications to real lifetime and income data sets. They illustrate the usefulness of the proposed distribution for modeling these kinds of data and also prove empirically that the WBXII distribution is quite competitive to other known Burr XII and Weibull generalizations.</p>
+</div>
+<div>
+<h1></h1>
+<div class="ref-list"><ul class="refList footnote">
+<li><div>https://newdists.shinyapps.io/WBXIIdist/.</div></li>
+<li><div>
+          <a href="https://drive.google.com/open?id=1an1YbEeX1XHEbSvwIo8jbEAwkLxFJSxP." target="_blank">https://drive.google.com/open?id=1an1YbEeX1XHEbSvwIo8jbEAwkLxFJSxP.</a>
+        </div></li>
+</ul></div>
+</div>
+<div class="articleSection" data-anchor="REFERENCES">
+<h1 class="articleSectionTitle">REFERENCES</h1>
+<div class="ref-list"><ul class="refList">
+<li><div>AFIFY AZ, YOUSOF HM, CORDEIRO GM, ORTEGA EMM &amp; NOFAL ZM. 2016. The Weibull Fréchet distribution and its applications. Journal of Applied Statistics 43: 2608-2626. </div></li>
+<li><div>AFIFY AZ, CORDEIRO GM, ORTEGA EMM, YOUSOF HM &amp; BUTT NS. 2018. The Four-Parameter Burr XII Distribution: Properties, Regression Model and Applications. Communications in Statistics - Theory and Methods 47: 2605-2624.</div></li>
+<li><div>BENKHELIFA L. 2016. The Weibull Birnbaum-Saunders Distribution: Properties and Applications. arXiv:1502.05180.</div></li>
+<li><div>BOURGUIGNON M, SILVA RB &amp; CORDEIRO GM. 2014. The Weibull-G Family of Probability Distributions. Journal of Data Science 12: 53-68.</div></li>
+<li><div>BRZEZIŃSKI M. 2013. Parametric Modelling of Income Distribution in Central and Eastern Europe. Central European Journal of Economic Modelling and Econometrics 5: 207-230.</div></li>
+<li><div>BURR IW. 1942. Cumulative frequency functions. Annals of Mathematical Statistics 13: 215-232.</div></li>
+<li><div>CHEN G &amp; BALAKRISHNAN N. 1995. A general purpose approximate goodness-of-fit test. J Qual Technol 27: 154-161. </div></li>
+<li><div>CHOTIKAPANICH D, GRIFFITHS W &amp; RAO DSP. 2013. Calculating Poverty Measures from the Generalised Beta Income Distribution. The Economic Record 89: 46-66. </div></li>
+<li><div>CIRILLO P. 2010. An analysis of the size distribution of Italian firms by age. Physica A 389: 459-466. </div></li>
+<li><div>CORDEIRO GM, ORTEGA EMM, &amp; RAMIRES TG. 2015. A new generalized Weibull family of distributions: mathematical properties and applications. J Stat Distrib Applic 2: 1-25.</div></li>
+<li><div>DIMITRAKOPOULOU T, ADAMIDIS K &amp; LOUKAS S. 2007. A lifetime distribution with an upside-down bathtub-shaped hazard function. IEEE Transactions Reliability 121: 308-311.</div></li>
+<li><div>GUERRA RR, PEÑA RAMÍREZ FA, PEÑA RAMÍREZ MR &amp; CORDEIRO GM. 2020. A note on the density expansion and generating function of the beta Burr XII. Math Method Appl Sci 43: 1817-1824.</div></li>
+<li><div>GUPTA R, GUPTA P &amp; GUPTA R. 1998. Modeling failure time data by Lehman alternatives. Communications in Statistics - Theory and Methods 27: 887-904. </div></li>
+<li><div>JÄNTTI M &amp; JENKINS SP. 2010. The impact of macroeconomic conditions on income inequality. J Econ Inequal 8: 221-240.</div></li>
+<li><div>KENNEY J &amp; KEEPING E. 1962. Mathematics of Statistics. 3<sup>rd</sup> ed. New Jersey: Chapman and Hall Ltda. </div></li>
+<li><div>KUMAR S, CHANDRA N &amp; KHAN M. 2013. On the Reliability Estimation of Burr Type XII Distribution. Safety and Reliability 33: 29-40.</div></li>
+<li><div>MARINHO PRD, BOURGUIGNON M &amp; DIAS CRB. 2016. AdequacyModel: Adequacy of Probabilistic Models and General Purpose Optimization. URL https://CRAN.R-project.org/package=AdequacyModel R package version 2.0.0.<br><a href="https://CRAN.R-project.org/package=AdequacyModel" target="_blank">» https://CRAN.R-project.org/package=AdequacyModel</a>
+</div></li>
+<li><div>MEROVCI F &amp; ELBATAL I. 2015. Weibull Rayleigh Distribution: Theory and Applications. Appl Math Info Sci 4: 2127-2137.</div></li>
+<li><div>MOORS J. 1988. A quantile alternative for kurtosis. The Statistician 37: 25-32. </div></li>
+<li><div>NIKULIN M &amp; HAGHIGHI F. 2006. A chi-squared test for the generalized power Weibull family for the head-and-neck cancer censored data. J Math Sci 133: 1333-1341.</div></li>
+<li><div>OGUNTUNDE P, BALOGUN O, OKAGBUE H &amp; BISHOP S. 2015. The Weibull-Exponential Distribution: Its Properties and Applications. J Appl Sci 15: 1305-1311. </div></li>
+<li><div>R CORE TEAM. 2018. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. Vienna, Austria. URL https://www.R-project.org/.</div></li>
+<li><div>ROCKERBIE DW. 2003. The economics of professional sports. Lethbridge, Alberta. </div></li>
+<li><div>SINGH SK &amp; MADDALA GS. 1975. A stochastic process for income distribution and tests for income distribution functions. In: ASA Proceedings of the Business and Economic Statistics Section, p. 551-553.</div></li>
+<li><div>SINGH SK &amp; MADDALA GS. 1976. A function for the size distribution of incomes. Econometrica 44: 963-970.</div></li>
+<li><div>TAHIR MH, CORDEIRO GM, MANSOOR M &amp; ZUBAIR M. 2015. The Weibull-Lomax distribution: properties and applications. Hacettepe Journal of Mathematics and Statistics 44: 455-474.</div></li>
+<li><div>TAHIR MH, CORDEIRO GM, ALZAATREH A, MANSOOR M &amp; ZUBAIR M. 2016a. A New Weibull-Pareto Distribution: Properties and Applications. Communications in Statistics - Simulation and Computation 45: 3548-3567. </div></li>
+<li><div>TAHIR MH, CORDEIRO GM, MANSOOR M, ZUBAIR M &amp; ALIZADEH M. 2016b. The Weibull-Dagum Distribution: Properties and Applications. Communications in Statistics - Theory and Methods 45: 3548-3567.</div></li>
+<li><div>TAHIR MH, ZUBAIR M, MANSOOR M, CORDEIRO GM, ALIZADEH M &amp; HAMEDANI GG. 2016c. A new Weibull-G family of distributions. Hacettepe Journal of Mathematics and Statistics 45: 629-647.</div></li>
+<li><div>TANAK AK, BORZADARAN GM &amp; AHMADI J. 2015. Entropy maximization under the constraints on the generalized Gini index and its application in modeling income distributions. Physica A 438: 657-666.</div></li>
+<li><div>XU K, XIE M, TANG LC &amp; HO SL. 2003. Application of neural networks in forecasting engine systems reliability. Appl Soft Comput 2: 255-268.</div></li>
+<li><div>ZIMMER WJ, KEATS JB &amp; WANG FK. 1998. The Burr XII distribution in reliability analysis. J Qual Technol 30: 386-394.</div></li>
+</ul></div>
+</div>
+<div class="articleSection" data-anchor="Appendix A">
+<h1 class="articleSectionTitle">Appendix A</h1>A.1. First data setTable A.ITurbochargers failure time data.<div class="table table-hover"><table frame="box" rules="all"><tbody>
+<tr>
+<td align="right">1.60</td>
+<td align="right">3.50</td>
+<td align="right">4.80</td>
+<td align="right">5.40</td>
+<td align="right">6.00</td>
+<td align="right">6.50</td>
+<td align="right">7.30</td>
+<td align="right">7.70</td>
+<td align="right">8.10</td>
+<td align="right">8.50</td>
+</tr>
+<tr>
+<td align="right">2.00</td>
+<td align="right">3.90</td>
+<td align="right">5.00</td>
+<td align="right">5.60</td>
+<td align="right">6.10</td>
+<td align="right">6.70</td>
+<td align="right">7.30</td>
+<td align="right">7.80</td>
+<td align="right">8.30</td>
+<td align="right">8.70</td>
+</tr>
+<tr>
+<td align="right">2.60</td>
+<td align="right">4.50</td>
+<td align="right">5.10</td>
+<td align="right">5.80</td>
+<td align="right">6.30</td>
+<td align="right">7.00</td>
+<td align="right">7.30</td>
+<td align="right">7.90</td>
+<td align="right">8.40</td>
+<td align="right">8.80</td>
+</tr>
+<tr>
+<td align="right">3.00</td>
+<td align="right">4.60</td>
+<td align="right">5.30</td>
+<td align="right">6.00</td>
+<td align="right">6.50</td>
+<td align="right">7.10</td>
+<td align="right">7.70</td>
+<td align="right">8.00</td>
+<td align="right">8.40</td>
+<td align="right">9.00</td>
+</tr>
+</tbody></table></div>A.2. Second data setTable A.IIBaseball players salaries data.<div class="table table-hover"><table frame="box" rules="all"><tbody>
+<tr>
+<td align="right">30714286</td>
+<td align="right">8400000</td>
+<td align="right">6500000</td>
+<td align="right">4000000</td>
+<td align="right">2275000</td>
+<td align="right">1050000</td>
+<td align="right">530500</td>
+<td align="right">518000</td>
+<td align="right">511200</td>
+</tr>
+<tr>
+<td align="right">34416666</td>
+<td align="right">16000000</td>
+<td align="right">6750000</td>
+<td align="right">4000000</td>
+<td align="right">5125000</td>
+<td align="right">1050000</td>
+<td align="right">530000</td>
+<td align="right">518000</td>
+<td align="right">511000</td>
+</tr>
+<tr>
+<td align="right">31000000</td>
+<td align="right">18000000</td>
+<td align="right">6725000</td>
+<td align="right">4000000</td>
+<td align="right">3000000</td>
+<td align="right">7081428</td>
+<td align="right">530000</td>
+<td align="right">517800</td>
+<td align="right">511000</td>
+</tr>
+<tr>
+<td align="right">29200000</td>
+<td align="right">12250000</td>
+<td align="right">7333333</td>
+<td align="right">4000000</td>
+<td align="right">2750000</td>
+<td align="right">1000000</td>
+<td align="right">530000</td>
+<td align="right">517700</td>
+<td align="right">511000</td>
+</tr>
+<tr>
+<td align="right">25714285</td>
+<td align="right">11666667</td>
+<td align="right">6575000</td>
+<td align="right">4000000</td>
+<td align="right">2175000</td>
+<td align="right">1000000</td>
+<td align="right">530000</td>
+<td align="right">517500</td>
+<td align="right">510500</td>
+</tr>
+<tr>
+<td align="right">25000000</td>
+<td align="right">25000000</td>
+<td align="right">8666666</td>
+<td align="right">4000000</td>
+<td align="right">2150000</td>
+<td align="right">1000000</td>
+<td align="right">530000</td>
+<td align="right">517500</td>
+<td align="right">510500</td>
+</tr>
+<tr>
+<td align="right">25000000</td>
+<td align="right">11333333</td>
+<td align="right">8750000</td>
+<td align="right">3750000</td>
+<td align="right">1800000</td>
+<td align="right">1000000</td>
+<td align="right">529600</td>
+<td align="right">517500</td>
+<td align="right">510500</td>
+</tr>
+<tr>
+<td align="right">24000000</td>
+<td align="right">10000000</td>
+<td align="right">6500000</td>
+<td align="right">3900000</td>
+<td align="right">2100000</td>
+<td align="right">1000000</td>
+<td align="right">529000</td>
+<td align="right">517500</td>
+<td align="right">510500</td>
+</tr>
+<tr>
+<td align="right">25833333</td>
+<td align="right">14325000</td>
+<td align="right">6250000</td>
+<td align="right">3900000</td>
+<td align="right">2100000</td>
+<td align="right">1000000</td>
+<td align="right">529000</td>
+<td align="right">517500</td>
+<td align="right">510200</td>
+</tr>
+<tr>
+<td align="right">25000000</td>
+<td align="right">13000000</td>
+<td align="right">6500000</td>
+<td align="right">3900000</td>
+<td align="right">2075000</td>
+<td align="right">1000000</td>
+<td align="right">528700</td>
+<td align="right">517300</td>
+<td align="right">510200</td>
+</tr>
+<tr>
+<td align="right">24400000</td>
+<td align="right">11500000</td>
+<td align="right">6425000</td>
+<td align="right">3900000</td>
+<td align="right">9083333</td>
+<td align="right">1000000</td>
+<td align="right">528600</td>
+<td align="right">517246</td>
+<td align="right">510120</td>
+</tr>
+<tr>
+<td align="right">24000000</td>
+<td align="right">10357142</td>
+<td align="right">5543750</td>
+<td align="right">3800000</td>
+<td align="right">3625000</td>
+<td align="right">1000000</td>
+<td align="right">528200</td>
+<td align="right">517000</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">23777778</td>
+<td align="right">10000000</td>
+<td align="right">5500000</td>
+<td align="right">3750000</td>
+<td align="right">2500000</td>
+<td align="right">1000000</td>
+<td align="right">528000</td>
+<td align="right">517000</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">25000000</td>
+<td align="right">11500000</td>
+<td align="right">6250000</td>
+<td align="right">3750000</td>
+<td align="right">2000000</td>
+<td align="right">1000000</td>
+<td align="right">527600</td>
+<td align="right">516700</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">22500000</td>
+<td align="right">11000000</td>
+<td align="right">6250000</td>
+<td align="right">3583333</td>
+<td align="right">2000000</td>
+<td align="right">1000000</td>
+<td align="right">527500</td>
+<td align="right">516700</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">23000000</td>
+<td align="right">10500000</td>
+<td align="right">5487500</td>
+<td align="right">3700000</td>
+<td align="right">2000000</td>
+<td align="right">1000000</td>
+<td align="right">527500</td>
+<td align="right">516650</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">22000000</td>
+<td align="right">10000000</td>
+<td align="right">6225000</td>
+<td align="right">3125000</td>
+<td align="right">2000000</td>
+<td align="right">1000000</td>
+<td align="right">527000</td>
+<td align="right">516500</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">24000000</td>
+<td align="right">11000000</td>
+<td align="right">6200000</td>
+<td align="right">3300000</td>
+<td align="right">2000000</td>
+<td align="right">1000000</td>
+<td align="right">527000</td>
+<td align="right">516500</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">30000000</td>
+<td align="right">10976096</td>
+<td align="right">6170000</td>
+<td align="right">3333333</td>
+<td align="right">2000000</td>
+<td align="right">987500</td>
+<td align="right">527000</td>
+<td align="right">516500</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">22125000</td>
+<td align="right">10936574</td>
+<td align="right">8750000</td>
+<td align="right">4000000</td>
+<td align="right">2000000</td>
+<td align="right">975000</td>
+<td align="right">526400</td>
+<td align="right">516100</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">22142857</td>
+<td align="right">18000000</td>
+<td align="right">6125000</td>
+<td align="right">5125000</td>
+<td align="right">2000000</td>
+<td align="right">975000</td>
+<td align="right">526014</td>
+<td align="right">516100</td>
+<td align="right">510000</td>
+</tr>
+<tr>
+<td align="right">17666666</td>
+<td align="right">10700000</td>
+<td align="right">6125000</td>
+<td align="right">3500000</td>
+<td align="right">2000000</td>
+<td align="right">950000</td>
+<td align="right">525500</td>
+<td align="right">516100</td>
+<td align="right">509700</td>
+</tr>
+<tr>
+<td align="right">18000000</td>
+<td align="right">10650000</td>
+<td align="right">12500000</td>
+<td align="right">3500000</td>
+<td align="right">2000000</td>
+<td align="right">925000</td>
+<td align="right">525500</td>
+<td align="right">516000</td>
+<td align="right">509700</td>
+</tr>
+<tr>
+<td align="right">20000000</td>
+<td align="right">10550000</td>
+<td align="right">8285714</td>
+<td align="right">3500000</td>
+<td align="right">2000000</td>
+<td align="right">2666666</td>
+<td align="right">525500</td>
+<td align="right">516000</td>
+<td align="right">509675</td>
+</tr>
+<tr>
+<td align="right">23000000</td>
+<td align="right">14000000</td>
+<td align="right">6416666</td>
+<td align="right">5400000</td>
+<td align="right">2000000</td>
+<td align="right">900000</td>
+<td align="right">525300</td>
+<td align="right">515900</td>
+<td align="right">509600</td>
+</tr>
+<tr>
+<td align="right">21857142</td>
+<td align="right">10400000</td>
+<td align="right">6000000</td>
+<td align="right">2900000</td>
+<td align="right">2000000</td>
+<td align="right">900000</td>
+<td align="right">525270</td>
+<td align="right">515900</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">27500000</td>
+<td align="right">9333333</td>
+<td align="right">6000000</td>
+<td align="right">3450000</td>
+<td align="right">2000000</td>
+<td align="right">900000</td>
+<td align="right">525000</td>
+<td align="right">515800</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">22000000</td>
+<td align="right">12000000</td>
+<td align="right">6000000</td>
+<td align="right">3400000</td>
+<td align="right">2000000</td>
+<td align="right">897500</td>
+<td align="right">525000</td>
+<td align="right">515750</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">18750000</td>
+<td align="right">5700000</td>
+<td align="right">6000000</td>
+<td align="right">3400000</td>
+<td align="right">2000000</td>
+<td align="right">895000</td>
+<td align="right">525000</td>
+<td align="right">515500</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">21250000</td>
+<td align="right">10000000</td>
+<td align="right">7750000</td>
+<td align="right">3375000</td>
+<td align="right">1925000</td>
+<td align="right">850000</td>
+<td align="right">525000</td>
+<td align="right">515400</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">18555555</td>
+<td align="right">7000000</td>
+<td align="right">6400000</td>
+<td align="right">5166666</td>
+<td align="right">1825000</td>
+<td align="right">850000</td>
+<td align="right">524900</td>
+<td align="right">515000</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">20285714</td>
+<td align="right">9650000</td>
+<td align="right">5750000</td>
+<td align="right">3300000</td>
+<td align="right">1800000</td>
+<td align="right">810000</td>
+<td align="right">524525</td>
+<td align="right">515000</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">15500000</td>
+<td align="right">9625000</td>
+<td align="right">5731704</td>
+<td align="right">3300000</td>
+<td align="right">1750000</td>
+<td align="right">807500</td>
+<td align="right">524500</td>
+<td align="right">515000</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">17000000</td>
+<td align="right">10000000</td>
+<td align="right">5700000</td>
+<td align="right">3275000</td>
+<td align="right">1725000</td>
+<td align="right">800000</td>
+<td align="right">524500</td>
+<td align="right">515000</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">20625000</td>
+<td align="right">10000000</td>
+<td align="right">7150000</td>
+<td align="right">10000000</td>
+<td align="right">1700000</td>
+<td align="right">800000</td>
+<td align="right">524500</td>
+<td align="right">515000</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">22500000</td>
+<td align="right">11325000</td>
+<td align="right">5600000</td>
+<td align="right">3857142</td>
+<td align="right">1697500</td>
+<td align="right">800000</td>
+<td align="right">524100</td>
+<td align="right">515000</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">15775000</td>
+<td align="right">11600000</td>
+<td align="right">5600000</td>
+<td align="right">3200000</td>
+<td align="right">1650000</td>
+<td align="right">765000</td>
+<td align="right">524100</td>
+<td align="right">515000</td>
+<td align="right">509500</td>
+</tr>
+<tr>
+<td align="right">18571429</td>
+<td align="right">6500000</td>
+<td align="right">5500000</td>
+<td align="right">3125000</td>
+<td align="right">1650000</td>
+<td align="right">725000</td>
+<td align="right">524000</td>
+<td align="right">515000</td>
+<td align="right">509300</td>
+</tr>
+<tr>
+<td align="right">23000000</td>
+<td align="right">9150000</td>
+<td align="right">5250000</td>
+<td align="right">3125000</td>
+<td align="right">1600000</td>
+<td align="right">660000</td>
+<td align="right">523900</td>
+<td align="right">514875</td>
+<td align="right">509200</td>
+</tr>
+<tr>
+<td align="right">19500000</td>
+<td align="right">25000000</td>
+<td align="right">5000000</td>
+<td align="right">3150000</td>
+<td align="right">1600000</td>
+<td align="right">652000</td>
+<td align="right">523700</td>
+<td align="right">514500</td>
+<td align="right">509000</td>
+</tr>
+<tr>
+<td align="right">17250000</td>
+<td align="right">9000000</td>
+<td align="right">4250000</td>
+<td align="right">3125000</td>
+<td align="right">1600000</td>
+<td align="right">650000</td>
+<td align="right">523500</td>
+<td align="right">514500</td>
+<td align="right">508900</td>
+</tr>
+<tr>
+<td align="right">11538461</td>
+<td align="right">5103900</td>
+<td align="right">5500000</td>
+<td align="right">3100000</td>
+<td align="right">2100000</td>
+<td align="right">650000</td>
+<td align="right">523500</td>
+<td align="right">514500</td>
+<td align="right">508800</td>
+</tr>
+<tr>
+<td align="right">18000000</td>
+<td align="right">8000000</td>
+<td align="right">4200000</td>
+<td align="right">3025000</td>
+<td align="right">1550000</td>
+<td align="right">625000</td>
+<td align="right">523400</td>
+<td align="right">514500</td>
+<td align="right">508800</td>
+</tr>
+<tr>
+<td align="right">22000000</td>
+<td align="right">10000000</td>
+<td align="right">6000000</td>
+<td align="right">5000000</td>
+<td align="right">1525000</td>
+<td align="right">607000</td>
+<td align="right">523000</td>
+<td align="right">514400</td>
+<td align="right">508750</td>
+</tr>
+<tr>
+<td align="right">17500000</td>
+<td align="right">9000000</td>
+<td align="right">5350000</td>
+<td align="right">3900000</td>
+<td align="right">1875000</td>
+<td align="right">606000</td>
+<td align="right">522900</td>
+<td align="right">514400</td>
+<td align="right">508600</td>
+</tr>
+<tr>
+<td align="right">17000000</td>
+<td align="right">8500000</td>
+<td align="right">5312000</td>
+<td align="right">3500000</td>
+<td align="right">1750000</td>
+<td align="right">600000</td>
+<td align="right">522700</td>
+<td align="right">514250</td>
+<td align="right">508600</td>
+</tr>
+<tr>
+<td align="right">17000000</td>
+<td align="right">7500000</td>
+<td align="right">5300000</td>
+<td align="right">3000000</td>
+<td align="right">1500000</td>
+<td align="right">600000</td>
+<td align="right">522500</td>
+<td align="right">514200</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">18000000</td>
+<td align="right">11000000</td>
+<td align="right">5857142</td>
+<td align="right">3000000</td>
+<td align="right">1500000</td>
+<td align="right">587500</td>
+<td align="right">522500</td>
+<td align="right">514000</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">19000000</td>
+<td align="right">8750000</td>
+<td align="right">6825000</td>
+<td align="right">3000000</td>
+<td align="right">1500000</td>
+<td align="right">575000</td>
+<td align="right">522500</td>
+<td align="right">514000</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">21666666</td>
+<td align="right">8000000</td>
+<td align="right">5250000</td>
+<td align="right">3000000</td>
+<td align="right">1500000</td>
+<td align="right">575000</td>
+<td align="right">522400</td>
+<td align="right">513900</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">11428571</td>
+<td align="right">8666666</td>
+<td align="right">1312500</td>
+<td align="right">3000000</td>
+<td align="right">1500000</td>
+<td align="right">574000</td>
+<td align="right">522300</td>
+<td align="right">513900</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">17142857</td>
+<td align="right">4200380</td>
+<td align="right">5250000</td>
+<td align="right">3000000</td>
+<td align="right">1500000</td>
+<td align="right">570000</td>
+<td align="right">522000</td>
+<td align="right">513800</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">17000000</td>
+<td align="right">8375000</td>
+<td align="right">2800000</td>
+<td align="right">2975000</td>
+<td align="right">1500000</td>
+<td align="right">570000</td>
+<td align="right">521800</td>
+<td align="right">513600</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">16000000</td>
+<td align="right">9250000</td>
+<td align="right">5100000</td>
+<td align="right">2950000</td>
+<td align="right">1500000</td>
+<td align="right">566000</td>
+<td align="right">521700</td>
+<td align="right">513308</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">14250000</td>
+<td align="right">6950000</td>
+<td align="right">7000000</td>
+<td align="right">2925000</td>
+<td align="right">1500000</td>
+<td align="right">563750</td>
+<td align="right">521600</td>
+<td align="right">513300</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">24083333</td>
+<td align="right">6000000</td>
+<td align="right">10333333</td>
+<td align="right">2925000</td>
+<td align="right">1500000</td>
+<td align="right">556000</td>
+<td align="right">521300</td>
+<td align="right">513000</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">15000000</td>
+<td align="right">8250000</td>
+<td align="right">5000000</td>
+<td align="right">4250000</td>
+<td align="right">1500000</td>
+<td align="right">550000</td>
+<td align="right">521300</td>
+<td align="right">513000</td>
+<td align="right">508500</td>
+</tr>
+<tr>
+<td align="right">16000000</td>
+<td align="right">7833333</td>
+<td align="right">4333333</td>
+<td align="right">2900000</td>
+<td align="right">1490314</td>
+<td align="right">550000</td>
+<td align="right">521200</td>
+<td align="right">513000</td>
+<td align="right">508450</td>
+</tr>
+<tr>
+<td align="right">16000000</td>
+<td align="right">14285714</td>
+<td align="right">5000000</td>
+<td align="right">2875000</td>
+<td align="right">1475000</td>
+<td align="right">550000</td>
+<td align="right">521100</td>
+<td align="right">513000</td>
+<td align="right">508200</td>
+</tr>
+<tr>
+<td align="right">15800000</td>
+<td align="right">12500000</td>
+<td align="right">3750000</td>
+<td align="right">3500000</td>
+<td align="right">1475000</td>
+<td align="right">548000</td>
+<td align="right">521000</td>
+<td align="right">512900</td>
+<td align="right">508200</td>
+</tr>
+<tr>
+<td align="right">15800000</td>
+<td align="right">10000000</td>
+<td align="right">5000000</td>
+<td align="right">2800000</td>
+<td align="right">1475000</td>
+<td align="right">547500</td>
+<td align="right">521000</td>
+<td align="right">512500</td>
+<td align="right">508000</td>
+</tr>
+<tr>
+<td align="right">15800000</td>
+<td align="right">9166666</td>
+<td align="right">5000000</td>
+<td align="right">2800000</td>
+<td align="right">1450000</td>
+<td align="right">546500</td>
+<td align="right">521000</td>
+<td align="right">512500</td>
+<td align="right">508000</td>
+</tr>
+<tr>
+<td align="right">13000000</td>
+<td align="right">7000000</td>
+<td align="right">5000000</td>
+<td align="right">2800000</td>
+<td align="right">1400000</td>
+<td align="right">546250</td>
+<td align="right">520700</td>
+<td align="right">512500</td>
+<td align="right">508000</td>
+</tr>
+<tr>
+<td align="right">14500000</td>
+<td align="right">9000000</td>
+<td align="right">5000000</td>
+<td align="right">2800000</td>
+<td align="right">1400000</td>
+<td align="right">545000</td>
+<td align="right">520500</td>
+<td align="right">512500</td>
+<td align="right">508000</td>
+</tr>
+<tr>
+<td align="right">15000000</td>
+<td align="right">8000000</td>
+<td align="right">5000000</td>
+<td align="right">2800000</td>
+<td align="right">1400000</td>
+<td align="right">545000</td>
+<td align="right">520500</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">16400000</td>
+<td align="right">8000000</td>
+<td align="right">4800000</td>
+<td align="right">4700000</td>
+<td align="right">1387500</td>
+<td align="right">545000</td>
+<td align="right">520500</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">15000000</td>
+<td align="right">8000000</td>
+<td align="right">4800000</td>
+<td align="right">3000000</td>
+<td align="right">1375000</td>
+<td align="right">543400</td>
+<td align="right">520300</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">12000000</td>
+<td align="right">8000000</td>
+<td align="right">4750000</td>
+<td align="right">2750000</td>
+<td align="right">1500000</td>
+<td align="right">542604</td>
+<td align="right">520200</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">16000000</td>
+<td align="right">8000000</td>
+<td align="right">7700000</td>
+<td align="right">2725000</td>
+<td align="right">1350000</td>
+<td align="right">542500</td>
+<td align="right">520200</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">14250000</td>
+<td align="right">8000000</td>
+<td align="right">5500000</td>
+<td align="right">2700000</td>
+<td align="right">1350000</td>
+<td align="right">541000</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">15000000</td>
+<td align="right">8000000</td>
+<td align="right">5000000</td>
+<td align="right">2650000</td>
+<td align="right">3466666</td>
+<td align="right">540300</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">16666666</td>
+<td align="right">8571428</td>
+<td align="right">4500000</td>
+<td align="right">2625000</td>
+<td align="right">1300000</td>
+<td align="right">540000</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">15000000</td>
+<td align="right">6000000</td>
+<td align="right">4500000</td>
+<td align="right">2600000</td>
+<td align="right">1300000</td>
+<td align="right">539500</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">12000000</td>
+<td align="right">7562500</td>
+<td align="right">4400000</td>
+<td align="right">2600000</td>
+<td align="right">1275000</td>
+<td align="right">539000</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">14000000</td>
+<td align="right">14000000</td>
+<td align="right">4350000</td>
+<td align="right">2600000</td>
+<td align="right">1275000</td>
+<td align="right">539000</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">14000000</td>
+<td align="right">11416666</td>
+<td align="right">4325000</td>
+<td align="right">2600000</td>
+<td align="right">1255000</td>
+<td align="right">539000</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13000000</td>
+<td align="right">7000000</td>
+<td align="right">4300000</td>
+<td align="right">3833333</td>
+<td align="right">5100000</td>
+<td align="right">537500</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13750000</td>
+<td align="right">7666666</td>
+<td align="right">5750000</td>
+<td align="right">2075000</td>
+<td align="right">1250000</td>
+<td align="right">537500</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13000000</td>
+<td align="right">7333333</td>
+<td align="right">4250000</td>
+<td align="right">2525000</td>
+<td align="right">1250000</td>
+<td align="right">537500</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">8583333</td>
+<td align="right">7500000</td>
+<td align="right">4250000</td>
+<td align="right">4710739</td>
+<td align="right">1250000</td>
+<td align="right">536500</td>
+<td align="right">520000</td>
+<td align="right">512500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">12083333</td>
+<td align="right">6500000</td>
+<td align="right">4250000</td>
+<td align="right">2750000</td>
+<td align="right">1250000</td>
+<td align="right">536200</td>
+<td align="right">519700</td>
+<td align="right">512100</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">11000000</td>
+<td align="right">6250000</td>
+<td align="right">4225000</td>
+<td align="right">2500000</td>
+<td align="right">1250000</td>
+<td align="right">535375</td>
+<td align="right">519500</td>
+<td align="right">512000</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13000000</td>
+<td align="right">7250000</td>
+<td align="right">4200000</td>
+<td align="right">2500000</td>
+<td align="right">1250000</td>
+<td align="right">535000</td>
+<td align="right">519500</td>
+<td align="right">512000</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13000000</td>
+<td align="right">7250000</td>
+<td align="right">4200000</td>
+<td align="right">2500000</td>
+<td align="right">1250000</td>
+<td align="right">535000</td>
+<td align="right">519400</td>
+<td align="right">512000</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">12500000</td>
+<td align="right">7250000</td>
+<td align="right">4150000</td>
+<td align="right">2500000</td>
+<td align="right">1225000</td>
+<td align="right">535000</td>
+<td align="right">519300</td>
+<td align="right">511900</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13750000</td>
+<td align="right">6000000</td>
+<td align="right">4150000</td>
+<td align="right">2500000</td>
+<td align="right">4600000</td>
+<td align="right">535000</td>
+<td align="right">519200</td>
+<td align="right">511750</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13600000</td>
+<td align="right">7150000</td>
+<td align="right">4125000</td>
+<td align="right">2500000</td>
+<td align="right">1200000</td>
+<td align="right">535000</td>
+<td align="right">519100</td>
+<td align="right">511500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">8500000</td>
+<td align="right">8333333</td>
+<td align="right">2200000</td>
+<td align="right">2500000</td>
+<td align="right">1185000</td>
+<td align="right">534900</td>
+<td align="right">519000</td>
+<td align="right">511500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">16000000</td>
+<td align="right">6500000</td>
+<td align="right">4100000</td>
+<td align="right">2500000</td>
+<td align="right">1162500</td>
+<td align="right">533400</td>
+<td align="right">518500</td>
+<td align="right">511500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13250000</td>
+<td align="right">7000000</td>
+<td align="right">4100000</td>
+<td align="right">2500000</td>
+<td align="right">1150000</td>
+<td align="right">532900</td>
+<td align="right">518500</td>
+<td align="right">511500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">12000000</td>
+<td align="right">7000000</td>
+<td align="right">10416666</td>
+<td align="right">2500000</td>
+<td align="right">975000</td>
+<td align="right">532500</td>
+<td align="right">518425</td>
+<td align="right">511500</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">12500000</td>
+<td align="right">7000000</td>
+<td align="right">5918483</td>
+<td align="right">2425000</td>
+<td align="right">1100000</td>
+<td align="right">532500</td>
+<td align="right">518200</td>
+<td align="right">511400</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">16875000</td>
+<td align="right">7000000</td>
+<td align="right">5000000</td>
+<td align="right">2400000</td>
+<td align="right">1065000</td>
+<td align="right">532500</td>
+<td align="right">518100</td>
+<td align="right">511360</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">12500000</td>
+<td align="right">9250000</td>
+<td align="right">5000000</td>
+<td align="right">2375000</td>
+<td align="right">1050000</td>
+<td align="right">532000</td>
+<td align="right">518000</td>
+<td align="right">511250</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">13333333</td>
+<td align="right">6166666</td>
+<td align="right">4000000</td>
+<td align="right">2350000</td>
+<td align="right">1050000</td>
+<td align="right">532000</td>
+<td align="right">518000</td>
+<td align="right">511200</td>
+<td align="right">507500</td>
+</tr>
+<tr>
+<td align="right">507500</td>
+<td align="right">507500</td>
+<td align="right">507500</td>
+<td align="right">507500</td>
+<td align="right">507500</td>
+<td align="right">507500</td>
+<td align="right">507500</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+</tbody></table></div>
+</div>
+<div class="articleSection" data-anchor="Publication Dates">
+<h1 class="articleSectionTitle">Publication Dates</h1>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Publication in this collection</strong><br>04 June 2021</li>
+<li>
+<strong>Date of issue</strong><br>2021</li>
+</ul></div></div>
+</div>
+<div class="articleSection" data-anchor="History">
+<h1 class="articleSectionTitle">History</h1>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Received</strong><br>19 Aug 2019</li>
+<li>
+<strong>Accepted</strong><br>8 Feb 2020</li>
+</ul></div></div>
+</div>
+<section class="documentLicense"><div class="container-license"><div class="row">
+<div class="col-sm-3 col-md-2"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title=""><img src="https://licensebuttons.net/l/by/4.0//88x31.png" alt="Creative Common - by 4.0 "></a></div>
+<div class="col-sm-9 col-md-10"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title="">This is an open-access article distributed under the terms of the Creative Commons Attribution License</a></div>
+</div></div></section></article>
+</div>
+</div></div></section><div class="modal fade ModalDefault ModalTutors" id="ModalTutors" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">About the authors</h4>
+</div>
+<div class="modal-body">
+<div class="info">
+<div class="tutors">
+<strong> RENATA ROJAS GUERRA </strong><br><div>Universidade Federal de Santa Maria, Departamento de Estatística, Cidade Universitária, Av. Roraima, 1000, 97105-900 Santa Maria, RS, Brazil</div>
+<ul class="md-list inline"><li><a href="http://orcid.org/0000-0002-6476-8276" class="btnContribLinks orcid">http://orcid.org/0000-0002-6476-8276</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> FERNANDO A. PEÑA-RAMÍREZ </strong><br><div>Universidade Federal de Santa Maria, Departamento de Estatística, Cidade Universitária, Av. Roraima, 1000, 97105-900 Santa Maria, RS, Brazil</div>
+<ul class="md-list inline"><li><a href="http://orcid.org/0000-0001-9605-1766" class="btnContribLinks orcid">http://orcid.org/0000-0001-9605-1766</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> GAUSS M. CORDEIRO </strong><br><div>Universidade Federal de Pernambuco, Departamento de Estatística, Cidade Universitária, Av. Prof. Moraes Rego, 1235, 50740-540 Recife, PE, Brazil</div>
+<ul class="md-list inline"><li><a href="http://orcid.org/0000-0002-3052-6551" class="btnContribLinks orcid">http://orcid.org/0000-0002-3052-6551</a></li></ul>
+<div class="clearfix"></div>
+</div>
+</div>
+<div class="info">Correspondence to: Renata Rojas Guerra E-mail: renata.rojas@gmail.com</div>
+<div class="info">
+<div>
+            <b>AUTHOR CONTRIBUTIONS</b>
+          </div>
+<div>The participation of the authors in the production of the manuscript is as follows: Renata Rojas Guerra - conceptualization and characterization of the new distribution, mathematical properties and implementation of computational routines. Fernando A. Peña-Ramírez - application, simulation studies, writing the original draft, and computational routines. Gauss M. Cordeiro - review and general correction of the paper.</div>
+</div>
+</div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">Figures | Tables</h4>
+</div>
+<div class="modal-body">
+<ul class="nav nav-tabs md-tabs" role="tablist">
+<li role="presentation" class="col-md-4 col-sm-4 active"><a href="#figures" aria-controls="figures" role="tab" data-toggle="tab">Figures
+                    (5)
+                </a></li>
+<li role="presentation" class="col-md-4 col-sm-4 "><a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">Tables
+                    (13)
+                </a></li>
+</ul>
+<div class="clearfix"></div>
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane active" id="figures">
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf1"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/17badab522aec3711d3f48741ced33bd7de24e5b.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong></strong><br>Plots of the WBXII density with s = 1.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf2"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/07153a43137a0e923fe7ffd2857fc0126304c9bc.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong></strong><br>Plots of the WBXII hrf with s = 1.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/d1e9f2e91912e4839b0f33aa020e82898aa1cb6d.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong></strong><br>Skewness and kurtosis of <i>X</i> for some parameter values.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/2afedf9e313a06e7f0674ffd74f0168ba2141f7c.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong></strong><br>Histogram and estimated densities of the WBXII, BBXII and W models for the turbochargers failure time data.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/52967cfe31defef89bfed51181cf410f6950bd9b.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong></strong><br>Histogram and estimated densities of the WBXII, BBXII and KwBXII models for the baseball players data.</div>
+</div>
+</div>
+<div role="tabpanel" class="tab-pane " id="tables">
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletI"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table I</strong><br>Contributed works on the Weibull-G family.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table II</strong><br>First three moments and \(B\) and \(K_M\) for some scenarios of the WBXII distribution.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletIII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table III</strong><br>Mean estimates and RMSEs of the WBXII distribution.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletIV"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table IV</strong><br>Descriptive statistics for turbochargers data.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletV"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table V</strong><br>MLEs of the model parameters and their standard errors in parentheses.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletVI"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table VI</strong><br>Goodness-of-fit statistics for the fits to the turbochargers failure time data.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletVII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table VII</strong><br>LR statistics for the fits to the turbochargers failure time data.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletVIII"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table VIII</strong><br>Descriptive statistics for baseball players data.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletIX"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table IX</strong><br>MLEs of the model parameters and corresponding standard errors in parentheses.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletX"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table X</strong><br>Goodness-of-fit statistics for the fitted models for baseball players data.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTabletXI"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table XI</strong><br>Likelihood ratio statistics for the fits to the baseball players data.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTableTable A.ITurbochargers failure time data.1.603.504.805.406.006.507.307.708.108.502.003.905.005.606.106.707.307.808.308.702.604.505.105.806.307.007.307.908.408.803.004.605.306.006.507.107.708.008.409.00"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table A.I</strong><br>Turbochargers failure time data.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTableTable A.IIBaseball players salaries data.30714286840000065000004000000227500010500005305005180005112003441666616000000675000040000005125000105000053000051800051100031000000180000006725000400000030000007081428530000517800511000292000001225000073333334000000275000010000005300005177005110002571428511666667657500040000002175000100000053000051750051050025000000250000008666666400000021500001000000530000517500510500250000001133333387500003750000180000010000005296005175005105002400000010000000650000039000002100000100000052900051750051050025833333143250006250000390000021000001000000529000517500510200250000001300000065000003900000207500010000005287005173005102002440000011500000642500039000009083333100000052860051724651012024000000103571425543750380000036250001000000528200517000510000237777781000000055000003750000250000010000005280005170005100002500000011500000625000037500002000000100000052760051670051000022500000110000006250000358333320000001000000527500516700510000230000001050000054875003700000200000010000005275005166505100002200000010000000622500031250002000000100000052700051650051000024000000110000006200000330000020000001000000527000516500510000300000001097609661700003333333200000098750052700051650051000022125000109365748750000400000020000009750005264005161005100002214285718000000612500051250002000000975000526014516100510000176666661070000061250003500000200000095000052550051610050970018000000106500001250000035000002000000925000525500516000509700200000001055000082857143500000200000026666665255005160005096752300000014000000641666654000002000000900000525300515900509600218571421040000060000002900000200000090000052527051590050950027500000933333360000003450000200000090000052500051580050950022000000120000006000000340000020000008975005250005157505095001875000057000006000000340000020000008950005250005155005095002125000010000000775000033750001925000850000525000515400509500185555557000000640000051666661825000850000524900515000509500202857149650000575000033000001800000810000524525515000509500155000009625000573170433000001750000807500524500515000509500170000001000000057000003275000172500080000052450051500050950020625000100000007150000100000001700000800000524500515000509500225000001132500056000003857142169750080000052410051500050950015775000116000005600000320000016500007650005241005150005095001857142965000005500000312500016500007250005240005150005093002300000091500005250000312500016000006600005239005148755092001950000025000000500000031500001600000652000523700514500509000172500009000000425000031250001600000650000523500514500508900115384615103900550000031000002100000650000523500514500508800180000008000000420000030250001550000625000523400514500508800220000001000000060000005000000152500060700052300051440050875017500000900000053500003900000187500060600052290051440050860017000000850000053120003500000175000060000052270051425050860017000000750000053000003000000150000060000052250051420050850018000000110000005857142300000015000005875005225005140005085001900000087500006825000300000015000005750005225005140005085002166666680000005250000300000015000005750005224005139005085001142857186666661312500300000015000005740005223005139005085001714285742003805250000300000015000005700005220005138005085001700000083750002800000297500015000005700005218005136005085001600000092500005100000295000015000005660005217005133085085001425000069500007000000292500015000005637505216005133005085002408333360000001033333329250001500000556000521300513000508500150000008250000500000042500001500000550000521300513000508500160000007833333433333329000001490314550000521200513000508450160000001428571450000002875000147500055000052110051300050820015800000125000003750000350000014750005480005210005129005082001580000010000000500000028000001475000547500521000512500508000158000009166666500000028000001450000546500521000512500508000130000007000000500000028000001400000546250520700512500508000145000009000000500000028000001400000545000520500512500508000150000008000000500000028000001400000545000520500512500507500164000008000000480000047000001387500545000520500512500507500150000008000000480000030000001375000543400520300512500507500120000008000000475000027500001500000542604520200512500507500160000008000000770000027250001350000542500520200512500507500142500008000000550000027000001350000541000520000512500507500150000008000000500000026500003466666540300520000512500507500166666668571428450000026250001300000540000520000512500507500150000006000000450000026000001300000539500520000512500507500120000007562500440000026000001275000539000520000512500507500140000001400000043500002600000127500053900052000051250050750014000000114166664325000260000012550005390005200005125005075001300000070000004300000383333351000005375005200005125005075001375000076666665750000207500012500005375005200005125005075001300000073333334250000252500012500005375005200005125005075008583333750000042500004710739125000053650052000051250050750012083333650000042500002750000125000053620051970051210050750011000000625000042250002500000125000053537551950051200050750013000000725000042000002500000125000053500051950051200050750013000000725000042000002500000125000053500051940051200050750012500000725000041500002500000122500053500051930051190050750013750000600000041500002500000460000053500051920051175050750013600000715000041250002500000120000053500051910051150050750085000008333333220000025000001185000534900519000511500507500160000006500000410000025000001162500533400518500511500507500132500007000000410000025000001150000532900518500511500507500120000007000000104166662500000975000532500518425511500507500125000007000000591848324250001100000532500518200511400507500168750007000000500000024000001065000532500518100511360507500125000009250000500000023750001050000532000518000511250507500133333336166666400000023500001050000532000518000511200507500507500507500507500507500507500507500507500"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table A.II</strong><br>Baseball players salaries data.</div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/6dd25f15cbad575192a188dd3a514657e98d9ea9.jpg"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Plots of the WBXII density with s = 1.<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/6dd25f15cbad575192a188dd3a514657e98d9ea9.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/5c0f430853aef2302c1eef7c2bfd0570555a5805.jpg"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Plots of the WBXII hrf with s = 1.<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/5c0f430853aef2302c1eef7c2bfd0570555a5805.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/f6f2cb5ca870c7a6839a1d19ef684b42cf36ad78.jpg"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Skewness and kurtosis of <i>X</i> for some parameter values.<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/f6f2cb5ca870c7a6839a1d19ef684b42cf36ad78.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/36f9b89c5581b30e319ef4ebcf9ba396f082aef1.jpg"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Histogram and estimated densities of the WBXII, BBXII and W models for the turbochargers failure time data.<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/36f9b89c5581b30e319ef4ebcf9ba396f082aef1.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf5" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/451cb126ea3347b13b9cfc770ada804b2ae8a551.jpg"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Histogram and estimated densities of the WBXII, BBXII and KwBXII models for the baseball players data.<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1678-2690/vR75PXVgmxtML8Fx6q6vTbR/451cb126ea3347b13b9cfc770ada804b2ae8a551.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletI" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table I</strong>    Contributed works on the Weibull-G family.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left">Distribution</th>
+<th align="left">Author(s)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">Weibull exponential</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Oguntunde et al. 2015</strong><span class="refCtt closed"><span>OGUNTUNDE P, BALOGUN O, OKAGBUE H &amp; BISHOP S. 2015. The Weibull-Exponential Distribution: Its Properties and Applications. J Appl Sci 15: 1305-1311. </span></span></span>
+              </td>
+</tr>
+<tr>
+<td align="left">Weibull Lomax</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Tahir et al. 2015</strong><span class="refCtt closed"><span>TAHIR MH, CORDEIRO GM, MANSOOR M &amp; ZUBAIR M. 2015. The Weibull-Lomax distribution: properties and applications. Hacettepe Journal of Mathematics and Statistics 44: 455-474.</span></span></span>
+              </td>
+</tr>
+<tr>
+<td align="left">Weibull Rayleigh</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Merovci &amp; Elbatal 2015</strong><span class="refCtt closed"><span>MEROVCI F &amp; ELBATAL I. 2015. Weibull Rayleigh Distribution: Theory and Applications. Appl Math Info Sci 4: 2127-2137.</span></span></span>
+              </td>
+</tr>
+<tr>
+<td align="left">Weibull Pareto</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Tahir et al. 2016</strong><span class="refCtt closed"><span>TAHIR MH, CORDEIRO GM, ALZAATREH A, MANSOOR M &amp; ZUBAIR M. 2016a. A New Weibull-Pareto Distribution: Properties and Applications. Communications in Statistics - Simulation and Computation 45: 3548-3567. </span></span></span>
+              </td>
+</tr>
+<tr>
+<td align="left">Weibull Dagum</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Tahir et al. 2016</strong><span class="refCtt closed"><span>TAHIR MH, CORDEIRO GM, MANSOOR M, ZUBAIR M &amp; ALIZADEH M. 2016b. The Weibull-Dagum Distribution: Properties and Applications. Communications in Statistics - Theory and Methods 45: 3548-3567.</span></span></span>
+              </td>
+</tr>
+<tr>
+<td align="left">Weibull Fréchet</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Afify et al. 2016</strong><span class="refCtt closed"><span>AFIFY AZ, YOUSOF HM, CORDEIRO GM, ORTEGA EMM &amp; NOFAL ZM. 2016. The Weibull Fréchet distribution and its applications. Journal of Applied Statistics 43: 2608-2626. </span></span></span>
+              </td>
+</tr>
+<tr>
+<td align="left">Weibull Birnbaum-Saunders</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Benkhelifa 2016</strong><span class="refCtt closed"><span>BENKHELIFA L. 2016. The Weibull Birnbaum-Saunders Distribution: Properties and Applications. arXiv:1502.05180.</span></span></span>
+              </td>
+</tr>
+<tr>
+<td align="left">Four-parameter Weibull Burr XII</td>
+<td align="left">
+                <span class="ref"><strong class="xref xrefblue">Afify et al. 2018</strong><span class="refCtt closed"><span>AFIFY AZ, CORDEIRO GM, ORTEGA EMM, YOUSOF HM &amp; BUTT NS. 2018. The Four-Parameter Burr XII Distribution: Properties, Regression Model and Applications. Communications in Statistics - Theory and Methods 47: 2605-2624.</span></span></span>
+              </td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletII" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table II</strong>    First three moments and \(B\) and \(K_M\) for some scenarios of the WBXII distribution.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left">Scen.</th>
+<th align="right">
+                  
+                    \(c\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(d\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(s\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(\alpha\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(\beta\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(E(X)\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(E(X^2)\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(E(X^3)\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(B\)
+                  
+                </th>
+<th align="right">
+                  
+                    \(K_M\)
+                  
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="right">0.1</td>
+<td align="right">0.4</td>
+<td align="right">2.5</td>
+<td align="right">3.0</td>
+<td align="right">1.5</td>
+<td align="right">3.3612</td>
+<td align="right">135.9916</td>
+<td align="right">7272.5887</td>
+<td align="right">0.9950</td>
+<td align="right">43.3541</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="right">1.5</td>
+<td align="right">3.0</td>
+<td align="right">0.2</td>
+<td align="right">2.0</td>
+<td align="right">0.5</td>
+<td align="right">0.0373</td>
+<td align="right">0.0031</td>
+<td align="right">0.0004</td>
+<td align="right">0.3309</td>
+<td align="right">0.8222</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="right">1.0</td>
+<td align="right">5.0</td>
+<td align="right">5.0</td>
+<td align="right">2.0</td>
+<td align="right">2.3</td>
+<td align="right">0.5158</td>
+<td align="right">0.3062</td>
+<td align="right">0.2001</td>
+<td align="right">-0.0009</td>
+<td align="right">0.0065</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="right">1.0</td>
+<td align="right">5.0</td>
+<td align="right">3.0</td>
+<td align="right">2.0</td>
+<td align="right">0.5</td>
+<td align="right">0.1898</td>
+<td align="right">0.1180</td>
+<td align="right">0.1150</td>
+<td align="right">0.5139</td>
+<td align="right">1.3401</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="right">0.4</td>
+<td align="right">0.2</td>
+<td align="right">1.8</td>
+<td align="right">3.0</td>
+<td align="right">4.0</td>
+<td align="right">3.0980</td>
+<td align="right">160.8452</td>
+<td align="right">9497.2515</td>
+<td align="right">0.4246</td>
+<td align="right">1.2157</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="right">0.8</td>
+<td align="right">1.2</td>
+<td align="right">0.2</td>
+<td align="right">0.9</td>
+<td align="right">5.0</td>
+<td align="right">0.1369</td>
+<td align="right">0.0201</td>
+<td align="right">0.0001</td>
+<td align="right">-0.0283</td>
+<td align="right">-0.0698</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletIII" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table III</strong>    Mean estimates and RMSEs of the WBXII distribution.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center" colspan="5">Mean</th>
+<th align="center" colspan="5">RMSE</th>
+</tr>
+<tr>
+<th align="center">
+                
+                  \(\pmb{\Theta}\)
+                
+              </th>
+<th align="center">
+                
+                  \(n\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{c}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{d}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{s}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{\alpha}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{\beta}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{c}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{d}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{s}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{\alpha}\)
+                
+              </th>
+<th align="right">
+                
+                  \(\hat{\beta}\)
+                
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" rowspan="3">(0.1, 0.4, 2.5,3,1.5)</td>
+<td align="center">100</td>
+<td align="right">0.216</td>
+<td align="right">0.586</td>
+<td align="right">2.763</td>
+<td align="right">2.379</td>
+<td align="right">1.376</td>
+<td align="right">0.285</td>
+<td align="right">0.480</td>
+<td align="right">1.635</td>
+<td align="right">1.631</td>
+<td align="right">0.830</td>
+</tr>
+<tr>
+<td align="center">250</td>
+<td align="right">0.136</td>
+<td align="right">0.466</td>
+<td align="right">2.569</td>
+<td align="right">2.666</td>
+<td align="right">1.472</td>
+<td align="right">0.138</td>
+<td align="right">0.193</td>
+<td align="right">1.072</td>
+<td align="right">1.150</td>
+<td align="right">0.547</td>
+</tr>
+<tr>
+<td align="center">500</td>
+<td align="right">0.109</td>
+<td align="right">0.430</td>
+<td align="right">2.526</td>
+<td align="right">2.832</td>
+<td align="right">1.511</td>
+<td align="right">0.058</td>
+<td align="right">0.110</td>
+<td align="right">0.761</td>
+<td align="right">0.824</td>
+<td align="right">0.366</td>
+</tr>
+<tr>
+<td align="center" rowspan="3">(1.5,3,0.2,2,5)</td>
+<td align="center">100</td>
+<td align="right">1.409</td>
+<td align="right">4.700</td>
+<td align="right">0.907</td>
+<td align="right">2.557</td>
+<td align="right">0.835</td>
+<td align="right">0.928</td>
+<td align="right">2.892</td>
+<td align="right">1.452</td>
+<td align="right">1.880</td>
+<td align="right">0.799</td>
+</tr>
+<tr>
+<td align="center">250</td>
+<td align="right">1.537</td>
+<td align="right">3.338</td>
+<td align="right">0.231</td>
+<td align="right">2.121</td>
+<td align="right">5.121</td>
+<td align="right">0.362</td>
+<td align="right">1.136</td>
+<td align="right">0.122</td>
+<td align="right">1.039</td>
+<td align="right">1.059</td>
+</tr>
+<tr>
+<td align="center">500</td>
+<td align="right">1.525</td>
+<td align="right">3.209</td>
+<td align="right">0.217</td>
+<td align="right">2.067</td>
+<td align="right">5.073</td>
+<td align="right">0.292</td>
+<td align="right">0.909</td>
+<td align="right">0.084</td>
+<td align="right">0.862</td>
+<td align="right">0.848</td>
+</tr>
+<tr>
+<td align="center" rowspan="3">(1,5,5,2,2.3)</td>
+<td align="center">100</td>
+<td align="right">2.117</td>
+<td align="right">5.968</td>
+<td align="right">3.756</td>
+<td align="right">3.468</td>
+<td align="right">1.823</td>
+<td align="right">2.011</td>
+<td align="right">3.394</td>
+<td align="right">2.905</td>
+<td align="right">3.225</td>
+<td align="right">1.297</td>
+</tr>
+<tr>
+<td align="center">250</td>
+<td align="right">1.608</td>
+<td align="right">5.472</td>
+<td align="right">4.137</td>
+<td align="right">3.066</td>
+<td align="right">2.022</td>
+<td align="right">1.288</td>
+<td align="right">2.597</td>
+<td align="right">2.450</td>
+<td align="right">2.539</td>
+<td align="right">1.042</td>
+</tr>
+<tr>
+<td align="center">500</td>
+<td align="right">1.362</td>
+<td align="right">5.275</td>
+<td align="right">4.380</td>
+<td align="right">2.755</td>
+<td align="right">2.122</td>
+<td align="right">0.900</td>
+<td align="right">2.031</td>
+<td align="right">2.072</td>
+<td align="right">2.030</td>
+<td align="right">0.860</td>
+</tr>
+<tr>
+<td align="center" rowspan="3">(1,5,3,2,0.5)</td>
+<td align="center">100</td>
+<td align="right">1.430</td>
+<td align="right">5.925</td>
+<td align="right">3.203</td>
+<td align="right">2.184</td>
+<td align="right">0.590</td>
+<td align="right">1.029</td>
+<td align="right">2.822</td>
+<td align="right">2.336</td>
+<td align="right">1.327</td>
+<td align="right">0.583</td>
+</tr>
+<tr>
+<td align="center">250</td>
+<td align="right">1.288</td>
+<td align="right">5.575</td>
+<td align="right">3.125</td>
+<td align="right">2.080</td>
+<td align="right">0.546</td>
+<td align="right">0.759</td>
+<td align="right">2.206</td>
+<td align="right">1.918</td>
+<td align="right">0.916</td>
+<td align="right">0.447</td>
+</tr>
+<tr>
+<td align="center">500</td>
+<td align="right">1.183</td>
+<td align="right">5.318</td>
+<td align="right">3.089</td>
+<td align="right">2.037</td>
+<td align="right">0.517</td>
+<td align="right">0.561</td>
+<td align="right">1.770</td>
+<td align="right">1.622</td>
+<td align="right">0.714</td>
+<td align="right">0.314</td>
+</tr>
+<tr>
+<td align="center" rowspan="3">(0.4,0.2,1.8,3,4)</td>
+<td align="center">100</td>
+<td align="right">0.674</td>
+<td align="right">0.199</td>
+<td align="right">2.198</td>
+<td align="right">2.833</td>
+<td align="right">4.097</td>
+<td align="right">0.581</td>
+<td align="right">0.125</td>
+<td align="right">1.333</td>
+<td align="right">1.488</td>
+<td align="right">0.803</td>
+</tr>
+<tr>
+<td align="center">250</td>
+<td align="right">0.543</td>
+<td align="right">0.198</td>
+<td align="right">1.953</td>
+<td align="right">2.860</td>
+<td align="right">4.093</td>
+<td align="right">0.379</td>
+<td align="right">0.098</td>
+<td align="right">0.999</td>
+<td align="right">1.144</td>
+<td align="right">0.584</td>
+</tr>
+<tr>
+<td align="center">500</td>
+<td align="right">0.475</td>
+<td align="right">0.197</td>
+<td align="right">1.887</td>
+<td align="right">2.913</td>
+<td align="right">4.062</td>
+<td align="right">0.247</td>
+<td align="right">0.067</td>
+<td align="right">0.835</td>
+<td align="right">0.926</td>
+<td align="right">0.428</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletIV" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table IV</strong>    Descriptive statistics for turbochargers data.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="center">Mean</th>
+<th align="center">Median</th>
+<th align="center">SD</th>
+<th align="center">Variance</th>
+<th align="center">S</th>
+<th align="center">K</th>
+<th align="center">Min.</th>
+<th align="center">Max.</th>
+</tr></thead>
+<tbody><tr>
+<td align="center">6.25</td>
+<td align="center">6.50</td>
+<td align="center">1.96</td>
+<td align="center">3.82</td>
+<td align="center">-0.66</td>
+<td align="center">-0.36</td>
+<td align="center">1.60</td>
+<td align="center">9.00</td>
+</tr></tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletV" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table V</strong>    MLEs of the model parameters and their standard errors in parentheses.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left"></th>
+<th align="center">
+                  
+                    \(c\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(d\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(s\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(\alpha\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(\beta\)
+                  
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" rowspan="2">WBXII</td>
+<td align="center">13.4956</td>
+<td align="center">7.5404</td>
+<td align="center">8.8931</td>
+<td align="center">1.1128</td>
+<td align="center">0.2216</td>
+</tr>
+<tr>
+<td align="center">(2.7613)</td>
+<td align="center">(3.6805)</td>
+<td align="center">(0.7060)</td>
+<td align="center">(0.3671)</td>
+<td align="center">(0.0576)</td>
+</tr>
+<tr>
+<td align="left" rowspan="2">BBXII</td>
+<td align="center">15.4893</td>
+<td align="center">11.1316</td>
+<td align="center">11.2702</td>
+<td align="center">0.1666</td>
+<td align="center">4.5249</td>
+</tr>
+<tr>
+<td align="center">(0.0395)</td>
+<td align="center">(0.1854)</td>
+<td align="center">(0.1994)</td>
+<td align="center">(0.0282)</td>
+<td align="center">(2.0589)</td>
+</tr>
+<tr>
+<td align="left" rowspan="2">KwBXII</td>
+<td align="center">15.1758</td>
+<td align="center">6.2322</td>
+<td align="center">9.2966</td>
+<td align="center">0.1559</td>
+<td align="center">0.7550</td>
+</tr>
+<tr>
+<td align="center">(0.1931)</td>
+<td align="center">(0.9355)</td>
+<td align="center">(0.3827)</td>
+<td align="center">(0.0398)</td>
+<td align="center">(0.2306)</td>
+</tr>
+<tr>
+<td align="left" rowspan="2">BXII</td>
+<td align="center">3.8290</td>
+<td align="center">3.9620</td>
+<td align="center">9.6190</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.5506)</td>
+<td align="center">(1.8934)</td>
+<td align="center">(1.5960)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left" rowspan="2">PGW</td>
+<td align="center">3.5830</td>
+<td align="center">1.3300</td>
+<td align="center">7.7010</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.5466)</td>
+<td align="center">(0.6152)</td>
+<td align="center">(1.4125)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left" rowspan="3">W</td>
+<td align="center">3.8740</td>
+<td align="center"></td>
+<td align="center">6.9230</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.5177)</td>
+<td align="center"></td>
+<td align="center">(0.2948)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">
+                  
+                    \(c\)
+                  
+                </td>
+<td align="center">
+                  
+                    \(m\)
+                  
+                </td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left" rowspan="2">LL</td>
+<td align="center">4.8480</td>
+<td align="center">6.2230</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.6544)</td>
+<td align="center">(0.3476)</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletVI" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table VI</strong>    Goodness-of-fit statistics for the fits to the turbochargers failure time data.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left"></th>
+<th align="center">AIC</th>
+<th align="center">CAIC</th>
+<th align="center">HQIC</th>
+<th align="center">
+                  
+                    \(A^*\)
+                  
+                </th>
+<th align="center">KS</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">WBXII</td>
+<td align="center">
+                  <b>165.8103</b>
+                </td>
+<td align="center">
+                  <b>167.5750</b>
+                </td>
+<td align="center">
+                  <b>168.8635</b>
+                </td>
+<td align="center">
+                  <b>0.1186</b>
+                </td>
+<td align="center">
+                  <b>0.0532</b>
+                </td>
+</tr>
+<tr>
+<td align="left">BBXII</td>
+<td align="center">166.9631</td>
+<td align="center">168.7278</td>
+<td align="center">170.0163</td>
+<td align="center">0.1240</td>
+<td align="center">0.0744</td>
+</tr>
+<tr>
+<td align="left">KwBXII</td>
+<td align="center">167.0753</td>
+<td align="center">168.8400</td>
+<td align="center">170.1286</td>
+<td align="center">0.1241</td>
+<td align="center">0.0579</td>
+</tr>
+<tr>
+<td align="left">BXII</td>
+<td align="center">174.8080</td>
+<td align="center">175.4746</td>
+<td align="center">176.6399</td>
+<td align="center">0.8475</td>
+<td align="center">0.1029</td>
+</tr>
+<tr>
+<td align="left">PGW</td>
+<td align="center">169.6197</td>
+<td align="center">170.2864</td>
+<td align="center">171.4516</td>
+<td align="center">0.4962</td>
+<td align="center">0.1066</td>
+</tr>
+<tr>
+<td align="left">W</td>
+<td align="center">168.9511</td>
+<td align="center">169.2754</td>
+<td align="center">170.1724</td>
+<td align="center">0.5730</td>
+<td align="center">0.1072</td>
+</tr>
+<tr>
+<td align="left">LL</td>
+<td align="center">181.4134</td>
+<td align="center">181.7377</td>
+<td align="center">182.6347</td>
+<td align="center">1.4072</td>
+<td align="center">0.1432</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletVII" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table VII</strong>    LR statistics for the fits to the turbochargers failure time data.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left">Models</th>
+<th align="center">
+                  
+                    \(\pmb{\Theta_0}\)
+                  
+                </th>
+<th align="center">Statistic \(w\) </th>
+<th align="center">p-value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">WBXII <i>vs</i> PGW</td>
+<td align="center">
+                  
+                    \((c,d,s,1,1)^\top\)
+                  
+                </td>
+<td align="center">7.80889</td>
+<td align="center">0.02015</td>
+</tr>
+<tr>
+<td align="left">WBXII <i>vs</i> W</td>
+<td align="center">
+                  
+                    \((c,1,s,1,1)^\top\)
+                  
+                </td>
+<td align="center">9.14138</td>
+<td align="center">0.05013</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletVIII" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table VIII</strong>    Descriptive statistics for baseball players data.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="center">Mean</th>
+<th align="center">Median</th>
+<th align="center">SD</th>
+<th align="center">Variance</th>
+<th align="center">S</th>
+<th align="center">K</th>
+<th align="center">Min.</th>
+<th align="center">Max.</th>
+</tr></thead>
+<tbody><tr>
+<td align="center">4,529,859.69</td>
+<td align="center">
+                  
+                    \(1.5\times 10^6\)
+                  
+                </td>
+<td align="center">6,070,096</td>
+<td align="center">
+                  
+                    \(3.7\times 10^{13}\)
+                  
+                </td>
+<td align="center">1.98</td>
+<td align="center">3.74</td>
+<td align="center">507,500</td>
+<td align="center">34,416,666</td>
+</tr></tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletIX" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table IX</strong>    MLEs of the model parameters and corresponding standard errors in parentheses.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left"></th>
+<th align="center">
+                  
+                    \(c\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(d\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(s\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(\alpha\)
+                  
+                </th>
+<th align="center">
+                  
+                    \(\beta\)
+                  
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" rowspan="2">WBXII</td>
+<td align="center">0.5527</td>
+<td align="center">0.0796</td>
+<td align="center">1.8716</td>
+<td align="center">2.4141</td>
+<td align="center">7.4298</td>
+</tr>
+<tr>
+<td align="center">(0.0686)</td>
+<td align="center">(0.0115)</td>
+<td align="center">(0.8292)</td>
+<td align="center">( 1.0993)</td>
+<td align="center">(0.3079)</td>
+</tr>
+<tr>
+<td align="left" rowspan="2">BBXII</td>
+<td align="center">1.8134</td>
+<td align="center">0.0487</td>
+<td align="center">5.7723</td>
+<td align="center">12.3094</td>
+<td align="center">6.2716</td>
+</tr>
+<tr>
+<td align="center">(0.1742)</td>
+<td align="center">(0.0046)</td>
+<td align="center">(0.7939)</td>
+<td align="center">(0.6308)</td>
+<td align="center">(0.5546)</td>
+</tr>
+<tr>
+<td align="left" rowspan="2">KwBXII</td>
+<td align="center">3.92390</td>
+<td align="center">0.03251</td>
+<td align="center">2.59116</td>
+<td align="center">9.16545</td>
+<td align="center">4.0435</td>
+</tr>
+<tr>
+<td align="center">(0.2031)</td>
+<td align="center">(0.0016)</td>
+<td align="center">(0.4065)</td>
+<td align="center">(0.5123)</td>
+<td align="center">(0.2463)</td>
+</tr>
+<tr>
+<td align="left" rowspan="2">BXII</td>
+<td align="center">6.8459</td>
+<td align="center">0.0102</td>
+<td align="center">2.6500</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.6858)</td>
+<td align="center">(0.0010)</td>
+<td align="center">(0.3534)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left" rowspan="2">PGW</td>
+<td align="center">1.6123</td>
+<td align="center">0.0400</td>
+<td align="center">10.1363</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.1926)</td>
+<td align="center">(0.0047)</td>
+<td align="center">(1.2913)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left" rowspan="3">W</td>
+<td align="center">0.0646</td>
+<td align="center"></td>
+<td align="center">9.9377</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.0015)</td>
+<td align="center"></td>
+<td align="center">(1.2611)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">
+                  
+                    \(c\)
+                  
+                </td>
+<td align="center">
+                  
+                    \(m\)
+                  
+                </td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left" rowspan="2">LL</td>
+<td align="center">0.1289</td>
+<td align="center">14.2324</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">(0.0036)</td>
+<td align="center">(1.7615)</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletX" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table X</strong>    Goodness-of-fit statistics for the fitted models for baseball players data.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left"></th>
+<th align="center">AIC</th>
+<th align="center">CAIC</th>
+<th align="center">HQIC</th>
+<th align="center">
+                  
+                    \(A^*\)
+                  
+                </th>
+<th align="center">KS</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">WBXII</td>
+<td align="center">
+                  <b>28023.5004</b>
+                </td>
+<td align="center">
+                  <b>28023.5705</b>
+                </td>
+<td align="center">
+                  <b>28032.6096</b>
+                </td>
+<td align="center">
+                  <b>44.3602</b>
+                </td>
+<td align="center">
+                  <b>0.2168</b>
+                </td>
+</tr>
+<tr>
+<td align="left">BBXII</td>
+<td align="center">28977.3246</td>
+<td align="center">28977.3947</td>
+<td align="center">28986.4338</td>
+<td align="center">45.9851</td>
+<td align="center">0.3812</td>
+</tr>
+<tr>
+<td align="left">KwBXII</td>
+<td align="center">29077.1495</td>
+<td align="center">29077.2196</td>
+<td align="center">29086.2586</td>
+<td align="center">45.7928</td>
+<td align="center">0.3858</td>
+</tr>
+<tr>
+<td align="left">BXII</td>
+<td align="center">31195.1989</td>
+<td align="center">31195.2268</td>
+<td align="center">31200.6643</td>
+<td align="center">45.8619</td>
+<td align="center">0.5745</td>
+</tr>
+<tr>
+<td align="left">PGW</td>
+<td align="center">30421.9845</td>
+<td align="center">30422.0125</td>
+<td align="center">30427.4500</td>
+<td align="center">45.2787</td>
+<td align="center">0.6359</td>
+</tr>
+<tr>
+<td align="left">W</td>
+<td align="center">32146.5307</td>
+<td align="center">32146.5447</td>
+<td align="center">32150.1744</td>
+<td align="center">44.9291</td>
+<td align="center">0.8667</td>
+</tr>
+<tr>
+<td align="left">LL</td>
+<td align="center">31825.4901</td>
+<td align="center">31825.5040</td>
+<td align="center">31829.1337</td>
+<td align="center">45.4325</td>
+<td align="center">0.7943</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTabletXI" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table XI</strong>    Likelihood ratio statistics for the fits to the baseball players data.<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="box" rules="all">
+<thead><tr>
+<th align="left">Models</th>
+<th align="center">
+                  
+                    \(\pmb{\Theta_0}\)
+                  
+                </th>
+<th align="center">Statistic \(w\) </th>
+<th align="center">p-value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">WBXII <i>vs</i> PGW</td>
+<td align="center">
+                  
+                    \((c,d,s,1,1)^\top\)
+                  
+                </td>
+<td align="center">2402</td>
+<td align="center">
+                  
+                    \(&lt;0.0001\)
+                  
+                </td>
+</tr>
+<tr>
+<td align="left">WBXII <i>vs</i> W</td>
+<td align="center">
+                  
+                    \((c,1,s,1,1)^\top\)
+                  
+                </td>
+<td align="center">4129</td>
+<td align="center">
+                  
+                    \(&lt;0.0001\)
+                  
+                </td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalArticles" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">How to cite</h4>
+</div>
+<div class="modal-body">
+<p id="citation"></p>
+<input id="citationCut" type="text" value=""><a class="copyLink" data-clipboard-target="#citationCut"><span class="glyphBtn copyIcon"></span>copy</a>
+</div>
+</div></div></div>
+<script type="text/javascript">
+            function currentDate() {
+            var today = new Date();
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            today.setTime(today.getTime());
+            return today.getDate() + " " + months[today.getMonth()] + " " + today.getFullYear();
+            }
+            var citation = 'GUERRA, RENATA ROJAS, PEÑA-RAMÍREZ, FERNANDO A. and CORDEIRO, GAUSS M.The Weibull Burr XII distribution in lifetime and income analysis. Anais da Academia Brasileira de Ciências [online]. 2021, v. 93, n. 3 [Accessed CURRENTDATE] , e20190961. Available from: &lt;https://doi.org/10.1590/0001-3765202120190961&gt;. Epub 04 June 2021. ISSN 1678-2690. https://doi.org/10.1590/0001-3765202120190961.'.replace('CURRENTDATE', currentDate());
+            document.getElementById('citation').innerHTML = citation;
+            document.getElementById('citationCut').value = citation.replace('&lt;', '<').replace('&gt;', ">");
+        </script>
+</div>
+<ul class="floatingMenu fm-slidein" data-fm-toogle="hover"><li class="fm-wrap">
+<a href="javascript:;" class="fm-button-main"><span class="sci-ico-floatingMenuDefault glyphFloatMenu"></span><span class="sci-ico-floatingMenuClose glyphFloatMenu"></span></a><ul class="fm-list">
+<li><a class="fm-button-child" data-fm-label="Figures | Tables" data-toggle="modal" data-target="#ModalTablesFigures"><span class="sci-ico-figures glyphFloatMenu"></span></a></li>
+<li><a class="fm-button-child" data-toggle="modal" data-target="#ModalArticles" data-fm-label="How to
+                                          cite"><span class="sci-ico-citation glyphFloatMenu"></span></a></li>
+</ul>
+</li></ul>
+<script src="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-article-standalone-min.js"></script><script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              },
+              svg: {
+                fontCache: 'global'
+              }
+            };
+            </script><script type="text/javascript" id="MathJax-script" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-svg.js"></script>
+</body>
+</html>

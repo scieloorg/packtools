@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/v3.0/css/bootstrap.css">
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/v3.0/css/article.css">
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-bundle-print.css">
+<link rel="alternate" type="application/rss+xml" title="SciELO" href="">
+</head>
+<body class="journal article">
+<a name="top"></a><div id="standalonearticle">
+<section class="articleCtt"><div class="container"><div class="articleTxt">
+<div class="articleBadge-editionMeta-doi-copyLink">
+<span class="_articleBadge">Produtos e Materiais Didáticos</span><span class="_separator"> • </span><span class="_editionMeta">Rev. Bras. Ensino Fís. 43 <span class="_separator"> • </span>2021</span><span class="_separator"> • </span><span class="group-doi"><a href="https://doi.org/10.1590/1806-9126-RBEF-2021-0153" class="_doi" target="_blank">https://doi.org/10.1590/1806-9126-RBEF-2021-0153</a>
+         
+
+        <a href="javascript:;" class="btn btn-secondary btn-sm scielo__btn-with-icon--left copyLink" data-clipboard-text="https://doi.org/10.1590/1806-9126-RBEF-2021-0153"><span class="material-icons-outlined">link</span>copiar</a></span>
+</div>
+<h1 class="article-title">
+<img alt="Open-access" class="logo-open-access" data-bs-toggle="tooltip" src="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/v3.0/img/logo-open-access.svg" data-original-title="by 4.0 deed.en">Desenvolvimento de uma Microbalança de Cristal de Quartzo – MCQ experimental como ferramenta para o ensino de física moderna<a id="shorten" href="#" class="short-link"><span class="sci-ico-link"></span></a>
+</h1>
+<h2 class="article-title">Development of an Experimental Quartz Crystal Microbalance – MCQ as a tool for teaching modern physics</h2>
+<div class="articleMeta"></div>
+<div class="scielo__contribGroup">
+<div class="dropdown">
+<button id="contribGroupTutor1" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> Gilson Tavares de Lima </button><ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor1">
+<li>Instituto Federal de Educação, Ciência e Tecnologia do Tocantins, Araguaína, TO, Brasil.<a href="http://orcid.org/0000-0001-6516-8072" class="btnContribLinks orcid">http://orcid.org/0000-0001-6516-8072</a>
+</li>
+<li>Instituto Federal de Educação, Ciência e Tecnologia do Tocantins, Araguaína, TO, Brasil.</li>
+</ul>
+</div>
+<div class="dropdown">
+<button id="contribGroupTutor2" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> Poliana Guerino Marson </button><ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor2"><li>Universidade Federal do Tocantins, PPG Ciências da Saúde, Palmas, TO, Brasil.<a href="http://orcid.org/0000-0002-3560-0749" class="btnContribLinks orcid">http://orcid.org/0000-0002-3560-0749</a>
+</li></ul>
+</div>
+<div class="dropdown">
+<button id="contribGroupTutor3" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> Helcileia Dias Santos </button><ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor3"><li>Universidade Federal do Tocantins, Escola de Medicina Veterinária e Zootecnia, Araguaína, TO, Brasil.<a href="http://orcid.org/0000-0002-7120-951X" class="btnContribLinks orcid">http://orcid.org/0000-0002-7120-951X</a>
+</li></ul>
+</div>
+<a href="" class="outlineFadeLink" data-bs-toggle="modal" data-bs-target="#ModalTutors">Sobre os autores</a>
+</div>
+<div class="row">
+<ul class="d-none d-lg-block col-lg-2 articleMenu"></ul>
+<article id="articleText" class="col-sm-12 col-lg-10 offset-lg-2"><div class="articleSection" data-anchor="Resumos"><h3 class="articleSectionTitle">Resumos</h3></div>
+<div>
+<p>Neste artigo descrevemos a construção e funcionamento de um MCQ experimental de baixo custo para demonstrar o uso de sensores quartzo para análises micro gravimétricas em meio líquido. Para isso, foi utilizado a plataforma Arduino micro<sup>®</sup> para controlar o interfaceamento com o computador, bem como um frequencímetro para excitação do sensor. Uma interface gráfica gratuita para computadores foi utilizada a fim de controlar o experimento e exibir os dados obtidos em tempo real. Também foram apresentados aplicações do modelo experimental e análises das capacidades de detecção.</p>
+<p><strong>Palavras-chave:</strong><br>Microbalança de Cristal de Quartzo; Gravimetria; Ferramentas de Ensino</p>
+</div>
+<hr>
+<div>
+<p>In this article we describe the construction and operation of a low-cost experimental MCQ to demonstrate the use of quartz sensors for micro gravimetric analysis in liquid medium. For this, the Arduino micro<sup>®</sup> platform was used to control the interface with the computer, as well as a frequency meter for sensor excitation. A free graphic interface for computers was used to control the experiment and display the data obtained in real time. Applications of the experimental model and analysis of detection capabilities were also presented.</p>
+<p><strong>Keywords</strong><br>Quartz Crystal Microbalance; Gravimetry; Teaching Tools</p>
+</div>
+<hr>
+<div class="articleSection" data-anchor="Text">
+<h3 class="articleSectionTitle">1. Introdução</h3>
+<p>As técnicas de ensino têm focado mais seus esforços na prática do uso do conhecimento, com o uso de abordagens direcionadas para a resolução de problemas do que no simples uso da informação. Estas abordagens são definidas como Ensino Baseado na Resolução de Problemas (PBL – <i>Problem Based Learning</i>) [<span class="ref"><sup class="xref xrefblue">1</sup><span class="refCtt closed"><span>W.R.S. Silva, D.P. Souza e S. Rodrigues-Moura, Rev. Pesqui. Qual. 7, 428 (2019).</span></span></span>]. Estas técnicas de ensino são mais adequadas para acompanhar a rapidez do desenvolvimento tecnológico, que exige inclusive uma rápida adaptação do processo de ensino-aprendizagem. A experimentação tem um papel vital para as ensino de ciências aplicadas, quando discutimos ciências como engenharias, química, biotecnologia entre outras não se trata apenas do conhecimento teórico, lógico-matemático, hipóteses e equações, mas também de dados, gráficos, tabelas que descrevem um comportamento natural que devem ser oriundos de um processo de experimentação para então, darmos a oportunidade do aluno estabelecer conexão entre os dados da experimentação e a teoria, formando conhecimento integral e com significado [<span class="ref"><sup class="xref xrefblue">2</sup><span class="refCtt closed"><span>A.M.P. Carvalho e L.H. Sasseron, Ensino em Re-Vista 22, 249 (2015).</span></span></span>].</p>
+<p>Um outro ponto a ser considerado é em relação à capacidade e usos didáticos dos instrumentos, é que estes equipamentos não excedam muito o exigido na aplicação a qual estão destinados [<span class="ref"><sup class="xref xrefblue">3</sup><span class="refCtt closed"><span>D.R. Shonnard, D.T. Allen, N. Nguyen, S.W. Austin e R. Hesketh, Environ. Sci. Technol. 37, 5453 (2003).</span></span></span>]. Este conceito é de difícil aplicação no ensino, uma vez que a exigência neste nível é geralmente menor que aquela capaz de ser fornecida pelos equipamentos comerciais. Uma forte tendência nas últimas décadas é a miniaturização de dispositivos analíticos, principalmente nas áreas de Mecatrônica e Engenharia Química.</p>
+<p>O aperfeiçoamento dessas áreas, fortemente influenciado pelos avanços da área de microeletrônica, permitiu o surgimento dos MEMS (<i>Micro-electromechanicalSystems – Microssistemas Eletromecânicos</i>) onde sistemas mecânicos e sistemas eletrônicos foram integrados [<span class="ref"><sup class="xref xrefblue">4</sup><span class="refCtt closed"><span>S.E. Lyshevski, Mems and Nems. Mems and Nems (CRC Press, Boca Raton, 2018), p. 61.</span></span></span>]. Há uma outra forte tendência mundial para o desenvolvimento de equipamentos analíticos chamados de “equipamentos verdes” [<span class="ref"><sup class="xref xrefblue">5</sup><span class="refCtt closed"><span>K. Qian, F. Zhai e Q. Meng, em: Proceedings of the 2019 3rd International Conference on Education, Management Science and Economics (Singapura, 2019).</span></span></span>], que possuem como características baixo impacto ambiental, tanto no seu processo produtivo quanto no seu uso, eficiência energética e baixa toxicidade de reagentes são características necessárias neste tipo de desenvolvimento. Estas técnicas são conhecidas como tecnologias limpas [<span class="ref"><sup class="xref xrefblue">6</sup><span class="refCtt closed"><span>T.S. Schmidt e J. Huenteler, Glob. Environ. Chang. 38, 8 (2016).</span></span></span>].</p>
+<p>A área de química teve uma grande evolução, onde a miniaturização permite a obtenção ou manipulação de amostras em volume muito pequeno, tanto na fase pré quanto na analítica. Nesta última, os Microssistemas de Análise Total (μTAS – <i>Micro Total Analysis System</i>) são fortemente aplicados por se tratar de sistemas miniaturizados, permitem análises em tempo curto, utilizando poucos recursos e volumes muito pequenos, da ordem de microlitros [<span class="ref"><sup class="xref xrefblue">7</sup><span class="refCtt closed"><span>Y.S. Kurniawan, Biomed J Sci &amp; Tech Res 12, 9442 (2019).</span></span></span>].</p>
+<p>Tanto o MEMS quanto o μTAS estão intimamente ligados ao desenvolvimento de novas tecnologias possíveis para o ensino de ciências, química e engenharia e suas ramificações [<span class="ref"><sup class="xref xrefblue">7</sup><span class="refCtt closed"><span>Y.S. Kurniawan, Biomed J Sci &amp; Tech Res 12, 9442 (2019).</span></span></span>, <span class="ref"><sup class="xref xrefblue">8</sup><span class="refCtt closed"><span>D.E.W. Patabadige, S. Jia, J. Sibbitts, J. Sadeghi, K. Sellens e C.T. Culbertson, Anal. Chem. 88, 320 (2015).</span></span></span>].</p>
+<p>Santos e colaboradores propuseram um sistema microeletrônico capaz de realizar análises em vários eletrodos de filmes finos [<span class="ref"><sup class="xref xrefblue">9</sup><span class="refCtt closed"><span>L.C. Santos, F.P. Beraldo, L.F. Hernandez, R.A.M. Carvalho e M.L.P. Silva, Rev. Bras. Apl. Vácuo 25, 75 (2008).</span></span></span>].</p>
+<p>Microssistemas eletrônicos também foram desenvolvidos para uso no ensino e aplicados no ensino de biociências e engenharia [<span class="ref"><sup class="xref xrefblue">7</sup><span class="refCtt closed"><span>Y.S. Kurniawan, Biomed J Sci &amp; Tech Res 12, 9442 (2019).</span></span></span>]. Seguindo os conceitos de baixo custo, miniaturização e tecnologia limpa a Microbalança de Cristal de Quartzo (MCQ) se apresenta como uma boa alternativa para o desenvolvimento de material de ensino e com possibilidade de uso também em pesquisa básica. A MCQ é um instrumento de análise gravimétrica extremamente sensível que pode medir as alterações de massa nas escalas de micrograma (μg) e nanograma (ng) por unidade de área, normalmente milímetro quadrado (mm<sup>2</sup>) [<span class="ref"><sup class="xref xrefblue">10</sup><span class="refCtt closed"><span>M. Pohanka, Materials (Basel) 11, 448 (2018).</span></span></span>].</p>
+<p>O quartzo é um material piezoelétrico – materiais que respondem a deformação física produzindo diferença de potencial elétrico (DDP) ou o contrário - que pode, de acordo com a tecnologia de produção oscilar em uma frequência definida [<span class="ref"><sup class="xref xrefblue">11</sup><span class="refCtt closed"><span>M. Hussain, F. Rupp, H.P. Wendel e F.K., TrAC – Trends in Analytical Chemistry 102, 194 (2018).</span></span></span>]. A frequência de oscilação definida no processo produtivo pode ser alterada pela adição ou remoção de pequenas quantidades de massa na superfície do eletrodo, geralmente de metal. Essa variação na frequência (Δ<i>f</i>) pode ser medida com hardware e software adequados e em tempo real, para obter informações úteis sobre interações ou reações moleculares que ocorrem na superfície do eletrodo ou diretamente do cristal, como crescimento de filme, oxidação, corrosão, interação antígeno anticorpo etc.</p>
+<p>A estrutura simples dos osciladores MCQ e o desenvolvimento da técnica de sistema micro eletromecânico de quartzo (MEMQ) tornaram possível ao longo do tempo desenvolver arranjos miniaturizados de sensores osciladores com frequências muito estáveis [<span class="ref"><sup class="xref xrefblue">12</sup><span class="refCtt closed"><span>M. Michalzik, R. Wilke e S. Büttgenbach, Sensors and Actuators, B: Chemical 111–112, 410 (2005).</span></span></span>, <span class="ref"><sup class="xref xrefblue">13</sup><span class="refCtt closed"><span>M. Pohanka, O. Pavliš e P. Skládal, Talanta 71, 981 (2007).</span></span></span>].</p>
+<p>Recentemente, a construção e análise de um MEMQ genérico e a aplicação de um sistema miniaturizado portátil baseado em injeção em câmara de fluxo foram descritos [<span class="ref"><sup class="xref xrefblue">14</sup><span class="refCtt closed"><span>C.L. Liang, S.W. Lee e K.L. Lin, Thin Solid Films 636, 164 (2017).</span></span></span>].</p>
+<p>A MCQ proposta por Liang foi composta de uma microsseringa injetora de amostras desenhada sob medida e um software de monitoramento de frequência.</p>
+<p>Ademais, foram relatados progressos na construção de um oscilador de frequência para aplicações reais e uma câmara de reação em fluxo, de simples construção e operação. Com base nas propriedades do quartzo, MEMQ’s e os μTAS, este estudo tem como objetivo o desenvolvimento de um equipamento de análise gravimétrica de baixo custo, para uso no ensino nas áreas de ciências, engenharia, química, bioquímica e biotecnologia ou mesmo como ferramenta para pesquisa básica. Levando-se em conta o alto investimento requerido para implantação deste tipo de equipamento no ensino, qualquer tentativa de redução de investimento é relevante.</p>
+<p>Com a intenção de construir um modelo prototificado de MCQ de baixo custo que favoreça o desenvolvimento e aplicação de práticas experimentais de ensino voltada para análise gravimétrica, foi aplicado um modelo de pesquisa experimental, com base em prova de fundamentos e conceitos da tecnologia em questão. O <i>design</i> e construção do protótipo foi realizado nos laboratórios de física o Instituto Federal de Educação, Ciência e Tecnologia do Tocantins, Campus Araguaína – IFTO. As análises de funcionalidade ocorreram no laboratório de Ciências da Universidade Federal do Tocantins UFT – Escola de Medicina Veterinária e Zootecnia, <i>Campus</i> Araguaína.</p>
+<h3 class="articleSectionTitle">2. Materiais e Métodos</h3>
+<p>O sistema MCQ tem vários modos de operação o mais comum (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F1"><span class="sci-ico-fileFigure"></span>1</a>) consiste em um cristal de quartzo com eletrodos metálicos montados firmemente ligados nas laterais superior e inferior, um suporte para prender o cristal e possibilitar conexão elétrica, frequencímetro que excita o cristal até sua frequência de ressonância, um controlador eletrônico e computador/monitor que lê a mudança de frequência e armazena os parâmetros do processo.</p>
+<div class="row fig" id="S2_F1">
+<a name="S2_F1"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F1"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/94aada6bb9e15b11f0aa1424b6ce56dd32844978.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 1:</strong><br>Configuração operacional típico da MCQ.<br>
+</div>
+</div>
+<p>Os eletrodos na parte superior e inferior do cristal geralmente têm a forma de um círculo ligado a uma trilha. Essa forma de eletrodo permite que a MCQ oscile apenas na área onde os eletrodos são aderidos [<span class="ref"><sup class="xref xrefblue">15</sup><span class="refCtt closed"><span>V.E. Bottom, em: Thirty Fifth Annual Frequency Control Symposium (Philadelphia, 2008).</span></span></span>].</p>
+<h4>2.1. Arduíno micro</h4>
+<p>O Arduino Micro (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F2"><span class="sci-ico-fileFigure"></span>2</a>) é um <i>hardware</i> de código aberto [<span class="ref"><sup class="xref xrefblue">16</sup><span class="refCtt closed"><span>D.A. Mellis, M. Banzi, D. Cuartielles e T. Igoe, Arduino: An open electronic prototyping platform, disponível em: http://web.media.mit.edu/mellis/arduino-chi2007-mellis-banzi-cuartielles-igoe.pdf, acessado em 14/11/2019.</span><br><a href="http://web.media.mit.edu/mellis/arduino-chi2007-mellis-banzi-cuartielles-igoe.pdf" target="_blank">http://web.media.mit.edu/mellis/arduino-...
+            </a></span></span>] usado para elaboração de protótipos de programação de eletrônicos. A placa de circuito e <i>software</i> [<span class="ref"><sup class="xref xrefblue">17</sup><span class="refCtt closed"><span>Y.A. Badamasi, em:Proceedings of the 11th International Conference on Electronics, Computer and Computation (ICECCO) (Abuja, 2014).</span></span></span>] usa a linguagem C++ simplificada para programação [<span class="ref"><sup class="xref xrefblue">18</sup><span class="refCtt closed"><span>P.C. Minns, Programming For the PC the MAC and the Arduino Microcontroller System, disponível em: http://nrl.northumbria.ac.uk/15136/, acessado em 14/11/2019.</span><br><a href="http://nrl.northumbria.ac.uk/15136/" target="_blank">http://nrl.northumbria.ac.uk/15136/...
+            </a></span></span>]. O Arduino Micro é muito usado como plataforma de integração e interfaceamento, entre outras qualidades devido a interface do usuário ter configuração amigável e de fácil utilização.</p>
+<div class="row fig" id="S2_F2">
+<a name="S2_F2"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F2"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1e0b13ea99a53c4adb56390067b377a090982ac7.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 2:</strong><br>Arduíno Micro [<span class="ref"><sup class="xref xrefblue">21</sup><span class="refCtt closed"><span>N. Robert, Introduction to Arduino Leonardo – The Engineering Projects. Engineering Project, disponível em: https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html, acessado em 15/06/2021.</span><br><a href="https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html" target="_blank">https://www.theengineeringprojects.com/2...
+            </a></span></span>].<br>
+</div>
+</div>
+<p>É uma placa de circuito com um processador que pode ser programado para executar uma variedade de tarefas. É possível enviar informações do programa de computador para a plataforma para que este se ligue ao circuito ou máquina específica para executar um comando particular, ou controlar processos eletrônicos bem como leitura de sensores diversos tanto de entrada quanto de saída de dados [<span class="ref"><sup class="xref xrefblue">19</sup><span class="refCtt closed"><span>M. Margolis, Arduino Cookbook (O’Reilly Media, Massachusetts, 2011).</span></span></span>].</p>
+<p>Diferente da maioria dos programas e placas de circuito [<span class="ref"><sup class="xref xrefblue">20</sup><span class="refCtt closed"><span>J. Boxall, Arduino Worskhop: A hands-on introduction with 65 Projects (No Starch Press, California, 2013).</span></span></span>], não possui um <i>hardware</i> específico para carregar um novo código ou programa na placa, é necessário usar apenas um cabo USB do inglês (<i>Universal Serial Bus</i>) para carregar um novo código. Os códigos de programa são mais fáceis de desenvolver tornando a programação mais simplificada.</p>
+<h4>2.2. Softwares utilizados</h4>
+<p>Dois softwares são necessários para desenvolvimento e operação da MCQ e ambos são de código aberto, são eles: o Arduíno IDE (<i>Integrated Development Environment</i>) e OpenQCM<sup>®</sup>. O IDE é um aplicativo multiplataforma desenvolvido em linguagem de programação Java. É usado para desenvolver e fazer upload de Scripts de programação em placas compatíveis com Arduino.</p>
+<p>O Arduino IDE suporta as linguagens C e C + ⁣ + , neste caso as regras de estruturação do código são diferentes. O Arduino IDE fornece uma biblioteca de software de projeto, que disponibiliza muitos procedimentos comuns de entrada e saída de dados. O código desenvolvido ou baixado pelo usuário requer apenas duas funções básicas para iniciar, o sketch e o loop principal do programa.</p>
+<p>A versão do IDE utilizado para upload do <i>firmwere</i> da MCQ foi a 1.8.10 de 13 de setembro de 2019, o repositório utilizado é o github.com/Arduino, as licenças de uso são LGPL (<i>Lesser General Public License</i>) ou GPL (<i>General Public License</i>). O segundo software necessário para desenvolvimento da MCQ foi o OpenQCM<sup>®</sup> o projeto do software aproveita os recursos embarcados do <i>NetBean</i> s para criar GUI (<i>Graphic User interface</i>) interface gráfica de usuário (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F3"><span class="sci-ico-fileFigure"></span>3</a>). O aplicativo usa as bibliotecas Java de terceiros como: <i>Ardulink</i> [<span class="ref"><sup class="xref xrefblue">22</sup><span class="refCtt closed"><span>GitHub: Where the world builds software (2008), https://github.com/collections, acessado em: 09/08/2019</span><br><a href="https://github.com/collections" target="_blank">https://github.com/collections...
+            </a></span></span>], uma biblioteca de código aberto para controle e comunicação com placas Arduino, entre elas o Arduíno Micro utilizada nesse projeto. O <i>Ardulink</i> também fornece componentes Java <i>Swing</i> [<span class="ref"><sup class="xref xrefblue">22</sup><span class="refCtt closed"><span>GitHub: Where the world builds software (2008), https://github.com/collections, acessado em: 09/08/2019</span><br><a href="https://github.com/collections" target="_blank">https://github.com/collections...
+            </a></span></span>] prontos, capazes de se comunicar com a placa para leitura serial dos dados de frequência e temperatura do cristal de quartzo.</p>
+<div class="row fig" id="S2_F3">
+<a name="S2_F3"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/9848bd3cc48d5e70f3203a784fd686c4183fe206.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 3:</strong><br>GUI (<i>Graphic User Interface</i>) interface gráfica do usuário OpenQCM<sup>®</sup>.<br>
+</div>
+</div>
+<p>Para exibição dos dados foi utilizado a J<i>FreeChar</i> t [<span class="ref"><sup class="xref xrefblue">22</sup><span class="refCtt closed"><span>GitHub: Where the world builds software (2008), https://github.com/collections, acessado em: 09/08/2019</span><br><a href="https://github.com/collections" target="_blank">https://github.com/collections...
+            </a></span></span>] que é uma biblioteca Java de código aberto para plotagem gráfica de dados, essa biblioteca permite a exibição de gráficos em tempo real com leituras de frequência e temperatura. Para que os dados sejam plotados em tempo real e sejam confiáveis, utiliza-se a <i>CommonsMath</i> [<span class="ref"><sup class="xref xrefblue">22</sup><span class="refCtt closed"><span>GitHub: Where the world builds software (2008), https://github.com/collections, acessado em: 09/08/2019</span><br><a href="https://github.com/collections" target="_blank">https://github.com/collections...
+            </a></span></span>], uma biblioteca de matemática. Os dados de frequência e temperatura podem ser salvas em um arquivo de texto no formato ASCII (<i>American Standard Code for Information Interchange</i>). Depois que o arquivo de dados gerado é selecionado, o software anexa os novos dados ao arquivo. O arquivo de dados é formatado da seguinte forma: data (MM/dd/aa) hora (hh: mm: ss) frequência e temperatura [<span class="ref"><sup class="xref xrefblue">23</sup><span class="refCtt closed"><span>https://openqcm.com/openqcm, acessado em 14/11/ 2019.</span><br><a href="https://openqcm.com/openqcm" target="_blank">https://openqcm.com/openqcm...
+            </a></span></span>].</p>
+<h4>2.3. Cristal oscilador de Quartzo</h4>
+<p>Na MCQ proposta utilizou-se cristais de osciladores de quartzo com corte AT esse tipo de cristal é laminado do bloco original com um ângulo de 35° em relação ao eixo Z, são os mais utilizados por terem um baixíssimo coeficiente de dependência da temperatura [<span class="ref"><sup class="xref xrefblue">24</sup><span class="refCtt closed"><span>H. Varela, M. Malta e R.M. Torresi, Quim. Nova 23, 664 (2000).</span></span></span>], com frequência de oscilação em forma de cisalhamento de 10 MHz colocado entre dois eletrodos de ouro para conexão elétrica. A superfície do cristal de quartzo é plana e polida, ainda necessária limpeza prévia para o uso. A adesão do eletrodo de ouro a superfície é aprimorada usando um substrato de Titânio (Ti). A Sensibilidade nominal do sensor é de 4,42×10<sup>−9</sup> g Hz<sup>−1</sup> cm<sup>−2</sup>, a relação entre frequência e estabilidade térmica é de ± 20 kHz a 23°C com densidade de 0,0026497 Kg/m<sup>3</sup> a 25°C [<span class="ref"><sup class="xref xrefblue">23</sup><span class="refCtt closed"><span>https://openqcm.com/openqcm, acessado em 14/11/ 2019.</span><br><a href="https://openqcm.com/openqcm" target="_blank">https://openqcm.com/openqcm...
+            </a></span></span>].</p>
+<p>A espessura de quartzo é de ∼160 μm com diâmetro total de 13,9 mm, já o eletrodo tem diâmetro 6 mm revestido com Ouro (Au) a espessura do eletrodo é de ∼200 nm (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F4"><span class="sci-ico-fileFigure"></span>4</a>) a conexão elétrica se dá pelos eletrodos móveis da câmara de reação da MCQ proposta. O cristal usa conexões tipo HC-48/U. Os dados de área e densidade do eletrodo são úteis para quantificação da massa medida sobre o eletrodo, no entanto esses dados não foram medidos no trabalho.</p>
+<div class="row fig" id="S2_F4">
+<a name="S2_F4"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d7d3d564a46c792963d7cb027934fc83ddb2bd38.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 4:</strong><br>Cristais osciladores de quartzo.<br>
+</div>
+</div>
+<h4>2.4. Estrutura de proteção dos componentes eletrônicos</h4>
+<p>Para a construção da estrutura de proteção da MCQ foi utilizado placas de acrílico de 3, 2, e 1 mm de espessura. As placas que compõem o case foram usinados com serra elétrica, as peças de acrílico que constituem a estrutura permanente foram unidas com adesivo líquido tipo cianoacrilato. A juntas móveis foram possíveis com uso de parafusos de 1,5 mm de espessura e 3 mm de comprimento. A estrutura de proteção foi construída para proteção do frequencímetro e do controlador Arduíno, as medidas do case estão ilustradas na Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F5"><span class="sci-ico-fileFigure"></span>5</a>. Há duas entradas, uma tipo micro USB para alimentação elétrica e saída de dados para o computador e outra tipo RJ-45, esta liga o sensor da câmara de reação diretamente ao frequencímetro.</p>
+<div class="row fig" id="S2_F5">
+<a name="S2_F5"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/ec663aea8328f453c21084370452b844212ce726.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 5:</strong><br>Estrutura de proteção dos componentes eletrônicos.<br>
+</div>
+</div>
+<p>Na imagem também é possível observar o Arduíno micro conectado ao frequencímetro. Todas as partes do desenho de execução do projeto da MCQ foram modeladas com o software <i>SketchUp Make</i> 2017<sup>®</sup>.</p>
+<h4>2.5. Câmara de reação</h4>
+<p>A câmara de reação (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F6"><span class="sci-ico-fileFigure"></span>6</a>) foi construída com uma variedade maior de materiais em relação a estrutura de proteção, isso por conta da especificidade de seu uso, além dos materiais comuns ao <i>case</i> foram utilizados anéis de silicone (3, 5) para vedação das reações em meio líquido, tubos de 1mm de entrada e saída de reagentes (7, 8), eletrodos de latão de 1 mm × 0,5 mm para contato elétrico com sensor (2), placa de fenolite com camada única de cobre para construção de circuito elétrico, imãs de neodímio de 6 mm de diâmetro por 3 mm de altura (6).</p>
+<div class="row fig" id="S2_F6">
+<a name="S2_F6"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F6"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/16751940c41ce3999a0600555918a9da2dd37884.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 6:</strong><br>Câmara de reação.<br>
+</div>
+</div>
+<p>A Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F7"><span class="sci-ico-fileFigure"></span>7</a> mostra a câmara de reação tipo fechada já montada. Este modelo exige a colocação de tubos conectados em bomba peristáltica ou bomba tipo seringa para sucção dos reagentes. A conexão do topo, seja no modo aberto ou fechado é possível com uso de imãs neodímio que também oferece vedação por compressão.</p>
+<div class="row fig" id="S2_F7">
+<a name="S2_F7"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F7"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/88a31a645cb0f78630b5f02e618cf956af407e38.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 7:</strong><br>Câmara de reação tipo fechada parcialmente montada.<br>
+</div>
+</div>
+<h4>2.6. Operação da MCQ</h4>
+<p>Para operação da Microbalança é necessário garantir boa montagem da câmara de reação, a estanqueidade das substâncias permite confiança nas medições, também é necessário seguir a ordem correta dos componentes a serem montados. A Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F8"><span class="sci-ico-fileFigure"></span>8</a> apresenta uma visão geral da MCQ em perspectiva explodida. A sequência adequada de montagem da câmara de reação é ilustrada nas fotos a seguir. É necessário delicadeza na montagem das partes para não incorrer em quebra do cristal ou contaminação na superfície, após limpeza dos componentes para montagem da câmara de reação.</p>
+<div class="row fig" id="S2_F8">
+<a name="S2_F8"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F8"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d13618abda1f2042ffbfc1f967d9dd119e926127.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 8:</strong><br>Visão geral da MCQ, (a) botão de acionamento dos eletrodos móveis, (b) eletrodos móveis, (c) silicone de vedação, (d) cristal MCQ, (e) Anel de vedação, (f) imã de neodímio, (g) saída de reagente, (h) entrada de reagentes, (i) câmara de reação aberta, (j) conector RJ-45.<br>
+</div>
+</div>
+<p>Antes da colocação do silicone de vedação os eletrodos móveis (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F8"><span class="sci-ico-fileFigure"></span>8</a>b) devem ser rebaixados girando o botão de acionamento (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F8"><span class="sci-ico-fileFigure"></span>8</a>a) no sentido horário. É importante perceber no momento da montagem do cristal, se este está alinhado na câmara de reação conforme Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F8"><span class="sci-ico-fileFigure"></span>8</a>d, esse cuidado previne que os contatos do eletrodo móvel e o eletrodo do cristal seja mal feito, diferente disso as reações no quartzo não serão lidas pelo frequencímetro ou haverá muita instabilidade na leitura.</p>
+<p>Os tubos de entrada e saída devem ser montados na parte superior da câmara de reação antes da colocação sobre o sensor para evitar danos no mesmo (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F9"><span class="sci-ico-fileFigure"></span>9</a>e). Outro ponto crítico é a colocação deste último componente (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F9"><span class="sci-ico-fileFigure"></span>9</a>f) isso porque os imãs de neodímio podem comprimir o sensor de forma abrupta e resultar em danos e mau funcionamento do aparelho. Finalmente conecta-se a seringa para sucção de reagentes (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F9"><span class="sci-ico-fileFigure"></span>9</a>g). Aqui cabe outra ressalva, como em todos os aparelhos MCQ que operam em fluxo com câmara fechada, é imprescindível que os reagentes nunca sejam injetados sobre o cristal. Isso porque a forte elevação de pressão provoca variação excessiva na leitura das frequências, outro ponto é que a estanqueidade da câmara fica prejudicada, e isso pode resultar em extravasamento de líquidos nos componentes elétricos. Quando os líquidos são sugados cria-se um vácuo no interior que extraem possíveis bolhas formadas entre o cristal e o anel de vedação, esse vácuo também diminui a possibilidade de formação de bolhas sobre o cristal bem como possibilita que as soluções entrem em contato com toda a área do cristal. A formação de bolhas diminui consideravelmente a capacidade analítica.</p>
+<div class="row fig" id="S2_F9">
+<a name="S2_F9"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS2_F9"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/df3e6f8962cf2b568b89a2a074cd7d9c5cf78cc2.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 9:</strong><br>Fotografia da MCQ – Ordem de montagem da câmara de reação: (a) silicone de vedação, (b) instalação do sensor MCQ, (c) anel de vedação, (d) visão superior – alinhamento do sensor na câmara, (e) Tubos de entrada e saída de reagentes, (f) instalação da parte superior da câmara tipo fechada, (g) instalação de seringa.<br>
+</div>
+</div>
+<h3 class="articleSectionTitle">3. Resultados e Discussão</h3>
+<h4>3.1. Análise de custo da construção da MCQ</h4>
+<p>A execução do projeto da MCQ apresentou um custo muito inferior comparado com equipamentos de mercado, alcançando assim um dos seus principais objetivos que era o baixo custo de produção. Na Tabela <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalTableS3_T1"><span class="sci-ico-fileTable"></span>1</a> são estratificados os principais custos com componentes para que seja feita uma unidade do equipamento. Não foi possível totalizar os custos indiretos deste projeto como tempo, deslocamento de pessoal para pesquisa e aquisição de materiais, gastos com sistemas de informação, eletricidade internet, telefone etc.</p>
+<div class="row table" id="S3_T1">
+<a name="S3_T1"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Tabela 1:</strong><br>Estratificação dos custos de montagem de uma unidade da MCQ.<br>
+</div>
+</div>
+<p>Os custos dos componentes totalizaram, R$ 726,65. Vale destacar que, nesse valor, não estão inclusos custo de alguns materiais e serviços que foram reciclados de componentes eletrônicos ou doados com fornecedores envolvidos com a proposta do projeto.</p>
+<p>Quando comparado com o modelo de referência mais barato disponível no mercado a QCM 10M <i>Quartz Crystal Microbalance</i> do fornecedor Gamry Instruments que custa R$ 20.827,92 em valor atual [<span class="ref"><sup class="xref xrefblue">25</sup><span class="refCtt closed"><span>M. Coolbaugh, Final Report: Electrochemical Workstation for Research on Chemical Surface Modifications and Characterization of Novel Conductive Polymers, Johnson C. Smith University Charlotte United States, Charlotte (2015).</span></span></span>] observa-se que o valor é aproximadamente 28 vezes menor. Cabe ressaltar também que essa diferença é importante quando se observa o propósito do equipamento proposto, já citado ainda introdução desse estudo.</p>
+<h4>3.2. Estudo da capacidade de análise em meio líquido</h4>
+<p>Para a verificação da Microbalança de cristal de quartzo utilizou-se água pura, de acordo com a teoria baseada na (Equação (<a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalSchemeS3_E1"><span class="sci-ico-fileFormula"></span>1</a>)) de Kanazawa – Gordon [<span class="ref"><sup class="xref xrefblue">26</sup><span class="refCtt closed"><span>K.K. Kanazawa e J.G. Gordon, Acta 175, 99 (1985).</span></span></span>] essa equação expressa a variação de frequência de um cristal de quartzo em contato com um líquido em termos de parâmetros físicos do fluido e do quartzo. A relação é:</p>
+<p><b>Equação 1:</b> Equação de Kanazawa – Gordon.</p>
+<div class="row formula" id="eS3_E1">
+<a name="S3_E1"></a><div class="col-md-12"><div class="formula-container">
+          <span class="label">(1)</span>
+          <math display="block"><mrow><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>f</mi></mrow><mo>=</mo><mrow><mo>-</mo><mrow><msubsup><mi>f</mi><mn>0</mn><mfrac><mn>3</mn><mn>2</mn></mfrac></msubsup><mo>⋅</mo><msup><mrow><mo>(</mo><mfrac><mrow><mi>η</mi><mo>⁢</mo><mi>L</mi><mo>⁢</mo><mi>ρ</mi><mo>⁢</mo><mi>L</mi></mrow><mrow><mi>π</mi><mo>⁢</mo><mi>μ</mi><mo>⁢</mo><mi>Q</mi><mo>⁢</mo><mi>ρ</mi><mo>⁢</mo><mi>Q</mi></mrow></mfrac><mo>)</mo></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></msup></mrow></mrow></mrow></math>
+        </div></div>
+</div>
+<p>Onde: </p>
+<p><i>f</i><sub>0</sub> = frequência de vibração nominal do cristal seco</p>
+<p><i>ηL</i> = viscosidade absoluta do cristal de quartzo</p>
+<p><i>ρL</i> = densidade do líquido</p>
+<p><i>μQ</i> = módulo de cisalhamento do cristal de quartzo</p>
+<p><i>ρQ</i> = densidade do cristal de quartzo</p>
+<p>De modo mais simples, a variação no padrão de ressonância de um cristal de quartzo em meio líquido depende do produto da densidade-viscosidade do líquido estudado. A equação acima é dependente das seguintes características: (i) o cristal de quartzo é um sólido, mas com propriedades elásticas, há dissipação e energia na estrutura do cristal bem como na estrutura da câmara (ii) o líquido é newtoniano, o que significa que é um líquido puramente viscoso; (iii) o líquido – se assemelha a uma camada infinita, assim a penetração da onda de cisalhamento é muitas vezes menor que a espessura do líquido.</p>
+<p>Água pura foi injetada na câmara de reação da MCQ usando uma bomba de seringa. O volume da câmara de medição é de aproximadamente 28 μL. Os parâmetros físicos do fluido e do quartzo são:</p>
+<p>
+          <div class="row formula" id="eS3_Ex2">
+<a name="S3_Ex2"></a><div class="col-md-12"><div class="formula-container">
+            <math display="block"><mrow><msub><mi>f</mi><mn>0</mn></msub><mo>≅</mo><mrow><mpadded width="+5pt"><mn>10</mn></mpadded><mo>⁢</mo><mi>M</mi><mo>⁢</mo><mi>h</mi><mo>⁢</mo><mi>z</mi></mrow></mrow></math>
+            <math display="block"><mrow><mi>η</mi><mi>L</mi><mo>=</mo><mn>1.002</mn><mo>×</mo><mpadded width="+5pt"><msup><mn>10</mn><mrow><mo>-</mo><mn>2</mn></mrow></msup></mpadded><mi>g</mi><mo>⋅</mo><mi>c</mi><msup><mi>m</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mo>⋅</mo><mpadded width="+5pt"><msup><mi>s</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup></mpadded><mrow><mo stretchy="false">(</mo><mi>T</mi><mo>=</mo><msup><mn>20</mn><mo>∘</mo></msup><mo stretchy="false">)</mo></mrow></mrow></math>
+            <math display="block"><mrow><mi>ρ</mi><mi>L</mi><mo>=</mo><mpadded width="+5pt"><mn>0.9982</mn></mpadded><mi>g</mi><mo>⋅</mo><mi>c</mi><msup><mi>m</mi><mrow><mo>-</mo><mn>3</mn></mrow></msup><mrow><mo stretchy="false">(</mo><mi>T</mi><mo>=</mo><mn>2</mn><mo>-</mo><mn>20</mn><mmultiscripts><mo stretchy="false">)</mo><mprescripts></mprescripts><none></none><mo>∘</mo></mmultiscripts></mrow></mrow></math>
+            <math display="block"><mrow><mrow><mi>μ</mi><mo>⁢</mo><mi>Q</mi></mrow><mo>=</mo><mrow><mrow><mrow><mrow><mrow><mn>2.947</mn><mo>×</mo><mpadded width="+5pt"><msup><mn>10</mn><mn>11</mn></msup></mpadded></mrow><mo>⁢</mo><mi>g</mi></mrow><mo>⋅</mo><mi>c</mi></mrow><mo>⁢</mo><msup><mi>m</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup></mrow><mo>⋅</mo><msup><mi>s</mi><mrow><mo>-</mo><mn>2</mn></mrow></msup></mrow></mrow></math>
+            <math display="block"><mrow><mrow><mi>ρ</mi><mo>⁢</mo><mi>Q</mi></mrow><mo>=</mo><mrow><mrow><mrow><mpadded width="+5pt"><mn>2.648</mn></mpadded><mo>⁢</mo><mi>g</mi></mrow><mo>⋅</mo><mi>c</mi></mrow><mo>⁢</mo><msup><mi>m</mi><mrow><mo>-</mo><mn>3</mn></mrow></msup></mrow></mrow></math>
+          </div></div>
+</div>
+        </p>
+<p>Ainda de acordo com a equação de Kanazawa – Gordon, a variação de frequência do ar para a água destilada é Δ<i>f</i> = 2020 Hz [<span class="ref"><sup class="xref xrefblue">27</sup><span class="refCtt closed"><span>K.K. Kanazawa e J.G. Gordon, Anal. Chem. 57, 1770 (1985).</span></span></span>].</p>
+<p>A mudança de frequência causada pela injeção de água pura na câmara de reação foi medida usando o seguinte procedimento: A MCQ foi conectada via porta USB e aguardou-se o tempo de estabilização de temperatura e frequência estacionária. Após 30 minutos a frequência inicial da MCQ foi medida e registrada durante um intervalo de mais 30 minutos.</p>
+<p>A frequência inicial corresponde ao cristal de quartzo em contato com o ar. Após a medição da frequência de contato com ar, água Mili<i>Q</i> foi injetada na câmara usando bomba tipo seringa. Um novo período estacionário de 30 minutos foi aguardado, as leituras da MCQ foram registradas. A frequência final corresponde ao cristal de quartzo em contato com água.</p>
+<p>O resultado da frequência do cristal na mudança do ar para água é calculado como a diferença da frequência final no ar (Δ<i>f</i><sub>0</sub>) menos a frequência final na água (Δ<i>f</i><sub>1</sub>), como mostrado na Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS3_F10"><span class="sci-ico-fileFigure"></span>10</a>.</p>
+<div class="row fig" id="S3_F10">
+<a name="S3_F10"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS3_F10"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/b284544cc3cce5de25158e01e64ddb92414c7ab6.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 10:</strong><br>Gráfico da variação de frequência na mudança de interface ar-água para confirmação da equação de Kanazawa – Gordon.<br>
+</div>
+</div>
+<p>Os resultados dos testes demostram Δ<i>f</i><sub>0</sub> = 10015849.4 Hz e Δ<i>f</i><sub>1</sub> = 10013830.3 Hz mostraram uma boa concordância entre a mudança de frequência medida pela MCQ na mudança da interface do ar para a água pura, a determinação matemática da equação de Kanazawa Gordon também foi confirmada.</p>
+<p>A equação prevê uma variação na frequência de ressonância na ordem de 2020 Hz. O resultado calculado no teste é de Δ<i>f</i><sub><i>final</i></sub> = 2018.9 Hz, a diferença para o valor teórico ideal é de ± 1,1 Hz para um cristal de quartzo de 10 MHz na mudança da interface ar para a água pura à temperatura de 20°C. Cabe ressaltar que os valores de Δ<i>f</i><sub>0</sub> e Δ<i>f</i><sub>1</sub> são valores médios calculados a partir das frequências estáveis após aproximadamente 30 minutos. A partir das características de sensibilidade sensor utilizado, controle da temperatura, e pureza da água chegou a esse grau de similaridade com o valor teórico.</p>
+<p>O teste e os resultados aqui relatados mostraram a sensibilidade do equipamento proposto para operação em meio líquido, a diferença encontrada neste teste não é obstáculo suficiente para alcançar um dos objetivos propostos uma vez que se optou por <i>hardware</i> e <i>software</i> de baixo custo em que se esperava possíveis divergências entre valores teóricos e valores medidos.</p>
+<h4>3.3. Estudo da capacidade de análise gravimétrica em meio líquido</h4>
+<p>Para este estudo foram preparadas três soluções com diferentes concentrações de sacarose 7,5%, 15% e 30% peso/volume (p/v). Uma bomba tipo seringa foi utilizada para injetar as diferentes concentrações na câmara de reação. As soluções foram bombeadas até observação de que a câmara estava totalmente preenchida com a nova solução. Em seguida, a variação de frequência foi aferida em estado estacionário. A medição de frequência foi realizada sempre no equilíbrio de condições estáticas dos líquidos, a câmara de reação foi lavada com água destilada entre injeções das soluções. De fato, o que foi medido nesse experimento foram as variações de frequência causadas por mudança de massa devido ao processo de alteração de densidade e viscosidade da amostra líquida. Essas duas características não são dissociáveis, por isso é necessário lavar a câmara de reação antes de cada nova injeção. Desta forma, é possível medir e comparar a mudança de frequência causada por soluções com diferentes concentrações de sólidos dissolvidos. A variação de frequência da MCQ durante todo o teste com diferentes concentrações de sacarose é mostrada na Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS3_F11"><span class="sci-ico-fileFigure"></span>11</a>.</p>
+<div class="row fig" id="S3_F11">
+<a name="S3_F11"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS3_F11"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/eb29c9b6c7d228fdc70c250f67045ae3ca9be9f5.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 11:</strong><br>Gráfico da variação de frequência da MCQ causado por injeções sucessivas de água e sacarose em diferentes concentrações 7,5, 15 e 30% p/v.<br>
+</div>
+</div>
+<p>A maior variação no sinal de frequência, indicada pelos picos no gráfico, é causada principalmente pela variação abrupta de pressão na superfície do cristal de quartzo devido a injeção das amostras. Mas, essa variação é transitória e não é considerada. É importante notar que o processo de regeneração do sensor não foi medido após as injeções sucessivas. No entanto, a estabilidade do sinal referente a leitura da água (<math id="INEQ38"><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><msub><mi>f</mi><mrow><mover accent="true"><mi>a</mi><mo>´</mo></mover><mo>⁢</mo><mi>g</mi><mo>⁢</mo><mi>u</mi><mo>⁢</mo><mi>a</mi></mrow></msub></mrow></math>) serve como parâmetro branco ou “0” para cálculo diferencial com as diferentes concentrações. Na Tabela <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalTableS3_T2"><span class="sci-ico-fileTable"></span>2</a> é mostrada a frequência medida na MCQ para as três concentrações, a diminuição de frequência em relação a água pura também foi medida.</p>
+<div class="row table" id="S3_T2">
+<a name="S3_T2"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Tabela 2:</strong><br>Variação de frequência medida nas diferentes concentrações de sacarose.<br>
+</div>
+</div>
+<p>Este resultado mostra que equipamento proposto responde a variações de concentração de soluto. No entanto para elaboração do teste de ajuste linear e outras provas estatísticas fez-se necessário aumentar o número de análises. A MCQ foi submetida a solução de glicose em água que variaram de 1,6 a 90 mg/mL. Os valores de frequência estáveis para cada concentração são mostrados na Tabela <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalTableS3_T3"><span class="sci-ico-fileTable"></span>3</a>.</p>
+<div class="row table" id="S3_T3">
+<a name="S3_T3"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T3"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Tabela 3:</strong><br>Frequências estáveis de diferentes concentrações de solução de glicose.<br>
+</div>
+</div>
+<p>Para a verificação da adequação do modelo, os dados foram submetidos a Análise de Covariância – ANOVA. A Tabela <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalTableS3_T4"><span class="sci-ico-fileTable"></span>4</a> mostra os resultados desse tratamento.</p>
+<div class="row table" id="S3_T4">
+<a name="S3_T4"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T4"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Tabela 4:</strong><br>Análise de Covariância – ANOVA.<br>
+</div>
+</div>
+<p>A regressão linear simples (Figura <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigS3_F12"><span class="sci-ico-fileFigure"></span>12</a>) mostra que a variação da concentração de glicose nas soluções prevê a variação da frequência medida na MCQ [F (1, 16) = 382.487, p &lt; 0,001; R<sup>2</sup> = 0,959].</p>
+<div class="row fig" id="S3_F12">
+<a name="S3_F12"></a><div class="col-md-4 col-sm-4"><a href="" data-bs-toggle="modal" data-bs-target="#ModalFigS3_F12"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/475e74b5c629f7d5f7e807740abae8efc00661a5.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figura 12:</strong><br>Gráfico do ajuste linear da concentração de glicose e variação da frequência.<br>
+</div>
+</div>
+<h3 class="articleSectionTitle">4. Considerações finais</h3>
+<p>Este estudo teve como objetivo principal a implementação de um protótipo de Microbalança de Cristal de Quartzo de baixo custo capaz de realizar análises micro gravimétricas. Para tanto, foi desenvolvido um protótipo funcional a partir de materiais de fácil acesso que detecta a variação de massa de solutos dissolvidos em eletrodo/cristal específico, processa e transmite sinais para um software, que mostra essas interações em tempo real e armazena os dados. Esta pesquisa possibilitou a aplicação e o uso de técnicas de projeto e construção de dispositivos micro eletromecânicos destinados a implementação e desenvolvimento de ferramenta de ensino capaz de aproximar do ambiente de ensino técnicas de análises micrométricas. A utilização de solutos diluídos com diversas variações de concentração mostrou-se eficaz como ferramenta de validação dos testes micrométricos de massa. A escolha do Arduíno micro<sup>®</sup> como dispositivo controlador do frequencímetro foi essencial para se chegar à solução final. Com o uso desse controlador, foi possível evitar o investimento de tempo e recursos no desenvolvimento de dispositivo capaz de comunicação de dados rápida e estável com o computador. Outra funcionalidade adquirida pelo uso Arduíno foi a capacidade de ajuste simplificado da comunicação com computador, alimentação de todo o sistema via porta USB, dispensado o desenvolvimento de sistema para esse fim, a disponibilidade de ampla biblioteca de scripts de forma gratuita, linguagem de programação fácil e software intuitivo. Esses foram exemplos práticos de como essa placa de prototipagem contribuiu no desenvolvimento do protótipo. permitindo abordagem corretiva dos mecanismos de ajuste sempre que necessário, melhorando a performance e a qualidade dos resultados. Contudo, a montagem do cristal nos eletrodos da MCQ ainda necessita de uma série de passos e cuidados para um selamento perfeito da câmara de reação. Em um trabalho futuro, poderão ser realizados testes com um sistema de selamento mais ágil e seguro. É necessário aplicação de novos testes com outros equipamentos existentes, a fim de verificar a acurácia com os resultados de outros trabalhos relacionados as proposições deste. Quanto à funcionalidade do sistema proposto, foram detectadas algumas limitações, como por exemplo, alta sensibilidade a variações na rede elétrica, assim a estabilidade ótima do sistema só foi atingida com uso notebooks ou desktops desligados da rede elétrica. A conexão em rede sem uso de algum tipo de estabilizador pode vir a prejudicar desempenho do equipamento. Esta tecnologia muito atrativa e relativamente simples para pesquisa e desenvolvimento de instrumentos didáticos para ensino de física e ciências, pode ser muito útil para aproximar a teoria da análise microgravimétrica com prática dentro do universo acadêmico. As técnicas microanalíticas estão disponíveis a muito tempo e com nível de sofisticação altíssimo assim como o investimento para sua aquisição. No entanto, ainda falta no mercado instrumentos voltados para o ensino que ofereçam a oportunidade de contato com essas tecnologias, para que se possa, ainda nos primeiros anos de uma graduação, ou mesmo no ensino básico ou tecnológico pensar em sua implementação, seja dos protocolos de uso ou da tecnologia em si. A solução proposta, neste estudo, se mostrou bastante viável, considerando a propósito e o acerto das análises durante o desenvolvimento. A maior parte dos testes realizados obtiveram resultados satisfatórios, salvo algumas limitações já discutidas. Espera-se que o conceito da MCQ não mais seja associado a algo intangível. Como proposta de melhorias futuras, destacam-se: sofisticação do <i>design</i>, simplificação no processo de montagem do cristal, miniaturização dos sistemas eletrônicos, implementação de um sistema de detecção de energia dissipada que aumentaria significativamente a qualidade da análise.</p>
+</div>
+<div class="articleSection" data-anchor="Referênces">
+<h3 class="articleSectionTitle">Referênces</h3>
+<div class="ref-list"><ul class="refList">
+<li><div>W.R.S. Silva, D.P. Souza e S. Rodrigues-Moura, Rev. Pesqui. Qual. 7, 428 (2019).</div></li>
+<li><div>A.M.P. Carvalho e L.H. Sasseron, Ensino em Re-Vista 22, 249 (2015).</div></li>
+<li><div>D.R. Shonnard, D.T. Allen, N. Nguyen, S.W. Austin e R. Hesketh, Environ. Sci. Technol. 37, 5453 (2003).</div></li>
+<li><div>S.E. Lyshevski, <i>Mems and Nems. Mems and Nems</i> (CRC Press, Boca Raton, 2018), p. 61.</div></li>
+<li><div>K. Qian, F. Zhai e Q. Meng, em: <i>Proceedings of the 2019 3rd International Conference on Education, Management Science and Economics</i> (Singapura, 2019).</div></li>
+<li><div>T.S. Schmidt e J. Huenteler, Glob. Environ. Chang. 38, 8 (2016).</div></li>
+<li><div>Y.S. Kurniawan, Biomed J Sci &amp; Tech Res 12, 9442 (2019).</div></li>
+<li><div>D.E.W. Patabadige, S. Jia, J. Sibbitts, J. Sadeghi, K. Sellens e C.T. Culbertson, Anal. Chem. 88, 320 (2015).</div></li>
+<li><div>L.C. Santos, F.P. Beraldo, L.F. Hernandez, R.A.M. Carvalho e M.L.P. Silva, Rev. Bras. Apl. Vácuo 25, 75 (2008).</div></li>
+<li><div>M. Pohanka, Materials (Basel) 11, 448 (2018).</div></li>
+<li><div>M. Hussain, F. Rupp, H.P. Wendel e F.K., TrAC – Trends in Analytical Chemistry 102, 194 (2018).</div></li>
+<li><div>M. Michalzik, R. Wilke e S. Büttgenbach, Sensors and Actuators, B: Chemical 111–112, 410 (2005).</div></li>
+<li><div>M. Pohanka, O. Pavliš e P. Skládal, Talanta 71, 981 (2007).</div></li>
+<li><div>C.L. Liang, S.W. Lee e K.L. Lin, Thin Solid Films 636, 164 (2017).</div></li>
+<li><div>V.E. Bottom, em: <i>Thirty Fifth Annual Frequency Control Symposium</i> (Philadelphia, 2008).</div></li>
+<li><div>D.A. Mellis, M. Banzi, D. Cuartielles e T. Igoe, <i>Arduino: An open electronic prototyping platform</i>, disponível em: http://web.media.mit.edu/mellis/arduino-chi2007-mellis-banzi-cuartielles-igoe.pdf, acessado em 14/11/2019.<br><a href="http://web.media.mit.edu/mellis/arduino-chi2007-mellis-banzi-cuartielles-igoe.pdf" target="_blank">» http://web.media.mit.edu/mellis/arduino-chi2007-mellis-banzi-cuartielles-igoe.pdf</a>
+</div></li>
+<li><div>Y.A. Badamasi, em:<i>Proceedings of the 11th International Conference on Electronics, Computer and Computation (ICECCO)</i> (Abuja, 2014).</div></li>
+<li><div>P.C. Minns, <i>Programming For the PC the MAC and the Arduino Microcontroller System</i>, disponível em: http://nrl.northumbria.ac.uk/15136/, acessado em 14/11/2019.<br><a href="http://nrl.northumbria.ac.uk/15136/" target="_blank">» http://nrl.northumbria.ac.uk/15136/</a>
+</div></li>
+<li><div>M. Margolis, <i>Arduino Cookbook</i> (O’Reilly Media, Massachusetts, 2011).</div></li>
+<li><div>J. Boxall, <i>Arduino Worskhop: A hands-on introduction with 65 Projects</i> (No Starch Press, California, 2013).</div></li>
+<li><div>N. Robert, <i>Introduction to Arduino Leonardo – The Engineering Projects. Engineering Project</i>, disponível em: https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html, acessado em 15/06/2021.<br><a href="https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html" target="_blank">» https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html</a>
+</div></li>
+<li><div>GitHub: Where the world builds software (2008), https://github.com/collections, acessado em: 09/08/2019<br><a href="https://github.com/collections" target="_blank">» https://github.com/collections</a>
+</div></li>
+<li><div>https://openqcm.com/openqcm, acessado em 14/11/ 2019.<br><a href="https://openqcm.com/openqcm" target="_blank">» https://openqcm.com/openqcm</a>
+</div></li>
+<li><div>H. Varela, M. Malta e R.M. Torresi, Quim. Nova 23, 664 (2000).</div></li>
+<li><div>M. Coolbaugh, <i>Final Report: Electrochemical Workstation for Research on Chemical Surface Modifications and Characterization of Novel Conductive Polymers</i>, Johnson C. Smith University Charlotte United States, Charlotte (2015).</div></li>
+<li><div>K.K. Kanazawa e J.G. Gordon, Acta 175, 99 (1985).</div></li>
+<li><div>K.K. Kanazawa e J.G. Gordon, Anal. Chem. 57, 1770 (1985).</div></li>
+</ul></div>
+</div>
+<div class="articleSection" data-anchor="Datas de Publicação ">
+<h3 class="articleSectionTitle">Datas de Publicação </h3>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Publicação nesta coleção</strong><br>27 Out 2021</li>
+<li>
+<strong>Data do Fascículo</strong><br>2021</li>
+</ul></div></div>
+</div>
+<div class="articleSection" data-anchor="Histórico">
+<h3 class="articleSectionTitle">Histórico</h3>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Recebido</strong><br>21 Abr 2021</li>
+<li>
+<strong>Revisado</strong><br>15 Jun 2021</li>
+<li>
+<strong>Aceito</strong><br>26 Jul 2021</li>
+</ul></div></div>
+</div>
+<section class="documentLicense"><div class="container-license"><div class="row">
+<div class="col-sm-3 col-md-2"><a href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank" title=""><img src="https://licensebuttons.net/l/by/4.0/deed.en/88x31.png" alt="Creative Common - by 4.0 deed.en"></a></div>
+<div class="col-sm-9 col-md-10"><a href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank" title="">This is an open-access article distributed under the terms of the Creative Commons Attribution License (CC BY). The use, distribution or reproduction in other forums is permitted, provided the original author(s) and the copyright owner(s) are credited and that the original publication in this journal is cited, in accordance with accepted academic practice. No use, distribution or reproduction is permitted which does not comply with these terms.</a></div>
+</div></div></section></article>
+</div>
+</div></div></section><div class="modal fade ModalDefault ModalTutors" id="ModalTutors" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Sobre os autores</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+<div class="info">
+<div class="tutors">
+<strong> Gilson Tavares de Lima </strong><strong>*</strong><br><div>Instituto Federal de Educação, Ciência e Tecnologia do Tocantins, Araguaína, TO, Brasil.</div>
+<ul class="md-list inline"><li><a href="http://orcid.org/0000-0001-6516-8072" class="btnContribLinks orcid">http://orcid.org/0000-0001-6516-8072</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Poliana Guerino Marson </strong><br><div>Universidade Federal do Tocantins, PPG Ciências da Saúde, Palmas, TO, Brasil.</div>
+<ul class="md-list inline"><li><a href="http://orcid.org/0000-0002-3560-0749" class="btnContribLinks orcid">http://orcid.org/0000-0002-3560-0749</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Helcileia Dias Santos </strong><br><div>Universidade Federal do Tocantins, Escola de Medicina Veterinária e Zootecnia, Araguaína, TO, Brasil.</div>
+<ul class="md-list inline"><li><a href="http://orcid.org/0000-0002-7120-951X" class="btnContribLinks orcid">http://orcid.org/0000-0002-7120-951X</a></li></ul>
+<div class="clearfix"></div>
+</div>
+</div>
+<div class="info">* Endereço de correspondência: <a href="mailto:gilsontavares@ifto.edu.br">gilsontavares@ifto.edu.br</a> </div>
+</div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Figuras | Tabelas | Fórmulas</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+<ul class="nav nav-tabs md-tabs" role="tablist">
+<li role="presentation" class="col-md-4 col-sm-4 active"><a href="#figures" aria-controls="figures" role="tab" data-toggle="tab">Figuras
+                    (12)
+                </a></li>
+<li role="presentation" class="col-md-4 col-sm-4 "><a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">Tabelas
+                    (4)
+                </a></li>
+<li role="presentation" class="col-md-4 col-sm-4 "><a href="#schemes" aria-controls="schemes" role="tab" data-toggle="tab">Fórmulas
+                    (2)
+                </a></li>
+</ul>
+<div class="clearfix"></div>
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane active" id="figures">
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F1"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/94aada6bb9e15b11f0aa1424b6ce56dd32844978.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 1:</strong><br>Configuração operacional típico da MCQ.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F2"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1e0b13ea99a53c4adb56390067b377a090982ac7.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 2:</strong><br>Arduíno Micro [<span class="ref"><sup class="xref xrefblue">21</sup><span class="refCtt closed"><span>N. Robert, Introduction to Arduino Leonardo – The Engineering Projects. Engineering Project, disponível em: https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html, acessado em 15/06/2021.</span><br><a href="https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html" target="_blank">https://www.theengineeringprojects.com/2...
+            </a></span></span>].</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/9848bd3cc48d5e70f3203a784fd686c4183fe206.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 3:</strong><br>GUI (<i>Graphic User Interface</i>) interface gráfica do usuário OpenQCM<sup>®</sup>.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d7d3d564a46c792963d7cb027934fc83ddb2bd38.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 4:</strong><br>Cristais osciladores de quartzo.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/ec663aea8328f453c21084370452b844212ce726.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 5:</strong><br>Estrutura de proteção dos componentes eletrônicos.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F6"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/16751940c41ce3999a0600555918a9da2dd37884.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 6:</strong><br>Câmara de reação.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F7"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/88a31a645cb0f78630b5f02e618cf956af407e38.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 7:</strong><br>Câmara de reação tipo fechada parcialmente montada.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F8"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d13618abda1f2042ffbfc1f967d9dd119e926127.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 8:</strong><br>Visão geral da MCQ, (a) botão de acionamento dos eletrodos móveis, (b) eletrodos móveis, (c) silicone de vedação, (d) cristal MCQ, (e) Anel de vedação, (f) imã de neodímio, (g) saída de reagente, (h) entrada de reagentes, (i) câmara de reação aberta, (j) conector RJ-45.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F9"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/df3e6f8962cf2b568b89a2a074cd7d9c5cf78cc2.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 9:</strong><br>Fotografia da MCQ – Ordem de montagem da câmara de reação: (a) silicone de vedação, (b) instalação do sensor MCQ, (c) anel de vedação, (d) visão superior – alinhamento do sensor na câmara, (e) Tubos de entrada e saída de reagentes, (f) instalação da parte superior da câmara tipo fechada, (g) instalação de seringa.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F2"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1e0b13ea99a53c4adb56390067b377a090982ac7.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 2:</strong><br>Arduíno Micro [<span class="ref"><sup class="xref xrefblue">21</sup><span class="refCtt closed"><span>N. Robert, Introduction to Arduino Leonardo – The Engineering Projects. Engineering Project, disponível em: https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html, acessado em 15/06/2021.</span><br><a href="https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html" target="_blank">https://www.theengineeringprojects.com/2...
+            </a></span></span>].</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/9848bd3cc48d5e70f3203a784fd686c4183fe206.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 3:</strong><br>GUI (<i>Graphic User Interface</i>) interface gráfica do usuário OpenQCM<sup>®</sup>.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d7d3d564a46c792963d7cb027934fc83ddb2bd38.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 4:</strong><br>Cristais osciladores de quartzo.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/ec663aea8328f453c21084370452b844212ce726.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 5:</strong><br>Estrutura de proteção dos componentes eletrônicos.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F6"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/16751940c41ce3999a0600555918a9da2dd37884.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 6:</strong><br>Câmara de reação.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F7"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/88a31a645cb0f78630b5f02e618cf956af407e38.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 7:</strong><br>Câmara de reação tipo fechada parcialmente montada.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F8"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d13618abda1f2042ffbfc1f967d9dd119e926127.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 8:</strong><br>Visão geral da MCQ, (a) botão de acionamento dos eletrodos móveis, (b) eletrodos móveis, (c) silicone de vedação, (d) cristal MCQ, (e) Anel de vedação, (f) imã de neodímio, (g) saída de reagente, (h) entrada de reagentes, (i) câmara de reação aberta, (j) conector RJ-45.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS2_F9"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/df3e6f8962cf2b568b89a2a074cd7d9c5cf78cc2.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 9:</strong><br>Fotografia da MCQ – Ordem de montagem da câmara de reação: (a) silicone de vedação, (b) instalação do sensor MCQ, (c) anel de vedação, (d) visão superior – alinhamento do sensor na câmara, (e) Tubos de entrada e saída de reagentes, (f) instalação da parte superior da câmara tipo fechada, (g) instalação de seringa.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS3_F10"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/b284544cc3cce5de25158e01e64ddb92414c7ab6.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 10:</strong><br>Gráfico da variação de frequência na mudança de interface ar-água para confirmação da equação de Kanazawa – Gordon.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS3_F11"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/eb29c9b6c7d228fdc70c250f67045ae3ca9be9f5.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 11:</strong><br>Gráfico da variação de frequência da MCQ causado por injeções sucessivas de água e sacarose em diferentes concentrações 7,5, 15 e 30% p/v.</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigS3_F12"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/475e74b5c629f7d5f7e807740abae8efc00661a5.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figura 12:</strong><br>Gráfico do ajuste linear da concentração de glicose e variação da frequência.</div>
+</div>
+</div>
+<div role="tabpanel" class="tab-pane " id="tables">
+<div class="row table">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Tabela 1:</strong><br>Estratificação dos custos de montagem de uma unidade da MCQ.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Tabela 2:</strong><br>Variação de frequência medida nas diferentes concentrações de sacarose.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T3"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Tabela 3:</strong><br>Frequências estáveis de diferentes concentrações de solução de glicose.</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalTableS3_T4"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Tabela 4:</strong><br>Análise de Covariância – ANOVA.</div>
+</div>
+</div>
+<div role="tabpanel" class="tab-pane " id="schemes">
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalSchemeS3_E1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8"><strong>(1)</strong></div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-bs-toggle="modal" data-bs-target="#ModalSchemeS3_Ex2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8"></div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 1:   Configuração operacional típico da MCQ.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/55d47819959ce7275702d2ebcba2725562cd0208.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/55d47819959ce7275702d2ebcba2725562cd0208.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 2:   Arduíno Micro [<span class="ref"><sup class="xref xrefblue">21</sup><span class="refCtt closed"><span>N. Robert, Introduction to Arduino Leonardo – The Engineering Projects. Engineering Project, disponível em: https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html, acessado em 15/06/2021.</span><br><a href="https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html" target="_blank">https://www.theengineeringprojects.com/2...
+            </a></span></span>].<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1366d464231ecee0b029e1807c63cde57ad83f8f.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1366d464231ecee0b029e1807c63cde57ad83f8f.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 3:   GUI (<i>Graphic User Interface</i>) interface gráfica do usuário OpenQCM<sup>®</sup>.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6f9d93fe9b60ec0f7f22be0f37804988e6c70b3d.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6f9d93fe9b60ec0f7f22be0f37804988e6c70b3d.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 4:   Cristais osciladores de quartzo.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1fb178bd4b05defaa072ba2067287679b149042a.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1fb178bd4b05defaa072ba2067287679b149042a.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F5" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 5:   Estrutura de proteção dos componentes eletrônicos.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/7c13f240b30e1bbe9f581574d4e1a09c527a2ad5.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/7c13f240b30e1bbe9f581574d4e1a09c527a2ad5.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F6" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 6:   Câmara de reação.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/0ad06fa43eb76cd56f7d790a5122934e7e2ec19c.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/0ad06fa43eb76cd56f7d790a5122934e7e2ec19c.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F7" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 7:   Câmara de reação tipo fechada parcialmente montada.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6366ef9ebba5b0fe9e93f12707b42b3fcf8bb60d.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6366ef9ebba5b0fe9e93f12707b42b3fcf8bb60d.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F8" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 8:   Visão geral da MCQ, (a) botão de acionamento dos eletrodos móveis, (b) eletrodos móveis, (c) silicone de vedação, (d) cristal MCQ, (e) Anel de vedação, (f) imã de neodímio, (g) saída de reagente, (h) entrada de reagentes, (i) câmara de reação aberta, (j) conector RJ-45.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/4d20ecd9aa0288731a43f70a79e3760cf8abe4e4.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/4d20ecd9aa0288731a43f70a79e3760cf8abe4e4.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F9" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 9:   Fotografia da MCQ – Ordem de montagem da câmara de reação: (a) silicone de vedação, (b) instalação do sensor MCQ, (c) anel de vedação, (d) visão superior – alinhamento do sensor na câmara, (e) Tubos de entrada e saída de reagentes, (f) instalação da parte superior da câmara tipo fechada, (g) instalação de seringa.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/77aa32c64b6211cd7df89027f32038051cbb9318.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/77aa32c64b6211cd7df89027f32038051cbb9318.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 2:   Arduíno Micro [<span class="ref"><sup class="xref xrefblue">21</sup><span class="refCtt closed"><span>N. Robert, Introduction to Arduino Leonardo – The Engineering Projects. Engineering Project, disponível em: https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html, acessado em 15/06/2021.</span><br><a href="https://www.theengineeringprojects.com/2018/09/introduction-to-arduino-micro.html" target="_blank">https://www.theengineeringprojects.com/2...
+            </a></span></span>].<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1366d464231ecee0b029e1807c63cde57ad83f8f.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1366d464231ecee0b029e1807c63cde57ad83f8f.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 3:   GUI (<i>Graphic User Interface</i>) interface gráfica do usuário OpenQCM<sup>®</sup>.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6f9d93fe9b60ec0f7f22be0f37804988e6c70b3d.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6f9d93fe9b60ec0f7f22be0f37804988e6c70b3d.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 4:   Cristais osciladores de quartzo.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1fb178bd4b05defaa072ba2067287679b149042a.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1fb178bd4b05defaa072ba2067287679b149042a.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F5" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 5:   Estrutura de proteção dos componentes eletrônicos.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/7c13f240b30e1bbe9f581574d4e1a09c527a2ad5.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/7c13f240b30e1bbe9f581574d4e1a09c527a2ad5.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F6" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 6:   Câmara de reação.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/0ad06fa43eb76cd56f7d790a5122934e7e2ec19c.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/0ad06fa43eb76cd56f7d790a5122934e7e2ec19c.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F7" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 7:   Câmara de reação tipo fechada parcialmente montada.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6366ef9ebba5b0fe9e93f12707b42b3fcf8bb60d.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/6366ef9ebba5b0fe9e93f12707b42b3fcf8bb60d.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F8" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 8:   Visão geral da MCQ, (a) botão de acionamento dos eletrodos móveis, (b) eletrodos móveis, (c) silicone de vedação, (d) cristal MCQ, (e) Anel de vedação, (f) imã de neodímio, (g) saída de reagente, (h) entrada de reagentes, (i) câmara de reação aberta, (j) conector RJ-45.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/4d20ecd9aa0288731a43f70a79e3760cf8abe4e4.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/4d20ecd9aa0288731a43f70a79e3760cf8abe4e4.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS2_F9" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 9:   Fotografia da MCQ – Ordem de montagem da câmara de reação: (a) silicone de vedação, (b) instalação do sensor MCQ, (c) anel de vedação, (d) visão superior – alinhamento do sensor na câmara, (e) Tubos de entrada e saída de reagentes, (f) instalação da parte superior da câmara tipo fechada, (g) instalação de seringa.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/77aa32c64b6211cd7df89027f32038051cbb9318.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/77aa32c64b6211cd7df89027f32038051cbb9318.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS3_F10" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 10:   Gráfico da variação de frequência na mudança de interface ar-água para confirmação da equação de Kanazawa – Gordon.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d013c356d3e9fd34b06593b88baaf07b0658b1fb.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/d013c356d3e9fd34b06593b88baaf07b0658b1fb.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS3_F11" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 11:   Gráfico da variação de frequência da MCQ causado por injeções sucessivas de água e sacarose em diferentes concentrações 7,5, 15 e 30% p/v.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/266c212c3e15c20625e933f096304d7bba16843c.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/266c212c3e15c20625e933f096304d7bba16843c.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigS3_F12" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">image</span>Figura 12:   Gráfico do ajuste linear da concentração de glicose e variação da frequência.<br><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Abrir em nova janela" href="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1a5a5133f44d3e9bddbcd64981dfb929cbc6e200.jpg"><span class="material-icons-outlined">open_in_new</span></a>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/1806-9126/cRtRZdqFhRZZ35Hn6WvjzKx/1a5a5133f44d3e9bddbcd64981dfb929cbc6e200.jpg"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableS3_T1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">table_chart</span><strong>Tabela 1:</strong>    Estratificação dos custos de montagem de uma unidade da MCQ.<br>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><div class="table table-hover"><table cellpadding="5" cellspacing="5" frame="hsides" rules="groups">
+<thead><tr>
+<th align="left" valign="top">Item</th>
+<th align="center" valign="top">Dimensões</th>
+<th align="center" valign="top">Unidades</th>
+<th align="center" valign="top">Custo de mercado (r$)</th>
+<th align="center" valign="top">Custo de aquisição (RS)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" valign="top">Placas de acrílico</td>
+<td align="center" valign="top">3 mm</td>
+<td align="center" valign="top">6.936 mm<sup>2</sup>
+</td>
+<td align="center" valign="top">1,60</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Placas de acrílico</td>
+<td align="center" valign="top">1 mm</td>
+<td align="center" valign="top">2.464 mm<sup>2</sup>
+</td>
+<td align="center" valign="top">0,40</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Placas de acrílico</td>
+<td align="center" valign="top">10 mm</td>
+<td align="center" valign="top">1.938 mm<sup>2</sup>
+</td>
+<td align="center" valign="top">4,45</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Frequencimetro</td>
+<td align="center" valign="top">17,7 × 48,2 mm</td>
+<td align="center" valign="top">1</td>
+<td align="center" valign="top">240,00</td>
+<td align="center" valign="top">240,00</td>
+</tr>
+<tr>
+<td align="left" valign="top">Placa Arduíno micro</td>
+<td align="center" valign="top">17,7 × 48,2 mm</td>
+<td align="center" valign="top">1</td>
+<td align="center" valign="top">15,00</td>
+<td align="center" valign="top">15,00</td>
+</tr>
+<tr>
+<td align="left" valign="top">Parafuso</td>
+<td align="center" valign="top">M2 2,5 × 6 mm</td>
+<td align="center" valign="top">10</td>
+<td align="center" valign="top">0,10</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Manta de silicone</td>
+<td align="center" valign="top">1 mm</td>
+<td align="center" valign="top">2.464 mm<sup>2</sup>
+</td>
+<td align="center" valign="top">0,30</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Disco de quartzo</td>
+<td align="center" valign="top">10 MHz 13,9 mm</td>
+<td align="center" valign="top">10</td>
+<td align="center" valign="top">450,00</td>
+<td align="center" valign="top">450,00</td>
+</tr>
+<tr>
+<td align="left" valign="top">Imãs de Neodímio</td>
+<td align="center" valign="top">3 × 6 mm</td>
+<td align="center" valign="top">8</td>
+<td align="center" valign="top">10,00</td>
+<td align="center" valign="top">10,00</td>
+</tr>
+<tr>
+<td align="left" valign="top">Placa de circuito cobreada</td>
+<td align="center" valign="top">1 mm</td>
+<td align="center" valign="top">1.701 mm<sup>2</sup>
+</td>
+<td align="center" valign="top">7,65</td>
+<td align="center" valign="top">7,65</td>
+</tr>
+<tr>
+<td align="left" valign="top">Cola cianoacrilato</td>
+<td align="center" valign="top">10</td>
+<td align="center" valign="top">1</td>
+<td align="center" valign="top">4,00</td>
+<td align="center" valign="top">4,00</td>
+</tr>
+<tr>
+<td align="left" valign="top">Conector RJ-45</td>
+<td align="center" valign="top">13 × 14 mm</td>
+<td align="center" valign="top">1</td>
+<td align="center" valign="top">0,10</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Tubos de silicone</td>
+<td align="center" valign="top">2 × 154 mm</td>
+<td align="center" valign="top">2</td>
+<td align="center" valign="top">2,00</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Barra eletrodo latão</td>
+<td align="center" valign="top">10 mm</td>
+<td align="center" valign="top">2</td>
+<td align="center" valign="top">0,50</td>
+<td align="center" valign="top">0,0</td>
+</tr>
+<tr>
+<td align="left" valign="top">TOTAL</td>
+<td></td>
+<td></td>
+<td align="center" valign="top">736,10</td>
+<td align="center" valign="top">726,65</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableS3_T2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">table_chart</span><strong>Tabela 2:</strong>    Variação de frequência medida nas diferentes concentrações de sacarose.<br>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><div class="table table-hover"><table cellpadding="5" cellspacing="5" frame="hsides" rules="groups">
+<thead><tr>
+<th align="left" valign="top">Soluções</th>
+<th align="center" valign="top">Frequência (Hz)</th>
+<th align="center" valign="top">4f (Hz)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" valign="top">Água</td>
+<td align="center" valign="top">10014141</td>
+<td align="center" valign="top">0</td>
+</tr>
+<tr>
+<td align="left" valign="top">Sacarose</td>
+<td align="center" valign="top">10013825</td>
+<td align="center" valign="top">2573</td>
+</tr>
+<tr>
+<td align="left" valign="top">Sacarose 15%</td>
+<td align="center" valign="top">10013584</td>
+<td align="center" valign="top">498.4</td>
+</tr>
+<tr>
+<td align="left" valign="top">Sacarose 30%</td>
+<td align="center" valign="top">10013301</td>
+<td align="center" valign="top">781.5</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableS3_T3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">table_chart</span><strong>Tabela 3:</strong>    Frequências estáveis de diferentes concentrações de solução de glicose.<br>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><div class="table table-hover"><table cellpadding="5" cellspacing="5" frame="hsides" rules="groups">
+<thead><tr>
+<th align="left" valign="top">Análises</th>
+<th align="center" valign="top">Concentração de glicose (mg/mL)</th>
+<th align="center" valign="top">Frequência (Hz)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" valign="top">1</td>
+<td align="center" valign="top">1,6</td>
+<td align="center" valign="top">10006837.3</td>
+</tr>
+<tr>
+<td align="left" valign="top">2</td>
+<td align="center" valign="top">3,1</td>
+<td align="center" valign="top">10006805.5</td>
+</tr>
+<tr>
+<td align="left" valign="top">3</td>
+<td align="center" valign="top">6,3</td>
+<td align="center" valign="top">10006778.7</td>
+</tr>
+<tr>
+<td align="left" valign="top">4</td>
+<td align="center" valign="top">12,5</td>
+<td align="center" valign="top">10006744.5</td>
+</tr>
+<tr>
+<td align="left" valign="top">5</td>
+<td align="center" valign="top">25</td>
+<td align="center" valign="top">10006656</td>
+</tr>
+<tr>
+<td align="left" valign="top">6</td>
+<td align="center" valign="top">50</td>
+<td align="center" valign="top">10006495.2</td>
+</tr>
+<tr>
+<td align="left" valign="top">7</td>
+<td align="center" valign="top">2,2</td>
+<td align="center" valign="top">10006861.4</td>
+</tr>
+<tr>
+<td align="left" valign="top">8</td>
+<td align="center" valign="top">4,4</td>
+<td align="center" valign="top">10006847.5</td>
+</tr>
+<tr>
+<td align="left" valign="top">9</td>
+<td align="center" valign="top">8,8</td>
+<td align="center" valign="top">10006825.5</td>
+</tr>
+<tr>
+<td align="left" valign="top">10</td>
+<td align="center" valign="top">17,5</td>
+<td align="center" valign="top">10006783.9</td>
+</tr>
+<tr>
+<td align="left" valign="top">11</td>
+<td align="center" valign="top">35</td>
+<td align="center" valign="top">10006684.7</td>
+</tr>
+<tr>
+<td align="left" valign="top">12</td>
+<td align="center" valign="top">70</td>
+<td align="center" valign="top">10006459.7</td>
+</tr>
+<tr>
+<td align="left" valign="top">13</td>
+<td align="center" valign="top">2,8</td>
+<td align="center" valign="top">10006870</td>
+</tr>
+<tr>
+<td align="left" valign="top">14</td>
+<td align="center" valign="top">5,6</td>
+<td align="center" valign="top">10006851.8</td>
+</tr>
+<tr>
+<td align="left" valign="top">15</td>
+<td align="center" valign="top">11,3</td>
+<td align="center" valign="top">10006817.8</td>
+</tr>
+<tr>
+<td align="left" valign="top">16</td>
+<td align="center" valign="top">22,5</td>
+<td align="center" valign="top">10006750.4</td>
+</tr>
+<tr>
+<td align="left" valign="top">17</td>
+<td align="center" valign="top">45</td>
+<td align="center" valign="top">10006594.4</td>
+</tr>
+<tr>
+<td align="left" valign="top">18</td>
+<td align="center" valign="top">90</td>
+<td align="center" valign="top">10006286.9</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableS3_T4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="material-icons-outlined">table_chart</span><strong>Tabela 4:</strong>    Análise de Covariância – ANOVA.<br>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><div class="table table-hover"><table cellpadding="5" cellspacing="5" frame="hsides" rules="groups">
+<thead><tr>
+<th align="left" valign="top">Fonte da Variação</th>
+<th align="center" valign="top">Grau de Liberdade</th>
+<th align="center" valign="top">Soma de quadrados</th>
+<th align="center" valign="top">Quadrado médio</th>
+<th align="center" valign="top">F</th>
+<th align="center" valign="top">P</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" valign="top">Regressão</td>
+<td align="center" valign="top">1</td>
+<td align="center" valign="top">435662.88</td>
+<td align="center" valign="top">435662.88</td>
+<td align="center" valign="top">382.488</td>
+<td align="center" valign="top"> &lt; 0.001</td>
+</tr>
+<tr>
+<td align="left" valign="top">Resíduo</td>
+<td align="center" valign="top">16</td>
+<td align="center" valign="top">18224.402</td>
+<td align="center" valign="top">1139.025</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="left" valign="top">Total</td>
+<td align="center" valign="top">17</td>
+<td align="center" valign="top">453887.28</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalSchemeS3_E1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">
+<span class="sci-ico-fileFormula"></span><strong>(1)</strong>
+</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body"><math display="block"><mrow><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>f</mi></mrow><mo>=</mo><mrow><mo>-</mo><mrow><msubsup><mi>f</mi><mn>0</mn><mfrac><mn>3</mn><mn>2</mn></mfrac></msubsup><mo>⋅</mo><msup><mrow><mo>(</mo><mfrac><mrow><mi>η</mi><mo>⁢</mo><mi>L</mi><mo>⁢</mo><mi>ρ</mi><mo>⁢</mo><mi>L</mi></mrow><mrow><mi>π</mi><mo>⁢</mo><mi>μ</mi><mo>⁢</mo><mi>Q</mi><mo>⁢</mo><mi>ρ</mi><mo>⁢</mo><mi>Q</mi></mrow></mfrac><mo>)</mo></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></msup></mrow></mrow></mrow></math></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalSchemeS3_Ex2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title"><span class="sci-ico-fileFormula"></span></h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+<math display="block"><mrow><msub><mi>f</mi><mn>0</mn></msub><mo>≅</mo><mrow><mpadded width="+5pt"><mn>10</mn></mpadded><mo>⁢</mo><mi>M</mi><mo>⁢</mo><mi>h</mi><mo>⁢</mo><mi>z</mi></mrow></mrow></math><math display="block"><mrow><mi>η</mi><mi>L</mi><mo>=</mo><mn>1.002</mn><mo>×</mo><mpadded width="+5pt"><msup><mn>10</mn><mrow><mo>-</mo><mn>2</mn></mrow></msup></mpadded><mi>g</mi><mo>⋅</mo><mi>c</mi><msup><mi>m</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mo>⋅</mo><mpadded width="+5pt"><msup><mi>s</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup></mpadded><mrow><mo stretchy="false">(</mo><mi>T</mi><mo>=</mo><msup><mn>20</mn><mo>∘</mo></msup><mo stretchy="false">)</mo></mrow></mrow></math><math display="block"><mrow><mi>ρ</mi><mi>L</mi><mo>=</mo><mpadded width="+5pt"><mn>0.9982</mn></mpadded><mi>g</mi><mo>⋅</mo><mi>c</mi><msup><mi>m</mi><mrow><mo>-</mo><mn>3</mn></mrow></msup><mrow><mo stretchy="false">(</mo><mi>T</mi><mo>=</mo><mn>2</mn><mo>-</mo><mn>20</mn><mmultiscripts><mo stretchy="false">)</mo><mprescripts></mprescripts><none></none><mo>∘</mo></mmultiscripts></mrow></mrow></math><math display="block"><mrow><mrow><mi>μ</mi><mo>⁢</mo><mi>Q</mi></mrow><mo>=</mo><mrow><mrow><mrow><mrow><mrow><mn>2.947</mn><mo>×</mo><mpadded width="+5pt"><msup><mn>10</mn><mn>11</mn></msup></mpadded></mrow><mo>⁢</mo><mi>g</mi></mrow><mo>⋅</mo><mi>c</mi></mrow><mo>⁢</mo><msup><mi>m</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup></mrow><mo>⋅</mo><msup><mi>s</mi><mrow><mo>-</mo><mn>2</mn></mrow></msup></mrow></mrow></math><math display="block"><mrow><mrow><mi>ρ</mi><mo>⁢</mo><mi>Q</mi></mrow><mo>=</mo><mrow><mrow><mrow><mpadded width="+5pt"><mn>2.648</mn></mpadded><mo>⁢</mo><mi>g</mi></mrow><mo>⋅</mo><mi>c</mi></mrow><mo>⁢</mo><msup><mi>m</mi><mrow><mo>-</mo><mn>3</mn></mrow></msup></mrow></mrow></math>
+</div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalArticles" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Como citar</h5>
+<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+<p id="citation"></p>
+<input id="citationCut" type="text" value=""><a class="copyLink" data-clipboard-target="#citationCut"><span class="material-icons-outlined">content_copy</span>copiar</a>
+</div>
+</div></div></div>
+<script type="text/javascript">
+            function currentDate() {
+            var today = new Date();
+            var months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+            today.setTime(today.getTime());
+            return today.getDate() + " " + months[today.getMonth()] + " " + today.getFullYear();
+            }
+            var citation = 'Lima, Gilson Tavares de, Marson, Poliana Guerino e Santos, Helcileia DiasDesenvolvimento de uma Microbalança de Cristal de Quartzo – MCQ experimental como ferramenta para o ensino de física moderna. Revista Brasileira de Ensino de Física [online]. 2021, v. 43 [Acessado CURRENTDATE] , e20210153. Disponível em: &lt;https://doi.org/10.1590/1806-9126-RBEF-2021-0153&gt;. Epub 27 Out 2021. ISSN 1806-9126. https://doi.org/10.1590/1806-9126-RBEF-2021-0153.'.replace('CURRENTDATE', currentDate());
+            document.getElementById('citation').innerHTML = citation;
+            document.getElementById('citationCut').value = citation.replace('&lt;', '<').replace('&gt;', ">");
+        </script>
+</div>
+<ul class="floatingMenu fm-slidein" data-fm-toogle="hover"><li class="fm-wrap">
+<a href="javascript:;" class="fm-button-main"><span class="sci-ico-floatingMenuDefault glyphFloatMenu"></span><span class="sci-ico-floatingMenuClose glyphFloatMenu"></span></a><ul class="fm-list">
+<li><a class="fm-button-child" data-fm-label="Figuras | Tabelas | Fórmulas" data-bs-toggle="modal" data-bs-target="#ModalTablesFigures"><span class="sci-ico-figures glyphFloatMenu"></span></a></li>
+<li><a class="fm-button-child" data-bs-toggle="modal" data-bs-target="#ModalArticles" data-fm-label="How to
+                                          cite"><span class="sci-ico-citation glyphFloatMenu"></span></a></li>
+</ul>
+</li></ul>
+<script src="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-article-standalone-min.js"></script><script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              },
+              svg: {
+                fontCache: 'global'
+              }
+            };
+            </script><script type="text/javascript" id="MathJax-script" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-svg.js"></script>
+</body>
+</html>
