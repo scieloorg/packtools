@@ -38,6 +38,20 @@
         <xsl:apply-templates select="p | sec | body/p | body/sec" mode="graphic-modal"/>
     </xsl:template>
 
+    <xsl:template match="article" mode="modal-header-content">
+        <xsl:param name="graphic_elements_title"/>
+
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&#xd7;</span>
+            <span class="sr-only">
+                <xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">Close</xsl:with-param>
+                </xsl:apply-templates>
+            </span>
+        </button>
+        <h4 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h4>
+    </xsl:template>
+
     <xsl:template match="article" mode="modal-grouped-figs-tables-schemes">
         <!--
             Modal que apresenta juntos figuras, tabelas e fórmulas presentes
@@ -63,15 +77,9 @@
                  <div class="modal-dialog">
                      <div class="modal-content">
                          <div class="modal-header">
-                             <button type="button" class="close" data-dismiss="modal">
-                                 <span aria-hidden="true">&#xd7;</span>
-                                 <span class="sr-only">
-                                     <xsl:apply-templates select="." mode="interface">
-                                         <xsl:with-param name="text">Close</xsl:with-param>
-                                     </xsl:apply-templates>
-                                 </span>
-                             </button>
-                             <h4 class="modal-title"><xsl:value-of select="$graphic_elements_title"/></h4>
+                            <xsl:apply-templates select="." mode="modal-header-content">
+                                <xsl:with-param name="graphic_elements_title" select="graphic_elements_title"/>
+                            </xsl:apply-templates>
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">

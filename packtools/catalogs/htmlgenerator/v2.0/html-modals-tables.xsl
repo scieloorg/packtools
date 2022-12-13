@@ -30,13 +30,16 @@
         Template para criar a área do título da tabela
         -->
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&#xd7;</span>
-                <span class="sr-only">
-                    <xsl:apply-templates select="." mode="interface">
-                        <xsl:with-param name="text">Close</xsl:with-param>
-                    </xsl:apply-templates>
-                </span>
+            <h5 class="modal-title">
+                <span class="material-icons-outlined">table_chart</span>
+                <xsl:apply-templates select="." mode="modal-header-label-caption"/>
+            </h5>
+            <button class="btn-close" data-bs-dismiss="modal">
+                <xsl:attribute name="aria-label">
+                     <xsl:apply-templates select="." mode="interface">
+                         <xsl:with-param name="text">Close</xsl:with-param>
+                     </xsl:apply-templates>
+                </xsl:attribute>
             </button>
             <xsl:variable name="location"><xsl:apply-templates select="." mode="original-file-location"/></xsl:variable>
             <xsl:if test="$location!=''">
