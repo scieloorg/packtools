@@ -143,8 +143,8 @@
                             </a>
                         </li>
                         <li>
-                            <a class="fm-button-child" data-toggle="modal"
-                                data-target="#ModalArticles">
+                            <a class="fm-button-child" data-bs-toggle="modal"
+                                data-bs-target="#ModalArticles">
                                 <xsl:attribute name="data-fm-label">
                                     <xsl:apply-templates select="." mode="text-labels">
                                         <xsl:with-param name="text">How to
@@ -159,8 +159,8 @@
             </ul>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="/" mode="css">
 
+    <xsl:template match="/" mode="css">
         <xsl:choose>
             <xsl:when test="substring($CSS_PATH,string-length($CSS_PATH)-3)='.css'">
                 <link rel="stylesheet" href="{$CSS_PATH}"/>
@@ -175,6 +175,7 @@
             <link rel="stylesheet" href="{$PRINT_CSS_PATH}" media="print"/>
         </xsl:if>
     </xsl:template>
+
     <xsl:template match="/" mode="js">
         <xsl:choose>
             <xsl:when test="substring($JS_PATH,string-length($JS_PATH)-2)='.js'">
