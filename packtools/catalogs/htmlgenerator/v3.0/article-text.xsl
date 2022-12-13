@@ -5,4 +5,21 @@
 
     <xsl:include href="../v2.0/article-text.xsl"/>
 
+    <xsl:template match="body/sec/title">
+        <h3 class="articleSectionTitle">
+            <xsl:apply-templates select="*|text()"/>
+        </h3>
+    </xsl:template>
+    
+    <xsl:template match="sec/sec/title">
+        <h4>
+            <xsl:apply-templates select="*|text()"/>
+        </h4>
+    </xsl:template>
+    
+    <xsl:template match="sec/sec/sec/title">
+        <h5>
+            <xsl:apply-templates select="*|text()"/>
+        </h5>
+    </xsl:template>
 </xsl:stylesheet>
