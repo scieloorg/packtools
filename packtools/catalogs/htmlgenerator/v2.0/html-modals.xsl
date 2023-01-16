@@ -39,8 +39,6 @@
     </xsl:template>
 
     <xsl:template match="article" mode="modal-header-content">
-        <xsl:param name="graphic_elements_title"/>
-
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&#xd7;</span>
             <span class="sr-only">
@@ -77,9 +75,7 @@
                  <div class="modal-dialog">
                      <div class="modal-content">
                          <div class="modal-header">
-                            <xsl:apply-templates select="." mode="modal-header-content">
-                                <xsl:with-param name="graphic_elements_title" select="graphic_elements_title"/>
-                            </xsl:apply-templates>
+                            <xsl:apply-templates select="." mode="modal-header-content"/>
                          </div>
                          <div class="modal-body">
                              <ul class="nav nav-tabs md-tabs" role="tablist">

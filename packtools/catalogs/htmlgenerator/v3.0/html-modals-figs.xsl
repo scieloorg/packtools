@@ -5,6 +5,11 @@
 
     <xsl:include href="../v2.0/html-modals-figs.xsl"/>
 
+    <xsl:template match="fig" mode="fig-label-caption">
+        <xsl:apply-templates select="." mode="label-caption"/>
+        <xsl:if test="position()!=last()"><br/></xsl:if>
+    </xsl:template>
+
     <xsl:template match="fig | fig-group" mode="modal">
         <xsl:variable name="figid"><xsl:apply-templates select="." mode="figure-id"/></xsl:variable>    
         <div class="modal fade ModalFigs" id="ModalFig{$figid}" tabindex="-1" role="dialog" aria-hidden="true">

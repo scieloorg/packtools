@@ -15,13 +15,6 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button class="btn-close" data-bs-dismiss="modal">
-                            <xsl:attribute name="aria-label">
-                                 <xsl:apply-templates select="." mode="interface">
-                                     <xsl:with-param name="text">Close</xsl:with-param>
-                                 </xsl:apply-templates>
-                            </xsl:attribute>
-                        </button>
                         <a class="link-newWindow showTooltip" target="_blank" data-placement="left">
                             <xsl:attribute name="title"><xsl:apply-templates select="." mode="interface">
                                 <xsl:with-param name="text">Open new window</xsl:with-param>
@@ -29,6 +22,14 @@
                             <xsl:attribute name="href"><xsl:value-of select="$original_location"/><xsl:if test="$original_location=''"><xsl:apply-templates select="@xlink:href" mode="fix_extension"/></xsl:if></xsl:attribute>
                             <span class="sci-ico-newWindow"></span>
                         </a>          
+
+                        <button class="btn-close" data-bs-dismiss="modal">
+                            <xsl:attribute name="aria-label">
+                                 <xsl:apply-templates select="." mode="interface">
+                                     <xsl:with-param name="text">Close</xsl:with-param>
+                                 </xsl:apply-templates>
+                            </xsl:attribute>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <xsl:apply-templates select="." mode="graphic-modal-body"/>

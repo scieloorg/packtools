@@ -14,13 +14,6 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="label" mode="label-caption"/></h5>
-                            <button class="btn-close" data-bs-dismiss="modal">
-                                <xsl:attribute name="aria-label">
-                                     <xsl:apply-templates select="." mode="interface">
-                                         <xsl:with-param name="text">Close</xsl:with-param>
-                                     </xsl:apply-templates>
-                                </xsl:attribute>
-                            </button>
                             <xsl:variable name="location"><xsl:apply-templates select="." mode="original-file-location"/></xsl:variable>
                             <xsl:if test="$location!=''">
                             <a class="link-newWindow showTooltip" target="_blank" data-placement="left">
@@ -31,6 +24,13 @@
                                 <span class="sci-ico-newWindow"></span>
                             </a>
                             </xsl:if>
+                            <button class="btn-close" data-bs-dismiss="modal">
+                                <xsl:attribute name="aria-label">
+                                     <xsl:apply-templates select="." mode="interface">
+                                         <xsl:with-param name="text">Close</xsl:with-param>
+                                     </xsl:apply-templates>
+                                </xsl:attribute>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <xsl:choose>

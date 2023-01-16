@@ -28,9 +28,9 @@
                         <p id="citation">
                         </p>
                         <input id="citationCut" type="text" value=""></input>
-                        <a class="copyLink">
+                        <a class="btn btn-secondary btn-sm scielo__btn-with-icon--left copyLink">
                             <xsl:attribute name="data-clipboard-target">#citationCut</xsl:attribute>
-                            <span class="material-icons-outlined">content_copy</span>
+                            <span class="material-icons-outlined">link</span>
                             <xsl:apply-templates select="." mode="interface">
                                  <xsl:with-param name="text">copy</xsl:with-param>
                             </xsl:apply-templates>
