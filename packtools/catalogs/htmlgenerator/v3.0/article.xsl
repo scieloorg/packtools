@@ -97,6 +97,7 @@
         <html class="no-js">
             <head>
                 <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
                 <xsl:apply-templates select="." mode="html-head-title"/>
                 <xsl:apply-templates select="." mode="html-head-meta"/>
@@ -127,23 +128,25 @@
     </xsl:template>
     <xsl:template match="/" mode="graphic-elements-title">
         <xsl:if test="$graphic_elements_title!=''">
-            <ul class="floatingMenu fm-slidein" data-fm-toogle="hover">
+        <div class="scielo__floatingMenuCtt">
+            <ul class="scielo__floatingMenu fm-slidein" data-fm-toogle="hover">
                 <li class="fm-wrap">
                     <a href="javascript:;" class="fm-button-main">
-                        <span class="sci-ico-floatingMenuDefault glyphFloatMenu"/>
-                        <span class="sci-ico-floatingMenuClose glyphFloatMenu"/>
+                        <span class="material-icons-outlined material-icons-outlined-menu-default">more_horiz</span>
+                        <span class="material-icons-outlined material-icons-outlined-menu-close">close</span>
                     </a>
-                    <ul class="fm-list">
+                    <ul class="fm-list d-none d-sm-block">
                         <li>
-                            <a class="fm-button-child"
-                                data-fm-label="{$graphic_elements_title}"
-                                data-bs-toggle="modal" data-bs-target="#ModalTablesFigures">
-                                <span class="sci-ico-figures glyphFloatMenu"/>
+                            <a class="fm-button-child" 
+                                data-bs-toggle="tooltip" 
+                                title="" 
+                                data-mobile-tooltip="{$graphic_elements_title}" 
+                                data-bs-toggle="modal" data-bs-target="#ModalTablesFigures" data-bs-original-title="{$graphic_elements_title}">
+                                    <span class="material-icons-outlined"> image </span>
                             </a>
                         </li>
                         <li>
-                            <a class="fm-button-child" data-toggle="modal"
-                                data-target="#ModalArticles">
+                            <a class="fm-button-child" data-bs-toggle="modal" data-bs-target="#ModalArticles">
                                 <xsl:attribute name="data-fm-label">
                                     <xsl:apply-templates select="." mode="text-labels">
                                         <xsl:with-param name="text">How to
@@ -153,62 +156,43 @@
                                 <span class="sci-ico-citation glyphFloatMenu"/>
                             </a>
                         </li>
+                        <li>
+                            <a class="fm-button-child" data-bs-toggle="tooltip" 
+                                title="">
+                                <xsl:attribute name="data-mobile-tooltip">
+                                    <xsl:apply-templates select="." mode="text-labels">
+                                        <xsl:with-param name="text">How to
+                                          cite</xsl:with-param>
+                                    </xsl:apply-templates>
+                                </xsl:attribute>
+                                <xsl:attribute name="data-bs-toggle">modal</xsl:attribute>
+                                <xsl:attribute name="data-bs-target">#ModalArticles</xsl:attribute>
+                                <xsl:attribute name="data-bs-original-title">
+                                    <xsl:apply-templates select="." mode="text-labels">
+                                        <xsl:with-param name="text">How to
+                                          cite</xsl:with-param>
+                                    </xsl:apply-templates>
+                                </xsl:attribute>
+                                <span class="material-icons-outlined"> link </span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
+        </div>
         </xsl:if>
     </xsl:template>
 
     <xsl:template match="/" mode="css">
-        <xsl:choose>
-            <xsl:when test="substring($CSS_PATH,string-length($CSS_PATH)-3)='.css'">
-                <link rel="stylesheet" href="{$CSS_PATH}"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="$BOOTSTRAP_CSS_PATH!=''">
-                        <link rel="stylesheet" href="{$BOOTSTRAP_CSS_PATH}"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <link rel="stylesheet" href="{$CSS_PATH}/css/bootstrap.min.css"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-
-                <xsl:choose>
-                    <xsl:when test="$ARTICLE_CSS_PATH!=''">
-                        <link rel="stylesheet" href="{$ARTICLE_CSS_PATH}"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <link rel="stylesheet" href="{$CSS_PATH}/css/article-styles.css"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-
-                <xsl:choose>
-                    <xsl:when test="$PRINT_CSS_PATH!=''">
-                        <link rel="stylesheet" href="{$PRINT_CSS_PATH}"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <link rel="stylesheet" href="{$CSS_PATH}/css/scielo-print.css" media="print"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
+        <link rel="stylesheet" href="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/css/bootstrap.css"/>
+        <link rel="stylesheet" href="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/css/article.css"/>
     </xsl:template>
 
     <xsl:template match="/" mode="js">
-        <xsl:choose>
-            <xsl:when test="substring($JS_PATH,string-length($JS_PATH)-2)='.js'">
-                <script src="{$JS_PATH}"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <script src="{$JS_PATH}/js/vendor/jquery-1.11.0.min.js"/>
-                <script src="{$JS_PATH}/js/vendor/bootstrap.min.js"/>
-                <script src="{$JS_PATH}/js/vendor/jquery-ui.min.js"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/js/bootstrap.bundle.min.js"></script>
+        <script src="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/js/scielo/scielo-ds-min.js"></script>
 
-                <script src="{$JS_PATH}/js/plugins.js"/>
-                <script src="{$JS_PATH}/js/min/main-min.js"/>
-            </xsl:otherwise>
-        </xsl:choose>
         <xsl:if test=".//tex-math or .//math or .//mml:math">
             <script>
             MathJax = {
@@ -323,11 +307,9 @@
                 class="logo-open-access"
                 data-bs-toggle="tooltip"
                 >
-                <xsl:call-template name="img_src_attribute">
-                    <xsl:with-param name="basename">logo-open-access.svg</xsl:with-param>
-                </xsl:call-template>
+                <xsl:attribute name="src">https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/img/logo-open-access.svg</xsl:attribute>
                 <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
-            </img>
+            </img><xsl:text> <!-- espaço --></xsl:text>
             <xsl:apply-templates select="." mode="article-meta-title"/>
             <a id="shorten" href="#" class="short-link"><span class="sci-ico-link"/></a>
         </h1>
