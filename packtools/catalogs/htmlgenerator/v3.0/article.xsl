@@ -141,19 +141,8 @@
                                 data-bs-toggle="tooltip" 
                                 title="" 
                                 data-mobile-tooltip="{$graphic_elements_title}" 
-                                data-bs-toggle="modal" data-bs-target="#ModalTablesFigures" data-bs-original-title="{$graphic_elements_title}">
+                                data-bs-target="#ModalTablesFigures" data-bs-original-title="{$graphic_elements_title}">
                                     <span class="material-icons-outlined"> image </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="fm-button-child" data-bs-toggle="modal" data-bs-target="#ModalArticles">
-                                <xsl:attribute name="data-fm-label">
-                                    <xsl:apply-templates select="." mode="text-labels">
-                                        <xsl:with-param name="text">How to
-                                          cite</xsl:with-param>
-                                    </xsl:apply-templates>
-                                </xsl:attribute>
-                                <span class="sci-ico-citation glyphFloatMenu"/>
                             </a>
                         </li>
                         <li>
