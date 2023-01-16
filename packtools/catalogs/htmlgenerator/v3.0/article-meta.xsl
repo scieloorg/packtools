@@ -8,7 +8,7 @@
     <xsl:template match="article-id[@pub-id-type='doi']" mode="display">
         <xsl:variable name="link">https://doi.org/<xsl:value-of select="."/></xsl:variable>
         <a href="{$link}" class="_doi" target="_blank"><xsl:value-of select="$link"/></a>
-        &#160;
+        <xsl:text> <!-- espaço --></xsl:text>
         <a 
             href="javascript:;"
             class="btn btn-secondary btn-sm scielo__btn-with-icon--left copyLink"
