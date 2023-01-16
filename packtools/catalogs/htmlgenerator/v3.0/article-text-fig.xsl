@@ -21,7 +21,7 @@
             <a name="{$figid}"></a>
             <div class="col-md-4 col-sm-4">
                 <!-- manter href="" -->
-                <a href="" data-bs-toggle="modal" data-bs-target="#ModalFig{$figid}">
+                <a data-bs-toggle="modal" data-bs-target="#ModalFig{$figid}">
                     <div>
                         <xsl:choose>
                             <xsl:when test="$location != ''">

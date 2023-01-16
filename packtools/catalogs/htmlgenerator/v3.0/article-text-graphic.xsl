@@ -16,7 +16,7 @@
             <a name="{$img_id}"></a>
             <div class="col-md-4 col-sm-4">
                 <!-- manter href="" -->
-                <a href="" data-bs-toggle="modal" data-bs-target="#ModalImg{$img_id}">
+                <a data-bs-toggle="modal" data-bs-target="#ModalImg{$img_id}">
                     <div class="thumbImg">
                         <xsl:apply-templates select="." mode="display-thubmnail-graphic"/>
                     </div>
@@ -36,7 +36,7 @@
             <a name="{$img_id}"></a>
             <div class="col-md-4 col-sm-4">
                 <!-- manter href="" -->
-                <a href="" data-bs-toggle="modal" data-bs-target="#ModalImg{$img_id}">
+                <a data-bs-toggle="modal" data-bs-target="#ModalImg{$img_id}">
                     <div class="thumbImg">
                        <xsl:apply-templates select="." mode="display-graphic"/>
                     </div>
