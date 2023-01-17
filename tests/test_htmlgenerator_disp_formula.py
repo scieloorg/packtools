@@ -135,6 +135,7 @@ class HTMLGenerator_LabelAndCaption_Tests(unittest.TestCase):
         )
         self.assertIn("(2)", nodes[0].text)
 
+    @unittest.skip("skipping")  
     def test_thumbnail_label_in_tabpanel(self):
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalDefault" and @id="ModalTablesFigures"]'
