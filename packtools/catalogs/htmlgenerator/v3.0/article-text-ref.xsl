@@ -4,28 +4,54 @@
     exclude-result-prefixes="xlink mml">
 
     <xsl:include href="../v2.0/article-text-ref.xsl"/>
+
+    <xsl:template match="ref-list">
+        <xsl:choose>
+            <xsl:when test="ref-list">
+                <xsl:apply-templates select="*"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- 
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <ol class="articleFootnotes">
+                                
+                            </ol>
+                        </div>
+                    </div>
+                -->
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <ol class="articleFootnotes">
+                            <xsl:apply-templates select="." mode="ref-items"/>
+                        </ol>
+                    </div>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+ 
     <xsl:template match="ref">
         <!--
-            <a class="" name="1_ref"></a>                                
-            Pellerin, R.J., Waminal, N.E. & Kim, H.H. 2019. FISH mapping of rDNA and telomeric repeats in 10 Senna species. Horticulture, Environment, and Biotechnology 60: 253-260. <a href="#refId_1">↩</a>                                                 
+            <li>
+                <a class="" name="1_ref"></a>
+                Pellerin, R.J., Waminal, N.E. & Kim, H.H. 2019. FISH mapping of rDNA and telomeric repeats in 10 Senna species. Horticulture, Environment, and Biotechnology 60: 253-260. <a href="#refId_1">↩</a>
+            </li>                                                 
         -->
         <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
-        <a class="" name="{@id}_ref"/>
+        
         <li>
-            <xsl:if test="label">
-                <xsl:apply-templates select="label"></xsl:apply-templates>
-            </xsl:if>            
-            <div>
-                <xsl:apply-templates select="mixed-citation"/>
-                <xsl:if test="element-citation//pub-id[@pub-id-type='doi'] or element-citation//ext-link">
-                    <br/>
-                    <xsl:apply-templates select="element-citation//pub-id[@pub-id-type='doi']" mode="ref"></xsl:apply-templates>
-                    <xsl:apply-templates select="element-citation//ext-link" mode="ref"></xsl:apply-templates>
-                </xsl:if>
-                <xsl:if test="$article//xref[@rid=$id]">
-                    <a href="#xref_{@id}">↩</a>
-                </xsl:if>
-            </div>
+            <xsl:apply-templates select="label"/>
+            <a class="" name="{@id}_ref"/>
+            <xsl:apply-templates select="mixed-citation"/>
+            <xsl:if test="element-citation//pub-id[@pub-id-type='doi'] or element-citation//ext-link">
+                <br/>
+                <xsl:apply-templates select="element-citation//pub-id[@pub-id-type='doi']" mode="ref"></xsl:apply-templates>
+                <xsl:apply-templates select="element-citation//ext-link" mode="ref"></xsl:apply-templates>
+            </xsl:if>
+            <xsl:if test="$article//xref[@rid=$id]">
+                <a href="#refId_{@id}">↩</a>
+            </xsl:if>
         </li>
     </xsl:template>
 </xsl:stylesheet>

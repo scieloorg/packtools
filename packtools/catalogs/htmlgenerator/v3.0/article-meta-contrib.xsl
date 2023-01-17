@@ -60,12 +60,13 @@
         </div>
     </xsl:template>
 
+
     <xsl:template match="contrib" mode="contrib-dropdown-menu">
         <xsl:param name="id"/>
         <xsl:if test="role or xref or contrib-id or bio">
             <ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor{$id}">
                 <xsl:apply-templates select="." mode="contrib-dropdown-menu-general"/>
-                <xsl:apply-templates select="." mode="contrib-dropdown-menu-corresp"/>
+                <xsl:apply-templates select="xref[@ref-type='corresp']" mode="contrib-dropdown-menu-corresp"/>
             </ul>
         </xsl:if>
     </xsl:template>
@@ -80,12 +81,25 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="contrib" mode="contrib-dropdown-menu-corresp">
-        <xsl:if test="xref[@ref-type='corresp']">
-            <li>
-                <xsl:apply-templates select="xref[@ref-type!='corresp']" mode="contrib-dropdown-menu"/>
-            </li>
-        </xsl:if>
+    <xsl:template match="*" mode="contrib-dropdown-menu-corresp">
+        <xsl:apply-templates select="*|text()"/>
+    </xsl:template>
+
+    <xsl:template match="xref[@ref-type='corresp']" mode="contrib-dropdown-menu-corresp">
+        <xsl:variable name="rid"><xsl:value-of select="@rid"/></xsl:variable>
+        <!--
+            <li><div class="corresp"> <h3><sup>4</sup></h3> Autor para correspondência: <a href="mailto:author@gmail.com">author@gmail.com</a> </div></li>
+        -->
+
+        <li>
+            <xsl:apply-templates select="$article//*[@id=$rid]" mode="contrib-dropdown-menu-corresp"/>
+        </li>
     </xsl:template>    
+
+    <xsl:template match="author-notes/corresp" mode="contrib-dropdown-menu-corresp">
+        <div class="corresp">
+            <xsl:apply-templates select="*|text()"/>
+        </div>
+    </xsl:template>
 
 </xsl:stylesheet>

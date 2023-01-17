@@ -138,15 +138,15 @@
                     <ul class="fm-list d-none d-sm-block">
                         <li>
                             <a class="fm-button-child" 
-                                data-bs-toggle="tooltip" 
+                                data-bs-toggle="modal" 
                                 title="" 
                                 data-mobile-tooltip="{$graphic_elements_title}" 
                                 data-bs-target="#ModalTablesFigures" data-bs-original-title="{$graphic_elements_title}">
-                                    <span class="material-icons-outlined"> image </span>
+                                <span class="material-icons-outlined"> image </span>
                             </a>
                         </li>
                         <li>
-                            <a class="fm-button-child" data-bs-toggle="tooltip" 
+                            <a class="fm-button-child"
                                 title="">
                                 <xsl:attribute name="data-mobile-tooltip">
                                     <xsl:apply-templates select="." mode="text-labels">

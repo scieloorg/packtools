@@ -3,7 +3,16 @@
     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
     exclude-result-prefixes="xlink mml">
 
-    <xsl:template match="xref">
+    <xsl:include href="../v2.0/article-text-xref.xsl"/>
+
+    <xsl:template match="xref | xref[@ref-type='fn']">
+        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
+        <xsl:variable name="elem"><xsl:choose>
+            <xsl:when test="contains('1234567890',substring(normalize-space($text),1,1))">sup</xsl:when>
+            <xsl:otherwise>span</xsl:otherwise>
+        </xsl:choose></xsl:variable>
+
         <!--
         <span class="ref" id="refId_1">
             <strong class="xref xrefblue">Pellerin <i>et al</i>. 2019</strong>
@@ -11,8 +20,8 @@
         </span>   
         <a title="O CMS Axe foi escrito por mim em 2013, e penso que quem o usa hoje em dia somos apenas eu e o André Noel. Provavelmente o código que eu disponibilizei na época exigirá algumas atualizações para rodar no ambiente atualizado dos provedores de hospedagem." name="ret-1_tipografia-cms-axe-e-o-tema-rocket" class="rodape_link" href="#1_tipografia-cms-axe-e-o-tema-rocket">1</a>     
         -->
-        <strong><xsl:apply-templates select="*|text()"></xsl:apply-templates></strong>
         <span class="ref">
+            <xsl:attribute name="id">refId_<xsl:value-of select="@rid"/></xsl:attribute>
             <a>
                 <xsl:attribute name="title">
                     <xsl:apply-templates select="." mode="elem-texts-linked-to-xref">
@@ -21,18 +30,23 @@
                         <xsl:with-param name="elem" select="$elem"/>
                     </xsl:apply-templates>
                 </xsl:attribute>
-                <xsl:attribute name="name">xref_<xsl:value-of select="@rid"/></xsl:attribute>
+                <xsl:attribute name="name"></xsl:attribute>
                 <xsl:attribute name="class"></xsl:attribute>
-                <xsl:attribute name="href">#fn_<xsl:value-of select="@rid"/></xsl:attribute>
-                
-                <xsl:element name="{$elem}">
-                    <xsl:attribute name="class">xref big</xsl:attribute>
-                    <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-                </xsl:element>
+                <xsl:attribute name="href">#<xsl:value-of select="@rid"/>_ref</xsl:attribute>
+                <strong class="xref xrefblue">
+                    <xsl:choose>
+                        <xsl:when test=".//sup">
+                            <xsl:apply-templates select="*|text()"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <sup><xsl:apply-templates select="*|text()"/></sup>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </strong>
             </a>
-        </span>   
+        </span>  
     </xsl:template>
-    
+
     <xsl:template match="xref[@ref-type='equation' or @ref-type='disp-formula']">
         <!-- <a href="#{@rid}" class="goto"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="*|text()"></xsl:apply-templates></a> -->
         <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalScheme{translate(@rid,'.','_')}">
@@ -81,7 +95,7 @@
         <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
         <xsl:variable name="elem"><xsl:choose>
             <xsl:when test="contains('1234567890',substring(normalize-space($text),1,1))">sup</xsl:when>
-            <xsl:otherwise>strong</xsl:otherwise>
+            <xsl:otherwise>span</xsl:otherwise>
         </xsl:choose></xsl:variable>
         <!--
         <span class="ref" id="refId_1">
@@ -90,6 +104,7 @@
         </span>   
         <a title="O CMS Axe foi escrito por mim em 2013, e penso que quem o usa hoje em dia somos apenas eu e o André Noel. Provavelmente o código que eu disponibilizei na época exigirá algumas atualizações para rodar no ambiente atualizado dos provedores de hospedagem." name="ret-1_tipografia-cms-axe-e-o-tema-rocket" class="rodape_link" href="#1_tipografia-cms-axe-e-o-tema-rocket">1</a>     
         -->
+
         <span class="ref">
             <xsl:attribute name="id">refId_<xsl:value-of select="@rid"/></xsl:attribute>
             <a>
@@ -100,16 +115,21 @@
                         <xsl:with-param name="elem" select="$elem"/>
                     </xsl:apply-templates>
                 </xsl:attribute>
-                <xsl:attribute name="name">xref_<xsl:value-of select="@rid"/></xsl:attribute>
+                <xsl:attribute name="name"></xsl:attribute>
                 <xsl:attribute name="class"></xsl:attribute>
-                <xsl:attribute name="href">#ref_<xsl:value-of select="@rid"/></xsl:attribute>
-                
-                <xsl:element name="{$elem}">
-                    <xsl:attribute name="class">xref xrefblue</xsl:attribute>
-                    <xsl:apply-templates select="*|text()"></xsl:apply-templates>
-                </xsl:element>
+                <xsl:attribute name="href">#<xsl:value-of select="@rid"/>_ref</xsl:attribute>
+                <strong class="xref xrefblue">
+                    <xsl:choose>
+                        <xsl:when test=".//sup">
+                            <xsl:apply-templates select="*|text()"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <sup><xsl:apply-templates select="*|text()"/></sup>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </strong>
             </a>
-        </span>        
+        </span>   
     </xsl:template>
 
     <xsl:template match="xref" mode="elem-texts-linked-to-xref">
@@ -138,16 +158,17 @@
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:when test="substring($preceding, string-length($preceding) - string-length('[/xref]-')+1)='[/xref]-'">
-                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"></xsl:apply-templates>
+                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"></xsl:apply-templates>
+                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"></xsl:apply-templates>
+                <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
 </xsl:stylesheet>

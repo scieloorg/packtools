@@ -29,6 +29,10 @@
         </xsl:if>
     </xsl:template>
 
+    <xsl:template match="abstract/sec/title | trans-abstract/sec/title">
+        <h4><xsl:apply-templates select="*|text()"/></h4>
+    </xsl:template>
+
     <xsl:template match="abstract[title] | trans-abstract[title]" mode="anchor-and-title">
         <!-- Apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
 
