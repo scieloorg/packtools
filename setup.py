@@ -7,8 +7,8 @@ import codecs
 import sys
 
 
-if sys.version_info[0:2] < (2, 7):
-    raise RuntimeError('Requires Python 2.7 or newer')
+if sys.version_info[0:2] < (3, 9):
+    raise RuntimeError('Requires Python 3.9 or newer')
 
 
 # adds version to the local namespace
@@ -18,7 +18,7 @@ with open('packtools/version.py') as fp:
 
 
 INSTALL_REQUIRES = [
-    'lxml>=4.2.0',
+    'lxml>=4.9.2',
     'picles.plumber>=0.11',
     'Pillow',
 ]
@@ -27,7 +27,7 @@ INSTALL_REQUIRES = [
 EXTRAS_REQUIRE = {
     'webapp':[
         'Flask',
-        'Flask-BabelEx',
+        'flask-babel',
         'Flask-WTF',
         'Werkzeug',
     ]
@@ -36,23 +36,15 @@ EXTRAS_REQUIRE = {
 
 TESTS_REQUIRE = [
     'Flask-Testing>=0.6.2',
-    'Flask-BabelEx',
+    'flask-babel',
     'Flask-WTF',
+    'python-magic',
+    'charset-normalizer<3.0',
+    'aiohttp',
+    'tenacity',
+    'requests',
 ]
 
-
-# from https://hynek.me/articles/conditional-python-dependencies/
-# basically, binary wheels built using setuptools version < 18 do not support
-# the syntax for conditional dependencies used below.
-if int(setuptools.__version__.split('.', 1)[0]) < 18:
-    assert "bdist_wheel" not in sys.argv, "setuptools 18 required for wheels."
-    if sys.version_info[0:2] < (3, 4):
-        INSTALL_REQUIRES.append('pathlib>=1.0.1')
-else:
-    EXTRAS_REQUIRE[':python_version<"3.4"'] = ['pathlib>=1.0.1']
-
-if sys.version_info[0:2] == (2, 7):
-    TESTS_REQUIRE.append('mock==3.0.5')
 
 setup(
     name="packtools",
@@ -74,10 +66,9 @@ setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     tests_require=TESTS_REQUIRE,
