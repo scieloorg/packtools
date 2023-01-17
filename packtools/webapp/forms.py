@@ -1,7 +1,7 @@
 # coding: utf-8
 from flask import current_app
 from flask_wtf import FlaskForm
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from wtforms import BooleanField, FileField, StringField, validators
 
 

@@ -3,7 +3,7 @@ import os
 import logging
 
 from flask import Flask, render_template
-from flask_babelex import Babel
+from flask_babel import Babel
 
 from .custom_filters import clean_uri, utility_processor
 from .views import main as main_bp
