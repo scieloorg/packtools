@@ -123,6 +123,12 @@
                         <xsl:when test=".//sup">
                             <xsl:apply-templates select="*|text()"/>
                         </xsl:when>
+                        <xsl:when test="../..//sup[xref]/xref/@rid = $id">
+                            <xsl:apply-templates select="*|text()"/>
+                        </xsl:when>
+                        <xsl:when test="$elem='span'">
+                            <xsl:apply-templates select="*|text()"/>
+                        </xsl:when>
                         <xsl:otherwise>
                             <sup><xsl:apply-templates select="*|text()"/></sup>
                         </xsl:otherwise>
@@ -169,6 +175,12 @@
                 <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="xref/sup | sup[xref]">
+        <sup>
+            <xsl:apply-templates select="*|text()"/>
+        </sup>
     </xsl:template>
 
 </xsl:stylesheet>
