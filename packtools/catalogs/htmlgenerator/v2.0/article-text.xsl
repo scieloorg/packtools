@@ -17,7 +17,7 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//body">
+                <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="body">
                     <xsl:with-param name="alt_title" select="$alttile"></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>
@@ -26,6 +26,10 @@
                     <xsl:with-param name="alt_title" select="$alttile"></xsl:with-param></xsl:apply-templates>                    
             </xsl:otherwise>
         </xsl:choose>            
+    </xsl:template>
+    
+    <xsl:template match="sub-article" mode="body">
+        <xsl:apply-templates select="body"/>
     </xsl:template>
     
     <xsl:template match="body">

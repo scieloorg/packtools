@@ -19,6 +19,7 @@ with open('packtools/version.py') as fp:
 
 INSTALL_REQUIRES = [
     'lxml>=4.9.2',
+    'langcodes>=3.3.0',
     'picles.plumber>=0.11',
     'Pillow',
 ]

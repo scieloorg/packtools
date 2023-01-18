@@ -1,0 +1,1298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article
+  PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "JATS-journalpublishing1.dtd">
+<article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="publisher-id">hoehnea</journal-id>
+			<journal-title-group>
+				<journal-title>Hoehnea</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Hoehnea</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0073-2877</issn>
+			<issn pub-type="epub">2236-8906</issn>
+			<publisher>
+				<publisher-name>Instituto de Pesquisas Ambientais</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/2236-8906-76-2021</article-id>
+			<article-id pub-id-type="other">00238</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigo</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title><italic>Campylocentrum</italic> Benth. (Orchidaceae, Epidendroideae) no Distrito Federal e no Estado de Goiás, Brasil</article-title>
+				<trans-title-group xml:lang="en">
+					<trans-title>Campylocentrum Benth. (Orchidaceae, Epidendroideae) in the Federal District and Goiás State, Brazil</trans-title>
+				</trans-title-group>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-6067-8409</contrib-id>
+					<name>
+						<surname>Santos</surname>
+						<given-names>Igor Soares dos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"><sup>1</sup></xref>
+					<xref ref-type="corresp" rid="c1"><sup>2</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0001-9717-5701</contrib-id>
+					<name>
+						<surname>Silva</surname>
+						<given-names>Marcos José da</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"><sup>1</sup></xref>
+				</contrib>
+				<aff id="aff1">
+					<label>1</label>
+					<institution content-type="original">. Universidade Federal de Goiás, Instituto de Ciências Biológicas, Laboratório de Morfologia e Taxonomia Vegetal, Departamento de Botânica, Alameda Ingá, Quadra A, Campus Samambaia, 74690-900 Goiânia, GO, Brasil</institution>
+					<institution content-type="orgname">Universidade Federal de Goiás</institution>
+					<institution content-type="orgdiv1">Instituto de Ciências Biológicas</institution>
+					<institution content-type="orgdiv2">Laboratório de Morfologia e Taxonomia Vegetal</institution>
+					<addr-line>
+						<postal-code>74690-900</postal-code>
+						<city>Goiânia</city>
+						<state>GO</state>
+					</addr-line>
+					<country country="BR">Brasil</country>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp id="c1">
+					<label>2<sup>.</sup></label> Autor para correspondência: <email>igorsoares@discente.ufg.br</email>
+				</corresp>
+				<fn fn-type="edited-by" id="fn1">
+					<label>Editor Associado:</label>
+					<p> Rafael Batista Louzada</p>
+				</fn>
+				<fn fn-type="con" id="fn2">
+					<label>Contribuição dos Autores</label>
+					<p><bold>Igor Soares dos Santos</bold>: Contribuição na laboração do manuscrito; contribuição com o embasamento teórico; contribuição na coleta, interpretação e análise dos dados; contribuição na confecção de mapas, pranchas de imagens e ilustrações. <bold>Marcos José da Silva</bold>: Contribuição na elaboração do manuscrito; contribuição com o embasamento teórico; contribuição na coleta de dados; contribuição na supervisão durante as atividades em campo e laboratoriais; contribuição com revisão crítica.</p>
+				</fn>
+				<fn fn-type="conflict" id="fn3">
+					<label>Conflitos de Interesse</label>
+					<p> Os autores declaram não haver conflitos de interesse.</p>
+				</fn>
+			</author-notes>
+			<pub-date date-type="pub" publication-format="electronic">
+				<day>28</day>
+				<month>11</month>
+				<year>2022</year>
+			</pub-date>
+			<pub-date date-type="collection" publication-format="electronic">
+				<year>2022</year>
+			</pub-date>
+			<volume>49</volume>
+			<elocation-id>e762021</elocation-id>
+			<history>
+                <date date-type="received">
+                    <day>25</day>
+                    <month>10</month>
+                    <year>2021</year>
+                </date>
+                <date date-type="reviewer-report-received">
+                    <day>10</day>
+                    <month>10</month>
+                    <year>2022</year>
+                </date>
+                <date date-type="accepted">
+                    <day>11</day>
+                    <month>10</month>
+                    <year>2022</year>
+                </date>
+                <date date-type="preprint">
+                    <day>14</day>
+                    <month>10</month>
+                    <year>2022</year>
+                </date>
+                
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+					<license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons</license-p>
+				</license>
+			</permissions>
+			<related-article ext-link-type="doi" id="pp1" related-article-type="preprint" xlink:href="10.1590/2236-8906-76/2021"/>
+			<abstract>
+				<title>RESUMO</title>
+				<p><italic>Campylocentrum</italic> Benth. possui distribuição neotropical e cerca de 73 espécies arranjadas em cinco seções. No Brasil, está representado por 38 espécies (24 endêmicas), concentradas, sobretudo, na Mata Atlântica. Com intuito de contribuir com o conhecimento taxonômico do gênero em áreas de Cerrado do Brasil Central, onde o mesmo não é estudado, fornecemos um tratamento taxonômico às espécies ocorrentes no Distrito Federal e no Estado de Goiás. Foram registrados cinco <italic>taxa</italic> arranjados em três seções: <italic>C. kuntzei</italic> Cogn. ex Kuntze, <italic>C. mattogrossense</italic> Hoehne (<italic>C.</italic> sect. <italic>Campylocentrum</italic> Cogn.), <italic>C. neglectum</italic> (Rchb. f. &amp; Warm.) Cogn. (<italic>C.</italic> sect. <italic>Laevigatum</italic> E. Pessoa &amp; M. Chase), <italic>C. fasciola</italic> (Lindl.) Cogn. e <italic>C. pachyrrhizum</italic> (Rchb. f.) Rolfe (<italic>C.</italic> sect. <italic>Dendrophylopsis</italic> Cogn.). Destes, <italic>C. fasciola</italic> constitui uma nova ocorrência para a flora de Goiás. São apresentados uma chave de identificação, descrições, comentários taxonômicos e de distribuição geográfica, além de imagens e ilustrações.</p>
+			</abstract>
+			<trans-abstract xml:lang="en">
+				<title>ABSTRACT</title>
+				<p><italic>Campylocentrum</italic> Benth. has a neotropical distribution and about 73 species arranged in five sections. In Brazil, it is represented by 38 species (24 endemic), concentrated mainly in the Atlantic Forest. In order to contribute to the taxonomic knowledge of the genus in Cerrado areas of Central Brazil, where it is not studied, we provide a taxonomic treatment for species occurring in the Federal District and in the Goiás State. Five taxa were recorded arranged in three sections: <italic>C. kuntzei</italic> Cogn. ex Kuntze, <italic>C. mattogrossense</italic> Hoehne (<italic>C.</italic> sect. <italic>Campylocentrum</italic> Cogn.), <italic>C. neglectum</italic> (Rchb.f. &amp; Warm.) Cogn. (<italic>C.</italic> sect. <italic>Laevigatum</italic> E. Pessoa &amp; M. Chase), <italic>C. fasciola</italic> (Lindl.) Cogn. and <italic>C. pachyrrhizum</italic> (Rchb.f.) Rolfe (<italic>C.</italic> sect. <italic>Dendrophylopsis</italic> Cogn.). Of these, <italic>C. fasciola</italic> constitutes a new occurrence for the flora of Goiás. Here we provide an identification key, descriptions, taxonomic and geographic distribution comments, in addition to images and illustrations are presented.</p>
+			</trans-abstract>
+			<kwd-group xml:lang="pt">
+				<title>Palavras-chave:</title>
+				<kwd>Angraecinae</kwd>
+				<kwd>Cerrado</kwd>
+				<kwd>Flora</kwd>
+				<kwd>Taxonomia</kwd>
+				<kwd>Vandeae</kwd>
+			</kwd-group>
+			<kwd-group xml:lang="en">
+				<title>Keywords:</title>
+				<kwd>Angraecinae</kwd>
+				<kwd>Flora</kwd>
+				<kwd>Savannas</kwd>
+				<kwd>Taxonomy</kwd>
+				<kwd>Vandeae</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="8"/>
+				<table-count count="0"/>
+				<equation-count count="0"/>
+				<ref-count count="41"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introdução</title>
+			<p><italic>Campylocentrum</italic> Benth. é monofilético, possui distribuição neotropical (<xref ref-type="bibr" rid="B12">Kolanowska 2014</xref>, <xref ref-type="bibr" rid="B27">Pessoa <italic>et al.</italic> 2018</xref>) e emerge como o segundo maior gênero da subtribo Angraecinae Summerh. (Vandeae Lindl.), com cerca de 73 espécies arranjadas em cinco seções: <italic>C.</italic> sect. <italic>Campylocentrum</italic> Cogn., <italic>C.</italic> sect. <italic>Dendrophylopsis</italic> Cogn., <italic>C.</italic> sect. <italic>Laevigatum</italic> E. Pessoa &amp; M. Chase, <italic>C.</italic> sect. <italic>Pseudocampylocentrum</italic> Cogn. e <italic>C.</italic> sect. <italic>Teretifolium</italic> E.M. Pessoa &amp; M.W. Chase (<xref ref-type="bibr" rid="B33">Pridgeon <italic>et al.</italic> 2014</xref>, <xref ref-type="bibr" rid="B26">Pessoa &amp; Alves 2018</xref>, <xref ref-type="bibr" rid="B27">Pessoa <italic>et al.</italic> 2018</xref>). No Brasil, representa-se por 38 espécies, 24 delas endêmicas, concentradas, sobretudo, na Mata Atlântica (<xref ref-type="bibr" rid="B29">Pessoa 2020</xref>).</p>
+			<p>O gênero reúne plantas majoritariamente epífitas, áfilas, com folhas desenvolvidas ou escamiformes com ápice usualmente assimétrico; raízes cilíndricas ou achatadas, por vezes, assumindo a função fotossintética das folhas; caules alongados ou encurtados; flores diminutas, calcaradas, esbranquiçadas, amareladas ou alaranjadas, dispostas disticamente em racemos laterais encurtados; sépalas e pétalas 1-multinervadas; labelo inteiro ou 3-lobado; calcar alongado ou encurtado de morfologia diversa; polinário com duas polínias globosas apendiculadas e cápsulas com ou sem costas (<xref ref-type="bibr" rid="B19">Pessoa &amp; Alves 2015b</xref>, <xref ref-type="bibr" rid="B23">2016a</xref>, <xref ref-type="bibr" rid="B24">b</xref>, <xref ref-type="bibr" rid="B26">2018</xref>, <xref ref-type="bibr" rid="B28">2019</xref>).</p>
+			<p>No Brasil, dentre os estudos mais relevantes, podemos citar os trabalhos clássicos de <xref ref-type="bibr" rid="B6">Cogniaux (1906</xref>), <xref ref-type="bibr" rid="B11">Hoehne &amp; Schlechter (1922</xref>), <xref ref-type="bibr" rid="B37">Schlechter &amp; Hoehne (1926</xref>), <xref ref-type="bibr" rid="B14">Mansfeld (1928</xref>), <xref ref-type="bibr" rid="B9">Hoehne (1938</xref>), <xref ref-type="bibr" rid="B4">Brade (1941</xref>) e <xref ref-type="bibr" rid="B10">Hoehne (1941</xref>), os quais subsidiaram os estudos taxonômico-revisionais mais recentes (ex., <xref ref-type="bibr" rid="B19">Pessoa &amp; Alves 2015b</xref>, <xref ref-type="bibr" rid="B20">c</xref>, <xref ref-type="bibr" rid="B22">Pessoa <italic>et al.</italic> 2015</xref>, <xref ref-type="bibr" rid="B23">Pessoa &amp; Alves 2016a</xref>, <xref ref-type="bibr" rid="B24">b</xref>, <xref ref-type="bibr" rid="B26">2018</xref>, <xref ref-type="bibr" rid="B28">2019</xref>), em que diversos dos problemas taxonômico-históricos e infragenéricos foram sanados. A somatória desses estudos norteou a descrição de novas espécies (vide <xref ref-type="bibr" rid="B18">Pessoa &amp; Alves 2015a</xref>, <xref ref-type="bibr" rid="B21">d</xref>, <xref ref-type="bibr" rid="B22">Pessoa <italic>et al.</italic> 2015</xref>, <xref ref-type="bibr" rid="B25">2016</xref>, <xref ref-type="bibr" rid="B38">Siqueira <italic>et al.</italic> 2015</xref>), da mesma forma que estudos de modelagem de nicho ecológico (<xref ref-type="bibr" rid="B12">Kolanowska 2014</xref>), biogeográficos e filogenéticos (<xref ref-type="bibr" rid="B27">Pessoa <italic>et al.</italic> 2018</xref>).</p>
+			<p>Trabalhos de cunho taxonômico direcionados a <italic>Campylocentrum</italic> na região Centro-Oeste (RCO) inexistem. No entanto, espécies deste gênero ocorrentes nesta região, são citadas nos estudos supracitados e em listagens florísticas sobre Orchidaceae Juss. e outras Angiospermas (vide <xref ref-type="bibr" rid="B41">Walter <italic>et al.</italic> 1999</xref>, <xref ref-type="bibr" rid="B7">Felfili <italic>et al.</italic> 2001</xref>, <xref ref-type="bibr" rid="B2">Batista &amp; Bianchetti 2003</xref>, <xref ref-type="bibr" rid="B3">Batista <italic>et al.</italic> 2005</xref>, <xref ref-type="bibr" rid="B40">Tomazini 2007</xref>, <xref ref-type="bibr" rid="B30">Petini-Benelli 2009</xref>, <xref ref-type="bibr" rid="B36">Rodriguez <italic>et al.</italic> 2009</xref>, <xref ref-type="bibr" rid="B35">Rech <italic>et al.</italic> 2011</xref>, <xref ref-type="bibr" rid="B31">Petini-Benelli 2012</xref>, <xref ref-type="bibr" rid="B16">Oliveira 2013</xref>, <xref ref-type="bibr" rid="B5">Chacon <italic>et al.</italic> 2014</xref>, <xref ref-type="bibr" rid="B13">Lima 2014</xref>, <xref ref-type="bibr" rid="B17">Oliveira &amp; Arcela 2014</xref>, <xref ref-type="bibr" rid="B32">Petini-Benelli 2014</xref>, <xref ref-type="bibr" rid="B8">Fernandes &amp; Petini-Benelli 2016</xref>, <xref ref-type="bibr" rid="B1">Barros <italic>et al.</italic> 2018</xref>).</p>
+			<p>Considerando a inexistência de estudos taxonômicos com chaves, imagens e ilustrações direcionados às espécies de <italic>Campylocentrum</italic> na RCO, apresentamos o tratamento taxonômico aos <italic>taxa</italic> do referido gênero ocorrentes no Distrito Federal (DF) e no Estado de Goiás (GO), Brasil.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>Material e Métodos</title>
+			<p>Foram feitas excussões entre outubro de 2018 e junho de 2021, segundo as recomendações de <xref ref-type="bibr" rid="B15">Mori <italic>et al.</italic> (1989</xref>), em diferentes fitofisionomias do Estado de Goiás (ca. 340.086,7 km<sup>2</sup>) e do Distrito Federal (ca. 5.801,9 km<sup>2</sup>) (<xref ref-type="fig" rid="f1">figura 1</xref>), visando a coleta, a obtenção de fotografias e a observação das espécies em campo. Da mesma maneira, foram estudadas aproximadamente 55 espécimes provenientes de 10 herbários: BHCB, CEN, HEPH, HJ, HUEFS, IBGE, NY, SP, UB e UFG (<xref ref-type="bibr" rid="B39">Thiers 2021</xref>, continuamente atualizado), as quais subsidiaram a correta identificação das espécies juntamente com as literaturas especializadas (<xref ref-type="bibr" rid="B19">Pessoa &amp; Alves 2015b</xref>, <xref ref-type="bibr" rid="B24">2016b</xref>, <xref ref-type="bibr" rid="B26">2018</xref>, <xref ref-type="bibr" rid="B28">2019</xref>), e incrementaram as descrições delas, assim como os comentários sobre suas preferências ambientais. As informações contidas nas etiquetas das exsicatas foram utilizadas para a confecção do mapa de distribuição geográfica das espécies, elaborado através do software QGIS version 2.8.1. (<xref ref-type="bibr" rid="B34">Quantum GIS Development Team</xref>). Todo material coletado encontra-se disposto no acervo do Herbário UFG.</p>
+			<p>
+				<fig id="f1">
+					<label>Figura 1. </label>
+					<caption>
+						<title>Mapa com os pontos de coleta das espécies de <italic>Campylocentrum</italic> Benth. no Estado de Goiás (GO) e no Distrito Federal (DF). Outros Estados: Bahia (BA), Minas Gerais (MG), Mato Grosso (MT), Mato Grosso do Sul (MS), Tocantins (TO). </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf1.jpg"/>
+					<attrib>Figure 1. Map with the collection points of the species of <italic>Campylocentrum</italic> Benth. in the Goiás State (GO) and Federal District (DF). Other States: Bahia (BA), Minas Gerais (MG), Mato Grosso (MT), Mato Grosso do Sul (MS), Tocantins (TO). </attrib>
+				</fig>
+			</p>
+		</sec>
+		<sec sec-type="results|discussion">
+			<title>Resultados e Discussão</title>
+			<p><italic>Campylocentrum</italic> Benth. J. Linn. Soc., Bot. 18: 337. 1881.</p>
+			<p>Ervas epífitas, áfilas ou com folhas desenvolvidas planas, conduplicadas ou cilíndricas de margem inteira, ápice 2-lobado e assimétrico, verdes; ou ainda, reduzidas a escamas aclorofiladas escariosas. Cauloma não intumescido em pseudobulbos, cilíndrico, alongado ou encurtado, ramificado ou não. Raízes cilíndricas ou achatadas, esverdeadas, esbranquiçadas ou acinzentadas, por vezes, assumindo a função fotossintética das folhas, lisas ou granulosas. Brácteas do escapo reunidas na base, imbricadas, escariosas, margem ligeiramente erosa ou papilosa, castanhas. Brácteas florais ovais, triangulares e deltoides, frequentemente escariosas; flores calcaradas, diminutas, amareladas, esbranquiçadas, esverdeadas ou alaranjadas, dispostas disticamente em racemos usualmente opostos às folhas, laterais, encurtados, laxos ou congestos. Ovário pedicelado com ou sem papilas ou tricomas, envoltos, parcial ou completamente pelas brácteas florais. Pétalas e sépalas membranáceas, 1-multinervadas. Labelo inteiro ou 3-lobado. Calcar alongado ou encurtado, cilíndrico, clavado, elipsoide, obovoide ou sub-cônico, reflexo, patente, reto ou curvado. Coluna encurtada. Polinário composto por 2 polínias globosas apendiculadas, amarelas. Cápsulas globosas, obovoides, oblongoides ou elipsoides, costas ausentes ou presentes; sementes numerosas.</p>
+			<p><italic>Campylocentrum</italic>, no Estado de Goiás e no Distrito Federal (<xref ref-type="fig" rid="f1">figura 1</xref>), mostrou-se representado por cinco espécies arranjadas em três seções: <italic>C. kuntzei</italic> Cogn. ex Kuntze, <italic>C. mattogrossense</italic> Hoehne (<italic>C.</italic> sect. <italic>Campylocentrum</italic> Cogn.), <italic>C. neglectum</italic> (Rchb. f. &amp; Warm.) Cogn. (<italic>C.</italic> sect. <italic>Laevigatum</italic> E. Pessoa &amp; M. Chase), <italic>C. fasciola</italic> (Lindl.) Cogn. e <italic>C. pachyrrhizum</italic> (Rchb. f.) Rolfe (<italic>C.</italic> sect. <italic>Dendrophylopsis</italic> Cogn.). Dos <italic>taxa</italic> registrados, <italic>C. neglectum</italic> é o único compartilhado pelas duas UFs, enquanto <italic>C. fasciola</italic> configura uma nova ocorrência para o Estado de Goiás.</p>
+			<p>Os <italic>taxa</italic> registrados podem ser encontrados como epífitos, sobretudo, em formações florestais (ex., matas ciliares, de galeria, secas e cerradão), crescendo em meio aos ramos (no dossel) de árvores e sobre lianas, junto a fungos liquenizados e briófitas (musgos), costumeiramente, nas proximidades de corpos d´água. Eles se diferenciam, especialmente, pela presença de folhas desenvolvidas ou reduzidas a escamas (suas formas e ápices); comprimento do caule; aspectos das raízes (se cilíndricas ou achatadas); arranjo das flores na inflorescência; relação do comprimento das brácteas florais com o ovário pedicelado; dimensões, formas e disposição de suas peças florais; número de nervuras das sépalas e pétalas (incluindo o labelo); formato do ápice das anteras e pela presença ou ausência de costas em suas cápsulas.</p>
+			<p>Chave para as espécies de <italic>Campylocentrum</italic> Benth. ocorrentes em DF e GO</p>
+			<p>1. Plantas com folhas desenvolvidas, conspícuas, verdes; caule alongado</p>
+			<p>2. Folhas oblongo-elípticas, elípticas e oblanceoladas; flores ≥ 7 mm compr.; ovário sem papilas ou tricomas; cápsulas com costas</p>
+			<p>3. Lobos das folhas agudos; flores creme-esbranquiçadas; sépalas externamente pilosas; calcar curvado; ápice da antera arredondado ...................................................................... <italic>C. kuntzei</italic></p>
+			<p>3. Lobos das folhas arredondados e obtusos; flores discretamente alaranjadas; sépalas glabras; calcar reto; ápice da antera truncado ............................................................... <italic>C. mattogrossense</italic></p>
+			<p>2. Folhas oblongas; flores ≤ 6 mm compr.; ovário com papilas e tricomas; cápsulas sem costas ........................................................................................................................... <italic>C. neglectum</italic></p>
+			<p>1. Plantas com folhas escamiformes, inconspícuas, marrons; caule encurtado</p>
+			<p>4. Raízes cilíndricas; inflorescências laxas; brácteas florais cobrindo apenas a base do ovário pedicelado; flores brancas; sépalas e pétalas 1-nervadas; calcar reto ou ligeiramente curvado, verde-claro ....................................................................................................................... <italic>C. fasciola</italic></p>
+			<p>4. Raízes achatadas; inflorescências congestas; brácteas florais cobrindo completamente o ovário pedicelado; flores cremes; sépalas e pétalas 3-nervadas; calcar conspicuamente curvado, creme-esbranquiçado ........................................................................................................ <italic>C. pachyrrhizum</italic></p>
+			<p><bold>1. <italic>Campylocentrum fasciola</italic></bold> (Lindl.) Cogn. Fl. Bras. 3(6): 520. 1906.</p>
+			<p>
+				<xref ref-type="fig" rid="f2">Figuras 2 a-h</xref>, <xref ref-type="fig" rid="f7">7 a-c</xref>
+			</p>
+			<p>
+				<fig id="f2">
+					<label>Figura 2. </label>
+					<caption>
+						<title><italic>Campylocentrum fasciola</italic> (Lindl.) Cogn. (<italic>I.S. Santos, M.J. Silva &amp; A.A. Alonso 1012</italic>, UFG). a. Hábito. b. Detalhe da inflorescência. c. Bráctea floral. d. Flor em vista lateral. e. Peças florais. f. Labelo e calcar em vista lateral. g. Antera em vista dorsal e ventral. h. Cápsula. Ilustrações de Igor Soares dos Santos. </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf2.jpg"/>
+					<attrib> Figure 2. <italic>Campylocentrum fasciola</italic> (Lindl.) Cogn. (<italic>I.S. Santos, M.J. Silva &amp; A.A. Alonso 1012</italic>, UFG). a. Habit. b. Inflorescence detail. c. Floral bracts. d. Flower lateral view. e. Floral pieces. f. Lip and spur in lateral view. g. Anther dorsal and ventral view. h. Capsule. Illustrations by Igor Soares dos Santos. </attrib>
+				</fig>
+			</p>
+			<p>Erva epífita, 4-6 cm alt. Raízes 1-1,2 mm diam., cilíndricas, lisas, verde-esbranquiçadas ou levemente amareladas. Caule 0,2-0,6 cm compr., encurtado, cilíndrico, não ramificado. Folhas 2-3 × 1 mm, escamiformes, lanceoladas, margem discretamente ciliada, ápice agudo, marrons. Racemos 3,5-5,4 cm compr., laxos com 16-28 flores; pedúnculo 0,6-1 cm compr., raque 2,5-3,7 cm compr., ambos pilosos e ocres. Brácteas florais 1,2-1,3 × 1-1,1 mm, ovais, cobrindo apenas a base do ovário pedicelado, margem discretamente ciliada, ápice agudo, castanhas. Flores 2-3 mm compr., brancas; ovário + pedicelo 1-1,5 mm compr., com papilas e tricomas discretos, esverdeados. Sépalas e pétalas 1-nervadas, membranáceas, margem inteira; sépala dorsal 1,4-1,5 × 0,7-1 mm, oblongo-elíptica, glabra, ápice obtuso e arredondado; sépalas laterais 1,5-1,6 × 0,7-1 mm, oblongo-elípticas, glabras, ápice agudo; pétalas 1-1,1 × 0,4-0,5 mm, elípticas, glabras, ápice obtuso; labelo 1,5-1,7 × 1,2-1,3 mm, 3-lobado, 7-nervado, glabro, membranáceo, margem inteira; lobos laterais 0,5-0,9 × 0,3-0,4 mm, sub-deltoides, ápice truncado e arredondado; lobo mediano 0,4-0,6 × 0,5-0,7 mm, deltoide, ápice obtuso; calcar 1-1,5 × 0,6-0,8 mm, reto ou ligeiramente curvado, glabro, ápice arredondado, verde-claro; coluna 0,3-0,4 mm compr., glabra, esverdeada; antera ca. 0,2-0,3 × 0,2-0,3 mm, glabra, ápice retuso, esbranquiçada. Cápsulas 3,4-5 × 2,2-3 mm, elipsoides, sem costas, discretamente pilosas, verde-amareladas.</p>
+			<p>Táxon distribuído pela Região Neotropical: Belize, Bolívia, Brasil, Colômbia, Costa Rica, Cuba, Equador, Guianas, Honduras, Jamaica, Martinica, México, Nicarágua, Panamá, Peru, Porto Rico, República Dominicana, Suriname, Trindade e Tobago, e Venezuela (<xref ref-type="bibr" rid="B24">Pessoa &amp; Alves 2016b</xref>). No Brasil, se distribui pelas regiões Centro-Oeste (MT), Nordeste (PE) e Norte (AM, PA, RO), habitando a Floresta Amazônica, Mata Atlântica e o Cerrado, respectivamente (<xref ref-type="bibr" rid="B24">Pessoa &amp; Alves 2016b</xref>, <xref ref-type="bibr" rid="B29">Pessoa 2020</xref>).</p>
+			<p>Neste estudo, <italic>C. fasciola</italic> configura uma nova ocorrência para a flora de Goiás. Foi encontrada na Reserva Particular de Desenvolvimento Sustentável (RPDS) Legado Verdes do Cerrado (Núcleo Engenho), no município de Niquelândia, crescendo como epífita, em matas secas e de galeria, com flores e frutos entre março e junho.</p>
+			<p><italic>Campylocentrum fasciola</italic> é facilmente diagnosticada por ser a única, dentre as espécies estudadas, com folhas escamiformes, raízes cilíndricas e inflorescências laxas. Relaciona-se a <italic>C. pachyrrhizum</italic> pelas folhas escamiformes, inconspícuas, marrons e caule encurtado. Contudo, diferencia-se pelas raízes cilíndricas, verde-esbranquiçadas (vs. achatadas e verde-escuras em <italic>C. pachyrrhizum</italic>), inflorescências laxas (vs. congestas), flores brancas com peças menores (vs. creme, maiores); ovário pedicelado coberto pelas brácteas florais apenas na base (vs. por toda extensão), sépalas e pétalas 1-nervadas (vs. 3-nervadas) e calcar reto ou discretamente curvado, verde-claro (vs. curvado, creme-esbranquiçado).</p>
+			<p>Material examinado: BRASIL. Goiás: Niquelândia, Reserva Particular de Desenvolvimento Sustentável Legado Verdes do Cerrado (RPDS - LVC), Núcleo Engenho, na altura do Córrego da Sociedade, próximo a ponte, de ambos os lados, 26-III-2021, fl., <italic>I.S. Santos, M.J. Silva &amp; A.A. Alonso 1012</italic> (UFG); idem., 23-VI-2021, fr., <italic>I.S. Santos, J.O. Costa &amp; M.J. Silva 1076</italic> (UFG).</p>
+			<p><bold>2. <italic>Campylocentrum kuntzei</italic></bold> Cogn. ex Kuntze Revis. Gen. Pl. 3: 298. 1898.</p>
+			<p>
+				<xref ref-type="fig" rid="f3">Figuras 3 a-h</xref>, <xref ref-type="fig" rid="f7">7 d-f</xref>
+			</p>
+			<p>
+				<fig id="f3">
+					<label>Figura 3. </label>
+					<caption>
+						<title><italic>Campylocentrum kuntzei</italic> Cogn. ex Kuntze (<italic>I.S. Santos, J.O. Costa &amp; M.J. Silva 1093</italic>, UFG). a. Hábito. b. Detalhe da inflorescência. c. Bráctea floral. d. Flor em vista lateral. e. Peças florais. f. Labelo e calcar em vista lateral. g. Antera em vista dorsal e ventral. h. Cápsula. Ilustrações de Igor Soares dos Santos. </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf3.jpg"/>
+					<attrib>Figure 3. <italic>Campylocentrum kuntzei</italic> Cogn. ex Kuntze (<italic>I.S. Santos, J.O. Costa &amp; M.J. Silva 1093</italic>, UFG). a. Habit. b. Inflorescence detail. c. Floral bracts. d. Flower lateral view. e. Floral pieces. f. Lip and spur in lateral view. g. Anther dorsal and ventral view. h. Capsule. Illustrations by Igor Soares dos Santos. </attrib>
+				</fig>
+			</p>
+			<p>Erva epífita, 17-35,7 cm alt. Raízes 1-2 mm diam., cilíndricas, lisas, verde-esbranquiçadas. Caule 9-30 cm compr., alongado, cilíndrico, não ramificado. Folhas 6,3-11,5 × 0,9-2 cm, desenvolvidas, oblongo-elípticas, elípticas e oblanceoladas, margem inteira, ápice 2-lobado, lobos agudos, verdes. Racemos 2,5-3,3 cm compr., congestos com 18-26 flores; pedúnculo 0,2-0,4 cm compr., raque 2-2,1 cm compr., ambos glabros e esverdeados. Brácteas florais 1-2 × 1-1,4 mm, deltoides, cobrindo apenas a base do ovário pedicelado, margem discretamente ciliada, ápice agudo, castanhas. Flores 8-9,5 mm compr., creme-esbranquiçadas; ovário + pedicelo 0,8-1,1 mm compr., sem papilas ou tricomas, esverdeado. Sépalas e pétalas 3-nervadas, membranáceas, margem inteira; sépala dorsal 3,6-5 × 1-1,2 mm, oblonga, externamente pilosa, ápice agudo; sépalas laterais 4,4-6 × 1-1,3 mm, oblongas ou oblongo-subfalcadas, externamente pilosas, ápice agudo; pétalas 3,8-5 × 0,7-1 mm, oblongas, glabras, ápice agudo; labelo 5,2-6 × 1,1-2 mm, 3-lobado, 7-9-nervado, glabro, membranáceo, margem inteira; lobos laterais 1,3-1,6 × 0,2-0,4 mm, oblongos, ápice obtuso; lobo mediano 3,1-4 × 1 mm, estreitamente lanceolado, ápice agudo; calcar 5-6,1 × 1-1,2 mm, cilíndrico-clavado, curvado, esparsamente piloso, ápice arredondado, creme; coluna ca. 0,6 mm compr., glabra, esverdeada; antera ca. 0,3 × 0,3 mm, glabra, ápice arredondado, esbranquiçada. Cápsulas 9-13 × 3,1-4,3 mm, oblongoides e elipsoides, costadas, verdes.</p>
+			<p><italic>Campylocentrum kuntzei</italic> ocorre na Bolívia, Colômbia, Equador, Paraguai, Peru e Brasil, sendo neste último encontrada nas regiões Centro-Oeste (GO, MT) e Norte (AC, RO), nos domínios fitogeográficos Amazônia e Cerrado (<xref ref-type="bibr" rid="B19">Pessoa &amp; Alves 2015b</xref>, <xref ref-type="bibr" rid="B29">Pessoa 2020</xref>).</p>
+			<p>De acordo com <xref ref-type="bibr" rid="B22">Pessoa <italic>et al.</italic> (2015</xref>), <italic>C. kuntzei</italic> faz parte do Complexo <italic>C. micranthum</italic>, que reúne cerca de sete espécies com racemos encurtados e congestos, das quais, quatro são reportadas para o Brasil (<italic>C. huebneri</italic> Mansf., <italic>C. kuntzei</italic>, <italic>C. mattogrossense</italic> e <italic>C. micranthum</italic> (Lindl.) Maury).</p>
+			<p>Dentre as espécies estudadas, <italic>C. kuntzei</italic> relaciona-se morfologicamente com <italic>C. mattogrossense</italic> por compartilharem do caule alongado e cilíndrico; das raízes cilíndricas, branco-esverdeadas; das folhas oblongo-elípticas, elípticas e oblanceoladas com ápice 2-lobado, além das flores com ovário pedicelado desprovido de papilas com sépalas e pétalas 3-nervadas, e labelo 7-9-nervado. Entretanto, <italic>C. kuntzei</italic> possui folhas com lobos agudos (vs. arredondados e obtusos em <italic>C. mattogrossense</italic>), flores creme-esbranquiçadas (vs. discretamente alaranjadas), sépalas externamente pilosas (vs. glabras), calcar curvado, esparsamente piloso e creme (vs. reto, glabro, discretamente alaranjado), e antera com ápice arredondado (vs. truncado). Foi encontrada como epífita em matas ciliares e de galeria na região Centro-Nordeste do Estado de Goiás, com flores e frutos entre junho e novembro.</p>
+			<p>Material examinado: BRASIL. Goiás: Alexânia, margem direita do Lago Corumbá IV, 16°12'05''S, 48°27'18''W, 830 m, 7-VI-2005, fl., <italic>G. Pereira-Silva et al. 10114</italic> (CEN); Corumbaíba, Córrego Libórea, 14-XI-1997, fl., <italic>S.P.C. Silva et al. 730</italic> (CEN); Niquelândia, Reserva Particular de Desenvolvimento Sustentável Legado Verdes do Cerrado (RPDS - LVC), Núcleo Engenho, região do Romão, ca. de 4 km após a porteira de entrada, próximo ao córrego, 24-VI-2021, fr., <italic>I.S. Santos, J.O. Costa &amp; M.J. Silva 1092, 1093</italic> (UFG); Pirenópolis, Santuário de Vida Silvestre Vaga Fogo, 15°49'19''S, 48°59'39''W, 760 m, 27-XI-2002, fl., <italic>M.L. Fonseca, D. Alvarenga &amp; E. Cardoso 3856</italic> (CEN, IBGE, SP).</p>
+			<p><bold>3. <italic>Campylocentrum mattogrossense</italic></bold><xref ref-type="bibr" rid="B10">Hoehne Arq. Bot. Estado São Paulo. 1(3): 62. 1941</xref>.</p>
+			<p>
+				<xref ref-type="fig" rid="f4">Figura 4 a-h</xref>
+			</p>
+			<p>
+				<fig id="f4">
+					<label>Figura 4. </label>
+					<caption>
+						<title><italic>Campylocentrum mattogrossense</italic> Hoehne (<italic>J.A.N. Batista 375</italic>, CEN). a. Hábito. b. Detalhe da inflorescência. c. Bráctea floral. d. Flor em vista lateral. e. Peças florais. f. Labelo e calcar em vista lateral. g. Antera em vista dorsal e ventral. h. Cápsula. Ilustrações de Igor Soares dos Santos. </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf4.jpg"/>
+					<attrib>Figure 4. <italic>Campylocentrum mattogrossense</italic> Hoehne (<italic>J.A.N. Batista 375</italic>, CEN). a. Habit. b. Inflorescence detail. c. Floral bracts. d. Flower lateral view. e. Floral pieces. f. Lip and spur in lateral view. g. Anther dorsal and ventral view. h. Capsule. Illustrations by Igor Soares dos Santos. </attrib>
+				</fig>
+			</p>
+			<p>Erva epífita, 49,5-50 cm alt. Raízes 1,5-2 mm diam., cilíndricas, lisas, verde-esbranquiçadas. Caule 32-32,6 cm compr., alongado, cilíndrico, não ramificado. Folhas 4-9,6 × 0,7-2 cm, desenvolvidas, oblongo-elípticas, elípticas e oblanceoladas, margem inteira, ápice 2-lobado, lobos arredondados e obtusos, verdes. Racemos 1-2,4 cm compr., congestos com 13-20 flores; pedúnculo 0,2-0,4 cm compr., raque 1-2,1 cm compr., ambos glabros e esverdeados. Brácteas florais 1-1,5 × 7-9 mm, oblongo-deltoides, cobrindo apenas a base do ovário pedicelado, margem discretamente ciliada, ápice agudo, castanhas. Flores 7-10 mm compr., discretamente alaranjadas; ovário + pedicelo 0,7-2 mm compr., sem papilas ou tricomas, esverdeado. Sépalas e pétalas 3-nervadas, membranáceas, margem inteira; sépala dorsal 4,6-5 × 0,8-1 mm, oblonga, glabra, ápice agudo; sépalas laterais 4,8-5 × 0,8-1 mm, oblongas, subfalcadas, glabras, ápice agudo; pétalas 4,6-5 × 0,7-0,8 mm, oblongas, glabras, ápice agudo; labelo 5 × 2-2,3 mm, 3-lobado, 7-9-nervado, glabro, membranáceo, margem inteira; lobos laterais 1,8-2 × 0,4-0,5 mm, oblongos, ápice arredondado; lobo mediano 3-3,2 × 0,8-1 mm, estreitamente lanceolado, ápice agudo; calcar 5 × 1-1,2 mm, cilíndrico-clavado, reto, glabro, ápice arredondado, discretamente alaranjado; coluna ca. 0,7 mm compr., glabra, esverdeada; antera ca. 0,3-0,4 × 0.4 mm, glabra, ápice truncado, esbranquiçada. Cápsulas 7,2-9 × 2-3 mm, oblongoides, costadas, verdes.</p>
+			<p><italic>Campylocentrum mattogrossense</italic> é registrado para a Bolívia, Guianas e Brasil (<xref ref-type="bibr" rid="B19">Pessoa &amp; Alves 2015b</xref>, <xref ref-type="bibr" rid="B26">2018</xref>). No Brasil distribui-se pelas regiões Centro-Oeste (GO, MT), Nordeste (MA) e Norte (AM, PA, RO, TO), crescendo em áreas da Amazônia e do Cerrado (<xref ref-type="bibr" rid="B19">Pessoa &amp; Alves 2015b</xref>, <xref ref-type="bibr" rid="B26">2018</xref>, <xref ref-type="bibr" rid="B29">Pessoa 2020</xref>).</p>
+			<p>Segundo <xref ref-type="bibr" rid="B22">Pessoa <italic>et al.</italic> (2015</xref>), <italic>C. mattogrossense</italic> integra o Complexo <italic>C. micranthum</italic>, o qual compreende aproximadamente sete <italic>taxa</italic> com flores dispostas em racemos congestos e encurtados, dos quais, quatro são registrados para o Brasil (<italic>C. huebneri</italic>, <italic>C. kuntzei</italic>, <italic>C. mattogrossense</italic> e <italic>C. micranthum</italic>).</p>
+			<p>Dentre as espécies estudadas, <italic>C. mattogrossense</italic> pode ser confundida com <italic>C. kuntzei</italic>, por ambas compartilharem do caule alongado e cilíndrico; das raízes cilíndricas branco-esverdeadas; das folhas oblongo-elípticas, elípticas e oblanceoladas com ápice 2-lobado; do ovário pedicelado sem papilas; das sépalas e pétalas 3-nervadas, e do labelo 7-9-nervado. Todavia, <italic>C. mattogrossense</italic> possui lobos foliares arredondados e obtusos; flores discretamente alaranjadas; sépalas glabras; calcar reto, glabro, discretamente alaranjado e ápice das anteras truncado. Por sua vez, <italic>C. kuntzei</italic> possui folhas com lobos agudos; flores creme-esbranquiçadas; sépalas externamente pilosas; calcar curvado, esparsamente piloso, creme e anteras com ápice arredondado. Foi coletada em matas ciliares com flores em janeiro.</p>
+			<p>Material examinado: BRASIL. Goiás: Paraúna, Ponte de Pedra, 10-I-1993, fl., <italic>J.A.N. Batista 375</italic> (CEN).</p>
+			<p><bold>4. <italic>Campylocentrum neglectum</italic></bold> (Rchb. f. &amp; Warm.) Cogn. Bull. Herb. Boissier, sér. 2, 1: 425. 1901.</p>
+			<p>
+				<xref ref-type="fig" rid="f5">Figuras 5a-h</xref> , <xref ref-type="fig" rid="f8">8 a-c</xref>
+			</p>
+			<p>
+				<fig id="f5">
+					<label>Figura 5. </label>
+					<caption>
+						<title><italic>Campylocentrum neglectum</italic> (Rchb. f. &amp; Warm.) Cogn. (<italic>I.S. Santos et al. 591</italic>, UFG). a. Hábito. b. Detalhe da inflorescência. c. Bráctea floral. d. Flor em vista lateral. e. Peças florais. f. Labelo e calcar em vista lateral. g. Antera em vista dorsal e ventral. h. Cápsula. Ilustrações de Igor Soares dos Santos. </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf5.jpg"/>
+					<attrib>Figure 5. <italic>Campylocentrum neglectum</italic> (Rchb. f. &amp; Warm.) Cogn. (<italic>I.S. Santos et al. 591</italic>, UFG). a. Habit. b. Inflorescence detail. c. Floral bracts. d. Flower lateral view. e. Floral pieces. f. Lip and spur in lateral view. g. Anther dorsal and ventral view. h. Capsule. Illustrations by Igor Soares dos Santos. </attrib>
+				</fig>
+			</p>
+			<p>Erva epífita, 7-65 cm alt. Raízes 1,4-2,3 mm diam., cilíndricas, lisas, esbranquiçadas. Caule 10-19,5 cm compr., alongado, cilíndrico, não ramificado. Folhas 3,5-6 × 0,5-0,7 cm, desenvolvidas, oblongas, margem inteira, ápice 2-lobado, lobos arredondados, verdes. Racemos 2-2,5 cm compr., congestos com 15-20 flores; pedúnculo 0,2-0,3 cm compr., raque 1-1,6 cm compr., ambos discretamente pilosos, verde-amarelados. Brácteas florais 0,8-1,5 × 1-1,2 mm, deltoides, cobrindo apenas a base do ovário pedicelado, margem discretamente ciliada, ápice obtuso, castanho-esverdeadas. Flores 4-6 mm compr., creme-esbranquiçadas; ovário + pedicelo 1,3-2 mm compr., com papilas, piloso, esverdeado. Sépalas e pétalas 3-nervadas, membranáceas, margem inteira; sépala dorsal 2,5-3,1 × 0,8-1,2 mm, oblonga, glabra, ápice agudo; sépalas laterais 2,8-3,3 × 0,7-0,9 mm, subfalcadas, glabras, ápice agudo; pétalas 2,5-3 × 0,6-0,8 mm, elíptico-oblongas, glabras, ápice agudo; labelo 2,5-2,9 × 1,5-1,6 mm, 3-lobado, 9-nervado, glabro, membranáceo, margem inteira; lobos laterais 1,3-1,6 × 0,4-0,5 mm, oblongos, ápice arredondado; lobo mediano 1-1,3 × 0,5-0,6 mm, lanceolado, ápice agudo; calcar 2,2-3 × 0,8-1 mm, cilíndrico-clavado, curvado, glabro, ápice arredondado, discretamente alaranjado; coluna ca. 0,6 mm compr., glabra, esverdeada; antera ca. 0,2-0,3 × 0,3 mm, glabra, ápice retuso, esbranquiçada. Cápsulas 6-10 × 1,4-2 mm, elipsoides e oblongoides, sem costas, verdes.</p>
+			<p><italic>Campylocentrum neglectum</italic> foi referido por <xref ref-type="bibr" rid="B28">Pessoa &amp; Alves (2019</xref>) para a Argentina, Bolívia, Brasil e Paraguai. No Brasil, segundo Pessoa &amp; Alves (2019) e <xref ref-type="bibr" rid="B29">Pessoa (2020</xref>), distribui-se pelas regiões Centro-Oeste (DF, GO, MS), Nordeste (BA) e Sudeste (MG), habitando o Cerrado e a Mata Atlântica. </p>
+			<p>Espécie diferenciada das demais congêneres estudadas pelas folhas majoritariamente oblongas, flores com 4-6 mm compr., peças florais menores, ovário pedicelado com papilas e cápsulas desprovida de costas. Foi encontrada, em ambas as áreas estudadas, habitando matas ciliares, secas e de galeria, com flores e frutos entre setembro e maio, sendo os frutos mais comuns a partir de dezembro.</p>
+			<p>Material examinado: BRASIL. Distrito Federal: APA Gama - Cabeça de Veado, R.A. Lago Sul (fundos da Q 24 - SMPW), Fazenda Água Limpa (FAL - UnB), 15°54'01,5''S, 47°54'46,2''W, 985 m, 23-X-2002, fl., <italic>M.L. Fonseca et al. 3745</italic> (CEN); Catetinho, 28-XII-1973, fl., <italic>E.P. Heringer 13050</italic> (UB); Córrego do Bananal near bridge at highway BR-020, 15°44'S, 47°54'W, 1000-1040 m, 6-IV-1980, fr., <italic>T. Plowman 10028</italic> (NY, UB); DF-205, cerca de 3 km após o Centro Educacional FERCAL, em direção a Padre Bernardo, 28-XI-2001, fr., <italic>A.A. Santos 1001</italic> (CEN); idem., DF-100, ponte sobre o Rio Jardim, à esquerda, sentido PADF-Formosa, 15°58'51''S, 47°24'36''W, 7-XI-2002, fl., fr., <italic>A.A. Santos et al. 1591</italic> (CEN); idem., sentido BsB-Formosa, Fazenda Manga, 15°57'36''S, 47°22'43''W, 27-XI-2002, fr., <italic>A.A. Santos, J.B. Pereira &amp; J.M. Rezende 1699</italic> (CEN); Fazenda Água Limpa, 15°55'54''S, 47°54'19''W, 1080 m, 24-II-2009, fr., <italic>T.E.C. Meneguzzo, A.K. Peres Júnior &amp; M.S.I. Escobar 62</italic> (UB); Córrego Taquara, 15°55'28''S, 47°54'56''W, 18-XI-2012, fr., <italic>R.P.</italic><xref ref-type="bibr" rid="B16"><italic>Oliveira &amp; V. Arcela 51</italic> (CEN); idem., Córrego Capetinga, 15°57'16''S, 47°56'29''W, 17-II-2013</xref>, fr., <italic>R.P. Oliveira &amp; V. Arcela 100</italic> (CEN, UB); Fazenda Dois Irmãos, mata da “Parcela 9”, 18-XII-2002, fl., <italic>K.F. Pellizzaro et al. 37</italic> (CEN); Fazenda do Dr. Sebastião, localizada à direita da DF-205, sede à 63 km do CENARGEN/EMBRAPA, ponto de coleta à esquerda, a 2 km da sede, 15°32'00''S, 47°57'00''W, 22-VII-1993, fr., <italic>T.A.B. Dias et al. 608</italic> (CEN); Fazenda Sucupira (CENARGEN/EMBRAPA), entre os bairros do Riacho Fundo e o Recanto das Emas, mata do Riacho Fundo, trecho de mata um pouco acima da ponte e da área de lazer com as churrasqueiras, 14-XI-1999, fl., <italic>J.A.N. Batista &amp; K. Proite 957</italic> (CEN); 15°55'27''S, 48°02'00''W, 1080 m, 22-IX-1997, fr., <italic>A.B. Sampaio, B.M.T. Walter &amp; A.A. Santos 136</italic> (CEN); 15°54'21''S, 48°00'41''W, 7-X-2010, fr., <italic>R.P. Oliveira &amp; J.B. Pereira 20</italic> (CEN); idem., 15-XI-2010, fl., fr., <italic>R.P. Oliveira &amp; J.B. Pereira 30</italic> (CEN); Margem direita do Rio Preto, cerca de 1 km montante da ponte de concreto do Rio Preto, 16°02'21''S, 47°19'32''W, 900 m, 15-X-2002, fl., fr., <italic>J.M. Rezende, G.A. Moreira &amp; J.B. Pereira 619</italic> (CEN, HUEFS); mata de galeria sobre o Córrego do Bragueto, proximidades da Fundação Zoobotânica, ao norte de Brasília, 19-X-1982, fl., <italic>C.M. Maury 280</italic> (CEN, HEPH); região da FERCAL, estrada para o Rio Salinas, próximo ao morro da Pedreira, 15°29'49''S, 47°57'59''W, 781 m, 23-III-2012, fr., <italic>J.E.Q. Faria &amp; M.R.V. Zanatta 2454</italic> (UB); Rio Torto, ca. 10 km N. de Brasília, 1000 m, 8-VII-1966, fr., <italic>H.S. Irwin et al. 18084</italic> (NY); São Bartolomeu, 5-X-1972, fl., <italic>E.P. Heringer 12989</italic> (UB); Santuário Ecológico do Riacho Fundo, 15°51'00''S, 47°57'00''W, 1020 m, 4-X-1994, fr., <italic>R.S. Oliveira 9</italic> (UB); idem., 1-II-1995, fr., <italic>R.S. Oliveira 66</italic> (UB); Goiás: Alto Paraíso de Goiás, Fazenda do Sr. Denezinho, 12-XI-1996, fr., <italic>Mendonça et al. 2937</italic> (IBGE); Parque Nacional da Chapada dos Veadeiros, próximo à Fazenda Escola Bona Espero, do lado esquerdo, sentido Alto Paraíso, 14°09'37,5''S, 47°37'54,1''W, 1125 m, 27-X-2018, fl., fr., <italic>I.S. Santos et al. 591</italic> (UFG); Caiapônia, 30 km South of Caiapônia Florest, 24-X-1964, fl., <italic>G.T. Prance &amp; N.T. Silva 59630</italic> (NY); Cristalina, em mata à esquerda da ponte (margem direita), que dá acesso à guarita da saída para Palmital, 16°12'35''S, 47°20'24''W, 15-V-2002, fr., <italic>A.A. Santos et al. 1161</italic> (BHCB, CEN); Mambaí, Sítio d’Ábadia, Represa Mambaí, 14°41'22''S, 46°18'38''W, 681 m, 17-VII-2009, fr., <italic>A.K. Peres Júnior 20</italic> (UB); São Gabriel, 7-XI-2001, fl., <italic>F. Chagas s.n.</italic> (HEPH24443).</p>
+			<p><bold>5. <italic>Campylocentrum pachyrrhizum</italic></bold> (Rchb. f.) Rolfe Orchid Rev. 11(128): 246. 1903.</p>
+			<p>
+				<xref ref-type="fig" rid="f6">Figuras 6 a-h</xref>, <xref ref-type="fig" rid="f8">8 d-f</xref>
+			</p>
+			<p>
+				<fig id="f6">
+					<label>Figura 6. </label>
+					<caption>
+						<title><italic>Campylocentrum pachyrrhizum</italic> (Rchb. f.) Rolfe (<italic>I.S. Santos, A.A. Alonso &amp; M.J. Silva 1013</italic>, UFG). a. Hábito. b. Detalhe da inflorescência. c. Bráctea floral. d. Flor em vista lateral. e. Peças florais. f. Labelo e calcar em vista lateral. g. Antera em vista dorsal e ventral. h. Cápsula. Ilustrações de Igor Soares dos Santos. </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf6.jpg"/>
+					<attrib>Figure 6. <italic>Campylocentrum pachyrrhizum</italic> (Rchb. f.) Rolfe (<italic>I.S. Santos, A.A. Alonso &amp; M.J. Silva 1013</italic>, UFG). a. Habit. b. Inflorescence detail. c. Floral bracts. d. Flower lateral view. e. Floral pieces. f. Lip and spur in lateral view. g. Anther dorsal and ventral view. h. Capsule. Illustrations by Igor Soares dos Santos. </attrib>
+				</fig>
+			</p>
+			<p>
+				<fig id="f7">
+					<label>Figura 7. </label>
+					<caption>
+						<title>Espécies de <italic>Campylocentrum</italic> Benth. encontradas no Distrito Federal e no Estado de Goiás, Brasil. a-c. <italic>C. fasciola</italic> (Lindl.) Cogn. d-f. <italic>C. kuntzei</italic> Cogn. ex Kuntze. a-d. Hábito. a, b. Planta com flores. c, e, f. Planta com cápsulas (note o detalhe das folhas em c - cabeça de seta). f. Detalhe das cápsulas. Fotografias de Igor Soares dos Santos. </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf7.jpg"/>
+					<attrib> Figure 7. <italic>Campylocentrum</italic> Benth. species occurring in the Federal District and Goiás State, Brazil. a-c. <italic>C. fasciola</italic> (Lindl.) Cogn. d-f. <italic>C. kuntzei</italic> Cogn. ex Kuntze. a-d. Habit. a, b. Plant with flowers. c, e, f. Plant with capsules (note the detail of the leaves in c - arrowhead). f. Capsules detail. Photographs by Igor Soares dos Santos. </attrib>
+				</fig>
+			</p>
+			<p>
+				<fig id="f8">
+					<label>Figura 8. </label>
+					<caption>
+						<title>Espécies de <italic>Campylocentrum</italic> Benth. encontradas no Distrito Federal e no Estado de Goiás, Brasil. a-c. <italic>C. neglectum</italic> (Rchb. f. &amp; Warm.) Cogn. d-f. <italic>C. pachyrrhizum</italic> (Rchb. f.) Rolfe (note o detalhe das folhas em f - cabeça de seta). a, d, e. Hábito. b, f. Detalhe da inflorescência. c. Detalhe da cápsula. Fotografias de Igor Soares dos Santos. </title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e762021-gf8.jpg"/>
+					<attrib> Figure 8. <italic>Campylocentrum</italic> Benth. species occurring in the Federal District and Goiás State, Brazil. a-c. <italic>C. neglectum</italic> (Rchb. f. &amp; Warm.) Cogn. d-f. <italic>C. pachyrrhizum</italic> (Rchb. f.) Rolfe (note the detail of the leaves in f - arrowhead). a, d, e. Habit. b, f. Inflorescence detail. c. Capsules detail. Photographs by Igor Soares dos Santos. </attrib>
+				</fig>
+			</p>
+			<p>Erva epífita, 2-3,4 cm alt. Raízes 2-4 mm diam., achatadas, lisas, verde-escuras. Caule 0,7-1 cm compr., encurtado, cilíndrico, não ramificado. Folhas 2-3 × 1 mm, escamiformes, lanceoladas, margem discretamente ciliada, ápice agudo, marrons. Racemos 1-3,5 cm compr., congestos com 7-15 flores; pedúnculo 0,3-0,6 cm compr., raque 1-2,1 cm compr., ambos pilosos e castanhos. Brácteas florais 2,5-3 × 3-3,6 mm, ovais, cobrindo completamente o ovário pedicelado, margem discretamente eroso-ciliada, ápice acuminado, castanhas. Flores 4-6,2 mm compr., creme; ovário + pedicelo 1-2 mm compr., com papilas, piloso, castanho. Sépalas e pétalas 3-nervadas, membranáceas, margem inteira; sépala dorsal 3,4-5 × 1-1,5 mm, oblongo, externamente pilosa, ápice agudo; sépalas laterais 4,2-5 × 1-1,5 mm, lanceoladas ou subfalcadas, externamente pilosas, ápice agudo; pétalas 3-4,5 × 0,8-1 mm, oblongo-elípticas, glabras, ápice agudo; labelo 3-4,2 × 1,3-2 mm, 3-lobado, 7-nervado, glabro, membranáceo, margem inteira; lobos laterais 1-1,3 × 0,4-0,5 mm, oblongos, ápice truncado; lobo mediano 2 × 0,5-0,8 mm, estreitamente triangular, ápice agudo; calcar 2-3 × 0,7-0,9 mm, cilíndrico-clavado, curvado, externamente piloso, ápice arredondado, creme-esbranquiçado; coluna ca. 0,3 mm compr., glabra, esverdeada; antera ca. 0,2 × 0,2 mm, glabra, ápice arredondado, esbranquiçada. Cápsulas 5-7,4 × 3,5-4,6 mm, oblongo-elipsoides, sem costas, verdes.</p>
+			<p>
+				<xref ref-type="bibr" rid="B24">Pessoa &amp; Alves (2016b</xref>) citaram a distribuição de <italic>C. pachyrrhizum</italic> desde os Estados Unidos até o Brasil, sendo neste último país, encontrada nas regiões Centro-Oeste (GO, MT), Nordeste (PE, SE) e Norte (AM, PA), habitando os domínios fitogeográficos Amazônia, Cerrado e Mata Atlântica (<xref ref-type="bibr" rid="B24">Pessoa &amp; Alves 2016b</xref>, <xref ref-type="bibr" rid="B29">Pessoa 2020</xref>).</p>
+			<p><italic>Campylocentrum pachyrrhizum</italic> e <italic>C. fasciola</italic> são as únicas, dentre as espécies estudadas, cujas folhas são escamiformes e as raízes esverdeadas. Contudo, a primeira apresenta raízes verde-escuras e achatadas, enquanto a segunda têm raízes verde-esbranquiçadas e cilíndricas. Adicionalmente, a primeira possui inflorescências congestas (vs. laxas em <italic>C. fasciola</italic>), flores creme e peças florais maiores, com ovário pedicelado completamente coberto pelas brácteas florais (vs. brancas, menores, coberto apenas na base pelas brácteas florais), sépalas e pétalas 3-nervadas (vs. 1-nervadas) e calcar curvado, verde-claro (vs. reto ou ligeiramente curvado, creme-esbranquiçado), o que a torna facilmente reconhecível. <italic>C. pachyrrhizum</italic> foi encontrada como epífita em matas ciliares, secas e de galeria, crescendo nas proximidades de cursos d’água. Floresce e frutifica entre os meses de outubro e março.</p>
+			<p>Material examinado: BRASIL. Goiás: Aparecida do Rio Doce, PCH Irara, 7-III-2007, fl., fr., <italic>F.A.G. Guilherme, W.P. Bernasol &amp; N.T.F. Batista 564</italic> (HJ, UB); Catalão, Fazenda Barra, s.d., <italic>Salles et al. 2651</italic> (HEPH); Iporá, Fazenda Jacuba, 16°29'15''S, 51°12'11''W, 514 m, 11-X-2008, fr., <italic>T.E.C. Meneguzzo et al. 12</italic> (UB); Minaçu, abaixo da linha de transmissão que liga Niquelândia a Serra da Mesa, entrada a 2 km da entrada sul do canteiro, 13°50'S, 48°18'W, 360 m, 12-XII-1991, <italic>B.M.T. Walter et al. 1093</italic> (CEN); Niquelândia, Reserva Particular de Desenvolvimento Sustentável Legado Verdes do Cerrado (RPDS - LVC), Núcleo Engenho, próximo a Caverna do Tarzan, perto do córrego que passa pelo interior da mata, 26-III-2021, fl., <italic>I.S. Santos, A.A. Alonso &amp; M.J. Silva 1013</italic> (UFG).</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>Agradecimentos</title>
+			<p>Os autores agradecem à Universidade Federal de Goiás (UFG), pelas instalações e transportes; à Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) e ao Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq), pela concessão das bolsas de Mestrado ao primeiro Autor e de Produtividade em Pesquisa ao segundo; ao Programa de Pós-Graduação em Ciências Ambientais (PPG-CIAMB), pelo apoio com as despesas durante a realização das coletas botânicas, e aos revisores pelas contribuições dadas à qualidade do manuscrito.</p>
+		</ack>
+		<ref-list>
+			<title>Literatura citada</title>
+			<ref id="B1">
+				<mixed-citation>Barros, F., Hall, C.F., Neto, V.B.P. &amp; Batista, J.A.N. 2018. Check-list das Orchidaceae do Estado de Mato Grosso do Sul, Brasil. Iheringia 73: 287-296.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Barros</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Hall</surname>
+							<given-names>C.F</given-names>
+						</name>
+						<name>
+							<surname>P</surname>
+							<given-names>V.B.</given-names>
+							<suffix>Neto</suffix>
+						</name>
+						<name>
+							<surname>Batista</surname>
+							<given-names>J.A.N</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Check-list das Orchidaceae do Estado de Mato Grosso do Sul, Brasil</article-title>
+					<source>Iheringia</source>
+					<volume>73</volume>
+					<fpage>287</fpage>
+					<lpage>296</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<mixed-citation>Batista, J.A.N. &amp; Bianchetti, L.B. 2003. Lista atualizada das Orchidaceae do Distrito Federal. Acta Botanica Brasilica 17: 183-201.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Batista</surname>
+							<given-names>J.A.N.</given-names>
+						</name>
+						<name>
+							<surname>Bianchetti</surname>
+							<given-names>L.B</given-names>
+						</name>
+					</person-group>
+					<year>2003</year>
+					<article-title>Lista atualizada das Orchidaceae do Distrito Federal</article-title>
+					<source>Acta Botanica Brasilica</source>
+					<volume>17</volume>
+					<fpage>183</fpage>
+					<lpage>201</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<mixed-citation>Batista, J.A.N., Bianchetti, L.B. &amp; Pellizzaro, K.F. 2005. Orchidaceae da Reserva Ecológica do Guará, DF, Brasil. Acta Botanica Brasilica 19: 221-232.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Batista</surname>
+							<given-names>J.A.N.</given-names>
+						</name>
+						<name>
+							<surname>Bianchetti</surname>
+							<given-names>L.B.</given-names>
+						</name>
+						<name>
+							<surname>Pellizzaro</surname>
+							<given-names>K.F</given-names>
+						</name>
+					</person-group>
+					<year>2005</year>
+					<article-title>Orchidaceae da Reserva Ecológica do Guará, DF, Brasil</article-title>
+					<source>Acta Botanica Brasilica</source>
+					<volume>19</volume>
+					<fpage>221</fpage>
+					<lpage>232</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<mixed-citation>Brade, A.C. 1941. <italic>Orchidaceae Novae Brasilienses</italic>. V. Arquivos do Serviço Florestal 1: 1-4.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Brade</surname>
+							<given-names>A.C</given-names>
+						</name>
+					</person-group>
+					<year>1941</year>
+					<article-title>Orchidaceae Novae Brasilienses. V</article-title>
+					<source>Arquivos do Serviço Florestal</source>
+					<volume>1</volume>
+					<fpage>1</fpage>
+					<lpage>4</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<mixed-citation>Chacon, R.G., Oliveira, M.S., Paiva, V.F., Hermeto, T.V.G. &amp; Silva, M.C. 2014. Flora da Estação Ecológica do Jardim Botânico de Brasília, Distrito Federal. Heringeriana9(2): 131-201.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Chacon</surname>
+							<given-names>R.G.</given-names>
+						</name>
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>M.S.</given-names>
+						</name>
+						<name>
+							<surname>Paiva</surname>
+							<given-names>V.F.</given-names>
+						</name>
+						<name>
+							<surname>Hermeto</surname>
+							<given-names>T.V.G.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>M.C</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Flora da Estação Ecológica do Jardim Botânico de Brasília, Distrito Federal</article-title>
+					<source>Heringeriana</source>
+					<volume>9</volume>
+					<issue>2</issue>
+					<fpage>131</fpage>
+					<lpage>201</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<mixed-citation>Cogniaux, C.A. 1906. <italic>Campylocentrum</italic>. <italic>In</italic>: Martius, C.F.P., Eichler, A.W. &amp; Urban, I. (eds.). <italic>Flora Brasiliensis</italic>. Vol. 3. Pt. 6. Typographia Regia C. Wolf et fil., Munich and Leipzig, pp. 503-524.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cogniaux</surname>
+							<given-names>C.A</given-names>
+						</name>
+					</person-group>
+					<year>1906</year>
+					<chapter-title>Campylocentrum</chapter-title>
+					<person-group person-group-type="editor">
+						<name>
+							<surname>Martius</surname>
+							<given-names>C.F.P</given-names>
+						</name>
+						<name>
+							<surname>Eichler</surname>
+							<given-names>A.W</given-names>
+						</name>
+						<name>
+							<surname>Urban</surname>
+							<given-names>I</given-names>
+						</name>
+					</person-group>
+					<source>Flora Brasiliensis</source>
+					<volume>3</volume>
+					<issue-part>6</issue-part>
+					<publisher-name>Typographia Regia C. Wolf et fil.</publisher-name>
+					<publisher-loc>Munich and Leipzig</publisher-loc>
+					<fpage>503</fpage>
+					<lpage>524</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<mixed-citation>Felfili, J.M., Mendonça, R.C., Walter, B.M.T., Júnior, M.C.S., Nóbrega, M.G.G., Fagg, C.W., Sevilha, A.C. &amp; Silva, M.A. 2001. <italic>In</italic>: Ribeiro, J.F., Fonseca, C.E.L. &amp; Sousa-Silva, J.C. (eds.). Cerrado: Caracterização e recuperação de Matas de Galeria. Planaltina, Brasília, DF., Cap. VI. EMBRAPA- CPAC. pp. 193-263.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Felfili</surname>
+							<given-names>J.M</given-names>
+						</name>
+						<name>
+							<surname>Mendonça</surname>
+							<given-names>R.C</given-names>
+						</name>
+						<name>
+							<surname>Walter</surname>
+							<given-names>B.M.T</given-names>
+						</name>
+						<name>
+							<surname>S</surname>
+							<given-names>M.C.</given-names>
+							<suffix>Júnior</suffix>
+						</name>
+						<name>
+							<surname>Nóbrega</surname>
+							<given-names>M.G.G</given-names>
+						</name>
+						<name>
+							<surname>Fagg</surname>
+							<given-names>C.W</given-names>
+						</name>
+						<name>
+							<surname>Sevilha</surname>
+							<given-names>A.C</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>M.A</given-names>
+						</name>
+					</person-group>
+					<year>2001</year>
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ribeiro</surname>
+							<given-names>J.F.</given-names>
+						</name>
+						<name>
+							<surname>Fonseca</surname>
+							<given-names>C.E.L.</given-names>
+						</name>
+						<name>
+							<surname>Sousa-Silva</surname>
+							<given-names>J.C</given-names>
+						</name>
+					</person-group>
+					<source>Cerrado: Caracterização e recuperação de Matas de Galeria</source>
+					<publisher-loc>Planaltina, Brasília, DF</publisher-loc>
+					<issue-part>VI</issue-part>
+					<publisher-name>EMBRAPA- CPAC</publisher-name>
+					<fpage>193</fpage>
+					<lpage>263</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<mixed-citation>Fernandes, E.R. &amp; Petini-Benelli, A. 2016. Levantamento das epífitas da PCH Paranatinga II, Campinápolis, Mato Grosso, Brasil, com ênfase nas orquídeas. Scientific Electronic Archives 9: 155-157.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Fernandes</surname>
+							<given-names>E.R.</given-names>
+						</name>
+						<name>
+							<surname>Petini-Benelli</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Levantamento das epífitas da PCH Paranatinga II, Campinápolis, Mato Grosso, Brasil, com ênfase nas orquídeas</article-title>
+					<source>Scientific Electronic Archives</source>
+					<fpage>155</fpage>
+					<lpage>157</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<mixed-citation>Hoehne, F.C. 1938. Cinquenta e uma novas espécies da flora do Brasil. Arquivos de Botânica do Estado de São Paulo 1: 22-23.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hoehne</surname>
+							<given-names>F.C</given-names>
+						</name>
+					</person-group>
+					<year>1938</year>
+					<article-title>Cinquenta e uma novas espécies da flora do Brasil</article-title>
+					<source>Arquivos de Botânica do Estado de São Paulo</source>
+					<volume>1</volume>
+					<fpage>22</fpage>
+					<lpage>23</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<mixed-citation>Hoehne, F.C. 1941. Quatro Orchidáceas e uma Leguminosa novas para a flora brasileira. Arquivos de Botânica do Estado de São Paulo 1: 60-63.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hoehne</surname>
+							<given-names>F.C</given-names>
+						</name>
+					</person-group>
+					<year>1941</year>
+					<article-title>Quatro Orchidáceas e uma Leguminosa novas para a flora brasileira</article-title>
+					<source>Arquivos de Botânica do Estado de São Paulo</source>
+					<volume>1</volume>
+					<fpage>60</fpage>
+					<lpage>63</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<mixed-citation>Hoehne, F.C. &amp; Schlechter, R. 1922. Contribuições ao conhecimento das Orquidáceas do Brasil - I. Anexos das Memórias do Instituto Butantan 1: 1-48.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hoehne</surname>
+							<given-names>F.C.</given-names>
+						</name>
+						<name>
+							<surname>Schlechter</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<year>1922</year>
+					<article-title>Contribuições ao conhecimento das Orquidáceas do Brasil - I</article-title>
+					<source>Anexos das Memórias do Instituto Butantan</source>
+					<volume>1</volume>
+					<fpage>1</fpage>
+					<lpage>48</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<mixed-citation>Kolanowska, M. 2014. Determination of potential glacial refugia and possible migration routes of <italic>Campylocentrum</italic> (Vandeae, Orchidaceae) species through the Darién Gap. Acta Societatis Botanicorum Poloniae 84: 97-102.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kolanowska</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Determination of potential glacial refugia and possible migration routes of Campylocentrum (Vandeae, Orchidaceae) species through the Darién Gap</article-title>
+					<source>Acta Societatis Botanicorum Poloniae</source>
+					<volume>84</volume>
+					<fpage>97</fpage>
+					<lpage>102</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<mixed-citation>Lima, J.H. 2014. Diversidade e riqueza de orquídeas epífitas em Matas de galeria da Floresta Nacional de Brasília - DF. Dissertação de Mestrado, Universidade de Brasília, Brasília.</mixed-citation>
+				<element-citation publication-type="thesis">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lima</surname>
+							<given-names>J.H</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<source>Diversidade e riqueza de orquídeas epífitas em Matas de galeria da Floresta Nacional de Brasília - DF</source>
+					<comment content-type="degree">Mestrado</comment>
+					<publisher-name>Universidade de Brasília</publisher-name>
+					<publisher-loc>Brasília</publisher-loc>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<mixed-citation>Mansfeld, R. 1928. <italic>Orchidaceae novae Bradeanae</italic>. <italic>Repertorium Specierum Novarum Regni Vegetabilis</italic> 8: 243-246.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mansfeld</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<year>1928</year>
+					<article-title>Orchidaceae novae Bradeanae</article-title>
+					<source>Repertorium Specierum Novarum Regni Vegetabilis</source>
+					<volume>8</volume>
+					<fpage>243</fpage>
+					<lpage>246</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<mixed-citation>Mori, S.A., Silva, L.A., Lisboa, G. &amp; Coradin, L. 1989. Manual de Manejo do Herbário Fanerogâmico. 2 ed. CEPLAC, Ilhéus, Bahia.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mori</surname>
+							<given-names>S.A.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>L.A.</given-names>
+						</name>
+						<name>
+							<surname>Lisboa</surname>
+							<given-names>G.</given-names>
+						</name>
+						<name>
+							<surname>Coradin</surname>
+							<given-names>L</given-names>
+						</name>
+					</person-group>
+					<year>1989</year>
+					<source>Manual de Manejo do Herbário Fanerogâmico</source>
+					<edition>2 </edition>
+					<publisher-name>CEPLAC</publisher-name>
+					<publisher-loc>Ilhéus, Bahia</publisher-loc>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<mixed-citation>Oliveira, R.P. 2013. Comunidades epifítica e arbórea em matas de galeria no Distrito Federal, Brasil. Dissertação de Mestrado, Universidade de Brasília, Brasília.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>R.P</given-names>
+						</name>
+					</person-group>
+					<year>2013</year>
+					<source>Comunidades epifítica e arbórea em matas de galeria no Distrito Federal, Brasil</source>
+					<comment content-type="degree">Mestrado</comment>
+					<publisher-name>Universidade de Brasília</publisher-name>
+					<publisher-loc>Brasília</publisher-loc>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<mixed-citation>Oliveira, R.P. &amp; Arcela, V. 2014. Distribuição vertical e valor de importância das epífitas vasculares da Reserva Biológica do Guará, Brasília, DF. Heringeriana 8(1): 20-31.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>R.P.</given-names>
+						</name>
+						<name>
+							<surname>Arcela</surname>
+							<given-names>V</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Distribuição vertical e valor de importância das epífitas vasculares da Reserva Biológica do Guará, Brasília, DF</article-title>
+					<source>Heringeriana</source>
+					<volume>8</volume>
+					<issue>1</issue>
+					<fpage>20</fpage>
+					<lpage>31</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2015a. A new <italic>Campylocentrum</italic> Benth. (Angraeciinae-Orchidaceae) from submontane Atlantic Forest of northeastern Brazil. Phytotaxa 197(1): 54-58.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>A new Campylocentrum Benth. (Angraeciinae-Orchidaceae) from submontane Atlantic Forest of northeastern Brazil</article-title>
+					<source>Phytotaxa</source>
+					<volume>197</volume>
+					<issue>1</issue>
+					<fpage>54</fpage>
+					<lpage>58</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2015b. Notes on <italic>Campylocentrum</italic> (Vandeae; Epidendroideae; Orchidaceae): Reestablishment of two South American species. Phytotaxa 204(1): 85-90.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Notes on Campylocentrum (Vandeae; Epidendroideae; Orchidaceae): Reestablishment of two South American species</article-title>
+					<source>Phytotaxa</source>
+					<volume>204</volume>
+					<issue>1</issue>
+					<fpage>85</fpage>
+					<lpage>90</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2015c. The identity of <italic>Campylocentrum sellowii</italic> (Angraecinae-Orchidaceae): clarifying on its circumscription and lectotypifications. Feddes Repertorium 126: 67-72.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>The identity of Campylocentrum sellowii (Angraecinae-Orchidaceae): clarifying on its circumscription and lectotypifications</article-title>
+					<source>Feddes Repertorium</source>
+					<volume>126</volume>
+					<fpage>67</fpage>
+					<lpage>72</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2015d. Three new species of <italic>Campylocentrum</italic> (Vandeae, Orchidaceae) from Brazil. Phytotaxa 217 (3): 265-272.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Three new species of Campylocentrum (Vandeae, Orchidaceae) from Brazil</article-title>
+					<source>Phytotaxa</source>
+					<volume>217</volume>
+					<issue>3</issue>
+					<fpage>265</fpage>
+					<lpage>272</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<mixed-citation>Pessoa, E.M., Maciel, J.R. &amp; Alves, M. 2015. <italic>Campylocentrum brevifolium</italic> (Lindl.) E.M.Pessoa &amp; M.Alves, a neglected and critically endangered orchid from the Atlantic Forest of Brazil. Kew Bulletin 70: 42-53.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.M.</given-names>
+						</name>
+						<name>
+							<surname>Maciel</surname>
+							<given-names>J.R.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Campylocentrum brevifolium (Lindl.) E.M.Pessoa &amp; M.Alves, a neglected and critically endangered orchid from the Atlantic Forest of Brazil</article-title>
+					<source>Kew Bulletin</source>
+					<volume>70</volume>
+					<fpage>42</fpage>
+					<lpage>53</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2016a. Taxonomic revision of <italic>Campylocentrum</italic> (Orchidaceae-Vandeae-Angraecinae): species with terete leaves. Systematic Botany 41: 700-713.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Taxonomic revision of Campylocentrum (Orchidaceae-Vandeae-Angraecinae): species with terete leaves</article-title>
+					<source>Systematic Botany</source>
+					<volume>41</volume>
+					<fpage>700</fpage>
+					<lpage>713</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2016b. Taxonomical revision of <italic>Campylocentrum</italic> sect. <italic>Dendrophylopsis</italic> Cogn. (Orchidaceae-Vandae-Angraecinae). Phytotaxa 286 (3): 131-152.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Taxonomical revision of Campylocentrum sect. Dendrophylopsis Cogn. (Orchidaceae-Vandae-Angraecinae)</article-title>
+					<source>Phytotaxa</source>
+					<volume>286</volume>
+					<issue>3</issue>
+					<fpage>131</fpage>
+					<lpage>152</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<mixed-citation>Pessoa, E.M., Miranda, M.R. &amp; Alves, M. 2016. <italic>Campylocentrum benellii</italic> and <italic>C. paludosum</italic> sp. nov. (Angraecinae-Orchidaceae): two new leafless species from Brazil. Nordic Journal of Botany 34: 376-379.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.M.</given-names>
+						</name>
+						<name>
+							<surname>Miranda</surname>
+							<given-names>M.R.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Campylocentrum benellii and C. paludosum sp. nov. (Angraecinae-Orchidaceae): two new leafless species from Brazil</article-title>
+					<source>Nordic Journal of Botany</source>
+					<volume>34</volume>
+					<fpage>376</fpage>
+					<lpage>379</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2018. Taxonomic revision of <italic>Campylocentrum</italic> sect. <italic>Campylocentrum</italic> Cogn. (Orchidaceae-Vandae-Angraecinae) in Brazil. Phytotaxa 362 (1): 1-20.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Taxonomic revision of Campylocentrum sect. Campylocentrum Cogn. (Orchidaceae-Vandae-Angraecinae) in Brazil</article-title>
+					<source>Phytotaxa</source>
+					<volume>362</volume>
+					<issue>1</issue>
+					<fpage>1</fpage>
+					<lpage>20</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<mixed-citation>Pessoa, E., Viruel, J., Alves, M., Bogarín, D., Whitten, W.M. &amp; Chase, M.W. 2018. Evolutionary history and systematics of <italic>Campylocentrum</italic> (Orchidaceae: Vandeae: Angraecinae): a phylogenetic and biogeographical approach. Botanical Journal of the Linnean Society 186: 158-178.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Viruel</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Bogarín</surname>
+							<given-names>D.</given-names>
+						</name>
+						<name>
+							<surname>Whitten</surname>
+							<given-names>W.M.</given-names>
+						</name>
+						<name>
+							<surname>Chase</surname>
+							<given-names>M.W</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Evolutionary history and systematics of Campylocentrum (Orchidaceae: Vandeae: Angraecinae): a phylogenetic and biogeographical approach</article-title>
+					<source>Botanical Journal of the Linnean Society</source>
+					<volume>186</volume>
+					<fpage>158</fpage>
+					<lpage>178</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<mixed-citation>Pessoa, E. &amp; Alves, M. 2019. Taxonomic revision of <italic>Campylocentrum</italic> sect. <italic>Laevigatum</italic> E.M. Pessoa &amp; M.W. Chase (Orchidaceae-Vandeae-Angraecinae). Systematic Botany 44: 115-132.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>Taxonomic revision of Campylocentrum sect. Laevigatum E.M. Pessoa &amp; M.W. Chase (Orchidaceae-Vandeae-Angraecinae)</article-title>
+					<source>Systematic Botany</source>
+					<volume>44</volume>
+					<fpage>115</fpage>
+					<lpage>132</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<mixed-citation>Pessoa, E. 2020. <italic>Campylocentrum</italic>. <italic>In</italic>: Flora do Brasil 2020. Jardim Botânico do Rio de Janeiro. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://reflora.jbrj.gov.br/reflora/floradobrasil/FB11267">http://reflora.jbrj.gov.br/reflora/floradobrasil/FB11267 </ext-link>
+					</comment>(acesso em 13-IX-2021).</mixed-citation>
+				<element-citation publication-type="webpage">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<year>2020</year>
+					<source>Campylocentrum</source>
+					<comment>Flora do Brasil 2020</comment>
+					<publisher-name>Jardim Botânico do Rio de Janeiro</publisher-name>
+					<comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://reflora.jbrj.gov.br/reflora/floradobrasil/FB11267">http://reflora.jbrj.gov.br/reflora/floradobrasil/FB11267 </ext-link>
+					</comment>
+					<date-in-citation content-type="access-date" iso-8601-date="2021-09-13">13-IX-2021</date-in-citation>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<mixed-citation>Petini-Benelli, A. 2009. A família Orchidaceae no acervo do Herbário UFMT, Cuiabá, Mato Grosso, Brasil. Heringeriana3(1): 99-113.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Petini-Benelli</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<article-title>A família Orchidaceae no acervo do Herbário UFMT, Cuiabá, Mato Grosso, Brasil</article-title>
+					<source>Heringeriana</source>
+					<volume>3</volume>
+					<issue>1</issue>
+					<fpage>99</fpage>
+					<lpage>113</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B31">
+				<mixed-citation>Petini-Benelli, A. 2012. Biogeografia das Orquídeas da Chapada dos Guimarães, Mato Grosso, Brasil. Orquidário 26(3): 77-85.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Petini-Benelli</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<year>2012</year>
+					<article-title>Biogeografia das Orquídeas da Chapada dos Guimarães, Mato Grosso, Brasil</article-title>
+					<source>Orquidário</source>
+					<volume>26</volume>
+					<issue>3</issue>
+					<fpage>77</fpage>
+					<lpage>85</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B32">
+				<mixed-citation>Petini-Benelli, A. 2014. Orchidaceae da região do Rio Juruena, Mato Grosso, Brasil. Orquidário28(1): 23-31.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Petini-Benelli</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Orchidaceae da região do Rio Juruena, Mato Grosso, Brasil</article-title>
+					<source>Orquidário</source>
+					<volume>28</volume>
+					<issue>1</issue>
+					<fpage>23</fpage>
+					<lpage>31</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B33">
+				<mixed-citation>Pridgeon, A.M., Cribb, P.J., Chase, M.C., Rasmussen, F.N. 2014. <italic>Genera Orchidacearum</italic>. vol. 6, Epidendroideae (Part 3). New York: Oxford University Press.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pridgeon</surname>
+							<given-names>A.M.</given-names>
+						</name>
+						<name>
+							<surname>Cribb</surname>
+							<given-names>P.J.</given-names>
+						</name>
+						<name>
+							<surname>Chase</surname>
+							<given-names>M.C.</given-names>
+						</name>
+						<name>
+							<surname>Rasmussen</surname>
+							<given-names>F.N</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<source><italic>Genera Orchidacearum</italic>. vol. 6, Epidendroideae</source>
+					<issue-part>3</issue-part>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>Oxford University Press</publisher-name>
+				</element-citation>
+			</ref>
+			<ref id="B34">
+				<mixed-citation>Quantum GIS Development Team. 2018. Quantum GIS Geographic Information System. Version 2.8.2. Open-Source Geospatial Foundation Project. Disponível em <comment>Disponível em <ext-link ext-link-type="uri" xlink:href="https://www.qgis.org/en/site/forusers/download.html">https://www.qgis.org/en/site/forusers/download.html</ext-link>
+					</comment>. (acesso em 19-VI-2020).</mixed-citation>
+				<element-citation publication-type="software">
+					<person-group person-group-type="author">
+						<collab>Quantum GIS Development Team</collab>
+					</person-group>
+					<year>2018</year>
+					<source>Quantum GIS Geographic Information System. Version 2.8.2</source>
+					<publisher-name>Open-Source Geospatial Foundation Project</publisher-name>
+					<comment>Disponível em <ext-link ext-link-type="uri" xlink:href="https://www.qgis.org/en/site/forusers/download.html">https://www.qgis.org/en/site/forusers/download.html</ext-link>
+					</comment>
+					<date-in-citation content-type="access-date" iso-8601-date="2020-06-19">19-VI-2020</date-in-citation>
+				</element-citation>
+			</ref>
+			<ref id="B35">
+				<mixed-citation>Rech, A.R., Rosa, Y.B.C.J. &amp; Rosa-Junio, E.J. 2011. Levantamento e características ecológicas de Orchidaceae da mata ciliar do Rio Dourados, Dourados-MS. Revista Árvore 35(3): 717-724.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Rech</surname>
+							<given-names>A.R.</given-names>
+						</name>
+						<name>
+							<surname>Rosa</surname>
+							<given-names>Y.B.C.J.</given-names>
+						</name>
+						<name>
+							<surname>Rosa-Junio</surname>
+							<given-names>E.J</given-names>
+						</name>
+					</person-group>
+					<year>2011</year>
+					<article-title>Levantamento e características ecológicas de Orchidaceae da mata ciliar do Rio Dourados, Dourados-MS</article-title>
+					<source>Revista Árvore</source>
+					<volume>35</volume>
+					<issue>3</issue>
+					<fpage>717</fpage>
+					<lpage>724</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B36">
+				<mixed-citation>Rodriguez, D.P., Barros, F ., Junior, G.A.D. &amp; Bortolotto, I.M. 2009. Levantamento da família Orchidaceae no Morro Santa Cruz, Municípios de Corumbá e Ladário, Mato Grosso do Sul, Brasil. Hoehnea 36(4): 613-636.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Rodriguez</surname>
+							<given-names>D.P.</given-names>
+						</name>
+						<name>
+							<surname>Barros</surname>
+							<given-names>F .</given-names>
+						</name>
+						<name>
+							<surname>D.</surname>
+							<given-names>G.A.</given-names>
+							<suffix>Junior</suffix>
+						</name>
+						<name>
+							<surname>Bortolotto</surname>
+							<given-names>I.M</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<article-title>Levantamento da família Orchidaceae no Morro Santa Cruz, Municípios de Corumbá e Ladário, Mato Grosso do Sul, Brasil</article-title>
+					<source>Hoehnea</source>
+					<volume>36</volume>
+					<issue>4</issue>
+					<fpage>613</fpage>
+					<lpage>636</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B37">
+				<mixed-citation>Schlechter, R. &amp; Hoehne, F.C. 1926. Contribuições ao conhecimento das Orchidáceas do Brasil - III. Arquivos de Botânica do Estado de São Paulo 1: 165-349.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Schlechter</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>Hoehne</surname>
+							<given-names>F.C</given-names>
+						</name>
+					</person-group>
+					<year>1926</year>
+					<article-title>Contribuições ao conhecimento das Orchidáceas do Brasil - III</article-title>
+					<source>Arquivos de Botânica do Estado de São Paulo</source>
+					<volume>1</volume>
+					<fpage>165</fpage>
+					<lpage>349</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B38">
+				<mixed-citation>Siqueira, C.E., Pessoa, E., Zanin, A. &amp; Alves, M. 2015. The smallest angraecoid species from the neotropics: a new <italic>Campylocentrum</italic> (Orchidaceae) from a Brazilian Subtropical Forest. Systematic Botany 40(1): 79-82.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Siqueira</surname>
+							<given-names>C.E.</given-names>
+						</name>
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Zanin</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>The smallest angraecoid species from the neotropics: a new Campylocentrum (Orchidaceae) from a Brazilian Subtropical Forest</article-title>
+					<source>Systematic Botany</source>
+					<volume>40</volume>
+					<issue>1</issue>
+					<fpage>79</fpage>
+					<lpage>82</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B39">
+				<mixed-citation>Thiers, B. 2020. <italic>Index Herbariorum</italic>. Part I: The herbaria of the world. New York Botanical Garden. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://sweetgum.nybg.org/science/ih/">http://sweetgum.nybg.org/science/ih/</ext-link>
+					</comment> (acesso em 20-II-2021).</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Thiers</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<year>2020</year>
+					<source><italic>Index Herbariorum</italic>. Part I: The herbaria of the world</source>
+					<publisher-name>New York Botanical Garden</publisher-name>
+					<comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://sweetgum.nybg.org/science/ih/">http://sweetgum.nybg.org/science/ih/</ext-link>
+					</comment>
+					<date-in-citation content-type="access-date" iso-8601-date="2021-02-20">20-II-2021</date-in-citation>
+				</element-citation>
+			</ref>
+			<ref id="B40">
+				<mixed-citation>Tomazini, V. 2007. Estrutura de epífitas vasculares e de forófitos em formação florestal ripária do Parque Estadual do Rio Ivinhema, Estado de Mato Grosso do Sul, Brasil. Tese de doutorado. Universidade Estadual de Maringá, Paraná.</mixed-citation>
+				<element-citation publication-type="thesis">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Tomazini</surname>
+							<given-names>V</given-names>
+						</name>
+					</person-group>
+					<year>2007</year>
+					<source>Estrutura de epífitas vasculares e de forófitos em formação florestal ripária do Parque Estadual do Rio Ivinhema, Estado de Mato Grosso do Sul, Brasil</source>
+					<comment content-type="degree">doutorado</comment>
+					<publisher-name>Universidade Estadual de Maringá</publisher-name>
+					<publisher-loc>Paraná</publisher-loc>
+				</element-citation>
+			</ref>
+			<ref id="B41">
+				<mixed-citation>Walter, B.M.T ., Silva, S.P.C., Santos, H.G.P., Cavalcanti, T.B., Bianchetti, L.B., Rocha, D.M.S., Assis, M.C., Vieira, R.F., Salomão, A.N. &amp; Verboonen, S.M. 1999. Resgate de germoplasma vegetal: oito anos de experiência em uma hidrelétrica no Brasil Central. <italic>In</italic>: II Simpósio de Recursos Genéticos para a América Latina e Caribe, Brasília, DF. Embrapa Recursos Genéticos e Biotecnologia.</mixed-citation>
+				<element-citation publication-type="confproc">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Walter</surname>
+							<given-names>B.M.T .</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>S.P.C.</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>H.G.P.</given-names>
+						</name>
+						<name>
+							<surname>Cavalcanti</surname>
+							<given-names>T.B.</given-names>
+						</name>
+						<name>
+							<surname>Bianchetti</surname>
+							<given-names>L.B.</given-names>
+						</name>
+						<name>
+							<surname>Rocha</surname>
+							<given-names>D.M.S.</given-names>
+						</name>
+						<name>
+							<surname>Assis</surname>
+							<given-names>M.C.</given-names>
+						</name>
+						<name>
+							<surname>Vieira</surname>
+							<given-names>R.F.</given-names>
+						</name>
+						<name>
+							<surname>Salomão</surname>
+							<given-names>A.N.</given-names>
+						</name>
+						<name>
+							<surname>Verboonen</surname>
+							<given-names>S.M</given-names>
+						</name>
+					</person-group>
+					<year>1999</year>
+					<source>Resgate de germoplasma vegetal: oito anos de experiência em uma hidrelétrica no Brasil Central</source>
+					<conf-name>IISimpósio de Recursos Genéticos para a América Latina e Caribe</conf-name>
+					<conf-loc>Brasília, DF</conf-loc>
+					<conf-sponsor>Embrapa Recursos Genéticos e Biotecnologia</conf-sponsor>
+				</element-citation>
+			</ref>
+		</ref-list>
+	</back>
+</article>

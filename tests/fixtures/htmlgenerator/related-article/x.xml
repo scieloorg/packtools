@@ -1,0 +1,195 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="article-commentary" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">trans</journal-id>
+      <journal-title-group>
+        <journal-title>Trans/Form/Ação</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Trans/Form/Ação</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0101-3173</issn>
+      <issn pub-type="epub">1980-539X</issn>
+      <publisher>
+        <publisher-name>Universidade Estadual Paulista, Departamento de Filosofia</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">5fw5pdvcC8vZLQGYnMB4sjn</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0101-31732022000100165</article-id>
+      <article-id pub-id-type="doi">10.1590/0101-3173.2022.v45n1.p165</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Artigo</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Comentário a “Cinismo e indiferenciación: la huella de Glucksmann en El coraje de la verdad de Foucault”: por uma indiferenciação cínica</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-4793-325X</contrib-id>
+          <name>
+            <surname>Carmo</surname>
+            <given-names>Miguel Ângelo Oliveira do</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+        </contrib>
+        <aff id="aff1">
+          <label>1</label>
+          <institution content-type="original"> Professor Associado da Universidade Federal da Paraíba, João Pessoa, PB - Brasil. E-mail: mguel@hotmail.com.</institution>
+          <institution content-type="orgname">Universidade Federal da Paraíba</institution>
+          <addr-line>
+            <city>João Pessoa</city>
+            <state>PB</state>
+          </addr-line>
+          <country country="BR">Brasil</country>
+          <email>mguel@hotmail.com</email>
+        </aff>
+      </contrib-group>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>16</day>
+        <month>03</month>
+        <year>2022</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <season>Jan-Mar</season>
+        <year>2022</year>
+      </pub-date>
+      <volume>45</volume>
+      <issue>01</issue>
+      <fpage>165</fpage>
+      <lpage>170</lpage>
+      <history>
+        <date date-type="received">
+          <day>14</day>
+          <month>12</month>
+          <year>2021</year>
+        </date>
+        <date date-type="accepted">
+          <day>23</day>
+          <month>12</month>
+          <year>2021</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+          <license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons</license-p>
+        </license>
+      </permissions>
+      <related-article ext-link-type="doi" id="A01" related-article-type="commentary-article" xlink:href="10.1590/0101-3173.2022.v45n1.p139">Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en <italic>El coraje de la verdad</italic> de Foucault. <bold>Trans/form/ação</bold>: revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.</related-article>
+      <related-article ext-link-type="doi" id="A02" related-article-type="commentary-article" xlink:href="10.1590/0101-3173.2022.v45n1.p139">Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en <italic>El coraje de la verdad</italic> de Foucault. <bold>Trans/form/ação</bold>: revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.</related-article>
+      <counts>
+        <fig-count count="0"/>
+        <table-count count="0"/>
+        <equation-count count="0"/>
+        <ref-count count="4"/>
+        <page-count count="06"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <p>O texto que nos apresenta <xref ref-type="bibr" rid="B2">Freitas (2022</xref>), “Cinismo e indiferenciación: la huella de Glucksmann en <italic>El coraje de la verdad</italic> de Foucault”, tem uma fantástica singularidade: a (re)colocação em cena de um livro (<italic>Cynisme et Passion</italic>, de André Glucksmann) que ganha pouca referência no curso de Michel Foucault (<italic>A Coragem da Verdade</italic>), mas que tem importância pelo seu paralelismo exacerbado com essa obra. No entanto, sua singularidade vai além, quando traz o fundamental no cinismo: a questão da indiferenciação. Assim, gostaria de refletir um pouco sobre os pontos elencados por Juan de Freitas, na relação temática entre os textos.</p>
+    <p>Sabemos que o curso <italic>A Coragem da Verdade</italic>, de Michel Foucault, com a sua análise do cinismo, revela a tentativa de vermos a atividade filosófica como uma manifestação aletúrgica do <italic>bíos</italic>. A prática cínica é a manifestação da verdade como modo de vida, o escancaramento da verdade no fazer, na corporificação dos discursos. A verdade discursiva ganha prática nos atos revelados em plena luz. Com eles, a atividade filosófica continua tendo uma busca de cuidado de si, seu traço marcadamente socrático, contudo, é acrescentada, pelas ações, essa indiscernibilidade com a natureza. O cinismo lança tudo à luz, externaliza todas as necessidades e faz da atividade filosófica a indiferenciação entre vida (<italic>bíos</italic>) e verdade (<italic>alethéia</italic>).</p>
+    <p>Se, com a <italic>parrhesia</italic> (dizer-a-verdade) socrática, o cuidado de si, através de uma “metafísica da alma”, eleva o espírito à autonomia, a uma estética na qual o prazer intelectual nos traz felicidade, com a <italic>parrhesia</italic> cínica, a vida ganha qualidade estética no ato de dizer a verdade. Isso figura uma “verdadeira vida” em um “mundo outro”. O que Foucault nos chama a atenção com esse curso é que a filosofia não precisa (nem sempre precisou) se fechar nas capacidades metafísicas de apresentação discursiva da verdade, pois o discurso, a veridicção discursiva, é um modo de vida, entre outros possíveis. O cinismo, com Diógenes, o cão, cobra um modo de vida no qual o trabalho ético, subjetivo, é marcado pela fala franca. A coragem da verdade é a da prática ética em seu acontecimento (extra)discursivo, a criação de um <italic>ethos</italic>, crítica que não se limita ao conhecimento como modelo da verdade. Não se trata, aqui, de uma contemplação modelar da verdade, de uma elevação da alma aos parâmetros reflexivos exigidos por uma verdade de caráter lógico, mas de uma indignação diante das convenções que recusam o dizer-a-verdade como pertença das subjetivações de todo e qualquer indivíduo.</p>
+    <p>A filosofia como metafísica foi e é um apagamento dos escândalos da vida. Esse ser e fazer despojado, os quais vão além da <italic>psykhé</italic> (alma) que fundamenta o discurso da metafísica, radicalizam “[...] a maneira como se vive, a maneira como se viveu.” (<xref ref-type="bibr" rid="B1">FOUCAULT, 2011</xref>, p. 139). Um pisar descalço, um cajado como acompanhante, uma simples sacola, uma masturbação em praça pública, um manto que mal esconde o sexo e os virulentos discursos dão a provação de uma existência não dissimulada, a qual prova que a “[...] sabedoria não faz somente que possamos conhecer, mas faz ‘ser’ diferentemente.” (<xref ref-type="bibr" rid="B3">HADOT, 2014</xref>, p. 263). O afastamento das convenções é requisitado, e toda indistinção para com a natureza é cobrada e exigida. São esses comportamentos rústicos, nos quais nada ganha importância, que são colocados em trabalho, nesse último curso do Collège de France, por Foucault.</p>
+    <p>Entretanto, Juan faz-nos ver, com seu texto, que o livro de André Glucksmann, antes de Foucault, já tinha atravessado essa problemática do cinismo, quando lançado, em 1981. Mas não só isso, Juan deixa evidente, a partir de quatro pontos, como há certo paralelismo, ou proximidade, entre o tratamento dado por Glucksmann e a parte em que Foucault se desdobra, no curso do Collège de France, sobre o cinismo. Esses quatro pontos não só mostram a proximidade entre os textos, já que Foucault só evidencia uma breve fala sobre <italic>Cynisme et Passion</italic>: “[...] uma reflexão sobre a possibilidade, os significados e os valores que poderia ter o cinismo na hora atual” (2011, p. 170), como firma a caracterização central no modo de vida cínico - a prática da indiferenciação. Vejamos, <italic>en passant</italic>, esses pontos.</p>
+    <p> O cinismo, na cultura helênica e romana, sempre evidenciou este elemento que marcou muito fortemente a cultura clássica com Sócrates, Platão e Aristóteles: a <italic>enkrateia</italic>, o poder sobre si mesmo, o autocontrole. Com a Grécia clássica, temos esse trabalho de autonomia muito presente nos modos de vida; com os cínicos, o que encontramos é uma “[...] radicalização da <italic>enkrateia</italic> tradicional.” Da heteronomia para a autonomia, e desta para a sua potencialização vital - nunca se praticou de maneira tão séria e evidente o domínio sobre si mesmo! A vida passa a ser realizada a partir de um domínio exacerbado sobre as próprias emoções e desejos, sobre a <italic>psykhé</italic> que é preciso formar. É essa “absoluta posesión de sí mismo”, essa “autotransparentación”, trazida por Glucksmann, que Juan de Freitas muito bem sinaliza com um “culto da luz” que domina a morte.</p>
+    <p>O segundo ponto colocado não é necessariamente a oposição, já tradicional, entre Platão e Diógenes, mas a tomada da filosofia platônica como elemento de compreensão de que, com a prática cínica, se deseja mais mostrar, fazer vir à luz a própria vida do que o conhecimento da vida. Diógenes é o teatro visível, escancarado, desse espetáculo que não quer se esconder nos confins da consciência, das ideias, de um “mundo inteligível”. O mostrar cínico, o seu tornar evidente “a vida como ela é”, não deve ser visto como oposição à contemplação tranquila das ideias do mundo platônico, porém, apenas como um “ato” a mais em toda encenação da existência. Há uma cena a mais, um viver a mais, o qual escapa ao modo de vida platônico e vai além da pura oposição com Diógenes o cínico.</p>
+    <p>A “transhistoricidad glucksmanniana del cinismo” evidencia bem o fato de encontrarmos, de maneira paradoxal, fundamentos do cinismo antigo em filosofias mais modernas e até atuais. Esse terreno prepara a ideia de que é infrutífero mantermos uma visão de rebaixamento do cinismo, diante de outras filosofias, até porque aquilo que, durante a tradição filosófica, foi tão festejado (a retidão da virtude, o controle das emoções, a manutenção dos princípios etc.) também foi praticado, por outras perspectivas, pelos cínicos. Esse “paradoxo cínico”, realçado pela transhistoricidade que lhe é própria, acentua a capacidade prática de alteração da moeda (<italic>parakharattein to nómisma</italic>), de falsificação e transformação dos princípios da cultura. A criação de uma “outra vida”, que elucida o jogo da verdade. O cinismo moderno, com alguns exemplos (Napoleão, Goethe, Dostoievsky), ainda exibe algo do cinismo antigo.</p>
+    <p>O último ponto que Juan de Freitas traz em seu texto é a apresentação do “cão de Sade”, um imbricamento entre o cinismo e a literatura do Marquês de Sade. É aqui que Glucksmann centraliza o cinismo, em sua feição moderna, para termos a radicalização das filosofias tradicionais. Encontramos, não o reducionismo simplista ao prazer pelo prazer, como comumente se percebe a obra sadiana, mas o trabalho determinado no exercício do prazer. Aqui, o prazer, na literatura de Sade, é caracterizado pelo dominio de si, pelo prazer intelectual. O exemplo do homicídio, por mais difícil que seja a sua aceitação em nossa cultura, afasta toda diferenciação diante da vida, pois ressalta como força maior a Natureza (<italic>Physis</italic>). Ou seja, o que se quer dizer é que tudo, até o homicídio, tem o mesmo valor diante da natureza. O “cão de Sade” é como a indistinção das coisas humanas em face do natural. Nesse sentido, o poder de variar as formas é irrisório, diante do fato de que nada muda para a finalidade natural das coisas.</p>
+    <p>É essa indiferenciação cínica que Juan de Freitas realça muito bem, na obra de André Glucksmann, em sua aproximação com o último curso de Michel Foucault. Indiferenciação entre vida e morte, entre as ideias e os sentidos, enfim, entre os dois lados da moeda. Talvez essa expressiva característica cínica force a boa representação daquilo que Pierre Hadot, em relação a certas práticas da filosofia helênica, tenha chamado de “consciência cósmica”: “[...] um exercício destinado a nos fazer ultrapassar, uma vez mais, nosso ponto de vista tendencioso e fragmentado.” (<xref ref-type="bibr" rid="B4">2016</xref>, p. 126).</p>
+  </body>
+  <back>
+    <ref-list>
+      <title>Referências</title>
+      <ref id="B1">
+        <mixed-citation>FOUCAULT, Michel. A Coragem da Verdade: o governo de si e dos outros II: curso no Collège de France (1983 - 1984). Tradução de Eduardo Brandão. São Paulo: WMF Martins Fontes, 2011.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FOUCAULT</surname>
+              <given-names>Michel</given-names>
+            </name>
+          </person-group>
+          <source>A Coragem da Verdade: o governo de si e dos outros II: curso no Collège de France (1983 - 1984)</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Brandão</surname>
+              <given-names>Eduardo</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>WMF Martins Fontes</publisher-name>
+          <year>2011</year>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en <italic>El coraje de la verdad</italic> de Foucault. Trans/form/ação: revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FREITAS</surname>
+              <given-names>J. H. de</given-names>
+            </name>
+          </person-group>
+          <article-title>Cinismo e indiferenciación: la huella de Glucksmann en El coraje de la verdad de Foucault</article-title>
+          <source>Trans/form/ação: revista de Filosofia da Unesp</source>
+          <volume>45</volume>
+          <issue>1</issue>
+          <fpage>139</fpage>
+          <lpage>158</lpage>
+          <year>2022</year>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>HADOT, Pierre. Exercícios Espirituais e Filosofia Antiga. Tradução de Flavio Fontenelle Loque e Loraine Oliveira. São Paulo: É Realizações, 2014.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HADOT</surname>
+              <given-names>Pierre</given-names>
+            </name>
+          </person-group>
+          <source>Exercícios Espirituais e Filosofia Antiga</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Loque</surname>
+              <given-names>Flavio Fontenelle</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>Loraine</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>É Realizações</publisher-name>
+          <year>2014</year>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>HADOT, Pierre. A Filosofia como Maneira de Viver: entrevistas com Jeanne Carlier e Arnold L. Davidson. Tradução de Lara Christina de Malimpensa. São Paulo: É Realizações , 2016.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HADOT</surname>
+              <given-names>Pierre</given-names>
+            </name>
+          </person-group>
+          <source>A Filosofia como Maneira de Viver: entrevistas com Jeanne Carlier e Arnold L. Davidson</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Malimpensa</surname>
+              <given-names>Lara Christina de</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>É Realizações</publisher-name>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>

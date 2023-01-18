@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labels>
     <term>
+        <name>Anonymous</name>
+        <name lang="pt">Anônimo</name>
+        <name lang="es">Anónimo</name>
+    </term>
+    <term>
+        <name>Data availability</name>
+        <name lang="pt">Dados de pesquisa</name>
+        <name lang="es">Datos de investigación</name>
+    </term>
+    <term>
+        <name>Data citations</name>
+        <name lang="pt">Citações de dados</name>
+        <name lang="es">Citaciones de datos</name>
+    </term>
+    <term>
+        <name>data-availability</name>
+        <name lang="en">Data availability statement</name>
+        <name lang="pt">Declaração de disponibilidade de dados</name>
+        <name lang="es">Declaración de disponibilidad de datos</name>
+    </term>
+
+    <term>
         <name>Text</name>
         <name lang="pt">Texto</name>
         <name lang="es">Texto</name>
@@ -107,6 +129,18 @@
         <name lang="pt">Preprint</name>
         <name lang="es">Preprint</name>
         <name lang="en">Preprint</name>
+    </term>
+    <term>
+        <name>date-type-preprint</name>
+        <name lang="pt">Preprint depositado em</name>
+        <name lang="es">Preprint depositado en</name>
+        <name lang="en">Preprint uploaded on</name>
+    </term>
+    <term>
+        <name>reviewer-report-received</name>
+        <name lang="pt">Parecer recebido em</name>
+        <name lang="es">Parecer recibido en</name>
+        <name lang="en">Peer review received</name>
     </term>
     <term>
         <name>retracted</name>
@@ -384,5 +418,79 @@
         <name lang="en">Publication in this collection</name>
         <name lang="pt">Publicação nesta coleção</name>
         <name lang="es">Publicación en esta colección</name>
+    </term>
+    <term>
+        <name>translator</name>
+        <name lang="en">Translation of</name>
+        <name lang="pt">Tradução de</name>
+        <name lang="es">Traducción de</name>
+    </term>
+    
+    <term>
+        <name>edited-by</name>
+        <name lang="en">Edited by</name>
+        <name lang="pt">Editado por</name>
+        <name lang="es">Editado por</name>
+    </term>
+    
+    <term>
+        <name>This retraction retracts</name>
+        <name lang="en">This retraction retracts</name>
+        <name lang="pt">Esta retratação retrata</name>
+        <name lang="es">Esta retractación retrata</name>
+    </term>
+    <term>
+        <name>This document comments</name>
+        <name lang="en">This document comments</name>
+        <name lang="pt">Este documento comenta</name>
+        <name lang="es">Este documento comenta</name>
+    </term>
+    <term>
+        <name>This document is an addendum of</name>
+        <name lang="en">This document is an addendum of</name>
+        <name lang="pt">Este documento é um adendo de</name>
+        <name lang="es">Este documento es un anexo de</name>
+    </term>
+    <term>
+        <name>This document has a preprint version</name>
+        <name lang="en">This document has a preprint version</name>
+        <name lang="pt">Este documento possui uma versão em preprint</name>
+        <name lang="es">Este documento tiene una versión preprint</name>
+    </term>
+    <term>
+        <name>This recommendation refers to the article</name>
+        <name lang="en">This recommendation refers to the article</name>
+        <name lang="pt">Esta recomendação é referente ao artigo</name>
+        <name lang="es">Esta recomendación se refiere al artículo</name>
+    </term>
+    <term>
+        <name>This document has the publication of reviewers' recommendation</name>
+        <name lang="en">This document has the publication of reviewers' recommendation</name>
+        <name lang="pt">Este documento tem a publicação de recomendação de pareceristas</name>
+        <name lang="es">Este documento tiene la publicación de la recomendación de los revisores</name>
+    </term>
+    <term>
+        <name>This document is related to</name>
+        <name lang="en">This document is related to</name>
+        <name lang="pt">Este documento está relacionado com</name>
+        <name lang="es">Este documento está relacionado con</name>
+    </term>
+    <term>
+        <name>This document was retracted by</name>
+        <name lang="en">This document was retracted by</name>
+        <name lang="pt">Este documento foi retratado por</name>
+        <name lang="es">Este documento fue retractado por</name>
+    </term>
+    <term>
+        <name>This document is commented by</name>
+        <name lang="en">This document is commented by</name>
+        <name lang="pt">Este documento foi comentado por</name>
+        <name lang="es">Este documento fue comentado por</name>
+    </term>
+    <term>
+        <name>This document has an addendum</name>
+        <name lang="en">This document has an addendum</name>
+        <name lang="pt">Este documento tem um adendo</name>
+        <name lang="es">Este documento tiene una addenda</name>
     </term>
 </labels>

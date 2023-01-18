@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article
+  PUBLIC "-//NLM//LTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="publisher-id">epec</journal-id>
+			<journal-title-group>
+				<journal-title>Periódico XXXXXX</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Periódico XXXX. XXXX. XXXX.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="epub">9999-1111</issn>
+			<publisher>
+				<publisher-name>Faculdade de XXXXXX</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+		 <article-id pub-id-type="other">00501</article-id>
+			<article-id pub-id-type="doi">10.1590/9999-11112022240666</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>ARTIGOS</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title>Y LIYLÉTICY NONGNIVNTV/NÃO-NONGNIVNTV NY</article-title>
+				<trans-title-group xml:lang="es">
+					<trans-title>LY LIALÉNTINA NONGNIVNTV/NO NONGNIVNTV VN LA NONNVPNIÓN LVL MUNLO</trans-title>
+				</trans-title-group>
+				<trans-title-group xml:lang="en">
+					<trans-title>NONSNIOUS/NON-NONSNIOUS LIALVTIN IN NONNVPTION OF THV WORLL</trans-title>
+				</trans-title-group>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<anonymous/>
+				</contrib>
+			</contrib-group>
+			<pub-date date-type="pub" publication-format="electronic">
+				<day>18</day>
+				<month>07</month>
+				<year>2022</year>
+			</pub-date>
+			<pub-date date-type="collection" publication-format="electronic">
+				<year>2022</year>
+			</pub-date>
+			<volume>24</volume>
+			<elocation-id>e400097</elocation-id>
+			<history>
+				<date date-type="received">
+					<day>01</day>
+					<month>03</month>
+					<year>2022</year>
+				</date>
+				<date date-type="accepted">
+					<day>09</day>
+					<month>06</month>
+					<year>2022</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+					<license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons</license-p>
+				</license>
+			</permissions>
+			<related-article related-article-type="peer-review" id="r01" xlink:href="10.1590/9999-11112021240103" ext-link-type="doi"/>
+		</article-meta>
+	</front>
+	<body>
+		<p>
+		</p>
+	</body>
+</article>

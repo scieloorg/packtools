@@ -1,0 +1,2084 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article
+  PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="publisher-id">paz</journal-id>
+			<journal-title-group>
+				<journal-title>Papéis Avulsos de Zoologia</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Pap. Avulsos Zool.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0031-1049</issn>
+			<issn pub-type="epub">1807-0205</issn>
+			<publisher>
+				<publisher-name>Museu de Zoologia da Universidade de São Paulo</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.11606/1807-0205/2022.62.026</article-id>
+			<article-id pub-id-type="other">00226</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>ARTICLE</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title>Composition and dynamics of mixed flocks of birds in a remnant of Submontane Atlantic Rain Forest in southern Brazil</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0001-5757-1048</contrib-id>
+					<name>
+						<surname>Luz</surname>
+						<given-names>Gustavo Silveira da</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"><sup>1</sup></xref>
+					<xref ref-type="corresp" rid="c1"><sup>3</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-7216-7083</contrib-id>
+					<name>
+						<surname>Carvalho</surname>
+						<given-names>Fernando</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2"><sup>2</sup></xref>
+					<xref ref-type="corresp" rid="c2"><sup>4</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0003-2291-3065</contrib-id>
+					<name>
+						<surname>Zocche</surname>
+						<given-names>Jairo José</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"><sup>1</sup></xref>
+					<xref ref-type="corresp" rid="c3"><sup>5</sup></xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>1</label>
+				<institution content-type="original">Universidade do Extremo Sul Catarinense (UNESC), Laboratório de Ecologia de Paisagem e de Vertebrados (LABECO), Programa de Pós-Graduação em Ciências Ambientais (PPGCA). Criciúma, SC, Brasil.</institution>
+				<institution content-type="orgname">Universidade do Extremo Sul Catarinense</institution>
+				<institution content-type="orgdiv1">Laboratório de Ecologia de Paisagem e de Vertebrados</institution>
+				<institution content-type="orgdiv2">Programa de Pós-Graduação em Ciências Ambientais</institution>
+				<addr-line>
+					<city>Criciúma</city>
+					<state>SC</state>
+				</addr-line>
+				<country country="BR">Brasil</country>
+			</aff>
+			<aff id="aff2">
+				<label>2</label>
+				<institution content-type="original">Universidade do Extremo Sul Catarinense (UNESC), Laboratório de Zoologia e Ecologia de Vertebrados (LABZEV), Programa de Pós-Graduação em Ciências Ambientais (PPGCA). Criciúma, SC, Brasil.</institution>
+				<institution content-type="orgname">Universidade do Extremo Sul Catarinense</institution>
+				<institution content-type="orgdiv1">Laboratório de Zoologia e Ecologia de Vertebrados</institution>
+				<institution content-type="orgdiv2">Programa de Pós-Graduação em Ciências Ambientais</institution>
+				<addr-line>
+					<city>Criciúma</city>
+					<state>SC</state>
+				</addr-line>
+				<country country="BR">Brasil</country>
+			</aff>
+			<author-notes>
+				<corresp id="c1">
+					<label><sup>3</sup></label>E-mail: <email>gustavoluzbio@gmail.com</email>
+				</corresp>
+				<corresp id="c2">
+					<label><sup>4</sup></label>E-mail: <email>f.carvalho@unesc.net</email>
+				</corresp>
+				<corresp id="c3">
+					<label><sup>5</sup></label>E-mail: <email>jjz@unesc.net</email> (corresponding author)</corresp>
+				<fn fn-type="edited-by" id="fn1">
+					<label>Edited by:</label>
+					<p> Luís Fábio Silveira</p>
+				</fn>
+				<fn fn-type="con" id="fn2">
+					<label><bold>AUTHORS’ CONTRIBUTIONS:</bold></label>
+					<p><bold>GSL:</bold> Investigation; <bold>GSL, JJZ:</bold> Conceptualization, Methodology, Writing - review &amp; editing; <bold>GSL, FC, JJZ:</bold> Formal analysis, Writing - original draft. All authors actively participated in the discussion of the results and reviewed and approved the final version of the manuscript.</p>
+				</fn>
+				<fn fn-type="conflict" id="fn3">
+					<label><bold>CONFLICTS OF INTEREST:</bold></label>
+					<p> Authors declare that there are no conflicts of interest.</p>
+				</fn>
+			</author-notes>
+			<pub-date date-type="pub" publication-format="electronic">
+				<day>15</day>
+				<month>06</month>
+				<year>2022</year>
+			</pub-date>
+			<pub-date date-type="collection" publication-format="electronic">
+				<year>2022</year>
+			</pub-date>
+			<volume>62</volume>
+			<elocation-id>e202262026</elocation-id>
+			<history>
+				<date date-type="received">
+					<day>25</day>
+					<month>08</month>
+					<year>2021</year>
+				</date>
+				<date date-type="accepted">
+					<day>17</day>
+					<month>03</month>
+					<year>2022</year>
+				</date>
+				<date date-type="pub">
+					<day>27</day>
+					<month>04</month>
+					<year>2022</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+					<license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License</license-p>
+				</license>
+			</permissions>
+			<abstract>
+				<title>Abstract</title>
+				<p>Mixed flocks are associations of two or more species that are formed and maintained through mutual behavioral responses, with advantages such as maximizing foraging and protecting against predation. This study aimed to evaluate the composition, temporal dynamics, and presence of core species in mixed flocks of birds in a remnant of the Submontane Atlantic Rain Forest in the Parque Nacional Aparados da Serra, southern Santa Catarina state, Brazil. Data collection took place from October 2016 to September 2017 through monthly campaigns, consisting of three consecutive observation days, with sampling sessions of six hours per day, resulting in a total effort of 216 h of observations. For each contact with the flocks, we recorded the species and number of individuals, stratum of occurrence, substrates of search, and agonistic interactions. We recorded 152 mixed flocks, with a total of 76 species belonging to 24 families, and five orders, with Thraupidae, Tyrannidae, Furnariidae, and Rhynchocyclidae being the richest. The flocks had an average of 4.5 ± 2.7 species and 8.7 ± 5.8 individuals, with richness and the number of individuals being positively correlated (R² = 0.8). Mixed flocks occurred throughout the year. There was a great variation in the number of contacts from October to February (from 5 to 20 contacts). Meanwhile from March to September, the coldest period of the year in the region, the number of contacts did not vary (from 9 to 14 contacts). However, there was no difference in the number of contacts between these months (z = 0.37; <italic>p</italic> = 0.691). <italic>Basileuterus culicivorus</italic> and <italic>Habia rubica</italic> were the core species because, in addition to their high participation (46.7 and 32.9%, respectively), they showed frequent and conspicuous movement and vocalization. Thus, a high capacity to enlist a greater number of individuals from different species for the flocks was demonstrated.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<title>Keywords</title>
+				<kwd>Passeriformes</kwd>
+				<kwd>Heterospecific associations</kwd>
+				<kwd>Core species</kwd>
+				<kwd>Ombrophilous Dense Forest</kwd>
+				<kwd>PARNA Aparados da Serra</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group award-type="contract">
+					<funding-source>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES)</funding-source>
+					<award-id>001</award-id>
+				</award-group>
+				<funding-statement>The first author is grateful to Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) - Finance Code 001, for the Master’s degree scholarship to support this research project. </funding-statement>
+			</funding-group>
+			<counts>
+				<fig-count count="7"/>
+				<table-count count="2"/>
+				<equation-count count="0"/>
+				<ref-count count="34"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUCTION</title>
+			<p>Individuals of multiple bird species can associate by forming mixed flocks, maintained by mutual behavioral responses (<xref ref-type="bibr" rid="B29">Moynihan, 1962</xref>; <xref ref-type="bibr" rid="B21">Machado, 1999</xref>). The evolution of this behavior is related to the advantages of maximizing foraging and protection against predation (<xref ref-type="bibr" rid="B29">Moynihan, 1962</xref>; <xref ref-type="bibr" rid="B32">Powell, 1985</xref>; <xref ref-type="bibr" rid="B4">Alves &amp; Cavalcanti, 1996</xref>; <xref ref-type="bibr" rid="B23">Machado &amp; Rodrigues, 2000</xref>). Although mixed flocks occur frequently in tropical forests (<xref ref-type="bibr" rid="B32">Powell, 1985</xref>; <xref ref-type="bibr" rid="B9">Develey, 2001</xref>; <xref ref-type="bibr" rid="B26">Mangini &amp; Areta, 2018</xref>), their composition, structure, and temporal dynamics remain poorly understood.</p>
+			<p>The composition, size, and frequency of occurrence (FO) of mixed flocks is influenced by multiple factors, including the drop in the participation of species during reproductive periods, variations in the availability of food resources, and presence of migratory species (<xref ref-type="bibr" rid="B4">Alves &amp; Cavalcanti, 1996</xref>; <xref ref-type="bibr" rid="B21">Machado, 1999</xref>; <xref ref-type="bibr" rid="B10">Develey &amp; Peres, 2000</xref>). These factors are generally associated with climatic variation (<xref ref-type="bibr" rid="B21">Machado, 1999</xref>; <xref ref-type="bibr" rid="B10">Develey &amp; Peres, 2000</xref>; <xref ref-type="bibr" rid="B24">Maldonado-Coelho &amp; Marini, 2003</xref>; <xref ref-type="bibr" rid="B26">Mangini &amp; Areta, 2018</xref>). In addition, other factors, such as habitat loss and fragmentation, edge effects, and successional vegetation stage, can also influence the composition and dynamics of mixed flocks in forest environments (<xref ref-type="bibr" rid="B2">Aleixo, 2001</xref>; <xref ref-type="bibr" rid="B27">Marini &amp; Garcia, 2005</xref>).</p>
+			<p>Species associated with mixed flocks present different patterns of interaction and can be categorized into core and assistant species (<xref ref-type="bibr" rid="B32">Powell, 1985</xref>). Core species have a high frequency of participation and conspicuous patterns of movement and vocalization that stimulate the formation and cohesion of the flock (<xref ref-type="bibr" rid="B9">Develey, 2001</xref>). Meanwhile, the assistant species have a secondary role in the flock and can be divided into regular or occasional participants, depending on the frequency of interaction (<xref ref-type="bibr" rid="B29">Moynihan, 1962</xref>).</p>
+			<p>Although mixed flocks of birds occur in almost all vegetation types, they are far more common in Neotropical forests (<xref ref-type="bibr" rid="B32">Powell, 1985</xref>). In Brazil, mixed flocks have been studied extensively in the Atlantic Forest and Amazon biomes, where more than 40% of birds participate in these associations, including species considered endemic and/or threatened (<xref ref-type="bibr" rid="B21">Machado, 1999</xref>; <xref ref-type="bibr" rid="B10">Develey &amp; Peres, 2000</xref>; <xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>). Despite high environmental degradation, the frequency of mixed flocks in the Atlantic Rain Forest is still high (<xref ref-type="bibr" rid="B1">Aleixo, 1997</xref>; <xref ref-type="bibr" rid="B21">Machado, 1999</xref>; <xref ref-type="bibr" rid="B10">Develey &amp; Peres, 2000</xref>; <xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>; <xref ref-type="bibr" rid="B5">Batista <italic>et al.,</italic> 2013</xref>). This biome is considered one of the most biodiverse and threatened ecosystems on the planet (<xref ref-type="bibr" rid="B30">Myers <italic>et al.,</italic> 2000</xref>) and is among the 36 global biodiversity hotspots (<xref ref-type="bibr" rid="B28">Merritt <italic>et al.,</italic> 2019</xref>). In this way, deforestation and loss of species not only represent the loss of taxonomic diversity but also the loss of interspecific interactions in which these species are involved.</p>
+			<p>Studies on the composition and dynamics of heterospecific mixed flocks are vital for understanding the autoecology of the participating species, as they contribute to filling knowledge gaps in tropical environments. Moreover, they are essential for defining biodiversity conservation strategies in fragmented landscapes remaining in tropical forests (<xref ref-type="bibr" rid="B10">Develey &amp; Peres, 2000</xref>; <xref ref-type="bibr" rid="B24">Maldonado-Coelho &amp; Marini, 2003</xref>; <xref ref-type="bibr" rid="B5">Batista <italic>et al.,</italic> 2013</xref>).</p>
+			<p>In this study, we evaluated the composition, temporal dynamics, and presence of core species in mixed flocks of birds in a remnant of the Submontane Atlantic Rain Forest in the Parque Nacional Aparados da Serra, southern Santa Catarina state, Brazil. To the best of our knowledge, there are no previous studies on mixed flocks of birds in this region, and thus, the species involved in these associations, their structure, and their temporal dynamics remain unknown.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>MATERIAL AND METHODS</title>
+			<p>The present study was carried out in the Parque Nacional Aparados da Serra (29°12′18.92″S and 50°3′22.81″W), municipality of Praia Grande, south of Santa Catarina state, southern Brazil (<xref ref-type="fig" rid="f1">Fig. 1</xref>). The Parque Nacional Aparados da Serra is a protected area that covers 130,606 km², extending within the municipalities of Cambará do Sul in the Rio Grande do Sul state and Praia Grande in the Santa Catarina state (<xref ref-type="bibr" rid="B17">IBAMA-MMA, 2004</xref>).</p>
+			<p>
+				<fig id="f1">
+					<label>Figure 1</label>
+					<caption>
+						<title>Location of the study area in Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil.</title>
+					</caption>
+					<graphic xlink:href="1807-0205-paz-62-e202262026-gf1.tif"/>
+				</fig>
+			</p>
+			<p>The altitude of the study area ranges between 200 and 350 m above sea level (<xref ref-type="bibr" rid="B17">IBAMA-MMA, 2004</xref>). The Köppen climate classification is Cfa (humid subtropical, without a dry season, and hot summers), with a mean annual temperature of 19.0 °C. However, the study area is also influenced by the Köppen climate Cfb (humid subtropical, without a dry season, and temperate summers), with an annual average temperature of 16.0 °C (<xref ref-type="bibr" rid="B3">Alvares <italic>et al.,</italic> 2014</xref>). The mean temperature in the coldest periods (June-August) ranges close to 7.2°C and the annual rainfall ranges from 1,220 to 1,660 mm, with an annual total of 102-150 rainy days (<xref ref-type="bibr" rid="B11">EPAGRI, 2001</xref>).</p>
+			<p>The study area was covered by a Submontane Atlantic Rain Forest (<xref ref-type="bibr" rid="B17">IBAMA-MMA, 2004</xref>; <xref ref-type="bibr" rid="B16">IBGE, 2012</xref>) (<xref ref-type="fig" rid="f2">Fig. 2A</xref>). The vegetation was in the secondary successional stage of regeneration, predominantly in the early and medium stages, where the canopy varies from 6-15 m in height from the ground (<xref ref-type="fig" rid="f2">Fig. 2B</xref>). The understory is denser along the forest border, where Melastomataceae, Rubiaceae, Poaceae, and several pteridophytes predominate (<xref ref-type="fig" rid="f2">Fig. 2D</xref>), and less dense inside the forest (<xref ref-type="fig" rid="f2">Fig. 2C</xref>), where numerous lianas and epiphytes, especially bromeliads of the genus <italic>Vriesea</italic> persist (<xref ref-type="fig" rid="f2">Fig. 2E</xref>).</p>
+			<p>
+				<fig id="f2">
+					<label>Figure 2</label>
+					<caption>
+						<title>(A-E) Images of Atlantic Rain Forest in the lower part of Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil. (A) overview of Submontane Atlantic Rain Forest; (B) detail of canopy height; (C) detail of the understory within the forest; (D) detail of understory at the forest edge; (E) presence of lianas and bromeliads in the understory within the forest.</title>
+					</caption>
+					<graphic xlink:href="1807-0205-paz-62-e202262026-gf2.tif"/>
+				</fig>
+			</p>
+			<p>Data on the detection of mixed flocks were collected between October 2016 and September 2017 in 12 monthly campaigns over three consecutive days. Sampling was carried out along a main trail of three kilometers, containing perpendicular trails ranging from 200 to 300 m (<xref ref-type="fig" rid="f3">Fig. 3</xref>), covering inland environments and edges of the Submontane Forest. The group formed by the main and secondary trails was divided into three sectors (<xref ref-type="fig" rid="f3">Fig. 3</xref>). Each sector was sampled in one day during sampling sessions of six hours each; 60% in the morning, starting after sunrise, and the remainder in the afternoon, ending before dusk (<xref ref-type="bibr" rid="B21">Machado, 1999</xref> adapted), totaling 216 h of data collection (36 d).</p>
+			<p>
+				<fig id="f3">
+					<label>Figure 3</label>
+					<caption>
+						<title>Distribution of the three sampling sectors (I, II, and III) in the study area, in Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil.</title>
+					</caption>
+					<graphic xlink:href="1807-0205-paz-62-e202262026-gf3.tif"/>
+				</fig>
+			</p>
+			<p>Mixed flocks were detected through visual observations, aided by binoculars (8 × 42), contact calls, and aural records. Mixed flocks were defined as the association of two or more individuals of at least two distinct species following each other along the same route for a minimum period of five minutes while looking for food (<xref ref-type="bibr" rid="B34">Stotz, 1993</xref>). Due to difficulties in access and movement in the area, because of the slope of the terrain and the dense understory, some groups were followed in the direction of displacement only when they moved close to the trails, as suggested by <xref ref-type="bibr" rid="B21">Machado (1999</xref>).</p>
+			<p>Per the recommendations from <xref ref-type="bibr" rid="B21">Machado (1999</xref>), when in contact with a mixed flock, we recorded the time and contact time (start and end time, with a maximum observation time of 15 min), species observed, number of individuals of each species, type of record (visual or aural), and stratum of occurrence (understory or canopy) occupied by each species. When possible, search substrates (soil, litter, trunks, branches, leaves, flowers, and air), types of food items consumed (arthropods, fruits, seeds, buds, leaves, nectar, and flowers), and agonistic interactions (physical aggression and flight chase) were recorded, as suggested by <xref ref-type="bibr" rid="B12">Fitzpatrick (1980</xref>). Taxonomic nomenclature followed the proposition adopted by the Brazilian Committee of Ornithological Records (<xref ref-type="bibr" rid="B31">Pacheco <italic>et al.,</italic> 2021</xref>).</p>
+			<p>The FO of a species in mixed flocks was defined as the proportion of flocks in which it was present among the total registered flocks. The species were then classified into the following categories: regular (FO ≥ 25%), common (10 ≤ FO ≤ 24.9%), unusual (3.0 ≤ FO ≤ 9.9%), and rare species (FO ≤ 2.9%) (<xref ref-type="bibr" rid="B21">Machado, 1999</xref>).</p>
+			<p>The relationship between species richness and the number of individuals in mixed flocks was assessed using simple linear regression. To analyze the temporal variation in the frequency of mixed flocks per campaign (number of contacts), size of the flocks (number of individuals), and richness of the flocks throughout the year, the Rayleigh test (Z) was used, with a significance level of 0.05, calculated using the Oriana software, version 4.3 (<xref ref-type="bibr" rid="B18">Kovach, 2011</xref>).</p>
+			<p>To determine which of the recorded species acted as core species, the performance of each species in the formation and maintenance of the cohesion of the flocks was evaluated. In this case, the requirements proposed by <xref ref-type="bibr" rid="B32">Powell (1985</xref>) and <xref ref-type="bibr" rid="B21">Machado (1999</xref>) were considered: (1) neutral color patterns (<italic>e.g.,</italic> olive, yellow, brown, black, and without spots) - these are considered less aggressive plumes which potentially facilitate interspecific association; (2) movement - species that move during foraging cause local disturbances that attract other individuals to the flock; (3) vocalization - species that vocalize strongly during foraging reinforce the attraction and keep individuals cohesive to the flock; (4) FO in flocks - core species participate with a high frequency in mixed flocks; (5) size of the intraspecific group within the flock - quantitative data that measures the natural tendency to gregariousness of the core species (s) in the flocks; and (6) the size of the interspecific group - the total number of individuals in the mixed flock. Species were selected if they met at least four of the six requirements listed above. Next, we used a Student’s t-test, with a significance level of 0.05, calculated using the PAST 3.25 software (<xref ref-type="bibr" rid="B15">Hammer <italic>et al.,</italic> 2001</xref>), to assess whether mixed flocks are richer in the number of species due to the presence of the core species when they are aggregated or solitary among the mixed flocks. Data are presented as mean ± standard deviation (SD).</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTS</title>
+			<p>We recorded 152 mixed flocks, with 76 participating species belonging to five orders and 24 families. Passeriformes (n = 68 species) had the highest richness, mostly represented by the families Thraupidae (n = 15), Tyrannidae (n = 8), Furnariidae (n = 6), and Rhynchocyclidae (n = 6). Cuculiformes and Apodiformes were recorded in only one species each, Trogoniformes in two, and Piciformes in four (<xref ref-type="table" rid="t1">Table 1</xref>).</p>
+			<p>
+				<table-wrap id="t1">
+					<label>Table 1</label>
+					<caption>
+						<title>Bird species participating in mixed flocks, in Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil, between October 2016 and September 2017. Frequency of occurrence of species in the mixed flocks (FO, %). Categories of frequency of occurrence of species (FC): Regular (RE) FO ≥ 25.0%, Common (COM) 10.0 ≤ FO ≤ 24.99%, Unusual (U) 3.0 ≤ FO ≤ 9.99%, and Rare (RA) FO ≤ 2.99%. Foraging stratum (FS): Understory (Und) and Canopy (Can).</title>
+					</caption>
+					<table>
+						<colgroup>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="center">Taxa</th>
+								<th align="center">Range of Number of Individuals in the Flocks</th>
+								<th align="center">Number of Contacts</th>
+								<th align="center">FO (%)</th>
+								<th align="center">FC</th>
+								<th align="center">FS</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left"><bold>Cuculiformes</bold> Wagler, 1830</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Cuculidae</bold> Leach, 1820</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Piaya cayana</italic> (Linnaeus, 1766)</td>
+								<td align="center">1</td>
+								<td align="center">3</td>
+								<td align="center">2.0</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Apodiformes</bold> Peters, 1940</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Trochilidae</bold> Vigors, 1825</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Thalurania glaucopis</italic> (Gmelin, 1788)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Trogoniformes</bold> A.O.U., 1886</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Trogonidae</bold> Lesson, 1828</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Trogon surrucura</italic> Vieillot, 1817</td>
+								<td align="center">1-2</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Trogon chrysochloros</italic> Pelzeln, 1856</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Piciformes</bold> Meyer &amp; Wolf, 1810</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Picidae</bold> Leach, 1820</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Picumnus temminckii</italic> Lafresnaye, 1845</td>
+								<td align="center">1</td>
+								<td align="center">3</td>
+								<td align="center">2.0</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Veniliornis spilogaster</italic> (Wagler, 1827)</td>
+								<td align="center">1-2</td>
+								<td align="center">8</td>
+								<td align="center">5.3</td>
+								<td align="center">U</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Celeus flavescens</italic> (Gmelin, 1788)</td>
+								<td align="center">2</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Piculus aurulentus</italic> (Temminck, 1821)</td>
+								<td align="center">1-2</td>
+								<td align="center">6</td>
+								<td align="center">3.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Passeriformes</bold> Linnaeus, 1758</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Thamnophilidae</bold> Swainson, 1824</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Rhopias gularis</italic> (Spix, 1825)</td>
+								<td align="center">2-4</td>
+								<td align="center">3</td>
+								<td align="center">2.0</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Dysithamnus mentalis</italic> (Temminck, 1823)</td>
+								<td align="center">1-4</td>
+								<td align="center">28</td>
+								<td align="center">18.4</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Thamnophilus caerulescens</italic> Vieillot, 1816</td>
+								<td align="center">1-2</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Myrmoderus squamosus</italic> (Pelzeln, 1868)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Conopophagidae</bold> Sclater &amp; Salvin, 1873</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Conopophaga lineata</italic> (Wied, 1831)</td>
+								<td align="center">1</td>
+								<td align="center">5</td>
+								<td align="center">3.3</td>
+								<td align="center">U</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Formicariidae</bold> Gray, 1840</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Chamaeza campanisona</italic> (Lichtenstein, 1823)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Scleruridae</bold> Swainson, 1827</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Sclerurus scansor</italic> (Ménétries, 1835)</td>
+								<td align="center">1-2</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Dendrocolaptidae</bold> Gray, 1840</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Sittasomus griseicapillus</italic> (Vieillot, 1818)</td>
+								<td align="center">1-3</td>
+								<td align="center">39</td>
+								<td align="center">25.7</td>
+								<td align="center">RE</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Dendrocolaptes platyrostris</italic> Spix, 1825</td>
+								<td align="center">1</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Xiphorhynchus fuscus</italic> (Vieillot, 1818)</td>
+								<td align="center">1-2</td>
+								<td align="center">37</td>
+								<td align="center">24.3</td>
+								<td align="center">COM</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Lepidocolaptes falcinellus</italic> (Cabanis &amp; Heine, 1859)</td>
+								<td align="center">1-2</td>
+								<td align="center">5</td>
+								<td align="center">3.3</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Xenopidae</bold> Bonaparte, 1854</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Xenops rutilans</italic> Temminck, 1821</td>
+								<td align="center">1-2</td>
+								<td align="center">6</td>
+								<td align="center">3.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Furnariidae</bold> Gray, 1840</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Heliobletus contaminatus</italic> Pelzeln, 1859</td>
+								<td align="center">1-2</td>
+								<td align="center">7</td>
+								<td align="center">4.6</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Philydor atricapillus</italic> (Wied, 1821)</td>
+								<td align="center">1-4</td>
+								<td align="center">29</td>
+								<td align="center">19.1</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Anabacerthia amaurotis</italic> (Temminck, 1823)</td>
+								<td align="center">1-3</td>
+								<td align="center">11</td>
+								<td align="center">7.2</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Syndactyla rufosuperciliata</italic> (Lafresnaye, 1832)</td>
+								<td align="center">1</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Dendroma rufa</italic> (Vieillot, 1818)</td>
+								<td align="center">1-6</td>
+								<td align="center">15</td>
+								<td align="center">9.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Synallaxis ruficapilla</italic> Vieillot, 1819</td>
+								<td align="center">1-2</td>
+								<td align="center">6</td>
+								<td align="center">3.9</td>
+								<td align="center">U</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Pipridae</bold> Rafinesque, 1815</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Chiroxiphia caudata</italic> (Shaw &amp; Nodder, 1793)</td>
+								<td align="center">1-4</td>
+								<td align="center">13</td>
+								<td align="center">8.6</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Tityridae</bold> Gray, 1840</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Schiffornis virescens</italic> (Lafresnaye, 1838)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Pachyramphus castaneus</italic> (Jardine &amp; Selby, 1827)</td>
+								<td align="center">1-4</td>
+								<td align="center">6</td>
+								<td align="center">3.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Pachyramphus polychopterus</italic> (Vieillot, 1818)</td>
+								<td align="center">1-2</td>
+								<td align="center">7</td>
+								<td align="center">4.6</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Pachyramphus validus</italic> (Lichtenstein, 1823)</td>
+								<td align="center">1-6</td>
+								<td align="center">6</td>
+								<td align="center">3.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Platyrinchidae</bold> Bonaparte, 1854</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Platyrinchus mystaceus</italic> Vieillot, 1818</td>
+								<td align="center">1-4</td>
+								<td align="center">17</td>
+								<td align="center">11.2</td>
+								<td align="center">COM</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Rhynchocyclidae</bold> Berlepsch, 1907</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Mionectes rufiventris</italic> Cabanis, 1846</td>
+								<td align="center">1</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Leptopogon amaurocephalus</italic> Tschudi, 1846</td>
+								<td align="center">1-2</td>
+								<td align="center">15</td>
+								<td align="center">9.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Phylloscartes ventralis</italic> (Temminck, 1824)</td>
+								<td align="center">1-5</td>
+								<td align="center">20</td>
+								<td align="center">13.2</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Tolmomyias sulphurescens</italic> (Spix, 1825)</td>
+								<td align="center">1</td>
+								<td align="center">6</td>
+								<td align="center">3.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Poecilotriccus plumbeiceps</italic> (Lafresnaye, 1846)</td>
+								<td align="center">3</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Hemitriccus obsoletus</italic> (Miranda-Ribeiro, 1906)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Tyrannidae</bold> Vigors, 1825</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Tyranniscus burmeisteri</italic> (Cabanis &amp; Heine, 1859)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Camptostoma obsoletum</italic> (Temminck, 1824)</td>
+								<td align="center">1-2</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Phyllomyias virescens</italic> (Temminck, 1824)</td>
+								<td align="center">1</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Attila rufus</italic> (Vieillot, 1819)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Myiarchus swainsoni</italic> Cabanis &amp; Heine, 1859</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Myiodynastes maculatus</italic> (Statius Muller, 1776)</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Megarynchus pitangua</italic> (Linnaeus, 1766)</td>
+								<td align="center">1</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Lathrotriccus euleri</italic> (Cabanis, 1868)</td>
+								<td align="center">1-2</td>
+								<td align="center">7</td>
+								<td align="center">4.6</td>
+								<td align="center">U</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Vireonidae</bold> Swainson, 1837</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Cyclarhis gujanensis</italic> (Gmelin, 1789)</td>
+								<td align="center">1</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Ca</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Hylophilus poicilotis</italic> Temminck, 1822</td>
+								<td align="center">1-3</td>
+								<td align="center">9</td>
+								<td align="center">5.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Vireo chivi</italic> (Vieillot, 1817)</td>
+								<td align="center">1-4</td>
+								<td align="center">23</td>
+								<td align="center">15.1</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Troglodytidae</bold> Swainson, 1831</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Troglodytes musculus</italic> Naumann, 1823</td>
+								<td align="center">1</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Turdidae</bold> Rafinesque, 1815</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Turdus rufiventris</italic> Vieillot, 1818</td>
+								<td align="center">1-3</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Turdus subalaris</italic> (Seebohm, 1887)</td>
+								<td align="center">2-5</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Turdus albicollis</italic> Vieillot, 1818</td>
+								<td align="center">1-4</td>
+								<td align="center">22</td>
+								<td align="center">14.5</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Fringillidae</bold> Leach, 1820</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Euphonia violacea</italic> (Linnaeus, 1758)</td>
+								<td align="center">1-4</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Euphonia pectoralis</italic> (Latham, 1801)</td>
+								<td align="center">1-2</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Icteridae</bold> Vigors, 1825</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Cacicus chrysopterus</italic> (Vigors, 1825)</td>
+								<td align="center">1-3</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Icterus pyrrhopterus</italic> (Vieillot, 1819)</td>
+								<td align="center">4-4</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Parulidae</bold> Wetmore, Friedmann, Lincoln, Miller, Peters, van Rossem, Van Tyne &amp; Zimmer, 1947</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Setophaga pitiayumi</italic> (Vieillot, 1817)</td>
+								<td align="center">1-4</td>
+								<td align="center">33</td>
+								<td align="center">21.7</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Myiothlypis leucoblephara</italic> (Vieillot, 1817)</td>
+								<td align="center">1-3</td>
+								<td align="center">12</td>
+								<td align="center">7.9</td>
+								<td align="center">U</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Basileuterus culicivorus</italic> (Deppe, 1830)</td>
+								<td align="center">1-8</td>
+								<td align="center">71</td>
+								<td align="center">46.7</td>
+								<td align="center">RE</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Cardinalidae</bold> Ridgway, 1901</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Habia rubica</italic> (Vieillot, 1817)</td>
+								<td align="center">1-8</td>
+								<td align="center">50</td>
+								<td align="center">32.9</td>
+								<td align="center">RE</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><bold>Thraupidae</bold> Cabanis, 1847</td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+								<td align="left"> </td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Hemithraupis ruficapilla</italic> (Vieillot, 1818)</td>
+								<td align="center">2-5</td>
+								<td align="center">11</td>
+								<td align="center">7.2</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Tersina viridis</italic> (Illiger, 1811)</td>
+								<td align="center">2-5</td>
+								<td align="center">4</td>
+								<td align="center">2.6</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Dacnis cayana</italic> (Linnaeus, 1766)</td>
+								<td align="center">1-2</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Saltator similis</italic> d’Orbigny &amp; Lafresnaye, 1837</td>
+								<td align="center">1</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Coereba flaveola</italic> (Linnaeus, 1758)</td>
+								<td align="center">1</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Trichothraupis melanops</italic> (Vieillot, 1818)</td>
+								<td align="center">1-8</td>
+								<td align="center">21</td>
+								<td align="center">13.8</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Tachyphonus coronatus</italic> (Vieillot, 1822)</td>
+								<td align="center">1-4</td>
+								<td align="center">23</td>
+								<td align="center">15.1</td>
+								<td align="center">COM</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Haplospiza unicolor</italic> Cabanis, 1851</td>
+								<td align="center">1-4</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Pipraeidea melanonota</italic> (Vieillot, 1819)</td>
+								<td align="center">1-6</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Stephanophorus diadematus</italic> (Temminck, 1823)</td>
+								<td align="center">1-2</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Thraupis sayaca</italic> (Linnaeus, 1766)</td>
+								<td align="center">1-4</td>
+								<td align="center">6</td>
+								<td align="center">3.9</td>
+								<td align="center">U</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Thraupis cyanoptera</italic> (Vieillot, 1817)</td>
+								<td align="center">1-4</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Stilpnia preciosa</italic> (Cabanis, 1850)</td>
+								<td align="center">1-5</td>
+								<td align="center">3</td>
+								<td align="center">2</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Tangara seledon</italic> (Statius Muller, 1776)</td>
+								<td align="center">3-6</td>
+								<td align="center">2</td>
+								<td align="center">1.3</td>
+								<td align="center">RA</td>
+								<td align="center">Und, Can</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>Tangara cyanocephala</italic> (Statius Muller, 1776)</td>
+								<td align="center">2-2</td>
+								<td align="center">1</td>
+								<td align="center">0.7</td>
+								<td align="center">RA</td>
+								<td align="center">Und</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+			<p>The mixed flocks comprised a mean 4.5 ± 2.7 species, with a minimum of 2 and a maximum of 14 species, while the mean number of individuals was 8.7 ± 5.8, ranging between 2 and 31. Flocks with a greater number of individuals had greater species richness (R² = 0.83%; <italic>p</italic> &lt; 0.05; <italic>df</italic> = 151; <xref ref-type="fig" rid="f4">Fig. 4</xref>). Regarding the FO, only three species were classified as regular: <italic>Basileuterus culicivorus</italic> (FO = 46.7%), <italic>Habia rubica</italic> (FO = 32.9%), and <italic>Sittasomus griseicapillus</italic> (FO = 25.7%), representing 3.9% of the total richness. Common species (n = 10 spp.) accounted for 13.1% of the species richness, whereas unusual species (n = 20 spp.) accounted for 26.3%. The remaining 43 species (56.5% of total richness) were rare (<xref ref-type="table" rid="t1">Table 1</xref>).</p>
+			<p>
+				<fig id="f4">
+					<label>Figure 4</label>
+					<caption>
+						<title>Simple linear regression of the relationship between species richness and the number of individuals from mixed flocks of birds, in Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil, between October 2016 and September 2017.</title>
+					</caption>
+					<graphic xlink:href="1807-0205-paz-62-e202262026-gf4.tif"/>
+				</fig>
+			</p>
+			<p>Six events of agonistic behavior between species were observed. Of these, three intraspecific species, including <italic>H. rubica</italic> (two events) and <italic>Turdus subalaris</italic> (one event), and three interspecific species, including <italic>Lathrotriccus euleri</italic> (two events), one against <italic>Myiothlypis leucoblephara,</italic> the other against <italic>Platyrinchus mystaceus,</italic> and finally, <italic>Turdus albicollis</italic> against an individual of <italic>Turdus rufiventris,</italic> who was not part of the flock.</p>
+			<p>Mixed flocks occurred throughout the year, with variations in their frequencies. From October to February, a greater number of flocks were detected with a wide fluctuation in the number of contacts in October (n = 17), November (n = 12), December (n = 5), January (n = 20), and February (n = 18). Between March and September, fewer flocks were detected with less variation; March (n = 9), April (n = 14), May (n = 11), June (n = 12), July (n = 14), and August and September (n = 10, each). There were no differences observed in the number of contacts between months (z = 0.369; <italic>p</italic> = 0.691); therefore, no peak was observed (<xref ref-type="fig" rid="f5">Fig. 5</xref>).</p>
+			<p>
+				<fig id="f5">
+					<label>Figure 5</label>
+					<caption>
+						<title>Variation in the number of contacts of mixed flocks of birds per month, in Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil, between October 2016 and September 2017.</title>
+					</caption>
+					<graphic xlink:href="1807-0205-paz-62-e202262026-gf5.tif"/>
+				</fig>
+			</p>
+			<p>The average species richness in the mixed flocks (4.5 ± 2.7 species) did not differ throughout the year (z = 0.005; p = 0.995; <xref ref-type="fig" rid="f6">Fig. 6</xref>), and there was no difference in the average number of individuals per flock (z = 0.572; p = 0.564; <xref ref-type="fig" rid="f7">Fig. 7</xref>).</p>
+			<p>
+				<fig id="f6">
+					<label>Figure 6</label>
+					<caption>
+						<title>Monthly variation in the average richness of mixed flocks of birds, in Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil, between October 2016 and September 2017.</title>
+					</caption>
+					<graphic xlink:href="1807-0205-paz-62-e202262026-gf6.tif"/>
+				</fig>
+			</p>
+			<p>
+				<fig id="f7">
+					<label>Figure 7</label>
+					<caption>
+						<title>Monthly variation of the average size (in the number of individuals) of the mixed flocks of birds, in Parque Nacional Aparados da Serra, municipality of Praia Grande, southern Santa Catarina, Brazil, between October 2016 and September 2017.</title>
+					</caption>
+					<graphic xlink:href="1807-0205-paz-62-e202262026-gf7.tif"/>
+				</fig>
+			</p>
+			<p>Among the 76 species participating in the mixed flocks, <italic>B. culicivorus</italic> and <italic>H. rubica</italic> had the highest frequency of participation (<xref ref-type="table" rid="t1">Table 1</xref>) and presented physical and behavioral characteristics that allowed them to be classified as core species (<xref ref-type="table" rid="t2">Table 2</xref>). <italic>Basileuterus culicivorus</italic> was the most frequent species in the flocks (<xref ref-type="table" rid="t1">Table 1</xref>) and generally occurred at a frequency of two to four individuals, always exhibiting intense movement and strong vocalization. These individuals were present from the understory to the canopy and used different substrates, such as thin trunks, branches, and leaves, to forage for arthropods, seeds, insects, and small larvae. In addition, individuals of this species have been observed alone on a few occasions and are most commonly seen in pairs or in small monospecific flocks. <italic>Habia rubica,</italic> in turn, was the second most frequent species in the mixed flocks, always occurring in the understory and represented by groups of two to eight members (<xref ref-type="table" rid="t1">Table 1</xref>). Usually, <italic>H. rubica</italic> forages along branches, trunks, and leaves, where it preys upon small arthropods, insects, and larvae. The mixed flocks in which <italic>B. culicivorus</italic> and <italic>H. rubica</italic> occurred (n = 95) were richer (4.9 ± 2.8 species) than in those (n = 57) where they did not occur (3.6 ± 2.2 species; t = 2.845; <italic>p</italic> = 0.005).</p>
+			<p>
+				<table-wrap id="t2">
+					<label>Table 2</label>
+					<caption>
+						<title>Physical and behavioral characteristics of the two most frequent species in mixed flocks of birds (n = 152), recorded in PARNA of Aparados da Serra, municipality of Praia Grande, southern Santa Catarina state, Brazil, between October 2016 and September 2017.</title>
+					</caption>
+					<table>
+						<colgroup>
+							<col/>
+							<col span="2"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="center" rowspan="2">Physical and Behavioral Characteristics</th>
+								<th align="center" colspan="2">Species </th>
+							</tr>
+							<tr>
+								<th align="center"><bold>
+ <italic>B. culicivorus</italic> 
+</bold></th>
+								<th align="center"><bold>
+ <italic>H. rubica</italic> 
+</bold></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left">Neutral coloring</td>
+								<td align="center">Yes</td>
+								<td align="center">Yes</td>
+							</tr>
+							<tr>
+								<td align="left">Vocalization</td>
+								<td align="center">Conspicuous</td>
+								<td align="center">Conspicuous</td>
+							</tr>
+							<tr>
+								<td align="left">Movement intensity</td>
+								<td align="center">High</td>
+								<td align="center">High</td>
+							</tr>
+							<tr>
+								<td align="left">Frequency of occurrence</td>
+								<td align="center">Regular</td>
+								<td align="center">Regular</td>
+							</tr>
+							<tr>
+								<td align="left">Number of contacts</td>
+								<td align="center">71</td>
+								<td align="center">50</td>
+							</tr>
+							<tr>
+								<td align="left">Number of individuals in the intraspecific groups</td>
+								<td align="center">2.9 ± 1.5</td>
+								<td align="center">3.6 ± 1.3</td>
+							</tr>
+							<tr>
+								<td align="left">Richness of flocks without the presence of the other species</td>
+								<td align="center">4.0 ± 2.2 (n = 47)</td>
+								<td align="center">4.8 ± 2.7 (n = 26)</td>
+							</tr>
+							<tr>
+								<td align="left">Richness of flocks without the presence of the two species</td>
+								<td align="center" colspan="2">3.6 ± 2.2 (n = 57)</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSION</title>
+			<p>The species richness recorded in the present study (76 species) was similar to that found in the Southeast Atlantic Rain Forest by <xref ref-type="bibr" rid="B8">Davis (1946</xref>), <xref ref-type="bibr" rid="B10">Develey &amp; Peres (2000</xref>), and <xref ref-type="bibr" rid="B24">Maldonado-Coelho &amp; Marini (2003</xref>), who reported, 77, 72, and 78 species, respectively. In contrast, considering the studies conducted in the southern Atlantic Rain Forest region, the species richness recorded in our study was higher than that found by <xref ref-type="bibr" rid="B14">Ghizoni-Jr. &amp; Azevedo (2006</xref>) and <xref ref-type="bibr" rid="B13">Ghizoni-Jr. (2009</xref>), who recorded 64 and 56 species, respectively, but lower than that recorded by <xref ref-type="bibr" rid="B6">Brandt <italic>et al.</italic> (2009</xref>), who recorded 117 species. The highest richness of species in mixed flocks in the Atlantic Rain Forest biome was recorded by <xref ref-type="bibr" rid="B21">Machado (1999</xref>), in the upper region of Serra do Paranapiacaba, São Paulo state, where 120 species were recorded. However, in the study by <xref ref-type="bibr" rid="B21">Machado (1999</xref>), in addition to the diversity of sampled environments, the number of hours of sampling (n = 432 h) was much higher than that of the present study (n = 216 h). Therefore, the diversity detected in the present study can be considered representative as it covered all four seasons of the year and was conducted during both the reproductive and non-reproductive periods.</p>
+			<p>Migratory species also contributed to the recorded species richness. Among these, <italic>Vireo chivi</italic> stands out, which, according to <xref ref-type="bibr" rid="B20">Machado (1997</xref>), is recognized as a regular participant in mixed flocks within the Atlantic Rain Forest. This species remains in the southern region of Brazil (<xref ref-type="bibr" rid="B33">Sick, 1997</xref>) for only six to seven months and participated in the flocks from October 24, 2016, to April 20, 2017 (first and last records). However, it was among the most frequent in flocks, a result supported by the findings of <xref ref-type="bibr" rid="B20">Machado (1997</xref>, <xref ref-type="bibr" rid="B21">1999</xref>). Generally, <italic>V. chivi</italic> accompanies flocks in pairs through the canopy and sometimes within the medium understory where it uses various substrates such as thin trunks, branches, and leaves to forage for seeds and small fruits. Other registered migratory birds that caused seasonal displacement in the region were <italic>T. subalaris, L. euleri, Myiarchus swainsoni, Haplospiza unicolor, Myiodynastes maculatus,</italic> and <italic>Pachyramphus polychopterus.</italic> These last three species were also recorded by <xref ref-type="bibr" rid="B6">Brandt <italic>et al.</italic> (2009</xref>) and are considered potential members of mixed flocks by <xref ref-type="bibr" rid="B20">Machado (1997</xref>). The low values found for the average richness of species in the flocks and average size of the flocks in relation to other studies carried out in Brazil can be explained by the diversity of species that is accompanied by changes along the latitudinal gradient between the Atlantic Rain Forest and Amazon biomes (<xref ref-type="bibr" rid="B10">Develey &amp; Peres, 2000</xref>). In addition to biogeographic factors, the successional stages of vegetation may also influence species composition, richness, and the size of registered flocks, as mentioned by <xref ref-type="bibr" rid="B1">Aleixo (1997</xref>) and <xref ref-type="bibr" rid="B24">Maldonado-Coelho &amp; Marini (2003</xref>).</p>
+			<p>Neotropical mixed flocks are either primarily or exclusively composed of passerines (<xref ref-type="bibr" rid="B29">Moynihan, 1962</xref>). They are stable flocks formed by a couple of species, mainly insectivorous and omnivorous birds (<xref ref-type="bibr" rid="B32">Powell, 1985</xref>), which is justified by the observations made during the present study. However, this does not mean that other orders cannot be typical followers of mixed flocks, such as Cuculiformes, Trogoniformes, and Piciformes, which were recorded here and are commonly reported in other studies of mixed flocks in the Atlantic Rain Forest. <italic>Piaya cayana</italic> specimens were always observed alone, discreetly following the mixed flocks through the upper understory where they captured arthropods disturbed by the flocks. This was also observed in the middle understory of <italic>Trogon surrucura</italic> and <italic>Trogon chrysochloros,</italic> although the participation of trogonids in mixed flocks is considered rare (<xref ref-type="bibr" rid="B21">Machado, 1999</xref>). In the present study, these two species followed the flocks for long periods of time (more than 15 min). In contrast, <italic>Picumnus temminckii, Veniliornis spilogaster,</italic> and <italic>Piculus aurulentus</italic> benefited mainly from protection against predators, as their diets are composed of larvae and not arthropods disturbed by the flock (<xref ref-type="bibr" rid="B21">Machado, 1999</xref>). The participation of <italic>Thalurania glaucopis</italic> in mixed flocks may be related to a response to the aggregation instinct or even to the temporary protection obtained by the presence of a greater number of individuals (<xref ref-type="bibr" rid="B29">Moynihan, 1962</xref>).</p>
+			<p>Some of the richest families, such as Thraupidae, Tyrannidae, and Furnariidae, observed were also among the most frequent in other studies with mixed flocks of Atlantic Rain Forest birds. This is possibly because a large part of the species belonging to these families are insectivorous, small sized, and have a great capacity to adapt to forest environments (<xref ref-type="bibr" rid="B33">Sick, 1997</xref>), characteristics that facilitate participation in heterospecific associations (<xref ref-type="bibr" rid="B10">Develey &amp; Peres, 2000</xref>; <xref ref-type="bibr" rid="B24">Maldonado-Coelho &amp; Marini, 2003</xref>).</p>
+			<p>Among the “regular species,” <italic>B. culicivorus</italic> was the species with the highest FO; a same result was also found in the Brazilian Southeast Region by <xref ref-type="bibr" rid="B21">Machado (1999</xref>) and in the Brazilian south region by <xref ref-type="bibr" rid="B14">Ghizoni-Jr. &amp; Azevedo (2006</xref>) and <xref ref-type="bibr" rid="B6">Brandt <italic>et al.</italic> (2009</xref>). The other two regular species, <italic>H. rubica</italic> and <italic>S. griseicapillus,</italic> also occurred with a high frequency in other studies (<italic>e.g.,</italic><xref ref-type="bibr" rid="B21">Machado, 1999</xref>; <xref ref-type="bibr" rid="B24">Maldonado-Coelho &amp; Marini, 2003</xref>; <xref ref-type="bibr" rid="B13">Ghizoni-Jr., 2009</xref>). This fact was true for most of the registered “common species,” <italic>Xiphorhynchus fuscus, Philydor atricapillus</italic> (<xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>), <italic>Setophaga pitiayumi, Phylloscartes ventralis</italic> (<xref ref-type="bibr" rid="B13">Ghizoni-Jr., 2009</xref>), <italic>Dysithamnus mentalis</italic> (<xref ref-type="bibr" rid="B8">Davis, 1946</xref>; <xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>), <italic>Tachyphonus coronatus</italic> (<xref ref-type="bibr" rid="B14">Ghizoni-Jr. &amp; Azevedo, 2006</xref>; <xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>), <italic>Trichothraupis melanops</italic> (<xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>; <xref ref-type="bibr" rid="B13">Ghizoni-Jr., 2009</xref>), <italic>T. albicollis</italic><xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>), and <italic>V. chivi</italic> (<xref ref-type="bibr" rid="B20">Machado, 1997</xref>, <xref ref-type="bibr" rid="B21">1999</xref>). The exception was <italic>P. mystaceus,</italic> which in this study alone was among the most frequent.</p>
+			<p>Previous studies on mixed flocks carried out in other regions of the Atlantic Rain Forest found that some of the species registered here as “uncommon” have a marked presence in heterospecific associations. These include <italic>Lepidocolaptes falcinellus, Xenops rutilans, Dendroma rufa, Anabacerthia amaurotis, Heliobletus contaminatus, Leptopogon amaurocephalus, Tolmomyias sulphurescens, Hylophilus poicilotis,</italic> and <italic>Hemithraupis ruficapilla.</italic> Individuals of these species were rarely seen outside the flocks and thus can be considered flock participants in this study.</p>
+			<p>The rare species group accounted for 56.5% of the total richness recorded. This result was similar to that found by <xref ref-type="bibr" rid="B21">Machado (1999</xref>) in the Serra de Paranapiacaba, southeast Brazil, which registered 53.3% of the species as rare. Thus, as observed in this study, these species do not contribute significantly to the cohesion and maintenance of the mixed flocks, while a large proportion of them eventually participated in the flocks. A good example of the latter includes records of <italic>Chamaeza campanisona, Sclerurus scansor, Schiffornis virescens, Rhopias gularis,</italic> and <italic>Myrmoderus squamosus,</italic> which forage in the lower understory and participate in the flocks only when they pass through their territory. The same can be mentioned for <italic>Thamnophilus caerulescens, T. rufiventris, Phyllomyias virescens,</italic> and <italic>Tyranniscus burmeisteri</italic> in the middle understory and <italic>Troglodytes musculus</italic> in border areas. The participation of <italic>Celeus flavescens</italic> and <italic>Hemitriccus obsoletus</italic> was purely accidental; on both occasions when these species were recorded, they were following a separate foraging route and accidentally entered the flock.</p>
+			<p>The agonistic interactions recorded between species participating in mixed flocks, as mentioned by <xref ref-type="bibr" rid="B32">Powell (1985</xref>), may be related to the defense and demarcation of the foraging territory of the flock. Such behaviors structurally reinforce groups, as they prioritize group members to avoid further confrontations, which is beneficial due to the increase in efficiency of use of food resources (<xref ref-type="bibr" rid="B19">Lagory <italic>et al.,</italic> 1984</xref>).</p>
+			<p>In areas of the Atlantic Rain Forest in the southeast, <xref ref-type="bibr" rid="B8">Davis (1946</xref>) and <xref ref-type="bibr" rid="B21">Machado (1999</xref>) found that mixed flocks occur more frequently in the sub-dry season, from April to September, and may present peaks in the coldest months of the year such as July and August. However, this was not observed in the present study, as there were no high frequencies of contact with flocks in the winter months. Concurrently, certain variations in the number of contacts appeared to be similar to the pattern found by <xref ref-type="bibr" rid="B21">Machado (1999</xref>) and <xref ref-type="bibr" rid="B5">Batista <italic>et al.</italic> (2013</xref>). The decrease in the number of contacts with flocks observed between November and December was also recorded by <xref ref-type="bibr" rid="B21">Machado (1999</xref>). This decrease may be linked to the reproductive period of the birds, where most species establish territory during this time of the year and participate with a lower frequency within mixed flocks. This justifies the various reproductive behaviors observed among birds in these months, such as cutting, nest building, and care for nestlings. Contrary to the findings of <xref ref-type="bibr" rid="B8">Davis (1946</xref>) and <xref ref-type="bibr" rid="B21">Machado (1999</xref>), the greatest number of contacts with mixed flocks was obtained in the summer months of January and February in the present study. However, during these months, the flocks were less cohesive, with many young individuals present and greater distances between members, in addition to remaining united for short periods of time. Furthermore, it was observed on many occasions that the flocks disintegrate, either by dilution when the flock fragmented (but followed the same direction) or even by division, with two or more groups following different directions. This fact was also highlighted by <xref ref-type="bibr" rid="B21">Machado (1999</xref>). The flocks remained stable between March and September. In the winter months of June and July, the flocks were cohesive with members remaining close to each other or being united for long periods.</p>
+			<p>As for the variation in the average species richness and average size of the flocks, the decrease observed in the months of November and December may also be related to the reproductive period of the birds. The observed increases in these variables in the summer months of January, February, and March are similar to those found by <xref ref-type="bibr" rid="B8">Davis (1946</xref>) and <xref ref-type="bibr" rid="B21">Machado (1999</xref>); however, in this study, the flocks were less frequent during this period. <xref ref-type="bibr" rid="B21">Machado (1999</xref>) highlighted that the low frequency of flocks in these months may be due to the greater concentration of species in the few formed flocks, resulting in an increase in both the richness and size of the flocks. In this study, unlike <xref ref-type="bibr" rid="B8">Davis (1946</xref>) and <xref ref-type="bibr" rid="B21">Machado (1999</xref>), the increase in the average species richness and average size of the flocks seemed to accompany the monthly flock frequency, mainly in the months of January and February, in which a greater contact number with flocks was registered. Concurrently, the possibility that the inverse relationship may occur in March is not ruled out, being precisely one of the months with the lowest number of contacts with flocks. However, it ranks among the months with the greatest richness and size of registered flocks.</p>
+			<p>Another pattern observed was the increase in species richness and flock size during the winter months, especially in June and July, which was a result also found by <xref ref-type="bibr" rid="B5">Batista <italic>et al.</italic> (2013</xref>) in areas of the Atlantic Rain Forest in the northeast. This increase may be related to the low availability of potential prey items in the winter months, and thus, the birds tend to participate more frequently in flocks to maximize foraging and increase protection against predation (<xref ref-type="bibr" rid="B21">Machado, 1999</xref>).</p>
+			<p>The dynamics of the flocks recorded in this study seem to follow the same trend observed in other studies carried out in the Atlantic Rain Forest (<italic>e.g.,</italic><xref ref-type="bibr" rid="B21">Machado, 1999</xref>; <xref ref-type="bibr" rid="B5">Batista <italic>et al.,</italic> 2013</xref>). Nevertheless, it is important to note that the results obtained for the frequency variation in flock occurrence, species richness, and flock size did not show differences in the respective values throughout the year.</p>
+			<p><italic>Basileuterus culicivorus</italic> and <italic>H. rubica,</italic> due to their high frequency of participation as well as the conspicuous pattern of movement and vocalization, were responsible for the formation of 62.5% of the total registered flocks. In the Atlantic Rain Forest biome, <italic>B. culicivorus</italic> has been considered a nuclear species of mixed flocks in some studies (<italic>e.g.,</italic><xref ref-type="bibr" rid="B24">Maldonado-Coelho &amp; Marini, 2003</xref>; <xref ref-type="bibr" rid="B14">Ghizoni-Jr. &amp; Azevedo, 2006</xref>; <xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>). This species is frequent throughout the year in the study area and exhibits conspicuous behavior and strong vocalization, which is why it was present in 46.7% of the registered flocks. In addition, flocks with the presence of <italic>B. culicivorus</italic> without other nuclear species had a higher average species richness compared to flocks with no nuclear species. These results reinforce the idea that in the Atlantic Forest, <italic>B. culicivorus</italic> plays a fundamental role in the cohesion and maintenance of mixed flocks. However, some authors (<italic>e.g.,</italic><xref ref-type="bibr" rid="B21">Machado, 1999</xref>; <xref ref-type="bibr" rid="B25">Maldonado-Coelho &amp; Marini, 2004</xref>) also cite <italic>H. rubica</italic> as an indispensable species for the cohesion and maintenance of mixed flocks in the Atlantic Rain Forest, noting that its absence can result in the disintegration of the group. <xref ref-type="bibr" rid="B25">Maldonado-Coelho &amp; Marini (2004</xref>) also pointed out that the presence of <italic>H. rubica</italic> in mixed understory flocks in fragments of the Atlantic Rain Forest keeps individuals cohesive during foraging. This was clearly observed in the present study, in which the flocks registered with the presence of <italic>H. rubica</italic> were always cohesive and generally remained together for longer periods of time. Moreover, some species are typical followers of <italic>H. rubica,</italic> such as <italic>P. atricapillus</italic> (<xref ref-type="bibr" rid="B7">Cestari, 2007</xref>), in addition to <italic>S. griseicapillus</italic> and <italic>X. fuscus.</italic> These species forage preferentially on trunks, branches, and leaves, where they capture arthropods, seeds, and small fruits, in addition to searching for epiphytic bromeliads which harbor many insects. Even so, the flocks where <italic>H. rubica</italic> occurred without the presence of the other core species (<italic>B. culicivorus</italic>) also had a higher average species richness than flocks without their presence. This shows the high capacity of this species to attract and retain individuals of different cohesive species, forming mixed flocks. It should be noted, however, that when considering studies with mixed flocks carried out in the southern region of Brazil (<italic>e.g.,</italic><xref ref-type="bibr" rid="B14">Ghizoni-Jr. &amp; Azevedo, 2006</xref>; <xref ref-type="bibr" rid="B13">Ghizoni-Jr., 2009</xref>; <xref ref-type="bibr" rid="B6">Brandt <italic>et al.,</italic> 2009</xref>), <italic>H. rubica</italic> demonstrated the exercise function of nuclear species only in this study.</p>
+			<p>It was observed that the mixed flocks formed during this study were dependent on the presence of <italic>H. rubica</italic> and <italic>B. culicivorus.</italic> Therefore, these species are considered vital for the cohesion and maintenance of the mixed flocks of the Submontane Atlantic Rain Forest in the southern region of Brazil. <xref ref-type="bibr" rid="B22">Machado (2002</xref>), in the southeast Atlantic Rain Forest, found not only one or two core species, but a set of species responsible for the cohesion and maintenance of mixed flocks, which he termed the “core-complex.” <xref ref-type="bibr" rid="B13">Ghizoni-Jr. (2009</xref>) also found evidence of this same pattern in a Mixed Ombrophilous Forest, in the southern region of Brazil. Thus, the flocks recorded in this study without the presence of the two nuclear species may have been formed by a core-complex. However, this consideration is not conclusive, because in addition to these flocks being less rich in species, they were less cohesive and remained united for shorter periods of time.</p>
+		</sec>
+		<sec sec-type="conclusions">
+			<title>CONCLUSIONS</title>
+			<p>The composition and richness of species in the bird assemblage within the mixed flocks were recognized by species already recorded in studies carried out in other areas of the Atlantic Rain Forest. However, the presence of migratory species, and the structure of the vegetation, may have influenced the number of recorded species, as most of the vegetation in the study area comprises plant species typical of the early and middle stages of regeneration. The low average species richness and flock size may be related not only to biogeographic factors but also to the successional stage of vegetation in the study area.</p>
+			<p>The variation in the FO, species richness, and size (in the number of individuals) of the flocks throughout the year may be related to the reproductive period and availability of food resources that occur in the southern region of Brazil, depending on the seasonality present at these latitudes.</p>
+			<p><italic>Basileuterus culicivorus</italic> and <italic>H. rubica</italic> behaved as typical nuclear species, a result that was expected due to their behavior, color pattern, and abundance in the Atlantic Rain Forest in southern Brazil. Thus, as suggested by previous studies on mixed flocks, we reinforce the importance of these two species for the cohesion and maintenance of mixed flocks in the Atlantic Rain Forest.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>ACKNOWLEDGMENTS:</title>
+			<p>The authors would like to thank Gustavo Piletti Plucenio, Bento Tadeu Leandro Junior, Gabriel Schmidt Gonzaga, and Cleiton Dias Teixeira for their kind assistance in fieldwork. Thanks are also due to Danrlei de Conto and Eduarda Fraga Olivo for their help in the final edition of the figures, and to Parque Nacional Aparados da Serra’s Administration for permission to carry out the investigation.</p>
+		</ack>
+		<ref-list>
+			<title>REFERENCES</title>
+			<ref id="B1">
+				<mixed-citation>Aleixo, A. 1997. Composition of mixed-species bird flocks and abundance of flocking species in a semideciduous forest of southeastern Brazil. Ararajuba, 5(6): 11-18.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Aleixo</surname>
+							<given-names>A.</given-names>
+						</name>
+					</person-group>
+					<year>1997</year>
+					<article-title>Composition of mixed-species bird flocks and abundance of flocking species in a semideciduous forest of southeastern Brazil</article-title>
+					<source>Ararajuba</source>
+					<volume>5</volume>
+					<issue>6</issue>
+					<fpage>11</fpage>
+					<lpage>18</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<mixed-citation>Aleixo, A. 2001. Conservação da avifauna da Floresta Atlântica: efeitos da fragmentação e a importância de florestas secundárias. In: Albuquerque, J.; Cândido-Jr., J.F.; Straube, F.C. &amp; Roos, A.L. (Org.). Ornitologia e Conservação: da ciência às estratégias. Tubarão, Ed. Unisul. p. 199-206.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Aleixo</surname>
+							<given-names>A.</given-names>
+						</name>
+					</person-group>
+					<year>2001</year>
+					<chapter-title>Conservação da avifauna da Floresta Atlântica: efeitos da fragmentação e a importância de florestas secundárias</chapter-title>
+					<person-group person-group-type="compiler">
+						<name>
+							<surname>Albuquerque</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>Cândido-Jr.</surname>
+							<given-names>J.F.</given-names>
+						</name>
+						<name>
+							<surname>Straube</surname>
+							<given-names>F.C.</given-names>
+						</name>
+						<name>
+							<surname>Roos</surname>
+							<given-names>A.L.</given-names>
+						</name>
+					</person-group>
+					<source>Ornitologia e Conservação: da ciência às estratégias</source>
+					<publisher-loc>Tubarão</publisher-loc>
+					<publisher-name>Ed. Unisul</publisher-name>
+					<fpage>199</fpage>
+					<lpage>206</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<mixed-citation>Alvares, C.A.; Starpe, J.L.; Sentelhas, P.C.; Gonçalves, J.L.M. &amp; Sparovek, G. 2014. Köppen’s climate classification map for Brazil. Meteorologische Zeitschrift, Garmisch-Partenkirchen, 22(6): 711-728. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1127/0941-2948/2013/0507">https://doi.org/10.1127/0941-2948/2013/0507</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Alvares</surname>
+							<given-names>C.A.</given-names>
+						</name>
+						<name>
+							<surname>Starpe</surname>
+							<given-names>J.L.</given-names>
+						</name>
+						<name>
+							<surname>Sentelhas</surname>
+							<given-names>P.C.</given-names>
+						</name>
+						<name>
+							<surname>Gonçalves</surname>
+							<given-names>J.L.M.</given-names>
+						</name>
+						<name>
+							<surname>Sparovek</surname>
+							<given-names>G.</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Köppen’s climate classification map for Brazil</article-title>
+					<source>Meteorologische Zeitschrift, Garmisch-Partenkirchen</source>
+					<volume>22</volume>
+					<issue>6</issue>
+					<fpage>711</fpage>
+					<lpage>728</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1127/0941-2948/2013/0507">https://doi.org/10.1127/0941-2948/2013/0507</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<mixed-citation>Alves, M.A.S. &amp; Cavalcanti, R.B. 1996. Sentinel behavior, seasonality, and the structure of bird flocks in Brazilian savanna. Neotropical Ornithology, 7: 43-51.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Alves</surname>
+							<given-names>M.A.S.</given-names>
+						</name>
+						<name>
+							<surname>Cavalcanti</surname>
+							<given-names>R.B.</given-names>
+						</name>
+					</person-group>
+					<year>1996</year>
+					<article-title>Sentinel behavior, seasonality, and the structure of bird flocks in Brazilian savanna</article-title>
+					<source>Neotropical Ornithology</source>
+					<volume>7</volume>
+					<fpage>43</fpage>
+					<lpage>51</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<mixed-citation>Batista, R.O; Machado, C.G. &amp; Miguel, R.S. 2013. Composition of mixed flocks of birds in an Atlantic Forest fragment in the northern coast of Bahia. Bioscience Journal, 29(6): 2001-2012.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Batista</surname>
+							<given-names>R.O</given-names>
+						</name>
+						<name>
+							<surname>Machado</surname>
+							<given-names>C.G.</given-names>
+						</name>
+						<name>
+							<surname>Miguel</surname>
+							<given-names>R.S.</given-names>
+						</name>
+					</person-group>
+					<year>2013</year>
+					<article-title>Composition of mixed flocks of birds in an Atlantic Forest fragment in the northern coast of Bahia</article-title>
+					<source>Bioscience Journal</source>
+					<volume>29</volume>
+					<issue>6</issue>
+					<fpage>2001</fpage>
+					<lpage>2012</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<mixed-citation>Brandt, C.S.; Hasenack, H.; Laps, R.R.; &amp; Hartz, S.M. 2009. Composition of mixed-species bird flocks in forest fragments of southern Brazil. Zoologia, Curitiba, 26(3): 488-498. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/s1984-46702009000300013">https://doi.org/10.1590/s1984-46702009000300013</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Brandt</surname>
+							<given-names>C.S.</given-names>
+						</name>
+						<name>
+							<surname>Hasenack</surname>
+							<given-names>H.</given-names>
+						</name>
+						<name>
+							<surname>Laps</surname>
+							<given-names>R.R.</given-names>
+						</name>
+						<name>
+							<surname>Hartz</surname>
+							<given-names>S.M.</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<article-title>Composition of mixed-species bird flocks in forest fragments of southern Brazil</article-title>
+					<source>Zoologia</source>
+					<publisher-loc>Curitiba</publisher-loc>
+					<volume>26</volume>
+					<issue>3</issue>
+					<fpage>488</fpage>
+					<lpage>498</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/s1984-46702009000300013">https://doi.org/10.1590/s1984-46702009000300013</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<mixed-citation>Cestari, C. 2007. A atração de aves em resposta ao playback de Habia rubica: implicações complementares sobre o papel da espécie para coesão de bandos mistos na Estação Ecológica Juréia-Itatins - SP. Atualidades Ornitológicas, 136: 4-5. Available: <comment>Available: <ext-link ext-link-type="uri" xlink:href="http://www.ao.com.br">http://www.ao.com.br</ext-link>
+					</comment>. Access: 16/08/2021.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cestari</surname>
+							<given-names>C.</given-names>
+						</name>
+					</person-group>
+					<year>2007</year>
+					<article-title>A atração de aves em resposta ao playback de Habia rubica: implicações complementares sobre o papel da espécie para coesão de bandos mistos na Estação Ecológica Juréia-Itatins - SP</article-title>
+					<source>Atualidades Ornitológicas</source>
+					<volume>136</volume>
+					<fpage>4</fpage>
+					<lpage>5</lpage>
+					<comment>Available: <ext-link ext-link-type="uri" xlink:href="http://www.ao.com.br">http://www.ao.com.br</ext-link>
+					</comment>
+					<date-in-citation content-type="access-date" iso-8601-date="2021-08-16">Access: 16/08/2021</date-in-citation>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<mixed-citation>Davis, D.E. 1946. A seasonal analysis of mixed flocks of birds in Brazil. Ecology, 27(2): 168-181.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Davis</surname>
+							<given-names>D.E.</given-names>
+						</name>
+					</person-group>
+					<year>1946</year>
+					<article-title>A seasonal analysis of mixed flocks of birds in Brazil</article-title>
+					<source>Ecology</source>
+					<volume>27</volume>
+					<issue>2</issue>
+					<fpage>168</fpage>
+					<lpage>181</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<mixed-citation>Develey, P.F. 2001. The mixed flocks of birds in the Neotropical forests. In: Albuquerque, J.; Cândido-Jr., J.F.; Straube, F.C. &amp; Roos, A.L. (Org.). Ornitologia e Conservação: da ciência às estratégias. Tubarão, Ed. Unisul . p. 39-48.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Develey</surname>
+							<given-names>P.F.</given-names>
+						</name>
+					</person-group>
+					<year>2001</year>
+					<chapter-title>The mixed flocks of birds in the Neotropical forests</chapter-title>
+					<person-group person-group-type="compiler">
+						<name>
+							<surname>Albuquerque</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>Cândido-Jr.</surname>
+							<given-names>J.F.</given-names>
+						</name>
+						<name>
+							<surname>Straube</surname>
+							<given-names>F.C.</given-names>
+						</name>
+						<name>
+							<surname>Roos</surname>
+							<given-names>A.L.</given-names>
+						</name>
+					</person-group>
+					<source>Ornitologia e Conservação: da ciência às estratégias</source>
+					<publisher-loc>Tubarão</publisher-loc>
+					<publisher-name>Ed. Unisul</publisher-name>
+					<fpage>39</fpage>
+					<lpage>48</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<mixed-citation>Develey, P.F. &amp; Peres, C.A. 2000. Resource seasonality and the structure of mixed species bird flocks in a coastal Atlantic forest of southeastern Brazil. Journal of Tropical Ecology, 16(1): 33-53. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1017/s0266467400001255">https://doi.org/10.1017/s0266467400001255</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Develey</surname>
+							<given-names>P.F.</given-names>
+						</name>
+						<name>
+							<surname>Peres</surname>
+							<given-names>C.A.</given-names>
+						</name>
+					</person-group>
+					<year>2000</year>
+					<article-title>Resource seasonality and the structure of mixed species bird flocks in a coastal Atlantic forest of southeastern Brazil</article-title>
+					<source>Journal of Tropical Ecology</source>
+					<volume>16</volume>
+					<issue>1</issue>
+					<fpage>33</fpage>
+					<lpage>53</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1017/s0266467400001255">https://doi.org/10.1017/s0266467400001255</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<mixed-citation>Empresa de Pesquisa Agropecuária e Extensão Rural de Santa Catarina (EPAGRI). 2001. Dados e informações biofísicas da unidade de planejamento regional litoral sul Catarinense - UPR 8. Florianópolis, EPAGRI.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<collab>Empresa de Pesquisa Agropecuária e Extensão Rural de Santa Catarina (EPAGRI)</collab>
+					</person-group>
+					<year>2001</year>
+					<source>Dados e informações biofísicas da unidade de planejamento regional litoral sul Catarinense - UPR 8</source>
+					<publisher-loc>Florianópolis</publisher-loc>
+					<publisher-name>EPAGRI</publisher-name>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<mixed-citation>Fitzpatrick, J.W. 1980. Foraging behavior of neotropical tyrant flycatchers. Condor, 82(1): 43-57. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.2307/1366784">https://doi.org/10.2307/1366784</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Fitzpatrick</surname>
+							<given-names>J.W.</given-names>
+						</name>
+					</person-group>
+					<year>1980</year>
+					<article-title>Foraging behavior of neotropical tyrant flycatchers</article-title>
+					<source>Condor</source>
+					<volume>82</volume>
+					<issue>1</issue>
+					<fpage>43</fpage>
+					<lpage>57</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.2307/1366784">https://doi.org/10.2307/1366784</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<mixed-citation>Ghizoni-Jr., I.R. 2009. Composição de bandos mistos de aves no Parque Estadual das Araucárias, oeste de Santa Catarina, Brasil. Biotemas, 22(3): 143-148. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5007/2175-7925.2009v22n3p143">https://doi.org/10.5007/2175-7925.2009v22n3p143</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ghizoni-Jr.</surname>
+							<given-names>I.R.</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<article-title>Composição de bandos mistos de aves no Parque Estadual das Araucárias, oeste de Santa Catarina, Brasil</article-title>
+					<source>Biotemas</source>
+					<volume>22</volume>
+					<issue>3</issue>
+					<fpage>143</fpage>
+					<lpage>148</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5007/2175-7925.2009v22n3p143">https://doi.org/10.5007/2175-7925.2009v22n3p143</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<mixed-citation>Ghizoni-Jr., I.R. &amp; Azevedo, M.A.G. 2006. Composição de bandos mistos de aves florestais de sub-bosque em áreas de encosta e planície da Floresta Atlântica de Santa Catarina, sul do Brasil. Biotemas, 19(2): 47-53.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ghizoni-Jr.</surname>
+							<given-names>I.R.</given-names>
+						</name>
+						<name>
+							<surname>Azevedo</surname>
+							<given-names>M.A.G.</given-names>
+						</name>
+					</person-group>
+					<year>2006</year>
+					<article-title>Composição de bandos mistos de aves florestais de sub-bosque em áreas de encosta e planície da Floresta Atlântica de Santa Catarina, sul do Brasil</article-title>
+					<source>Biotemas</source>
+					<volume>19</volume>
+					<issue>2</issue>
+					<fpage>47</fpage>
+					<lpage>53</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<mixed-citation>Hammer, Ø.; Harper, D.A.T. &amp; Ryan, P.D. 2001. Past: paleontological statistics software package for education and data analysis. Palaeontologia Electronica, 4(1): 1-9. Available: <comment>Available: <ext-link ext-link-type="uri" xlink:href="http://priede.bf.lu.lv/ftp/pub/TIS/datu_analiize/PAST/2.17c/download.html">http://priede.bf.lu.lv/ftp/pub/TIS/datu_analiize/PAST/2.17c/download.html</ext-link>
+					</comment>. Access: 10/08/2021.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hammer</surname>
+							<given-names>Ø.</given-names>
+						</name>
+						<name>
+							<surname>Harper</surname>
+							<given-names>D.A.T.</given-names>
+						</name>
+						<name>
+							<surname>Ryan</surname>
+							<given-names>P.D.</given-names>
+						</name>
+					</person-group>
+					<year>2001</year>
+					<article-title>Past: paleontological statistics software package for education and data analysis</article-title>
+					<source>Palaeontologia Electronica</source>
+					<volume>4</volume>
+					<issue>1</issue>
+					<fpage>1</fpage>
+					<lpage>9</lpage>
+					<comment>Available: <ext-link ext-link-type="uri" xlink:href="http://priede.bf.lu.lv/ftp/pub/TIS/datu_analiize/PAST/2.17c/download.html">http://priede.bf.lu.lv/ftp/pub/TIS/datu_analiize/PAST/2.17c/download.html</ext-link>
+					</comment>
+					<date-in-citation content-type="access-date" iso-8601-date="2021-08-10">Access: 10/08/2021</date-in-citation>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<mixed-citation>Instituto Brasileiro de Geografia e Estatística (IBGE). 2012. Manual técnico da vegetação brasileira. Rio de Janeiro, IBGE.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<collab>Instituto Brasileiro de Geografia e Estatística (IBGE)</collab>
+					</person-group>
+					<year>2012</year>
+					<source>Manual técnico da vegetação brasileira</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>IBGE</publisher-name>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<mixed-citation>Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis (IBAMA) &amp; Ministério do Meio Ambiente (MMA). 2004. Plano de Manejo do Parque Nacional de Aparados da Serra e Serra Geral. Encarte 3 - Contextualização da UC. Brasília, MMA.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<collab>Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis (IBAMA)</collab>
+						<collab>Ministério do Meio Ambiente (MMA)</collab>
+					</person-group>
+					<year>2004</year>
+					<source>Plano de Manejo do Parque Nacional de Aparados da Serra e Serra Geral. Encarte 3 - Contextualização da UC</source>
+					<publisher-loc>Brasília</publisher-loc>
+					<publisher-name>MMA</publisher-name>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<mixed-citation>Kovach, W.L. 2011. Oriana - Circular statistics for windows, ver. 4. Kovach Computing Services, Anglesey, Wales.</mixed-citation>
+				<element-citation publication-type="software">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kovach</surname>
+							<given-names>W.L.</given-names>
+						</name>
+					</person-group>
+					<year>2011</year>
+					<source>Oriana - Circular statistics for windows, ver. 4</source>
+					<publisher-name>Kovach Computing Services</publisher-name>
+					<publisher-loc>Anglesey, Wales</publisher-loc>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<mixed-citation>LaGory, K.E.; LaGory, M.K.; Meyers, D.M. &amp; Herman, S.G. 1984. Niche relationships in wintering mixed-species flocks in western Washington. Wilson Bulletin, 96(1): 108-116.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>LaGory</surname>
+							<given-names>K.E.</given-names>
+						</name>
+						<name>
+							<surname>LaGory</surname>
+							<given-names>M.K.</given-names>
+						</name>
+						<name>
+							<surname>Meyers</surname>
+							<given-names>D.M.</given-names>
+						</name>
+						<name>
+							<surname>Herman</surname>
+							<given-names>S.G.</given-names>
+						</name>
+					</person-group>
+					<year>1984</year>
+					<article-title>Niche relationships in wintering mixed-species flocks in western Washington</article-title>
+					<source>Wilson Bulletin</source>
+					<volume>96</volume>
+					<issue>1</issue>
+					<fpage>108</fpage>
+					<lpage>116</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<mixed-citation>Machado, C.G. 1997. Vireo olivaceus (Vireonidae): uma espécie migratória nos bandos mistos da Mata Atlântica do sudeste brasileiro. Ararajuba, 5(1): 62-65.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Machado</surname>
+							<given-names>C.G.</given-names>
+						</name>
+					</person-group>
+					<year>1997</year>
+					<article-title>Vireo olivaceus (Vireonidae): uma espécie migratória nos bandos mistos da Mata Atlântica do sudeste brasileiro</article-title>
+					<source>Ararajuba</source>
+					<volume>5</volume>
+					<issue>1</issue>
+					<fpage>62</fpage>
+					<lpage>65</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<mixed-citation>Machado, C.G. 1999. A composição dos bandos mistos de aves na Mata Atlântica da Serra de Paranapiacaba, no sudeste brasileiro. Revista Brasileira de Biologia, 59(1): 75-85. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/s0034-71081999000100010">https://doi.org/10.1590/s0034-71081999000100010</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Machado</surname>
+							<given-names>C.G.</given-names>
+						</name>
+					</person-group>
+					<year>1999</year>
+					<article-title>A composição dos bandos mistos de aves na Mata Atlântica da Serra de Paranapiacaba, no sudeste brasileiro</article-title>
+					<source>Revista Brasileira de Biologia</source>
+					<volume>59</volume>
+					<issue>1</issue>
+					<fpage>75</fpage>
+					<lpage>85</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/s0034-71081999000100010">https://doi.org/10.1590/s0034-71081999000100010</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<mixed-citation>Machado, C.G. 2002. As espécies-núcleo dos bandos mistos de aves da Mata Atlântica da serra de Paranapiacaba, no sudeste brasileiro. Sitientibus Série Ciências Biológicas, 2(1/2): 85-90.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Machado</surname>
+							<given-names>C.G.</given-names>
+						</name>
+					</person-group>
+					<year>2002</year>
+					<article-title>As espécies-núcleo dos bandos mistos de aves da Mata Atlântica da serra de Paranapiacaba, no sudeste brasileiro</article-title>
+					<source>Sitientibus Série Ciências Biológicas</source>
+					<volume>2</volume>
+					<issue>1/2</issue>
+					<fpage>85</fpage>
+					<lpage>90</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<mixed-citation>Machado, C.G. &amp; Rodrigues, N.M.R. 2000. Alteração de altura de forrageamento de espécies de aves quando associadas a bandos mistos. In: Alves, M.A.S.; Silva, J.M.C. &amp; Sluys, V.M. (Org.). Ornitologia brasileira: perspectivas, conservação e pesquisa. Rio de Janeiro, Ed. UERJ. p. 231-239.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Machado</surname>
+							<given-names>C.G.</given-names>
+						</name>
+						<name>
+							<surname>Rodrigues</surname>
+							<given-names>N.M.R.</given-names>
+						</name>
+					</person-group>
+					<year>2000</year>
+					<chapter-title>Alteração de altura de forrageamento de espécies de aves quando associadas a bandos mistos</chapter-title>
+					<person-group person-group-type="compiler">
+						<name>
+							<surname>Alves</surname>
+							<given-names>M.A.S.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>J.M.C.</given-names>
+						</name>
+						<name>
+							<surname>Sluys</surname>
+							<given-names>V.M.</given-names>
+						</name>
+					</person-group>
+					<source>Ornitologia brasileira: perspectivas, conservação e pesquisa</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Ed. UERJ</publisher-name>
+					<fpage>231</fpage>
+					<lpage>239</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<mixed-citation>Maldonado-Coelho, M. &amp; Marini, M.Â. 2003. Composição de bandos mistos de aves em fragmentos de Mata Atlântica no sudeste do Brasil. Papéis Avulsos de Zoologia, 43(3): 31-54. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S0031-10492003000300001">https://doi.org/10.1590/S0031-10492003000300001</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Maldonado-Coelho</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Marini</surname>
+							<given-names>M.Â.</given-names>
+						</name>
+					</person-group>
+					<year>2003</year>
+					<article-title>Composição de bandos mistos de aves em fragmentos de Mata Atlântica no sudeste do Brasil</article-title>
+					<source>Papéis Avulsos de Zoologia</source>
+					<volume>43</volume>
+					<issue>3</issue>
+					<fpage>31</fpage>
+					<lpage>54</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S0031-10492003000300001">https://doi.org/10.1590/S0031-10492003000300001</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<mixed-citation>Maldonado-Coelho, M. &amp; Marini, M.Â. 2004. Mixed-species bird flocks from Brazilian Atlantic forest: the effects of forest fragmentation and seasonality on their size, richness and stability. Biological Conservation, 116(1): 19-26. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/s0006-3207(03)00169-1">https://doi.org/10.1016/s0006-3207(03)00169-1</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Maldonado-Coelho</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Marini</surname>
+							<given-names>M.Â.</given-names>
+						</name>
+					</person-group>
+					<year>2004</year>
+					<article-title>Mixed-species bird flocks from Brazilian Atlantic forest: the effects of forest fragmentation and seasonality on their size, richness and stability</article-title>
+					<source>Biological Conservation</source>
+					<volume>116</volume>
+					<issue>1</issue>
+					<fpage>19</fpage>
+					<lpage>26</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/s0006-3207(03)00169-1">https://doi.org/10.1016/s0006-3207(03)00169-1</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<mixed-citation>Mangini, G.G. &amp; Areta, J.I. 2018. Bird mixed-species flock formation is driven by low temperatures between and within seasons in a Subtropical Andean-foothill forest. Biotropica, 50(5): 816-825. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/btp.12551">https://doi.org/10.1111/btp.12551</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mangini</surname>
+							<given-names>G.G.</given-names>
+						</name>
+						<name>
+							<surname>Areta</surname>
+							<given-names>J.I.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Bird mixed-species flock formation is driven by low temperatures between and within seasons in a Subtropical Andean-foothill forest</article-title>
+					<source>Biotropica</source>
+					<volume>50</volume>
+					<issue>5</issue>
+					<fpage>816</fpage>
+					<lpage>825</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/btp.12551">https://doi.org/10.1111/btp.12551</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<mixed-citation>Marini, M.Â. &amp; Garcia, F.I. 2005. Conservação de aves no Brasil. Megadiversidade, 1(1): 95-101.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Marini</surname>
+							<given-names>M.Â.</given-names>
+						</name>
+						<name>
+							<surname>Garcia</surname>
+							<given-names>F.I.</given-names>
+						</name>
+					</person-group>
+					<year>2005</year>
+					<article-title>Conservação de aves no Brasil</article-title>
+					<source>Megadiversidade</source>
+					<volume>1</volume>
+					<issue>1</issue>
+					<fpage>95</fpage>
+					<lpage>101</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<mixed-citation>Merritt, M.; Maldaner, M.E. &amp; de Almeida, A.M.R. 2019. What are biodiversity hotspots? Frontiers for Young Minds, 7: 1-7. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3389/frym.2019.00029">https://doi.org/10.3389/frym.2019.00029</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Merritt</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Maldaner</surname>
+							<given-names>M.E.</given-names>
+						</name>
+						<name>
+							<surname>de Almeida</surname>
+							<given-names>A.M.R.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>What are biodiversity hotspots?</article-title>
+					<source>Frontiers for Young Minds</source>
+					<volume>7</volume>
+					<fpage>1</fpage>
+					<lpage>7</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3389/frym.2019.00029">https://doi.org/10.3389/frym.2019.00029</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<mixed-citation>Moynihan, M. 1962. The organization and probable evolution of some mixed species flocks of Neotropical birds. Smithsonian Miscellaneous Collections, 143(7): 1-140. Available: <comment>Available: <ext-link ext-link-type="uri" xlink:href="https://repository.si.edu/bitstream/handle/10088/22974/SMC_143_Moynihan_1-140.pdf?sequence=1&amp;isAllowed=y">https://repository.si.edu/bitstream/handle/10088/22974/SMC_143_Moynihan_1-140.pdf?sequence=1&amp;isAllowed=y</ext-link>
+					</comment>. Access: 16/08/2021.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Moynihan</surname>
+							<given-names>M.</given-names>
+						</name>
+					</person-group>
+					<year>1962</year>
+					<article-title>The organization and probable evolution of some mixed species flocks of Neotropical birds</article-title>
+					<source>Smithsonian Miscellaneous Collections</source>
+					<volume>143</volume>
+					<issue>7</issue>
+					<fpage>1</fpage>
+					<lpage>140</lpage>
+					<comment>Available: <ext-link ext-link-type="uri" xlink:href="https://repository.si.edu/bitstream/handle/10088/22974/SMC_143_Moynihan_1-140.pdf?sequence=1&amp;isAllowed=y">https://repository.si.edu/bitstream/handle/10088/22974/SMC_143_Moynihan_1-140.pdf?sequence=1&amp;isAllowed=y</ext-link>
+					</comment>
+					<date-in-citation content-type="access-date" iso-8601-date="2021-08-16">Access: 16/08/2021</date-in-citation>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<mixed-citation>Myers, N.; Mittermeier, R.A.; Mittermeier, C.G.; da Fonseca, G.A.B. &amp; Kent, J. 2000. Biodiversity hotspots for conservation priorities. Nature, 403(6772): 853-858. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1038/35002501">https://doi.org/10.1038/35002501</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Myers</surname>
+							<given-names>N.</given-names>
+						</name>
+						<name>
+							<surname>Mittermeier</surname>
+							<given-names>R.A.</given-names>
+						</name>
+						<name>
+							<surname>Mittermeier</surname>
+							<given-names>C.G.</given-names>
+						</name>
+						<name>
+							<surname>da Fonseca</surname>
+							<given-names>G.A.B.</given-names>
+						</name>
+						<name>
+							<surname>Kent</surname>
+							<given-names>J.</given-names>
+						</name>
+					</person-group>
+					<year>2000</year>
+					<article-title>Biodiversity hotspots for conservation priorities</article-title>
+					<source>Nature</source>
+					<volume>403</volume>
+					<issue>6772</issue>
+					<fpage>853</fpage>
+					<lpage>858</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1038/35002501">https://doi.org/10.1038/35002501</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B31">
+				<mixed-citation>Pacheco, J.F.; Silveira, L.F.; Aleixo, A.; Agne, C.E.; Bencke, G.A.; Bravo, G.A; Brito, G.R.R.; Cohn-Haft, M.; Maurício, G.N.; Naka, L.N.; Olmos, F.; Posso, S.; Lees, A.C.; Figueiredo, L.F.A.; Carrano, E.; Guedes, R.C.; Cesari, E.; Franz, I.; Schunck, F. &amp; Piacentini, V.Q. 2021. Annotated checklist of the birds of Brazil by the Brazilian Ornithological Records Committee - second edition. Ornithology Research, 29(2): 94-105. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1007/s43388-021-00058-x">https://doi.org/10.1007/s43388-021-00058-x</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pacheco</surname>
+							<given-names>J.F.</given-names>
+						</name>
+						<name>
+							<surname>Silveira</surname>
+							<given-names>L.F.</given-names>
+						</name>
+						<name>
+							<surname>Aleixo</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>Agne</surname>
+							<given-names>C.E.</given-names>
+						</name>
+						<name>
+							<surname>Bencke</surname>
+							<given-names>G.A.</given-names>
+						</name>
+						<name>
+							<surname>Bravo</surname>
+							<given-names>G.A</given-names>
+						</name>
+						<name>
+							<surname>Brito</surname>
+							<given-names>G.R.R.</given-names>
+						</name>
+						<name>
+							<surname>Cohn-Haft</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Maurício</surname>
+							<given-names>G.N.</given-names>
+						</name>
+						<name>
+							<surname>Naka</surname>
+							<given-names>L.N.</given-names>
+						</name>
+						<name>
+							<surname>Olmos</surname>
+							<given-names>F.</given-names>
+						</name>
+						<name>
+							<surname>Posso</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>Lees</surname>
+							<given-names>A.C.</given-names>
+						</name>
+						<name>
+							<surname>Figueiredo</surname>
+							<given-names>L.F.A.</given-names>
+						</name>
+						<name>
+							<surname>Carrano</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Guedes</surname>
+							<given-names>R.C.</given-names>
+						</name>
+						<name>
+							<surname>Cesari</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Franz</surname>
+							<given-names>I.</given-names>
+						</name>
+						<name>
+							<surname>Schunck</surname>
+							<given-names>F.</given-names>
+						</name>
+						<name>
+							<surname>Piacentini</surname>
+							<given-names>V.Q.</given-names>
+						</name>
+					</person-group>
+					<year>2021</year>
+					<article-title>Annotated checklist of the birds of Brazil by the Brazilian Ornithological Records Committee - second edition</article-title>
+					<source>Ornithology Research</source>
+					<volume>29</volume>
+					<issue>2</issue>
+					<fpage>94</fpage>
+					<lpage>105</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1007/s43388-021-00058-x">https://doi.org/10.1007/s43388-021-00058-x</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B32">
+				<mixed-citation>Powell, G.V.N. 1985. Sociobiology and adaptive significance of interspecific foraging flocks in the Neotropics. Ornithological Monographs, 36: 713-732. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.2307/40168313">https://doi.org/10.2307/40168313</ext-link>.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Powell</surname>
+							<given-names>G.V.N.</given-names>
+						</name>
+					</person-group>
+					<year>1985</year>
+					<article-title>Sociobiology and adaptive significance of interspecific foraging flocks in the Neotropics</article-title>
+					<source>Ornithological Monographs</source>
+					<volume>36</volume>
+					<fpage>713</fpage>
+					<lpage>732</lpage>
+					<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.2307/40168313">https://doi.org/10.2307/40168313</ext-link>
+				</element-citation>
+			</ref>
+			<ref id="B33">
+				<mixed-citation>Sick, H. 1997. Ornitologia brasileira. Rio de Janeiro, Nova Fronteira.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sick</surname>
+							<given-names>H.</given-names>
+						</name>
+					</person-group>
+					<year>1997</year>
+					<source>Ornitologia brasileira</source>
+					<publisher-loc>Rio de Janeiro</publisher-loc>
+					<publisher-name>Nova Fronteira</publisher-name>
+				</element-citation>
+			</ref>
+			<ref id="B34">
+				<mixed-citation>Stotz, D.F. 1993. Geographic variation in species composition of mixed species flocks in lowland humid forest in Brazil. Papéis Avulsos de Zoologia, 38(4): 61-75.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Stotz</surname>
+							<given-names>D.F.</given-names>
+						</name>
+					</person-group>
+					<year>1993</year>
+					<article-title>Geographic variation in species composition of mixed species flocks in lowland humid forest in Brazil</article-title>
+					<source>Papéis Avulsos de Zoologia</source>
+					<volume>38</volume>
+					<issue>4</issue>
+					<fpage>61</fpage>
+					<lpage>75</lpage>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn fn-type="financial-disclosure" id="fn4">
+				<label><bold>FUNDING INFORMATION:</bold></label>
+				<p> The first author is grateful to Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) - Finance Code 001, for the Master’s degree scholarship to support this research project. </p>
+			</fn>
+		</fn-group>
+	</back>
+</article>

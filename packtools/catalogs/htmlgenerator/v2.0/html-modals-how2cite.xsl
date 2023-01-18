@@ -101,14 +101,14 @@
             <xsl:when test="count(contrib)=1">
                 <xsl:apply-templates select="contrib" mode="how2cite-contrib">
                     <xsl:with-param name="sep"></xsl:with-param>
-                </xsl:apply-templates>
+                </xsl:apply-templates>. 
             </xsl:when>
             <xsl:when test="count(contrib)&lt;=3">
                 <xsl:apply-templates select="contrib" mode="how2cite-contrib">
                     <xsl:with-param name="sep"><xsl:apply-templates select="." mode="text-labels">
                         <xsl:with-param name="text">and</xsl:with-param>
                     </xsl:apply-templates></xsl:with-param>
-                </xsl:apply-templates>
+                </xsl:apply-templates>. 
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="contrib[1]" mode="how2cite-contrib">
@@ -127,7 +127,13 @@
                 <xsl:otherwise>&#160;<xsl:value-of select="$sep"/>&#160;</xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-        <xsl:apply-templates select="name | collab" mode="how2cite-contrib"/>
+        <xsl:apply-templates select="anonymous | name | collab" mode="how2cite-contrib"/>
+    </xsl:template>
+
+    <xsl:template match="anonymous" mode="how2cite-contrib">
+        <xsl:value-of select="."/><xsl:if test=".=''"><xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">Anonymous</xsl:with-param>
+        </xsl:apply-templates></xsl:if>
     </xsl:template>
 
     <xsl:template match="name" mode="how2cite-contrib">
@@ -141,16 +147,26 @@
     <xsl:template match="*" mode="how2cite-article-title">
         <xsl:choose>
             <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//article-title">
-                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//article-title"></xsl:apply-templates>.
+                <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//article-title" mode="how2cite-text-title"/>
             </xsl:when>
             <xsl:when test=".//trans-title-group[@xml:lang=$TEXT_LANG]//trans-title">
-                <xsl:apply-templates select=".//trans-title-group[@xml:lang=$TEXT_LANG]//trans-title"></xsl:apply-templates>.
+                <xsl:apply-templates select=".//trans-title-group[@xml:lang=$TEXT_LANG]//trans-title" mode="how2cite-text-title"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select=".//article-title"></xsl:apply-templates>.
+                <xsl:apply-templates select=".//article-title" mode="how2cite-text-title"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <xsl:template match="article-title | trans-title" mode="how2cite-text-title">
+        <xsl:apply-templates select="*|text()" mode="how2cite-text-title-part"/>.
+    </xsl:template>
+
+    <xsl:template match="*" mode="how2cite-text-title-part">|<xsl:apply-templates select="*|text()"/></xsl:template>
+
+    <xsl:template match="text()" mode="how2cite-text-title-part"><xsl:value-of select="normalize-space(.)"/></xsl:template>
+
+    <xsl:template match="xref" mode="how2cite-text-title-part"/>
 
     <xsl:template match="*" mode="how2cite-journal-title">
         <xsl:apply-templates select=".//journal-title"></xsl:apply-templates>
@@ -199,8 +215,7 @@
         <xsl:if test="$howtocite_location!=''">
         [<xsl:apply-templates select="." mode="interface">
             <xsl:with-param name="text">cited</xsl:with-param>
-        </xsl:apply-templates>&#160;CURRENTDATE]
-        </xsl:if>
+        </xsl:apply-templates>&#160;CURRENTDATE]</xsl:if>
     </xsl:template>
 
     <xsl:template match="*" mode="how2cite-pages">

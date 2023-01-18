@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-article-standalone.css">
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-bundle-print.css" media="print">
+<link rel="alternate" type="application/rss+xml" title="SciELO" href="">
+</head>
+<body class="journal article">
+<a name="top"></a><div id="standalonearticle">
+<section class="articleCtt"><div class="container"><div class="articleTxt">
+<div class="articleBadge-editionMeta-doi-copyLink">
+<span class="_articleBadge">ARTIGO ORIGINAL</span><span class="_separator"> • </span><span class="_editionMeta">Ciênc. educ. (Bauru) 27 <span class="_separator"> • </span>2021</span><span class="_separator"> • </span><span class="group-doi"><a href="https://doi.org/10.1590/1516-731320210063" class="_doi" target="_blank">https://doi.org/10.1590/1516-731320210063</a>
+         
+        <a class="copyLink" data-clipboard-text="https://doi.org/10.1590/1516-731320210063"><span class="sci-ico-link"></span>copiar</a></span>
+</div>
+<h1 class="article-title">
+<span class="sci-ico-openAccess showTooltip" data-toggle="tooltip" data-original-title="by 4.0 "></span>Análise regional dos resultados do Saresp: uma abordagem com modelos hierárquicos<a id="shorten" href="#" class="short-link"><span class="sci-ico-link"></span></a>
+</h1>
+<h2 class="article-title">The local analysis of Saresp results: an approach with hierarchical models</h2>
+<div class="articleMeta"></div>
+<div class="contribGroup">
+<span class="dropdown"><a id="contribGroupTutor1" class="dropdown-toggle" data-toggle="dropdown"><span> Camila Fernanda Bassetto </span></a><ul class="dropdown-menu" role="menu" aria-labelledby="contribGrupoTutor1">
+<strong></strong>Universidade Estadual Paulista (UNESP), Faculdade de Ciências e Letras, Departamento de Educação, Araraquara, SP, Brasil.<div class="corresp">Contato: <a href="mailto:camila.bassetto@unesp.br">camila.bassetto@unesp.br</a>
+</div>
+<a href="http://orcid.org/0000-0002-2513-7455" class="btnContribLinks orcid">http://orcid.org/0000-0002-2513-7455</a>
+</ul></span><a href="" class="outlineFadeLink" data-toggle="modal" data-target="#ModalTutors">Sobre o autor</a>
+</div>
+<div class="row">
+<ul class="col-md-2 hidden-sm articleMenu"></ul>
+<article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0"><div class="articleSection" data-anchor="Resumo:">
+<h1 class="articleSectionTitle">Resumo:</h1>
+<p>O presente estudo investiga os fatores internos e externos à escola, que impactam o desempenho escolar dos alunos. Para tanto, foram utilizadas as notas em matemática, alcançadas no SARESP, pelos alunos da 3ª série do Ensino Médio das escolas públicas estaduais de São Paulo e as respostas dos questionários aplicados aos pais e às escolas participantes. As escolas foram classificadas em regiões conforme a Diretoria de Ensino a qual pertencem, possibilitando o desenvolvimento de uma análise espacial do desempenho em matemática. Modelos multiníveis foram propostos e as estimativas para os parâmetros foram obtidas via software RStudio. Os resultados mostram que a escolaridade dos pais, a renda familiar e o motivo de o aluno fazer o dever de casa, impactam positivamente o desempenho em matemática. Por outro lado, enquanto a falta de professor prejudica o resultado do aluno, gestores mais experientes têm efeito positivo sobre o desempenho em matemática no SARESP.</p>
+<p><strong>Palavras-chave:</strong><br>Avaliação do rendimento escolar; Proficiência em matemática; Escola pública; SARESP</p>
+</div>
+<div class="articleSection" data-anchor="Abstract:">
+<h1 class="articleSectionTitle">Abstract:</h1>
+<p>This study investigates school-internal and school-external factors that impact on student scholastic performance. Therefore, we used the math performance in SARESP of students in the 3<sup>rd</sup> grade of high school enrolled in public schools of São Paulo state and their parents' answers to questionnaires administered by participating schools. The schools were classified into regions according to the Board of Education to which they belong, thus enabling a spacial analysis of students’ math performance. Multilevel models were proposed, and the parameters estimates were obtained using RStudio software. Results show that the schooling of parents, family income and the fact that students do their homework positively impact on a student's mathematics performance in SARESP. On the other hand, while the inadequate number of teachers affects student results, more experienced school managers have a positive effect on the performance in mathematics in SARESP.</p>
+<p><strong>Keywords:</strong><br>Evaluation of school performance; Mathematics proficiency; Public school; High school; SARESP</p>
+</div>
+<div class="articleSection" data-anchor="Text">
+<h1 class="articleSectionTitle">Introdução</h1>
+<p>Na avaliação educacional, o desempenho do aluno é considerado a variável indicadora da eficácia deste sistema e é coletado juntamente com informações acerca do contexto escolar e social do indivíduo, as quais tem sido vistas como características de interesse de diversos estudos, tais como <span class="ref"><strong class="xref xrefblue">Alves e Soares (2008)</strong><span class="refCtt closed"><span>ALVES, M. T. G.; SOARES, J. F. O efeito das escolas no aprendizado dos alunos: um estudo com dados longitudinais no ensino fundamental. Educação e Pesquisa, São Paulo, v. 34, n. 3, p. 527-544, 2008. DOI: https://doi.org/bvc6px.</span><br><a href="https://doi.org/bvc6px" target="_blank">https://doi.org/bvc6px...
+            </a></span></span>, <span class="ref"><strong class="xref xrefblue">Ferrão <i>et al</i>. (2001)</strong><span class="refCtt closed"><span>FERRÃO, M. E.; BELTRÃO, K. L.; FERNANDES, C.; SANTOS, D.; SUÁREZ, M.; ANDRADE, A. C. O SAEB – Sistema nacional de avaliação da educação básica: objetivos, características e contribuições na investigação da escola eficaz. Revista Brasileira de Estudos de População, Belo Horizonte, v. 18, n. 1/2, p. 111-130, 2001. Disponível em: https://cutt.ly/2EU5q7t. Acesso em: 20 set. 2021.</span><br><a href="https://cutt.ly/2EU5q7t" target="_blank">https://cutt.ly/2EU5q7t...
+            </a></span></span>, <span class="ref"><strong class="xref xrefblue">Laros e Marciano (2008)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. Análise multinível aplicada aos dados do NELS:88. Estudos em Avaliação Educacional, São Paulo, v. 19, n. 40, p. 263-278, 2008.</span></span></span>, entre outros. Ao longo da última década, estudos têm revelado evidências empíricas de que o desempenho escolar dos alunos depende não só das habilidades próprias, mas também de fatores que envolvem características sociais, econômicas, culturais e familiares, como aponta o estudo de <span class="ref"><strong class="xref xrefblue">Soares (2003)</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span>. Segundo <span class="ref"><strong class="xref xrefblue">Jesus e Laros (2004)</strong><span class="refCtt closed"><span>JESUS, G. R.; LAROS, J. A. Eficácia escolar: regressão multinível com dados de avaliação em larga escala. Avaliação Psicológica, Campinas, v. 3, n. 2, p. 93-106, 2004.</span></span></span> e <span class="ref"><strong class="xref xrefblue">Laros, Marciano e Andrade (2010)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span>, questões desta natureza devem ser consideradas nas avaliações educacionais, uma vez que as desigualdades sociais têm implicações diretas sobre a educação, sugerindo que o desempenho do aluno deve ser contextualizado.</p>
+<p>A avaliação educacional tem a finalidade de fornecer elementos para diagnosticar a situação do sistema educacional de determinado local e, concomitantemente, subsidiar políticas e diretrizes municipal, estadual e nacional, visando a contínua melhoria na qualidade da educação. Nos últimos anos, é perceptível o avanço obtido na área educacional considerando os recursos metodológicos disponíveis e os atuais critérios de avaliação, tais como o Sistema Nacional de Avaliação da Educação Básica (SAEB), o Sistema de Avaliação do Rendimento Escolar do Estado de São Paulo (SARESP) e o Exame Nacional do Ensino Médio (ENEM).</p>
+<p>Os sistemas de avaliação citados têm revelado um quadro crítico para a educação formal em relação ao desempenho e rendimento escolar do indivíduo. Para obter melhorias na qualidade do ensino e alcançar um sistema educacional eficaz, no qual o aluno aprenda, seja aprovado e conclua a Educação Básica dotado de competências para que seja capaz de armazenar, transformar e aplicar o conhecimento, é necessário que os responsáveis envolvidos nos processos de avaliação educacional entendam, decodifiquem e interpretem, à luz da realidade, os resultados dessas avaliações. Neste sentido, pesquisadores de diversas áreas do conhecimento tem destinado considerável atenção à educação nos últimos anos não somente ao rendimento acadêmico dos alunos, mas também a aspectos humanos, sociais, culturais, éticos e metodológicos.</p>
+<p>Atualmente, o principal interesse está voltado à identificação de fatores, sejam de natureza humana, social, cultural ou ética, que podem atuar sobre o desempenho escolar, ampliando a realização de estudos com investigações acerca da avaliação do impacto de programas educacionais e análises de determinantes do desempenho escolar, tornando-os cada vez mais frequentes na literatura (<span class="ref"><strong class="xref xrefblue">ANDRADE; LAROS, 2007</strong><span class="refCtt closed"><span>ANDRADE, J. M.; LAROS, J. A. Fatores associados ao desempenho escolar: estudo multinível com dados do SAEB/2001. Psicologia: teoria e pesquisa, Brasília, v. 23 n. 1, p. 33-42, 2007. DOI: https://doi.org/b7kspt.</span><br><a href="https://doi.org/b7kspt" target="_blank">https://doi.org/b7kspt...
+            </a></span></span>; <span class="ref"><strong class="xref xrefblue">FERRÃO <i>et al</i>.; 2001</strong><span class="refCtt closed"><span>FERRÃO, M. E.; BELTRÃO, K. L.; FERNANDES, C.; SANTOS, D.; SUÁREZ, M.; ANDRADE, A. C. O SAEB – Sistema nacional de avaliação da educação básica: objetivos, características e contribuições na investigação da escola eficaz. Revista Brasileira de Estudos de População, Belo Horizonte, v. 18, n. 1/2, p. 111-130, 2001. Disponível em: https://cutt.ly/2EU5q7t. Acesso em: 20 set. 2021.</span><br><a href="https://cutt.ly/2EU5q7t" target="_blank">https://cutt.ly/2EU5q7t...
+            </a></span></span>; <span class="ref"><strong class="xref xrefblue">SOARES, 2003</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span>; <span class="ref"><strong class="xref xrefblue">SOARES; ALVES, 2003</strong><span class="refCtt closed"><span>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. Educação e Pesquisa, São Paulo, v. 29, n. 1, p. 147-165, 2003.</span></span></span>). O número crescente de pesquisadores interessados nesta área tem proporcionado um avanço na construção de bancos de dados com informações sobre professores, escolas, alunos e desempenho. Concomitantemente, novas ferramentas estatísticas advindas de avanços teóricos e metodológicos têm tornado os trabalhos mais sofisticados. Merece destaque a difusão da estrutura hierárquica para análise de dados educacionais (<span class="ref"><strong class="xref xrefblue">GELMAN; HILL, 2006</strong><span class="refCtt closed"><span>GELMAN, A.; HILL, J. Data analysis using regression and multilevel/hierarchical models. New York: Cambridge University Press, 2006.</span></span></span>; <span class="ref"><strong class="xref xrefblue">GOLDSTEIN, 1995</strong><span class="refCtt closed"><span>GOLDSTEIN, H. Multilevel statistical models. 2. ed. New York: John Wiley, 1995.</span></span></span>; <span class="ref"><strong class="xref xrefblue">RAUDENBUSH; BRYK, 2002</strong><span class="refCtt closed"><span>RAUDENBUSH, S. W.; BRYK, A. S. Hierarchical linear models: applications and data analysis methods. Thousand Oaks: Sage, 2002.</span></span></span>).</p>
+<p>Buscando contribuir com a literatura no que se refere à investigação de fatores que impactam o desempenho escolar do indivíduo, o presente estudo consiste na utilização de modelos hierárquicos, com dados do SARESP, e apresenta-se estruturado em seções, incluindo esta introdução. A seção dois contém uma breve revisão de literatura com estudos que utilizaram a modelagem hierárquica para identificar fatores atuantes sobre o desempenho educacional. Na seção três, descreve-se o SARESP, incluindo os níveis de proficiência em matemática considerados, e apresenta-se a distribuição dos alunos da rede pública de ensino nas regiões do estado de São Paulo. Os dados considerados neste estudo e os modelos hierárquicos propostos são apresentados na seção quatro. A seção cinco contém os resultados da análise empírica realizada, os quais são também interpretados. Na seção seis, faz-se uma conclusão do presente estudo.</p>
+<h1 class="articleSectionTitle">Utilização de modelos hierárquicos na avaliação do desempenho educacional</h1>
+<p>Para identificar as variáveis relacionadas ao desempenho escolar, deve-se considerar as estruturas educacionais nas quais os indivíduos estão inseridos, dentre os quais se destacam aqueles relacionados ao ambiente familiar e à disponibilidade e qualidade da infraestrutura e qualidade da escola e seus professores. Neste contexto, como apontam <span class="ref"><strong class="xref xrefblue">Barbosa e Fernandes (2001)</strong><span class="refCtt closed"><span>BARBOSA, M. E. F.; FERNANDES, C. A escola brasileira faz diferença?: uma investigação dos efeitos da escola na proficiência em matemática dos alunos da 4ª série. In: CRESO, F. (org.). Avaliação, ciclos e promoção na educação. Porto Alegre: Artmed, 2001. p. 155-172.</span></span></span> e <span class="ref"><strong class="xref xrefblue">Goldstein (2001)</strong><span class="refCtt closed"><span>GOLDSTEIN, H. Modelos de realidade: novas abordagens para a compreensão de processos educacionais. In: FRANCO, C. (org.). Avaliação, ciclos e promoção na educação. Porto Alegre: Artmed, 2001. p. 84-99.</span></span></span>, o desempenho escolar é influenciado por aquilo que o aluno traz consigo, bem como por aquilo que a escola oferece no que se refere ao ensino, infraestrutura e corpo docente. Na mesma direção, <span class="ref"><strong class="xref xrefblue">Soares e Alves (2003)</strong><span class="refCtt closed"><span>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. Educação e Pesquisa, São Paulo, v. 29, n. 1, p. 147-165, 2003.</span></span></span> afirmam que os fatores que impactam o desempenho cognitivo dos alunos podem ser categorizados em projetos pedagógicos, na estrutura escolar, na família e nas características do próprio aluno. Uma vez que a avaliação educacional proporciona informações que permitem aos educadores identificar práticas que promovem resultados adequados, a mesma é considerada ferramenta útil na melhoria do sistema educacional. Assim, torna-se relevante investigar os fatores que influenciam o desempenho dos alunos com o objetivo de esclarecer o processo de produção das desigualdades educacionais observadas nos resultados das avaliações de larga escala. A identificação destes fatores é de suma importância para a elaboração de políticas públicas que possam melhorar a qualidade da educação brasileira (<span class="ref"><strong class="xref xrefblue">LAROS; MARCIANO; ANDRADE, 2010</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span>).</p>
+<p>Uma metodologia estatística que pode ser utilizada é a análise de regressão multinível, na qual a estrutura dos dados populacionais é hierárquica e são vistos em multi-estágios desta população. Indivíduos tendem a viver dentro de estruturas organizacionais (família, escolas, igrejas, cidades, estados, países) e, de acordo com <span class="ref"><strong class="xref xrefblue">Goldstein (2001)</strong><span class="refCtt closed"><span>GOLDSTEIN, H. Modelos de realidade: novas abordagens para a compreensão de processos educacionais. In: FRANCO, C. (org.). Avaliação, ciclos e promoção na educação. Porto Alegre: Artmed, 2001. p. 84-99.</span></span></span>, a existência de dados hierarquicamente estruturados não é acidental e nem pode ser ignorada. Modelos que incorporam a estrutura de agrupamento dos dados apresentam vantagens, tais como a obtenção de melhores estimativas para os parâmetros relativos às unidades específicas, pois comportam uma equação para cada nível, fazendo, assim, uso de toda a informação presente na amostra de forma eficiente; permitem o uso de variáveis explicativas mensuradas em cada nível da hierarquia, possibilitando a exploração detalhada por meio da formulação e teste de hipóteses relativas a efeitos entre níveis, do impacto e contribuição de cada nível para a variabilidade da variável resposta; consideram uma partição da variância em componentes, ou seja, decompõem a variância total em proporções associadas a cada nível do modelo (<span class="ref"><strong class="xref xrefblue">RAUDENBUSH; BRYK, 2002</strong><span class="refCtt closed"><span>RAUDENBUSH, S. W.; BRYK, A. S. Hierarchical linear models: applications and data analysis methods. Thousand Oaks: Sage, 2002.</span></span></span>).</p>
+<p>Também conhecidos como modelos de regressão multinível, modelos lineares de coeficientes aleatórios ou randômicos, e modelos lineares mistos, a técnica de modelos hierárquicos tem sido utilizada no Brasil, desde o final dos anos 90, para interpretar e analisar os dados das avaliações educacionais em larga escala, como mostram os estudos de <span class="ref"><strong class="xref xrefblue">Ferrão <i>et al</i>., (2001)</strong><span class="refCtt closed"><span>FERRÃO, M. E.; BELTRÃO, K. L.; FERNANDES, C.; SANTOS, D.; SUÁREZ, M.; ANDRADE, A. C. O SAEB – Sistema nacional de avaliação da educação básica: objetivos, características e contribuições na investigação da escola eficaz. Revista Brasileira de Estudos de População, Belo Horizonte, v. 18, n. 1/2, p. 111-130, 2001. Disponível em: https://cutt.ly/2EU5q7t. Acesso em: 20 set. 2021.</span><br><a href="https://cutt.ly/2EU5q7t" target="_blank">https://cutt.ly/2EU5q7t...
+            </a></span></span>, <span class="ref"><strong class="xref xrefblue">Laros e Marciano (2008)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. Análise multinível aplicada aos dados do NELS:88. Estudos em Avaliação Educacional, São Paulo, v. 19, n. 40, p. 263-278, 2008.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Soares e Alves (2003)</strong><span class="refCtt closed"><span>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. Educação e Pesquisa, São Paulo, v. 29, n. 1, p. 147-165, 2003.</span></span></span>, entre outros. Nos estudos de <span class="ref"><strong class="xref xrefblue">Brooke <i>et al</i>. (2014)</strong><span class="refCtt closed"><span>BROOKE, N.; FERNANDES, N. S.; MIRANDA, I. P. H.; SOARES, T. M. Modelagem do crescimento da aprendizagem nos anos iniciais com dados longitudinais da pesquisa GERES. Educação e Pesquisa, São Paulo, v. 40, n. 1, p. 77-94, 2014. DOI: https://doi.org/gxtc.</span><br><a href="https://doi.org/gxtc" target="_blank">https://doi.org/gxtc...
+            </a></span></span>, <span class="ref"><strong class="xref xrefblue">Riani e Rios-Neto (2008)</strong><span class="refCtt closed"><span>RIANI, J. R. L.; RIOS-NETO, E. L. G. Background familiar versus perfil escolar do município: qual possui maior influência no resultado educacional dos alunos brasileiros? Revista Brasileira de Estudos Populacionais, Rio de Janeiro, v. 25, n. 2, p. 251-269, 2008.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Soares (2003)</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span>, <span class="ref"><strong class="xref xrefblue">Soares e Alves (2003)</strong><span class="refCtt closed"><span>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. Educação e Pesquisa, São Paulo, v. 29, n. 1, p. 147-165, 2003.</span></span></span> e de <span class="ref"><strong class="xref xrefblue">Soares e Mendonça (2003)</strong><span class="refCtt closed"><span>SOARES, T. M.; MENDONÇA, M. C. Construção de um modelo de regressão hierárquico para os dados do Simave-2000. Pesquisa Operacional, Rio de Janeiro, v. 23, n. 3, p. 421-441, 2003. DOI: https://doi.org/fdkq2x.</span><br><a href="https://doi.org/fdkq2x" target="_blank">https://doi.org/fdkq2x...
+            </a></span></span>, os resultados indicaram que os alunos masculinos e negros têm desempenho inferior aos demais. <span class="ref"><strong class="xref xrefblue">Barbosa e Fernandes (2001)</strong><span class="refCtt closed"><span>BARBOSA, M. E. F.; FERNANDES, C. A escola brasileira faz diferença?: uma investigação dos efeitos da escola na proficiência em matemática dos alunos da 4ª série. In: CRESO, F. (org.). Avaliação, ciclos e promoção na educação. Porto Alegre: Artmed, 2001. p. 155-172.</span></span></span> constataram que, enquanto a escolaridade do pai impacta positivamente a proficiência do aluno, o efeito da variável defasagem escolar é negativo. <span class="ref"><strong class="xref xrefblue">Ferrão <i>et al</i>. (2001)</strong><span class="refCtt closed"><span>FERRÃO, M. E.; BELTRÃO, K. L.; FERNANDES, C.; SANTOS, D.; SUÁREZ, M.; ANDRADE, A. C. O SAEB – Sistema nacional de avaliação da educação básica: objetivos, características e contribuições na investigação da escola eficaz. Revista Brasileira de Estudos de População, Belo Horizonte, v. 18, n. 1/2, p. 111-130, 2001. Disponível em: https://cutt.ly/2EU5q7t. Acesso em: 20 set. 2021.</span><br><a href="https://cutt.ly/2EU5q7t" target="_blank">https://cutt.ly/2EU5q7t...
+            </a></span></span> realizaram uma pesquisa utilizando modelos hierárquicos de dois níveis – aluno e escola – aplicados aos dados de proficiência em Matemática, Português, Ciências, Geografia e História, de alunos da 4ª série do Ensino Fundamental obtidas no SAEB de 1999. Os modelos propostos foram ajustados para as cinco regiões geográficas brasileiras. Resultados evidenciaram que a condição socioeconômica do aluno é um fator que influencia fortemente o seu desempenho nas disciplinas citadas, assim como é perceptível que os alunos com atraso escolar têm resultados escolares reduzidos quando comparados àqueles que estão na idade adequada para a série. Alunos negros apresentaram desempenho inferior aos demais em todas as regiões geográficas. Os autores verificaram também que as escolas com melhor infraestrutura, segurança e limpeza têm impacto positivo no desempenho dos estudantes e que alunos em turno integral não tem vantagem quando comparados com aqueles de turno parcial.</p>
+<p>A partir de dados obtidos por meio do Sistema Mineiro de Avaliação da Educação Pública (SIMAVE), <span class="ref"><strong class="xref xrefblue">Soares (2003)</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span>, <span class="ref"><strong class="xref xrefblue">Soares e Andrade (2006)</strong><span class="refCtt closed"><span>SOARES, J. F.; ANDRADE, R. J. Nível socioeconômico, qualidade e equidade das escolas de Belo Horizonte. Ensaio: avaliação e políticas públicas em educação, Belo Horizonte, v. 14, n. 50, p. 107-126, 2006.</span></span></span>, e <span class="ref"><strong class="xref xrefblue">Soares e Mendonça (2003)</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span> utilizaram a modelagem multinível para investigar os fatores associados ao desempenho escolar dos alunos. Um resultado comum nestes estudos refere-se ao efeito positivo da condição socioeconômica sobre a proficiência do aluno. <span class="ref"><strong class="xref xrefblue">Soares e Mendonça (2003)</strong><span class="refCtt closed"><span>SOARES, T. M.; MENDONÇA, M. C. Construção de um modelo de regressão hierárquico para os dados do Simave-2000. Pesquisa Operacional, Rio de Janeiro, v. 23, n. 3, p. 421-441, 2003. DOI: https://doi.org/fdkq2x.</span><br><a href="https://doi.org/fdkq2x" target="_blank">https://doi.org/fdkq2x...
+            </a></span></span> evidenciaram impacto positivo da escolaridade da mãe sobre o desempenho da turma. <span class="ref"><strong class="xref xrefblue">Soares (2003)</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span> mostrou que cada ano de defasagem escolar produz uma queda de seis pontos na proficiência, e que o fato de o aluno ser do sexo masculino e ser da raça negra produz quedas de nove e 10 pontos, respectivamente, na proficiência. Enquanto a frequência de faltas do professor e a falta de motivação dos alunos produzem queda na proficiência, professores mais dedicados e com mais disponibilidade refletem melhores desempenhos do alunos. Nas turmas em que os alunos fazem o dever de casa, os rendimentos também são mais altos. As estimações realizadas por <span class="ref"><strong class="xref xrefblue">Brooke <i>et al</i>. (2014)</strong><span class="refCtt closed"><span>BROOKE, N.; FERNANDES, N. S.; MIRANDA, I. P. H.; SOARES, T. M. Modelagem do crescimento da aprendizagem nos anos iniciais com dados longitudinais da pesquisa GERES. Educação e Pesquisa, São Paulo, v. 40, n. 1, p. 77-94, 2014. DOI: https://doi.org/gxtc.</span><br><a href="https://doi.org/gxtc" target="_blank">https://doi.org/gxtc...
+            </a></span></span> corroboram as conclusões de <span class="ref"><strong class="xref xrefblue">Ferrão <i>et al</i>. (2001)</strong><span class="refCtt closed"><span>FERRÃO, M. E.; BELTRÃO, K. L.; FERNANDES, C.; SANTOS, D.; SUÁREZ, M.; ANDRADE, A. C. O SAEB – Sistema nacional de avaliação da educação básica: objetivos, características e contribuições na investigação da escola eficaz. Revista Brasileira de Estudos de População, Belo Horizonte, v. 18, n. 1/2, p. 111-130, 2001. Disponível em: https://cutt.ly/2EU5q7t. Acesso em: 20 set. 2021.</span><br><a href="https://cutt.ly/2EU5q7t" target="_blank">https://cutt.ly/2EU5q7t...
+            </a></span></span> e <span class="ref"><strong class="xref xrefblue">Soares (2003)</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span> ao afirmar que a proficiência prévia e o nível socioeconômico proporcionam melhores desempenhos em matemática e língua portuguesa, alunos do gênero masculino estão em desvantagem sobre o gênero feminino, no que se refere ao aprendizado em leitura, e que alunos negros e alunos com defasagem escolar têm proficiência inferior em ambas as disciplinas.</p>
+<p>Preocupados com as desigualdades raciais no sistema brasileiro de Educação Básica, <span class="ref"><strong class="xref xrefblue">Soares e Alves (2003)</strong><span class="refCtt closed"><span>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. Educação e Pesquisa, São Paulo, v. 29, n. 1, p. 147-165, 2003.</span></span></span> utilizaram a abordagem multinível em dois níveis – alunos e escolas – para investigar as diferenças nos desempenhos de alunos discriminados por raça. Analisando dados do SAEB de 2001, os autores observaram que a diferença entre brancos e negros cresce com o aumento, tanto no nível socioeconômico do aluno como no da escola, e é maior na rede privada. A comparação do aluno com os colegas, os recursos culturais que dispõe, o fato de gostar de estudar a disciplina e fazer o dever de casa, são variáveis com impacto positivo sobre o desempenho escolar. Por outro lado, o atraso escolar foi identificado como a variável que mais afetou negativamente o desempenho do aluno, resultado semelhante ao de <span class="ref"><strong class="xref xrefblue">Barbosa e Fernandes (2001)</strong><span class="refCtt closed"><span>BARBOSA, M. E. F.; FERNANDES, C. A escola brasileira faz diferença?: uma investigação dos efeitos da escola na proficiência em matemática dos alunos da 4ª série. In: CRESO, F. (org.). Avaliação, ciclos e promoção na educação. Porto Alegre: Artmed, 2001. p. 155-172.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Soares (2003)</strong><span class="refCtt closed"><span>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. Estudos em Avaliação Educacional, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg.</span><br><a href="https://doi.org/gxtg" target="_blank">https://doi.org/gxtg...
+            </a></span></span> e <span class="ref"><strong class="xref xrefblue">Soares e Mendonça (2003)</strong><span class="refCtt closed"><span>SOARES, T. M.; MENDONÇA, M. C. Construção de um modelo de regressão hierárquico para os dados do Simave-2000. Pesquisa Operacional, Rio de Janeiro, v. 23, n. 3, p. 421-441, 2003. DOI: https://doi.org/fdkq2x.</span><br><a href="https://doi.org/fdkq2x" target="_blank">https://doi.org/fdkq2x...
+            </a></span></span>.</p>
+<p>Assim como feito no estudo de <span class="ref"><strong class="xref xrefblue">Jesus e Laros (2004)</strong><span class="refCtt closed"><span>JESUS, G. R.; LAROS, J. A. Eficácia escolar: regressão multinível com dados de avaliação em larga escala. Avaliação Psicológica, Campinas, v. 3, n. 2, p. 93-106, 2004.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Soares e Mendonça (2003)</strong><span class="refCtt closed"><span>SOARES, T. M.; MENDONÇA, M. C. Construção de um modelo de regressão hierárquico para os dados do Simave-2000. Pesquisa Operacional, Rio de Janeiro, v. 23, n. 3, p. 421-441, 2003. DOI: https://doi.org/fdkq2x.</span><br><a href="https://doi.org/fdkq2x" target="_blank">https://doi.org/fdkq2x...
+            </a></span></span> verificaram que o nível socioeconômico, a escolaridade do pai e fazer o dever de casa atuam positivamente sobre o desempenho do aluno em Língua Portuguesa. Por outro lado, o atraso escolar e o fato de o aluno trabalhar tem impacto negativo sobre o resultado alcançado pelo aluno. Similarmente, além da escolaridade da mãe, fazer o dever de casa foi uma variável significativa para explicar o desempenho no estudo de <span class="ref"><strong class="xref xrefblue">Riani e Rios-Neto (2008)</strong><span class="refCtt closed"><span>RIANI, J. R. L.; RIOS-NETO, E. L. G. Background familiar versus perfil escolar do município: qual possui maior influência no resultado educacional dos alunos brasileiros? Revista Brasileira de Estudos Populacionais, Rio de Janeiro, v. 25, n. 2, p. 251-269, 2008.</span></span></span>. A identificação dos fatores que afetam o desempenho dos estudantes foi objeto de estudo também de <span class="ref"><strong class="xref xrefblue">Laros, Marciano e Marciano (2010)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span>, os quais propuseram um modelo multinível com dados do SAEB de 2001 e consideraram o modelo empírico, apresentado por <span class="ref"><strong class="xref xrefblue">Jesus e Laros (2004)</strong><span class="refCtt closed"><span>JESUS, G. R.; LAROS, J. A. Eficácia escolar: regressão multinível com dados de avaliação em larga escala. Avaliação Psicológica, Campinas, v. 3, n. 2, p. 93-106, 2004.</span></span></span>, com dois níveis, isto é, aluno e escola. De acordo com resultados, a variável que mais afetou o desempenho escolar dos alunos foi o atraso escolar, seguida do gosto por estudar matemática. A quantidade de faltas e o índice de repetência afetaram negativamente o desempenho educacional.</p>
+<p>Considerando a intensa discussão sobre o atual cenário da Educação Básica no Brasil, este trabalho busca trazer contribuição para a discussão por meio da implementação de uma abordagem ainda não utilizada, isto é, analisando os resultados do Saresp, conforme as regiões do estado de São Paulo.</p>
+<h1 class="articleSectionTitle">Níveis regionais de proficiência em matemática no Saresp de 2013</h1>
+<p>É pauta frequente nas escolas a realização de avaliações externas do desempenho educacional dos alunos. O estado de São Paulo, além de participar das avaliações nacionais, promove o Sistema de Avaliação do Rendimento Escolar do Estado de São Paulo – SARESP, proposta pela Secretaria da Educação, o qual assegura a identidade de um processo avaliativo orientado por uma matriz de referência estabelecida de acordo com o Currículo de São Paulo. Os resultados desta avaliação, alcançados ao longo das contínuas edições, têm fornecido informações sobre o aprendizado dos alunos do Ensino Fundamental e do Ensino Médio, da rede pública e privada de ensino, proporcionando um acompanhamento da evolução do desempenho e dos fatores que influenciam a qualidade do ensino (<span class="ref"><strong class="xref xrefblue">SÃO PAULO, 2013</strong><span class="refCtt closed"><span>SÃO PAULO (Estado). Secretaria da Educação. Relatório pedagógico: SARESP 2013 – matemática. São Paulo, 2013.</span></span></span>).</p>
+<p>Com a finalidade de fornecer informações consistentes sobre a situação da escolaridade na rede pública de ensino do estado de São Paulo, capazes de orientar os gestores no monitoramento das políticas voltadas à melhoria da qualidade do ensino, o SARESP passou a vigorar em 1996 e, atualmente, envolve todos os alunos do 3º, 5º, 7º e 9º anos do Ensino Fundamental e da 3ª série do Ensino Médio, contemplando as áreas de Língua Portuguesa, com prova de Leitura e de Redação, Matemática, Ciências e Ciências da Natureza, caracterizadas por Biologia, Física e Química. Participam desta avaliação escolas estaduais e municipais, particulares e também as Escolas Técnicas Estaduais (ETE), administradas pelo Centro Educacional Tecnológico Paula Souza e vinculadas à Secretaria Estadual de Desenvolvimento do estado de São Paulo. A avaliação do desempenho dos alunos está apoiada no Currículo de São Paulo, o qual faz referência aos Parâmetros Curriculares Nacionais (PCNs) e também aos pressupostos teóricos que estão na base da criação do Exame Nacional do Ensino Médio (ENEM), na Matriz de Referência para Avaliação e em Metodologias estatísticas para planejamento, coleta e análise dos resultados.</p>
+<p>Para a disciplina de Matemática, as competências estão definidas na Matriz de Referência para Avaliação (<span class="ref"><strong class="xref xrefblue">SÃO PAULO, 2011</strong><span class="refCtt closed"><span>SÃO PAULO (Estado). Secretaria da Educação. Relatório pedagógico: SARESP 2011 – matemática. São Paulo, 2011.</span></span></span>). A partir das expectativas de aprendizagem quanto ao conteúdo, competências e habilidades, estabelecidas para cada ano/série da disciplina no Currículo de São Paulo, os pontos da escala do SARESP são agrupados em níveis de proficiência. No nível Abaixo do Básico, cuja pontuação é menor que 275, encontram-se alunos que demonstram domínio insuficiente dos conteúdos, competências e habilidades desejáveis para o ano/série em que se encontram. Ao nível Básico está associada uma pontuação igual ou acima de 275 e abaixo de 350 pontos e compreende os alunos que demonstram domínio mínimo dos conteúdos, competências e habilidades, mas possuem estruturas necessárias para interagir com a proposta curricular no ano/série subsequente. No nível Adequado, no qual estão os alunos com domínio pleno do conteúdo, competências e habilidades desejáveis para a série em que se encontram, a pontuação correspondente é igual ou acima de 350 e abaixo de 400 pontos. No nível Avançado estão os alunos que alcançaram pontuação igual ou superior a 400 pontos e que demonstram conhecimentos e domínio dos conteúdos, competências e habilidades acima do requerido na série em que se encontram. Combinados com seus intervalos de pontuação, os níveis de proficiência são classificados em um de três grupos, a saber: Insuficiente, Suficiente e Avançado. Os níveis Básico e Adequado são classificados como Suficientes. De acordo com a pontuação obtida na prova de Matemática, o aluno é classificado em um dos níveis de proficiência, ressaltando que o padrão de desempenho esperado pelo SARESP é o Adequado.</p>
+<p>A realização do SARESP envolve alunos, pais de alunos, escolas, diretores, coordenadores, professores de disciplinas diversas, aplicadores e fiscais, e utiliza-se de dois instrumentos de avaliação, sendo o primeiro caracterizado pela aplicação de provas em dois dias, e o segundo correspondendo à a aplicação de questionários direcionados a pais e alunos, diretores, professores coordenadores e professores dos anos iniciais do Ensino Fundamental, de Língua Portuguesa, Matemática, Ciências e Ciências da Natureza (<span class="ref"><strong class="xref xrefblue">SÃO PAULO, 2013</strong><span class="refCtt closed"><span>SÃO PAULO (Estado). Secretaria da Educação. Relatório pedagógico: SARESP 2013 – matemática. São Paulo, 2013.</span></span></span>). É importante considerar fatores individuais e familiares dos alunos, uma vez que os mesmos interferem no seu aprendizado, e também fatores associados à gestão escolar, os quais atuam significativamente sobre o desempenho escolar do aluno, como mostram <span class="ref"><strong class="xref xrefblue">Barbosa e Fernandes (2001)</strong><span class="refCtt closed"><span>BARBOSA, M. E. F.; FERNANDES, C. A escola brasileira faz diferença?: uma investigação dos efeitos da escola na proficiência em matemática dos alunos da 4ª série. In: CRESO, F. (org.). Avaliação, ciclos e promoção na educação. Porto Alegre: Artmed, 2001. p. 155-172.</span></span></span> e <span class="ref"><strong class="xref xrefblue">Laros, Marciano e Andrade (2010)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span>.</p>
+<p>Para identificar os fatores internos e externos à escola, atuantes na escolarização do indivíduo, foram considerados dados coletados pelo SARESP, na edição de 2013, referentes à nota em Matemática dos alunos da 3ª série do Ensino Médio, matriculados na rede pública estadual de ensino, e também às respostas dos pais dos alunos, dos coordenadores e diretores das escolas participantes da avaliação. Alunos cujos pais e/ou escolas (coordenadores e diretores) não responderam o questionário, foram excluídos da amostra de dados. A classificação da escolas em regiões deu-se conforme a Diretoria de Ensino a qual pertencem, apresentadas no <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT1"><span class="sci-ico-fileTable"></span>quadro 1</a></b>.</p>
+<div class="row table" id="T1">
+<a name="T1"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTableT1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Quadro 1</strong><br>Diretorias de Ensino alocadas às regiões do estado de São Paulo<br>
+</div>
+</div>
+<p>Na edição do SARESP de 2013 foram inscritos 253.845 alunos distribuídos nas escolas estaduais de São Paulo. Após eliminar as respostas vazias e os alunos cujos pais, coordenadores e diretores das escolas, não responderam às questões de interesse para a presente pesquisa, restaram 106.120 alunos. Deste total, 43.564 são da Capital, 18.062 do Centro, 3.542 do Litoral, 6.959 da região NE, 7.026 do NO, 9.095 do N, 8.754 do SE e 9.118 da região SO.</p>
+<p>Depois de agrupar as observações nas regiões do Estado, foram calculados os percentuais de alunos classificados em cada um dos níveis de proficiência em matemática, conforme resultado obtido na avaliação em 2013, os quais são mostrados na <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT2"><span class="sci-ico-fileTable"></span>tabela 1</a></b>.</p>
+<div class="row table" id="T2">
+<a name="T2"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTableT2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Tabela 1</strong><br>Percentual de alunos, por região, nos níveis de proficiência em matemática<br>
+</div>
+</div>
+<p>É possível observar que os maiores percentuais de alunos classificados no pior nível de proficiência, isto é, no Abaixo do Básico, foram registrados nas regiões Capital, Litoral e Sudoeste, de tal forma que, nas duas primeiras, os percentuais foram superiores a 55,5% dos alunos e na terceira foi próxima de 47,5%. Estes alunos alcançaram médias abaixo de 275 pontos, conforme critério estabelecido por este sistema de avaliação, e mostraram domínio insuficiente dos conteúdos, competências e habilidades desejáveis para a série em que se encontram, isto é, são incapazes de lidar com atividades como interpretação, construção de tabelas e gráficos, a partir de dados obtidos em pesquisas por amostras estatísticas.</p>
+<p>Nas demais regiões, a maioria dos alunos classificou-se no nível Básico de proficiência em matemática, com percentuais entre 47,4 (na região Sudeste) e 49,3 (nas regiões Centro e Noroeste), os quais demonstram domínio mínimo dos conteúdos, competências e habilidades, mas que possuem estruturas necessárias para interagir com a proposta curricular no ano/série subsequente. A região Noroeste (NO) abarcou o maior percentual de alunos com notas correspondentes ao intervalo de pontuação do nível Adequado, com quase 9%, seguido pela região Norte, com 7,4%. Os menores valores neste nível de proficiência em matemática foram alcançados pelos alunos matriculados nas escolas públicas pertencentes às regiões Litoral e Capital, cujos percentuais foram, respectivamente, iguais a 3 e 3,8. A <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT2"><span class="sci-ico-fileTable"></span>tabela 1</a></b> mostra ainda que a região Noroeste também registrou o maior percentual de alunos no nível Avançado de proficiência, com um valor próximo de 1%, contemplando, portanto, a maioria dos alunos capazes de identificar, calcular e resolver problemas relacionados com áreas, funções, equações, logaritmos, sistemas lineares, proporcionalidade, referencial cartesiano, contagem, progressões e trigonometria. Nas demais regiões, o percentual de alunos neste nível variou entre 0,2 (Capital, Litoral e Nordeste (NE)) e 0,4 (Norte).</p>
+<p>Os percentuais de alunos mostrados na <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT2"><span class="sci-ico-fileTable"></span>tabela 1</a></b>, explicitam um quadro crítico da Educação Básica ofertada no estado de São Paulo, uma vez que, em nenhuma das regiões se pôde observar a maior parte dos alunos no nível Adequado de proficiência, o qual é o desejado pela avaliação.</p>
+<h1 class="articleSectionTitle">Dados e modelos hierárquicos</h1>
+<p>Os dados utilizados no presente estudo correspondem às notas da prova de matemática obtidas pelos alunos da 3ª série do Ensino Médio da rede pública estadual de ensino e as respostas dadas nos questionários aplicados aos pais dos alunos e às escolas participantes do SARESP de 2013. Tais informações foram disponibilizadas pela Coordenadoria de Informação, Monitoramento e Avaliação Educacional (CIMA) da Secretaria Estadual de Educação de São Paulo (SEE/SP). Devido à quantidade de questões dispostas nos questionários do SARESP – 31 de alunos, 31 de pais dos alunos, 108 para coordenadores e 105 para diretores – inicialmente, fez-se uma seleção destacando aquelas consideradas relevantes para a pesquisa em questão, pautandose na literatura sobre a modelagem multinível, identificando as variáveis comumente utilizadas especificamente nos estudos descritos previamente.</p>
+<p>A partir dos estudos citados na seção dois, as questões apresentadas no <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT3"><span class="sci-ico-fileTable"></span>quadro 2</a></b> foram selecionadas para a elaboração dos modelos hierárquicos de dois níveis, contendo variáveis associadas aos alunos – nível 1, e às escolas – nível 2. Tais questões são todas qualitativas e, portanto, fez-se necessário categorizá-las para a realização da modelagem. A categorização utilizada e a codificação (nomenclatura atribuída nos modelos propostos) de cada variável selecionada é mostrada no mesmo quadro.</p>
+<p>Após a categorização das variáveis selecionadas e, ainda, para medir a significância das mesmas sobre o desempenho em matemática, regressões lineares múltiplas foram consideradas para cada uma das regiões. Concomitantemente, utilizou-se o método <i>Step wise</i> como critério de seleção do modelo que mais adequadamente explica os dados analisados.</p>
+<p>Seguindo os passos de modelagem multinível propostos por <span class="ref"><strong class="xref xrefblue">Hox (2002)</strong><span class="refCtt closed"><span>HOX, J. Multilevel analysis: techniques and applications. Mahwah: Lawrence Erlbaum, 2002.</span></span></span>, inicialmente, foi estimado o modelo nulo, o qual exerce papel fundamental no estudo da distribuição da variância total da variável resposta pelos níveis da hierarquia. É por meio do modelo nulo que o efeito da escola sobre a proficiência do aluno é estimado.</p>
+<div class="row table" id="T3">
+<a name="T3"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTableT3"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Quadro 2</strong><br>Questões selecionadas a partir dos questionários do SARESP<br>
+</div>
+</div>
+<p>Supondo que o subscrito <i>i</i> corresponda ao aluno e o subscrito <i>j</i> represente a escola e, considerando a existência de <i>J</i> escolas, <i>j</i> = 1,..., <i>J,</i> cada uma delas com <i>n<sub>j</sub></i> alunos, <i>i</i> = 1, ..., <i>n<sub>j</sub></i> , tem-se que o modelo nulo pode ser especificado como na expressão (1).</p>
+<div class="row formula" id="ee1">
+<a name="e1"></a><div class="col-md-12"><div class="formula-container">
+        <math id="e01"><semantics><mrow><mtable><mtr><mtd><mrow><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>β</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><msub><mi>β</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>γ</mi><mrow><mn>00</mn></mrow></msub><mo>+</mo><msub><mi>u</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub></mrow></mtd></mtr></mtable></mrow></semantics></math>
+      </div></div>
+</div>
+<p>em que <i>y<sub>ij</sub></i> é a variável resposta (proficiência em matemática) do <i>i</i>-ésimo aluno na <i>j</i>-ésima escola. Assume-se que <i>e<sub>ij</sub> ~ N</i>(0,<i>σ<sup>2</sup></i>) e <i>u<sub>0j</sub> ~ N</i>(0,τ<sub>00</sub>), e independência entre o efeito fixo e os efeitos aleatórios, bem como entre os efeitos aleatórios. De acordo com o modelo nulo, a proficiência do aluno <i>i</i> que estuda na escola <i>j</i> é definida pelo intercepto <i>β</i><sub>0<i>j</i></sub> e pelo termo do erro, <i>e<sub>ij</sub>.</i> O intercepto <i>β</i><sub>0<i>j</i></sub>, que representa um efeito específico da escola <i>j</i> sobre a proficiência em matemática do aluno, é dado pela soma de <i>y</i><sub>00</sub> e <i>u</i><sub>0<i>j</i></sub>, os quais indicam, respectivamente, a média global da proficiência em matemática dos alunos da 3ª série do Ensino Médio - portanto, um efeito fixo - e o afastamento da proficiência média em matemática da escola <i>j</i> à média global, <i>y</i><sub>00</sub>. Ainda no modelo nulo dado na expressão (1), a primeira linha caracteriza o nível 1, a qual tem associado um termo aleatório representado por <i>e<sub>ij</sub>,</i> cuja variância indica a variabilidade dentro das escolas; a segunda linha é o nível 2, para a qual <i>u</i><sub>0<i>j</i></sub><i></i> representa o efeito aleatório, do qual a variância indica a variabilidade entre as escolas. Então, a variância da proficiência em matemática está decomposta na variância entre as escolas (τ<sub>00</sub>) e dentro (ou intra) escolas (<i>σ<sup>2</sup></i>) e, por isso, o modelo com apenas o intercepto aleatório é chamado modelo de componentes da variância. Com as estimações das variâncias dentro das escolas e entre as escolas, pode-se calcular o coeficiente de correlação intra-escolar (ICC), o qual mede a proporção da variância entre as escolas face à variância total da variável resposta, possibilitando medir a magnitude do efeitoescola, isto é, a heterogeneidade dos resultados escolares entre as escolas. O ICC varia de zero a um e é calculado por meio da razão (2) (<span class="ref"><strong class="xref xrefblue">GOLDSTEIN, 1995</strong><span class="refCtt closed"><span>GOLDSTEIN, H. Multilevel statistical models. 2. ed. New York: John Wiley, 1995.</span></span></span>; <span class="ref"><strong class="xref xrefblue">RAUDENBUSH; BRYK, 2002</strong><span class="refCtt closed"><span>RAUDENBUSH, S. W.; BRYK, A. S. Hierarchical linear models: applications and data analysis methods. Thousand Oaks: Sage, 2002.</span></span></span>).</p>
+<div class="row formula" id="ee2">
+<a name="e2"></a><div class="col-md-12"><div class="formula-container">
+        <math id="e02"><semantics><mrow><mtable><mtr><mtd><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><msub><mi>τ</mi><mrow><mn>00</mn></mrow></msub></mrow><mrow><msub><mi>τ</mi><mrow><mn>00</mn></mrow></msub><mo>+</mo><msup><mi>σ</mi><mn>2</mn></msup></mrow></mfrac><mo>,</mo></mrow></mtd><mtd><mrow><mn>0</mn><mo>≤</mo><mi>ρ</mi><mo>≤</mo><mn>1.</mn></mrow></mtd></mtr></mtable></mrow></semantics></math>
+      </div></div>
+</div>
+<p>A <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT4"><span class="sci-ico-fileTable"></span>tabela 2</a></b> mostra os valores da correlação intra-classe em cada uma das regiões do Estado, a qual sugere que o maior percentual da variabilidade da proficiência em matemática dos alunos que estão associados à variabilidade das escolas é observado na região NO, onde o ICC foi de quase 9%.</p>
+<div class="row table" id="T4">
+<a name="T4"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTableT4"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Tabela 2</strong><br>Valores do ICC para cada região do Estado<br>
+</div>
+</div>
+<p>Na região Sudeste (SE), foi observado o menor percentual, igual a 6,6%. Os valores mostrados na <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT4"><span class="sci-ico-fileTable"></span>tabela 2</a></b> são baixos comparados àqueles obtidos nos estudos de <span class="ref"><strong class="xref xrefblue">Barbosa e Fernandes (2001)</strong><span class="refCtt closed"><span>BARBOSA, M. E. F.; FERNANDES, C. A escola brasileira faz diferença?: uma investigação dos efeitos da escola na proficiência em matemática dos alunos da 4ª série. In: CRESO, F. (org.). Avaliação, ciclos e promoção na educação. Porto Alegre: Artmed, 2001. p. 155-172.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Laros e Marciano (2008)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. Análise multinível aplicada aos dados do NELS:88. Estudos em Avaliação Educacional, São Paulo, v. 19, n. 40, p. 263-278, 2008.</span></span></span> e <span class="ref"><strong class="xref xrefblue">Laros, Marciano e Andrade (2010)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span>, respectivamente, iguais a 37%, 26%, 43% e 33%. Embora <span class="ref"><strong class="xref xrefblue">Lee (2001)</strong><span class="refCtt closed"><span>LEE, V. E. What are multilevel questions, and how might we explore them with quantitative methods? Estudos em Avaliação Educacional, São Paulo, n. 24, p. 31-68, 2001.</span></span></span> afirme que uma correlação intra-classe abaixo de 10% indique que a suposição de independência é válida e, portanto, a análise multinível seria desnecessária, <span class="ref"><strong class="xref xrefblue">Woltman <i>et al</i>., (2012)</strong><span class="refCtt closed"><span>WOLTMAN, H.; FELDSTAIN, A.; MACKAY, J. C.; ROCCHI, M. An introduction to hierarchical linear modeling. Tutorials in Quantitative Methods for Psychology, Ottawa, Canada, v. 8, n. 1, p. 52-69, 2012. DOI: https://doi.org/10.20982/tqmp.08.1.p052.</span><br><a href="https://doi.org/10.20982/tqmp.08.1.p052" target="_blank">https://doi.org/10.20982/tqmp.08.1.p052...
+            </a></span></span> argumenta que, mesmo não existindo um ponto de corte acerca do valor da correlação intra-classe, é válido testar a significância da variabilidade entre as escolas, ou então para valores muito baixos do ICC, a análise multinível pode produzir resultados não muito diferentes daqueles que seriam obtidos se uma análise de regressão fosse utilizada.</p>
+<p>Baixos valores para o ICC tornam conveniente testar a significância da variabilidade entre as escolas, conforme proposto por <span class="ref"><strong class="xref xrefblue">Bliese (2016)</strong><span class="refCtt closed"><span>BLIESE, P. Multilevel modeling in R (2.6): a brief introduction to R, the multilevel package and the nlme package. In: R DEVELOPMENT CORE TEAM. An introduction to R. [S. l.: s. n.], 2016. Disponível em: https://cutt.ly/ZEIuKIc. Acesso em: 3 fev. 2017.</span><br><a href="https://cutt.ly/ZEIuKIc" target="_blank">https://cutt.ly/ZEIuKIc...
+            </a></span></span>. O autor argumenta que, além de calcular o ICC, é importante determinar a significância da variância τ<sub>00</sub> e, para isso, sugere comparar o resultado da Deviance, calculada por –2log<i>verossimilhança</i>, para dois modelos, um contendo o intercepto e o outro sem o intercepto. Uma diferença significativa nos valores da Deviance sugere a existência de variação relevante no intercepto em termos de proficiência em matemática entre as escolas e, portanto, há evidência para considerar o modelo que contém o intercepto. Tal critério sugere como mais adequado o modelo com a menor Deviance (<span class="ref"><strong class="xref xrefblue">BLIESE, 2016</strong><span class="refCtt closed"><span>BLIESE, P. Multilevel modeling in R (2.6): a brief introduction to R, the multilevel package and the nlme package. In: R DEVELOPMENT CORE TEAM. An introduction to R. [S. l.: s. n.], 2016. Disponível em: https://cutt.ly/ZEIuKIc. Acesso em: 3 fev. 2017.</span><br><a href="https://cutt.ly/ZEIuKIc" target="_blank">https://cutt.ly/ZEIuKIc...
+            </a></span></span>). <span class="ref"><strong class="xref xrefblue">Laros e Marciano (2008)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. Análise multinível aplicada aos dados do NELS:88. Estudos em Avaliação Educacional, São Paulo, v. 19, n. 40, p. 263-278, 2008.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Laros, Marciano e Andrade (2010)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span> e <span class="ref"><strong class="xref xrefblue">Woltman <i>et al</i>. (2012)</strong><span class="refCtt closed"><span>WOLTMAN, H.; FELDSTAIN, A.; MACKAY, J. C.; ROCCHI, M. An introduction to hierarchical linear modeling. Tutorials in Quantitative Methods for Psychology, Ottawa, Canada, v. 8, n. 1, p. 52-69, 2012. DOI: https://doi.org/10.20982/tqmp.08.1.p052.</span><br><a href="https://doi.org/10.20982/tqmp.08.1.p052" target="_blank">https://doi.org/10.20982/tqmp.08.1.p052...
+            </a></span></span> utilizaram teste semelhante para investigar a existência de variação significativa no intercepto do modelo.</p>
+<p>Com o intuito de verificar qual dos modelos está mais adequado aos dados utilizados, ou seja, quais variáveis explicam a maior variabilidade contida na proficiência em matemática dos alunos avaliados, uma seleção de modelos foi realizada considerando o Critério de Informação de Akaike (AIC). O passo seguinte é considerar as variáveis significativas associadas à escola (nível 2). Novamente, faz-se uma seleção de modelos utilizando o critério AIC para obter o modelo hierárquico final. Considerando os modelos selecionados em cada região, estimativas foram obtidas via software RStudio, e são apresentadas e interpretadas na seção seguinte.</p>
+<h1 class="articleSectionTitle">Resultados</h1>
+<p>As estimativas para os parâmetros dos modelos citados na seção anterior são apresentadas na <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT5"><span class="sci-ico-fileTable"></span>tabela 3</a></b>, a qual indica também o nível de significância de cada valor obtido. O intercepto indica a média em matemática dos alunos, no SARESP de 2013, quando todas as variáveis forem iguais a zero, evidenciando que na região Litoral foi registrada a média mais alta e na região Sudeste (SE), a mais baixa. De acordo com os níveis de proficiência estabelecidos pelo SARESP, ambas as regiões se classificaram no nível Abaixo do Básico (AB), embora a região Litoral tenha ficado próxima de classificarse no nível Básico (BA), cuja pontuação mínima é 275 pontos. Em todas as regiões, as variáveis associadas à etnia do pai e da mãe desempenharam papel significativo sobre o desempenho em matemática do filho, alcançado na edição de 2013 do SARESP. Os valores mostrados indicam que a cor do pai influenciou o desempenho escolar do filho em todos os anos, no sentido de que, filhos de pais que se declararam brancos, alcançaram notas maiores. Pais e mães que se declararam negros ou de outras etnias (pardos/mulatos, amarelos/orientais ou indígenas) tiveram efeitos negativos sobre a média do filho, uma vez que todas as estimativas obtidas para as variáveis corp0, corp2, corm0 e corm2 foram negativas. Maiores perdas são observadas nas regiões SE e Sudoeste (SO), nas quais os alunos filhos de mães negras tiveram reduções, respectivamente, de 11 e 10,5 pontos na média, comparados aos demais alunos.</p>
+<p>Uma justificativa para o desempenho mais baixo dos alunos filhos de pais e mães que se declararam negros é pautada, segundo o <span class="ref"><strong class="xref xrefblue">INEP (2003)</strong><span class="refCtt closed"><span>INEP. Piora na qualidade do ensino afeta mais estudantes negros. Inep Notícias, Brasília, 14 jul. 2003. Disponível em https://cutt.ly/IEPIiAA. Acesso em: 11 abr. 2021.</span><br><a href="https://cutt.ly/IEPIiAA" target="_blank">https://cutt.ly/IEPIiAA...
+            </a></span></span>, na entrada mais tardia dos negros na economia, devido aos pais com menores níveis de escolaridade.</p>
+<p>Outra explicação para a diferença no desempenho ao comparar alunos brancos e negros, pardos ou outras etnias, de acordo com o <span class="ref"><strong class="xref xrefblue">INEP (2003)</strong><span class="refCtt closed"><span>INEP. Piora na qualidade do ensino afeta mais estudantes negros. Inep Notícias, Brasília, 14 jul. 2003. Disponível em https://cutt.ly/IEPIiAA. Acesso em: 11 abr. 2021.</span><br><a href="https://cutt.ly/IEPIiAA" target="_blank">https://cutt.ly/IEPIiAA...
+            </a></span></span>, está associada ao racismo, o qual se faz ainda presente na sociedade brasileira. Atitudes e comportamentos racistas afetam a auto-estima dos alunos e causa prejuízos no desempenho educacional, o que traz, como consequência, um aumento da desigualdade no sistema de ensino.</p>
+<p>Na Capital, devido ao caráter aleatório da variável que indica a etnia do pai, pode-se afirmar que, sobre a média das escolas, espera-se uma redução de sete pontos na nota do aluno se o pai for negro, e de três pontos se o pai for de outra etnia. Mães que não trabalham influenciaram positivamente o desempenho do aluno nas regiões Capital, Centro e Norte. O mesmo foi observado em relação aos pais apenas na região SE. As estimativas apresentadas na <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT5"><span class="sci-ico-fileTable"></span>tabela 3</a></b> mostram que a escolaridade do pai e da mãe atuou de maneira significativa sobre o desempenho do filho em todas as regiões do estado de São Paulo, evidenciando que mais anos de estudo do pai e da mãe proporcionaram ao aluno melhores resultados no SARESP de 2013. Neste sentido, destacam-se os acréscimos nas médias dos alunos matriculados nas escolas pertencentes à região Nordeste, cujas mães têm nível de instrução correspondente ao Ensino Médio e Ensino Superior, ambos completos ou incompletos, os quais foram próximos de 21 pontos, comparados aos alunos filhos de mães que estudaram até o Ensino Fundamental.</p>
+<div class="row table" id="T5">
+<a name="T5"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTableT5"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Tabela 3</strong><br>Estimativas para os parâmetros dos modelos hierárquicos, por região<br>
+</div>
+</div>
+<p>Fazer a lição de casa também auxilia o aluno a alcançar notas mais altas em matemática. A <b><a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTableT5"><span class="sci-ico-fileTable"></span>tabela 3</a></b> mostra ainda variâncias significativas associadas às variáveis lic_casa, rendaf1 e escm, nas regiões NE, SE e SO, respectivamente, indicando que o fato de fazer o dever de casa, ter renda familiar acima de R$ 2.126 e mães com mais anos de estudo impactaram de maneiras distintas o desempenho em matemática dos alunos matriculados em diferentes escolas. A variância significativa associada à variável lic_casa1, na região NE, indica que o fato de o aluno fazer o dever de casa impactou, de maneiras distintas, o desempenho em matemática no SARESP de 2013, dos alunos pertencentes a esta região em diferentes escolas.</p>
+<p>Associadas ao nível 2 (escola), as variáveis significativas para o desempenho do aluno foram aquelas que indicaram se o coordenador exerceu outra atividade remunerada, se a escola possui algum projeto voltado à redução das taxas de abandono e reprovação, se faltaram professores para alguma disciplina, o tipo da principal atividade do diretor, assim como o tempo que atua no cargo. Nas escolas situadas na Capital do Estado, em que o coordenador não tem outras atividades remuneradas e, cujo diretor atua no cargo há mais de 10 anos, contribuíram positivamente para o desempenho do aluno. Por outro lado, escolas com projetos voltados à redução das taxas de abandono e reprovação tiveram impacto negativo sobre as médias em matemática obtidas pelos alunos da 3ª série do Ensino Médio no SARESP de 2013.</p>
+<h1 class="articleSectionTitle">Conclusão</h1>
+<p>Embora esteja em vias de desenvolvimento no Brasil, a avaliação educacional em larga escala tem se mostrado importante nas últimas décadas, constituindo-se como ferramenta para auxiliar a identificação de fatores atuantes sobre o desempenho escolar do aluno. Nos últimos 20 anos, aproximadamente, os sistemas de avaliação tiveram, como objetivo prioritário, encontrar mecanismos que oferecessem melhorias, de maneira eficaz e eficiente, na qualidade do ensino ofertado na sociedade. Por sua vez, a avaliação educacional tem a finalidade de fornecer elementos que permitam diagnosticar a situação do sistema de ensino de determinado local e, concomitantemente, subsidiar políticas e diretrizes adequadas no contexto municipal, estadual e nacional, visando a contínua melhoria na qualidade da educação. Como apontam <span class="ref"><strong class="xref xrefblue">Alves e Soares (2008)</strong><span class="refCtt closed"><span>ALVES, M. T. G.; SOARES, J. F. O efeito das escolas no aprendizado dos alunos: um estudo com dados longitudinais no ensino fundamental. Educação e Pesquisa, São Paulo, v. 34, n. 3, p. 527-544, 2008. DOI: https://doi.org/bvc6px.</span><br><a href="https://doi.org/bvc6px" target="_blank">https://doi.org/bvc6px...
+            </a></span></span>, os estudos que consideram modelos hierárquicos para dados educacionais, realizados no Brasil, mostraram que existe uma significativa variação entre as escolas, mas que a variabilidade observada entre os alunos é sempre maior. Comparado a países industrializados, a variabilidade existente entre as escolas brasileiras costuma ser maior devido à segmentação no sistema educacional.</p>
+<p>Considerando as observações agrupadas por regiões do Estado, definidas a partir da Diretoria de Ensino a qual pertence a escola, estimativas foram obtidas por região, utilizando o software RStudio. Para a região denominada Capital, pôdese observar que a etnia, a escolaridade do pai e da mãe e a renda familiar foram significativas para explicar o desempenho do aluno na edição do SARESP de 2013, sugerindo que alunos filhos de pai e mãe brancos, com mais anos de estudo e com renda familiar acima de R$ 2.126 alcançaram médias em matemática superiores aos demais alunos. O efeito de mães que não trabalham (aposentada, desempregada ou em outra situação) sobre o desempenho do filho foi positivo.</p>
+<p>Associadas às escola, aquelas que possuem projetos voltados à redução da taxa de abandono, tiveram impacto negativo sobre o desempenho do aluno e, aquelas nas quais o diretor atua no cargo há mais de 10 anos, contribuíram positivamente para o resultado do aluno pertencente às escolas da região Capital. Comportamento similar foi observado quando os resultados dos alunos matriculados nas escolas da região Centro do Estado foram analisados. Na região Litoral, a escolaridade da mãe foi a que mais impactou o resultado do aluno no SARESP de 2013. Em relação às variáveis da escola, pouca significância foi observada para explicar o desempenho do aluno. Destacaram-se como relevantes e com impacto positivo sobre o desempenho dos alunos pertencentes à região Nordeste do Estado, a etnia da mãe e a escolaridade do pai e da mãe, evidenciando que filhos de mães declaradas brancas e com pai e mãe com níveis mais altos de instrução tiveram desempenho melhor, quando comparados aos demais alunos. Nesta região, na maior parte do período analisado, as escolas em que ocorre o problema associado à falta de professor para alguma disciplina tiveram impacto negativo sobre o desempenho do aluno e aquelas em que o diretor atua no cargo há mais de 10 anos atuou positivamente. Tiveram efeito positivo também sobre o desempenho em matemática o fato de o aluno não ter defasagem escolar, fazer o dever de casa e não ter trabalhado no Ensino Médio. A variável que indica o tempo que o diretor atua no cargo também foi importante para explicar o desempenho do aluno da região Norte. As estimativas obtidas sugeriram que diretores com mais de 10 anos no cargo contribuíram positivamente para um melhor resultado no SARESP. As variáveis significativas para explicar o desempenho dos alunos das escolas situadas nas regiões Sudeste e Sudoeste do Estado foram similares àquelas identificadas na Capital.</p>
+<p>Os resultados obtidos nesta pesquisa corroboraram as conclusões de estudos realizados na literatura, obtidas a partir de outras amostras. Andrade e <span class="ref"><strong class="xref xrefblue">Laros (2008)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. Análise multinível aplicada aos dados do NELS:88. Estudos em Avaliação Educacional, São Paulo, v. 19, n. 40, p. 263-278, 2008.</span></span></span>. <span class="ref"><strong class="xref xrefblue">Laros, Marciano e Andrade (2010)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span>, <span class="ref"><strong class="xref xrefblue">Palermo, Silva e Novellino (2014)</strong><span class="refCtt closed"><span>PALERMO, G. A.; SILVA, D. B. N.; NOVELLINO, M. S. F. Fatores associados ao desempenho escolar: uma análise da proficiência em matemática dos alunos do 5º ano do ensino fundamental da rede municipal do Rio de Janeiro. Revista Brasileira de Estudos Populacionais, Rio de Janeiro, v. 31, n. 2, p. 367-394, 2014. DOI: https://doi.org/gxtf.</span><br><a href="https://doi.org/gxtf" target="_blank">https://doi.org/gxtf...
+            </a></span></span>, e <span class="ref"><strong class="xref xrefblue">Soares e Mendonça (2003)</strong><span class="refCtt closed"><span>SOARES, T. M.; MENDONÇA, M. C. Construção de um modelo de regressão hierárquico para os dados do Simave-2000. Pesquisa Operacional, Rio de Janeiro, v. 23, n. 3, p. 421-441, 2003. DOI: https://doi.org/fdkq2x.</span><br><a href="https://doi.org/fdkq2x" target="_blank">https://doi.org/fdkq2x...
+            </a></span></span> encontraram que as variáveis associadas à defasagem e ao abandono escolar apresentaram efeito negativo sobre a proficiência em matemática do aluno enquanto a escolaridade da mãe e a condição socioeconômica contribuíram positivamente para um resultado melhor. Andrade e <span class="ref"><strong class="xref xrefblue">Laros (2008)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. Análise multinível aplicada aos dados do NELS:88. Estudos em Avaliação Educacional, São Paulo, v. 19, n. 40, p. 263-278, 2008.</span></span></span> mostraram que a variável que mais afetou negativamente o desempenho escolar dos alunos foi atraso escolar. Os resultados evidenciaram que, a cada aumento de uma unidade na escala de escore padrão de atraso escolar, o desempenho médio dos alunos diminuiu em 10,67 pontos. O fato de o aluno trabalhar também prejudicou seu desempenho. Por outro lado, fazer o dever de casa favorece o aluno a ter um melhor desempenho. <span class="ref"><strong class="xref xrefblue">Laros, Marciano e Andrade (2010)</strong><span class="refCtt closed"><span>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. Avaliação Psicológica, Campinas, v. 9, n. 2, p. 173-186, 2010.</span></span></span> verificaram que, a cada aumento de uma unidade na escala de escore padrão de atraso escolar, o desempenho médio dos alunos diminuiu em 10,10 pontos. <span class="ref"><strong class="xref xrefblue">Palermo, Silva e Novellino (2014)</strong><span class="refCtt closed"><span>PALERMO, G. A.; SILVA, D. B. N.; NOVELLINO, M. S. F. Fatores associados ao desempenho escolar: uma análise da proficiência em matemática dos alunos do 5º ano do ensino fundamental da rede municipal do Rio de Janeiro. Revista Brasileira de Estudos Populacionais, Rio de Janeiro, v. 31, n. 2, p. 367-394, 2014. DOI: https://doi.org/gxtf.</span><br><a href="https://doi.org/gxtf" target="_blank">https://doi.org/gxtf...
+            </a></span></span> confirmaram que a defasagem escolar diminui o desempenho, de tal forma que os alunos atrasados possuem piores resultados. A defasagem escolar também teve efeito negativo sobre o desempenho do aluno no estudo realizado por <span class="ref"><strong class="xref xrefblue">Jesus e Laros (2004)</strong><span class="refCtt closed"><span>JESUS, G. R.; LAROS, J. A. Eficácia escolar: regressão multinível com dados de avaliação em larga escala. Avaliação Psicológica, Campinas, v. 3, n. 2, p. 93-106, 2004.</span></span></span>. Em relação à etnia, os resultados do estudo de <span class="ref"><strong class="xref xrefblue">Riani e Rios-Neto (2008)</strong><span class="refCtt closed"><span>RIANI, J. R. L.; RIOS-NETO, E. L. G. Background familiar versus perfil escolar do município: qual possui maior influência no resultado educacional dos alunos brasileiros? Revista Brasileira de Estudos Populacionais, Rio de Janeiro, v. 25, n. 2, p. 251-269, 2008.</span></span></span> e de <span class="ref"><strong class="xref xrefblue">Brooke <i>et al</i>. (2014)</strong><span class="refCtt closed"><span>BROOKE, N.; FERNANDES, N. S.; MIRANDA, I. P. H.; SOARES, T. M. Modelagem do crescimento da aprendizagem nos anos iniciais com dados longitudinais da pesquisa GERES. Educação e Pesquisa, São Paulo, v. 40, n. 1, p. 77-94, 2014. DOI: https://doi.org/gxtc.</span><br><a href="https://doi.org/gxtc" target="_blank">https://doi.org/gxtc...
+            </a></span></span> também mostraram que alunos negros e pardos têm desvantagem educacional em relação aos brancos. Assim como encontrado por <span class="ref"><strong class="xref xrefblue">Soares e Alves (2003)</strong><span class="refCtt closed"><span>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. Educação e Pesquisa, São Paulo, v. 29, n. 1, p. 147-165, 2003.</span></span></span>, na presente pesquisa pôde-se observar que as menores diferenças observadas entre as médias em matemática dos alunos brancos e aqueles declarados pardos/mulatos, amarelos/orientais ou indígenas é menor quando comparada com a diferença entre as médias dos alunos brancos e negros.</p>
+<p>Estudos como este buscam obter conhecimento para subsidiar soluções para problemas que são constantes preocupações de todos aqueles que estão envolvidos com o sistema educacional brasileiro. Como apontam <span class="ref"><strong class="xref xrefblue">Soares e Alves (2003)</strong><span class="refCtt closed"><span>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. Educação e Pesquisa, São Paulo, v. 29, n. 1, p. 147-165, 2003.</span></span></span>, a desigualdade observada, no contexto escolar, entre brancos e negros, pardos ou alunos de outras etnias, somente se reduzirá com a implementação de políticas públicas educacionais que busquem, concomitantemente, um equilíbrio entre a eficácia e a equidade na educação e a redução do impacto das questões socioeconômicas do aluno sobre o seu desempenho escolar.</p>
+<p>Assim, a partir dos resultados alcançados, espera-se ter contribuído com a literatura que aborda a identificação de fatores que impactam o desempenho educacional do aluno e ressaltar a importância de formulação e implementação de políticas públicas voltadas à educação que visem, simultaneamente, melhorar a qualidade do ensino ofertado à sociedade e diminuir o impacto das características socioeconômicas sobre o desempenho do aluno.</p>
+</div>
+<div class="articleSection" data-anchor="Referências">
+<h1 class="articleSectionTitle">Referências</h1>
+<div class="ref-list"><ul class="refList">
+<li><div>ALVES, M. T. G.; SOARES, J. F. O efeito das escolas no aprendizado dos alunos: um estudo com dados longitudinais no ensino fundamental. <i>Educação e Pesquisa</i>, São Paulo, v. 34, n. 3, p. 527-544, 2008. DOI: https://doi.org/bvc6px<br><a href="https://doi.org/bvc6px." target="_blank">» https://doi.org/bvc6px.</a>
+</div></li>
+<li><div>ANDRADE, J. M.; LAROS, J. A. Fatores associados ao desempenho escolar: estudo multinível com dados do SAEB/2001. <i>Psicologia</i>: teoria e pesquisa, Brasília, v. 23 n. 1, p. 33-42, 2007. DOI: https://doi.org/b7kspt<br><a href="https://doi.org/b7kspt" target="_blank">» https://doi.org/b7kspt</a>
+</div></li>
+<li><div>BARBOSA, M. E. F.; FERNANDES, C. A escola brasileira faz diferença?: uma investigação dos efeitos da escola na proficiência em matemática dos alunos da 4ª série. <i>In</i>: CRESO, F. (org.). <i>Avaliação, ciclos e promoção na educação</i> Porto Alegre: Artmed, 2001. p. 155-172.</div></li>
+<li><div>BLIESE, P. Multilevel modeling in R (2.6): a brief introduction to R, the multilevel package and the nlme package. <i>In</i>: R DEVELOPMENT CORE TEAM. <i>An introduction to R</i> [<i>S. l.</i>: <i>s. n.</i>], 2016. Disponível em: https://cutt.ly/ZEIuKIc Acesso em: 3 fev. 2017.<br><a href="https://cutt.ly/ZEIuKIc" target="_blank">» https://cutt.ly/ZEIuKIc</a>
+</div></li>
+<li><div>BROOKE, N.; FERNANDES, N. S.; MIRANDA, I. P. H.; SOARES, T. M. Modelagem do crescimento da aprendizagem nos anos iniciais com dados longitudinais da pesquisa GERES. <i>Educação e Pesquisa</i>, São Paulo, v. 40, n. 1, p. 77-94, 2014. DOI: https://doi.org/gxtc<br><a href="https://doi.org/gxtc" target="_blank">» https://doi.org/gxtc</a>
+</div></li>
+<li><div>FERRÃO, M. E.; BELTRÃO, K. L.; FERNANDES, C.; SANTOS, D.; SUÁREZ, M.; ANDRADE, A. C. O SAEB – Sistema nacional de avaliação da educação básica: objetivos, características e contribuições na investigação da escola eficaz. <i>Revista Brasileira de Estudos de População</i>, Belo Horizonte, v. 18, n. 1/2, p. 111-130, 2001. Disponível em: https://cutt.ly/2EU5q7t Acesso em: 20 set. 2021.<br><a href="https://cutt.ly/2EU5q7t" target="_blank">» https://cutt.ly/2EU5q7t</a>
+</div></li>
+<li><div>GELMAN, A.; HILL, J. <i>Data analysis using regression and multilevel/hierarchical models</i> New York: Cambridge University Press, 2006.</div></li>
+<li><div>GOLDSTEIN, H. Modelos de realidade: novas abordagens para a compreensão de processos educacionais. <i>In</i>: FRANCO, C. (org.). <i>Avaliação, ciclos e promoção na educação</i> Porto Alegre: Artmed, 2001. p. 84-99.</div></li>
+<li><div>GOLDSTEIN, H. <i>Multilevel statistical models</i> 2. ed. New York: John Wiley, 1995.</div></li>
+<li><div>HOX, J. <i>Multilevel analysis</i>: techniques and applications. Mahwah: Lawrence Erlbaum, 2002.</div></li>
+<li><div>INEP. Piora na qualidade do ensino afeta mais estudantes negros. <i>Inep Notícias</i>, Brasília, 14 jul. 2003. Disponível em https://cutt.ly/IEPIiAA Acesso em: 11 abr. 2021.<br><a href="https://cutt.ly/IEPIiAA" target="_blank">» https://cutt.ly/IEPIiAA</a>
+</div></li>
+<li><div>JESUS, G. R.; LAROS, J. A. Eficácia escolar: regressão multinível com dados de avaliação em larga escala. <i>Avaliação Psicológica</i>, Campinas, v. 3, n. 2, p. 93-106, 2004.</div></li>
+<li><div>LAROS, J. A.; MARCIANO, J. L. P. Análise multinível aplicada aos dados do NELS:88. <i>Estudos em Avaliação Educacional</i>, São Paulo, v. 19, n. 40, p. 263-278, 2008.</div></li>
+<li><div>LAROS, J. A.; MARCIANO, J. L. P. ; ANDRADE, J. M. Fatores que afetam o desempenho na prova de matemática do SAEB: um estudo multinível. <i>Avaliação Psicológica</i>, Campinas, v. 9, n. 2, p. 173-186, 2010.</div></li>
+<li><div>LEE, V. E. What are multilevel questions, and how might we explore them with quantitative methods? <i>Estudos em Avaliação Educacional</i>, São Paulo, n. 24, p. 31-68, 2001.</div></li>
+<li><div>PALERMO, G. A.; SILVA, D. B. N.; NOVELLINO, M. S. F. Fatores associados ao desempenho escolar: uma análise da proficiência em matemática dos alunos do 5º ano do ensino fundamental da rede municipal do Rio de Janeiro. <i>Revista Brasileira de Estudos Populacionais</i>, Rio de Janeiro, v. 31, n. 2, p. 367-394, 2014. DOI: https://doi.org/gxtf<br><a href="https://doi.org/gxtf" target="_blank">» https://doi.org/gxtf</a>
+</div></li>
+<li><div>RAUDENBUSH, S. W.; BRYK, A. S. <i>Hierarchical linear models</i>: applications and data analysis methods. Thousand Oaks: Sage, 2002.</div></li>
+<li><div>RIANI, J. R. L.; RIOS-NETO, E. L. G. Background familiar versus perfil escolar do município: qual possui maior influência no resultado educacional dos alunos brasileiros? <i>Revista Brasileira de Estudos Populacionais</i>, Rio de Janeiro, v. 25, n. 2, p. 251-269, 2008.</div></li>
+<li><div>SÃO PAULO (Estado). Secretaria da Educação. <i>Relatório pedagógico</i>: SARESP 2011 – matemática. São Paulo, 2011.</div></li>
+<li><div>SÃO PAULO (Estado). Secretaria da Educação. <i>Relatório pedagógico</i>: SARESP 2013 – matemática. São Paulo, 2013.</div></li>
+<li><div>SOARES, T. M. Influência do professor e do ambiente em sala de aula sobre a proficiência alcançada pelos alunos avaliados no Simave-2002. <i>Estudos em Avaliação Educacional</i>, São Paulo, n. 28, 2003. DOI: https://doi.org/gxtg<br><a href="https://doi.org/gxtg" target="_blank">» https://doi.org/gxtg</a>
+</div></li>
+<li><div>SOARES, J. F.; ALVES, M. T. G. Desigualdades raciais no sistema brasileiro de educação básica. <i>Educação e Pesquisa</i>, São Paulo, v. 29, n. 1, p. 147-165, 2003.</div></li>
+<li><div>SOARES, J. F.; ANDRADE, R. J. Nível socioeconômico, qualidade e equidade das escolas de Belo Horizonte. <i>Ensaio</i>: avaliação e políticas públicas em educação, Belo Horizonte, v. 14, n. 50, p. 107-126, 2006.</div></li>
+<li><div>SOARES, T. M.; MENDONÇA, M. C. Construção de um modelo de regressão hierárquico para os dados do Simave-2000. <i>Pesquisa Operacional</i>, Rio de Janeiro, v. 23, n. 3, p. 421-441, 2003. DOI: https://doi.org/fdkq2x<br><a href="https://doi.org/fdkq2x." target="_blank">» https://doi.org/fdkq2x.</a>
+</div></li>
+<li><div>WOLTMAN, H.; FELDSTAIN, A.; MACKAY, J. C.; ROCCHI, M. An introduction to hierarchical linear modeling. <i>Tutorials in Quantitative Methods for Psychology</i>, Ottawa, Canada, v. 8, n. 1, p. 52-69, 2012. DOI: https://doi.org/10.20982/tqmp.08.1.p052<br><a href="https://doi.org/10.20982/tqmp.08.1.p052" target="_blank">» https://doi.org/10.20982/tqmp.08.1.p052</a>
+</div></li>
+</ul></div>
+</div>
+<div class="articleSection" data-anchor="Datas de Publicação ">
+<h1 class="articleSectionTitle">Datas de Publicação </h1>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Publicação nesta coleção</strong><br>19 Nov 2021</li>
+<li>
+<strong>Data do Fascículo</strong><br>2021</li>
+</ul></div></div>
+</div>
+<div class="articleSection" data-anchor="Histórico">
+<h1 class="articleSectionTitle">Histórico</h1>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Recebido</strong><br>30 Set 2020</li>
+<li>
+<strong>Aceito</strong><br>16 Ago 2021</li>
+</ul></div></div>
+</div>
+<section class="documentLicense"><div class="container-license"><div class="row">
+<div class="col-sm-3 col-md-2"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title=""><img src="https://licensebuttons.net/l/by/4.0//88x31.png" alt="Creative Common - by 4.0 "></a></div>
+<div class="col-sm-9 col-md-10"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title="">Este é um artigo publicado em acesso aberto (Open Access) sob a licença Creative Commons Attribution, que permite uso, distribuição e reprodução em qualquer meio, sem restrições desde que o trabalho original seja corretamente citado.</a></div>
+</div></div></section></article>
+</div>
+</div></div></section><div class="modal fade ModalDefault ModalTutors" id="ModalTutors" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">Sobre o autor</h4>
+</div>
+<div class="modal-body">
+<div class="info"><div class="tutors">
+<strong> Camila Fernanda Bassetto </strong><strong></strong><br><div>Universidade Estadual Paulista (UNESP), Faculdade de Ciências e Letras, Departamento de Educação, Araraquara, SP, Brasil.</div>
+<ul class="md-list inline"><li><a href="http://orcid.org/0000-0002-2513-7455" class="btnContribLinks orcid">http://orcid.org/0000-0002-2513-7455</a></li></ul>
+<div class="clearfix"></div>
+</div></div>
+<div class="info">Contato: <a href="mailto:camila.bassetto@unesp.br">camila.bassetto@unesp.br</a>
+</div>
+</div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">Tabelas | Fórmulas</h4>
+</div>
+<div class="modal-body">
+<ul class="nav nav-tabs md-tabs" role="tablist">
+<li role="presentation" class="col-md-4 col-sm-4 active"><a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">Tabelas
+                    (5)
+                </a></li>
+<li role="presentation" class="col-md-4 col-sm-4 "><a href="#schemes" aria-controls="schemes" role="tab" data-toggle="tab">Fórmulas
+                    (2)
+                </a></li>
+</ul>
+<div class="clearfix"></div>
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane active" id="tables">
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTableT1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Quadro 1</strong><br>Diretorias de Ensino alocadas às regiões do estado de São Paulo</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTableT2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Tabela 1</strong><br>Percentual de alunos, por região, nos níveis de proficiência em matemática</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTableT3"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Quadro 2</strong><br>Questões selecionadas a partir dos questionários do SARESP</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTableT4"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Tabela 2</strong><br>Valores do ICC para cada região do Estado</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTableT5"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Tabela 3</strong><br>Estimativas para os parâmetros dos modelos hierárquicos, por região</div>
+</div>
+</div>
+<div role="tabpanel" class="tab-pane " id="schemes">
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalSchemee1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8"></div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalSchemee2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8"></div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableT1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Quadro 1</strong>    Diretorias de Ensino alocadas às regiões do estado de São Paulo<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table>
+<thead><tr>
+<th align="center" valign="middle">Região</th>
+<th align="center" valign="middle">Diretoria de Ensino (DE)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" valign="middle">Capital</td>
+<td align="left" valign="middle">Caieiras, Carapicuíba, Centro (SP), Centro Oeste (SP), Centro Sul (SP), Diadema, Guarulhos Norte, Guarulhos Sul, Itapecerica da Serra, Itapevi, Itaquaquecetuba, Leste 1 (SP), Leste 2 (SP), Leste 3 (SP), Leste 4 (SP), Leste 5 (SP), Mauá, Mogi das Cruzes, Norte 1 (SP), Norte 2 (SP), Osasco, Santo André, São Bernardo do Campo, Sul 1 (SP), Sul 2 (SP), Sul 3 (SP), Suzano, Taboão da Serra.</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Centro</td>
+<td align="left" valign="middle">Americana, Bragança Paulista, Campinas Leste, Campinas Oeste, Capivari, Itu, Jundiaí, Limeira, Mogi Mirim, Piracicaba, Pirassununga, São João da Boa Vista, Sumaré.</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Litoral</td>
+<td align="left" valign="middle">Santos, São Vicente.</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Nordeste (NE)</td>
+<td align="left" valign="middle">Caraguatatuba, Guaratinguetá, Jacareí, Pindamonhangaba, São José dos Campos, Taubaté.</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Noroeste (NO)</td>
+<td align="left" valign="middle">Andradina, Araçatuba, Birigui, Catanduva, Fernandópolis, Jales, José Bonifácio, Penápolis, São José do Rio Preto, Votuporanga.</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Norte (N)</td>
+<td align="left" valign="middle">Araraquara, Barretos, Franca, Jaboticabal, Ribeirão Preto, São Carlos, São Joaquim da Barra, Sertãozinho, Taquaritinga.</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Sudeste (SE)</td>
+<td align="left" valign="middle">Apiaí, Avaré, Botucatu, Itapetininga, Itapeva, Itararé, Miracatu, Piraju, Registro, São Roque, Sorocaba, Votorantim.</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Sudoeste (SO)</td>
+<td align="left" valign="middle">Adamantina, Assis, Bauru, Jaú, Lins, Marília, Mirante do Paranapanema, Ourinhos, Presidente Prudente, Santo Anastácio, Tupã.</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN1"><div>Fonte: elaborado pela autora a partir dos dados disponibilizados pela Coordenadoria de Informação, Monitoramento e Avaliação Educacional (CIMA) da Secretaria Estadual de Educação de São Paulo (SEE/SP).</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableT2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Tabela 1</strong>    Percentual de alunos, por região, nos níveis de proficiência em matemática<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table>
+<thead>
+<tr>
+<th align="left" valign="middle">Região</th>
+<th align="center" valign="middle" colspan="4">Níveis de Proficiência em Matemática</th>
+</tr>
+<tr>
+<th align="center" valign="middle"></th>
+<th align="center" valign="middle">Abaixo do Básico (AB)</th>
+<th align="center" valign="middle">Básico (BA)</th>
+<th align="center" valign="middle">Adequado (AD)</th>
+<th align="center" valign="middle">Avançado (AV)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="middle">Capital</td>
+<td align="center" valign="middle">55,7</td>
+<td align="center" valign="middle">40,3</td>
+<td align="center" valign="middle">3,8</td>
+<td align="center" valign="middle">0,2</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Centro</td>
+<td align="center" valign="middle">44,1</td>
+<td align="center" valign="middle">49,3</td>
+<td align="center" valign="middle">6,3</td>
+<td align="center" valign="middle">0,3</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Litoral</td>
+<td align="center" valign="middle">55,8</td>
+<td align="center" valign="middle">41,0</td>
+<td align="center" valign="middle">3,0</td>
+<td align="center" valign="middle">0,2</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Nordeste (NE)</td>
+<td align="center" valign="middle">45,5</td>
+<td align="center" valign="middle">48,9</td>
+<td align="center" valign="middle">5,4</td>
+<td align="center" valign="middle">0,2</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Noroeste (NO)</td>
+<td align="center" valign="middle">41,1</td>
+<td align="center" valign="middle">49,3</td>
+<td align="center" valign="middle">8,8</td>
+<td align="center" valign="middle">0,8</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Norte (N)</td>
+<td align="center" valign="middle">44,4</td>
+<td align="center" valign="middle">47,8</td>
+<td align="center" valign="middle">7,4</td>
+<td align="center" valign="middle">0,4</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Sudeste (SE)</td>
+<td align="center" valign="middle">46,8</td>
+<td align="center" valign="middle">47,4</td>
+<td align="center" valign="middle">5,5</td>
+<td align="center" valign="middle">0,3</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Sudoeste (SO)</td>
+<td align="center" valign="middle">47,6</td>
+<td align="center" valign="middle">45,4</td>
+<td align="center" valign="middle">6,7</td>
+<td align="center" valign="middle">0,3</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN2"><div>Fonte: elaborada pela autora.</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableT3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Quadro 2</strong>    Questões selecionadas a partir dos questionários do SARESP<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table>
+<thead><tr>
+<th align="center" valign="middle">Questionário</th>
+<th align="center" valign="middle">Questões</th>
+<th align="center" valign="middle">Codificação</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" valign="middle" rowspan="7">
+                <b>Pais</b>
+              </td>
+<td align="left" valign="middle">Q1 – Qual é a cor do pai?</td>
+<td align="left" valign="middle">corp</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q2 – Qual é a cor da mãe?</td>
+<td align="left" valign="middle">corm</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q3 – Marque a situação de trabalho do pai.</td>
+<td align="left" valign="middle">trabp</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q4 – Qual é o grau de escolaridade do pai?</td>
+<td align="left" valign="middle">escp</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q5 – Marque a situação de trabalho da mãe.</td>
+<td align="left" valign="middle">trabm</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q6 – Qual é o grau de escolaridade da mãe?</td>
+<td align="left" valign="middle">escm</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q7 – Qual é a renda familiar de seu domicílio, em R$?</td>
+<td align="left" valign="middle">rendaf</td>
+</tr>
+<tr>
+<td align="left" valign="middle" rowspan="5">
+                <b>Aluno</b>
+              </td>
+<td align="left" valign="middle">Q8 – Há quantos anos você está cursando o Ensino Médio?</td>
+<td align="left" valign="middle">def_EM</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q9 – Frequentou aulas de reforço para melhorar resultados escolares?</td>
+<td align="left" valign="middle">rec_mat</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q10 – Quanto tempo passa por dia fazendo as lições de casa?</td>
+<td align="left" valign="middle">lic_casa</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q11 – Você trabalhou fora durante o Ensino Médio?</td>
+<td align="left" valign="middle">trab</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q12 – Você se considera:</td>
+<td align="left" valign="middle">cora</td>
+</tr>
+<tr>
+<td align="left" valign="middle" rowspan="5">
+                <b>Coordenador</b>
+              </td>
+<td align="left" valign="middle">Q13 – Há quantos anos você exerce esse cargo/função?</td>
+<td align="left" valign="middle">t_cargoc</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q14 – Além dessa função, você exerce outra atividade?</td>
+<td align="left" valign="middle">outra_ativc</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q15 – Há projetos de redução das taxas de abandono na sua escola?</td>
+<td align="left" valign="middle">tx_aband</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q16 – Há projetos de redução das taxas de reprovação na sua escola?</td>
+<td align="left" valign="middle">tx_reprov</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q17 – Neste ano faltou professores para algumas disciplinas ou série?</td>
+<td align="left" valign="middle">falta_prof</td>
+</tr>
+<tr>
+<td align="left" valign="middle" rowspan="3">
+                <b>Diretor</b>
+              </td>
+<td align="left" valign="middle">Q18 – Há quantos anos você exerce esse cargo/função?</td>
+<td align="left" valign="middle">t_cargod</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q19 – Além dessa função, você exerce outra atividade?</td>
+<td align="left" valign="middle">outrativd</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Q20 – Qual a sua atividade predominante?</td>
+<td align="left" valign="middle">princ_ativ</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN3"><div>Fonte: elaborado pela autora a partir dos questionários aplicados pelo SARESP.</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableT4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Tabela 2</strong>    Valores do ICC para cada região do Estado<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table>
+<thead><tr>
+<th align="left" valign="middle">Região</th>
+<th align="center" valign="middle">ICC</th>
+<th align="center" valign="middle">Número de observações</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left" valign="middle">Capital</td>
+<td align="center" valign="middle">
+                
+                  <math id="e03"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>154</mn><mo>,</mo><mn>28</mn></mrow><mrow><mn>154</mn><mo>,</mo><mn>28</mn><mo>+</mo><mn>1.987</mn><mo>,</mo><mn>74</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>072</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">43.564</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Centro</td>
+<td align="center" valign="middle">
+                
+                  <math id="e04"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>159</mn><mo>,</mo><mn>38</mn></mrow><mrow><mn>159</mn><mo>,</mo><mn>38</mn><mo>+</mo><mn>2.003</mn><mo>,</mo><mn>23</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>074</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">18.062</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Litoral</td>
+<td align="center" valign="middle">
+                
+                  <math id="e05"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>159</mn><mo>,</mo><mn>42</mn></mrow><mrow><mn>159</mn><mo>,</mo><mn>42</mn><mo>+</mo><mn>1.834</mn><mo>,</mo><mn>93</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>080</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">3.542</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Nordeste (NE)</td>
+<td align="center" valign="middle">
+                
+                  <math id="e06"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>146</mn><mo>,</mo><mn>33</mn></mrow><mrow><mn>146</mn><mo>,</mo><mn>33</mn><mo>+</mo><mn>2.000</mn><mo>,</mo><mn>18</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>068</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">6.959</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Noroeste (NO)</td>
+<td align="center" valign="middle">
+                
+                  <math id="e07"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>213</mn><mo>,</mo><mn>42</mn></mrow><mrow><mn>213</mn><mo>,</mo><mn>42</mn><mo>+</mo><mn>2.168</mn><mo>,</mo><mn>77</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>089</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">7.026</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Norte (N)</td>
+<td align="center" valign="middle">
+                
+                  <math id="e08"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>183</mn><mo>,</mo><mn>37</mn></mrow><mrow><mn>183</mn><mo>,</mo><mn>37</mn><mo>+</mo><mn>2.091</mn><mo>,</mo><mn>08</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>081</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">9.095</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Sudeste (SE)</td>
+<td align="center" valign="middle">
+                
+                  <math id="e09"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>144</mn><mo>,</mo><mn>86</mn></mrow><mrow><mn>144</mn><mo>,</mo><mn>86</mn><mo>+</mo><mn>2.036</mn><mo>,</mo><mn>32</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>066</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">8.754</td>
+</tr>
+<tr>
+<td align="left" valign="middle">Sudoeste (SO)</td>
+<td align="center" valign="middle">
+                
+                  <math id="e010"><semantics><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><mn>192</mn><mo>,</mo><mn>63</mn></mrow><mrow><mn>192</mn><mo>,</mo><mn>63</mn><mo>+</mo><mn>2.080</mn><mo>,</mo><mn>72</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>,</mo><mn>084</mn></mrow></semantics></math>
+                
+              </td>
+<td align="center" valign="middle">9.118</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN4"><div>Fonte: <span class="ref"><strong class="xref xrefblue">São Paulo (2013)</strong><span class="refCtt closed"><span>SÃO PAULO (Estado). Secretaria da Educação. Relatório pedagógico: SARESP 2013 – matemática. São Paulo, 2013.</span></span></span>.</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTableT5" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Tabela 3</strong>    Estimativas para os parâmetros dos modelos hierárquicos, por região<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table>
+<thead><tr>
+<th align="left" valign="middle">Variáveis</th>
+<th align="center" valign="middle">Capital</th>
+<th align="center" valign="middle">Centro</th>
+<th align="center" valign="middle">Litoral</th>
+<th align="center" valign="middle">Nordeste</th>
+<th align="center" valign="middle">Noroeste</th>
+<th align="center" valign="middle">Norte</th>
+<th align="center" valign="middle">Sudeste</th>
+<th align="center" valign="middle">Sudoeste</th>
+</tr></thead>
+<tbody>
+<tr><td align="center" valign="middle" colspan="9">
+                <b>Efeito fixo – Nível 1</b>
+              </td></tr>
+<tr>
+<td align="left" valign="middle">Intercepto</td>
+<td align="center" valign="middle">256,03</td>
+<td align="center" valign="middle">260,48</td>
+<td align="center" valign="middle">274,05</td>
+<td align="center" valign="middle">260,43</td>
+<td align="center" valign="middle">254,29</td>
+<td align="center" valign="middle">258,74</td>
+<td align="center" valign="middle">265,30</td>
+<td align="center" valign="middle">252,08</td>
+</tr>
+<tr>
+<td align="left" valign="middle">corp0</td>
+<td align="center" valign="middle">-3,1***</td>
+<td align="center" valign="middle">-2,6***</td>
+<td align="center" valign="middle">-2,6***</td>
+<td align="center" valign="middle">-4,24***</td>
+<td align="center" valign="middle">-5,26***</td>
+<td align="center" valign="middle">-2,2***</td>
+<td align="center" valign="middle">-3,56***</td>
+<td align="center" valign="middle">-4,14***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">corp2</td>
+<td align="center" valign="middle">-6,8***</td>
+<td align="center" valign="middle">-6,40***</td>
+<td align="center" valign="middle">-6,7***</td>
+<td align="center" valign="middle">-6,86***</td>
+<td align="center" valign="middle">-5,08***</td>
+<td align="center" valign="middle">-3,7***</td>
+<td align="center" valign="middle">-2,22</td>
+<td align="center" valign="middle">-5,63***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">corm0</td>
+<td align="center" valign="middle">-3,0***</td>
+<td align="center" valign="middle">-6,26***</td>
+<td align="center" valign="middle">-3,5***</td>
+<td align="center" valign="middle">-1,67</td>
+<td align="center" valign="middle">-6,38***</td>
+<td align="center" valign="middle">-3,3***</td>
+<td align="center" valign="middle">-3,78***</td>
+<td align="center" valign="middle">-3,73***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">corm2</td>
+<td align="center" valign="middle">-7,3***</td>
+<td align="center" valign="middle">-8,80***</td>
+<td align="center" valign="middle">-7,02***</td>
+<td align="center" valign="middle">-5,36***</td>
+<td align="center" valign="middle">-5,32***</td>
+<td align="center" valign="middle">-7,4***</td>
+<td align="center" valign="middle">-11,4***</td>
+<td align="center" valign="middle">-10,5***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">trabm0</td>
+<td align="center" valign="middle">0,9***</td>
+<td align="center" valign="middle">2,08***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">3,29***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">escp1</td>
+<td align="center" valign="middle">3,9***</td>
+<td align="center" valign="middle">6,30***</td>
+<td align="center" valign="middle">4,60</td>
+<td align="center" valign="middle">0,82</td>
+<td align="center" valign="middle">6,83*</td>
+<td align="center" valign="middle">7,32***</td>
+<td align="center" valign="middle">6,18***</td>
+<td align="center" valign="middle">5,60*</td>
+</tr>
+<tr>
+<td align="left" valign="middle">escp2</td>
+<td align="center" valign="middle">7,5***</td>
+<td align="center" valign="middle">10,3***</td>
+<td align="center" valign="middle">9,36***</td>
+<td align="center" valign="middle">6,75*</td>
+<td align="center" valign="middle">11,08***</td>
+<td align="center" valign="middle">12,5***</td>
+<td align="center" valign="middle">10,7***</td>
+<td align="center" valign="middle">11,3***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">escp3</td>
+<td align="center" valign="middle">9,7***</td>
+<td align="center" valign="middle">13,6***</td>
+<td align="center" valign="middle">8,93*</td>
+<td align="center" valign="middle">7,06*</td>
+<td align="center" valign="middle">13,5***</td>
+<td align="center" valign="middle">14,9***</td>
+<td align="center" valign="middle">11,6***</td>
+<td align="center" valign="middle">14,5***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">escm1</td>
+<td align="center" valign="middle">5,1***</td>
+<td align="center" valign="middle">5,98***</td>
+<td align="center" valign="middle">8,81*</td>
+<td align="center" valign="middle">16,0***</td>
+<td align="center" valign="middle">8,93***</td>
+<td align="center" valign="middle">5,05</td>
+<td align="center" valign="middle">2,95</td>
+<td align="center" valign="middle">7,39***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">escm2</td>
+<td align="center" valign="middle">10,6***</td>
+<td align="center" valign="middle">11,3***</td>
+<td align="center" valign="middle">13,5***</td>
+<td align="center" valign="middle">20,5***</td>
+<td align="center" valign="middle">14,7***</td>
+<td align="center" valign="middle">10,9***</td>
+<td align="center" valign="middle">9,26***</td>
+<td align="center" valign="middle">13,5***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">escm3</td>
+<td align="center" valign="middle">13,4***</td>
+<td align="center" valign="middle">14,4***</td>
+<td align="center" valign="middle">16,9***</td>
+<td align="center" valign="middle">21,4***</td>
+<td align="center" valign="middle">18,58***</td>
+<td align="center" valign="middle">11,95**</td>
+<td align="center" valign="middle">14,2***</td>
+<td align="center" valign="middle">14,6***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">rendaf1</td>
+<td align="center" valign="middle">6,7***</td>
+<td align="center" valign="middle">7,22***</td>
+<td align="center" valign="middle">5,34***</td>
+<td align="center" valign="middle">6,71***</td>
+<td align="center" valign="middle">5,82***</td>
+<td align="center" valign="middle">4,96***</td>
+<td align="center" valign="middle">6,14***</td>
+<td align="center" valign="middle">5,40***</td>
+</tr>
+<tr>
+<td align="left" valign="middle">lic_casa1</td>
+<td align="center" valign="middle">5,4***</td>
+<td align="center" valign="middle">3,01***</td>
+<td align="center" valign="middle">3,84*</td>
+<td align="center" valign="middle">6,98***</td>
+<td align="center" valign="middle">5,70***</td>
+<td align="center" valign="middle">9,1 ***</td>
+<td align="center" valign="middle">7,43***</td>
+<td align="center" valign="middle">9,49***</td>
+</tr>
+<tr><td align="center" valign="middle" colspan="9">
+                <b>Efeito fixo – Nível 2</b>
+              </td></tr>
+<tr>
+<td align="left" valign="middle">outra_tivc0</td>
+<td align="center" valign="middle">1,9***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">3,05*</td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">tx_aband1</td>
+<td align="center" valign="middle">-2,20*</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">-4,43</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">-5,32***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">tx_reprov1</td>
+<td align="center" valign="middle">-2,96*</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">-7,16*</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">-2,70</td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">falta_prof1</td>
+<td align="center" valign="middle">-1,14</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">-16,9**</td>
+<td align="center" valign="middle">-5,36***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">-4,66</td>
+<td align="center" valign="middle">-5,14*</td>
+<td align="center" valign="middle">-3,05</td>
+</tr>
+<tr>
+<td align="left" valign="middle">t_cargod1</td>
+<td align="center" valign="middle">2,1 ***</td>
+<td align="center" valign="middle">1,67</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">3,69***</td>
+<td align="center" valign="middle">2,91</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">3,78*</td>
+</tr>
+<tr>
+<td align="left" valign="middle">princ_ativ0</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">-7,37</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">4,23*</td>
+<td align="center" valign="middle">-5,3***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr><td align="center" valign="middle" colspan="9">
+                <b>Efeito aleatório – variâncias – Nível 1</b>
+              </td></tr>
+<tr>
+<td align="left" valign="middle">Intercepto</td>
+<td align="center" valign="middle">133,22</td>
+<td align="center" valign="middle">123,08</td>
+<td align="center" valign="middle">124,14</td>
+<td align="center" valign="middle">195,22</td>
+<td align="center" valign="middle">33,57</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">117,56</td>
+<td align="center" valign="middle">237,34</td>
+</tr>
+<tr>
+<td align="left" valign="middle">corp0</td>
+<td align="center" valign="middle">7,21*</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">corp2</td>
+<td align="center" valign="middle">17,9***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">escm1</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">41,62</td>
+</tr>
+<tr>
+<td align="left" valign="middle">escm2</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">44,02</td>
+</tr>
+<tr>
+<td align="left" valign="middle">escm3</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">55,46</td>
+</tr>
+<tr>
+<td align="left" valign="middle">rendaf1</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">37,85***</td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">lic_casa1</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">46,68***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr><td align="center" valign="middle" colspan="9">
+                <b>Efeito aleatório – variâncias – Nível 2</b>
+              </td></tr>
+<tr>
+<td align="left" valign="middle">tx_aband1</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle">242,33***</td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+<td align="center" valign="middle"></td>
+</tr>
+<tr>
+<td align="left" valign="middle">Residual</td>
+<td align="center" valign="middle">1.939,6</td>
+<td align="center" valign="middle">1.946,40</td>
+<td align="center" valign="middle">1.795,77</td>
+<td align="center" valign="middle">1.948,49</td>
+<td align="center" valign="middle">2.102,40</td>
+<td align="center" valign="middle">2.038,27</td>
+<td align="center" valign="middle">1.970,73</td>
+<td align="center" valign="middle">1.994,70</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN5"><div>Fonte: elaborada pela autora a partir das estimativas obtidas via software <i>RStudio</i>.</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalSchemee1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title"><span class="sci-ico-fileFormula"></span></h4>
+</div>
+<div class="modal-body"><math id="e01"><semantics><mrow><mtable><mtr><mtd><mrow><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>β</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub><mo>+</mo><msub><mi>e</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><msub><mi>β</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>γ</mi><mrow><mn>00</mn></mrow></msub><mo>+</mo><msub><mi>u</mi><mrow><mn>0</mn><mi>j</mi></mrow></msub></mrow></mtd></mtr></mtable></mrow></semantics></math></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalSchemee2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title"><span class="sci-ico-fileFormula"></span></h4>
+</div>
+<div class="modal-body"><math id="e02"><semantics><mrow><mtable><mtr><mtd><mrow><mi>ρ</mi><mo>=</mo><mfrac><mrow><msub><mi>τ</mi><mrow><mn>00</mn></mrow></msub></mrow><mrow><msub><mi>τ</mi><mrow><mn>00</mn></mrow></msub><mo>+</mo><msup><mi>σ</mi><mn>2</mn></msup></mrow></mfrac><mo>,</mo></mrow></mtd><mtd><mrow><mn>0</mn><mo>≤</mo><mi>ρ</mi><mo>≤</mo><mn>1.</mn></mrow></mtd></mtr></mtable></mrow></semantics></math></div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalArticles" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">Como citar</h4>
+</div>
+<div class="modal-body">
+<p id="citation"></p>
+<input id="citationCut" type="text" value=""><a class="copyLink" data-clipboard-target="#citationCut"><span class="glyphBtn copyIcon"></span>copiar</a>
+</div>
+</div></div></div>
+<script type="text/javascript">
+            function currentDate() {
+            var today = new Date();
+            var months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+            today.setTime(today.getTime());
+            return today.getDate() + " " + months[today.getMonth()] + " " + today.getFullYear();
+            }
+            var citation = 'Bassetto, Camila Fernanda. Análise regional dos resultados do Saresp: uma abordagem com modelos hierárquicos. Ciência & Educação (Bauru) [online]. 2021, v. 27 [Acessado CURRENTDATE], e21063. Disponível em: &lt;https://doi.org/10.1590/1516-731320210063&gt;. Epub 19 Nov 2021. ISSN 1980-850X. https://doi.org/10.1590/1516-731320210063.'.replace('CURRENTDATE', currentDate());
+            document.getElementById('citation').innerHTML = citation;
+            document.getElementById('citationCut').value = citation.replace('&lt;', '<').replace('&gt;', ">");
+        </script>
+</div>
+<ul class="floatingMenu fm-slidein" data-fm-toogle="hover"><li class="fm-wrap">
+<a href="javascript:;" class="fm-button-main"><span class="sci-ico-floatingMenuDefault glyphFloatMenu"></span><span class="sci-ico-floatingMenuClose glyphFloatMenu"></span></a><ul class="fm-list">
+<li><a class="fm-button-child" data-fm-label="Tabelas | Fórmulas" data-toggle="modal" data-target="#ModalTablesFigures"><span class="sci-ico-figures glyphFloatMenu"></span></a></li>
+<li><a class="fm-button-child" data-toggle="modal" data-target="#ModalArticles" data-fm-label="How to
+                                          cite"><span class="sci-ico-citation glyphFloatMenu"></span></a></li>
+</ul>
+</li></ul>
+<script src="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/catalogs/htmlgenerator/static/scielo-article-standalone-min.js"></script><script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              },
+              svg: {
+                fontCache: 'global'
+              }
+            };
+            </script><script type="text/javascript" id="MathJax-script" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-svg.js"></script>
+</body>
+</html>

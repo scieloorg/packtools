@@ -86,3 +86,35 @@ class SPSAssetOrRenditionFileError(Exception):
 class SPSMakePackageFromPathsMissingKeyError(Exception):
     """ To handle missing paths.
     """
+
+
+class ArticleHasInvalidInstanceError(Exception):
+    """ To handle invalid instance.
+    """
+
+
+class ArticleIncompatibleDataError(Exception):
+    """ The root of incompatible Article data exceptions.
+    """
+
+class ArticleHasIncompatibleJournalAcronymError(ArticleIncompatibleDataError):
+    """ To handle incompatible Article and JournalAcronym data.
+    """
+    def __init__(self, *args: object, data):
+        super().__init__(*args)
+        self.data = data
+
+
+class ArticleHasIncompatibleJournalISSNError(ArticleIncompatibleDataError):
+    """ To handle incompatible Article and JournalISSN data.
+    """
+    def __init__(self, *args: object, data):
+        super().__init__(*args)
+        self.data = data
+
+class ArticleHasIncompatibleJournalTitleError(ArticleIncompatibleDataError):
+    """ To handle incompatible Article and JournalTitle data.
+    """
+    def __init__(self, *args: object, data):
+        super().__init__(*args)
+        self.data = data

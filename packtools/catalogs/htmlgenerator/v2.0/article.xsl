@@ -21,7 +21,8 @@
     <xsl:include href="article-meta-contrib.xsl"/>
     <xsl:include href="article-meta-abstract.xsl"/>
     <xsl:include href="article-meta-product.xsl"/>
-    <!-- <xsl:include href="article-meta-related-article.xsl"/> -->
+    <!--  -->
+    <xsl:include href="article-meta-related-article.xsl"/>
 
     <xsl:include href="generic-history.xsl"/>
     <xsl:include href="generic-pub-date.xsl"/>
@@ -36,6 +37,7 @@
     <xsl:include href="article-text-boxed-text.xsl"/>
     <xsl:include href="article-text-list.xsl"/>
     <xsl:include href="article-text-supplementary-material.xsl"/>
+    <xsl:include href="article-text-section-data-availability.xsl"/>
 
     <xsl:include href="article-text-graphic.xsl"/>
     <xsl:include href="article-text-table.xsl"/>
@@ -213,8 +215,8 @@
                 <div class="articleTxt">
                     <xsl:apply-templates select="." mode="articleBadge-editionMeta-doi-copyLink"/>
 
-                    <!-- <xsl:apply-templates select="." mode="article-meta-related-article"/> -->
-
+                    <!--  -->
+                    <xsl:apply-templates select="." mode="article-meta-related-article"/>
                     <xsl:apply-templates select="." mode="article-title"/>
 
                     <xsl:apply-templates select="." mode="article-meta-trans-title"/>
@@ -250,10 +252,13 @@
             <xsl:apply-templates select="." mode="text-body"/>
             <xsl:apply-templates select="." mode="text-back"/>
             <xsl:apply-templates select="." mode="text-fn"/>
-            <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
-            <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
+            <xsl:apply-templates select="." mode="author-notes-as-sections"/>
             <xsl:apply-templates select="." mode="article-text-sub-articles"/>
 
+            <xsl:apply-templates select="." mode="data-availability"/>
+
+            <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
+            <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
             <section class="documentLicense">
                 <div class="container-license">
                     <div class="row">
@@ -261,6 +266,7 @@
                     </div>
                 </div>
             </section>
+            <xsl:apply-templates select=".//related-article[@related-article-type='preprint']" mode="hidden-box"/>
         </article>
     </xsl:template>
 

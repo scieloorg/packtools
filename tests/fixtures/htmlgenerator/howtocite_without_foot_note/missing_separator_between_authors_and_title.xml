@@ -1,0 +1,1812 @@
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">ensaio</journal-id>
+      <journal-title-group>
+        <journal-title>Ensaio: Avaliação e Políticas Públicas em Educação</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Ensaio: aval. pol. públ. educ.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0104-4036</issn>
+      <issn pub-type="epub">1809-4465</issn>
+      <publisher>
+        <publisher-name>Fundação CESGRANRIO</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">p9TrN437Ggdbdt6HNpq5nYf</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0104-40362022005009201</article-id>
+      <article-id pub-id-type="publisher-id">S0104-40362022003003127</article-id>
+      <article-id pub-id-type="doi">10.1590/S0104-40362022003003127</article-id>
+      <article-id pub-id-type="other">09201</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>ARTIGO</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Concepções sobre deficiência em instituições públicas e privadas da Educação Superior <xref ref-type="fn" rid="fn_ast1"><sup>*</sup></xref> </article-title>
+        <trans-title-group xml:lang="en">
+          <trans-title>Conceptions on disability in public and private Higher Education institutions</trans-title>
+        </trans-title-group>
+        <trans-title-group xml:lang="es">
+          <trans-title>Concepciones sobre discapadicad en instituciones de Educación Superior publica y privada</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-2401-926X</contrib-id>
+          <name>
+            <surname>Leite</surname>
+            <given-names>Lúcia Pereira</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>a</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-3520-3687</contrib-id>
+          <name>
+            <surname>Cabral</surname>
+            <given-names>Leonardo Santos Amâncio</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">
+            <sup>b</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-3250-1374</contrib-id>
+          <name>
+            <surname>Lacerda</surname>
+            <given-names>Cristina Broglia Feitosa de</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">
+            <sup>c</sup>
+          </xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label> a </label>
+        <institution content-type="orgname">Universidade Estadual Paulista</institution>
+        <addr-line>
+          <named-content content-type="city">Bauru</named-content>
+          <named-content content-type="state">SP</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original"> Universidade Estadual Paulista , Bauru , SP , Brasil .</institution>
+      </aff>
+      <aff id="aff2">
+        <label> b </label>
+        <institution content-type="orgname">Universidade Federal de São Carlos</institution>
+        <addr-line>
+          <named-content content-type="city">São Carlos</named-content>
+          <named-content content-type="state">SP</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original"> Universidade Federal de São Carlos , São Carlos , SP , Brasil .</institution>
+      </aff>
+      <aff id="aff3">
+        <label> c </label>
+        <institution content-type="orgname">Universidade Federal de São Carlos</institution>
+        <addr-line>
+          <named-content content-type="city">São Carlos</named-content>
+          <named-content content-type="state">SP</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original"> Universidade Federal de São Carlos , São Carlos , SP , Brasil .</institution>
+      </aff>
+      <author-notes>
+        <fn fn-type="current-aff">
+          <p>Informações sobre os autores</p>
+          <p><bold>Lúcia Pereira Leite:</bold> Doutora em Educação e Pós-doutorado em Educação Especial. Professora Associada do Departamento de Psicologia e do Programa de Pós-Graduação em Psicologia do Desenvolvimento e Aprendizagem da Universidade Estadual Paulista - UNESP. Pesquisadora Nível 2, do Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq). Contato: <email>lucia.leite@unesp.br</email> </p>
+          <p><bold>Leonardo Santos Amâncio Cabral:</bold> Doutorado e Pós-doutorado em Educação Especial. Professor Adjunto do Departamento de Psicologia e do Programa de Pós-Graduação em Educação Especial da Universidade Federal de São Carlos - UFSCar. Contato: <email>leonardocabral@ufscar.br</email> </p>
+          <p><bold>Cristina Broglia Feitosa de Lacerda:</bold> Doutora em Educação. Pós-doutorado pela <italic>Universitat de Barcelona</italic> . Professora Associada II do Departamento de Psicologia e do Programa de Pós-Graduação em Educação Especial da Universidade Federal de São Carlos UFSCar. Nível IC, do Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq). Contato: <email>cbflacerda@gmail.com</email> </p>
+        </fn>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>14</day>
+        <month>11</month>
+        <year>2022</year>
+      </pub-date>
+      <history>
+        <date date-type="received">
+          <day>14</day>
+          <month>10</month>
+          <year>2020</year>
+        </date>
+        <date date-type="accepted">
+          <day>03</day>
+          <month>10</month>
+          <year>2022</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by-nc/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Resumo</title>
+        <p>Esse artigo objetiva investigar e analisar concepções sobre deficiência expostas por 1.763 universitários. Foi aplicada a Escala Intercultural de Concepções de Deficiência (EICD) em estudantes de três Instituições da Educação Superior (IES), do estado de São Paulo, sendo duas públicas – federal e estadual – e uma, privada. Os achados foram expostos ao trato estatístico, permitindo comparar os dados obtidos entre os estudantes nesses diferentes contextos e analisar as relações entre escolha de posicionamentos, em função de algumas variáveis, como área de atuação e/ou de formação acadêmica e de faixa etária. Os resultados favorecem a sistematização de informações para a compreensão de comportamentos e culturas sociais, políticas e educacionais, que podem indicar caminhos para a superação de atitudes discriminatórias com base na deficiência, além de situar a universidade como um local em que a deficiência possa ser debatida, criticamente, com futuros profissionais.</p>
+      </abstract>
+      <trans-abstract xml:lang="en">
+        <title>Abstract</title>
+        <p>This article aims to study and analyze the conceptions of disability presented by 1763 university students. The Conceptions on Disability Intercultural Scale was applied to students at three universities in the State of São Paulo, two of which are public – federal and state – and one is private. Results were exposed to statistical processing, to compare the data obtained among the students in these different contexts and to analyze the relationships between the choice of positioning in certain variables, such as the area of expertise and/or academic training and age group. The results allow for a systematization of information in order to understand social, political and educational behaviors and cultures, which may indicate ways of overcoming discriminatory attitudes based on disability, and situate the university as an environment where the disability issue can be the subject of critical debates among future professionals.</p>
+      </trans-abstract>
+      <trans-abstract xml:lang="es">
+        <title>Resumen</title>
+        <p>Este artículo tiene como objetivo investigar y analizar las concepciones sobre discapacidad expresadas por 1.763 estudiantes universitarios. La Escala Intercultural de Concepciones de la Discapacidad (EICD) se aplicó a estudiantes de tres Instituciones de Educación Superior (IES) del estado de São Paulo, dos públicas - federal y estatal - y una privada. Los hallazgos fueron expuestos al tratamiento estadístico, que permitió comparar los datos obtenidos entre los estudiantes en estos diferentes contextos y analizar las relaciones entre la elección de posicionamientos, en función de algunas variables, como el área de actividad y/o formación académica y de grupos de edad. Los resultados favorecen la sistematización de la información para la comprensión de los comportamientos y culturas sociales, políticas y educativas, que pueden indicar caminos para superar las actitudes discriminatorias basadas en la discapacidad, además de ubicar a la universidad como un espacio donde se puede debatir sobre la discapacidad con futuros profesionales.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="pt">
+        <kwd>Concepção</kwd>
+        <kwd>Pessoa com Deficiência</kwd>
+        <kwd>Educação Superior</kwd>
+        <kwd>Políticas públicas</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="en">
+        <kwd>Conception</kwd>
+        <kwd>People with Disability</kwd>
+        <kwd>Higher Education</kwd>
+        <kwd>Public Policies</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="es">
+        <kwd>Concepción</kwd>
+        <kwd>Persona con Discapacidad</kwd>
+        <kwd>Educación Superior</kwd>
+        <kwd>Políticas Públicas</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>Fapesp</funding-source>
+          <award-id>2017/12721-5</award-id>
+        </award-group>
+        <funding-statement>* Estudo que decorre de Pesquisa financiada pela Fundação de Amparo à Pesquisa do Estado de São Paulo - Fapesp (Processo 2017/12721-5).</funding-statement>
+      </funding-group>
+      <counts>
+        <fig-count count="2"/>
+        <table-count count="6"/>
+        <equation-count count="0"/>
+        <ref-count count="50"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>1 Introdução</title>
+      <p>O presente artigo tem como escopo principal investigar e analisar o retrato de concepções <sup><xref ref-type="fn" rid="fn1">1</xref></sup> sobre deficiências, expostas por universitários matriculados em Instituições da Educação Superior (IES), públicas e privadas, do estado de São Paulo. Isso porque, ao considerarmos os contextos educacionais, enquanto importantes espaços de formação do indivíduo, compreendemos que os elementos sócio-histórico-culturais, ainda que veladamente, podem potencializar ou minimizar atitudes discriminatórias frente a pessoas com deficiência ( <xref ref-type="bibr" rid="B32">LEITE; LACERDA, 2018</xref> ).</p>
+      <p>Essa tendência está, intrinsecamente, relacionada à construção histórica das concepções de deficiência que, sob diferentes perspectivas, podem fomentar, isoladamente ou concomitantemente, atitudes sociais positivas e negativas. A literatura científica desvela o predomínio de três tipos de concepções relacionadas à deficiência:</p>
+      <list list-type="roman-upper">
+        <list-item>
+          <p>Concepção Metafísica: justificada por uma compreensão ontológica, teológica e suprassensível da realidade, tende a sobrepor ao sujeito com deficiência o ideário de ter alma demoníaca ou desígnios divinos, transcendendo a responsabilidade humana. Está atrelada a crenças – legitimadas por convicções e ensinamentos religiosos e/ou a crendices – fundamentadas em superstições de origem popular não sancionadas por doutrinas institucionalizadas ( <xref ref-type="bibr" rid="B29">HOUAISS; VILLAR, 2009</xref> ; <xref ref-type="bibr" rid="B43">PESSOTTI, 1984</xref> );</p>
+        </list-item>
+        <list-item>
+          <p>Concepção Biológica: considera uma série de comprometimentos no organismo decorrentes de padrões genéticos diferenciados, de lesões neurais, de malformações hereditárias e/ou de outras ocorrências que levam a um funcionamento diferenciado do organismo físico do sujeito – sobreposto na ideia de “normal” e de “patológico” ( <xref ref-type="bibr" rid="B18">CANGUILHEM, 2009</xref> );</p>
+        </list-item>
+        <list-item>
+          <p>Concepção Social: pondera o estabelecimento das interações sociais do sujeito em contextos, com ou sem prejuízos, ocasionados histórica e culturalmente, deixando de ser um fato, exclusivamente, (sobre) natural ( <xref ref-type="bibr" rid="B27">DINIZ, 2007</xref> ; <xref ref-type="bibr" rid="B32">LEITE; LACERDA, 2018</xref> ).</p>
+        </list-item>
+      </list>
+      <p>Autores como <xref ref-type="bibr" rid="B2">Amaral (1998)</xref> e <xref ref-type="bibr" rid="B20">Carvalho-Freitas e Marques (2010)</xref> indicam que a produção da diferença, reeditada de tempos em tempos, em diferentes contextos e épocas, está imbricada na forma de interpretação compartilhada sobre a diferença e a deficiência, representando um fator fundamental para compreender ações sociais em relação a esse público.</p>
+      <p>Na Educação Superior, particularmente, as concepções de deficiências têm sido acompanhadas por políticas de ações afirmativas para o ingresso, permanência, formação, diplomação e transição para a atuação profissional, culminando em uma transformação lenta, mas contínua, da identidade das IES públicas e privadas, sobretudo a partir da década de 1960 (ANACHE, ROVETTO; OLIVEIRA, 2014; BRASIL, 2005a, 2005b, 2006, 2009, 2015, 2016, <xref ref-type="bibr" rid="B16">CABRAL, 2017</xref> ; CURY; HORTA; FÁVERO, 1996; <xref ref-type="bibr" rid="B47">SANTOS, 1997</xref> ).</p>
+      <p>Ao longo da última década, destacou-se o Programa Reuni, que visando a diminuir as desigualdades sociais no país, buscou ampliar vagas nos cursos de graduação; aumentar a oferta de cursos noturnos; promover inovações pedagógicas e combater a evasão. Cumpre notar que, apesar da crescente expansão das IES públicas nas últimas duas décadas, em decorrência de programas como esse, a rede privada da Educação Superior segue mais capilarizada e ofertando mais de 70% das vagas (BRASIL, 2007a).</p>
+      <p>Ainda assim, essas transformações, voltadas à promoção da acessibilidade <sup><xref ref-type="fn" rid="fn2">2</xref></sup> , puderam ser representadas na esfera de modificações culturais, arquitetônicas, comunicacionais, informacionais, atitudinais, metodológicas, programáticas, tecnológicas e/ou didáticas, nos sistemas de ingresso <sup><xref ref-type="fn" rid="fn3">3</xref></sup> , para além da transformação de seu <italic>status quo</italic> , tradicionalmente, elitizado, meritocrático, cristalizado e discriminatório em relação às diversas minorias político-sociais ( <xref ref-type="bibr" rid="B17">CABRAL, 2018</xref> ).</p>
+      <p>Concomitantemente a esses movimentos, é inevitável (ou deveria ser) que as comunidades acadêmicas questionem suas concepções de deficiência, sobretudo quando são incitadas a reconhecerem as multiplicidades e as diferenças das pessoas com deficiências para legitimação de seus direitos. Isso porque, quando as variáveis complexas, que constituem uma concepção, não são bem discutidas e relacionadas aos seus micros e macros contextos, podem tornar-se elementos discriminatórios, arbitrários e excludentes, deixando determinados segmentos sociais em condições mais marginalizadas do que outros.</p>
+      <p>Nesse sentido, a comunidade científica tem-se debruçado em investigações sobre concepções de deficiências circulantes, junto ao campo educacional. Na Educação Superior, contexto em que se assenta o estudo em tela, predominam as análises de conteúdo de dados obtidos por meio de roteiros de entrevistas e/ou de questionários, sem utilização de escalas específicas ( <xref ref-type="bibr" rid="B1">ALVARENGA, 2016</xref> ; <xref ref-type="bibr" rid="B23">CHRISTMANN, 2019</xref> ; <xref ref-type="bibr" rid="B24">CRUZ, 2012</xref> ; <xref ref-type="bibr" rid="B33">LOMÔNACO; CAZEIRO, 2006</xref> ; MALUSÁ; SANTOS; PORTES, 2010; <xref ref-type="bibr" rid="B38">OLIVEIRA, 2007</xref> ; PIMENTEL; SANTANA; RIBEIRO, 2013; <xref ref-type="bibr" rid="B49">TEIXEIRA JÚNIOR; SOUZA, 2019</xref> ).</p>
+      <p>A proposição de escalas sobre concepção de deficiência, especificamente, foi identificada apenas nos estudos de <xref ref-type="bibr" rid="B36">Mattos (2016)</xref> e de Rodovalho, Moreira e Mané (2018). Todavia, o primeiro apoiou-se em uma escala ainda não validada e o segundo, respectivamente, subsidiou-se dos dados provenientes de uma escala voltada à concepção de deficiência atrelada à Matemática, ou seja, uma área de conhecimento específico.</p>
+      <p>No que tange às atitudes sociais em relação à deficiência, particularmente, cumpre destacar que há importantes escalas para seu aferimento ( <xref ref-type="bibr" rid="B4">ANTONAK; LIVNEH, 1988</xref> ; <xref ref-type="bibr" rid="B39">OMOTE, 2005</xref> , <xref ref-type="bibr" rid="B40">2016</xref> ; OMOTE <italic>et al</italic> ., 2005). Vale observar, contudo, que os objetivos centrais desses instrumentos não se centram, essencialmente, em identificar concepções de deficiência.</p>
+      <p>Nesse cenário e, considerando-se a potência que os contextos das IES brasileiras, públicas e privadas apresentam no processo de formação humana e profissional, importa identificar, sistematizar, validar e difundir instrumentos com indicadores sobre concepções de deficiências que possam desvelar elementos que subsidiem discussões de políticas de ações afirmativas para o reconhecimento e para a legitimação de direitos humanos, na perspectiva da acessibilidade.</p>
+      <p>Assim, na busca de compreender o processo de (des) construção de uma identidade institucional frente ao processo de (des) construção de concepções sobre a deficiência, ao legitimar os direitos de cidadania da população com deficiência, o presente estudo justifica-se, pela necessidade de fomentar as comunidades científicas e acadêmicas das Ciências Sociais, das Ciências Políticas, da Psicologia, da Educação e da Educação Especial, fundamentalmente, no intuito de identificar caminhos para a superação de atitudes discriminatórias com base na deficiência.</p>
+    </sec>
+    <sec>
+      <title>2 A pesquisa</title>
+      <p>Realizada por uma rede, interinstitucional, de grupos de pesquisa, que tem estudado com profundidade o tema, esse recorte <sup><xref ref-type="fn" rid="fn4">4</xref></sup> do estudo objetiva: (a) retratar como a deficiência é descrita e compreendida em contextos educacionais distintos, considerando suas semelhanças e contrastes; (b) identificar como estudantes universitários, matriculados em IES, públicas e privadas, posicionam-se diante de enunciados que retratam concepções diferenciadas de deficiência, a partir da aplicação da Escala Intercultural de Concepções de Deficiência (EICD); (c) comparar os resultados obtidos entre os estudantes nesses diferentes contextos; (d) analisar relações entre escolha de posicionamentos, em função de algumas variáveis, como: área de atuação e/ou de formação acadêmica; períodos de matrícula (ingressantes e/ou concluintes) e faixa etária.</p>
+    </sec>
+    <sec>
+      <title>3 A coleta de dados</title>
+      <p>A pesquisa foi realizada respeitando os procedimentos éticos da pesquisa com seres humanos, sendo que, a coleta de dados foi realizada com o consentimento e a participação de estudantes universitários, matriculados em três IES do estado de São Paulo, em diferentes anos da formação. Informa-se, ainda, que a pesquisa atende aos dispositivos da Resolução CNS nº 466/12, e apresenta parecer favorável do Comitê de Ética em Pesquisa, registrado na Plataforma Brasil, sob o protocolo CAAE 84374018.2.1001.5398.</p>
+      <sec>
+        <title>3.1 Procedimentos éticos, identificação e caracterização dos participantes</title>
+        <p>A coleta de dados foi realizada com o consentimento e a participação de estudantes universitários.</p>
+        <p>Conforme indica a <xref ref-type="table" rid="t1">Tabela 1</xref> , de um total de 1.753 participantes, 805 são provenientes de uma instituição pública estadual (45,89%), 326 de uma instituição pública federal (18,59%) e 622 de uma instituição privada (35,52%) <sup><xref ref-type="fn" rid="fn5">5</xref></sup> .</p>
+        <p>
+          <table-wrap id="t1">
+            <label>Tabela 1</label>
+            <caption>
+              <title>Números de participantes distribuídos por área de conhecimento e esfera administrativa</title>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="left" rowspan="3">Esfera área</th>
+                  <th colspan="2">IES-E</th>
+                  <th colspan="2">IES-F</th>
+                  <th colspan="2">IES-Pr</th>
+                  <th colspan="2">Total</th>
+                </tr>
+                <tr>
+                  <th colspan="8" rowspan="1">
+                    <hr/>
+                  </th>
+                </tr>
+                <tr>
+                  <th>n*</th>
+                  <th>%**</th>
+                  <th>n*</th>
+                  <th>%**</th>
+                  <th>n*</th>
+                  <th>%**</th>
+                  <th>n*</th>
+                  <th>%**</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Humanas</td>
+                  <td align="center">363</td>
+                  <td align="center">20,79</td>
+                  <td align="center">180</td>
+                  <td align="center">10,26</td>
+                  <td align="center">340</td>
+                  <td align="center">19,39</td>
+                  <td align="center">872</td>
+                  <td align="center">49,71</td>
+                </tr>
+                <tr>
+                  <td>Exatas</td>
+                  <td align="center">197</td>
+                  <td align="center">11,23</td>
+                  <td align="center">65</td>
+                  <td align="center">3,71</td>
+                  <td align="center">193</td>
+                  <td align="center">11,00</td>
+                  <td align="center">467</td>
+                  <td align="center">26,63</td>
+                </tr>
+                <tr>
+                  <td>Biológicas</td>
+                  <td align="center">244</td>
+                  <td align="center">13,91</td>
+                  <td align="center">80</td>
+                  <td align="center">4,56</td>
+                  <td align="center">80</td>
+                  <td align="center">4,56</td>
+                  <td align="center">404</td>
+                  <td align="center">23,03</td>
+                </tr>
+                <tr>
+                  <td>N.I.***</td>
+                  <td align="center">1</td>
+                  <td align="center">0,06</td>
+                  <td align="center">1</td>
+                  <td align="center">0,06</td>
+                  <td align="center">9</td>
+                  <td align="center">0,51</td>
+                  <td align="center">11</td>
+                  <td align="center">0,63</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td align="center">805</td>
+                  <td align="center">45,89</td>
+                  <td align="center">326</td>
+                  <td align="center">18,59</td>
+                  <td align="center">622</td>
+                  <td align="center">35,52</td>
+                  <td align="center">1.753</td>
+                  <td align="center">100</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN1">
+                <p>IES-E: Instituição de Educação Superior – Pública Estadual; IES-F: Instituição de Educação Superior – Pública Federal; IES-Pr: Instituição de Educação Superior – Privada.</p>
+              </fn>
+              <fn id="TFN2">
+                <p>* Número absoluto de participantes; ** Percentual sobre o número total de participantes da pesquisa; *** Não informou o curso.</p>
+              </fn>
+              <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <p>Os dados indicam, portanto, a prevalência de participantes matriculados em cursos da área das Ciências Humanas (49,71%), sendo 20,69% de IES-E; seguida, respectivamente, por participantes da área das Ciências Exatas (26,63%), sendo 11,69% de IES-Pr e das Ciências Biológicas (23,03%), sendo 13,91% também de IES-E.</p>
+        <p>Desse total, 1.061 estudantes autodeclararam-se como sendo do gênero feminino (60,49%); seguidos por 669 do gênero masculino (38,14%); 17 estudantes preferiram não responder (0,97%) e 7 que indicaram “Outro Gênero” (0,40%), conforme detalhado na <xref ref-type="table" rid="t2">Tabela 2</xref> .</p>
+        <p>
+          <table-wrap id="t2">
+            <label>Tabela 2</label>
+            <caption>
+              <title>Distribuição da amostra por gênero e por instituição</title>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="left" rowspan="3">Esfera Administrativa Gênero</th>
+                  <th colspan="2">IES - E</th>
+                  <th colspan="2">IES - F</th>
+                  <th colspan="2">IES - Pr</th>
+                  <th colspan="2">Total</th>
+                </tr>
+                <tr>
+                  <th colspan="8" rowspan="1">
+                    <hr/>
+                  </th>
+                </tr>
+                <tr>
+                  <th>n*</th>
+                  <th>%**</th>
+                  <th>n*</th>
+                  <th>%**</th>
+                  <th>n*</th>
+                  <th>%**</th>
+                  <th>n*</th>
+                  <th>%**</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Feminino</td>
+                  <td align="center">516</td>
+                  <td align="center">29,42</td>
+                  <td align="center">215</td>
+                  <td align="center">12,26</td>
+                  <td align="center">330</td>
+                  <td align="center">18,81</td>
+                  <td align="center">1.061</td>
+                  <td align="center">60,52</td>
+                </tr>
+                <tr>
+                  <td>Masculino</td>
+                  <td align="center">278</td>
+                  <td align="center">15,85</td>
+                  <td align="center">105</td>
+                  <td align="center">5,99</td>
+                  <td align="center">285</td>
+                  <td align="center">16,31</td>
+                  <td align="center">668</td>
+                  <td align="center">38,1</td>
+                </tr>
+                <tr>
+                  <td>Prefiro não responder</td>
+                  <td align="center">5</td>
+                  <td align="center">0,28</td>
+                  <td align="center">5</td>
+                  <td align="center">0,28</td>
+                  <td align="center">7</td>
+                  <td align="center">0,4</td>
+                  <td align="center">17</td>
+                  <td align="center">0,97</td>
+                </tr>
+                <tr>
+                  <td>Outro</td>
+                  <td align="center">6</td>
+                  <td align="center">0,34</td>
+                  <td align="center">1</td>
+                  <td align="center">0,06</td>
+                  <td align="center">0</td>
+                  <td align="center">0</td>
+                  <td align="center">7</td>
+                  <td align="center">0,4</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td align="center">805</td>
+                  <td align="center">45,89</td>
+                  <td align="center">326</td>
+                  <td align="center">18,59</td>
+                  <td align="center">623</td>
+                  <td align="center">35,52</td>
+                  <td align="center">1.753</td>
+                  <td align="center">100</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN3">
+                <p>IES-E: Instituição de Educação Superior – Pública Estadual; IES-F: Instituição de Educação Superior – Pública Federal; IES-Pr: Instituição de Educação Superior – Privada.</p>
+              </fn>
+              <fn id="TFN4">
+                <p>* Número absoluto de participantes; ** Percentual sobre o número total de participantes da pesquisa.</p>
+              </fn>
+              <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <p>No que tange à condição de deficiência, 54 estudantes (3,08%) autodeclararam-se compor o grupo de pessoas com deficiência, sendo que, do total de participantes por instituição, 23 são matriculados na IES-E (2,86%), 19 na IES-F (5,83%) e 12 na IES-Pr (1,93%).</p>
+      </sec>
+      <sec>
+        <title>3.2 Instrumentos de coleta de dados</title>
+        <p>A coleta de dados ocorreu pela aplicação da EICD <sup><xref ref-type="fn" rid="fn6">6</xref></sup> constituída, tanto de questões para obtenção de informações sociodemográficas, quanto de enunciados referentes às três principais vertentes de concepções de deficiência: biológica, social e metafísica. Para a realidade brasileira, os processos de validação e de confiabilidade do instrumento, por meio de estudos psicométricos, foram publicados em Leite, Cardoso e Oliveira (2021). Aplicada em ambiente virtual, com a utilização da ferramenta <italic>Google Forms</italic> <sup><xref ref-type="fn" rid="fn7">7</xref></sup> . A escala foi composta por 43 enunciados da EICD, distribuídos em: 17 enunciados para a concepção biológica, 15 para a social e 11 para a metafísica – era seguido de 5 alternativas de concordância (tipo <italic>Likert</italic> ), das quais somente 1 poderia ser assinalada pelo respondente, ordenada com os valores de discordo totalmente (1), discordo (2), nem concordo nem discordo (3), concordo (4) e concordo totalmente (5), sendo os intervalos de confiança distribuídos de acordo com a <xref ref-type="table" rid="t3">Tabela 3</xref> .</p>
+        <p>
+          <table-wrap id="t3">
+            <label>Tabela 3</label>
+            <caption>
+              <title>Intervalos de valores de concordância e discordância por concepção</title>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="left">Concepções</th>
+                  <th>Discordância</th>
+                  <th>Tendência a discordância</th>
+                  <th>Tendência a concordância</th>
+                  <th>Concordância</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Biológica</td>
+                  <td align="center">17 a 34</td>
+                  <td align="center">35 a 42,4</td>
+                  <td align="center">42,5 a 67</td>
+                  <td align="center">68 a 85</td>
+                </tr>
+                <tr>
+                  <td>Social</td>
+                  <td align="center">15 a 30</td>
+                  <td align="center">31 a 37,4</td>
+                  <td align="center">37,5 a 59</td>
+                  <td align="center">60 a 75</td>
+                </tr>
+                <tr>
+                  <td>Metafísica</td>
+                  <td align="center">11 a 22</td>
+                  <td align="center">23 a 27,4</td>
+                  <td align="center">27,5 a 43</td>
+                  <td align="center">44 a 55</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <sec>
+          <title>3.2.1 Procedimentos de tratamento e análise dos dados</title>
+          <p>Os dados, obtidos, por meio do formulário virtual da EICD, foram tabulados, codificados e exportados em formulário do programa Excel® e, posteriormente, foram transportados para o <italic>software</italic> de análise estatística IBM SPSS® versão 20.</p>
+          <p>O tratamento dos dados deu-se por meio do <italic>software</italic> e foram realizadas análises descritivas gerais, todas de frequência e análises inferenciais paramétricas, sendo elas: correlações de <italic>Pearson</italic> , Teste T de <italic>Student</italic> e ANOVA.</p>
+          <p>Em seguida, foi realizada a análise interpretativa das respostas, buscando examinar quais as concepções de deficiência mais concordantes e/ou discordantes e suas implicações, cujos resultados e discussões serão apresentados a seguir.</p>
+        </sec>
+      </sec>
+    </sec>
+    <sec sec-type="results">
+      <title>4 Resultados e discussões</title>
+      <p>O desenvolvimento da pesquisa produziu dados que foram tratados estatisticamente, permitindo comparações entre os resultados da aplicação da EICD nas três IES investigadas, mostrando aproximações e distanciamentos entre a forma de conceber a deficiência entre os universitários participantes.</p>
+      <sec>
+        <title>4.1 Análise descritiva</title>
+        <p>A análise descritiva sobre as concepções de deficiência demonstrou similitudes e divergências quando correlacionadas às esferas administrativas.</p>
+        <p>Conforme demonstrado na <xref ref-type="fig" rid="f01">Figura 1</xref> , as IES públicas apresentaram média de concordância sobre as concepções social <sup><xref ref-type="fn" rid="fn8">8</xref></sup> (IES-E = 47,74; IES-F = 49,88), sendo mais expressiva na universidade federal e biológica <sup><xref ref-type="fn" rid="fn9">9</xref></sup> (IES-E = 51,72; IES-F = 48,63), em que a maior tendência de concordância foi na estadual. Porém, não demonstrando resultados significativos de concordância sobre a concepção metafísica <sup><xref ref-type="fn" rid="fn10">10</xref></sup> (IES-E = 17,08 e IES – F = 16,69). Paralelamente, a IES privada indicou igualmente concordância com as concepções social (44,62) e biológica (50,01), assim como as outras instituições participantes, mas foi a única que apresentou concordância com a concepção metafísica, com média 30,51.</p>
+        <p>
+          <fig id="f01">
+            <label>Figura 1</label>
+            <caption>
+              <title>Distribuição das médias nas concepções de deficiência por IES</title>
+            </caption>
+            <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            <alternatives>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1809-4465/p9TrN437Ggdbdt6HNpq5nYf/de8df1ead989b927c352df67760a01d226e4b0cc.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1809-4465/p9TrN437Ggdbdt6HNpq5nYf/d7253f945ae5f7fd45684a28215457085df0b1ef.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>Importa ressaltar que nenhuma das IES investigadas alcançou forte concordância nas 3 concepções investigadas, visto que precisariam ter obtido valores superiores de média (&gt; 59) para a concepções social, (&gt; 68) na biológica e (&gt; 44) e na metafísica, respectivamente.</p>
+        <p>Em decorrência de todos esses dados, foi possível traçar as médias e o desvio padrão das concepções sobre deficiência. Conforme apresentado na <xref ref-type="fig" rid="f02">Figura 2</xref> , o que chama a atenção é que todas as 3 universidades tiveram alto desvio padrão, em todas as concepções, indicando que o grupo não tem uma concordância ou discordância homogênea.</p>
+        <p>
+          <fig id="f02">
+            <label>Figura 2</label>
+            <caption>
+              <title>Desvio padrão das concepções de deficiência, por instituição da educação superior</title>
+            </caption>
+            <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            <alternatives>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1809-4465/p9TrN437Ggdbdt6HNpq5nYf/275640516a08cae048e3d1eaab1fe3686aacfed8.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1809-4465/p9TrN437Ggdbdt6HNpq5nYf/c7a79b88793e614dd00d29c79e6e5c5a53ce8660.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+      </sec>
+      <sec>
+        <title>4.2 Análise inferencial</title>
+        <p>Os dados foram analisados com base na correlação entre Concepção de Deficiência e as seguintes variáveis: idade e área de conhecimento.</p>
+      </sec>
+      <sec>
+        <title>4.3 Idade</title>
+        <p>Realizou-se o Teste de Correlação de <italic>Pearson</italic> para verificar se havia correlação entre as concepções sobre deficiência e a idade dos participantes. Identificou-se uma correlação significativa, diretamente proporcional ao ano de nascimento com a concepção biológica na IES-F, indicando que conforme maior o ano de nascimento (menor idade), maior a tendência em concordar com essa concepção, como pode ser observado na <xref ref-type="table" rid="t4">Tabela 4</xref> .</p>
+        <p>
+          <table-wrap id="t4">
+            <label>Tabela 4</label>
+            <caption>
+              <title>Comparação correlação de Pearson (r) de concepção com idade por universidade</title>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="left" style="font-weight:normal"> </th>
+                  <th>Social</th>
+                  <th>Metafísica</th>
+                  <th>Biológica</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>IES-Pr</td>
+                  <td align="center">0,095</td>
+                  <td align="center">0,309</td>
+                  <td align="center">0,242</td>
+                </tr>
+                <tr>
+                  <td>IES-F</td>
+                  <td align="center">0,344</td>
+                  <td align="center">0,111</td>
+                  <td align="center">0,003</td>
+                </tr>
+                <tr>
+                  <td>IES-E</td>
+                  <td align="center">0,342</td>
+                  <td align="center">0,322</td>
+                  <td align="center">0,566</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN5">
+                <p>IES-Pr: Instituição de Educação Superior – Privada; IES-F: Instituição de Educação Superior – Pública Federal; IES-E: Instituição de Educação Superior – Pública Estadual.</p>
+              </fn>
+              <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+      </sec>
+      <sec>
+        <title>4.4 Relação entre concepção de deficiência e área de formação</title>
+        <p>Realizou-se o teste ANOVA para identificar diferença de média significativa por grande área de conhecimento da formação do participante. Na IES-Pr e na IES-E, identificou-se diferença significativa nas três concepções investigadas, porém na IES-F, somente não foi observada diferença significativa por grande área na concepção metafísica, conforme observado na <xref ref-type="table" rid="t5">Tabela 5</xref> .</p>
+        <p>
+          <table-wrap id="t5">
+            <label>Tabela 5</label>
+            <caption>
+              <title>Relação entre concepção de deficiência e instituição</title>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="left">Instituição Concepção</th>
+                  <th>Social (p)</th>
+                  <th>Metafísica (p)</th>
+                  <th>Biológica (p)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>IES-Pr</td>
+                  <td align="center">0,019</td>
+                  <td align="center">0,001</td>
+                  <td align="center">0,005</td>
+                </tr>
+                <tr>
+                  <td>IES-F</td>
+                  <td align="center">0,000</td>
+                  <td align="center">0,134</td>
+                  <td align="center">0,000</td>
+                </tr>
+                <tr>
+                  <td>IES-E</td>
+                  <td align="center">0,000</td>
+                  <td align="center">0,005</td>
+                  <td align="center">0,000</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN6">
+                <p>IES-Pr: Instituição de Educação Superior – Privada; IES-F: Instituição de Educação Superior – Pública Federal; IES-E: Instituição de Educação Superior – Pública Estadual.</p>
+              </fn>
+              <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <p>Ao ser observada significativa diferença nas três universidades, realizou-se a comparação pormenorizada de suas médias por grande área de conhecimento ( <xref ref-type="table" rid="t6">Tabela 6</xref> ). Observou-se que, para a concepção social, as maiores médias foram as dos participantes dos cursos de exatas, da IES-Pr, e dos cursos de humanas provenientes das IES públicas. Na concepção metafísica, a maior expressão de média foi dos participantes dos cursos de biológicas, da IES-Pr, e dos cursos de exatas, no caso das instituições públicas. Para a concepção biológica, observaram-se maiores médias nas três universidades nos participantes procedentes dos cursos de exatas.</p>
+        <p>
+          <table-wrap id="t6">
+            <label>Tabela 6</label>
+            <caption>
+              <title>Diferença de médias entre concepção de deficiência e área de conhecimento por instituição</title>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <colgroup>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="left">Concepção</th>
+                  <th colspan="3">Social</th>
+                  <th colspan="3">Metafísica</th>
+                  <th colspan="3">Biológica</th>
+                </tr>
+                <tr>
+                  <th align="left" colspan="10">
+                    <hr/>
+                  </th>
+                </tr>
+                <tr>
+                  <th align="left">Área/Instituição</th>
+                  <th>Hum</th>
+                  <th>Bio</th>
+                  <th>Exa</th>
+                  <th>Hum</th>
+                  <th>Bio</th>
+                  <th>Exa</th>
+                  <th>Hum</th>
+                  <th>Bio</th>
+                  <th>Exa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>IES-Pr</td>
+                  <td align="center">43,71</td>
+                  <td align="center">45,58</td>
+                  <td align="center">45,8</td>
+                  <td align="center">29,55</td>
+                  <td align="center">32,21</td>
+                  <td align="center">31,37</td>
+                  <td align="center">48,89</td>
+                  <td align="center">52,31</td>
+                  <td align="center">50,9</td>
+                </tr>
+                <tr>
+                  <td>IES-F</td>
+                  <td align="center">52,12</td>
+                  <td align="center">51,73</td>
+                  <td align="center">41,76</td>
+                  <td align="center">16,78</td>
+                  <td align="center">15,3</td>
+                  <td align="center">18,04</td>
+                  <td align="center">46,12</td>
+                  <td align="center">49,48</td>
+                  <td align="center">54,46</td>
+                </tr>
+                <tr>
+                  <td>IES-E</td>
+                  <td align="center">49,92</td>
+                  <td align="center">46,81</td>
+                  <td align="center">44,8</td>
+                  <td align="center">16,01</td>
+                  <td align="center">17,77</td>
+                  <td align="center">18,09</td>
+                  <td align="center">48,9</td>
+                  <td align="center">53,58</td>
+                  <td align="center">54,66</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN7">
+                <p>IES-Pr: Instituição de Educação Superior – Privada; IES-F: Instituição de Educação Superior – Pública Federal; IES-E: Instituição de Educação Superior – Pública Estadual; Hum: Ciências humanas; Bio: Ciências Biológicas; Exa: Ciências Exatas</p>
+              </fn>
+              <attrib>Fonte: Elaboração própria a partir dos dados da pesquisa (2020)</attrib>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+      </sec>
+    </sec>
+    <sec sec-type="discussion">
+      <title>5 Discussão</title>
+      <p>Transversalizando todo esse panorama, foi possível desenvolver uma análise que relaciona as concepções de deficiência dos participantes da presente pesquisa às suas respectivas proveniências administrativo-institucionais (IES públicas privadas).</p>
+      <p>Os dados inferem que nas três IES investigadas, existe uma tendência de concordância com enunciados que expliquem a deficiência, a partir de um modelo social (mais acentuada na IES-F) e/ou biológico (mais acentuada na IES-E). No entanto, somente a IES privada apresenta a concepção metafísica de deficiência com escore de concordância, estatisticamente, significativo <sup><xref ref-type="fn" rid="fn11">11</xref></sup> .</p>
+      <p>Diante dessas correlações, importa considerar as possíveis influências da atual globalização neoliberal sobre a Educação Superior, os diversos fatores que perpassam o reconhecimento das identidades e das diferenças dos sujeitos que acessam esse nível de ensino e, particularmente, sobre a influência desse contexto sobre a construção e as concepções de deficiência.</p>
+      <p>Soma-se a isso a tendência desse nível de ensino em atender os interesses do Banco Mundial e da Organização Mundial do Comércio, os quais se esforçam em conceber a Educação como potencial mercadoria, constatando a superioridade do capitalismo, inclusive, enquanto organizador de relações sociais (SILVA JÚNIOR; SGUISSARDI, 1999). Para direcionar tal discussão, é necessário compreendermos que “só há uma universidade quando há formação graduada e pós-graduada, pesquisa e extensão” ( <xref ref-type="bibr" rid="B46">SANTOS, 2005</xref> , p. 65).</p>
+      <p>Abarcando essa configuração, <xref ref-type="bibr" rid="B22">Chauí (2001)</xref> destaca, ainda, que a universidade é uma organização social inserida no setor de serviços não exclusivos do Estado, além de expor que:</p>
+      <disp-quote>
+        <p>A legitimidade da universidade moderna fundou-se na conquista da ideia de autonomia do saber em face da religião e do Estado, portanto, na ideia de um conhecimento guiado por sua própria lógica, por necessidades imanentes a ele, tanto do ponto de vista de sua invenção ou sua descoberta, como no de sua transmissão [...]. Com as lutas sociais e políticas dos últimos séculos, com a conquista da Educação e da cultura como direitos, a universidade tornou-se também uma instituição social inseparável da ideia de democracia e de democratização do saber (p. 185).</p>
+      </disp-quote>
+      <p>Em complemento, <xref ref-type="bibr" rid="B5">Benincá (2011)</xref> e <xref ref-type="bibr" rid="B21">Castells (2018)</xref> destacam que a universidade não pode e não deve furtar-se à responsabilidade e ao direito de também aprender com grupos, comunidades, movimentos e experiências sociais, uma vez que esses são sintomas das nossas sociedades que causam impactos nas estruturas sociais, em diferentes graus de intensidade e com resultados distintos. Cabe à universidade, portanto, fortalecer as potencialidades dos movimentos sociais, a fim de promover a emancipação, resistir à globalização neoliberal e produzir uma globalização contra-hegemônica.</p>
+      <p>Por outro lado, quando consideramos que, potencialmente, os sintomas da sociedade tendem não fazer parte das reflexões, no âmbito das instituições privadas, podemos questionar: Como uma universidade privada, que tem interesses intrinsecamente econômicos, com vieses competitivos, perpassando, explicitamente, os sujeitos, poderá caminhar contra uma hegemonia neoliberal, reconhecendo as potencialidades e as competências de pessoas com deficiência?</p>
+      <disp-quote>
+        <p>Não é por acaso que a prática dominadora se assenta na teoria da ação antidialógica, buscando coisificar o outro, torná-lo objeto. As marcas de tal postura originam cenários onde imperam, no âmbito político, a “cultura do silêncio” e o autoritarismo, e no âmbito educacional, o “treinamento” dos sujeitos, que são ensinados a obedecer e não a fomentar a sua curiosidade em relação ao mundo. A consequência disso é um processo de cisões profundas no tecido social, pois a desigualdade social é deletéria para as práticas autenticamente democráticas ( <xref ref-type="bibr" rid="B42">PEREIRA, 2011</xref> , p. 69).</p>
+      </disp-quote>
+      <p>Nesse sentido, os dados da EICD, ao indicarem a predominância de uma concepção metafísica de deficiência dentre estudantes provenientes de instituições privadas, podem sugerir que transpor a questão da deficiência a uma questão transcendental, naqueles contextos, seja mais cômoda e mais próxima ao “politicamente correto” <sup><xref ref-type="fn" rid="fn12">12</xref></sup> , em relação a assumir que existe uma concepção competitiva e negativamente discriminatória, incitada por um contexto neoliberal e mercadológico, sem que se faça algo para alterar o <italic>status quo</italic> da universidade e de suas próprias concepções.</p>
+      <p>Outro questionamento a ser aventado, refere-se a uma análise mais geral dos dados, que indica, nas concepções social e biológica, resultados de valores de média muito próximos nas três instituições, porém, em nenhuma apontando forte concordância em nenhuma das duas concepções investigadas. Somado a isso, tem-se um alto desvio padrão entre os respondentes no julgamento dos enunciados relativos a essas concepções.</p>
+      <p>Sustentados nessas observações, pode-se inferir que nas três amostragens investigadas, opinar sobre o fenômeno da deficiência não é algo simples, nem fácil. Ao contrário, a deficiência é um constructo complexo e multideterminado, e, ainda, recoberto de aspectos que extrapolam a materialidade humana. Por complexidade coadunamos com <xref ref-type="bibr" rid="B19">Carvalho (2015)</xref> , em que a [...] “a realidade está composta por múltiplos e não lineares elementos, que se interpenetram de modo intenso e desafiam a compressão” e, mais adiante, “levando, assim, ao significado de complexo como aquilo que é tecido junto, que está entrelaçado” (p. 156-157).</p>
+      <p>Diante disso, talvez se expliquem os altos índices de desvio padrão e os valores de médias encontrados, ou seja, apesar da amostra constituir-se de três grupos de universitários, percebe-se que mesmo os provenientes de uma instituição semelhante deixam de apresentar (enquanto grupo) posicionamento marcante, em modos de explicar a deficiência, enquanto algo decorrente de um funcionamento orgânico diferenciado, ou como decorrente da interpretação que a audiência social julga na presença de atributos físicos, comportamentais e/ou sensoriais dissemelhantes.</p>
+      <p>Em particular, se os estudantes das três instituições concordarem com os enunciados da concepção biológica implica dizer que, no interior do contexto universitário, é circulante a ideia da deficiência, ou da pessoa que se encontra nessa condição, como atípicas, por apresentarem um corpo classificado como patológico - ou anormal, que necessitam de tratamentos corretivos, como já bem debatido por Amaral (1988) e <xref ref-type="bibr" rid="B18">Canguilhem (2009)</xref> . Com isso, conforme apontado por <xref ref-type="bibr" rid="B28">Gaudenzi e Ortega (2016</xref> , p. 3062) “[...] discursos doutos de caráter científico tomam os corpos que não se encaixam nos padrões estéticos ou funcionais da média da sociedade como objeto de saber/poder e rotulam-los como anormais, isto é, corpos que não são apenas diferentes, mas que devem ser ‘corrigidos’”. Sob esse entendimento, a deficiência passa a ser representada como anomalia, portanto, desviante de um padrão de normalidade.</p>
+      <p>Além disso, os conceitos e as terminologias relacionados à deficiência presentes na legislação brasileira, indicam a influência do modelo médico (biológico) na construção, na aplicação e no desenvolvimento de políticas públicas no setor. Nesse sentido, o chamado “modelo médico” exerce controle sobre aspectos fundamentais da vida de pessoas com deficiência, definindo, por meio da legislação, se elas podem ou não trabalhar, o tipo de escola e os níveis de escolaridade que devem frequentar, serviços e benefícios que podem exercer e receber ( <xref ref-type="bibr" rid="B6">BERNARDES; ARAÚJO, 2012</xref> ).</p>
+      <p>Mais recentemente, o modelo social de deficiência tem influenciado a elaboração de leis e normas e impactado nas políticas públicas. Emergem diversos documentos legais que apontam para eliminação de barreiras e de direitos sociais: Convenção sobre os Direitos da Pessoa com Deficiência, o Decreto nº 6.214/2007 (BRASIL, 2007b), que trata do Benefício de Prestação Continuada (BPC), assume os princípios da funcionalidade para a avaliação da deficiência, introduzindo parâmetros ambientais, sociais e pessoais, entre outras leis. “A adoção dessa nova perspectiva e da absorção dos novos referenciais teóricos na legislação tem impactado a formulação de políticas públicas para pessoas com deficiência e para o restante da sociedade” ( <xref ref-type="bibr" rid="B6">BERNARDES; ARAÚJO, 2012</xref> , p. 2438).</p>
+      <p>Assim, há, na sociedade, uma pluralidade de compreensões circulantes, que se fazem sentir nas respostas dos estudantes. No contraponto há, igualmente, tendência a concordar com enunciados que interpretam a deficiência como uma condição social, atributos corporais diferenciados dependem da interpretação subjetiva, e, portanto, passíveis de serem compreendidos de formas diversas no social.</p>
+      <p>Disso podem decorrer modos de entendimento e de acolhimentos diversos, à luz de serem configurados como um grupo populacional, que, por apresentar condições distintas, necessita de respostas sociais específicas, porém, pautados na ideia de que a diferença é constitutiva do homem. Em detrimento a ela, as singularidades passam a receber medidas protetivas para a garantia dos direitos comuns a todos ( <xref ref-type="bibr" rid="B34">MADRUGA, 2016</xref> ).</p>
+      <p>Nessa direção, a pessoa com deficiência pode deparar-se com dificuldades, ou ainda, ser impedida de ter acesso aos bens culturais, produzidos historicamente, uma vez que “o aparato da cultura humana (da forma exterior de comportamento) está adaptado à organização psicofisiológica normal da pessoa. Toda a nossa cultura é calculada para a pessoa dotada de certos órgãos – mão, olho, ouvido – e de certas funções cerebrais” ( <xref ref-type="bibr" rid="B50">VIGOTSKI, 2011</xref> , p. 867).</p>
+      <p>Dito de outro modo, aparato cultural (instrumentos culturais – técnicas, estruturas sociais, formas de comunicação, dentre outros) é, em grande medida, planejado para atender um padrão de homem, considerado comum (ou normal) e, com isso, as pessoas que não se encaixam nessa norma (desviante) passam a ser vistas e classificadas como anormal, na análise aqui retratada, como deficientes ou pessoas com deficiência e não, simplesmente, cegas, surdas, paraplégicas, por exemplo.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>6 Considerações finais</title>
+      <p>A EICD foi sensível ao indicar formas distintas de conceber-se a deficiência entre estudantes de IES públicas e privadas. Potencialmente, os resultados apresentados, analisados e discutidos com a literatura podem indicar diferentes caminhos para as ações que visem à acessibilidade e à inclusão das pessoas com deficiência nos espaços universitários, a depender de suas esferas administrativas.</p>
+      <p>Os estudantes das IES públicas, em geral, tendem a contar com recursos econômicos próprios, subsídios familiares ou políticas de ações afirmativas (bolsas de estudos, auxílio moradia, dentre outras). Isso contribui para que frequentem as universidades em período integral, convivendo com seus pares e, concomitantemente, com as diferenças, possivelmente, corroborando uma compreensão da deficiência enquanto fenômeno social.</p>
+      <p>Os estudantes das IES privadas, em algumas vezes, são mais velhos e matriculados em cursos do turno noturno, trabalhando para custear seus estudos, ou ainda, em busca de uma certificação profissional. Com isso, o vai-vem universitário tende a se restringir à participação em aulas, tendendo trazer concepção prévia ao ingresso na universidade e, no caso investigado, apresentaram menor discordância à concepção metafísica, indicando a presença de um sistema de crenças, de um pensamento religioso, que justifica e explica a deficiência.</p>
+      <p>A área de conhecimento à qual o estudante está ligado, também, se mostra relevante, uma vez que há correlação significativa entre as áreas e as concepções reveladas pelos estudantes. Investigações mais abrangentes podem ajudar a compreender se há variáveis específicas de uma localidade ou se corresponde a uma constante para uma região, ou mesmo para o país.</p>
+      <p>Apesar de contar com uma amostra razoável de participantes e, de terem sido adotados métodos sólidos de investigação que permitem anunciar as inferências traçadas, os limites dessa pesquisa circunscrevem-se a três IES de um mesmo estado geográfico, não podendo seus resultados, <italic>a priori</italic> , serem generalizados para outros lugares. Sugere-se, assim, que estudos com outras amostras de universitários sejam realizados para fortalecer, cientificamente, o debate nesse tema, essencialmente, para superar discussões cotidianas e contribuir para o aprofundamento crítico da ordem social atual, pautada em pilares frágeis - na garantia da participação mais efetiva das pessoas com deficiência que tendem a ampliar a sua atuação em campos profissionais das mais diversas áreas do conhecimento.</p>
+      <p>Compreender melhor a forma de pensar dos estudantes pode favorecer ações mais acertadas no que tange à inserção da pessoa com deficiência nos níveis mais avançados de ensino, uma vez que o ingresso das pessoas com deficiências na Educação Superior se vem ampliando, fruto das políticas públicas no âmbito da legislação brasileira.</p>
+      <p>Reiterando os dispositivos da Convenção Internacional dos Diretos da Pessoa com Deficiência e da Lei Brasileira de Inclusão, importa que as diversas sociedades compreendam a deficiência sem valoração negativa, na relação policêntrica entre as condições dos sujeitos e seus respectivos contextos (BRASIL, 2015).</p>
+      <p>Os resultados da investigação científica que aqui se apresentam, como elementos para uma possível composição que visa a contribuir com o processo gradativo da legitimação da igualdade dos direitos em todas as esferas sociais, da equidade de oportunidades e da não discriminação negativa com base na deficiência. Complementando, podem auxiliar no estabelecimento de ações mais propositivas por parte da gestão universitária, seja ela pública ou privada, na perspectiva democrática e de acessibilidade, para que minorias político-sociais, como as pessoas com deficiência, tenham condições adequadas em suas trajetórias de formação acadêmica em nível superior.</p>
+      <p>Acreditamos, ainda, que os achados traduzem as marcações sobre deficiência, que futuros profissionais de diversas áreas do saber trazem consigo. Diante disso, reforça-se a importância de investimentos acadêmico-científicos, culturais e políticos que fomentem o debate crítico com todos os estudantes, no reconhecimento e na valorização das diferenças humanas, promovendo ações para uma qualificação mais atenta e compromissada com um segmento que, ainda, infelizmente, encontra sérias dificuldades de inserção social.</p>
+      <p>Nesse sentido, as Instituições da Educação Superior podem atuar, significativamente, no processo de tradução das prescrições legais na dimensão da atuação cotidiana, do debate plural e crítico dos fenômenos culturais, extrapolando as narrativas “politicamente corretas”, mas que, muitas vezes, podem ser incoerentes com a prática do reconhecimento da diferença.</p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>Referências</title>
+      <ref id="B1">
+        <mixed-citation>ALVARENGA, B. T. Inclusão na Universidade: concepções e ações na organização do ensino. Dissertação (Mestrado em Educação) – Universidade Federal do Rio Grande, Rio Grande, 2016.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ALVARENGA</surname>
+              <given-names>B. T</given-names>
+            </name>
+          </person-group>
+          <source>Inclusão na Universidade: concepções e ações na organização do ensino</source>
+          <comment>Dissertação (Mestrado em Educação)</comment>
+          <publisher-name>Universidade Federal do Rio Grande</publisher-name>
+          <publisher-loc>Rio Grande</publisher-loc>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>AMARAL, L. A. Sobre crocodilos e avestruzes: falando de diferenças físicas, preconceitos e sua superação. In: AQUINO, J. G. (org.). Diferenças e preconceito na escola: alternativas teóricas e práticas. São Paulo: Summus, 1998. p.11-30</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>AMARAL</surname>
+              <given-names>L. A</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Sobre crocodilos e avestruzes: falando de diferenças físicas, preconceitos e sua superação</chapter-title>
+          <person-group person-group-type="author">
+            <name>
+              <surname>AQUINO</surname>
+              <given-names>J. G</given-names>
+            </name>
+            <role>org</role>
+          </person-group>
+          <source>Diferenças e preconceito na escola: alternativas teóricas e práticas</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Summus</publisher-name>
+          <year>1998</year>
+          <fpage>11</fpage>
+          <lpage>30</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>ANACHE, A.; ROVETTO, S.; OLIVEIRA, R. Desafios da implantação do atendimento educacional especializado no Ensino Superior. Revista Educação Especial, Santa Maria, v. 27, n. 49, p. 299-312, maio/ago. 2014. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5902/1984686X9037">https://doi.org/10.5902/1984686X9037</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ANACHE</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>ROVETTO</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>OLIVEIRA</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <article-title>Desafios da implantação do atendimento educacional especializado no Ensino Superior</article-title>
+          <source>Revista Educação Especial</source>
+          <publisher-loc>Santa Maria</publisher-loc>
+          <volume>27</volume>
+          <issue>49</issue>
+          <fpage>299</fpage>
+          <lpage>312</lpage>
+          <season>maio/ago</season>
+          <year>2014</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5902/1984686X9037">https://doi.org/10.5902/1984686X9037</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>ANTONAK, R. F.; LIVNEH, H. The measurement of attitudes toward people with disabilities: methods, psychometrics and scales. Springfield: Charles C. Thomas, 1988.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ANTONAK</surname>
+              <given-names>R. F.</given-names>
+            </name>
+            <name>
+              <surname>LIVNEH</surname>
+              <given-names>H.</given-names>
+            </name>
+          </person-group>
+          <source>The measurement of attitudes toward people with disabilities: methods, psychometrics and scales</source>
+          <publisher-loc>Springfield</publisher-loc>
+          <publisher-name>Charles C. Thomas</publisher-name>
+          <year>1988</year>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>BENINCÁ, D. Uma universidade em movimento. In: BENINCÁ, D. (org.). Universidade e suas fronteiras. São Paulo: Outras Expressões, 2011. p. 31-63.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BENINCÁ</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Uma universidade em movimento</chapter-title>
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>BENINCÁ</surname>
+              <given-names>D</given-names>
+            </name>
+            <role>org</role>
+          </person-group>
+          <source>Universidade e suas fronteiras</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Outras Expressões</publisher-name>
+          <year>2011</year>
+          <fpage>31</fpage>
+          <lpage>63</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>BERNARDES, L. C. G.; ARAÚJO, T. C. C. F. Deficiência, políticas públicas e bioética: percepção de gestores públicos e conselheiros de direitos. Ciência &amp; Saúde Coletiva, v. 17, n. 9, p. 2435-2445, Set. 2012. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1413-81232012000900024">https://doi.org/10.1590/S1413-81232012000900024</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BERNARDES</surname>
+              <given-names>L. C. G.</given-names>
+            </name>
+            <name>
+              <surname>ARAÚJO</surname>
+              <given-names>T. C. C. F</given-names>
+            </name>
+          </person-group>
+          <article-title>Deficiência, políticas públicas e bioética: percepção de gestores públicos e conselheiros de direitos</article-title>
+          <source>Ciência &amp; Saúde Coletiva</source>
+          <volume>17</volume>
+          <issue>9</issue>
+          <fpage>2435</fpage>
+          <lpage>2445</lpage>
+          <month>09</month>
+          <year>2012</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1413-81232012000900024">https://doi.org/10.1590/S1413-81232012000900024</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>BRASIL. Decreto nº 5.296, de 2 de dezembro de 2004. Regulamenta as Leis nos 10.048, de 8 de novembro de 2000, que dá prioridade de atendimento às pessoas que especifica, e 10.098, de 19 de dezembro de 2000, que estabelece normas gerais e critérios básicos para a promoção da acessibilidade das pessoas portadoras de deficiência ou com mobilidade reduzida, e dá outras providências. Diário Oficial da União, Brasília, DF, 3 dez. 2004.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Decreto nº 5.296, de 2 de dezembro de 2004. Regulamenta as Leis nos 10.048, de 8 de novembro de 2000, que dá prioridade de atendimento às pessoas que especifica, e 10.098, de 19 de dezembro de 2000, que estabelece normas gerais e critérios básicos para a promoção da acessibilidade das pessoas portadoras de deficiência ou com mobilidade reduzida, e dá outras providências</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>3</day>
+          <month>12</month>
+          <year>2004</year>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>BRASIL. Decreto nº 5.622, de 19 de dezembro de 2005. Regulamenta o art. 80 da Lei no 9.394, de 20 de dezembro de 1996, que estabelece as diretrizes e bases da Educação nacional. Diário Oficial da União, Brasília, DF, 20 dez. 2005a.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Decreto nº 5.622, de 19 de dezembro de 2005. Regulamenta o art. 80 da Lei no 9.394, de 20 de dezembro de 1996, que estabelece as diretrizes e bases da Educação nacional</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>20</day>
+          <month>12</month>
+          <year>2005a</year>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>BRASIL. Decreto nº 5.773, de 9 de maio de 2006. Dispõe sobre o exercício das funções de regulação, supervisão e avaliação de instituições de Educação superior e cursos superiores de graduação e sequenciais no sistema federal de ensino. Diário Oficial da União, Brasília, DF, 10 maio 2006.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Decreto nº 5.773, de 9 de maio de 2006. Dispõe sobre o exercício das funções de regulação, supervisão e avaliação de instituições de Educação superior e cursos superiores de graduação e sequenciais no sistema federal de ensino</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>10</day>
+          <month>05</month>
+          <year>2006</year>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>BRASIL. Decreto nº 6.096, de 24 de abril de 2007. Institui o Programa de Apoio a Planos de Reestruturação e Expansão das Universidades Federais – REUNI. Diário Oficial da União, Brasília, DF, 25 abr. 2007a.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Decreto nº 6.096, de 24 de abril de 2007. Institui o Programa de Apoio a Planos de Reestruturação e Expansão das Universidades Federais – REUNI</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>25</day>
+          <month>04</month>
+          <year>2007a</year>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>BRASIL. Decreto nº 6.214, de 26 de setembro de 2007. Regulamenta o benefício de prestação continuada da assistência social devido à pessoa com deficiência e ao idoso de que trata a Lei n o 8.742, de 7 de dezembro de 1993, e a Lei nº 10.741, de 1º de outubro de 2003 , acresce parágrafo ao art. 162 do Decreto n o 3.048, de 6 de maio de 1999, e dá outras providências. Diário Oficial da União, Brasília, DF, 28 set. 2007b.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Decreto nº 6.214, de 26 de setembro de 2007. Regulamenta o benefício de prestação continuada da assistência social devido à pessoa com deficiência e ao idoso de que trata a Lei n o 8.742, de 7 de dezembro de 1993, e a Lei nº 10.741, de 1º de outubro de 2003 , acresce parágrafo ao art. 162 do Decreto n o 3.048, de 6 de maio de 1999, e dá outras providências</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>28</day>
+          <month>09</month>
+          <year>2007b</year>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>BRASIL. Decreto nº 6.949, de 25 de agosto de 2009. Promulga a Convenção Internacional sobre os Direitos das Pessoas com Deficiência e seu Protocolo Facultativo, assinados em Nova York, de 30 de março de 2007. Diário Oficial da União, Brasília, DF, 26 ago. 2009.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Decreto nº 6.949, de 25 de agosto de 2009. Promulga a Convenção Internacional sobre os Direitos das Pessoas com Deficiência e seu Protocolo Facultativo, assinados em Nova York, de 30 de março de 2007</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>26</day>
+          <month>08</month>
+          <year>2009</year>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>BRASIL. Lei nº 11.096, de 13 de janeiro de 2005. Institui o Programa Universidade para Todos - PROUNI, regula a atuação de entidades beneficentes de assistência social no ensino superior; altera a Lei no 10.891, de 9 de julho de 2004, e dá outras providências. Diário Oficial da União, Brasília, DF, 14 jan. 2005b.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Lei nº 11.096, de 13 de janeiro de 2005. Institui o Programa Universidade para Todos - PROUNI, regula a atuação de entidades beneficentes de assistência social no ensino superior; altera a Lei no 10.891, de 9 de julho de 2004, e dá outras providências</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>14</day>
+          <month>01</month>
+          <year>2005b</year>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília, DF: Presidência da República, 2015. Diário Oficial da União, Brasília, DF, 7 jul. 2015.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência)</article-title>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <publisher-name>Presidência da República</publisher-name>
+          <year>2015</year>
+          <source>Diário Oficial da União</source>
+          <comment>Brasília, DF</comment>
+          <day>7</day>
+          <month>07</month>
+          <comment>2015</comment>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>BRASIL. Lei nº 13.409, de 28 de dezembro de 2016. Altera a Lei nº 12.711, de 29 de agosto de 2012, para dispor sobre a reserva de vagas para pessoas com deficiência nos cursos técnico de nível médio e superior das instituições federais de ensino. Diário Oficial da União, Brasília, DF, 29 dez. 2016.</mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>BRASIL</collab>
+          </person-group>
+          <article-title>Lei nº 13.409, de 28 de dezembro de 2016. Altera a Lei nº 12.711, de 29 de agosto de 2012, para dispor sobre a reserva de vagas para pessoas com deficiência nos cursos técnico de nível médio e superior das instituições federais de ensino</article-title>
+          <source>Diário Oficial da União</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <day>29</day>
+          <month>12</month>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>CABRAL, L. S. A. Inclusão do público-alvo da Educação Especial no Ensino Superior brasileiro: histórico, políticas e práticas. Revista de Educação, Campinas, v. 22, n. 3, p. 371-387, out. 2017. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.24220/2318-0870v22n3a3826">https://doi.org/10.24220/2318-0870v22n3a3826</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CABRAL</surname>
+              <given-names>L. S. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Inclusão do público-alvo da Educação Especial no Ensino Superior brasileiro: histórico, políticas e práticas</article-title>
+          <source>Revista de Educação</source>
+          <publisher-loc>Campinas</publisher-loc>
+          <volume>22</volume>
+          <issue>3</issue>
+          <fpage>371</fpage>
+          <lpage>387</lpage>
+          <month>10</month>
+          <year>2017</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.24220/2318-0870v22n3a3826">https://doi.org/10.24220/2318-0870v22n3a3826</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>CABRAL, L. S. A. Políticas de ações afirmativas, pessoas com deficiência e o reconhecimento das identidades e diferenças no ensino superior brasileiro. Education Policy Analysis Archives, [s. l.], v. 26, n. 57, p. 1-33, Apr. 2018. 10.14507/epaa.26.3364</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CABRAL</surname>
+              <given-names>L. S. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Políticas de ações afirmativas, pessoas com deficiência e o reconhecimento das identidades e diferenças no ensino superior brasileiro</article-title>
+          <source>Education Policy Analysis Archives</source>
+          <comment>s. l</comment>
+          <volume>26</volume>
+          <issue>57</issue>
+          <fpage>1</fpage>
+          <lpage>33</lpage>
+          <month>04</month>
+          <year>2018</year>
+          <issue-id pub-id-type="doi">10.14507/epaa.26.3364</issue-id>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>CANGUILHEM, G. O normal e o patológico. 6. ed. rev. Rio de Janeiro: Forense Universitária, 2009.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CANGUILHEM</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+          <source>O normal e o patológico</source>
+          <edition>6</edition>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <publisher-name>Forense Universitária</publisher-name>
+          <year>2009</year>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>CARVALHO, C. L. C. Pessoas com deficiência no ensino superior: percepções dos alunos. Dissertação (Mestrado em Controladoria e Contabilidade: Contabilidade) – Faculdade de Economia, Administração e Contabilidade, Universidade de São Paulo, São Paulo, 2015.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CARVALHO</surname>
+              <given-names>C. L. C</given-names>
+            </name>
+          </person-group>
+          <source>Pessoas com deficiência no ensino superior: percepções dos alunos</source>
+          <comment>Dissertação (Mestrado em Controladoria e Contabilidade: Contabilidade)</comment>
+          <publisher-name>Faculdade de Economia, Administração e Contabilidade, Universidade de São Paulo</publisher-name>
+          <publisher-loc>São Paulo</publisher-loc>
+          <year>2015</year>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>CARVALHO-FREITAS, M. N.; MARQUES, A. L. Formas de ver as pessoas com deficiência: um estudo empírico do construto de concepções de deficiência em situações de trabalho. RAM. Revista de Administração Mackenzie, v. 11, n. 3, p. 100-129, jun. 2010. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1678-69712010000300007">https://doi.org/10.1590/S1678-69712010000300007</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CARVALHO-FREITAS</surname>
+              <given-names>M. N.</given-names>
+            </name>
+            <name>
+              <surname>MARQUES</surname>
+              <given-names>A. L.</given-names>
+            </name>
+          </person-group>
+          <article-title>Formas de ver as pessoas com deficiência: um estudo empírico do construto de concepções de deficiência em situações de trabalho</article-title>
+          <source>RAM. Revista de Administração Mackenzie</source>
+          <volume>11</volume>
+          <issue>3</issue>
+          <fpage>100</fpage>
+          <lpage>129</lpage>
+          <month>06</month>
+          <year>2010</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1678-69712010000300007">https://doi.org/10.1590/S1678-69712010000300007</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>CASTELLS, M. O poder da identidade: a era da informação. 9. ed. São Paulo: Paz e Terra. 2018. v. 2.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CASTELLS</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <source>O poder da identidade: a era da informação</source>
+          <edition>9</edition>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Paz e Terra</publisher-name>
+          <year>2018</year>
+          <volume>2</volume>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>CHAUÍ, M. S. Escritos sobre a universidade. São Paulo: Ed. Unesp, 2001.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHAUÍ</surname>
+              <given-names>M. S</given-names>
+            </name>
+          </person-group>
+          <source>Escritos sobre a universidade</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Ed. Unesp</publisher-name>
+          <year>2001</year>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>CHRISTMANN, M. Concepções docentes sobre saúde e deficiência sob o prisma da teoria bioecológica de desenvolvimento humano. Tese (Doutorado em Educação) – Universidade Federal de Santa Maria, Santa Maria, 2019.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHRISTMANN</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <source>Concepções docentes sobre saúde e deficiência sob o prisma da teoria bioecológica de desenvolvimento humano</source>
+          <comment>Tese (Doutorado em Educação)</comment>
+          <publisher-name>Universidade Federal de Santa Maria</publisher-name>
+          <publisher-loc>Santa Maria</publisher-loc>
+          <year>2019</year>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>CRUZ, R. L. Inclusão no ensino superior: um estudo sobre as representações sociais dos acadêmicos com deficiência visual na UFPB. Dissertação (Mestrado em Educação) – Universidade Federal da Paraíba, João Pessoa, 2012.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CRUZ</surname>
+              <given-names>R. L</given-names>
+            </name>
+          </person-group>
+          <source>Inclusão no ensino superior: um estudo sobre as representações sociais dos acadêmicos com deficiência visual na UFPB</source>
+          <comment>Dissertação (Mestrado em Educação)</comment>
+          <publisher-name>Universidade Federal da Paraíba</publisher-name>
+          <publisher-loc>João Pessoa</publisher-loc>
+          <year>2012</year>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>CURY, C. R.; HORTA, J.; FÁVERO, O. A Relação Educação–Sociedade–Estado pela mediação jurídico-constitucional. In: FÁVERO, O. (org.). A educação nas constituintes brasileiras: 1823–1988. Campinas: Autores Associados, 1996. p. 5-30.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CURY</surname>
+              <given-names>C. R.</given-names>
+            </name>
+            <name>
+              <surname>HORTA</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>FÁVERO</surname>
+              <given-names>O</given-names>
+            </name>
+          </person-group>
+          <chapter-title>A Relação Educação–Sociedade–Estado pela mediação jurídico-constitucional</chapter-title>
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>FÁVERO</surname>
+              <given-names>O</given-names>
+            </name>
+            <role>org</role>
+          </person-group>
+          <source>A educação nas constituintes brasileiras: 1823–1988</source>
+          <publisher-loc>Campinas</publisher-loc>
+          <publisher-name>Autores Associados</publisher-name>
+          <year>1996</year>
+          <fpage>5</fpage>
+          <lpage>30</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation>DAGNINO, E. Os movimentos sociais e a emergência de uma nova noção de cidadania. In: DAGNINO, E. (org.). Os anos 90: política e sociedade no Brasil. São Paulo: Brasiliense, 1994. p. 103-115.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DAGNINO</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Os movimentos sociais e a emergência de uma nova noção de cidadania</chapter-title>
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>DAGNINO</surname>
+              <given-names>E</given-names>
+            </name>
+            <role>org</role>
+          </person-group>
+          <source>Os anos 90: política e sociedade no Brasil</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Brasiliense</publisher-name>
+          <year>1994</year>
+          <fpage>103</fpage>
+          <lpage>115</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation>DINIZ, D. O que é deficiência. São Paulo: Brasiliense, 2007.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DINIZ</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <source>O que é deficiência</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Brasiliense</publisher-name>
+          <year>2007</year>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <mixed-citation>GAUDENZI, P.; ORTEGA, F. Problematizando o conceito de deficiência a partir das noções de autonomia e normalidade. Ciências e Saúde Coletiva, Rio de Janeiro, v. 21, n. 10, p. 3061-3070, out. 2016. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1413-812320152110.16642016">https://doi.org/10.1590/1413-812320152110.16642016</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GAUDENZI</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name>
+              <surname>ORTEGA</surname>
+              <given-names>F.</given-names>
+            </name>
+          </person-group>
+          <article-title>Problematizando o conceito de deficiência a partir das noções de autonomia e normalidade</article-title>
+          <source>Ciências e Saúde Coletiva</source>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <volume>21</volume>
+          <issue>10</issue>
+          <fpage>3061</fpage>
+          <lpage>3070</lpage>
+          <month>10</month>
+          <year>2016</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1413-812320152110.16642016">https://doi.org/10.1590/1413-812320152110.16642016</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation>HOUAISS, A.; VILLAR, M. S. Dicionário Houaiss da língua portuguesa. Rio de Janeiro: Objetiva, 2009.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HOUAISS</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>VILLAR</surname>
+              <given-names>M. S</given-names>
+            </name>
+          </person-group>
+          <source>Dicionário Houaiss da língua portuguesa</source>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <publisher-name>Objetiva</publisher-name>
+          <year>2009</year>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation>INSTITUTO NACIONAL DE ESTUDOS E PESQUISAS EDUCACIONAIS ANÍSIO TEIXEIRA – INEP. Sinopse estatística da educação superior 2018. Brasília, DF, 2019. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://portal.inep.gov.br/basica-censo-escolar-sinopse-sinopse">http://portal.inep.gov.br/basica-censo-escolar-sinopse-sinopse</ext-link> . Acesso em: 12 mar. 2020.</mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>INSTITUTO NACIONAL DE ESTUDOS E PESQUISAS EDUCACIONAIS ANÍSIO TEIXEIRA – INEP</collab>
+          </person-group>
+          <source>Sinopse estatística da educação superior 2018</source>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year>2019</year>
+          <ext-link ext-link-type="uri" xlink:href="http://portal.inep.gov.br/basica-censo-escolar-sinopse-sinopse">http://portal.inep.gov.br/basica-censo-escolar-sinopse-sinopse</ext-link>
+          <date-in-citation content-type="access-date">Acesso em: 12 mar. 2020</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation>LEITE, L. P.; CARDOSO, H. F.; OLIVEIRA, T. Escala intercultural de concepções de deficiência: construção e estudos psicométricos. Revista Brasileira de Educação Especial, Bauru, v. 27, e0208, 2021. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1980-54702021v27e0208">https://doi.org/10.1590/1980-54702021v27e0208</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LEITE</surname>
+              <given-names>L. P.</given-names>
+            </name>
+            <name>
+              <surname>CARDOSO</surname>
+              <given-names>H. F.</given-names>
+            </name>
+            <name>
+              <surname>OLIVEIRA</surname>
+              <given-names>T.</given-names>
+            </name>
+          </person-group>
+          <article-title>Escala intercultural de concepções de deficiência: construção e estudos psicométricos</article-title>
+          <source>Revista Brasileira de Educação Especial</source>
+          <publisher-loc>Bauru</publisher-loc>
+          <volume>27</volume>
+          <elocation-id>e0208</elocation-id>
+          <year>2021</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1980-54702021v27e0208">https://doi.org/10.1590/1980-54702021v27e0208</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation>LEITE, L. P.; LACERDA, C. The construction of a scale on the conceptions of disability: methodological procedures. Psicologia USP, v. 29, n. 3, p. 432-441, 2018. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/0103-65642018109">https://doi.org/10.1590/0103-65642018109</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LEITE</surname>
+              <given-names>L. P.</given-names>
+            </name>
+            <name>
+              <surname>LACERDA</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>The construction of a scale on the conceptions of disability: methodological procedures</article-title>
+          <source>Psicologia USP</source>
+          <volume>29</volume>
+          <issue>3</issue>
+          <fpage>432</fpage>
+          <lpage>441</lpage>
+          <year>2018</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/0103-65642018109">https://doi.org/10.1590/0103-65642018109</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation>LOMÔNACO, J. F. B.; CAZEIRO, A. P. M. Concepções de deficiência e reabilitação: um estudo exploratório com graduandos de Fisioterapia. Psicologia Escolar e Educacional, São Paulo, v. 10. n. 1, p. 83-97, jun. 2006. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1413-85572006000100008">https://doi.org/10.1590/S1413-85572006000100008</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LOMÔNACO</surname>
+              <given-names>J. F. B.</given-names>
+            </name>
+            <name>
+              <surname>CAZEIRO</surname>
+              <given-names>A. P. M.</given-names>
+            </name>
+          </person-group>
+          <article-title>Concepções de deficiência e reabilitação: um estudo exploratório com graduandos de Fisioterapia</article-title>
+          <source>Psicologia Escolar e Educacional</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <volume>10</volume>
+          <issue>1</issue>
+          <fpage>83</fpage>
+          <lpage>97</lpage>
+          <month>06</month>
+          <year>2006</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1413-85572006000100008">https://doi.org/10.1590/S1413-85572006000100008</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <mixed-citation>MADRUGA, S. Pessoas com deficiência e direitos humanos: ótica da diferença e ações afirmativas. 2. ed. São Paulo: Saraiva, 2016.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MADRUGA</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <source>Pessoas com deficiência e direitos humanos: ótica da diferença e ações afirmativas</source>
+          <edition>2</edition>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Saraiva</publisher-name>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+      <ref id="B35">
+        <mixed-citation>MALUSÁ, S.; SANTOS, A. F.; PORTES, R. M. L. Docência universitária numa perspectiva inclusiva: concepções e práticas no ensino superior. Linhas, Florianópolis, v. 11, n. 2, p. 145-168. 2010.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MALUSÁ</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>SANTOS</surname>
+              <given-names>A. F.</given-names>
+            </name>
+            <name>
+              <surname>PORTES</surname>
+              <given-names>R. M. L</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Docência universitária numa perspectiva inclusiva: concepções e práticas no ensino superior</chapter-title>
+          <source>Linhas</source>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <volume>11</volume>
+          <issue>2</issue>
+          <fpage>145</fpage>
+          <lpage>168</lpage>
+          <year>2010</year>
+        </element-citation>
+      </ref>
+      <ref id="B36">
+        <mixed-citation>MATTOS, B. M. Deficiência: da conceituação aos posicionamentos de universitários. Dissertação (Mestrado em Psicologia) – Faculdade de Ciências, Universidade Estadual Paulista, Bauru, São Paulo, Brasil. 2016.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MATTOS</surname>
+              <given-names>B. M</given-names>
+            </name>
+          </person-group>
+          <source>Deficiência: da conceituação aos posicionamentos de universitários</source>
+          <comment>Dissertação (Mestrado em Psicologia)</comment>
+          <publisher-name>Faculdade de Ciências, Universidade Estadual Paulista</publisher-name>
+          <publisher-loc>Bauru, São Paulo, Brasil</publisher-loc>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+      <ref id="B37">
+        <mixed-citation>MENDES, E. G. Deficiência mental: a construção científica de um conceito e a realidade educacional. Tese (Doutorado em Educação Física) – Universidade de São Paulo, São Paulo, Brasil.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MENDES</surname>
+              <given-names>E. G</given-names>
+            </name>
+          </person-group>
+          <source>Deficiência mental: a construção científica de um conceito e a realidade educacional</source>
+          <comment>Tese (Doutorado em Educação Física)</comment>
+          <publisher-name>Universidade de São Paulo</publisher-name>
+          <publisher-loc>São Paulo, Brasil</publisher-loc>
+        </element-citation>
+      </ref>
+      <ref id="B38">
+        <mixed-citation>OLIVEIRA, J. D. B. Concepções de deficiência: um estudo das representações sociais dos professores da Educação Física no ensino superior. Dissertação (Mestrado em Educação) – Faculdade de Educação, Universidade Federal da Bahia, 2007.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>OLIVEIRA</surname>
+              <given-names>J. D. B</given-names>
+            </name>
+          </person-group>
+          <source>Concepções de deficiência: um estudo das representações sociais dos professores da Educação Física no ensino superior</source>
+          <comment>Dissertação (Mestrado em Educação)</comment>
+          <publisher-name>Faculdade de Educação, Universidade Federal da Bahia</publisher-name>
+          <year>2007</year>
+        </element-citation>
+      </ref>
+      <ref id="B39">
+        <mixed-citation>OMOTE, S. A construção de uma escala de atitudes sociais em relação à inclusão: notas preliminares. Revista Brasileira de Educação Especial, Marilia, v. 11, n. 1, p. 33-47, 2005.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>OMOTE</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>A construção de uma escala de atitudes sociais em relação à inclusão: notas preliminares</article-title>
+          <source>Revista Brasileira de Educação Especial</source>
+          <publisher-loc>Marilia</publisher-loc>
+          <volume>11</volume>
+          <issue>1</issue>
+          <fpage>33</fpage>
+          <lpage>47</lpage>
+          <year>2005</year>
+        </element-citation>
+      </ref>
+      <ref id="B40">
+        <mixed-citation>OMOTE, S. A. Escala de atitudes sociais em relação à inclusão. Journal of Research in Special Educational Needs, v. 16, n. S1, p. 470-473, 2016. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/1471-3802.12308">https://doi.org/10.1111/1471-3802.12308</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>OMOTE</surname>
+              <given-names>S. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Escala de atitudes sociais em relação à inclusão</article-title>
+          <source>Journal of Research in Special Educational Needs</source>
+          <volume>16</volume>
+          <issue>S1</issue>
+          <fpage>470</fpage>
+          <lpage>473</lpage>
+          <year>2016</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/1471-3802.12308">https://doi.org/10.1111/1471-3802.12308</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B41">
+        <mixed-citation>OMOTE, S. A. et al. Mudança de atitudes sociais em relação à inclusão. Paidéia, Ribeirão Preto, v. 15, n. 32, p.387-398, 2005.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>OMOTE</surname>
+              <given-names>S. A.</given-names>
+            </name>
+            <etal>et al.</etal>
+          </person-group>
+          <article-title>Mudança de atitudes sociais em relação à inclusão</article-title>
+          <source>Paidéia</source>
+          <publisher-loc>Ribeirão Preto</publisher-loc>
+          <volume>15</volume>
+          <issue>32</issue>
+          <fpage>387</fpage>
+          <lpage>398</lpage>
+          <year>2005</year>
+        </element-citation>
+      </ref>
+      <ref id="B42">
+        <mixed-citation>PEREIRA, T. I. Classes populares no ensino superior brasileiro: desafios políticos e pedagógicos. In: BENINCÁ, D. (org.). Universidade e suas fronteiras. São Paulo: Outras Expressões, 2011. p. 65-86.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PEREIRA</surname>
+              <given-names>T. I</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Classes populares no ensino superior brasileiro: desafios políticos e pedagógicos</chapter-title>
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>BENINCÁ</surname>
+              <given-names>D</given-names>
+            </name>
+            <role>org</role>
+          </person-group>
+          <source>Universidade e suas fronteiras</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Outras Expressões</publisher-name>
+          <year>2011</year>
+          <fpage>65</fpage>
+          <lpage>86</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B43">
+        <mixed-citation>PESSOTTI, I. Deficiência mental: da superstição à ciência. São Paulo: T. A. Queiroz. 1984.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PESSOTTI</surname>
+              <given-names>I</given-names>
+            </name>
+          </person-group>
+          <source>Deficiência mental: da superstição à ciência</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>T. A. Queiroz</publisher-name>
+          <year>1984</year>
+        </element-citation>
+      </ref>
+      <ref id="B44">
+        <mixed-citation>PIMENTEL, S. C.; SANTANA, L. L.; RIBEIRO, V. Concepções sobre a condição de deficiência: o olhar de estudantes do ensino superior que vivenciam essa realidade. Cadernos de Pesquisa em Educação, v. 19, n. 38, p. 11-34, jul./dez. 2013.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PIMENTEL</surname>
+              <given-names>S. C.</given-names>
+            </name>
+            <name>
+              <surname>SANTANA</surname>
+              <given-names>L. L.</given-names>
+            </name>
+            <name>
+              <surname>RIBEIRO</surname>
+              <given-names>V</given-names>
+            </name>
+          </person-group>
+          <article-title>Concepções sobre a condição de deficiência: o olhar de estudantes do ensino superior que vivenciam essa realidade</article-title>
+          <source>Cadernos de Pesquisa em Educação</source>
+          <volume>19</volume>
+          <issue>38</issue>
+          <fpage>11</fpage>
+          <lpage>34</lpage>
+          <season>jul./dez</season>
+          <year>2013</year>
+        </element-citation>
+      </ref>
+      <ref id="B45">
+        <mixed-citation>RODOVALHO, M. R.; MOREIRA, G. E.; MANÉ, M. D. Concepções de professores sobre Educação Inclusiva no Ensino Superior privado. EccoS, São Paulo, n. 45, p. 255-272, 2018. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5585/eccos.n45.7640">https://doi.org/10.5585/eccos.n45.7640</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>RODOVALHO</surname>
+              <given-names>M. R.</given-names>
+            </name>
+            <name>
+              <surname>MOREIRA</surname>
+              <given-names>G. E.</given-names>
+            </name>
+            <name>
+              <surname>MANÉ</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <article-title>Concepções de professores sobre Educação Inclusiva no Ensino Superior privado</article-title>
+          <source>EccoS</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <issue>45</issue>
+          <fpage>255</fpage>
+          <lpage>272</lpage>
+          <year>2018</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5585/eccos.n45.7640">https://doi.org/10.5585/eccos.n45.7640</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B46">
+        <mixed-citation>SANTOS, B. S. A universidade no século XXI: para uma reforma democrática e emancipatória da Universidade. São Paulo: Cortez, 2005.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SANTOS</surname>
+              <given-names>B. S.</given-names>
+            </name>
+          </person-group>
+          <source>A universidade no século XXI: para uma reforma democrática e emancipatória da Universidade</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Cortez</publisher-name>
+          <year>2005</year>
+        </element-citation>
+      </ref>
+      <ref id="B47">
+        <mixed-citation>SANTOS, B. S. Pela mão de Alice: o social e o político na pós-modernidade. São Paulo: Cortez, 1997.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SANTOS</surname>
+              <given-names>B. S</given-names>
+            </name>
+          </person-group>
+          <source>Pela mão de Alice: o social e o político na pós-modernidade</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Cortez</publisher-name>
+          <year>1997</year>
+        </element-citation>
+      </ref>
+      <ref id="B48">
+        <mixed-citation>SILVA JÚNIOR, J. R.; SGUISSARDI, V. Novas faces da Educação superior no Brasil: reforma do Estado e mudança na produção. Bragança Paulista: EDUSF, 1999.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SILVA</surname>
+              <given-names>J. R.</given-names>
+              <suffix>JÚNIOR</suffix>
+            </name>
+            <name>
+              <surname>SGUISSARDI</surname>
+              <given-names>V</given-names>
+            </name>
+          </person-group>
+          <source>Novas faces da Educação superior no Brasil: reforma do Estado e mudança na produção</source>
+          <publisher-loc>Bragança Paulista</publisher-loc>
+          <publisher-name>EDUSF</publisher-name>
+          <year>1999</year>
+        </element-citation>
+      </ref>
+      <ref id="B49">
+        <mixed-citation>TEIXEIRA JÚNIOR, J. G.; SOUZA, N. C. Análise das concepções de formadores de professores de Química acerca da inclusão de alunos com deficiência no ensino superior. Ensino Em Re-Vista, v. 26, n. 2, p. 437-456. 2019. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14393/ER-v26n2a2019-7">https://doi.org/10.14393/ER-v26n2a2019-7</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>TEIXEIRA</surname>
+              <given-names>J. G.</given-names>
+              <suffix>JÚNIOR</suffix>
+            </name>
+            <name>
+              <surname>SOUZA</surname>
+              <given-names>N. C.</given-names>
+            </name>
+          </person-group>
+          <article-title>Análise das concepções de formadores de professores de Química acerca da inclusão de alunos com deficiência no ensino superior</article-title>
+          <source>Ensino Em Re-Vista</source>
+          <volume>26</volume>
+          <issue>2</issue>
+          <fpage>437</fpage>
+          <lpage>456</lpage>
+          <year>2019</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14393/ER-v26n2a2019-7">https://doi.org/10.14393/ER-v26n2a2019-7</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B50">
+        <mixed-citation>VIGOTSKI, L. S. A defectología e o estudo do desenvolvimento e da Educação da criança anormal. Educação e Pesquisa, São Paulo, v. 37, n. 4, p. 863-869, dez. 2011. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1517-97022011000400012">https://doi.org/10.1590/S1517-97022011000400012</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>VIGOTSKI</surname>
+              <given-names>L. S.</given-names>
+            </name>
+          </person-group>
+          <article-title>A defectología e o estudo do desenvolvimento e da Educação da criança anormal</article-title>
+          <source>Educação e Pesquisa</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <volume>37</volume>
+          <issue>4</issue>
+          <fpage>863</fpage>
+          <lpage>869</lpage>
+          <month>12</month>
+          <year>2011</year>
+          <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1517-97022011000400012">https://doi.org/10.1590/S1517-97022011000400012</ext-link>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn fn-type="other" id="fn1">
+        <label>1</label>
+        <p>Compreendemos por concepção como sendo a faculdade, o modo ou o ato de apreender, compreender, perceber, ver ou sentir algo, uma ideia, um fato, uma questão ou uma pessoa, o qual subsidia o processo de construção de uma perspectiva, um entendimento ou uma noção. A esse movimento pode estar atrelada sua sinonímia, ou seja, o julgamento, o qual é resultante de operações mentais do pensamento abstrato, baseadas na produção, ou utilização, de conceitos teóricos para uma representação, apreciação crítica, parecer ou opinião (favorável ou desfavorável). Mendes (1995) expõe que as concepções estariam relacionadas a um processo de construção em nível pessoal, social e cultural.</p>
+      </fn>
+      <fn fn-type="other" id="fn2">
+        <label>2</label>
+        <p>O Decreto nº 5.296/04 define que acessibilidade é uma “condição para utilização, com segurança e autonomia, total ou assistida, dos espaços, mobiliários e equipamentos urbanos, das edificações, dos serviços de transporte e dos dispositivos, sistemas e meios de comunicação e informação” ( <xref ref-type="bibr" rid="B7">BRASIL, 2004</xref> , Art. 8º).</p>
+      </fn>
+      <fn fn-type="other" id="fn3">
+        <label>3</label>
+        <p>Os dados referentes ao ano de 2018, coletados e tratados pelo Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (Inep), indicam que a matrícula de estudantes com deficiência na Educação Superior soma 43.633 estudantes, sendo desses, 16.585 na esfera pública e 27.048 na rede privada da Educação Superior, totalizando 0,52% de um total de 8.450.755 matrículas (INEP, 2019).</p>
+      </fn>
+      <fn fn-type="other" id="fn4">
+        <label>4</label>
+        <p>Trata-se de um recorte que considera o estado de São Paulo, uma vez que o estudo envolveu instituições da Espanha e de Portugal.</p>
+      </fn>
+      <fn fn-type="other" id="fn5">
+        <label>5</label>
+        <p>Importa ressaltar a “Esfera Administrativa” de proveniência das matrículas, por compreendermos que essa pode ser uma variável correlacional, importante para a análise de concepções de deficiência, o que será discutido nos resultados da presente pesquisa.</p>
+      </fn>
+      <fn fn-type="other" id="fn6">
+        <label>6</label>
+        <p>A elaboração da EICD ocorreu no desenvolvimento de um estudo financiado pela Fapesp/Brasil (Proc. 2017/12721-5), coordenado por pesquisadora da Unesp e contou com a colaboração de pesquisadores vinculados a programas de pós-graduação de IES paulistas, espanhóis e portugueses (LEITE, L.P. <italic>Escala intercultural de concepções de deficiência</italic> . [Relatório Fapesp (não publicado), 2020].</p>
+      </fn>
+      <fn fn-type="other" id="fn7">
+        <label>7</label>
+        <p>O Formulário Google configura-se, atualmente, como um dispositivo de administração de pesquisas de larga escala, fácil acesso, democrático e gratuito, e faz parte do pacote <italic>Google Drive</italic> , um serviço de armazenamento e sincronização de arquivos.</p>
+      </fn>
+      <fn fn-type="other" id="fn8">
+        <label>8</label>
+        <p>Social: Nota de corte para concordância: mínimo de 42,5.</p>
+      </fn>
+      <fn fn-type="other" id="fn9">
+        <label>9</label>
+        <p>Biológica: Nota de corte para concordância: mínimo 37,5.</p>
+      </fn>
+      <fn fn-type="other" id="fn10">
+        <label>10</label>
+        <p>Metafísica: Nota de corte para concordância: mínimo de 27,5.</p>
+      </fn>
+      <fn fn-type="other" id="fn11">
+        <label>11</label>
+        <p>Importa considerar que o número de estudantes interessados a refletirem sobre a temática, por meio da presente pesquisa, foi predominante para aqueles da área das Ciências Humanas.</p>
+      </fn>
+      <fn fn-type="other" id="fn12">
+        <label>12</label>
+        <p>Frases como “Estou olhando para esse sujeito com deficiência, sei que ele existe, mas Deus/deus quis assim e eu não posso fazer nada”, infelizmente, ainda são muito recorrentes nas várias esferas de nossa sociedade.</p>
+      </fn>
+    </fn-group>
+    <fn-group>
+      <fn fn-type="financial-disclosure" id="fn_ast1">
+        <label>*</label>
+        <p>Estudo que decorre de Pesquisa financiada pela Fundação de Amparo à Pesquisa do Estado de São Paulo - Fapesp (Processo 2017/12721-5).</p>
+      </fn>
+    </fn-group>
+  </back>
+</article>

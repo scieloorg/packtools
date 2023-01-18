@@ -9,3 +9,4 @@ aiohttp==3.8.3
 python-magic==0.4.27
 python-magic==0.4.27
 tox==4.3.1
+-e git+https://github.com/scieloorg/scielo_scholarly_data#egg=scielo_scholarly_data
