@@ -71,6 +71,12 @@ To run a specific module of tests, type:
 python setup.py test -s tests.test_htmlgenerator
 ```
 
+Run tests with tox: 
+
+```
+tox
+```
+
 ## Command line execute
 
 ```bash
