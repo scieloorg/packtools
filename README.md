@@ -1,7 +1,7 @@
 # scielo.packtools
 
 Python library and command-line utilities to handle SciELO PS XML files that
-runs on python 2.7, 3.3+.
+runs on python > 3.9.
 
 
 ## Build status
@@ -69,6 +69,12 @@ To run a specific module of tests, type:
 
 ```bash
 python setup.py test -s tests.test_htmlgenerator
+```
+
+Run tests with tox: 
+
+```
+tox
 ```
 
 ## Command line execute
