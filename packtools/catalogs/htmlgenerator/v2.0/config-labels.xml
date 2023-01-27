@@ -488,9 +488,9 @@
         <name lang="es">Este documento fue comentado por</name>
     </term>
     <term>
-        <name>This document has an addendum</name>
-        <name lang="en">This document has an addendum</name>
-        <name lang="pt">Este documento tem um adendo</name>
-        <name lang="es">Este documento tiene una addenda</name>
+        <name>This addendum adds information to the following document</name>
+        <name lang="en">This addendum adds information to the following document</name>
+        <name lang="pt">Este adendo adiciona informação ao documento</name>
+        <name lang="es">Esta addenda agrega información al documento</name>
     </term>
 </labels>
