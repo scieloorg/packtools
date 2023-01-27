@@ -1,7 +1,5 @@
 import logging
 
-from packtools.sps.utils import xml_utils
-
 
 logger = logging.getLogger(__name__)
 
@@ -23,8 +21,8 @@ class FundingGroup:
         Arrangement containing a dictionary that correlates funding-source and award-id or values of one of the attributes.
     """
 
-    def __init__(self, xml):
-        self._xmltree = xml_utils.get_xml_tree(xml)
+    def __init__(self, xmltree):
+        self._xmltree = xmltree
 
     @property
     def award_groups(self):

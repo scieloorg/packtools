@@ -1,12 +1,12 @@
 # coding: utf-8
 from __future__ import unicode_literals
 import unittest
-
 try:
     from unittest import mock
 except:
     import mock
 
+from lxml import etree
 from packtools.sps.models.funding_group import FundingGroup
 
 
@@ -30,7 +30,7 @@ class FundingGroupOneFundingSourceNAwardIdTests(unittest.TestCase):
             </article>
             """
         )
-        self.funding_group = FundingGroup(xml)
+        self.funding_group = FundingGroup(etree.fromstring(xml))
 
     def test_funding_sources(self):
         expected = ['CNPQ', 'FAPESP']
@@ -60,7 +60,7 @@ class FundingGroupOneFundingSourceOneAwardIdTests(unittest.TestCase):
             </article>
             """
         )
-        self.funding_group = FundingGroup(xml)
+        self.funding_group = FundingGroup(etree.fromstring(xml))
 
     def test_funding_sources(self):
         expected = ['CNPq']
@@ -90,7 +90,7 @@ class FundingGroupNFundingSourceOneAwardIdTests(unittest.TestCase):
             </article>
             """
         )
-        self.funding_group = FundingGroup(xml)
+        self.funding_group = FundingGroup(etree.fromstring(xml))
 
     def test_funding_sources(self):
         expected = ['CNPq', 'FAPESP']
@@ -124,7 +124,7 @@ class FundingGroupNFundingSourceOneAwardIdWithFundingStatementTests(unittest.Tes
             </article>
             """
         )
-        self.funding_group = FundingGroup(xml)
+        self.funding_group = FundingGroup(etree.fromstring(xml))
 
     def test_funding_sources(self):
         expected = ['Coordenação de Aperfeiçoamento de Pessoal de Nível Superior',
