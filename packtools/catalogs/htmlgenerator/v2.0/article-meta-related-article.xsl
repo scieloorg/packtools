@@ -45,6 +45,7 @@
             do site.
         -->
         <xsl:choose>
+            <xsl:when test="$article/@article-type='addendum'">This addendum adds information to the following document</xsl:when>
             <xsl:when test=".='corrected-article'">This erratum corrects</xsl:when>
             <xsl:when test=".='retracted-article'">This retraction retracts</xsl:when>
             <xsl:when test=".='commentary-article'">This document comments</xsl:when>
