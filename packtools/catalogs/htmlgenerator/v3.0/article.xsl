@@ -173,14 +173,14 @@
     </xsl:template>
 
     <xsl:template match="/" mode="css">
-        <link rel="stylesheet" href="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/css/bootstrap.css"/>
-        <link rel="stylesheet" href="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/css/article.css"/>
+        <link rel="stylesheet" href="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.5/css/bootstrap.css"/>
+        <link rel="stylesheet" href="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.5/css/article.css"/>
     </xsl:template>
 
     <xsl:template match="/" mode="js">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/js/bootstrap.bundle.min.js"></script>
-        <script src="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/js/scielo/scielo-ds-min.js"></script>
+        <script src="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.5/js/bootstrap.bundle.min.js"></script>
+        <script src="https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.5/js/scielo/scielo-ds-min.js"></script>
 
         <xsl:if test=".//tex-math or .//math or .//mml:math">
             <script>
@@ -296,7 +296,7 @@
                 class="logo-open-access"
                 data-bs-toggle="tooltip"
                 >
-                <xsl:attribute name="src">https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.3/img/logo-open-access.svg</xsl:attribute>
+                <xsl:attribute name="src">https://scielo.parati.design/aberto-ds-scielo/dist/version/1.1.5/img/logo-open-access.svg</xsl:attribute>
                 <xsl:attribute name="data-original-title"><xsl:apply-templates select="." mode="article-meta-permissions-data-original-title"/></xsl:attribute>
             </img><xsl:text> <!-- espaço --></xsl:text>
             <xsl:apply-templates select="." mode="article-meta-title"/>
