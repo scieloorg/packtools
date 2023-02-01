@@ -14,41 +14,31 @@
             <h3><xsl:value-of select="translate($title, ':', '')"/></h3>
             <xsl:apply-templates select="." mode="a_name"/>
             <xsl:apply-templates select="*[name()!='label']|text()"/>
-            <xsl:apply-templates select="." mode="xref_href"/>
         </div>
-    </xsl:template>
-
-    <xsl:template match="fn" mode="a_name">
-        <xsl:if test="@id">
-            <a name="refId_{@id}"/>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="fn" mode="xref_href">
-        <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
-        <xsl:if test="$id != '' and $article//xref[@rid=$id]">
-            <a href="#{@id}_ref">↩</a>
-        </xsl:if>
     </xsl:template>
 
     <xsl:template match="fn[@id] | author-notes/*[@id]">
+        <!-- 
+        <li>
+            <a name="fn12_ref"></a><span class="xref big">12</span>
+            <div>Frases como “Estou olhando para esse sujeito com deficiência, sei que ele existe, mas Deus/deus quis assim e eu não posso fazer nada”, infelizmente, ainda são muito recorrentes nas várias esferas de nossa sociedade.</div>
+        </li>
+        -->
         <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
         
-        <div class="articleSection articleReferenceFootNotes" data-anchor="NotasRodape">
-            <hr/>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <ol class="articleFootnotes">
-                        <li>
-                            <a class="" name="{@id}_ref"></a>
-                            <xsl:apply-templates select="*|text()"/>
-                            <xsl:if test="$id != '' and $article//xref[@rid=$id]">
-                                <a href="#{@id}_ref">↩</a>
-                            </xsl:if>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
+        <li>
+            <a name="{@id}_ref"/>
+            <xsl:apply-templates select="*|text()"/>
+            <!-- 
+                adiciona "back". Concluimos que há problema para múltiplas
+                menções, além disso, javascript não funcionaria no modo leitura
+                Fica comentado se, por acaso, decidir implementar a volta
+                <xsl:apply-templates select="." mode="go_to_xref"/>
+            -->
+        </li>
+    </xsl:template>
+
+    <xsl:template match="fn[@id]/label | author-notes/*[@id]/label">
+        <span class="xref big"><xsl:apply-templates select="*|text()"/></span>
     </xsl:template>
 </xsl:stylesheet>

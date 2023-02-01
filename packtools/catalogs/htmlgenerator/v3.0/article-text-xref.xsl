@@ -5,7 +5,11 @@
 
     <xsl:include href="../v2.0/article-text-xref.xsl"/>
 
-    <xsl:template match="xref | xref[@ref-type='fn']">
+    <!--
+        <p>O presente artigo tem como escopo principal investigar e analisar o retrato de concepções <span class="ref footnote"><sup class="xref"><a href="#fn1_ref" data-ref="Compreendemos por concepção como sendo a faculdade, o modo ou o ato de apreender, compreender, perceber, ver ou sentir algo, uma ideia, um fato, uma questão ou uma pessoa, o qual subsidia o processo de construção de uma perspectiva, um entendimento ou uma noção. A esse movimento pode estar atrelada sua sinonímia, ou seja, o julgamento, o qual é resultante de operações mentais do pensamento abstrato, baseadas na produção, ou utilização, de conceitos teóricos para uma representação, apreciação crítica, parecer ou opinião (favorável ou desfavorável). Mendes (1995) expõe que as concepções estariam relacionadas a um processo de construção em nível pessoal, social e cultural.">1</a></sup></span></span> sobre deficiências, expostas por universitários matriculados em Instituições da Educação Superior (IES), públicas e privadas, do estado de São Paulo. Isso porque, ao considerarmos os contextos educacionais, enquanto importantes espaços de formação do indivíduo, compreendemos que os elementos sócio-histórico-culturais, ainda que veladamente, podem potencializar ou minimizar atitudes discriminatórias frente a pessoas com deficiência ( <span class="ref"><strong class="xref xrefblue"><a href="#B32_ref" data-ref="LEITE, L. P.; LACERDA, C. The construction of a scale on the conceptions of disability: methodological procedures. Psicologia USP, v. 29, n. 3, p. 432-441, 2018. Disponível em: https://doi.org/10.1590/0103-65642018109">LEITE; LACERDA, 2018</a></strong></span></span> ).</p>
+    -->
+
+    <xsl:template match="xref[@ref-type='fn']">
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
         <xsl:variable name="elem"><xsl:choose>
@@ -14,37 +18,32 @@
         </xsl:choose></xsl:variable>
 
         <!--
-        <span class="ref" id="refId_1">
-            <strong class="xref xrefblue">Pellerin <i>et al</i>. 2019</strong>
-            <sup><a title="Pellerin, R.J., Waminal, N.E. & Kim, H.H. 2019. FISH mapping of rDNA and telomeric repeats in 10 Senna species. Horticulture, Environment, and Biotechnology 60: 253-260." name="" class="" href="#1_ref">1</a></sup>
-        </span>   
-        <a title="O CMS Axe foi escrito por mim em 2013, e penso que quem o usa hoje em dia somos apenas eu e o André Noel. Provavelmente o código que eu disponibilizei na época exigirá algumas atualizações para rodar no ambiente atualizado dos provedores de hospedagem." name="ret-1_tipografia-cms-axe-e-o-tema-rocket" class="rodape_link" href="#1_tipografia-cms-axe-e-o-tema-rocket">1</a>     
+        <p>O presente artigo tem como escopo principal investigar e analisar o retrato de concepções <span class="ref footnote"><sup class="xref"><a href="#fn1_ref" data-ref="Compreendemos por concepção como sendo a faculdade, o modo ou o ato de apreender, compreender, perceber, ver ou sentir algo, uma ideia, um fato, uma questão ou uma pessoa, o qual subsidia o processo de construção de uma perspectiva, um entendimento ou uma noção. A esse movimento pode estar atrelada sua sinonímia, ou seja, o julgamento, o qual é resultante de operações mentais do pensamento abstrato, baseadas na produção, ou utilização, de conceitos teóricos para uma representação, apreciação crítica, parecer ou opinião (favorável ou desfavorável). Mendes (1995) expõe que as concepções estariam relacionadas a um processo de construção em nível pessoal, social e cultural.">1</a></sup></span></span> sobre deficiências, expostas por universitários matriculados em Instituições da Educação Superior (IES), públicas e privadas, do estado de São Paulo.     
         -->
-        <span class="ref">
-            <xsl:attribute name="id">refId_<xsl:value-of select="@rid"/></xsl:attribute>
-            <a>
-                <xsl:attribute name="title">
-                    <xsl:apply-templates select="." mode="elem-texts-linked-to-xref">
-                        <xsl:with-param name="id" select="$id"/>
-                        <xsl:with-param name="text" select="$text"/>
-                        <xsl:with-param name="elem" select="$elem"/>
-                    </xsl:apply-templates>
-                </xsl:attribute>
-                <xsl:attribute name="name"></xsl:attribute>
-                <xsl:attribute name="class"></xsl:attribute>
-                <xsl:attribute name="href">#<xsl:value-of select="@rid"/>_ref</xsl:attribute>
-                <strong class="xref xrefblue">
-                    <xsl:choose>
-                        <xsl:when test=".//sup">
-                            <xsl:apply-templates select="*|text()"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <sup><xsl:apply-templates select="*|text()"/></sup>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </strong>
-            </a>
+        <span class="ref footnote">
+            <sup class="xref">
+                <a href="#{@rid}_ref" name="xref_{@rid}">
+                    <xsl:attribute name="data-ref">
+                        <xsl:apply-templates select="." mode="elem-texts-linked-to-xref">
+                            <xsl:with-param name="id" select="$id"/>
+                            <xsl:with-param name="text" select="$text"/>
+                            <xsl:with-param name="elem" select="$elem"/>
+                        </xsl:apply-templates>
+                    </xsl:attribute>
+                    <xsl:apply-templates select="*|text()" mode="ignore-sup"/>
+                </a>
+            </sup>
         </span>  
+    </xsl:template>
+
+    <xsl:template match="text()" mode="ignore-sup">
+        <xsl:value-of select="."/>
+    </xsl:template>
+    <xsl:template match="*" mode="ignore-sup">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    <xsl:template match="sup" mode="ignore-sup">
+        <xsl:apply-templates select="*|text()"/>
     </xsl:template>
 
     <xsl:template match="xref[@ref-type='equation' or @ref-type='disp-formula']">
@@ -98,44 +97,24 @@
             <xsl:otherwise>span</xsl:otherwise>
         </xsl:choose></xsl:variable>
         <!--
-        <span class="ref" id="refId_1">
-            <strong class="xref xrefblue">Pellerin <i>et al</i>. 2019</strong>
-            <sup><a title="Pellerin, R.J., Waminal, N.E. & Kim, H.H. 2019. FISH mapping of rDNA and telomeric repeats in 10 Senna species. Horticulture, Environment, and Biotechnology 60: 253-260." name="" class="" href="#1_ref">1</a></sup>
-        </span>   
-        <a title="O CMS Axe foi escrito por mim em 2013, e penso que quem o usa hoje em dia somos apenas eu e o André Noel. Provavelmente o código que eu disponibilizei na época exigirá algumas atualizações para rodar no ambiente atualizado dos provedores de hospedagem." name="ret-1_tipografia-cms-axe-e-o-tema-rocket" class="rodape_link" href="#1_tipografia-cms-axe-e-o-tema-rocket">1</a>     
+        Isso porque, ao considerarmos os contextos educacionais, enquanto importantes espaços de formação do indivíduo, compreendemos que os elementos sócio-histórico-culturais, ainda que veladamente, podem potencializar ou minimizar atitudes discriminatórias frente a pessoas com deficiência ( <span class="ref"><strong class="xref xrefblue"><a href="#B32_ref" data-ref="LEITE, L. P.; LACERDA, C. The construction of a scale on the conceptions of disability: methodological procedures. Psicologia USP, v. 29, n. 3, p. 432-441, 2018. Disponível em: https://doi.org/10.1590/0103-65642018109">LEITE; LACERDA, 2018</a></strong></span></span> ).  
         -->
 
         <span class="ref">
-            <xsl:attribute name="id">refId_<xsl:value-of select="@rid"/></xsl:attribute>
-            <a>
-                <xsl:attribute name="title">
-                    <xsl:apply-templates select="." mode="elem-texts-linked-to-xref">
-                        <xsl:with-param name="id" select="$id"/>
-                        <xsl:with-param name="text" select="$text"/>
-                        <xsl:with-param name="elem" select="$elem"/>
-                    </xsl:apply-templates>
-                </xsl:attribute>
-                <xsl:attribute name="name"></xsl:attribute>
-                <xsl:attribute name="class"></xsl:attribute>
-                <xsl:attribute name="href">#<xsl:value-of select="@rid"/>_ref</xsl:attribute>
-                <strong class="xref xrefblue">
-                    <xsl:choose>
-                        <xsl:when test=".//sup">
-                            <xsl:apply-templates select="*|text()"/>
-                        </xsl:when>
-                        <xsl:when test="../..//sup[xref]/xref/@rid = $id">
-                            <xsl:apply-templates select="*|text()"/>
-                        </xsl:when>
-                        <xsl:when test="$elem='span'">
-                            <xsl:apply-templates select="*|text()"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <sup><xsl:apply-templates select="*|text()"/></sup>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </strong>
-            </a>
-        </span>   
+            <xsl:element name="{$elem}">
+                <xsl:attribute name="class">xref xrefblue</xsl:attribute>
+                <a href="#{@rid}_ref">
+                    <xsl:attribute name="data-ref">
+                        <xsl:apply-templates select="." mode="elem-texts-linked-to-xref">
+                            <xsl:with-param name="id" select="$id"/>
+                            <xsl:with-param name="text" select="$text"/>
+                            <xsl:with-param name="elem" select="$elem"/>
+                        </xsl:apply-templates>
+                    </xsl:attribute>
+                    <xsl:apply-templates select="*|text()" mode="ignore-sup"/>
+                </a>
+            </xsl:element>
+        </span>
     </xsl:template>
 
     <xsl:template match="xref" mode="elem-texts-linked-to-xref">
@@ -143,7 +122,7 @@
         <xsl:param name="text"/>
         <xsl:param name="elem"/>
 
-        <xsl:apply-templates select="$article//*[@id=$id]" mode="xref"/>
+        <xsl:apply-templates select="$article//*[@id=$id]" mode="elem-texts-linked-to-xref"/>
     </xsl:template>
 
     <xsl:template match="xref[@ref-type='bibr']" mode="elem-texts-linked-to-xref">
@@ -164,23 +143,29 @@
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:when test="substring($preceding, string-length($preceding) - string-length('[/xref]-')+1)='[/xref]-'">
-                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"/>
+                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="elem-texts-linked-to-xref"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"/>
+                        <xsl:apply-templates select="$article//ref[@id=$id]" mode="elem-texts-linked-to-xref"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="$article//ref[@id=$id]" mode="xref"/>
+                <xsl:apply-templates select="$article//ref[@id=$id]" mode="elem-texts-linked-to-xref"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="xref/sup | sup[xref]">
-        <sup>
-            <xsl:apply-templates select="*|text()"/>
-        </sup>
+    <xsl:template match="*" mode="elem-texts-linked-to-xref">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="label" mode="elem-texts-linked-to-xref">
+        <xsl:apply-templates select="."/>&#160;
+    </xsl:template>
+
+    <xsl:template match="*[@id]" mode="elem-texts-linked-to-xref">
+        <xsl:apply-templates select="*|text()" mode="elem-texts-linked-to-xref"/>
     </xsl:template>
 
 </xsl:stylesheet>

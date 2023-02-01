@@ -5,52 +5,55 @@
 
     <xsl:include href="../v2.0/article-text-ref.xsl"/>
 
+    <xsl:template match="back/ref-list" mode="back-section">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+   
     <xsl:template match="ref-list">
         <xsl:choose>
             <xsl:when test="ref-list">
-                <xsl:apply-templates select="*"></xsl:apply-templates>
+                <xsl:apply-templates select="*"/>
             </xsl:when>
             <xsl:otherwise>
-                <!-- 
+                <div>
+                    <xsl:attribute name="class">articleSection</xsl:attribute>
+                    <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+                    <h3>
+                        <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
+                        <xsl:apply-templates select="." mode="title"/>
+                    </h3>
                     <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <ol class="articleFootnotes">
-                                
-                            </ol>
+                        <div class="col">
+                            <ul class="refList articleFootnotes">
+                                <xsl:apply-templates select="." mode="ref-items"/>
+                            </ul>
                         </div>
-                    </div>
-                -->
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <ol class="articleFootnotes">
-                            <xsl:apply-templates select="." mode="ref-items"/>
-                        </ol>
                     </div>
                 </div>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
  
+    <xsl:template match="ref/label">
+        <sup class="xref"><xsl:value-of select="."/></sup>
+    </xsl:template>
+ 
     <xsl:template match="ref">
         <!--
             <li>
-                <a class="" name="1_ref"></a>
-                Pellerin, R.J., Waminal, N.E. & Kim, H.H. 2019. FISH mapping of rDNA and telomeric repeats in 10 Senna species. Horticulture, Environment, and Biotechnology 60: 253-260. <a href="#refId_1">↩</a>
+                <a class="" name="B1_ref"></a>
+                Pellerin, R.J., Waminal, N.E. & Kim, H.H. 2019. FISH mapping of rDNA and telomeric repeats in 10 Senna species. Horticulture, Environment, and Biotechnology 60: 253-260.
             </li>                                                 
         -->
         <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
         
         <li>
-            <xsl:apply-templates select="label"/>
             <a class="" name="{@id}_ref"/>
-            <xsl:apply-templates select="mixed-citation"/>
+            <xsl:apply-templates select="label | mixed-citation"/>
             <xsl:if test="element-citation//pub-id[@pub-id-type='doi'] or element-citation//ext-link">
                 <br/>
-                <xsl:apply-templates select="element-citation//pub-id[@pub-id-type='doi']" mode="ref"></xsl:apply-templates>
-                <xsl:apply-templates select="element-citation//ext-link" mode="ref"></xsl:apply-templates>
-            </xsl:if>
-            <xsl:if test="$article//xref[@rid=$id]">
-                <a href="#refId_{@id}">↩</a>
+                <xsl:apply-templates select="element-citation//pub-id[@pub-id-type='doi']" mode="ref"/>
+                <xsl:apply-templates select="element-citation//ext-link" mode="ref"/>
             </xsl:if>
         </li>
     </xsl:template>

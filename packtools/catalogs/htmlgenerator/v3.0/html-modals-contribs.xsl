@@ -148,11 +148,8 @@
     <xsl:template match="author-notes/corresp" mode="modal-contrib">
         <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
         <div class="corresp">
-            <a name="fn_{@id}"/>
+            <a class="" name="{@id}_ref"/>
             <xsl:apply-templates select="*|text()"/>
-            <xsl:if test="$article//*[@rid=$id]">
-                <a href="xref_{@id}">↩</a>
-            </xsl:if>
         </div>
     </xsl:template>
 
