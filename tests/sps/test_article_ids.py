@@ -75,7 +75,7 @@ class TestArticleIds(TestCase):
     def test_absent_doi(self):
         article_id = ArticleIds(_get_xmltree())
         self.assertIsNone(article_id.doi)
-  
+
     def test_update_v3(self):
         self.article_id.v3 = "novo_v3"
         self.assertEqual("novo_v3", self.article_id.v3)
@@ -95,3 +95,44 @@ class TestArticleIds(TestCase):
     def test_update_other_raises_AttributeError(self):
         with self.assertRaises(AttributeError):
             self.article_id.other = "xxxx"
+
+    def test_update_v3_raises_ValueError(self):
+        with self.assertRaises(ValueError):
+            self.article_id.v3 = ""
+
+    def test_update_aop_pid_raises_ValueError(self):
+        with self.assertRaises(ValueError):
+            self.article_id.aop_pid = ""
+
+
+class TestArticleIdsOriginalXMLHasNoArticleId(TestCase):
+    """
+    Estes testes são para explicitar a saída de
+    parse_issue usando o contéudo de <issue></issue>
+    """
+    def setUp(self):
+        self.article_id = ArticleIds(_get_xmltree(''))
+
+    def test_update_v2(self):
+        self.article_id.v2 = "novo_v2"
+        self.assertEqual("novo_v2", self.article_id.v2)
+
+    def test_update_v3(self):
+        self.article_id.v3 = "novo_v3"
+        self.assertEqual("novo_v3", self.article_id.v3)
+
+    def test_update_aop_pid(self):
+        self.article_id.aop_pid = "novo_aop_pid"
+        self.assertEqual("novo_aop_pid", self.article_id.aop_pid)
+
+    def test_update_v2_raises_ValueError(self):
+        with self.assertRaises(ValueError):
+            self.article_id.v2 = ""
+
+    def test_update_v3_raises_ValueError(self):
+        with self.assertRaises(ValueError):
+            self.article_id.v3 = ""
+
+    def test_update_aop_pid_raises_ValueError(self):
+        with self.assertRaises(ValueError):
+            self.article_id.aop_pid = ""

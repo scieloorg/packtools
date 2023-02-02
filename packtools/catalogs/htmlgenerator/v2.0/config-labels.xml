@@ -493,4 +493,11 @@
         <name lang="pt">Este documento tem um adendo</name>
         <name lang="es">Este documento tiene una addenda</name>
     </term>
+    <term>
+        <name>This addendum adds information to the following document</name>
+        <name lang="en">This addendum adds information to the following document</name>
+        <name lang="pt">Este adendo adiciona informação ao documento</name>
+        <name lang="es">Esta addenda agrega información al documento</name>
+    </term>
+        
 </labels>

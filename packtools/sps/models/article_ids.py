@@ -64,16 +64,28 @@ class ArticleIds:
         node = self._get_node(
                 './/article-id[@specific-use="scielo-v2"]'
             )
+        if node is not None and node.text:
+            raise AttributeError(
+                "can't set attribute ArticleIds.v2. It is already set: %s" %
+                node.text
+            )
+        if not value:
+            raise ValueError(
+                "can't set attribute ArticleIds.v2. "
+                "Given value %s is not valid" % value)
         if node is None:
             node = etree.Element("article-id")
             node.set("pub-id-type", "publisher-id")
             node.set("specific-use", "scielo-v2")
             self.am.insert(1, node)
-        if node is not None:
-            node.text = value
+        node.text = value
 
     @v3.setter
     def v3(self, value):
+        if not value:
+            raise ValueError(
+                "can't set attribute ArticleIds.v3. "
+                "Given value %s is not valid" % value)
         node = self._get_node(
                 './/article-id[@specific-use="scielo-v3"]'
             )
@@ -87,6 +99,10 @@ class ArticleIds:
 
     @aop_pid.setter
     def aop_pid(self, value):
+        if not value:
+            raise ValueError(
+                "can't set attribute ArticleIds.aop_pid. "
+                "Given value %s is not valid" % value)
         node = self._get_node(
                 './/article-id[@specific-use="previous-pid" and '
                 '@pub-id-type="publisher-id"]'
@@ -110,4 +126,3 @@ class ArticleIds:
             return self._get_node(xpath).text
         except AttributeError:
             return None
-
