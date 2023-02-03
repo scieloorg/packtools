@@ -140,15 +140,11 @@
     <xsl:template match="fn" mode="xref">
         <xsl:apply-templates select="*|text()" mode="xref"></xsl:apply-templates>
     </xsl:template>
-    
+        
     <xsl:template match="fn/label" mode="xref">
         <strong class="fn-title"><xsl:apply-templates select="*|text()" mode="xref"/></strong>
     </xsl:template>
-    
-    <xsl:template match="fn//*" mode="xref">
-        <xsl:apply-templates select="*|text()" mode="xref"/>
-    </xsl:template>
-    
+        
     <xsl:template match="ref" mode="xref">
         <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
         <xsl:if test="label">
