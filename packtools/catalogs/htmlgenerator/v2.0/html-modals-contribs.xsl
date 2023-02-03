@@ -101,9 +101,67 @@
     <xsl:template match="aff" mode="modal-contrib">
         <div>
         <xsl:apply-templates select="." mode="display"/>
+        <xsl:apply-templates select="." mode="hidden-for-scimago"/>
         </div>
     </xsl:template>
-    
+
+    <xsl:template match="aff" mode="hidden-for-scimago">
+        <span class="hidden-aff-orgname" data-scimago="hidden_aff_orgname_{@id}" hidden="">
+            <xsl:apply-templates select="." mode="hidden-for-scimago-orgname"/>
+        </span>
+
+        <span class="hidden-aff-location" data-scimago="hidden_aff_location_{@id}" hidden="">
+            <xsl:apply-templates select="." mode="hidden-for-scimago-location"/>
+        </span>
+        
+        <span class="hidden-aff-orgname" data-scimago="hidden_aff_full_{@id}" hidden="">
+            <xsl:apply-templates select="." mode="hidden-for-scimago-orgname"/>, <xsl:apply-templates select="." mode="hidden-for-scimago-location"/>
+        </span>
+        <a href="" class="scimago-link" data-scimago="scimago_link_{@id}"/>
+    </xsl:template>
+
+    <xsl:template match="aff" mode="hidden-for-scimago-orgname">
+        <xsl:variable name="text"><xsl:apply-templates select="text()"/></xsl:variable>
+        <!--
+        <xsl:comment> $text: <xsl:value-of select="$text"/> </xsl:comment>
+        <xsl:comment> text(): <xsl:apply-templates select="text()"></xsl:apply-templates></xsl:comment>
+        -->
+
+        <xsl:choose>
+            <xsl:when
+                test="institution[@content-type='orgname']">
+                <!--
+                <xsl:comment> $text </xsl:comment>
+                -->
+                <xsl:value-of select="institution[@content-type='orgname']"/>
+            </xsl:when>
+            <xsl:when test="institution[@content-type='original']">
+                <!--
+                <xsl:comment> aff original </xsl:comment>
+                -->
+                <xsl:apply-templates select="institution[@content-type='original']"/>
+            </xsl:when>
+            <xsl:when
+                test="*[name()!='label']">
+                <!--
+                <xsl:comment> aff insert separator </xsl:comment>
+                -->
+                <xsl:apply-templates select="*[name()!='label']" mode="insert-separator"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--
+                <xsl:comment> $text </xsl:comment>
+                -->
+                <xsl:value-of select="$text"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:template>
+
+    <xsl:template match="aff" mode="hidden-for-scimago-location">
+        <xsl:apply-templates select=".//city | .//*[@content-type='city']"/>, <xsl:apply-templates select=".//state | .//*[@content-type='state']"/>, <xsl:apply-templates select=".//country"/>
+    </xsl:template>
+
     <xsl:template match="contrib-id" mode="list-item">
         <li>
             <xsl:apply-templates select="."></xsl:apply-templates>
