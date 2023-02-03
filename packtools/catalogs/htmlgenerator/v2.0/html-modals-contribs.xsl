@@ -106,18 +106,22 @@
     </xsl:template>
 
     <xsl:template match="aff" mode="hidden-for-scimago">
-        <span class="hidden-aff-orgname" data-scimago="hidden_aff_orgname_{@id}" hidden="">
+        <span data-aff-orgname="{@id}" hidden="">
             <xsl:apply-templates select="." mode="hidden-for-scimago-orgname"/>
         </span>
-
-        <span class="hidden-aff-location" data-scimago="hidden_aff_location_{@id}" hidden="">
+        <span data-aff-country="{@id}" hidden="">
+            <xsl:apply-templates select=".//country"/>
+        </span>
+        <span data-aff-country-code="{@id}" hidden="">
+            <xsl:apply-templates select=".//country/@country"/>
+        </span>
+        <span data-aff-location="{@id}" hidden="">
             <xsl:apply-templates select="." mode="hidden-for-scimago-location"/>
         </span>
-        
-        <span class="hidden-aff-orgname" data-scimago="hidden_aff_full_{@id}" hidden="">
+        <span data-aff-full="{@id}" hidden="">
             <xsl:apply-templates select="." mode="hidden-for-scimago-orgname"/>, <xsl:apply-templates select="." mode="hidden-for-scimago-location"/>
         </span>
-        <a href="" class="scimago-link" data-scimago="scimago_link_{@id}"/>
+        <a href="" class="scimago-link" data-scimago-link="{@id}"/>
     </xsl:template>
 
     <xsl:template match="aff" mode="hidden-for-scimago-orgname">
