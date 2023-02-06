@@ -142,3 +142,19 @@ class IsCompleteDateTest(TestCase):
         obtained = dates.is_complete(_date, 'pub-date')
         self.assertDictEqual(expected, obtained)
 
+    def test_is_complete_a_correct_date(self):
+        _date = dict(
+            year='2023',
+            month='10',
+            day='15',
+        )
+        expected = dict(
+            input=_date,
+            result='ok',
+            element='pub-date',
+            object_date=date(2023, 10, 15),
+        )
+        obtained = dates.is_complete(_date, 'pub-date')
+        self.assertDictEqual(expected, obtained)
+
+
