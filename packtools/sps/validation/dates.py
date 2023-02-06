@@ -32,3 +32,34 @@ class ArticleDatesValidator:
         return self.ordered
 
 
+def is_complete(dict_date, date_element):
+    result = dict(
+        input=dict_date,
+        result='ok',
+        element=date_element
+    )
+    try:
+        object_date = date(int(dict_date['year']), int(dict_date['month']), int(dict_date['day']))
+    except KeyError as e:
+        result.update(
+            result='error',
+            message=f'{date_element} must be complete. Provide {e} of the date.',
+            element=str(e).replace("'", "")
+        )
+        return result
+
+    except ValueError as e:
+        if 'invalid literal' in str(e):
+            result.update(
+                result='error',
+                message=f'{date_element} must contain valid values, enter valid values for day, month and year',
+            )
+        else:
+            result.update(
+                result='error',
+                message=f'{date_element} must contain valid values, {e}, enter valid values for day, month and year',
+            )
+        return result
+    else:
+        result['object_date'] = object_date
+        return result
