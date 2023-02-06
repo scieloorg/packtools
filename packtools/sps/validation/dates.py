@@ -20,3 +20,15 @@ class ArticleDatesValidator:
 
         return self.complete
 
+    def dates_are_sorted(self, order=CHRONOLOGICAL_ORDER_OF_EVENTS):
+        expected = []
+        for event_type in order:
+            for history_date in self.history.history_dates:
+                if history_date['type'] == event_type:
+                    expected.append(date(int(history_date['year']), int(history_date['month']), int(history_date['day'])))
+        if expected == sorted(expected):
+            self.ordered = True
+
+        return self.ordered
+
+
