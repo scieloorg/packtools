@@ -11,3 +11,12 @@ class ArticleDatesValidator:
         self.complete = False
         self.ordered = False
 
+    def dates_are_complete(self):
+        for history_date in self.history.history_dates:
+            response = is_complete(history_date, history_date['type'])
+            if response['result'] == 'error':
+                return self.complete
+        self.complete = True
+
+        return self.complete
+
