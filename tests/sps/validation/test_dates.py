@@ -110,3 +110,19 @@ class IsCompleteDateTest(TestCase):
         obtained = dates.is_complete(_date, 'pub-date')
         self.assertDictEqual(expected, obtained)
 
+    def test_is_complete_a_date_with_invalid_month_number(self):
+        _date = dict(
+            year='2023',
+            month='13',
+            day='15',
+        )
+        expected = dict(
+            input=_date,
+            result='error',
+            message="pub-date must contain valid values, month must be in 1..12, "
+                    "enter valid values for day, month and year",
+            element='pub-date',
+        )
+        obtained = dates.is_complete(_date, 'pub-date')
+        self.assertDictEqual(expected, obtained)
+
