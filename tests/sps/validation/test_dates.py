@@ -251,3 +251,44 @@ class IsSortedHistoryDateTest(TestCase):
         """)
         self.assertFalse(dates.ArticleDatesValidator(xml_history_date).dates_are_sorted())
 
+    def test_is_sorted_a_date_list_without_one_date(self):
+        xml_history_date = etree.fromstring("""
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <pub-date publication-format="electronic" date-type="pub">
+                        <day>20</day>
+                        <month>04</month>
+                        <year>2022</year>
+                    </pub-date>
+                    <pub-date publication-format="electronic" date-type="collection">
+                        <year>2003</year>
+                    </pub-date>
+                    <history>
+                        <date date-type="rev-request">
+                            <day>14</day>
+                            <month>03</month>
+                            <year>1998</year>
+                        </date>
+                        <date date-type="rev-recd">
+                            <day>24</day>
+                            <month>05</month>
+                            <year>1998</year>
+                        </date>
+                        <date date-type="accepted">
+                            <day>06</day>
+                            <month>06</month>
+                            <year>1998</year>
+                        </date>
+                        <date date-type="approved">
+                            <day>01</day>
+                            <month>06</month>
+                            <year>2012</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """)
+        self.assertTrue(dates.ArticleDatesValidator(xml_history_date).dates_are_sorted())
+
