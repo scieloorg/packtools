@@ -4,6 +4,10 @@ import logging
 from packtools.sps.models.dates import ArticleDates
 
 
+def date_dict_to_date(date_dict):
+    return date(int(date_dict['year']), int(date_dict['month']), int(date_dict['day']))
+
+
 class ArticleDatesValidator:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
