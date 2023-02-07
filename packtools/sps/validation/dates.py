@@ -11,8 +11,8 @@ def date_dict_to_date(date_dict):
 class ArticleDatesValidator:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
-        self.complete = False
-        self.ordered = False
+        self.complete = None
+        self.ordered = None
 
     def dates_are_complete(self):
         for history_date in self.history.history_dates:
