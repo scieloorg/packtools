@@ -25,16 +25,64 @@ class ArticleDatesValidator:
 
         return response
 
-    def dates_are_sorted(self, order=CHRONOLOGICAL_ORDER_OF_EVENTS):
-        expected = []
-        for event_type in order:
-            for history_date in self.history.history_dates:
-                if history_date['type'] == event_type:
-                    expected.append(date(int(history_date['year']), int(history_date['month']), int(history_date['day'])))
-        if expected == sorted(expected):
-            self.ordered = True
+    def dates_are_sorted(self, order, required_events):
+        """
+        Checks the chronological order of occurrence dates of document publishing events.
 
-        return self.ordered
+        Parameters
+        ----------
+        order : list
+            A list with the order in which events occur.
+        required_events : list
+            A list with required events.
+
+        Returns
+        -------
+        dict
+            A dictionary that registers the input data, eventual messages, the result and the expected and found orders.
+
+        Examples
+        --------
+        >>> dates_are_sorted(["received", "rev-request", "rev-recd", "accepted", "approved",],
+        ["received", "approved"])
+
+        {
+            'input': {
+                'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
+                'required_events': ["received", "approved"]
+            },
+            'message': ['the event received is required'],
+            'result': 'error',
+            'expected_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)],
+            'found_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)]
+        }
+        """
+        seq = []
+        history_dates = self.history.history_dates_dict
+        result = {
+            'input': {'order_of_events': order, 'required_events': required_events},
+            'message': [],
+        }
+        for event_type in order:
+            try:
+                seq.append(date_dict_to_date(history_dates[event_type]))
+            except KeyError:
+                if event_type in required_events:
+                    result['message'].append(f'the event {event_type} is required')
+                else:
+                    pass
+        if seq == sorted(seq) and len(seq) == len(order):
+            result['result'] = 'ok'
+            self.ordered = True
+        else:
+            result['result'] = 'error'
+            self.ordered = False
+        result['expected_order'] = sorted(seq)
+        result['found_order'] = seq
+
+        return result
+
+
 
 
 def is_complete(dict_date, date_element):
