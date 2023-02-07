@@ -176,7 +176,7 @@ class IsSortedHistoryDateTest(TestCase):
                             <date date-type="received">
                                 <day>05</day>
                                 <month>01</month>
-                                <year>1999</year>
+                                <year>1998</year>
                             </date>
                             <date date-type="rev-request">
                                 <day>14</day>
@@ -203,7 +203,20 @@ class IsSortedHistoryDateTest(TestCase):
                 </front>
             </article>
             """)
-        self.assertFalse(dates.ArticleDatesValidator(xml_history_date).dates_are_sorted())
+        expected = {
+            'input': {
+                'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
+                'required_events': ["received", "approved"]
+            },
+            'message': [],
+            'result': 'ok',
+            'expected_order': [date(1998, 1, 5), date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)],
+            'found_order': [date(1998, 1, 5), date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)]
+        }
+        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_sorted(
+            ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
+        )
+        self.assertDictEqual(expected, obtained)
 
     def test_is_sorted_a_unsorted_date_list(self):
         xml_history_date = etree.fromstring("""
@@ -249,9 +262,22 @@ class IsSortedHistoryDateTest(TestCase):
             </front>
         </article>
         """)
-        self.assertFalse(dates.ArticleDatesValidator(xml_history_date).dates_are_sorted())
+        expected = {
+            'input': {
+                'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
+                'required_events': ["received", "approved"]
+            },
+            'message': [],
+            'result': 'error',
+            'expected_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(1999, 1, 5), date(2012, 6, 1)],
+            'found_order': [date(1999, 1, 5), date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)]
+        }
+        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_sorted(
+            ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
+        )
+        self.assertDictEqual(expected, obtained)
 
-    def test_is_sorted_a_date_list_without_one_date(self):
+    def test_is_sorted_a_date_list_without_one_date_required(self):
         xml_history_date = etree.fromstring("""
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
             <front>
@@ -290,7 +316,20 @@ class IsSortedHistoryDateTest(TestCase):
             </front>
         </article>
         """)
-        self.assertTrue(dates.ArticleDatesValidator(xml_history_date).dates_are_sorted())
+        expected = {
+            'input': {
+                'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
+                'required_events': ["received", "approved"]
+            },
+            'message': ['the event received is required'],
+            'result': 'error',
+            'expected_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)],
+            'found_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)]
+        }
+        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_sorted(
+            ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
+        )
+        self.assertDictEqual(expected, obtained)
 
     def test_is_sorted_a_complete_date_list(self):
         xml_history_date = etree.fromstring("""
@@ -336,7 +375,30 @@ class IsSortedHistoryDateTest(TestCase):
                 </front>
             </article>
             """)
-        self.assertTrue(dates.ArticleDatesValidator(xml_history_date).dates_are_complete())
+        expected = [
+            {'input': {'year': '1998', 'month': '01', 'day': '05', 'type': 'received'},
+             'result': 'ok',
+             'element': 'received',
+             'object_date': date(1998, 1, 5)},
+            {'input': {'year': '1998', 'month': '03', 'day': '14', 'type': 'rev-request'},
+             'result': 'ok',
+             'element': 'rev-request',
+             'object_date': date(1998, 3, 14)},
+            {'input': {'year': '1998', 'month': '05', 'day': '24', 'type': 'rev-recd'},
+             'result': 'ok',
+             'element': 'rev-recd',
+             'object_date': date(1998, 5, 24)},
+            {'input': {'year': '1998', 'month': '06', 'day': '06', 'type': 'accepted'},
+             'result': 'ok',
+             'element': 'accepted',
+             'object_date': date(1998, 6, 6)},
+            {'input': {'year': '2012', 'month': '06', 'day': '01', 'type': 'approved'},
+             'result': 'ok',
+             'element': 'approved',
+             'object_date': date(2012, 6, 1)},
+        ]
+        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_complete()
+        self.assertEqual(expected, obtained)
 
     def test_is_sorted_a_incomplete_date_list(self):
         xml_history_date = etree.fromstring("""
@@ -380,5 +442,27 @@ class IsSortedHistoryDateTest(TestCase):
                 </front>
             </article>
             """)
-        self.assertFalse(dates.ArticleDatesValidator(xml_history_date).dates_are_complete())
-
+        expected = [
+            {'input': {'year': '1998', 'month': '01', 'type': 'received'},
+             'result': 'error',
+             'element': 'day',
+             'message': "received must be complete. Provide 'day' of the date."},
+            {'input': {'year': '1998', 'month': '03', 'day': '14', 'type': 'rev-request'},
+             'result': 'ok',
+             'element': 'rev-request',
+             'object_date': date(1998, 3, 14)},
+            {'input': {'year': '1998', 'month': '05', 'day': '24', 'type': 'rev-recd'},
+             'result': 'ok',
+             'element': 'rev-recd',
+             'object_date': date(1998, 5, 24)},
+            {'input': {'year': '1998', 'month': '06', 'day': '06', 'type': 'accepted'},
+             'result': 'ok',
+             'element': 'accepted',
+             'object_date': date(1998, 6, 6)},
+            {'input': {'year': '2012', 'month': '06', 'day': '01', 'type': 'approved'},
+             'result': 'ok',
+             'element': 'approved',
+             'object_date': date(2012, 6, 1)}
+        ]
+        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_complete()
+        self.assertEqual(expected, obtained)
