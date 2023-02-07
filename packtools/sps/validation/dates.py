@@ -15,13 +15,15 @@ class ArticleDatesValidator:
         self.ordered = None
 
     def dates_are_complete(self):
-        for history_date in self.history.history_dates:
-            response = is_complete(history_date, history_date['type'])
-            if response['result'] == 'error':
-                return self.complete
         self.complete = True
+        response = []
+        for history_date in self.history.history_dates_list:
+            date_validated = is_complete(history_date, history_date['type'])
+            response.append(date_validated)
+            if date_validated['result'] == 'error':
+                self.complete = False
 
-        return self.complete
+        return response
 
     def dates_are_sorted(self, order=CHRONOLOGICAL_ORDER_OF_EVENTS):
         expected = []
