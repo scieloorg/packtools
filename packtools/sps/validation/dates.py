@@ -11,17 +11,12 @@ def date_dict_to_date(date_dict):
 class ArticleDatesValidator:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
-        self.complete = None
-        self.ordered = None
 
-    def dates_are_complete(self):
-        self.complete = True
+    def history_dates_are_complete(self):
         response = []
         for history_date in self.history.history_dates_list:
             date_validated = is_complete(history_date, history_date['type'])
             response.append(date_validated)
-            if date_validated['result'] == 'error':
-                self.complete = False
 
         return response
 
