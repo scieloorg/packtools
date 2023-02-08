@@ -20,7 +20,7 @@ class ArticleDatesValidator:
 
         return response
 
-    def dates_are_sorted(self, order, required_events):
+    def history_dates_are_sorted(self, order, required_events):
         """
         Checks the chronological order of occurrence dates of document publishing events.
 
