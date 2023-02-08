@@ -44,7 +44,13 @@ class ArticleDatesValidator:
         {
             'input': {
                 'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
-                'required_events': ["received", "approved"]
+                'required_events': ["received", "approved"],
+                'events_date': [
+                {'rev-request': date(1998, 3, 14)},
+                {'rev-recd': date(1998, 5, 24)},
+                {'accepted': date(1998, 6, 6)},
+                {'approved': date(2012, 6, 1)}
+                ]
             },
             'message': ['the event received is required'],
             'result': 'error',
@@ -55,7 +61,11 @@ class ArticleDatesValidator:
         seq = []
         history_dates = self.history.history_dates_dict
         result = {
-            'input': {'order_of_events': order, 'required_events': required_events},
+            'input': {
+                'order_of_events': order,
+                'required_events': required_events,
+                'events_date': [{key: date_dict_to_date(value)} for key, value in history_dates.items()]
+            },
             'message': [],
         }
         for event_type in order:
