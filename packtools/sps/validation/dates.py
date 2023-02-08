@@ -78,10 +78,8 @@ class ArticleDatesValidator:
                     pass
         if seq == sorted(seq) and len(seq) == len(order):
             result['result'] = 'ok'
-            self.ordered = True
         else:
             result['result'] = 'error'
-            self.ordered = False
         result['expected_order'] = sorted(seq)
         result['found_order'] = seq
 
