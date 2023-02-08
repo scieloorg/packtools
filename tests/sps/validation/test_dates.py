@@ -206,14 +206,21 @@ class IsSortedHistoryDateTest(TestCase):
         expected = {
             'input': {
                 'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
-                'required_events': ["received", "approved"]
+                'required_events': ["received", "approved"],
+                'events_date': [
+                    {'received': date(1998, 1, 5)},
+                    {'rev-request': date(1998, 3, 14)},
+                    {'rev-recd': date(1998, 5, 24)},
+                    {'accepted': date(1998, 6, 6)},
+                    {'approved': date(2012, 6, 1)}
+                ]
             },
             'message': [],
             'result': 'ok',
             'expected_order': [date(1998, 1, 5), date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)],
             'found_order': [date(1998, 1, 5), date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)]
         }
-        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_sorted(
+        obtained = dates.ArticleDatesValidator(xml_history_date).history_dates_are_sorted(
             ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
         )
         self.assertDictEqual(expected, obtained)
@@ -265,14 +272,21 @@ class IsSortedHistoryDateTest(TestCase):
         expected = {
             'input': {
                 'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
-                'required_events': ["received", "approved"]
+                'required_events': ["received", "approved"],
+                'events_date': [
+                    {'received': date(1999, 1, 5)},
+                    {'rev-request': date(1998, 3, 14)},
+                    {'rev-recd': date(1998, 5, 24)},
+                    {'accepted': date(1998, 6, 6)},
+                    {'approved': date(2012, 6, 1)}
+                ]
             },
             'message': [],
             'result': 'error',
             'expected_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(1999, 1, 5), date(2012, 6, 1)],
             'found_order': [date(1999, 1, 5), date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)]
         }
-        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_sorted(
+        obtained = dates.ArticleDatesValidator(xml_history_date).history_dates_are_sorted(
             ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
         )
         self.assertDictEqual(expected, obtained)
@@ -319,14 +333,20 @@ class IsSortedHistoryDateTest(TestCase):
         expected = {
             'input': {
                 'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
-                'required_events': ["received", "approved"]
+                'required_events': ["received", "approved"],
+                'events_date': [
+                    {'rev-request': date(1998, 3, 14)},
+                    {'rev-recd': date(1998, 5, 24)},
+                    {'accepted': date(1998, 6, 6)},
+                    {'approved': date(2012, 6, 1)}
+                ]
             },
             'message': ['the event received is required'],
             'result': 'error',
             'expected_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)],
             'found_order': [date(1998, 3, 14), date(1998, 5, 24), date(1998, 6, 6), date(2012, 6, 1)]
         }
-        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_sorted(
+        obtained = dates.ArticleDatesValidator(xml_history_date).history_dates_are_sorted(
             ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
         )
         self.assertDictEqual(expected, obtained)
@@ -397,7 +417,7 @@ class IsSortedHistoryDateTest(TestCase):
              'element': 'approved',
              'object_date': date(2012, 6, 1)},
         ]
-        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_complete()
+        obtained = dates.ArticleDatesValidator(xml_history_date).history_dates_are_complete()
         self.assertEqual(expected, obtained)
 
     def test_is_sorted_a_incomplete_date_list(self):
@@ -464,5 +484,5 @@ class IsSortedHistoryDateTest(TestCase):
              'element': 'approved',
              'object_date': date(2012, 6, 1)}
         ]
-        obtained = dates.ArticleDatesValidator(xml_history_date).dates_are_complete()
+        obtained = dates.ArticleDatesValidator(xml_history_date).history_dates_are_complete()
         self.assertEqual(expected, obtained)
