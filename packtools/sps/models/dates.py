@@ -95,6 +95,6 @@ class ArticleDates:
     def history_dates_dict(self):
         _dates = {}
         for event_date in self.history_dates_list:
-            _dates[event_date['type']] = {'year': event_date['year'], 'month': event_date['month'], 'day': event_date['day']}
+            _dates[event_date['type']] = event_date
         return _dates
 
