@@ -85,3 +85,34 @@ class PublisherValidation:
         return resp_publishers_names
 
 
+class JournalMetaValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    def validate(self, expected_values):
+        '''
+        expected_values is a dict like:
+        {
+        'issn_epub': '0103-5053',
+        'issn_ppub': '1678-4790',
+        'acronym': 'hcsm',
+        'journal-title': 'História, Ciências, Saúde-Manguinhos',
+        'abbrev-journal-title': 'Hist. cienc. saude-Manguinhos',
+        'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz']
+        }
+        '''
+
+        issn = ISSNValidation(self.xmltree)
+        acronym = AcronymValidation(self.xmltree)
+        title = TitleValidation(self.xmltree)
+        publisher = PublisherValidation(self.xmltree)
+
+        resp_journal_meta = [
+            issn.validate_epub(expected_values['issn_epub']),
+            issn.validate_ppub(expected_values['issn_ppub']),
+            acronym.validate_text(expected_values['acronym']),
+            title.validate_journal_title(expected_values['journal-title']),
+            title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
+            publisher.validate_publishers_names(expected_values['publisher-name'])
+        ]
+        return resp_journal_meta
