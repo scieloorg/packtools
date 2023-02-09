@@ -81,7 +81,7 @@ class ArticleDates:
         return _dates
 
     @property
-    def historty_dates(self):
+    def history_dates_list(self):
         _dates = []
         for node in self.xmltree.xpath(".//front//history//date"):
             type = node.get("date-type")
@@ -89,5 +89,12 @@ class ArticleDates:
             data = _date.data
             data["type"] = type
             _dates.append(data)
+        return _dates
+
+    @property
+    def history_dates_dict(self):
+        _dates = {}
+        for event_date in self.history_dates_list:
+            _dates[event_date['type']] = event_date
         return _dates
 
