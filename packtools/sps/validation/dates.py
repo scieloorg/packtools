@@ -64,7 +64,7 @@ class ArticleDatesValidator:
             'input': {
                 'order_of_events': order,
                 'required_events': required_events,
-                'events_date': [{key: date_dict_to_date(value)} for key, value in history_dates.items()]
+                'events_date': history_dates
             },
             'message': [],
         }
@@ -84,8 +84,6 @@ class ArticleDatesValidator:
         result['found_order'] = seq
 
         return result
-
-
 
 
 def is_complete(dict_date, date_element):
