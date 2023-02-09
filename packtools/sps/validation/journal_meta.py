@@ -27,3 +27,19 @@ class ISSNValidation:
         return resp_ppub
 
 
+class AcronymValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.journal_acronym = Acronym(xmltree)
+
+    def validate_text(self, expected_value):
+        resp_text = dict(
+            attrib='acronym',
+            input=self.xmltree,
+            output_expected=expected_value,
+            output_obteined=self.journal_acronym.text,
+            match=True if expected_value == self.journal_acronym.text else False
+        )
+        return resp_text
+
+
