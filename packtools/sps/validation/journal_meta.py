@@ -43,3 +43,29 @@ class AcronymValidation:
         return resp_text
 
 
+class TitleValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.journal_titles = Title(xmltree)
+
+    def validate_journal_title(self, expected_value):
+        resp_journal_title = dict(
+            attrib='journal_title',
+            input=self.xmltree,
+            output_expected=expected_value,
+            output_obteined=self.journal_titles.journal_title,
+            match=True if expected_value == self.journal_titles.journal_title else False
+        )
+        return resp_journal_title
+
+    def validate_abbreviated_journal_title(self, expected_value):
+        resp_abbreviated_journal_title = dict(
+            attrib='abbreviated_journal_title',
+            input=self.xmltree,
+            output_expected=expected_value,
+            output_obteined=self.journal_titles.abbreviated_journal_title,
+            match=True if expected_value == self.journal_titles.abbreviated_journal_title else False
+        )
+        return resp_abbreviated_journal_title
+
+
