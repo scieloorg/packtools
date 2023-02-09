@@ -69,3 +69,19 @@ class TitleValidation:
         return resp_abbreviated_journal_title
 
 
+class PublisherValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.publisher = Publisher(xmltree)
+
+    def validate_publishers_names(self, expected_values):
+        resp_publishers_names = dict(
+            attrib='publishers_names',
+            input=self.xmltree,
+            output_expected=expected_values,
+            output_obteined=self.publisher.publishers_names,
+            match=True if expected_values == self.publisher.publishers_names else False
+        )
+        return resp_publishers_names
+
+
