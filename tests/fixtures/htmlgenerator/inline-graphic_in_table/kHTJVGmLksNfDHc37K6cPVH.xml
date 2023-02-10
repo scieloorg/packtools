@@ -1,0 +1,1187 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.1" specific-use="sps-1.9" article-type="research-article" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">ct</journal-id>
+      <journal-title-group>
+        <journal-title>Cadernos de Tradução</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Cad. Trad.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1414-526X</issn>
+      <issn pub-type="epub">2175-7968</issn>
+      <publisher>
+        <publisher-name>Universidade Federal de Santa Catarina</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">kHTJVGmLksNfDHc37K6cPVH</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S2175-79682021000500250</article-id>
+      <article-id pub-id-type="doi">10.5007/2175-7968.2021.e85315</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Artigos</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>BALL, STONE, BALL: INTERLINGUAL, INTRAMODAL AND INTERSEMIOTIC TRANSLATION BETWEEN AND FROM A WORK OF CREATIVE SIGN LANGUAGE</article-title>
+        <trans-title-group xml:lang="pt">
+          <trans-title>BOLA, PEDRA, BOLA: TRADUÇÃO INTERLINGUAL, INTRAMODAL E INTERSEMIÓTICA ENTRE/DE LÍNGUA DE SINAIS</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-4980-6278</contrib-id>
+          <name>
+            <surname>Ribeiro</surname>
+            <given-names>Arenilson Costa</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff01">1</xref>
+          <xref ref-type="corresp" rid="c01"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-6575-9446</contrib-id>
+          <name>
+            <surname>Sutton-Spence</surname>
+            <given-names>Rachel Louise</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff02">2</xref>
+          <xref ref-type="corresp" rid="c02"/>
+        </contrib>
+      </contrib-group>
+      <aff id="aff01">
+        <label>1</label>
+        <institution content-type="orgname">Universidade Federal do Maranhão</institution>
+        <addr-line>
+          <named-content content-type="city">São Luís</named-content>
+          <named-content content-type="state">Maranhão</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Universidade Federal do Maranhão, São Luís, Maranhão, Brasil</institution>
+      </aff>
+      <aff id="aff02">
+        <label>2</label>
+        <institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+        <addr-line>
+          <named-content content-type="city">Florianópolis</named-content>
+          <named-content content-type="state">Santa Catarina</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <institution content-type="original">Universidade Federal de Santa Catarina, Florianópolis, Santa Catarina, Brasil</institution>
+      </aff>
+      <author-notes>
+        <corresp id="c01">Arenilson Costa Ribeiro. E-mail: <email>arenilson.ribeiro@ufma.br</email> </corresp>
+        <corresp id="c02">Rachel Louise Sutton-Spence. E-mail: <email>rachel.suttonspence@ufsc.br</email> </corresp>
+      </author-notes>
+      <pub-date publication-format="electronic" date-type="pub">
+        <day>30</day>
+        <month>05</month>
+        <year>2022</year>
+      </pub-date>
+      <pub-date publication-format="electronic" date-type="collection">
+        <season>Aug-Dec</season>
+        <year>2021</year>
+      </pub-date>
+      <volume>41</volume>
+      <issue>spe2</issue>
+      <fpage>250</fpage>
+      <lpage>272</lpage>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Abstract</title>
+        <p>This article analyses translations of a poetic narrative from American Sign Language (ASL) to a humorous narrative in Brazilian Sign Language (Libras) and, finally, from Libras into a signed dramatic theatrical sketch. It addresses the relatively unexplored area of intramodal sign language translations, considering the changes that occur in an interlingual translation of a text in highly creative sign language and the adaptations made as the genre shifts in an Intersemiotic Translation to a dramatic theatrical text that is almost non-verbal. We analysed a narrative poem “Ball Story” in ASL by Ben Bahan (a highly poetic text), a translation of it by Sandro Pereira (a mainly humorous text) and an adaptation for a theatrical sketch by undergraduate students studying sign language literature (visual theatre). It was observed that, despite some minor differences, the same content was presented in the translations into different genres, the poetic version being more performative in terms of declamation, the humorous version manipulating sign parameters, incorporation and intensity and the dramatic translation using cinematic aspects which draw upon but do not make use of the language system. The findings extend our understanding of the structure of creative signed texts and the possibilities for their translation.</p>
+      </abstract>
+      <trans-abstract xml:lang="pt">
+        <title>Resumo</title>
+        <p>Este artigo analisa as traduções de uma narrativa poética da Língua de Sinais Americana (ASL) para um relato humorístico em Língua Brasileira de Sinais (Libras) e, por fim, da Libras para um teatro dramatizado sinalizado. Aborda a área relativamente inexplorada das traduções intramodais entre línguas de sinais, considerando as mudanças que ocorrem em uma tradução interlingual e intramodal de um texto em língua de sinais altamente criativo, conforme o gênero e as adaptações feitas em uma tradução intersemiótica para um texto teatral dramatizado, que é quase não verbal. Analisamos, portanto, o poema narrativo “Ball Story” em ASL de Ben Bahan (um texto altamente poético), uma tradução realizada por Sandro Pereira (um texto, principalmente, humorístico) e, por fim, uma adaptação para um esboço teatral por alunos de graduação, estudantes de literatura de língua de sinais (teatro visual). Observou-se que, apesar de algumas pequenas diferenças, o mesmo conteúdo foi apresentado nas traduções para os diferentes gêneros, sendo a versão poética mais performática em termos de declamação, a versão humorística manipulando parâmetros dos sinais, incorporação e intensidade e a tradução dramatizada por meio de aspectos cinemáticos, que se baseiam na Libras, mas não fazem uso dela. Os resultados ampliam nossa compreensão da estrutura de textos criativos em línguas de sinais e suas possíveis traduções.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords</title>
+        <kwd>Interlingual and Intramodal Translation in sign languages</kwd>
+        <kwd>Intersemiotic Translation</kwd>
+        <kwd>Humor in Libras</kwd>
+        <kwd>Libras literature</kwd>
+        <kwd>Deaf Literature</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="pt">
+        <title>Palavras-chave</title>
+        <kwd>Tradução Interlingual e Intramodal em línguas de sinais</kwd>
+        <kwd>Tradução Intersemiótica</kwd>
+        <kwd>Humor em Libras</kwd>
+        <kwd>Literatura em Libras</kwd>
+        <kwd>Literatura Surda</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="4"/>
+        <table-count count="1"/>
+        <equation-count count="0"/>
+        <ref-count count="37"/>
+        <page-count count="23"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introduction</title>
+      <p>This article considers the translation of a literary text in sign language into another sign language (intramodal translation), and the linguistic, cultural and textual differences that arise. We investigate how the interlingual translation of a poetic narrative text in American Sign Language (ASL) creates one in a humorous narrative genre in Brazilian Sign Language (Libras), both visuospatial languages rather than sound-based ones. Given the “theatrical” nature of creative sign language, we also investigate the changes when the Libras version is transferred to a dramatized theatrical piece, to understand the translation process of an intersemiotic translation.</p>
+      <p>Translations between sign languages may highlight linguistic and cultural aspects of Deaf identity (<xref ref-type="bibr" rid="B29">Sutton-Spence</xref>; <xref ref-type="bibr" rid="B22">Perlin</xref>; <xref ref-type="bibr" rid="B27">Strobel</xref>), while the transformation of the mode of expression into a theatre sketch brings with it the extra elements of script, editing and cinematographic production. (Laranjeira; Jakobson).</p>
+      <p>We note the elements that are changed and those that are preserved from the source text to remain faithful to the meaning and objectives of the authors or translators performing the text.</p>
+    </sec>
+    <sec>
+      <title>Sign Language Literature</title>
+      <p>Sign language literature is intimately connected to the concept of deaf literature. Deaf literature is the body of creative language work of deaf communities. It is produced by deaf people, for deaf people, about deaf people, and it is in the language (sign language) of deaf people. According to Karnopp, it is the “production of literary texts in signs, which understands deafness as the presence of something and not as a lack, enabling other representations of deaf people, considering them as a different linguistic and cultural group” (<xref ref-type="bibr" rid="B13">Karnopp 102</xref>). As in many other sign languages, Libras literature is characterised by aesthetic use of signs, creatively playing with linguistic elements such as rhythm and speed of signing, use of space, classifiers, constructed action and carefully selected signs with specific handshapes and movements. As sign language literatures are essentially “literatures of the body” (following Rose), many of the works combine everyday language with performance elements that share characteristics with theatre and dance.</p>
+      <p>Research into ASL and Libras literature has greatly increased in this century, helping us understand what can constitute poetic, narrative or theatrical genres in sign languages and how the genres may overlap (<xref ref-type="bibr" rid="B21">Peters</xref>; <xref ref-type="bibr" rid="B07">Byrne</xref>; <xref ref-type="bibr" rid="B19">Mourão</xref>; <xref ref-type="bibr" rid="B30">Sutton-Spence</xref>). In many cases, following <xref ref-type="bibr" rid="B33">Valli</xref>, we may say that texts have “more or less” characteristics of a genre, rather than definitively allocating them to a single genre.</p>
+    </sec>
+    <sec>
+      <title>Humorous Sign Language</title>
+      <p>The interlingual and intersemiotic translations presented here have an underlying humorous thread, maintaining and increasing the humour in the original text. We know that “it is in the field of deaf literature and literature in sign languages that members of deaf communities produce and exercise humour, aesthetic pleasure and cultural translation, giving opportunity to the circulation and consumption of deaf culture” (<xref ref-type="bibr" rid="B12">Karnopp</xref> and <xref ref-type="bibr" rid="B26">Silveira 97</xref>).</p>
+      <p>For this reason, we need to understand some universalities of humour and the underlying mechanisms of humorous sign language. <xref ref-type="bibr" rid="B37">Zilles</xref> observes that humour is generally related to the comic, grotesque, ironic, sarcastic, and explores eccentricity, lucid play, absurdity and consensus. In the early twentieth century Henri Bergson proposed a universal theory of humour, noting that transposition and inversion are two key elements. He stated that laughter occurs when we perceive something human in the non-human, observing that “WE LAUGH EVERY TIME A PERSON GIVES US THE IMPRESSION OF BEING A THING.” (<xref ref-type="bibr" rid="B03">Bergson 33-34</xref>, uppercase in the original). <xref ref-type="bibr" rid="B06">Boldo and Sutton-Spence</xref> have noted the important role of anthropomorphism in Libras humour, and we see it in the texts we analyse here.</p>
+      <p>Another characteristic of humour is exaggeration. Bergson notes that the transposition of a concept to another environment can involve a change of scale, especially from small to large, and this exaggeration is comic, especially when the exaggeration is a distortion of the normal.</p>
+      <p>The perception of humour, however, is influenced by culture, context, style and time, so the translator should consider the linguistic and cultural humorous norms of the language communities of the source and target texts.</p>
+      <p>According to Morgado, for deaf people “the aesthetic of humour lies in its visual aspects” (<xref ref-type="bibr" rid="B18">Morgado 164</xref>), and this is seen in humorous imitation of people and non-humans. Another characteristic of signed humour lies in the comic manipulation of the phonological parameters of Libras, especially of handshape, movements and non-manual expressions (see also <xref ref-type="bibr" rid="B15">Klima and Bellugi</xref>; <xref ref-type="bibr" rid="B06">Boldo and Sutton-Spence</xref>). Humour occurs when playing with size, to make signs unusually small or large, perhaps deliberately making “mistakes”. The movements are the ways that the hands move in space while articulating the signs and / or phrases, and can be altered for aesthetic and humorous effect, by signing quickly, slowly, pausing or deliberately copying funny movements. Non-manual expressions, made by the face and body, can change the degree of intensity in signs. All these elements allow signers to exaggerate or caricature, amplifying a distortion to make it more salient (which Bergson observed would lead to laughter).</p>
+      <p>Knowing these characteristics of deaf humour, as well as the function of the text and the target audience, helps translators achieve their goal in translation.</p>
+    </sec>
+    <sec>
+      <title>Interlingual Translation</title>
+      <p>Two types of translation are relevant to this research: interlingual and intersemiotic. Interlingual translation is understood as “an interpretation of verbal signs through a system of verbal signs in some other language” (<xref ref-type="bibr" rid="B09">Eco 265</xref>). When translating between texts in different languages, “the meaning of a linguistic sign is nothing more than its translation by another sign that can be replaced” (<xref ref-type="bibr" rid="B11">Jakobson 80</xref>). However, the translator translates not only the content of the text to the other language, but also all the stylistics that permeate what is being said. Therefore, the translator seeks an equivalence, that is, a greater analogy from the source text to the target text (<xref ref-type="bibr" rid="B20">Nord</xref>) so that the target audience can experience the same sensation when receiving the translated text as natives of the source language.</p>
+      <p>The process of translating involves texts, language and culture, regardless of the modality in which they are presented. The translator needs to “penetrate the innermost thoughts of the author who he translates, understand his language clearly, the symbols, the semantic constructions, the intentions” (<xref ref-type="bibr" rid="B08">Cavalcanti 86-87</xref>). Translators should be aware of textual and paratextual details that help decision-making, remembering that, when reading the text to be translated, they must understand all the details that are attached to it, aware that “cultural differences exist, mainly, according to the distance they travel, the place or the time in which they were written.” (<xref ref-type="bibr" rid="B25">Robinson 303</xref>). This all highlights the importance of developing the necessary linguistic and referential skills to mediate between all languages and cultures, including sign languages. Despite being fundamentally iconic, and even more so in the highly visual creative texts of sign language literature, sign languages are not universal, and each country exerts a cultural influence on its national sign language. Thus, Libras, the language of the Brazilian deaf community, while iconic, draws on Brazilian cultural norms different from those of ASL.</p>
+      <p>Intramodal translation occurs when texts are produced in the same modality and share similar characteristics based on that modality, irrespective of the specific languages. Interlingual translations between sign languages occur between two languages articulated with the hands and body moving in space. (<xref ref-type="bibr" rid="B27">Strobel 44</xref>) emphasises “visual experience”, explaining that facial and body expressions are of paramount importance in sign languages “as a means of reinforcing an idea that is being transmitted” (<xref ref-type="bibr" rid="B27">Strobel 51</xref>). Deaf identity is especially evident in sign languages, because “the deaf are deaf in relation to the visual experience and far from the auditory experience” (<xref ref-type="bibr" rid="B22">Perlin 54</xref>). Visuospatial languages “build and show the deaf culture and identity of deaf people” (<xref ref-type="bibr" rid="B28">Sutton-Spence 229</xref>).</p>
+      <p>In the process of translation between sign languages, the deaf translator shares the same visual experience as the original author but deaf bilingual translators must know the cultural aspects of the language into which they are translating, since “although the term Deaf Culture is used frequently, it does not mean that all Deaf people in the world share the same culture” (<xref ref-type="bibr" rid="B36">Wilcox; Wilcox 93</xref>). Deaf literary translators also need to be aware of the literary norms of the two languages and their communities. With this in mind, we note that the translator of the ASL piece <italic>Ball Story</italic> into Libras is a deaf actor and comedian, thoroughly immersed in the cultural, linguistic and artistic norms of Libras.</p>
+    </sec>
+    <sec>
+      <title>Intersemiotic Translation</title>
+      <p>Transmutation, that is, intersemiotic translation, involves the relationship between verbal signs and non-verbal signs (<xref ref-type="bibr" rid="B11">Jakobson</xref>). In this case, the channel/modality does not determine the specificity of intersemiotic translation. In our materials, a signed narrative is transformed into a filmed theatrical sketch that has script aspects, film editing and elements of production. Intersemiotic translation is defined by (<xref ref-type="bibr" rid="B11">Jakobson 64</xref>) as the “interpretation of verbal signs through non-verbal sign systems”. By focussing on the translation of the sign, Jakobson evokes the postulates of semiotician <xref ref-type="bibr" rid="B23">Charles Sanders Pierce</xref>, for whom the sign is “something that, in a certain way or in some way, represents something to someone” (94). Thus, there can be verbal and non-verbal signs, since any object that — in a certain context and under a certain perspective — assumes a meaning, is a sign. Thus, for an intersemiotic translation, the translator should pay special attention to the “content — form — effect” triad (<xref ref-type="bibr" rid="B24">Pym</xref>), to translate faithfully the meaning of the content of the text, reflect on the function of the text and identify the expectations of the target audience.</p>
+      <p>Sign languages are verbal, albeit in a visuospatial modality. A dramatization in which the focus is not linguistic but dramatic forms part of a system of non-verbal signs. Accordingly, <xref ref-type="bibr" rid="B16">Laranjeira (16)</xref> states that “if the code is other than linguistic, the same scheme can apply to other areas of human communication: music, arts, painting, etc.” Thus, intersemiotic translation is the focus of analysis when we adapt a humorous story for theatre. <xref ref-type="bibr" rid="B17">Morais and Santana (53)</xref>, state that intersemiotic translation “is understood as a process of recreation.” This striking point in dramatization was used in our analysis because the characters presented in the humorous text transcend the imagery and are made real when presented in the actors’ bodies and the rest of the production. For example, in a signed text, the character is presented, identified, referred to and described by signs, but in a system of non-verbal signs, the character is directly represented by an actor.</p>
+      <p>In the light of these differences, we selected three texts for analysis. The first two works are presented through sign language and focus primarily on linguistic aspects. The third work focuses on the characteristics of a visual theatre, emphasizes cinematographic, script and editing aspects, and requires an analysis of the semiotic systems involved.</p>
+    </sec>
+    <sec sec-type="materials">
+      <title>Materials and Analysis</title>
+      <p>The videos analysed were Ben Bahan’s <italic>Ball Story</italic>, an original poetic narrative in ASL<xref ref-type="fn" rid="fn01">1</xref>; <italic>Joke Number 1</italic>, by Sandro Pereira<xref ref-type="fn" rid="fn02">2</xref> (which has been titled elsewhere, with the author’s permission, as <italic>The Rolling Stone</italic><xref ref-type="fn" rid="fn03">3</xref>), a humorous translation of <italic>Ball Story</italic> into Libras; and a filmed theatrical sketch that is a translation from <italic>The Rolling Stone</italic>, but with reference to the original <italic>Ball Story</italic>, which we title here <italic>The Ball<xref ref-type="fn" rid="fn04">4</xref></italic>. Thus, we have a poetic narrative in ASL, a translation into Libras with changes in terms of genre (especially a marked increase in its humour and a reduction in the strict poetic rhythmic patterning), and finally a dramatization that was a recreation of the humorous text, using a system of non-verbal signs. We therefore deal with all the concepts presented above: interlingual (between ASL and Libras), intramodal (production in the visual modality) and intersemiotic (verbal Libras to non-verbal dramatization) translation. Given the relative scarcity of interlingual signed literary translations, our discovery of the three videos provided a fortuitous opportunity for research into three texts offered by different types of translation whose products have similar contents, but different genres from their source texts. Time was also considered in relation to the production of the versions, because the “reading of the starting text is inevitably a product of its time, its theoretical conceptions, its realities” (<xref ref-type="bibr" rid="B34">Vasconcellos, Bartholamei and Lautenai 19</xref>).</p>
+      <p>The analysis here follows parameters for analysing translations proposed by <xref ref-type="bibr" rid="B04">Berman (64)</xref>, considering that his suggested method recognizes and recommends that his suggestion “can be modulated according to the purposes particular to each analyst and adapt to all established textual forms (article, communication, thesis, etc.). Besides, it is not a matter of presenting a model, but of a possible analytical trajectory”. Thus, the first step is to study the texts to guide the analytical work that follows. As the three works are recorded in video format, this stage consisted of studying the three videos and identifying the first incidences of contrasting elements requiring further investigation. After this first reading, “a quick textual pre-analysis followed, that is, to notice all the stylistic features that make the writing and the language of the original unique and that make them a network of systematic correlations” (<xref ref-type="bibr" rid="B04">Berman 68</xref>). From this step, we generated the specifics of each version of the text. In the final stage of analysis, we sought to understand the design of each translation and the differences of each translation in relation to its original.</p>
+    </sec>
+    <sec>
+      <title>Ball Story</title>
+      <p><italic>Ball Story</italic>, by Ben Bahan, was created in 1989, with characteristics of its historical-socio-temporal context. It is a “classifier story”, focussing on the placement and movement of signs to show the movement of characters, originally designed to be an entertaining teaching tool for ASL. The title <italic>Ball Story</italic> suggests a narrative, but we argue that it has many poetic textual and performance elements. It tells of a scientist conducting an experiment in a laboratory, as a boy enters. An explosion creates a ball that bounces out of the laboratory. The scientist remains there, while the boy chases the ball, on a bicycle. On the way, other characters join the chase: a dog, a girl on skates, an elderly man, a bird that was on his shoulder, and finally a fat person. During the narrative there are several changes of perspective in which all the characters are seen first moving from right to left, then forwards, then going round a corner, and up and down a slope. Returning to the laboratory, the ball enters and the door closes, all the characters bump into the door; with the pressure it opens and everyone falls to the ground. They look at the ball and it smiles.</p>
+      <fig id="f01">
+        <label>Figure 1</label>
+        <caption>
+          <title><italic>Ball Story</italic> - Ben Bahan</title>
+        </caption>
+        <attrib>Source: <ext-link ext-link-type="uri" xlink:href="https://www.youtube.com/watch?v=C3Dt-xFHjls">https://www.youtube.com/watch?v=C3Dt-xFHjls</ext-link></attrib>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/25f86c5be8f633f91bb6f3154d0683ab97116958.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/fc63a0ea103db4ce1ca47d5c960843c25f033334.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/dc3a31b93bd841859b9658b081a7b5414a51f387.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </fig>
+      <p><italic>Ball Story</italic> is 00:03:13 long, already showing one of the criteria of a poetic genre, that “poems tend to be shorter than other genres” (<xref ref-type="bibr" rid="B29">Sutton-Spence and Machado 188</xref>). As Bahan is a deaf poet who produced the work in ASL, deaf culture is intrinsically presented, as he is part of the group of authors who are part of the “visual universe of the deaf subject and use various aspects of these languages, such as incorporation, symmetry, classifiers, eye gaze, use of space” (<xref ref-type="bibr" rid="B14">Klamt 37</xref>). Linguistic elements such as classifiers and the aesthetic use of phonological parameters (handshapes, movements, places of articulation, facial and body expressions) are all poetic features of ASL.</p>
+      <p>The use of colour can trigger additional feelings and emotions and, in this performance, there is harmony between the performer’s light green shirt and the grey background. The colours do not call attention to the signing or to the background of the video, creating a relaxing viewing experience. The piece begins with the performer’s steady, serene gaze towards the camera. He then begins to tell the story without mentioning the title. The signing is performed with reduced, but firm and clear, movements. Another poetic element is seen in the “repetitions of time and forms of signs.” (<xref ref-type="bibr" rid="B30">Sutton-Spence and Machado 188</xref>). Whenever Bahan describes the characters in motion, the classifier handshape moves in the same way and there is a strong rhythm throughout the piece.</p>
+    </sec>
+    <sec>
+      <title>The Rolling Stone</title>
+      <p>The translation of <italic>Ball Story</italic> into Libras and its performance by Sandro dos Santos Pereira resulted in a more humorous work. Sandro Pereira, is deaf, a professional actor and teacher. It is longer than Bahan’s original, at 05:15, making it less of a poem and more in the nature of a narrative. The humorous text has similar content to the original with some important differences. The original scientist in the laboratory is now a medical doctor. Instead of a boy, a horse enters the room, but the doctor looks at the animal and continues what he is doing. After the explosion he sees something that looks like a stone, pulsing and shining. The object starts to jump and leaves the laboratory, then the doctor gets on the horse and goes out in pursuit. The characters that join him are a dog, a woman who was taking care of her plants, an elderly man feeding his parrot (both join in the chase), a fat person eating and drinking, and a group of deaf people chatting. From there, the events and movements of the characters follow Bahan’s, although with noticeably greater use of non-manual characteristics.</p>
+      <fig id="f02">
+        <label>Figure 2</label>
+        <caption>
+          <title>The Rolling Stone - Sando Pereira</title>
+        </caption>
+        <attrib>Source: DVD Piadas em Libras</attrib>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/d49e2ac27ea327fcc2f80dd53bdb7f6ec1d9769c.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/c600f756c1b6c99ae38d9e54e85b5cde0363a2c8.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/c724454ec67eaf1cc6953d09aae82b7af59656f3.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </fig>
+      <p>The extralinguistic elements are also different. The performer wears a white shirt and a necklace of large stones, against a red background, with an illustration of a golden ball highlighted by rays of light. This creates a livelier atmosphere, compared to the calm of the ASL version. The video starts with the performer acting as though he were distracted, then when he realizes that he is being watched, he apologizes, fixes his hair, and explains what the humorous story is about. The richness of the description throughout the piece, starting with the doctor’s instruments is noteworthy, contributing to the humour, although reducing the tightness of a more poetic structure. Morgado notes that “humorists have to be attentive to the images they intend to imitate” (<xref ref-type="bibr" rid="B18">Morgado 164</xref>) and the movements and expressions of the characters in this piece deliberately exaggerate to create humour. Sandro uses a larger signing space to make good use of the classifiers to describe the characters, which causes laughter. Culturally, as the Libras translation adds deaf characters, it brings the deaf audience closer to the humour.</p>
+    </sec>
+    <sec>
+      <title>The Ball</title>
+      <p>The video of the theatrical sketch was created by students of the UFSC Distance Learning Letras Libras course as part of their studies on Deaf Literature in 2018. They made a theatrical adaptation of Libras version of the story (<xref ref-type="bibr" rid="B01">Amorim</xref>), having also studied Ben Bahan’s original ASL version. It is 03:35 long.</p>
+      <p>The sketch shows a scientist standing in front of a high-precision scale, putting on safety glasses, taking a container, liquid and chemical ingredient and doing an experiment. A (toy) horse arrives and he strokes it, asking it to wait. Then an explosion occurs from which a large rubber ball appears. The ball leaves the laboratory, so the scientist rides on the horse in pursuit of the ball. Along the way, he is joined by the dog (an actor with dog makeup), a greedy man eating who abandons his food and runs after the others, and a group of deaf people signing. There are changes in perspective, as the characters are seen going from right to left, from the front, going around a corner, and up and down a ramp. The deaf character is always signing and the fat man struggles to run. The ball goes back to the laboratory and the scientist stops in front of it. The other characters arrive, hit it and fall over. It is highly amusing, especially in the exaggeration of the movement, gaze and facial expression of the characters.</p>
+      <fig id="f03">
+        <label>Figure 3</label>
+        <caption>
+          <title>The Ball – Theatrical sketch</title>
+        </caption>
+        <attrib>Source: Personal archive</attrib>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/0236f0b3c4f7cbbfa0da939fb306a6aee6ef8d35.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/9b4c5f2c5e60d7ee116710cf066bc58db3c8df6f.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/31df30218628b37557ce80022826acad8ca7391c.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </fig>
+      <p>In this video, the costumes, scenery, role of the characters and linguistic and cultural aspects were analysed. The actors show the main points of the humorous text in a visual way. Principally, instead of naming and describing the characters, as seen in the narratives, the dramatic version presents them directly. The scenes also change following the events in the story, in the laboratory, outside, going round the corner, and up and down the ramp. The whole scenario was of paramount importance for understanding.</p>
+      <p>When analysing the linguistic and cultural aspects, we note that “Libras shows some aspects of cinematographic language expressing the signs, movements, body expression presenting the difference and the expectation of the spectators’ observation, allowing the composition of shots of the cinematographic language” (<xref ref-type="bibr" rid="B35">Vieira 75</xref>). Because the actorsunderstand that Deaf Literature is highly visual, they focused on non-manual expressions, opting for the characters that they considered more cartoonlike. Reducing the linguistic humour, they invested more in the visuals, making the staging easy to understand and maintaining the humorous content, without detriment to the story.</p>
+      <p><xref ref-type="bibr" rid="B10">Freitas</xref> mentions that signed theatrical productions by deaf people are an art form characterized by being extremely visual. In this type of intersemiotic translation, the character’s body and the literary text are integrated, creating visuo-corporal performances.</p>
+    </sec>
+    <sec sec-type="results">
+      <title>Linguistic Analysis and Results</title>
+      <p><xref ref-type="table" rid="t01">Table 1</xref> shows a comparison of the linguistic aspects of the three versions.</p>
+      <table-wrap id="t01">
+        <label>Table 1</label>
+        <caption>
+          <title>Comparison of the linguistic aspects of the three versions of “Ball Story”</title>
+        </caption>
+        <table frame="box" rules="all">
+          <thead>
+            <tr align="center">
+              <th colspan="2" style="background-color:#AEAAA9">Poetic Narrative</th>
+              <th colspan="2" style="background-color:#F5B082">Humorous narrative</th>
+              <th style="background-color:#FFD866">Theatre sketch</th>
+            </tr>
+            <tr align="center">
+              <th colspan="2" style="background-color:#AEAAA9">Ben Balian</th>
+              <th colspan="2" style="background-color:#F5B082">Sandro Pereira</th>
+              <th style="background-color:#FFD866">Students</th>
+            </tr>
+            <tr align="center">
+              <th style="background-color:#AEAAA9">Characters</th>
+              <th style="background-color:#AEAAA9">HS<xref ref-type="fn" rid="fn05">5</xref></th>
+              <th style="background-color:#F5B082">Characters</th>
+              <th style="background-color:#F5B082">HS</th>
+              <th style="background-color:#FFD866">Characters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">A scientist</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/c49399b846c71e9a3b9d90b029b9579cce0e657a.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">A doctor</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/8233e64150d0d1df9e2a48b984c10fd6c019413f.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">A scientist</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">A boy on a<break/>bicycle</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/9e7a65220e2e978695a5b3a15816efae06396b09.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">A horse</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/a1b3d7e7e52c7b33fbf0c45194a31c2fa17e122f.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">A horse</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">A ball</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/87121702a112322054eadc7828030509ab8eea66.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">A stone</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/d4218913eae612c94e204e5d8138712cb9d1deed.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">A ball</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">A dog</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/8c9b2726df276437afbd8f238971aa946092e924.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">A dog</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/860b1dcb49afd175c2316dc099c31e81a6bd43c4.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">A dog</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">A girl</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/a1fefdb20819155d2b7911b7e90c706738f9bf19.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">A female<break/>character</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/597116e61d534ef3e398e2fc0065f0dcd7c1dd10.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">-</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">An old man</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/d3d06e2134b5eff03b711ba7b675363624f58a10.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">An old man</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/49e5f8dbee5c0b930a144b51ac2a096081ed9106.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">-</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">A small<break/>songbird</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/3526a64f350aa4ad2b63305739b607e8b4120efc.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">A parrot</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/23b523511f7a9d686563c51a2b7a347349ad1431.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">-</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">A fat<break/>person</td>
+              <td style="background-color:#E6E6E6">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/065cbdab15bda7b98a9792f6b06317d7dc4a3395.svg"/>
+              </td>
+              <td style="background-color:#F7CCAC">A fat man<break/>eating</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/44b205c4d7e23ae2c59ec8ab13a820139085b421.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">A fat man<break/>eating</td>
+            </tr>
+            <tr align="center">
+              <td style="background-color:#E6E6E6">-</td>
+              <td style="background-color:#E6E6E6"> </td>
+              <td style="background-color:#F7CCAC">A group of<break/>deaf people<break/>talking</td>
+              <td style="background-color:#F7CCAC">
+                <inline-graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/9a5a54887888812e07fe0059589a30b941c0f8e3.svg"/>
+              </td>
+              <td style="background-color:#FFE59A">A group of deaf<break/>people talking</td>
+            </tr>
+          </tbody>
+        </table>
+        <table-wrap-foot>
+          <fn>
+            <p>Source: Created by the authors</p>
+          </fn>
+        </table-wrap-foot>
+      </table-wrap>
+      <p>Ben Bahan’s narrative has eight characters, while Sandro Pereira’s has nine, adding the deaf people signing to create deaf content. The theatrical adaptation has six characters, the four actors (playing three humans and a dog), a ball (a real one) and a horse (a toy). All three versions presented the scientist character (in ASL and Libras, introduced by the signs scientist and doctor, and in the play by an actor dressed in a white coat, which immediately signals a scientist to a Brazilian audience). In the ASL version, the scientist stays in the laboratory, and the boy on the bike chases the ball. In the Libras version and the theatrical sketch, the scientist/doctor gets on his horse and chases the stone / ball. The act of a horse entering a laboratory and the scientist riding it in pursuit of a ball (especially the ludicrousness of an adult riding a rocking horse) is funnier than a boy on a bicycle.</p>
+      <p>Linguistically, we can see the necessity of introducing the horse in the Libras translation to solve the problem of the classifier handshape maintained from the ASL version. Many classifier handshapes are shared between Libras and ASL, but the ASL classifier for a bicycle is made with the “3” handshape, while Libras uses either an X or a B handshape.</p>
+      <fig id="f04">
+        <label>Figure 4</label>
+        <caption>
+          <title>“3”, “X” and “B” handshapes used in classifiers for a bicycle</title>
+        </caption>
+        <attrib>Source: created by the authors</attrib>
+        <alternatives>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/f9c83b7cab77d505d2bac9df1ea105180e202001.tif"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/71ca5fb9217505f5eaa5150b28d270564fd57e38.png" specific-use="scielo-web"/>
+          <graphic xlink:href="https://minio.scielo.br/documentstore/2175-7968/kHTJVGmLksNfDHc37K6cPVH/c7c2a762bef2c094a3e7bad3e2ec5c743bc3969f.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+        </alternatives>
+      </fig>
+      <p>However, the “3” handshape is used in the Libras sign horse and can (creatively) iconically represent a person riding a horse in Libras. Sandro needs to alter the movement from the smooth rolling of a bicycle to a bouncing horse, which disrupts the poetic ASL pattern of alternating smooth and bouncing movements, but the pay-off is a better linguistic fit with Libras and is much funnier.</p>
+      <p>Further classifier differences in the interlinguistic translations show the complexity and opportunities for intramodal translation in sign language. The classifier handshape for the ball in ASL merely shows that something is round, so there is no problem for the Libras translation to state that the object is a stone, and similarly, no problem for the theatre group to choose the ball interpretation (following the ASL and considerably easier to show in the film than a rolling stone would be).</p>
+      <p>The dog and the fat person are also present in all three texts. The Libras translation exaggerates the size of the fat person and their difficulty in running, increasing the comedic content. The theatre group does the same, as a reinterpretation of the Libras version, choosing to make the person a man (which, in the signed versions, is not specified). The bird appears in the poetic ASL text and the humorous Libras text, but not in the theatre text. The cultural difference in birds between the ASL and Libras versions, showing the American songbird and the Brazilian parrot, is linguistically paralleled in the different classifier handshapes for the birds (according to the classifiers that show a bird flying in each language) but their movement is the same, creating a similar effect for both audiences. While a real bird would be a challenge for the theatre group, an actor in parrot costume or holding a toy would be options. However, all translations require decisions and, within the limitations of resources, as the old man who fed the bird is also not included in the sketch, the dog was a better choice.</p>
+      <p>The group of deaf people is not in the ASL version. The Libras translation introduced them and the theatre adaptation uses them. During the dramatization it is possible to see the deaf character running and signing, as if she were telling other people what is happening. This presents sign language as showing “the culture and the deaf identity of deaf people, as a visual people” (<xref ref-type="bibr" rid="B31">Sutton-Spence 329</xref>).</p>
+      <p>In all three productions, gaze is essential, marking the passage of the characters during the chase. In the ASL version, gaze is either to the camera, when narrating, or accompanies the movement of the classifier signs, while in the Libras translation, the eyes and head alone frequently track the direction and movement of the chase, transferring movement and rhythm from the hands to the eyes, once again increasing the humour of the piece. Gaze helps us to understand the physical characteristics of the characters, such as their size and way of moving. <xref ref-type="bibr" rid="B32">Sutton-Spence (332)</xref> notes that gaze is important for deaf actors and deaf audiences, as it shows their visual identities and the state of ‘being deaf’.</p>
+      <p>The ASL original and its Libras translation make the same use of space. However, the intensity of the movements is noticeably different. Ben Bahan’s ASL signing space is smaller and the movements more restrained, perhaps in keeping with American deaf culture of the late 1980s. The Libras version uses larger and more intense movements, emphasising the humorous content and modern Brazilian exuberance.</p>
+      <p>All three texts create an extremely visual experience. These are performances that demand to be noticed both linguistically and culturally. This highlights the relevance of these productions for recording and disseminating art, literature, dramatization and humour in sign language.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>Final Considerations</title>
+      <p>Considering the three versions (the more poetic original, and the more humorous and the dramatic translations), we see that the same content can be presented in the different genres. The poetic original ASL is characterised by restrained signing that follows disciplined patterns of repetition, creating a strong rhythm. The humorous Libras text makes occasional significant content alterations, some to suit the form of Libras, some to increase the deaf content of the story, and some to shift the genre significantly towards humour through intensification, especially in constructed action. Knowing the characteristics of signed poetry and deaf humour will assist Libras translators in the process of translating humorous texts. The filmed dramatic text can be characterized as a translation, has a scenic content, makes use of cinematographic aspects, such as script, editing, an outdoor location for scenery and use of props, costume and make-up that substitute much of the linguistic information in the other two texts. In intersemiotic translations, the different sign systems become relevant. The means of expression of each system preserves the meaning in the process of translating verbal to non-verbal signs. In interlingual translation, we see that bilingual knowledge is not enough for translations, as it is influenced by culture, time and region, as well as knowledge of deaf literary and humour norms.</p>
+      <p>Translation between sign languages favours the visual elements of the performances, as they are languages of the same modality, and even more so in the case of deaf translator-artists, who receive the same visuospatial input. However, this does not imply a single “deaf culture” since it is an interlingual translation. In the case of this study, intersemiotic translation is from a text in Libras on video (backed up by the original ASL text on video) to a staged dramatization, also recorded on video. The medium does not define this classification of the translation, since all texts are recorded in the same medium; the definition comes from the fact that they are different semiotic systems. Thus, the translation of texts requires a more in-depth analysis on the part of the translator, who must know the characteristics of the languages and systems involved. Time and text type influence decisions by the translator, who can consciously intervene, making adaptations to transform the genre without harming the translated work, bringing greater equivalence to the translation audience.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn fn-type="other" id="fn01">
+        <label>1</label>
+        <p>Available on the DVD accompanying <xref ref-type="bibr" rid="B02">Bauman, Nelson and Rose</xref>, although other versions are often found by searching the internet.</p>
+      </fn>
+      <fn fn-type="other" id="fn02">
+        <label>2</label>
+        <p>Available on the DVD <italic>Piadas em Libras</italic> by Sandro dos Santos Pereira and at <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufsc.br/handle/123456789/208551">https://repositorio.ufsc.br/handle/123456789/208551</ext-link>, with his kind permission.</p>
+      </fn>
+      <fn fn-type="other" id="fn03">
+        <label>3</label>
+        <p>A <italic>pedra rolante</italic> in Portuguese.</p>
+      </fn>
+      <fn fn-type="other" id="fn04">
+        <label>4</label>
+        <p>In the private collection of the second author and used with the kind permission of the students Célio Afonso Cardoso de Castro, Daiane Bispo Gonçalves, Marcos Renato Fernandes Gomes and Oswaldo Vinícius Alves de Oliveira Rocha.</p>
+      </fn>
+      <fn fn-type="other" id="fn05">
+        <label>5</label>
+        <p>HS = Handshape of the classifier sign used, represented using SignWriting (Sutton).</p>
+      </fn>
+    </fn-group>
+    <ref-list>
+      <title>Referências</title>
+      <ref id="B01">
+        <mixed-citation>Amorim, Marcel Álvaro de. Da tradução intersemiótica à teoria da adaptação intercultural: Estado da arte e perspectivas futuras. <italic>Itinerários, Araraquara</italic>, n.36, 2013, p 15-33. 27/04/2019 <ext-link ext-link-type="uri" xlink:href="https://periodicos.fclar.unesp.br/itinerarios/article/view/5652/4716">https://periodicos.fclar.unesp.br/itinerarios/article/view/5652/4716</ext-link>.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Amorim</surname>
+              <given-names>Marcel Álvaro de</given-names>
+            </name>
+          </person-group>
+          <article-title>Da tradução intersemiótica à teoria da adaptação intercultural: Estado da arte e perspectivas futuras</article-title>
+          <source>Itinerários</source>
+          <publisher-loc>Araraquara</publisher-loc>
+          <issue>36</issue>
+          <year>2013</year>
+          <fpage>15</fpage>
+          <lpage>33</lpage>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://periodicos.fclar.unesp.br/itinerarios/article/view/5652/4716">https://periodicos.fclar.unesp.br/itinerarios/article/view/5652/4716</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B02">
+        <mixed-citation>Bauman, H-Dirksen; Nelson, Jennifer; Rose, Heidi (Eds.). <italic>Signing the Body Poetic</italic>. California: University of California Press, 2006.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Bauman</surname>
+              <given-names>H-Dirksen</given-names>
+            </name>
+            <name>
+              <surname>Nelson</surname>
+              <given-names>Jennifer</given-names>
+            </name>
+            <name>
+              <surname>Rose</surname>
+              <given-names>Heidi</given-names>
+            </name>
+          </person-group>
+          <source>Signing the Body Poetic</source>
+          <publisher-loc>California</publisher-loc>
+          <publisher-name>University of California Press</publisher-name>
+          <year>2006</year>
+        </element-citation>
+      </ref>
+      <ref id="B03">
+        <mixed-citation>Bergson, Henri. 1911. <italic>Laughter: An Essay on the Meaning of the Comic</italic>. 1999. English translation by Cloudesley Brereton and Fred Rothwell. London: MacMillan and Co.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bergson</surname>
+              <given-names>Henri</given-names>
+            </name>
+          </person-group>
+          <comment>1911</comment>
+          <source>Laughter: An Essay on the Meaning of the Comic</source>
+          <year>1999</year>
+          <comment>English translation by Cloudesley Brereton and Fred Rothwell</comment>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>MacMillan and Co</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B04">
+        <mixed-citation>Berman, Antoine. <italic>Pour une critique des traductions</italic>: <italic>John Donne</italic>, Paris: Éditions Gallimard, 1995.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Berman</surname>
+              <given-names>Antoine</given-names>
+            </name>
+          </person-group>
+          <source><italic>Pour une critique des traductions</italic>: <italic>John Donne</italic></source>
+          <publisher-loc>Paris</publisher-loc>
+          <publisher-name>Éditions Gallimard</publisher-name>
+          <year>1995</year>
+        </element-citation>
+      </ref>
+      <ref id="B05">
+        <mixed-citation>Blog “Deaf Focus presents: Ben Bahan Live!” <italic>Deaf Focus</italic>. <ext-link ext-link-type="uri" xlink:href="https://www.deaffocus.org/events/2018/9/27/ben-bahan-live">https://www.deaffocus.org/events/2018/9/27/ben-bahan-live</ext-link>. Accessed on 27th April 2019.</mixed-citation>
+        <element-citation publication-type="other">
+          <source>Blog “Deaf Focus presents: Ben Bahan Live!”</source>
+          <person-group person-group-type="compiler">
+            <collab>Deaf Focus</collab>
+          </person-group>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.deaffocus.org/events/2018/9/27/ben-bahan-live">https://www.deaffocus.org/events/2018/9/27/ben-bahan-live</ext-link>
+          </comment>
+          <date-in-citation content-type="access-date">27th April 2019</date-in-citation>
+          <year>2019</year>
+        </element-citation>
+      </ref>
+      <ref id="B06">
+        <mixed-citation>Boldo, Jaqueline; Sutton-Spence, Rachel. Libras Humor: Playing with the Internal Structure of Signs. <italic>Sign Language Studies</italic>. Volume 20, Number 3, Special Issue on Sign Language Poetry. 2020, pp. 411-433.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Boldo</surname>
+              <given-names>Jaqueline</given-names>
+            </name>
+            <name>
+              <surname>Sutton-Spence</surname>
+              <given-names>Rachel</given-names>
+            </name>
+          </person-group>
+          <article-title>Libras Humor: Playing with the Internal Structure of Signs</article-title>
+          <source>Sign Language Studies</source>
+          <volume>20</volume>
+          <issue>3</issue>
+          <publisher-name>Special Issue on Sign Language Poetry</publisher-name>
+          <year>2020</year>
+          <fpage>411</fpage>
+          <lpage>433</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B07">
+        <mixed-citation>Byrne, Andrew. <italic>American Sign Language (ASL) literacy and ASL literature: A critical appraisal</italic>. 2013.York University, Toronto, Canada, PhD dissertation.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Byrne</surname>
+              <given-names>Andrew</given-names>
+            </name>
+          </person-group>
+          <source>American Sign Language (ASL) literacy and ASL literature: A critical appraisal</source>
+          <year>2013</year>
+          <publisher-name>York University</publisher-name>
+          <publisher-loc>Toronto, Canada</publisher-loc>
+          <comment>PhD dissertation</comment>
+        </element-citation>
+      </ref>
+      <ref id="B08">
+        <mixed-citation>Cavalcanti, Geraldo Holanda. <italic>Memórias de um tradutor de poesia</italic>. Entrevista a Andréia Guerini e Dorothée de Bruchard; prefácio de Maurício Santana Dias. Florianópolis: Escritório do Livro: NUT/UFSC, 2006.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Cavalcanti</surname>
+              <given-names>Geraldo Holanda</given-names>
+            </name>
+          </person-group>
+          <source>Memórias de um tradutor de poesia</source>
+          <chapter-title>Entrevista a Andréia Guerini e Dorothée de Bruchard; prefácio de Maurício Santana Dias</chapter-title>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <publisher-name>Escritório do Livro: NUT/UFSC</publisher-name>
+          <year>2006</year>
+        </element-citation>
+      </ref>
+      <ref id="B09">
+        <mixed-citation>Eco, Umberto. <italic>Quase a mesma coisa</italic>. Tradução de Eliana Aguiar; revisão técnica de Raffaella Quental. Rio de Janeiro: Record, 2007.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Eco</surname>
+              <given-names>Umberto</given-names>
+            </name>
+          </person-group>
+          <source>Quase a mesma coisa</source>
+          <comment>Tradução de Eliana Aguiar; revisão técnica de Raffaella Quental</comment>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <publisher-name>Record</publisher-name>
+          <year>2007</year>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>Freitas, Cilene Rodrigues Carneiro<italic>. Processo de Compreensão e Reflexão Sobre a Iniciação Teatral de Surdos</italic>. 2014. Brasília: UnB, Masters dissertation. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://repositorio.unb.br/bitstream/10482/15606/1/2014_CileneRo driguesCarneiroFreitas.pdf">https://repositorio.unb.br/bitstream/10482/15606/1/2014_CileneRo driguesCarneiroFreitas.pdf</ext-link>.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Freitas</surname>
+              <given-names>Cilene Rodrigues Carneiro</given-names>
+            </name>
+          </person-group>
+          <source>Processo de Compreensão e Reflexão Sobre a Iniciação Teatral de Surdos</source>
+          <year>2014</year>
+          <publisher-loc>Brasília</publisher-loc>
+          <publisher-name>UnB, Masters dissertation</publisher-name>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://repositorio.unb.br/bitstream/10482/15606/1/2014_CileneRo driguesCarneiroFreitas.pdf">https://repositorio.unb.br/bitstream/10482/15606/1/2014_CileneRo driguesCarneiroFreitas.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>Jakobson, Roman. <italic>Lingüística e Comunicação</italic>. Editora Cultrix, São Paulo. 22º Edition. 2010.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jakobson</surname>
+              <given-names>Roman</given-names>
+            </name>
+          </person-group>
+          <source>Lingüística e Comunicação</source>
+          <publisher-name>Editora Cultrix</publisher-name>
+          <publisher-loc>São Paulo</publisher-loc>
+          <edition>22º Edition</edition>
+          <year>2010</year>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>Karnopp, Lodenir Becker; Silveira, Carolina Hessel. Humor na literatura surda. <italic>Educar em Revista</italic>, Curitiba, Brasil, Edição Especial n. 2/2014, p. 93-109. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://www.scielo.br/pdf/er/nspe-2/07.pdf">https://www.scielo.br/pdf/er/nspe-2/07.pdf</ext-link>.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Karnopp</surname>
+              <given-names>Lodenir Becker</given-names>
+            </name>
+            <name>
+              <surname>Silveira</surname>
+              <given-names>Carolina Hessel</given-names>
+            </name>
+          </person-group>
+          <article-title>Humor na literatura surda</article-title>
+          <source>Educar em Revista</source>
+          <publisher-loc>Curitiba, Brasil</publisher-loc>
+          <issue>Edição Especial n. 2</issue>
+          <year>2014</year>
+          <fpage>93</fpage>
+          <lpage>109</lpage>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.scielo.br/pdf/er/nspe-2/07.pdf">https://www.scielo.br/pdf/er/nspe-2/07.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>Karnopp, Lodenir Becker. Literatura Surda. <italic>Educação temática digital</italic>, v.7, n.2, jun. Campinas, 2006, p. 98-109. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://periodicos.sbu.unicamp.br/ojs/index.php/etd/article/view/795/810">https://periodicos.sbu.unicamp.br/ojs/index.php/etd/article/view/795/810</ext-link>.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Karnopp</surname>
+              <given-names>Lodenir Becker</given-names>
+            </name>
+          </person-group>
+          <article-title>Literatura Surda</article-title>
+          <source>Educação temática digital</source>
+          <volume>7</volume>
+          <issue>2</issue>
+          <month>06</month>
+          <publisher-loc>Campinas</publisher-loc>
+          <year>2006</year>
+          <fpage>98</fpage>
+          <lpage>109</lpage>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://periodicos.sbu.unicamp.br/ojs/index.php/etd/article/view/795/810">https://periodicos.sbu.unicamp.br/ojs/index.php/etd/article/view/795/810</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>Klamt, Marilyn Mafra. <italic>O ritmo na poesia em língua de sinais</italic>. 2014. Federal University of Satna Catarina, Masters dissertation. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufsc.br/handle/123456789/123383">https://repositorio.ufsc.br/handle/123456789/123383</ext-link>.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Klamt</surname>
+              <given-names>Marilyn Mafra</given-names>
+            </name>
+          </person-group>
+          <source>O ritmo na poesia em língua de sinais</source>
+          <year>2014</year>
+          <publisher-name>Federal University of Satna Catarina</publisher-name>
+          <comment>Masters dissertation</comment>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufsc.br/handle/123456789/123383">https://repositorio.ufsc.br/handle/123456789/123383</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>Klima, Edward; Bellugi, Ursula. <italic>The Signs of Language</italic>. Cambridge, M.A.: Harvard University Press, 1979.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Klima</surname>
+              <given-names>Edward</given-names>
+            </name>
+            <name>
+              <surname>Bellugi</surname>
+              <given-names>Ursula</given-names>
+            </name>
+          </person-group>
+          <source>The Signs of Language</source>
+          <publisher-loc>Cambridge, M.A</publisher-loc>
+          <publisher-name>Harvard University Press</publisher-name>
+          <year>1979</year>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>Laranjeira, Mário. <italic>Poética da Tradução: do sentido à significância</italic>. São Paulo: Editora da Universidade de São Paulo, 2003.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Laranjeira</surname>
+              <given-names>Mário</given-names>
+            </name>
+          </person-group>
+          <source>Poética da Tradução: do sentido à significância</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Editora da Universidade de São Paulo</publisher-name>
+          <year>2003</year>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>Morais, Samuel de Oliveira and Santana, Jeferson Bruno Moreira. “A performance de intérpretes de Português-Libras em espetáculos teatrais: experiências e contextos interpretativos.” <italic>Textos e contextos artísticos e literários: tradução e interpretação em libras. volume I</italic>, 1.ed. Edited by Rigo, N. S - Petrópolis: Arara Azul, 2019, p. 190 – 223. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://editora-arara-azul.com.br/site/e-books">https://editora-arara-azul.com.br/site/e-books</ext-link>.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Morais</surname>
+              <given-names>Samuel de Oliveira</given-names>
+            </name>
+            <name>
+              <surname>Santana</surname>
+              <given-names>Jeferson Bruno Moreira</given-names>
+            </name>
+          </person-group>
+          <chapter-title>“A performance de intérpretes de Português-Libras em espetáculos teatrais: experiências e contextos interpretativos.”</chapter-title>
+          <source>Textos e contextos artísticos e literários: tradução e interpretação em libras</source>
+          <volume>volume I</volume>
+          <edition>1.ed</edition>
+          <comment>Edited by Rigo, N. S </comment>
+          <publisher-loc>Petrópolis</publisher-loc>
+          <publisher-name>Arara Azul</publisher-name>
+          <year>2019</year>
+          <fpage>190</fpage>
+          <lpage>223</lpage>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://editora-arara-azul.com.br/site/e-books">https://editora-arara-azul.com.br/site/e-books</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>Morgado, Marta. “Literatura em língua gestual.” <italic>Cultura surda na contemporaneidade: negociações, intercorrências e provocações</italic>. Edited by Karnopp, L; Klein, M.; Lunardi-Lazzarin, M. Canoas: Editora da Ulbra, 2011, p.151-172.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Morgado</surname>
+              <given-names>Marta</given-names>
+            </name>
+          </person-group>
+          <chapter-title>“Literatura em língua gestual.”</chapter-title>
+          <source>Cultura surda na contemporaneidade: negociações, intercorrências e provocações</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Karnopp</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Klein</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Lunardi-Lazzarin</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Canoas</publisher-loc>
+          <publisher-name>Editora da Ulbra</publisher-name>
+          <year>2011</year>
+          <fpage>151</fpage>
+          <lpage>172</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>Mourão, Cláudio Henrique Nunes. <italic>Literatura Surda: Experiência das Mãos Literárias</italic>. 2016. Universidade Federal do Rio Grande do Sul, PhD dissertation. 27/04/2019. https://www.lume.ufrgs.br/bitstream/handle/10183/151708/001012805.pdf?sequence=1&amp;isAllowed=y.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mourão</surname>
+              <given-names>Cláudio Henrique Nunes</given-names>
+            </name>
+          </person-group>
+          <source>Literatura Surda: Experiência das Mãos Literárias</source>
+          <year>2016</year>
+          <publisher-name>Universidade Federal do Rio Grande do Sul</publisher-name>
+          <comment>PhD dissertation</comment>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.lume.ufrgs.br/bitstream/handle/10183/151708/001012805.pdf?sequence=1&amp;isAllowed=y">https://www.lume.ufrgs.br/bitstream/handle/10183/151708/001012805.pdf?sequence=1&amp;isAllowed=y</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>Nord, Christiane. <italic>Análise textual em tradução: bases teóricas, métodos e aplicações didáticas</italic>. Coordenação da tradução e adaptação de meta, Zipser, Elisabeth. São Paulo: Rafael Copetti Editor, 2016.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nord</surname>
+              <given-names>Christiane</given-names>
+            </name>
+          </person-group>
+          <source>Análise textual em tradução: bases teóricas, métodos e aplicações didáticas</source>
+          <comment>Coordenação da tradução e adaptação de meta, Zipser, Elisabeth</comment>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Rafael Copetti Editor</publisher-name>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>Peters, Cynthia. <italic>Deaf American Literature: From Carnival to the Canon</italic>. Washington, D.C.: Gallaudet University Press, 2000.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Peters</surname>
+              <given-names>Cynthia</given-names>
+            </name>
+          </person-group>
+          <source>Deaf American Literature: From Carnival to the Canon</source>
+          <publisher-loc>Washington, D.C</publisher-loc>
+          <publisher-name>Gallaudet University Press</publisher-name>
+          <year>2000</year>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>Perlin, Gladis T. T. “<italic>Identidades Surdas.” A surdez: um olhar sobre as diferenças</italic>. Edited by Skiliar, Carlos. 8. ed. Porto Alegre: Mediação, 2016, p. 51 – 73.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Perlin</surname>
+              <given-names>Gladis T. T</given-names>
+            </name>
+          </person-group>
+          <source>“<italic>Identidades Surdas.” A surdez: um olhar sobre as diferenças</italic></source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Skiliar</surname>
+              <given-names>Carlos</given-names>
+            </name>
+          </person-group>
+          <edition>8. ed</edition>
+          <publisher-loc>Porto Alegre</publisher-loc>
+          <publisher-name>Mediação</publisher-name>
+          <year>2016</year>
+          <fpage>51</fpage>
+          <lpage>73</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>Pierce, Charles Sanders. <italic>Semiótica e filosofia</italic>. 9ª edição, São Paulo: Editora Cultrix, 1993.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pierce</surname>
+              <given-names>Charles Sanders</given-names>
+            </name>
+          </person-group>
+          <source>Semiótica e filosofia</source>
+          <edition>9ª edição</edition>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Editora Cultrix</publisher-name>
+          <year>1993</year>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>Pym, Anthony. <italic>Explorando as teorias</italic>. [tradução FAVERI, Rodrigo Borges de; Faveri, Claudia Borges de; Steil, Juliana] 1º ed. São Paulo: Perspectiva, 2017.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pym</surname>
+              <given-names>Anthony</given-names>
+            </name>
+          </person-group>
+          <source>Explorando as teorias</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>FAVERI</surname>
+              <given-names>Rodrigo Borges de</given-names>
+            </name>
+            <name>
+              <surname>Faveri</surname>
+              <given-names>Claudia Borges de</given-names>
+            </name>
+            <name>
+              <surname>Steil</surname>
+              <given-names>Juliana</given-names>
+            </name>
+          </person-group>
+          <edition>1º ed</edition>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Perspectiva</publisher-name>
+          <year>2017</year>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>Robinson, Douglas. <italic>Construindo o tradutor</italic>. [Tradução: Simões, Jussara]. Bauru. SP. EDUSC. 2002.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Robinson</surname>
+              <given-names>Douglas</given-names>
+            </name>
+          </person-group>
+          <source>Construindo o tradutor</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Simões</surname>
+              <given-names>Jussara</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Bauru. SP</publisher-loc>
+          <publisher-name>EDUSC</publisher-name>
+          <year>2002</year>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation>Silveira, Carolina Hessel. <italic>Humor na cultura surda: piadas em Língua de Sinas</italic>. X ANPED SUL, Florianópolis, outubro de 2014. 27/04/2019. Available at <ext-link ext-link-type="uri" xlink:href="http://xanpedsul.faed.udesc.br/arq_pdf/1342-0.pdf">http://xanpedsul.faed.udesc.br/arq_pdf/1342-0.pdf</ext-link>.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Silveira</surname>
+              <given-names>Carolina Hessel</given-names>
+            </name>
+          </person-group>
+          <source>Humor na cultura surda: piadas em Língua de Sinas</source>
+          <publisher-name>X ANPED SUL</publisher-name>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <month>10</month>
+          <year>2014</year>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>Available at <ext-link ext-link-type="uri" xlink:href="http://xanpedsul.faed.udesc.br/arq_pdf/1342-0.pdf">http://xanpedsul.faed.udesc.br/arq_pdf/1342-0.pdf</ext-link></comment>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation>Strobel, Karin. <italic>As imagens do outro sobre a cultura surda</italic>. 4. Ed. 1. reimp. – Florianópolis: Ed. Da UFSC, 2018.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Strobel</surname>
+              <given-names>Karin</given-names>
+            </name>
+          </person-group>
+          <source>As imagens do outro sobre a cultura surda</source>
+          <edition>4. Ed. 1. reimp</edition>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <publisher-name>Ed. Da UFSC</publisher-name>
+          <year>2018</year>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <mixed-citation>Sutton, Valerie. Lessons in SignWriting. <italic>SignWriting Shop</italic>. 1990. Web. 20 Oct 2021. <ext-link ext-link-type="uri" xlink:href="https://www.signwriting.org/shop/Lessons_In_SignWriting_Textbook.html">https://www.signwriting.org/shop/Lessons_In_SignWriting_Textbook.html</ext-link>.</mixed-citation>
+        <element-citation publication-type="newspaper">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sutton</surname>
+              <given-names>Valerie</given-names>
+            </name>
+          </person-group>
+          <article-title>Lessons in SignWriting</article-title>
+          <source>SignWriting Shop</source>
+          <year>1990</year>
+          <comment>Web</comment>
+          <date-in-citation content-type="acess-date">20 Oct 2021</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.signwriting.org/shop/Lessons_In_SignWriting_Textbook.html">https://www.signwriting.org/shop/Lessons_In_SignWriting_Textbook.html</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation>Sutton-Spence, Rachel. <italic>Literatura em Libras</italic>. Petrópolis, RJ: Arara Azul. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sutton-Spence</surname>
+              <given-names>Rachel</given-names>
+            </name>
+          </person-group>
+          <source>Literatura em Libras</source>
+          <publisher-loc>Petrópolis, RJ</publisher-loc>
+          <publisher-name>Arara Azul</publisher-name>
+          <year>2021</year>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation>Sutton-Spence, Rachel and Machado, Fernanda de Araújo. “Considerações sobre a criação de antologias de poemas em língua de sinais.” <italic>Estudos da Língua Brasileira de Sinais IV</italic>. Edited by Stumpf, Marianne Rossi and Quadros, Ronice Müller de. Florianópolis: PGL/UFSC, 2018, p. 187 – 210.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sutton-Spence</surname>
+              <given-names>Rachel</given-names>
+            </name>
+            <name>
+              <surname>Machado</surname>
+              <given-names>Fernanda de Araújo</given-names>
+            </name>
+          </person-group>
+          <chapter-title>“Considerações sobre a criação de antologias de poemas em língua de sinais.”</chapter-title>
+          <source>Estudos da Língua Brasileira de Sinais IV</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Stumpf</surname>
+              <given-names>Marianne Rossi</given-names>
+            </name>
+            <name>
+              <surname>Quadros</surname>
+              <given-names>Ronice Müller de</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <publisher-name>PGL/UFSC</publisher-name>
+          <year>2018</year>
+          <fpage>187</fpage>
+          <lpage>210</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation>Sutton-Spence, Rachel and Quadros, Ronice Muller. “Performance poética em sinais: o que a audiência precisa para entender a poesia em sinais.” <italic>Série de Estudos de Língua de Sinais II</italic>. Edited by Stumpf, Marianne Rossi; Quadros, Ronice Müller; Leite, Tarcísio Arantes. Florianópolis: Insular, 2014, p. 207 – 227.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sutton-Spence</surname>
+              <given-names>Rachel</given-names>
+            </name>
+            <name>
+              <surname>Quadros</surname>
+              <given-names>Ronice Muller</given-names>
+            </name>
+          </person-group>
+          <chapter-title>“Performance poética em sinais: o que a audiência precisa para entender a poesia em sinais.”</chapter-title>
+          <source>Série de Estudos de Língua de Sinais II</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Stumpf</surname>
+              <given-names>Marianne Rossi</given-names>
+            </name>
+            <name>
+              <surname>Quadros</surname>
+              <given-names>Ronice Müller</given-names>
+            </name>
+            <name>
+              <surname>Leite</surname>
+              <given-names>Tarcísio Arantes</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <publisher-name>Insular</publisher-name>
+          <year>2014</year>
+          <fpage>207</fpage>
+          <lpage>227</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation>Sutton-Spence, Rachel. “Imagens da identidade e culturas surdas na poesia em língua de sinais.” <italic>Questões teóricas das pesquisas em línguas de sinais</italic>. Edited by Quadros, Ronice; Vasconcellos, Maria Lúcia. TISLR 9. Petropolis: Arara Azul, 2006, p. 329 – 339. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/Portals/1/Files/19392.pdf">https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/Portals/1/Files/19392.pdf</ext-link>.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sutton-Spence</surname>
+              <given-names>Rachel</given-names>
+            </name>
+          </person-group>
+          <chapter-title>“Imagens da identidade e culturas surdas na poesia em língua de sinais.”</chapter-title>
+          <source>Questões teóricas das pesquisas em línguas de sinais</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Quadros</surname>
+              <given-names>Ronice</given-names>
+            </name>
+            <name>
+              <surname>Vasconcellos</surname>
+              <given-names>Maria Lúcia</given-names>
+            </name>
+          </person-group>
+          <comment>TISLR 9</comment>
+          <publisher-loc>Petropolis</publisher-loc>
+          <publisher-name>Arara Azul</publisher-name>
+          <year>2006</year>
+          <fpage>329</fpage>
+          <lpage>339</lpage>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/Portals/1/Files/19392.pdf">https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/Portals/1/Files/19392.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation>Valli, Clayton. <italic>Poetics of American Sign Language Poetry</italic>. 1993. Union Institute Graduate School, PhD dissertation.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Valli</surname>
+              <given-names>Clayton</given-names>
+            </name>
+          </person-group>
+          <source>Poetics of American Sign Language Poetry</source>
+          <year>1993</year>
+          <publisher-name>Union Institute Graduate School</publisher-name>
+          <comment>PhD dissertation</comment>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <mixed-citation>Vasconcellos, Maria Lucia; Bartholamei, Junior and Lautenai, Antônio. <italic>Estudos da Tradução I</italic>. Florianópolis: UFSC, 2009. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://www.libras.ufsc.br/colecaoLetrasLibras/eixoFormacaoPedagogico/laboratorios/site/midias/laboratorio_3_tudo/textos_base/Texto_Base_Estudos_Traducao_I.pdf">https://www.libras.ufsc.br/colecaoLetrasLibras/eixoFormacaoPedagogico/laboratorios/site/midias/laboratorio_3_tudo/textos_base/Texto_Base_Estudos_Traducao_I.pdf</ext-link>.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vasconcellos</surname>
+              <given-names>Maria Lucia</given-names>
+            </name>
+            <name>
+              <surname>Bartholamei</surname>
+              <given-names>Junior</given-names>
+            </name>
+            <name>
+              <surname>Lautenai</surname>
+              <given-names>Antônio</given-names>
+            </name>
+          </person-group>
+          <source>Estudos da Tradução I</source>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <publisher-name>UFSC</publisher-name>
+          <year>2009</year>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.libras.ufsc.br/colecaoLetrasLibras/eixoFormacaoPedagogico/laboratorios/site/midias/laboratorio_3_tudo/textos_base/Texto_Base_Estudos_Traducao_I.pdf">https://www.libras.ufsc.br/colecaoLetrasLibras/eixoFormacaoPedagogico/laboratorios/site/midias/laboratorio_3_tudo/textos_base/Texto_Base_Estudos_Traducao_I.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B35">
+        <mixed-citation>Vieira, Saulo Zulmar. <italic>A produção narrativa em Libras: Uma análise dos vídeos em língua brasileira de sinais e da sua tradução intersemiótica a partir da linguagem cinematográfica</italic>. 2016. Universidade Federal de Santa Catarina, Masters dissertation. 27/04/2019. <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufsc.br/xmlui/handle/123456789/175315">https://repositorio.ufsc.br/xmlui/handle/123456789/175315</ext-link>.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vieira</surname>
+              <given-names>Saulo Zulmar</given-names>
+            </name>
+          </person-group>
+          <source>A produção narrativa em Libras: Uma análise dos vídeos em língua brasileira de sinais e da sua tradução intersemiótica a partir da linguagem cinematográfica</source>
+          <year>2016</year>
+          <publisher-name>Universidade Federal de Santa Catarina</publisher-name>
+          <comment>Masters dissertation</comment>
+          <date-in-citation content-type="access-date">27/04/2019</date-in-citation>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufsc.br/xmlui/handle/123456789/175315">https://repositorio.ufsc.br/xmlui/handle/123456789/175315</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B36">
+        <mixed-citation>Wilcox, Sherman and Wilcox, Phillis. <italic>Aprender a Ver</italic>. Trad. Tarcísio Leite. Rio de Janeiro: Arara Azul, 2005.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wilcox</surname>
+              <given-names>Sherman</given-names>
+            </name>
+            <name>
+              <surname>Wilcox</surname>
+              <given-names>Phillis</given-names>
+            </name>
+          </person-group>
+          <source>Aprender a Ver</source>
+          <person-group person-group-type="translator">
+            <name>
+              <surname>Leite</surname>
+              <given-names>Tarcísio</given-names>
+            </name>
+          </person-group>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <publisher-name>Arara Azul</publisher-name>
+          <year>2005</year>
+        </element-citation>
+      </ref>
+      <ref id="B37">
+        <mixed-citation>Zilles, Urbano. O Significado do Humor. Filosofia e Comunicação. <italic>Revista FAMECOS</italic>. Porto Alegre. Nº 22. Dezembro, 2003. Quadrimestral. Available in: <ext-link ext-link-type="uri" xlink:href="http://revistaseletronicas.pucrs.br/ojs/index.php/revistafamecos/article/view File/3239/2499">http://revistaseletronicas.pucrs.br/ojs/index.php/revistafamecos/article/view File/3239/2499</ext-link>. Accessed on 25<sup>th</sup> April 2019.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zilles</surname>
+              <given-names>Urbano</given-names>
+            </name>
+          </person-group>
+          <article-title>O Significado do Humor. Filosofia e Comunicação</article-title>
+          <source>Revista FAMECOS</source>
+          <publisher-loc>Porto Alegre</publisher-loc>
+          <issue>Nº 22</issue>
+          <month>12</month>
+          <year>2003</year>
+          <publisher-name>Quadrimestral</publisher-name>
+          <comment>Available in: <ext-link ext-link-type="uri" xlink:href="http://revistaseletronicas.pucrs.br/ojs/index.php/revistafamecos/article/view File/3239/2499">http://revistaseletronicas.pucrs.br/ojs/index.php/revistafamecos/article/view File/3239/2499</ext-link></comment>
+          <date-in-citation content-type="access-date">25th April 2019</date-in-citation>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
