@@ -3,7 +3,6 @@ from datetime import date
 from lxml import etree
 
 from packtools.sps.validation import dates
-from packtools.sps.utils.xml_utils import get_xml_tree
 
 
 class IsCompleteDateTest(TestCase):
@@ -207,13 +206,13 @@ class IsSortedHistoryDateTest(TestCase):
             'input': {
                 'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
                 'required_events': ["received", "approved"],
-                'events_date': [
-                    {'received': date(1998, 1, 5)},
-                    {'rev-request': date(1998, 3, 14)},
-                    {'rev-recd': date(1998, 5, 24)},
-                    {'accepted': date(1998, 6, 6)},
-                    {'approved': date(2012, 6, 1)}
-                ]
+                'events_date': {
+                    'received': {'type': 'received', 'year': '1998', 'month': '01', 'day': '05'},
+                    'rev-request': {'type': 'rev-request', 'year': '1998', 'month': '03', 'day': '14'},
+                    'rev-recd': {'type': 'rev-recd', 'year': '1998', 'month': '05', 'day': '24'},
+                    'accepted': {'type': 'accepted', 'year': '1998', 'month': '06', 'day': '06'},
+                    'approved': {'type': 'approved', 'year': '2012', 'month': '06', 'day': '01'}
+                }
             },
             'message': [],
             'result': 'ok',
@@ -273,13 +272,13 @@ class IsSortedHistoryDateTest(TestCase):
             'input': {
                 'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
                 'required_events': ["received", "approved"],
-                'events_date': [
-                    {'received': date(1999, 1, 5)},
-                    {'rev-request': date(1998, 3, 14)},
-                    {'rev-recd': date(1998, 5, 24)},
-                    {'accepted': date(1998, 6, 6)},
-                    {'approved': date(2012, 6, 1)}
-                ]
+                'events_date': {
+                    'received': {'type': 'received', 'year': '1999', 'month': '01', 'day': '05'},
+                    'rev-request': {'type': 'rev-request', 'year': '1998', 'month': '03', 'day': '14'},
+                    'rev-recd': {'type': 'rev-recd', 'year': '1998', 'month': '05', 'day': '24'},
+                    'accepted': {'type': 'accepted', 'year': '1998', 'month': '06', 'day': '06'},
+                    'approved': {'type': 'approved', 'year': '2012', 'month': '06', 'day': '01'}
+                }
             },
             'message': [],
             'result': 'error',
@@ -334,12 +333,12 @@ class IsSortedHistoryDateTest(TestCase):
             'input': {
                 'order_of_events': ["received", "rev-request", "rev-recd", "accepted", "approved"],
                 'required_events': ["received", "approved"],
-                'events_date': [
-                    {'rev-request': date(1998, 3, 14)},
-                    {'rev-recd': date(1998, 5, 24)},
-                    {'accepted': date(1998, 6, 6)},
-                    {'approved': date(2012, 6, 1)}
-                ]
+                'events_date': {
+                    'rev-request': {'type': 'rev-request', 'year': '1998', 'month': '03', 'day': '14'},
+                    'rev-recd': {'type': 'rev-recd', 'year': '1998', 'month': '05', 'day': '24'},
+                    'accepted': {'type': 'accepted', 'year': '1998', 'month': '06', 'day': '06'},
+                    'approved': {'type': 'approved', 'year': '2012', 'month': '06', 'day': '01'}
+                }
             },
             'message': ['the event received is required'],
             'result': 'error',
