@@ -23,8 +23,7 @@ class ISSNTest(TestCase):
 
     def test_issn_epub_match(self):
         expected = dict(
-            attrib='issn_epub',
-            input=self.xmltree,
+            object='issn epub',
             output_expected='1678-4790',
             output_obteined='1678-4790',
             match=True
@@ -34,8 +33,7 @@ class ISSNTest(TestCase):
 
     def test_issn_epub_no_match(self):
         expected = dict(
-            attrib='issn_epub',
-            input=self.xmltree,
+            object='issn epub',
             output_expected='1678-4791',
             output_obteined='1678-4790',
             match=False
@@ -45,8 +43,7 @@ class ISSNTest(TestCase):
 
     def test_issn_ppub_match(self):
         expected = dict(
-            attrib='issn_ppub',
-            input=self.xmltree,
+            object='issn ppub',
             output_expected='0103-5053',
             output_obteined='0103-5053',
             match=True
@@ -56,8 +53,7 @@ class ISSNTest(TestCase):
 
     def test_issn_ppub_no_match(self):
         expected = dict(
-            attrib='issn_ppub',
-            input=self.xmltree,
+            object='issn ppub',
             output_expected='0103-5051',
             output_obteined='0103-5053',
             match=False
@@ -85,8 +81,7 @@ class AcronymTest(TestCase):
 
     def test_acronym_match(self):
         expected = dict(
-            attrib='acronym',
-            input=self.xmltree,
+            object='journal acronym',
             output_expected='hcsm',
             output_obteined='hcsm',
             match=True
@@ -96,8 +91,7 @@ class AcronymTest(TestCase):
 
     def test_acronym_no_match(self):
         expected = dict(
-            attrib='acronym',
-            input=self.xmltree,
+            object='journal acronym',
             output_expected='hcs',
             output_obteined='hcsm',
             match=False
@@ -129,8 +123,7 @@ class TitleTest(TestCase):
 
     def test_journal_title_match(self):
         expected = dict(
-            attrib='journal_title',
-            input=self.xmltree,
+            object='journal title',
             output_expected='História, Ciências, Saúde-Manguinhos',
             output_obteined='História, Ciências, Saúde-Manguinhos',
             match=True
@@ -140,8 +133,7 @@ class TitleTest(TestCase):
 
     def test_journal_title_no_match(self):
         expected = dict(
-            attrib='journal_title',
-            input=self.xmltree,
+            object='journal title',
             output_expected='História, Ciências, Saúde-Manguinho',
             output_obteined='História, Ciências, Saúde-Manguinhos',
             match=False
@@ -151,8 +143,7 @@ class TitleTest(TestCase):
 
     def test_abbreviated_journal_title_match(self):
         expected = dict(
-            attrib='abbreviated_journal_title',
-            input=self.xmltree,
+            object='abbreviated journal title',
             output_expected='Hist. cienc. saude-Manguinhos',
             output_obteined='Hist. cienc. saude-Manguinhos',
             match=True
@@ -162,8 +153,7 @@ class TitleTest(TestCase):
 
     def test_abbreviated_journal_title_no_match(self):
         expected = dict(
-            attrib='abbreviated_journal_title',
-            input=self.xmltree,
+            object='abbreviated journal title',
             output_expected='Hist. cienc. saude-Manguinho',
             output_obteined='Hist. cienc. saude-Manguinhos',
             match=False
@@ -212,8 +202,7 @@ class PublisherTest(TestCase):
 
     def test_one_publisher_match(self):
         expected = dict(
-            attrib='publishers_names',
-            input=self.xmltree_one_publisher,
+            object='publishers names',
             output_expected=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
             output_obteined=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
             match=True
@@ -223,8 +212,7 @@ class PublisherTest(TestCase):
 
     def test_one_publisher_no_match(self):
         expected = dict(
-            attrib='publishers_names',
-            input=self.xmltree_one_publisher,
+            object='publishers names',
             output_expected=['Casa de Oswaldo Cruz - Fundação Oswaldo Cruz'],
             output_obteined=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
             match=False
@@ -234,8 +222,7 @@ class PublisherTest(TestCase):
 
     def test_more_than_one_publisher_match(self):
         expected = dict(
-            attrib='publishers_names',
-            input=self.xmltree_more_than_one_publisher,
+            object='publishers names',
             output_expected=[
                 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP), Faculdade de Ciências, campus de Bauru.'
@@ -254,8 +241,7 @@ class PublisherTest(TestCase):
 
     def test_more_than_one_publisher_no_match(self):
         expected = dict(
-            attrib='publishers_names',
-            input=self.xmltree_more_than_one_publisher,
+            object='publishers names',
             output_expected=[
                 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP).'
@@ -301,43 +287,37 @@ class JournalMetaValidationTest(TestCase):
     def test_journal_meta_match(self):
         expected = [
             dict(
-                attrib='issn_epub',
-                input=self.xmltree,
+                object='issn epub',
                 output_expected='1678-4790',
                 output_obteined='1678-4790',
                 match=True
             ),
             dict(
-                attrib='issn_ppub',
-                input=self.xmltree,
+                object='issn ppub',
                 output_expected='0103-5053',
                 output_obteined='0103-5053',
                 match=True
             ),
             dict(
-                attrib='acronym',
-                input=self.xmltree,
+                object='journal acronym',
                 output_expected='hcsm',
                 output_obteined='hcsm',
                 match=True
             ),
             dict(
-                attrib='journal_title',
-                input=self.xmltree,
+                object='journal title',
                 output_expected='História, Ciências, Saúde-Manguinhos',
                 output_obteined='História, Ciências, Saúde-Manguinhos',
                 match=True
             ),
             dict(
-                attrib='abbreviated_journal_title',
-                input=self.xmltree,
+                object='abbreviated journal title',
                 output_expected='Hist. cienc. saude-Manguinhos',
                 output_obteined='Hist. cienc. saude-Manguinhos',
                 match=True
             ),
             dict(
-                attrib='publishers_names',
-                input=self.xmltree,
+                object='publishers names',
                 output_expected=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
                 output_obteined=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
                 match=True
