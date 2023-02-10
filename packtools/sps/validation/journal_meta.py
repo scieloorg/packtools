@@ -8,8 +8,7 @@ class ISSNValidation:
 
     def validate_epub(self, expected_value):
         resp_epub = dict(
-            attrib='issn_epub',
-            input=self.xmltree,
+            object='issn epub',
             output_expected=expected_value,
             output_obteined=self.journal_issns.epub,
             match=True if expected_value == self.journal_issns.epub else False
@@ -18,8 +17,7 @@ class ISSNValidation:
 
     def validate_ppub(self, expected_value):
         resp_ppub = dict(
-            attrib='issn_ppub',
-            input=self.xmltree,
+            object='issn ppub',
             output_expected=expected_value,
             output_obteined=self.journal_issns.ppub,
             match=True if expected_value == self.journal_issns.ppub else False
@@ -34,8 +32,7 @@ class AcronymValidation:
 
     def validate_text(self, expected_value):
         resp_text = dict(
-            attrib='acronym',
-            input=self.xmltree,
+            object='journal acronym',
             output_expected=expected_value,
             output_obteined=self.journal_acronym.text,
             match=True if expected_value == self.journal_acronym.text else False
@@ -50,8 +47,7 @@ class TitleValidation:
 
     def validate_journal_title(self, expected_value):
         resp_journal_title = dict(
-            attrib='journal_title',
-            input=self.xmltree,
+            object='journal title',
             output_expected=expected_value,
             output_obteined=self.journal_titles.journal_title,
             match=True if expected_value == self.journal_titles.journal_title else False
@@ -60,8 +56,7 @@ class TitleValidation:
 
     def validate_abbreviated_journal_title(self, expected_value):
         resp_abbreviated_journal_title = dict(
-            attrib='abbreviated_journal_title',
-            input=self.xmltree,
+            object='abbreviated journal title',
             output_expected=expected_value,
             output_obteined=self.journal_titles.abbreviated_journal_title,
             match=True if expected_value == self.journal_titles.abbreviated_journal_title else False
@@ -76,8 +71,7 @@ class PublisherValidation:
 
     def validate_publishers_names(self, expected_values):
         resp_publishers_names = dict(
-            attrib='publishers_names',
-            input=self.xmltree,
+            object='publishers names',
             output_expected=expected_values,
             output_obteined=self.publisher.publishers_names,
             match=True if expected_values == self.publisher.publishers_names else False
