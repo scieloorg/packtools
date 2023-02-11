@@ -129,29 +129,35 @@
         <xsl:value-of select="@xlink:href"/>
     </xsl:template>
 
-    <!-- ORIGINAL FILE LOCATION -->
-    <xsl:template match="*" mode="original-file-location">
+    <xsl:template match="table-wrap-group | fig-group" mode="original-file-location">
         <!-- 
             CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR)
         -->
-        <xsl:apply-templates select="*" mode="original-file-location"/>
+        <xsl:apply-templates select="table-wrap | fig" mode="original-file-location"/>
+    </xsl:template>
+
+    <xsl:template match="table-wrap | fig | disp-formula" mode="original-file-location">
+        <!-- 
+            CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR)
+        -->
+        <xsl:apply-templates select="alternatives | graphic" mode="original-file-location"/>
     </xsl:template>
 
     <xsl:template match="alternatives" mode="original-file-location">
         <!-- 
             CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR)
         -->
-        <xsl:apply-templates select="*[@xlink:href!='' and not(@specific-use) and not(@content-type)][1]" mode="original-file-location"/>
+        <xsl:choose>
+            <xsl:when test="*[not(@content-type) and not(@specific-use) and @xlink:href!='']">
+                <xsl:apply-templates select="*[not(@content-type) and not(@specific-use) and @xlink:href!='']" mode="original-file-location"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[@xlink:href!=''][1]" mode="original-file-location"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="graphic | inline-graphic" mode="original-file-location">
-        <!-- 
-            CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR | TIFF)
-        -->
-        <xsl:apply-templates select="@xlink:href" mode="fix_extension"/>
-    </xsl:template>
-
-    <xsl:template match="alternatives/graphic | alternatives/inline-graphic" mode="original-file-location">
         <!-- 
             CAMINHO DO ARQUIVO DA IMAGEM ORIGINAL (TAMANHO MAIOR | TIFF)
         -->
