@@ -23,7 +23,7 @@
                         <xsl:apply-templates select="." mode="title"/>
                     </h3>
                     <div class="row">
-                        <div class="col">
+                        <div class="col ref-list">
                             <ul class="refList articleFootnotes">
                                 <xsl:apply-templates select="." mode="ref-items"/>
                             </ul>
