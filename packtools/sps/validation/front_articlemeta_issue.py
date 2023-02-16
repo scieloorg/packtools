@@ -35,7 +35,7 @@ class IssueValidation:
             object='volume',
             output_expected=expected_value,
             output_obteined=self.article_issue.volume,
-            match=True if expected_value == self.article_issue.volume else False
+            match=(expected_value == self.article_issue.volume)
         )
         return resp_vol
 
@@ -68,7 +68,7 @@ class IssueValidation:
             object='issue',
             output_expected=expected_value,
             output_obteined=self.article_issue.issue,
-            match=True if expected_value == self.article_issue.issue else False
+            match=(expected_value == self.article_issue.issue)
         )
         return resp_issue
 
@@ -101,6 +101,6 @@ class IssueValidation:
             object='supplement',
             output_expected=expected_value,
             output_obteined=self.article_issue.suppl,
-            match=True if expected_value == self.article_issue.suppl else False
+            match=(expected_value == self.article_issue.suppl)
         )
         return resp_suppl

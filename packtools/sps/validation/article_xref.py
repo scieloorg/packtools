@@ -10,7 +10,7 @@ class ArticleXrefValidation:
         resp = dict(
             output_expected=expected_value,
             output_obteined=self.article_xref.all_ids,
-            match=True if expected_value == self.article_xref.all_ids else False
+            match=(expected_value == self.article_xref.all_ids)
         )
         return resp
 
@@ -18,7 +18,7 @@ class ArticleXrefValidation:
         resp = dict(
             output_expected=expected_value,
             output_obteined=self.article_xref.all_xref_rids,
-            match=True if expected_value == self.article_xref.all_xref_rids else False
+            match=(expected_value == self.article_xref.all_xref_rids)
         )
         return resp
 
@@ -27,6 +27,6 @@ class ArticleXrefValidation:
         resp = dict(
             output_expected=expected_value,
             output_obteined=union,
-            match=True if expected_value == union else False
+            match=(expected_value == union)
         )
         return resp

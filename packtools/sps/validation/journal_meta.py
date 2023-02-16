@@ -11,7 +11,8 @@ class ISSNValidation:
             object='issn epub',
             output_expected=expected_value,
             output_obteined=self.journal_issns.epub,
-            match=True if expected_value == self.journal_issns.epub else False
+            match=(expected_value == self.journal_issns.epub)
+
         )
         return resp_epub
 
@@ -20,7 +21,7 @@ class ISSNValidation:
             object='issn ppub',
             output_expected=expected_value,
             output_obteined=self.journal_issns.ppub,
-            match=True if expected_value == self.journal_issns.ppub else False
+            match=(expected_value == self.journal_issns.ppub)
         )
         return resp_ppub
 
@@ -35,7 +36,7 @@ class AcronymValidation:
             object='journal acronym',
             output_expected=expected_value,
             output_obteined=self.journal_acronym.text,
-            match=True if expected_value == self.journal_acronym.text else False
+            match=(expected_value == self.journal_acronym.text)
         )
         return resp_text
 
@@ -50,7 +51,7 @@ class TitleValidation:
             object='journal title',
             output_expected=expected_value,
             output_obteined=self.journal_titles.journal_title,
-            match=True if expected_value == self.journal_titles.journal_title else False
+            match=(expected_value == self.journal_titles.journal_title)
         )
         return resp_journal_title
 
@@ -59,7 +60,7 @@ class TitleValidation:
             object='abbreviated journal title',
             output_expected=expected_value,
             output_obteined=self.journal_titles.abbreviated_journal_title,
-            match=True if expected_value == self.journal_titles.abbreviated_journal_title else False
+            match=(expected_value == self.journal_titles.abbreviated_journal_title)
         )
         return resp_abbreviated_journal_title
 
@@ -74,7 +75,7 @@ class PublisherValidation:
             object='publishers names',
             output_expected=expected_values,
             output_obteined=self.publisher.publishers_names,
-            match=True if expected_values == self.publisher.publishers_names else False
+            match=(expected_values == self.publisher.publishers_names)
         )
         return resp_publishers_names
 
