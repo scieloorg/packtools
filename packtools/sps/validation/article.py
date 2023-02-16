@@ -1,7 +1,7 @@
 from lxml import etree
 from packtools.sps import exceptions
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
-from packtools.sps.models.front_journal_meta import ISSN
+from packtools.sps.models.journal_meta import ISSN
 
 
 def are_similar_articles(xml1, xml2):

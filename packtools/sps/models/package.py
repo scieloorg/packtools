@@ -7,7 +7,7 @@ from packtools.sps.validation import erratum
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
-from packtools.sps.models.front_journal_meta import ISSN, Acronym
+from packtools.sps.models.journal_meta import ISSN, Acronym
 
 
 class PackageErratumHasUnexpectedQuantityOfXMLFilesError(Exception):

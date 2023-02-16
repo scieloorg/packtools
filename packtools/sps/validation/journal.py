@@ -1,6 +1,6 @@
 from lxml import etree
 from packtools.sps import exceptions
-from packtools.sps.models.front_journal_meta import Acronym, ISSN, Title
+from packtools.sps.models.journal_meta import Acronym, ISSN, Title
 
 
 def are_article_and_journal_data_compatible(xml_article, journal_print_issn, journal_electronic_issn, journal_titles):
