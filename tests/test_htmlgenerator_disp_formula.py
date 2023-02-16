@@ -120,6 +120,16 @@ class HTMLGenerator_LabelAndCaption_Tests(unittest.TestCase):
         self.html = _get_xml(xml)
 
     def test_label_presentation(self):
+        """
+        <div class="row formula" id="ee01">
+            <a name="e01"></a>
+            <div class="col-md-12">
+            <div class="formula-container">
+                <math id="m1"><mrow><mi>D</mi><mo>=</mo><mfrac><mi>γ</mi><mrow><msqrt><mrow><msup><mi>β</mi><mn>2</mn></msup><mo>+</mo><mo> </mo><msubsup><mi>β</mi><mrow><mi>s</mi><mi>t</mi><mi>d</mi></mrow><mn>2</mn></msubsup><mo> </mo><mo> </mo><mi>c</mi><mi>o</mi><mi>s</mi><mi>θ</mi></mrow></msqrt></mrow></mfrac></mrow></math>
+                <span class="label">(1)</span>
+            </div>
+        </div>
+        """
         nodes = self.html.xpath(
             '//p'
             '/div[@class="row formula" and @id="ee01"]'
@@ -137,13 +147,30 @@ class HTMLGenerator_LabelAndCaption_Tests(unittest.TestCase):
 
     @unittest.skip("skipping")  
     def test_thumbnail_label_in_tabpanel(self):
+        """
+        <div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane " id="schemes">
+                    <div class="row fig">
+                        <div class="col-md-4">
+                            <a data-toggle="modal" data-target="#ModalSchemee1">
+                                <div class="thumbOff">
+                                        Thumbnail
+                                    <div class="zoom">
+                                        <span class="sci-ico-zoom"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-8"><strong>(1)</strong></div>
+        """
         nodes = self.html.xpath(
             '//div[@class="modal fade ModalDefault" and @id="ModalTablesFigures"]'
             '//div[@class="tab-content"]'
             '/div[@role="tabpanel" and @id="schemes"]'
             '//div[@class="row fig"]'
             '/div[@class="col-md-8"]'
-            '/span[@class="label"]'
+            '/strong'
         )
         self.assertEqual(nodes[0].text, '(1)')
 

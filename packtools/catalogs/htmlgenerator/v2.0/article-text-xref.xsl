@@ -133,6 +133,10 @@
         </span>
     </xsl:template>
     
+    <xsl:template match="text()" mode="xref">
+        <xsl:value-of select="."/>
+    </xsl:template>
+
     <xsl:template match="*" mode="xref">
         <xsl:apply-templates select="*|text()" mode="xref"/>
     </xsl:template>
@@ -144,7 +148,7 @@
     <xsl:template match="fn/label" mode="xref">
         <strong class="fn-title"><xsl:apply-templates select="*|text()" mode="xref"/></strong>
     </xsl:template>
-        
+
     <xsl:template match="ref" mode="xref">
         <xsl:variable name="url"><xsl:apply-templates select="." mode="url"></xsl:apply-templates></xsl:variable>
         <xsl:if test="label">
@@ -159,16 +163,7 @@
         </xsl:if>
         
     </xsl:template>
-    
-    <xsl:template match="mixed-citation" mode="xref">
         
-        <xsl:apply-templates select="*|text()" mode="xref"/>
-    </xsl:template>
-    
-    <xsl:template match="mixed-citation//*" mode="xref">
-        <xsl:apply-templates select="*|text()" mode="xref"/>
-    </xsl:template>
-    
     <xsl:template match="fn//ext-link" mode="xref">
         <xsl:apply-templates select="."></xsl:apply-templates>
     </xsl:template>

@@ -1,5 +1,4 @@
 """Single source to the version across setup.py and the whole project.
 """
 from __future__ import unicode_literals
-__version__ = '3.0.1'
-
+__version__ = '3.1.0'

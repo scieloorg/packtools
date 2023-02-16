@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     <xsl:variable name="related_preprint" select="//related-article[@related-article-type='preprint']"/>
+
     <xsl:template match="article-meta | sub-article | response" mode="generic-history">
        <xsl:if test=".//history">
         <div class="articleSection">

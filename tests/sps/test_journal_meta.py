@@ -20,7 +20,7 @@ from unittest import TestCase
 
 from lxml import etree
 
-from packtools.sps.models import front_journal_meta
+from packtools.sps.models import journal_meta
 
 
 def _get_xmltree(issns=None, publisher=None):
@@ -58,15 +58,15 @@ class IssnTest(TestCase):
             {"type": "epub", "value": "1678-6971"},
             {"type": "ppub", "value": "0213-6971"},
         ]
-        issns = front_journal_meta.ISSN(_get_xmltree())
+        issns = journal_meta.ISSN(_get_xmltree())
         self.assertEqual(expected, issns.data)
 
     def test_epub(self):
-        issns = front_journal_meta.ISSN(_get_xmltree())
+        issns = journal_meta.ISSN(_get_xmltree())
         self.assertEqual("1678-6971", issns.epub)
 
     def test_ppub(self):
-        issns = front_journal_meta.ISSN(_get_xmltree())
+        issns = journal_meta.ISSN(_get_xmltree())
         self.assertEqual("0213-6971", issns.ppub)
 
 
@@ -81,7 +81,7 @@ class PublisherTest(TestCase):
     xmltree = _get_xmltree(publisher)
     
     expected = ['Editora Mackenzie; Universidade Presbiteriana Mackenzie']
-    publishers_names = front_journal_meta.Publisher(xmltree).publishers_names
+    publishers_names = journal_meta.Publisher(xmltree).publishers_names
     self.assertEqual(expected, publishers_names)
 
   def test_multivalued_publisher(self):
@@ -97,6 +97,6 @@ class PublisherTest(TestCase):
       'SciELO Editor Group', 
       'Editora Mackenzie; Universidade Presbiteriana Mackenzie'
     ]
-    publishers_names = front_journal_meta.Publisher(xmltree).publishers_names
+    publishers_names = journal_meta.Publisher(xmltree).publishers_names
     self.assertListEqual(expected, publishers_names)
   
