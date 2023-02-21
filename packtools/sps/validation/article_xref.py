@@ -22,6 +22,13 @@ class ArticleXrefValidation:
         )
         return resp
 
+    @property
+    def reference_without_origin(self):
+        return self.article_xref.all_ids - self.article_xref.all_xref_rids
+
+    @property
+    def reference_without_destiny(self):
+        return self.article_xref.all_xref_rids - self.article_xref.all_ids
 
     def validate_parity_between_citing_and_cited_elements(self, expected_value):
         union = self.reference_without_destiny.union(self.reference_without_origin)
