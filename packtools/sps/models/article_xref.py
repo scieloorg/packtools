@@ -16,11 +16,3 @@ class ArticleXref:
         for node in self._xmltree.xpath('.//xref[@rid]'):
             rids.add(node.get('rid'))
         return rids
-
-    @property
-    def reference_without_origin(self):
-        return self.all_ids - self.all_xref_rids
-
-    @property
-    def reference_without_destiny(self):
-        return self.all_xref_rids - self.all_ids
