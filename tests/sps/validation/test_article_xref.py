@@ -4,7 +4,7 @@ from lxml import etree
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 
 
-class ArticleXrefTest(TestCase):
+class ArticleXrefValidationTest(TestCase):
     def setUp(self):
         self.xmltree = etree.fromstring(
             """
@@ -32,8 +32,8 @@ class ArticleXrefTest(TestCase):
 
     def test_validate_citing_elements_matches(self):
         expected = dict(
-            output_expected={'aff1', 'fig1', 'table1'},
-            output_obteined={'aff1', 'fig1', 'table1'},
+            expected_value={'aff1', 'fig1', 'table1'},
+            obteined_value={'aff1', 'fig1', 'table1'},
             match=True
         )
         obtained = self.article_xref.validate_citing_elements({'aff1', 'fig1', 'table1'})
@@ -41,8 +41,8 @@ class ArticleXrefTest(TestCase):
 
     def test_validate_citing_elements_no_matches(self):
         expected = dict(
-            output_expected={'aff1', 'fig1'},
-            output_obteined={'aff1', 'fig1', 'table1'},
+            expected_value={'aff1', 'fig1'},
+            obteined_value={'aff1', 'fig1', 'table1'},
             match=False
         )
         obtained = self.article_xref.validate_citing_elements({'aff1', 'fig1'})
@@ -50,8 +50,8 @@ class ArticleXrefTest(TestCase):
 
     def test_validate_cited_elements_matches(self):
         expected = dict(
-            output_expected={'aff1', 'fig1', 'table1'},
-            output_obteined={'aff1', 'fig1', 'table1'},
+            expected_value={'aff1', 'fig1', 'table1'},
+            obteined_value={'aff1', 'fig1', 'table1'},
             match=True
         )
         obtained = self.article_xref.validate_cited_elements({'aff1', 'fig1', 'table1'})
@@ -59,8 +59,8 @@ class ArticleXrefTest(TestCase):
 
     def test_validate_cited_elements_no_matches(self):
         expected = dict(
-            output_expected={'aff1', 'fig1'},
-            output_obteined={'aff1', 'fig1', 'table1'},
+            expected_value={'aff1', 'fig1'},
+            obteined_value={'aff1', 'fig1', 'table1'},
             match=False
         )
         obtained = self.article_xref.validate_cited_elements({'aff1', 'fig1'})
@@ -68,11 +68,9 @@ class ArticleXrefTest(TestCase):
 
     def test_validate_parity_between_citing_and_cited_elements(self):
         expected = dict(
-            output_expected=set(),
-            output_obteined=set(),
+            expected_value=set(),
+            obteined_value=set(),
             match=True
         )
         obtained = self.article_xref.validate_parity_between_citing_and_cited_elements(set())
         self.assertDictEqual(expected, obtained)
-
-
