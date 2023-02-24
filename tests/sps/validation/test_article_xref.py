@@ -103,19 +103,33 @@ class ArticleXrefValidationTest(TestCase):
         self.assertDictEqual(expected, obtained)
 
     def test_validate_cited_elements_no_matches(self):
-        expected = dict(
-            expected_value={'aff1', 'fig1'},
-            obteined_value={'aff1', 'fig1', 'table1'},
-            match=False
-        )
-        obtained = self.article_xref.validate_cited_elements({'aff1', 'fig1'})
-        self.assertDictEqual(expected, obtained)
+        self.xmltree = etree.fromstring(
+            """
+            <article>
+                <article-meta>
+                    <p>citing element<xref ref-type="aff" rid="aff1">1</xref></p>     
+                    <aff id="aff1">
+                        <p>cited affiliation</p>
+                    </aff>
 
-    def test_validate_parity_between_citing_and_cited_elements(self):
-        expected = dict(
-            expected_value=set(),
-            obteined_value=set(),
-            match=True
+                    <p>citing element<xref ref-type="fig" rid="fig1">1</xref></p>     
+                    <fig id="fig1">
+                        <p>cited figure</p>
+                    </fig>
+    
+                    <table id="table1">
+                        <p>cited tablet</p>
+                    </table>
+                </article-meta>
+            </article>
+            """
         )
-        obtained = self.article_xref.validate_parity_between_citing_and_cited_elements(set())
+        self.article_xref = ArticleXrefValidation(self.xmltree)
+        expected = dict(
+            citing_elements={'aff1', 'fig1'},
+            cited_elements={'aff1', 'fig1', 'table1'},
+            diff={'table1'},
+            msg="ERROR: the cited elements {'table1'} do not have the respective citing elements"
+        )
+        obtained = self.article_xref.validate_cited_elements()
         self.assertDictEqual(expected, obtained)
