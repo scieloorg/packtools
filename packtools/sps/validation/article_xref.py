@@ -39,11 +39,36 @@ class ArticleXrefValidation:
         )
         return resp
 
-    def validate_cited_elements(self, expected_value):
+    def validate_cited_elements(self):
+        """
+                Checks if all cited elements (destination) have the respective citing elements (source)
+
+                Returns
+                -------
+                dict
+                    A dictionary that registers the citing elements, cited elements, the difference between them and a message.
+
+                Examples
+                --------
+                >>> validate_cited_elements()
+
+                {
+                    'citing_elements': {'aff1', 'fig1'},
+                    'cited_elements': {'aff1', 'fig1', 'table1'},
+                    'diff': {'table1'},
+                    'msg': 'ERROR: the cited elements {'table1'} do not have the respective citing elements'
+                }
+                """
+        diff = self.reference_without_origin
+        if diff == set():
+            msg = "OK: all cited elements have the respective citing elements"
+        else:
+            msg = f"ERROR: the cited elements {diff} do not have the respective citing elements"
         resp = dict(
-            expected_value=expected_value,
-            obteined_value=self.article_xref.all_xref_rids,
-            match=(expected_value == self.article_xref.all_xref_rids)
+            citing_elements=self.article_xref.all_xref_rids,
+            cited_elements=self.article_xref.all_ids,
+            diff=diff,
+            msg=msg
         )
         return resp
 
