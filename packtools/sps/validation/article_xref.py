@@ -6,11 +6,36 @@ class ArticleXrefValidation:
         self.xmltree = xmltree
         self.article_xref = ArticleXref(xmltree)
 
-    def validate_citing_elements(self, expected_value):
+    def validate_citing_elements(self):
+        """
+        Checks if all citing elements (source) have the respective cited elements (destination)
+
+        Returns
+        -------
+        dict
+            A dictionary that registers the citing elements, cited elements, the difference between them and a message.
+
+        Examples
+        --------
+        >>> validate_citing_elements()
+
+        {
+            'citing_elements': {'aff1', 'fig1', 'table1'},
+            'cited_elements': {'aff1', 'fig1'},
+            'diff': {'table1'},
+            'msg': 'ERROR: the citing elements {'table1'} do not have the respective cited elements'
+        }
+        """
+        diff = self.reference_without_destiny
+        if diff == set():
+            msg = "OK: all citing elements have the respective cited elements"
+        else:
+            msg = f"ERROR: the citing elements {diff} do not have the respective cited elements"
         resp = dict(
-            expected_value=expected_value,
-            obteined_value=self.article_xref.all_ids,
-            match=(expected_value == self.article_xref.all_ids)
+            citing_elements=self.article_xref.all_xref_rids,
+            cited_elements=self.article_xref.all_ids,
+            diff=diff,
+            msg=msg
         )
         return resp
 
