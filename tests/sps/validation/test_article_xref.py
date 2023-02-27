@@ -6,7 +6,7 @@ from packtools.sps.validation.article_xref import ArticleXrefValidation
 
 class ArticleXrefValidationTest(TestCase):
 
-    def test_validate_citing_elements_matches(self):
+    def test_validate_rid_elements_matches(self):
         self.xmltree = etree.fromstring(
             """
             <article>
@@ -31,15 +31,15 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
         expected = dict(
-            citing_elements={'aff1', 'fig1', 'table1'},
-            cited_elements={'aff1', 'fig1', 'table1'},
+            rid_elements={'aff1', 'fig1', 'table1'},
+            id_elements={'aff1', 'fig1', 'table1'},
             diff=set(),
-            msg="OK: all citing elements have the respective cited elements"
+            msg="OK: all rid elements have the respective id elements"
         )
-        obtained = self.article_xref.validate_citing_elements()
+        obtained = self.article_xref.validate_rid_elements()
         self.assertDictEqual(expected, obtained)
 
-    def test_validate_citing_elements_no_matches(self):
+    def test_validate_rid_elements_no_matches(self):
         self.xmltree = etree.fromstring(
             """
             <article>
@@ -61,15 +61,15 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
         expected = dict(
-            citing_elements={'aff1', 'fig1', 'table1'},
-            cited_elements={'aff1', 'fig1'},
+            rid_elements={'aff1', 'fig1', 'table1'},
+            id_elements={'aff1', 'fig1'},
             diff={'table1'},
-            msg="ERROR: the citing elements {'table1'} do not have the respective cited elements"
+            msg="ERROR: the rid elements {'table1'} do not have the respective id elements"
         )
-        obtained = self.article_xref.validate_citing_elements()
+        obtained = self.article_xref.validate_rid_elements()
         self.assertDictEqual(expected, obtained)
 
-    def test_validate_cited_elements_matches(self):
+    def test_validate_id_elements_matches(self):
         self.xmltree = etree.fromstring(
             """
             <article>
@@ -94,15 +94,15 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
         expected = dict(
-            citing_elements={'aff1', 'fig1', 'table1'},
-            cited_elements={'aff1', 'fig1', 'table1'},
+            rid_elements={'aff1', 'fig1', 'table1'},
+            id_elements={'aff1', 'fig1', 'table1'},
             diff=set(),
-            msg="OK: all cited elements have the respective citing elements"
+            msg="OK: all id elements have the respective rid elements"
         )
-        obtained = self.article_xref.validate_cited_elements()
+        obtained = self.article_xref.validate_id_elements()
         self.assertDictEqual(expected, obtained)
 
-    def test_validate_cited_elements_no_matches(self):
+    def test_validate_id_elements_no_matches(self):
         self.xmltree = etree.fromstring(
             """
             <article>
@@ -126,10 +126,10 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
         expected = dict(
-            citing_elements={'aff1', 'fig1'},
-            cited_elements={'aff1', 'fig1', 'table1'},
+            rid_elements={'aff1', 'fig1'},
+            id_elements={'aff1', 'fig1', 'table1'},
             diff={'table1'},
-            msg="ERROR: the cited elements {'table1'} do not have the respective citing elements"
+            msg="ERROR: the id elements {'table1'} do not have the respective rid elements"
         )
-        obtained = self.article_xref.validate_cited_elements()
+        obtained = self.article_xref.validate_id_elements()
         self.assertDictEqual(expected, obtained)
