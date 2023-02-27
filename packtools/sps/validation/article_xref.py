@@ -40,27 +40,26 @@ class ArticleXrefValidation:
         )
         return resp
 
-    def validate_id_elements(self):
+    def validate_id(self):
         """
-                Checks if all id elements (destination) have the respective rid elements (source)
+        Checks if all ids (destination) have the respective rids (source)
 
-                Returns
-                -------
-                dict
-                    A dictionary that registers the rid elements, id elements, the difference between them and a message.
+        Returns
+        -------
+        dict
+            A dictionary that registers the rids, ids, the difference between them and a message.
 
-                Examples
-                --------
-                >>> validate_id_elements()
+        Examples
+        --------
+        >>> validate_id()
 
-                {
-                    'rid_elements': {'aff1', 'fig1'},
-                    'id_elements': {'aff1', 'fig1', 'table1'},
-                    'diff': {'table1'},
-                    'msg': 'ERROR: the id elements {'table1'} do not have the respective rid elements'
-                }
-                """
-        diff = self.reference_without_origin
+        {
+            'obtained_value': ['aff1', 'fig1'],
+            'expected_value': ['aff1', 'fig1', 'table1'],
+            'diff': ['table1'],
+            'message': 'ERROR: the ids ['table1'] do not have the respective rids'
+        }
+        """
         if diff == set():
             msg = "OK: all id elements have the respective rid elements"
         else:
