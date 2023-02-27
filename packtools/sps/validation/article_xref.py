@@ -20,10 +20,10 @@ class ArticleXrefValidation:
         >>> validate_rid()
 
         {
-            'rid_elements': {'aff1', 'fig1', 'table1'},
-            'id_elements': {'aff1', 'fig1'},
-            'diff': {'table1'},
-            'msg': 'ERROR: the rid elements {'table1'} do not have the respective id elements'
+            'expected_value': ['aff1', 'fig1', 'table1'],
+            'obtained_value': ['aff1', 'fig1'],
+            'result': ['table1'],
+            'message': 'ERROR: the rids ['table1'] do not have the respective ids'
         }
         """
         diff = self.reference_without_destiny
