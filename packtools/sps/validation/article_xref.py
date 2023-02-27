@@ -6,18 +6,18 @@ class ArticleXrefValidation:
         self.xmltree = xmltree
         self.article_xref = ArticleXref(xmltree)
 
-    def validate_rid_elements(self):
+    def validate_rid(self):
         """
-        Checks if all rid elements (source) have the respective id elements (destination)
+        Checks if all rids (source) have the respective ids (destination)
 
         Returns
         -------
         dict
-            A dictionary that registers the rid elements, id elements, the difference between them and a message.
+            A dictionary that registers the rids, ids, the difference between them and a message.
 
         Examples
         --------
-        >>> validate_rid_elements()
+        >>> validate_rid()
 
         {
             'rid_elements': {'aff1', 'fig1', 'table1'},
