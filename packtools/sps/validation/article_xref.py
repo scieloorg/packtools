@@ -60,15 +60,17 @@ class ArticleXrefValidation:
             'message': 'ERROR: the ids ['table1'] do not have the respective rids'
         }
         """
+        diff = self.ids_without_rids
         if diff == set():
-            msg = "OK: all id elements have the respective rid elements"
+            message = "OK: all ids have the respective rids"
         else:
-            msg = f"ERROR: the id elements {diff} do not have the respective rid elements"
+            message = f"ERROR: ids were found with the values {sorted(self.article_xref.all_ids)}" \
+                  f" but there were no rids with the corresponding values"
         resp = dict(
-            rid_elements=self.article_xref.all_xref_rids,
-            id_elements=self.article_xref.all_ids,
-            diff=diff,
-            msg=msg
+            expected_value=sorted(self.article_xref.all_ids),
+            obtained_value=sorted(self.article_xref.all_xref_rids),
+            result=sorted(diff),
+            message=message
         )
         return resp
 
