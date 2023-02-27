@@ -6,67 +6,67 @@ class ArticleXrefValidation:
         self.xmltree = xmltree
         self.article_xref = ArticleXref(xmltree)
 
-    def validate_citing_elements(self):
+    def validate_rid_elements(self):
         """
-        Checks if all citing elements (source) have the respective cited elements (destination)
+        Checks if all rid elements (source) have the respective id elements (destination)
 
         Returns
         -------
         dict
-            A dictionary that registers the citing elements, cited elements, the difference between them and a message.
+            A dictionary that registers the rid elements, id elements, the difference between them and a message.
 
         Examples
         --------
-        >>> validate_citing_elements()
+        >>> validate_rid_elements()
 
         {
-            'citing_elements': {'aff1', 'fig1', 'table1'},
-            'cited_elements': {'aff1', 'fig1'},
+            'rid_elements': {'aff1', 'fig1', 'table1'},
+            'id_elements': {'aff1', 'fig1'},
             'diff': {'table1'},
-            'msg': 'ERROR: the citing elements {'table1'} do not have the respective cited elements'
+            'msg': 'ERROR: the rid elements {'table1'} do not have the respective id elements'
         }
         """
         diff = self.reference_without_destiny
         if diff == set():
-            msg = "OK: all citing elements have the respective cited elements"
+            msg = "OK: all rid elements have the respective id elements"
         else:
-            msg = f"ERROR: the citing elements {diff} do not have the respective cited elements"
+            msg = f"ERROR: the rid elements {diff} do not have the respective id elements"
         resp = dict(
-            citing_elements=self.article_xref.all_xref_rids,
-            cited_elements=self.article_xref.all_ids,
+            rid_elements=self.article_xref.all_xref_rids,
+            id_elements=self.article_xref.all_ids,
             diff=diff,
             msg=msg
         )
         return resp
 
-    def validate_cited_elements(self):
+    def validate_id_elements(self):
         """
-                Checks if all cited elements (destination) have the respective citing elements (source)
+                Checks if all id elements (destination) have the respective rid elements (source)
 
                 Returns
                 -------
                 dict
-                    A dictionary that registers the citing elements, cited elements, the difference between them and a message.
+                    A dictionary that registers the rid elements, id elements, the difference between them and a message.
 
                 Examples
                 --------
-                >>> validate_cited_elements()
+                >>> validate_id_elements()
 
                 {
-                    'citing_elements': {'aff1', 'fig1'},
-                    'cited_elements': {'aff1', 'fig1', 'table1'},
+                    'rid_elements': {'aff1', 'fig1'},
+                    'id_elements': {'aff1', 'fig1', 'table1'},
                     'diff': {'table1'},
-                    'msg': 'ERROR: the cited elements {'table1'} do not have the respective citing elements'
+                    'msg': 'ERROR: the id elements {'table1'} do not have the respective rid elements'
                 }
                 """
         diff = self.reference_without_origin
         if diff == set():
-            msg = "OK: all cited elements have the respective citing elements"
+            msg = "OK: all id elements have the respective rid elements"
         else:
-            msg = f"ERROR: the cited elements {diff} do not have the respective citing elements"
+            msg = f"ERROR: the id elements {diff} do not have the respective rid elements"
         resp = dict(
-            citing_elements=self.article_xref.all_xref_rids,
-            cited_elements=self.article_xref.all_ids,
+            rid_elements=self.article_xref.all_xref_rids,
+            id_elements=self.article_xref.all_ids,
             diff=diff,
             msg=msg
         )
