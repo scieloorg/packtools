@@ -75,9 +75,9 @@ class ArticleXrefValidation:
         return resp
 
     @property
-    def reference_without_origin(self):
+    def ids_without_rids(self):
         return self.article_xref.all_ids - self.article_xref.all_xref_rids
 
     @property
-    def reference_without_destiny(self):
+    def rids_without_ids(self):
         return self.article_xref.all_xref_rids - self.article_xref.all_ids
