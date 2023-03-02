@@ -52,6 +52,12 @@ class ArticleTocSections:
         }
 
     @property
+    def all_section_dict(self):
+        d = self.article_section_dict
+        d.update(self.sub_article_section_dict)
+        return d
+
+    @property
     def sub_section(self):
         _sub_sections = []
         for node_with_lang in xml_utils.get_nodes_with_lang(
