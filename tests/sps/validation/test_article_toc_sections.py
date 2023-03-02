@@ -43,7 +43,8 @@ class ArticleTocSectionsTest(TestCase):
                         </subj-group>
                     </article-categories>
                     <title-group>
-                        <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
+                        <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND
+                         CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
                     </title-group>
                 </front-stub>
             </sub-article>        
@@ -106,7 +107,8 @@ class ArticleTocSectionsTest(TestCase):
                         </subj-group>
                     </article-categories>
                     <title-group>
-                        <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
+                        <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND 
+                        CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
                     </title-group>
                 </front-stub>
             </sub-article>        
@@ -156,7 +158,8 @@ class ArticleTocSectionsTest(TestCase):
                         </subj-group>
                     </article-categories>
                     <title-group>
-                        <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
+                        <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND
+                         CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
                     </title-group>
                 </front-stub>
             </sub-article>        
@@ -299,7 +302,8 @@ class ArticleTocSectionsTest(TestCase):
                     "en": "Nome da seção do sub-artigo em inglês",
                 },
                 'result': False,
-                'message': 'ERROR, there is at least one section title that corresponds to the title of the article'
+                'message': 'ERROR: Article title ("Nome da seção do sub-artigo em inglês") must not be the same'
+                           ' as the section title ("Nome da seção do sub-artigo em inglês")'
             }
         ]
         result_article_sections = self.article_toc_sections.validade_article_title_is_different_from_section_titles()
