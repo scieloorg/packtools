@@ -8,11 +8,11 @@ class ArticleTocSectionsValidation:
         self.article_toc_sections = ArticleTocSections(xmltree)
         self.article_titles = ArticleTitles(xmltree)
 
-    def validate_article_toc_sections(self, article_section_titles):
+    def validate_article_toc_sections(self, expected_toc_sections):
         resp = []
         number_of_titles_found = len(self.article_toc_sections.article_section_dict) + \
                                  len(self.article_toc_sections.sub_article_section_dict)
-        number_of_titles_expected = len(article_section_titles)
+        number_of_titles_expected = len(expected_toc_sections)
         if number_of_titles_found != number_of_titles_expected:
             resp.append(
                 dict(
@@ -24,8 +24,12 @@ class ArticleTocSectionsValidation:
                 )
             )
         else:
-            for lang, text in self.article_toc_sections.article_section_dict.items():
-                if text == article_section_titles.get(lang):
+            for lang, text in self.article_toc_sections.all_section_dict.items():
+                if text == self.article_toc_sections.article_section_dict.get(lang):
+                    obj = 'article section title'
+                else:
+                    obj = 'sub-article section title'
+                if text in expected_toc_sections.get(lang):
                     message = "OK, section titles match the document"
                     result = True
                 else:
@@ -33,24 +37,8 @@ class ArticleTocSectionsValidation:
                     result = False
                 resp.append(
                     dict(
-                        object='article section title',
-                        expected_value=article_section_titles.get(lang),
-                        obtained_value=text,
-                        result=result,
-                        message=message
-                    )
-                )
-            for lang, text in self.article_toc_sections.sub_article_section_dict.items():
-                if text == article_section_titles.get(lang):
-                    message = "OK, section titles match the document"
-                    result = True
-                else:
-                    message = "ERROR, section titles no match the document"
-                    result = False
-                resp.append(
-                    dict(
-                        object='sub-article section title',
-                        expected_value=article_section_titles.get(lang),
+                        object=obj,
+                        expected_value=expected_toc_sections.get(lang),
                         obtained_value=text,
                         result=result,
                         message=message
@@ -67,7 +55,7 @@ class ArticleTocSectionsValidation:
         result = True
         for lang, text in section_titles.items():
             if text == article_title.get(lang):
-                message = "ERROR, there is at least one section title that corresponds to the title of the article"
+                message = 'ERROR: Article title ("{}") must not be the same as the section title ("{}")'.format(article_title.get(lang), text)
                 result = False
 
         resp.append(
