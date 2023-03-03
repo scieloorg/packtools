@@ -17,6 +17,21 @@ class ArticleTitles:
         )
 
     @property
+    def article_title_list(self):
+        return (
+                [self.article_title] +
+                self.trans_titles +
+                self.sub_article_titles
+        )
+
+    @property
+    def article_title_dict(self):
+        return {
+            item['lang']: item['text']
+            for item in self.article_title_list
+        }
+
+    @property
     def article_title(self):
         for node_with_lang in xml_utils.get_nodes_with_lang(
                 self.xmltree,
