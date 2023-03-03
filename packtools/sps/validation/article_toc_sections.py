@@ -10,40 +10,26 @@ class ArticleTocSectionsValidation:
 
     def validate_article_toc_sections(self, expected_toc_sections):
         resp = []
-        number_of_titles_found = len(self.article_toc_sections.article_section_dict) + \
-                                 len(self.article_toc_sections.sub_article_section_dict)
-        number_of_titles_expected = len(expected_toc_sections)
-        if number_of_titles_found != number_of_titles_expected:
+        for lang, text in self.article_toc_sections.all_section_dict.items():
+            if text == self.article_toc_sections.article_section_dict.get(lang):
+                obj = 'article section title'
+            else:
+                obj = 'sub-article section title'
+            if text in (expected_toc_sections.get(lang) or []):
+                message = "OK, section titles match the document"
+                result = True
+            else:
+                message = "ERROR, section titles no match the document"
+                result = False
             resp.append(
                 dict(
-                    object='section title',
-                    expected_value=f"{number_of_titles_expected} section titles",
-                    obtained_value=f"{number_of_titles_found} section titles",
-                    result=False,
-                    message="ERROR, number of titles found is different from the expected number of titles"
+                    object=obj,
+                    expected_value=expected_toc_sections.get(lang),
+                    obtained_value=text,
+                    result=result,
+                    message=message
                 )
             )
-        else:
-            for lang, text in self.article_toc_sections.all_section_dict.items():
-                if text == self.article_toc_sections.article_section_dict.get(lang):
-                    obj = 'article section title'
-                else:
-                    obj = 'sub-article section title'
-                if text in expected_toc_sections.get(lang):
-                    message = "OK, section titles match the document"
-                    result = True
-                else:
-                    message = "ERROR, section titles no match the document"
-                    result = False
-                resp.append(
-                    dict(
-                        object=obj,
-                        expected_value=expected_toc_sections.get(lang),
-                        obtained_value=text,
-                        result=result,
-                        message=message
-                    )
-                )
         return resp
 
     def validade_article_title_is_different_from_section_titles(self):
@@ -61,8 +47,8 @@ class ArticleTocSectionsValidation:
         resp.append(
             dict(
                 object='section title',
-                expected_value=article_title,
-                obtained_value=section_titles,
+                article_title=article_title,
+                section_title=section_titles,
                 result=result,
                 message=message
             )
