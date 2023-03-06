@@ -5,24 +5,12 @@ from packtools.sps.utils import xml_utils
 from packtools.sps.models.kwd_group import KwdGroup 
 
 
-def get_kwd_data_with_lang(data, subtag):
-    xmltree = xml_utils.get_xml_tree(data)
-    return KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=subtag)
-
-def get_kwd_data_without_key_text(data, subtag):
-    xmltree = xml_utils.get_xml_tree(data)
-    return KwdGroup(xmltree).extract_kwd_extract_data_by_lang(subtag=subtag)
-
-
 class KwdGroupTest(TestCase):
 
     def test_extract_kwd_data_with_lang(self):
 
-        # xml sem subtags em kwd
-        with open('tests/samples/0034-7094-rba-69-03-0227.xml', 'r', encoding='utf-8') as f:
-            data = f.read()
-        
-        kwd_extract_data_with_lang_text = get_kwd_data_with_lang(data, subtag=False)
+        xmltree = xml_utils.get_xml_tree('tests/samples/0034-7094-rba-69-03-0227.xml')    
+        kwd_extract_data_with_lang_text = KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=False)
 
         expected_output = [
             {'lang': 'en', 'text': 'Primary health care'}, 
@@ -41,11 +29,8 @@ class KwdGroupTest(TestCase):
 
     def test_extract_kwd_data_by_lang_without_key_text(self):
 
-        # xml sem subtags em kwd
-        with open('tests/samples/0034-7094-rba-69-03-0227.xml', 'r', encoding='utf-8') as f:
-            data = f.read()
-
-        kwd_extract_by_lang = get_kwd_data_without_key_text(data, subtag=False)
+        xmltree = xml_utils.get_xml_tree('tests/samples/0034-7094-rba-69-03-0227.xml')
+        kwd_extract_by_lang = KwdGroup(xmltree).extract_kwd_extract_data_by_lang(subtag=False)
         
         expected_output = {
             'en': [
@@ -67,12 +52,9 @@ class KwdGroupTest(TestCase):
         self.assertEqual(kwd_extract_by_lang, expected_output)
 
     def test_extract_kwd_data_with_lang_subtag(self):
-       
-        # xml com subtags em kwd
-        with open('tests/samples/0034-8910-rsp-48-2-0296.xml', 'r', encoding='utf-8') as f:
-            data = f.read()
 
-        kwd_extract_kwd_with_lang_subtag = get_kwd_data_with_lang(data, subtag=True)
+        xmltree = xml_utils.get_xml_tree('tests/samples/0034-8910-rsp-48-2-0296.xml')
+        kwd_extract_kwd_with_lang_subtag = KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=True)
 
         expected_output = [
             {'lang': 'en', 'text': 'Chagas Disease, transmission'}, 
@@ -87,11 +69,8 @@ class KwdGroupTest(TestCase):
 
     def test_extract_kwd_data_without_lang_subtag(self):
         
-        # xml com subtags em kwd
-        with open('tests/samples/0034-8910-rsp-48-2-0296.xml', 'r', encoding='utf-8') as f:
-            data = f.read()
-
-        kwd_extract_kwd_without_subtag = get_kwd_data_with_lang(data, subtag=False)
+        xmltree = xml_utils.get_xml_tree('tests/samples/0034-8910-rsp-48-2-0296.xml')
+        kwd_extract_kwd_without_subtag = KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=False)
 
         expected_output = [
             {'lang': 'en', 'text': 'Chagas Disease, transmission'}, 
@@ -106,11 +85,8 @@ class KwdGroupTest(TestCase):
 
     def test_extract_kwd_data_by_lang_with_subtag(self):
                 
-        # xml com subtags em kwd
-        with open('tests/samples/0034-8910-rsp-48-2-0296.xml', 'r', encoding='utf-8') as f:
-            data = f.read()
-
-        kwd_extract_kwd_with_subtag = get_kwd_data_without_key_text(data, subtag=True)
+        xmltree = xml_utils.get_xml_tree('tests/samples/0034-8910-rsp-48-2-0296.xml')
+        kwd_extract_kwd_with_subtag = KwdGroup(xmltree).extract_kwd_extract_data_by_lang(subtag=True)
         
         expected_output = {
             'en': [
@@ -129,11 +105,8 @@ class KwdGroupTest(TestCase):
     
     def test_extract_kwd_data_by_lang_without_subtag(self):
                 
-        # xml com subtags em kwd
-        with open('tests/samples/0034-8910-rsp-48-2-0296.xml', 'r', encoding='utf-8') as f:
-            data = f.read()
-
-        kwd_extract_kwd_with_subtag = get_kwd_data_without_key_text(data, subtag=False)
+        xmltree = xml_utils.get_xml_tree('tests/samples/0034-8910-rsp-48-2-0296.xml')
+        kwd_extract_kwd_with_subtag = KwdGroup(xmltree).extract_kwd_extract_data_by_lang(subtag=False)
 
         expected_output = {
             'en': [
