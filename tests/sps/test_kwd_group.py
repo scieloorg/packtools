@@ -5,13 +5,13 @@ from packtools.sps.utils import xml_utils
 from packtools.sps.models.kwd_group import KwdGroup 
 
 
-def get_kwd_data_with_lang(data, subtag=False):
+def get_kwd_data_with_lang(data, subtag):
     xmltree = xml_utils.get_xml_tree(data)
-    return KwdGroup(xmltree, subtag=subtag).extract_kwd_data_with_lang_text
+    return KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=subtag)
 
-def get_kwd_data_without_key_text(data, subtag=False):
+def get_kwd_data_without_key_text(data, subtag):
     xmltree = xml_utils.get_xml_tree(data)
-    return KwdGroup(xmltree, subtag=subtag).extract_kwd_extract_data_by_lang
+    return KwdGroup(xmltree).extract_kwd_extract_data_by_lang(subtag=subtag)
 
 
 class KwdGroupTest(TestCase):
@@ -22,7 +22,7 @@ class KwdGroupTest(TestCase):
         with open('tests/samples/0034-7094-rba-69-03-0227.xml', 'r', encoding='utf-8') as f:
             data = f.read()
         
-        kwd_extract_data_with_lang_text = get_kwd_data_with_lang(data)
+        kwd_extract_data_with_lang_text = get_kwd_data_with_lang(data, subtag=False)
 
         expected_output = [
             {'lang': 'en', 'text': 'Primary health care'}, 
@@ -39,13 +39,13 @@ class KwdGroupTest(TestCase):
         
         self.assertEqual(kwd_extract_data_with_lang_text, expected_output)
 
-    def test_extract_kwd_data_without_key_text(self):
+    def test_extract_kwd_data_by_lang_without_key_text(self):
 
         # xml sem subtags em kwd
         with open('tests/samples/0034-7094-rba-69-03-0227.xml', 'r', encoding='utf-8') as f:
             data = f.read()
 
-        kwd_extract_by_lang = get_kwd_data_without_key_text(data)
+        kwd_extract_by_lang = get_kwd_data_without_key_text(data, subtag=False)
         
         expected_output = {
             'en': [
@@ -104,7 +104,7 @@ class KwdGroupTest(TestCase):
 
         self.assertEqual(kwd_extract_kwd_without_subtag, expected_output)
 
-    def test_extract_kwd_data_with_subtag(self):
+    def test_extract_kwd_data_by_lang_with_subtag(self):
                 
         # xml com subtags em kwd
         with open('tests/samples/0034-8910-rsp-48-2-0296.xml', 'r', encoding='utf-8') as f:
@@ -127,7 +127,7 @@ class KwdGroupTest(TestCase):
         
         self.assertEqual(kwd_extract_kwd_with_subtag, expected_output)
     
-    def test_extract_kwd_data_without_subtag(self):
+    def test_extract_kwd_data_by_lang_without_subtag(self):
                 
         # xml com subtags em kwd
         with open('tests/samples/0034-8910-rsp-48-2-0296.xml', 'r', encoding='utf-8') as f:
