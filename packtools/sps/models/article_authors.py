@@ -33,5 +33,14 @@ class Authors:
                 )
             except IndexError:
                 pass
+
+            if node.xpath(".//role"):
+                _author['role'] = []
+
+            for role in node.xpath(".//role"):
+                _role = role.text
+                _content_type = role.get('content-type')
+                _author['role'].append({"text": _role, "content-type": _content_type})
+            
             _data.append(_author)
         return _data
