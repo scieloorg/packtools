@@ -26,23 +26,20 @@ class ArticleLicense:
         self.xmltree = xmltree
 
     @property
-    def link(self):
-        _links = []
-        for _link in self.xmltree.xpath('//article-meta//permissions//license'):
-            d = {
-                'text': _link.attrib.get('{http://www.w3.org/1999/xlink}href'),
-                'lang': _link.attrib.get('{http://www.w3.org/XML/1998/namespace}lang')
-            }
-            _links.append(d)
-        return _links
-
-    @property
-    def license_p(self):
+    def licenses(self):
         _licenses = []
         for _license in self.xmltree.xpath('//article-meta//permissions//license'):
             d = {
-                'text': _license.find('license-p').text,
-                'lang': _license.attrib.get('{http://www.w3.org/XML/1998/namespace}lang')
+                'lang': _license.attrib.get('{http://www.w3.org/XML/1998/namespace}lang'),
+                'link': _license.attrib.get('{http://www.w3.org/1999/xlink}href'),
+                'licence_p': _license.find('license-p').text
             }
             _licenses.append(d)
         return _licenses
+
+    @property
+    def licenses_by_lang(self):
+        return {
+            item['lang']: item
+            for item in self.licenses
+        }
