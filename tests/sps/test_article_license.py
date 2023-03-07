@@ -35,38 +35,44 @@ class ArticleLicenseTest(TestCase):
         xmltree = etree.fromstring(xml)
         self.article_license = ArticleLicense(xmltree)
 
-    def test_get_link(self):
+    def test_get_licenses(self):
         expected = [
             {
-                'text': 'http://creativecommons.org/licenses/by/4.0/',
-                'lang': 'en'
+                'lang': 'en',
+                'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'licence_p': 'This is an article published in open access under a Creative Commons license.'
             },
             {
-                'text': 'http://creativecommons.org/licenses/by/4.0/',
-                'lang': 'pt'
+                'lang': 'pt',
+                'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
             },
             {
-                'text': 'http://creativecommons.org/licenses/by/4.0/',
-                'lang': 'es'
+                'lang': 'es',
+                'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
             }
         ]
 
-        self.assertEqual(expected, self.article_license.link)
+        self.assertEqual(expected, self.article_license.licenses)
 
     def test_get_license_p(self):
-        expected = [
-            {
-                'text': 'This is an article published in open access under a Creative Commons license.',
-                'lang': 'en'
-            },
-            {
-                'text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
-                'lang': 'pt'
-            },
-            {
-                'text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
-                'lang': 'es'
-            }
-        ]
+        expected = {
+            'en': {
+                'lang': 'en',
+                'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                },
+            'pt': {
+                'lang': 'pt',
+                'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                },
+            'es': {
+                'lang': 'es',
+                'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                }
+        }
 
-        self.assertEqual(expected, self.article_license.license_p)
+        self.assertEqual(expected, self.article_license.licenses_by_lang)
