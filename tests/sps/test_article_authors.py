@@ -55,7 +55,7 @@ class AuthorsTest(TestCase):
         """)
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
-
+        
     def test_contribs(self):
         expected = [
             {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
@@ -68,6 +68,9 @@ class AuthorsTest(TestCase):
         self.assertDictEqual(expected[0], result[0])
         self.assertDictEqual(expected[1], result[1])
 
+    def test_collab(self):
+    	self.assertIsNone(self.authors.collab) 
+  
     def test_role_with_role_content_type(self):
         xml = ("""
         <article>
