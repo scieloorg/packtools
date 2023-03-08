@@ -344,7 +344,7 @@ class ArticleLicenseValidationTest(TestCase):
             "result": "ok"
         }
         obtained = self.article_license.validate_license_code(
-            ('by', '4.0')
+            'by', '4.0'
         )
         self.assertEqual(expected, obtained)
 
@@ -378,12 +378,12 @@ class ArticleLicenseValidationTest(TestCase):
         )
         self.article_license = ArticleLicenseValidation(xmltree)
         expected = {
-            "obtained_value": [('by', '4.0'), ('by', '4.0'), ('by', '4.0')],
+            "obtained_value": [],
             "expected_value": ('by', '3.0'),
             "result": "error",
             "message": "the license code provided do not match the ones found"
         }
         obtained = self.article_license.validate_license_code(
-            ('by', '3.0')
+            'by', '3.0'
         )
         self.assertEqual(expected, obtained)
