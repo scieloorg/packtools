@@ -31,23 +31,19 @@ class ArticleLicenseValidation:
         return resp
 
     def validate_license_code(self, expected_code, expected_version):
-        links = self.article_license.licenses
-        codes = []
-        for code in links:
-            finding = code['link'].find(f'/{expected_code}/{expected_version}')
-            if finding != -1:
-                codes.append((expected_code, expected_version))
-        resp = {
-                    "obtained_value": codes,
-                    "expected_value": (expected_code, expected_version)
-        }
-        if (expected_code, expected_version) in codes:
-            resp.update({
-                "result": "ok"
-            })
-        else:
-            resp.update({
-                "result": "error",
-                "message": "the license code provided do not match the ones found"
-            })
+        resp = []
+        for license in self.article_license.licenses:
+            if f'/{expected_code}/{expected_version}' in license['link']:
+                resp.append({
+                    "obtained_value": (expected_code, expected_version),
+                    "expected_value": (expected_code, expected_version),
+                    "result": "ok"
+                })
+            else:
+                resp.append({
+                    "obtained_value": (),
+                    "expected_value": (expected_code, expected_version),
+                    "result": "error",
+                    "message": "the license code provided do not match the ones found"
+                })
         return resp
