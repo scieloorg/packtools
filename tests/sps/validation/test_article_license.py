@@ -338,11 +338,23 @@ class ArticleLicenseValidationTest(TestCase):
             """
         )
         self.article_license = ArticleLicenseValidation(xmltree)
-        expected = {
-            "obtained_value": [('by', '4.0'), ('by', '4.0'), ('by', '4.0')],
-            "expected_value": ('by', '4.0'),
-            "result": "ok"
-        }
+        expected = [
+            {
+                "obtained_value": ('by', '4.0'),
+                "expected_value": ('by', '4.0'),
+                "result": "ok"
+            },
+            {
+                "obtained_value": ('by', '4.0'),
+                "expected_value": ('by', '4.0'),
+                "result": "ok"
+            },
+            {
+                "obtained_value": ('by', '4.0'),
+                "expected_value": ('by', '4.0'),
+                "result": "ok"
+            },
+            ]
         obtained = self.article_license.validate_license_code(
             'by', '4.0'
         )
@@ -377,12 +389,26 @@ class ArticleLicenseValidationTest(TestCase):
             """
         )
         self.article_license = ArticleLicenseValidation(xmltree)
-        expected = {
-            "obtained_value": [],
-            "expected_value": ('by', '3.0'),
-            "result": "error",
-            "message": "the license code provided do not match the ones found"
-        }
+        expected = [
+            {
+                "obtained_value": (),
+                "expected_value": ('by', '3.0'),
+                "result": "error",
+                "message": "the license code provided do not match the ones found"
+            },
+            {
+                "obtained_value": (),
+                "expected_value": ('by', '3.0'),
+                "result": "error",
+                "message": "the license code provided do not match the ones found"
+            },
+            {
+                "obtained_value": (),
+                "expected_value": ('by', '3.0'),
+                "result": "error",
+                "message": "the license code provided do not match the ones found"
+            },
+            ]
         obtained = self.article_license.validate_license_code(
             'by', '3.0'
         )
