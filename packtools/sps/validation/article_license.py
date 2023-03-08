@@ -30,19 +30,18 @@ class ArticleLicenseValidation:
         })
         return resp
 
-    def validate_license_code(self, expected_value):
+    def validate_license_code(self, expected_code, expected_version):
         links = self.article_license.licenses
         codes = []
         for code in links:
-            finding = code['link'].find('/by/')
-            if finding:
-                version = code['link'][finding + 4:finding + 7]
-                codes.append(('by', version))
+            finding = code['link'].find(f'/{expected_code}/{expected_version}')
+            if finding != -1:
+                codes.append((expected_code, expected_version))
         resp = {
                     "obtained_value": codes,
-                    "expected_value": expected_value
+                    "expected_value": (expected_code, expected_version)
         }
-        if expected_value in codes:
+        if (expected_code, expected_version) in codes:
             resp.update({
                 "result": "ok"
             })
