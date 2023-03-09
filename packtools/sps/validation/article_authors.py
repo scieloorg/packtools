@@ -6,48 +6,68 @@ class ArticleAuthorsValidation:
         self._xmltree = xmltree
         self.article_authors = Authors(self._xmltree)
 
-    def validate_authors_role(self, content_type_url):
-        _result_dict = {'errors': [], 'warnings': [],
-                   'invalid_role': [], 'invalid_content_type': []}
-        count = 0
-        
+    def validate_authors_role(self, credit_terms_and_urls):
+        _result_dict = []
+
         for author in self.article_authors.contribs:
             _author_name = f"{author['given_names']} {author['surname']}"
             
             # Verifica se há alguma tag <role> atribuida ao autor.
             if 'role' not in author:
-                _result_dict['errors'].append(
-                    f"The author '{_author_name}' has no <role> tag assigned to him")
-            elif 'role' in author:
-                
+                _result_dict.append({
+                    'result': 'error', 
+                    'error_type': f"No role found", 
+                    'message': f"The author {_author_name} does not have a role. Please add a role according to the credit-taxonomy below.",
+                    'credit_terms_and_urls': credit_terms_and_urls, 
+                })
+            else:
                 # Percorre todas as role atribuida ao autor.
                 for role in author['role']:
-                    # Verifica se há tag <role> está vazia.
-                    if not role['text']:
-                        _result_dict['errors'].append(
-                            f"The author '{_author_name}' has an <role> tag empty assigned to him")
+
+                    # Verifica se há role sem texto e sem content-type.
+                    if not role['text'] and not role['content-type']:
+                        _result_dict.append({
+                            'result': 'error',
+                            'error_type': f"Text and content-type not found",
+                            'message': f"The author {_author_name} has a role with no text and content-type attributes. Please add valid text and content-type attributes according to the credit taxonomy below.",
+                            'credit_terms_and_urls': credit_terms_and_urls,
+                        })
+            
+                    # Verifica se há texto na tag role e nenhuma uri em content-type.
+                    elif role['text'] and not role['content-type']:
+                        _result_dict.append({
+                            'result': 'error',
+                            'error_type': f"No content-type found",
+                            'message': f"The author {_author_name} has a role {role['text']} with text but no content-type attribute. Please add a valid URI to the content-type attribute according to the credit taxonomy below.",
+                            'credit_terms_and_urls': credit_terms_and_urls,
+                        })
+            
+                    #Verifica se há content-type em <role> sem texto
+                    elif not role['text'] and role['content-type']:
+                        _result_dict.append({
+                            'result': 'error',
+                            'error_type': f"No text found",
+                            'message': f"The author {_author_name} has a role with no text. Please add valid text to the role according to the credit taxonomy below.",
+                            'credit_terms_and_urls': credit_terms_and_urls,
+                        })                           
                     
-                    # Verifica se há texto na tag <role> e nenhuma url em content-type.
-                    if role['text'] and not role['content-type']:
-                        _result_dict['warnings'].append(
-                            f"The author '{_author_name}' has no content-type assign to <role>{role['text']}</role>")
-                    
-                    # Verifica se há texto na tag <role> e url em content-type.
-                    if role['text'] and role['content-type']:
+                    # Verifica se há texto na <role> e url em content-type.
+                    elif role['text'] and role['content-type']:
                         _role = role['text']
                         _content_type = role['content-type']
-                        expected_role, expected_content_type = content_type_url[count]
                         
                         # Verifica se o par 'role' e 'content type' está presente na lista fornecida.
-                        # Caso contrário, identifica qual dos dois está incorreto e informa qual é o esperado e recebido.
-                        # Supõe-se que a lista 'content_type_url' está ordenada de acordo com o XML.
-                        if (_role, _content_type) != content_type_url[count]:
-                            if str(_role).lower() != str(expected_role).lower():
-                                _result_dict['invalid_role'].append(
-                                    f"Author: {_author_name} - Received: {_role}, Expected: {expected_role}")
-
-                            if str(_content_type).lower() != str(expected_content_type).lower():
-                                _result_dict['invalid_content_type'].append(
-                                    f"Author: {_author_name} - Received: {_content_type}, Expected: {expected_content_type}")
-                    count += 1
+                        # Torna case-insensitive
+                        if not any(item['term'].lower() == _role.lower() and item['uri'].lower() == _content_type.lower() for item in credit_terms_and_urls):
+                           _result_dict.append({
+                               'result': 'error',
+                               'error_type': f"Role and content-type not found",
+                               'message': f"The author {_author_name} has a role and content-type that are not found in the credit taxonomy. Please check the role and content-type attributes according to the credit taxonomy below.",
+                               'credit_terms_and_urls': credit_terms_and_urls,
+                           })
+                        else:
+                            _result_dict.append({
+                                'result': 'sucess',
+                                'message': f"The author {_author_name} has a valid role and content-type attribute for the role {role['text']}."
+                            })
         return _result_dict

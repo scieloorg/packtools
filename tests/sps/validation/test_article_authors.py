@@ -6,11 +6,37 @@ from packtools.sps.utils import xml_utils
 
 from packtools.sps.validation.article_authors import ArticleAuthorsValidation
 
+credit_terms_and_urls = [
+    {'term': 'Conceptualization',
+        'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+    {'term': 'Data curation',
+        'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+    {'term': 'Formal analysis',
+        'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+    {'term': 'Funding acquisition',
+        'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+    {'term': 'Investigation',
+        'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+    {'term': 'Methodology', 'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+    {'term': 'Project administration',
+        'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+    {'term': 'Resources', 'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+    {'term': 'Software', 'uri': 'https://credit.niso.org/contributor-roles/software/'},
+    {'term': 'Supervision', 'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+    {'term': 'Validation', 'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+    {'term': 'Visualization',
+        'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+    {'term': 'Writing – original draft',
+        'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+    {'term': 'Writing – review & editing',
+        'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+]
+
 
 class ArticleAuthorsValidationTest(TestCase):
-	
-	def test_without_role(self):
-		xml =  ("""
+
+    def test_without_role(self):
+        xml = ("""
 		<article>
 			<front>
 				<article-meta>
@@ -37,32 +63,88 @@ class ArticleAuthorsValidationTest(TestCase):
 			</front>
 		</article>
 		""")
-		list_content_type = [
-			('Data curation',
-			 'https://credit.niso.org/contributor-roles/data-curation/'),
-			('Conceptualization',
-			 'https://credit.niso.org/contributor-roles/conceptualization/'),
-			('Formal analysis',
-			 'https://credit.niso.org/contributor-roles/formal-analysis/'),
-		]
 
-		data = etree.fromstring(xml)
-		messages = ArticleAuthorsValidation(xmltree=data).validate_authors_role(content_type_url=list_content_type)
+        data = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=data).validate_authors_role(
+            credit_terms_and_urls=credit_terms_and_urls)
 
-		expected_output = {
-				'errors': [
-					"The author 'FRANCISCO VENEGAS-MARTÍNEZ' has no <role> tag assigned to him", 
-					"The author 'Vanessa M. Higa' has no <role> tag assigned to him"
-				], 
-				'warnings': [],
-				'invalid_role': [], 
-				'invalid_content_type': []
-			}
+        expected_output = [
+            {
+                'result': 'error',
+                'error_type': 'No role found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ does not have a role. Please add a role according to the credit-taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'No role found',
+                'message': "The author Vanessa M. Higa does not have a role. Please add a role according to the credit-taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            }
+        ]
 
-		self.assertEqual(messages, expected_output)
-	
-	def test_role_empty(self):
-		xml =  ("""
+        self.assertEqual(messages, expected_output)
+
+    def test_role_and_content_type_empty(self):
+        xml = ("""
 		<article>
 			<front>
 				<article-meta>
@@ -91,32 +173,88 @@ class ArticleAuthorsValidationTest(TestCase):
 			</front>
 		</article>
 		""")
-		list_content_type = [
-			('Data curation',
-			 'https://credit.niso.org/contributor-roles/data-curation/'),
-			('Conceptualization',
-			 'https://credit.niso.org/contributor-roles/conceptualization/'),
-			('Formal analysis',
-			 'https://credit.niso.org/contributor-roles/formal-analysis/'),
-		]
-		
-		data = etree.fromstring(xml)
-		messages = ArticleAuthorsValidation(xmltree=data).validate_authors_role(content_type_url=list_content_type)
-		
-		expected_output = {
-				'errors': [
-					"The author 'FRANCISCO VENEGAS-MARTÍNEZ' has an <role> tag empty assigned to him", 
-					"The author 'Vanessa M. Higa' has an <role> tag empty assigned to him"
-				], 
-				'warnings': [],
-				'invalid_role': [], 
-				'invalid_content_type': []
-			}
-		
-		self.assertEqual(messages, expected_output)
 
-	def test_without_content_type(self):
-		xml = ("""
+        data = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=data).validate_authors_role(
+            credit_terms_and_urls=credit_terms_and_urls)
+
+        expected_output = [
+            {
+                'result': 'error',
+                'error_type': 'Text and content-type not found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a role with no text and content-type attributes. Please add valid text and content-type attributes according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'Text and content-type not found',
+                'message': "The author Vanessa M. Higa has a role with no text and content-type attributes. Please add valid text and content-type attributes according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+        ]
+
+        self.assertEqual(messages, expected_output)
+
+    def test_role_without_content_type(self):
+        xml = ("""
 			<article>
 				<front>
 					<article-meta>
@@ -147,35 +285,262 @@ class ArticleAuthorsValidationTest(TestCase):
 			</article>
 			""")
 
-		list_content_type = [
-			('Data curation',
-			 'https://credit.niso.org/contributor-roles/data-curation/'),
-			('Conceptualization',
-			 'https://credit.niso.org/contributor-roles/conceptualization/'),
-			('Formal analysis',
-			 'https://credit.niso.org/contributor-roles/formal-analysis/'),
-		]
+        expected_output = [
+            {
+                'result': 'error',
+                'error_type': 'No content-type found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a role Data curation with text but no content-type attribute. Please add a valid URI to the content-type attribute according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'No content-type found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a role Concepalization with text but no content-type attribute. Please add a valid URI to the content-type attribute according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'No content-type found',
+                'message': "The author Vanessa M. Higa has a role Formal analysis with text but no content-type attribute. Please add a valid URI to the content-type attribute according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+        ]
 
-		expected_output = {
-			'errors': [], 
-			'warnings': [
-					"The author 'FRANCISCO VENEGAS-MARTÍNEZ' has no content-type assign to <role>Data curation</role>", 
-					"The author 'FRANCISCO VENEGAS-MARTÍNEZ' has no content-type assign to <role>Concepalization</role>",
-					"The author 'Vanessa M. Higa' has no content-type assign to <role>Formal analysis</role>"
-				],
-			'invalid_role': [], 
-			'invalid_content_type': []
-		}
-		
-		data = etree.fromstring(xml)
-		messages = ArticleAuthorsValidation(
-			xmltree=data).validate_authors_role(content_type_url=list_content_type)
+        data = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(
+            xmltree=data).validate_authors_role(credit_terms_and_urls=credit_terms_and_urls)
 
+        self.assertEqual(messages, expected_output)
 
-		self.assertEqual(messages, expected_output)
+    def test_role_no_text_with_content_type(self):
+        xml = ("""
+			<article>
+				<front>
+					<article-meta>
+						<contrib-group>
+							<contrib contrib-type="author">
+								<name>
+									<surname>VENEGAS-MARTÍNEZ</surname>
+									<given-names>FRANCISCO</given-names>
+									<prefix>Prof</prefix>
+									<suffix>Nieto</suffix>
+								</name>
+								<xref ref-type="aff" rid="aff1"/>
+								<role content-type="content-type="https://credit.niso.org/contributor-roles/data-curation/"></role>
+								<role content-type="https://credit.niso.org/contributor-roles/conceptualization/"></role>
+								</contrib>
+								<contrib contrib-type="author">
+								<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+								<name>
+									<surname>Higa</surname>
+									<given-names>Vanessa M.</given-names>
+								</name>
+								<xref ref-type="aff" rid="aff1">a</xref>
+								<role content-type="https://credit.niso.org/contributor-roles/formal-analysis/"></role>
+							</contrib>
+						</contrib-group>
+					</article-meta>
+				</front>
+			</article>
+			""")
 
-	def test_wrong_role_and_content_type(self):
-		xml = ("""
+        expected_output = [
+            {
+                'result': 'error',
+                'error_type': 'No text found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a role with no text. Please add valid text to the role according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'No text found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a role with no text. Please add valid text to the role according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'No text found',
+                'message': "The author Vanessa M. Higa has a role with no text. Please add valid text to the role according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+        ]
+
+    def test_wrong_role_and_content_type(self):
+        xml = ("""
 		<article>
 			<front>
 				<article-meta>
@@ -188,8 +553,8 @@ class ArticleAuthorsValidationTest(TestCase):
 								<suffix>Nieto</suffix>
 							</name>
 							<xref ref-type="aff" rid="aff1"/>
-							<role content-type="https://credit.niso.org/contributor-roles/data-curan/">D curation</role>
-							<role content-type="https://credit.niso.org/contributor-roles/conceptualizan/">Conceptualization</role>
+							<role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>
+							<role content-type="https://credit.niso.org/contributor-roles/conceualizan/">Conceplization</role>
 							</contrib>
 							<contrib contrib-type="author">
 							<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
@@ -198,7 +563,7 @@ class ArticleAuthorsValidationTest(TestCase):
 								<given-names>Vanessa M.</given-names>
 							</name>
 							<xref ref-type="aff" rid="aff1">a</xref>
-							<role content-type="https://credit.niso.org/contributor-roles/formal-analysis/">Formal analysis</role>
+							<role content-type="https://credit.niso.org/contributor-roles/foal-analysis/">Formal analysis</role>
 						</contrib>
 					</contrib-group>
 				</article-meta>
@@ -206,30 +571,170 @@ class ArticleAuthorsValidationTest(TestCase):
 		</article>
 		""")
 
-		list_content_type = [
-			('Data curation',
-			 'https://credit.niso.org/contributor-roles/data-curation/'),
-			('Conceptualization',
-			 'https://credit.niso.org/contributor-roles/conceptualization/'),
-			('Formal analysis',
-			 'https://credit.niso.org/contributor-roles/formal-analysis/'),
-		]
+        expected_output = [
+            {
+                'result': 'error',
+                'error_type': 'Role and content-type not found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a role and content-type that are not found in the credit taxonomy. Please check the role and content-type attributes according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'Role and content-type not found',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a role and content-type that are not found in the credit taxonomy. Please check the role and content-type attributes according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+            {
+                'result': 'error',
+                'error_type': 'Role and content-type not found',
+                'message': "The author Vanessa M. Higa has a role and content-type that are not found in the credit taxonomy. Please check the role and content-type attributes according to the credit taxonomy below.",
+                'credit_terms_and_urls': [
+                    {'term': 'Conceptualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/conceptualization/'},
+                    {'term': 'Data curation',
+                     'uri': 'https://credit.niso.org/contributor-roles/data-curation/'},
+                    {'term': 'Formal analysis',
+                     'uri': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
+                    {'term': 'Funding acquisition',
+                     'uri': 'https://credit.niso.org/contributor-roles/funding-acquisition/'},
+                    {'term': 'Investigation',
+                     'uri': 'https://credit.niso.org/contributor-roles/investigation/'},
+                    {'term': 'Methodology',
+                     'uri': 'https://credit.niso.org/contributor-roles/methodology/'},
+                    {'term': 'Project administration',
+                     'uri': 'https://credit.niso.org/contributor-roles/project-administration/'},
+                    {'term': 'Resources',
+                     'uri': 'https://credit.niso.org/contributor-roles/resources/'},
+                    {'term': 'Software',
+                     'uri': 'https://credit.niso.org/contributor-roles/software/'},
+                    {'term': 'Supervision',
+                     'uri': 'https://credit.niso.org/contributor-roles/supervision/'},
+                    {'term': 'Validation',
+                     'uri': 'https://credit.niso.org/contributor-roles/validation/'},
+                    {'term': 'Visualization',
+                     'uri': 'https://credit.niso.org/contributor-roles/visualization/'},
+                    {'term': 'Writing – original draft',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-original-draft/'},
+                    {'term': 'Writing – review & editing',
+                     'uri': 'https://credit.niso.org/contributor-roles/writing-review-editing/'}
+                ]
+            },
+        ]
 
-		expected_output = {
-			'errors': [], 
-			'warnings': [],
-			'invalid_role': [
-					"Author: FRANCISCO VENEGAS-MARTÍNEZ - Received: D curation, Expected: Data curation"
-				], 
-			'invalid_content_type': [
-					"Author: FRANCISCO VENEGAS-MARTÍNEZ - Received: https://credit.niso.org/contributor-roles/data-curan/, Expected: https://credit.niso.org/contributor-roles/data-curation/",
-					"Author: FRANCISCO VENEGAS-MARTÍNEZ - Received: https://credit.niso.org/contributor-roles/conceptualizan/, Expected: https://credit.niso.org/contributor-roles/conceptualization/"
-			]
-		}
+        data = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(
+            xmltree=data).validate_authors_role(credit_terms_and_urls=credit_terms_and_urls)
 
-		data = etree.fromstring(xml)
-		messages = ArticleAuthorsValidation(
-			xmltree=data).validate_authors_role(content_type_url=list_content_type)
-		
+        self.assertEqual(messages, expected_output)
 
-		self.assertEqual(messages, expected_output)
+    def test_sucess_role(self):
+        xml = ("""
+		<article>
+			<front>
+				<article-meta>
+					<contrib-group>
+						<contrib contrib-type="author">
+							<name>
+								<surname>VENEGAS-MARTÍNEZ</surname>
+								<given-names>FRANCISCO</given-names>
+								<prefix>Prof</prefix>
+								<suffix>Nieto</suffix>
+							</name>
+							<xref ref-type="aff" rid="aff1"/>
+							<role content-type="https://credit.niso.org/contributor-roles/data-curation/">data curation</role>
+							<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+							</contrib>
+							<contrib contrib-type="author">
+							<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+							<name>
+								<surname>Higa</surname>
+								<given-names>Vanessa M.</given-names>
+							</name>
+							<xref ref-type="aff" rid="aff1">a</xref>
+							<role content-type="https://credit.niso.org/contributor-roles/visualization/">Visualization</role>
+						</contrib>
+					</contrib-group>
+				</article-meta>
+			</front>
+		</article>
+		""")
+
+        expected_output = [
+            {
+                'result': 'sucess',
+                # Testa case-insensitive
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a valid role and content-type attribute for the role data curation."
+            },
+            {
+                'result': 'sucess',
+                'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a valid role and content-type attribute for the role Conceptualization."
+            },
+            {
+                'result': 'sucess',
+                'message': "The author Vanessa M. Higa has a valid role and content-type attribute for the role Visualization."
+            }
+        ]
+
+        data = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(
+            xmltree=data).validate_authors_role(credit_terms_and_urls=credit_terms_and_urls)
+
+        self.assertEqual(messages, expected_output)
