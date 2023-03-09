@@ -8,8 +8,6 @@
 
     <xsl:include href="config-vars.xsl"/>
 
-    <xsl:variable name="article" select="./article"/>
-
     <xsl:include href="generic.xsl"/>
 
     <xsl:include href="config-labels.xsl"/>
