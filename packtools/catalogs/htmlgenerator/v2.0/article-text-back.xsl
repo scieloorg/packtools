@@ -4,6 +4,19 @@
     
     <xsl:template match="*" mode="node-name"><xsl:value-of select="name()"/></xsl:template>
 
+    <xsl:template match="ref-list" mode="title">
+        <xsl:choose>
+            <xsl:when test="$article/@xml:lang=$TEXT_LANG and title">
+                <xsl:apply-templates select="title"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">ref-list</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="article" mode="text-back">
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
