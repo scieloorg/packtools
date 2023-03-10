@@ -17,7 +17,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="ref-list" mode="real-title">
+    <xsl:template match="back/*" mode="real-title">
         <!-- 
         Apresentar o título de seção tal como está no XML.
         Não forçar tradução do título,o que ocorria em sub-article do tipo
@@ -74,19 +74,23 @@
          <xsl:apply-templates select="." mode="back-section"/>
     </xsl:template>
     
+    <xsl:template match="*" mode="back-section-h1">
+        <h1>
+            <xsl:if test="label or title">
+                <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
+                <xsl:apply-templates select="." mode="real-title"/>
+            </xsl:if>
+        </h1>
+    </xsl:template>
+    
     <xsl:template match="*" mode="back-section">
         <div>
             <xsl:if test="label or title">
                 <xsl:attribute name="class">articleSection</xsl:attribute>
                 <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="real-title"></xsl:apply-templates></xsl:attribute>    
             </xsl:if>
-            <h1>
-                <xsl:if test="label or title">
-                    <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
-                    <xsl:apply-templates select="." mode="real-title"></xsl:apply-templates>    
-                </xsl:if>
-            </h1>
-            <xsl:apply-templates select="." mode="back-section-content"></xsl:apply-templates>
+            <xsl:apply-templates select="." mode="back-section-h1"/>
+            <xsl:apply-templates select="." mode="back-section-content"/>
         </div>
     </xsl:template>
     
