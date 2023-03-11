@@ -107,6 +107,7 @@
     
     <xsl:template match="*" mode="back-section">
         <div>
+            <xsl:apply-templates select="." mode="menu-section"/>
             <xsl:apply-templates select="." mode="back-section-h1"/>
             <xsl:apply-templates select="." mode="back-section-content"/>
         </div>
