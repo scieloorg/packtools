@@ -74,6 +74,28 @@
          <xsl:apply-templates select="." mode="back-section"/>
     </xsl:template>
     
+    <xsl:template match="*" mode="menu-section">
+        <!-- nao apresenta no menu -->
+    </xsl:template>
+    
+    <xsl:template match="ref-list" mode="menu-section">
+        <xsl:variable name="name" select="name()"/>
+        <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::node()[name()!=$name]">
+            <xsl:attribute name="class">articleSection</xsl:attribute>
+            <xsl:attribute name="data-anchor">
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">ref-list</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:attribute>
+            <h1 style="visibility:hidden">
+                <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">ref-list</xsl:with-param>
+                </xsl:apply-templates>
+            </h1>
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template match="*" mode="back-section-h1">
         <h1>
             <xsl:if test="label or title">
@@ -85,10 +107,6 @@
     
     <xsl:template match="*" mode="back-section">
         <div>
-            <xsl:if test="label or title">
-                <xsl:attribute name="class">articleSection</xsl:attribute>
-                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="real-title"></xsl:apply-templates></xsl:attribute>    
-            </xsl:if>
             <xsl:apply-templates select="." mode="back-section-h1"/>
             <xsl:apply-templates select="." mode="back-section-content"/>
         </div>
