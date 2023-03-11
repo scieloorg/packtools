@@ -52,12 +52,41 @@
             </xsl:when>
             <xsl:otherwise>
                 <!-- apresenta os elementos de back -->
-                <!-- insere ref-list de article/back/ref-list -->
-                <!-- TODO -->
+                <!-- como não existe sub-article/back/ref-list, apresenta ref-list de article/back/ref-list -->
+                <xsl:apply-templates select="." mode="back-section-insert-article-reflist"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+   
+    <xsl:template match="back" mode="back-section-insert-article-reflist">
+        <!-- apresenta os elementos de back -->
+        <!-- como não existe sub-article/back/ref-list, apresenta ref-list de article/back/ref-list -->
+        <xsl:variable name="count"><xsl:value-of select="count($article/back/*)"/></xsl:variable>
+        
+        <xsl:choose>
+            <xsl:when test="$article/back/*[position()=1 and name()='ref-list']">
+                <!-- insere no início -->
+                <xsl:apply-templates select="." mode="add-reflist-from-article-back"/>
+                <xsl:apply-templates select="*" mode="back-section"/>
+            </xsl:when>
+            <xsl:when test="$article/back/*[position()=$count and name()='ref-list']">
+                <!-- insere no final -->
+                <xsl:apply-templates select="*" mode="back-section"/>
+                <xsl:apply-templates select="." mode="add-reflist-from-article-back"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- insere antes de fn / fn-group -->
+                <xsl:apply-templates select="*[name()!='fn-group' and name()!='fn']" mode="back-section"/>
+                <xsl:apply-templates select="." mode="add-reflist-from-article-back"/>
+                <xsl:apply-templates select="*[name()='fn-group' or name()='fn']" mode="back-section"/>
+            </xsl:otherwise>
+        </xsl:choose>     
+    </xsl:template>
+
+    <xsl:template match="back" mode="add-reflist-from-article-back">
+        <xsl:apply-templates select="$article/back/ref-list" mode="back-section"/>
+    </xsl:template>
+
     <xsl:template match="*" mode="menu-section">
         <!-- nao apresenta no menu -->
     </xsl:template>
@@ -81,12 +110,12 @@
     </xsl:template>
     
     <xsl:template match="*" mode="back-section-h1">
-        <h1>
-            <xsl:if test="label or title">
+        <xsl:if test="label or title">
+            <h1>
                 <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
                 <xsl:apply-templates select="." mode="real-title"/>
-            </xsl:if>
-        </h1>
+            </h1>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="*" mode="back-section">
