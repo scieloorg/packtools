@@ -1,3 +1,5 @@
+import re
+
 from packtools.sps.models.article_authors import Authors
 
 
@@ -67,7 +69,37 @@ class ArticleAuthorsValidation:
                            })
                         else:
                             _result_dict.append({
-                                'result': 'sucess',
+                                'result': 'success',
                                 'message': f"The author {_author_name} has a valid role and content-type attribute for the role {role['text']}."
                             })
+        return _result_dict
+
+    def validate_authors_orcid(self):
+        _result_dict = []
+        _default_orcid = r'^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$'
+
+        for author in self.article_authors.contribs:
+            _author_name = f"{author['given_names']} {author['surname']}"
+
+            if 'orcid' not in author:                 
+                _result_dict.append({
+                    'result': "error",
+                    'error_type': "Orcid not found",
+                    'message': f"The author {_author_name} does not have an orcid. Please add a valid orcid.",
+                    'author': author, 
+                })
+            else:
+                if re.match(_default_orcid, author['orcid']):
+                    _result_dict.append({
+                        'result': 'success',
+                        'message': f"The author {_author_name} has a valid orcid.",
+                        'author': author,
+                    })
+                else:
+                    _result_dict.append({
+                        'result': 'error',
+                        'error_type': "Format invalid",
+                        'message': f"The author {_author_name} has an orcid in an invalid format. Please ensure that the ORCID is entered correctly, including the proper format (e.g., 0000-0002-1825-0097).",
+                        'author': author,
+                    })
         return _result_dict

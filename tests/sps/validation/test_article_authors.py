@@ -685,7 +685,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
         self.assertEqual(messages, expected_output)
 
-    def test_sucess_role(self):
+    def test_success_role(self):
         xml = ("""
 		<article>
 			<front>
@@ -719,16 +719,16 @@ class ArticleAuthorsValidationTest(TestCase):
 
         expected_output = [
             {
-                'result': 'sucess',
+                'result': 'success',
                 # Testa case-insensitive
                 'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a valid role and content-type attribute for the role data curation."
             },
             {
-                'result': 'sucess',
+                'result': 'success',
                 'message': "The author FRANCISCO VENEGAS-MARTÍNEZ has a valid role and content-type attribute for the role Conceptualization."
             },
             {
-                'result': 'sucess',
+                'result': 'success',
                 'message': "The author Vanessa M. Higa has a valid role and content-type attribute for the role Visualization."
             }
         ]
@@ -736,5 +736,180 @@ class ArticleAuthorsValidationTest(TestCase):
         data = etree.fromstring(xml)
         messages = ArticleAuthorsValidation(
             xmltree=data).validate_authors_role(credit_terms_and_urls=credit_terms_and_urls)
+
+        self.assertEqual(messages, expected_output)
+
+
+class ArticleAuthorsValidationOrcidTest(TestCase):
+
+    def test_validation_format_orcid(self):
+        xml = ("""
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-01-58-4853</contrib-id>
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                  <contrib-id contrib-id-type="orcid">00-0001-5518-4853</contrib-id>
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+        """)
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+
+        expected_output = [
+            {
+                'result': 'error',
+                'error_type': 'Format invalid',
+                'message': 'The author FRANCISCO VENEGAS-MARTÍNEZ has an orcid in an invalid format. Please ensure that the ORCID is entered correctly, including the proper format (e.g., 0000-0002-1825-0097).',
+                'author': {
+                    'surname': 'VENEGAS-MARTÍNEZ', 
+                    'prefix': 'Prof', 
+                    'suffix': 'Nieto', 
+                    'given_names': 'FRANCISCO', 
+                    'orcid': '0990-01-58-4853'
+                },
+            },
+            {
+                'result': 'error',
+                'error_type': 'Format invalid',
+                'message': 'The author Vanessa M. Higa has an orcid in an invalid format. Please ensure that the ORCID is entered correctly, including the proper format (e.g., 0000-0002-1825-0097).',
+                'author': {
+                    'surname': 'Higa', 
+                    'given_names': 'Vanessa M.', 
+                    'orcid': '00-0001-5518-4853'
+                }
+            }
+        ]
+
+        self.assertEqual(messages, expected_output)
+
+    def test_without_orcid(self):
+        xml = ("""
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+        """)
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+
+        expected_output = [
+            {
+                'result': 'error',
+                'error_type': 'Orcid not found',
+                'message': 'The author FRANCISCO VENEGAS-MARTÍNEZ does not have an orcid. Please add a valid orcid.',
+                'author': {
+                    'surname': 'VENEGAS-MARTÍNEZ', 
+                    'prefix': 'Prof', 
+                    'suffix': 'Nieto', 
+                    'given_names': 'FRANCISCO', 
+                },            
+            },
+            {
+                'result': 'error',
+                'error_type': 'Orcid not found',
+                'message': 'The author Vanessa M. Higa does not have an orcid. Please add a valid orcid.',
+                'author': {
+                    'surname': 'Higa', 
+                    'given_names': 'Vanessa M.', 
+                },               
+            }
+        ]
+
+        self.assertEqual(messages, expected_output)
+
+    def test_success_orcid(self):
+        xml = ("""
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+        """)
+
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+
+        expected_output = [
+            {
+                'result': 'success',
+                'message': 'The author FRANCISCO VENEGAS-MARTÍNEZ has a valid orcid.',
+                'author': {
+                    'surname': 'VENEGAS-MARTÍNEZ', 
+                    'prefix': 'Prof', 
+                    'suffix': 'Nieto', 
+                    'given_names': 'FRANCISCO', 
+                    'orcid': '0990-0001-0058-4853'
+                },
+            },
+            {
+                'result': 'success',
+                'message': 'The author Vanessa M. Higa has a valid orcid.',
+                'author': {
+                    'surname': 'Higa', 
+                    'given_names': 'Vanessa M.', 
+                    'orcid': '0000-3333-1238-6873'
+                },            
+            }
+        ]
 
         self.assertEqual(messages, expected_output)
