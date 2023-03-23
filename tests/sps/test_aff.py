@@ -77,7 +77,7 @@ class AffTest(TestCase):
         """)
 
         xml = etree.fromstring(xml)
-        data = AffiliationExtractor(xml).extract_all_affiliation_data(subtag=False)
+        data = AffiliationExtractor(xml).get_affiliation_data_from_multiple_tags(subtag=False)
 
         expected_output = [
             {
@@ -261,7 +261,7 @@ class AffTest(TestCase):
         """)
 
         xml = etree.fromstring(xml)
-        data = AffiliationExtractor(xml).extract_all_affiliation_data(subtag=True)
+        data = AffiliationExtractor(xml).get_affiliation_data_from_multiple_tags(subtag=True)
 
         expected_output = [
             {
@@ -445,7 +445,7 @@ class AffTest(TestCase):
         """)
 
         xml = etree.fromstring(xml)
-        data = AffiliationExtractor(xml).extract_all_affiliation_data(subtag=False)
+        data = AffiliationExtractor(xml).get_affiliation_data_from_multiple_tags(subtag=False)
 
         expected_output = [
             {

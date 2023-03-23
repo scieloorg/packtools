@@ -24,10 +24,11 @@ class AffiliationExtractor:
     @property
     def extract_contrib_group(self):
         return self._xmltree.xpath(".//contrib-group")
-
     
     def extract_affiliation_data(self, nodes, subtag):
         data = []
+        address_aff = ['state', 'city']
+        institution_aff = ["orgname", "orgdiv1", "orgdiv2", "original"]
         
         #Define se a extração vai ocorrer com subtags ou sem.
         aff_text = xml_utils.node_text_without_xref if subtag else get_node_without_subtag
@@ -35,46 +36,38 @@ class AffiliationExtractor:
         for node in nodes:
             for aff_node in node.xpath('aff'):
                 
-                affiliation_id = aff_node.get('id')
+                affiliation_id = aff_node.get('id', '')
                 
                 try:
                     label = aff_node.xpath('label')[0].text
                 except IndexError:
                     label = ''
                 
-                try:
-                    orgname = aff_text(aff_node.xpath('institution[@content-type="orgname"]')[0])
-                except IndexError:
-                    orgname = ''
+                institution = {}
+                for inst in institution_aff:
+                    try:
+                        institution[inst] = aff_text(aff_node.xpath(f'institution[@content-type="{inst}"]')[0])
+                    except IndexError:
+                        institution[inst] = ''
 
-                try:
-                    orgdiv1 = aff_text(aff_node.xpath('institution[@content-type="orgdiv1"]')[0])
-                except IndexError:
-                    orgdiv1 = ''
-
-                try:
-                    orgdiv2 = aff_text(aff_node.xpath('institution[@content-type="orgdiv2"]')[0])
-                except IndexError:
-                    orgdiv2 = ''
+                address = {}
+                for field in address_aff:
+                    try:
+                        address[field] = aff_text(aff_node.xpath(f'addr-line/named-content[@content-type="{field}"]')[0])
+                    except IndexError:
+                        address[field] = ''
                 
-                try:
-                    original = aff_text(aff_node.xpath('institution[@content-type="original"]')[0])
-                except IndexError:
-                    original = ''
-                
-                country_code = aff_node.xpath('country')[0].get('country') if aff_node.xpath('country')[0].get('country') else ''
+                city = address['city']
+                state = address['state']
 
                 try:
-                    country = aff_text(aff_node.xpath('country')[0])
+                    country_node = aff_node.xpath('country')[0]
+                    country = aff_text(country_node)
+                    country_code = country_node.get('country', '')
                 except IndexError:
                     country = ''
+                    country_code = ''
 
-                addr_state = aff_text(aff_node.xpath('addr-line/named-content[@content-type="state"]')[0])
-                addr_city = aff_text(aff_node.xpath('addr-line/named-content[@content-type="city"]')[0])
-                
-                city = addr_city if addr_city else ''
-                state = addr_state if addr_state else ''
-                
                 try:
                     email = aff_node.xpath('email')[0].text
                 except IndexError:
@@ -83,14 +76,7 @@ class AffiliationExtractor:
                 data.append({
                     'id': affiliation_id, 
                     'label': label,
-                    'institution': [
-                        {
-                            'orgname': orgname,
-                            'orgdiv1': orgdiv1,
-                            'orgdiv2': orgdiv2,
-                            'original': original,
-                        }
-                    ],
+                    'institution': [institution],
                     'city': city,
                     'state': state,
                     'country': [
@@ -105,7 +91,7 @@ class AffiliationExtractor:
         return data
     
             
-    def extract_all_affiliation_data(self, subtag):
+    def get_affiliation_data_from_multiple_tags(self, subtag):
         list_nodes = []
         
         article_meta_node = self.extract_article_meta
