@@ -33,6 +33,9 @@
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                 <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/back" mode="back"/>
+                <xsl:if test="not(.//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/back)">
+                    <xsl:apply-templates select="$article/back/ref-list" mode="back-section"/>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="back" mode="back"/>
