@@ -5,7 +5,7 @@
                 
     <xsl:template match="*" mode="text-body">
         
-        <xsl:variable name="alttile">
+        <xsl:variable name="alt_title">
             <xsl:choose>
                 <xsl:when test=".//sub-article[@article-type!='translation'] or .//response">
                     <xsl:apply-templates select="." mode="text-labels">
@@ -18,18 +18,20 @@
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                 <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="body">
-                    <xsl:with-param name="alt_title" select="$alttile"></xsl:with-param>
+                    <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="./body">
-                    <xsl:with-param name="alt_title" select="$alttile"></xsl:with-param></xsl:apply-templates>                    
+                    <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param></xsl:apply-templates>                    
             </xsl:otherwise>
         </xsl:choose>            
     </xsl:template>
     
     <xsl:template match="sub-article" mode="body">
-        <xsl:apply-templates select="body"/>
+        <xsl:param name="alt_title"></xsl:param>
+        <xsl:apply-templates select="./body">
+                    <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param></xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="body">
