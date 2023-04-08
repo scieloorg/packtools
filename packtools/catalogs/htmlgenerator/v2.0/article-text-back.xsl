@@ -50,21 +50,45 @@
     </xsl:template>
     
     <xsl:template match="*" mode="back-section">
-        <div>
-            <xsl:if test="label or title">
-                <xsl:attribute name="class">articleSection</xsl:attribute>
-                <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"></xsl:apply-templates></xsl:attribute>    
-            </xsl:if>
-            <h1>
-                <xsl:if test="label or title">
-                    <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
-                    <xsl:apply-templates select="." mode="title"></xsl:apply-templates>    
-                </xsl:if>
-            </h1>
-            <xsl:apply-templates select="." mode="back-section-content"></xsl:apply-templates>
+        <div class="articleSection">
+            <xsl:apply-templates select="." mode="back-section-menu"/>
+            <xsl:apply-templates select="." mode="back-section-h"/>
+            <xsl:apply-templates select="." mode="back-section-content"/>
         </div>
     </xsl:template>
+
+    <xsl:template match="*" mode="back-section-menu">
+        <xsl:if test="title or label">
+            <xsl:attribute name="data-anchor">
+                <xsl:apply-templates select="label"/>
+                <xsl:if test="label and title">&#160;</xsl:if>
+                <xsl:apply-templates select="title"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="ref-list" mode="back-section-menu">
+        <xsl:variable name="name" select="name()"/>
+        <!-- cria menu somente para o primeiro ref-list (há casos de série de ref-list) -->
+        <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][name()!=$name]">
+            <xsl:attribute name="data-anchor">
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">ref-list</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
     
+    <xsl:template match="*" mode="back-section-h">
+        <xsl:if test="title or label">
+            <h1 class="articleSectionTitle">
+                <xsl:apply-templates select="label"/>
+                <xsl:if test="label and title">&#160;</xsl:if>
+                <xsl:apply-templates select="title"/>
+            </h1>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template match="app-group" mode="back-section">
         <xsl:apply-templates select="app" mode="back-section"></xsl:apply-templates>
     </xsl:template>
