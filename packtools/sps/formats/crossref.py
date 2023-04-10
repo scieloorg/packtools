@@ -290,3 +290,15 @@ def xml_volume_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_issue/journal_volume').append(volume)
 
 
+def xml_issue_pipe(xml_tree, xml_crossref):
+    """
+    <journal_issue>
+        <journal_volume>
+            <issue>4</issue>
+        </journal_volume>
+    </journal_issue>
+    """
+    issue = ET.Element('issue')
+    issue.text = front_articlemeta_issue.ArticleMetaIssue(xml_tree).issue
+
+    xml_crossref.find('./body/journal/journal_issue/journal_volume').append(issue)
