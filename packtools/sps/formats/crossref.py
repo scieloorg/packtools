@@ -236,3 +236,19 @@ def xml_issn_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(issn)
 
 
+def xml_journalissue_pipe(xml_crossref):
+    """
+    <journal_issue>
+        <publication_date media_type="online">
+            <year>2022</year>
+        </publication_date>
+        <journal_volume>
+            <volume>56</volume>
+        </journal_volume>
+    </journal_issue>
+    """
+    journal_issue = ET.Element('journal_issue')
+
+    xml_crossref.find('./body/journal').append(journal_issue)
+
+
