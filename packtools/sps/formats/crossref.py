@@ -252,3 +252,21 @@ def xml_journalissue_pipe(xml_crossref):
     xml_crossref.find('./body/journal').append(journal_issue)
 
 
+def xml_pubdate_pipe(xml_tree, xml_crossref):
+    """
+    <journal_issue>
+        <publication_date media_type="online">
+            <year>2022</year>
+        </publication_date>
+    </journal_issue>
+    """
+    year = ET.Element('year')
+    year.text = dates.ArticleDates(xml_tree).article_date.get('year')
+
+    publication_date = ET.Element('publication_date')
+    publication_date.set('media_type', 'online')
+    publication_date.append(year)
+
+    xml_crossref.find('./body/journal/journal_issue').append(publication_date)
+
+

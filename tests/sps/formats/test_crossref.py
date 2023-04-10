@@ -263,3 +263,46 @@ class PipelineCrossref(TestCase):
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_metadata'))
 
+    def test_xml_pubdate_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<day>13</day>'
+            '<month>05</month>'
+            '<year>2022</year>'
+            '</pub-date>'
+            '<pub-date date-type="collection" publication-format="electronic">'
+            '<year>2022</year>'
+            '</pub-date>'
+            '<volume>56</volume>'
+            '<elocation-id>e20210569</elocation-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_issue>'
+            '<publication_date media_type="online">'
+            '<year>2022</year>'
+            '</publication_date>'
+            '</journal_issue>'
+            '</journal>'
+            '</body>'
+        )
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+        xml_journalissue_pipe(xml_crossref)
+
+        xml_pubdate_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
