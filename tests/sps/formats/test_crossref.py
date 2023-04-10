@@ -147,3 +147,39 @@ class PipelineCrossref(TestCase):
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_metadata'))
 
+    def test_xml_journaltitle_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<journal-id journal-id-type="nlm-ta">Rev Esc Enferm USP</journal-id>'
+            '<journal-id journal-id-type="publisher-id">reeusp</journal-id>'
+            '<journal-title-group>'
+            '<journal-title>Revista da Escola de Enfermagem da USP</journal-title>'
+            '</journal-title-group>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_metadata>'
+            '<full_title>Revista da Escola de Enfermagem da USP</full_title>'
+            '</journal_metadata>'
+            '</journal>'
+            '</body>'
+        )
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+        xml_journalmetadata_pipe(xml_crossref)
+
+        xml_journaltitle_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+

@@ -184,3 +184,18 @@ def xml_journalmetadata_pipe(xml_crossref):
     xml_crossref.find('./body/journal').append(journal_metadata)
 
 
+def xml_journaltitle_pipe(xml_tree, xml_crossref):
+    """
+        <journal>
+            <journal_metadata>
+                <full_title>Revista da Escola de Enfermagem da USP</full_title>
+            </journal_metadata>
+        </journal>
+    """
+    titles = journal_meta.Title(xml_tree)
+    full_title = ET.Element('full_title')
+    full_title.text = titles.journal_title
+
+    xml_crossref.find('./body/journal/journal_metadata').append(full_title)
+
+
