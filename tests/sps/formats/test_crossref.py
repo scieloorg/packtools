@@ -40,3 +40,9 @@ class PipelineCrossref(TestCase):
 
         self.assertEqual(expected, obtained)
 
+    def test_xmlhead_pipe(self):
+        xml_crossref = setupdoibatch_pipe()
+        xml_head_pipe(xml_crossref)
+
+        self.assertIsNotNone(xml_crossref.find('head'))
+

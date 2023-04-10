@@ -77,3 +77,9 @@ def setupdoibatch_pipe():
     return el
 
 
+def xml_head_pipe(xml_crossref):
+    head = ET.Element('head')
+
+    xml_crossref.append(head)
+
+
