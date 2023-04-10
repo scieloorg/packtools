@@ -51,3 +51,29 @@ def pipeline_crossref(xml_tree, data):
     return xml_crossref
 
 
+def setupdoibatch_pipe():
+    """
+    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
+    xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.crossref.org/schema/4.4.0"
+    xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd"/>
+    """
+
+    nsmap = {
+        'ai': 'http://www.crossref.org/AccessIndicators.xsd',
+        'jats': 'http://www.ncbi.nlm.nih.gov/JATS1',
+        'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        'xml': 'http://www.w3.org/XML/1998/namespace'
+
+    }
+
+    el = ET.Element('doi_batch', nsmap=nsmap)
+    el.set('version', '4.4.0')
+    el.set('xmlns', 'http://www.crossref.org/schema/4.4.0')
+    el.set('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation',
+           'http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd')
+
+    return el
+
+

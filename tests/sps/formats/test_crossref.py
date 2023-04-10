@@ -1,0 +1,42 @@
+from packtools.sps.formats.crossref import (
+    pipeline_crossref,
+    setupdoibatch_pipe,
+    xml_head_pipe,
+    xml_doibatchid_pipe,
+    xml_timestamp_pipe,
+    xml_depositor_pipe,
+    xml_registrant_pipe,
+    xml_body_pipe,
+    xml_journal_pipe,
+    xml_journalmetadata_pipe,
+    xml_journaltitle_pipe,
+    xml_abbreviatedjournaltitle_pipe,
+    xml_issn_pipe,
+    xml_journalissue_pipe,
+    xml_pubdate_pipe,
+    xml_journalvolume_pipe,
+    xml_volume_pipe,
+    xml_issue_pipe,
+
+)
+from unittest import TestCase
+from lxml import etree as ET
+
+
+class PipelineCrossref(TestCase):
+
+    def test_setupdoibatch_pipe(self):
+        expected = (
+            '<doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" '
+            'xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0" '
+            'xmlns="http://www.crossref.org/schema/4.4.0" '
+            'xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 '
+            'http://www.crossref.org/schemas/crossref4.4.0.xsd"/>'
+        )
+
+        result = setupdoibatch_pipe()
+        obtained = ET.tostring(result, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(expected, obtained)
+
