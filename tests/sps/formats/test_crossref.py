@@ -65,3 +65,22 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_timestamp_pipe(self):
+        expected = (
+            "<head>"
+            "<timestamp>20230405112328</timestamp>"
+            "</head>"
+        )
+
+        data = {
+            "timestamp": "20230405112328"
+        }
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_head_pipe(xml_crossref)
+        xml_timestamp_pipe(xml_crossref, data)
+
+        self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
