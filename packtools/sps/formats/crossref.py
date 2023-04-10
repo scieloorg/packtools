@@ -199,3 +199,18 @@ def xml_journaltitle_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(full_title)
 
 
+def xml_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref):
+    """
+        <journal>
+            <journal_metadata>
+                <abbrev_title>Rev. esc. enferm. USP</abbrev_title>
+            </journal_metadata>
+        </journal>
+    """
+    titles = journal_meta.Title(xml_tree)
+    abbrev_title = ET.Element('abbrev_title')
+    abbrev_title.text = titles.abbreviated_journal_title
+
+    xml_crossref.find('./body/journal/journal_metadata').append(abbrev_title)
+
+
