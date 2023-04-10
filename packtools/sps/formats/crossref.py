@@ -276,3 +276,17 @@ def xml_journalvolume_pipe(xml_crossref):
     xml_crossref.find('./body/journal/journal_issue').append(journal_volume)
 
 
+def xml_volume_pipe(xml_tree, xml_crossref):
+    """
+    <journal_issue>
+        <journal_volume>
+            <volume>56</volume>
+        </journal_volume>
+    </journal_issue>
+    """
+    volume = ET.Element('volume')
+    volume.text = front_articlemeta_issue.ArticleMetaIssue(xml_tree).volume
+
+    xml_crossref.find('./body/journal/journal_issue/journal_volume').append(volume)
+
+
