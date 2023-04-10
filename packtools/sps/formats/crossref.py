@@ -178,3 +178,9 @@ def xml_journal_pipe(xml_crossref):
     xml_crossref.find('./body').append(journal)
 
 
+def xml_journalmetadata_pipe(xml_crossref):
+    journal_metadata = ET.Element('journal_metadata')
+
+    xml_crossref.find('./body/journal').append(journal_metadata)
+
+
