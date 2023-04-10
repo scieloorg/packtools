@@ -214,3 +214,25 @@ def xml_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(abbrev_title)
 
 
+def xml_issn_pipe(xml_tree, xml_crossref):
+    """
+        <journal>
+            <journal_metadata>
+                <issn media_type="electronic">1980-220X</issn>
+                <issn media_type="print">0080-6234</issn>
+            </journal_metadata>
+        </journal>
+    """
+    issns = journal_meta.ISSN(xml_tree)
+
+    issn = ET.Element('issn')
+    issn.text = issns.epub
+    issn.set('media_type', 'electronic')
+    xml_crossref.find('./body/journal/journal_metadata').append(issn)
+
+    issn = ET.Element('issn')
+    issn.text = issns.ppub
+    issn.set('media_type', 'print')
+    xml_crossref.find('./body/journal/journal_metadata').append(issn)
+
+
