@@ -172,3 +172,9 @@ def xml_body_pipe(xml_crossref):
     xml_crossref.append(body)
 
 
+def xml_journal_pipe(xml_crossref):
+    journal = ET.Element('journal')
+
+    xml_crossref.find('./body').append(journal)
+
+

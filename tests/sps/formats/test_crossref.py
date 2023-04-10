@@ -132,3 +132,10 @@ class PipelineCrossref(TestCase):
 
         self.assertIsNotNone(xml_crossref.find('body'))
 
+    def test_xml_journal_pipe(self):
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+
+        self.assertIsNotNone(xml_crossref.find('./body/journal'))
+
