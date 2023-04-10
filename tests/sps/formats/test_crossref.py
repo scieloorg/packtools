@@ -126,3 +126,9 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_body_pipe(self):
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+
+        self.assertIsNotNone(xml_crossref.find('body'))
+

@@ -166,3 +166,9 @@ def xml_registrant_pipe(xml_crossref, data):
     xml_crossref.find('./head').append(registrant)
 
 
+def xml_body_pipe(xml_crossref):
+    body = ET.Element('body')
+
+    xml_crossref.append(body)
+
+
