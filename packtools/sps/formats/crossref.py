@@ -270,3 +270,9 @@ def xml_pubdate_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_issue').append(publication_date)
 
 
+def xml_journalvolume_pipe(xml_crossref):
+    journal_volume = ET.Element('journal_volume')
+
+    xml_crossref.find('./body/journal/journal_issue').append(journal_volume)
+
+
