@@ -46,3 +46,22 @@ class PipelineCrossref(TestCase):
 
         self.assertIsNotNone(xml_crossref.find('head'))
 
+    def test_xml_doibatchid_pipe(self):
+        expected = (
+            "<head>"
+            "<doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>"
+            "</head>"
+        )
+
+        data = {
+            "doi_batch_id": "49d374553c5d48c0bdd54d25080e0045"
+        }
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_head_pipe(xml_crossref)
+        xml_doibatchid_pipe(xml_crossref, data)
+
+        self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
