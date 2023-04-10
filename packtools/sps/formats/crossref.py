@@ -121,3 +121,31 @@ def xml_timestamp_pipe(xml_crossref, data):
     xml_crossref.find('./head').append(timestamp)
 
 
+def xml_depositor_pipe(xml_crossref, data):
+    """
+            data = {
+                        "depositor_name": depositor,
+                        "depositor_email_address": name@domain.com
+                    }
+
+            <head>
+                <depositor>
+                    <depositor_name>depositor</depositor_name>
+                    <email_address>name@domain.com</email_address>
+                </depositor>
+            </head>
+            """
+
+    depositor = ET.Element('depositor')
+    depositor_name = ET.Element('depositor_name')
+    email_address = ET.Element('email_address')
+
+    depositor_name.text = data.get('depositor_name')
+    email_address.text = data.get('depositor_email_address')
+
+    depositor.append(depositor_name)
+    depositor.append(email_address)
+
+    xml_crossref.find('./head').append(depositor)
+
+
