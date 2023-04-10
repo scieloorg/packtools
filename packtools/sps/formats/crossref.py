@@ -149,3 +149,20 @@ def xml_depositor_pipe(xml_crossref, data):
     xml_crossref.find('./head').append(depositor)
 
 
+def xml_registrant_pipe(xml_crossref, data):
+    """
+        data = {
+                    "registrant": registrant
+                }
+
+        <head>
+            <registrant>registrant</registrant>
+        </head>
+    """
+
+    registrant = ET.Element('registrant')
+    registrant.text = data.get('registrant')
+
+    xml_crossref.find('./head').append(registrant)
+
+
