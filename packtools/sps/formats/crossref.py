@@ -6,7 +6,14 @@ import uuid
 from copy import deepcopy
 from datetime import datetime
 
-from packtools.sps.models import journal_meta, dates, front_articlemeta_issue
+from packtools.sps.models import (
+    journal_meta,
+    dates,
+    front_articlemeta_issue,
+    article_and_subarticles,
+    article_authors,
+    aff,
+)
 
 SUPPLBEG_REGEX = re.compile(r'^0 ')
 SUPPLEND_REGEX = re.compile(r' 0$')
@@ -21,19 +28,19 @@ def pipeline_crossref(xml_tree, data):
     xml_registrant_pipe(xml_crossref, data)
     xml_body_pipe(xml_crossref)
     xml_journal_pipe(xml_crossref)
-    xml_journalmetadata_pipe(xml_tree, xml_crossref)
+    xml_journalmetadata_pipe(xml_crossref)
     xml_journaltitle_pipe(xml_tree, xml_crossref)
     xml_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref)
     xml_issn_pipe(xml_tree, xml_crossref)
-    xml_journalissue_pipe(xml_tree, xml_crossref)
+    xml_journalissue_pipe(xml_crossref)
     xml_pubdate_pipe(xml_tree, xml_crossref)
     xml_journalvolume_pipe(xml_crossref)
     xml_volume_pipe(xml_tree, xml_crossref)
     xml_issue_pipe(xml_tree, xml_crossref)
-    # xml_journalarticle_pipe(xml_tree, xml_crossref)
+    xml_journalarticle_pipe(xml_tree, xml_crossref)
     # xml_articletitles_pipe(xml_tree, xml_crossref)
     # xml_articletitle_pipe(xml_tree, xml_crossref)
-    # xml_articlecontributors_pipe(xml_tree, xml_crossref)
+    xml_articlecontributors_pipe(xml_tree, xml_crossref)
     # xml_articleabstract_pipe(xml_tree, xml_crossref)
     # xml_articlepubdate_pipe(xml_tree, xml_crossref)
     # xml_pages_pipe(xml_tree, xml_crossref)
@@ -302,3 +309,25 @@ def xml_issue_pipe(xml_tree, xml_crossref):
     issue.text = front_articlemeta_issue.ArticleMetaIssue(xml_tree).issue
 
     xml_crossref.find('./body/journal/journal_issue/journal_volume').append(issue)
+
+
+def xml_journalarticle_pipe(xml_tree, xml_crossref):
+    """
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any"/>
+            <journal_article language="pt" publication_type="translation" reference_distribution_opts="any"/>
+        </journal>
+    </body>
+    """
+    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
+    for article in articles:
+        journal_article = ET.Element('journal_article')
+        journal_article.set('language', article['lang'])
+        journal_article.set('publication_type', article['article_type'])
+        # todo
+        # reference_distribution_opts=?
+        journal_article.set('reference_distribution_opts', 'any')
+        xml_crossref.find('./body/journal').append(journal_article)
+
+
