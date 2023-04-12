@@ -331,3 +331,70 @@ def xml_journalarticle_pipe(xml_tree, xml_crossref):
         xml_crossref.find('./body/journal').append(journal_article)
 
 
+def xml_articlecontributors_pipe(xml_tree, xml_crossref):
+    """
+    <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+        <contributors>
+            <person_name contributor_role="author" sequence="first">
+                <given_name>Fernanda Guarilha</given_name>
+                <surname>Boni</surname>
+                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
+                <ORCID>http://orcid.org/0000-0003-0843-6485</ORCID>
+            </person_name>
+            <person_name contributor_role="author" sequence="additional">
+                <given_name>Yasmin Lorenz</given_name>
+                <surname>da Rosa</surname>
+                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
+                <ORCID>http://orcid.org/0000-0001-7364-4753</ORCID>
+            </person_name>
+        </contributors>
+    </journal_article>
+    <journal_article language="pt" publication_type="translation" reference_distribution_opts="any">
+        <contributors>
+            <person_name contributor_role="author" sequence="first">
+                <given_name>Fernanda Guarilha</given_name>
+                <surname>Boni</surname>
+                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
+                <ORCID>http://orcid.org/0000-0003-0843-6485</ORCID>
+            </person_name>
+            <person_name contributor_role="author" sequence="additional">
+                <given_name>Yasmin Lorenz</given_name>
+                <surname>da Rosa</surname>
+                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
+                <ORCID>http://orcid.org/0000-0001-7364-4753</ORCID>
+            </person_name>
+        </contributors>
+    </journal_article>
+    """
+    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
+    authors = article_authors.Authors(xml_tree).contribs
+    for article in articles:
+        contributors = ET.Element('contributors')
+        seq = 0
+        for author in authors:
+            person_name = ET.Element('person_name')
+            person_name.set('contributor_role', author.get('contrib-type'))
+            if seq == 0:
+                person_name.set('sequence', 'first')
+            else:
+                person_name.set('sequence', 'additional')
+            seq = 1
+            given_name = ET.Element('given_name')
+            given_name.text = author.get('given_names')
+            person_name.append(given_name)
+            surname = ET.Element('surname')
+            surname.text = author.get('surname')
+            person_name.append(surname)
+            affiliation = ET.Element('affiliation')
+            affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
+            for a in affs:
+                if a['id'] == author['rid']:
+                    affiliation.text = a.get('institution')[0].get('orgname') + ', ' + a.get('country')[0].get('name')
+            person_name.append(affiliation)
+            ORCID = ET.Element('ORCID')
+            ORCID.text = 'http://orcid.org/' + author.get('orcid')
+            person_name.append(ORCID)
+            contributors.append(person_name)
+        xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(contributors)
+
+
