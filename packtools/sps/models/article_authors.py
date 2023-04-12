@@ -41,6 +41,9 @@ class Authors:
                 _role = role.text
                 _content_type = role.get('content-type')
                 _author['role'].append({"text": _role, "content-type": _content_type})
+
+            _author['rid'] = node.find('./xref').attrib['rid']
+            _author['contrib-type'] = node.attrib['contrib-type']
             
             _data.append(_author)
         return _data
