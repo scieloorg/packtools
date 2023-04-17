@@ -99,10 +99,10 @@ class Abstract:
     @property
     def main_abstract_with_tags(self):
         out = {
-            'lang': self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
+            'lang': self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang"),
+            'title': self.xmltree.xpath(".//front//article-meta//abstract//title")[0].text,
+            'sections': self.get_values_dict_with_tags('.//front//article-meta//abstract')
         }
-        out.update(self.get_values_dict_with_tags('.//front//article-meta//abstract'))
-
         return out
 
     @property

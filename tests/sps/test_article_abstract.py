@@ -43,14 +43,15 @@ class AbstractTest(TestCase):
         obtained = Abstract(data).main_abstract_with_tags
 
         expected = {
-            "title": "Abstract",
             "lang": "en",
-            "Objective:": "objective",
-            "Method:": "method",
-            "Results:": "results",
-            "Conclusion:": "conclusion"
-
+            "title": "Abstract",
+            "sections": {
+                "Objective:": "objective",
+                "Method:": "method",
+                "Results:": "results",
+                "Conclusion:": "conclusion"
             }
+        }
 
         self.assertEqual(obtained, expected)
 
