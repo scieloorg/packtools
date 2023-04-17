@@ -366,15 +366,13 @@ def xml_articlecontributors_pipe(xml_tree, xml_crossref):
     authors = article_authors.Authors(xml_tree).contribs
     for article in articles:
         contributors = ET.Element('contributors')
-        seq = 0
-        for author in authors:
+        for seq, author in enumerate(authors):
             person_name = ET.Element('person_name')
             person_name.set('contributor_role', author.get('contrib-type'))
             if seq == 0:
                 person_name.set('sequence', 'first')
             else:
                 person_name.set('sequence', 'additional')
-            seq = 1
             given_name = ET.Element('given_name')
             given_name.text = author.get('given_names')
             person_name.append(given_name)
