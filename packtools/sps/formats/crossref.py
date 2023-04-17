@@ -111,21 +111,15 @@ def xml_doibatchid_pipe(xml_crossref):
     xml_crossref.find('./head').append(doi_batch_id)
 
 
-def xml_timestamp_pipe(xml_crossref, data):
+def xml_timestamp_pipe(xml_crossref):
     """
-            data = {
-                        "timestamp": 20230405112328
-                    }
-
-            <head>
-                <timestamp>20230405112328</timestamp>
-            </head>
-            """
+    <head>
+        <timestamp>20230405112328</timestamp>
+    </head>
+    """
 
     timestamp = ET.Element('timestamp')
-    timestamp.text = data.get('timestamp')
-    # todo
-    # timestamp.text = datetime.now().strftime('%Y%m%d%H%M%S')
+    timestamp.text = get_timestamp()
 
     xml_crossref.find('./head').append(timestamp)
 
