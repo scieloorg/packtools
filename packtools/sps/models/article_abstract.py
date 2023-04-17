@@ -84,9 +84,7 @@ class Abstract:
         return out
 
     def get_values_dict_with_tags(self, attrib):
-        out = {
-            'title': self.xmltree.xpath(f"{attrib}//title")[0].text
-        }
+        out = dict()
         for node in self.xmltree.xpath(f"{attrib}//sec"):
             out[node.xpath("./title")[0].text] = node.xpath("./p")[0].text
 
