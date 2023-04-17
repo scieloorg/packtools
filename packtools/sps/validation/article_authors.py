@@ -103,3 +103,12 @@ class ArticleAuthorsValidation:
                         'author': author,
                     })
         return _result_dict
+    
+    @property
+    def call_methods(self):
+        from tests.sps.validation.test_article_authors import credit_terms_and_urls
+        return {
+            'authors_role_validation': 
+                [self.validate_authors_role(credit_terms_and_urls), 
+                self.validate_authors_orcid()]
+        }

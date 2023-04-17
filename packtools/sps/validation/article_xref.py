@@ -81,3 +81,7 @@ class ArticleXrefValidation:
     @property
     def rids_without_ids(self):
         return self.article_xref.all_xref_rids - self.article_xref.all_ids
+
+    @property
+    def call_methods(self):
+        return self.validate_id(), self.validate_rid()

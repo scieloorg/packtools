@@ -47,3 +47,11 @@ class ArticleLicenseValidation:
                     "message": "the license code provided do not match the ones found"
                 })
         return resp
+    
+    @property
+    def call_methods(self):
+        return {'license_validation': 
+                [self.validate_license(expected_value={}), 
+                self.validate_license_code(expected_code='', expected_version='')
+            ]
+        }

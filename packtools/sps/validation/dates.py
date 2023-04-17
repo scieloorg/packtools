@@ -8,7 +8,7 @@ def date_dict_to_date(date_dict):
     return date(int(date_dict['year']), int(date_dict['month']), int(date_dict['day']))
 
 
-class ArticleDatesValidator:
+class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
 
@@ -84,6 +84,14 @@ class ArticleDatesValidator:
         result['found_order'] = seq
 
         return result
+
+    @property
+    def call_methods(self):
+        return {'date_validation': [self.history_dates_are_sorted(
+            order=["received", "rev-request", "rev-recd", "accepted", "approved"], 
+            required_events=["received", "rev-request", "rev-recd", "accepted", "approved"]
+        ), self.history_dates_are_complete()]
+        }
 
 
 def is_complete(dict_date, date_element):

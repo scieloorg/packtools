@@ -29,3 +29,9 @@ class AffiliationValidation:
                     'message': f"The affiliation of id: {affliation['id']} is ok!"
                 })
         return result
+    
+    @property
+    def call_methods(self):
+        return {
+            'affliation_validation': self.validate_affiliation,
+        }

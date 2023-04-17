@@ -104,3 +104,12 @@ class IssueValidation:
             match=(expected_value == self.article_issue.suppl)
         )
         return resp_suppl
+    
+    @property
+    def call_methods(self):
+        return {'issue_validation': [
+            self.validate_volume(expected_value='10'), 
+            self.validate_issue(expected_value='10'), 
+            self.validate_supplement(expected_value='10')
+            ]
+        }
