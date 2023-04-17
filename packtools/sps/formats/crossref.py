@@ -98,21 +98,15 @@ def xml_head_pipe(xml_crossref):
     xml_crossref.append(head)
 
 
-def xml_doibatchid_pipe(xml_crossref, data):
+def xml_doibatchid_pipe(xml_crossref):
     """
-        data = {
-                    "doi_batch_id": 49d374553c5d48c0bdd54d25080e0045
-                }
-
-        <head>
-            <doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>
-        </head>
-        """
+    <head>
+        <doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>
+    </head>
+    """
 
     doi_batch_id = ET.Element('doi_batch_id')
-    doi_batch_id.text = data.get('doi_batch_id')
-    # todo
-    # doi_batch_id.text = uuid.uuid4().hex
+    doi_batch_id.text = get_doi_batch_id()
 
     xml_crossref.find('./head').append(doi_batch_id)
 
