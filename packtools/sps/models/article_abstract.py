@@ -141,3 +141,9 @@ class Abstract:
     def abstracts_with_tags(self):
         return [self.main_abstract_with_tags, self.sub_article_abstract_with_tags, self.trans_abstract_with_tags]
 
+    @property
+    def abstracts_without_tags(self):
+        out = self.main_abstract_without_tags
+        out.update(self.sub_article_abstract_without_tags)
+        out.update(self.trans_abstract_without_tags)
+        return out
