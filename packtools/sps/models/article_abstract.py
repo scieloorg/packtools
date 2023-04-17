@@ -137,3 +137,7 @@ class Abstract:
 
         return self.get_values_dict_without_tags('.//front//article-meta//trans-abstract', lang)
 
+    @property
+    def abstracts_with_tags(self):
+        return [self.main_abstract_with_tags, self.sub_article_abstract_with_tags, self.trans_abstract_with_tags]
+
