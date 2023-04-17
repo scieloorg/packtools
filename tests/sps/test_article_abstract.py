@@ -224,3 +224,41 @@ class AbstractTest(TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_trans_abstract_without_tags(self):
+        xml = (
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <trans-abstract xml:lang="es">
+            <title>RESUMEN</title>
+            <sec>
+            <title>Objetivo:</title>
+            <p>objetivo</p>
+            </sec>
+            <sec>
+            <title>Método:</title>
+            <p>metodo</p>
+            </sec>
+            <sec>
+            <title>Resultados:</title>
+            <p>resultados</p>
+            </sec>
+            <sec>
+            <title>Conclusión:</title>
+            <p>conclusion</p>
+            </sec>
+            </trans-abstract>
+            </article-meta>
+            </front>
+            </article>
+            """
+        )
+        data = ET.fromstring(xml)
+        obtained = Abstract(data).trans_abstract_without_tags
+
+        expected = {'es': 'objetivo metodo resultados conclusion'}
+
+        self.assertEqual(obtained, expected)
+
