@@ -116,3 +116,9 @@ class Abstract:
 
         return out
 
+    @property
+    def sub_article_abstract_without_tags(self):
+        lang = self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang")
+
+        return self.get_values_dict_without_tags('.//sub-article//front-stub//abstract', lang)
+
