@@ -22,6 +22,8 @@ from packtools.sps.formats.crossref import (
 
 )
 from unittest import TestCase
+from unittest.mock import patch
+
 from lxml import etree as ET
 
 
@@ -48,20 +50,24 @@ class PipelineCrossref(TestCase):
 
         self.assertIsNotNone(xml_crossref.find('head'))
 
-    def test_xml_doibatchid_pipe(self):
+    @patch('packtools.sps.formats.crossref.get_doi_batch_id')
+    def test_xml_doibatchid_pipe(self, mock_get_doi_batch_id):
         expected = (
             "<head>"
             "<doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>"
             "</head>"
         )
 
-        data = {
-            "doi_batch_id": "49d374553c5d48c0bdd54d25080e0045"
-        }
+        mock_get_doi_batch_id.return_value = '49d374553c5d48c0bdd54d25080e0045'
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_head_pipe(xml_crossref)
-        xml_doibatchid_pipe(xml_crossref, data)
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head>'
+            '</head>'
+            '</doi_batch>'
+        )
+
+        xml_doibatchid_pipe(xml_crossref)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
