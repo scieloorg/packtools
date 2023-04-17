@@ -122,3 +122,12 @@ class Abstract:
 
         return self.get_values_dict_without_tags('.//sub-article//front-stub//abstract', lang)
 
+    @property
+    def trans_abstract_with_tags(self):
+        out = {
+            'lang': self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang")
+        }
+        out.update(self.get_values_dict_with_tags('.//front//article-meta//trans-abstract'))
+
+        return out
+
