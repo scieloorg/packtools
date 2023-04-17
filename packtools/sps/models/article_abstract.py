@@ -108,10 +108,10 @@ class Abstract:
     @property
     def sub_article_abstract_with_tags(self):
         out = {
-            'lang': self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang")
+            'lang': self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang"),
+            'title': self.xmltree.xpath(".//sub-article//front-stub//abstract//title")[0].text,
+            'sections': self.get_values_dict_with_tags('.//sub-article//front-stub//abstract')
         }
-        out.update(self.get_values_dict_with_tags('.//sub-article//front-stub//abstract'))
-
         return out
 
     @property
