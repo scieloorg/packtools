@@ -92,3 +92,50 @@ class AbstractTest(TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_sub_article_abstract_with_tags(self):
+        xml = (
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                    <front-stub>
+                        <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
+                        <abstract>
+                            <title>RESUMO</title>
+                            <sec>
+                                <title>Objetivo:</title>
+                                <p>objetivo</p>
+                            </sec>
+                            <sec>
+                                <title>Método:</title>
+                                <p>metodo</p>
+                            </sec>
+                            <sec>
+                                <title>Resultados:</title>
+                                <p>resultados</p>
+                            </sec>
+                            <sec>
+                                <title>Conclusão:</title>
+                                <p>conclusão</p>
+                            </sec>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+        data = ET.fromstring(xml)
+        obtained = Abstract(data).sub_article_abstract_with_tags
+
+        expected = {
+            "title": "RESUMO",
+            "lang": "pt",
+            "Objetivo:": "objetivo",
+            "Método:": "metodo",
+            "Resultados:": "resultados",
+            "Conclusão:": "conclusão"
+
+        }
+
+        self.assertEqual(obtained, expected)
+
