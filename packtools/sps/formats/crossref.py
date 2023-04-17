@@ -19,6 +19,14 @@ SUPPLBEG_REGEX = re.compile(r'^0 ')
 SUPPLEND_REGEX = re.compile(r' 0$')
 
 
+def get_timestamp():
+    return datetime.now().strftime('%Y%m%d%H%M%S')
+
+
+def get_doi_batch_id():
+    return uuid.uuid4().hex
+
+
 def pipeline_crossref(xml_tree, data):
     xml_crossref = setupdoibatch_pipe()
     xml_head_pipe(xml_crossref)
