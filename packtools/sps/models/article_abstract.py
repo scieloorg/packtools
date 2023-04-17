@@ -76,3 +76,19 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
+    def get_values_dict_without_tags(self, attrib, lang):
+        values = []
+        for node in self.xmltree.xpath(f"{attrib}//sec"):
+            values.append(node.xpath("./p")[0].text)
+        out = {lang: " ".join(values)}
+        return out
+
+    def get_values_dict_with_tags(self, attrib):
+        out = {
+            'title': self.xmltree.xpath(f"{attrib}//title")[0].text
+        }
+        for node in self.xmltree.xpath(f"{attrib}//sec"):
+            out[node.xpath("./title")[0].text] = node.xpath("./p")[0].text
+
+        return out
+
