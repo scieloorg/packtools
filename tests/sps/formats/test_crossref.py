@@ -19,6 +19,7 @@ from packtools.sps.formats.crossref import (
     xml_issue_pipe,
     xml_journalarticle_pipe,
     xml_articlecontributors_pipe,
+    xml_articleabstract_pipe,
 
 )
 from unittest import TestCase
@@ -544,6 +545,100 @@ class PipelineCrossref(TestCase):
         xml_journal_pipe(xml_crossref)
         xml_journalarticle_pipe(xml_tree, xml_crossref)
         xml_articlecontributors_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_articleabstract_pipe(self):
+        xml_tree = ET.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                    <abstract>
+                        <title>Abstract</title>
+                        <sec>
+                        <title>Objective:</title>
+                        <p>Objective</p>
+                        </sec>
+                        <sec>
+                        <title>Method:</title>
+                        <p>Method</p>
+                        </sec>
+                        <sec>
+                        <title>Results:</title>
+                        <p>Results</p>
+                        </sec>
+                        <sec>
+                        <title>Conclusion:</title>
+                        <p>Conclusion</p>
+                        </sec>
+                        </abstract>
+                        <trans-abstract xml:lang="es">
+                        <title>RESUMEN</title>
+                        <sec>
+                        <title>Objetivo:</title>
+                        <p>Objetivo</p>
+                        </sec>
+                        <sec>
+                        <title>Método:</title>
+                        <p>Método</p>
+                        </sec>
+                        <sec>
+                        <title>Resultados:</title>
+                        <p>Resultados</p>
+                        </sec>
+                        <sec>
+                        <title>Conclusión:</title>
+                        <p>Conclusión</p>
+                        </sec>
+                        </trans-abstract>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                    <front-stub>
+                        <abstract>
+                        <title>RESUMO</title>
+                        <sec>
+                        <title>Objetivo:</title>
+                        <p>Objetivo</p>
+                        </sec>
+                        <sec>
+                        <title>Método:</title>
+                        <p>Método</p>
+                        </sec>
+                        <sec>
+                        <title>Resultados:</title>
+                        <p>Resultados</p>
+                        </sec>
+                        <sec>
+                        <title>Conclusão:</title>
+                        <p>Conclusão</p>
+                        </sec>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+        expected = (
+            '<jats:abstract xml:lang="en">'
+            '<jats:p>Abstract Objective: Objective Method: Method Results: Results Conclusion: Conclusion</jats:p>'
+            '</jats:abstract>'
+            '<jats:abstract xml:lang="es">'
+            '<jats:p>RESUMEN Objetivo: Objetivo Método: Método Resultados: Resultados Conclusión: Conclusión</jats:p>'
+            '</jats:abstract>'
+            '<jats:abstract xml:lang="pt">'
+            '<jats:p>RESUMO Objetivo: Objetivo Método: Método Resultados: Resultados Conclusão: Conclusão</jats:p>'
+            '</jats:abstract>'
+        )
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_articleabstract_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 

@@ -13,6 +13,7 @@ from packtools.sps.models import (
     article_and_subarticles,
     article_authors,
     aff,
+    article_abstract,
 )
 
 SUPPLBEG_REGEX = re.compile(r'^0 ')
@@ -49,7 +50,7 @@ def pipeline_crossref(xml_tree, data):
     # xml_articletitles_pipe(xml_tree, xml_crossref)
     # xml_articletitle_pipe(xml_tree, xml_crossref)
     xml_articlecontributors_pipe(xml_tree, xml_crossref)
-    # xml_articleabstract_pipe(xml_tree, xml_crossref)
+    xml_articleabstract_pipe(xml_tree, xml_crossref)
     # xml_articlepubdate_pipe(xml_tree, xml_crossref)
     # xml_pages_pipe(xml_tree, xml_crossref)
     # xml_pid_pipe(xml_tree, xml_crossref)
@@ -390,5 +391,31 @@ def xml_articlecontributors_pipe(xml_tree, xml_crossref):
             person_name.append(ORCID)
             contributors.append(person_name)
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(contributors)
+
+
+def xml_articleabstract_pipe(xml_tree, xml_crossref):
+    """
+    <jats:abstract xml:lang="en">
+        <jats:p>Abstract Objective: to assess the effects of an educational intervention on smoking cessation aimed at the nursing team. Method: this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used. Results: there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies. Conclusion: the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</jats:p>
+    </jats:abstract>
+    <jats:abstract xml:lang="es">
+        <jats:p>RESUMEN Objetivo: evaluar los efectos de una intervención educativa para dejar de fumar dirigida al equipo de enfermería. Método: estudio cuasi-experimental con 37 profesionales de enfermería de un hospital brasileño de mayo/2019 a diciembre/2020. La intervención consistió en capacitar a los profesionales de enfermería en el abordaje del paciente fumador, dividida en dos etapas, la primera, en línea, requisito previo para la presencial/videoconferencia. El efecto de la intervención se evaluó a través del pre y post test realizado por los participantes. También se analizaron los registros en las historias clínicas de los fumadores. Para el análisis se utilizó la prueba Chi-Square de McNemar. Resultados: hubo un aumento en la frecuencia de acciones dirigidas a dejar de fumar después de la intervención. Se encontraron diferencias significativas en las guías relacionadas con la divulgación a los familiares de la decisión de dejar de fumar y la necesidad de apoyo, el estímulo de la abstinencia después del alta hospitalaria y la información sobre estrategias para dejar de fumar y recaer. Conclusión: la intervención educativa demostró ser innovadora y con gran capacidad de diseminación del conocimiento. El post-test mostró un efecto positivo en la frecuencia de las acciones dirigidas a la deshabituación tabáquica implementadas por el equipo de enfermería.</jats:p>
+    </jats:abstract>
+    <jats:abstract xml:lang="pt">
+        <jats:p>RESUMO Objetivo: avaliar os efeitos de uma intervenção educativa sobre cessação do tabagismo direcionada à equipe de enfermagem. Método: estudo quase-experimental com 37 profissionais de enfermagem de um hospital brasileiro de maio/2019 a dezembro/2020. A intervenção consistiu em capacitar profissionais de enfermagem sobre abordagens aos pacientes tabagistas, dividida em duas etapas, a primeira, online, pré-requisito para a presencial/videoconferência. O efeito da intervenção foi avaliado por meio do pré- e pós-teste preenchido pelos participantes. Também foram analisados registros em prontuários de pacientes fumantes. Para análise, utilizou-se o Teste do Qui-Quadrado de McNemar. Resultados: houve aumento da frequência das ações visando à cessação tabágica após a intervenção. Diferenças significativas foram encontradas em orientações relacionadas à divulgação aos familiares da decisão de parar de fumar e necessidade de apoio, incentivo à abstinência após alta hospitalar e informações sobre estratégias para cessação do tabaco e recaídas. Conclusão: a intervenção educativa se mostrou inovadora e com grande capacidade de difusão do conhecimento. O pós-teste evidenciou efeito positivo na frequência das ações visando à cessação tabágica implementadas pela equipe de enfermagem.</jats:p>
+    </jats:abstract>
+    """
+    abstracts = article_abstract.Abstract(xml_tree).abstracts_with_tags
+    for abstract in abstracts:
+        jats = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}abstract')
+        jats.set('{http://www.w3.org/XML/1998/namespace}lang', abstract.get('lang'))
+        jats_p = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}p')
+        text = [abstract.get('title')]
+        for key, value in abstract.get('sections').items():
+            text.append(key)
+            text.append(value)
+        jats_p.text = ' '.join(text)
+        jats.append(jats_p)
+        xml_crossref.append(jats)
 
 
