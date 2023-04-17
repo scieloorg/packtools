@@ -142,6 +142,6 @@ class Abstract:
     @property
     def abstracts_without_tags(self):
         out = self.main_abstract_without_tags
-        out.update(self.sub_article_abstract_without_tags)
         out.update(self.trans_abstract_without_tags)
+        out.update(self.sub_article_abstract_without_tags)
         return out
