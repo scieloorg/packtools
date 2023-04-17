@@ -137,7 +137,7 @@ class Abstract:
 
     @property
     def abstracts_with_tags(self):
-        return [self.main_abstract_with_tags, self.sub_article_abstract_with_tags, self.trans_abstract_with_tags]
+        return [self.main_abstract_with_tags, self.trans_abstract_with_tags, self.sub_article_abstract_with_tags]
 
     @property
     def abstracts_without_tags(self):

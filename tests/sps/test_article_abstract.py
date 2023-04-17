@@ -344,29 +344,36 @@ class AbstractTest(TestCase):
 
         expected = [
             {
-                "title": "Abstract",
                 "lang": "en",
-                "Objective:": "objective",
-                "Method:": "method",
-                "Results:": "results",
-                "Conclusion:": "conclusion"
+                "title": "Abstract",
+                "sections": {
+                    "Objective:": "objective",
+                    "Method:": "method",
+                    "Results:": "results",
+                    "Conclusion:": "conclusion"
+                }
             },
             {
-                "title": "RESUMO",
-                "lang": "pt",
-                "Objetivo:": "objetivo",
-                "Método:": "metodo",
-                "Resultados:": "resultados",
-                "Conclusão:": "conclusão"
-            },
-            {
-                "title": "RESUMEN",
                 "lang": "es",
-                "Objetivo:": "objetivo",
-                "Método:": "metodo",
-                "Resultados:": "resultados",
-                "Conclusión:": "conclusion"
+                "title": "RESUMEN",
+                "sections": {
+                    "Objetivo:": "objetivo",
+                    "Método:": "metodo",
+                    "Resultados:": "resultados",
+                    "Conclusión:": "conclusion"
+                }
+            },
+            {
+                "lang": "pt",
+                "title": "RESUMO",
+                "sections": {
+                    "Objetivo:": "objetivo",
+                    "Método:": "metodo",
+                    "Resultados:": "resultados",
+                    "Conclusão:": "conclusão"
+                }
             }
+
         ]
 
         self.assertEqual(obtained, expected)
