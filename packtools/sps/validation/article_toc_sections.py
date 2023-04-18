@@ -54,3 +54,10 @@ class ArticleTocSectionsValidation:
             )
         )
         return resp
+
+    
+    def call_methods(self, **kwargs):
+        return {'article_toc_sections': [
+            self.validate_article_toc_sections(kwargs['expected_toc_sections']) ,self.validade_article_title_is_different_from_section_titles()
+            ]    
+        }

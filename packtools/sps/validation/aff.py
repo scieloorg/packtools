@@ -30,8 +30,8 @@ class AffiliationValidation:
                 })
         return result
     
-    @property
-    def call_methods(self):
+
+    def call_methods(self, **kwargs):
         return {
             'affliation_validation': self.validate_affiliation,
         }

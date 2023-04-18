@@ -48,10 +48,10 @@ class ArticleLicenseValidation:
                 })
         return resp
     
-    @property
-    def call_methods(self):
+    
+    def call_methods(self, **kwargs):
         return {'license_validation': 
-                [self.validate_license(expected_value={}), 
-                self.validate_license_code(expected_code='', expected_version='')
+                [self.validate_license(kwargs['expected_value_license']), 
+                self.validate_license_code(kwargs['expected_code'], kwargs['expected_version'])
             ]
         }

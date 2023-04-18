@@ -105,11 +105,11 @@ class IssueValidation:
         )
         return resp_suppl
     
-    @property
-    def call_methods(self):
+    
+    def call_methods(self, **kwargs):
         return {'issue_validation': [
-            self.validate_volume(expected_value='10'), 
-            self.validate_issue(expected_value='10'), 
-            self.validate_supplement(expected_value='10')
+            self.validate_volume(kwargs['expected_value_volume']), 
+            self.validate_issue(kwargs['expected_value_issue']), 
+            self.validate_supplement('expected_value_supplment')
             ]
         }

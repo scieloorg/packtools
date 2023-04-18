@@ -104,11 +104,11 @@ class ArticleAuthorsValidation:
                     })
         return _result_dict
     
-    @property
-    def call_methods(self):
+
+    def call_methods(self, **kwargs):
         from tests.sps.validation.test_article_authors import credit_terms_and_urls
         return {
-            'authors_role_validation': 
-                [self.validate_authors_role(credit_terms_and_urls), 
+            'authors_validation': 
+                [self.validate_authors_role(kwargs['credit_terms_and_urls']), 
                 self.validate_authors_orcid()]
         }

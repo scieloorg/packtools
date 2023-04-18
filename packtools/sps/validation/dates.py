@@ -85,12 +85,12 @@ class ArticleDatesValidation:
 
         return result
 
-    @property
-    def call_methods(self):
+    
+    def call_methods(self, **kwargs):
         return {'date_validation': [self.history_dates_are_sorted(
-            order=["received", "rev-request", "rev-recd", "accepted", "approved"], 
-            required_events=["received", "rev-request", "rev-recd", "accepted", "approved"]
-        ), self.history_dates_are_complete()]
+            kwargs['order'], 
+            kwargs['required_events']), 
+            self.history_dates_are_complete()]
         }
 
 
