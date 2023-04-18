@@ -51,8 +51,8 @@ def pipeline_crossref(xml_tree, data):
     # xml_articletitle_pipe(xml_tree, xml_crossref)
     xml_articlecontributors_pipe(xml_tree, xml_crossref)
     xml_articleabstract_pipe(xml_tree, xml_crossref)
-    # xml_articlepubdate_pipe(xml_tree, xml_crossref)
-    # xml_pages_pipe(xml_tree, xml_crossref)
+    xml_articlepubdate_pipe(xml_tree, xml_crossref)
+    xml_pages_pipe(xml_tree, xml_crossref)
     # xml_pid_pipe(xml_tree, xml_crossref)
     # xml_elocation_pipe(xml_tree, xml_crossref)
     # xml_permissions_pipe(xml_tree, xml_crossref)
@@ -417,5 +417,39 @@ def xml_articleabstract_pipe(xml_tree, xml_crossref):
         jats_p.text = ' '.join(text)
         jats.append(jats_p)
         xml_crossref.append(jats)
+
+
+def xml_articlepubdate_pipe(xml_tree, xml_crossref):
+    """
+    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
+        <publication_date media_type="online">
+            <year>2022</year>
+        </publication_date>
+    </journal_article>
+    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
+        <publication_date media_type="online">
+            <year>2022</year>
+        </publication_date>
+    </journal_article>
+
+    todo
+    publication_type in SciELO format: research-article and translation
+    publication_type in CrossRef format: full_text
+    """
+    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
+    pub_date = dates.ArticleDates(xml_tree).article_date
+
+    for article in articles:
+        publication_date = ET.Element('publication_date')
+        # todo
+        # identify media_type value
+        publication_date.set('media_type', 'online')
+
+        year = ET.Element('year')
+        year.text = pub_date.get('year')
+
+        publication_date.append(year)
+
+        xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(publication_date)
 
 
