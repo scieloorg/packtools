@@ -106,7 +106,6 @@ class ArticleAuthorsValidation:
     
 
     def call_methods(self, **kwargs):
-        from tests.sps.validation.test_article_authors import credit_terms_and_urls
         return {
             'authors_validation': 
                 [self.validate_authors_role(kwargs['credit_terms_and_urls']), 
