@@ -86,10 +86,10 @@ class ArticleDatesValidation:
         return result
 
     
-    def call_methods(self, **kwargs):
+    def validate(self, data):
         return {'date_validation': [self.history_dates_are_sorted(
-            kwargs['order'], 
-            kwargs['required_events']), 
+            data['order'], 
+            data['required_events']), 
             self.history_dates_are_complete()]
         }
 

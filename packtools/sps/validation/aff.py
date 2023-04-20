@@ -31,7 +31,7 @@ class AffiliationValidation:
         return result
     
 
-    def call_methods(self, **kwargs):
+    def validate(self, data):
         return {
             'affliation_validation': self.validate_affiliation,
         }

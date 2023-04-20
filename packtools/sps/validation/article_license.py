@@ -49,9 +49,9 @@ class ArticleLicenseValidation:
         return resp
     
     
-    def call_methods(self, **kwargs):
-        return {'license_validation': 
-                [self.validate_license(kwargs['expected_value_license']), 
-                self.validate_license_code(kwargs['expected_code'], kwargs['expected_version'])
+    def validate(self, data):
+        return {'license_code_validation': 
+                [self.validate_license(data['expected_value_license']), 
+                self.validate_license_code(data['expected_code'], data['expected_version'])
             ]
         }

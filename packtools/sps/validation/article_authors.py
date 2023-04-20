@@ -105,9 +105,9 @@ class ArticleAuthorsValidation:
         return _result_dict
     
 
-    def call_methods(self, **kwargs):
+    def validate(self, data):
         return {
-            'authors_validation': 
-                [self.validate_authors_role(kwargs['credit_terms_and_urls']), 
+            'authors_role_orcid_validation': 
+                [self.validate_authors_role(data['credit_terms_and_urls']), 
                 self.validate_authors_orcid()]
         }

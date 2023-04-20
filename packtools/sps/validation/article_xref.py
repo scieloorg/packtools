@@ -82,5 +82,9 @@ class ArticleXrefValidation:
     def rids_without_ids(self):
         return self.article_xref.all_xref_rids - self.article_xref.all_ids
 
-    def call_methods(self, **kwargs):
-        return self.validate_id(), self.validate_rid()
+    def validate(self, data):
+        return {'xref_id_rid_validation': [
+            self.validate_id(), 
+            self.validate_rid()
+        ]
+        }

@@ -106,10 +106,10 @@ class IssueValidation:
         return resp_suppl
     
     
-    def call_methods(self, **kwargs):
+    def validate(self, data):
         return {'issue_validation': [
-            self.validate_volume(kwargs['expected_value_volume']), 
-            self.validate_issue(kwargs['expected_value_issue']), 
-            self.validate_supplement('expected_value_supplment')
+            self.validate_volume(data['expected_value_volume']), 
+            self.validate_issue(data['expected_value_issue']), 
+            self.validate_supplement(data['expected_value_supplment'])
             ]
         }
