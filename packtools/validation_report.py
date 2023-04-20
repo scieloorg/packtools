@@ -65,12 +65,10 @@ class ValidationReportXML:
 
     def save_json(self, output_file_path=None):
         validation_output = self.validation_report()
-        data = []
+        
+        data = [json.dumps(result) for result in list(validation_output)]
 
-        if output_file_path:
-            for result in list(validation_output):
-                data.append(json.dumps(result, cls=DateTimeEncoder))
-                    
+        if output_file_path:                    
             with open(f"{output_file_path}" , "w") as f:
                 f.write(",\n".join(data))
 
