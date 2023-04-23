@@ -329,12 +329,18 @@ class PipelineCrossref(TestCase):
         self.assertIn(expected, obtained)
 
     def test_xml_journalissue_pipe(self):
-        xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalmetadata_pipe(xml_crossref)
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<body>'
+            '<journal>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
 
-        self.assertIsNotNone(xml_crossref.find('./body/journal/journal_metadata'))
+        xml_journalissue_pipe(xml_crossref)
+
+        self.assertIsNotNone(xml_crossref.find('./body/journal/journal_issue'))
 
     def test_xml_pubdate_pipe(self):
         xml_tree = ET.fromstring(
