@@ -1125,3 +1125,61 @@ class PipelineCrossref(TestCase):
 
         self.assertIsNotNone(xml_crossref.find('.//doi_data'))
 
+    def test_xml_doi_pipe(self):
+        xml_tree = ET.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
+            <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
+            <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
+            <article-id pub-id-type="other">00445</article-id>
+            <title-group>
+            <article-title>Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study<xref ref-type="fn" rid="FN1">*</xref></article-title>
+            <trans-title-group xml:lang="es">
+            <trans-title>Efectos de una intervención educativa con profesionales de enfermería en el abordaje de pacientes fumadores: un estudio cuasi-experimental</trans-title></trans-title-group>
+            </title-group>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            <front-stub>
+            <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
+            <title-group>
+            <article-title>Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental<xref ref-type="fn" rid="FN2">*</xref></article-title>
+            </title-group>
+            </front-stub>
+            </sub-article>
+            </article>
+            """
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<doi_data>'
+            '<doi>10.1590/1980-220X-REEUSP-2021-0569en</doi>'
+            '</doi_data>'
+            '</journal_article>'
+            '<journal_article language="pt" publication_type="translation" reference_distribution_opts="any">'
+            '<doi_data>'
+            '<doi>10.1590/1980-220X-REEUSP-2021-0569pt</doi>'
+            '</doi_data>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_doidata_pipe(xml_crossref)
+
+        xml_doi_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+

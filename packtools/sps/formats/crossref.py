@@ -790,3 +790,46 @@ def xml_doidata_pipe(xml_crossref):
         journal_article.append(doi_data)
 
 
+def xml_doi_pipe(xml_tree, xml_crossref):
+    """
+    OUT (CrossRef format) ->
+    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
+    <body>
+    <journal>
+    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
+    <doi_data>
+    <doi>10.1590/1980-220x-reeusp-2021-0569en</doi>
+    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=en</resource>
+    <collection property="crawler-based">
+    <item crawler="iParadigms">
+    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=en</resource>
+    </item>
+    </collection>
+    </doi_data>
+    </journal_article>
+    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
+    <doi_data>
+    <doi>10.1590/1980-220x-reeusp-2021-0569pt</doi>
+    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=pt</resource>
+    <collection property="crawler-based">
+    <item crawler="iParadigms">
+    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=pt</resource>
+    </item>
+    </collection>
+    </doi_data>
+    </journal_article>
+    </journal>
+    </body>
+    </doi_batch>
+    """
+    art_lang = [lang.get('lang') for lang in article_and_subarticles.ArticleAndSubArticles(xml_tree).data]
+    dict_doi = {}
+    for d in article_doi_with_lang.DoiWithLang(xml_tree).data:
+        dict_doi[d.get('lang')] = d.get('value')
+    for lang in art_lang:
+        doi = ET.Element('doi')
+        doi.text = dict_doi.get(lang)
+
+        xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(doi)
+
+
