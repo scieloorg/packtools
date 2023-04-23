@@ -833,3 +833,63 @@ def xml_doi_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(doi)
 
 
+def xml_resource_pipe(xml_tree, xml_crossref):
+    """
+    IN (SciELO format) ->
+    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+    <front>
+    <article-meta>
+    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
+    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
+    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
+    <article-id pub-id-type="other">00445</article-id>
+    </article-meta>
+    </front>
+    <sub-article article-type="translation" id="s1" xml:lang="pt">
+    <front-stub>
+    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
+    </front-stub>
+    </sub-article>
+    </article>
+
+    OUT (CrossRef format) ->
+    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
+    <body>
+    <journal>
+    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
+    <doi_data>
+    <doi>10.1590/1980-220x-reeusp-2021-0569en</doi>
+    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=en</resource>
+    <collection property="crawler-based">
+    <item crawler="iParadigms">
+    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=en</resource>
+    </item>
+    </collection>
+    </doi_data>
+    </journal_article>
+    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
+    <doi_data>
+    <doi>10.1590/1980-220x-reeusp-2021-0569pt</doi>
+    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=pt</resource>
+    <collection property="crawler-based">
+    <item crawler="iParadigms">
+    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=pt</resource>
+    </item>
+    </collection>
+    </doi_data>
+    </journal_article>
+    </journal>
+    </body>
+    </doi_batch>
+    """
+    url = 'http://www.scielo.br/scielo.php?script=sci_arttext&pid={}&tlng={}'
+
+    art_lang = [lang.get('lang') for lang in article_and_subarticles.ArticleAndSubArticles(xml_tree).data]
+    pid_v2 = article_ids.ArticleIds(xml_tree).v2
+
+    for lang in art_lang:
+        resource = ET.Element('resource')
+        resource.text = url.format(pid_v2, lang)
+        xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(resource)
+
+

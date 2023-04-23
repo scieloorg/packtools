@@ -1183,3 +1183,53 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_resource_pipe(self):
+        xml_tree = ET.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
+            <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
+            <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
+            <article-id pub-id-type="other">00445</article-id>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            <front-stub>
+            <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
+            </front-stub>
+            </sub-article>
+            </article>
+            """
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<doi_data>'
+            '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0080-62342022000100445&amp;tlng=en</resource>'
+            '</doi_data>'
+            '</journal_article>'
+            '<journal_article language="pt" publication_type="translation" reference_distribution_opts="any">'
+            '<doi_data>'
+            '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0080-62342022000100445&amp;tlng=pt</resource>'
+            '</doi_data>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_doidata_pipe(xml_crossref)
+
+        xml_resource_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
