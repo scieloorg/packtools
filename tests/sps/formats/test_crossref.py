@@ -867,6 +867,86 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_permissions_pipe(self):
+        xml_tree = ET.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
+            <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
+            <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
+            <article-id pub-id-type="other">00445</article-id>
+            <permissions>
+            <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+            <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+            </license>
+            </permissions>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            </sub-article>
+            </article>
+            """
+        )
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<ai:program name="AccessIndicators">'
+            '<ai:free_to_read/>'
+            '<ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>'
+            '<ai:license_ref applies_to="am">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>'
+            '<ai:license_ref applies_to="tdm">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>'
+            '</ai:program>'
+            '</journal_article>'
+            '<journal_article language="pt" publication_type="translation" reference_distribution_opts="any">'
+            '<ai:program name="AccessIndicators">'
+            '<ai:free_to_read/>'
+            '<ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>'
+            '<ai:license_ref applies_to="am">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>'
+            '<ai:license_ref applies_to="tdm">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>'
+            '</ai:program>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        # xml_crossref = ET.fromstring(
+        #     '<doi_batch '
+        #     'xmlns="http://www.crossref.org/schema/4.4.0" '
+        #     'xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" '
+        #     'xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" '
+        #     'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0" '
+        #     'xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 '
+        #     'http://www.crossref.org/schemas/crossref4.4.0.xsd">'
+        #     '<body>'
+        #     '<journal>'
+        #     '<journal_article xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" '
+        #     'xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" '
+        #     'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="en" '
+        #     'publication_type="research-article" reference_distribution_opts="any"/>'
+        #     '<journal_article xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" '
+        #     'xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" '
+        #     'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="pt" '
+        #     'publication_type="translation" reference_distribution_opts="any"/>'
+        #     '</journal>'
+        #     '</body>'
+        #     '</doi_batch>'
+        # )
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+        xml_journalarticle_pipe(xml_tree, xml_crossref)
+
+        xml_permissions_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
     def test_xml_articletitles_pipe(self):
         xml_tree = ET.fromstring(
             """

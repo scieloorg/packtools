@@ -633,3 +633,68 @@ def xml_elocation_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
 
 
+def xml_permissions_pipe(xml_tree, xml_crossref):
+    """
+    IN (SciELO format) ->
+    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+    article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+    <front>
+    <article-meta>
+    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
+    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
+    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
+    <article-id pub-id-type="other">00445</article-id>
+    <permissions>
+    <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+    <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+    </license>
+    </permissions>
+    </article-meta>
+    </front>
+    </article>
+
+    OUT (CrossRef format) ->
+    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0"
+    xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
+    <body>
+    <journal>
+    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
+    <ai:program name="AccessIndicators">
+    <ai:free_to_read/>
+    <ai:license_ref applies_to="vor">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+    <ai:license_ref applies_to="am">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+    <ai:license_ref applies_to="tdm">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+    </ai:program>
+    </journal_article>
+    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
+    <ai:program name="AccessIndicators">
+    <ai:free_to_read/>
+    <ai:license_ref applies_to="vor">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+    <ai:license_ref applies_to="am">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+    <ai:license_ref applies_to="tdm">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+    </ai:program>
+    </journal_article>
+    </journal>
+    </body>
+    </doi_batch>
+    """
+    art_license = article_license.ArticleLicense(xml_tree).licenses
+    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
+
+    for article in articles:
+        free_to_read = ET.Element("{http://www.crossref.org/AccessIndicators.xsd}free_to_read")
+
+        program = ET.Element("{http://www.crossref.org/AccessIndicators.xsd}program")
+        program.set("name", "AccessIndicators")
+        program.append(free_to_read)
+
+        for context in ["vor", "am", "tdm"]:
+            license_ref = ET.Element("{http://www.crossref.org/AccessIndicators.xsd}license_ref")
+            license_ref.set("applies_to", context)
+            license_ref.text = art_license[0].get('link')
+            program.append(license_ref)
+
+        xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(program)
+
+
