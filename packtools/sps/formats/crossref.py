@@ -602,3 +602,34 @@ def xml_pid_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
 
 
+def xml_elocation_pipe(xml_tree, xml_crossref):
+    """
+    IN (SciELO format) ->
+    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+    article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
+        <front>
+            <article-meta>
+                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
+                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
+                <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
+                <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
+                <elocation-id>e20210569</elocation-id>
+            </article-meta>
+        </front>
+    </article>
+
+    OUT (CrossRef format) ->
+    <publisher_item>
+        <item_number item_number_type="article_number">e20210569</item_number>
+    </publisher_item>
+    """
+    _data = front_articlemeta_issue.ArticleMetaIssue(xml_tree).data
+
+    publisher_item = ET.Element('publisher_item')
+    item_number = ET.Element('item_number')
+    item_number.set('item_number_type', 'article_number')
+    item_number.text = _data.get('elocation_id')
+    publisher_item.append(item_number)
+    xml_crossref.find('./body/journal/journal_article').append(publisher_item)
+
+
