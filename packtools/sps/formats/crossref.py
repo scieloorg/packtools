@@ -570,3 +570,35 @@ def xml_pages_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(page)
 
 
+def xml_pid_pipe(xml_tree, xml_crossref):
+    """
+    IN (SciELO format) ->
+    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+    article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
+        <front>
+            <article-meta>
+                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
+                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
+                <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
+                <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
+            </article-meta>
+        </front>
+    </article>
+
+    OUT (CrossRef format) ->
+    <publisher_item>
+        <identifier id_type="pii">S0103-21002017000400333</identifier>
+    </publisher_item>
+    """
+    pid_v2 = article_ids.ArticleIds(xml_tree).v2
+
+    identifier = ET.Element('identifier')
+    identifier.set('id_type', 'pii')
+    identifier.text = pid_v2
+
+    publisher_item = ET.Element('publisher_item')
+    publisher_item.append(identifier)
+
+    xml_crossref.find('./body/journal/journal_article').append(publisher_item)
+
+

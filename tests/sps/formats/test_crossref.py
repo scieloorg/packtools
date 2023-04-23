@@ -763,6 +763,54 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_pid_pipe(self):
+        xml_tree = ET.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
+                        <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
+                        <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
+                        <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
+                        <volume>30</volume>
+                        <elocation-id>e20210569</elocation-id>
+                        <issue>4</issue>
+                        <fpage>333</fpage>
+                        <lpage>342</lpage>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+        expected = (
+            '<publisher_item>'
+            '<identifier id_type="pii">S0103-21002017000400333</identifier>'
+            '</publisher_item>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head>'
+            '<doi_batch_id>3f23a73dfbac48288d22545e53414203</doi_batch_id>'
+            '<timestamp>20230418180226</timestamp>'
+            '</head>'
+            '<body>'
+            '<journal>'
+            '<journal_article>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        xml_pid_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
     def test_xml_articletitles_pipe(self):
         xml_tree = ET.fromstring(
             """
