@@ -156,8 +156,12 @@ class PipelineCrossref(TestCase):
             "registrant": "registrant"
         }
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_head_pipe(xml_crossref)
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head>'
+            '</head>'
+            '</doi_batch>'
+        )
         xml_registrant_pipe(xml_crossref, data)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
