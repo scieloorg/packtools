@@ -311,11 +311,16 @@ class PipelineCrossref(TestCase):
             '</journal>'
             '</body>'
         )
-
-        xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalmetadata_pipe(xml_crossref)
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<body>'
+            '<journal>'
+            '<journal_metadata>'
+            '</journal_metadata>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
 
         xml_issn_pipe(xml_tree, xml_crossref)
 
