@@ -1,7 +1,6 @@
 # coding: utf-8
 from lxml import etree as ET
 import re
-import os
 import uuid
 from copy import deepcopy
 from datetime import datetime
@@ -14,6 +13,11 @@ from packtools.sps.models import (
     article_authors,
     aff,
     article_abstract,
+    article_ids,
+    article_license,
+    article_titles,
+    article_doi_with_lang,
+    article_citations,
 )
 
 SUPPLBEG_REGEX = re.compile(r'^0 ')
@@ -31,8 +35,8 @@ def get_doi_batch_id():
 def pipeline_crossref(xml_tree, data):
     xml_crossref = setupdoibatch_pipe()
     xml_head_pipe(xml_crossref)
-    xml_doibatchid_pipe(xml_crossref, data)
-    xml_timestamp_pipe(xml_crossref, data)
+    xml_doibatchid_pipe(xml_crossref)
+    xml_timestamp_pipe(xml_crossref)
     xml_depositor_pipe(xml_crossref, data)
     xml_registrant_pipe(xml_crossref, data)
     xml_body_pipe(xml_crossref)
@@ -47,21 +51,21 @@ def pipeline_crossref(xml_tree, data):
     xml_volume_pipe(xml_tree, xml_crossref)
     xml_issue_pipe(xml_tree, xml_crossref)
     xml_journalarticle_pipe(xml_tree, xml_crossref)
-    # xml_articletitles_pipe(xml_tree, xml_crossref)
+    xml_articletitles_pipe(xml_tree, xml_crossref)
     # xml_articletitle_pipe(xml_tree, xml_crossref)
     xml_articlecontributors_pipe(xml_tree, xml_crossref)
     xml_articleabstract_pipe(xml_tree, xml_crossref)
     xml_articlepubdate_pipe(xml_tree, xml_crossref)
     xml_pages_pipe(xml_tree, xml_crossref)
-    # xml_pid_pipe(xml_tree, xml_crossref)
-    # xml_elocation_pipe(xml_tree, xml_crossref)
-    # xml_permissions_pipe(xml_tree, xml_crossref)
-    # xml_programrelateditem_pipe(xml_tree, xml_crossref)
-    # xml_doidata_pipe(xml_tree, xml_crossref)
-    # xml_doi_pipe(xml_tree, xml_crossref)
-    # xml_resource_pipe(xml_tree, xml_crossref)
-    # xml_collection_pipe(xml_tree, xml_crossref)
-    # xml_articlecitations_pipe(xml_tree, xml_crossref)
+    xml_pid_pipe(xml_tree, xml_crossref)
+    xml_elocation_pipe(xml_tree, xml_crossref)
+    xml_permissions_pipe(xml_tree, xml_crossref)
+    xml_programrelateditem_pipe(xml_tree, xml_crossref)
+    xml_doidata_pipe(xml_crossref)
+    xml_doi_pipe(xml_tree, xml_crossref)
+    xml_resource_pipe(xml_tree, xml_crossref)
+    xml_collection_pipe(xml_tree, xml_crossref)
+    xml_articlecitations_pipe(xml_tree, xml_crossref)
     # xml_close_pipe(xml_tree, xml_crossref)
 
     return xml_crossref
@@ -326,6 +330,81 @@ def xml_journalarticle_pipe(xml_tree, xml_crossref):
         # reference_distribution_opts=?
         journal_article.set('reference_distribution_opts', 'any')
         xml_crossref.find('./body/journal').append(journal_article)
+
+
+def xml_articletitles_pipe(xml_tree, xml_crossref):
+    """
+    IN (SciELO format) ->
+    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+    <front>
+    <article-meta>
+    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
+    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
+    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
+    <article-id pub-id-type="other">00445</article-id>
+    <title-group>
+    <article-title>
+    Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study
+    <xref ref-type="fn" rid="FN1">*</xref>
+    </article-title>
+    <trans-title-group xml:lang="es">
+    <trans-title>Efectos de una intervención educativa con profesionales de enfermería en el abordaje de pacientes fumadores: un estudio cuasi-experimental</trans-title>
+    </trans-title-group>
+    </title-group>
+    </article-meta>
+    </front>
+    <sub-article article-type="translation" id="s1" xml:lang="pt">
+    <front-stub>
+    <title-group>
+    <article-title>
+    Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental
+    <xref ref-type="fn" rid="FN2">*</xref>
+    </article-title>
+    </title-group>
+    </front-stub>
+    </sub-article>
+    </article>
+
+    OUT (CrossRef format) ->
+    <doi_batch
+    xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
+    xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0"
+    xsi:schemaLocation="http://www.crossref.org/schema/4.4.0
+    http://www.crossref.org/schemas/crossref4.4.0.xsd">
+    <body>
+    <journal>
+    <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+    <titles>
+    <title>Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study</title>
+    <original_language_title language="pt">Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental</original_language_title>
+    </titles>
+    </journal_article>
+    <journal_article language="pt" publication_type="translation" reference_distribution_opts="any">
+    <titles>
+    <title>Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental</title>
+    <original_language_title language="en">Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study</original_language_title>
+    </titles>
+    </journal_article>
+    </journal>
+    </body>
+    </doi_batch>
+    """
+    art_titles = article_titles.ArticleTitles(xml_tree).article_title_dict
+    art_lang = [lang.get('lang') for lang in article_and_subarticles.ArticleAndSubArticles(xml_tree).data]
+
+    for lang in art_lang:
+        titles = ET.Element('titles')
+        title = ET.Element('title')
+        title.text = art_titles.get(lang)
+        titles.append(title)
+        original_language_title = ET.Element('original_language_title')
+        orig_lang = 'pt' if lang == 'en' else 'en'
+        original_language_title.set('language', orig_lang)
+        original_language_title.text = art_titles.get(orig_lang)
+        titles.append(original_language_title)
+        xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']").append(titles)
 
 
 def xml_articlecontributors_pipe(xml_tree, xml_crossref):
