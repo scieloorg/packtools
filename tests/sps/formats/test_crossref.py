@@ -635,10 +635,26 @@ class PipelineCrossref(TestCase):
             '<jats:p>RESUMO Objetivo: Objetivo Método: Método Resultados: Resultados Conclusão: Conclusão</jats:p>'
             '</jats:abstract>'
         )
+        # xml_crossref = ET.fromstring(
+        #     '<doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" '
+        #     'xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" '
+        #     'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0" '
+        #     'xmlns="http://www.crossref.org/schema/4.4.0" '
+        #     'xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 '
+        #     'http://www.crossref.org/schemas/crossref4.4.0.xsd">'
+        #     '<body>'
+        #     '<journal>'
+        #     '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any" />'
+        #     '<journal_article language="pt" publication_type="translation" reference_distribution_opts="any" />'
+        #     '</journal>'
+        #     '</body>'
+        #     '</doi_batch>'
+        # )
         xml_crossref = setupdoibatch_pipe()
         xml_body_pipe(xml_crossref)
         xml_journal_pipe(xml_crossref)
         xml_journalarticle_pipe(xml_tree, xml_crossref)
+
         xml_articleabstract_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")

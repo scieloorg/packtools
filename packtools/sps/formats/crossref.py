@@ -485,17 +485,20 @@ def xml_articleabstract_pipe(xml_tree, xml_crossref):
     </jats:abstract>
     """
     abstracts = article_abstract.Abstract(xml_tree).abstracts_with_tags
-    for abstract in abstracts:
-        jats = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}abstract')
-        jats.set('{http://www.w3.org/XML/1998/namespace}lang', abstract.get('lang'))
-        jats_p = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}p')
-        text = [abstract.get('title')]
-        for key, value in abstract.get('sections').items():
-            text.append(key)
-            text.append(value)
-        jats_p.text = ' '.join(text)
-        jats.append(jats_p)
-        xml_crossref.append(jats)
+    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
+
+    for article in articles:
+        for abstract in abstracts:
+            jats = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}abstract')
+            jats.set('{http://www.w3.org/XML/1998/namespace}lang', abstract.get('lang'))
+            jats_p = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}p')
+            text = [abstract.get('title')]
+            for key, value in abstract.get('sections').items():
+                text.append(key)
+                text.append(value)
+            jats_p.text = ' '.join(text)
+            jats.append(jats_p)
+            xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(deepcopy(jats))
 
 
 def xml_articlepubdate_pipe(xml_tree, xml_crossref):
