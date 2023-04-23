@@ -21,7 +21,17 @@ from packtools.sps.formats.crossref import (
     xml_articlecontributors_pipe,
     xml_articleabstract_pipe,
     xml_articlepubdate_pipe,
-
+    xml_pages_pipe,
+    xml_pid_pipe,
+    xml_elocation_pipe,
+    xml_permissions_pipe,
+    xml_articletitles_pipe,
+    xml_programrelateditem_pipe,
+    xml_doidata_pipe,
+    xml_doi_pipe,
+    xml_resource_pipe,
+    xml_collection_pipe,
+    xml_articlecitations_pipe,
 )
 from unittest import TestCase
 from unittest.mock import patch
@@ -47,7 +57,18 @@ class PipelineCrossref(TestCase):
         self.assertEqual(expected, obtained)
 
     def test_xmlhead_pipe(self):
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = ET.fromstring(
+            """
+            <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" 
+            xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0" 
+            xmlns="http://www.crossref.org/schema/4.4.0" 
+            xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 
+            http://www.crossref.org/schemas/crossref4.4.0.xsd">
+            </doi_batch>
+            """
+        )
+
         xml_head_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('head'))
