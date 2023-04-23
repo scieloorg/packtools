@@ -188,9 +188,17 @@ class PipelineCrossref(TestCase):
         self.assertIsNotNone(xml_crossref.find('./body/journal'))
 
     def test_xml_journalmetadata_pipe(self):
-        xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head>'
+            '</head>'
+            '<body>'
+            '<journal>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
         xml_journalmetadata_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_metadata'))
