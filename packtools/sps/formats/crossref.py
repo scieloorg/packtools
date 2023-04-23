@@ -962,3 +962,164 @@ def xml_collection_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(collection)
 
 
+def xml_articlecitations_pipe(xml_tree, xml_crossref):
+    """
+    IN (SciELO format) ->
+    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+    <back>
+    <ref-list>
+    <title>REFERENCES</title>
+    <ref id="B1">
+    <label>1.</label>
+    <mixed-citation>
+    1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI:
+    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+    </mixed-citation>
+    <element-citation publication-type="journal">
+    <person-group person-group-type="author">
+    <name>
+    <surname>Tran</surname>
+    <given-names>B</given-names>
+    </name>
+    <name>
+    <surname>Falster</surname>
+    <given-names>MO</given-names>
+    </name>
+    <name>
+    <surname>Douglas</surname>
+    <given-names>K</given-names>
+    </name>
+    <name>
+    <surname>Blyth</surname>
+    <given-names>F</given-names>
+    </name>
+    <name>
+    <surname>Jorm</surname>
+    <given-names>LR</given-names>
+    </name>
+    </person-group>
+    <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+    <source>Drug Alcohol Depend.</source>
+    <year>2015</year>
+    <volume>150</volume>
+    <fpage>85</fpage>
+    <lpage>91</lpage>
+    <comment>
+    DOI:
+    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+    </comment>
+    </element-citation>
+    </ref>
+    <ref id="B2">
+    <label>2.</label>
+    <mixed-citation>
+    2. Kwon JA, Jeon W, Park EC, Kim JH, Kim SJ, Yoo KB, et al. Effects of disease detection on changes in smoking behavior. Yonsei Med J. 2015;56(4): 1143-9. DOI:
+    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3349/ymj.2015.56.4.1143">https://doi.org/10.3349/ymj.2015.56.4.1143</ext-link>
+    </mixed-citation>
+    <element-citation publication-type="journal">
+    <person-group person-group-type="author">
+    <name>
+    <surname>Kwon</surname>
+    <given-names>JA</given-names>
+    </name>
+    <name>
+    <surname>Jeon</surname>
+    <given-names>W</given-names>
+    </name>
+    <name>
+    <surname>Park</surname>
+    <given-names>EC</given-names>
+    </name>
+    <name>
+    <surname>Kim</surname>
+    <given-names>JH</given-names>
+    </name>
+    <name>
+    <surname>Kim</surname>
+    <given-names>SJ</given-names>
+    </name>
+    <name>
+    <surname>Yoo</surname>
+    <given-names>KB</given-names>
+    </name>
+    <etal/>
+    </person-group>
+    <article-title>Effects of disease detection on changes in smoking behavior</article-title>
+    <source>Yonsei Med J.</source>
+    <year>2015</year>
+    <volume>56</volume>
+    <issue>4</issue>
+    <fpage>1143</fpage>
+    <lpage>9</lpage>
+    <comment>
+    DOI:
+    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3349/ymj.2015.56.4.1143">https://doi.org/10.3349/ymj.2015.56.4.1143</ext-link>
+    </comment>
+    </element-citation>
+    </ref>
+    </ref-list>
+    </back>
+    </article>
+    """
+
+    """
+    OUT (CrossRef format) ->
+    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
+    <body>
+    <journal>
+    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
+    <citation_list>
+    <citation key="ref1">
+    <journal_title>Drug Alcohol Depend.</journal_title>
+    <author>Tran B</author>
+    <volume>150</volume>
+    <first_page>85</first_page>
+    <cYear>2015</cYear>
+    <article_title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article_title>
+    </citation>
+    </citation_list>
+    </journal_article>
+    
+    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
+    <citation_list>
+    <citation key="ref1">
+    <journal_title>Drug Alcohol Depend.</journal_title>
+    <author>Tran B</author>
+    <volume>150</volume>
+    <first_page>85</first_page>
+    <cYear>2015</cYear>
+    <article_title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article_title>
+    </citation>
+    </citation_list>
+    </journal_article>
+    </journal>
+    </body>
+    </doi_batch>
+    """
+    citations = article_citations.ArticleCitations(xml_tree).article_citations
+    citation_list = ET.Element('citation_list')
+    for item in citations:
+        citation = ET.Element('citation')
+        citation.set('key', 'ref' + item.get('label'))
+        journal_title = ET.Element('journal_title')
+        journal_title.text = item.get('journal_title')
+        author = ET.Element('author')
+        author.text = item.get('author')
+        volume = ET.Element('volume')
+        volume.text = item.get('volume')
+        first_page = ET.Element('first_page')
+        first_page.text = item.get('first_page')
+        cYear = ET.Element('cYear')
+        cYear.text = item.get('cYear')
+        article_title = ET.Element('article_title')
+        article_title.text = item.get('article_title')
+        citation.append(journal_title)
+        citation.append(author)
+        citation.append(volume)
+        citation.append(first_page)
+        citation.append(cYear)
+        citation.append(article_title)
+        citation_list.append(citation)
+
+    for journal_article in xml_crossref.findall('./body/journal//journal_article'):
+        journal_article.append(deepcopy(citation_list))
