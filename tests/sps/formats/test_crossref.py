@@ -713,6 +713,56 @@ class PipelineCrossref(TestCase):
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
+    def test_xml_pages_pipe(self):
+        xml_tree = ET.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
+                        <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
+                        <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
+                        <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
+                        <fpage>333</fpage>
+                        <lpage>342</lpage>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+        expected = (
+            '<doi_batch>'
+            '<body>'
+            '<journal>'
+            '<journal_article>'
+            '<pages>'
+            '<first_page>333</first_page>'
+            '<last_page>342</last_page>'
+            '</pages>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<body>'
+            '<journal>'
+            '<journal_article>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        xml_pages_pipe(xml_tree, xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
     def test_xml_articletitles_pipe(self):
         xml_tree = ET.fromstring(
             """
