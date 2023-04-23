@@ -784,3 +784,9 @@ def xml_programrelateditem_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']").append(program)
 
 
+def xml_doidata_pipe(xml_crossref):
+    for journal_article in xml_crossref.findall('./body/journal//journal_article'):
+        doi_data = ET.Element('doi_data')
+        journal_article.append(doi_data)
+
+

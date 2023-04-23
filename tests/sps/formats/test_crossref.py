@@ -1085,3 +1085,43 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_doidata_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<journal-id journal-id-type="nlm-ta">Rev Esc Enferm USP</journal-id>'
+            '<journal-id journal-id-type="publisher-id">reeusp</journal-id>'
+            '<journal-title-group>'
+            '<journal-title>Revista da Escola de Enfermagem da USP</journal-title>'
+            '</journal-title-group>'
+            '</journal-meta>'
+            '</front>'
+            '<sub-article article-type="translation" id="s1" xml:lang="pt">'
+            '</sub-article>'
+            '</article>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<doi_data />'
+            '</journal_article>'
+            '<journal_article language="pt" publication_type="translation" reference_distribution_opts="any">'
+            '<doi_data />'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        xml_crossref = setupdoibatch_pipe()
+        xml_body_pipe(xml_crossref)
+        xml_journal_pipe(xml_crossref)
+        xml_journalarticle_pipe(xml_tree, xml_crossref)
+
+        xml_doidata_pipe(xml_crossref)
+
+        self.assertIsNotNone(xml_crossref.find('.//doi_data'))
+
