@@ -638,10 +638,17 @@ class PipelineCrossref(TestCase):
             '</contributors>'
             '</journal_article>'
         )
-        xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any" />'
+            '<journal_article language="pt" publication_type="translation" reference_distribution_opts="any" />'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
         xml_articlecontributors_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
