@@ -2,10 +2,9 @@ import argparse
 import json
 import logging
 
-from datetime import datetime, date
+from datetime import date
 
 from packtools.sps.utils import xml_utils
-from tests.sps.validation.test_article_authors import credit_terms_and_urls
 
 
 from packtools.sps.validation import (
@@ -57,6 +56,7 @@ class ValidationReportXML:
         Executa todas as classes de validação com as opções fornecidas.
         Retorna um gerador que produz uma sequência de dicionários que contêm os resultados de cada classe de validação.
         """
+
         xmltree = self.get_xml_tree()
         for validation_class in all_validation_classes():
             validation = validation_class(xmltree)
@@ -64,35 +64,49 @@ class ValidationReportXML:
             yield result
 
     def save_json(self, output_file_path=None):
-        validation_output = self.validation_report()
-        
-        data = [json.dumps(result) for result in list(validation_output)]
+        """
+        Salva um relatório de validação como uma lista de objetos JSON em um arquivo.
+        """
 
+        validation_output = self.validation_report()
+        data = [result for result in validation_output]
+        
         if output_file_path:                    
-            with open(f"{output_file_path}" , "w") as f:
-                f.write(",\n".join(data))
+            try:
+                with open(f"{output_file_path}", "w", encoding="utf-8") as f:
+                    json.dump(data, f, cls=DateTimeEncoder)
+            except IOError as e:
+                LOGGER.error(f"Unable to create file on disk: {e}")
+            except json.decoder.JSONDecodeError as e:
+                LOGGER.error(f"JSON decoding error when saving in output file {output_file_path}: {e}")
+
 
     def get_data_validation(self, data_file_path):
-        if not data_file_path:
-            data_file_path = 'data_validation.json'
+        """
+        Carrega dados de um arquivo JSON no caminho especificado ou em um arquivo de exemplo.
+        """
+
+        data_file_path = data_file_path or 'validation_criteria_example.json'
+
         try:
             with open(f"{data_file_path}", 'r') as f:
                 data = json.load(f)
             return data
-        except json.decoder.JSONDecodeError:  # inclui json.decoder.JSONDecodeError
-            LOGGER.info('Decoding JSON has failed')
+        except json.decoder.JSONDecodeError as e:
+            LOGGER.error(f"Decoding JSON has failed: {e}")
+        except FileNotFoundError as e:
+            LOGGER.error(f"File not found: {e}") 
         
-    
     def get_xml_tree(self):
         return xml_utils.get_xml_tree(self.file_path)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Running a ReportXML instance.")
-    parser.add_argument("--arg1", type=str, help="The path to the XML file.")
-    parser.add_argument("--arg2", type=str, help="File that serves as validation for articles in xml.")
+    parser.add_argument("--xml_file_path", type=str, help="The path to the XML file.")
+    parser.add_argument("--validation_report_file_path", type=str, help="File that serves as validation for articles in xml.")
 
-    file_xml = parser.parse_args()
-    validation = ValidationReportXML(file_path=file_xml.arg1)
+    xml_file_args = parser.parse_args()
+    validation = ValidationReportXML(file_path=xml_file_args.xml_file_path)
     validation.validation_report()
-    validation.save_json(output_file_path=file_xml.arg2)
+    validation.save_json(output_file_path=xml_file_args.validation_report_file_path)

@@ -52,6 +52,6 @@ class ArticleLicenseValidation:
     def validate(self, data):
         return {'license_code_validation': 
                 [self.validate_license(data['expected_value_license']), 
-                self.validate_license_code(data['expected_code'], data['expected_version'])
+                self.validate_license_code(data['expected_license_code'], data['expected_license_version'])
             ]
         }

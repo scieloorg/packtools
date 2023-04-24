@@ -88,7 +88,7 @@ class ArticleDatesValidation:
     
     def validate(self, data):
         return {'date_validation': [self.history_dates_are_sorted(
-            data['order'], 
+            data['history_dates_required_order'], 
             data['required_events']), 
             self.history_dates_are_complete()]
         }
