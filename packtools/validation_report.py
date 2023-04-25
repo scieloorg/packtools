@@ -69,8 +69,10 @@ class ValidationReportXML:
         """
 
         validation_output = self.validation_report()
-        data = [result for result in validation_output]
-        
+        data = {}
+        for result in validation_output:
+            data.update(result)
+
         if output_file_path:                    
             try:
                 with open(f"{output_file_path}", "w", encoding="utf-8") as f:
@@ -79,7 +81,6 @@ class ValidationReportXML:
                 LOGGER.error(f"Unable to create file on disk: {e}")
             except json.decoder.JSONDecodeError as e:
                 LOGGER.error(f"JSON decoding error when saving in output file {output_file_path}: {e}")
-
 
     def get_data_validation(self, data_file_path):
         """

@@ -107,9 +107,24 @@ class IssueValidation:
     
     
     def validate(self, data):
-        return {'issue_validation': [
-            self.validate_volume(data['expected_value_volume']), 
-            self.validate_issue(data['expected_value_issue']), 
-            self.validate_supplement(data['expected_value_supplment'])
-            ]
+        """
+        Função que executa as validações da classe IssueValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """
+                      
+        vol_results = {
+            'article_volume_validation': self.validate_volume(data['expected_value_volume'])
         }
+        issue_results = { 
+            'article_issue_validation': self.validate_issue(data['expected_value_issue'])
+        }
+        suppl_results = {
+            'article_supplement_validation': self.validate_supplement(data['expected_value_supplment'])
+        }
+        vol_results.update(issue_results)
+        vol_results.update(suppl_results)
+        
+        return vol_results

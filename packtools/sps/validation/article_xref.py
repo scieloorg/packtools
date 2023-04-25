@@ -83,8 +83,19 @@ class ArticleXrefValidation:
         return self.article_xref.all_xref_rids - self.article_xref.all_ids
 
     def validate(self, data):
-        return {'xref_id_rid_validation': [
-            self.validate_id(), 
-            self.validate_rid()
-        ]
-        }
+        """
+        Função que executa as validações da classe ArticleXrefValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """        
+        xref_id_results = {
+            'article_xref_id_validation': self.validate_id()
+            }
+        xref_rid_results = { 
+            'article_xref_rid_validation': self.validate_rid()
+            }
+        
+        xref_id_results.update(xref_rid_results)
+        return xref_id_results

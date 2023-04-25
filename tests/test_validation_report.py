@@ -10,14 +10,21 @@ class TestReportXML(TestCase):
         validation_report_xml = ValidationReportXML(self.xml_path)
         expected_result = [
             'affliation_validation', 
-            'authors_role_orcid_validation', 
-            'license_code_validation', 
-            'toc_sections_and_title_validation', 
-            'xref_id_rid_validation', 
-            'date_validation', 
-            'issue_validation'
+            'authors_credit_terms_and_urls_validation',
+            'authors_orcid_validation',
+            'article_license_validation', 
+            'article_code_license_validation',
+            'article_toc_sections_validation',
+            'article_title_validation', 
+            'article_xref_id_validation',
+            'article_xref_rid_validation', 
+            'article_dates_required_order_events_validation', 
+            'article_dates_are_complete_validation',
+            'article_volume_validation',
+            'article_issue_validation',
+            'article_supplement_validation'
         ]
 
-        result_generator = validation_report_xml.validation_report()
-        for expected, result in zip(expected_result, result_generator):
-            self.assertEqual(expected, list(result.keys())[0])
+        result_generator_validation = validation_report_xml.validation_report()
+        for result in result_generator_validation:
+            self.assertIn(list(result.keys())[0], expected_result)
