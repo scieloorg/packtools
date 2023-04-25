@@ -8,7 +8,7 @@ def date_dict_to_date(date_dict):
     return date(int(date_dict['year']), int(date_dict['month']), int(date_dict['day']))
 
 
-class ArticleDatesValidator:
+class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
 
@@ -84,6 +84,26 @@ class ArticleDatesValidator:
         result['found_order'] = seq
 
         return result
+
+    
+    def validate(self, data):
+        """
+        Função que executa as validações da classe ArticleDatesValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """              
+        dates_req_order_events_results = {
+                'article_dates_required_order_events_validation': self.history_dates_are_sorted(
+                data['history_dates_required_order'], 
+                data['required_events'])
+            }
+        dates_are_complete_results = { 
+            'article_dates_are_complete_validation': self.history_dates_are_complete()
+            }
+        dates_req_order_events_results.update(dates_are_complete_results)
+        return dates_req_order_events_results
 
 
 def is_complete(dict_date, date_element):

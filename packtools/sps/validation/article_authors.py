@@ -103,3 +103,21 @@ class ArticleAuthorsValidation:
                         'author': author,
                     })
         return _result_dict
+    
+
+    def validate(self, data):
+        """
+        Função que executa as validações da classe ArticleAuthorsValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """
+        credit_terms_and_urls_results = {
+            'authors_credit_terms_and_urls_validation': self.validate_authors_role(data['credit_terms_and_urls'])
+            }
+        orcid_results = {
+            'authors_orcid_validation': self.validate_authors_orcid()
+            }
+        credit_terms_and_urls_results.update(orcid_results)
+        return credit_terms_and_urls_results

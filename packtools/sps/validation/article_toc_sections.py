@@ -54,3 +54,23 @@ class ArticleTocSectionsValidation:
             )
         )
         return resp
+
+    
+    def validate(self, data):
+        """
+        Função que executa as validações da classe ArticleTocSectionsValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """
+        toc_sections_results = {
+            'article_toc_sections_validation': 
+                self.validate_article_toc_sections(data['expected_toc_sections'])
+            }
+        title_results = {
+            'article_title_validation': self.validade_article_title_is_different_from_section_titles()
+            }
+        
+        toc_sections_results.update(title_results)
+        return toc_sections_results

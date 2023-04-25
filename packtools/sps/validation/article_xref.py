@@ -81,3 +81,21 @@ class ArticleXrefValidation:
     @property
     def rids_without_ids(self):
         return self.article_xref.all_xref_rids - self.article_xref.all_ids
+
+    def validate(self, data):
+        """
+        Função que executa as validações da classe ArticleXrefValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """        
+        xref_id_results = {
+            'article_xref_id_validation': self.validate_id()
+            }
+        xref_rid_results = { 
+            'article_xref_rid_validation': self.validate_rid()
+            }
+        
+        xref_id_results.update(xref_rid_results)
+        return xref_id_results

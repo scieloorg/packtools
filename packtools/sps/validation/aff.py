@@ -29,3 +29,16 @@ class AffiliationValidation:
                     'message': f"The affiliation of id: {affliation['id']} is ok!"
                 })
         return result
+    
+
+    def validate(self, data):
+        """
+        Função que executa as validações da classe AffiliationValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """
+        return {
+            'affliation_validation': self.validate_affiliation,
+        }

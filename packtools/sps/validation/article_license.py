@@ -47,3 +47,24 @@ class ArticleLicenseValidation:
                     "message": "the license code provided do not match the ones found"
                 })
         return resp
+    
+    
+    def validate(self, data):
+        """
+        Função que executa as validações da classe ArticleLicenseValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+        
+        """        
+        license_results = {'article_license_validation': 
+                self.validate_license(data['expected_value_license'])
+            }
+        code_license_results = {'article_code_license_validation': 
+                self.validate_license_code(
+                    data['expected_license_code'], 
+                    data['expected_license_version']
+                )
+            }
+        license_results.update(code_license_results)
+        return license_results      
