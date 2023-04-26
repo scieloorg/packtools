@@ -165,6 +165,21 @@
         <name lang="es">Acerca del autor</name>
     </term>
     <term>
+        <name>About the reviewer</name>
+        <name lang="pt">Sobre o autor do parecer</name>
+        <name lang="es">Acerca del autor do parecer</name>
+    </term>
+    <term>
+        <name>About the editors</name>
+        <name lang="pt">Sobre os editores</name>
+        <name lang="es">Acerca de los editores</name>
+    </term>
+    <term>
+        <name>About the editor</name>
+        <name lang="pt">Sobre o editor</name>
+        <name lang="es">Acerca del editor</name>
+    </term>
+    <term>
         <name>Click to </name>
         <name lang="pt">Clique para </name>
         <name lang="es">Haz un clic para </name>

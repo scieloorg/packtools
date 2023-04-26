@@ -48,6 +48,7 @@
     
     <xsl:template match="*|@*|text()" mode="interface">
         <xsl:param name="text"></xsl:param>
+
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term"><xsl:value-of select="$text"/></xsl:with-param>
             <xsl:with-param name="lang"><xsl:value-of select="$INTERFACE_LANG"/></xsl:with-param>

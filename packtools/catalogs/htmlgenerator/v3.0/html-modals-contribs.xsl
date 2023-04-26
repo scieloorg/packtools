@@ -15,7 +15,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title">
                              <xsl:apply-templates select="." mode="interface">
-                                 <xsl:with-param name="text">About the author<xsl:if test="count(contrib-group/contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
+                                 <xsl:with-param name="text"><xsl:apply-templates select="contrib[1]" mode="about-the-contrib-group-button-text"/><xsl:if test="count(contrib-group/contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
                              </xsl:apply-templates>
                         </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
