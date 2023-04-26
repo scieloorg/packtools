@@ -1,37 +1,37 @@
 from packtools.sps.formats.crossref import (
     pipeline_crossref,
     setupdoibatch_pipe,
-    xml_head_pipe,
-    xml_doibatchid_pipe,
-    xml_timestamp_pipe,
-    xml_depositor_pipe,
-    xml_registrant_pipe,
-    xml_body_pipe,
-    xml_journal_pipe,
-    xml_journalmetadata_pipe,
-    xml_journaltitle_pipe,
-    xml_abbreviatedjournaltitle_pipe,
-    xml_issn_pipe,
-    xml_journalissue_pipe,
-    xml_pubdate_pipe,
-    xml_journalvolume_pipe,
-    xml_volume_pipe,
-    xml_issue_pipe,
-    xml_journalarticle_pipe,
-    xml_articlecontributors_pipe,
-    xml_articleabstract_pipe,
-    xml_articlepubdate_pipe,
-    xml_pages_pipe,
-    xml_pid_pipe,
-    xml_elocation_pipe,
-    xml_permissions_pipe,
-    xml_articletitles_pipe,
-    xml_programrelateditem_pipe,
-    xml_doidata_pipe,
-    xml_doi_pipe,
-    xml_resource_pipe,
-    xml_collection_pipe,
-    xml_articlecitations_pipe,
+    xml_crossref_head_pipe,
+    xml_crossref_doibatchid_pipe,
+    xml_crossref_timestamp_pipe,
+    xml_crossref_depositor_pipe,
+    xml_crossref_registrant_pipe,
+    xml_crossref_body_pipe,
+    xml_crossref_journal_pipe,
+    xml_crossref_journalmetadata_pipe,
+    xml_crossref_journaltitle_pipe,
+    xml_crossref_abbreviatedjournaltitle_pipe,
+    xml_crossref_issn_pipe,
+    xml_crossref_journalissue_pipe,
+    xml_crossref_pubdate_pipe,
+    xml_crossref_journalvolume_pipe,
+    xml_crossref_volume_pipe,
+    xml_crossref_issue_pipe,
+    xml_crossref_journalarticle_pipe,
+    xml_crossref_articlecontributors_pipe,
+    xml_crossref_articleabstract_pipe,
+    xml_crossref_articlepubdate_pipe,
+    xml_crossref_pages_pipe,
+    xml_crossref_pid_pipe,
+    xml_crossref_elocation_pipe,
+    xml_crossref_permissions_pipe,
+    xml_crossref_articletitles_pipe,
+    xml_crossref_programrelateditem_pipe,
+    xml_crossref_doidata_pipe,
+    xml_crossref_doi_pipe,
+    xml_crossref_resource_pipe,
+    xml_crossref_collection_pipe,
+    xml_crossref_articlecitations_pipe,
 )
 from unittest import TestCase
 from unittest.mock import patch
@@ -69,7 +69,7 @@ class PipelineCrossref(TestCase):
             """
         )
 
-        xml_head_pipe(xml_crossref)
+        xml_crossref_head_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('head'))
 
@@ -90,7 +90,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_doibatchid_pipe(xml_crossref)
+        xml_crossref_doibatchid_pipe(xml_crossref)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -111,7 +111,7 @@ class PipelineCrossref(TestCase):
             '</head>'
             '</doi_batch>'
         )
-        xml_timestamp_pipe(xml_crossref)
+        xml_crossref_timestamp_pipe(xml_crossref)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -139,7 +139,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_depositor_pipe(xml_crossref, data)
+        xml_crossref_depositor_pipe(xml_crossref, data)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -162,7 +162,7 @@ class PipelineCrossref(TestCase):
             '</head>'
             '</doi_batch>'
         )
-        xml_registrant_pipe(xml_crossref, data)
+        xml_crossref_registrant_pipe(xml_crossref, data)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -170,7 +170,7 @@ class PipelineCrossref(TestCase):
 
     def test_xml_body_pipe(self):
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('body'))
 
@@ -183,7 +183,7 @@ class PipelineCrossref(TestCase):
             '</body>'
             '</doi_batch>'
         )
-        xml_journal_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal'))
 
@@ -199,7 +199,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_journalmetadata_pipe(xml_crossref)
+        xml_crossref_journalmetadata_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_metadata'))
 
@@ -240,7 +240,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_journaltitle_pipe(xml_tree, xml_crossref)
+        xml_crossref_journaltitle_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -281,7 +281,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref)
+        xml_crossref_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -322,7 +322,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_issn_pipe(xml_tree, xml_crossref)
+        xml_crossref_issn_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -338,7 +338,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_journalissue_pipe(xml_crossref)
+        xml_crossref_journalissue_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_issue'))
 
@@ -384,7 +384,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_pubdate_pipe(xml_tree, xml_crossref)
+        xml_crossref_pubdate_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -402,7 +402,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_journalvolume_pipe(xml_crossref)
+        xml_crossref_journalvolume_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_issue/journal_volume'))
 
@@ -450,7 +450,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_volume_pipe(xml_tree, xml_crossref)
+        xml_crossref_volume_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -501,7 +501,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_issue_pipe(xml_tree, xml_crossref)
+        xml_crossref_issue_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -541,7 +541,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -649,7 +649,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_articlecontributors_pipe(xml_tree, xml_crossref)
+        xml_crossref_articlecontributors_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -742,7 +742,7 @@ class PipelineCrossref(TestCase):
         # xml_crossref = ET.fromstring(
         #     '<doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" '
         #     'xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" '
-        #     'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0" '
+        #     'version="4.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
         #     'xmlns="http://www.crossref.org/schema/4.4.0" '
         #     'xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 '
         #     'http://www.crossref.org/schemas/crossref4.4.0.xsd">'
@@ -755,11 +755,11 @@ class PipelineCrossref(TestCase):
         #     '</doi_batch>'
         # )
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
-        xml_articleabstract_pipe(xml_tree, xml_crossref)
+        xml_crossref_articleabstract_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -822,11 +822,11 @@ class PipelineCrossref(TestCase):
         # )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
-        xml_articlepubdate_pipe(xml_tree, xml_crossref)
+        xml_crossref_articlepubdate_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -876,7 +876,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_pages_pipe(xml_tree, xml_crossref)
+        xml_crossref_pages_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -924,7 +924,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_pid_pipe(xml_tree, xml_crossref)
+        xml_crossref_pid_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -980,7 +980,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_elocation_pipe(xml_tree, xml_crossref)
+        xml_crossref_elocation_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1056,11 +1056,11 @@ class PipelineCrossref(TestCase):
         # )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
-        xml_permissions_pipe(xml_tree, xml_crossref)
+        xml_crossref_permissions_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1130,11 +1130,11 @@ class PipelineCrossref(TestCase):
         # )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
-        xml_articletitles_pipe(xml_tree, xml_crossref)
+        xml_crossref_articletitles_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1194,11 +1194,11 @@ class PipelineCrossref(TestCase):
         )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
-        xml_programrelateditem_pipe(xml_tree, xml_crossref)
+        xml_crossref_programrelateditem_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1236,11 +1236,11 @@ class PipelineCrossref(TestCase):
         )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
-        xml_doidata_pipe(xml_crossref)
+        xml_crossref_doidata_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('.//doi_data'))
 
@@ -1291,12 +1291,12 @@ class PipelineCrossref(TestCase):
         )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
-        xml_doidata_pipe(xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_doidata_pipe(xml_crossref)
 
-        xml_doi_pipe(xml_tree, xml_crossref)
+        xml_crossref_doi_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1341,12 +1341,12 @@ class PipelineCrossref(TestCase):
         )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
-        xml_doidata_pipe(xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_doidata_pipe(xml_crossref)
 
-        xml_resource_pipe(xml_tree, xml_crossref)
+        xml_crossref_resource_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1399,12 +1399,12 @@ class PipelineCrossref(TestCase):
         )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
-        xml_doidata_pipe(xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_doidata_pipe(xml_crossref)
 
-        xml_collection_pipe(xml_tree, xml_crossref)
+        xml_crossref_collection_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1561,11 +1561,11 @@ class PipelineCrossref(TestCase):
         )
 
         xml_crossref = setupdoibatch_pipe()
-        xml_body_pipe(xml_crossref)
-        xml_journal_pipe(xml_crossref)
-        xml_journalarticle_pipe(xml_tree, xml_crossref)
+        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref_journal_pipe(xml_crossref)
+        xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
 
-        xml_articlecitations_pipe(xml_tree, xml_crossref)
+        xml_crossref_articlecitations_pipe(xml_tree, xml_crossref)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
