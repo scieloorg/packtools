@@ -32,6 +32,32 @@ def get_doi_batch_id():
     return uuid.uuid4().hex
 
 
+def get_one_contributor(xml_tree, seq, author):
+    person_name = ET.Element('person_name')
+    person_name.set('contributor_role', author.get('contrib-type'))
+    if seq == 0:
+        person_name.set('sequence', 'first')
+    else:
+        person_name.set('sequence', 'additional')
+    given_name = ET.Element('given_name')
+    given_name.text = author.get('given_names')
+    person_name.append(given_name)
+    surname = ET.Element('surname')
+    surname.text = author.get('surname')
+    person_name.append(surname)
+    affiliation = ET.Element('affiliation')
+    affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
+    for a in affs:
+        if a['id'] == author['rid']:
+            affiliation.text = a.get('institution')[0].get('orgname') + ', ' + a.get('country')[0].get('name')
+    person_name.append(affiliation)
+    ORCID = ET.Element('ORCID')
+    ORCID.text = 'http://orcid.org/' + author.get('orcid')
+    person_name.append(ORCID)
+
+    return person_name
+
+
 def pipeline_crossref(xml_tree, data):
     xml_crossref = setupdoibatch_pipe()
     xml_crossref_head_pipe(xml_crossref)
