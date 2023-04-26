@@ -32,6 +32,16 @@ def get_doi_batch_id():
     return uuid.uuid4().hex
 
 
+def get_affiliation(xml_tree, author):
+    affiliation = ET.Element('affiliation')
+    affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
+    for a in affs:
+        if a['id'] == author['rid']:
+            affiliation.text = a.get('institution')[0].get('orgname') + ', ' + a.get('country')[0].get('name')
+
+    return affiliation
+
+
 def get_one_contributor(xml_tree, seq, author):
     person_name = ET.Element('person_name')
     person_name.set('contributor_role', author.get('contrib-type'))
@@ -45,11 +55,7 @@ def get_one_contributor(xml_tree, seq, author):
     surname = ET.Element('surname')
     surname.text = author.get('surname')
     person_name.append(surname)
-    affiliation = ET.Element('affiliation')
-    affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
-    for a in affs:
-        if a['id'] == author['rid']:
-            affiliation.text = a.get('institution')[0].get('orgname') + ', ' + a.get('country')[0].get('name')
+    affiliation = get_affiliation(xml_tree, author)
     person_name.append(affiliation)
     ORCID = ET.Element('ORCID')
     ORCID.text = 'http://orcid.org/' + author.get('orcid')
