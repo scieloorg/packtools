@@ -352,8 +352,6 @@ def xml_crossref_journalarticle_pipe(xml_crossref, xml_tree):
         journal_article = ET.Element('journal_article')
         journal_article.set('language', article['lang'])
         journal_article.set('publication_type', article['article_type'])
-        # todo
-        # reference_distribution_opts=?
         journal_article.set('reference_distribution_opts', 'any')
         xml_crossref.find('./body/journal').append(journal_article)
 
@@ -473,27 +471,7 @@ def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
     for article in articles:
         contributors = ET.Element('contributors')
         for seq, author in enumerate(authors):
-            person_name = ET.Element('person_name')
-            person_name.set('contributor_role', author.get('contrib-type'))
-            if seq == 0:
-                person_name.set('sequence', 'first')
-            else:
-                person_name.set('sequence', 'additional')
-            given_name = ET.Element('given_name')
-            given_name.text = author.get('given_names')
-            person_name.append(given_name)
-            surname = ET.Element('surname')
-            surname.text = author.get('surname')
-            person_name.append(surname)
-            affiliation = ET.Element('affiliation')
-            affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
-            for a in affs:
-                if a['id'] == author['rid']:
-                    affiliation.text = a.get('institution')[0].get('orgname') + ', ' + a.get('country')[0].get('name')
-            person_name.append(affiliation)
-            ORCID = ET.Element('ORCID')
-            ORCID.text = 'http://orcid.org/' + author.get('orcid')
-            person_name.append(ORCID)
+            person_name = get_one_contributor(xml_tree, seq, author)
             contributors.append(person_name)
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(contributors)
 
