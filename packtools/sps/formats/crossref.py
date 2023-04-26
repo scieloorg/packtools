@@ -192,7 +192,7 @@ def xml_crossref_journalmetadata_pipe(xml_crossref):
     xml_crossref.find('./body/journal').append(journal_metadata)
 
 
-def xml_crossref_journaltitle_pipe(xml_tree, xml_crossref):
+def xml_crossref_journaltitle_pipe(xml_crossref, xml_tree):
     """
         <journal>
             <journal_metadata>
@@ -207,7 +207,7 @@ def xml_crossref_journaltitle_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(full_title)
 
 
-def xml_crossref_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref):
+def xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree):
     """
         <journal>
             <journal_metadata>
@@ -222,7 +222,7 @@ def xml_crossref_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(abbrev_title)
 
 
-def xml_crossref_issn_pipe(xml_tree, xml_crossref):
+def xml_crossref_issn_pipe(xml_crossref, xml_tree):
     """
         <journal>
             <journal_metadata>
@@ -260,7 +260,7 @@ def xml_crossref_journalissue_pipe(xml_crossref):
     xml_crossref.find('./body/journal').append(journal_issue)
 
 
-def xml_crossref_pubdate_pipe(xml_tree, xml_crossref):
+def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
     """
     <journal_issue>
         <publication_date media_type="online">
@@ -284,7 +284,7 @@ def xml_crossref_journalvolume_pipe(xml_crossref):
     xml_crossref.find('./body/journal/journal_issue').append(journal_volume)
 
 
-def xml_crossref_volume_pipe(xml_tree, xml_crossref):
+def xml_crossref_volume_pipe(xml_crossref, xml_tree):
     """
     <journal_issue>
         <journal_volume>
@@ -298,7 +298,7 @@ def xml_crossref_volume_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_issue/journal_volume').append(volume)
 
 
-def xml_crossref_issue_pipe(xml_tree, xml_crossref):
+def xml_crossref_issue_pipe(xml_crossref, xml_tree):
     """
     <journal_issue>
         <journal_volume>
@@ -312,7 +312,7 @@ def xml_crossref_issue_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_issue/journal_volume').append(issue)
 
 
-def xml_crossref_journalarticle_pipe(xml_tree, xml_crossref):
+def xml_crossref_journalarticle_pipe(xml_crossref, xml_tree):
     """
     <body>
         <journal>
@@ -332,7 +332,7 @@ def xml_crossref_journalarticle_pipe(xml_tree, xml_crossref):
         xml_crossref.find('./body/journal').append(journal_article)
 
 
-def xml_crossref_articletitles_pipe(xml_tree, xml_crossref):
+def xml_crossref_articletitles_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -407,7 +407,7 @@ def xml_crossref_articletitles_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']").append(titles)
 
 
-def xml_crossref_articlecontributors_pipe(xml_tree, xml_crossref):
+def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
     """
     <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
         <contributors>
@@ -472,7 +472,7 @@ def xml_crossref_articlecontributors_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(contributors)
 
 
-def xml_crossref_articleabstract_pipe(xml_tree, xml_crossref):
+def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
     """
     <jats:abstract xml:lang="en">
         <jats:p>Abstract Objective: to assess the effects of an educational intervention on smoking cessation aimed at the nursing team. Method: this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used. Results: there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies. Conclusion: the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</jats:p>
@@ -501,7 +501,7 @@ def xml_crossref_articleabstract_pipe(xml_tree, xml_crossref):
             xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(deepcopy(jats))
 
 
-def xml_crossref_articlepubdate_pipe(xml_tree, xml_crossref):
+def xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree):
     """
     <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
         <publication_date media_type="online">
@@ -535,7 +535,7 @@ def xml_crossref_articlepubdate_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(publication_date)
 
 
-def xml_crossref_pages_pipe(xml_tree, xml_crossref):
+def xml_crossref_pages_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -570,7 +570,7 @@ def xml_crossref_pages_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(page)
 
 
-def xml_crossref_pid_pipe(xml_tree, xml_crossref):
+def xml_crossref_pid_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -602,7 +602,7 @@ def xml_crossref_pid_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
 
 
-def xml_crossref_elocation_pipe(xml_tree, xml_crossref):
+def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -633,7 +633,7 @@ def xml_crossref_elocation_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
 
 
-def xml_crossref_permissions_pipe(xml_tree, xml_crossref):
+def xml_crossref_permissions_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -698,7 +698,7 @@ def xml_crossref_permissions_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(program)
 
 
-def xml_crossref_programrelateditem_pipe(xml_tree, xml_crossref):
+def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -790,7 +790,7 @@ def xml_crossref_doidata_pipe(xml_crossref):
         journal_article.append(doi_data)
 
 
-def xml_crossref_doi_pipe(xml_tree, xml_crossref):
+def xml_crossref_doi_pipe(xml_crossref, xml_tree):
     """
     OUT (CrossRef format) ->
     <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
@@ -833,7 +833,7 @@ def xml_crossref_doi_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(doi)
 
 
-def xml_crossref_resource_pipe(xml_tree, xml_crossref):
+def xml_crossref_resource_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -893,7 +893,7 @@ def xml_crossref_resource_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(resource)
 
 
-def xml_crossref_collection_pipe(xml_tree, xml_crossref):
+def xml_crossref_collection_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -962,7 +962,7 @@ def xml_crossref_collection_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(collection)
 
 
-def xml_crossref_articlecitations_pipe(xml_tree, xml_crossref):
+def xml_crossref_articlecitations_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
