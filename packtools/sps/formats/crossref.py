@@ -34,39 +34,39 @@ def get_doi_batch_id():
 
 def pipeline_crossref(xml_tree, data):
     xml_crossref = setupdoibatch_pipe()
-    xml_head_pipe(xml_crossref)
-    xml_doibatchid_pipe(xml_crossref)
-    xml_timestamp_pipe(xml_crossref)
-    xml_depositor_pipe(xml_crossref, data)
-    xml_registrant_pipe(xml_crossref, data)
-    xml_body_pipe(xml_crossref)
-    xml_journal_pipe(xml_crossref)
-    xml_journalmetadata_pipe(xml_crossref)
-    xml_journaltitle_pipe(xml_tree, xml_crossref)
-    xml_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref)
-    xml_issn_pipe(xml_tree, xml_crossref)
-    xml_journalissue_pipe(xml_crossref)
-    xml_pubdate_pipe(xml_tree, xml_crossref)
-    xml_journalvolume_pipe(xml_crossref)
-    xml_volume_pipe(xml_tree, xml_crossref)
-    xml_issue_pipe(xml_tree, xml_crossref)
-    xml_journalarticle_pipe(xml_tree, xml_crossref)
-    xml_articletitles_pipe(xml_tree, xml_crossref)
-    # xml_articletitle_pipe(xml_tree, xml_crossref)
-    xml_articlecontributors_pipe(xml_tree, xml_crossref)
-    xml_articleabstract_pipe(xml_tree, xml_crossref)
-    xml_articlepubdate_pipe(xml_tree, xml_crossref)
-    xml_pages_pipe(xml_tree, xml_crossref)
-    xml_pid_pipe(xml_tree, xml_crossref)
-    xml_elocation_pipe(xml_tree, xml_crossref)
-    xml_permissions_pipe(xml_tree, xml_crossref)
-    xml_programrelateditem_pipe(xml_tree, xml_crossref)
-    xml_doidata_pipe(xml_crossref)
-    xml_doi_pipe(xml_tree, xml_crossref)
-    xml_resource_pipe(xml_tree, xml_crossref)
-    xml_collection_pipe(xml_tree, xml_crossref)
-    xml_articlecitations_pipe(xml_tree, xml_crossref)
-    # xml_close_pipe(xml_tree, xml_crossref)
+    xml_crossref_head_pipe(xml_crossref)
+    xml_crossref_doibatchid_pipe(xml_crossref)
+    xml_crossref_timestamp_pipe(xml_crossref)
+    xml_crossref_depositor_pipe(xml_crossref, data)
+    xml_crossref_registrant_pipe(xml_crossref, data)
+    xml_crossref_body_pipe(xml_crossref)
+    xml_crossref_journal_pipe(xml_crossref)
+    xml_crossref_journalmetadata_pipe(xml_crossref)
+    xml_crossref_journaltitle_pipe(xml_tree, xml_crossref)
+    xml_crossref_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref)
+    xml_crossref_issn_pipe(xml_tree, xml_crossref)
+    xml_crossref_journalissue_pipe(xml_crossref)
+    xml_crossref_pubdate_pipe(xml_tree, xml_crossref)
+    xml_crossref_journalvolume_pipe(xml_crossref)
+    xml_crossref_volume_pipe(xml_tree, xml_crossref)
+    xml_crossref_issue_pipe(xml_tree, xml_crossref)
+    xml_crossref_journalarticle_pipe(xml_tree, xml_crossref)
+    xml_crossref_articletitles_pipe(xml_tree, xml_crossref)
+    # xml_crossref_articletitle_pipe(xml_tree, xml_crossref)
+    xml_crossref_articlecontributors_pipe(xml_tree, xml_crossref)
+    xml_crossref_articleabstract_pipe(xml_tree, xml_crossref)
+    xml_crossref_articlepubdate_pipe(xml_tree, xml_crossref)
+    xml_crossref_pages_pipe(xml_tree, xml_crossref)
+    xml_crossref_pid_pipe(xml_tree, xml_crossref)
+    xml_crossref_elocation_pipe(xml_tree, xml_crossref)
+    xml_crossref_permissions_pipe(xml_tree, xml_crossref)
+    xml_crossref_programrelateditem_pipe(xml_tree, xml_crossref)
+    xml_crossref_doidata_pipe(xml_crossref)
+    xml_crossref_doi_pipe(xml_tree, xml_crossref)
+    xml_crossref_resource_pipe(xml_tree, xml_crossref)
+    xml_crossref_collection_pipe(xml_tree, xml_crossref)
+    xml_crossref_articlecitations_pipe(xml_tree, xml_crossref)
+    # xml_crossref_close_pipe(xml_tree, xml_crossref)
 
     return xml_crossref
 
@@ -97,13 +97,13 @@ def setupdoibatch_pipe():
     return el
 
 
-def xml_head_pipe(xml_crossref):
+def xml_crossref_head_pipe(xml_crossref):
     head = ET.Element('head')
 
     xml_crossref.append(head)
 
 
-def xml_doibatchid_pipe(xml_crossref):
+def xml_crossref_doibatchid_pipe(xml_crossref):
     """
     <head>
         <doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>
@@ -116,7 +116,7 @@ def xml_doibatchid_pipe(xml_crossref):
     xml_crossref.find('./head').append(doi_batch_id)
 
 
-def xml_timestamp_pipe(xml_crossref):
+def xml_crossref_timestamp_pipe(xml_crossref):
     """
     <head>
         <timestamp>20230405112328</timestamp>
@@ -129,7 +129,7 @@ def xml_timestamp_pipe(xml_crossref):
     xml_crossref.find('./head').append(timestamp)
 
 
-def xml_depositor_pipe(xml_crossref, data):
+def xml_crossref_depositor_pipe(xml_crossref, data):
     """
             data = {
                         "depositor_name": depositor,
@@ -157,7 +157,7 @@ def xml_depositor_pipe(xml_crossref, data):
     xml_crossref.find('./head').append(depositor)
 
 
-def xml_registrant_pipe(xml_crossref, data):
+def xml_crossref_registrant_pipe(xml_crossref, data):
     """
         data = {
                     "registrant": registrant
@@ -174,25 +174,25 @@ def xml_registrant_pipe(xml_crossref, data):
     xml_crossref.find('./head').append(registrant)
 
 
-def xml_body_pipe(xml_crossref):
+def xml_crossref_body_pipe(xml_crossref):
     body = ET.Element('body')
 
     xml_crossref.append(body)
 
 
-def xml_journal_pipe(xml_crossref):
+def xml_crossref_journal_pipe(xml_crossref):
     journal = ET.Element('journal')
 
     xml_crossref.find('./body').append(journal)
 
 
-def xml_journalmetadata_pipe(xml_crossref):
+def xml_crossref_journalmetadata_pipe(xml_crossref):
     journal_metadata = ET.Element('journal_metadata')
 
     xml_crossref.find('./body/journal').append(journal_metadata)
 
 
-def xml_journaltitle_pipe(xml_tree, xml_crossref):
+def xml_crossref_journaltitle_pipe(xml_tree, xml_crossref):
     """
         <journal>
             <journal_metadata>
@@ -207,7 +207,7 @@ def xml_journaltitle_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(full_title)
 
 
-def xml_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref):
+def xml_crossref_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref):
     """
         <journal>
             <journal_metadata>
@@ -222,7 +222,7 @@ def xml_abbreviatedjournaltitle_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(abbrev_title)
 
 
-def xml_issn_pipe(xml_tree, xml_crossref):
+def xml_crossref_issn_pipe(xml_tree, xml_crossref):
     """
         <journal>
             <journal_metadata>
@@ -244,7 +244,7 @@ def xml_issn_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_metadata').append(issn)
 
 
-def xml_journalissue_pipe(xml_crossref):
+def xml_crossref_journalissue_pipe(xml_crossref):
     """
     <journal_issue>
         <publication_date media_type="online">
@@ -260,7 +260,7 @@ def xml_journalissue_pipe(xml_crossref):
     xml_crossref.find('./body/journal').append(journal_issue)
 
 
-def xml_pubdate_pipe(xml_tree, xml_crossref):
+def xml_crossref_pubdate_pipe(xml_tree, xml_crossref):
     """
     <journal_issue>
         <publication_date media_type="online">
@@ -278,13 +278,13 @@ def xml_pubdate_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_issue').append(publication_date)
 
 
-def xml_journalvolume_pipe(xml_crossref):
+def xml_crossref_journalvolume_pipe(xml_crossref):
     journal_volume = ET.Element('journal_volume')
 
     xml_crossref.find('./body/journal/journal_issue').append(journal_volume)
 
 
-def xml_volume_pipe(xml_tree, xml_crossref):
+def xml_crossref_volume_pipe(xml_tree, xml_crossref):
     """
     <journal_issue>
         <journal_volume>
@@ -298,7 +298,7 @@ def xml_volume_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_issue/journal_volume').append(volume)
 
 
-def xml_issue_pipe(xml_tree, xml_crossref):
+def xml_crossref_issue_pipe(xml_tree, xml_crossref):
     """
     <journal_issue>
         <journal_volume>
@@ -312,7 +312,7 @@ def xml_issue_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_issue/journal_volume').append(issue)
 
 
-def xml_journalarticle_pipe(xml_tree, xml_crossref):
+def xml_crossref_journalarticle_pipe(xml_tree, xml_crossref):
     """
     <body>
         <journal>
@@ -332,7 +332,7 @@ def xml_journalarticle_pipe(xml_tree, xml_crossref):
         xml_crossref.find('./body/journal').append(journal_article)
 
 
-def xml_articletitles_pipe(xml_tree, xml_crossref):
+def xml_crossref_articletitles_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -407,7 +407,7 @@ def xml_articletitles_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']").append(titles)
 
 
-def xml_articlecontributors_pipe(xml_tree, xml_crossref):
+def xml_crossref_articlecontributors_pipe(xml_tree, xml_crossref):
     """
     <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
         <contributors>
@@ -472,7 +472,7 @@ def xml_articlecontributors_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(contributors)
 
 
-def xml_articleabstract_pipe(xml_tree, xml_crossref):
+def xml_crossref_articleabstract_pipe(xml_tree, xml_crossref):
     """
     <jats:abstract xml:lang="en">
         <jats:p>Abstract Objective: to assess the effects of an educational intervention on smoking cessation aimed at the nursing team. Method: this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used. Results: there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies. Conclusion: the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</jats:p>
@@ -501,7 +501,7 @@ def xml_articleabstract_pipe(xml_tree, xml_crossref):
             xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(deepcopy(jats))
 
 
-def xml_articlepubdate_pipe(xml_tree, xml_crossref):
+def xml_crossref_articlepubdate_pipe(xml_tree, xml_crossref):
     """
     <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
         <publication_date media_type="online">
@@ -535,7 +535,7 @@ def xml_articlepubdate_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(publication_date)
 
 
-def xml_pages_pipe(xml_tree, xml_crossref):
+def xml_crossref_pages_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -570,7 +570,7 @@ def xml_pages_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(page)
 
 
-def xml_pid_pipe(xml_tree, xml_crossref):
+def xml_crossref_pid_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -602,7 +602,7 @@ def xml_pid_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
 
 
-def xml_elocation_pipe(xml_tree, xml_crossref):
+def xml_crossref_elocation_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -633,7 +633,7 @@ def xml_elocation_pipe(xml_tree, xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
 
 
-def xml_permissions_pipe(xml_tree, xml_crossref):
+def xml_crossref_permissions_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -698,7 +698,7 @@ def xml_permissions_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(program)
 
 
-def xml_programrelateditem_pipe(xml_tree, xml_crossref):
+def xml_crossref_programrelateditem_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -784,13 +784,13 @@ def xml_programrelateditem_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']").append(program)
 
 
-def xml_doidata_pipe(xml_crossref):
+def xml_crossref_doidata_pipe(xml_crossref):
     for journal_article in xml_crossref.findall('./body/journal//journal_article'):
         doi_data = ET.Element('doi_data')
         journal_article.append(doi_data)
 
 
-def xml_doi_pipe(xml_tree, xml_crossref):
+def xml_crossref_doi_pipe(xml_tree, xml_crossref):
     """
     OUT (CrossRef format) ->
     <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
@@ -833,7 +833,7 @@ def xml_doi_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(doi)
 
 
-def xml_resource_pipe(xml_tree, xml_crossref):
+def xml_crossref_resource_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -893,7 +893,7 @@ def xml_resource_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(resource)
 
 
-def xml_collection_pipe(xml_tree, xml_crossref):
+def xml_crossref_collection_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -962,7 +962,7 @@ def xml_collection_pipe(xml_tree, xml_crossref):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(collection)
 
 
-def xml_articlecitations_pipe(xml_tree, xml_crossref):
+def xml_crossref_articlecitations_pipe(xml_tree, xml_crossref):
     """
     IN (SciELO format) ->
     <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
