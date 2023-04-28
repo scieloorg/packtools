@@ -113,20 +113,21 @@ class AuthorsTest(TestCase):
         expected = [
             {
                 'label': '1',
-                'journal_title': 'Drug Alcohol Depend.',
+                'source': 'Drug Alcohol Depend.',
                 'author': 'Tran B',
                 'volume': '150',
-                'first_page': '85',
-                'cYear': '2015',
+                'fpage': '85',
+                'year': '2015',
                 'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages'
             },
             {
                 'label': '2',
-                'journal_title': 'Yonsei Med J.',
+                'source': 'Yonsei Med J.',
                 'author': 'Kwon JA',
                 'volume': '56',
-                'first_page': '1143',
-                'cYear': '2015',
+                'issue': '4',
+                'fpage': '1143',
+                'year': '2015',
                 'article_title': 'Effects of disease detection on changes in smoking behavior'
             }
         ]
