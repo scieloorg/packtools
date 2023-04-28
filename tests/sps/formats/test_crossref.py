@@ -1,3 +1,9 @@
+from unittest import TestCase
+from unittest.mock import patch
+
+from lxml import etree as ET
+
+from packtools.sps.utils import xml_utils
 from packtools.sps.formats.crossref import (
     pipeline_crossref,
     setupdoibatch_pipe,
@@ -33,10 +39,6 @@ from packtools.sps.formats.crossref import (
     xml_crossref_collection_pipe,
     xml_crossref_articlecitations_pipe,
 )
-from unittest import TestCase
-from unittest.mock import patch
-
-from lxml import etree as ET
 
 
 class PipelineCrossref(TestCase):
@@ -59,11 +61,11 @@ class PipelineCrossref(TestCase):
     def test_xmlhead_pipe(self):
         xml_crossref = ET.fromstring(
             """
-            <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" 
-            xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" 
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0" 
-            xmlns="http://www.crossref.org/schema/4.4.0" 
-            xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 
+            <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
+            xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0"
+            xmlns="http://www.crossref.org/schema/4.4.0"
+            xsi:schemaLocation="http://www.crossref.org/schema/4.4.0
             http://www.crossref.org/schemas/crossref4.4.0.xsd">
             </doi_batch>
             """
@@ -658,7 +660,7 @@ class PipelineCrossref(TestCase):
     def test_xml_articleabstract_pipe(self):
         xml_tree = ET.fromstring(
             """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
                 <front>
                     <article-meta>
@@ -666,19 +668,19 @@ class PipelineCrossref(TestCase):
                         <title>Abstract</title>
                         <sec>
                         <title>Objective:</title>
-                        <p>Objective</p>
+                        <p>to assess the effects of an educational intervention on smoking cessation aimed at the nursing team.</p>
                         </sec>
                         <sec>
                         <title>Method:</title>
-                        <p>Method</p>
+                        <p>this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used.</p>
                         </sec>
                         <sec>
                         <title>Results:</title>
-                        <p>Results</p>
+                        <p>there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies.</p>
                         </sec>
                         <sec>
                         <title>Conclusion:</title>
-                        <p>Conclusion</p>
+                        <p>the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</p>
                         </sec>
                         </abstract>
                         <trans-abstract xml:lang="es">
@@ -730,7 +732,11 @@ class PipelineCrossref(TestCase):
         )
         expected = (
             '<jats:abstract xml:lang="en">'
-            '<jats:p>Abstract Objective: Objective Method: Method Results: Results Conclusion: Conclusion</jats:p>'
+            '<jats:p>Abstract '
+            'Objective: to assess the effects of an educational intervention on smoking cessation aimed at the nursing team. '
+            'Method: this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used. '
+            'Results: there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies. '
+            'Conclusion: the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</jats:p>'
             '</jats:abstract>'
             '<jats:abstract xml:lang="es">'
             '<jats:p>RESUMEN Objetivo: Objetivo Método: Método Resultados: Resultados Conclusión: Conclusión</jats:p>'
@@ -989,7 +995,7 @@ class PipelineCrossref(TestCase):
     def test_xml_permissions_pipe(self):
         xml_tree = ET.fromstring(
             """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <article-meta>
@@ -1069,7 +1075,7 @@ class PipelineCrossref(TestCase):
     def test_xml_articletitles_pipe(self):
         xml_tree = ET.fromstring(
             """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <article-meta>
@@ -1530,6 +1536,7 @@ class PipelineCrossref(TestCase):
             '<journal_title>Yonsei Med J.</journal_title>'
             '<author>Kwon JA</author>'
             '<volume>56</volume>'
+            '<issue>4</issue>'
             '<first_page>1143</first_page>'
             '<cYear>2015</cYear>'
             '<article_title>Effects of disease detection on changes in smoking behavior</article_title>'
@@ -1550,6 +1557,7 @@ class PipelineCrossref(TestCase):
             '<journal_title>Yonsei Med J.</journal_title>'
             '<author>Kwon JA</author>'
             '<volume>56</volume>'
+            '<issue>4</issue>'
             '<first_page>1143</first_page>'
             '<cYear>2015</cYear>'
             '<article_title>Effects of disease detection on changes in smoking behavior</article_title>'
@@ -1570,3 +1578,14 @@ class PipelineCrossref(TestCase):
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
+
+    def test_xml_pipe_line_crossref(self):
+        xmltree = xml_utils.get_xml_tree('tests/samples/scielo_format_example.xml')
+        data = {
+            "depositor_name": "depositor",
+            "depositor_email_address": "name@domain.com",
+            "registrant": "registrant"
+        }
+        xml_crossref = pipeline_crossref(xmltree, data)
+
+        print(xml_crossref)
