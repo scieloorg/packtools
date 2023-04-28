@@ -118,17 +118,21 @@ def get_one_contributor(xml_tree, seq, author):
         person_name.set('sequence', 'first')
     else:
         person_name.set('sequence', 'additional')
-    given_name = ET.Element('given_name')
-    given_name.text = author.get('given_names')
-    person_name.append(given_name)
-    surname = ET.Element('surname')
-    surname.text = author.get('surname')
-    person_name.append(surname)
-    affiliation = get_affiliation(xml_tree, author)
-    person_name.append(affiliation)
-    ORCID = ET.Element('ORCID')
-    ORCID.text = 'http://orcid.org/' + author.get('orcid')
-    person_name.append(ORCID)
+    if author.get('given_names') is not None:
+        given_name = ET.Element('given_name')
+        given_name.text = author.get('given_names')
+        person_name.append(given_name)
+    if author.get('surname') is not None:
+        surname = ET.Element('surname')
+        surname.text = author.get('surname')
+        person_name.append(surname)
+    if get_affiliation(xml_tree, author) is not None:
+        affiliation = get_affiliation(xml_tree, author)
+        person_name.append(affiliation)
+    if author.get('orcid') is not None:
+        orcid = ET.Element('ORCID')
+        orcid.text = 'http://orcid.org/' + author.get('orcid')
+        person_name.append(orcid)
 
     return person_name
 
