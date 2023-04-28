@@ -1189,26 +1189,7 @@ def xml_crossref_articlecitations_pipe(xml_crossref, xml_tree):
     citations = article_citations.ArticleCitations(xml_tree).article_citations
     citation_list = ET.Element('citation_list')
     for item in citations:
-        citation = ET.Element('citation')
-        citation.set('key', 'ref' + item.get('label'))
-        journal_title = ET.Element('journal_title')
-        journal_title.text = item.get('journal_title')
-        author = ET.Element('author')
-        author.text = item.get('author')
-        volume = ET.Element('volume')
-        volume.text = item.get('volume')
-        first_page = ET.Element('first_page')
-        first_page.text = item.get('first_page')
-        cYear = ET.Element('cYear')
-        cYear.text = item.get('cYear')
-        article_title = ET.Element('article_title')
-        article_title.text = item.get('article_title')
-        citation.append(journal_title)
-        citation.append(author)
-        citation.append(volume)
-        citation.append(first_page)
-        citation.append(cYear)
-        citation.append(article_title)
+        citation = get_citation(item)
         citation_list.append(citation)
 
     for journal_article in xml_crossref.findall('./body/journal//journal_article'):
