@@ -1048,6 +1048,10 @@ def xml_crossref_collection_pipe(xml_crossref, xml_tree):
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']/doi_data").append(collection)
 
 
+def xml_crossref_close_pipe(xml_crossref):
+    return '<?xml version="1.0" encoding="utf-8"?>' + ET.tostring(xml_crossref, encoding="utf-8", pretty_print=True).decode("utf-8")
+
+
 def xml_crossref_articlecitations_pipe(xml_crossref, xml_tree):
     """
     IN (SciELO format) ->
