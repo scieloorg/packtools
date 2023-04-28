@@ -373,14 +373,17 @@ def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
         </publication_date>
     </journal_issue>
     """
-    year = ET.Element('year')
-    year.text = dates.ArticleDates(xml_tree).article_date.get('year')
+    try:
+        year = ET.Element('year')
+        year.text = dates.ArticleDates(xml_tree).article_date.get('year')
 
-    publication_date = ET.Element('publication_date')
-    publication_date.set('media_type', 'online')
-    publication_date.append(year)
+        publication_date = ET.Element('publication_date')
+        publication_date.set('media_type', 'online')
+        publication_date.append(year)
 
-    xml_crossref.find('./body/journal/journal_issue').append(publication_date)
+        xml_crossref.find('./body/journal/journal_issue').append(publication_date)
+    except AttributeError:
+        pass
 
 
 def xml_crossref_journalvolume_pipe(xml_crossref):
