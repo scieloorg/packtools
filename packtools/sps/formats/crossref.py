@@ -32,6 +32,70 @@ def get_doi_batch_id():
     return uuid.uuid4().hex
 
 
+def create_journal_title(item, citation):
+    if item.get('source') is not None:
+        el = ET.Element('journal_title')
+        el.text = item.get('source')
+        citation.append(el)
+
+
+def create_author(item, citation):
+    if item.get('author') is not None:
+        el = ET.Element('author')
+        el.text = item.get('author')
+        citation.append(el)
+
+
+def create_volume(item, citation):
+    if item.get('volume') is not None:
+        el = ET.Element('volume')
+        el.text = item.get('volume')
+        citation.append(el)
+
+
+def create_issue(item, citation):
+    if item.get('issue') is not None:
+        el = ET.Element('issue')
+        el.text = item.get('issue')
+        citation.append(el)
+
+
+def create_first_page(item, citation):
+    if item.get('fpage') is not None:
+        el = ET.Element('first_page')
+        el.text = item.get('fpage')
+        citation.append(el)
+
+
+def create_year(item, citation):
+    if item.get('year') is not None:
+        el = ET.Element('cYear')
+        el.text = item.get('year')
+        citation.append(el)
+
+
+def create_article_title(item, citation):
+    if item.get('article_title') is not None:
+        el = ET.Element('article_title')
+        el.text = item.get('article_title')
+        citation.append(el)
+
+
+def get_citation(item):
+    citation = ET.Element('citation')
+    citation.set('key', 'ref' + item.get('label'))
+
+    create_journal_title(item, citation)
+    create_author(item, citation)
+    create_volume(item, citation)
+    create_issue(item, citation)
+    create_first_page(item, citation)
+    create_year(item, citation)
+    create_article_title(item, citation)
+
+    return citation
+
+
 def get_affiliation(xml_tree, author):
     affiliation = ET.Element('affiliation')
     affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
