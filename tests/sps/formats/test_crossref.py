@@ -1588,4 +1588,4 @@ class PipelineCrossref(TestCase):
         }
         xml_crossref = pipeline_crossref(xmltree, data)
 
-        print(xml_crossref)
+        print(ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8"))
