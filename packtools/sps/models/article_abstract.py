@@ -98,21 +98,27 @@ class Abstract:
 
     @property
     def main_abstract_with_tags(self):
-        out = {
-            'lang': self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang"),
-            'title': self.xmltree.xpath(".//front//article-meta//abstract//title")[0].text,
-            'sections': self.get_values_dict_with_tags('.//front//article-meta//abstract')
-        }
-        return out
+        try:
+            out = {
+                'lang': self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang"),
+                'title': self.xmltree.xpath(".//front//article-meta//abstract//title")[0].text,
+                'sections': self.get_values_dict_with_tags('.//front//article-meta//abstract')
+            }
+            return out
+        except AttributeError:
+            pass
 
     @property
     def sub_article_abstract_with_tags(self):
-        out = {
-            'lang': self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang"),
-            'title': self.xmltree.xpath(".//sub-article//front-stub//abstract//title")[0].text,
-            'sections': self.get_values_dict_with_tags('.//sub-article//front-stub//abstract')
-        }
-        return out
+        try:
+            out = {
+                'lang': self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang"),
+                'title': self.xmltree.xpath(".//sub-article//front-stub//abstract//title")[0].text,
+                'sections': self.get_values_dict_with_tags('.//sub-article//front-stub//abstract')
+            }
+            return out
+        except AttributeError:
+            pass
 
     @property
     def sub_article_abstract_without_tags(self):
@@ -122,12 +128,15 @@ class Abstract:
 
     @property
     def trans_abstract_with_tags(self):
-        out = {
-            'lang': self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang"),
-            'title': self.xmltree.xpath(".//front//article-meta//trans-abstract//title")[0].text,
-            'sections': self.get_values_dict_with_tags('.//front//article-meta//trans-abstract')
-        }
-        return out
+        try:
+            out = {
+                'lang': self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang"),
+                'title': self.xmltree.xpath(".//front//article-meta//trans-abstract//title")[0].text,
+                'sections': self.get_values_dict_with_tags('.//front//article-meta//trans-abstract')
+            }
+            return out
+        except AttributeError:
+            pass
 
     @property
     def trans_abstract_without_tags(self):
