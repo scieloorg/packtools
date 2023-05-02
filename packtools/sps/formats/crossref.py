@@ -575,16 +575,17 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
 
     for article in articles:
         for abstract in abstracts:
-            jats = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}abstract')
-            jats.set('{http://www.w3.org/XML/1998/namespace}lang', abstract.get('lang'))
-            jats_p = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}p')
-            text = [abstract.get('title')]
-            for key, value in abstract.get('sections').items():
-                text.append(key)
-                text.append(value)
-            jats_p.text = ' '.join(text)
-            jats.append(jats_p)
-            xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(deepcopy(jats))
+            if abstract:
+                jats = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}abstract')
+                jats.set('{http://www.w3.org/XML/1998/namespace}lang', abstract.get('lang'))
+                jats_p = ET.Element('{http://www.ncbi.nlm.nih.gov/JATS1}p')
+                text = [abstract.get('title')]
+                for key, value in abstract.get('sections').items():
+                    text.append(key)
+                    text.append(value)
+                jats_p.text = ' '.join(text)
+                jats.append(jats_p)
+                xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(deepcopy(jats))
 
 
 def xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree):
@@ -605,12 +606,10 @@ def xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree):
     publication_type in CrossRef format: full_text
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
-    pub_date = dates.ArticleDates(xml_tree).article_date
+    pub_date = dates.ArticleDates(xml_tree).collection_date
 
     for article in articles:
         publication_date = ET.Element('publication_date')
-        # todo
-        # identify media_type value
         publication_date.set('media_type', 'online')
 
         year = ET.Element('year')
