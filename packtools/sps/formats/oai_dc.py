@@ -38,3 +38,34 @@ def xml_oai_dc_record_pipe():
     return record
 
 
+def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
+    """
+        <header>
+            <identifier>oai:scielo:S0718-71812022000200217</identifier>
+            <datestamp>2023-04-04</datestamp>
+            <setSpec>0718-7181</setSpec>
+        </header>
+    """
+    header = ET.Element('header')
+
+    get_identifier(header, xml_tree)
+
+    el = ET.Element('datestamp')
+    el.text = get_datestamp()
+    header.append(el)
+
+    get_set_spec(header, xml_tree)
+    xml_oai_dc.append(header)
+
+
+def xml_oai_dc_metadata(xml_oai_dc):
+    """
+    <record>
+        <metadata>
+        </metadata>
+    </record>
+    """
+    metadata = ET.Element('metadata')
+    xml_oai_dc.append(metadata)
+
+
