@@ -24,3 +24,11 @@ def get_set_spec(header, xml_tree):
     header.append(el)
 
 
+def get_issn(xml_tree):
+    issn = journal_meta.ISSN(xml_tree).epub
+    if issn == '':
+        issn = journal_meta.ISSN(xml_tree).without_pub_type
+
+    return issn
+
+
