@@ -32,3 +32,9 @@ def get_issn(xml_tree):
     return issn
 
 
+def xml_oai_dc_record_pipe():
+    record = ET.Element('record')
+
+    return record
+
+

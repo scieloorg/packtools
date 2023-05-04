@@ -1,3 +1,30 @@
+import unittest
+from unittest.mock import patch
+
+from lxml import etree as ET
+from packtools.sps.formats.oai_dc import (
+    xml_oai_dc_record_pipe,
+    xml_oai_dc_header_pipe,
+    get_identifier,
+    get_set_spec,
+    get_issn,
+    xml_oai_dc_metadata,
+    setup_oai_dc_header_pipe,
+)
+
+
+class PipelineOaiDc(unittest.TestCase):
+    def test_xml_oai_dc_record_pipe(self):
+        expected = (
+            '<record/>'
+        )
+
+        xml_oai_dc = xml_oai_dc_record_pipe()
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
     def test_get_identifier(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
