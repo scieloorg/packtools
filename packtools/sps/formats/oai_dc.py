@@ -69,3 +69,26 @@ def xml_oai_dc_metadata(xml_oai_dc):
     xml_oai_dc.append(metadata)
 
 
+def setup_oai_dc_header_pipe(xml_oai_dc):
+    """
+    <oai-dc:dc
+    xmlns:oai-dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
+    http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+    """
+    nsmap = {
+        'oai-dc': 'http://www.openarchives.org/OAI/2.0/oai_dc/',
+        'dc': 'http://purl.org/dc/elements/1.1/',
+        'xsi': 'http://www.w3.org/2001/XMLSchema-instance'
+    }
+
+    el = ET.Element('{http://www.openarchives.org/OAI/2.0/oai_dc/}dc', nsmap=nsmap)
+    el.set('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation',
+           'http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd')
+
+    xml_oai_dc.append(el)
+
+
+

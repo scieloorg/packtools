@@ -160,3 +160,28 @@ class PipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_setup_oai_dc_header_pipe(self):
+        expected = (
+            '<metadata>'
+            '<oai-dc:dc xmlns:oai-dc="http://www.openarchives.org/OAI/2.0/oai_dc/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ '
+            'http://www.openarchives.org/OAI/2.0/oai_dc.xsd"/>'
+            '</metadata>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        setup_oai_dc_header_pipe(xml_oai_dc)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
+
+if __name__ == '__main__':
+    unittest.main()
