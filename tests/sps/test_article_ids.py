@@ -27,6 +27,7 @@ class TestArticleIds(TestCase):
     """
     def setUp(self):
         xml = (
+            '<article-id>S1678-69712003000100108</article-id>'
             '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">P3swRmPHQfy37r9xRbLCw8G</article-id>'
             '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1678-69712003000100108</article-id>'
             '<article-id specific-use="previous-pid" pub-id-type="publisher-id">S1678-69712002005000108</article-id>'
@@ -40,6 +41,9 @@ class TestArticleIds(TestCase):
 
     def test_v2(self):
         self.assertEqual("S1678-69712003000100108", self.article_id.v2)
+
+    def test_without_specif_use(self):
+        self.assertEqual("S1678-69712003000100108", self.article_id.without_specific_use)
 
     def test_aop_pid(self):
         self.assertEqual("S1678-69712002005000108", self.article_id.aop_pid)
