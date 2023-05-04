@@ -18,3 +18,9 @@ def get_datestamp():
     return date.today().isoformat()
 
 
+def get_set_spec(header, xml_tree):
+    el = ET.Element('setSpec')
+    el.text = get_issn(xml_tree)
+    header.append(el)
+
+
