@@ -59,9 +59,9 @@ class AuthorsTest(TestCase):
     def test_contribs(self):
         expected = [
             {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
-             "prefix": "Prof", "suffix": "Nieto"},
+             "prefix": "Prof", "suffix": "Nieto", "rid": "aff1", "contrib-type": "author"},
             {"surname": "Higa", "given_names": "Vanessa M.",
-             "orcid": "0000-0001-5518-4853"
+             "orcid": "0000-0001-5518-4853", "rid": "aff1", "contrib-type": "author"
              },
         ]
         result = self.authors.contribs
@@ -124,7 +124,9 @@ class AuthorsTest(TestCase):
 					'content-type': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
 				{'text': 'Role 4',
 					'content-type': 'https://credit.niso.org/contributor-roles/writing-original-draft/'}
-                            ]
+                            ],
+             "rid": "aff1",
+             "contrib-type": "author",
                 },
             {"surname": "Higa", "given_names": "Vanessa M.",
              "orcid": "0000-0001-5518-4853",
@@ -137,7 +139,9 @@ class AuthorsTest(TestCase):
                   'content-type': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
                          {'text': 'Writing – original draft',
                   'content-type': 'https://credit.niso.org/contributor-roles/writing-original-draft/'}
-                         ]
+                         ],
+             "rid": "aff1",
+             "contrib-type": "author",
              },
         ]
         
@@ -189,7 +193,10 @@ class AuthorsTest(TestCase):
                     {'text': 'Role 1', 'content-type': None},
                     {'text': 'Role 2', 'content-type': None},
                     {'text': 'Role 3', 'content-type': None},
-                    {'text': 'Role 4', 'content-type': None}]
+                    {'text': 'Role 4', 'content-type': None}],
+                "rid": "aff1",
+                "contrib-type": "author"
+
             },
             {
                 'surname': 'Higa', 'given_names': 'Vanessa M.', 'orcid': '0000-0001-5518-4853',
@@ -198,7 +205,9 @@ class AuthorsTest(TestCase):
                     {'text': 'Data curation', 'content-type': None},
                     {'text': 'Formal Analysis', 'content-type': None},
                     {'text': 'Writing – original draft', 'content-type': None}
-                ]
+                ],
+                "rid": "aff1",
+                "contrib-type": "author"
             }
         ]
 

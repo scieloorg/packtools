@@ -54,16 +54,24 @@ class ArticleDates:
 
     @property
     def article_date(self):
+        """
+        Data completa, com dia, de publicação do artigo no site.
+        """
         return self.epub_date
 
     @property
     def collection_date(self):
+        """
+        Data de publicação associada ao fascículo (data editorial).
+        """
+        # TODO criar collection date para ahead of print a partir da data pub
         for _date in self.pub_dates:
             if _date.get("type") == "collection":
                 return _date
 
     @property
     def pub_dates(self):
+        # TODO criar collection date para ahead of print a partir da data pub
         _dates = []
         for node in self.xmltree.xpath(".//front//pub-date"):
             type = node.get("date-type")
