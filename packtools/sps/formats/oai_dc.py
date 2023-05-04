@@ -14,3 +14,7 @@ def get_identifier(header, xml_tree):
         header.append(el)
 
 
+def get_datestamp():
+    return date.today().isoformat()
+
+
