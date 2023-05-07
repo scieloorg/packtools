@@ -98,6 +98,13 @@ def add_publisher(xml_oai_dc, publisher):
         pass
 
 
+def add_source(xml_oai_dc, journal):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}source')
+    el.text = ET.CDATA(f" {journal.journal_title} ")
+
+    xml_oai_dc.append(el)
+
+
 
 
 def xml_oai_dc_record_pipe():
@@ -242,5 +249,11 @@ def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
     publisher = journal_meta.Publisher(xml_tree)
 
     add_publisher(xml_oai_dc, publisher)
+
+
+def xml_oai_dc_source(xml_oai_dc, xml_tree):
+    journal = journal_meta.Title(xml_tree)
+
+    add_source(xml_oai_dc, journal)
 
 
