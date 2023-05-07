@@ -642,5 +642,173 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_date(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.0" '
+            'specific-use="sps-1.6" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>'
+            '<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>'
+            '<article-id pub-id-type="publisher-id">1982-0194201700050</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>'
+            '<pub-date pub-type="pub">'
+            '<day>00</day>'
+            '<month>07</month>'
+            '<year>2021</year>'
+            '</pub-date>'
+            '<pub-date pub-type="epub">'
+            '<day>00</day>'
+            '<month>07</month>'
+            '<year>2021</year>'
+            '</pub-date>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<metadata>'
+            '<dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">2021-07-01</dc:date>'
+            '</metadata>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_date(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
+    def test_get_date_epub(self):
+        xml_date = ArticleDates(
+            ET.fromstring(
+                '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                'article-type="research-article" dtd-version="1.0" '
+                'specific-use="sps-1.6" xml:lang="pt">'
+                '<front>'
+                '<article-meta>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>'
+                '<article-id pub-id-type="publisher-id">1982-0194201700050</article-id>'
+                '<article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>'
+                '<pub-date pub-type="epub">'
+                '<day>00</day>'
+                '<month>07</month>'
+                '<year>2021</year>'
+                '</pub-date>'
+                '</article-meta>'
+                '</front>'
+                '</article>'
+            )
+        )
+
+    def test_get_date_epub_without_year(self):
+        xml_date = ArticleDates(
+            ET.fromstring(
+                '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                'article-type="research-article" dtd-version="1.0" '
+                'specific-use="sps-1.6" xml:lang="pt">'
+                '<front>'
+                '<article-meta>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>'
+                '<article-id pub-id-type="publisher-id">1982-0194201700050</article-id>'
+                '<article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>'
+                '<pub-date pub-type="epub">'
+                '<day>07</day>'
+                '<month>07</month>'
+                '</pub-date>'
+                '</article-meta>'
+                '</front>'
+                '</article>'
+            )
+        )
+
+        self.assertIsNone(get_date(xml_date))
+
+    def test_get_date_epub_without_month(self):
+        xml_date = ArticleDates(
+            ET.fromstring(
+                '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                'article-type="research-article" dtd-version="1.0" '
+                'specific-use="sps-1.6" xml:lang="pt">'
+                '<front>'
+                '<article-meta>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>'
+                '<article-id pub-id-type="publisher-id">1982-0194201700050</article-id>'
+                '<article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>'
+                '<pub-date pub-type="epub">'
+                '<day>00</day>'
+                '<year>2021</year>'
+                '</pub-date>'
+                '</article-meta>'
+                '</front>'
+                '</article>'
+            )
+        )
+
+        self.assertEqual('2021-01-01', get_date(xml_date))
+
+    def test_get_date_epub_without_day(self):
+        xml_date = ArticleDates(
+            ET.fromstring(
+                '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                'article-type="research-article" dtd-version="1.0" '
+                'specific-use="sps-1.6" xml:lang="pt">'
+                '<front>'
+                '<article-meta>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>'
+                '<article-id pub-id-type="publisher-id">1982-0194201700050</article-id>'
+                '<article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>'
+                '<pub-date pub-type="epub">'
+                '<month>07</month>'
+                '<year>2021</year>'
+                '</pub-date>'
+                '</article-meta>'
+                '</front>'
+                '</article>'
+            )
+        )
+
+        self.assertEqual('2021-07-01', get_date(xml_date))
+
+    def test_get_date_collection(self):
+        xml_date = ArticleDates(
+            ET.fromstring(
+                '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                'article-type="research-article" dtd-version="1.0" '
+                'specific-use="sps-1.6" xml:lang="pt">'
+                '<front>'
+                '<article-meta>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>'
+                '<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>'
+                '<article-id pub-id-type="publisher-id">1982-0194201700050</article-id>'
+                '<article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>'
+                '<pub-date pub-type="epub-ppub">'
+                '<season>Jul-Aug</season>'
+                '<year>2017</year>'
+                '</pub-date>'
+                '</article-meta>'
+                '</front>'
+                '</article>'
+            )
+        )
+
+        self.assertEqual('2017', get_date(xml_date))
+
 if __name__ == '__main__':
     unittest.main()

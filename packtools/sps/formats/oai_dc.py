@@ -105,6 +105,26 @@ def add_source(xml_oai_dc, journal):
     xml_oai_dc.append(el)
 
 
+def get_date(dt):
+    year = dt.pub_dates[0].get('year')
+    month = dt.pub_dates[0].get('month')
+    day = dt.pub_dates[0].get('day')
+    exceptions = [None, '', '0', '00']
+
+    if year is None:
+        return
+    if month is None and day is None:
+        return year
+    month = '01' if month in exceptions else month
+    day = '01' if day in exceptions else day
+
+    return '-'.join([year, month, day])
+
+
+def add_date(xml_oai_dc, dt_out):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}date')
+    el.text = dt_out
+    xml_oai_dc.append(el)
 
 
 def xml_oai_dc_record_pipe():
@@ -255,5 +275,14 @@ def xml_oai_dc_source(xml_oai_dc, xml_tree):
     journal = journal_meta.Title(xml_tree)
 
     add_source(xml_oai_dc, journal)
+
+
+def xml_oai_dc_date(xml_oai_dc, xml_tree):
+    """
+    <dc:date>2021-07-01</dc:date>
+    """
+    dt_out = get_date(dates.ArticleDates(xml_tree))
+
+    add_date(xml_oai_dc, dt_out)
 
 
