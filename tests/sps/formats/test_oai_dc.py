@@ -426,5 +426,78 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_subject(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<kwd-group xml:lang="en">'
+            '<title>DESCRIPTORS</title>'
+            '<kwd>Tobacco Use Cessation</kwd>'
+            '<kwd>Health Education</kwd>'
+            '<kwd>Nursing Team</kwd>'
+            '<kwd>Education</kwd>'
+            '<kwd>Nursing</kwd>'
+            '<kwd>Continuing</kwd>'
+            '<kwd>Teaching</kwd>'
+            '</kwd-group>'
+            '<kwd-group xml:lang="es">'
+            '<title>DESCRIPTORES</title>'
+            '<kwd>Cese del Uso de Tabaco</kwd>'
+            '<kwd>Educación en Salud</kwd>'
+            '<kwd>Grupo de Enfermería</kwd>'
+            '<kwd>Educación Continua en Enfermería</kwd>'
+            '<kwd>Enseñanza</kwd>'
+            '</kwd-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<metadata>'
+            '<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Tobacco Use Cessation ]]>'
+            '</dc:subject>'
+            '<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Health Education ]]>'
+            '</dc:subject>'
+            '<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Nursing Team ]]>'
+            '</dc:subject>'
+            '<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Education ]]>'
+            '</dc:subject>'
+            '<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Nursing ]]>'
+            '</dc:subject>'
+            '<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Continuing ]]>'
+            '</dc:subject>'
+            '<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Teaching ]]>'
+            '</dc:subject>'
+            '</metadata>'
+
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_subject(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
 if __name__ == '__main__':
     unittest.main()

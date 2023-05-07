@@ -64,6 +64,14 @@ def add_creator(xml_oai_dc, author_name):
     xml_oai_dc.append(el)
 
 
+def add_subject(xml_oai_dc, kw, article):
+    if kw.get('lang') == article.main_lang:
+        el = ET.Element('{http://purl.org/dc/elements/1.1/}subject')
+        el.text = ET.CDATA(f" {kw.get('text')} ")
+
+        xml_oai_dc.append(el)
+
+
 
 
 def xml_oai_dc_record_pipe():
@@ -149,5 +157,27 @@ def xml_oai_dc_creator(xml_oai_dc, xml_tree):
         add_creator(xml_oai_dc, author_name)
     except IndexError:
         pass
+
+
+def xml_oai_dc_subject(xml_oai_dc, xml_tree):
+    """
+    dc:subject>
+        <![CDATA[ Canción popular ]]>
+    </dc:subject>
+    <dc:subject>
+        <![CDATA[ música popular brasileña ]]>
+    </dc:subject>
+    <dc:subject>
+        <![CDATA[ canción crítica ]]>
+    </dc:subject>
+    <dc:subject>
+        <![CDATA[ arte político ]]>
+    </dc:subject>
+    """
+    key_words = kwd_group.KwdGroup(xml_tree)
+    article = article_and_subarticles.ArticleAndSubArticles(xml_tree)
+
+    for kw in key_words.extract_kwd_data_with_lang_text(subtag=False):
+        add_subject(xml_oai_dc, kw, article)
 
 
