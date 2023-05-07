@@ -47,6 +47,16 @@ def get_issn(xml_tree):
     return issns.epub or issns.ppub
 
 
+def add_title(xml_oai_dc, title):
+    try:
+        el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
+        el.text = ET.CDATA(f" {title.article_title.get('text')} ")
+
+        xml_oai_dc.append(el)
+    except TypeError:
+        pass
+
+
 
 
 def xml_oai_dc_record_pipe():
@@ -108,4 +118,12 @@ def setup_oai_dc_header_pipe(xml_oai_dc):
     xml_oai_dc.append(el)
 
 
+def xml_oai_dc_title(xml_oai_dc, xml_tree):
+    """
+    <dc:title>
+        <![CDATA[ La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil ]]>
+    </dc:title>
+    """
+    title = article_titles.ArticleTitles(xml_tree)
+    add_title(xml_oai_dc, title)
 
