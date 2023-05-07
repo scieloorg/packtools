@@ -286,3 +286,9 @@ def xml_oai_dc_date(xml_oai_dc, xml_tree):
     add_date(xml_oai_dc, dt_out)
 
 
+def xml_oai_dc_format(xml_oai_dc):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}format')
+    # TODO
+    # Não identifiquei a origem de format
+    el.text = 'text/html'
+    xml_oai_dc.append(el)

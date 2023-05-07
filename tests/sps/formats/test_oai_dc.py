@@ -810,5 +810,24 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertEqual('2017', get_date(xml_date))
 
+    def test_xml_oai_dc_format(self):
+        expected = (
+            '<metadata>'
+            '<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">text/html</dc:format>'
+            '</metadata>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_format(xml_oai_dc)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
+
 if __name__ == '__main__':
     unittest.main()
