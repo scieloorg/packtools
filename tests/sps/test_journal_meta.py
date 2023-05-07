@@ -26,7 +26,6 @@ from packtools.sps.models import journal_meta
 def _get_xmltree(issns=None, publisher=None):
     issns = issns or (
         """
-        <issn>1678-6971</issn>
         <issn pub-type="epub">1678-6971</issn>
         <issn pub-type="ppub">0213-6971</issn>
         """
@@ -56,7 +55,6 @@ class IssnTest(TestCase):
 
     def test_data(self):
         expected = [
-            {"type": None, "value": "1678-6971"},
             {"type": "epub", "value": "1678-6971"},
             {"type": "ppub", "value": "0213-6971"},
         ]
@@ -70,10 +68,6 @@ class IssnTest(TestCase):
     def test_ppub(self):
         issns = journal_meta.ISSN(_get_xmltree())
         self.assertEqual("0213-6971", issns.ppub)
-
-    def test_without_pub_type(self):
-        issns = journal_meta.ISSN(_get_xmltree())
-        self.assertEqual("1678-6971", issns.without_pub_type)
 
 
 class PublisherTest(TestCase):

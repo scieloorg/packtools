@@ -32,10 +32,6 @@ class ISSN:
     @property
     def ppub(self):
         return self.xmltree.findtext('.//journal-meta//issn[@pub-type="ppub"]') or ''
-
-    @property
-    def without_pub_type(self):
-        return self.xmltree.findtext('.//journal-meta//issn') or ''
  
 
 class Acronym:
