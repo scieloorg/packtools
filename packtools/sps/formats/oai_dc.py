@@ -142,7 +142,7 @@ def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
     """
     header = ET.Element('header')
 
-    get_identifier(header, xml_tree)
+    add_identifier(header, xml_tree)
 
     el = ET.Element('datestamp')
     el.text = get_datestamp()
