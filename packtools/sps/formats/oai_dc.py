@@ -146,7 +146,7 @@ def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
 
     add_datestamp(header)
 
-    get_set_spec(header, xml_tree)
+    add_set_spec(header, xml_tree)
     xml_oai_dc.append(header)
 
 
