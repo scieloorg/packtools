@@ -31,10 +31,6 @@ class ArticleIds:
         return self._get_node_text(".//article-id[@specific-use='scielo-v2']")
 
     @property
-    def without_specific_use(self):
-        return self._get_node_text(".//article-id")
-
-    @property
     def aop_pid(self):
         return self._get_node_text(
             './/article-id[@specific-use="previous-pid" and '
