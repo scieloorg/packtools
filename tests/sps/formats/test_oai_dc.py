@@ -570,5 +570,41 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_publisher(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.0" '
+            'specific-use="sps-1.6" xml:lang="pt">'
+            '<front>'
+            '<journal-meta>'
+            '<publisher>'
+            '<publisher-name>Escola Paulista de Enfermagem, Universidade Federal de São Paulo</publisher-name>'
+            '</publisher>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<metadata>'
+            '<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Escola Paulista de Enfermagem, Universidade Federal de São Paulo ]]>'
+            '</dc:publisher>'
+            '</metadata>'
+
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_publisher(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
 if __name__ == '__main__':
     unittest.main()

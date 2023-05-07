@@ -88,6 +88,16 @@ def add_description(xml_oai_dc, description):
     xml_oai_dc.append(el)
 
 
+def add_publisher(xml_oai_dc, publisher):
+    try:
+        el = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
+        el.text = ET.CDATA(f" {publisher.publishers_names[0]} ")
+
+        xml_oai_dc.append(el)
+    except IndexError:
+        pass
+
+
 
 
 def xml_oai_dc_record_pipe():
@@ -220,4 +230,17 @@ def xml_oai_dc_description(xml_oai_dc, xml_tree):
     description = get_description(abstract)
 
     add_description(xml_oai_dc, description)
+
+
+def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
+    """
+    <dc:publisher>
+        <![CDATA[ Pontificia Universidad Católica de Chile, Facultad de Filosofía,
+        Instituto de Estética ]]>
+    </dc:publisher>
+    """
+    publisher = journal_meta.Publisher(xml_tree)
+
+    add_publisher(xml_oai_dc, publisher)
+
 
