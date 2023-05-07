@@ -499,5 +499,76 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_description(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<abstract>'
+            '<title>Abstract</title>'
+            '<sec>'
+            '<title>Objective:</title>'
+            '<p>to assess the effects of an educational intervention on smoking cessation aimed at the nursing team.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Method:</title>'
+            '<p>this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Results:</title>'
+            '<p>there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Conclusion:</title>'
+            '<p>the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</p>'
+            '</sec>'
+            '</abstract>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<metadata>'
+            '<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Abstract Objective: to assess the effects of an educational intervention '
+            'on smoking cessation aimed at the nursing team. Method: this is a quasi-experimental '
+            'study with 37 nursing professionals from a Brazilian hospital from May/2019 to '
+            'December/2020. The intervention consisted of training nursing professionals on '
+            'approaches to hospitalized smokers divided into two steps, the first, online, a '
+            'prerequisite for the face-to-face/videoconference. The effect of the intervention was '
+            'assessed through pre- and post-tests completed by participants. Smokers’ medical '
+            'records were also analyzed. For analysis, McNemar’s chi-square test was used. '
+            'Results: there was an increase in the frequency of actions aimed at smoking cessation '
+            'after the intervention. Significant differences were found in guidelines related to '
+            'disclosure to family members of their decision to quit smoking and the need for '
+            'support, encouragement of abstinence after hospital discharge, and information on '
+            'tobacco cessation and relapse strategies. Conclusion: the educational intervention '
+            'proved to be innovative and with a great capacity for disseminating knowledge. '
+            'The post-test showed a positive effect on the frequency of actions aimed at smoking '
+            'cessation implemented by the nursing team. ]]>'
+            '</dc:description>'
+            '</metadata>'
+
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_description(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
 if __name__ == '__main__':
     unittest.main()
