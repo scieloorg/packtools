@@ -57,6 +57,13 @@ def add_title(xml_oai_dc, title):
         pass
 
 
+def add_creator(xml_oai_dc, author_name):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}creator')
+    el.text = ET.CDATA(author_name)
+
+    xml_oai_dc.append(el)
+
+
 
 
 def xml_oai_dc_record_pipe():
@@ -126,4 +133,21 @@ def xml_oai_dc_title(xml_oai_dc, xml_tree):
     """
     title = article_titles.ArticleTitles(xml_tree)
     add_title(xml_oai_dc, title)
+
+
+def xml_oai_dc_creator(xml_oai_dc, xml_tree):
+    """
+    <dc:creator>
+        <![CDATA[ de-Oliveira-Gerolamo,Ismael ]]>
+    </dc:creator>
+    """
+    author = article_authors.Authors(xml_tree)
+    try:
+        surname = author.contribs[0].get('surname')
+        given_name = author.contribs[0].get('given_names')
+        author_name = f' {surname.strip()},{given_name.strip()} '
+        add_creator(xml_oai_dc, author_name)
+    except IndexError:
+        pass
+
 

@@ -325,5 +325,106 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_creator(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<journal-id journal-id-type="nlm-ta">Rev Esc Enferm USP</journal-id>'
+            '<journal-id journal-id-type="publisher-id">reeusp</journal-id>'
+            '<journal-title-group>'
+            '<journal-title>Revista da Escola de Enfermagem da USP</journal-title>'
+            '<abbrev-journal-title abbrev-type="publisher">Rev. esc. enferm. USP</abbrev-journal-title>'
+            '</journal-title-group>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
+            '<publisher>'
+            '<publisher-name>Universidade de São Paulo, Escola de Enfermagem</publisher-name>'
+            '</publisher>'
+            '</journal-meta>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0003-0843-6485</contrib-id>'
+            '<name>'
+            '<surname>Boni</surname>'
+            '<given-names>Fernanda Guarilha</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">'
+            '<sup>1</sup>'
+            '</xref>'
+            '</contrib>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0001-7364-4753</contrib-id>'
+            '<name>'
+            '<surname>da Rosa</surname>'
+            '<given-names>Yasmin Lorenz</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff2">'
+            '<sup>2</sup>'
+            '</xref>'
+            '</contrib>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0002-0777-8806</contrib-id>'
+            '<name>'
+            '<surname>Leite</surname>'
+            '<given-names>Renata Meirelles</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff2">'
+            '<sup>2</sup>'
+            '</xref>'
+            '</contrib>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0002-4853-7670</contrib-id>'
+            '<name>'
+            '<surname>Lopes</surname>'
+            '<given-names>Fernanda Machado</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff3">'
+            '<sup>3</sup>'
+            '</xref>'
+            '</contrib>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0001-5425-205X</contrib-id>'
+            '<name>'
+            '<surname>Echer</surname>'
+            '<given-names>Isabel Cristina</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">'
+            '<sup>1</sup>'
+            '</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<metadata>'
+            '<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Boni,Fernanda Guarilha ]]>'
+            '</dc:creator>'
+            '</metadata>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_creator(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
 if __name__ == '__main__':
     unittest.main()
