@@ -128,9 +128,8 @@ def add_date(xml_oai_dc, dt_out):
 
 
 def xml_oai_dc_record_pipe():
-    record = ET.Element('record')
 
-    return record
+    return ET.Element('record')
 
 
 def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
