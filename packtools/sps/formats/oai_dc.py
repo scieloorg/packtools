@@ -1,17 +1,26 @@
 from lxml import etree as ET
-from packtools.sps.models import article_ids, journal_meta
+from packtools.sps.models import (
+    article_ids,
+    journal_meta,
+    article_titles,
+    article_authors,
+    kwd_group,
+    article_and_subarticles,
+    article_abstract,
+    dates,
+)
 
 from datetime import datetime, date
 
 
-def get_identifier(header, xml_tree):
-    identifier = article_ids.ArticleIds(xml_tree).v2
-    if identifier is None:
-        identifier = article_ids.ArticleIds(xml_tree).without_specific_use
-    if identifier is not None:
+def add_identifier(header, xml_tree):
+    try:
+        identifier = article_ids.ArticleIds(xml_tree).v2
         el = ET.Element('identifier')
         el.text = 'oai:scielo:' + identifier
         header.append(el)
+    except TypeError:
+        pass
 
 
 def get_datestamp():

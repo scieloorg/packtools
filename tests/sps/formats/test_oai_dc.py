@@ -2,18 +2,28 @@ import unittest
 from unittest.mock import patch
 
 from lxml import etree as ET
+from packtools.sps.models.dates import ArticleDates
 from packtools.sps.formats.oai_dc import (
     xml_oai_dc_record_pipe,
     xml_oai_dc_header_pipe,
-    get_identifier,
-    get_set_spec,
+    add_identifier,
+    add_set_spec,
     get_issn,
     xml_oai_dc_metadata,
     setup_oai_dc_header_pipe,
+    xml_oai_dc_title,
+    xml_oai_dc_creator,
+    xml_oai_dc_subject,
+    xml_oai_dc_description,
+    xml_oai_dc_publisher,
+    xml_oai_dc_source,
+    xml_oai_dc_date,
+    get_date,
+    xml_oai_dc_format,
 )
 
 
-class PipelineOaiDc(unittest.TestCase):
+class TestPipelineOaiDc(unittest.TestCase):
     def test_xml_oai_dc_record_pipe(self):
         expected = (
             '<record/>'
@@ -30,24 +40,36 @@ class PipelineOaiDc(unittest.TestCase):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
             '<front>'
             '<journal-meta>'
-            '<journal-id>0718-7181</journal-id>'
-            '<issn>0718-7181</issn>'
+            '<journal-id journal-id-type="nlm-ta">Rev Esc Enferm USP</journal-id>'
+            '<journal-id journal-id-type="publisher-id">reeusp</journal-id>'
+            '<journal-title-group>'
+            '<journal-title>Revista da Escola de Enfermagem da USP</journal-title>'
+            '<abbrev-journal-title abbrev-type="publisher">Rev. esc. enferm. USP</abbrev-journal-title>'
+            '</journal-title-group>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
+            '<publisher>'
+            '<publisher-name>Universidade de São Paulo, Escola de Enfermagem</publisher-name>'
+            '</publisher>'
             '</journal-meta>'
             '<article-meta>'
-            '<article-id>S0718-71812022000200217</article-id>'
-            '<article-id pub-id-type="doi">10.7764/aisth.72.12</article-id>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
             '</article-meta>'
             '</front>'
             '</article>'
         )
         expected = (
             '<header>'
-            '<identifier>oai:scielo:S0718-71812022000200217</identifier>'
+            '<identifier>oai:scielo:S0080-62342022000100445</identifier>'
             '<datestamp>2023-04-04</datestamp>'
-            '<setSpec>0718-7181</setSpec>'
+            '<setSpec>1980-220X</setSpec>'
             '</header>'
         )
 
@@ -67,32 +89,50 @@ class PipelineOaiDc(unittest.TestCase):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
             '<front>'
-            '<journal-meta>'
-            '<journal-id>0718-7181</journal-id>'
-            '<issn>0718-7181</issn>'
-            '</journal-meta>'
             '<article-meta>'
-            '<article-id>S0718-71812022000200217</article-id>'
-            '<article-id pub-id-type="doi">10.7764/aisth.72.12</article-id>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
             '</article-meta>'
             '</front>'
             '</article>'
         )
         expected = (
-            '<identifier>oai:scielo:S0718-71812022000200217</identifier>'
+            '<identifier>oai:scielo:S0080-62342022000100445</identifier>'
         )
 
         xml_oai_dc = ET.fromstring(
             '<record/>'
         )
 
-        get_identifier(xml_oai_dc, xml_tree)
+        add_identifier(xml_oai_dc, xml_tree)
 
         self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, self.obtained)
+
+    def test_get_identifier_not_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<record/>'
+        )
+
+        add_identifier(xml_oai_dc, xml_tree)
+
+        self.assertIsNone(xml_oai_dc.find('identifier'))
 
     def test_get_set_spec(self):
         xml_tree = ET.fromstring(
