@@ -144,9 +144,7 @@ def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
 
     add_identifier(header, xml_tree)
 
-    el = ET.Element('datestamp')
-    el.text = get_datestamp()
-    header.append(el)
+    add_datestamp(header)
 
     get_set_spec(header, xml_tree)
     xml_oai_dc.append(header)
