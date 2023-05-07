@@ -27,18 +27,26 @@ def get_datestamp():
     return date.today().isoformat()
 
 
-def get_set_spec(header, xml_tree):
-    el = ET.Element('setSpec')
-    el.text = get_issn(xml_tree)
+def add_datestamp(header):
+    el = ET.Element('datestamp')
+    el.text = get_datestamp()
     header.append(el)
 
 
-def get_issn(xml_tree):
-    issn = journal_meta.ISSN(xml_tree).epub
-    if issn == '':
-        issn = journal_meta.ISSN(xml_tree).without_pub_type
+def add_set_spec(header, xml_tree):
+    issn = get_issn(xml_tree)
+    if issn != '':
+        el = ET.Element('setSpec')
+        el.text = issn
+        header.append(el)
 
-    return issn
+
+def get_issn(xml_tree):
+    issns = journal_meta.ISSN(xml_tree)
+
+    return issns.epub or issns.ppub
+
+
 
 
 def xml_oai_dc_record_pipe():

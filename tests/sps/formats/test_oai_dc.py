@@ -138,52 +138,97 @@ class TestPipelineOaiDc(unittest.TestCase):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
             '<front>'
             '<journal-meta>'
-            '<journal-id>0718-7181</journal-id>'
-            '<issn>0718-7181</issn>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
             '</journal-meta>'
-            '<article-meta>'
-            '<article-id>S0718-71812022000200217</article-id>'
-            '<article-id pub-id-type="doi">10.7764/aisth.72.12</article-id>'
-            '</article-meta>'
             '</front>'
             '</article>'
         )
         expected = (
-            '<setSpec>0718-7181</setSpec>'
+            '<setSpec>1980-220X</setSpec>'
         )
 
         xml_oai_dc = ET.fromstring(
             '<record/>'
         )
 
-        get_set_spec(xml_oai_dc, xml_tree)
+        add_set_spec(xml_oai_dc, xml_tree)
 
         self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, self.obtained)
 
-    def test_get_issn(self):
+    def test_get_set_spec_not_found(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
             '<front>'
-            '<journal-meta>'
-            '<journal-id>0718-7181</journal-id>'
-            '<issn>0718-7181</issn>'
-            '</journal-meta>'
-            '<article-meta>'
-            '<article-id>S0718-71812022000200217</article-id>'
-            '<article-id pub-id-type="doi">10.7764/aisth.72.12</article-id>'
-            '</article-meta>'
             '</front>'
             '</article>'
         )
 
-        self.assertEqual('0718-7181', get_issn(xml_tree))
+        xml_oai_dc = ET.fromstring(
+            '<record/>'
+        )
+
+        add_set_spec(xml_oai_dc, xml_tree)
+
+        self.assertIsNone(xml_oai_dc.find('setSpec'))
+
+    def test_get_issn_epub(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        self.assertEqual('1980-220X', get_issn(xml_tree))
+
+    def test_get_issn_ppub(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        self.assertEqual('0080-6234', get_issn(xml_tree))
+
+    def test_get_issn_not_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<issn>0080-6234</issn>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        self.assertEqual('', get_issn(xml_tree))
 
     def test_xml_oai_dc_metadata(self):
         expected = (
