@@ -23,6 +23,35 @@ from unittest import TestCase, skip
 from lxml import etree
 
 
+class AuthorsWithoutXrefTest(TestCase):
+
+    def setUp(self):
+        xml = ("""
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                </contrib>
+                </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+        """)
+        xmltree = etree.fromstring(xml)
+        self.authors = Authors(xmltree)
+
+    def test_contribs(self):
+        result = self.authors.contribs
+        self.assertIsNone(result[0].get("rid"))
+
+
 class AuthorsTest(TestCase):
 
     def setUp(self):
