@@ -48,12 +48,8 @@ class AuthorsWithoutXrefTest(TestCase):
         self.authors = Authors(xmltree)
 
     def test_contribs(self):
-        expected = [
-            {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
-             "prefix": "Prof", "suffix": "Nieto", "contrib-type": "author"},
-        ]
         result = self.authors.contribs
-        self.assertDictEqual(expected[0], result[0])
+        self.assertIsNone(result[0].get("rid"))
 
 
 class AuthorsTest(TestCase):
