@@ -491,3 +491,27 @@ def xml_oai_dc_identifier(xml_oai_dc, xml_tree):
     add_uri_identifier(xml_oai_dc, identifier.all_uris)
 
 
+def xml_oai_dc_language(xml_oai_dc, xml_tree):
+    """
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:language"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  language
+        URI:	    http://purl.org/dc/elements/1.1/language
+        Label:	    Language
+        Definition:	A language of the resource.
+        Comment:	Recommended best practice is to use a controlled vocabulary such as RFC 4646 [RFC4646].
+        References:	[RFC4646] http://www.ietf.org/rfc/rfc4646.txt
+
+    Example:
+        <dc:language>es</dc:language>
+    """
+    lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
+    add_lang(xml_oai_dc, lang)
+
+
