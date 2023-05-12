@@ -515,3 +515,26 @@ def xml_oai_dc_language(xml_oai_dc, xml_tree):
     add_lang(xml_oai_dc, lang)
 
 
+def xml_oai_dc_relation(xml_oai_dc, xml_tree):
+    """
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:relation"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  relation
+        URI:	    http://purl.org/dc/elements/1.1/relation
+        Label:	    Relation
+        Definition:	A related resource.
+        Comment:	Recommended best practice is to identify the related resource by means of a string conforming
+                    to a formal identification system.
+
+    Example:
+        <dc:relation>10.7764/69.1</dc:relation>
+    """
+    related_article = related_articles.RelatedItems(xml_tree)
+    add_relation(xml_oai_dc, related_article)
+
