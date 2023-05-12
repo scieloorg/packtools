@@ -165,6 +165,7 @@ def xml_oai_dc_record_pipe():
 
 def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
     """
+    Example:
         <header>
             <identifier>oai:scielo:S0718-71812022000200217</identifier>
             <datestamp>2023-04-04</datestamp>
