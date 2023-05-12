@@ -355,10 +355,26 @@ def xml_oai_dc_description(xml_oai_dc, xml_tree):
 
 def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
     """
-    <dc:publisher>
-        <![CDATA[ Pontificia Universidad Católica de Chile, Facultad de Filosofía,
-        Instituto de Estética ]]>
-    </dc:publisher>
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:publisher"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  publisher
+        URI:	    http://purl.org/dc/elements/1.1/publisher
+        Label:	    Publisher
+        Definition:	An entity responsible for making the resource available.
+        Comment:	Examples of a Publisher include a person, an organization, or a service. Typically, the name
+                    of a Publisher should be used to indicate the entity.
+
+    Example:
+        <dc:publisher>
+            <![CDATA[ Pontificia Universidad Católica de Chile, Facultad de Filosofía,
+            Instituto de Estética ]]>
+        </dc:publisher>
     """
     publisher = journal_meta.Publisher(xml_tree)
 
