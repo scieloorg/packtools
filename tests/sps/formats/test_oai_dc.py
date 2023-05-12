@@ -961,6 +961,13 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIsNotNone(self.obtained.find('metadata'))
 
+    def test_pipeline_xml_oai_dc(self):
+        xmltree = xml_utils.get_xml_tree('tests/sps/fixtures/xml_oai_dc_example.xml')
+
+        xml_oai_dc = pipeline_xml_oai_dc(xmltree)
+
+        print(ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8"))
+
 
 if __name__ == '__main__':
     unittest.main()
