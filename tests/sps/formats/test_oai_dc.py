@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 
 from lxml import etree as ET
+from packtools.sps.utils import xml_utils
 from packtools.sps.models.dates import ArticleDates
 from packtools.sps.formats.oai_dc import (
     xml_oai_dc_record_pipe,
@@ -20,6 +21,10 @@ from packtools.sps.formats.oai_dc import (
     xml_oai_dc_date,
     get_date,
     xml_oai_dc_format,
+    xml_oai_dc_identifier,
+    xml_oai_dc_language,
+    xml_oai_dc_relation,
+    pipeline_xml_oai_dc
 )
 
 
