@@ -154,6 +154,11 @@ def add_relation(xml_oai_dc, related_article):
 
 
 def xml_oai_dc_record_pipe():
+    """
+    Example:
+         <record>
+        </record>
+    """
 
     return ET.Element('record')
 
