@@ -153,6 +153,26 @@ def add_relation(xml_oai_dc, related_article):
             break
 
 
+def pipeline_xml_oai_dc(xml_tree):
+    xml_oai_dc = xml_oai_dc_record_pipe()
+    xml_oai_dc_header_pipe(xml_oai_dc, xml_tree)
+    xml_oai_dc_metadata(xml_oai_dc)
+    setup_oai_dc_header_pipe(xml_oai_dc)
+    xml_oai_dc_title(xml_oai_dc, xml_tree)
+    xml_oai_dc_creator(xml_oai_dc, xml_tree)
+    xml_oai_dc_subject(xml_oai_dc, xml_tree)
+    xml_oai_dc_description(xml_oai_dc, xml_tree)
+    xml_oai_dc_publisher(xml_oai_dc, xml_tree)
+    xml_oai_dc_source(xml_oai_dc, xml_tree)
+    xml_oai_dc_date(xml_oai_dc, xml_tree)
+    xml_oai_dc_format(xml_oai_dc)
+    xml_oai_dc_identifier(xml_oai_dc, xml_tree)
+    xml_oai_dc_language(xml_oai_dc, xml_tree)
+    xml_oai_dc_relation(xml_oai_dc, xml_tree)
+
+    return xml_oai_dc
+
+
 def xml_oai_dc_record_pipe():
     """
     Example:
