@@ -833,6 +833,44 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_identifier(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.0" '
+            'specific-use="sps-1.6" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>'
+            '<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>'
+            '<article-id pub-id-type="publisher-id">1982-0194201700050</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1677-941X-ABB-2022-0208</article-id>'
+            '<self-uri xlink:href="http://www.scielo.cl/scielo.php?script=sci_arttext&amp;pid=S0718-71812021000100011&amp;lng=en&amp;nrm=iso"/>'
+            '<self-uri xlink:href="http://www.scielo.cl/scielo.php?script=sci_abstract&amp;pid=S0718-71812021000100011&amp;lng=en&amp;nrm=iso"/>'
+            '<self-uri xlink:href="http://www.scielo.cl/scielo.php?script=sci_pdf&amp;pid=S0718-71812021000100011&amp;lng=en&amp;nrm=iso"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        expected = (
+            '<metadata>'
+            '<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            'http://www.scielo.cl/scielo.php?script=sci_arttext&amp;pid=S0718-71812021000100011&amp;lng=en&amp;nrm=iso'
+            '</dc:identifier>'
+            '</metadata>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_identifier(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
 
 if __name__ == '__main__':
     unittest.main()
