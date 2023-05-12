@@ -132,6 +132,12 @@ def add_date(xml_oai_dc, dt_out):
     xml_oai_dc.append(el)
 
 
+def add_uri_identifier(xml_oai_dc, identifier):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
+    el.text = identifier.get('sci_arttext')
+    xml_oai_dc.append(el)
+
+
 def xml_oai_dc_record_pipe():
 
     return ET.Element('record')
