@@ -219,6 +219,21 @@ def setup_oai_dc_header_pipe(xml_oai_dc):
 
 def xml_oai_dc_title(xml_oai_dc, xml_tree):
     """
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:title"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  title
+        URI:	    http://purl.org/dc/elements/1.1/title
+        Label:	    Title
+        Definition:	A name given to the resource.
+        Comment:	Typically, a Title will be a name by which the resource is formally known.
+
+    Example:
     <dc:title>
         <![CDATA[ La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil ]]>
     </dc:title>
