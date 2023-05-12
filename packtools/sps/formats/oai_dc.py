@@ -467,3 +467,27 @@ def xml_oai_dc_format(xml_oai_dc):
     xml_oai_dc.append(el)
 
 
+def xml_oai_dc_identifier(xml_oai_dc, xml_tree):
+    """
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:identifier"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  identifier
+        URI:	    http://purl.org/dc/elements/1.1/identifier
+        Label:	    Identifier
+        Definition:	An unambiguous reference to the resource within a given context.
+        Comment:	Recommended best practice is to identify the resource by means of a string conforming to a formal
+                    identification system.
+
+    Example:
+        <dc:identifier>http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-71812021000100011</dc:identifier>
+    """
+    identifier = article_uri.ArticleUri(xml_tree)
+    add_uri_identifier(xml_oai_dc, identifier.all_uris)
+
+
