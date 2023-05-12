@@ -184,10 +184,11 @@ def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
 
 def xml_oai_dc_metadata(xml_oai_dc):
     """
-    <record>
-        <metadata>
-        </metadata>
-    </record>
+    Example:
+        <record>
+            <metadata>
+            </metadata>
+        </record>
     """
     metadata = ET.Element('metadata')
     xml_oai_dc.append(metadata)
