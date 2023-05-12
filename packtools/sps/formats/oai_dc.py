@@ -244,6 +244,22 @@ def xml_oai_dc_title(xml_oai_dc, xml_tree):
 
 def xml_oai_dc_creator(xml_oai_dc, xml_tree):
     """
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:creator"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  creator
+        URI:	    http://purl.org/dc/elements/1.1/creator
+        Label:	    Creator
+        Definition:	An entity primarily responsible for making the resource.
+        Comment:	Examples of a Creator include a person, an organization, or a service.
+                    Typically, the name of a Creator should be used to indicate the entity.
+
+    Example:
     <dc:creator>
         <![CDATA[ de-Oliveira-Gerolamo,Ismael ]]>
     </dc:creator>
