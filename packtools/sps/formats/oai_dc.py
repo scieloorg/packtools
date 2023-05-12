@@ -276,18 +276,34 @@ def xml_oai_dc_creator(xml_oai_dc, xml_tree):
 
 def xml_oai_dc_subject(xml_oai_dc, xml_tree):
     """
-    dc:subject>
-        <![CDATA[ Canción popular ]]>
-    </dc:subject>
-    <dc:subject>
-        <![CDATA[ música popular brasileña ]]>
-    </dc:subject>
-    <dc:subject>
-        <![CDATA[ canción crítica ]]>
-    </dc:subject>
-    <dc:subject>
-        <![CDATA[ arte político ]]>
-    </dc:subject>
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:subject"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  subject
+        URI:	    http://purl.org/dc/elements/1.1/subject
+        Label:	    Subject
+        Definition:	The topic of the resource.
+        Comment:	Typically, the subject will be represented using keywords, key phrases, or classification codes.
+                    Recommended best practice is to use a controlled vocabulary.
+
+    Example:
+        dc:subject>
+            <![CDATA[ Canción popular ]]>
+        </dc:subject>
+        <dc:subject>
+            <![CDATA[ música popular brasileña ]]>
+        </dc:subject>
+        <dc:subject>
+            <![CDATA[ canción crítica ]]>
+        </dc:subject>
+        <dc:subject>
+            <![CDATA[ arte político ]]>
+        </dc:subject>
     """
     key_words = kwd_group.KwdGroup(xml_tree)
     article = article_and_subarticles.ArticleAndSubArticles(xml_tree)
