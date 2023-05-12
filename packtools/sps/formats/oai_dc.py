@@ -138,6 +138,12 @@ def add_uri_identifier(xml_oai_dc, identifier):
     xml_oai_dc.append(el)
 
 
+def add_lang(xml_oai_dc, lang):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
+    el.text = lang.main_lang
+    xml_oai_dc.append(el)
+
+
 def xml_oai_dc_record_pipe():
 
     return ET.Element('record')
