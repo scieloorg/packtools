@@ -382,6 +382,28 @@ def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
 
 
 def xml_oai_dc_source(xml_oai_dc, xml_tree):
+    """
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:source"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  source
+        URI:	    http://purl.org/dc/elements/1.1/source
+        Label:	    Source
+        Definition:	A related resource from which the described resource is derived.
+        Comment:	The described resource may be derived from the related resource in whole or in part.
+                    Recommended best practice is to identify the related resource by means of a string
+                    conforming to a formal identification system.
+
+    Example:
+        '<dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '<![CDATA[ Acta Paulista de Enfermagem ]]>'
+        '</dc:source>'
+    """
     journal = journal_meta.Title(xml_tree)
 
     add_source(xml_oai_dc, journal)
