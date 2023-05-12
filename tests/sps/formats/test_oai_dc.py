@@ -906,6 +906,61 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_relation(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.0" '
+            'specific-use="sps-1.6" xml:lang="pt">'
+            '<related-article ext-link-type="doi" id="A01" related-article-type="commentary-article" '
+            'xlink:href="10.1590/0101-3173.2022.v45n1.p139">'
+            'Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en'
+            '<italic>El coraje de la verdad</italic>'
+            'de Foucault.'
+            '<bold>Trans/form/ação</bold>'
+            ': revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.'
+            '</related-article>'
+            '</article>'
+        )
+        expected = (
+            '<metadata>'
+            '<dc:relation xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            '10.1590/0101-3173.2022.v45n1.p139'
+            '</dc:relation>'
+            '</metadata>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_relation(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
+    def test_xml_oai_dc_without_relation(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.0" '
+            'specific-use="sps-1.6" xml:lang="pt">'
+            '</article>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_relation(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIsNotNone(self.obtained.find('metadata'))
+
 
 if __name__ == '__main__':
     unittest.main()
