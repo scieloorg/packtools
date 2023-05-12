@@ -411,7 +411,25 @@ def xml_oai_dc_source(xml_oai_dc, xml_tree):
 
 def xml_oai_dc_date(xml_oai_dc, xml_tree):
     """
-    <dc:date>2021-07-01</dc:date>
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:date"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  date
+        URI:	    http://purl.org/dc/elements/1.1/date
+        Label:	    Date
+        Definition:	A point or period of time associated with an event in the lifecycle of the resource.
+        Comment:	Date may be used to express temporal information at any level of granularity.
+                    Recommended best practice is to use an encoding scheme, such as the W3CDTF profile
+                    of ISO 8601 [W3CDTF].
+        References:	[W3CDTF] http://www.w3.org/TR/NOTE-datetime
+
+    Example:
+        <dc:date>2021-07-01</dc:date>
     """
     dt_out = get_date(dates.ArticleDates(xml_tree))
 
