@@ -8,9 +8,11 @@ from packtools.sps.models import (
     article_and_subarticles,
     article_abstract,
     dates,
+    related_articles,
+    article_uri,
 )
 
-from datetime import datetime, date
+from datetime import date
 
 
 def add_identifier(header, xml_tree):
@@ -73,12 +75,15 @@ def add_subject(xml_oai_dc, kw, article):
 
 
 def get_description(abstract):
-    description = [abstract.main_abstract_with_tags['title']]
-    for key, value in abstract.main_abstract_with_tags['sections'].items():
-        description.append(key)
-        description.append(value)
+    try:
+        description = [abstract.main_abstract_with_tags['title']]
+        for key, value in abstract.main_abstract_with_tags['sections'].items():
+            description.append(key)
+            description.append(value)
 
-    return " ".join(description)
+        return " ".join(description)
+    except IndexError:
+        pass
 
 
 def add_description(xml_oai_dc, description):
