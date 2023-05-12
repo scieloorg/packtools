@@ -437,8 +437,33 @@ def xml_oai_dc_date(xml_oai_dc, xml_tree):
 
 
 def xml_oai_dc_format(xml_oai_dc):
+    """
+    Schema (http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore):
+        <complexType name="oai_dcType">
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element ref="dc:format"/>
+            </choice>
+        </complexType>
+
+    Element definition (https://www.dublincore.org/specifications/dublin-core/dces/):
+        Term Name:  format
+        URI:	    http://purl.org/dc/elements/1.1/format
+        Label:	    Format
+        Definition:	The file format, physical medium, or dimensions of the resource.
+        Comment:	Examples of dimensions include size and duration. Recommended best practice is to use a controlled
+                    vocabulary such as the list of Internet Media Types [MIME].
+        References: [MIME] http://www.iana.org/assignments/media-types/
+
+    Examples (https://en.wikipedia.org/wiki/Media_type):
+        <dc:format>text/html</dc:format>
+        <dc:format>text/plain</dc:format>
+        <dc:format>text/css</dc:format>
+        <dc:format>text/csv</dc:format>
+        <dc:format>text/javascript(.js)</dc:format>
+        <dc:format>text/xml</dc:format>
+    """
     el = ET.Element('{http://purl.org/dc/elements/1.1/}format')
-    # TODO
-    # Não identifiquei a origem de format
     el.text = 'text/html'
     xml_oai_dc.append(el)
+
+
