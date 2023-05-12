@@ -144,6 +144,15 @@ def add_lang(xml_oai_dc, lang):
     xml_oai_dc.append(el)
 
 
+def add_relation(xml_oai_dc, related_article):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}relation')
+    for relation in related_article.related_articles:
+        if relation:
+            el.text = relation.get('href')
+            xml_oai_dc.append(el)
+            break
+
+
 def xml_oai_dc_record_pipe():
 
     return ET.Element('record')
