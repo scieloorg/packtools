@@ -5,58 +5,14 @@
 
     <xsl:include href="../v2.0/article-text-back.xsl"/>
 
-    <xsl:template match="fn-group" mode="back-section">
-        <!--
-            Insere o "título" da seção de notas de rodapé
-        -->
-        <div class="articleSection">
-            <div class="row">
-                <div class="col">
-                    <ul class="refList articleFootnotes">
-                        <xsl:apply-templates select="*|text()" mode="back-section-content"/>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="back/fn" mode="back-section">
-        <!--
-            Insere o "título" da seção de notas de rodapé
-        -->
-        <div>
-            <xsl:attribute name="class">articleSection</xsl:attribute>
-            <div class="row">
-                <div class="col">
-                    <ul class="refList articleFootnotes">
-                        <xsl:apply-templates select="."/>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="*[title] | *[label]" mode="back-section">
-        <div>
-            <xsl:attribute name="class">articleSection</xsl:attribute>
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
-            <h3>
-                <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
-                <xsl:apply-templates select="." mode="title"/>
+    <xsl:template match="*" mode="back-section-h">
+        <xsl:if test="title or label">
+            <h3 class="articleSectionTitle">
+                <xsl:apply-templates select="label"/>
+                <xsl:if test="label and title">&#160;</xsl:if>
+                <xsl:apply-templates select="title"/>
             </h3>
-            <xsl:apply-templates select="*|text()" mode="back-section-content"/>
-        </div>
+        </xsl:if>
     </xsl:template>
 
-    <xsl:template match="text()" mode="back-section-content">
-        <xsl:value-of select="."/>
-    </xsl:template>
-
-    <xsl:template match="*" mode="back-section-content">
-        <xsl:apply-templates select="."/>
-    </xsl:template>
-
-    <xsl:template match="title|label" mode="back-section-content">
-        <!-- do nothing -->
-    </xsl:template>
 </xsl:stylesheet>
