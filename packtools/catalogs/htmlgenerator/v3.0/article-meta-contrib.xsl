@@ -32,9 +32,7 @@
             <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalTutors{$id}">
-                <xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text"><xsl:apply-templates select="contrib[1]" mode="about-the-contrib-group-button-text"/><xsl:if test="count(contrib)&gt;1">s</xsl:if></xsl:with-param>
-                </xsl:apply-templates>
+                <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
             </a>
         </xsl:if>
     </xsl:template>

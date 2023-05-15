@@ -35,8 +35,7 @@
             <xsl:when test="$LABELS[name=$term]">
                 <xsl:value-of select="$LABELS[name=$term]//name[1]"/>
             </xsl:when>
-            <xsl:when test="$default_value and $LABELS[name=$default_value]">
-                <xsl:value-of select="$LABELS[name=$default_value]//name[@lang=$lang]"/>
+            <xsl:when test="$default_value!='' and $LABELS[name=$default_value]">                <xsl:value-of select="$LABELS[name=$default_value]//name[@lang=$lang]"/>
             </xsl:when>
             <xsl:otherwise><xsl:value-of select="$term"/></xsl:otherwise>
         </xsl:choose>

@@ -47,16 +47,24 @@
             <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
             <a href="" class="outlineFadeLink" data-toggle="modal"
                 data-target="#ModalTutors{$id}">
-                <xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text"><xsl:apply-templates select="contrib[1]" mode="about-the-contrib-group-button-text"/><xsl:if test="count(contrib)&gt;1">s</xsl:if></xsl:with-param>
-                </xsl:apply-templates>
+                <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
             </a>
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="contrib" mode="about-the-contrib-group-button-text">About the <xsl:value-of select="@contrib-type"/></xsl:template>
+    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button-text">
+        <xsl:variable name="type">
+            <xsl:choose>
+                <xsl:when test="../../@article-type='reviewer-report'">reviewer</xsl:when>
+                <xsl:otherwise><xsl:value-of select="contrib[1]/@contrib-type"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="count"><xsl:value-of select="count(contrib[@contrib-type=$type])"/></xsl:variable>
 
-    <xsl:template match="*[@article-type='reviewer-report']/*/contrib-group/contrib" mode="about-the-contrib-group-button-text">About the reviewer</xsl:template>
+        <xsl:apply-templates select="." mode="interface">
+            <xsl:with-param name="text">About the <xsl:value-of select="$type"/><xsl:if test="number($count)&gt;1">s</xsl:if></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
    
     <!--xsl:template match="contrib" mode="article-meta-contrib">
         <xsl:choose>

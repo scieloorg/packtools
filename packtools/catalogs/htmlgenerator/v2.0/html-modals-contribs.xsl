@@ -38,9 +38,7 @@
                             <xsl:with-param name="text">Close</xsl:with-param>
                         </xsl:apply-templates></span></button>
                         <h4 class="modal-title">
-                            <xsl:apply-templates select="." mode="interface">
-                                <xsl:with-param name="text"><xsl:apply-templates select="contrib[1]" mode="about-the-contrib-group-button-text"/><xsl:if test="count(contrib-group/contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
-                            </xsl:apply-templates>
+                            <xsl:apply-templates select="contrib-group" mode="about-the-contrib-group-button-text"/>
                         </h4>
                     </div>
                     <div class="modal-body">
