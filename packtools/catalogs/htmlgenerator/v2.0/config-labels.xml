@@ -514,5 +514,58 @@
         <name lang="pt">Este adendo adiciona informação ao documento</name>
         <name lang="es">Esta addenda agrega información al documento</name>
     </term>
-        
+    <term>
+        <name>peer-review-recommendation</name>
+        <name lang="en">peer review recommendation</name>
+        <name lang="pt">recomendação</name>
+        <name lang="es">recomendación</name>
+    </term>
+    <term>
+        <name>revision</name>
+        <name lang="en">revision</name>
+        <name lang="pt">revisão</name>
+        <name lang="es">revisión</name>
+    </term>
+    <term>
+        <name>major-revision</name>
+        <name lang="en">major-revision</name>
+        <name lang="pt">major-revision</name>
+        <name lang="es">major-revision</name>
+    </term>
+    <term>
+        <name>minor-revision</name>
+        <name lang="en">minor-revision</name>
+        <name lang="pt">minor-revision</name>
+        <name lang="es">minor-revision</name>
+    </term>
+    <term>
+        <name>reject</name>
+        <name lang="en">reject</name>
+        <name lang="pt">rejeitar</name>
+        <name lang="es">rechazar</name>
+    </term>
+    <term>
+        <name>reject-with-resubmit</name>
+        <name lang="en">reject-with-resubmit</name>
+        <name lang="pt">reject-with-resubmit</name>
+        <name lang="es">reject-with-resubmit</name>
+    </term>
+    <term>
+        <name>accept</name>
+        <name lang="en">accept</name>
+        <name lang="pt">aceitar</name>
+        <name lang="es">aceptar</name>
+    </term>
+    <term>
+        <name>formal-accept</name>
+        <name lang="en">formal-accept</name>
+        <name lang="pt">formal-accept</name>
+        <name lang="es">formal-accept</name>
+    </term>
+    <term>
+        <name>accept-in-principle</name>
+        <name lang="en">accept-in-principle</name>
+        <name lang="pt">accept-in-principle</name>
+        <name lang="es">accept-in-principle</name>
+    </term>
 </labels>

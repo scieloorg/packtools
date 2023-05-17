@@ -32,7 +32,8 @@
     <xsl:template match="sub-article" mode="body">
         <xsl:param name="alt_title"></xsl:param>
         <xsl:apply-templates select="./body">
-                    <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param></xsl:apply-templates>
+            <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="body">
@@ -41,10 +42,10 @@
             <xsl:if test="$alt_title!=''">
                 <xsl:attribute name="class">articleSection</xsl:attribute>
                 <xsl:attribute name="data-anchor"><xsl:value-of select="$alt_title"/></xsl:attribute>
-                
             </xsl:if>
             <xsl:apply-templates select="*"/>
         </div>
+        <xsl:apply-templates select="../front-stub/custom-meta-group"/>
     </xsl:template>
     
     <xsl:template match="body/p">
