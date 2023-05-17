@@ -66,11 +66,6 @@
     <!--xsl:variable name="prev"><xsl:apply-templates select="article/back/ref-list" mode="previous"/></xsl:variable>
     <xsl:variable name="next"><xsl:apply-templates select="article/back/ref-list" mode="next"/></xsl:variable-->
 
-    <xsl:variable name="REFLIST_POSITION">
-        <xsl:apply-templates select="article/back/*" mode="position">
-            <xsl:with-param name="name">ref-list</xsl:with-param>
-        </xsl:apply-templates>
-    </xsl:variable>
     <xsl:variable name="REFLIST_INDEX">
         <xsl:apply-templates select="article/back/*[title]" mode="index"/>
     </xsl:variable>
