@@ -4,17 +4,10 @@
     
     <xsl:template match="*" mode="node-name"><xsl:value-of select="name()"/></xsl:template>
 
-    <xsl:template match="ref-list" mode="force-title">
-        <xsl:choose>
-            <xsl:when test="$article/@xml:lang=$TEXT_LANG and title">
-                <xsl:apply-templates select="title"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text">ref-list</xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
+    <xsl:template match="ref-list" mode="standard-title">
+        <xsl:apply-templates select="." mode="text-labels">
+            <xsl:with-param name="text">ref-list</xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="back/*" mode="real-title">
@@ -99,44 +92,37 @@
         <xsl:attribute name="data-anchor">
             <xsl:apply-templates select="." mode="real-title"/>
         </xsl:attribute>
-        <h1>
-            <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
-            <xsl:apply-templates select="." mode="real-title"/>
-        </h1>
     </xsl:template>
 
-    <xsl:template match="ref-list" mode="menu-section">
+    <xsl:template match="back/ref-list | ref-list" mode="menu-section">
         <xsl:variable name="name" select="name()"/>
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::node()[name()!=$name]">
             <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
-                <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text">ref-list</xsl:with-param>
-                </xsl:apply-templates>
+                <xsl:apply-templates select="." mode="standard-title"/>
             </xsl:attribute>
-            <h1 style="visibility:hidden">
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="back-section-h1">
+        <h1>
+            <xsl:if test="title or label">
                 <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
-                <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text">ref-list</xsl:with-param>
-                </xsl:apply-templates>
-            </h1>
-        </xsl:if>
-        <xsl:if test="label or title">
-            <h1>
                 <xsl:apply-templates select="." mode="real-title"/>
-            </h1>
-        </xsl:if>
+            </xsl:if>
+        </h1>
     </xsl:template>
     
     <xsl:template match="*" mode="back-section">
         <div>
             <xsl:apply-templates select="." mode="menu-section"/>
+            <xsl:apply-templates select="." mode="back-section-h1"/>            
             <xsl:apply-templates select="." mode="back-section-content"/>
         </div>
     </xsl:template>
     
     <xsl:template match="*" mode="back-section-content">
-        <xsl:apply-templates select="*[name()!='title' and name()!='label'] | text()"></xsl:apply-templates>
+        <xsl:apply-templates select="*[name()!='title' and name()!='label'] | text()"/>
     </xsl:template>
     
 </xsl:stylesheet>
