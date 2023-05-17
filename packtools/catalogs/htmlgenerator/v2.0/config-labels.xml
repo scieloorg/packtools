@@ -7,8 +7,8 @@
     </term>
     <term>
         <name>Data availability</name>
-        <name lang="pt">Dados de pesquisa</name>
-        <name lang="es">Datos de investigación</name>
+        <name lang="pt">Disponibilidade de dados</name>
+        <name lang="es">Disponibilidad de datos</name>
     </term>
     <term>
         <name>Data citations</name>
@@ -163,6 +163,21 @@
         <name>About the author</name>
         <name lang="pt">Sobre o autor</name>
         <name lang="es">Acerca del autor</name>
+    </term>
+    <term>
+        <name>About the reviewer</name>
+        <name lang="pt">Sobre o autor do parecer</name>
+        <name lang="es">Acerca del autor do parecer</name>
+    </term>
+    <term>
+        <name>About the editors</name>
+        <name lang="pt">Sobre os editores</name>
+        <name lang="es">Acerca de los editores</name>
+    </term>
+    <term>
+        <name>About the editor</name>
+        <name lang="pt">Sobre o editor</name>
+        <name lang="es">Acerca del editor</name>
     </term>
     <term>
         <name>Click to </name>
@@ -429,8 +444,8 @@
     <term>
         <name>edited-by</name>
         <name lang="en">Edited by</name>
-        <name lang="pt">Editado por</name>
-        <name lang="es">Editado por</name>
+        <name lang="pt">Editores</name>
+        <name lang="es">Editores</name>
     </term>
     
     <term>
