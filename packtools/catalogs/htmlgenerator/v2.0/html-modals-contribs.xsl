@@ -6,7 +6,7 @@
     <xsl:template match="article-meta | sub-article[@article-type='translation']/front | sub-article[@article-type='translation']/front-stub" mode="modal-id">    
     </xsl:template>
     
-    <xsl:variable name="xref_fn" select="$article//xref[@ref-type='fn']"></xsl:variable>
+    <xsl:variable name="xref_items" select="$article//xref[@rid]"/>
     
     <xsl:template match="article" mode="modal-contribs">
         <xsl:choose>
@@ -29,7 +29,7 @@
     <xsl:template match="article-meta | front | front-stub" mode="modal-contrib">
         <xsl:if test="contrib-group/contrib or contrib-group/author-notes">
             <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
-            <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">            
+            <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">
                 
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -53,7 +53,7 @@
                 </div>
             </div>
             </div>
-        </xsl:if>    
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="contrib" mode="modal-contrib-type">
@@ -171,34 +171,44 @@
     </xsl:template>
     
     <xsl:template match="author-notes" mode="modal-contrib">
-        <xsl:apply-templates select="*|text()" mode="modal-contrib"></xsl:apply-templates>
+        <xsl:apply-templates select="*" mode="modal-contrib"/>
     </xsl:template>
-    
-    <xsl:template match="author-notes/*" mode="modal-contrib">
-        <div class="info">
-            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+
+    <xsl:template match="fn | corresp" mode="modal-contrib">
+        <div class="ref-list">
+            <ul class="refList footnote">
+                <li>
+                    <xsl:apply-templates select="*|text()" mode="modal-contrib-li-content"/>
+                </li>
+            </ul>
         </div>
     </xsl:template>
-    
-    <xsl:template match="author-notes//label">
+
+    <xsl:template match="*" mode="modal-contrib-li-content">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="fn/p | corresp/p" mode="modal-contrib-li-content">
+        <div>
+            <xsl:apply-templates select="*|text()"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="fn/label | corresp/label" mode="modal-contrib-li-content">
+        <xsl:variable name="title"><xsl:apply-templates select="*|text()"/></xsl:variable>
         <xsl:choose>
-            <xsl:when test="string-length(normalize-space(text())) = 1">
-                <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+            <xsl:when test="string-length(normalize-space($title)) &gt; 3">
+                <h3><xsl:apply-templates select="*|text()"/></h3>
             </xsl:when>
             <xsl:otherwise>
-                <h3><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>
+                <span class="xref big"><xsl:apply-templates select="*|text()"/></span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
-    <!--xsl:template match="author-notes//fn" mode="modal-contrib">
-        <xsl:variable name="id" select="@id"></xsl:variable>
-        <xsl:if test="not($xref_fn[@rid=$id])">
-            <div class="info">
-                <xsl:apply-templates select="*|text()" mode="modal-contrib"></xsl:apply-templates>
-            </div>
-        </xsl:if>
-    </xsl:template-->
+
+    <xsl:template match="fn/title | corresp/title" mode="modal-contrib-li-content">
+        <h2><xsl:apply-templates select="*|text()"/></h2>
+    </xsl:template>
 
     <xsl:template match="author-notes/corresp" mode="contrib-dropdown-menu">
       <div class="corresp">
