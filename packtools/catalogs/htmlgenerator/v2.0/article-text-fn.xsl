@@ -13,7 +13,7 @@
             <xsl:when test="body//fn">
                 <xsl:apply-templates select="body" mode="text-fn"/>
             </xsl:when>
-        </xsl:choose>            
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="body" mode="text-fn">
@@ -52,7 +52,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="fn/p">
+    <xsl:template match="fn/p | corresp/p">
         <div>
             <xsl:apply-templates select="*|text()"/>
         </div>
@@ -67,19 +67,19 @@
         <xsl:apply-templates select="." mode="div-fn-list-item"/>
     </xsl:template>
 
-    <xsl:template match="fn" mode="div-fn-list-item">
+    <xsl:template match="fn | corresp" mode="div-fn-list-item">
         <li>
             <xsl:apply-templates select="*|text()" mode="div-fn-list-item"/>
         </li>
     </xsl:template>
 
-    <xsl:template match="fn/p | fn/*" mode="div-fn-list-item">
+    <xsl:template match="fn/p | fn/* | corresp/p | corresp/*" mode="div-fn-list-item">
         <div>
             <xsl:apply-templates select="*|text()"/>
         </div>
     </xsl:template>
 
-    <xsl:template match="fn/label" mode="div-fn-list-item">
+    <xsl:template match="fn/label | corresp/label" mode="div-fn-list-item">
         <xsl:variable name="title"><xsl:apply-templates select="*|text()"/></xsl:variable>
         <xsl:choose>
             <xsl:when test="string-length(normalize-space($title)) &gt; 3">
@@ -91,7 +91,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="fn/title" mode="div-fn-list-item">
+    <xsl:template match="fn/title | corresp/title" mode="div-fn-list-item">
         <h2><xsl:apply-templates select="*|text()"/></h2>
     </xsl:template>
 
@@ -99,7 +99,7 @@
         <!-- do nothing for fn edited-by or data-availability -->
     </xsl:template>
         
-    <xsl:template match="body//fn | back/fn | author-notes/fn | back/fn-group" mode="back-section-content">
+    <xsl:template match="body//fn | back/fn | author-notes/* | back/fn-group" mode="back-section-content">
         <div class="ref-list">
             <ul class="refList footnote">
                 <xsl:apply-templates select="fn" mode="div-fn-list-item"/>
@@ -112,46 +112,58 @@
 
     <xsl:template match="article" mode="author-notes-as-sections">
         <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//author-notes">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//front-stub//author-notes/fn" mode="author-notes-as-sections"/>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/front-stub//author-notes">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="author-notes-as-sections"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select=".//front//author-notes/fn" mode="author-notes-as-sections"/>
+                <xsl:apply-templates select="front | sub-article[@article-type!='translation']/front-stub" mode="author-notes-as-sections"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="author-notes/fn" mode="author-notes-as-sections">
-        <!-- do nothing for fn <xsl:value-of select="@fn-type"/> -->
+    <xsl:template match="sub-article[@article-type='translation']" mode="author-notes-as-sections">
+        <xsl:apply-templates select="front-stub | sub-article/front-stub" mode="author-notes-as-sections"/>
     </xsl:template>
 
-    <xsl:template match="author-notes/fn[@id]" mode="author-notes-as-sections">
-        <xsl:variable name="id" select="@id"/>
-        <xsl:if test="$article//xref[@rid=$id]">
-            <xsl:apply-templates select="." mode="back-section"/>
-        </xsl:if>
+    <xsl:template match="front | front-stub" mode="author-notes-as-sections">
+        <xsl:apply-templates select=".//author-notes" mode="author-notes-as-sections"/>
     </xsl:template>
 
-    <xsl:template match="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="author-notes-as-sections">
-        <xsl:apply-templates select="." mode="back-section"/>
+    <xsl:template match="author-notes" mode="author-notes-as-sections">
+        <!-- apresenta as notas de autores que indicam Ciência Aberta -->
+        <xsl:apply-templates select="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="back-section"/>
     </xsl:template>
 
     <xsl:template match="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="back-section-menu">
         <xsl:variable name="name" select="@fn-type"/>
-        <!-- cria menu somente para o primeiro ref-list (há casos de série de ref-list) -->
-         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
+        <!--
+        Evita que no menu apareça o mesmo título mais de uma vez 
+        -->
+        <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
             <xsl:attribute name="data-anchor">
                 <xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:attribute>
-            <xsl:if test="not(title) and not(label)">
-                <h3>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="back-section-h">
+        <!--
+            Apresenta o título da seção no texto completo
+        -->
+        <xsl:variable name="name" select="@fn-type"/>
+        <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
+            <h1 class="articleSectionTitle">
+                <xsl:apply-templates select="label"/>
+                <xsl:if test="label and title">&#160;</xsl:if>
+                <xsl:apply-templates select="title"/>
+                <xsl:if test="not(label) and not(title)">
                     <xsl:apply-templates select="." mode="text-labels">
                         <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
                     </xsl:apply-templates>
-                </h3>
-            </xsl:if>
+                </xsl:if>
+            </h1>
         </xsl:if>
     </xsl:template>
 
