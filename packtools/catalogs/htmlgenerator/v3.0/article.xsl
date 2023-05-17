@@ -15,6 +15,7 @@
 
     <xsl:include href="journal-meta.xsl"/>
 
+    <xsl:include href="article-custom-meta-group.xsl"/>
     <xsl:include href="article-meta.xsl"/>
     <xsl:include href="article-meta-permissions.xsl"/>
     <xsl:include href="article-meta-contrib.xsl"/>
