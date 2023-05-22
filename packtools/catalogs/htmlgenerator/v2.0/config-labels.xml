@@ -7,8 +7,8 @@
     </term>
     <term>
         <name>Data availability</name>
-        <name lang="pt">Dados de pesquisa</name>
-        <name lang="es">Datos de investigación</name>
+        <name lang="pt">Disponibilidade de dados</name>
+        <name lang="es">Disponibilidad de datos</name>
     </term>
     <term>
         <name>Data citations</name>
@@ -163,6 +163,21 @@
         <name>About the author</name>
         <name lang="pt">Sobre o autor</name>
         <name lang="es">Acerca del autor</name>
+    </term>
+    <term>
+        <name>About the reviewer</name>
+        <name lang="pt">Sobre o autor do parecer</name>
+        <name lang="es">Acerca del autor do parecer</name>
+    </term>
+    <term>
+        <name>About the editors</name>
+        <name lang="pt">Sobre os editores</name>
+        <name lang="es">Acerca de los editores</name>
+    </term>
+    <term>
+        <name>About the editor</name>
+        <name lang="pt">Sobre o editor</name>
+        <name lang="es">Acerca del editor</name>
     </term>
     <term>
         <name>Click to </name>
@@ -429,8 +444,8 @@
     <term>
         <name>edited-by</name>
         <name lang="en">Edited by</name>
-        <name lang="pt">Editado por</name>
-        <name lang="es">Editado por</name>
+        <name lang="pt">Editores</name>
+        <name lang="es">Editores</name>
     </term>
     
     <term>
@@ -499,5 +514,58 @@
         <name lang="pt">Este adendo adiciona informação ao documento</name>
         <name lang="es">Esta addenda agrega información al documento</name>
     </term>
-        
+    <term>
+        <name>peer-review-recommendation</name>
+        <name lang="en">peer review recommendation</name>
+        <name lang="pt">recomendação</name>
+        <name lang="es">recomendación</name>
+    </term>
+    <term>
+        <name>revision</name>
+        <name lang="en">revision</name>
+        <name lang="pt">revisão</name>
+        <name lang="es">revisión</name>
+    </term>
+    <term>
+        <name>major-revision</name>
+        <name lang="en">major-revision</name>
+        <name lang="pt">major-revision</name>
+        <name lang="es">major-revision</name>
+    </term>
+    <term>
+        <name>minor-revision</name>
+        <name lang="en">minor-revision</name>
+        <name lang="pt">minor-revision</name>
+        <name lang="es">minor-revision</name>
+    </term>
+    <term>
+        <name>reject</name>
+        <name lang="en">reject</name>
+        <name lang="pt">rejeitar</name>
+        <name lang="es">rechazar</name>
+    </term>
+    <term>
+        <name>reject-with-resubmit</name>
+        <name lang="en">reject-with-resubmit</name>
+        <name lang="pt">reject-with-resubmit</name>
+        <name lang="es">reject-with-resubmit</name>
+    </term>
+    <term>
+        <name>accept</name>
+        <name lang="en">accept</name>
+        <name lang="pt">aceitar</name>
+        <name lang="es">aceptar</name>
+    </term>
+    <term>
+        <name>formal-accept</name>
+        <name lang="en">formal-accept</name>
+        <name lang="pt">formal-accept</name>
+        <name lang="es">formal-accept</name>
+    </term>
+    <term>
+        <name>accept-in-principle</name>
+        <name lang="en">accept-in-principle</name>
+        <name lang="pt">accept-in-principle</name>
+        <name lang="es">accept-in-principle</name>
+    </term>
 </labels>

@@ -5,11 +5,12 @@
                 
     <xsl:template match="*" mode="text-body">
         
-        <xsl:variable name="alttile">
+        <xsl:variable name="alt_title">
             <xsl:choose>
                 <xsl:when test=".//sub-article[@article-type!='translation'] or .//response">
                     <xsl:apply-templates select="." mode="text-labels">
                         <xsl:with-param name="text"><xsl:value-of select="@article-type"/><xsl:value-of select="@response-type"/></xsl:with-param>
+                        <xsl:with-param name="default_text">Text</xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>Text</xsl:otherwise>
@@ -18,18 +19,21 @@
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                 <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="body">
-                    <xsl:with-param name="alt_title" select="$alttile"></xsl:with-param>
+                    <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="./body">
-                    <xsl:with-param name="alt_title" select="$alttile"></xsl:with-param></xsl:apply-templates>                    
+                    <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param></xsl:apply-templates>                    
             </xsl:otherwise>
         </xsl:choose>            
     </xsl:template>
     
     <xsl:template match="sub-article" mode="body">
-        <xsl:apply-templates select="body"/>
+        <xsl:param name="alt_title"></xsl:param>
+        <xsl:apply-templates select="./body">
+            <xsl:with-param name="alt_title" select="$alt_title"></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="body">
@@ -37,11 +41,11 @@
         <div>
             <xsl:if test="$alt_title!=''">
                 <xsl:attribute name="class">articleSection</xsl:attribute>
-                <xsl:attribute name="data-anchor"><xsl:value-of select="$alt_title"></xsl:value-of></xsl:attribute>
-                
+                <xsl:attribute name="data-anchor"><xsl:value-of select="$alt_title"/></xsl:attribute>
             </xsl:if>
             <xsl:apply-templates select="*"/>
         </div>
+        <xsl:apply-templates select="../front-stub/custom-meta-group"/>
     </xsl:template>
     
     <xsl:template match="body/p">
