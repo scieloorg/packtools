@@ -1,7 +1,7 @@
 lxml==4.9.2
 Pillow==9.4.0
 minio==7.1.13
-requests==2.28.2
+requests==2.31.0
 tenacity==8.1.0
 picles.plumber==0.11
 charset-normalizer<3.0
