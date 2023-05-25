@@ -813,3 +813,94 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_agris_description_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article '
+            'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<abstract>'
+            '<title>Abstract</title>'
+            '<sec>'
+            '<title>Objective:</title>'
+            '<p>to assess the effects of an educational intervention on smoking cessation aimed at the nursing team.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Method:</title>'
+            '<p>this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Results:</title>'
+            '<p>there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Conclusion:</title>'
+            '<p>the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</p>'
+            '</sec>'
+            '</abstract>'
+            '<trans-abstract xml:lang="es">'
+            '<title>RESUMEN</title>'
+            '<sec>'
+            '<title>Objetivo:</title>'
+            '<p>evaluar los efectos de una intervención educativa para dejar de fumar dirigida al equipo de enfermería.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Método:</title>'
+            '<p>estudio cuasi-experimental con 37 profesionales de enfermería de un hospital brasileño de mayo/2019 a diciembre/2020. La intervención consistió en capacitar a los profesionales de enfermería en el abordaje del paciente fumador, dividida en dos etapas, la primera, en línea, requisito previo para la presencial/videoconferencia. El efecto de la intervención se evaluó a través del pre y post test realizado por los participantes. También se analizaron los registros en las historias clínicas de los fumadores. Para el análisis se utilizó la prueba Chi-Square de McNemar.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Resultados:</title>'
+            '<p>hubo un aumento en la frecuencia de acciones dirigidas a dejar de fumar después de la intervención. Se encontraron diferencias significativas en las guías relacionadas con la divulgación a los familiares de la decisión de dejar de fumar y la necesidad de apoyo, el estímulo de la abstinencia después del alta hospitalaria y la información sobre estrategias para dejar de fumar y recaer.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Conclusión:</title>'
+            '<p>la intervención educativa demostró ser innovadora y con gran capacidad de diseminación del conocimiento. El post-test mostró un efecto positivo en la frecuencia de las acciones dirigidas a la deshabituación tabáquica implementadas por el equipo de enfermería.</p>'
+            '</sec>'
+            '</trans-abstract>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<dc:description>'
+            '<dcterms:abstract xml:lang="en">'
+            'Abstract '
+            'Objective: to assess the effects of an educational intervention on smoking cessation aimed at the nursing team. '
+            'Method: this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used. '
+            'Results: there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies. '
+            'Conclusion: the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</dcterms:abstract>'
+            '</dc:description>'
+            '<dc:description>'
+            '<dcterms:abstract xml:lang="es">RESUMEN '
+            'Objetivo: evaluar los efectos de una intervención educativa para dejar de fumar dirigida al equipo de enfermería. '
+            'Método: estudio cuasi-experimental con 37 profesionales de enfermería de un hospital brasileño de mayo/2019 a diciembre/2020. La intervención consistió en capacitar a los profesionales de enfermería en el abordaje del paciente fumador, dividida en dos etapas, la primera, en línea, requisito previo para la presencial/videoconferencia. El efecto de la intervención se evaluó a través del pre y post test realizado por los participantes. También se analizaron los registros en las historias clínicas de los fumadores. Para el análisis se utilizó la prueba Chi-Square de McNemar. '
+            'Resultados: hubo un aumento en la frecuencia de acciones dirigidas a dejar de fumar después de la intervención. Se encontraron diferencias significativas en las guías relacionadas con la divulgación a los familiares de la decisión de dejar de fumar y la necesidad de apoyo, el estímulo de la abstinencia después del alta hospitalaria y la información sobre estrategias para dejar de fumar y recaer. '
+            'Conclusión: la intervención educativa demostró ser innovadora y con gran capacidad de diseminación del conocimiento. El post-test mostró un efecto positivo en la frecuencia de las acciones dirigidas a la deshabituación tabáquica implementadas por el equipo de enfermería.</dcterms:abstract>'
+            '</dc:description>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+
+            '<metadata>'
+            '<ags:resources '
+            'xmlns:xsl="http://www.w3.org/1999/XSL/Transform" '
+            'xmlns:ags="http://purl.org/agmes/1.1/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+            'xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" '
+            'xmlns:dcterms="http://purl.org/dc/terms/">'
+            '<ags:resource ags:ARN="XS2021000111">'
+            '</ags:resource>'
+            '</ags:resources>'
+            '</metadata>'
+
+        )
+
+        xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
