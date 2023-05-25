@@ -418,3 +418,32 @@ def add_description(xml_oai_dc_agris, descriptions):
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
+def xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT description -->
+        <!ELEMENT dc:description (ags:descriptionNotes | ags:descriptionEdition | dcterms:abstract)*>
+        <!ELEMENT ags:descriptionNotes (#PCDATA)>
+        <!ELEMENT ags:descriptionEdition (#PCDATA)>
+        <!ELEMENT dcterms:abstract (#PCDATA)>
+        <!ATTLIST dcterms:abstract
+            xml:lang CDATA #IMPLIED
+        >
+
+    Example:
+        <dc:description>
+        <dcterms:abstract xml:lang="es">
+        <![CDATA[ Resumen En el siglo xx, la música popular fue el lenguaje artístico más contundente y una de las grandes fuerzas estéticas de Brasil. Desde los años 30, ella ocupó una posición importante en debates culturales y proyectos nacionalistas y, a lo largo de los años, expandió su alcance con el avance de los medios de comunicación. Dicha inversión todavía resultó, más allá de lo esperado, en la producción de una modalidad crítica de canción. Así que en los 60, al igual que el arte moderno, la canción se tornó reflexiva, operando de manera crítica en relación consigo misma y con el contexto cultural y político. El componente reflexivo de la canción parece haber ampliado considerablemente su alcance cultural. Tanto es así que no parece irrazonable señalar una conexión profunda entre la canción y un cierto horizonte de construcción nacional. En este trabajo, intentamos hacer un panorama del desarrollo de la música popular brasileña de modo de aclarar ese proceso y, tal vez, posibilitar nuevos planteamientos para pensar sus posibilidades críticas desde su dimensión estética. ]]>
+        </dcterms:abstract>
+        </dc:description>
+        <dc:description>
+        <dcterms:abstract xml:lang="en">
+        <![CDATA[ Abstract In the twentieth century, popular music was the most relevant artistic language and one great aesthetic forces of Brazil. Since the 30's this musical production occupied an important position in cultural nationalist ideologies and, over the years, expanded its reach with the advancement of the media. This investment has paid off beyond expectations and results in the production of a critical type of song. So, in the 60's this popular music becomes reflexive, operating critically in relation to itself and to the cultural and political context. In this paper, we try to make an overview of the development of Brazilian popular music so as to clarify this process and perhaps make possible new approaches to think its possibilities of criticism from its aesthetic dimension. ]]>
+        </dcterms:abstract>
+        </dc:description>
+    """
+    abstract = article_abstract.Abstract(xml_tree)
+
+    add_description(xml_oai_dc_agris, get_description(abstract))
+
+
