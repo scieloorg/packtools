@@ -570,3 +570,9 @@ def get_location(data):
         pass
 
 
+def add_location(location):
+    loc = ET.Element('{http://purl.org/agmes/1.1/}availabilityLocation')
+    loc.text = location
+    return loc
+
+
