@@ -82,3 +82,13 @@ def add_title(xml_oai_dc_agris, xml_tree):
         pass
 
 
+def add_creator(xml_oai_dc_agris, author_name):
+    ags = ET.Element('{http://purl.org/agmes/1.1/}creatorPersonal')
+    ags.text = author_name
+
+    dc = ET.Element('{http://purl.org/dc/elements/1.1/}creator')
+    dc.append(ags)
+
+    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
+
