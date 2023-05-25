@@ -288,3 +288,27 @@ def xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree):
     add_publisher(xml_oai_dc_agris, publisher)
 
 
+def get_date(dt, m=False, d=False):
+    try:
+        year = dt.pub_dates[0].get('year')
+        month = dt.pub_dates[0].get('month')
+        day = dt.pub_dates[0].get('day')
+        exceptions = [None, '', '0', '00']
+
+        if year is None:
+            return
+        if month is None and day is None:
+            return year
+        month = '01' if month in exceptions else month
+        day = '01' if day in exceptions else day
+
+        if d:
+            return '-'.join([year, month, day])
+        elif m:
+            return '-'.join([year, month])
+        else:
+            return year
+    except IndexError:
+        pass
+
+
