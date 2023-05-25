@@ -580,3 +580,10 @@ def get_doi(xml_tree):
     return article_ids.ArticleIds(xml_tree).doi
 
 
+def add_doi(doi):
+    number = ET.Element('{http://purl.org/agmes/1.1/}availabilityNumber')
+    number.text = doi
+
+    return number
+
+
