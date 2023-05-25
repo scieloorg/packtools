@@ -156,3 +156,47 @@ def xml_oai_dc_agris_metadata_pipe(xml_oai_dc_agris):
     xml_oai_dc_agris.append(metadata)
 
 
+def xml_oai_dc_agris_resouce_pipe(xml_oai_dc_agris, xml_tree):
+    """
+     Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!ELEMENT ags:resource (
+        dc:title+,
+        dc:creator*,
+        dc:publisher*,
+        dc:date*,
+        dc:subject*,
+        dc:description*,
+        dc:identifier*,
+        dc:type*,
+        dc:format*,
+        dc:language*,
+        dc:relation*,
+        agls:availability*,
+        dc:source*,
+        dc:coverage*,
+        dc:rights*,
+        ags:citation*
+        )>
+        <!ATTLIST ags:resource
+            ags:ARN ID #REQUIRED
+            ags:type (Record | Dataset)  #IMPLIED
+        >
+    Example:
+        <record>
+            <metadata>
+                <ags:resources
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ags="http://purl.org/agmes/1.1/"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2"
+                xmlns:dcterms="http://purl.org/dc/terms/">
+                    <ags:resource ags:ARN="XS2021000111">
+            </metadata>
+        </record>
+    """
+    el = ET.Element('{http://purl.org/agmes/1.1/}resource')
+    el.set('{http://purl.org/agmes/1.1/}ARN', 'XS' + get_identifier(xml_tree))
+
+    xml_oai_dc_agris.find('./metadata/{http://purl.org/agmes/1.1/}resources').append(el)
+
+
