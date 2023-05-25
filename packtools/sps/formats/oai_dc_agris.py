@@ -355,3 +355,38 @@ def add_subject(xml_oai_dc_agris, kw):
     xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
 
 
+def xml_oai_dc_agris_subject_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT subject -->
+        <!ELEMENT dc:subject (#PCDATA | ags:subjectClassification | ags:subjectThesaurus)*>
+        <!ATTLIST dc:subject
+            xml:lang CDATA #IMPLIED
+        >
+        <!ELEMENT ags:subjectClassification (#PCDATA)>
+        <!ATTLIST ags:subjectClassification
+            xml:lang CDATA #IMPLIED
+            scheme (ags:ASC | ags:CABC | dcterms:DDC | dcterms:LCC | dcterms:UDC | ags:ASFAC | ags:GFISC | ags:IWMIC | ags:JEL | ags:ECASC) #REQUIRED
+        >
+        <!ELEMENT ags:subjectThesaurus (#PCDATA)>
+        <!ATTLIST ags:subjectThesaurus
+            xml:lang CDATA #IMPLIED
+            scheme (ags:CABT | ags:AGROVOC | ags:NALT | ags:ASFAT | dcterms:LCSH | dcterms:MeSH | ags:GFIST | ags:MEDITAGRI | ags:LEMB | ags:INRA | ags:UNBIST) #REQUIRED
+        >
+
+    Example:
+        <dc:subject xml:lang="es">Canción popular</dc:subject>
+        <dc:subject xml:lang="es">música popular brasileña</dc:subject>
+        <dc:subject xml:lang="es">canción crítica</dc:subject>
+        <dc:subject xml:lang="es">arte político</dc:subject>
+        <dc:subject xml:lang="en">Popular song</dc:subject>
+        <dc:subject xml:lang="en">critical song</dc:subject>
+        <dc:subject xml:lang="en">Brazilian popular music</dc:subject>
+        <dc:subject xml:lang="en">art and politics</dc:subject>
+    """
+    key_words = kwd_group.KwdGroup(xml_tree)
+
+    for kw in key_words.extract_kwd_data_with_lang_text(subtag=False):
+        add_subject(xml_oai_dc_agris, kw)
+
+
