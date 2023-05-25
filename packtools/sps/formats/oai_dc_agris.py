@@ -225,3 +225,35 @@ def xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree):
     add_title(xml_oai_dc_agris, xml_tree)
 
 
+def xml_oai_dc_agris_creator_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT creator -->
+        <!ELEMENT dc:creator (#PCDATA | ags:creatorPersonal | ags:creatorCorporate | ags:creatorConference)*>
+        <!ELEMENT ags:creatorPersonal (#PCDATA)>
+        <!ELEMENT ags:creatorCorporate (#PCDATA)>
+        <!ELEMENT ags:creatorConference (#PCDATA)>
+
+    Example:
+        <record>
+            <metadata>
+                <ags:resources>
+                    <ags:resource ags:ARN="XS2021000111">
+                        <dc:creator>
+                            <ags:creatorPersonal>de-Oliveira-Gerolamo, Ismael</ags:creatorPersonal>
+                        </dc:creator>
+                    </ags:resource>
+                </ags:resources>
+            </metadata>
+        </record>
+    """
+    author = article_authors.Authors(xml_tree)
+    try:
+        surname = author.contribs[0].get('surname')
+        given_name = author.contribs[0].get('given_names')
+        author_name = f' {surname.strip()}, {given_name.strip()} '
+        add_creator(xml_oai_dc_agris, author_name.strip())
+    except IndexError:
+        pass
+
+
