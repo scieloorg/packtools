@@ -56,3 +56,30 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertEqual('2021000111', get_identifier(xml_tree))
 
+    def test_add_identifier(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0718-71812021000100011</article-id>'
+            '<article-id pub-id-type="doi">10.7764/69.1</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        expected = (
+            '<identifier>oai:agris.scielo:XS2021000111</identifier>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+            '<record/>'
+        )
+
+        add_identifier(xml_oai_dc_agris, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
