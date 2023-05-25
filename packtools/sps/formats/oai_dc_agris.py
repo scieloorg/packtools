@@ -651,3 +651,39 @@ def add_citation_elements(citation, elements):
             pass
 
 
+def xml_oai_dc_agris_citation_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT citation -->
+        <!ELEMENT ags:citation (ags:citationTitle | ags:citationIdentifier | ags:citationNumber | ags:citationChronology)*>
+        <!ELEMENT ags:citationTitle (#PCDATA)>
+        <!ATTLIST ags:citationTitle
+            xml:lang CDATA #IMPLIED
+        >
+        <!ELEMENT ags:citationIdentifier (#PCDATA)>
+        <!ATTLIST ags:citationIdentifier
+            scheme (ags:ISSN | ags:CODEN | bibo:eissn) #REQUIRED
+        >
+        <!ELEMENT ags:citationNumber (#PCDATA)>
+        <!ELEMENT ags:citationChronology (#PCDATA)>
+
+    Example:
+        <ags:citation>
+            <ags:citationTitle>Aisthesis</ags:citationTitle>
+            <ags:citationIdentifier scheme="ags:ISSN">0718-7181</ags:citationIdentifier>
+            <ags:citationNumber> num.69</ags:citationNumber>
+            <ags:citationChronology>2021/07</ags:citationChronology>
+        </ags:citation>
+    """
+    citation = ET.Element('{http://purl.org/agmes/1.1/}citation')
+
+    elements = [
+        get_citation_title(xml_tree),
+        get_citation_identifier(xml_tree),
+        get_citation_number(xml_tree),
+        get_citation_chronology(xml_tree),
+    ]
+
+    if elements:
+        add_citation_elements(citation, elements)
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(citation)
