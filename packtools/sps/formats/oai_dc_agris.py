@@ -512,3 +512,30 @@ def xml_oai_dc_agris_type_pipe(xml_oai_dc_agris, data=None):
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
+def xml_oai_dc_agris_format_pipe(xml_oai_dc_agris, data):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT format -->
+        <!ELEMENT dc:format (dcterms:extent | dcterms:medium)*>
+        <!ELEMENT dcterms:extent (#PCDATA)>
+        <!ELEMENT dcterms:medium (#PCDATA)>
+        <!ATTLIST dcterms:medium
+            scheme (dcterms:IMT) #IMPLIED
+        >
+
+    Example:
+        <dc:format>
+            <dcterms:medium>text/xml</dcterms:medium>
+        </dc:format>
+    """
+    ft = data.get('format')
+    if ft is not None:
+        term = ET.Element('{http://purl.org/dc/terms/}medium')
+        term.text = ft
+
+        dc = ET.Element('{http://purl.org/dc/elements/1.1/}format')
+        dc.append(term)
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
+
