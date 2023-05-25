@@ -347,3 +347,11 @@ def xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree):
     add_date(xml_oai_dc_agris, dt_out)
 
 
+def add_subject(xml_oai_dc_agris, kw):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}subject')
+    el.set('{http://www.w3.org/XML/1998/namespace}lang', kw.get('lang'))
+    el.text = kw.get('text')
+
+    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
+
+
