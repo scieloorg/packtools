@@ -456,3 +456,11 @@ def add_uri_identifier(xml_oai_dc_agris, identifier):
     xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
+def add_uri_doi(xml_oai_dc_agris, doi):
+    dc = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
+    dc.set('scheme', 'ags:DOI')
+    dc.text = doi
+
+    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
+
