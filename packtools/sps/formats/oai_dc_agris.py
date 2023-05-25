@@ -576,3 +576,7 @@ def add_location(location):
     return loc
 
 
+def get_doi(xml_tree):
+    return article_ids.ArticleIds(xml_tree).doi
+
+
