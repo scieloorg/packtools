@@ -33,3 +33,24 @@ def get_identifier(xml_tree):
         pass
 
 
+def add_identifier(header, xml_tree):
+    """
+        Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+            <!-- ELEMENT identifier -->
+            <!ELEMENT dc:identifier (#PCDATA)>
+            <!ATTLIST dc:identifier
+                xml:lang CDATA #IMPLIED
+                scheme (ags:IPC | ags:RN | ags:PN | ags:ISBN | ags:JN | dcterms:URI | ags:DOI | ags:PC) #IMPLIED
+            >
+
+        Example:
+            <identifier>oai:agris.scielo:XS2021000111</identifier>
+        """
+    identifier = get_identifier(xml_tree)
+    if identifier is not None:
+        value = f'oai:agris.scielo:XS{identifier}'
+        el = ET.Element('identifier')
+        el.text = value
+        header.append(el)
+
+
