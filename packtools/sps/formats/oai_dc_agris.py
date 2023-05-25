@@ -323,3 +323,27 @@ def add_date(xml_oai_dc_agris, dt_out):
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
+def xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT date -->
+        <!ELEMENT dc:date (dcterms:dateIssued | dcterms:modified)*>
+        <!ELEMENT dcterms:dateIssued (#PCDATA)>
+        <!ATTLIST dcterms:dateIssued
+            scheme (dcterms:W3CDTF) #IMPLIED
+        >
+        <!ELEMENT dcterms:modified (#PCDATA)>
+        <!ATTLIST dcterms:modified
+            scheme (dcterms:W3CDTF) #IMPLIED
+        >
+
+    Example:
+        <dc:date>
+            <dcterms:dateIssued>2021</dcterms:dateIssued>
+        </dc:date>
+    """
+    dt_out = get_date(dates.ArticleDates(xml_tree))
+
+    add_date(xml_oai_dc_agris, dt_out)
+
+
