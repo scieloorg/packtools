@@ -492,3 +492,23 @@ def xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree):
     add_uri_doi(xml_oai_dc_agris, doi)
 
 
+def xml_oai_dc_agris_type_pipe(xml_oai_dc_agris, data=None):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT type -->
+        <!ELEMENT dc:type (#PCDATA)>
+        <!ATTLIST dc:type
+            scheme (dcterms:DCMIType | isis) #IMPLIED
+        >
+
+    Example:
+        <dc:type>journal article</dc:type>
+    """
+    tp = data and data.get('type') or 'journal article'
+    if tp is not None:
+        dc = ET.Element('{http://purl.org/dc/elements/1.1/}type')
+        dc.text = tp
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
+
