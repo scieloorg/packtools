@@ -92,3 +92,13 @@ def add_creator(xml_oai_dc_agris, author_name):
     xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
+def xml_oai_dc_agris_record_pipe():
+    """
+    Example:
+        <record>
+        </record>
+    """
+
+    return ET.Element('record')
+
+
