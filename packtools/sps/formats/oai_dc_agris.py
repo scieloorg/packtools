@@ -390,3 +390,18 @@ def xml_oai_dc_agris_subject_pipe(xml_oai_dc_agris, xml_tree):
         add_subject(xml_oai_dc_agris, kw)
 
 
+def get_description(abstract):
+    descriptions = []
+    for item in abstract.abstracts_with_tags:
+        if item is not None:
+            text = []
+            for i in item.get('sections').items():
+                (section, contents) = i
+                text.append(section)
+                text.append(contents)
+            text = ' '.join(text)
+            descriptions.append((item.get('lang'), item.get('title'), text))
+
+    return descriptions
+
+
