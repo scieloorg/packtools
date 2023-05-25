@@ -126,3 +126,33 @@ def xml_oai_dc_agris_header_pipe(xml_oai_dc_agris, xml_tree):
     xml_oai_dc_agris.append(header)
 
 
+def xml_oai_dc_agris_metadata_pipe(xml_oai_dc_agris):
+    """
+    Example:
+        <record>
+            <metadata>
+                <ags:resources
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ags="http://purl.org/agmes/1.1/"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2"
+                xmlns:dcterms="http://purl.org/dc/terms/">
+            </metadata>
+        </record>
+    """
+
+    nsmap = {
+        'xsl': 'http://www.w3.org/1999/XSL/Transform',
+        'ags': 'http://purl.org/agmes/1.1/',
+        'dc': 'http://purl.org/dc/elements/1.1/',
+        'agls': 'http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2',
+        'dcterms': 'http://purl.org/dc/terms/'
+    }
+
+    el = ET.Element('{http://purl.org/agmes/1.1/}resources', nsmap=nsmap)
+
+    metadata = ET.Element('metadata')
+    metadata.append(el)
+    xml_oai_dc_agris.append(metadata)
+
+
