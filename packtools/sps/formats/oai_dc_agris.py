@@ -54,3 +54,11 @@ def add_identifier(header, xml_tree):
         header.append(el)
 
 
+def add_set_spec(header, xml_tree):
+    issn = get_issn(xml_tree)
+    if issn != '':
+        el = ET.Element('setSpec')
+        el.text = issn
+        header.append(el)
+
+
