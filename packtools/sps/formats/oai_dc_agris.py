@@ -464,3 +464,31 @@ def add_uri_doi(xml_oai_dc_agris, doi):
     xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
+def xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT identifier -->
+        <!ELEMENT dc:identifier (#PCDATA)>
+        <!ATTLIST dc:identifier
+            xml:lang CDATA #IMPLIED
+            scheme (ags:IPC | ags:RN | ags:PN | ags:ISBN | ags:JN | dcterms:URI | ags:DOI | ags:PC) #IMPLIED
+        >
+
+    Example:
+        <dc:identifier scheme="dcterms:URI">
+            http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-71812021000100011&lng=en&nrm=iso
+        </dc:identifier>
+        <dc:identifier scheme="ags:DOI">10.7764/69.1</dc:identifier>
+    """
+    # TODO
+    # O modelo que provê a informação é disponível em outro PR
+    # Quando o PR for incorporado a funcionalidade será implementada
+    # identifier = article_uri.ArticleUri(xml_tree)
+    # add_uri_identifier(xml_oai_dc_agris, identifier.all_uris)
+
+    identifier = 'http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-71812021000100011&lng=en&nrm=iso'
+    doi = article_ids.ArticleIds(xml_tree).doi
+    add_uri_identifier(xml_oai_dc_agris, identifier)
+    add_uri_doi(xml_oai_dc_agris, doi)
+
+
