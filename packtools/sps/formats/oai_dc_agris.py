@@ -200,3 +200,28 @@ def xml_oai_dc_agris_resouce_pipe(xml_oai_dc_agris, xml_tree):
     xml_oai_dc_agris.find('./metadata/{http://purl.org/agmes/1.1/}resources').append(el)
 
 
+def xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT title -->
+        <!ELEMENT dc:title (#PCDATA | dcterms:alternative | ags:titleSupplement)*>
+        <!ATTLIST dc:title
+            xml:lang CDATA #IMPLIED
+        >
+
+    Example:
+        <record>
+            <metadata>
+                <ags:resources>
+                    <ags:resource ags:ARN="XS2021000111">
+                        <dc:title xml:lang="es">
+                            <![CDATA[ La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil ]]>
+                        </dc:title>
+                    </ags:resource>
+                </ags:resources>
+            </metadata>
+        </record>
+    """
+    add_title(xml_oai_dc_agris, xml_tree)
+
+
