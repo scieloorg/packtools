@@ -256,3 +256,46 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_agris_resouce_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
+            '</journal-meta>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0718-71812021000100011</article-id>'
+            '<article-id pub-id-type="doi">10.7764/69.1</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<ags:resource ags:ARN="XS2021000111"/>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+            '<record>'
+            '<metadata>'
+            '<ags:resources '
+            'xmlns:xsl="http://www.w3.org/1999/XSL/Transform" '
+            'xmlns:ags="http://purl.org/agmes/1.1/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+            'xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" '
+            'xmlns:dcterms="http://purl.org/dc/terms/">'
+            '</ags:resources>'
+            '</metadata>'
+            '</record>'
+        )
+
+        xml_oai_dc_agris_resouce_pipe(xml_oai_dc_agris, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
