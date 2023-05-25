@@ -639,3 +639,15 @@ def get_citation_chronology(xml_tree):
         return date, 'citationChronology'
 
 
+def add_citation_elements(citation, elements):
+    for element in elements:
+        try:
+            el = ET.Element('{http://purl.org/agmes/1.1/}' + element[1])
+            if element[1] == 'citationIdentifier':
+                el.set('scheme', 'ags:ISSN')
+            el.text = element[0]
+            citation.append(el)
+        except TypeError:
+            pass
+
+
