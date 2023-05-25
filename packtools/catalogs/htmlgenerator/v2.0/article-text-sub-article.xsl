@@ -12,7 +12,8 @@
             </xsl:when>
             <xsl:otherwise>
                 <!-- article/sub-article[@article-type!='translation'] -->
-                <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG] | sub-article[@xml:lang=$TEXT_LANG and @article-type!='translation']" mode="sub-article-not-translation"/>        
+                <!-- sub-article não necessariamente deve corresponder ao idioma do TEXT_LANG ex.: "O corpo da dança como arena de valores e o cronotopo do teatro exercício de análise" tem peer-review em espanhol e português -->
+                <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG] | sub-article[@article-type!='translation']" mode="sub-article-not-translation"/>        
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
