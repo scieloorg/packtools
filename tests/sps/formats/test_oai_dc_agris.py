@@ -235,3 +235,24 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_agris_metadata_pipe(self):
+        expected = (
+            '<ags:resources '
+            'xmlns:xsl="http://www.w3.org/1999/XSL/Transform" '
+            'xmlns:ags="http://purl.org/agmes/1.1/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+            'xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" '
+            'xmlns:dcterms="http://purl.org/dc/terms/"/>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+            '<record>'
+            '</record>'
+        )
+
+        xml_oai_dc_agris_metadata_pipe(xml_oai_dc_agris)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
