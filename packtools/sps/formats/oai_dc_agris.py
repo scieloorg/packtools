@@ -102,3 +102,27 @@ def xml_oai_dc_agris_record_pipe():
     return ET.Element('record')
 
 
+def xml_oai_dc_agris_header_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+            <!-- ELEMENT identifier -->
+            <!ELEMENT dc:identifier (#PCDATA)>
+            <!ATTLIST dc:identifier
+                xml:lang CDATA #IMPLIED
+                scheme (ags:IPC | ags:RN | ags:PN | ags:ISBN | ags:JN | dcterms:URI | ags:DOI | ags:PC) #IMPLIED
+            >
+
+    Example:
+        <header>
+            <identifier>oai:agris.scielo:XS2021000111</identifier>
+            <setSpec>0718-7181</setSpec>
+        </header>
+    """
+    header = ET.Element('header')
+
+    add_identifier(header, xml_tree)
+
+    add_set_spec(header, xml_tree)
+    xml_oai_dc_agris.append(header)
+
+
