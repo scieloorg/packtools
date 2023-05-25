@@ -274,3 +274,26 @@ def match_pubdate(node, pubdate_xpaths):
         pubdate = node.find(xpath)
         if pubdate is not None:
             return pubdate
+
+
+def get_node_without_subtag(node):
+    """
+    Returns a node without subtags.
+
+    Parameters:
+    - node: The node to be processed.
+
+    Returns:
+    A string containing the text within the node, without the subtags.
+
+    Example:
+    >>> from lxml import etree
+    >>> xml = "<p>Text <italic>with subtag</italic> inside the node</p>"
+    >>> root = etree.fromstring(xml)
+    >>> node = root.find("tag")
+    >>> get_node_without_subtag(node)
+    'Text with subtag inside the ndoe'
+    """
+    return "".join(node.xpath(".//text()"))
+
+
