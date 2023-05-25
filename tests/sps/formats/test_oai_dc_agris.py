@@ -1293,3 +1293,71 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertEqual(expected, self.obtained)
 
+    def test_xml_oai_dc_agris_citation_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article '
+            'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<journal-id journal-id-type="nlm-ta">Rev Esc Enferm USP</journal-id>'
+            '<journal-id journal-id-type="publisher-id">reeusp</journal-id>'
+            '<journal-title-group>'
+            '<journal-title>Revista da Escola de Enfermagem da USP</journal-title>'
+            '<abbrev-journal-title abbrev-type="publisher">Rev. esc. enferm. USP</abbrev-journal-title>'
+            '</journal-title-group>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
+            '<publisher>'
+            '<publisher-name>Universidade de São Paulo, Escola de Enfermagem</publisher-name>'
+            '</publisher>'
+            '</journal-meta>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<day>13</day>'
+            '<month>05</month>'
+            '<year>2022</year>'
+            '</pub-date>'
+            '<pub-date date-type="collection" publication-format="electronic">'
+            '<year>2022</year>'
+            '</pub-date>'
+            '<volume>56</volume>'
+            '<elocation-id>e20210569</elocation-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<ags:citation>'
+            '<ags:citationTitle>Revista da Escola de Enfermagem da USP</ags:citationTitle>'
+            '<ags:citationIdentifier scheme="ags:ISSN">1980-220X</ags:citationIdentifier>'
+            '<ags:citationNumber>56</ags:citationNumber>'
+            '<ags:citationChronology>2022-05-13</ags:citationChronology>'
+            '</ags:citation>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+            '<metadata>'
+            '<ags:resources '
+            'xmlns:xsl="http://www.w3.org/1999/XSL/Transform" '
+            'xmlns:ags="http://purl.org/agmes/1.1/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+            'xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" '
+            'xmlns:dcterms="http://purl.org/dc/terms/">'
+            '<ags:resource ags:ARN="XS2021000111"/>'
+            '</ags:resources>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_agris_citation_pipe(xml_oai_dc_agris, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
