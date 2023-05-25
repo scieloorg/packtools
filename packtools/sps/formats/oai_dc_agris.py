@@ -587,3 +587,31 @@ def add_doi(doi):
     return number
 
 
+def xml_oai_dc_agris_availability_pipe(xml_oai_dc_agris, xml_tree, data=None):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT availability -->
+        <!ELEMENT agls:availability (ags:availabilityLocation | ags:availabilityNumber)*>
+        <!ELEMENT ags:availabilityLocation (#PCDATA)>
+        <!ELEMENT ags:availabilityNumber (#PCDATA)>
+
+    Example:
+        <agls:availability>
+            <ags:availabilityLocation>SCIELO</ags:availabilityLocation>
+            <ags:availabilityNumber>10.7764/69.1</ags:availabilityNumber>
+        </agls:availability>
+    """
+    agls = ET.Element('{http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2}availability')
+
+    location = get_location(data)
+    if location is not None:
+        agls.append(add_location(location))
+
+    doi = get_doi(xml_tree)
+    if doi is not None:
+        agls.append(add_doi(doi))
+
+    if location is not None or doi is not None:
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(agls)
+
+
