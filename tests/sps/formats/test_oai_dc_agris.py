@@ -562,3 +562,49 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertEqual(expected, self.obtained)
 
+    def test_xml_oai_dc_agris_publisher(self):
+        xml_tree = ET.fromstring(
+            '<article '
+            'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:lang="es">'
+            '<front>'
+            '<journal-meta>'
+            '<publisher>'
+            '<publisher-name>'
+            '<![CDATA[ Pontificia Universidad Católica de Chile, Facultad de Filosofía, Instituto de Estética ]]>'
+            '</publisher-name>'
+            '</publisher>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<dc:publisher>'
+            '<ags:publisherName>Pontificia Universidad Católica de Chile, Facultad de Filosofía, Instituto de Estética</ags:publisherName>'
+            '</dc:publisher>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+
+            '<metadata>'
+            '<ags:resources '
+            'xmlns:xsl="http://www.w3.org/1999/XSL/Transform" '
+            'xmlns:ags="http://purl.org/agmes/1.1/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+            'xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" '
+            'xmlns:dcterms="http://purl.org/dc/terms/">'
+            '<ags:resource ags:ARN="XS2021000111">'
+            '</ags:resource>'
+            '</ags:resources>'
+            '</metadata>'
+
+        )
+
+        xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
