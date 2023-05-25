@@ -257,3 +257,16 @@ def xml_oai_dc_agris_creator_pipe(xml_oai_dc_agris, xml_tree):
         pass
 
 
+def add_publisher(xml_oai_dc_agris, publisher):
+    try:
+        ags = ET.Element('{http://purl.org/agmes/1.1/}publisherName')
+        ags.text = publisher.publishers_names[0].strip()
+
+        dc = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
+        dc.append(ags)
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+    except IndexError:
+        pass
+
+
