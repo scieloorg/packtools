@@ -312,3 +312,14 @@ def get_date(dt, m=False, d=False):
         pass
 
 
+def add_date(xml_oai_dc_agris, dt_out):
+    if dt_out is not None:
+        term = ET.Element('{http://purl.org/dc/terms/}dateIssued')
+        term.text = dt_out
+
+        dc = ET.Element('{http://purl.org/dc/elements/1.1/}date')
+        dc.append(term)
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
+
