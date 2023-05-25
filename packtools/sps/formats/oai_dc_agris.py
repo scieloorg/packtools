@@ -68,3 +68,17 @@ def get_issn(xml_tree):
     return issns.epub or issns.ppub
 
 
+def add_title(xml_oai_dc_agris, xml_tree):
+    try:
+        title = article_titles.ArticleTitles(xml_tree)
+        lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
+
+        el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
+        el.set('{http://www.w3.org/XML/1998/namespace}lang', lang.main_lang)
+        el.text = title.article_title['text'].strip()
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
+    except (AttributeError, TypeError):
+        pass
+
+
