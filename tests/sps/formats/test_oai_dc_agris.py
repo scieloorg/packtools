@@ -83,3 +83,24 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_add_identifier_not_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            '<front>'
+            '<article-meta>'
+            '<article-id pub-id-type="doi">10.7764/69.1</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+            '<record/>'
+        )
+
+        add_identifier(xml_oai_dc_agris, xml_tree)
+
+        self.assertIsNone(xml_oai_dc_agris.find('identifier'))
+
