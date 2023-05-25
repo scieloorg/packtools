@@ -539,3 +539,11 @@ def xml_oai_dc_agris_format_pipe(xml_oai_dc_agris, data):
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
+def add_lang(xml_oai_dc_agris, lang):
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
+    el.set('scheme', 'ags:ISO639-1')
+    el.text = lang.main_lang
+
+    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
+
+
