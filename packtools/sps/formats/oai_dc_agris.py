@@ -563,3 +563,10 @@ def xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree):
     add_lang(xml_oai_dc_agris, lang)
 
 
+def get_location(data):
+    try:
+        return data.get('location')
+    except AttributeError:
+        pass
+
+
