@@ -405,3 +405,16 @@ def get_description(abstract):
     return descriptions
 
 
+def add_description(xml_oai_dc_agris, descriptions):
+    for description in descriptions:
+        (lang, title, text) = description
+        term = ET.Element('{http://purl.org/dc/terms/}abstract')
+        term.set('{http://www.w3.org/XML/1998/namespace}lang', lang)
+        term.text = title + ' ' + text
+
+        dc = ET.Element('{http://purl.org/dc/elements/1.1/}description')
+        dc.append(term)
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
+
