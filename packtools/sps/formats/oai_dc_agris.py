@@ -62,3 +62,9 @@ def add_set_spec(header, xml_tree):
         header.append(el)
 
 
+def get_issn(xml_tree):
+    issns = journal_meta.ISSN(xml_tree)
+
+    return issns.epub or issns.ppub
+
+
