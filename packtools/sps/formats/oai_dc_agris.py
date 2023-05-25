@@ -627,3 +627,9 @@ def get_citation_identifier(xml_tree):
         return issn, 'citationIdentifier'
 
 
+def get_citation_number(xml_tree):
+    volume = front_articlemeta_issue.ArticleMetaIssue(xml_tree).volume
+    if volume is not None:
+        return volume, 'citationNumber'
+
+
