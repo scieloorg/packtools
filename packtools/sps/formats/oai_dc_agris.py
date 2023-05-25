@@ -270,3 +270,21 @@ def add_publisher(xml_oai_dc_agris, publisher):
         pass
 
 
+def xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT publisher -->
+        <!ELEMENT dc:publisher (ags:publisherName | ags:publisherPlace)*>
+        <!ELEMENT ags:publisherName (#PCDATA)>
+        <!ELEMENT ags:publisherPlace (#PCDATA)>
+
+    Example:
+        <dc:publisher>
+            <ags:publisherName>Pontificia Universidad Católica de Chile, Facultad de Filosofía, Instituto de Estética</ags:publisherName>
+        </dc:publisher>
+    """
+    publisher = journal_meta.Publisher(xml_tree)
+
+    add_publisher(xml_oai_dc_agris, publisher)
+
+
