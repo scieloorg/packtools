@@ -621,3 +621,9 @@ def get_citation_title(xml_tree):
         return title, 'citationTitle'
 
 
+def get_citation_identifier(xml_tree):
+    issn = journal_meta.ISSN(xml_tree).epub
+    if issn != '':
+        return issn, 'citationIdentifier'
+
+
