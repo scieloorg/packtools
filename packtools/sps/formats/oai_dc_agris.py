@@ -547,3 +547,19 @@ def add_lang(xml_oai_dc_agris, lang):
     xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
 
 
+def xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree):
+    """
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT language -->
+        <!ELEMENT dc:language (#PCDATA)>
+        <!ATTLIST dc:language
+            scheme (ags:ISO639-1 | dcterms:ISO639-2) #IMPLIED
+        >
+
+    Example:
+        <dc:language scheme="ags:ISO639-1">es</dc:language>
+    """
+    lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
+    add_lang(xml_oai_dc_agris, lang)
+
+
