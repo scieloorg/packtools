@@ -753,3 +753,63 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertEqual(expected, self.obtained)
 
+    def test_xml_oai_dc_agris_subject_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article '
+            'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:lang="es">'
+            '<front>'
+            '<article-meta>'
+            '<kwd-group xml:lang="es">'
+            '<title>DESCRIPTORES</title>'
+            '<kwd>Canción popular</kwd>'
+            '<kwd>música popular brasileña</kwd>'
+            '<kwd>canción crítica</kwd>'
+            '<kwd>arte político</kwd>'
+            '</kwd-group>'
+            '<kwd-group xml:lang="en">'
+            '<title>DESCRIPTORS</title>'
+            '<kwd>Popular song</kwd>'
+            '<kwd>critical song</kwd>'
+            '<kwd>Brazilian popular music</kwd>'
+            '<kwd>art and politics</kwd>'
+            '</kwd-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<dc:subject xml:lang="es">Canción popular</dc:subject>'
+            '<dc:subject xml:lang="es">música popular brasileña</dc:subject>'
+            '<dc:subject xml:lang="es">canción crítica</dc:subject>'
+            '<dc:subject xml:lang="es">arte político</dc:subject>'
+            '<dc:subject xml:lang="en">Popular song</dc:subject>'
+            '<dc:subject xml:lang="en">critical song</dc:subject>'
+            '<dc:subject xml:lang="en">Brazilian popular music</dc:subject>'
+            '<dc:subject xml:lang="en">art and politics</dc:subject>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+
+            '<metadata>'
+            '<ags:resources '
+            'xmlns:xsl="http://www.w3.org/1999/XSL/Transform" '
+            'xmlns:ags="http://purl.org/agmes/1.1/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+            'xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" '
+            'xmlns:dcterms="http://purl.org/dc/terms/">'
+            '<ags:resource ags:ARN="XS2021000111">'
+            '</ags:resource>'
+            '</ags:resources>'
+            '</metadata>'
+
+        )
+
+        xml_oai_dc_agris_subject_pipe(xml_oai_dc_agris, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
