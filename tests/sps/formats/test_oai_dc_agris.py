@@ -104,3 +104,31 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertIsNone(xml_oai_dc_agris.find('identifier'))
 
+    def test_add_set_spec(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+        expected = (
+            '<setSpec>1980-220X</setSpec>'
+        )
+
+        xml_oai_dc_agris = ET.fromstring(
+            '<record/>'
+        )
+
+        add_set_spec(xml_oai_dc_agris, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
