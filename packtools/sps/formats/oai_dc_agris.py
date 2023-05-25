@@ -615,3 +615,9 @@ def xml_oai_dc_agris_availability_pipe(xml_oai_dc_agris, xml_tree, data=None):
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(agls)
 
 
+def get_citation_title(xml_tree):
+    title = journal_meta.Title(xml_tree).journal_title
+    if title is not None:
+        return title, 'citationTitle'
+
+
