@@ -447,3 +447,12 @@ def xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree):
     add_description(xml_oai_dc_agris, get_description(abstract))
 
 
+def add_uri_identifier(xml_oai_dc_agris, identifier):
+    dc = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
+    dc.set('scheme', 'dcterms:URI')
+    dc.text = identifier
+    # dc.text = identifier.get('sci_arttext')
+
+    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
+
