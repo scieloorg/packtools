@@ -184,3 +184,19 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         self.assertEqual('0080-6234', get_issn(xml_tree))
 
+    def test_get_issn_not_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<issn>0080-6234</issn>'
+            '</journal-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        self.assertEqual('', get_issn(xml_tree))
+
