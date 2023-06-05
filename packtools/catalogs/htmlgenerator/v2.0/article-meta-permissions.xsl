@@ -59,6 +59,7 @@
         <xsl:variable name="icon_path"><xsl:value-of select="substring-after(@xlink:href,'creativecommons.org/licenses/')"/></xsl:variable>
         <xsl:variable name="icon"><xsl:choose>
             <xsl:when test="contains($icon_path,'/legalcode')"><xsl:value-of select="substring-before($icon_path,'/legalcode')"/></xsl:when>
+            <xsl:when test="contains($icon_path,'/deed')"><xsl:value-of select="substring-before($icon_path,'/deed')"/></xsl:when>
             <xsl:when test="contains($icon_path,'/deen')"><xsl:value-of select="substring-before($icon_path,'/deen')"/></xsl:when>
             <xsl:otherwise><xsl:value-of select="$icon_path"/></xsl:otherwise>
         </xsl:choose></xsl:variable><xsl:value-of select="$icon"/>
