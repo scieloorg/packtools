@@ -174,3 +174,9 @@ def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
         xml_pubmed.append(el)
 
 
+def get_elocation(xml_tree):
+    ids = article_ids.ArticleIds(xml_tree)
+
+    return ids.data
+
+
