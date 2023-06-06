@@ -188,3 +188,13 @@ def add_elocation(xml_pubmed, value, key):
         xml_pubmed.append(el)
 
 
+def xml_pubmed_elocation_pipe(xml_pubmed, xml_tree):
+    """
+    <ELocationID EIdType="pii">S0001-37652022000501309</ELocationID>
+    <ELocationID EIdType="doi">10.1590/0001-3765202220201894</ELocationID>
+    """
+    ids = get_elocation(xml_tree)
+    add_elocation(xml_pubmed, ids.get('v2'), 'pii')
+    add_elocation(xml_pubmed, ids.get('doi'), 'doi')
+
+
