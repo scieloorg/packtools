@@ -224,3 +224,34 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_volume_pipe(self):
+        expected = (
+            '<Article>'
+            '<Journal>'
+            '<Volume>37</Volume>'
+            '</Journal>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article>'
+            '<Journal/>'
+            '</Article>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<volume>37</volume>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
