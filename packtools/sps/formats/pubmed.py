@@ -82,3 +82,14 @@ def get_volume(xml_tree):
     return issue.volume
 
 
+def xml_pubmed_volume_pipe(xml_pubmed, xml_tree):
+    """
+    <Volume>37</Volume>
+    """
+    volume = get_volume(xml_tree)
+    if volume is not None:
+        el = ET.Element('Volume')
+        el.text = volume
+        xml_pubmed.find('Journal').append(el)
+
+
