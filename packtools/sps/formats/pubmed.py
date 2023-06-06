@@ -156,3 +156,9 @@ def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
         xml_pubmed.append(el)
 
 
+def get_first_page(xml_tree):
+    issue = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
+
+    return issue.elocation_id
+
+
