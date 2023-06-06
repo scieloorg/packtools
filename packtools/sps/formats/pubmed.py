@@ -65,3 +65,14 @@ def get_issn(xml_tree):
     return issn.epub or issn.ppub
 
 
+def xml_pubmed_issn_pipe(xml_pubmed, xml_tree):
+    """
+    <Issn>1678-2674</Issn>
+    """
+    issn = get_issn(xml_tree)
+    if issn != '':
+        el = ET.Element('Issn')
+        el.text = issn
+        xml_pubmed.find('Journal').append(el)
+
+
