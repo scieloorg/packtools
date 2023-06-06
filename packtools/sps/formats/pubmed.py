@@ -23,3 +23,11 @@ def xml_pubmed_journal_pipe(xml_pubmed):
     xml_pubmed.append(el)
 
 
+def get_publisher(xml_tree):
+    publisher = journal_meta.Publisher(xml_tree)
+    try:
+        return publisher.publishers_names[0]
+    except IndexError:
+        pass
+
+
