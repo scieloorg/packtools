@@ -180,3 +180,11 @@ def get_elocation(xml_tree):
     return ids.data
 
 
+def add_elocation(xml_pubmed, value, key):
+    if value is not None:
+        el = ET.Element('ELocationID')
+        el.set('EIdType', key)
+        el.text = value
+        xml_pubmed.append(el)
+
+
