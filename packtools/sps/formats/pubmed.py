@@ -204,3 +204,12 @@ def get_langs(xml_tree):
     return langs.data
 
 
+def add_langs(xml_pubmed, xml_tree):
+    langs = get_langs(xml_tree)
+    for lang in langs:
+        if lang.get('lang') is not None:
+            el = ET.Element('Language')
+            el.text = lang.get('lang').upper()
+            xml_pubmed.append(el)
+
+
