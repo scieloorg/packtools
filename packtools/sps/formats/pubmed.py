@@ -110,3 +110,9 @@ def xml_pubmed_issue_pipe(xml_pubmed, xml_tree):
         xml_pubmed.find('Journal').append(el)
 
 
+def get_date(xml_tree):
+    date = dates.ArticleDates(xml_tree)
+
+    return date.article_date
+
+
