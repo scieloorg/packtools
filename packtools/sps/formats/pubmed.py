@@ -116,3 +116,23 @@ def get_date(xml_tree):
     return date.article_date
 
 
+def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
+    """
+    <PubDate PubStatus="epublish">
+        <Year>2023</Year>
+        <Month>01</Month>
+        <Day>06</Day>
+    </PubDate>
+    """
+    date = get_date(xml_tree)
+    if date is not None:
+        dt = ET.Element('PubDate')
+        dt.set('PubStatus', 'epublish')
+        for element in ['year', 'month', 'day']:
+            if date.get(element):
+                el = ET.Element(element.capitalize())
+                el.text = date.get(element)
+                dt.append(el)
+        xml_pubmed.find('Journal').append(dt)
+
+
