@@ -213,3 +213,9 @@ def add_langs(xml_pubmed, xml_tree):
             xml_pubmed.append(el)
 
 
+def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
+    """
+    <Language>PT</Language>
+    <Language>EN</Language>
+    """
+    add_langs(xml_pubmed, xml_tree)
