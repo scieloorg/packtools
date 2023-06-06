@@ -162,3 +162,15 @@ def get_first_page(xml_tree):
     return issue.elocation_id
 
 
+def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
+    """
+    <FirstPage LZero="save">e20220291</FirstPage>
+    """
+    first_page = get_first_page(xml_tree)
+    if first_page is not None:
+        el = ET.Element('FirstPage')
+        el.set('LZero', 'save')
+        el.text = first_page
+        xml_pubmed.append(el)
+
+
