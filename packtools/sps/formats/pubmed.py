@@ -93,3 +93,9 @@ def xml_pubmed_volume_pipe(xml_pubmed, xml_tree):
         xml_pubmed.find('Journal').append(el)
 
 
+def get_issue(xml_tree):
+    issue = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
+
+    return issue.issue
+
+
