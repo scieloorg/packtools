@@ -18,3 +18,8 @@ def xml_pubmed_article_pipe():
     return tree
 
 
+def xml_pubmed_journal_pipe(xml_pubmed):
+    el = ET.Element('Journal')
+    xml_pubmed.append(el)
+
+
