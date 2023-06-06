@@ -59,3 +59,9 @@ def xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree):
         xml_pubmed.find('Journal').append(el)
 
 
+def get_issn(xml_tree):
+    issn = journal_meta.ISSN(xml_tree)
+
+    return issn.epub or issn.ppub
+
+
