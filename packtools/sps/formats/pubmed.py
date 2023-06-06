@@ -31,3 +31,14 @@ def get_publisher(xml_tree):
         pass
 
 
+def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree):
+    """
+    <PublisherName>Colégio Brasileiro de Cirurgia Digestiva</PublisherName>
+    """
+    publisher = get_publisher(xml_tree)
+    if publisher is not None:
+        el = ET.Element('PublisherName')
+        el.text = publisher
+        xml_pubmed.find('Journal').append(el)
+
+
