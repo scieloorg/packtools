@@ -99,3 +99,14 @@ def get_issue(xml_tree):
     return issue.issue
 
 
+def xml_pubmed_issue_pipe(xml_pubmed, xml_tree):
+    """
+    <Issue>11</Issue>
+    """
+    issue = get_issue(xml_tree)
+    if issue is not None:
+        el = ET.Element('Issue')
+        el.text = issue
+        xml_pubmed.find('Journal').append(el)
+
+
