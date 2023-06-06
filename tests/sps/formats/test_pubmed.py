@@ -27,3 +27,19 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_journal_pipe(self):
+        expected = (
+            '<Article>'
+            '<Journal/>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+
+        xml_pubmed_journal_pipe(xml_pubmed)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
