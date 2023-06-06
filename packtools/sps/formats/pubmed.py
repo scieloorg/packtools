@@ -198,3 +198,9 @@ def xml_pubmed_elocation_pipe(xml_pubmed, xml_tree):
     add_elocation(xml_pubmed, ids.get('doi'), 'doi')
 
 
+def get_langs(xml_tree):
+    langs = article_and_subarticles.ArticleAndSubArticles(xml_tree)
+
+    return langs.data
+
+
