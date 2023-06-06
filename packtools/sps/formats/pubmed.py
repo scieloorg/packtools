@@ -136,3 +136,9 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
         xml_pubmed.find('Journal').append(dt)
 
 
+def get_article_title(xml_tree):
+    title = article_titles.ArticleTitles(xml_tree)
+
+    return title.article_title.get('text')
+
+
