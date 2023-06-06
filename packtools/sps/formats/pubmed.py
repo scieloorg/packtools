@@ -42,3 +42,9 @@ def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree):
         xml_pubmed.find('Journal').append(el)
 
 
+def get_journal_title(xml_tree):
+    journal_title = journal_meta.Title(xml_tree)
+
+    return journal_title.abbreviated_journal_title
+
+
