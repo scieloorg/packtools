@@ -142,3 +142,17 @@ def get_article_title(xml_tree):
     return title.article_title.get('text')
 
 
+def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
+    """
+    <ArticleTitle>
+        The mechanism study of inhibition effect of prepared Radix Rehmanniainon combined with Radix Astragali
+        osteoporosis through PI3K-AKT signaling pathway
+    </ArticleTitle>
+    """
+    title = get_article_title(xml_tree)
+    if title is not None:
+        el = ET.Element('ArticleTitle')
+        el.text = title
+        xml_pubmed.append(el)
+
+
