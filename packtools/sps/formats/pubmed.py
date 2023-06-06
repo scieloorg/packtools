@@ -48,3 +48,14 @@ def get_journal_title(xml_tree):
     return journal_title.abbreviated_journal_title
 
 
+def xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree):
+    """
+    <JournalTitle>Arq Bras Cir Dig</JournalTitle>
+    """
+    journal_title = get_journal_title(xml_tree)
+    if journal_title is not None:
+        el = ET.Element('JournalTitle')
+        el.text = journal_title
+        xml_pubmed.find('Journal').append(el)
+
+
