@@ -686,3 +686,26 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_language_pipe_one_lang(self):
+        expected = (
+            '<Article>'
+            '<Language>PT</Language>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="letter" dtd-version="1.1" specific-use="sps-1.9" '
+            'xml:lang="pt">'
+            '</article>'
+        )
+
+        xml_pubmed_language_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
