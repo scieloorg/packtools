@@ -34,10 +34,14 @@
     <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']/*/contrib-group" mode="modal-id"></xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
+        <!--
+            Remove a apresentação dos autores, deixando apenas o botão "sobre os autores" e adicionando scimago
         <xsl:apply-templates select="contrib[@contrib-type='author']" mode="article-meta-contrib"/>
+        -->
         <xsl:apply-templates select="." mode="about-the-contrib-group-button"/>
+        <xsl:apply-templates select="." mode="scimago-button"/>
     </xsl:template>
-    
+
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button">
         <!--
             Adiciona o botão 'About the contributor', trocando 'author',
@@ -48,6 +52,20 @@
             <a href="" class="outlineFadeLink" data-toggle="modal"
                 data-target="#ModalTutors{$id}">
                 <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
+            </a>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="scimago-button">
+        <!--
+            Adiciona o botão 'About the contributor', trocando 'author',
+            pelo tipo de contribuição
+        -->
+        <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
+            <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
+            <a href="" class="outlineFadeLink" data-toggle="modal"
+                data-target="#ModalScimago{$id}">
+                SCIMAGO INSTITUTIONS RANKINGS
             </a>
         </xsl:if>
     </xsl:template>
