@@ -53,8 +53,38 @@
                 </div>
             </div>
             </div>
+            <xsl:apply-templates select="." mode="modal-scimago">
+                <xsl:with-param name="id" select="$id"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
+
+    <xsl:template match="article-meta | front | front-stub" mode="modal-scimago">
+        <xsl:param name="id"/>
+        <!-- modal com as instituições scimago -->
+        <div class="modal fade ModalDefault ModalTutors" id="ModalScimago{$id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&#xd7;</span><span class="sr-only"><xsl:apply-templates select="." mode="interface">
+                            <xsl:with-param name="text">Close</xsl:with-param>
+                        </xsl:apply-templates></span></button>
+                        <h4 class="modal-title">
+                            SCIMAGO INSTITUTIONS RANKINGS
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="info">
+                            <xsl:apply-templates select="aff" mode="modal-scimago"/>
+                            <xsl:if test="not(aff) and ../@article-type='translation'">
+                                <xsl:apply-templates select="$article//article-meta/front/aff" mode="modal-scimago"/>
+                            </xsl:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </xsl:template>
     
     <xsl:template match="contrib" mode="modal-contrib-type">
         <xsl:if test="@contrib-type!='author'">
@@ -100,6 +130,14 @@
         <div>
         <xsl:apply-templates select="." mode="display"/>
         <xsl:apply-templates select="." mode="hidden-for-scimago"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="aff" mode="modal-scimago">
+        <div>
+        <xsl:apply-templates select="." mode="display"/>
+        <xsl:apply-templates select="." mode="hidden-for-scimago"/>
+        <br/>
         </div>
     </xsl:template>
 
