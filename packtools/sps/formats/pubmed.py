@@ -383,3 +383,7 @@ def xml_pubmed_publication_type(xml_pubmed, xml_tree):
         xml_pubmed.append(el)
 
 
+def get_article_id_pii(xml_tree):
+    return article_ids.ArticleIds(xml_tree).v2
+
+
