@@ -281,3 +281,15 @@ def get_affiliations(author_reg, xml_tree):
     return affiliation_list
 
 
+def add_affiliations(affiliations, author_tag):
+    for item in affiliations:
+        el_aff = ET.Element('Affiliation')
+        el_aff.text = item
+        if len(affiliations) > 1:
+            info = ET.Element('AffiliationInfo')
+            info.append(el_aff)
+            author_tag.append(info)
+        else:
+            author_tag.append(el_aff)
+
+
