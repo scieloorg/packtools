@@ -539,3 +539,31 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
     # There is no example of using this value in the files.
 
 
+def xml_pubmed_reference_list(xml_pubmed, xml_tree):
+    """
+    <ReferenceList>
+       <Reference>
+         <Citation>British Lung Foundation Chronic obstructive
+         pulmonary disease (COPD) statistics. [Accessed January 27,
+         2017]. </Citation>
+         <ArticleIdList>
+           <ArticleId IdType="pmcid">PMC4153410</ArticleId>
+           <ArticleId IdType="pubmed">24768240</ArticleId>
+         </ArticleIdList>
+       </Reference>
+       <Reference>
+         <Citation>Yohannes AM, Baldwin RC, Connolly MJ. Depression and
+         anxiety in elderly patients with chronic obstructive pulmonary
+         disease. Age Ageing. 2006;35(5):457–459. </Citation>
+         <ArticleIdList>
+           <ArticleId IdType="pmcid">PMC3020244</ArticleId>
+           <ArticleId IdType="pubmed">20932581</ArticleId>
+         </ArticleIdList>
+       </Reference>
+     </ReferenceList>
+    """
+    ...
+    # TODO
+    # Each ReferenceList element contains a reference list. There can be multiple references lists and the lists can be
+    # nested. The ReferenceList tag is both a parent and child element.
+    # There is no example of using this value in the files.
