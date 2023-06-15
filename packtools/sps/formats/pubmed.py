@@ -301,3 +301,68 @@ def add_orcid(author_reg, author_tag):
         author_tag.append(orcid)
 
 
+def xml_pubmed_author_list(xml_pubmed, xml_tree):
+    authors = get_authors(xml_tree)
+    if authors:
+        author_list_tag = ET.Element('AuthorList')
+        for author_reg in authors:
+            author_tag = ET.Element('Author')
+            add_first_name(author_reg, author_tag)
+
+            # TODO
+            # add_middle_name(author_reg, author_tag)
+            # The Author’s full middle name, or initial if the full name is not available. Multiple names are allowed
+            # in this tag.
+            # There is no example of using this value in the files.
+
+            add_last_name(author_reg, author_tag)
+
+            # TODO
+            # add_suffix(author_reg, author_tag)
+            # The Author's suffix, if any, e.g. "Jr", "Sr", "II", "IV". Do not include honorific titles,
+            # e.g. "M.D.", "Ph.D.".
+            # There is no example of using this value in the files
+
+            # TODO
+            # add_collective_name(author_reg, author_tag)
+            # The name of the authoring committee or organization. The CollectiveName tag should be placed within
+            # an Author tag. Omit extraneous text like, “on behalf of.”
+            # Please see the following example:
+            #   <AuthorList>
+            #       <Author>
+            #           <CollectiveName>Plastic Surgery Educational Foundation DATA Committee</CollectiveName>
+            #       </Author>
+            #   </AuthorList>
+            # There is no example of using this value in the files
+
+            affiliations = get_affiliations(author_reg, xml_tree)
+            add_affiliations(affiliations, author_tag)
+            add_orcid(author_reg, author_tag)
+            author_list_tag.append(author_tag)
+
+            # TODO
+            # add_group_list(author_reg, author_tag)
+            # Group information should be enclosed in these tags. If an article has one or more Groups, this tag
+            # must be submitted. Groups should be listed in the same order as in the printed article, and Group name
+            # format should accurately reflect the article. This tag is Required if the tag Group is present.
+            # There is no example of using this value in the files
+
+            # TODO
+            # add_group(author_reg, author_tag)
+            # Information about a single Group must begin with this tag.
+            # There is no example of using this value in the files
+
+            # TODO
+            # add_group_name(author_reg, author_tag)
+            # The name of the authoring committee or organization. Omit extraneous text like, “on behalf of.”
+            # There is no example of using this value in the files
+
+            # TODO
+            # add_individual_name(author_reg, author_tag)
+            # The name of individual members belonging to the authoring committee or organization. The name should
+            # be tagged with the FirstName, MiddleName, LastName, Suffix, and Affiliation tags.
+            # There is no example of using this value in the files
+
+        xml_pubmed.append(author_list_tag)
+
+
