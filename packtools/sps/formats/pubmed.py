@@ -372,3 +372,14 @@ def get_publication_type(xml_tree):
         return publication_type.replace('-', ' ').title()
 
 
+def xml_pubmed_publication_type(xml_pubmed, xml_tree):
+    """
+    <PublicationType>Journal Article</PublicationType>
+    """
+    publication_type = get_publication_type(xml_tree)
+    if publication_type is not None:
+        el = ET.Element('PublicationType')
+        el.text = publication_type
+        xml_pubmed.append(el)
+
+
