@@ -293,3 +293,11 @@ def add_affiliations(affiliations, author_tag):
             author_tag.append(el_aff)
 
 
+def add_orcid(author_reg, author_tag):
+    if author_reg.get('orcid'):
+        orcid = ET.Element('Identifier')
+        orcid.set('Source', 'orcid')
+        orcid.text = 'http://orcid.org/' + author_reg.get('orcid')
+        author_tag.append(orcid)
+
+
