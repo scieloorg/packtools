@@ -166,14 +166,16 @@ def get_article_titles(xml_tree):
 def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
     """
     <ArticleTitle>
-        The mechanism study of inhibition effect of prepared Radix Rehmanniainon combined with Radix Astragali
-        osteoporosis through PI3K-AKT signaling pathway
+        Spontaneous Coronary Artery Dissection: Are There Differences between Men and Women?
     </ArticleTitle>
     """
-    title = get_article_title(xml_tree)
-    if title is not None:
+    title = get_article_titles(xml_tree)
+    if title.get('en') is not None:
         el = ET.Element('ArticleTitle')
-        el.text = title
+        el.text = title.get('en')
+        xml_pubmed.append(el)
+
+
         xml_pubmed.append(el)
 
 
