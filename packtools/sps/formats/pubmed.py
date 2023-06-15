@@ -132,6 +132,11 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
         dt = ET.Element('PubDate')
         dt.set('PubStatus', 'epublish')
         for element in ['year', 'month', 'day']:
+            # TODO
+            # Season
+            # The season of publication. e.g.,Winter, Spring, Summer, Fall. Do not use if a Month is available.
+            # There is no example of using this value in the files.
+
             if date.get(element):
                 el = ET.Element(element.capitalize())
                 el.text = date.get(element)
