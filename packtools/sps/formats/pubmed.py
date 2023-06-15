@@ -489,3 +489,53 @@ def get_keywords(xml_tree):
     return kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text(subtag=False)
 
 
+def xml_pubmed_object_list(xml_pubmed, xml_tree):
+    """
+    <ObjectList>
+       <Object Type="keyword">
+         <Param Name="value">COPD</Param>
+       </Object>
+       <Object Type="keyword">
+         <Param Name="value">Internet</Param>
+       </Object>
+       <Object Type="keyword">
+         <Param Name="value">coaching</Param>
+       </Object>
+       <Object Type="keyword">
+         <Param Name="value">patient activation</Param>
+       </Object>
+       <Object Type="grant">
+         <Param Name="id">RO1DK561234</Param>
+         <Param Name="grantor">National Institutes of Health</Param>
+       </Object>
+       <Object Type="grant">
+         <Param Name="id">2456797AB</Param>
+         <Param Name="grantor">The British Granting Agency</Param>
+         <Param Name="acronym">BGA</Param>
+         <Param Name="country">England</Param>
+       </Object>
+     </ObjectList>
+    """
+    kwd_list = get_keywords(xml_tree)
+    if not kwd_list:
+        return
+    obj_list = ET.Element('ObjectList')
+    for kwd in kwd_list:
+        if kwd.get('lang') == 'en':
+            obj = ET.Element('Object')
+            obj.set('Type', 'keyword')
+            param = ET.Element('Param')
+            param.set('Name', 'value')
+            param.text = kwd.get('text')
+            obj.append(param)
+            obj_list.append(obj)
+    xml_pubmed.append(obj_list)
+
+    # TODO
+    # The Object tag includes the Type attribute, which may include only one of the following values
+    # for each identifier.
+    # Grant, Comment, Dataset, Erratum, Originalreport, Partialretraction, Patientsummary,
+    # Reprint, Republished, Retraction, Update.
+    # There is no example of using this value in the files.
+
+
