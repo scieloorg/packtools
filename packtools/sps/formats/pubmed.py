@@ -8,6 +8,9 @@ from packtools.sps.models import (
     article_titles,
     article_ids,
     article_and_subarticles,
+    article_authors,
+    aff,
+    kwd_group,
 )
 
 
