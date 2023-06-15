@@ -590,6 +590,43 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_vernacular_title_pipe(self):
+        expected = (
+            '<Article>'
+            '<VernacularTitle>'
+            'Dissecção Espontânea da Artéria Coronária: Existem Diferenças entre Homens e Mulheres?'
+            '</VernacularTitle>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="letter" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<title-group>'
+            '<article-title>Dissecção Espontânea da Artéria Coronária: Existem Diferenças entre Homens e Mulheres?</article-title>'
+            '</title-group>'
+            '</article-meta>'
+            '</front>'
+            '<sub-article article-type="translation" id="TRen" xml:lang="en">'
+            '<front-stub>'
+            '<title-group>'
+            '<article-title>Spontaneous Coronary Artery Dissection: Are There Differences between Men and Women?</article-title>'
+            '</title-group>'
+            '</front-stub>'
+            '</sub-article>'
+            '</article>'
+        )
+
+        xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
     def test_xml_pubmed_first_page_pipe(self):
         expected = (
             '<Article>'
