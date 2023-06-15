@@ -1238,6 +1238,51 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_object_list_keyword(self):
+        expected = (
+            '<Article>'
+            '<ObjectList>'
+            '<Object Type="keyword">'
+            '<Param Name="value">Arteries Dissection</Param>'
+            '</Object>'
+            '<Object Type="keyword">'
+            '<Param Name="value">Acute Coronary Syndrome</Param>'
+            '</Object>'
+            '</ObjectList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="letter" dtd-version="1.1" s'
+            'pecific-use="sps-1.9" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<kwd-group xml:lang="pt">'
+            '<kwd>Dissecção das Artérias</kwd>'
+            '<kwd>Síndrome Coronariana Aguda</kwd>'
+            '</kwd-group>'
+            '</article-meta>'
+            '</front>'
+            '<sub-article article-type="translation" id="TRen" xml:lang="en">'
+            '<front-stub>'
+            '<kwd-group xml:lang="en">'
+            '<kwd>Arteries Dissection</kwd>'
+            '<kwd>Acute Coronary Syndrome</kwd>'
+            '</kwd-group>'
+            '</front-stub>'
+            '</sub-article>'
+            '</article>'
+        )
+
+        xml_pubmed_object_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
