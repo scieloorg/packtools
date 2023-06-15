@@ -1007,6 +1007,31 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_publication_type(self):
+        # TODO
+        # Originalmente, espera-se que o valor da tag <PublicationType> seja Journal Article
+        # Nos arquivos de exemplo há somente a referencia a Research Article, o qual foi utilizado
+        expected = (
+            '<Article>'
+            '<PublicationType>Research Article</PublicationType>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '</article>'
+        )
+
+        xml_pubmed_publication_type(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
