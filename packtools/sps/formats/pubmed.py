@@ -144,10 +144,23 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
         xml_pubmed.find('Journal').append(dt)
 
 
-def get_article_title(xml_tree):
+def xml_pubmed_replaces_pipe(xml_pubmed, xml_tree):
+    ...
+    # TODO
+    # Replaces
+    # The identifier of the article to be replaced. Do not use this tag for new articles.
+    # The <Replaces> tag can be used to update an Ahead of Print citation, or to correct an error.
+    # The Replaces tag includes the IdType attribute, which may contain only one of the following values:
+    #       pubmed - PubMed Unique Identifier (PMID) (default value)
+    #       pii - publisher identifier
+    #       doi - Digital Object Identifier
+    # There is no example of using this value in the files.
+
+
+def get_article_titles(xml_tree):
     title = article_titles.ArticleTitles(xml_tree)
 
-    return title.article_title.get('text')
+    return title.article_title_dict
 
 
 def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
