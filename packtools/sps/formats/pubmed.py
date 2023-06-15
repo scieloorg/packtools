@@ -471,3 +471,10 @@ def xml_pubmed_history(xml_pubmed, xml_tree):
     xml_pubmed.append(history)
 
 
+def xml_pubmed_copyright_information(xml_pubmed, xml_tree):
+    ...
+    # TODO
+    # The Copyright information associated with this article.
+    # There is no example of using this value in the files.
+
+
