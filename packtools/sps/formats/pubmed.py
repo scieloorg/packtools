@@ -428,3 +428,46 @@ def add_date(date_tag, date_dict):
             date_tag.append(el)
 
 
+def xml_pubmed_history(xml_pubmed, xml_tree):
+    """
+    <History>
+        <PubDate PubStatus="received">
+            <Year>2021</Year>
+            <Month>06</Month>
+            <Day>22</Day>
+        </PubDate>
+        <PubDate PubStatus="accepted">
+            <Year>2022</Year>
+            <Month>06</Month>
+            <Day>15</Day>
+        </PubDate>
+        <PubDate PubStatus="ecollection">
+            <Year>2023</Year>
+        </PubDate>
+    </History>
+
+    received - date manuscript received for review
+    accepted - accepted for publication
+    revised - article revised by publisher or author
+    aheadofprint - published electronically prior to final publication (without volume and issue)
+    epublish – published electronically
+    ppublish – published in print
+    ecollection – used for electronic-only journals that publish individual articles and later collect them into an “issue” date, typically called an eCollection.
+    """
+    history_dates = {
+        'received': get_event_date(xml_tree, 'received'),
+        'accepted': get_event_date(xml_tree, 'accepted'),
+        'ecollection': dates.ArticleDates(xml_tree).collection_date
+    }
+
+    history = ET.Element('History')
+    for event, date in history_dates.items():
+        if history_dates[event] is not None:
+            el = ET.Element('PubDate')
+            el.set('PubStatus', event)
+            add_date(el, date)
+            history.append(el)
+
+    xml_pubmed.append(history)
+
+
