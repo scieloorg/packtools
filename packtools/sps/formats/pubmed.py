@@ -478,3 +478,10 @@ def xml_pubmed_copyright_information(xml_pubmed, xml_tree):
     # There is no example of using this value in the files.
 
 
+def xml_pubmed_coi_statement(xml_pubmed, xml_tree):
+    ...
+    # TODO
+    # The Conflict of Interest statement associated with this article.
+    # There is no example of using this value in the files.
+
+
