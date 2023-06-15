@@ -259,3 +259,10 @@ def get_authors(xml_tree):
     return article_authors.Authors(xml_tree).contribs
 
 
+def add_first_name(author_reg, author_tag):
+    if author_reg.get('given_names'):
+        first = ET.Element('FirstName')
+        first.text = author_reg.get('given_names')
+        author_tag.append(first)
+
+
