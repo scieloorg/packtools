@@ -415,3 +415,8 @@ def xml_pubmed_article_id(xml_pubmed, xml_tree):
         xml_pubmed.append(article_id_list)
 
 
+def get_event_date(xml_tree, event):
+    event_date = dates.ArticleDates(xml_tree).history_dates_dict
+    return event_date.get(event)
+
+
