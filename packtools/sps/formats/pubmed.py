@@ -253,3 +253,9 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     <Language>EN</Language>
     """
     add_langs(xml_pubmed, xml_tree)
+
+
+def get_authors(xml_tree):
+    return article_authors.Authors(xml_tree).contribs
+
+
