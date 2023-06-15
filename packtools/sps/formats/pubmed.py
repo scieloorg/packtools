@@ -366,3 +366,9 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
         xml_pubmed.append(author_list_tag)
 
 
+def get_publication_type(xml_tree):
+    publication_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
+    if publication_type is not None:
+        return publication_type.replace('-', ' ').title()
+
+
