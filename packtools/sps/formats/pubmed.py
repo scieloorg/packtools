@@ -391,3 +391,27 @@ def get_article_id_doi(xml_tree):
     return article_ids.ArticleIds(xml_tree).doi
 
 
+def xml_pubmed_article_id(xml_pubmed, xml_tree):
+    """
+    <ArticleIdList>
+        <ArticleId IdType="pii">S0102-311X2022001205003</ArticleId>
+        <ArticleId IdType="doi">10.1590/0102-311XEN083822</ArticleId>
+    </ArticleIdList>
+    """
+    pii = get_article_id_pii(xml_tree)
+    doi = get_article_id_doi(xml_tree)
+    if pii is not None or doi is not None:
+        article_id_list = ET.Element('ArticleIdList')
+        if pii is not None:
+            article_id = ET.Element('ArticleId')
+            article_id.set('IdType', 'pii')
+            article_id.text = pii
+            article_id_list.append(article_id)
+        if doi is not None:
+            article_id = ET.Element('ArticleId')
+            article_id.set('IdType', 'doi')
+            article_id.text = doi
+            article_id_list.append(article_id)
+        xml_pubmed.append(article_id_list)
+
+
