@@ -14,10 +14,18 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_first_page_pipe,
     xml_pubmed_elocation_pipe,
     xml_pubmed_language_pipe,
+    xml_pubmed_author_list,
+    xml_pubmed_publication_type,
+    xml_pubmed_article_id,
+    xml_pubmed_history,
+    xml_pubmed_vernacular_title_pipe,
+    xml_pubmed_object_list,
 )
 
 
 class PipelinePubmed(unittest.TestCase):
+    maxDiff = None
+
     def test_xml_pubmed_article_pipe(self):
         expected = (
             '<Article/>'
@@ -524,8 +532,7 @@ class PipelinePubmed(unittest.TestCase):
         expected = (
             '<Article>'
             '<ArticleTitle>'
-            'The mechanism study of inhibition effect of prepared Radix Rehmanniainon combined with Radix Astragali '
-            'osteoporosis through PI3K-AKT signaling pathway'
+            'Spontaneous Coronary Artery Dissection: Are There Differences between Men and Women?'
             '</ArticleTitle>'
             '</Article>'
         )
@@ -534,17 +541,22 @@ class PipelinePubmed(unittest.TestCase):
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="letter" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">'
             '<front>'
             '<article-meta>'
             '<title-group>'
-            '<article-title>'
-            'The mechanism study of inhibition effect of prepared Radix Rehmanniainon combined with Radix Astragali '
-            'osteoporosis through PI3K-AKT signaling pathway</article-title>'
+            '<article-title>Dissecção Espontânea da Artéria Coronária: Existem Diferenças entre Homens e Mulheres?</article-title>'
             '</title-group>'
             '</article-meta>'
             '</front>'
+            '<sub-article article-type="translation" id="TRen" xml:lang="en">'
+            '<front-stub>'
+            '<title-group>'
+            '<article-title>Spontaneous Coronary Artery Dissection: Are There Differences between Men and Women?</article-title>'
+            '</title-group>'
+            '</front-stub>'
+            '</sub-article>'
             '</article>'
         )
 
