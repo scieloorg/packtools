@@ -1173,6 +1173,71 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_history(self):
+        expected = (
+            '<Article>'
+            '<History>'
+            '<PubDate PubStatus="received">'
+            '<Year>2021</Year>'
+            '<Month>06</Month>'
+            '<Day>22</Day>'
+            '</PubDate>'
+            '<PubDate PubStatus="accepted">'
+            '<Year>2022</Year>'
+            '<Month>06</Month>'
+            '<Day>15</Day>'
+            '</PubDate>'
+            '<PubDate PubStatus="ecollection">'
+            '<Year>2023</Year>'
+            '</PubDate>'
+            '</History>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="letter" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<day>09</day>'
+            '<month>01</month>'
+            '<year>2023</year>'
+            '</pub-date>'
+            '<pub-date date-type="collection" publication-format="electronic">'
+            '<year>2023</year>'
+            '</pub-date>'
+            '<history>'
+            '<date date-type="received">'
+            '<day>22</day>'
+            '<month>06</month>'
+            '<year>2021</year>'
+            '</date>'
+            '<date date-type="rev-recd">'
+            '<day>12</day>'
+            '<month>03</month>'
+            '<year>2022</year>'
+            '</date>'
+            '<date date-type="accepted">'
+            '<day>15</day>'
+            '<month>06</month>'
+            '<year>2022</year>'
+            '</date>'
+            '</history>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_history(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
