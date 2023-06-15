@@ -176,6 +176,17 @@ def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
         xml_pubmed.append(el)
 
 
+def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
+    """
+    <VernacularTitle>
+        Dissecção Espontânea da Artéria Coronária: Existem Diferenças entre Homens e Mulheres?
+    </VernacularTitle>
+    """
+    main_lang = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_lang
+    title = get_article_titles(xml_tree)
+    if title.get(main_lang) is not None:
+        el = ET.Element('VernacularTitle')
+        el.text = title.get(main_lang)
         xml_pubmed.append(el)
 
 
