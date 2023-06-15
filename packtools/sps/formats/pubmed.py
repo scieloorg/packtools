@@ -485,3 +485,7 @@ def xml_pubmed_coi_statement(xml_pubmed, xml_tree):
     # There is no example of using this value in the files.
 
 
+def get_keywords(xml_tree):
+    return kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text(subtag=False)
+
+
