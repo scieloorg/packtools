@@ -273,3 +273,11 @@ def add_last_name(author_reg, author_tag):
         author_tag.append(last)
 
 
+def get_affiliations(author_reg, xml_tree):
+    affiliations = aff.AffiliationExtractor(xml_tree).get_affiliation_dict(subtag=False)
+    affiliation_list = []
+    for rid in author_reg.get('rid-aff'):
+        affiliation_list.append(affiliations.get(rid).get('institution')[0].get('original'))
+    return affiliation_list
+
+
