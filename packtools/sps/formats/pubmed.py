@@ -266,3 +266,10 @@ def add_first_name(author_reg, author_tag):
         author_tag.append(first)
 
 
+def add_last_name(author_reg, author_tag):
+    if author_reg.get('surname'):
+        last = ET.Element('LastName')
+        last.text = author_reg.get('surname')
+        author_tag.append(last)
+
+
