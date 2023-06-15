@@ -420,3 +420,11 @@ def get_event_date(xml_tree, event):
     return event_date.get(event)
 
 
+def add_date(date_tag, date_dict):
+    for event in ['year', 'month', 'day']:
+        if date_dict.get(event):
+            el = ET.Element(event.capitalize())
+            el.text = date_dict.get(event)
+            date_tag.append(el)
+
+
