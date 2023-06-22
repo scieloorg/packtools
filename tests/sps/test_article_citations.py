@@ -7,6 +7,7 @@ from lxml import etree
 class AuthorsTest(TestCase):
 
     def setUp(self):
+        self.maxDiff = None
         xml = (
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -16,8 +17,7 @@ class AuthorsTest(TestCase):
             <ref id="B1">
             <label>1.</label>
             <mixed-citation>
-            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </mixed-citation>
             <element-citation publication-type="journal">
             <person-group person-group-type="author">
@@ -55,52 +55,20 @@ class AuthorsTest(TestCase):
             </element-citation>
             </ref>
             <ref id="B2">
-            <label>2.</label>
-            <mixed-citation>
-            2. Kwon JA, Jeon W, Park EC, Kim JH, Kim SJ, Yoo KB, et al. Effects of disease detection on changes in smoking behavior. Yonsei Med J. 2015;56(4): 1143-9. DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3349/ymj.2015.56.4.1143">https://doi.org/10.3349/ymj.2015.56.4.1143</ext-link>
-            </mixed-citation>
-            <element-citation publication-type="journal">
-            <person-group person-group-type="author">
-            <name>
-            <surname>Kwon</surname>
-            <given-names>JA</given-names>
-            </name>
-            <name>
-            <surname>Jeon</surname>
-            <given-names>W</given-names>
-            </name>
-            <name>
-            <surname>Park</surname>
-            <given-names>EC</given-names>
-            </name>
-            <name>
-            <surname>Kim</surname>
-            <given-names>JH</given-names>
-            </name>
-            <name>
-            <surname>Kim</surname>
-            <given-names>SJ</given-names>
-            </name>
-            <name>
-            <surname>Yoo</surname>
-            <given-names>KB</given-names>
-            </name>
-            <etal/>
-            </person-group>
-            <article-title>Effects of disease detection on changes in smoking behavior</article-title>
-            <source>Yonsei Med J.</source>
-            <year>2015</year>
-            <volume>56</volume>
-            <issue>4</issue>
-            <fpage>1143</fpage>
-            <lpage>9</lpage>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3349/ymj.2015.56.4.1143">https://doi.org/10.3349/ymj.2015.56.4.1143</ext-link>
-            </comment>
-            </element-citation>
-            </ref>
+                <mixed-citation>BARTHES, Roland. <italic>Aula</italic>. São Pulo: Cultrix, 1987.</mixed-citation>
+                <element-citation publication-type="book">
+                  <person-group person-group-type="author">
+                    <name>
+                      <surname>BARTHES</surname>
+                      <given-names>Roland</given-names>
+                    </name>
+                  </person-group>
+                  <source>Aula</source>
+                  <publisher-loc>São Pulo</publisher-loc>
+                  <publisher-name>Cultrix</publisher-name>
+                  <year>1987</year>
+                </element-citation>
+              </ref>
             </ref-list>
             </back>
             </article>
@@ -113,23 +81,34 @@ class AuthorsTest(TestCase):
         expected = [
             {
                 'label': '1',
+                'mixed_citation': '1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially '
+                                  'preventable hospitalisation: the benefit of smoking cessation in older ages. Drug '
+                                  'Alcohol Depend. 2015;150:85-91. DOI: '
+                                  'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
                 'source': 'Drug Alcohol Depend.',
-                'author': 'Tran B',
+                'main_author': {'surname': 'Tran', 'given_name': 'B'},
+                'all_authors': [
+                    {'surname': 'Tran', 'given_name': 'B'},
+                    {'surname': 'Falster', 'given_name': 'MO'},
+                    {'surname': 'Douglas', 'given_name': 'K'},
+                    {'surname': 'Blyth', 'given_name': 'F'},
+                    {'surname': 'Jorm', 'given_name': 'LR'}
+                ],
                 'volume': '150',
                 'fpage': '85',
+                'lpage': '91',
                 'year': '2015',
-                'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages'
+                'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
+                                 'cessation in older ages'
             },
             {
-                'label': '2',
-                'source': 'Yonsei Med J.',
-                'author': 'Kwon JA',
-                'volume': '56',
-                'issue': '4',
-                'fpage': '1143',
-                'year': '2015',
-                'article_title': 'Effects of disease detection on changes in smoking behavior'
+                'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
+                'source': 'Aula',
+                'main_author': {'surname': 'BARTHES', 'given_name': 'Roland'},
+                'all_authors': [{'surname': 'BARTHES', 'given_name': 'Roland'}],
+                'year': '1987'
             }
         ]
         result = self.citations.article_citations
-        self.assertEqual(expected, result)
+        self.assertDictEqual(expected[0], result[0])
+        self.assertDictEqual(expected[1], result[1])
