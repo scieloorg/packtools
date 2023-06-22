@@ -24,6 +24,8 @@ class AuthorsTest(TestCase):
             <name>
             <surname>Tran</surname>
             <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
             </name>
             <name>
             <surname>Falster</surname>
@@ -86,9 +88,9 @@ class AuthorsTest(TestCase):
                                   'Alcohol Depend. 2015;150:85-91. DOI: '
                                   'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
                 'source': 'Drug Alcohol Depend.',
-                'main_author': {'surname': 'Tran', 'given_name': 'B'},
+                'main_author': {'surname': 'Tran', 'given_name': 'B', 'prefix': 'The Honorable', 'suffix': 'III'},
                 'all_authors': [
-                    {'surname': 'Tran', 'given_name': 'B'},
+                    {'surname': 'Tran', 'given_name': 'B', 'prefix': 'The Honorable', 'suffix': 'III'},
                     {'surname': 'Falster', 'given_name': 'MO'},
                     {'surname': 'Douglas', 'given_name': 'K'},
                     {'surname': 'Blyth', 'given_name': 'F'},
