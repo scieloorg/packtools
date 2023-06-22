@@ -13,22 +13,22 @@ def get_source(node):
 
 
 def get_main_author(node):
-    surname = node.find('./element-citation/person-group/name/surname')
-    given_name = node.find('./element-citation/person-group/name/given-names')
-    if surname is not None and given_name is not None:
-        return " ".join([surname.text, given_name.text])
-    else:
-        return None
+    main_author = {
+        'surname': node.find('./element-citation/person-group/name/surname').text,
+        'given_name': node.find('./element-citation/person-group/name/given-names').text
+    }
+
+    return main_author
 
 
 def get_all_authors(node):
     result = []
     authors = node.xpath('./element-citation/person-group//name')
     for author in authors:
-        surname = author.find('surname')
-        given_name = author.find('given-names')
-        if surname is not None and given_name is not None:
-            result.append(" ".join([surname.text, given_name.text]))
+        result.append({
+            'surname': author.find('surname').text,
+            'given_name': author.find('given-names').text
+        })
     return result
 
 
