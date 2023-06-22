@@ -86,8 +86,14 @@ class AuthorsTest(TestCase):
                                   'Alcohol Depend. 2015;150:85-91. DOI: '
                                   'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
                 'source': 'Drug Alcohol Depend.',
-                'main_author': 'Tran B',
-                'all_authors': ['Tran B', 'Falster MO', 'Douglas K', 'Blyth F', 'Jorm LR'],
+                'main_author': {'surname': 'Tran', 'given_name': 'B'},
+                'all_authors': [
+                    {'surname': 'Tran', 'given_name': 'B'},
+                    {'surname': 'Falster', 'given_name': 'MO'},
+                    {'surname': 'Douglas', 'given_name': 'K'},
+                    {'surname': 'Blyth', 'given_name': 'F'},
+                    {'surname': 'Jorm', 'given_name': 'LR'}
+                ],
                 'volume': '150',
                 'fpage': '85',
                 'lpage': '91',
@@ -98,8 +104,8 @@ class AuthorsTest(TestCase):
             {
                 'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
-                'main_author': 'BARTHES Roland',
-                'all_authors': ['BARTHES Roland'],
+                'main_author': {'surname': 'BARTHES', 'given_name': 'Roland'},
+                'all_authors': [{'surname': 'BARTHES', 'given_name': 'Roland'}],
                 'year': '1987'
             }
         ]
