@@ -40,6 +40,7 @@ def get_all_authors(node):
         if author.find('suffix') is not None:
             d['suffix'] = author.find('suffix').text
         result.append(d)
+
     return result
 
 
