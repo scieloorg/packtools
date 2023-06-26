@@ -13,10 +13,15 @@ def get_source(node):
 
 
 def get_main_author(node):
-    main_author = {
-        'surname': node.find('./element-citation/person-group/name/surname').text,
-        'given_name': node.find('./element-citation/person-group/name/given-names').text
-    }
+    main_author = {}
+    if node.find('./element-citation/person-group/name/surname') is not None:
+        main_author['surname'] = node.find('./element-citation/person-group/name/surname').text
+    if node.find('./element-citation/person-group/name/given-names') is not None:
+        main_author['given_name'] = node.find('./element-citation/person-group/name/given-names').text
+    if node.find('./element-citation/person-group/name/prefix') is not None:
+        main_author['prefix'] = node.find('./element-citation/person-group/name/prefix').text
+    if node.find('./element-citation/person-group/name/suffix') is not None:
+        main_author['suffix'] = node.find('./element-citation/person-group/name/suffix').text
 
     return main_author
 
@@ -25,10 +30,17 @@ def get_all_authors(node):
     result = []
     authors = node.xpath('./element-citation/person-group//name')
     for author in authors:
-        result.append({
-            'surname': author.find('surname').text,
-            'given_name': author.find('given-names').text
-        })
+        d = {}
+        if author.find('surname') is not None:
+            d['surname'] = author.find('surname').text
+        if author.find('given-names') is not None:
+            d['given_name'] = author.find('given-names').text
+        if author.find('prefix') is not None:
+            d['prefix'] = author.find('prefix').text
+        if author.find('suffix') is not None:
+            d['suffix'] = author.find('suffix').text
+        result.append(d)
+
     return result
 
 
