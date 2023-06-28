@@ -20,6 +20,9 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_history,
     xml_pubmed_vernacular_title_pipe,
     xml_pubmed_object_list,
+    xml_pubmed_reference_list,
+    xml_pubmed_title_reference_list,
+    xml_pubmed_citations,
 )
 
 
@@ -1278,6 +1281,21 @@ class PipelinePubmed(unittest.TestCase):
         )
 
         xml_pubmed_object_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_reference_list(self):
+        expected = (
+            '<Article>'
+            '<ReferenceList/>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_pubmed_reference_list(xml_pubmed)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
