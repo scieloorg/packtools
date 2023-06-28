@@ -639,3 +639,32 @@ def add_abstract_text(label, text):
     return abstract_text
 
 
+def xml_pubmed_abstract(xml_pubmed, xml_tree):
+    """
+    <Abstract>
+        To assess the effects...
+        Patients attending lung...
+        Twenty-five patients...
+        The findings suggest...
+    </Abstract>
+    OR
+    <Abstract>
+        <AbstractText Label="OBJECTIVE">To assess the effects...</AbstractText>
+        <AbstractText Label="METHODS">Patients attending lung...</AbstractText>
+        <AbstractText Label="RESULTS">Twenty-five patients...</AbstractText>
+        <AbstractText Label="CONCLUSIONS">The findings suggest...</AbstractText>
+    </Abstract>
+    """
+    try:
+        abstract_el = ET.Element('Abstract')
+        abstract = get_abstracts(xml_tree).get('en')
+        if not abstract['structured']:
+            abstract_el.text = abstract.get('text')
+        else:
+            for label, text in abstract.get('text').items():
+                abstract_el.append(add_abstract_text(label, text))
+        xml_pubmed.append(abstract_el)
+    except IndexError:
+        pass
+
+
