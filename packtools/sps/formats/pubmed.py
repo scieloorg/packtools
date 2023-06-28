@@ -632,3 +632,10 @@ def get_abstracts(xml_tree):
     return abstracts
 
 
+def add_abstract_text(label, text):
+    abstract_text = ET.Element('AbstractText')
+    abstract_text.set('Label', label.upper()[:-1])
+    abstract_text.text = text
+    return abstract_text
+
+
