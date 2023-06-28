@@ -1769,6 +1769,83 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_other_abstract(self):
+        expected = (
+            '<Article>'
+            '<OtherAbstract Language="pt">'
+            '<AbstractText Label="RACIONAL">A doença hidática, uma infestação parasitária causada pelas larvas de Echinococcus granulosus, é uma doença infecciosa endêmica em diferentes áreas como Índia, Austrália e América do Sul. O fígado é conhecido como o órgão mais comumente afetado pela hidatidose, podendo apresentar uma grande variedade de complicações como trânsito hidático hepato-torácico, superinfecção do cisto, disseminação intra-abdominal e comunicação do cisto biliar com extravasamento de material parasitário para o ducto biliar ou também chamada de colangio-hidatidose O ser humano é considerado um hospedeiro intermediário, exposto a essas larvas pela contaminação mão-boca das fezes de cães infectados.</AbstractText>'
+            '<AbstractText Label="OBJETIVO">Destacar o papel da endoscópica por colangiopancreatografia retrógrada em pacientes com colangite aguda secundária à colangio-hidatidose.</AbstractText>'
+            '<AbstractText Label="MÉTODOS">Considerando os achados de imagem, em paciente feminina de 36 anos de idade, com imagens de tomografia computadorizada e ressonância magnética mostrando uma lesão cística complexa no segmento hepático VI, com múltiplas vesículas internas e um defeito de parede cística que se comunica com a árvore biliar intra-hepática foi realizada drenagem biliar endoscópica por colangiopancreatografia retrógrada com papilotomia, levando à descarga de múltiplos cistos obstrutivos e areia hidática da via biliar principal.</AbstractText>'
+            '<AbstractText Label="RESULTADOS">Os achados clínicos e laboratoriais melhoraram após a drenagem, com alta hospitalar sob tratamento antiparasitário oral antes da ressecção cirúrgica completa do cisto hidático hepático.</AbstractText>'
+            '<AbstractText Label="CONCLUSÕES">A endoscópica por colangiopancreatografia retrógrada é um método seguro e útil para o tratamento das complicações biliares da hidatidose hepática, devendo ser considerado o procedimento de primeira linha para drenagem biliar nos casos de colangio-hidatidose que envolve colangite aguda secundária.</AbstractText>'
+            '</OtherAbstract>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> '
+            '<front>'
+            '<article-meta>'
+            '<abstract>'
+            '<title>ABSTRACT</title>'
+            '<sec>'
+            '<title>BACKGROUND:</title>'
+            '<p>Hydatid disease, a parasitic infestation caused by Echinococcus granulosus larvae, is an infectious disease endemic in different areas, such as India, Australia, and South America. The liver is well known as the organ most commonly affected by hydatid disease and may present a wide variety of complications such as hepatothoracic hydatid transit, cyst superinfection, intra-abdominal dissemination, and communication of the biliary cyst with extravasation of parasitic material into the bile duct, also called cholangiohydatidosis. Humans are considered an intermediate host, exposed to these larvae by hand-to-mouth contamination of the feces of infected dogs.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>AIM:</title>'
+            '<p>This study aimed to highlight the role of endoscopic retrograde cholangiopancreatography in patients with acute cholangitis secondary to cholangiohydatidosis.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>METHODS:</title>'
+            '<p>Considering the imaging findings in a 36-year-old female patient with computed tomography and magnetic resonance imaging showing a complex cystic lesion in liver segment VI, with multiple internal vesicles and a wall defect cyst that communicates with the intrahepatic biliary tree, endoscopic biliary drainage was performed by endoscopic retrograde cholangiopancreatography with papillotomy, leading to the discharge of multiple obstructive cysts and hydatid sand from the main bile duct.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>RESULTS:</title>'
+            '<p>Clinical and laboratory findings improved after drainage, with hospital discharge under oral antiparasitic treatment before complete surgical resection of the hepatic hydatid cyst.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>CONCLUSIONS:</title>'
+            '<p>Endoscopic retrograde cholangiopancreatography is a safe and useful method for the treatment of biliary complications of hepatic hydatid disease and should be considered the first-line procedure for biliary drainage in cases of cholangiohydatid disease involving secondary acute cholangitis.</p>'
+            '</sec>'
+            '</abstract>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>RESUMO</title>'
+            '<sec>'
+            '<title>RACIONAL:</title>'
+            '<p>A doença hidática, uma infestação parasitária causada pelas larvas de Echinococcus granulosus, é uma doença infecciosa endêmica em diferentes áreas como Índia, Austrália e América do Sul. O fígado é conhecido como o órgão mais comumente afetado pela hidatidose, podendo apresentar uma grande variedade de complicações como trânsito hidático hepato-torácico, superinfecção do cisto, disseminação intra-abdominal e comunicação do cisto biliar com extravasamento de material parasitário para o ducto biliar ou também chamada de colangio-hidatidose O ser humano é considerado um hospedeiro intermediário, exposto a essas larvas pela contaminação mão-boca das fezes de cães infectados.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>OBJETIVO:</title>'
+            '<p>Destacar o papel da endoscópica por colangiopancreatografia retrógrada em pacientes com colangite aguda secundária à colangio-hidatidose.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>MÉTODOS:</title>'
+            '<p>Considerando os achados de imagem, em paciente feminina de 36 anos de idade, com imagens de tomografia computadorizada e ressonância magnética mostrando uma lesão cística complexa no segmento hepático VI, com múltiplas vesículas internas e um defeito de parede cística que se comunica com a árvore biliar intra-hepática foi realizada drenagem biliar endoscópica por colangiopancreatografia retrógrada com papilotomia, levando à descarga de múltiplos cistos obstrutivos e areia hidática da via biliar principal.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>RESULTADOS:</title>'
+            '<p>Os achados clínicos e laboratoriais melhoraram após a drenagem, com alta hospitalar sob tratamento antiparasitário oral antes da ressecção cirúrgica completa do cisto hidático hepático.</p>'
+            '</sec>'
+            '<sec>'
+            '<title>CONCLUSÕES:</title>'
+            '<p>A endoscópica por colangiopancreatografia retrógrada é um método seguro e útil para o tratamento das complicações biliares da hidatidose hepática, devendo ser considerado o procedimento de primeira linha para drenagem biliar nos casos de colangio-hidatidose que envolve colangite aguda secundária.</p>'
+            '</sec>'
+            '</trans-abstract>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_other_abstract(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
