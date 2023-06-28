@@ -128,15 +128,19 @@
     
     <xsl:template match="aff" mode="modal-contrib">
         <div>
-        <xsl:apply-templates select="." mode="display"/>
-        <xsl:apply-templates select="." mode="hidden-for-scimago"/>
+            <span data-aff-display="{@id}">
+                <xsl:apply-templates select="." mode="display"/>
+            </span>
+            <xsl:apply-templates select="." mode="hidden-for-scimago"/>
         </div>
     </xsl:template>
 
     <xsl:template match="aff" mode="modal-scimago">
         <div>
-        <xsl:apply-templates select="." mode="display"/>
-        <xsl:apply-templates select="." mode="hidden-for-scimago"/>
+            <span data-aff-display="{@id}">
+                <xsl:apply-templates select="." mode="display"/>
+            </span>
+            <xsl:apply-templates select="." mode="hidden-for-scimago"/>
         <br/>
         </div>
     </xsl:template>
