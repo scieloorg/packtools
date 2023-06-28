@@ -23,6 +23,8 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_reference_list,
     xml_pubmed_title_reference_list,
     xml_pubmed_citations,
+    xml_pubmed_abstract,
+    xml_pubmed_other_abstract,
 )
 
 
@@ -1605,6 +1607,63 @@ class PipelinePubmed(unittest.TestCase):
         )
 
         xml_pubmed_citations(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_abstract_without_sections(self):
+        expected = (
+            '<Article>'
+            '<Abstract>'
+            'Patterns of beta diversity of plankton communities in rivers have been mainly determined by hydrological '
+            'factors that alter the dispersion and composition of species and traits. Rotifers in the Guamá River ('
+            'eastern Amazonian River) were sampled (monthly between October 2017 and June 2019) to analyze the '
+            'temporal variation of taxonomic and functional beta diversity and its partitions (turnover and '
+            'nestedness) as well as the effects of temporal, environmental, and seasonal dissimilarities. Taxonomic '
+            'turnover and functional nestedness over time were observed as well as functional homogenization, '
+            'which was arguably due to the hypereutrophic condition of the river. There were no seasonal differences '
+            'in taxonomic and functional beta diversity probably due the low environmental dissimilarity. This study '
+            'demonstrated that this Guamá River stretch presented low environmental dissimilarity and hypereutrophic '
+            'waters, which benefited the establishment of a community of species with high taxonomic turnover over '
+            'time, but with low functional dissimilarity and loss of some functions related to the functional traits '
+            'evaluated in the ecosystem. It is important to point out that temporal studies should evaluate both '
+            'taxonomic and functional aspects of communities, mainly because the effect of environmental changes may '
+            'be more noticeable at the functional level of communities. '
+            '</Abstract>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> '
+            '<front>'
+            '<article-meta>'
+            '<abstract>'
+            '<title>Abstract</title>'
+            '<p>Patterns of beta diversity of plankton communities in rivers have been mainly determined by '
+            'hydrological factors that alter the dispersion and composition of species and traits. Rotifers in the '
+            'Guamá River (eastern Amazonian River) were sampled (monthly between October 2017 and June 2019) to '
+            'analyze the temporal variation of taxonomic and functional beta diversity and its partitions (turnover '
+            'and nestedness) as well as the effects of temporal, environmental, and seasonal dissimilarities. '
+            'Taxonomic turnover and functional nestedness over time were observed as well as functional '
+            'homogenization, which was arguably due to the hypereutrophic condition of the river. There were no '
+            'seasonal differences in taxonomic and functional beta diversity probably due the low environmental '
+            'dissimilarity. This study demonstrated that this Guamá River stretch presented low environmental '
+            'dissimilarity and hypereutrophic waters, which benefited the establishment of a community of species '
+            'with high taxonomic turnover over time, but with low functional dissimilarity and loss of some functions '
+            'related to the functional traits evaluated in the ecosystem. It is important to point out that temporal '
+            'studies should evaluate both taxonomic and functional aspects of communities, mainly because the effect '
+            'of environmental changes may be more noticeable at the functional level of communities. </p> '
+            '</abstract>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_abstract(xml_pubmed, xml_tree)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
