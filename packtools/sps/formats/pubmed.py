@@ -562,6 +562,17 @@ def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
         pass
 
 
+def add_element_citation_id(ids):
+    article_id_list = ET.Element('ArticleIdList')
+    for key, value in ids.items():
+        article_id = ET.Element('ArticleId')
+        key = 'pubmed' if key == 'pmid' else key
+        article_id.set('IdType', key)
+        article_id.text = value
+        article_id_list.append(article_id)
+    return article_id_list
+
+
      </ReferenceList>
     """
     ...
