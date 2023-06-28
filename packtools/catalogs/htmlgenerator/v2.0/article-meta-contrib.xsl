@@ -234,53 +234,23 @@
     <xsl:template match="contrib-id[@contrib-id-type='researchid']" mode="url"
         >http://www.researcherid.com/rid/</xsl:template>
 
-    <xsl:template match="aff//*" mode="insert-separator">
-        <xsl:apply-templates select="*|text()" mode="insert-separator"/>
+    <xsl:template match="aff" mode="insert-separator">
+        <xsl:apply-templates select="institution" mode="insert-separator"/>
+        <xsl:apply-templates select="addr-line/*" mode="insert-separator"/>
+        <xsl:apply-templates select="country" mode="insert-separator"/>
     </xsl:template>
 
-    <xsl:template match="aff//text()" mode="insert-separator">
-        <xsl:value-of select="."/>,&#160; </xsl:template>
+    <xsl:template match="aff/institution" mode="insert-separator"><xsl:if test="position()!=1">, </xsl:if><xsl:value-of select="."/></xsl:template>
 
-    <xsl:template match="aff/*[position()=last()]/text()" mode="insert-separator">
-        <xsl:value-of select="."/>
-    </xsl:template>
-
-    <xsl:template match="aff/text()" mode="insert-separator">
-        <xsl:value-of select="."/>
-    </xsl:template>
+    <xsl:template match="aff/addr-line/* | aff/country" mode="insert-separator">, <xsl:value-of select="."/></xsl:template>
     
     <xsl:template match="aff" mode="display">
-        <xsl:variable name="text"><xsl:apply-templates select="text()"/></xsl:variable>
-        <!--
-        <xsl:comment> $text: <xsl:value-of select="$text"/> </xsl:comment>
-        <xsl:comment> text(): <xsl:apply-templates select="text()"></xsl:apply-templates></xsl:comment>
-        -->
         <xsl:choose>
             <xsl:when test="institution[@content-type='original']">
-                <!--
-                <xsl:comment> aff original </xsl:comment>
-                -->
                 <xsl:apply-templates select="institution[@content-type='original']"/>
             </xsl:when>
-            <xsl:when
-                test="institution[@content-type='orgname'] and contains($text,institution[@content-type='orgname'])">
-                <!--
-                <xsl:comment> $text </xsl:comment>
-                -->
-                <xsl:value-of select="$text"/>
-            </xsl:when>
-            <xsl:when
-                test="*[name()!='label']">
-                <!--
-                <xsl:comment> aff insert separator </xsl:comment>
-                -->
-                <xsl:apply-templates select="*[name()!='label']" mode="insert-separator"/>
-            </xsl:when>
             <xsl:otherwise>
-                <!--
-                <xsl:comment> $text </xsl:comment>
-                -->
-                <xsl:value-of select="$text"/>
+                <xsl:apply-templates select="." mode="insert-separator"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
