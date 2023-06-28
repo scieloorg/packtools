@@ -12,6 +12,7 @@ from packtools.sps.models import (
     aff,
     kwd_group,
     article_citations,
+    article_abstract,
 )
 
 
@@ -608,3 +609,26 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
         if ids is not None:
             ref_el.append(add_element_citation_id(ids))
         xml.append(ref_el)
+
+
+def get_abstracts(xml_tree):
+    abstracts = {}
+    abstract_without_tag = article_abstract.Abstract(xml_tree).abstracts_without_tags
+    for abstract in article_abstract.Abstract(xml_tree).abstracts_with_tags:
+        try:
+            structured = abstract.get('sections')
+            if structured == {}:
+                abstracts[abstract.get('lang')] = {
+                    'text': abstract_without_tag.get(abstract.get('lang')),
+                    'structured': False
+                }
+            else:
+                abstracts[abstract.get('lang')] = {
+                    'text': structured,
+                    'structured': True
+                }
+        except AttributeError:
+            pass
+    return abstracts
+
+
