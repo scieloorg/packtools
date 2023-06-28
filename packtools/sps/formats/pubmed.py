@@ -668,3 +668,26 @@ def xml_pubmed_abstract(xml_pubmed, xml_tree):
         pass
 
 
+def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
+    """
+    <OtherAbstract Language="fr">
+      <AbstractText Label="TITRE">Meilleure estimation du fardeau que représentent les facteurs de risque de maladie chronique pour la santé et l’économie au Manitoba.</AbstractText>
+      <AbstractText Label="INTRODUCTION">L’estimation du fardeau global que représentent les facteurs de risque multiples au sein d’une population présente certains défis d’ordre analytique. Nous décrivons une méthodologie permettant de tenir compte des facteurs de risque se chevauchant dans certaines sous-populations et entraînant un « double compte » des maladies et du fardeau économique qu’ils engendrent.</AbstractText>
+      <AbstractText Label="MÉTHODOLOGIE">Notre démarche permet d’analyser avec précision le fardeau économique global des maladies chroniques dans un cadre multifactoriel tout en tenant compte de l’incidence du poids en tant qu’exposition continue ou polytomique (allant de l’absence d’excédent de poids au surpoids et à l’obésité). Nous appliquons cette méthode au tabagisme, à l’inactivité physique et au surpoids et à l’obésité à la province du Manitoba (Canada).</AbstractText>
+      <AbstractText Label="RÉSULTATS">En 2008, le fardeau économique global annuel des facteurs de risque au Manitoba était d’environ 1,6 milliard de dollars (557 millions pour le tabagisme, 299 millions pour l’inactivité physique et 747 millions pour le surpoids et l’obésité). Le fardeau total représente un rajustement à la baisse de 12,6% lorsqu’on tient compte de l’effet des facteurs de risque multiples chez certaines personnes.</AbstractText>
+      <AbstractText Label="CONCLUSION">Une meilleure estimation du fardeau économique global des facteurs de risque multiples au sein d’une population peut faciliter l’établissement des priorités et améliorer le soutien aux initiatives de prevention primaire. </AbstractText>
+    </OtherAbstract>
+    """
+    try:
+        abstract_el = ET.Element('OtherAbstract')
+        for lang, abstract in get_abstracts(xml_tree).items():
+            if lang != 'en':
+                abstract_el.set('Language', lang)
+                if not abstract['structured']:
+                    abstract_el.text = abstract.get('text')
+                else:
+                    for label, text in abstract.get('text').items():
+                        abstract_el.append(add_abstract_text(label, text))
+                xml_pubmed.append(abstract_el)
+    except IndexError:
+        pass
