@@ -1,18 +1,63 @@
+from lxml import etree as ET
+
+
 def get_label(node):
-    return node.find('./label').text[:-1]
+    try:
+        return node.find('./label').text[:-1]
+    except AttributeError:
+        return
 
 
 def get_source(node):
     return node.find('./element-citation/source')
 
 
-def get_author(node):
-    surname = node.find('./element-citation/person-group/name/surname')
-    given_name = node.find('./element-citation/person-group/name/given-names')
-    if surname is not None and given_name is not None:
-        return " ".join([surname.text, given_name.text])
-    else:
-        return None
+def get_main_author(node):
+    main_author = {}
+    try:
+        main_author['surname'] = node.find('./element-citation/person-group/name/surname').text
+    except AttributeError:
+        pass
+    try:
+        main_author['given_name'] = node.find('./element-citation/person-group/name/given-names').text
+    except AttributeError:
+        pass
+    try:
+        main_author['prefix'] = node.find('./element-citation/person-group/name/prefix').text
+    except AttributeError:
+        pass
+    try:
+        main_author['suffix'] = node.find('./element-citation/person-group/name/suffix').text
+    except AttributeError:
+        pass
+
+    return main_author
+
+
+def get_all_authors(node):
+    result = []
+    authors = node.xpath('./element-citation/person-group//name')
+    for author in authors:
+        d = {}
+        try:
+            d['surname'] = author.find('surname').text
+        except AttributeError:
+            pass
+        try:
+            d['given_name'] = author.find('given-names').text
+        except AttributeError:
+            pass
+        try:
+            d['prefix'] = author.find('prefix').text
+        except AttributeError:
+            pass
+        try:
+            d['suffix'] = author.find('suffix').text
+        except AttributeError:
+            pass
+        result.append(d)
+
+    return result
 
 
 def get_volume(node):
@@ -27,12 +72,27 @@ def get_fpage(node):
     return node.find('./element-citation/fpage')
 
 
+def get_lpage(node):
+    return node.find('./element-citation/lpage')
+
+
 def get_year(node):
     return node.find('./element-citation/year')
 
 
 def get_article_title(node):
     return node.find('./element-citation/article-title')
+
+
+def get_mixed_citation(node):
+    return node.find('./mixed-citation')
+
+
+def get_citation_ids(node):
+    ids = {}
+    for pub_id in node.xpath('.//pub-id'):
+        ids[pub_id.attrib['pub-id-type']] = pub_id.text
+    return None if not ids else ids
 
 
 class ArticleCitations:
@@ -44,24 +104,19 @@ class ArticleCitations:
     def article_citations(self):
         _citations = []
         for node in self.xmltree.xpath("./back/ref-list//ref"):
-            label = get_label(node)
-            source = get_source(node)
-            author = get_author(node)
-            volume = get_volume(node)
-            issue = get_issue(node)
-            fpage = get_fpage(node)
-            year = get_year(node)
-            article_title = get_article_title(node)
-
             tags = [
-                ('label', label),
-                ('source', source),
-                ('author', author),
-                ('volume', volume),
-                ('issue', issue),
-                ('fpage', fpage),
-                ('year', year),
-                ('article_title', article_title)
+                ('label', get_label(node)),
+                ('source', get_source(node)),
+                ('main_author', get_main_author(node)),
+                ('all_authors', get_all_authors(node)),
+                ('volume', get_volume(node)),
+                ('issue', get_issue(node)),
+                ('fpage', get_fpage(node)),
+                ('lpage', get_lpage(node)),
+                ('year', get_year(node)),
+                ('article_title', get_article_title(node)),
+                ('mixed_citation', ET.tostring(get_mixed_citation(node), encoding=str, method='text').strip()),
+                ('citation_ids', get_citation_ids(node)),
             ]
 
             d = dict()
