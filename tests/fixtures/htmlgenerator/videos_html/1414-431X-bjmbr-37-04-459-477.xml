@@ -1,0 +1,2115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.9" dtd-version="1.1" xml:lang="en" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">bjmbr</journal-id>
+      <journal-title-group>
+        <journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Braz J Med Biol Res</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0100-879X</issn>
+      <issn pub-type="epub">1414-431X</issn>
+      <publisher>
+        <publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+        <publisher-loc>Ribeirão Preto, SP, Brazil</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id" specific-use="scielo-v3">xmYbTZ54zRtJXJCQws3WMtH</article-id>
+      <article-id pub-id-type="other">00003</article-id>
+      <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0100-879X2004000400003</article-id>
+      <article-id pub-id-type="publisher-id" specific-use="scielo-v1">S0100-879X(04)03700403</article-id>
+      <article-id pub-id-type="doi">10.1590/S0100-879X2004000400003</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Cell Biology</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Genome features of Leptospira interrogans serovar Copenhageni</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Nascimento</surname>
+            <given-names>A.L.T.O.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff01"/>
+          <xref ref-type="corresp" rid="correspondence"/>
+
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Verjovski-Almeida</surname>
+            <given-names>S.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff02"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Van Sluys</surname>
+            <given-names>M.A.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff03"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Monteiro-Vitorello</surname>
+            <given-names>C.B.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff05"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Camargo</surname>
+            <given-names>L.E.A.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff05"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Digiampietri</surname>
+            <given-names>L.A.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff06"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Harstkeerl</surname>
+            <given-names>R.A.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff07"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Ho</surname>
+            <given-names>P.L.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff01"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Marques</surname>
+            <given-names>M.V.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff04"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Oliveira</surname>
+            <given-names>M.C.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff03"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Setubal</surname>
+            <given-names>J.C.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff06"/>
+          <xref ref-type="aff" rid="aff10"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Haake</surname>
+            <given-names>D.A.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff08"/>
+          <xref ref-type="aff" rid="aff09"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Martins</surname>
+            <given-names>E.A.L.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff01"/>
+        </contrib>
+      </contrib-group>
+      <aff id="aff05">
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Escola Superior de Agricultura Luiz de Queiroz</institution>
+        <addr-line>
+          <named-content content-type="city">Piracicaba</named-content>
+          <named-content content-type="state">São Paulo</named-content>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff10">
+        <institution content-type="orgname">Virginia Polytechnic Institute and State University Bioinformatics 1</institution>
+        <institution content-type="orgdiv1">Virginia Bioinformatics Institute and Department of Computer Science</institution>
+        <addr-line>
+          <named-content content-type="city">Blacksburg</named-content>
+          <named-content content-type="state">VA</named-content>
+        </addr-line>
+        <country country="US">USA</country>
+      </aff>
+      <aff id="aff06">
+        <institution content-type="orgname">Universidade Estadual de Campinas</institution>
+        <institution content-type="orgdiv1">Instituto de Computação</institution>
+        <institution content-type="orgdiv2">Laboratório de Bioinformática</institution>
+         <addr-line>
+          <named-content content-type="city">Campinas</named-content>
+          <named-content content-type="state">São Paulo</named-content>
+        </addr-line>
+       <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff09">
+        <institution content-type="orgname">Veterans Affairs Greater Los Angeles Healthcare System</institution>
+        <institution content-type="orgdiv1">Division of Infectious Diseases</institution>
+        <addr-line>
+          <named-content content-type="city">Los Angeles</named-content>
+          <named-content content-type="state">CA</named-content>
+        </addr-line>
+        <country country="US">USA</country>
+      </aff>
+      <aff id="aff08">
+        <institution content-type="orgname">The David Geffen School of Medicine at University of California</institution>
+        <addr-line>
+          <named-content content-type="city">Los Angeles</named-content>
+          <named-content content-type="state">CA</named-content>
+        </addr-line>
+        <country country="US">USA</country>
+      </aff>
+      <aff id="aff01">
+        <institution content-type="orgname">Instituto Butantan</institution>
+        <institution content-type="orgdiv1">Centro de Biotecnologia</institution>
+        <addr-line>
+          <named-content content-type="city">São Paulo</named-content>
+          <named-content content-type="state">SP</named-content>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff02">
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Instituto de Química</institution>
+        <addr-line>
+          <named-content content-type="state">São Paulo</named-content>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff04">
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Instituto de Ciências Biomédicas</institution>
+        <addr-line>
+          <named-content content-type="city">São Paulo</named-content>
+          <named-content content-type="state">São Paulo</named-content>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff07">
+        <institution content-type="orgname">KIT Biomedical Research</institution>
+        <institution content-type="orgdiv1">Koninklijk Instituut voor de Tropen/Royal Tropical Institute (KIT)</institution>
+        <addr-line>
+          <named-content content-type="city">Amsterdam</named-content>
+        </addr-line>
+        <country country="">The Netherlands</country>
+      </aff>
+      <aff id="aff03">
+        <institution content-type="orgname">Universidade de São Paulo</institution>
+        <institution content-type="orgdiv1">Instituto de Biociências</institution>
+        <addr-line>
+          <named-content content-type="state">São Paulo</named-content>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <pub-date date-type="collection" publication-format="electronic">
+        <month>04</month>
+        <year>2004</year>
+      </pub-date>
+      <volume>37</volume>
+      <issue>4</issue>
+      <fpage>459</fpage>
+      <lpage>477</lpage>
+      <history>
+        <date date-type="accepted">
+          <day>08</day>
+          <month>03</month>
+          <year>2004</year>
+        </date>
+        <date date-type="received">
+          <day>20</day>
+          <month>02</month>
+          <year>2004</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This work is licensed under a Creative Commons Attribution 4.0 International License.</license-p>
+        </license>
+      </permissions>
+      <self-uri xlink:href="http://www.scielo.br/pdf/bjmbr/v37n4/5500.pdf" xml:lang="en">Full text available only in PDF format (EN)</self-uri>
+      <abstract>
+        <p>We report novel features of the genome sequence of Leptospira interrogans serovar Copenhageni, a highly invasive spirochete. Leptospira species colonize a significant proportion of rodent populations worldwide and produce life-threatening infections in mammals. Genomic sequence analysis reveals the presence of a competent transport system with 13 families of genes encoding for major transporters including a three-member component efflux system compatible with the long-term survival of this organism. The leptospiral genome contains a broad array of genes encoding regulatory system, signal transduction and methyl-accepting chemotaxis proteins, reflecting the organism's ability to respond to diverse environmental stimuli. The identification of a complete set of genes encoding the enzymes for the cobalamin biosynthetic pathway and the novel coding genes related to lipopolysaccharide biosynthesis should bring new light to the study of Leptospira physiology. Genes related to toxins, lipoproteins and several surface-exposed proteins may facilitate a better understanding of the Leptospira pathogenesis and may serve as potential candidates for vaccine.</p>
+      </abstract>
+      <kwd-group xml:lang="en" kwd-group-type="author-generated">
+        <kwd>Leptospira interrogans</kwd>
+        <kwd>Outer membrane proteins</kwd>
+        <kwd>Lipopolysaccharides</kwd>
+        <kwd>Transport</kwd>
+        <kwd>Regulatory systems</kwd>
+      </kwd-group>
+      <pub-date publication-format="electronic" date-type="pub">
+        <day>22</day>
+        <month>04</month>
+        <year>2004</year>
+      </pub-date>
+    </article-meta>
+  </front>
+  <body>
+    <p>
+      <bold>Braz J Med Biol Res, April 2004, Volume 37(4) 459-477</bold>
+    </p>
+    <p> Genome features of <bold><italic>Leptospira interrogans</italic></bold><bold> serovar Copenhageni</bold></p>
+    <p>A.L.T.O. Nascimento<sup>1</sup>, S. Verjovski-Almeida<sup>2</sup>, M.A. Van Sluys<sup>3</sup>, C.B. Monteiro-Vitorello<sup>5</sup>, L.E.A. Camargo<sup>5</sup>, L.A. Digiampietri<sup>6</sup>, R.A. Harstkeerl<sup>7</sup>, P.L. Ho<sup>1</sup>, M.V. Marques<sup>4</sup>, M.C. Oliveira<sup>3</sup>, J.C. Setubal<sup>6,10</sup>, D.A. Haake<sup>8,9</sup> and E.A.L. Martins<sup>1</sup></p>
+    <p><sup>1</sup>Centro de Biotecnologia, Instituto Butantan, São Paulo, SP, Brasil </p>
+    <p><sup>2</sup>Instituto de Química, <sup>3</sup>Instituto de Biociências and <sup>4</sup>Instituto de Ciências Biomédicas, Universidade de São Paulo, São Paulo, SP, Brasil </p>
+    <p><sup>5</sup>Escola Superior de Agricultura Luiz de Queiroz, Universidade de São Paulo, Piracicaba, SP, Brasil </p>
+    <p><sup>6</sup>Laboratório de Bioinformática, Instituto de Computação, Universidade Estadual de Campinas, Campinas, SP, Brasil </p>
+    <p><sup>7</sup>Koninklijk Instituut voor de Tropen/Royal Tropical Institute (KIT), KIT Biomedical Research, Amsterdam, The Netherlands </p>
+    <p><sup>8</sup>The David Geffen School of Medicine at University of California, Los Angeles, CA, USA </p>
+    <p><sup>9</sup>Division of Infectious Diseases, Veterans Affairs Greater Los Angeles Healthcare System, Los Angeles, CA, USA </p>
+    <p><sup>10</sup>Virginia Bioinformatics Institute and Department of Computer Science, Virginia Polytechnic Institute and State University Bioinformatics 1, Blacksburg, VA, USA </p>
+    
+    <sec id="abstract">
+      <title>Abstract </title>
+      <p>We report novel features of the genome sequence of <italic>Leptospira interrogans</italic> serovar Copenhageni, a highly invasive spirochete. <italic>Leptospira</italic> species colonize a significant proportion of rodent populations worldwide and produce life-threatening infections in mammals. Genomic sequence analysis reveals the presence of a competent transport system with 13 families of genes encoding for major transporters including a three-member component efflux system compatible with the long-term survival of this organism. The leptospiral genome contains a broad array of genes encoding regulatory system, signal transduction and methyl-accepting chemotaxis proteins, reflecting the organism's ability to respond to diverse environmental stimuli. The identification of a complete set of genes encoding the enzymes for the cobalamin biosynthetic pathway and the novel coding genes related to lipopolysaccharide biosynthesis should bring new light to the study of <italic>Leptospira</italic> physiology. Genes related to toxins, lipoproteins and several surface-exposed proteins may facilitate a better understanding of the <italic>Leptospira</italic> pathogenesis and may serve as potential candidates for vaccine.</p>
+      <p><bold>Key words: </bold><italic>Leptospira interrogans, </italic>Outer membrane proteins, Lipopolysaccharides, Transport, Regulatory systems</p>
+    </sec>
+    <sec id="introduction" sec-type="intro">
+      <title>Introduction</title>
+      <p>Spirochetes are motile, helically shaped bacteria which include the genera <italic>Leptospira</italic>, <italic>Leptonema</italic>, <italic>Borrelia</italic> and <italic>Treponema</italic>. <italic>Borrelia</italic> and <italic>Treponema</italic> are the causative agents of Lyme disease, relapsing fever and syphilis. <italic>Leptospira</italic> consists of a genetically diverse group of pathogenic and non-pathogenic or saprophytic species (1). Leptospirosis is a widespread zoonotic disease: transmission to humans occurs through contact with domestic or wild animal reservoirs or an environment contaminated by their urine. Infection produces a wide spectrum of clinical manifestations. The early phase of illness is characterized by fever, chills, headache, and severe myalgias. The disease progresses in 5 to 15% of the clinical infections to produce severe multisystem complications such as jaundice, renal failure and hemorrhagic manifestations (2). In developed countries, leptospirosis is associated with recreational activities (1) while in developing countries it produces large urban epidemics with mortality mainly during the rainy season (3). Leptospirosis also represents a major economic problem producing abortions, stillbirths, infertility, failure to thrive, reduced milk production, and death in animals such as cows, pigs, sheep, goats, horses, and dogs (1). Environmental control measures are difficult to implement because of the long-term survival of pathogenic leptospires in soil and water and the abundance of wild and domestic animal reservoirs (1). <italic>Leptospira</italic> are classified according to serovar status - more than 200 pathogenic serovars have been identified. Structural heterogeneity in lipopolysaccharide (LPS) moieties appears to be the basis for the large degree of antigenic variation observed among serovars (1). The development of vaccines has been pursued as a strategy for the prevention of leptospirosis. At present, vaccines are based on inactivated whole cell or membrane preparations of pathogenic leptospires which induce immune responses against leptospiral LPS (1). However, these vaccines do not induce long-term protection against infection and do not provide cross-protective immunity against heterologous leptospiral serovars. Protein antigens conserved among pathogenic serovars may contribute to overcoming the limitations of the currently available vaccines.</p>
+      <p> The genome sequence of <italic>Leptospira interrogans</italic>serovar Lai was recently published (4) and comparative genome analysis with <italic>L. interrogans</italic> serovar Copenhageni has been performed. We report here new features of the <italic>L. interrogans</italic> serovar Copenhageni that should contribute to understanding the molecular mechanisms of leptospiral physiology, pathogenesis and facilitate the identification of candidates for broad-range vaccines.</p>
+    </sec>
+    <sec id="material" sec-type="materials|methods">
+      <title>Material and Methods</title>
+      <p>The sequenced strain, Fiocruz L1-130, was isolated as described by Nascimento et al. (5). The sequencing strategy adopted follows the basic outline of the <italic>Xylella</italic> genome project (6). Library construction, sequencing, assembly, and finishing were carried out by the Agronomical and Environmental Genomes consortium [<ext-link ext-link-type="uri" xlink:href="http://aeg.lbi.ic.unicamp.br">http://aeg.lbi.ic.unicamp.br</ext-link>] and by Instituto Butantan. The genome was assembled using phrap from shotgun reads, cosmid reads and PCR-product sequences. Scaffolding was performed using domestic software. Finishing criteria are based on consensus base phred quality of at least 20 and consensus base covered by at least one read sequence of each DNA strand (6). The first base of the sequence was chosen based on our hypothesis for the origin of the replication locus, which was in turn based on the presence of certain genes and on GC-skew variation. Genome annotation and comparative genomics were done as previously described (7). Detection of potentially surface-exposed integral membrane proteins was carried out as described by Nascimento et al. (5). Sequences from 16S rDNA were manually assembled using ESEE 3.2. Phylogenetic analyses were performed based on two matrices (34 taxa and 1255 positions; 24 taxa and 1375 positions) using the program PAUP 4.0b8 (8). Divergence time was estimated based on 1445 positions of the 16S rRNA sequences. A constant rate of 1 to 2% per 50 million years was assumed (9).</p>
+      <p> The sequences have been deposited in Genbank under accession numbers AE016823 (chromosome I) and AE016824 (chromosome II).</p>
+    </sec>
+    <sec id="results" sec-type="results|discussion"><title>Results and Discussion</title><p><bold>Genome analysis</bold></p><p> The <italic>Leptospira</italic> genome consists of two circular chromosomes with a total of 4,627,366 base pairs (bp), chromosome I with 4,277,185 bp and chromosome II with 350,181 bp (5). Circular representations of both chromosomes are depicted in <xref ref-type="fig" rid="fig1">Figure 1</xref>. The origin of replication of the large replicon was identified between the <italic>dnaA</italic> and <italic>dnaN</italic> genes, as in other bacterium genomes (10). GC nucleotide skew (G - C/G + C) analysis (11) confirmed the origin of replication of the large replicon and indicated two putative sites for the small replicon.</p><p> As previously described (12), rRNA genes in <italic>L. interrogans</italic> are not organized into operons, as in most other bacteria, but are scattered over the chromosome I (<xref ref-type="fig" rid="fig1">Figure 1</xref>). <italic>L. interrogans</italic> serovar Copenhageni has one <italic>rrf</italic> gene, two <italic>rrl</italic> genes and two <italic>rrs</italic> genes coding for 5S, 23S and 16S rRNA, respectively. As in other parasitic strains, <italic>L. interrogans</italic> serovar Copenhageni has only one <italic>rrf </italic>(5S) gene, which is located close to the origin replication region as described before for other strains of <italic>L. interrogans</italic> (12). Comparing the complete<italic> rrs </italic>(16S) sequences for <italic>L. interrogans</italic>, serovars Copenhageni, Lai and Canicola the identity among the sequences is of 99.9 to 100%. The <italic>rrf</italic> (5S) sequence identity comparing Lai and Copenhageni is 100% and the <italic>rrl </italic>(23S) is 99%. Based on ribosomal genes, Copenhageni and Lai are closely related, as supported by the whole genome comparison (5).</p><p> The Spirochaetes are divided into three major phylogenetic groups, or families: Spirochaetaceae, which includes <italic>Borrelia</italic> and <italic>Treponema </italic>among others; Brachyspiraceae and Leptospiraceae, which contain two genera, <italic>Leptospira</italic> and <italic>Leptonema</italic> (13). Phylogenetic analyses based on 16S rDNA sequences, using <italic>Leptonema</italic> as an outgroup, show that <italic>Leptospira</italic> are split into two well-supported monophyletic groups (<xref ref-type="fig" rid="fig2">Figure 2</xref>), one of them formed by the pathogenic strains (e.g., <italic>L. interrogans</italic>) and the other formed by the non-pathogenic strains (e.g., <italic>L. biflexa</italic>). At the base of the clade of the pathogenic strains, <italic>L. inadai</italic> and <italic>L. fainei</italic> form a well-supported assemblage. Similar results were obtained by Postic et al. (14) based on 16S rDNA analyses. In these analyses <italic>L. interrogans</italic> serovars formed a well-supported monophyletic cluster closely related to <italic>L. kirchneri</italic> (<xref ref-type="fig" rid="fig2">Figure 2</xref>B). Considering a constant divergence rate of 1 to 2% per 50 million years for the 16S rDNA (9), separation time between the two main assemblages (<italic>L. interrogans</italic> versus <italic>L. biflexa</italic>) was estimated at 590 to 295 million years.</p><p><italic>L. interrogans</italic> belongs to a growing number of multichromosomal prokaryotes, including <italic>Vibrio cholerae</italic> (15) and <italic>Ralstonia solanacearum</italic> (16). The small replicon of <italic>L. interrogans</italic> was previously suggested to be a second chromosome based upon the localization of the <italic>metF</italic> gene which encodes an essential biosynthetic pathway enzyme, methylene tetrahydrofolate reductase (17). The genome sequence reveals that genes encoding enzymes for metabolic pathways, such as glycolysis and the tricarboxylic acid cycle, as well as the enzymes for biosynthesis pathways of amino acid and co-factor are also distributed between the two chromosomes. Sequence analysis of chromosome II shows that an almost complete operon of genes coding for the protoheme biosynthesis pathway is present (<italic>hemAIBCENYH)</italic>. Although no homologue of the gene coding for uroporphyrinogen III synthetase (<italic>hemD</italic>) was found, experimental evidence has shown that the <italic>hemC</italic> gene is able to cope with <italic>hemD</italic> activity (18). Therefore, <italic>L. interrogans</italic> has the ability to synthesize protoheme<italic> de novo</italic>. In addition, 13 genes clustered in chromosome II coding for the cobalamin biosynthesis pathway were identified (<italic>cobC</italic>,<italic> cobD</italic>,<italic> cbiP</italic>,<italic> cobP</italic>,<italic> cobB</italic>,<italic> cobO</italic>,<italic> cobM</italic>,<italic> cobJ</italic>,<italic> cbiG</italic>,<italic> cobI</italic>,<italic> cobL</italic>,<italic> cobH</italic>,<italic> cobF</italic>) (<xref ref-type="fig" rid="fig3">Figure 3</xref>). Orthologues of<italic> cobGKN</italic> genes, known to be involved in the cobalamin pathway (19) were not found. However, there are two predicted coding sequences inside this operon in chromosome II that could perform these steps. One has an oxidoreductase NAD-binding domain (LIC20133) and the other is a [2Fe-2S] ferredoxin involved in electron transfer (LIC20135). In addition, other genes present in the genome coding for reductases such as LIC11145, LIC13354, LIC12391, and LIC10522 could also cope with these activities. The presence of <italic>cysG</italic> in chromosome I, a gene that encodes a multifunctional protein with methylase, oxidase and ferrochelatase activities (20), may also be a cobalt-inserting enzyme in the B<sub>12</sub> pathway. Other genes involved in this biosynthesis pathway were found in chromosome I (<italic>cysG/hemX/cobA</italic>,<italic> cobT/cobU</italic>,<italic> cobS</italic>) (<xref ref-type="fig" rid="fig3">Figure 3</xref>). In fact, experimental evidence has recently shown that leptospires can grow in medium in the absence of B12 (Hartskeerl RA, unpublished results). This is contrary to the previous statement that <italic>L. interrogans</italic> is unable to synthesize B12, and that is why it is an essential component of the EMJH semi-synthetic medium (1,4). Thus, <italic>L. interrogans</italic>, unlike the spirochetes <italic>Borrelia burgdoferi</italic> and <italic>Treponema pallidum</italic>, have the complete repertoire of genes for <italic>de novo</italic> synthesis of protoheme and cobalamin. The functional link between the two replicons supports the view that the small replicon is in fact a second chromosome.</p><p content-type="created-from-layout-table-link-in-thumbnail"><fig id="fig1"><label>Figure 1.</label><caption><title> Circular maps of the two chromosomes in <italic>Leptospira interrogans.</italic> Circular representation of the <italic>L. interrogans</italic> serovar Copenhageni genome. The two large and small chromosomes are presented. Circles 1 and 2 (from the outside in), all predicted protein-coding regions (forward and reverse strand, respectively) color-coded by category role; circle 3: G + C content. Numbers on the outer circle are base pairs. rRNA genes, <italic>rrl</italic>, <italic>rrs</italic> and <italic>rrf</italic> are 23S, 16S and 5S, respectively. Note: the two replicons are not drawn to the same scale. Chromosome II (CII) is 12 times smaller than chromosome I (CI). </title></caption><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500i01.jpg"/></fig></p><p content-type="created-from-layout-table-link-in-thumbnail"><fig id="fig2"><label>Figure 2.</label><caption><title> Phylogenetic analysis of <italic>Leptospira interrogans</italic>. Consensus phylogenetic distance tree constructed using 16S rDNA sequences. Numbers on the branches are bootstrap values (2000 replicates) for distance (top), parsimony (below the branch) and maximum likelihood (10 replicates, below the branch, italics). GenBank accession numbers are in parenteses. <italic>Leptonema</italic> is used as outgroup. <italic>A</italic>, Based on a matrix with 34 taxa and 1255 positions; <italic>B</italic>, based on a matrix with 24 taxa and 1375 positions. </title></caption><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500i02.jpg"/>Figure 2. Phylogenetic analysis of </fig></p><p content-type="created-from-layout-table-link-in-thumbnail"><fig id="fig3"><label>Figure 3.</label><caption><title> The cobalamin biosynthetic pathway of <italic>Leptospira interrogans</italic>. Genetic organization of the cobalamin biosynthetic locus in the two chromosomes (CI and CII) of <italic>L. interrogans</italic> serovar Copenhageni. </title></caption><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500i03.jpg"/></fig></p><p><bold>Transport</bold></p><p> Among the 220 <italic>Leptospira </italic>transport proteins, we found 148 proteins comprising 108 different major primary and secondary transporters (<xref ref-type="fig" rid="fig4">Figure 4</xref>), as defined by Paulsen et al. (21). There are 34 major primary ATP-driven transporters including 30 ABC-transporters (53 proteins), the largest protein family in <italic>L. interrogans</italic>, as usually is the case for bacteria (22). The ABC superfamily contains both uptake and efflux transport systems, and ATP hydrolysis energizes the transport. The porters of the ABC superfamily consist of two integral membrane proteins (that determine specificity of the transported solute) and two cytoplasmic ATP-hydrolyzing proteins present as homodimers or heterodimers. The uptake systems (but not the efflux systems) additionally possess extracytoplasmic solute-binding receptors (one or more per system), which in Gram-negative bacteria are found in the periplasm. We found 21 ABC efflux systems, including drug and heavy metal export and detoxification, lipoprotein-releasing and hemolysin export systems. The remaining 9 are ABC uptake systems, including iron, sulfate, nickel, phosphate, dipeptide, amino acid, and carbohydrate uptake. There is one F-type ATP-synthase system (8 proteins), as mentioned above, and 3 P-type cation-transport ATPases (5 proteins).</p><p> We found 59 secondary electrochemical potential-driven transporters (65 proteins) including the largest family of secondary transporters, the resistance-nodulation-cell division superfamily with 12 members, 5 of which belong to the heavy metal efflux family (with 7 proteins) and 7 to the multiple drug efflux family (with 8 proteins). These secondary efflux transporters are energized byproton-motive force and show the widest substrate specificityamong all known multidrug pumps, ranging from most of the currentlyused antibiotics, disinfectants, dyes, and detergents to simplesolvents. The second largest secondary transporter family is the major facilitator superfamily with 9 members including drug:cation antiporters (8 proteins) and a glycerol-phosphate:inorganic phosphate antiporter (1 protein). Additional secondary transporters include three sodium-solute symporters (one sodium-glucose co-transporter), three sodium-bile-acid symporters, and symporters for phosphate, di-tripeptides, glutamate, amino acids, uracil, sulfate as well as an ammonium:potassium antiporter, a glycerol-3-P:Pi antiporter, two drug-sodium antiporters and two polysaccharide exporters. Secondary transporters also include 7 members of the TonB family of auxiliary proteins for energizing the outer membrane receptor-mediated active transport. <italic>Leptospira</italic> has many iron-transporting proteins in addition to the cobalamin/iron periplasmic binding protein component of the ABC-transport system (LIC13403) mentioned above. Four members of the outer membrane receptor family have been identified, which are probably involved in the transport of iron dicitrate (LIC10714), hemin (LIC10964), ferric hydroxamate (LIC11345) and ferrienterobactin (LIC12998). In addition, an orthologue of the ferrous iron up- take (FeoB) protein of <italic>E. coli</italic> was found (LIC11402). FeoB has been characterized as an Fe<sup>2+</sup> uptake system and possesses an ATP/GTP binding motif at its N-terminal hydrophilic domain, therefore being probably energized by ATP or GTP hydrolysis (23).</p><p content-type="created-from-layout-table-link-in-thumbnail"><fig id="fig4"><label>Figure 4.</label><caption><title> Major transporters of <italic>Leptospira interrogans</italic>. Major primary transporters are driven by ATP hydrolysis and include ABC-transporters, P-type ion transporters and the ATP-synthase. All other transporters indicated are the major secondary transporters, which are driven by the transmembrane electrochemical potential. RND = resistance-nodulation-cell division superfamily. </title></caption><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500i04.jpg"/></fig></p><p><bold>Oxygen defense</bold></p><p> The <italic>Leptospira </italic>genome contains several genes encoding enzymes with peroxidase activities, such as catalase, glutathione peroxidase and thiol peroxidase. However, superoxide dismutase orthologues and two important regulons, SoxRS and OxyR, normally responsible for the defense against oxidative stress, are absent (5). It is possible that metalloporphyrins (24) could provide defense against oxidative damage, since <italic>L. interrogans</italic> is competent for porphyrin biosynthesis and has metal uptake transport proteins. Genes coding for co-migratory bacterioferritin (LIC20093 and LIC10732), thiol peroxidase (LIC12765) and peroxiredoxin (LIC11219) with alkyl hydroperoxide reductase (AhpC) and thiol-specific antioxidant activities, respectively, were also identified. Two predicted coding sequences for bacterioferritin (LIC11310 and LIC13209), which may have functions analogous to animal ferritin, are also present and may provide both iron detoxification and storage, that would prevent free iron in <italic>Leptospira</italic> from driving oxidative reactions.</p><p><bold>Regulatory systems and signal transduction</bold></p><p> There are many genes encoding signal transduction proteins in <italic>Leptospira</italic>, indicating that this organism has developed a vast array of regulatory systems that enable it to respond to environmental signals. This variety of regulatory domains is found in non-obligate parasitic bacteria, indicating a much greater need to interpret the signals from the environment in order to respond properly, while obligate parasites have a much lower number and variety of domains in their signal transduction proteins (25). There are 80 genes encoding components of the phosphorylation-mediated signal transduction pathway: 29 histidine kinases (HK), 30 response regulators (RR) and 18 hybrid kinase/regulators (HK/RR). These members of the two-component systems present several domains organized into different arrangements (<xref ref-type="fig" rid="fig5">Figure 5</xref>). Nineteen of the histidine kinases are located in the inner membrane, nine are cytoplasmic and one is probably found in the periplasm, as predicted by the PSORT program [<ext-link ext-link-type="uri" xlink:href="http://psort.nibb.ac.jp/">http://psort.nibb.ac.jp/</ext-link>].</p><p> On the other hand, only a third of the hybrid HK/RR are membrane-bound, suggesting that these hybrid proteins are most likely to be involved in phosphorylation cascades, although some of them have the sensor PAS domain. The PAS domain has been reported to sense different environmental stimuli, like oxygen, redox state, nitrogen availabilityor light, and it may or may not be associated with co-factors such as heme or FAD (26). A two-component protein containing a PAS sensor domain was found to be required for virulence of <italic>M. tuberculosis</italic> in mice, probably because it senses radical oxygen intermediates generated by macrophage phagocytosis (27), and probably this is also the case for <italic>Leptospira</italic>.</p><p> The response regulators are the cytoplasmic effectors of the message, which become functional after being phosphorylated at an aspartate residue by the cognate histidine kinase. The RRs may possess a second effector domain (<xref ref-type="fig" rid="fig5">Figure 5</xref>), which will perform its ultimate function, such as the DNA-binding helix-turn-helix domain that allows the RR to regulate transcription. Other noticeable domains found in <italic>L. interrogans</italic> RRs are the GGDEF and EAL motifs, which correspond to putative diguanylate cyclase and phosphodiesterase domains, respectively, and a phosphatase domain similar to the mammalian phosphatase 2C that may be involved in the phosphorelay.</p><p> Cyclic nucleotides are likely to have a major regulatory role in <italic>Leptospira</italic>. There are 19 homologues of adenylate/guanylate cyclases, two specific phosphodiesterases and 7 cyclic nucleotide-binding proteins that probably have a regulatory function. There are 12 genes encoding proteins containing the GGDEF motif, seven of which are organized in tandem in chromosome I (LIC11131 to LIC11125), and they also have a PAS/PAC sensor domain in the amino-terminal region, suggesting that they are the product of gene duplication. The diguanylate cyclase activity of the GGDEF domain is required for a novel regulatory mechanism involving bis-(2',5')-cyclic diguanylic acid (c-di-GMP) as an allosteric activator (28). Two of the GGDEF-containing proteins also have the Cache domain, which is involved in chemotaxis signal transduction (29), an important feature for <italic>Leptospira</italic>. There are eight putative diguanylate phosphodiesterases containing an EAL domain, with three of them being associated with an RR domain (<xref ref-type="fig" rid="fig5">Figure 5</xref>). <italic>L. interrogans</italic> also presents in its genome three serine/threonine kinases and two hybrid HK/RR with a GAF domain, which is a binding domain for cGMP (30).</p><p> Other interesting findings in the genome include three related genes encoding putative DNA-binding proteins (LIC20104, LIC20105 and LIC20178), which contain 6 transmembrane domains in the amino-terminus and one helix-turn-helix domain of the AraC type at the carboxyl-terminus. These genes are present in chromosome II, and two of them are clustered. Orthologues with a C-terminal DNA-2binding domain and a hydrophobic N-terminal region were described in other bacteria, including <italic>Borrelia</italic> and <italic>Treponema</italic> (31), but their function is unknown.</p><p content-type="created-from-layout-table-link-in-thumbnail"><fig id="fig5"><label>Figure 5.</label><caption><title> Domain architecture of putative signal transduction proteins from <italic>Leptospira interrogans.</italic> The domain organization of histidine kinases, response regulators, hybrid histidine kinase/response regulators and other peptides probably associated with signal transduction is shown schematically. The number of peptides containing each domain organization is shown on the right, and the genes are found distributed over the large or small replicons, except for the seven peptides containing the PAS/GGDEF arrangement, which are encoded by genes located in tandem in the large replicon. AAA = ATPase; Cache = small ligand binding domain; EAL = phosphodiesterase; GAF = cGMP-binding domain; GGDEF = diguanylate cyclase; HK = histidine kinase domain; HTH = helix-turn-helix; PAS = sensor domain (may include a PAS/PAC arrangement); PP = phosphatase; RR = response regulator domain; SP = signal peptide; TM = transmembrane region. </title></caption><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500i05.jpg"/></fig></p><p><bold>Motility and chemotaxis</bold></p><p> The <italic>L. interrogans</italic> genome comprises a relatively large number of motility and chemotaxis genes. Enteric bacteria usually have about 50 genes coding for structural and functional proteins involved in motility (32). A similar number of genes have been identified for the spirochetes <italic>T. pallidum</italic> and <italic>B. burgdorferi</italic> (33,34). Apparently, the motility and chemotaxis apparatus of <italic>L. interrogans</italic> is more complex since its genome contains at least 79 putative motility-associated genes. All genes are well conserved among <italic>L. interrogans</italic>, <italic>T. pallidum</italic> and <italic>B. burgdorferi</italic> and 42 genes were found to be common to all three genera. However, the leptospiral genome contains multiple copies of a number of motility-associated genes, accounting partly for the higher number. For example, the genome of serovar Copenhageni contains 5 <italic>flaB</italic> genes, 4 <italic>motB</italic> genes and 2 <italic>motA</italic> genes compared to 3 <italic>flaB</italic> genes and one copy of both <italic>motA</italic> and <italic>motB</italic> in the <italic>T. pallidum</italic> genome and one copy each of <italic>flaB</italic>, <italic>motA</italic>, and <italic>motB</italic> in the <italic>B. burgdorferi</italic> genome. In addition, the <italic>L. interrogans</italic> genome contains 11 putative genes encoding methyl-accepting chemotaxis proteins, which is roughly twice as many as in <italic>T. pallidum</italic> and <italic>B. burgdorferi</italic>. Forty-eight of the 79 motility-associated genes are positioned into 14 gene clusters varying in size from 2 to 8 genes. Thus, like in <italic>T. pallidum</italic> and <italic>B. burgdorferi</italic>, the majority of the structural and functional motility genes are positioned in potential operons. However, the operons probably underwent extensive rearrangements as they are generally smaller, often corresponding to only parts of the major <italic>Treponema</italic> and <italic>Borrelia</italic> operons. For example, the <italic>flgB </italic>operon in <italic>B. burgdorferi</italic> consisting of 26 genes (35) has been disrupted into 6 fragments dispersed at 5 positions in the leptospiral genome. Differences in number of genes and operon organization might be associated with the high flexibility of pathogenic leptospires enabling them to survive and adapt to a variety of environments and hosts.</p><p><bold>Hemolysins</bold></p><p> The primary lesion caused by <italic>Leptospira</italic> is the damage to the endothelium of small blood vessels, leading to hemorrhage and localized ischemia in multiple organs. As a consequence, renal tubular necrosis, hepatocellular damage, meningitis, and myositis may occur in the infected host (1). Hemolysins may play a fundamental role in this toxic process. Several genes coding for predicted hemolysins were identified in the <italic>L. interrogans</italic> genome. Some of them are structurally related to sphingomyelinases C (LIC10657, LIC12631, LIC12632, LIC11040, and LIC13198). Although generically called sphingomyelinases, it is possible that these genes code for hydrolases that act not only on sphingomyelins but also on other sphingolipids. Erythrocytes may represent a target for these enzymes since they are rich in glycosphingolipids like the antigenic determinants of the ABO system. Interestingly, LIC12631 and LIC12632 are organized as an operon, which may suggest a concerted expression and action.</p><p> The other class of genes coding for hemolysins, <italic>tlyABC</italic>, was identified. Although they were assigned to the same TlyABC class, they do not present structural similarity. These putative hemolysins were first identified in the spirochete <italic>Brachyspira hyodysenteriae</italic>. Hemolytic and cytotoxic activities of the recombinant TlyA, TlyB and TlyC proteins, expressed in <italic>E. coli</italic>, were detected (36). TlyB belongs to the family of Clp ATP-dependent proteases (37) and there are 3 genes coding for structurally related proteins (LIC10339, LIC11814 and LIC12017). Thus, 5 genes of the <italic>tlyABC</italic> class (LIC10284, LIC10339, LIC11814, LIC12017, and LIC13143) were identified in the <italic>L. interrogans</italic> genome.</p><p> LIC12134 codes for an HlpA-related protein which was characterized as a hemolysin in <italic>Prevotella intermedia</italic>, a common oral bacterium associated with periodontitis (38). Another identified gene (LIC10325) is related to the <italic>hlyX</italic> gene which codes for a predicted hemolysin previously identified in <italic>L. borgpetersenii</italic> serovar Hardjo (Accession number AAF09252, unpublished results). LIC11352 should also be mentioned as the gene which codes for LipL32 or HAP-1, a ubiquitous lipoprotein of pathogenic <italic>Leptospira</italic> (see Lipoproteins section below) with hemolytic activity (39).</p><p><bold>Surface-exposed proteins</bold></p><p> Pathogenic leptospires require several types of surface-exposed proteins for the purpose of colonization and survival in the mammalian host. Surface-exposed proteins may be categorized as nonspecific porins, specific channels for nutrient acquisition, efflux channels, lipoproteins, adhesins, S-layer glycoproteins, peripheral membrane proteins, or surface-maintenance proteins. Aside from S-layer proteins and peripheral membrane proteins, these surface-exposed proteins would be expected to be integrated into the outer membrane via transmembrane regions or lipid modification. The leptospiral genome contains homologues of SecY and other secretory proteins involved in exporting proteins with signal peptides across the cytoplasmic membrane. The leptospiral genome also contains both the standard signal peptidase and the lipoprotein signal peptidase. The standard signal peptidase is involved in the hydrolysis of signal peptides of transmembrane outer membrane proteins and periplasmic proteins, releasing them from the cytoplasmic membrane. Lipoprotein signal peptidase hydrolyzes the signal peptides of lipoproteins prior to lipidation of the N-terminal cysteine.</p><p><bold>Transmembrane outer membrane proteins</bold></p><p> Analysis of the <italic>L. interrogans</italic> genome reveals 83 beta-sheet transmembrane outer membrane proteins (OMPs) and all except one (OmpL1, LIC10973) (40) were previously unknown. An example of a newly identified leptospiral protein with a transmembrane beta-sheet structure is LIC10642 which is predicted to be a member of the OMP superfamily.</p><p> Among these newly identified OMPs is a family of predicted coding sequences (LIC20202, LIC10995, LIC11465, and LIC11103) belonging to the superfamily of alpha/beta hydrolases, which includes bacterial lipases. Another transmembrane OMP is LIC11623, a member of a family of highly conserved proteins of Gram-negative bacteria, including <italic>N. meningitides</italic> Omp85, which is thought to be a chaperonin involved in the assembly of OMPs in the outer membrane (41). OmpL1 belongs to the class of nonspecific porins allowing passage of small molecules (&lt;1000 Daltons) across the leptospiral outer membrane (40). Nonspecific porins allow both influx of nutrients and efflux of products of metabolism. Another example is LIC11458, which is predicted to be a member of the porin superfamily.</p><p><bold>Specific channels</bold></p><p> Survival in the mammalian host environment by bacterial pathogens requires the acquisition of certain trace nutrients. For example, iron is essential for leptospiral growth and is bound by a number of high-affinity binding proteins in mammals, which restrict its availability. Bacteria scavenge trace nutrients, including iron, heme, and vitamin B12, from their environment utilizing the cytoplasmic membrane protein TonB and a series of "TonB-dependent" OMPs (<xref ref-type="fig" rid="fig6">Figure 6</xref>). After binding, transport of the nutrient across the outer membrane into the periplasm by this type of channel is an energy-dependent step requiring interaction of the TonB-dependent OMP with TonB. The <italic>L. interrogans</italic> genome contains a TonB orthologue (LIC10889) and a large number of TonB-dependent OMPs: LIC20151, LIC20214, LIC10998, LIC10964, LIC10714, LIC12374, LIC12898, LIC12998, LIC11694, LIC11345, LIC10882, LIC10881, and LIC10896.</p><p> The leptospiral genome also contains OMPs involved in efflux pathways (<xref ref-type="fig" rid="fig6">Figure 6</xref>). The type I efflux system is represented </p><p> by an orthologue of TolC (LIC13135), the outer membrane exporter of hemolysin and drugs, along with an orthologue of CusC (LIC11941), an outer membrane exporter of copper ion. A second type of efflux pathway found in the leptospiral genome belongs to the resistance-nodulation-cell division superfamily, a three-member complex that catalyzes substrate efflux via an H<sup>+</sup> antiport mechanism. The three-member complex consists of an resistance-nodulation-cell division transporter, a membrane fusion protein, and an outer membrane factor involved in the export of proteins, carbohydrates, drugs or toxic heavy metals (<xref ref-type="fig" rid="fig6">Figure 6</xref>). The leptospiral orthologues are most closely related to those of the <italic>Alcaligenes eutrophus</italic> cobalt/cadmium/zinc export system consisting of the resistance-nodulation-cell division transporter CzcA (LIC12224, LIC15510 and LIC11938), CzcB (LIC12306 and LIC11940), and CzcC (LIC12307 and LIC11941). In addition, <italic>L. interrogans</italic> has two orthologues of the cation efflux system protein CzcD (LIC11714 and LIC13205), which are members of the cation diffusion facilitator family. CzcD of <italic>Bacillus subtilis</italic> has been shown to catalyze divalent cation (Zn<sup>2+</sup> or Cd<sup>2+</sup>) efflux in exchange for the uptake of two monovalent cations (K<sup>+</sup> and H<sup>+</sup>) in an electroneutral process energized by the transmembrane pH gradient (42). </p><p content-type="created-from-layout-table-link-in-thumbnail"><fig id="fig6"><label>Figure 6.</label><caption><title> Model of leptospiral membrane architecture. Leptospires have two membranes, an outer membrane (OM) and a cytoplasmic or inner membrane (IM). As in Gram-positive bacteria, the peptidoglycan (PG) cell wall is closely associated with the IM. The leptospiral surface is dominated by lipopolysaccharide (LPS) carbohydrate side chains. Subsurface proteins include the cytoplasmic protein, GroEL, and the periplasmic endoflagella (EF). The IM contains lipoproteins such as LipL31 and transmembrane proteins such as signal peptidase (SP) and ImpL63. The OM contains lipoproteins including LipL41 and LipL36, and transmembrane proteins including the porin, OmpL1. Genomic sequence analysis reveals several novel types of outer membrane proteins (OMPs), including TonB-dependent OMPs involved in nutrient acquisition. BtuB is an example of a TonB-dependent OMP involved in uptake of vitamin B<sub>12</sub>. The type I efflux system is represented by TolC, which forms a complex with ATP-binding cassette (ABC) transporters to export hemolysins and other cytoplasmic components. The leptospiral genome also contains genes involved in a three-component efflux system consisting of an outer membrane factor (OMF), membrane fusion protein (MFP), and an inner membrane transporter, in this case CzcA, which is involved in heavy metal detoxification. </title></caption><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500i06.jpg"/></fig></p><p><bold>Lipoproteins</bold></p><p> Experimental evidence for fatty acid modification of leptospiral lipoproteins has been described for the outer membrane lipoproteins LipL32 (LIC11352) (43), LipL36 (LIC13060) (44), and LipL41 (LIC12966) (45). The cytoplasmic membrane also contains lipoproteins, as demonstrated for LipL31 (LIC11456) and LipL71 (LIC11003) (46). A total of 184 predicted coding sequences in the <italic>L. interrogans</italic> genome were found to have a lipoprotein signal peptidase cleavage site (5). All proposed lipoprotein-coding sequences conform to the rule of having an L, I, V, or F in the -3 and/or -4 position relative to cysteine and most of them have A, G, S, or N in the -1 position relative to cysteine (47).</p><p> Proteolytic functions can be assigned to some of the newly identified lipoproteins: four lipoproteins are thermolysin homologues (LIC10715, LIC13320, LIC13321, and LIC13322), and one is a predicted metalloprotease (LIC11834). Several lipoproteins may be involved in hemolysis: two lipoproteins are sphingomyelinase homologues (LIC10657 and LIC12632), and one is a phospholipase D homologue (LIC11754). Lipoprotein LIC10972 is predicted to be located in the outer membrane and is a MauG homologue belonging to a family of cytochrome c peroxidases that may be involved in defense against hydrogen peroxide. Other lipoproteins with putative enzymatic functions are homologues of glucose dehydrogenase (LIC12294) and cholesterol oxidase (LIC13202).</p><p><bold>S-layer and peripheral membrane proteins</bold></p><p> S-layers are thought to provide structural integrity to the bacterial surface (48). Although an S-layer has not been observed in pathogenic leptospires, the genome contains at least two proteins with S-layer homology (LIC10868 and LIC12952). Experimental evidence is needed to determine whether these proteins are actually S-layer components.</p><p> Like S-layer proteins, peripheral membrane proteins are not integral membrane proteins. LipL45 is processed to a peripheral membrane associated with the outer membrane, P31<sub>LipL45</sub> (49). P31<sub>LipL45</sub> expression is dramatically up-regulated in stationary phase cultures, and for this reason may have a membrane-stabilizing function. At this time it is unclear whether P31<sub>LipL45</sub> is surface-exposed. Interestingly, the leptospiral genome contains a number of predicted coding sequences with homology to LipL45 (LIC20102, LIC20114, LIC13414, and LIC10123).</p><p><bold>Surface-maintenance proteins</bold></p><p> Bacteria are likely to have a variety of proteins involved in maintaining the surface structural integrity. One such protein, glycerophosphoryl diester phosphodiesterase, is a protein belonging to this category which has been found in all spirochetal genomes studied to date. <italic>E. coli </italic>has two forms of this enzyme, a cytosolic form, ugpQ, and a periplasmic form, glpQ. The leptospiral genome contains two homologues of this enzyme, LIC13182 and LIC10293. The former should be the cytosolic form because it lacks a signal peptide while the latter should be the exported form because it has an N-terminal signal peptide. In other spirochetes, GlpQ is associated with the outer membrane (50).</p><p><bold>Cytoplasmic membrane proteins</bold></p><p> The leptospiral genome contains a number of proteins that belong to a large family of prokaryotic proteins with homology to the peptidoglycan-associated portion of <italic>E. coli</italic> OmpA (51). These proteins are predicted to be either cytoplasmic membrane (LIC20250, LIC10592, LIC13479, and LIC10050) or periplasmic proteins (LIC10537 and LIC10191), rather than OMPs, which is consistent with experimental evidence that the spirochetal cell wall is more closely associated with the cytoplasmic membrane than the outer membrane. An interesting protein family is the mechanosensitive ion channel (LIC20069 and LIC12671). Two members of this protein family of <italic>M. jannaschii</italic> have been functionally characterized and both form mechanosensitive ion channels (52). Therefore, this family is likely to also encode mechanosensitive channel proteins in <italic>L. interrogans</italic>, playing a physiological role in bacterial osmoregulation.</p><p><bold>Lipopolysaccharides</bold></p><p> Lipopolysaccharides distinguish the leptospiral surface from those of the other invasive spirochetes. Changes in genes involved in the LPS biosynthesis apparatus are thought to account for serovar diversity among leptospires (53). It has been shown that the leptospiral LPS resembles a typical LPS from Gram-negative bacteria, containing pentoses, hexoses and heptoses. Although the predominant sugar is rhamnose, a large variety of other sugar residues are found (1). Antibodies raised against LPS from different <italic>Leptospira</italic> strains during infections are related to polysaccharide structure in terms of its sugar composition, number, repetitiveness, and ramification (1). In <italic>Leptospira</italic>, as in many other bacteria, at least part of the genes coding for enzymes of the polysaccharide biosynthesis pathway are found clustered in a region of chromosomes named O-antigen gene cluster (<italic>rfb</italic> locus) (53).</p><p> The complete genome analysis reveals a large portion of about 119 kb (genome position 2.538.470-2.554.255), in which all the 108 predicted coding sequences are transcribed in the same orientation (<xref ref-type="fig" rid="fig7">Figure 7</xref>). Interestingly, this region is dense in genes related to LPS biosynthesis (<xref ref-type="table" rid="t01">Table 1</xref>) and includes the O-antigen gene cluster previously described in <italic>L. interrogans </italic>serovar Copenhageni (53,54). In the first 14 kb of this region the predicted genes seem not to be related to LPS biosynthesis, but to DNA replication, and some genes code for ribosomal proteins. In the other 105 kb of this region there are 94 predicted genes 56 of which are clearly related to LPS biosynthesis. These predicted genes encode enzymes for nucleotide sugar biosynthesis, such as the enzymes for dTDP-rhamnose biosynthesis (54) for CMP-N-acetylneuraminic acid and for perosamine synthase. In addition, many genes coding for sugar transferases, sugar modifications and for the O-antigen processing, Wzx-flippase and Wzy-polymerase, involved in oligosaccharide exporting and assembly of the LPS, were identified. Some genes encoding proteins of the lipid A biosynthesis (<italic>lpxD</italic>) and transport (<italic>msbA</italic>) are also found is this region.</p><p><table-wrap id="t01"><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500t01.gif"/></table-wrap></p><p>
+ Genome features of <italic>Leptospira interrogans</italic> serovar Copenhageni. <italic>A.L.T.O. Nascimento, S. Verjovski-Almeida, M.A. Van Sluys, C.B. Monteiro-Vitorello, L.E.A. Camargo, L.A. Digiampietri, R.A. Harstkeerl, P.L. Ho, M.V. Marques, M.C. Oliveira, J.C. Setubal, D.A. Haake and E.A.L. Martins</italic>. Brazilian Journal of Medical and Biological Research, 37 (4): 459, 2004. </p>  <p> The comparison with the corresponding region in the genome of <italic>L. interrogans</italic> serovar Lai (4) revealed only three distinct predicted coding sequences: two extra copies of genes for aminotransferase (LIC12197 and LIC12198) and the absence of a gene encoding galactoside O-acetyltransferase (LA1622).</p> <p> Seventy-seven other genes, probably related to LPS biosynthesis, were identified along the genome. All the genes related to lipid A biosynthesis described in <italic>E. coli</italic> were identified in the <italic>Leptospira</italic> genome (<italic>lpxA</italic>, <italic>lpxC</italic>, <italic>lpxD</italic>, <italic>lpxB</italic>, <italic>lpxK</italic>). However, the predominant fatty acids in lipid A of <italic>L. interrogans</italic> are dodecanoic and hexadecanoic acid instead of hydroxymyrystoyl (14 carbons), which is the signature of Gram-negative bacteria (1). Comparative analysis between LpxA of <italic>E. coli</italic> and <italic>P. aeruginosa</italic> (55) showed that few structural differences in this enzyme determine changes in the fatty acid chain size incorporated during lipid A biosynthesis. The lower endotoxicity of leptospiral LPS as compared to LPS from Gram-negative bacteria has been reported (56). It was also reported that leptospiral LPS induces a TLR2-dependent cell activation, instead of LTR4, the receptor frequently involved in the LPS immune response (57). The lower endotoxicity and the difference in the mechanism of cell immune response activation are supposed to be related to differences in the lipid A structure.</p> <p> Genes encoding enzymes of Kdo biosynthesis (<italic>kdsA</italic>, <italic>kdsB</italic>) such as Kdo-transferase (<italic>waaA </italic>or <italic>kdtA</italic>), which catalyzes the binding of Kdo to lipid IVA, were identified. Although typical Kdo was found in <italic>Leptospira</italic> LPS, it was reported to be substituted at different carbon positions (1).</p> <p> Four paralogues encoding MsbA, the protein that transfers the flippase of lipid A in the inner membrane from the cytoplasmic side to the periplasmic side, were identified. One of the <italic>msbA</italic> genes is located in the 119-kb region. Another <italic>msbA</italic> gene is located upstream of <italic>lpxK</italic>, as reported in many other genomes (55). It will be interesting to compare the set of genes coding for enzymes related to LPS biosynthesis identified in the <italic>Leptospira</italic> genome to the orthologues in other microorganisms, in order to correlate LPS structural differences and endotoxic activity.</p>    <p content-type="created-from-layout-table-link-in-thumbnail"><fig id="fig7"><label>Figure 7.</label><caption><title> Lipopolysaccharide region of <italic>Leptospira interrogans.</italic> The 119-kb region of <italic>L. interrogans</italic> serovar Copenhageni genome with 108 predicted coding sequences transcribed in the same orientation. Orange arrows indicate predicted genes encoding polysaccharide biosynthesis-related proteins. Shaded regions indicate the homologous genes from <italic>L. borgpetersenii</italic> serovar Hardjobovis (53). The region containing the predicted coding sequences, indicated by the letters <italic>F, E, A, B, D, C</italic>, was first indicated as the <italic>rfb</italic> genes related to rhamnose biosynthesis in <italic>L. interrogans</italic> Copenhageni (54). </title></caption><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500i07.jpg"/></fig></p> <p><bold>Comparative genomics and insertion sequences</bold></p> <p> A three-way comparison between the<italic> L. interrogans</italic> genome and the genomes of <italic>B.</italic> <italic>burgdorferi</italic> and <italic>T. pallidum</italic> yields the following results: 1167 (31%) of the genes in <italic>L. interrogans</italic> Copenhageni are found in <italic>B. burgdorferi </italic>and/or in <italic>T. pallidum</italic>, 666 (41%) of the genes in <italic>B. burgdorferi </italic>are found in the Copenhageni genome, and 589 (57%) of the genes in <italic>T. pallidum </italic>are found in the <italic>L. interrogans</italic> genome. A total of 362 predicted genes were found to be shared by all three spirochetes, 45 of which are hypothetical (detailed list in our project website: <ext-link ext-link-type="uri" xlink:href="http://aeg.lbi.ic.unicamp.br/world/lic/">http://aeg.lbi.ic.unicamp.br/world/lic/</ext-link>). These results show that a thorough analysis of the genome can significantly contribute to the understanding of spirochete biology.</p> <p> Our analysis of the <italic>L. interrogans</italic> genome revealed the presence of the previously described insertion sequence (IS) elements IS<italic>1500</italic>, IS<italic>1501</italic> (58), reminiscent insertions of IS<italic>1533</italic> (59) and IS<italic>1502</italic> (60)and an IS recently identified that we designated IS<italic>lin1</italic> (5) (<xref ref-type="table" rid="t02">Table 2</xref>). IS<italic>1500</italic>, IS<italic>1501</italic> and IS<italic>lin1</italic> account for 24 insertions distributed throughout chromosome I. Together, IS elements and transposases comprise 2% of the genome. These elements are related to major IS families such as IS110 and IS3 that are defined by their conserved amino acid motif (DDE) in the transposase. So far all the insertions were found in intergenic regions, having no mutagenic effects on <italic>L. interrogans</italic> genes.</p><p><table-wrap id="t02"><graphic xlink:href="1414-431X-bjmbr-37-04-459-477-g5500t02.gif"/></table-wrap></p>
+
+ <p>
+ Genome features of <italic>Leptospira interrogans</italic> serovar Copenhageni. <italic>A.L.T.O. Nascimento, S. Verjovski-Almeida, M.A. Van Sluys, C.B. Monteiro-Vitorello, L.E.A. Camargo, L.A. Digiampietri, R.A. Harstkeerl, P.L. Ho, M.V. Marques, M.C. Oliveira, J.C. Setubal, D.A. Haake and E.A.L. Martins</italic>. Brazilian Journal of Medical and Biological Research, 37 (4): 459, 2004. </p>  <p> The <italic>L. interrogans</italic> genome provides new insights into biosynthesis pathway, transport families, environmental response, and pathogenesis. A broad array of regulatory system proteins enable this organism to respond to environmental signals. A new group of genes involved in LPS biosynthesis may contribute to the elucidation of serovar diversity among leptospires. Several categories of surface-exposed proteins required for colonization and survival in the mammalian host were identified. These proteins may have a role in mechanisms of leptospiral pathogenesis and protective immunity. Available vaccines are serovar-specific and have low efficacy (1). Surface-exposed proteins that are conserved among pathogenic serovars may be used for vaccine development for the prevention of leptospirosis.</p>   <p><bold>Legend of insert that is included in the print version of the Brazilian Journal of Medical and Biological Research</bold></p> 
+
+
+<p>
+    <supplementary-material id="S1" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xlink:href="1414-431X-bjmbr-37-04-459-477-encarte_screen.pdf"
+    mimetype="application/pdf">
+        <inline-graphic xlink:href="1414-431X-bjmbr-37-04-459-477-gleptospirapeq.gif"/>
+        Insert (included in the print version of the Brazilian Journal of Medical and Biological Research).
+    
+    Linear representation of the Leptospira interrogans serovar Copenhageni chromosomes (CI and CII). Genes are colored according to their biological role. Arrows indicate the direction of transcription. The pie representation indicates the distribution of the number of genes according to their biological role. The numbers below protein-producing genes correspond to gene identification numbers (IDs). 
+</supplementary-material>
+</p>
+
+<p> Additional information and insert is contained in the project website <ext-link ext-link-type="uri" xlink:href="http://aeg.lbi.ic.unicamp.br/world/lic/">http://aeg.lbi.ic.unicamp.br/world/lic/</ext-link>
+    </p>
+</sec>
+
+  </body>
+  <back>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1">
+        <mixed-citation>1. Faine S, Adler B, Bolin C &amp; Perolat P (1999). <italic>Leptospira and Leptospirosis</italic>.    MediSci, Melbourne, Australia.</mixed-citation>
+        <element-citation publication-type="book">
+          <source>Leptospira and Leptospirosis</source>
+          <date>
+            <year>1999</year>
+          </date>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Faine</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Adler</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Bolin</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Perolat</surname>
+              <given-names>P</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>2. Bharti AR, Nally JE, Ricaldi JN et al. (2003). Leptospirosis: a zoonotic    disease of global importance. <italic>Lancet Infectious Diseases</italic>, 3: 757-771.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Leptospirosis: a zoonotic disease of global importance</article-title>
+          <source>Lancet Infectious Diseases</source>
+          <date>
+            <year>2003</year>
+          </date>
+          <fpage>757</fpage>
+          <lpage>771</lpage>
+          <volume>3</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bharti</surname>
+              <given-names>AR</given-names>
+            </name>
+            <name>
+              <surname>Nally</surname>
+              <given-names>JE</given-names>
+            </name>
+            <name>
+              <surname>Ricaldi</surname>
+              <given-names>JN</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>3. Romero EC, Bernardo CC &amp; Yasuda PH (2003). Human leptospirosis: a twenty-nine-year    serological study in São Paulo, Brazil. <italic>Revista do Instituto de Medicina    Tropical de São Paulo</italic>, 45: 245-248.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Human leptospirosis: a twenty-nine-year serological study in São Paulo, Brazil</article-title>
+          <source>Revista do Instituto de Medicina Tropical de São Paulo</source>
+          <date>
+            <year>2003</year>
+          </date>
+          <fpage>245</fpage>
+          <lpage>248</lpage>
+          <volume>45</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Romero</surname>
+              <given-names>EC</given-names>
+            </name>
+            <name>
+              <surname>Bernardo</surname>
+              <given-names>CC</given-names>
+            </name>
+            <name>
+              <surname>Yasuda</surname>
+              <given-names>PH</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>4. Ren SX, Fu G, Jiang XG et al. (2003). Unique physiological and pathogenic    features of <italic>Leptospira interrogans</italic> revealed by whole-genome sequencing.    <italic>Nature</italic>, 422: 888-893.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Unique physiological and pathogenic features of Leptospira interrogans revealed by whole-genome sequencing</article-title>
+          <source>Nature</source>
+          <date>
+            <year>2003</year>
+          </date>
+          <fpage>888</fpage>
+          <lpage>893</lpage>
+          <volume>422</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ren</surname>
+              <given-names>SX</given-names>
+            </name>
+            <name>
+              <surname>Fu</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Jiang</surname>
+              <given-names>XG</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>5. Nascimento ALTO, Ko AI, Martins EAL et al. (2004). Comparative genomics    of two <italic>Leptospira interrogans </italic>serovars<italic> </italic>reveals novel insights    into physiology and pathogenesis. <italic>Journal of Bacteriology</italic> (in press).</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Comparative genomics of two Leptospira interrogans serovars reveals novel insights into physiology and pathogenesis</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>2004</year>
+          </date>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nascimento</surname>
+              <given-names>ALTO</given-names>
+            </name>
+            <name>
+              <surname>Ko</surname>
+              <given-names>AI</given-names>
+            </name>
+            <name>
+              <surname>Martins</surname>
+              <given-names>EAL</given-names>
+            </name>
+          </person-group>
+          <comment>in press</comment>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>6. Simpson AJ, Reinach FC, Arruda P et al. (2000). The genome sequence of    the plant pathogen <italic>Xylella fastidiosa</italic>. <italic>Nature</italic>, 406: 151-157.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>The genome sequence of the plant pathogen Xylella fastidiosa</article-title>
+          <source>Nature</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>151</fpage>
+          <lpage>157</lpage>
+          <volume>406</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Simpson</surname>
+              <given-names>AJ</given-names>
+            </name>
+            <name>
+              <surname>Reinach</surname>
+              <given-names>FC</given-names>
+            </name>
+            <name>
+              <surname>Arruda</surname>
+              <given-names>P</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>7. Van Sluys MA, de Oliveira MC, Monteiro-Vitorello CB et al. (2003). Comparative    analyses of the complete genome sequences of Pierce's disease and citrus variegated    chlorosis strains of <italic>Xylella fastidiosa</italic>. <italic>Journal of Bacteriology</italic>,    185: 1018-1026.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Comparative analyses of the complete genome sequences of Pierce's disease and citrus variegated chlorosis strains of Xylella fastidiosa</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>2003</year>
+          </date>
+          <fpage>1018</fpage>
+          <lpage>1026</lpage>
+          <volume>185</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Van Sluys</surname>
+              <given-names>MA</given-names>
+            </name>
+            <name>
+              <surname>de Oliveira</surname>
+              <given-names>MC</given-names>
+            </name>
+            <name>
+              <surname>Monteiro-Vitorello</surname>
+              <given-names>CB</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>8. Swofford DL (2000). <italic>PAUP</italic>*-<italic>Phylogenetic Analysis Using Parsimony    </italic>(*<italic>and other methods</italic>). Version 4. Sinauer Associates, Sunderland,    MA, USA.</mixed-citation>
+        <element-citation publication-type="book">
+          <source>PAUP*-Phylogenetic Analysis Using Parsimony (*and other methods)</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Swofford</surname>
+              <given-names>DL</given-names>
+            </name>
+          </person-group>
+          <comment>Version 4</comment>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>9. Ochman H, Elwyn S &amp; Moran NA (1999). Calibrating bacterial evolution.    <italic>Proceedings of the National Academy of Sciences, USA</italic>, 96: 12638-12643.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Calibrating bacterial evolution</article-title>
+          <source>Proceedings of the National Academy of Sciences, USA</source>
+          <date>
+            <year>1999</year>
+          </date>
+          <fpage>12638</fpage>
+          <lpage>12643</lpage>
+          <volume>96</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ochman</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Elwyn</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Moran</surname>
+              <given-names>NA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>10. Messer W (2002). The bacterial replication initiator DnaA. DnaA and oriC,    the bacterial mode to initiate DNA replication. <italic>FEMS Microbiology Reviews</italic>,    26: 355-374.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>The bacterial replication initiator DnaA: DnaA and oriC, the bacterial mode to initiate DNA replication</article-title>
+          <source>FEMS Microbiology Reviews</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>355</fpage>
+          <lpage>374</lpage>
+          <volume>26</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Messer</surname>
+              <given-names>W</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>11. Lobry JR (1996). Asymmetric substitution patterns in the two DNA strands    of bacteria. <italic>Molecular Biology and Evolution</italic>, 13: 660-665.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Asymmetric substitution patterns in the two DNA strands of bacteria</article-title>
+          <source>Molecular Biology and Evolution</source>
+          <date>
+            <year>1996</year>
+          </date>
+          <fpage>660</fpage>
+          <lpage>665</lpage>
+          <volume>13</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lobry</surname>
+              <given-names>JR</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>12. Fukunaga M &amp; Mifuchi I (1989). Unique organization of <italic>Leptospira    interrogans</italic> rRNA genes. <italic>Journal of Bacteriology</italic>, 171: 5763-5767.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Unique organization of Leptospira interrogans rRNA genes</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>1989</year>
+          </date>
+          <fpage>5763</fpage>
+          <lpage>5767</lpage>
+          <volume>171</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fukunaga</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Mifuchi</surname>
+              <given-names>I</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>13. Paster BJ &amp; Dewhirst FE (2000). Phylogenetic foundation of spirochetes.    <italic>Journal of Molecular Microbiology and Biotechnology</italic>, 2: 341-344.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Phylogenetic foundation of spirochetes</article-title>
+          <source>Journal of Molecular Microbiology and Biotechnology</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>341</fpage>
+          <lpage>344</lpage>
+          <volume>2</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Paster</surname>
+              <given-names>BJ</given-names>
+            </name>
+            <name>
+              <surname>Dewhirst</surname>
+              <given-names>FE</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>14. Postic D, Riquelme-Sertour N, Merien F, Perolat P &amp; Baranton G (2000).    Interest of partial 16S rDNA gene sequences to resolve heterogeneities between    <italic>Leptospira</italic> collections: application to <italic>L. meyeri</italic>. <italic>Research    in Microbiology</italic>, 151: 333-341.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Interest of partial 16S rDNA gene sequences to resolve heterogeneities between Leptospira collections: application to L. meyeri</article-title>
+          <source>Research in Microbiology</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>333</fpage>
+          <lpage>341</lpage>
+          <volume>151</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Postic</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Riquelme-Sertour</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Merien</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Perolat</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Baranton</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>15. Heidelberg JF, Eisen JA, Nelson WC et al. (2000). DNA sequence of both    chromosomes of the cholera pathogen <italic>Vibrio cholerae</italic>. <italic>Nature</italic>, 406:    477-483.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>DNA sequence of both chromosomes of the cholera pathogen Vibrio cholerae</article-title>
+          <source>Nature</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>477</fpage>
+          <lpage>483</lpage>
+          <volume>406</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Heidelberg</surname>
+              <given-names>JF</given-names>
+            </name>
+            <name>
+              <surname>Eisen</surname>
+              <given-names>JA</given-names>
+            </name>
+            <name>
+              <surname>Nelson</surname>
+              <given-names>WC et al.</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>16. Salanoubat M, Genin S, Artiguenave F et al. (2002). Genome sequence of    the plant pathogen <italic>Ralstonia solanacearum</italic>. <italic>Nature</italic>, 415: 497-502.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Genome sequence of the plant pathogen Ralstonia solanacearum</article-title>
+          <source>Nature</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>497</fpage>
+          <lpage>502</lpage>
+          <volume>415</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Salanoubat</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Genin</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Artiguenave</surname>
+              <given-names>F et al.</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>17. Bourhy P &amp; Saint Girons I (2000). Localization of the <italic>Leptospira    interrogans</italic> metF gene on the CII secondary chromosome. <italic>FEMS Microbiology    Letters</italic>, 191: 259-263.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Localization of the Leptospira interrogans metF gene on the CII secondary chromosome</article-title>
+          <source>FEMS Microbiology Letters</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>259</fpage>
+          <lpage>263</lpage>
+          <volume>191</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bourhy</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Saint Girons</surname>
+              <given-names>I</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>18. Guegan R, Camadro JM, Saint Girons I &amp; Picardeau M (2003). <italic>Leptospira</italic>    spp. possess a complete haem biosynthetic pathway and are able to use exogenous    haem sources. <italic>Molecular Microbiology</italic>, 49: 745-754.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Leptospira spp. possess a complete haem biosynthetic pathway and are able to use exogenous haem sources</article-title>
+          <source>Molecular Microbiology</source>
+          <date>
+            <year>2003</year>
+          </date>
+          <fpage>745</fpage>
+          <lpage>754</lpage>
+          <volume>49</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Guegan</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Camadro</surname>
+              <given-names>JM</given-names>
+            </name>
+            <name>
+              <surname>Saint Girons</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Picardeau</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>19. Rodionov DA, Vitreschak AG, Mironov AA &amp; Gelfand MS (2003). Comparative    genomics of the vitamin B12 metabolism and regulation in prokaryotes. <italic>Journal    of Biological Chemistry</italic>, 278: 41148-41159.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Comparative genomics of the vitamin B12 metabolism and regulation in prokaryotes</article-title>
+          <source>Journal of Biological Chemistry</source>
+          <date>
+            <year>2003</year>
+          </date>
+          <fpage>41148</fpage>
+          <lpage>41159</lpage>
+          <volume>278</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rodionov</surname>
+              <given-names>DA</given-names>
+            </name>
+            <name>
+              <surname>Vitreschak</surname>
+              <given-names>AG</given-names>
+            </name>
+            <name>
+              <surname>Mironov</surname>
+              <given-names>AA</given-names>
+            </name>
+            <name>
+              <surname>Gelfand</surname>
+              <given-names>MS</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>20. Spencer JB, Stolowich NJ, Roessner CA &amp; Scott AI (1993). The <italic>Escherichia    coli</italic> cysG gene encodes the multifunctional protein, siroheme synthase. <italic>FEBS    Letters</italic>, 335: 57-60.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>The Escherichia coli cysG gene encodes the multifunctional protein, siroheme synthase</article-title>
+          <source>FEBS Letters</source>
+          <date>
+            <year>1993</year>
+          </date>
+          <fpage>57</fpage>
+          <lpage>60</lpage>
+          <volume>335</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Spencer</surname>
+              <given-names>JB</given-names>
+            </name>
+            <name>
+              <surname>Stolowich</surname>
+              <given-names>NJ</given-names>
+            </name>
+            <name>
+              <surname>Roessner</surname>
+              <given-names>CA</given-names>
+            </name>
+            <name>
+              <surname>Scott</surname>
+              <given-names>AI</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>21. Paulsen IT, Nguyen L, Sliwinski MK, Rabus R &amp; Saier Jr MH (2000).    Microbial genome analyses: comparative transport capabilities in eighteen prokaryotes.    <italic>Journal of Molecular Biology</italic>, 301: 75-100.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Microbial genome analyses: comparative transport capabilities in eighteen prokaryotes</article-title>
+          <source>Journal of Molecular Biology</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>75</fpage>
+          <lpage>100</lpage>
+          <volume>301</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Paulsen</surname>
+              <given-names>IT</given-names>
+            </name>
+            <name>
+              <surname>Nguyen</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Sliwinski</surname>
+              <given-names>MK</given-names>
+            </name>
+            <name>
+              <surname>Rabus</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Saier Jr</surname>
+              <given-names>MH</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>22. Meidanis J, Braga MD &amp; Verjovski-Almeida S (2002). Whole-genome analysis    of transporters in the plant pathogen <italic>Xylella fastidiosa</italic>. <italic>Microbiology    and Molecular Biology</italic> <italic>Reviews</italic>, 66: 272-299.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Whole-genome analysis of transporters in the plant pathogen Xylella fastidiosa</article-title>
+          <source>Microbiology and Molecular Biology Reviews</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>272</fpage>
+          <lpage>299</lpage>
+          <volume>66</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Meidanis</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Braga</surname>
+              <given-names>MD</given-names>
+            </name>
+            <name>
+              <surname>Verjovski-Almeida</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>23. Kammler M, Schon C &amp; Hantke K (1993). Characterization of the ferrous    iron uptake system of <italic>Escherichia coli</italic>. <italic>Journal of Bacteriology</italic>,    175: 6212-6219.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Characterization of the ferrous iron uptake system of Escherichia coli</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>1993</year>
+          </date>
+          <fpage>6212</fpage>
+          <lpage>6219</lpage>
+          <volume>175</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kammler</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Schon</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Hantke</surname>
+              <given-names>K</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>24. Vujaskovic Z, Batinic-Haberle I, Rabbani ZN, Feng QF, Kang SK, Spasojevic    I, Samulski TV, Fridovich I, Dewhirst MW &amp; Anscher MS (2002). A small molecular    weight catalytic metalloporphyrin antioxidant with superoxide dismutase (SOD)    mimetic properties protects lungs from radiation-induced injury. <italic>Free Radical    Biology and Medicine</italic>, 33: 857-863.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>A small molecular weight catalytic metalloporphyrin antioxidant with superoxide dismutase (SOD) mimetic properties protects lungs from radiation-induced injury</article-title>
+          <source>Free Radical Biology and Medicine</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>857</fpage>
+          <lpage>863</lpage>
+          <volume>33</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vujaskovic</surname>
+              <given-names>Z</given-names>
+            </name>
+            <name>
+              <surname>Batinic-Haberle</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Rabbani</surname>
+              <given-names>ZN</given-names>
+            </name>
+            <name>
+              <surname>Feng</surname>
+              <given-names>QF</given-names>
+            </name>
+            <name>
+              <surname>Kang</surname>
+              <given-names>SK</given-names>
+            </name>
+            <name>
+              <surname>Spasojevic</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Samulski</surname>
+              <given-names>TV</given-names>
+            </name>
+            <name>
+              <surname>Fridovich</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Dewhirst</surname>
+              <given-names>MW</given-names>
+            </name>
+            <name>
+              <surname>Anscher</surname>
+              <given-names>MS</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>25. Galperin MY, Nikolskaya AN &amp; Koonin EV (2001). Novel domains of the    prokaryotic two-component signal transduction systems. <italic>FEMS Microbiology    Letters</italic>, 203: 11-21.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Novel domains of the prokaryotic two-component signal transduction systems</article-title>
+          <source>FEMS Microbiology Letters</source>
+          <date>
+            <year>2001</year>
+          </date>
+          <fpage>11</fpage>
+          <lpage>21</lpage>
+          <volume>203</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Galperin</surname>
+              <given-names>MY</given-names>
+            </name>
+            <name>
+              <surname>Nikolskaya</surname>
+              <given-names>AN</given-names>
+            </name>
+            <name>
+              <surname>Koonin</surname>
+              <given-names>EV</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation>26. Taylor BL &amp; Zhulin IB (1999). PAS domains: internal sensors of oxygen,    redox potential, and light. <italic>Microbiology and Molecular Biology Reviews</italic>,    63: 479-506.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>PAS domains: internal sensors of oxygen, redox potential, and light</article-title>
+          <source>Microbiology and Molecular Biology Reviews</source>
+          <date>
+            <year>2001</year>
+          </date>
+          <fpage>479</fpage>
+          <lpage>506</lpage>
+          <volume>63</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Taylor</surname>
+              <given-names>BL</given-names>
+            </name>
+            <name>
+              <surname>Zhulin</surname>
+              <given-names>IB</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation>27. Rickman L, Saldanha JW, Hunt DM, Hoar DN, Colston MJ, Millar JB &amp;    Buxton RS (2004). A two-component signal transduction system with a PAS domain-containing    sensor is required for virulence of <italic>Mycobacterium tuberculosis</italic> in mice.    <italic>Biochemical and Biophysical Research Communications</italic>, 314: 259-267.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>A two-component signal transduction system with a PAS domain-containing sensor is required for virulence of Mycobacterium tuberculosis in mice</article-title>
+          <source>Biochemical and Biophysical Research Communications</source>
+          <date>
+            <year>2004</year>
+          </date>
+          <fpage>259</fpage>
+          <lpage>267</lpage>
+          <volume>314</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rickman</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Saldanha</surname>
+              <given-names>JW</given-names>
+            </name>
+            <name>
+              <surname>Hunt</surname>
+              <given-names>DM</given-names>
+            </name>
+            <name>
+              <surname>Hoar</surname>
+              <given-names>DN</given-names>
+            </name>
+            <name>
+              <surname>Colston</surname>
+              <given-names>MJ</given-names>
+            </name>
+            <name>
+              <surname>Millar</surname>
+              <given-names>JB</given-names>
+            </name>
+            <name>
+              <surname>Buxton</surname>
+              <given-names>RS</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <mixed-citation>28. Ausmees N, Mayer R, Weinhouse H, Volman G, Amikam D, Benziman M &amp;    Lindberg M (2001). Genetic data indicate that proteins containing the GGDEF    domain possess diguanylate cyclase activity. <italic>FEMS Microbiology Letters</italic>,    204: 163-167.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Genetic data indicate that proteins containing the GGDEF domain possess diguanylate cyclase activity</article-title>
+          <source>FEMS Microbiology Letters</source>
+          <date>
+            <year>2001</year>
+          </date>
+          <fpage>163</fpage>
+          <lpage>167</lpage>
+          <volume>204</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ausmees</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Mayer</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Weinhouse</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Volman</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Amikam</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Benziman</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Lindberg</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation>29. Anantharaman V &amp; Aravind L (2000). Cache - a signaling domain common    to animal Ca(2+)-channel subunits and a class of prokaryotic chemotaxis receptors.    <italic>Trends in Biochemical</italic> <italic>Sciences</italic>, 25: 535-537.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Cache - a signaling domain common to animal Ca(2+)-channel subunits and a class of prokaryotic chemotaxis receptors</article-title>
+          <source>Trends in Biochemical Sciences</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>535</fpage>
+          <lpage>537</lpage>
+          <volume>25</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Anantharaman</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Aravind</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation>30. Ho YS, Burden LM &amp; Hurley JH (2000). Structure of the GAF domain,    a ubiquitous signaling motif and a new class of cyclic GMP receptor. <italic>EMBO    Journal</italic>, 19: 5288-5299.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Structure of the GAF domain, a ubiquitous signaling motif and a new class of cyclic GMP receptor</article-title>
+          <source>EMBO Journal</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>5288</fpage>
+          <lpage>5299</lpage>
+          <volume>19</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ho</surname>
+              <given-names>YS</given-names>
+            </name>
+            <name>
+              <surname>Burden</surname>
+              <given-names>LM</given-names>
+            </name>
+            <name>
+              <surname>Hurley</surname>
+              <given-names>JH</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation>31. Subramanian G, Koonin EV &amp; Aravind L (2000). Comparative genome analysis    of the pathogenic spirochetes <italic>Borrelia burgdorferi</italic> and <italic>Treponema pallidum</italic>.    <italic>Infection and Immunity</italic>, 68: 1633-1648.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Comparative genome analysis of the pathogenic spirochetes Borrelia burgdorferi and Treponema pallidum</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>1633</fpage>
+          <lpage>1648</lpage>
+          <volume>68</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Subramanian</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Koonin</surname>
+              <given-names>EV</given-names>
+            </name>
+            <name>
+              <surname>Aravind</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation>32. Bourret RB, Charon NW, Stock AM &amp; West AH (2002). Bright lights, abundant    operons-fluorescence and genomic technologies advance studies of bacterial locomotion    and signal transduction: review of the BLAST meeting, Cuernavaca, Mexico, 14    to 19 January 2001. <italic>Journal of Bacteriology</italic>, 184: 1-17.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Bright lights, abundant operons-fluorescence and genomic technologies advance studies of bacterial locomotion and signal transduction: review of the BLAST meeting, Cuernavaca, Mexico, 14 to 19 January 2001</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>1</fpage>
+          <lpage>17</lpage>
+          <volume>184</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bourret</surname>
+              <given-names>RB</given-names>
+            </name>
+            <name>
+              <surname>Charon</surname>
+              <given-names>NW</given-names>
+            </name>
+            <name>
+              <surname>Stock</surname>
+              <given-names>AM</given-names>
+            </name>
+            <name>
+              <surname>West</surname>
+              <given-names>AH</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation>33. Fraser CM, Casjens S, Huang WM et al. (1997). Genomic sequence of a Lyme    disease spirochaete, <italic>Borrelia burgdorferi</italic>. <italic>Nature</italic>, 390: 580-586.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Genomic sequence of a Lyme disease spirochaete, Borrelia burgdorferi</article-title>
+          <source>Nature</source>
+          <date>
+            <year>1997</year>
+          </date>
+          <fpage>580</fpage>
+          <lpage>586</lpage>
+          <volume>390</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fraser</surname>
+              <given-names>CM</given-names>
+            </name>
+            <name>
+              <surname>Casjens</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Huang</surname>
+              <given-names>WM</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <mixed-citation>34. Fraser CM, Norris SJ, Weinstock GM et al. (1998). Complete genome sequence    of <italic>Treponema pallidum</italic>, the syphilis spirochete. <italic>Science</italic>, 281:    375-388.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Complete genome sequence of Treponema pallidum, the syphilis spirochete</article-title>
+          <source>Science</source>
+          <date>
+            <year>1998</year>
+          </date>
+          <fpage>375</fpage>
+          <lpage>388</lpage>
+          <volume>281</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fraser</surname>
+              <given-names>CM</given-names>
+            </name>
+            <name>
+              <surname>Norris</surname>
+              <given-names>SJ</given-names>
+            </name>
+            <name>
+              <surname>Weinstock</surname>
+              <given-names>GM</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B35">
+        <mixed-citation>35. Ge Y, Old IG, Saint Girons I &amp; Charon NW (1997). Molecular characterization    of a large <italic>Borrelia burgdorferi</italic> motility operon which is initiated by    a consensus sigma70 promoter. <italic>Journal of Bacteriology</italic>, 179: 2289-2299.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Molecular characterization of a large Borrelia burgdorferi motility operon which is initiated by a consensus sigma70 promoter</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>1997</year>
+          </date>
+          <fpage>2289</fpage>
+          <lpage>2299</lpage>
+          <volume>179</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ge</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Old</surname>
+              <given-names>IG</given-names>
+            </name>
+            <name>
+              <surname>Saint Girons</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Charon</surname>
+              <given-names>NW</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B36">
+        <mixed-citation>36. ter Huurne AA, Muir S, van Houten M, van der Zeijst BA, Gaastra W &amp;    Kusters JG (1994). Characterization of three putative <italic>Serpulina hyodysenteriae</italic>    hemolysins. <italic>Microbial Pathogenesis</italic>, 16: 269-282.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Characterization of three putative Serpulina hyodysenteriae hemolysins</article-title>
+          <source>Microbial Pathogenesis</source>
+          <date>
+            <year>1994</year>
+          </date>
+          <fpage>269</fpage>
+          <lpage>282</lpage>
+          <volume>16</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>ter Huurne</surname>
+              <given-names>AA</given-names>
+            </name>
+            <name>
+              <surname>Muir</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>van Houten</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>van der Zeijst</surname>
+              <given-names>BA</given-names>
+            </name>
+            <name>
+              <surname>Gaastra</surname>
+              <given-names>W</given-names>
+            </name>
+            <name>
+              <surname>Kusters</surname>
+              <given-names>JG</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B37">
+        <mixed-citation>37. Squires C &amp; Squires CL (1992). The Clp proteins: proteolysis regulators    or molecular chaperones? <italic>Journal of</italic> <italic>Bacteriology</italic>, 174: 1081-1085.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>The Clp proteins: proteolysis regulators or molecular chaperones?</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>1992</year>
+          </date>
+          <fpage>1081</fpage>
+          <lpage>1085</lpage>
+          <volume>174</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Squires</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Squires</surname>
+              <given-names>CL</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B38">
+        <mixed-citation>38. Beem JE, Nesbitt WE &amp; Leung KP (1999). Cloning of <italic>Prevotella intermedia</italic>    loci demonstrating multiple hemolytic domains. <italic>Oral Microbiology and Immunology</italic>,    14: 143-152.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Cloning of Prevotella intermedia loci demonstrating multiple hemolytic domains</article-title>
+          <source>Oral Microbiology and Immunology</source>
+          <date>
+            <year>1999</year>
+          </date>
+          <fpage>143</fpage>
+          <lpage>152</lpage>
+          <volume>14</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Beem</surname>
+              <given-names>JE</given-names>
+            </name>
+            <name>
+              <surname>Nesbitt</surname>
+              <given-names>WE</given-names>
+            </name>
+            <name>
+              <surname>Leung</surname>
+              <given-names>KP</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B39">
+        <mixed-citation>39. Lee SH, Kim KA, Park YG, Seong IW, Kim MJ &amp; Lee YJ (2000). Identification    and partial characterization of a novel hemolysin from <italic>Leptospira interrogans</italic>    serovar lai. <italic>Gene</italic>, 254: 19-28.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Identification and partial characterization of a novel hemolysin from Leptospira interrogans serovar lai</article-title>
+          <source>Gene</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>19</fpage>
+          <lpage>28</lpage>
+          <volume>254</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lee</surname>
+              <given-names>SH</given-names>
+            </name>
+            <name>
+              <surname>Kim</surname>
+              <given-names>KA</given-names>
+            </name>
+            <name>
+              <surname>Park</surname>
+              <given-names>YG</given-names>
+            </name>
+            <name>
+              <surname>Seong</surname>
+              <given-names>IW</given-names>
+            </name>
+            <name>
+              <surname>Kim</surname>
+              <given-names>MJ</given-names>
+            </name>
+            <name>
+              <surname>Lee</surname>
+              <given-names>YJ</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B40">
+        <mixed-citation>40. Shang ES, Exner MM, Summers TA, Martinich C, Champion CI, Hancock RE &amp;    Haake DA (1995). The rare outer membrane protein, OmpL1, of pathogenic <italic>Leptospira</italic>    species is a heat-modifiable porin. <italic>Infection and Immunity</italic>, 63: 3174-3181.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>The rare outer membrane protein, OmpL1, of pathogenic Leptospira species is a heat-modifiable porin</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>1995</year>
+          </date>
+          <fpage>3174</fpage>
+          <lpage>3181</lpage>
+          <volume>63</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Shang</surname>
+              <given-names>ES</given-names>
+            </name>
+            <name>
+              <surname>Exner</surname>
+              <given-names>MM</given-names>
+            </name>
+            <name>
+              <surname>Summers</surname>
+              <given-names>TA</given-names>
+            </name>
+            <name>
+              <surname>Martinich</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Champion</surname>
+              <given-names>CI</given-names>
+            </name>
+            <name>
+              <surname>Hancock</surname>
+              <given-names>RE</given-names>
+            </name>
+            <name>
+              <surname>Haake</surname>
+              <given-names>DA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B41">
+        <mixed-citation>41. Voulhoux R, Bos MP, Geurtsen J, Mols M &amp; Tommassen J (2003). Role    of a highly conserved bacterial protein in outer membrane protein assembly.    <italic>Science</italic>, 299: 262-265.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Role of a highly conserved bacterial protein in outer membrane protein assembly</article-title>
+          <source>Science</source>
+          <date>
+            <year>2003</year>
+          </date>
+          <fpage>262</fpage>
+          <lpage>265</lpage>
+          <volume>299</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Voulhoux</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Bos</surname>
+              <given-names>MP</given-names>
+            </name>
+            <name>
+              <surname>Geurtsen</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Mols</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Tommassen</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B42">
+        <mixed-citation>42. Guffanti AA, Wei Y, Rood SV &amp; Krulwich TA (2002). An antiport mechanism    for a member of the cation diffusion facilitator family: divalent cations efflux    in exchange for K+ and H+. <italic>Molecular Microbiology</italic>, 45: 145-153.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>An antiport mechanism for a member of the cation diffusion facilitator family: divalent cations efflux in exchange for K+ and H+</article-title>
+          <source>Molecular Microbiology</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>145</fpage>
+          <lpage>153</lpage>
+          <volume>45</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Guffanti</surname>
+              <given-names>AA</given-names>
+            </name>
+            <name>
+              <surname>Wei</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Rood</surname>
+              <given-names>SV</given-names>
+            </name>
+            <name>
+              <surname>Krulwich</surname>
+              <given-names>TA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B43">
+        <mixed-citation>43. Haake DA, Chao G, Zuerner RL, Barnett JK, Barnett D, Mazel M, Matsunaga    J, Levett PN &amp; Bolin CA (2000). The leptospiral major outer membrane protein    LipL32 is a lipoprotein expressed during mammalian infection. <italic>Infection</italic>    <italic>and Immunity</italic>, 68: 2276-2285.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>The leptospiral major outer membrane protein LipL32 is a lipoprotein expressed during mammalian infection</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>2276</fpage>
+          <lpage>2285</lpage>
+          <volume>68</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Haake</surname>
+              <given-names>DA</given-names>
+            </name>
+            <name>
+              <surname>Chao</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Zuerner</surname>
+              <given-names>RL</given-names>
+            </name>
+            <name>
+              <surname>Barnett</surname>
+              <given-names>JK</given-names>
+            </name>
+            <name>
+              <surname>Barnett</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Mazel</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Matsunaga</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Levett</surname>
+              <given-names>PN</given-names>
+            </name>
+            <name>
+              <surname>Bolin</surname>
+              <given-names>CA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B44">
+        <mixed-citation>44. Haake DA, Martinich C, Summers TA, Shang ES, Pruetz JD, McCoy AM, Mazel    MK &amp; Bolin CA (1998). Characterization of leptospiral outer membrane lipoprotein    LipL36: downregulation associated with late-log-phase growth and mammalian infection.    <italic>Infection and Immunity</italic>, 66: 1579-1587.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Characterization of leptospiral outer membrane lipoprotein LipL36: downregulation associated with late-log-phase growth and mammalian infection</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>1998</year>
+          </date>
+          <fpage>1579</fpage>
+          <lpage>1587</lpage>
+          <volume>66</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Haake</surname>
+              <given-names>DA</given-names>
+            </name>
+            <name>
+              <surname>Martinich</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Summers</surname>
+              <given-names>TA</given-names>
+            </name>
+            <name>
+              <surname>Shang</surname>
+              <given-names>ES</given-names>
+            </name>
+            <name>
+              <surname>Pruetz</surname>
+              <given-names>JD</given-names>
+            </name>
+            <name>
+              <surname>McCoy</surname>
+              <given-names>AM</given-names>
+            </name>
+            <name>
+              <surname>Mazel</surname>
+              <given-names>MK</given-names>
+            </name>
+            <name>
+              <surname>Bolin</surname>
+              <given-names>CA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B45">
+        <mixed-citation>45. Shang ES, Summers TA &amp; Haake DA (1996). Molecular cloning and sequence    analysis of the gene encoding LipL41, a surface-exposed lipoprotein of pathogenic    <italic>Leptospira</italic> species. <italic>Infection and Immunity</italic>, 64: 2322-2330.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Molecular cloning and sequence analysis of the gene encoding LipL41, a surface-exposed lipoprotein of pathogenic Leptospira species</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>1996</year>
+          </date>
+          <fpage>2322</fpage>
+          <lpage>2330</lpage>
+          <volume>64</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Shang</surname>
+              <given-names>ES</given-names>
+            </name>
+            <name>
+              <surname>Summers</surname>
+              <given-names>TA</given-names>
+            </name>
+            <name>
+              <surname>Haake</surname>
+              <given-names>DA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B46">
+        <mixed-citation>46. Haake DA &amp; Matsunaga J (2002). Characterization of the leptospiral    outer membrane and description of three novel leptospiral membrane proteins.    <italic>Infection and Immunity</italic>, 70: 4936-4945.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Characterization of the leptospiral outer membrane and description of three novel leptospiral membrane proteins</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>4936</fpage>
+          <lpage>4945</lpage>
+          <volume>70</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Haake</surname>
+              <given-names>DA</given-names>
+            </name>
+            <name>
+              <surname>Matsunaga</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B47">
+        <mixed-citation>47. Haake DA (2000). Spirochaetal lipoproteins and pathogenesis. <italic>Microbiology</italic>,    146 (Part 7): 1491-1504.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Spirochaetal lipoproteins and pathogenesis</article-title>
+          <source>Microbiology</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>1491</fpage>
+          <lpage>1504</lpage>
+          <volume>146</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Haake</surname>
+              <given-names>DA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B48">
+        <mixed-citation>48. Schuster B &amp; Sleytr UB (2000). S-layer-supported lipid membranes.    <italic>Journal of Biotechnology</italic>, 74: 233-254.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>S-layer-supported lipid membranes</article-title>
+          <source>Journal of Biotechnology</source>
+          <date>
+            <year>2000</year>
+          </date>
+          <fpage>233</fpage>
+          <lpage>254</lpage>
+          <volume>74</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Schuster</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Sleytr</surname>
+              <given-names>UB</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B49">
+        <mixed-citation>49. Matsunaga J, Young TA, Barnett JK, Barnett D, Bolin CA &amp; Haake DA    (2002). Novel 45-kilodalton leptospiral protein that is processed to a 31-kilodalton    growth-phase-regulated peripheral membrane protein. <italic>Infection and Immunity</italic>,    70: 323-334.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Novel 45-kilodalton leptospiral protein that is processed to a 31-kilodalton growth-phase-regulated peripheral membrane protein</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>323</fpage>
+          <lpage>334</lpage>
+          <volume>70</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Matsunaga</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Young</surname>
+              <given-names>TA</given-names>
+            </name>
+            <name>
+              <surname>Barnett</surname>
+              <given-names>JK</given-names>
+            </name>
+            <name>
+              <surname>Barnett</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Bolin</surname>
+              <given-names>CA</given-names>
+            </name>
+            <name>
+              <surname>Haake</surname>
+              <given-names>DA</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B50">
+        <mixed-citation>50. Cameron CE, Castro C, Lukehart SA &amp; Van Voorhis WC (1998). Function    and protective capacity of <italic>Treponema</italic> <italic>pallidum</italic> subsp. <italic>pallidum</italic>    glycerophosphodiester phosphodiesterase. <italic>Infection and Immunity</italic>, 66:    5763-5770.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Function and protective capacity of Treponema pallidum subsp: pallidum glycerophosphodiester phosphodiesterase</article-title>
+          <source>Infection and Immunity</source>
+          <date>
+            <year>1998</year>
+          </date>
+          <fpage>5763</fpage>
+          <lpage>5770</lpage>
+          <volume>66</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Cameron</surname>
+              <given-names>CE</given-names>
+            </name>
+            <name>
+              <surname>Castro</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Lukehart</surname>
+              <given-names>SA</given-names>
+            </name>
+            <name>
+              <surname>Van Voorhis</surname>
+              <given-names>WC</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B51">
+        <mixed-citation>51. De Mot R &amp; Vanderleyden J (1994). The C-terminal sequence conservation    between OmpA-related outer membrane proteins and MotB suggests a common function    in both gram-positive and gram-negative bacteria, possibly in the interaction    of these domains with peptidoglycan. <italic>Molecular</italic> <italic>Microbiology</italic>, 12:    333-334.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>The C-terminal sequence conservation between OmpA-related outer membrane proteins and MotB suggests a common function in both gram-positive and gram-negative bacteria, possibly in the interaction of these domains with peptidoglycan</article-title>
+          <source>Molecular Microbiology</source>
+          <date>
+            <year>1994</year>
+          </date>
+          <fpage>333</fpage>
+          <lpage>334</lpage>
+          <volume>12</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>De Mot</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Vanderleyden</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B52">
+        <mixed-citation>52. Kloda A &amp; Martinac B (2001). Structural and functional differences    between two homologous mechanosensitive channels of <italic>Methanococcus jannaschii</italic>.    <italic>EMBO Journal</italic>, 20: 1888-1896.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Structural and functional differences between two homologous mechanosensitive channels of Methanococcus jannaschii</article-title>
+          <source>EMBO Journal</source>
+          <date>
+            <year>2001</year>
+          </date>
+          <fpage>1888</fpage>
+          <lpage>1896</lpage>
+          <volume>20</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kloda</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Martinac</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B53">
+        <mixed-citation>53. de la Pena-Moctezuma A, Bulach DM, Kalambaheti T &amp; Adler B (1999).    Comparative analysis of the LPS biosynthetic loci of the genetic subtypes of    serovar Hardjo: <italic>Leptospira interrogans</italic> subtype <italic>Hardjoprajitno</italic>    and <italic>Leptospira borgpetersenii</italic> subtype <italic>Hardjobovis</italic>. <italic>FEMS</italic>    <italic>Microbiology Letters</italic>, 177: 319-326.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Comparative analysis of the LPS biosynthetic loci of the genetic subtypes of serovar Hardjo: Leptospira interrogans subtype Hardjoprajitno and Leptospira borgpetersenii subtype Hardjobovis</article-title>
+          <source>FEMS Microbiology Letters</source>
+          <date>
+            <year>1999</year>
+          </date>
+          <fpage>319</fpage>
+          <lpage>326</lpage>
+          <volume>177</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>de la Pena-Moctezuma</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Bulach</surname>
+              <given-names>DM</given-names>
+            </name>
+            <name>
+              <surname>Kalambaheti</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Adler</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B54">
+        <mixed-citation>54. Mitchison M, Bulach DM, Vinh T, Rajakumar K, Faine S &amp; Adler B (1997).    Identification and characterization of the dTDP-rhamnose biosynthesis and transfer    genes of the lipopolysaccharide-related rfb locus in <italic>Leptospira</italic> <italic>interrogans    </italic>serovar Copenhageni. <italic>Journal of Bacteriology</italic>, 179: 1262-1267.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Identification and characterization of the dTDP-rhamnose biosynthesis and transfer genes of the lipopolysaccharide-related rfb locus in Leptospira interrogans serovar Copenhageni</article-title>
+          <source>Journal of Bacteriology</source>
+          <date>
+            <year>1997</year>
+          </date>
+          <fpage>1262</fpage>
+          <lpage>1267</lpage>
+          <volume>179</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mitchison</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Bulach</surname>
+              <given-names>DM</given-names>
+            </name>
+            <name>
+              <surname>Vinh</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Rajakumar</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Faine</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Adler</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B55">
+        <mixed-citation>55. Raetz CR &amp; Whitfield C (2002). Lipopolysaccharide endotoxins. <italic>Annual    Review of Biochemistry</italic>, 71: 635-700.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Lipopolysaccharide endotoxins</article-title>
+          <source>Annual Review of Biochemistry</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>635</fpage>
+          <lpage>700</lpage>
+          <volume>71</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Raetz</surname>
+              <given-names>CR</given-names>
+            </name>
+            <name>
+              <surname>Whitfield</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B56">
+        <mixed-citation>56. de Souza L &amp; Koury MC (1992). Isolation and biological activities    of endotoxin from <italic>Leptospira interrogans</italic>. <italic>Canadian Journal of Microbiology</italic>,    38: 284-289.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Isolation and biological activities of endotoxin from Leptospira interrogans</article-title>
+          <source>Canadian Journal of Microbiology</source>
+          <date>
+            <year>1992</year>
+          </date>
+          <fpage>284</fpage>
+          <lpage>289</lpage>
+          <volume>38</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>de Souza</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Koury</surname>
+              <given-names>MC</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B57">
+        <mixed-citation>57. Werts C, Tapping RI, Mathison JC et al. (2001). Leptospiral lipopolysaccharide    activates cells through a TLR2-dependent mechanism. <italic>Nature Immunology</italic>,    2: 346-352.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Leptospiral lipopolysaccharide activates cells through a TLR2-dependent mechanism</article-title>
+          <source>Nature Immunology</source>
+          <date>
+            <year>2001</year>
+          </date>
+          <fpage>346</fpage>
+          <lpage>352</lpage>
+          <volume>2</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Werts</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Tapping</surname>
+              <given-names>RI</given-names>
+            </name>
+            <name>
+              <surname>Mathison</surname>
+              <given-names>JC</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B58">
+        <mixed-citation>58. Boursaux-Eude C, Saint Girons I &amp; Zuerner R (1995). IS1500, an IS3-like    element from <italic>Leptospira interrogans</italic>. <italic>Microbiology</italic>, 141 (Part 9):    2165-2173.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>IS1500, an IS3-like element from Leptospira interrogans</article-title>
+          <source>Microbiology</source>
+          <date>
+            <year>1995</year>
+          </date>
+          <fpage>2165</fpage>
+          <lpage>2173</lpage>
+          <volume>141</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Boursaux-Eude</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Saint Girons</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Zuerner</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B59">
+        <mixed-citation>59. Zuerner RL (1994). Nucleotide sequence analysis of IS1533 from <italic>Leptospira    borgpetersenii</italic>: identification and expression of two IS-encoded proteins.    <italic>Plasmid</italic>, 31: 1-11.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Nucleotide sequence analysis of IS1533 from Leptospira borgpetersenii: identification and expression of two IS-encoded proteins</article-title>
+          <source>Plasmid</source>
+          <date>
+            <year>1994</year>
+          </date>
+          <fpage>1</fpage>
+          <lpage>11</lpage>
+          <volume>31</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zuerner</surname>
+              <given-names>RL</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+      <ref id="B60">
+        <mixed-citation>60. Zuerner RL &amp; Huang WM (2002). Analysis of a <italic>Leptospira interrogans</italic>    locus containing DNA replication genes and a new IS, IS1502. <italic>FEMS Microbiology    Letters</italic>, 215: 175-182.</mixed-citation>
+        <element-citation publication-type="journal">
+          <article-title>Analysis of a Leptospira interrogans locus containing DNA replication genes and a new IS, IS1502</article-title>
+          <source>FEMS Microbiology Letters</source>
+          <date>
+            <year>2002</year>
+          </date>
+          <fpage>175</fpage>
+          <lpage>182</lpage>
+          <volume>215</volume>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zuerner</surname>
+              <given-names>RL</given-names>
+            </name>
+            <name>
+              <surname>Huang</surname>
+              <given-names>WM</given-names>
+            </name>
+          </person-group>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <ack>
+        <title>Acknowledgments</title>
+        <p>We are deeply indebted to Drs. I. Raw (Fundação Butantan, São Paulo, SP, Brazil) for use of laboratory facilities and valuable support. We thank Dr. Albert I. Ko (Fiocruz, Salvador, BA, Brazil) for the strain Fiocruz L1-130, the Agronomical and Environmental Genomes (AEG) Consortium of the network Organization for Nucleotide Sequencing and Analysis (ONSA) for the genome sequencing data, and Dr. L.C.C. Leite (Instituto Butantan) for a critical reading of this manuscript.</p>
+    </ack>
+    <fn-group>
+        <fn id="correspondence" fn-type="corresp">
+          <label>Correspondence and Footnotes</label>
+          <p><bold>Address for correspondence:</bold> A.L.T.O. Nascimento, Centro de Biotecnologia, Instituto Butantan, Av. Vital Brazil, 1500, 05503-900 São Paulo, SP, Brasil. Fax: +55-11-3726-1505. E-mail: <email xlink:href="tabet@butantan.gov.br">tabet@butantan.gov.br</email></p>
+        </fn>
+        <fn fn-type="financial-disclosure">
+            <p> Research supported by FAPESP and CNPq. Received February 20, 2004. Accepted March 8, 2004. </p>
+        </fn>
+    </fn-group>
+    
+    <sec id="interviews">
+        <title>Interviews</title>
+
+        <sec id="5500_01">
+            <title>Interview with Dr. José Fernando Perez</title>
+            <p>
+                <inline-graphic xlink:href="1414-431X-bjmbr-37-04-459-477-dr-peres.jpg"/>
+                Dr. José Fernando Perez - Scientific Director, FAPESP
+            </p>
+            <p>
+                <media mime-subtype="mp4" mimetype="video" xlink:href="1414-431X-bjmbr-37-04-459-477-entrevista1.mp4"></media>
+            </p>
+        </sec>
+
+        <sec id="5500_02">
+            <title>Interview with Prof. Lewis Joel Greene [BJMBR Editor]</title>
+            <p>
+                <inline-graphic xlink:href="1414-431X-bjmbr-37-04-459-477-dr-lewis.jpg"/>
+                Prof. Lewis Joel Greene - BJMBR Editor
+            </p>
+            <p>
+                <media mime-subtype="mp4" mimetype="video" xlink:href="1414-431X-bjmbr-37-04-459-477-entrevista2.mp4"></media>
+            </p>
+        </sec>
+
+        <sec id="5500_03">
+            <title>Interview with Dra. Ana Lucia Nascimento [First author, Butantã Institute]</title>
+            <p>
+                <inline-graphic xlink:href="1414-431X-bjmbr-37-04-459-477-dr-lucia.jpg"/>
+                Dra. Ana Lucia Nascimento - First author - Butantã Institute
+            </p>
+            <p>
+                <media mime-subtype="mp4" mimetype="video" xlink:href="1414-431X-bjmbr-37-04-459-477-entrevista3.mp4"></media>
+            </p>
+        </sec>
+        
+    </sec>
+  </back>
+</article>
