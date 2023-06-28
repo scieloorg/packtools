@@ -547,26 +547,21 @@ def xml_pubmed_reference_list(xml_pubmed):
     xml_pubmed.append(ET.Element('ReferenceList'))
 
 
+def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
     """
     <ReferenceList>
-       <Reference>
-         <Citation>British Lung Foundation Chronic obstructive
-         pulmonary disease (COPD) statistics. [Accessed January 27,
-         2017]. </Citation>
-         <ArticleIdList>
-           <ArticleId IdType="pmcid">PMC4153410</ArticleId>
-           <ArticleId IdType="pubmed">24768240</ArticleId>
-         </ArticleIdList>
-       </Reference>
-       <Reference>
-         <Citation>Yohannes AM, Baldwin RC, Connolly MJ. Depression and
-         anxiety in elderly patients with chronic obstructive pulmonary
-         disease. Age Ageing. 2006;35(5):457–459. </Citation>
-         <ArticleIdList>
-           <ArticleId IdType="pmcid">PMC3020244</ArticleId>
-           <ArticleId IdType="pubmed">20932581</ArticleId>
-         </ArticleIdList>
-       </Reference>
+        <Title>REFERENCES</Title>
+    </ReferenceList>
+    """
+    try:
+        title = xml_tree.find('./back/ref-list/title').text
+        title_el = ET.Element('Title')
+        title_el.text = title
+        xml_pubmed.find('./ReferenceList').append(title_el)
+    except AttributeError:
+        pass
+
+
      </ReferenceList>
     """
     ...
