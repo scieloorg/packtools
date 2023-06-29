@@ -681,16 +681,13 @@ def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
       <AbstractText Label="CONCLUSION">Une meilleure estimation du fardeau économique global des facteurs de risque multiples au sein d’une population peut faciliter l’établissement des priorités et améliorer le soutien aux initiatives de prevention primaire. </AbstractText>
     </OtherAbstract>
     """
-    try:
-        abstract_el = ET.Element('OtherAbstract')
-        for lang, abstract in get_abstracts(xml_tree).items():
-            if lang != 'en':
-                abstract_el.set('Language', lang)
-                if not abstract['structured']:
-                    abstract_el.text = abstract.get('text')
-                else:
-                    for label, text in abstract.get('text').items():
-                        abstract_el.append(add_abstract_text(label, text))
-                xml_pubmed.append(abstract_el)
-    except IndexError:
-        pass
+    abstract_el = ET.Element('OtherAbstract')
+    for lang, abstract in get_abstracts(xml_tree).items():
+        if lang != 'en':
+            abstract_el.set('Language', lang)
+            if not abstract['structured']:
+                abstract_el.text = abstract.get('text')
+            else:
+                for label, text in abstract.get('text').items():
+                    abstract_el.append(add_abstract_text(label, text))
+            xml_pubmed.append(abstract_el)
