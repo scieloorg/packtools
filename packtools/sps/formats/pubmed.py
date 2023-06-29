@@ -613,17 +613,19 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
 
 def get_abstracts(xml_tree):
     abstracts = {}
-    abstract_without_tag = article_abstract.Abstract(xml_tree).abstracts_without_tags
-    for abstract in article_abstract.Abstract(xml_tree).abstracts_with_tags:
+    article_abstracts = article_abstract.Abstract(xml_tree)
+    abstract_without_tag = article_abstracts.abstracts_without_tags
+    for abstract in article_abstracts.abstracts_with_tags:
         try:
+            lang = abstract.get('lang')
             structured = abstract.get('sections')
             if structured == {}:
-                abstracts[abstract.get('lang')] = {
+                abstracts[lang] = {
                     'text': abstract_without_tag.get(abstract.get('lang')),
                     'structured': False
                 }
             else:
-                abstracts[abstract.get('lang')] = {
+                abstracts[lang] = {
                     'text': structured,
                     'structured': True
                 }
