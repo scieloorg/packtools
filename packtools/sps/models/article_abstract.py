@@ -113,7 +113,7 @@ class Abstract:
                 'sections': self.get_values_dict_with_tags('.//front//article-meta//abstract')
             }
             return out
-        except AttributeError:
+        except IndexError:
             pass
 
     @property
