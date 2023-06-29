@@ -657,16 +657,17 @@ def xml_pubmed_abstract(xml_pubmed, xml_tree):
         <AbstractText Label="CONCLUSIONS">The findings suggest...</AbstractText>
     </Abstract>
     """
+
+    abstract_el = ET.Element('Abstract')
+    abstract = get_abstracts(xml_tree).get('en')
     try:
-        abstract_el = ET.Element('Abstract')
-        abstract = get_abstracts(xml_tree).get('en')
         if not abstract['structured']:
             abstract_el.text = abstract.get('text')
         else:
             for label, text in abstract.get('text').items():
                 abstract_el.append(add_abstract_text(label, text))
         xml_pubmed.append(abstract_el)
-    except IndexError:
+    except TypeError:
         pass
 
 
