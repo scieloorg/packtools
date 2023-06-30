@@ -40,9 +40,10 @@ def create_journal_title(item, citation):
 
 
 def create_author(item, citation):
-    if item.get('author') is not None:
+    author = item.get('main_author')
+    if author != {}:
         el = ET.Element('author')
-        el.text = item.get('author')
+        el.text = ' '.join([author.get('surname'), author.get('given_name')])
         citation.append(el)
 
 
