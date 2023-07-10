@@ -1,0 +1,1029 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">rbca</journal-id>
+      <journal-title-group>
+        <journal-title>Brazilian Journal of Poultry Science</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Braz. J. Poult. Sci.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1516-635X</issn>
+      <issn pub-type="epub">1806-9061</issn>
+      <publisher>
+        <publisher-name>Fundação de Apoio à Ciência e Tecnologia Avicolas</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">RBjKDpmR6L3PJS8msstpLJG</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1516-635X2023000300300</article-id>
+      <article-id pub-id-type="doi">10.1590/1806-9061-2022-1705</article-id>
+      <article-id pub-id-type="other">00300</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Original Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Determination of the Gastrointestinal Passage Rate Using Dexa Technology and Barium Sulfate As a Marker in Japanese Quails</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-7109-3273</contrib-id>
+          <name>
+            <surname>Raimundo</surname>
+            <given-names>EKM</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>I</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-7962-4670</contrib-id>
+          <name>
+            <surname>Carvalho</surname>
+            <given-names>LC</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>I</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-7741-8793</contrib-id>
+          <name>
+            <surname>Sousa</surname>
+            <given-names>MGBL</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>I</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-5123-565X</contrib-id>
+          <name>
+            <surname>Veras</surname>
+            <given-names>AG</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>I</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-9002-3606</contrib-id>
+          <name>
+            <surname>Lima</surname>
+            <given-names>MB</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>I</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9848-7803</contrib-id>
+          <name>
+            <surname>Amoroso</surname>
+            <given-names>L</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">
+            <sup>II</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-4428-8838</contrib-id>
+          <name>
+            <surname>Artoni</surname>
+            <given-names>SMB</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">
+            <sup>II</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-8053-7681</contrib-id>
+          <name>
+            <surname>Silva</surname>
+            <given-names>EP</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>I</sup>
+          </xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>I</label>
+        <institution content-type="original">Animal Sciences, São Paulo State University, Jaboticabal, Brazil.</institution>
+        <institution content-type="orgdiv1">Animal Sciences</institution>
+        <institution content-type="orgname">São Paulo State University</institution>
+        <addr-line>
+          <city>Jaboticabal</city>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff2">
+        <label>II</label>
+        <institution content-type="original">Department of Animal Morphology and Physio-logy, São Paulo State University, Jaboticabal, Brazil.</institution>
+        <institution content-type="orgdiv1">Department of Animal Morphology and Physio-logy</institution>
+        <institution content-type="orgname">São Paulo State University</institution>
+        <addr-line>
+          <city>Jaboticabal</city>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <author-notes>
+        <corresp id="c1">Corresponding author e-mail address Edney P. Silva Animal Sciences, São Paulo State University, Jaboticabal, 14884-900, SP, Brazil. Phone: +55 16 32097610 Email: <email>edney.silva@unesp.br</email> </corresp>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>02</day>
+        <month>06</month>
+        <year>2023</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2023</year>
+      </pub-date>
+      <volume>25</volume>
+      <issue>3</issue>
+      <elocation-id>eRBCA-2022-1705</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>27</day>
+          <month>07</month>
+          <year>2022</year>
+        </date>
+        <date date-type="accepted">
+          <day>21</day>
+          <month>01</month>
+          <year>2023</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>ABSTRACT</title>
+        <p>The objective of this study was to characterize the dynamics of food passage in the gastrointestinal tract (GIT) of Japanese quail. A randomized design was used with four treatments and four experimental units with one bird each, nine of which were measured in time. The ingredients used were albumin, starch, cellulose, and soybean oil. Suspensions containing barium sulfate and saline were prepared, except for soybean oil. For each bird, 2.5 mL of the suspension was administered directly to the crop. Dual-energy absorptiometry (DEXA) was used to quantify the passage of food. The birds were sedated and maintained under inhalation anesthesia during the scan. Measurements were taken at intervals of 0.5, 1, 2, 4, 6, 8, 10, 12, and 24 h. The variables identified were passage time, first quality, and the average time of each variable. Based on these results, the ingredients may show differences in dynamic passing on the Japanese quail GIT. The duration of the first attempt was 32 min, ranging from 21 to 44 min. The average time value of food choice was close to 10.8 h and varied according to the ingredient from 8.45-12.16 h. Among the variables, soybean oil presented values ​​that denote a fast passage in the GIT, while albumin presented values ​​that denote a slower passage. The dynamics of food passage in the GIT of Japanese quails varies according to the chemical composition of the ingredients.</p>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>First appearance time</kwd>
+        <kwd>Japanese quail</kwd>
+        <kwd>mean retention time</kwd>
+        <kwd>rate of passage</kwd>
+        <kwd>transit time</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="1"/>
+        <table-count count="2"/>
+        <equation-count count="0"/>
+        <ref-count count="23"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>INTRODUCTION</title>
+      <p>According to studies on energy (<xref ref-type="bibr" rid="B20">Silva et al., 2020</xref>) and amino acid requirements (Silva <italic>et al.</italic>, 2019; <xref ref-type="bibr" rid="B17">Sarcinelli et al., 2020</xref>), Japanese quail are less efficient than laying hens while using these nutritional resources. The difference in the efficiency of utilization between Japanese quails (45%; <xref ref-type="bibr" rid="B7">Jordão Filho et al., 2011</xref>) and commercial layers (65%; <xref ref-type="bibr" rid="B16">Sakomura et al., 2005</xref>) for metabolizable energy is close to 30% and greater than 50% for amino acids (Rostagno <italic>et al.</italic>, 2017).</p>
+      <p>The results of <xref ref-type="bibr" rid="B3">Batal &amp; Parsons (2003</xref>) support research at the gastrointestinal (GIT) level to understand the genesis of the difference in utilization efficiency between Gallus and Coturnix. In newly hatched birds, these authors demonstrated that the limitations in using nutritional resources were related to the digestive processes.</p>
+      <p>The first results on the dynamics of food passage in the GIT of Japanese quails (<xref ref-type="bibr" rid="B14">Nóbrega et al., 2020</xref>) were notable: the values of the first appearance time (FAT) and mean retention time (MRT) were lower than those of commercial layers, indicating a rapid passage of food in the GIT. In addition, diets with low and high concentrations of metabolizable energy showed differences in time to of first appearance and MRT. Therefore, the inefficiency of utilization may partly be related to digestive processes in the GIT of Japanese quails. The physicochemical characteristics of broilers and commercial layers influence intestinal motility (<xref ref-type="bibr" rid="B8">Kitazawa &amp; Kaiya, 2019</xref>), dynamics of food passage (Hetland &amp; <xref ref-type="bibr" rid="B22">Svihus, 2001</xref>), food digestibility, and nutrient absorption (<xref ref-type="bibr" rid="B11">Mateos et al., 2012</xref>; <xref ref-type="bibr" rid="B5">Donadelli et al., 2019</xref>). However, for Japanese quail, this understanding still needs to be established, as shown by Nóbrega <italic>et al.</italic> (2020).</p>
+      <p>The MRT of food is the time between ingestion and complete emptying of the food in the GIT. It is necessary to use markers and destructive methods with animal sacrifice to certify the emptying of food at the segments of the GIT (<xref ref-type="bibr" rid="B9">Kolakshyapati et al., 2019</xref>; Kolakshyapati <italic>et al.</italic>, 2020; <xref ref-type="bibr" rid="B14">Nóbrega et al., 2020</xref>). Traditional indicators (Cr<sub>2</sub>O<sub>3</sub> and TiO<sub>2</sub>) were evaluated by Nóbrega <italic>et al.</italic> (2020), but the collection time was extended to ensure the complete emptying of the food at in the GIT. A non-destructive methodological option to determine the emptying of food at in the GIT using images was proposed by Kolakshyapati <italic>et al.</italic> (2019). However, studies with Japanese quails were not found in the literature. Therefore, this study aimed to standardize an experimental procedure to determine the time to FAT, rate of passage (ROP), and MRT using barium sulfate as a radiological marker and DEXA technology to image the passage of albumin, corn starch, cellulose, and soybean oil in the GIT of Japanese quails.</p>
+    </sec>
+    <sec sec-type="materials|methods">
+      <title>MATERIAL AND METHODS</title>
+      <p>This research was performed at the Laboratory of Bone Densitometry, Universidade Estadual Paulista, Campus de Jaboticabal. A randomized design was used with replicated measurements over time. Four ingredients were used as treatments with four experimental units. Nine measurements were replicated over time.</p>
+      <p>The experimental unit consisted of quails with an average weight of 125 ± 5 g. Albumin, corn starch, cellulose, and soybean oil were used as representative ingredients with high protein, carbohydrate, fiber, and lipid contents, respectively. Four suspensions were prepared, one for each ingredient, containing barium sulfate as a radiological indicator and a saline solution, except soybean oil. The suspension was composed of 58% barium sulfate (radiological contrast), 38% tested ingredient, and 4% saline solution. A saline solution was not used for the suspension with soybean oil. Therefore, 42% of the ingredient was kept constant.</p>
+      <p>Before the procedure, the quails were subjected to a six-hour solid fast. For each quail, a suspension was administered directly into the crop using a gavage needle of 2.5 mL at the initial time or time zero. To quantify the rate of food passage, DEXA, a technology, was used to obtain images of the passage of food. Previously, the quails were anesthetized by inhalation of isoflurane between 2 and 4% during the scanning procedure. Nine measurements were performed at intervals of 0.5, 1, 2, 4, 6, 8, 10, 12, and 24 h. The variables analyzed were the first appearance time, food passage rate, mean retention time, velocity, and food passage acceleration.</p>
+      <p>The first appearance time (FAT) was defined as the time required to observe the first marked excreta after administering the suspension. The rate of food passage (ROP) was obtained by multiplying the amount of marker excreted by the time of excretion. The mean retention time (MRT) was determined as the time it took for the marker to be eliminated by the GIT. The FAT, ROT, and MRT were measured in hours. Subsequently, the length of the gastrointestinal tract (LGIT) was measured from the ingluvium to the cloaca. For this analysis, three quails were sacrificed by intracardiac administration of a combination of ketamine (50 mg/mL) and potassium chloride (4%). Therefore, the velocity was calculated as v = LGIT/t, mm/s, where LGIT is in mm and <italic>t</italic> is in seconds. To calculate acceleration, the following formula was used: α = v/t, mm/s². Data were analyzed using descriptive statistics (means and standard deviations).</p>
+    </sec>
+    <sec sec-type="results|discussion">
+      <title>RESULTS AND DISCUSSION</title>
+      <p>The primary objective of this study was to initiate the standardization of a non-destructive experimental protocol using DEXA to determine the variables that explain the dynamics of food passage (DFP) in the GIT. The use of barium sulfate as a radiological indicator allowed for a more accurate analysis of the DFP in the GIT, which could not have been obtained with other indicators used conventionally, such as titanium and chromium. Despite the use of conventional indicators, simple digestive responses could be evaluated (<xref ref-type="bibr" rid="B14">Nóbrega et al., 2020</xref>). </p>
+      <p>To obtain more information about the DFP, these indicators require destructive collection. The radiological indicator (Bloch <italic>et al.</italic>, 2010) used in this study could be used to obtain relevant information to interpret the DFP without sacrificing the animals and represents a refinement for obtaining scientific information. We used the FAT, ROP, and MRT values of the ingredients (corn starch, cellulose, soy oil, and albumin) to evaluate the procedure. According to the results obtained for FAT (<xref ref-type="table" rid="t1">Table 1</xref>), some similarities were found with the results of <xref ref-type="bibr" rid="B14">Nóbrega et al. (2020</xref>). The average in this study was 32 min similar to the results obtained by Nóbrega <italic>et al.</italic> (2020), who found that Japanese quails have the shortest time between entry and exit of food in the GIT when compared with other production birds such as broilers having a FAT of 80 to 90 min (<xref ref-type="bibr" rid="B1">Almirall &amp; Esteve-Garcia, 1994</xref>; <xref ref-type="bibr" rid="B23">Yamanaga &amp; Furuse, 2014</xref>) and commercial layers from 155 to 193 min (<xref ref-type="bibr" rid="B13">Mateos et al., 1982</xref>; <xref ref-type="bibr" rid="B15">Rougière &amp; Carré, 2010</xref>).</p>
+      <p>
+        <table-wrap id="t1">
+          <label>Table 1</label>
+          <caption>
+            <title>Mean and standard deviation for first appearance time (FAT), rate of passage (ROP), velocity (v), acceleration (α), and mean retention time (MRT) of corn starch, cellulose, soybean oil, and albumin in the gastrointestinal tract of Japanese quails in the production phase.</title>
+          </caption>
+          <table>
+            <colgroup>
+              <col/>
+              <col span="4"/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="justify" rowspan="2">Variables</th>
+                <th align="center" colspan="4">Ingredients </th>
+              </tr>
+              <tr>
+                <th align="center">Corn Starch</th>
+                <th align="center">Cellulose</th>
+                <th align="center">Soybean oil</th>
+                <th align="center">Albumin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="justify">FAT<sup>1</sup> (h)</td>
+                <td align="center">0.725 ± 0.28</td>
+                <td align="center">0.408 ± 0.21</td>
+                <td align="center">0.341 ± 0.13</td>
+                <td align="center">0.637 ± 0.07</td>
+              </tr>
+              <tr>
+                <td align="justify">ROP² (g/h)</td>
+                <td align="center">0.19 ± 0.05</td>
+                <td align="center">0.20 ± 0.02</td>
+                <td align="center">0.24 ± 0.13</td>
+                <td align="center">0.17 ± 0.003</td>
+              </tr>
+              <tr>
+                <td align="justify">v³ (mm/s)</td>
+                <td align="center">5.18 ± 3.23</td>
+                <td align="center">9.22 ± 3.96</td>
+                <td align="center">13.37 ± 8.35</td>
+                <td align="center">4.79 ± 0.39</td>
+              </tr>
+              <tr>
+                <td align="justify">α<sup>4</sup> (mm/s²)</td>
+                <td align="center">0.032 ± 0.004</td>
+                <td align="center">0.009 ± 0.008</td>
+                <td align="center">0.025 ± 0.038</td>
+                <td align="center">0.002 ± 0.0004</td>
+              </tr>
+              <tr>
+                <td align="justify">MRT<sup>5</sup> (h)</td>
+                <td align="center">12.16 ± 10.14</td>
+                <td align="center">12.01 ± 9.68</td>
+                <td align="center">8.45 ± 4.66</td>
+                <td align="center">10.52 ± 3.67</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN1">
+              <p>¹FAT: first appearance time; ²ROP: rate of passage; ³v: velocity; <sup>4</sup>α: acceleration squared; <sup>5</sup>MRT: mean retention time.</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>The FAT, ROP, and MRT measures are related to the velocity of food passage. It is possible to segregate the DFP from the ingredients using the values presented in <xref ref-type="table" rid="t1">Table 1</xref>. The results obtained in this study demonstrated that using ingredients that represent the macromolecules (protein, carbohydrate, fiber, and lipid) was appropriate for investigating the passage of food in the GIT, considering the different interactions with the pH, viscosity, hydration capacity, and anatomy of each organ.</p>
+      <p>The average for MRT was 10 h 47 min for total passage of food in the GIT of Japanese quails, ranging from 8 h 27 min for soybean oil to 12 h 10 min for corn starch. These results also confirm the difference between Japanese quails, broiler, and commercial layers presented by <xref ref-type="bibr" rid="B14">Nóbrega et al. (2020</xref>).</p>
+      <p>The <italic>v</italic> and α of the ingredients were calculated considering the GIT length of Japanese quails is 90.4 ± 5 cm (<xref ref-type="table" rid="t2">Table 2</xref>). Soybean oil presented higher velocity and acceleration and lower MRT among the evaluated ingredients. When comparing the images of the different ingredients evaluated after 30 min and 10 h of suspension administration (<xref ref-type="fig" rid="f1">Figure 1</xref>), we observed that only soybean oil (<xref ref-type="fig" rid="f1">Figure 1</xref>: OL1-OL2) passed through the GIT. The others were not identified in the GIT at 24 h after the first administration.</p>
+      <p>
+        <table-wrap id="t2">
+          <label>Table 2</label>
+          <caption>
+            <title>Mean length and standard deviation of each segment of the gastrointestinal tract (GIT) of Japanese quails in the production phase.</title>
+          </caption>
+          <table>
+            <colgroup>
+              <col/>
+              <col/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="justify">Segments of GIT </th>
+                <th align="center">Length (cm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="justify">Thoracic esophagus</td>
+                <td align="center">4.16 ± 0.28</td>
+              </tr>
+              <tr>
+                <td align="justify">Proventriculus</td>
+                <td align="center">1.9 ± 0.04</td>
+              </tr>
+              <tr>
+                <td align="justify">Gizzard</td>
+                <td align="center">2.3 ± 0.11</td>
+              </tr>
+              <tr>
+                <td align="justify">Small intestine </td>
+                <td align="center">57.63 ± 4.31</td>
+              </tr>
+              <tr>
+                <td align="justify">Cecum</td>
+                <td align="center">22.26 ± 0.62</td>
+              </tr>
+              <tr>
+                <td align="justify">Large intestine </td>
+                <td align="center">1.99 ± 0.14</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+      </p>
+      <p>
+        <fig id="f1">
+          <label>Figure 1</label>
+          <caption>
+            <title>Ventrodorsal overview by digital radiography after 30 minutes, 10 and 24 hours of administration of suspensions of corn starch (A1 to A3), cellulose (C1 to C3), soybean oil (OL1 to OL3) and albumin (AL1) to AL3), of Japanese quails in the production phase.</title>
+          </caption>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1806-9061/RBjKDpmR6L3PJS8msstpLJG/fb1eb4958f28e1ab4ed0db3425d8f2f9109b4308.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1806-9061/RBjKDpmR6L3PJS8msstpLJG/aa104d24d3cc91479abb948c9542e7043bbee5b4.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1806-9061/RBjKDpmR6L3PJS8msstpLJG/719953cb5689958c64bf425c00156702576cef97.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>The average MRT of soybean oil was ~2 h lower than that of albumin and ~3.6 h lower than that of carbohydrates, corn starch, and cellulose (<xref ref-type="table" rid="t1">Table 1</xref>). Some studies report no effect of dietary lipids on the passage of food through the GIT (<xref ref-type="bibr" rid="B6">Golian &amp; Maurice 1992</xref>; <xref ref-type="bibr" rid="B2">Andreotti et al. 2004</xref>). Several studies reaffirm the positive relationship between increased dietary lipid and MRT (<xref ref-type="bibr" rid="B18">Savory &amp; Gentle 1976</xref>; <xref ref-type="bibr" rid="B12">Mateos &amp; Sell 1980</xref>; Mateos <italic>et al.</italic> 1982; <xref ref-type="bibr" rid="B19">Shires et al. 1987</xref>) by inhibiting gastric emptying.</p>
+      <p>The average MRT of soybean oil supports that there are some differences between quails and commercial layers, as previously published studies found lower values for FAT when they used high levels of energy in the diet, as reported by <xref ref-type="bibr" rid="B14">Nóbrega et al. (2020</xref>) and reaffirmed by Castiblanco <italic>et al.</italic> (2022). These results indicate an acceleration in the passage of food through the GIT by increasing the lipid content of the diet, which increases the metabolizable energy of the diet (Nóbrega <italic>et al.</italic>, 2020; Castiblanco <italic>et al.</italic>, 2022). The variation found in this study limits a categorical statement that is exclusively attributed to differences in GIT motility between quails and hens. Therefore, more studies with larger sample sizes are required to confirm these results.</p>
+      <p>In this study, the MRT of cellulose (<xref ref-type="fig" rid="f1">Figure 1</xref>: C1 and C2) did not differ from that of corn starch (<xref ref-type="fig" rid="f1">Figure 1</xref>: A1 and A2) and albumin (<xref ref-type="fig" rid="f1">Figure 1</xref>: AL1 and AL2) after 10 h of suspension administration (<xref ref-type="fig" rid="f1">Figure 1</xref>). This similarity in MRT may be related to the particle size (<xref ref-type="bibr" rid="B9">Kolakshyapati et al., 2019</xref>). The three ingredients had a powdery form. Although it facilitated suspension, it may have contributed to nullifying some action on the gizzard in and delayed the time of passage of the food in the GIT.</p>
+      <p>For acceleration, the highest average was found for corn starch, whereas albumin had the lowest value. The smaller the variation in acceleration, the more constant the velocity of the passage of the ingredient, related to the digestibility of the ingredient. Therefore, the greater the acceleration, the higher the change in the velocity of the ingredient in the GIT, justifying that each ingredient requires different time intervals for digestion in different sections or a greater impulse with peristaltic movements increasing the velocity. Thus, the ingredients evaluated individually in this study may have gone through stages in the digestion process because they do not require specific actions in different sections of the GIT, resulting in the different passage and retention times.</p>
+      <p>The dynamics of food passage in the GIT in Japanese quail showed divergence according to the ingredients. The different segments of the GIT interact differently with the ingredients and affect the velocity and acceleration of food passage. Studies are required to determine the dynamics of food passage in the GIT of quails, either with isolated ingredients or combined in practical diets.</p>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>ACKNOWLEDGMENTS</title>
+      <p>To the Laboratory of Bone Densitometry, Uni-versidade Estadual Paulista, Campus de Jaboticabal. We thank the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES).</p>
+    </ack>
+    <ref-list>
+      <title>REFERENCES</title>
+      <ref id="B1">
+        <mixed-citation>Almirall M, Esteve-Garcia E. Rate of passage of barley diets with chromium oxide: influence of age and poultry strain and effect of ?-glucanase supplementation. Poultry Science 1994;73(9):1433-40.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Almirall</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Esteve-Garcia</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <article-title>Rate of passage of barley diets with chromium oxide influence of age and poultry strain and effect of ?-glucanase supplementation</article-title>
+          <source>Poultry Science</source>
+          <year>1994</year>
+          <volume>73</volume>
+          <issue>9</issue>
+          <fpage>1433</fpage>
+          <lpage>1440</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>Andreotti MDO, Junqueira OM, Barbosa MJB, Cancherini LC, Araújo LF, Rodrigues EA. Intestinal transit time, performance, carcass characteristics and body composition in broilers fed isoenergy diets formulated with different levels of soybean oil. Revista Brasileira de Zootecnia 2004;33(4):870-9.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Andreotti</surname>
+              <given-names>MDO</given-names>
+            </name>
+            <name>
+              <surname>Junqueira</surname>
+              <given-names>OM</given-names>
+            </name>
+            <name>
+              <surname>Barbosa</surname>
+              <given-names>MJB</given-names>
+            </name>
+            <name>
+              <surname>Cancherini</surname>
+              <given-names>LC</given-names>
+            </name>
+            <name>
+              <surname>Araújo</surname>
+              <given-names>LF</given-names>
+            </name>
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>EA</given-names>
+            </name>
+          </person-group>
+          <article-title>Intestinal transit time, performance, carcass characteristics and body composition in broilers fed isoenergy diets formulated with different levels of soybean oil</article-title>
+          <source>Revista Brasileira de Zootecnia</source>
+          <year>2004</year>
+          <volume>33</volume>
+          <issue>4</issue>
+          <fpage>870</fpage>
+          <lpage>879</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>Batal AB, Parsons CM. Utilization of different soy products as affected by age in chicks. Poultry Science 2003;82(3):454-62.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Batal</surname>
+              <given-names>AB</given-names>
+            </name>
+            <name>
+              <surname>Parsons</surname>
+              <given-names>CM</given-names>
+            </name>
+          </person-group>
+          <article-title>Utilization of different soy products as affected by age in chicks</article-title>
+          <source>Poultry Science</source>
+          <year>2003</year>
+          <volume>82</volume>
+          <issue>3</issue>
+          <fpage>454</fpage>
+          <lpage>462</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>Castiblanco DMC, Artoni SM, Silva EP, Santos ET, Lima MB, Guzman JLG, et al. Effect of energy levels on responses of laying Japanese quails. In: Proceedings of International Meeting of Advances in Animal Science; 2016. Available from: <ext-link ext-link-type="uri" xlink:href="https://proceedings.science/imas/papers/effect-of-energy-levels-on-responses-of-laying-japanese-quails">https://proceedings.science/imas/papers/effect-of-energy-levels-on-responses-of-laying-japanese-quails</ext-link>.</mixed-citation>
+        <element-citation publication-type="confproc">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Castiblanco</surname>
+              <given-names>DMC</given-names>
+            </name>
+            <name>
+              <surname>Artoni</surname>
+              <given-names>SM</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>EP</given-names>
+            </name>
+            <name>
+              <surname>Santos</surname>
+              <given-names>ET</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>MB</given-names>
+            </name>
+            <name>
+              <surname>Guzman</surname>
+              <given-names>JLG</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <source>Effect of energy levels on responses of laying Japanese quails</source>
+          <conf-name>International Meeting of Advances in Animal Science</conf-name>
+          <year>2016</year>
+          <ext-link ext-link-type="uri" xlink:href="https://proceedings.science/imas/papers/effect-of-energy-levels-on-responses-of-laying-japanese-quails">https://proceedings.science/imas/papers/effect-of-energy-levels-on-responses-of-laying-japanese-quails</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>Donadelli AR, Stone AD, Aldrich CG, Beyer RS. Effect of fiber source and particle size on chick performance and nutrient utilization. Poultry Science 2019;98(11):5820-30.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Donadelli</surname>
+              <given-names>AR</given-names>
+            </name>
+            <name>
+              <surname>Stone</surname>
+              <given-names>AD</given-names>
+            </name>
+            <name>
+              <surname>Aldrich</surname>
+              <given-names>CG</given-names>
+            </name>
+            <name>
+              <surname>Beyer</surname>
+              <given-names>RS</given-names>
+            </name>
+          </person-group>
+          <article-title>Effect of fiber source and particle size on chick performance and nutrient utilization</article-title>
+          <source>Poultry Science</source>
+          <year>2019</year>
+          <volume>98</volume>
+          <issue>11</issue>
+          <fpage>5820</fpage>
+          <lpage>5830</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>Golian A, Maurice DV. Dietary Poultry Fat and Gastrointestinal Transit Time of Feed and Fat Utilization in Broiler Chickens. Poultry Science 1992;71(8):1357-63.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Golian</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Maurice</surname>
+              <given-names>DV</given-names>
+            </name>
+          </person-group>
+          <article-title>Dietary Poultry Fat and Gastrointestinal Transit Time of Feed and Fat Utilization in Broiler Chickens</article-title>
+          <source>Poultry Science</source>
+          <year>1992</year>
+          <volume>71</volume>
+          <issue>8</issue>
+          <fpage>1357</fpage>
+          <lpage>1363</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>Jordão Filho J, Silva JHV, Costa FGP, Sakomura NK, Silva CT, Chagas NA. Prediction equations to estimate the demand of energy and crude protein for maintenance, gain and egg production for laying Japanese quails. Revista Brasileira de Zootecnia 2011;40(11):2423-30.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jordão</surname>
+              <given-names>J</given-names>
+              <suffix>Filho</suffix>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>JHV</given-names>
+            </name>
+            <name>
+              <surname>Costa</surname>
+              <given-names>FGP</given-names>
+            </name>
+            <name>
+              <surname>Sakomura</surname>
+              <given-names>NK</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>CT</given-names>
+            </name>
+            <name>
+              <surname>Chagas</surname>
+              <given-names>NA</given-names>
+            </name>
+          </person-group>
+          <article-title>Prediction equations to estimate the demand of energy and crude protein for maintenance, gain and egg production for laying Japanese quails</article-title>
+          <source>Revista Brasileira de Zootecnia</source>
+          <year>2011</year>
+          <volume>40</volume>
+          <issue>11</issue>
+          <fpage>2423</fpage>
+          <lpage>2430</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>Kitazawa T, Kaiya H. Regulation of gastrointestinal motility by motilin and ghrelin in vertebrates. Frontiers in Endocrinology 2019;17(10):278-85.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kitazawa</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Kaiya</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <article-title>Regulation of gastrointestinal motility by motilin and ghrelin in vertebrates</article-title>
+          <source>Frontiers in Endocrinology</source>
+          <year>2019</year>
+          <volume>17</volume>
+          <issue>10</issue>
+          <fpage>278</fpage>
+          <lpage>285</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>Kolakshyapati M, Bailey C, Sibanda TZ, Morgan N, Ruhnke I. Determination of gastrointestinal passage rate using three different markers in laying hens. Journal of Animal Physiology and Animal Nutrition 2019;103(5):1427-36.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kolakshyapati</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Bailey</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Sibanda</surname>
+              <given-names>TZ</given-names>
+            </name>
+            <name>
+              <surname>Morgan</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Ruhnke</surname>
+              <given-names>I</given-names>
+            </name>
+          </person-group>
+          <article-title>Determination of gastrointestinal passage rate using three different markers in laying hens</article-title>
+          <source>Journal of Animal Physiology and Animal Nutrition</source>
+          <year>2019</year>
+          <volume>103</volume>
+          <issue>5</issue>
+          <fpage>1427</fpage>
+          <lpage>1436</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>Kolakshyapati M, Wu SB, Sibanda TZ, Ramirez-Cuevas S, Ruhnke I. Body weight and range usage affect net energy utilisation in commercial free-range laying hens when evaluated in net energy chambers. Animal Nutrition 2020;6(2):192-7.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kolakshyapati</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Wu</surname>
+              <given-names>SB</given-names>
+            </name>
+            <name>
+              <surname>Sibanda</surname>
+              <given-names>TZ</given-names>
+            </name>
+            <name>
+              <surname>Ramirez-Cuevas</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Ruhnke</surname>
+              <given-names>I</given-names>
+            </name>
+          </person-group>
+          <article-title>Body weight and range usage affect net energy utilisation in commercial free-range laying hens when evaluated in net energy chambers</article-title>
+          <source>Animal Nutrition</source>
+          <year>2020</year>
+          <volume>6</volume>
+          <issue>2</issue>
+          <fpage>192</fpage>
+          <lpage>197</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>Mateos GG, Jiménez-Moreno E, Serrano MP, Lázaro RP. Poultry response to high levels of dietary fiber sources varying in physical and chemical characteristics. Journal of Applied Poultry Research 2012;21(1):156-74.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mateos</surname>
+              <given-names>GG</given-names>
+            </name>
+            <name>
+              <surname>Jiménez-Moreno</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Serrano</surname>
+              <given-names>MP</given-names>
+            </name>
+            <name>
+              <surname>Lázaro</surname>
+              <given-names>RP</given-names>
+            </name>
+          </person-group>
+          <article-title>Poultry response to high levels of dietary fiber sources varying in physical and chemical characteristics</article-title>
+          <source>Journal of Applied Poultry Research</source>
+          <year>2012</year>
+          <volume>21</volume>
+          <issue>1</issue>
+          <fpage>156</fpage>
+          <lpage>174</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>Mateos GG, Sell JL. Influence of Graded Levels of Fat on Utilization of Pure Carbohydrate by the Laying Hen. The Journal of Nutrition 1980;110(9):1894-1903.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mateos</surname>
+              <given-names>GG</given-names>
+            </name>
+            <name>
+              <surname>Sell</surname>
+              <given-names>JL</given-names>
+            </name>
+          </person-group>
+          <article-title>Influence of Graded Levels of Fat on Utilization of Pure Carbohydrate by the Laying Hen</article-title>
+          <source>The Journal of Nutrition</source>
+          <year>1980</year>
+          <volume>110</volume>
+          <issue>9</issue>
+          <fpage>1894</fpage>
+          <lpage>1903</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>Mateos GG, Sell JL, Eastwood JA. Rate of Food Passage (Transit Time) as Influenced by Level of Supplemental Fat1. Poultry Science 1982;61(1):94-100.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mateos</surname>
+              <given-names>GG</given-names>
+            </name>
+            <name>
+              <surname>Sell</surname>
+              <given-names>JL</given-names>
+            </name>
+            <name>
+              <surname>Eastwood</surname>
+              <given-names>JA</given-names>
+            </name>
+          </person-group>
+          <article-title>Rate of Food Passage (Transit Time) as Influenced by Level of Supplemental Fat1</article-title>
+          <source>Poultry Science</source>
+          <year>1982</year>
+          <volume>61</volume>
+          <issue>1</issue>
+          <fpage>94</fpage>
+          <lpage>100</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>Nóbrega IPT, Nogueira HS, Lima MB, Sakomura NK, Peruzzi NJ, Artoni SMB, et al. Rate of feed passage in Japanese Quail. Animal 2020;14:267-74.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nóbrega</surname>
+              <given-names>IPT</given-names>
+            </name>
+            <name>
+              <surname>Nogueira</surname>
+              <given-names>HS</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>MB</given-names>
+            </name>
+            <name>
+              <surname>Sakomura</surname>
+              <given-names>NK</given-names>
+            </name>
+            <name>
+              <surname>Peruzzi</surname>
+              <given-names>NJ</given-names>
+            </name>
+            <name>
+              <surname>Artoni</surname>
+              <given-names>SMB</given-names>
+            </name>
+          </person-group>
+          <article-title>Rate of feed passage in Japanese Quail</article-title>
+          <source>Animal</source>
+          <year>2020</year>
+          <volume>14</volume>
+          <fpage>267</fpage>
+          <lpage>274</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>Rougière N, Carré B. Comparison of gastrointestinal transit times between chickens from D+ and D- genetic lines selected for divergent digestion efficiency. Animal 2010;4(11):1861-72.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rougière</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Carré</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <article-title>Comparison of gastrointestinal transit times between chickens from D+ and D- genetic lines selected for divergent digestion efficiency</article-title>
+          <source>Animal</source>
+          <year>2010</year>
+          <volume>4</volume>
+          <issue>11</issue>
+          <fpage>1861</fpage>
+          <lpage>1872</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>Sakomura NK, Longo FA, Oviedo-Rondon EO, Boa-Viagem C, Ferraudo A. Modeling energy utilization and growth parameter description for broiler chickens. Poultry Science 2005;84(9):1363-9.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sakomura</surname>
+              <given-names>NK</given-names>
+            </name>
+            <name>
+              <surname>Longo</surname>
+              <given-names>FA</given-names>
+            </name>
+            <name>
+              <surname>Oviedo-Rondon</surname>
+              <given-names>EO</given-names>
+            </name>
+            <name>
+              <surname>Boa-Viagem</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Ferraudo</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Modeling energy utilization and growth parameter description for broiler chickens</article-title>
+          <source>Poultry Science</source>
+          <year>2005</year>
+          <volume>84</volume>
+          <issue>9</issue>
+          <fpage>1363</fpage>
+          <lpage>1369</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>Sarcinelli MF, Sakomura NK, Dorigam JCP, Silva EP, Venturini KS, Lima MB, et al. Modelling Japanese quail responses to methionine + cystine, threonine and tryptophan intake. Animal Feed Science and Technology 2020;263:1-10.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sarcinelli</surname>
+              <given-names>MF</given-names>
+            </name>
+            <name>
+              <surname>Sakomura</surname>
+              <given-names>NK</given-names>
+            </name>
+            <name>
+              <surname>Dorigam</surname>
+              <given-names>JCP</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>EP</given-names>
+            </name>
+            <name>
+              <surname>Venturini</surname>
+              <given-names>KS</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>MB</given-names>
+            </name>
+          </person-group>
+          <article-title>Modelling Japanese quail responses to methionine + cystine, threonine and tryptophan intake</article-title>
+          <source>Animal Feed Science and Technology</source>
+          <year>2020</year>
+          <volume>263</volume>
+          <fpage>1</fpage>
+          <lpage>10</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>Savory CJ, Gentle MJ. Effects of dietary dilution with fibre on the food intake and gut dimensions of Japanese quail. British Poultry Science 1976;17(6):561-70.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Savory</surname>
+              <given-names>CJ</given-names>
+            </name>
+            <name>
+              <surname>Gentle</surname>
+              <given-names>MJ</given-names>
+            </name>
+          </person-group>
+          <article-title>Effects of dietary dilution with fibre on the food intake and gut dimensions of Japanese quail</article-title>
+          <source>British Poultry Science</source>
+          <year>1976</year>
+          <volume>17</volume>
+          <issue>6</issue>
+          <fpage>561</fpage>
+          <lpage>570</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>Shires A, Thompson JR, Turner BV, Kennedy PM, Goh YK. Rate of passage of corn-canola meal and corn-soybean meal diets through the gastrointestinal tract of broiler and white leghorn chickens. Poultry Science 1987;66(2):289-98.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Shires</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Thompson</surname>
+              <given-names>JR</given-names>
+            </name>
+            <name>
+              <surname>Turner</surname>
+              <given-names>BV</given-names>
+            </name>
+            <name>
+              <surname>Kennedy</surname>
+              <given-names>PM</given-names>
+            </name>
+            <name>
+              <surname>Goh</surname>
+              <given-names>YK</given-names>
+            </name>
+          </person-group>
+          <article-title>Rate of passage of corn-canola meal and corn-soybean meal diets through the gastrointestinal tract of broiler and white leghorn chickens</article-title>
+          <source>Poultry Science</source>
+          <year>1987</year>
+          <volume>66</volume>
+          <issue>2</issue>
+          <fpage>289</fpage>
+          <lpage>298</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>Silva EP, Castiblanco DMC, Artoni SMB, Lima MB, Nogueira HS, Sakomura NK. Metabolisable energy partition for Japanese quails. Animal 2020;4:s275-s285.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Silva</surname>
+              <given-names>EP</given-names>
+            </name>
+            <name>
+              <surname>Castiblanco</surname>
+              <given-names>DMC</given-names>
+            </name>
+            <name>
+              <surname>Artoni</surname>
+              <given-names>SMB</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>MB</given-names>
+            </name>
+            <name>
+              <surname>Nogueira</surname>
+              <given-names>HS</given-names>
+            </name>
+            <name>
+              <surname>Sakomura</surname>
+              <given-names>NK</given-names>
+            </name>
+          </person-group>
+          <article-title>Metabolisable energy partition for Japanese quails</article-title>
+          <source>Animal</source>
+          <year>2020</year>
+          <volume>4</volume>
+          <fpage>s275</fpage>
+          <lpage>s285</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>Silva EP, Sakomura NK, Sarcinelli MFS, Dorigam JCP, Venturini KS, Lima MB. Modeling the response of japanese quail hens to lysine intake. Livestock Science 2019;224:69-74.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Silva</surname>
+              <given-names>EP</given-names>
+            </name>
+            <name>
+              <surname>Sakomura</surname>
+              <given-names>NK</given-names>
+            </name>
+            <name>
+              <surname>Sarcinelli</surname>
+              <given-names>MFS</given-names>
+            </name>
+            <name>
+              <surname>Dorigam</surname>
+              <given-names>JCP</given-names>
+            </name>
+            <name>
+              <surname>Venturini</surname>
+              <given-names>KS</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>MB</given-names>
+            </name>
+          </person-group>
+          <article-title>Modeling the response of japanese quail hens to lysine intake</article-title>
+          <source>Livestock Science</source>
+          <year>2019</year>
+          <volume>224</volume>
+          <fpage>69</fpage>
+          <lpage>74</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>Svihus B, Hetland H. Ileal starch digestibility in growing broiler chickens fed on a wheat-based diet is improved by mash feeding, dilution with cellulose or whole wheat inclusion. British Poultry Science 2001;42(5):633-7.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Svihus</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Hetland</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <article-title>Ileal starch digestibility in growing broiler chickens fed on a wheat-based diet is improved by mash feeding, dilution with cellulose or whole wheat inclusion</article-title>
+          <source>British Poultry Science</source>
+          <year>2001</year>
+          <volume>42</volume>
+          <issue>5</issue>
+          <fpage>633</fpage>
+          <lpage>637</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>Yamanaga M, Furuse M. Preference and Passage through the Gastrointestinal Tract of Paddy Rice in Young Chicks. The Journal Of Poultry Science 2014;51(1):47-51.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Yamanaga</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Furuse</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <article-title>Preference and Passage through the Gastrointestinal Tract of Paddy Rice in Young Chicks</article-title>
+          <source>The Journal Of Poultry Science</source>
+          <year>2014</year>
+          <volume>51</volume>
+          <issue>1</issue>
+          <fpage>47</fpage>
+          <lpage>51</lpage>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
