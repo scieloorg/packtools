@@ -75,9 +75,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="info">
-                            <xsl:apply-templates select="aff" mode="modal-scimago"/>
-                            <xsl:if test="not(aff) and ../@article-type='translation'">
-                                <xsl:apply-templates select="$article//article-meta/front/aff" mode="modal-scimago"/>
+                            <xsl:apply-templates select="aff | contrib-group/aff" mode="modal-scimago"/>
+                            <xsl:if test="not(aff) and not(contrib-group/aff) and ../@article-type='translation'">
+                                <xsl:apply-templates select="$article//article-meta/front/aff | $article//article-meta/front/contrib-group/aff" mode="modal-scimago"/>
                             </xsl:if>
                         </div>
                     </div>
