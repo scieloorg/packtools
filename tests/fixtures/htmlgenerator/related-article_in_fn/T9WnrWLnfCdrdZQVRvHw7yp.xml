@@ -1,0 +1,1432 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">rap</journal-id>
+      <journal-title-group>
+        <journal-title>Revista de Administração Pública</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Rev. Adm. Pública</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0034-7612</issn>
+      <issn pub-type="epub">1982-3134</issn>
+      <publisher>
+        <publisher-name>Fundação Getulio Vargas</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">T9WnrWLnfCdrdZQVRvHw7yp</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0034-76122023000300501</article-id>
+      <article-id pub-id-type="other">00501</article-id>
+      <article-id pub-id-type="doi">10.1590/0034-761220220261x</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>When in Rome, do as the Romans do: a case study of Odebrecht and the continuum of destructiveness</article-title>
+        <trans-title-group xml:lang="es">
+          <trans-title>Cuando estés en Roma, haz como los romanos: un estudio de caso de Odebrecht y el continuo de destructividad</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-6030-5939</contrib-id>
+          <name>
+            <surname>Coelho</surname>
+            <given-names>Caio César</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">1</xref>
+          <role>Conceptualization (Lead)</role>
+          <role>Data curation (Lead)</role>
+          <role>Formal Analysis (Lead)</role>
+          <role>Investigation (Lead)</role>
+          <role>Methodology (Lead)</role>
+          <role>Software (Lead)</role>
+          <role>Writing (Lead)</role>
+        </contrib>
+        <aff id="aff1">
+          <label>1</label>
+          <institution content-type="original"> Universidade de São Paulo / Escola Superior de Agricultura Luiz de Queiroz, Piracicaba/ SP- Brazil</institution>
+          <institution content-type="orgname">Universidade de São Paulo</institution>
+          <institution content-type="orgdiv1">Escola Superior de Agricultura Luiz de Queiroz</institution>
+          <addr-line>
+            <city>Piracicaba</city>
+            <state>SP</state>
+          </addr-line>
+          <country country="BR">Brazil</country>
+        </aff>
+      </contrib-group>
+      <author-notes>
+        <fn fn-type="other" id="fn1">
+          <p>Caio César Coelho - Professor from the Luiz de Queiroz College of Agriculture at the University of São Paulo (ESALQ/USP); Ph.D. and Master in Business Administration from Fundação Getulio Vargas (FGV EAESP). E-mail: ccoelho@usp.br</p>
+        </fn>
+        <fn fn-type="edited-by" id="fn3">
+          <p>Alketa Peci (Fundação Getulio Vargas, Rio de Janeiro / RJ - Brazil) https://orcid.org/0000-0002-0488-1744</p>
+        </fn>
+        <fn fn-type="edited-by" id="fn4">
+          <p>Mauricio Dussauge Laguna (Centro de Investigación y Docencia Económicas, Ciudad de México - México) https://orcid.org/0000-0001-7630-1879</p>
+        </fn>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>17</day>
+        <month>07</month>
+        <year>2023</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2023</year>
+      </pub-date>
+      <volume>57</volume>
+      <issue>3</issue>
+      <elocation-id>e2022-0261</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>22</day>
+          <month>08</month>
+          <year>2022</year>
+        </date>
+        <date date-type="accepted">
+          <day>14</day>
+          <month>03</month>
+          <year>2023</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Abstract</title>
+        <p>This research conducts a case study on Odebrecht, a heavy construction company, to answer the question of how an individual rationalizes crime in a corrupt organization? The study is based on the concepts of a corrupt organization, the continuum of destructiveness, moral disengagement, and rationalization. We analyze four books, artifacts on Odebrecht’s culture and videos on 49 executives that collaborated in the Car Wash corruption probe. The results describe the paths employees undertake in the organization by acquiring its internal set of values, beliefs, and assumptions. These paths lead to the rationalization of corruption. This case study shows that the continuum of destructiveness starts when employees encounter unethical behavior in the organization and that their rationalization mechanism changes with time in the corrupt culture. At any point, executives can quit or blow the whistle; however, with time, it becomes more challenging to exercise either of the options. By applying and refining the continuum, this research provides an understanding of how moral disengagement and rationalization to help employees to progress in the continuum in a corrupt culture.</p>
+      </abstract>
+      <trans-abstract xml:lang="es">
+        <title>Resumen</title>
+        <p>Esta investigación realiza un estudio de caso de la empresa de construcción pesada Odebrecht para responder a la pregunta: ¿Cómo un individuo racionaliza el crimen en una organización corrupta? Este estudio se basa en los conceptos de organización corrupta, continuo de destructividad, desvinculación moral y racionalización. Analizamos cuatro libros que son artefactos de la cultura Odebrecht y videos de 49 ejecutivos que colaboraron en la investigación “Lava Jato”. Los resultados describen los caminos que toman los empleados dentro de la organización, adquiriendo sus sistemas de valores, creencias y suposiciones. Estos caminos conducen a la racionalización de la corrupción. Este estudio de caso muestra que el continuo de destructividad comienza cuando los empleados encuentran un comportamiento poco ético dentro de la organización y que los mecanismos de racionalización cambian con el tiempo dentro de la cultura corrupta. Los ejecutivos pueden renunciar o denunciar en cualquier momento, sin embargo, con el tiempo se vuelve difícil ejercer cualquiera de estas opciones. Al aplicar y refinar el continuo, esta investigación proporciona una idea de cómo la desconexión moral y la racionalización alientan a los empleados a ascender en el continuo.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>organizational culture</kwd>
+        <kwd>corrupt organization</kwd>
+        <kwd>rationalization</kwd>
+        <kwd>the continuum of destructiveness</kwd>
+        <kwd>corruption</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="es">
+        <title>Palabras clave:</title>
+        <kwd>cultura organizacional</kwd>
+        <kwd>organización corrupta</kwd>
+        <kwd>racionalización</kwd>
+        <kwd>continuo de destructividad</kwd>
+        <kwd>corrupción</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="6"/>
+        <table-count count="0"/>
+        <equation-count count="0"/>
+        <ref-count count="34"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>1. INTRODUCTION</title>
+      <p>Corruption literature can be divided in different approaches towards its cause such as public choice, bad apples, decisions on moral values, organizational culture, ethos of the public administration and correlation with other variables (<xref ref-type="bibr" rid="B14">Graaf, 2007</xref>). This research understands it as the result of an organizational culture, which has seen the growth of two research streams. The first portrays corruption as a cultural norm (<xref ref-type="bibr" rid="B21">Nelson, 2017</xref>). The second investigates how contextual and institutional factors turn corruption into an institutionalized practice (<xref ref-type="bibr" rid="B7">Castro, Phillips, &amp; Ansari, 2020</xref>). These two streams present corruption as a norm. However, neither can explain how corruption becomes an institutionalized norm departing from individual attitudes. The concepts of moral disengagement and rationalization, which refer to justifying wrongdoing and distancing from it, are central to understanding this process (<xref ref-type="bibr" rid="B5">Bandura, 1999</xref>; <xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). Nevertheless, researchers have failed to evaluate these theories empirically owing to the lack of reliable data on corruption (<xref ref-type="bibr" rid="B6">Campbell &amp; Göritz, 2014</xref>). To do this, this research will focus on the continuum of destructiveness framework (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+      <p>The continuum of destructiveness describes the path individuals undertake after joining a corrupt organization. Specifically, this framework describes their evolution from organizational bystanders in corrupt organizations to innocent participants, rationalizers, and corruption perpetrators incentivized by ethical distance (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Certain surveys and simulations investigating the effects of rationalization variables show that rationalization occurs after individuals participate in unethical activities (<xref ref-type="bibr" rid="B27">Rabl &amp; Kühlmann, 2009</xref>). While some studies focus on public sector rationalization (<xref ref-type="bibr" rid="B11">Gannett &amp; Rector, 2015</xref>), there is a limited number of empirical studies on corrupt agents from private companies and on how corrupt organizations encourage the continuum of destructiveness. This gap calls for the refinement and application of corruption theory on empirical evidence (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>).</p>
+      <p>By using this framework to understand the perspective of collaborators, we can determine if there is a decision point or if, during their careers, the executives were led by mechanisms such as rationalization and moral disengagement that enabled them to rationalize their immoral actions. This investigation draws from the following research question: How an individual rationalize crime in a corrupt organization? This question can be divided into the following three research objectives:</p>
+      <p>
+        <list list-type="bullet">
+          <list-item>
+            <p> Explain the rationalization path individuals, undertake after joining a corrupt organization.</p>
+          </list-item>
+          <list-item>
+            <p> Refine the continuum of destructiveness.</p>
+          </list-item>
+          <list-item>
+            <p> Understand the relationship between a corrupt organization and the continuum of destructiveness.</p>
+          </list-item>
+        </list>
+      </p>
+      <p>To achieve these objectives, this research used data provided by the collaborators in the Car Wash corruption probe, which was a massive investigation of the systemic corruption of the oil, gas, and construction companies. With the aid of plea bargains, the investigators launched an operation that led to the arrest of several executives and politicians (<xref ref-type="bibr" rid="B20">Ministério Público Federal, 2014</xref>). This article analyzes corruption data on the largest construction company involved in the scam, Odebrecht. The company made a leniency agreement and its executives made plea bargains. In their testimonies, they recount corruption acts and their trajectories in the corrupt corporation. The analysis of these testimonies describes the story of the 49 executives in the corrupt organization and the corruption culture constructed over the past decades. By using judicial data to research corruption, this research also responds to the need for more empirical and innovative research on a theme proven to be difficult, unsafe, and sometimes unethical for researchers (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>). To support this dataset, we also analyze four books - three books from a collection called TEO (<italic>Tecnologia Empresarial Odebrecht</italic>) (<xref ref-type="bibr" rid="B23">N. Odebrecht, 2011</xref>) and one book titled “Trust and Serve” written by Odebrecht’s former president and board member (<xref ref-type="bibr" rid="B22">E. Odebrecht, 2007</xref>).</p>
+      <p>This research empirically explains and refines the continuum of destructiveness (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). This approach facilitates the creation of a framework that is empirically based. It describes how executives, at different stages of the continuum, rationalized differently and presents ethical disengagement as an important construct for the continuum framework. It also shows that there is no decision point at which rationalizers become perpetrators and that, at any time, individuals can rationalize their participation or exercise the option to not participate. The research uses judicial data - plea bargains in this case - to conduct qualitative research on corruption (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>).</p>
+      <p>The next section conducts a literature review to explain the definitions of corrupt organizations and the continuum of destructiveness. It also explains the concepts of moral disengagement and rationalization observed in the trajectory of Odebrecht executives. After that, we discuss the data collection and the methods used to analyze the data. Finally, we analyze the data and discuss the findings and the final remarks with the contributions of empirically observing the continuum of destructiveness.</p>
+    </sec>
+    <sec>
+      <title>2. LITERATURE REVIEW</title>
+      <sec>
+        <title>2.1 Corrupt organizations</title>
+        <p>Corruption is an abuse of entrusted power for personal or organizational benefit (<xref ref-type="bibr" rid="B2">Anand, Ashforth, &amp; Joshi, 2004</xref>). Recently, researchers have been developing corruption theories and using them to understand corruption mechanisms inside an organization (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>). These theories include the institutionalization (<xref ref-type="bibr" rid="B21">Nelson, 2017</xref>) and rationalization of corruption. While the former discusses how corruption becomes a norm, the latter shows how perpetrators rationalize and justify their acts (Castro et al., 2020; <xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). Both cannot explain how the individual rationalization and attitude turns corruption in to a norm, and as all corruption research they lack empirical evidence, due to the difficulties of acquiring reliable data from corrupt agents.</p>
+        <p>In an environment where corruption is the norm, organizational mechanisms and processes may facilitate wrongdoing. This separates an Organization of Corrupt Individuals (OCI) from a Corrupt Organization (CO). While it would be easier to remove corrupt individuals from an OCI, the removal of corrupt individuals may not be sufficient to end corruption in a CO. The norms and mechanisms of a CO are modified to manage illegal activities. This creates a process of illegal payments, alternative information systems to hide illegal activities, and ultimately a lenient culture toward corruption (<xref ref-type="bibr" rid="B25">Pinto, Leana, &amp; Pil, 2008</xref>).</p>
+        <p>The studies on corrupt organizational cultures rely on data from specific cases such as the Enron scandal (<xref ref-type="bibr" rid="B33">Sims &amp; Brinkmann, 2003</xref>) or the United Kingdom National Health System (<xref ref-type="bibr" rid="B26">Pope &amp; Burnes, 2013</xref>) and expert interviews (<xref ref-type="bibr" rid="B6">Campbell &amp; Göritz, 2014</xref>). In the public sphere, higher-level organizational corruption impacts street-level corruption (<xref ref-type="bibr" rid="B13">Gofen, Meza, &amp; Pérez-Chiqués, 2022</xref>). In the private sphere, a corporate corrupt culture influences employees to make unethical decisions (<xref ref-type="bibr" rid="B4">Arewa &amp; Farrell, 2015</xref>; <xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). In this context, it is imperative to analyze the process of the continuum of destructiveness to understand what culture is and how it influences corruption.</p>
+        <p>This study describes a corrupt organization from the perspective of corrupt agents. In this sense, it focuses on the impact of organizational culture on individual behavior. Organizational culture can be defined as:</p>
+        <disp-quote>
+          <p>[A] pattern of shared basic assumptions that was learned by a group as it solved its problems of external adaptation and internal integration, that has worked well enough to be considered valid and, therefore, to be taught to new members as the correct way to perceive, think, and feel in relation to those problems (<xref ref-type="bibr" rid="B29">Schein, 2004</xref>, p. 17).</p>
+        </disp-quote>
+        <p>In a corrupt organization, the values driving decisions are constructed in a way that justifies and rationalizes corruption (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). Histories and narratives are built as a rationale to convince the agents that they are not morally wrong (<xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). These agents create frames and toolkits to facilitate illegal activity, such as paying bribes, overpricing a contract, and generating slush funds. These practices become part of the internal process of the organization.</p>
+        <p>Culture is also a source of power; it creates constraints that help organizational members to behave according to certain values and assumptions. Organizational culture can be harmful to employees (<xref ref-type="bibr" rid="B24">Pagès, Gaulejac, Bonetti, &amp; Descendre, 1998</xref>). Individuals are assimilated into the corporate culture to the point that they trust in this culture more than their moral sense. The continuum of destructiveness represents this acculturation and evangelization (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+        <p>Several studies shows that the culture and the nature of the construction industry can facilitate fraud and corruption. Irrespective of the geographical location of the studies, the industry’s close relationship with the government, lengthy supply chains, and complex contracts make this industry susceptible to corruption at a global level (<xref ref-type="bibr" rid="B4">Arewa &amp; Farrell, 2015</xref>). This perspective cannot dismiss the influence of organizational culture on corruption. An individualistic culture promotes shrewdness and justify unethical activities to achieve organizational goals. This culture also promotes bad leadership, avarice, and low corporate ethical values, which hinders the growth of a company in the long run (<xref ref-type="bibr" rid="B33">Sims &amp; Brinkmann, 2003</xref>).</p>
+        <p>These studies lead to the question of what happens to the individual who joins a CO and how does this person morally distance themself from the corrupt behavior. This question can be answered by the continuum of destructiveness (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+      </sec>
+      <sec>
+        <title>2.2 Continuum of destructiveness</title>
+        <p><xref ref-type="bibr" rid="B34">Zyglidopoulos and Fleming (2008</xref>) created the continuum of destructiveness to explain how innocent bystanders become guilty perpetrators of corruption in COs. The progress from an innocent bystander to a perpetrator is mediated by ethical distance. Therefore, it is important to define ethical distance.</p>
+        <p>Ethical distance is the distance between unethical activity and its consequences which entails the dissociation from the action from its moral implications. In the case of structural ethical distance, the agents remain unaware that their position in the company can play a relevant role in altering the unethical activity they observe or undertake. Often, these individuals may not actively participate in the action but may witness the participation of their superiors in illegal activities. In the case of temporal ethical distance, the agents remain unaware of the future negative consequences of their unethical activity. This occurs in the case of corruption crimes, given that bribery to political officials or overpriced contracts does not exert direct or at least immediate visible negative effects on communities (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+        <p>Not every organizational member may be subjected to the continuum. Especially, in large organizations, employees may not be aware of the corruption scheme, are not active participants of the scheme, nor are involved in a job promoting or related to the illegal activities. These employees maintain a structural ethical distance from the illegal activity to the point of not being aware of it. Employees become organizational bystanders the moment they become aware of the corruption schemes of their organization. Hereafter, the process of the continuum of destructiveness will analyze individuals that are aware of illegal practices in their organization, to any extent.</p>
+        <p>Employees become organizational bystanders when they see the necessity of action but do not participate directly in the activity. From a general perspective, and not from the viewpoint of COs, organizational bystanders can be defined as follows:</p>
+        <disp-quote>
+          <p>Organizational bystanders are individuals who fail to take necessary action when important threats or opportunities arise. They often have crucial information or a valuable point of view that would improve an organization’s decision-making capability, but for a variety of psychological and organizational reasons they do not intervene (<xref ref-type="bibr" rid="B12">Gerstein &amp; Shaw, 2008</xref>, p. 5).</p>
+        </disp-quote>
+        <p>Agents who react to an illegal issue are viewed as whistleblowers. In the absence of any issue, they act as alarmists. In any case, organizational bystanders engage in psychological rationalization; for example, such individuals diffuse responsibility, desire peer acceptance, and fear consequences (<xref ref-type="bibr" rid="B12">Gerstein &amp; Shaw, 2008</xref>, p. 11). The structural distance of the employees from the act - the fact that they are not directly involved in the act - draws them closer to becoming innocent participants (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+        <p>Innocent participants are involved in situations leading to the wrongdoing, but they are not directly responsible for it. Despite moral self-sanctions of employees being more easily activated when they think about future repercussions (<xref ref-type="bibr" rid="B1">Agerström &amp; Björklund, 2009</xref>). Innocent participants cannot foresee the moral impacts of their actions or inactions, that is, they cannot visualize the consequences of the unethical actions. This can be attributed to their temporal distance, especially in a culture demanding short-term results. Temporal distance is the distance between the fact and its consequences, which accelerates the process of converting an innocent participant into a rationalizer (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Owing to the structural distance, innocent participants perceive their roles as unimportant or irrelevant to corruption perpetuation, then they become rationalizers who do not face charges despite being responsible for the outcomes of the corrupt action. The separation between these labels is analytical and only used for understanding purposes (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+        <p>Perpetrators maintain a reduced ethical distance and visualize the consequences and moral implications of their actions. After they become aware of their wrong actions, they can decide to become whistleblowers or perpetrators (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). At each stage of the continuum, rationalization makes it difficult to make ethical decisions. This is because the agents justify or fail to visualize the moral implications of their actions and inactions. These agents can evaluate the ethical quality of their decisions by applying different mechanisms about how the world works and how unethical activity may make changes on their identity (<xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). This model of ethical distance can be seen in <xref ref-type="fig" rid="f1">Figure 1</xref>. It proposes that ethical distance facilitates a bystander to become an innocent participant, and an innocent participant to become a rationalizer, however it decreases to the point individuals must decide between becoming guilty perpetrators or whistleblowers (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>, p. 270).</p>
+        <p>
+          <fig id="f1">
+            <label>Figure 1</label>
+            <caption>
+              <title>Role of ethical distance in determining the transition of participants between their different types</title>
+            </caption>
+            <attrib>Source: Adapted from <xref ref-type="bibr" rid="B34">Zyglidopoulos and Fleming (2008</xref>, p. 270).</attrib>
+            <alternatives>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/b7dec7207b28ffee62f457d026a9d73c5806bdec.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/2fcc2bad1529e63dfdd9d7ccf66fb8d0b28033cd.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>This model explains corruption from an individual perspective, focusing on how individuals become perpetrators. This research does not measure the ethical distance, given the qualitative nature of the data. Nevertheless, the testimonies of the Odebrecht executives can show how the rationalization mechanisms lead to moral disengagement. A corrupt culture helps executives make an excuse to engage in and adopt leniency toward corruption. This idea that executives’ actions are not morally implicated justifies and normalizes corruption. In this context, it is necessary to define moral disengagement and rationalization mechanisms.</p>
+        <p>Moral disengagement is the misperception that an inhumane activity is not wrong. It is achieved through rationalization - the cognitive process that makes individuals perceive their actions as justifiable, not morally wrong, or inculpable (<xref ref-type="bibr" rid="B2">Anand et al., 2004</xref>; <xref ref-type="bibr" rid="B5">Bandura, 1999</xref>). These individuals can morally disengage themselves by increasing their ethical distance, misconstruing the consequences of their actions, creating excuses, and rationalizing corruption. These processes make the employees believe that their actions are not wrong or are morally justified, and thereby hinder the ethical decision-making of organizations (<xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). The morally disengaged employees do not implicate themselves in their unethical decisions.</p>
+        <p>The development of this idea has led researchers to identify rationalization mechanisms, different cognitive processes leading to moral disengagement. <xref ref-type="bibr" rid="B17">Klerk (2017b</xref>) described eight rationalization mechanisms: The first mechanism focuses on the rationalization of responsibility - the denial, displacement, or diffusion of individual responsibility. The second mechanism focuses on the legality or legal ignorance, justifying corrupt behaviors that are not illegal. In the third mechanism, the perpetrator minimizes or misconstrues the consequences of corrupt action by denying injury or victim. The fourth mechanism focuses on how the perpetrator redeems themself from corrupt activities by refocusing attention in favor of the business. The fifth mechanism shows that perpetrators engage in social weighting by comparing their crime with other worst crimes. In the sixth mechanism, perpetrators exercise entitlement, claiming that it was their right to be corrupt. The seventh mechanism shows how perpetrators appeal to higher loyalties or higher-order values. In the eighth, rationalizing intention, perpetrators claim to pay back for the wrong or make the action seem less grievous. The executives use different rationalization mechanisms at different points of the continuum. This enables the executives to increase their ethical distance and morally disengage themselves from their unethical behavior. Before elaborating on this process, it is important to describe the methodological choices of this research.</p>
+      </sec>
+    </sec>
+    <sec sec-type="methods">
+      <title>3. METHOD</title>
+      <sec>
+        <title>3.1 Case context and data collection</title>
+        <p>The Operation Car Wash started in Brazil in 2014 but unraveled crimes in at least 49 other countries. The investigation focused on a corruption scheme mainly in the oil and gas and construction sectors. It used bilateral accords and plea bargains that allowed the prosecutors to target important politicians and companies. The task force was marred in controversy. It was accused of engaging in collusion between judges and prosecutors, using plea bargains excessively, and interfering in the elections by prioritizing the cases of leading candidates (<xref ref-type="bibr" rid="B32">Silva, 2020</xref>). This operation was aided by the Brazilian media, and it became the center of the Brazilian public debate (<xref ref-type="bibr" rid="B3">Andrade, 2018</xref>).</p>
+        <p>At the time of the investigations, Odebrecht was the largest construction company to face charges. In this research, we compiled the testimonies of 49 Odebrecht executives at all company levels. These testimonies describe the executives’ involvement in the corruption cases and their trajectory in the corporation. Since Odebrecht is representative of large-scale corruption, it provides an understanding of the factors leading to the emergence of a corrupt culture in large corporations and thereby confirms the theoretical and pre-established ideas (<xref ref-type="bibr" rid="B31">Seawnght &amp; Gerring, 2008</xref>). It is also a theoretically relevant case owing to its insights into the internal dynamics of a corrupt organization (<xref ref-type="bibr" rid="B10">Dyer &amp; Wilkins, 1991</xref>).</p>
+        <p>The data comprise the video testimonies of 49 executives, spanning a total of 141 hours and 5 minutes. The duration of individual testimonies varied from 13 minutes to 10 hours. We organized and analyzed the videos using computer-assisted qualitative data analysis software, which facilitated the transcription of the coded parts. Each testimony was assigned the letter C followed by a random identification number.</p>
+        <p>Apart from these videos, we analyzed four books written and published by former Odebrecht executives from the founding family. The first three books are part of a collection called “Survive grow and perpetuate: Odebrecht business technology” (<xref ref-type="bibr" rid="B23">N. Odebrecht, 2011</xref>). These three volumes are artifacts that according to the executives explains Odebrecht’s culture. Hereafter, we will refer to this collection as TEO (<italic>Tecnologia Empresarial Odebrecht</italic>). The fourth book is called “Trust and serve: ideas about the development of Brazil and its companies” (<xref ref-type="bibr" rid="B22">E. Odebrecht, 2007</xref>). It presents the analysis of a former Odebrecht president on the Brazilian business context. Those books were important to give context and insight over Odebrecht culture, increasing the capacity to describe the case study of a corrupt corporation.</p>
+      </sec>
+      <sec>
+        <title>3.2 Method of analysis</title>
+        <p>As the amount of data gathered and analyzed is part of a bigger research project, we commenced by open coding the videos of the executives (<xref ref-type="bibr" rid="B10">Dyer &amp; Wilkins, 1991</xref>). The goal was to organize and summarize pieces of data, keeping an open mind for theoretical insights that will be latter refined (<xref ref-type="bibr" rid="B8">Charmaz, 2000</xref>). In this initial step, it was coded the names of important characters, places and cases that helped us organize the vast quantity of data.</p>
+        <p>The second step was to compare the data using axial coding (<xref ref-type="bibr" rid="B8">Charmaz, 2000</xref>) This provided a logic for organize and summarize data from empirical statements; in this phase, we coded every excerpt from the videos. This coding allowed us to compare the experience of each collaborator. It was also important to understand the events they were describing and abstract the research ideas based on the immense dataset. The constant comparison between codes allowed for the emergence of three important groups of codes that described the trajectory of the executives within the company, the organizational culture, and the rationalization mechanisms.</p>
+        <p>While these first two steps were inductive, they revealed important insights that could be analyzed considering theoretical frameworks. The trajectory of the executives remounted to the continuum of destructiveness and to the rationalization mechanisms. Which led us to make a methodological decision to deductively analyze the data based on the categories of these two frameworks.</p>
+        <p>The third step was making a conceptual coding, based on the rationalization mechanisms, and the continuum of destructiveness. For both categories the process was similar. We conducted a minute-by-minute codification process, which filled the codes with in <italic>vivo</italic> quotes that empirically described theoretical concepts. Those were each stage of the continuum: organizational bystanders, innocent participants, rationalizers, decision point, guilty perpetrators, and refusal of participate; and the eight rationalization mechanisms: rationalization of responsibility, legality or legal ignorance, misconstruction of the consequences, redemption, social weighting, entitlement, appeal to higher loyalties and rationalizing intention.</p>
+        <p>For the description of the corrupt organization category the open codes that were first created in the beginning of the analysis were grouped in concepts that described the culture, from the abstraction of the initial coding there were three conceptual codes: rules and internal process, stories and narratives, assumptions, and values. These represent the corrupt organization from their visible artifacts and processes to their underlying beliefs (<xref ref-type="bibr" rid="B30">Schein, 2010</xref>). After the conceptual coding, another step of constant comparisons to make links between codes and generating theoretical insight was made so to understand the relations between the rationalization mechanisms and each step of the continuum and how the corrupt culture enhances this process (<xref ref-type="bibr" rid="B8">Charmaz, 2000</xref>).</p>
+        <p><xref ref-type="fig" rid="ch1">Box 1</xref>presents the open and conceptual codes and the categories gathered from this analysis for the corrupt organization and continuum of destructiveness categories.</p>
+        <p>
+          <fig id="ch1">
+            <label>Box 1</label>
+            <caption>
+              <title>Codification process</title>
+            </caption>
+            <attrib>Source: Elaborated by the author.</attrib>
+            <alternatives>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/7571da4bd1d5d7cfbf73bfa4e94ed4190b9be98f.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/c3bea7fed2c991e126c958de4f80e3916c8e98f7.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>The subsequent section presents an analysis of the data and discusses our theoretical contribution. Specifically, it describes a corrupt culture, how employees progress along the continuum of destructiveness rationalizing differently in this culture, and the relationship between culture and the continuum.</p>
+      </sec>
+    </sec>
+    <sec>
+      <title>4. DATA ANALYSIS</title>
+      <p>The analysis showed that two theoretical categories “corrupt organization” and “continuum of destructiveness” were useful to explain the phenomenon. Both are related and influence one another. This section describes the factors leading to the construction of a CO and how its employees progress through the continuum of destructiveness.</p>
+      <sec>
+        <title>4.1 The corrupt organization</title>
+        <p>Odebrecht created a permissive culture that helped organizational members to rationalize their actions. The CO was formed by rules and processes that operationalized illegal activities; it also developed stories and narratives that helped members to rationalize corrupt practices; and it established a set of shared values and beliefs between organizational members (<xref ref-type="bibr" rid="B25">Pinto et al., 2008</xref>).</p>
+        <p>Odebrecht had various <bold>rules and internal process</bold> that helped or were developed specifically to contribute to the illicit activity. The company was organized into small business units based on each contract, and therefore each contract or cost center had a dedicated executive. The executives of these centers could ask for illegal payments if the contract was profitable, and hence their superiors checked if the business unit was making financial losses. Beyond the financial loss, the bonuses of the executives were paid based on the profit of their projects. As in Enron (<xref ref-type="bibr" rid="B33">Sims &amp; Brinkmann, 2003</xref>), the commission of the executives was directly related to their performance; these executives were expected to perform and achieve results, by any means necessary. These payments are explained in the following quote:</p>
+        <disp-quote>
+          <p>In fact, when you made an allocation like that [illegal], at the time of closing the project, we knew that, through the structured operations sector, there was an expense on that project; this expense was deducted from profit to identify the executive who had shown that profit (C14).</p>
+        </disp-quote>
+        <p>Using information technology systems, the executives made untraceable e-mails and programmed illegal payments. The executives used these systems to deliver e-mails and spreadsheets to schedule illegal payments. An executive stated, “The system, I am grateful today for someone having put this system in place, what we have here, I now have in the system proof that the [illegal] payment took place” (C14). The structured operations sector was a department in the holding hierarchy responsible for making the illegal payments, they took care of the generating of slush funds and both the national and international illegal payments.</p>
+        <p>The executives used codenames when making transactions with the structured operations sector, where the illegal payments were programmed. Using these codenames, they scheduled the payments via money changers in cash or offshore accounts. If it was in cash, that sector provided the executive with a password, location, and date; the executives provided this information to the contact that would receive the money.</p>
+        <disp-quote>
+          <p>Furthermore, by the defined rules [...], we could never know the identity of the people receiving the payments. To guarantee this anonymity, employees requesting payments from us were instructed to create a codename or nickname for the recipient of the payment, so that only they would know the real identity (C35).</p>
+        </disp-quote>
+        <p>The generation of slush funds was also part of the job. The illegal payments could not be done with money registered in the legal account of the company. All the executives were aware of the risks. The company’s rule did not allow generating slush funds in Brazil; this is attributed to Brazil’s complex tax system. There were some exceptions from this rule in the data.</p>
+        <disp-quote>
+          <p>We, in Brazil, had a rule of not making slush funds, a ban on making slush funds. The generation of slush funds was carried out by structured operations personnel, outside Brazil, generating dollars, generating euros, generating any foreign currency, and from there they found money changers who received this money abroad and delivered it here in Brazil (C14).</p>
+        </disp-quote>
+        <p>Beyond the rules and processes that allowed for the illicit activity, the company had <bold>stories and narratives</bold> that supported their belief systems. Slush funds were used to pay bonuses to the executives through the same system of illegal payment. One executive highlighted the need to develop mutual trust to avoid internal theft and fraud.</p>
+        <disp-quote>
+          <p>They were working on trust, right friend, because of the money in these people’s hands, if they wanted to take 2, 3 million and disappear into the world, nobody would ever find them (C35).</p>
+        </disp-quote>
+        <p>The use of bonuses and goal setting in a company focused on results confirms the arguments of <xref ref-type="bibr" rid="B6">Campbell and Göritz (2014</xref>) that these norms and values reflect the underlying assumption of rationalization mechanisms.</p>
+        <disp-quote>
+          <p>Odebrecht had a historical practice of paying part of the bonus of some high-ranking executives with slush funds resources, with tax evasion (C35).</p>
+        </disp-quote>
+        <p>Besides their own bonuses the executives shared stories, some of them rationalizing corruption and enforcing their policies. When they did not comply with these internal norms, they were fired. This is highlighted in the following words:</p>
+        <disp-quote>
+          <p>Why do you need to know what I do in my area, I didn’t have to divulge what I did or what I didn’t do? I fired a guy who made a mummery, I got on the elevator, me, [two other executives], and this clown in front of other people came to [my colleague] and said you’re not ashamed to give money to these people, right? [My colleague] told him I don’t give anything, I pay what the others say, I don’t give anything. But I thought that the behavior of this person, who was the subordinate of a person in a [foreign country], was not suitable, especially in an elevator where there were 8 or 10 people for him to comment on that, it wasn’t appropriate. Then I called his boss and asked for his head, this type of behavior can’t be, even because he, as the director of a project, at any given time, could ask [for illegal payments] (C35).</p>
+        </disp-quote>
+        <p>As it is possible to see in the final period of the quote, it was part of the job description of any director of a project that they could ask for illegal payments for a contract.</p>
+        <p>“A satisfied customer is the foundation of Odebrecht’s existence” (<xref ref-type="bibr" rid="B23">N. Odebrecht, 2011</xref>, p. 42). This was done by creating personal relationships that would help Odebrecht gain access to public power. The incentive to have a personal and direct relationship with the client is stated in TEO. “For each client, there must be a previously identified entrepreneur; this entrepreneur must represent its respective team” (N. Odebrecht, 2011, p. 88). It was the company’s strategy to depute an executive to maintain relationships with a politician (<xref ref-type="bibr" rid="B9">Coelho &amp; Barros, 2021</xref>; <xref ref-type="bibr" rid="B28">Rodrigues &amp; Barros, 2022</xref>).</p>
+        <p>TEO states that leaders should train new leaders and acculturate all employees based on their philosophy. In this regard, a repeated phrase in TEO is “[…] a large organization with the spirit of a small one.” The organization also suggests that these executives should read the book to understand the culture associated regarding satisfying the clients and shareholders. As per the TEO, this reading of the book can make the executives socially responsible, however it also states that the client should be all the matters (N. <xref ref-type="bibr" rid="B23">Odebrecht, 2011</xref>).</p>
+        <p>Underlying the rules, processes, stories, and narratives there were the <bold>assumptions and values</bold>. The TEO describes several of the beliefs, assumptions, and values of the organization. The book enforces the observation of behavioral guidelines specified for the executives. Besides quoting the TEO, the executives used its organizational language in their testimonies. For example, they referred to Odebrecht as “the Organization” and the institutions, governments, and other contractors as “the Client”; they stated the company motto to “Serve the client,” when asked about the company’s purpose (<xref ref-type="bibr" rid="B18">Lamb, Lacerda, Dresch, &amp; Morandi, 2018</xref>; <xref ref-type="bibr" rid="B23">N. Odebrecht, 2011</xref>).</p>
+        <p>The inversion of what is normal, and the rationalization of immoral activities change the underlying assumption that forms the company’s objective. Despite having a small chapter on social responsibility (N. <xref ref-type="bibr" rid="B23">Odebrecht, 2011</xref>, p. 112), the assumptions of profits, results, bonuses present in the book overcome justice as a guiding principle. Odebrecht’s culture worked for itself by having its own set of internal agendas, values, principles, and assumptions. With time, those values are assimilated by the executives and help them rationalize their illegal activities, that can be described as the continuum of destructiveness process.</p>
+      </sec>
+      <sec>
+        <title>4.2 The continuum of destructiveness</title>
+        <p>After explaining the context and culture of the company it is possible to describe the continuum of destructiveness, all their stages and how the executives rationalize in each one.</p>
+        <p>The collaborators state that, when they entered the organization, they “start to realize how things work” (C03). This awareness, after the entry phase, is reflective of the position of an <bold>organizational bystander</bold> in the continuum of destructiveness. In this stage, employees are aware of what is happening in their organization, but they do not participate in reunions or requests. Although they maintain a structural ethical distance from the illegal activities, they fail to visualize the impacts of their actions and inactions (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). At this point, the more evident rationalization mechanism is appealing to higher loyalties, which makes the executives blame their superiors or the values and importance they give to the product of the company (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>).</p>
+        <disp-quote>
+          <p>He spoke to [my superior] stating that there would be a need for an advance payment, it was the first time I had had such an experience, [...] I’m not sure if [my superior] paid, but I was with him [in this meeting]. Later I don’t know how his dealings on this matter turned out (C73).</p>
+        </disp-quote>
+        <p>Organizational bystanders also rationalize their responsibility. It appeared in the form of misconstruing the consequences of the actions, thinking that the activities were legitimate.</p>
+        <disp-quote>
+          <p>In this normalization process, it made us treat it [corruption activity] as a great banality, which made it difficult for what was legitimate and what was not. Even if you had a legitimate interest you dealt with slush funds (C31).</p>
+        </disp-quote>
+        <p>Concerning leadership, in Odebrecht when an employee becomes a leader, they can ask for illegal payments. As stated by one executive, “When I became the contract manager, even though I was working a lot in the private area, I knew that this mechanism [of illegal payments] existed” (C66). In this stage, they start participating in meetings and become <bold>innocent participants</bold>. As predicted by <xref ref-type="bibr" rid="B34">Zyglidopoulos and Fleming (2008</xref>), in this position, the structural ethical distance makes participants think that they do not contribute to corruption. In other words, they fail to see the consequence of their actions. The rationalization mechanism, at this point, makes them misconstrue the consequences. In this regard, an executive stated the following:</p>
+        <disp-quote>
+          <p>The solution of the ports [a contract made with bribery] was fundamental for the maintenance of industrial activity in Brazil, preservation of jobs, and the production chain. And the generation of taxes with treasury gain. And that our performance was not just for the benefit of Braskem, but of an entire industrial sector (C17).</p>
+        </disp-quote>
+        <p>At this stage, the employees make social comparisons. They compare their crimes with other crimes: This rationalization is depicted in the following words: “A term I’ve never heard, is ‘cartel’, I’ve never heard. Now I knew that there was also what we call bidding fraud, market manipulation” (C50). The fact that the executives never heard of the names of the crimes they committed only demonstrates how their illegal activities were rationalized. They justified or did not think that it was wrong or illegal, at this point, the employees show leniency toward corruption. As part of the job, they were required to maintain a close relationship with political agents and entertain the possibility of asking for illegal payments.</p>
+        <p>Collaborators recount that they rationalize, differently from what was predicted by the continuum of destructiveness. This rationalization begins the moment they encounter unethical activities (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). For example, by justifying that it was right to pay what others paid, the executive rationalized the responsibility (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>), and thereby normalizing corruption. As stated in his words:</p>
+        <disp-quote>
+          <p>I’m here doing a memory exercise, about illegal practices, because it’s important to mark it, let’s put it that way. Because since 1978, when I worked at Andrade Gutierrez, at that time still under the military regime, there had already been news of unorthodox practices, let’s say, it’s obvious that in our youth we just listened (C15).</p>
+        </disp-quote>
+        <p>Subsequently, at all stages of the continuum there is rationalization. However, there is a <bold>decision point</bold> when executives are asked to engage in corrupt practices and decide between blowing the whistle or becoming a perpetrator. The culture of Odebrecht led employees to rationalization after their recruitment. The culture did not provide the employees a scope to blow the whistle, even when they realized the folly of making illegal payments. The executives also expressed that any withdrawal from such acts led to their demission from the company. Previous research on whistleblowing has portrayed it as an ineffective tool (<xref ref-type="bibr" rid="B15">Johansson &amp; Carey, 2016</xref>). Some agents say that it was difficult to turn down a bribery request.</p>
+        <disp-quote>
+          <p>I never offered, but I never said no [to a bribery request]. I played the game and when I thought it was reasonable, I accepted. I might not agree, renegotiate. The refusal itself was always very complicated because there could be retaliation. in another contract, they could retaliate against us (C15).</p>
+        </disp-quote>
+        <p><xref ref-type="bibr" rid="B34">Zyglidopoulos and Fleming (2008</xref>) describe the decision point as a moment of clarity when the ethical distance is diminished. At this point, the agents become conscious of their wrong actions, and they decide to perpetrate or blow the whistle. At Odebrecht, while agents, at the decision point, may have less ethical distance because their actions are directly related to corruption, the rationalization process that gives them moral disengagement, blurring their vision, started at the bystander phase and grew in the continuum. Therefore, in this case it is possible to see that the decision to become a perpetrator is more related to the moral disengagement and rationalization process than to their ethical distance from the wrongdoing (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). At the <bold>guilty perpetrator</bold> stage, executives feel entitled to corruption benefits. This is shown in the following quote by the executive:</p>
+        <disp-quote>
+          <p>The tendency was to lose in the supreme [court]. We even interceded with the deputy for the relationship he had with the president, that he could sensitize the president so that the president could, I don’t know if arbitrate, but be in favor of all this credit [for us] (C04).</p>
+        </disp-quote>
+        <p>The executives also sought redemption from the activity “that all this is very wrong if you allow me, may I say that?” (C13). And alleging that it was not legally wrong or disbelief the operation. This was done even before the testimonies when “the objective was to discredit the mechanism of whistleblowing [plea bargains]” (C31).</p>
+        <p>Considering the framework, our case study shows all the elements described in the continuum of destructiveness, however, the rationalization path undertook by the executives looks more like a continuum than having a single decision point. At any point, a person involved in a corrupt organization may decide to become a <bold>whistleblower</bold> or walk away. However, the willingness to engage in the act becomes weaker as the rationalization of corruption becomes stronger. It is important to note that due to the nature of our data, all the executives became whistleblower under a leniency agreement made by Odebrecht with the public ministry, at that time the carwash corruption probe had already investigated other companies and cases with makes this decision not an individual one under the analysis of the continuum of destructiveness framework. With this in mind, we explained the rationalization of the executives and refine the continuum of destructiveness.</p>
+      </sec>
+    </sec>
+    <sec sec-type="discussion">
+      <title>5. DISCUSSION</title>
+      <p>When entering a corrupt organization, it is necessary to comply with the rules, values, and beliefs. The construction industry provides an opportunity for wrongdoing; this is facilitated by its proximity to the State, complex contracts, and corporate culture (<xref ref-type="bibr" rid="B4">Arewa &amp; Farrell, 2015</xref>). Given this culture and context, rationalization also becomes part of the job.</p>
+      <p>We could not assess the propositions on ethical distance and its effects on the transition between the phases of the continuum (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). While some executives show that they maintained different structural and temporal ethical distances from corruption during their time in the organization, it does not directly relate to their capacity of progressing in the continuum. This can be attributed to the company’s culture. Odebrecht imposed its culture in a manner that made its executives believe that the organization is important to their surrounding environment. This led them to rationalize wrongdoing from the moment they became aware of the illegal activities. Rationalization occurs even for organizational bystanders and innocent participants (<xref ref-type="bibr" rid="B12">Gerstein &amp; Shaw, 2008</xref>; <xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>).</p>
+      <p>Rationalization and the resulting moral disengagement provide a better understanding of what drives individuals further in the continuum. Although ethical distance mediates progress, the psychological mechanisms and moral self-sanctions influence individuals’ decision to take one step further in the continuum, quit or blow the whistle (<xref ref-type="bibr" rid="B5">Bandura, 1999</xref>). Assuming this is true, two refinements take place in the continuum. First, there is no unique decision point; at every opportunity, the agent can decide to blow the whistle or quit the scheme. This can only occur if their moral self-sanctions overcome the rationalization mechanisms, in a corrupt culture, the willingness to blow the whistle diminishes with time.</p>
+      <p>Second, Individuals who are inside the corrupt organization start rationalizing as organizational bystanders. With time, new arguments convince individuals that their actions are not immoral. This excludes the stage of rationalization from the continuum because the individuals rationalize at all the stages. The further the individuals are in the continuum, the more rationalization mechanisms they use to justify or morally disengage from the unethical decisions. <xref ref-type="fig" rid="f2">Figure 2</xref> shows the refined continuum of destructiveness that occurred in Odebrecht.</p>
+      <p>
+        <fig id="f2">
+          <label>Figure 2</label>
+          <caption>
+            <title>Continuum of destructiveness</title>
+          </caption>
+          <attrib>Source: Elaborated by the author.</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/a0b7fccba31cff582dc78e98ff0c9196f5fc816a.jpg"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/66d183cedc6c80f33a997ca8f7351d35930c3130.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>The idea that individuals in different stages of the continuum will rationalize unethical behavior differently makes it possible to operationalize the rationalization mechanisms described by <xref ref-type="bibr" rid="B17">Klerk (2017b</xref>). The case study shows which rationalization mechanisms are more used in each phase of the continuum.</p>
+      <p>As organizational bystanders, individuals rationalize by appealing to higher loyalties and rationalizing responsibility (<xref ref-type="bibr" rid="B16">Klerk, 2017a</xref>, <xref ref-type="bibr" rid="B17">2017b</xref>). This is owing to the structural distance that makes agents not see the consequences of corruption or their inaction; this omission is part of the corruption culture (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). As innocent participants, when temporal ethical distance is in place, the difficulty to see the consequences of the action makes agents rationalize the intention and leads them to engage in social comparisons. We agree with Zyglidopoulos and Fleming (<xref ref-type="bibr" rid="B34">2008</xref>) that perpetrators maintain less ethical distance than organizational bystanders and innocent participants. Data shows that perpetrators are directly involved in the corrupt action, which makes them know that what they are doing is wrong, leading them to feel entitled to corruption and its results.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>6. CONCLUSION</title>
+      <p>This research aims to refine the continuum of destructiveness, by examining a corrupt organization and explaining what happens when an individual encounters and participates in such a culture. It presents a version of the continuum that puts emphasizes on the rationalization process rather than the ethical distance. These changes make the continuum look more like a path that individuals undertake when entering a corrupt organization. The contribution of the empirical research on Odebrecht showed that an individual starts rationalizing immediately after joining a CO and being aware of the unethical activity. The first contact of the individual with unethical activities leads to rationalization mechanisms, which, in turn, leads to moral disengagement and the progress of the individual in the continuum.</p>
+      <p>The individuals in the continuum start as organizational bystanders; they rationalize by appealing to higher loyalties and rationalizing responsibility. When they participate in meetings and draw closer to the illegal side of the business, they have a high intent to rationalize. Hence, they engage in social weighting and start minimizing the consequences. At this step, their peers also play a role in strengthening their reasoning and moral disengagement. Finally, after becoming a perpetrator, they seek entitlement and redemption; they also depend on legality to rationalize their actions.</p>
+      <p>Another aspect of this case study is that there is no unique decision point in the continuum; at any moment, the individual can quit or blow the whistle. The process of rationalization makes it more difficult. It must be noted that the culture of Odebrecht created a code of values, beliefs, and assumptions; these aspects made its members rationalize their actions. By teaching its employees that the purpose of the company is to serve the client and that each business leader must have personal relationships with important members of the clients’ organizations, the corrupt culture contributed to rationalization. The relationship between the culture and the rationalization mechanisms becomes explicit when the TEO is used to rationalize corruption (<xref ref-type="bibr" rid="B6">Campbell &amp; Göritz, 2014</xref>).</p>
+      <p>This research is part of an initial step to understanding theoretical ideas such as the continuum of destructiveness based on empirical evidence and how a corrupt organizational culture creates rationalization mechanisms. These changes in the conception of the continuum of destructiveness emphasize the rationalization mechanisms and moral disengagement. This does not mean that ethical distance does not play a role in the continuum; however, the acculturation process that changes the reasoning for wrongdoing should be better explained. As this is a qualitative study it did not intend to validate the continuum and its derived propositions, in that way we incentivize future research to investigate and measure how ethical distance and the rationalization mechanisms play their role in furthering individuals down the continuum of destructiveness path. Other studies should be conducted to validate and even generalize how culture leads to rationalization. This is important owing to the necessity of reviewing culture that was once viewed as a powerful tool to produce organizational results. Notwithstanding, it is one of the many causes of structural and even endemic corruption.</p>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>ACKNOWLEDGMENTS</title>
+      <p>This research was carried out with the support of the Fundação Getulio Vargas’s São Paulo School of Business Administration (FGV EAESP).</p>
+    </ack>
+    <ref-list>
+      <title>REFERENCES</title>
+      <ref id="B1">
+        <mixed-citation>Agerström, J., &amp; Björklund, F. (2009). Temporal distance and moral concerns: future morally questionable behavior is perceived as more wrong and evokes stronger prosocial intentions. <italic>Basic and Applied Social Psychology</italic>, <italic>31</italic>(1), 49-59. Retrieved fromhttps://doi.org/10.1080/01973530802659885</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Agerström</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Björklund</surname>
+              <given-names>F</given-names>
+            </name>
+          </person-group>
+          <year>2009</year>
+          <article-title>Temporal distance and moral concerns: future morally questionable behavior is perceived as more wrong and evokes stronger prosocial intentions</article-title>
+          <source>Basic and Applied Social Psychology</source>
+          <volume>31</volume>
+          <issue>1</issue>
+          <fpage>49</fpage>
+          <lpage>59</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1080/01973530802659885</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>Anand, V., Ashforth, B. E., &amp; Joshi, M. (2004). Business as usual: the acceptance and perpetuation of corruption in organizations. <italic>Academy of Management Executive</italic>, <italic>19</italic>(4), 9-23. Retrieved fromhttps://doi.org/10.5465/AME.2005.19417904</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Anand</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>Ashforth</surname>
+              <given-names>B. E.</given-names>
+            </name>
+            <name>
+              <surname>Joshi</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <year>2004</year>
+          <article-title>Business as usual: the acceptance and perpetuation of corruption in organizations</article-title>
+          <source>Academy of Management Executive</source>
+          <volume>19</volume>
+          <issue>4</issue>
+          <fpage>9</fpage>
+          <lpage>23</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.5465/AME.2005.19417904</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>Andrade, E. R. (2018). A apropriação do discurso da Lava Jato pela mídia: a formação de arquivos de memória sobre o evento e seus personagens principais. <italic>Polifonia</italic>, <italic>25</italic>(37.1), 19-34. Retrieved from<ext-link ext-link-type="uri" xlink:href="https://periodicoscientificos.ufmt.br/ojs/index.php/polifonia/article/view/6109">https://periodicoscientificos.ufmt.br/ojs/index.php/polifonia/article/view/6109</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Andrade</surname>
+              <given-names>E. R</given-names>
+            </name>
+          </person-group>
+          <year>2018</year>
+          <article-title>A apropriação do discurso da Lava Jato pela mídia: a formação de arquivos de memória sobre o evento e seus personagens principais</article-title>
+          <source>Polifonia</source>
+          <volume>25</volume>
+          <issue>37.1</issue>
+          <fpage>19</fpage>
+          <lpage>34</lpage>
+          <comment>Retrieved from</comment>
+          <ext-link ext-link-type="uri" xlink:href="https://periodicoscientificos.ufmt.br/ojs/index.php/polifonia/article/view/6109">https://periodicoscientificos.ufmt.br/ojs/index.php/polifonia/article/view/6109</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>Arewa, A. O., &amp; Farrell, P. (2015). The culture of construction organisations: The epitome of institutionalised corruption. <italic>Construction Economics and Building</italic>, <italic>15</italic>(3), 59-71. Retrieved from https://doi.org/10.5130/AJCEB.v15i3.4619</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Arewa</surname>
+              <given-names>A. O.</given-names>
+            </name>
+            <name>
+              <surname>Farrell</surname>
+              <given-names>P</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>The culture of construction organisations: The epitome of institutionalised corruption</article-title>
+          <source>Construction Economics and Building</source>
+          <volume>15</volume>
+          <issue>3</issue>
+          <fpage>59</fpage>
+          <lpage>71</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.5130/AJCEB.v15i3.4619</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>Bandura, A. (1999). Moral disengagement in the perpetration of inhumanities. <italic>Personality and Social Psychology Review</italic>, 3(3), 193-209. Retrieved fromhttps://doi.org/10.1207/s15327957pspr0303_3</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bandura</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <year>1999</year>
+          <article-title>Moral disengagement in the perpetration of inhumanities</article-title>
+          <source>Personality and Social Psychology Review</source>
+          <volume>3</volume>
+          <issue>3</issue>
+          <fpage>193</fpage>
+          <lpage>209</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1207/s15327957pspr0303_3</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>Campbell, J. L., &amp; Göritz, A. S. (2014). Culture corrupts! A qualitative study of organizational culture in corrupt organizations. <italic>Journal of Business Ethics</italic>, <italic>120</italic>(3), 291-311. Retrieved from https://doi.org/10.1007/s10551-013-1665-7</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Campbell</surname>
+              <given-names>J. L.</given-names>
+            </name>
+            <name>
+              <surname>Göritz</surname>
+              <given-names>A. S</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>Culture corrupts! A qualitative study of organizational culture in corrupt organizations</article-title>
+          <source>Journal of Business Ethics</source>
+          <volume>120</volume>
+          <issue>3</issue>
+          <fpage>291</fpage>
+          <lpage>311</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1007/s10551-013-1665-7</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>Castro, A., Phillips, N., &amp; Ansari, S. (2020). Corporate corruption: a review and research agenda. <italic>Academy of Management Annals</italic>, <italic>14</italic>(2), 1-79. Retrieved from https://doi.org/10.5465/annals.2018.0156</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Castro</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Phillips</surname>
+              <given-names>N.</given-names>
+            </name>
+            <name>
+              <surname>Ansari</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <year>2020</year>
+          <article-title>Corporate corruption: a review and research agenda</article-title>
+          <source>Academy of Management Annals</source>
+          <volume>14</volume>
+          <issue>2</issue>
+          <fpage>1</fpage>
+          <lpage>79</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.5465/annals.2018.0156</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>Charmaz, K. (2000). Grounded theory: objectivist and contructivist methods. In N. K. Denzin, &amp; Y. Lincoln (Eds.), <italic>The handbook of qualitative research</italic> (pp. 509-535). Thousand Oaks, CA: Sage publications.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Charmaz</surname>
+              <given-names>K</given-names>
+            </name>
+          </person-group>
+          <year>2000</year>
+          <chapter-title>Grounded theory: objectivist and contructivist methods</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Denzin</surname>
+              <given-names>N. K.</given-names>
+            </name>
+            <name>
+              <surname>Lincoln</surname>
+              <given-names>Y.</given-names>
+            </name>
+          </person-group>
+          <source>The handbook of qualitative research</source>
+          <fpage>509</fpage>
+          <lpage>535</lpage>
+          <publisher-loc>Thousand Oaks, CA</publisher-loc>
+          <publisher-name>Sage publications</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>Coelho, C. C., &amp; Barros, A. (2021). Padrinhos e caciques: o lado sombrio da atividade política corporativa na captura do Estado. <italic>Revista Eletrônica de Ciência Administrativa</italic>, <italic>20</italic>(1), 15-42. Retrieved from https://doi.org/10.21529/RECADM.2021001</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Coelho</surname>
+              <given-names>C. C.</given-names>
+            </name>
+            <name>
+              <surname>Barros</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <year>2021</year>
+          <article-title>Padrinhos e caciques: o lado sombrio da atividade política corporativa na captura do Estado</article-title>
+          <source>Revista Eletrônica de Ciência Administrativa</source>
+          <volume>20</volume>
+          <issue>1</issue>
+          <fpage>15</fpage>
+          <lpage>42</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.21529/RECADM.2021001</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>Dyer, W. G., &amp; Wilkins, A. L. (1991). Better stories, not better constructs, to generate better theory: a rejoinder to Eisenhardt. <italic>The Academy of Management Review</italic>, <italic>16</italic>(3), 613-619. Retrieved fromhttps://doi.org/10.2307/258920</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Dyer</surname>
+              <given-names>W. G.</given-names>
+            </name>
+            <name>
+              <surname>Wilkins</surname>
+              <given-names>A. L</given-names>
+            </name>
+          </person-group>
+          <year>1991</year>
+          <article-title>Better stories, not better constructs, to generate better theory: a rejoinder to Eisenhardt</article-title>
+          <source>The Academy of Management Review</source>
+          <volume>16</volume>
+          <issue>3</issue>
+          <fpage>613</fpage>
+          <lpage>619</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.2307/258920</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>Gannett, A., &amp; Rector, C. (2015). The rationalization of political corruption. <italic>Public Integrity</italic>, <italic>17</italic>(2), 165-175. Retrieved from https://doi.org/10.1080/10999922.2015.1000654</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gannett</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Rector</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>The rationalization of political corruption</article-title>
+          <source>Public Integrity</source>
+          <volume>17</volume>
+          <issue>2</issue>
+          <fpage>165</fpage>
+          <lpage>175</lpage>
+          <pub-id pub-id-type="doi">10.1080/10999922.2015.1000654</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>Gerstein, M., &amp; Shaw, R. (2008). Organizational bystanders. <italic>People + Strategy</italic>, <italic>31</italic>(1), 47-54.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gerstein</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Shaw</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <year>2008</year>
+          <article-title>Organizational bystanders</article-title>
+          <source>People + Strategy</source>
+          <volume>31</volume>
+          <issue>1</issue>
+          <fpage>47</fpage>
+          <lpage>54</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>Gofen, A., Meza, O., &amp; Pérez-Chiqués, E. (2022). When street‐level implementation meets systemic corruption. <italic>Public Administration and Development</italic>, <italic>42</italic>(1), 1-105. Retrieved fromhttps://doi.org/10.1002/pad.1970</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gofen</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Meza</surname>
+              <given-names>O.</given-names>
+            </name>
+            <name>
+              <surname>Pérez-Chiqués</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <year>2022</year>
+          <article-title>When street‐level implementation meets systemic corruption</article-title>
+          <source>Public Administration and Development</source>
+          <volume>42</volume>
+          <issue>1</issue>
+          <fpage>1</fpage>
+          <lpage>105</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1002/pad.1970</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>Graaf, G. (2007). Causes of corruption: towards a contextual theory of corruption. <italic>Public Administration Quarterly</italic>, <italic>31</italic>(1), 39-86. Retrieved from<ext-link ext-link-type="uri" xlink:href="https://www.jstor.org/stable/41288282">https://www.jstor.org/stable/41288282</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Graaf</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+          <year>2007</year>
+          <article-title>Causes of corruption: towards a contextual theory of corruption</article-title>
+          <source>Public Administration Quarterly</source>
+          <volume>31</volume>
+          <issue>1</issue>
+          <fpage>39</fpage>
+          <lpage>86</lpage>
+          <comment>Retrieved from</comment>
+          <ext-link ext-link-type="uri" xlink:href="https://www.jstor.org/stable/41288282">https://www.jstor.org/stable/41288282</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>Johansson, E., &amp; Carey, P. (2016). Detecting fraud: the role of the anonymous reporting channel. <italic>Journal of Business Ethics</italic>, <italic>139</italic>(2), 391-409. Retrieved from https://doi.org/10.1007/s10551-015-2673-6</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Johansson</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>Carey</surname>
+              <given-names>P</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <article-title>Detecting fraud: the role of the anonymous reporting channel</article-title>
+          <source>Journal of Business Ethics</source>
+          <volume>139</volume>
+          <issue>2</issue>
+          <fpage>391</fpage>
+          <lpage>409</lpage>
+          <pub-id pub-id-type="doi">10.1007/s10551-015-2673-6</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>Klerk, J. J. (2017a). Nobody is as blind as those who cannot bear to see: psychoanalytic perspectives on the management of emotions and moral blindness. <italic>Journal of Business Ethics</italic>, <italic>141</italic>(4), 745-761. Retrieved from https://doi.org/10.1007/s10551-016-3114-x</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Klerk</surname>
+              <given-names>J. J</given-names>
+            </name>
+          </person-group>
+          <year>2017a</year>
+          <article-title>Nobody is as blind as those who cannot bear to see: psychoanalytic perspectives on the management of emotions and moral blindness</article-title>
+          <source>Journal of Business Ethics</source>
+          <volume>141</volume>
+          <issue>4</issue>
+          <fpage>745</fpage>
+          <lpage>761</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1007/s10551-016-3114-x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>Klerk, J. J. (2017b). “The devil made me do it!” An inquiry into the unconscious “devils within” of rationalized corruption. <italic>Journal of Management Inquiry</italic>, <italic>26</italic>(3), 254-269. Retrieved from https://doi.org/10.1177/1056492617692101</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Klerk</surname>
+              <given-names>J. J</given-names>
+            </name>
+          </person-group>
+          <year>2017b</year>
+          <article-title>“The devil made me do it!” An inquiry into the unconscious “devils within” of rationalized corruption</article-title>
+          <source>Journal of Management Inquiry</source>
+          <volume>26</volume>
+          <issue>3</issue>
+          <fpage>254</fpage>
+          <lpage>269</lpage>
+          <pub-id pub-id-type="doi">10.1177/1056492617692101</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>Lamb, I. T., Lacerda, D. P., Dresch, A., &amp; Morandi, M. I. W. M. (2018). Análise da Tecnologia Empresarial Odebrecht (TEO): uma análise a partir dos conceitos do projeto organizacional de Galbraith. <italic>Interciencia</italic>, <italic>43</italic>(7), 4475-4483. Retrieved from <ext-link ext-link-type="uri" xlink:href="https://www.interciencia.net/wp-content/uploads/2018/07/475-DRESCH-43_07.pdf">https://www.interciencia.net/wp-content/uploads/2018/07/475-DRESCH-43_07.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lamb</surname>
+              <given-names>I. T.</given-names>
+            </name>
+            <name>
+              <surname>Lacerda</surname>
+              <given-names>D. P.</given-names>
+            </name>
+            <name>
+              <surname>Dresch</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Morandi</surname>
+              <given-names>M. I. W. M</given-names>
+            </name>
+          </person-group>
+          <year>2018</year>
+          <article-title>Análise da Tecnologia Empresarial Odebrecht (TEO): uma análise a partir dos conceitos do projeto organizacional de Galbraith</article-title>
+          <source>Interciencia</source>
+          <volume>43</volume>
+          <issue>7</issue>
+          <fpage>4475</fpage>
+          <lpage>4483</lpage>
+          <comment>Retrieved from</comment>
+          <ext-link ext-link-type="uri" xlink:href="https://www.interciencia.net/wp-content/uploads/2018/07/475-DRESCH-43_07.pdf">https://www.interciencia.net/wp-content/uploads/2018/07/475-DRESCH-43_07.pdf</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>Messick, D. M., &amp; Bazerman, M. H. (2001). The next phase of business ethics: integrating psychology and ethics. In J. Dienhart, D. Moberg, &amp; R. Duska (Eds.), <italic>Research in ethical issues in organizations</italic>(pp. 213-238, Vol. 3). Bingley, UK: Emerald Publishing Limited.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Messick</surname>
+              <given-names>D. M.</given-names>
+            </name>
+            <name>
+              <surname>Bazerman</surname>
+              <given-names>M. H</given-names>
+            </name>
+          </person-group>
+          <year>2001</year>
+          <chapter-title>The next phase of business ethics: integrating psychology and ethics</chapter-title>
+          <person-group person-group-type="author">
+            <name>
+              <surname>Dienhart</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Moberg</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Duska</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <source>Research in ethical issues in organizations</source>
+          <fpage>213</fpage>
+          <lpage>238</lpage>
+          <volume>3</volume>
+          <publisher-loc>Bingley, UK</publisher-loc>
+          <publisher-name>Emerald Publishing Limited</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>Ministério Público Federal. (2014). <italic>Entenda o caso</italic>. Retrieved from <ext-link ext-link-type="uri" xlink:href="https://www.mpf.mp.br/grandes-casos/lava-jato/entenda-o-caso">https://www.mpf.mp.br/grandes-casos/lava-jato/entenda-o-caso</ext-link> </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>Ministério Público Federal</collab>
+          </person-group>
+          <year>2014</year>
+          <source>Entenda o caso</source>
+          <comment>Retrieved from</comment>
+          <ext-link ext-link-type="uri" xlink:href="https://www.mpf.mp.br/grandes-casos/lava-jato/entenda-o-caso">https://www.mpf.mp.br/grandes-casos/lava-jato/entenda-o-caso</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>Nelson, J. S. (2017). The corruption norm. <italic>Journal of Management Inquiry</italic>, <italic>26</italic>(3), 280-286. Retrieved from https://doi.org/10.1177/1056492616675415</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nelson</surname>
+              <given-names>J. S</given-names>
+            </name>
+          </person-group>
+          <year>2017</year>
+          <article-title>The corruption norm</article-title>
+          <source>Journal of Management Inquiry</source>
+          <volume>26</volume>
+          <issue>3</issue>
+          <fpage>280</fpage>
+          <lpage>286</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1177/1056492616675415</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>Odebrecht, E. (2007). <italic>Confiar e servir: ideias sobre o desenvolvimento do Brasil e de suas empresas</italic>. Rio de Janeiro, RJ: Versal Editores.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Odebrecht</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <year>2007</year>
+          <source>Confiar e servir: ideias sobre o desenvolvimento do Brasil e de suas empresas</source>
+          <publisher-loc>Rio de Janeiro, RJ</publisher-loc>
+          <publisher-name>Versal Editores</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>Odebrecht, N. (2011). Sobreviver, crescer e perpetuar: Tecnologia Empresarial Odebrecht (TEO) (11a ed.). Salvador, BA: Fundação Norberto Odebrecht.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Odebrecht</surname>
+              <given-names>N</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <source>Sobreviver, crescer e perpetuar: Tecnologia Empresarial Odebrecht (TEO)</source>
+          <edition>11a ed</edition>
+          <publisher-loc>Salvador, BA</publisher-loc>
+          <publisher-name>Fundação Norberto Odebrecht</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>Pagès, M., Gaulejac, V. D., Bonetti, M., &amp; Descendre, D. (1998). <italic>L’emprise de l’organisation</italic>. Vizcaya, España: Desclée De Brouwer.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pagès</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Gaulejac</surname>
+              <given-names>V. D.</given-names>
+            </name>
+            <name>
+              <surname>Bonetti</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Descendre</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <year>1998</year>
+          <source>L’emprise de l’organisation</source>
+          <publisher-loc>Vizcaya, España</publisher-loc>
+          <publisher-name>Desclée De Brouwer</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>Pinto, J., Leana, C. R., &amp; Pil, F. K. (2008). Corrupt organizations or organizations of corrupt individuals? Two types of organizational-level corruption. <italic>Academy of Management Review</italic>, <italic>33</italic>(3), 685-709. Retrieved fromhttps://doi.org/10.5465/AMR.2008.32465726</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pinto</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Leana</surname>
+              <given-names>C. R.</given-names>
+            </name>
+            <name>
+              <surname>Pil</surname>
+              <given-names>F. K</given-names>
+            </name>
+          </person-group>
+          <year>2008</year>
+          <article-title>Corrupt organizations or organizations of corrupt individuals? Two types of organizational-level corruption</article-title>
+          <source>Academy of Management Review</source>
+          <volume>33</volume>
+          <issue>3</issue>
+          <fpage>685</fpage>
+          <lpage>709</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.5465/AMR.2008.32465726</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation>Pope, R., &amp; Burnes, B. (2013). A model of organisational dysfunction in the NHS. <italic>Journal of Health Organization and Management</italic>, <italic>27</italic>(6), 676-697. Retrieved fromhttps://doi.org/10.1108/JHOM-10-2012-0207</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pope</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>Burnes</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <year>2013</year>
+          <article-title>A model of organisational dysfunction in the NHS</article-title>
+          <source>Journal of Health Organization and Management</source>
+          <volume>27</volume>
+          <issue>6</issue>
+          <fpage>676</fpage>
+          <lpage>697</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1108/JHOM-10-2012-0207</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation>Rabl, T., &amp; Kühlmann, T. M. (2009). Why or why not? Rationalizing corruption in organizations. <italic>Cross Cultural Management: An International Journal</italic>, <italic>16</italic>(3), 268-286. Retrieved from https://doi.org/10.1108/13527600910977355</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rabl</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>Kühlmann</surname>
+              <given-names>T. M</given-names>
+            </name>
+          </person-group>
+          <year>2009</year>
+          <article-title>Why or why not? Rationalizing corruption in organizations</article-title>
+          <source>Cross Cultural Management: An International Journal</source>
+          <volume>16</volume>
+          <issue>3</issue>
+          <fpage>268</fpage>
+          <lpage>286</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1108/13527600910977355</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <mixed-citation>Rodrigues, C. C., &amp; Barros, A. (2022). From caciques and godfathers to second-order corruption. <italic>Journal of Management Inquiry</italic>, <italic>31</italic>(1), 67-81. Retrieved fromhttps://doi.org/10.1177/1056492620901780</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>C. C.</given-names>
+            </name>
+            <name>
+              <surname>Barros</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <year>2022</year>
+          <article-title>From caciques and godfathers to second-order corruption</article-title>
+          <source>Journal of Management Inquiry</source>
+          <volume>31</volume>
+          <issue>1</issue>
+          <fpage>67</fpage>
+          <lpage>81</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1177/1056492620901780</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation>Schein, E. H. (2004). <italic>Organizational culture and leadership</italic> (3a ed.). San Francisco, CA: Jossey-bass.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Schein</surname>
+              <given-names>E. H</given-names>
+            </name>
+          </person-group>
+          <year>2004</year>
+          <source>Organizational culture and leadership</source>
+          <edition>3a ed.</edition>
+          <publisher-loc>San Francisco, CA</publisher-loc>
+          <publisher-name>Jossey-bass</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation>Schein, E. H. (2010). <italic>Organizational culture and leadership</italic> (4a ed.). Hoboken, NJ: John Wiley &amp; Sons.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Schein</surname>
+              <given-names>E. H</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <source>Organizational culture and leadership</source>
+          <edition>4a ed.</edition>
+          <publisher-loc>Hoboken, NJ</publisher-loc>
+          <publisher-name>John Wiley &amp; Sons</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation>Seawnght, J., &amp; Gerring, J. (2008). Case selection techniques in case study research: a menu of qualitative and quantitative options. <italic>Political Research Quarterly</italic>, <italic>61</italic>(2), 294-308. Retrieved from https://doi.org/10.1177/1065912907313077</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Seawnght</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Gerring</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <year>2008</year>
+          <article-title>Case selection techniques in case study research: a menu of qualitative and quantitative options</article-title>
+          <source>Political Research Quarterly</source>
+          <volume>61</volume>
+          <issue>2</issue>
+          <fpage>294</fpage>
+          <lpage>308</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1177/1065912907313077</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation>Silva, F. S. (2020). From car wash to Bolsonaro: law and lawyers in Brazil’s illiberal turn (2014-2018). <italic>Journal of Law and Society</italic>, <italic>47</italic>(S1), S90-S110. Retrieved fromhttps://doi.org/10.1111/jols.12250</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Silva</surname>
+              <given-names>F. S</given-names>
+            </name>
+          </person-group>
+          <year>2020</year>
+          <article-title>From car wash to Bolsonaro: law and lawyers in Brazil’s illiberal turn (2014-2018)</article-title>
+          <source>Journal of Law and Society</source>
+          <volume>47</volume>
+          <issue>S1</issue>
+          <fpage>S90</fpage>
+          <lpage>S110</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1111/jols.12250</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation>Sims, R. R., &amp; Brinkmann, J. (2003). Enron ethics (or: culture matters more than codes). <italic>Journal of Business Ethics</italic>, <italic>45</italic>(3), 243-256. Retrieved fromhttps://doi.org/10.1023/A:1024194519384</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sims</surname>
+              <given-names>R. R.</given-names>
+            </name>
+            <name>
+              <surname>Brinkmann</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <year>2003</year>
+          <article-title>Enron ethics (or: culture matters more than codes)</article-title>
+          <source>Journal of Business Ethics</source>
+          <volume>45</volume>
+          <issue>3</issue>
+          <fpage>243</fpage>
+          <lpage>256</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1023/A:1024194519384</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <mixed-citation>Zyglidopoulos, S. C., &amp; Fleming, P. J. (2008). Ethical distance in corrupt firms: how do innocent bystanders become guilty perpetrators? <italic>Journal of Business Ethics</italic>, 78(1-2), 265-274. Retrieved from https://doi.org/10.1007/s10551-007-9378-4</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zyglidopoulos</surname>
+              <given-names>S. C.</given-names>
+            </name>
+            <name>
+              <surname>Fleming</surname>
+              <given-names>P. J</given-names>
+            </name>
+          </person-group>
+          <year>2008</year>
+          <article-title>Ethical distance in corrupt firms: how do innocent bystanders become guilty perpetrators?</article-title>
+          <source>Journal of Business Ethics</source>
+          <volume>78</volume>
+          <issue>1-2</issue>
+          <fpage>265</fpage>
+          <lpage>274</lpage>
+          <comment>Retrieved from</comment>
+          <pub-id pub-id-type="doi">10.1007/s10551-007-9378-4</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn fn-type="other" id="fn2">
+        <p>[Original version]</p>
+      </fn>
+    </fn-group>
+    <fn-group>
+      <title>Reviewers:</title>
+      <fn fn-type="other" id="fn5">
+        <label>5</label>
+        <p>Eda Castro Lucas de Souza (Instituto de Educação Superior de Brasília, Brasília / DF - Brazil) https://orcid.org/0000-0002-8557-0592</p>
+      </fn>
+      <fn fn-type="other" id="fn6">
+        <label>6</label>
+        <p>Two reviewers did not authorize the disclosure of their identities.</p>
+      </fn>
+    </fn-group>
+    <fn-group>
+      <fn fn-type="other" id="fn7">
+        <p>Peer review report: the peer review report is available at this URL. <related-article related-article-type="reviewer-report" ext-link-type="uri" xlink:href="https://bibliotecadigital.fgv.br/ojs/index.php/rap/article/view/88614/83349">https://bibliotecadigital.fgv.br/ojs/index.php/rap/article/view/88614/83349</related-article> </p>
+      </fn>
+    </fn-group>
+  </back>
+  <sub-article article-type="translation" id="s1" xml:lang="pt">
+    <front-stub>
+      <article-id pub-id-type="doi">10.1590/0034-761220220261</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Artigo</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Quando em Roma, faça como os romanos: um estudo de caso da Odebrecht e o contínuo da destrutividade</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-6030-5939</contrib-id>
+          <name>
+            <surname>Coelho</surname>
+            <given-names>Caio César</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">1</xref>
+          <role>Conceituação (Liderança)</role>
+          <role>Curadoria de dados (Liderança)</role>
+          <role>Análise Formal (Liderança)</role>
+          <role> Investigação (Liderança)</role>
+          <role> Metodologia (Liderança)</role>
+          <role> Software (Liderança)</role>
+          <role>Escrita - rascunho original (Liderança)</role>
+          <role> Escrita - revisão e edição (Liderança)</role>
+        </contrib>
+        <aff id="aff2">
+          <label>1</label>
+          <institution content-type="original">Universidade de São Paulo / Escola Superior de Agricultura Luiz de Queiroz, Piracicaba / SP - Brasil</institution>
+        </aff>
+      </contrib-group>
+      <author-notes>
+        <fn fn-type="other" id="fn8">
+          <p>Caio César Coelho - Professor Doutor na Escola Superior de agricultura Luiz de Queiroz da Universidade de São Paulo (ESALQ/USP); Doutor e Mestre em Administração de Empresas pela Fundação Getulio Vargas (FGV EAESP). E-mail: ccoelho@usp.br</p>
+        </fn>
+        <fn fn-type="edited-by" id="fn11">
+          <p>Alketa Peci (Fundação Getulio Vargas, Rio de Janeiro / RJ - Brasil) https://orcid.org/0000-0002-0488-1744</p>
+        </fn>
+        <fn fn-type="edited-by" id="fn12">
+          <p>Mauricio Dussauge Laguna (Centro de Investigación y Docencia Económicas, Ciudad de México - México) https://orcid.org/0000-0001-7630-1879</p>
+        </fn>
+      </author-notes>
+      <abstract>
+        <title>Resumo</title>
+        <p>Esta pesquisa conduz um estudo de caso de uma empresa de construção pesada Odebrecht para responder à questão: Como um indivíduo racionaliza o crime em uma organização corrupta? Este estudo é baseado nos conceitos de organização corrupta, contínuo da destrutividade, desengajamento moral e racionalização. Nós analisamos quatro livros que são artefatos da cultura da Odebrecht e vídeos de 49 executivos que colaboraram na investigação da Lava Jato. Os resultados descrevem os caminhos que os funcionários trilham dentro da organização, adquirindo seus sistemas de valores, crenças e pressupostos. Estes caminhos levam a racionalização da corrupção. Este estudo de caso mostra que o contínuo da destrutividade começa quando empregados encontram comportamentos antiéticos dentro da organização e que os mecanismos de racionalização se modificam com o tempo dentro da cultura corrupta. A qualquer momento executivos podem pedir demissão ou denunciar; no entanto, com o tempo se torna difícil exercer qualquer uma dessas opções. Ao aplicar e refinar o contínuo, esta pesquisa prove um entendimento sobre como desengajamento moral e racionalização incentivam funcionários a seguir adiante no contínuo.</p>
+      </abstract>
+      <kwd-group xml:lang="pt">
+        <title>Palavras-chave:</title>
+        <kwd>cultura organizacional</kwd>
+        <kwd>organização corrupta</kwd>
+        <kwd>racionalização</kwd>
+        <kwd>contínuo da destrutividade</kwd>
+        <kwd>corrupção</kwd>
+      </kwd-group>
+    </front-stub>
+    <body>
+      <sec sec-type="intro">
+        <title>1. INTRODUÇÃO</title>
+        <p>A literatura sobre corrupção pode ser dividida em diferentes abordagens em relação à sua causa, como escolha pública, “maçãs podres”, decisões sobre valores morais, cultura organizacional, <italic>ethos</italic> da administração pública e correlação com outras variáveis (<xref ref-type="bibr" rid="B14">Graaf, 2007</xref>). Esta pesquisa entende a corrupção como resultado de uma cultura organizacional, que viu o crescimento de duas linhas de pesquisa. A primeira retrata a corrupção como uma norma cultural (<xref ref-type="bibr" rid="B21">Nelson, 2017</xref>). A segunda investiga como fatores contextuais e institucionais transformam a corrupção em uma prática institucionalizada (<xref ref-type="bibr" rid="B7">Castro, Phillips, &amp; Ansari, 2020</xref>). Essas duas linhas apresentam a corrupção como uma norma. No entanto, nenhuma delas pode explicar como a corrupção se torna uma norma institucionalizada a partir de atitudes individuais. Os conceitos de desengajamento moral e racionalização, que se referem à justificação do comportamento inadequado e ao distanciamento dele, são fundamentais para entender esse processo (<xref ref-type="bibr" rid="B5">Bandura, 1999</xref>; <xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). No entanto, os pesquisadores não conseguiram avaliar essas teorias empiricamente devido à falta de dados confiáveis sobre corrupção (<xref ref-type="bibr" rid="B6">Campbell &amp; Göritz, 2014</xref>). Para fazer isso, esta pesquisa se concentrará no framework do continuum da destrutividade (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+        <p>O continuum da destrutividade descreve o caminho que os indivíduos percorrem depois de se juntarem a uma organização corrupta. Especificamente, este framework descreve sua evolução de espectadores organizacionais, para participantes inocentes, racionalizadores e perpetradores de corrupção, dentro de organizações corruptas e incentivados pela distância ética (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Certas pesquisas e simulações que investigam os efeitos das variáveis de racionalização mostram que a racionalização ocorre depois que os indivíduos participam de atividades antiéticas (<xref ref-type="bibr" rid="B27">Rabl &amp; Kühlmann, 2009</xref>). Embora alguns estudos se concentrem na racionalização do setor público (<xref ref-type="bibr" rid="B11">Gannett &amp; Rector, 2015</xref>), há um número limitado de estudos empíricos sobre agentes corruptos de empresas privadas e sobre como as organizações corruptas encorajam o continuum da destrutividade. Essa lacuna pede o refinamento e aplicação da teoria da corrupção em evidências empíricas (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>).</p>
+        <p>Usando este framework para entender a perspectiva dos colaboradores, podemos determinar se há um ponto de decisão ou se, durante suas carreiras, os executivos foram levados por mecanismos como racionalização e desengajamento moral que lhes permitiram racionalizar suas ações imorais. Esta investigação se baseia na seguinte pergunta de pesquisa: como um indivíduo racionaliza o crime em uma organização corrupta? Essa pergunta pode ser dividida nos seguintes três objetivos de pesquisa:</p>
+        <p>
+          <list list-type="bullet">
+            <list-item>
+              <p> Explicar o caminho de racionalização que indivíduos seguem após ingressar em uma organização corrupta.</p>
+            </list-item>
+            <list-item>
+              <p> Refinar o continuum da destrutividade.</p>
+            </list-item>
+            <list-item>
+              <p> Compreender a relação entre uma organização corrupta e o continuum da destrutividade.</p>
+            </list-item>
+          </list>
+        </p>
+        <p>Para alcançar esses objetivos, esta pesquisa usou dados fornecidos pelos colaboradores na investigação da corrupção da Operação Lava Jato, que foi uma grande investigação da corrupção sistêmica das empresas de petróleo, gás e construção. Com a ajuda de acordos de delação premiada, os investigadores lançaram uma operação que levou à prisão de vários executivos e políticos (<xref ref-type="bibr" rid="B20">Ministério Público Federal, 2014</xref>). Este artigo analisa dados de corrupção da maior construtora envolvida no esquema, a Odebrecht. A empresa fez um acordo de leniência e seus executivos fizeram acordos de delação premiada. Em seus depoimentos, eles relatam atos de corrupção e suas trajetórias na corporação corrupta. A análise desses depoimentos descreve a história dos 49 executivos na organização corrupta e a cultura da corrupção construída ao longo das últimas décadas. Ao usar dados judiciais para pesquisar a corrupção, esta pesquisa também responde à necessidade de pesquisa mais empírica e inovadora sobre um tema comprovadamente difícil, arriscado e às vezes antiético para os pesquisadores (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>). Para apoiar este conjunto de dados, também analisamos quatro livros - três livros de uma coleção chamada TEO (Tecnologia Empresarial Odebrecht) (<xref ref-type="bibr" rid="B23">N. Odebrecht, 2011</xref>) e um livro intitulado “Confiar e Servir” escrito pelo ex-presidente e membro do conselho da Odebrecht (<xref ref-type="bibr" rid="B22">E. Odebrecht, 2007</xref>).</p>
+        <p>Esta pesquisa explica e refina empiricamente o continuum da destrutividade (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Esta abordagem facilita a criação de um framework baseado em dados empíricos, descreve como os executivos, em diferentes estágios do continuum, racionalizaram de maneira diferente e apresenta o desengajamento ético como um importante constructo para o framework do continuum. Também mostra que não há um ponto de decisão em que os racionalizadores se tornam perpetradores e que, a qualquer momento, os indivíduos podem racionalizar sua participação ou exercer a opção de não participar. A pesquisa usa dados judiciais - delações premiadas, neste caso - para conduzir uma pesquisa qualitativa sobre corrupção (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>).</p>
+        <p>A próxima seção faz uma revisão da literatura para explicar as definições de organizações corruptas e do continuum da destrutividade. Também explica os conceitos de desengajamento moral e racionalização observados na trajetória dos executivos da Odebrecht. Depois disso, discutimos a coleta de dados e os métodos usados para analisar os dados. Finalmente, analisamos os dados, discutimos os resultados e as considerações finais com as contribuições de observar empiricamente o continuum da destrutividade.</p>
+      </sec>
+      <sec>
+        <title>2. REVISÃO DE LITERATURA</title>
+        <sec>
+          <title>2.1 Organização corrupta</title>
+          <p>A corrupção é o abuso do poder para benefício pessoal ou organizacional (<xref ref-type="bibr" rid="B2">Anand, Ashforth, &amp; Joshi, 2004</xref>). Recentemente, os pesquisadores têm desenvolvido teorias de corrupção e as usado para entender os mecanismos de corrupção dentro de uma organização (<xref ref-type="bibr" rid="B7">Castro et al., 2020</xref>). Essas teorias incluem a institucionalização (<xref ref-type="bibr" rid="B21">Nelson, 2017</xref>) e a racionalização da corrupção. Enquanto a primeira discute como a corrupção se torna uma norma, a segunda mostra como os perpetradores racionalizam e justificam seus atos (Castro et al., 2020; <xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). Ambas não conseguem explicar como a racionalização e atitude individual transformam a corrupção em norma, e como toda pesquisa sobre corrupção, elas carecem de evidências empíricas, devido às dificuldades de obter dados confiáveis de agentes corruptos.</p>
+          <p>Em um ambiente onde a corrupção é a norma, mecanismos e processos organizacionais podem facilitar comportamentos ilícitos. Isso separa uma Organização de Indivíduos Corruptos (OIC) de uma Organização Corrupta (OC). Enquanto seria mais fácil remover indivíduos corruptos de uma OIC, a remoção de indivíduos corruptos pode não ser suficiente para acabar com a corrupção em uma OC. As normas e mecanismos de uma OC são modificados para gerenciar atividades ilegais. Isso cria um processo de pagamentos ilegais, sistemas de informação alternativos para ocultar atividades ilegais e, em última instância, uma cultura leniente em relação à corrupção (<xref ref-type="bibr" rid="B25">Pinto, Leana, &amp; Pil, 2008</xref>).</p>
+          <p>Os estudos sobre culturas organizacionais corruptas dependem de dados de casos específicos, como o escândalo da Enron (<xref ref-type="bibr" rid="B33">Sims &amp; Brinkmann, 2003</xref>) ou o Sistema Nacional de Saúde do Reino Unido (<xref ref-type="bibr" rid="B26">Pope &amp; Burnes, 2013</xref>) e entrevistas com especialistas (<xref ref-type="bibr" rid="B6">Campbell &amp; Göritz, 2014</xref>). Na esfera pública, a corrupção organizacional de alto nível impacta a corrupção de nível inferior (<xref ref-type="bibr" rid="B13">Gofen, Meza, &amp; Pérez-Chiqués, 2022</xref>). Na esfera privada, uma cultura corporativa corrupta influencia os funcionários a tomar decisões antiéticas (<xref ref-type="bibr" rid="B4">Arewa &amp; Farrell, 2015</xref>; <xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). Nesse contexto, é imperativo analisar o processo do continuum da destrutividade para entender o que é cultura e como ela influencia a corrupção.</p>
+          <p>Este estudo descreve uma organização corrupta sob a perspectiva de agentes corruptos. Nesse sentido, ele se concentra no impacto da cultura organizacional no comportamento individual. A cultura organizacional pode ser definida como:</p>
+          <disp-quote>
+            <p>Um padrão de suposições básicas compartilhadas que foi aprendido por um grupo enquanto resolvia seus problemas de adaptação externa e integração interna, que funcionou bem o suficiente para ser considerado válido e, portanto, ser ensinado aos novos membros como a maneira correta de perceber, pensar e sentir em relação a esses problemas (<xref ref-type="bibr" rid="B29">Schein, 2004</xref>, p.17).</p>
+          </disp-quote>
+          <p>Em uma organização corrupta, os valores que impulsionam as decisões são construídos de forma a justificar e racionalizar a corrupção (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). Histórias e narrativas são criadas como uma justificativa para convencer os agentes de que eles não estão moralmente errados (<xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). Esses agentes criam estruturas e ferramentas para facilitar atividades ilegais, como pagamento de propina, sobrepreço de contrato e geração de caixa dois. Essas práticas se tornam parte do processo interno da organização.</p>
+          <p>A cultura também é uma fonte de poder; ela cria restrições que ajudam os membros organizacionais a se comportar de acordo com determinados valores e pressupostos. A cultura organizacional pode ser prejudicial aos funcionários (<xref ref-type="bibr" rid="B24">Pagès, Gaulejac, Bonetti, &amp; Descendre, 1998</xref>). Os indivíduos são assimilados à cultura corporativa ao ponto de confiarem mais nessa cultura do que em seu senso moral. O continuum da destrutividade representa essa assimilação e evangelização (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+          <p>Vários estudos mostram que a cultura e a natureza da indústria da construção podem facilitar fraudes e corrupção. Independentemente da localização geográfica dos estudos, a relação próxima da indústria com o governo, as cadeias de suprimentos extensas e os contratos complexos tornam essa indústria suscetível à corrupção em nível global (<xref ref-type="bibr" rid="B4">Arewa &amp; Farrell, 2015</xref>). Essa perspectiva não pode ignorar a influência da cultura organizacional na corrupção. Uma cultura individualista promove astúcia e justifica atividades antiéticas para atingir objetivos organizacionais. Essa cultura também promove má liderança, avareza e baixos valores éticos corporativos, o que prejudica o crescimento de uma empresa a longo prazo (<xref ref-type="bibr" rid="B33">Sims &amp; Brinkmann, 2003</xref>).</p>
+          <p>Esses estudos levam à pergunta sobre o que acontece com o indivíduo que se junta a um OC e como essa pessoa se distancia moralmente do comportamento corrupto. Essa pergunta pode ser respondida pelo continuum da destrutividade (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+        </sec>
+        <sec>
+          <title>2.2 Continuum da destrutividade</title>
+          <p><xref ref-type="bibr" rid="B34">Zyglidopoulos e Fleming (2008</xref>) criaram o continuum da destrutividade para explicar como espectadores inocentes se tornam perpetradores culpados de corrupção em OCs. O progresso de um espectador inocente a perpetrador é mediado pela distância ética. Portanto, é importante definir a distância ética.</p>
+          <p>A distância ética é a distância entre a atividade antiética e suas consequências, o que implica a dissociação da ação de suas implicações morais. No caso da distância ética estrutural, os agentes permanecem inconscientes de que sua posição na empresa pode desempenhar um papel relevante na alteração da atividade antiética que observam ou empreendem. Frequentemente, esses indivíduos podem não participar ativamente da ação, mas podem testemunhar a participação de seus superiores em atividades ilegais. No caso da distância ética temporal, os agentes permanecem inconscientes das futuras consequências negativas de sua atividade antiética. Isso ocorre no caso de crimes de corrupção, uma vez que o suborno a autoridades políticas ou a execução de contratos superfaturados não exerce efeitos negativos diretos ou, pelo menos, imediatamente visíveis sobre as comunidades (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+          <p>Nem todos os membros organizacionais podem ser submetidos ao continuum. Especialmente em grandes organizações, os funcionários podem não estar cientes do esquema de corrupção, não são participantes ativos do esquema, nem estão envolvidos em um trabalho que promova ou esteja relacionado às atividades ilegais. Esses funcionários mantêm uma distância ética estrutural da atividade ilegal ao ponto de não estarem cientes dela. Os funcionários se tornam espectadores organizacionais quando tomam conhecimento dos esquemas de corrupção de sua organização. Assim, o processo do continuum da destrutividade afetará indivíduos que estão cientes de práticas ilegais em sua organização, até certo ponto.</p>
+          <p>Os funcionários se tornam espectadores organizacionais quando veem a necessidade de ação, mas não participam diretamente da atividade. De uma perspectiva geral, e não do ponto de vista de OCs, os espectadores organizacionais podem ser definidos da seguinte forma:</p>
+          <disp-quote>
+            <p>Espectadores Organizacionais são indivíduos que não tomam as ações necessárias quando surgem ameaças ou oportunidades importantes. Eles frequentemente possuem informações cruciais ou um ponto de vista valioso que melhoraria a capacidade de tomada de decisão de uma organização, mas por uma variedade de razões psicológicas e organizacionais, eles não intervêm (<xref ref-type="bibr" rid="B12">Gerstein &amp; Shaw, 2008</xref>, p. 5).</p>
+          </disp-quote>
+          <p>Agentes que reagem a um problema ilegal são vistos como delatores. Na ausência de problemas, eles agem como alarmistas. Em qualquer caso, os observadores organizacionais se engajam em racionalização psicológica; por exemplo, esses indivíduos difundem a responsabilidade, desejam a aceitação dos colegas e temem as consequências (<xref ref-type="bibr" rid="B12">Gerstein &amp; Shaw, 2008</xref>, p. 11). A distância estrutural dos funcionários em relação ao ato - o fato de não estarem diretamente envolvidos - os aproxima de se tornarem participantes inocentes (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+          <p>Os participantes inocentes estão envolvidos em situações que levam ao comportamento incorreto, mas não são diretamente responsáveis por ele. Apesar de as sanções morais de autoavaliação dos funcionários serem ativadas com mais facilidade quando pensam em repercussões futuras (<xref ref-type="bibr" rid="B1">Agerström &amp; Björklund, 2009</xref>), os participantes inocentes não conseguem prever os impactos morais de suas ações ou inações, ou seja, não conseguem visualizar as consequências das ações antiéticas. Isso pode ser atribuído à sua distância temporal, especialmente em uma cultura que exige resultados a curto prazo. A distância temporal é a distância entre o fato e suas consequências, o que acelera o processo de conversão de um participante inocente em um racionalizador (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Devido à distância estrutural, os participantes inocentes percebem seus papéis como irrelevantes para a perpetuação da corrupção, tornando-se assim racionalizadores que não enfrentam acusações, apesar de serem responsáveis pelos resultados da ação corrupta. A separação entre esses rótulos é analítica e usada apenas para fins de compreensão (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>).</p>
+          <p>Os perpetradores mantêm uma distância ética reduzida e visualizam as consequências e implicações morais de suas ações. Depois de se tornarem cientes de suas ações erradas, podem decidir se tornar delatores ou perpetradores (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Em cada estágio do continuum, a racionalização torna difícil tomar decisões éticas. Isso ocorre porque os agentes justificam ou não conseguem visualizar as implicações morais de suas ações e omissões. Esses agentes podem avaliar a qualidade ética de suas decisões aplicando diferentes mecanismos sobre como o mundo funciona e como a atividade antiética pode afetar sua identidade (<xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). Este modelo de distância ética pode ser visto na <xref ref-type="fig" rid="f3">Figura 1</xref>. Ele propõe que a distância ética facilite um observador a se tornar um participante inocente e um participante inocente a se tornar um racionalizador, no entanto, diminui até o ponto em que os indivíduos devem decidir entre se tornar perpetradores culpados ou delatores (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>, p. 270).</p>
+          <p>
+            <fig id="f3">
+              <label>Figura 1</label>
+              <caption>
+                <title>Papel da distância ética na determinação da transição de participantes entre seus diferentes tipos</title>
+              </caption>
+              <attrib>Fonte: Adaptado de <xref ref-type="bibr" rid="B34">Zyglidopoulos e Fleming (2008</xref>, p. 270).</attrib>
+              <alternatives>
+                <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/ea12b2eeeb9c99342dff2d4605431f935a37cc11.jpg"/>
+                <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/abe1c8d1de22546faf9b877fa88cac7605a45f1a.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+              </alternatives>
+            </fig>
+          </p>
+          <p>Este modelo explica a corrupção a partir de uma perspectiva individual, concentrando-se em como os indivíduos se tornam perpetradores. Esta pesquisa não mede a distância ética, dada a natureza qualitativa dos dados. No entanto, os testemunhos dos executivos da Odebrecht podem mostrar como os mecanismos de racionalização levam ao desengajamento moral. Uma cultura corrupta ajuda os executivos a encontrar desculpas para se envolverem e adotarem uma postura leniente em relação à corrupção. Essa ideia de que as ações dos executivos não têm implicações morais justifica e normaliza a corrupção. Neste contexto, é necessário definir o desengajamento moral e os mecanismos de racionalização.</p>
+          <p>O desengajamento moral é a percepção equivocada de que uma atividade desumana não é errada. Isso é alcançado através da racionalização - o processo cognitivo que faz os indivíduos perceberem suas ações como justificáveis, não moralmente erradas ou incrimináveis (<xref ref-type="bibr" rid="B2">Anand et al., 2004</xref>; <xref ref-type="bibr" rid="B5">Bandura, 1999</xref>). Esses indivíduos podem se desengajar moralmente aumentando sua distância ética, distorcendo as consequências de suas ações, criando desculpas e racionalizando a corrupção. Esses processos fazem com que os funcionários acreditem que suas ações não são erradas ou são moralmente justificáveis, prejudicando assim a tomada de decisão ética das organizações (<xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>). Os funcionários moralmente desengajados não se implicam em suas decisões antiéticas.</p>
+          <p>O desenvolvimento dessa ideia levou os pesquisadores a identificar mecanismos de racionalização, diferentes processos cognitivos que levam ao desengajamento moral. <xref ref-type="bibr" rid="B17">Klerk (2017b</xref>) descreveu oito mecanismos de racionalização: O primeiro mecanismo concentra-se na racionalização da responsabilidade - a negação, deslocamento ou difusão da responsabilidade individual. O segundo mecanismo foca na legalidade ou ignorância legal, justificando comportamentos corruptos como se não fossem ilícitos. No terceiro mecanismo, o perpetrador minimiza ou distorce as consequências da ação corrupta, negando o dano ou a vítima. O quarto mecanismo concentra-se em como o perpetrador se redime de atividades corruptas, desviando a atenção em favor do negócio. O quinto mecanismo mostra que os perpetradores realizam uma comparação social, comparando seu crime com outros crimes que seriam piores. No sexto mecanismo, os perpetradores exercem a pretensão de direito (<italic>entitlement</italic>), afirmando que tinham o direito de ser corruptos. O sétimo mecanismo mostra como os perpetradores apelam a lealdades mais altas ou valores de ordem superior. No oitavo, racionalizando a intenção, os perpetradores afirmam que pagarão pelo erro ou percebem a ação como menos grave do que realmente é.</p>
+          <p>Os executivos usam diferentes mecanismos de racionalização em diferentes pontos do continuum. Isso permite que eles aumentem sua distância ética e se desengajem moralmente de seu comportamento antiético. Antes de detalhar esse processo, é importante descrever as escolhas metodológicas desta pesquisa.</p>
+        </sec>
+      </sec>
+      <sec sec-type="methods">
+        <title>3. METODOS</title>
+        <sec>
+          <title>3.1 Contexto do caso e coleta de dados</title>
+          <p>A Operação Lava Jato começou no Brasil em 2014, mas revelou crimes em pelo menos outros 49 países. A investigação se concentrou em um esquema de corrupção principalmente nos setores de petróleo e gás e construção. Ela utilizou acordos bilaterais e delações premiadas que permitiram aos promotores visar políticos e empresas importantes. A força-tarefa foi marcada por controvérsias. Foi acusada de envolver-se em conluio entre juízes e promotores, usar excessivamente delações premiadas e interferir nas eleições, dando prioridade aos casos de candidatos líderes nas pesquisas (<xref ref-type="bibr" rid="B32">Silva, 2020</xref>). Esta operação foi auxiliada pela mídia brasileira e se tornou o centro do debate público brasileiro (<xref ref-type="bibr" rid="B3">Andrade, 2018</xref>).</p>
+          <p>Na época das investigações, a Odebrecht era a maior empresa de construção a enfrentar acusações. Nesta pesquisa, compilamos os depoimentos de 49 executivos da Odebrecht em todos os níveis da empresa. Esses depoimentos descrevem o envolvimento dos executivos nos casos de corrupção e sua trajetória na corporação. Como a Odebrecht é representativa de corrupção em larga escala, ela fornece uma compreensão dos fatores que levam ao surgimento de uma cultura corrupta em grandes corporações e, assim, confirma as ideias teóricas e pré-estabelecidas (<xref ref-type="bibr" rid="B31">Seawnght &amp; Gerring, 2008</xref>). É também um caso teoricamente relevante por suas percepções sobre a dinâmica interna de uma organização corrupta (<xref ref-type="bibr" rid="B10">Dyer &amp; Wilkins, 1991</xref>).</p>
+          <p>Os dados compreendem os depoimentos em vídeo dos 49 executivos, totalizando 141 horas e 5 minutos. A duração dos depoimentos individuais variou de 13 minutos a 10 horas. Organizamos e analisamos os vídeos usando um software de análise qualitativa de dados assistida por computador, que facilitou a transcrição das partes codificadas. Cada depoimento recebeu a letra C seguida de um número de identificação aleatório.</p>
+          <p>Além desses vídeos, analisamos quatro livros escritos e publicados por ex-executivos e membros da família fundadora da Odebrecht. Os três primeiros livros fazem parte de uma coleção chamada “Sobreviver, crescer e perpetuar: tecnologia empresarial Odebrecht” (<xref ref-type="bibr" rid="B34">N. Odebrecht, 2011</xref>). Esses três volumes são artefatos que, segundo os executivos, explicam a cultura da Odebrecht. A partir de agora, nos referiremos a esta coleção como TEO (Tecnologia Empresarial Odebrecht). O quarto livro é intitulado “Confiar e servir: ideias sobre o desenvolvimento do Brasil e de suas empresas” (<xref ref-type="bibr" rid="B22">E. Odebrecht, 2007</xref>). Apresenta a análise de um ex-presidente da Odebrecht sobre o contexto empresarial brasileiro. Esses livros foram importantes para fornecer contexto e percepção sobre a cultura da Odebrecht, aumentando a capacidade de descrever o estudo de caso de uma corporação corrupta.</p>
+        </sec>
+        <sec>
+          <title>3.2 Método de análise</title>
+          <p>Como a quantidade de dados coletados e analisados faz parte de um projeto de pesquisa maior, começamos com a codificação aberta dos vídeos dos executivos (<xref ref-type="bibr" rid="B10">Dyer &amp; Wilkins, 1991</xref>). O objetivo era organizar e resumir os dados, procurando por insights teóricos que seriam posteriormente refinados (<xref ref-type="bibr" rid="B8">Charmaz, 2000</xref>). Nesta etapa inicial, foram codificados os nomes dos personagens importantes, lugares e casos que nos ajudaram a organizar a vasta quantidade de dados.</p>
+          <p>O segundo passo foi comparar os dados usando a codificação axial (<xref ref-type="bibr" rid="B8">Charmaz, 2000</xref>). Isso forneceu uma lógica para organizar e resumir dados de declarações empíricas; nessa fase, codificamos cada trecho dos vídeos. Essa codificação nos permitiu comparar a experiência de cada colaborador. Também foi importante entender os eventos que eles estavam descrevendo e abstrair ideias de pesquisa com base no imenso conjunto de dados. A comparação constante entre os códigos permitiu a emergência de três grupos importantes de códigos que descreviam a trajetória dos executivos dentro da empresa, a cultura organizacional e os mecanismos de racionalização.</p>
+          <p>Enquanto esses dois primeiros passos eram indutivos, eles revelaram ideias importantes que poderiam ser analisadas considerando estruturas teóricas. A trajetória dos executivos remontava ao continuum da destrutividade e aos mecanismos de racionalização. Isso nos levou a tomar uma decisão metodológica de analisar dedutivamente os dados com base nas categorias dessas duas estruturas.</p>
+          <p>O terceiro passo foi fazer uma codificação conceitual, com base nos mecanismos de racionalização e no continuum da destrutividade. Para ambas as categorias, o processo foi semelhante. Realizamos um processo de codificação minuto a minuto, preenchendo os códigos com citações in vivo que descreviam empiricamente conceitos teóricos. Essa codificação permitiu caracterizar cada estágio do continuum: espectadores organizacionais, participantes inocentes, racionalizadores, ponto de decisão, perpetradores culpados e recusa em participar; e os oito mecanismos de racionalização: racionalização da responsabilidade, legalidade ou ignorância legal, má construção das consequências, redenção, ponderação social, <italic>entitlement</italic>, apelo a lealdades mais altas e racionalização da intenção.</p>
+          <p>Para a descrição da categoria de organização corrupta, os códigos abertos que foram criados no início da análise foram agrupados em conceitos que descreviam a cultura. Desde a abstração da codificação inicial havia três códigos conceituais: regras e processos internos, histórias e narrativas, pressupostos e valores. Estes representam a organização corrupta desde seus artefatos e processos visíveis até suas crenças subjacentes (<xref ref-type="bibr" rid="B30">Schein, 2010</xref>). Após a codificação conceitual, foi feita outra etapa de comparações constantes para fazer links entre os códigos e gerar ideias teóricas, de modo a entender as relações entre os mecanismos de racionalização e cada etapa do continuum e como a cultura corrupta potencializa esse processo (<xref ref-type="bibr" rid="B8">Charmaz, 2000</xref>).</p>
+          <p>O <xref ref-type="fig" rid="ch2">quadro 1</xref> Apresenta os códigos abertos e conceituais e as categorias coletadas desta análise para as categorias de organização corrupta e continuum da destrutividade.</p>
+          <p>
+            <fig id="ch2">
+              <label> Quadro</label>
+              <caption>
+                <title>1 Processo de codificação</title>
+              </caption>
+              <attrib>Fonte: Elaborado pelo autor.</attrib>
+              <alternatives>
+                <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/0297f18ed81bd43865606532f7f3a919a83353a4.jpg"/>
+                <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/6d0546686c4f549e39b62caf8715699b82e858de.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+              </alternatives>
+            </fig>
+          </p>
+          <p>A seção subsequente apresenta uma análise dos dados e discute nossa contribuição teórica. Especificamente, descreve uma cultura corrupta, como os funcionários avançam ao longo do continuum da destrutividade, racionalizando de maneira diferente nessa cultura e, por fim, a relação entre cultura e o continuum.</p>
+        </sec>
+      </sec>
+      <sec>
+        <title>4. ANÁLISE DE DADOS</title>
+        <p>A análise mostrou que duas categorias teóricas “organização corrupta” e “continuum da destrutividade” foram úteis para explicar o fenômeno. Ambas estão relacionadas e influenciam uma à outra. Esta seção descreve os fatores que levam à construção de uma OC e como seus funcionários progridem através do continuum da destrutividade.</p>
+        <sec>
+          <title>4.1 A organização corrupta</title>
+          <p>A Odebrecht criou uma cultura permissiva que ajudou os membros da organização a racionalizar suas ações. A OC foi formada por regras e processos que operacionalizavam atividades ilegais; ela também desenvolveu histórias e narrativas que ajudaram os membros a racionalizar práticas corruptas; e estabeleceu um conjunto de valores e crenças compartilhados entre os membros organizacionais (<xref ref-type="bibr" rid="B25">Pinto et al., 2008</xref>).</p>
+          <p>A Odebrecht tinha diversas <bold>regras e processos internos</bold> que ajudaram ou foram desenvolvidos especificamente para contribuir com a atividade ilícita. A empresa era organizada em pequenas unidades de negócios com base em cada contrato, e cada contrato ou centro de custo tinha um executivo dedicado. Os executivos dessas unidades poderiam pedir pagamentos ilegais se o contrato fosse lucrativo, e, portanto, seus superiores verificavam se a unidade de negócios estava tendo perdas financeiras. Além da perda financeira, os bônus dos executivos eram pagos com base no lucro de seus projetos. Como na Enron (<xref ref-type="bibr" rid="B33">Sims &amp; Brinkmann, 2003</xref>), a comissão dos executivos estava diretamente relacionada ao seu desempenho; esses executivos eram esperados para realizar e obter resultados, por quaisquer meios necessários. Esses pagamentos são explicados na seguinte citação:</p>
+          <disp-quote>
+            <p>Na verdade, quando fazia uma alocação dessa, na hora de fazer o fechamento do projeto, a gente sabia que estava, através do setor de operações estruturadas, que tinha uma despesa naquele projeto, e essa despesa você abatia do lucro, para avaliar o empresário que tinha dado aquele lucro (C14).</p>
+          </disp-quote>
+          <p>Por meio de sistemas de tecnologia da informação, os executivos criavam e-mails não rastreáveis e programavam pagamentos ilegais. Os executivos usavam esses sistemas para enviar e-mails e planilhas que agendavam os pagamentos ilegais. Um executivo afirmou: “O sistema, eu hoje agradeço por alguém ter colocado esse sistema, o que a gente tem aqui, eu hoje tenho no sistema a comprovação de que o pagamento [ilegal] aconteceu” (C14). O setor de operações estruturadas era um departamento na hierarquia da holding responsável por fazer os pagamentos ilegais, eles cuidavam da geração de caixa 2 e dos pagamentos ilegais nacionais e internacionais.</p>
+          <p>Os executivos usavam codinomes ao fazer transações com o setor de operações estruturadas, onde os pagamentos ilegais eram programados. Usando esses codinomes, eles agendavam os pagamentos via cambistas em dinheiro vivo ou contas <italic>offshore</italic>. Se fosse em dinheiro vivo, aquele setor fornecia ao executivo uma senha, local e data; o executivo fornecia essas informações ao contato que receberia o dinheiro.</p>
+          <disp-quote>
+            <p>Além disso, pelas regras definidas [...] nunca poderíamos saber a identidade das pessoas que recebiam os pagamentos. Para garantir esse anonimato, os funcionários que nos solicitavam pagamentos eram instruídos a criar um codinome ou apelido para o destinatário do pagamento, que somente eles saberiam a real identidade (C35).</p>
+          </disp-quote>
+          <p>A geração de caixa 2 também fazia parte do trabalho. Os pagamentos ilegais não podiam ser feitos com dinheiro registrado na conta legal da empresa. Todos os executivos estavam cientes dos riscos. A regra da empresa não permitia a geração de caixa 2 no Brasil; isso é atribuído ao complexo sistema tributário brasileiro. Houve algumas exceções a essa regra nos dados.</p>
+          <disp-quote>
+            <p>A gente, no Brasil, tinha uma regra de não fazer caixa 2, uma proibição de fazer caixa 2. A geração de caixa 2 era feita pelo pessoal de operações estruturadas, fora do Brasil, gerando dólares, gerando euros, gerando qualquer moeda estrangeira, e a partir daí eles encontravam doleiros que recebiam esse dinheiro lá fora e entregava aqui no Brasil (C14).</p>
+          </disp-quote>
+          <p>Além das regras e processos que permitiam a atividade ilícita, a empresa possuía <bold>histórias e narrativas</bold> que apoiavam seus sistemas de crenças. O caixa 2 era usado para pagar bônus aos executivos por meio do mesmo sistema de pagamento ilegal. Um executivo destacou a necessidade de desenvolver confiança mútua para evitar roubo interno e fraude.</p>
+          <disp-quote>
+            <p>Eles estavam trabalhando na confiança né amigo, pelo que passava de dinheiro na mão desse povo, se quisesse pegar 2, 3 milhões e sumir no mundo, nunca mais ninguém achava (C35).</p>
+          </disp-quote>
+          <p>O uso de bônus e estabelecimento de metas em uma empresa focada em resultados confirma os argumentos de <xref ref-type="bibr" rid="B6">Campbell e Göritz (2014</xref>) de que essas normas e valores refletem os pressupostos subjacentes aos mecanismos de racionalização.</p>
+          <disp-quote>
+            <p>A Odebrecht tinha uma prática histórica de pagar parte do bônus de alguns grandes executivos com recursos de caixa 2, com sonegação de imposto (C35).</p>
+          </disp-quote>
+          <p>Além dos próprios bônus, os executivos compartilhavam histórias, algumas delas racionalizando a corrupção e reforçando suas políticas. Quando não cumpriam essas normas internas, eram demitidos. Isso é destacado nas seguintes palavras:</p>
+          <disp-quote>
+            <p>Pra que é que você precisa saber o que é que eu faço na minha área, não tinha que ficar divulgando o que é que fazia, nem o que é que não fazia? Eu demiti um rapaz que procurou uma palhaçada, eu entrei no elevador, eu, [dois outros executivos], e esse palhaço na frente de outras pessoas chegou pra [meu colega] e disse você não ter vergonha de dar dinheiro para esse povo, não? [Meu colega] lhe disse eu não do nada não, eu pago o que os outros mandam eu não dou nada não. Mas eu achei que o comportamento dessa pessoa, que era o gerente de uma pessoa lá em [um país estrangeiro] não cabia, ainda mais em um elevador onde tinham 8 ou 10 pessoas ele fazer um comentário desse, não cabia. Ai eu liguei para o chefe dele e pedi a cabeça dele, esse tipo de comportamento não pode ter, até porque ele como diretor de uma obra, em determinado momento, podia pedir [por pagamentos ilegais] (C35).</p>
+          </disp-quote>
+          <p>Conforme é possível ver no trecho final da citação, fazia parte da descrição de trabalho de qualquer diretor de projeto solicitar pagamentos ilegais para um contrato.</p>
+          <p>“Um cliente satisfeito é a fundação da existência da <xref ref-type="bibr" rid="B23">Odebrecht” (N. Odebrecht, 2011</xref>, p. 42). Isso foi feito criando relacionamentos pessoais que ajudariam a Odebrecht a ganhar acesso ao poder público. O incentivo para ter um relacionamento pessoal e direto com o cliente é declarado na TEO. “Para cada cliente, deve haver um empresário previamente identificado; este empresário deve representar seu respectivo time” (N. Odebrecht, 2011, p. 88). Era a estratégia da empresa designar um executivo para manter relacionamentos com um político (<xref ref-type="bibr" rid="B9">Coelho &amp; Barros, 2021</xref>; <xref ref-type="bibr" rid="B28">Rodrigues &amp; Barros, 2022</xref>).</p>
+          <p>A TEO afirma que os líderes devem treinar novos líderes e adaptar todos os funcionários à sua filosofia. Nesse sentido, uma frase repetida na TEO é “[...] uma grande organização com um espírito de pequena”. A organização sugere também que os executivos devem ler o livro para entender a cultura associada à satisfação dos clientes e acionistas. De acordo com a TEO, a leitura do livro pode tornar os executivos socialmente responsáveis, mas também afirma que o cliente é tudo o que deveria importar (N. <xref ref-type="bibr" rid="B23">Odebrecht, 2011</xref>).</p>
+          <p>Por trás das regras, processos, histórias e narrativas, existiam <bold>pressupostos e valores</bold>. A TEO descreve várias das crenças, pressupostos e valores da organização. O livro enfatiza a observância de diretrizes comportamentais especificas para os executivos. Além de citar a TEO, os executivos usavam a linguagem organizacional em seus depoimentos. Por exemplo, eles se referiam à Odebrecht como “a Organização” e as instituições, governos e outros contratantes como “o Cliente”; eles citavam o lema da empresa para “Servir o cliente”, quando questionados sobre o propósito da empresa (<xref ref-type="bibr" rid="B18">Lamb, Lacerda, Dresch, &amp; Morandi, 2018</xref>; <xref ref-type="bibr" rid="B22">N. Odebrecht, 2011</xref>).</p>
+          <p>A inversão do que é normal e a racionalização de atividades imorais alteram o pressuposto subjacente que forma o objetivo da empresa. Apesar de ter um pequeno capítulo sobre responsabilidade social (N. <xref ref-type="bibr" rid="B23">Odebrecht, 2011</xref>, p. 112), os pressupostos de lucro, resultados e bônus presentes no livro superam a justiça como princípio orientador. A cultura da Odebrecht trabalhava para si mesma, tendo seu próprio conjunto de agendas internas, valores, princípios e pressupostos. Com o tempo, esses valores são assimilados pelos executivos e os ajudam a racionalizar suas atividades ilegais, que podem ser descritas como um processo contínuo de destruição.</p>
+        </sec>
+        <sec>
+          <title>4.2 O continuum da destrutividade</title>
+          <p>Após explicar o contexto e cultura da empresa, é possível descrever o continuum de destrutividade, todas as suas fases e como os executivos racionalizam em cada uma delas.</p>
+          <p>Os colaboradores afirmam que, quando entraram na organização, “você começa a perceber como as coisas funcionam” (C03). Essa percepção, após a fase de entrada, reflete a posição de um <bold>espectador organizacional</bold> no continuum de destrutividade. Nesta fase, os funcionários estão cientes do que está acontecendo em sua organização, mas não participam de reuniões ou solicitações. Embora mantenham uma distância ética estrutural das atividades ilegais, eles não conseguem visualizar os impactos de suas ações e omissões (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Neste ponto, o mecanismo de racionalização mais evidente é apelar para lealdades superiores, o que faz com que os executivos culpem seus superiores ou os valores e a importância que atribuem ao produto da empresa (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>).</p>
+          <disp-quote>
+            <p>Ele falou com [meu superior] que haveria necessidade de um pagamento antecipado, era a primeira vez que eu tinha vivido uma experiencia dessa. [...] Eu não tenho certeza se [meu superior] pagou, mas eu estava junto com ele. Depois eu não sei como ficou as tratativas dele nesse assunto (C73).</p>
+          </disp-quote>
+          <p>Os espectadores organizacionais também racionalizam sua responsabilidade. Isso apareceu na forma de construir erroneamente as consequências das ações, interpretando as atividades como legítimas.</p>
+          <disp-quote>
+            <p>Nesse processo de normalização, fez com que a gente tratasse [a atividade corrupta] como uma grande banalização o que dificultava o que era legitimo do que não era legitimo. Mesmo que você tinha um interesse legítimo tratava com caixa 2 (C31).</p>
+          </disp-quote>
+          <p>Em relação à liderança, na Odebrecht, quando um funcionário se torna um líder, ele pode pedir pagamentos ilegais. Como afirmou um executivo: “Quando eu virei gerente de contrato, apesar de eu estar atuando muito na área privada, eu sabia sim que tinha esse mecanismo [de pagamentos ilícitos]” (C66). Nesta fase, eles começam a participar de reuniões e se tornam <bold>participantes inocentes</bold>. Como previsto por <xref ref-type="bibr" rid="B34">Zyglidopoulos e Fleming (2008</xref>), nesta posição, a distância ética estrutural faz com que os participantes pensem que não contribuem para a corrupção. Em outras palavras, eles não conseguem ver as consequências de suas ações. O mecanismo de racionalização, neste ponto, os leva a distorcer as consequências. Nesse sentido, um executivo afirmou o seguinte:</p>
+          <disp-quote>
+            <p>A solução da guerra dos portos [um contrato feito com propina] foi fundamental da manutenção atividade industrial no Brasil, preservação dos empregos e da cadeia produtiva. E geração de impostos com ganho para o erário. E que a nossa atuação não se deu em benefício só da Braskem, mas de todo um setor industrial (C17).</p>
+          </disp-quote>
+          <p>Nesta fase, os funcionários fazem comparações sociais. Eles comparam seus crimes com outros crimes: essa racionalização é descrita nas seguintes palavras: “Um termo que eu nunca escutei, é cartel, eu nunca escutei. Agora sabia que tinha também o que a gente chama de fraude de licitação, análise de mercado” (C50). O fato de os executivos nunca terem ouvido falar dos nomes dos crimes que cometeram apenas demonstra como suas atividades ilegais foram racionalizadas. Eles justificaram ou não pensaram que estava errado ou ilegal, neste ponto, os funcionários mostram indulgência em relação à corrupção. Como parte do trabalho, eles eram obrigados a manter um relacionamento próximo com agentes políticos e considerar a possibilidade de pedir pagamentos ilegais.</p>
+          <p>Os colaboradores relatam que racionalizam de maneira diferente do que foi previsto pelo continuum da destrutividade. Essa <bold>racionalização</bold> começa no momento em que encontram atividades antiéticas (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Por exemplo, justificando que era correto pagar o que os outros pagaram, o executivo racionalizou a responsabilidade (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>), normalizando assim a corrupção. Conforme a seguinte declaração:</p>
+          <disp-quote>
+            <p>Eu estou aqui fazendo um exercício de memória, sobre as práticas ilícitas, por que é de se marcar, vamos dizer assim. Porque desde 78, quando eu trabalhava na Andrade Gutierrez, naquela época ainda no regime militar, já se tinha notícias de práticas pouco ortodoxas, vamos dizer assim. É óbvio que na nossa juventude a gente apenas ouvia (C15).</p>
+          </disp-quote>
+          <p>Dessa forma, em todas as etapas do continuum, há racionalização. No entanto, existe um <bold>ponto de decisão</bold> em que os executivos são solicitados a se envolver em práticas corruptas e decidir entre denunciar ou se tornar cúmplice. A cultura da Odebrecht levou os funcionários à racionalização após sua contratação. A cultura não forneceu aos funcionários a possibilidade de denunciar, mesmo quando perceberam o erro de fazer pagamentos ilegais. Os executivos também expressaram que qualquer desistência desses atos levava à demissão da empresa. Pesquisas anteriores sobre denúncia retrataram-na como uma ferramenta ineficaz (<xref ref-type="bibr" rid="B15">Johansson &amp; Carey, 2016</xref>). Alguns agentes dizem que era difícil recusar um pedido de suborno.</p>
+          <disp-quote>
+            <p>Eu nunca ofereci, mas também nunca disse que não [a um pedido de propina], eu jogava o jogo e quando achava que era razoável aceitava. Eu podia não concordar, renegociar. A recusa em si era sempre muito complicada porque podia haver retaliações. Em outra obra eles poderiam retaliar a gente (C15).</p>
+          </disp-quote>
+          <p><xref ref-type="bibr" rid="B34">Zyglidopoulos e Fleming (2008</xref>) descrevem o ponto de decisão como um momento de clareza em que a distância ética é diminuída. Neste ponto, os agentes tornam-se conscientes de suas ações erradas e decidem perpetrá-las ou denunciar. Na Odebrecht, embora os agentes, no ponto de decisão, possam ter menos distância ética porque suas ações estão diretamente relacionadas à corrupção, o processo de racionalização que lhes dá desengajamento moral, turvando sua visão, começou na fase de espectador e cresceu no continuum. Portanto, neste caso, é possível ver que a decisão de se tornar um perpetrador está mais relacionada ao processo de desengajamento moral e racionalização do que à sua distância ética da conduta imprópria (<xref ref-type="bibr" rid="B17">Klerk, 2017b</xref>). Na fase de <bold>perpetradores culpados</bold>, os executivos se sentem no direito de obter benefícios da corrupção. Isso é mostrado na seguinte citação:</p>
+          <disp-quote>
+            <p>A tendencia era perdermos no Supremo [Tribunal Federal]. Chegamos a interceder junto ao deputado pela relação que ele tinha com o presidente Lula, que ele pudesse sensibilizar o presidente Lula, para que o presidente pudesse, não sei se arbitrar, mas ser favorável a esse crédito todo [para nós] (C04).</p>
+          </disp-quote>
+          <p>Os executivos também procuraram se redimir das atividades. “Que tudo isso ta muito errado, se o senhor me permite, posso dizer isso?” (C13). E alegando que não era ilegal ou desacreditando a operação. Isso foi feito mesmo antes dos depoimentos quando “O objetivo era desacreditar o mecanismo das delações [premiadas]” (C31).</p>
+          <p>Considerando o quadro teórico, nosso estudo de caso apresenta todos os elementos descritos no continuum da destrutividade. No entanto, o caminho de racionalização adotado pelos executivos parece mais um continuum, e não apresenta um único ponto de decisão. Em qualquer momento, uma pessoa envolvida em uma organização corrupta pode decidir se tornar um denunciante ou se afastar. No entanto, a disposição para cometer o ato se enfraquece à medida que a racionalização da corrupção se fortalece. É importante notar que, devido à natureza dos nossos dados, todos os executivos se tornaram denunciantes sob um acordo de leniência firmado pela Odebrecht com o Ministério Público. Na época, a Operação Lava Jato já havia investigado outras empresas e casos, o que torna essa decisão não individual sob a análise do quadro teórico do continuum de destrutividade. Com isso em mente, explicamos a racionalização dos executivos e refinamos o continuum de destrutividade.</p>
+        </sec>
+      </sec>
+      <sec sec-type="discussion">
+        <title>5. DISCUSSÃO</title>
+        <p>Ao entrar em uma organização corrupta, é necessário cumprir suas regras, valores e crenças. A indústria da construção civil oferece oportunidades para comportamentos inadequados, facilitados pela proximidade com o Estado, contratos complexos e cultura corporativa (<xref ref-type="bibr" rid="B4">Arewa &amp; Farrell, 2015</xref>). Dada essa cultura e contexto, a racionalização também se torna parte do trabalho.</p>
+        <p>Não pudemos avaliar as proposições sobre a distância ética e seus efeitos na transição entre as fases do continuum (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Embora alguns executivos mostrem que mantiveram diferentes distâncias éticas estruturais e temporais da corrupção durante seu tempo na organização, isso não se relaciona diretamente com sua capacidade de progredir no continuum. Isso pode ser atribuído à cultura da empresa. A Odebrecht impôs sua cultura de maneira que seus executivos acreditassem que a organização é importante para seu ambiente externo. Isso os levou a racionalizar o comportamento inadequado desde o momento em que tomaram conhecimento das atividades ilegais. A racionalização ocorre até mesmo para espectadores organizacionais e participantes inocentes (<xref ref-type="bibr" rid="B12">Gerstein &amp; Shaw, 2008</xref>; <xref ref-type="bibr" rid="B19">Messick &amp; Bazerman, 2001</xref>).</p>
+        <p>A racionalização e o subsequente desengajamento moral fornecem uma melhor compreensão do que leva os indivíduos mais adiante no continuum. Embora a distância ética seja mediadora do progresso, os mecanismos psicológicos e as sanções morais influenciam a decisão dos indivíduos de dar um passo à frente no continuum, sair ou denunciar (<xref ref-type="bibr" rid="B5">Bandura, 1999</xref>). Pressupondo que isso seja verdade, ocorrem dois refinamentos no continuum. Primeiro, não há um único ponto de decisão; em cada oportunidade, o agente pode decidir denunciar ou sair do esquema. Isso só pode ocorrer se suas sanções morais superarem os mecanismos de racionalização. Em uma cultura corrupta, a disposição para denunciar diminui com o tempo.</p>
+        <p>Segundo, indivíduos que estão dentro da organização corrupta começam a racionalizar como espectadores organizacionais. Com o tempo, novos argumentos convencem os indivíduos de que suas ações não são imorais. Isso exclui a fase de racionalização do continuum, porque os indivíduos racionalizam em todas as fases. Quanto mais avançados os indivíduos estiverem no continuum, mais mecanismos de racionalização eles usam para justificar ou se desengajar moralmente das decisões antiéticas. A <xref ref-type="fig" rid="f4">Figura 2</xref> mostra o continuum da destrutividade refinado que ocorreu na Odebrecht.</p>
+        <p>
+          <fig id="f4">
+            <label>Figura 2</label>
+            <caption>
+              <title>Continuum da destrutividade</title>
+            </caption>
+            <attrib>Fonte: Elaborada pelo autor.</attrib>
+            <alternatives>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/b2317efc6eda85f8d88299d4c5f2de0f15c1a407.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3134/T9WnrWLnfCdrdZQVRvHw7yp/38aab5249eab85a74b94071bf4911c0204d8b969.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>A ideia de que indivíduos em diferentes estágios do continuum irão racionalizar comportamentos antiéticos de maneira diferente possibilita a operacionalização dos mecanismos de racionalização descritos por <xref ref-type="bibr" rid="B17">Klerk (2017b</xref>). O estudo de caso mostra quais mecanismos de racionalização são mais utilizados em cada fase do continuum.</p>
+        <p>Como espectadores organizacionais, os indivíduos racionalizam apelando para lealdades superiores e racionalizando a responsabilidade (<xref ref-type="bibr" rid="B16">Klerk, 2017a</xref>, <xref ref-type="bibr" rid="B17">2017b</xref>). Isso ocorre devido à distância estrutural que faz com que os agentes não vejam as consequências da corrupção ou de sua inação; essa omissão faz parte da cultura de corrupção (<xref ref-type="bibr" rid="B34">Zyglidopoulos &amp; Fleming, 2008</xref>). Como participantes inocentes, quando a distância ética temporal está presente, a dificuldade em ver as consequências da ação faz com que os agentes racionalizem a intenção e os leva a se envolver em comparações sociais. Concordamos com <xref ref-type="bibr" rid="B34">Zyglidopoulos e Fleming (2008)</xref>de que os perpetradores mantêm menos distância ética do que os espectadores organizacionais e participantes inocentes. Os dados mostram que os perpetradores estão diretamente envolvidos na ação corrupta, o que os faz saber que o que estão fazendo está errado, levando-os a se sentirem no direito de praticar corrupção e obter seus resultados.</p>
+      </sec>
+      <sec sec-type="conclusions">
+        <title>6. CONCLUSÃO</title>
+        <p>Esta pesquisa tem como objetivo refinar o continuum da destrutividade, examinando uma organização corrupta e explicando o que acontece quando um indivíduo encontra e participa de tal cultura. Ela apresenta uma versão do continuum que enfatiza o processo de racionalização em vez da distância ética. Essas mudanças fazem com que o continuum se pareça mais com um caminho que os indivíduos percorrem ao entrar em uma organização corrupta. A contribuição da pesquisa empírica sobre a Odebrecht mostrou que um indivíduo começa a racionalizar imediatamente após ingressar em uma organização corrupta e tomar conhecimento da atividade antiética. O primeiro contato do indivíduo com atividades antiéticas leva a mecanismos de racionalização, que, por sua vez, levam ao desengajamento moral e ao progresso do indivíduo no continuum.</p>
+        <p>Os indivíduos no continuum começam como espectadores organizacionais; eles racionalizam apelando para lealdades superiores e racionalizando a responsabilidade. Quando participam de reuniões e se aproximam do lado ilegal dos negócios, têm uma grande chance de racionalizar sua intenção. Portanto, envolvem-se em ponderações sociais e começam a minimizar as consequências. Nesse estágio, seus pares também desempenham um papel no fortalecimento de seu raciocínio e desengajamento moral. Por fim, ao se tornarem perpetradores, buscam direitos e redenção; eles também dependem da legalidade para racionalizar suas ações.</p>
+        <p>Outro aspecto deste estudo de caso é que não há um único ponto de decisão no continuum; a qualquer momento, o indivíduo pode desistir ou denunciar. O processo de racionalização torna isso mais difícil. Deve-se notar que a cultura da Odebrecht criou um código de valores, crenças e pressupostos que fizeram com que seus membros racionalizassem suas ações. Ao ensinar a seus funcionários que o propósito da empresa é servir ao cliente e que cada líder empresarial deve ter relacionamentos pessoais com membros importantes das organizações dos clientes, a cultura corrupta contribuiu para a racionalização. A relação entre a cultura e os mecanismos de racionalização fica explícita quando a TEO é usada para racionalizar a corrupção (<xref ref-type="bibr" rid="B6">Campbell &amp; Göritz, 2014</xref>).</p>
+        <p>Esta pesquisa faz parte de um passo inicial para entender ideias teóricas como o continuum da destrutividade com base em evidências empíricas e como uma cultura organizacional corrupta cria mecanismos de racionalização. Essas mudanças na concepção do continuum da destrutividade enfatizam os mecanismos de racionalização e desengajamento moral. Isso não significa que a distância ética não desempenha um papel no continuum; no entanto, o processo de aculturação que muda o raciocínio para o comportamento incorreto deve ser mais bem explicado. Como este é um estudo qualitativo, não teve a intenção de validar o continuum e suas proposições derivadas, dessa forma incentivamos pesquisas futuras para investigar e medir como a distância ética e os mecanismos de racionalização desempenham seu papel no aprofundamento dos indivíduos no caminho do continuum de destrutividade. Outros estudos devem ser conduzidos para validar e até mesmo generalizar como a cultura leva à racionalização. Isso é importante devido à necessidade de revisar a cultura que era vista como uma ferramenta poderosa para produzir resultados organizacionais. No entanto, é uma das muitas causas de corrupção estrutural e até mesmo endêmica.</p>
+      </sec>
+    </body>
+    <back>
+      <ack>
+        <title>AGRADECIMENTOS</title>
+        <p>O presente trabalho foi realizado com apoio da Escola de Administração de Empresas de São Paulo da Fundação Getulio Vargas (FGV EAESP).</p>
+      </ack>
+      <fn-group>
+        <fn fn-type="other" id="fn10">
+          <p>[Versão traduzida]</p>
+        </fn>
+      </fn-group>
+      <fn-group>
+        <title>Pareceristas:</title>
+        <fn fn-type="other" id="fn13">
+          <label>13</label>
+          <p>Eda Castro Lucas de Souza (Instituto de Educação Superior de Brasília, Brasília / DF - Brasil) https://orcid.org/0000-0002-8557-0592</p>
+        </fn>
+        <fn fn-type="other" id="fn14">
+          <label>14</label>
+          <p>Dois revisores não autorizaram a divulgação de suas identidades.</p>
+        </fn>
+      </fn-group>
+      <fn-group>
+        <fn fn-type="other" id="fn15">
+          <p>Relatório de revisão por pares: o relatório de revisão por pares está disponível neste link. <related-article related-article-type="reviewer-report" ext-link-type="uri" xlink:href="https://bibliotecadigital.fgv.br/ojs/index.php/rap/article/view/88614/83349">https://bibliotecadigital.fgv.br/ojs/index.php/rap/article/view/88614/83349</related-article> </p>
+        </fn>
+      </fn-group>
+    </back>
+  </sub-article>
+</article>
