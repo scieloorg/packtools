@@ -1,5 +1,4 @@
 class Authors:
-
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
@@ -22,25 +21,23 @@ class Authors:
                 except IndexError:
                     pass
             try:
-                _author["given_names"] = (
-                    node.xpath(".//given-names")[0].text
-                )
+                _author["given_names"] = node.xpath(".//given-names")[0].text
             except IndexError:
                 pass
             try:
-                _author["orcid"] = (
-                    node.xpath("contrib-id[@contrib-id-type='orcid']")[0].text
-                )
+                _author["orcid"] = node.xpath("contrib-id[@contrib-id-type='orcid']")[
+                    0
+                ].text
             except IndexError:
                 pass
 
             if node.xpath(".//role"):
-                _author['role'] = []
+                _author["role"] = []
 
             for role in node.xpath(".//role"):
                 _role = role.text
-                _content_type = role.get('content-type')
-                _author['role'].append({"text": _role, "content-type": _content_type})
+                _content_type = role.get("content-type")
+                _author["role"].append({"text": _role, "content-type": _content_type})
 
             _author['rid'] = [xref.get('rid') for xref in node.findall('.//xref')]
             _author['rid-aff'] = [xref.get('rid') for xref in node.findall('.//xref[@ref-type="aff"]')]

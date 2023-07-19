@@ -4,7 +4,7 @@ from packtools.sps.utils import xml_utils
 
 def get_node_without_subtag(node):
     """
-        Função que retorna nó sem subtags. 
+    Função que retorna nó sem subtags.
     """
     return "".join(node.xpath(".//text()"))
 
@@ -27,7 +27,7 @@ class AffiliationExtractor:
 
     def extract_affiliation_data(self, nodes, subtag):
         data = []
-        address_aff = ['state', 'city']
+        address_aff = ["state", "city"]
         institution_aff = ["orgname", "orgdiv1", "orgdiv2", "original"]
 
         # Define se a extração vai ocorrer com subtags ou sem.
@@ -39,56 +39,62 @@ class AffiliationExtractor:
                 affiliation_id = aff_node.get('id')
 
                 try:
-                    label = aff_node.xpath('label')[0].text
+                    label = aff_node.xpath("label")[0].text
                 except IndexError:
                     label = None
 
                 institution = {}
                 for inst in institution_aff:
                     try:
-                        institution[inst] = aff_text(aff_node.xpath(f'institution[@content-type="{inst}"]')[0])
+                        institution[inst] = aff_text(
+                            aff_node.xpath(f'institution[@content-type="{inst}"]')[0]
+                        )
                     except IndexError:
-                        institution[inst] = ''
+                        institution[inst] = ""
 
                 address = {}
                 for field in address_aff:
                     try:
                         address[field] = aff_text(
-                            aff_node.xpath(f'addr-line/named-content[@content-type="{field}"]')[0])
+                            aff_node.xpath(
+                                f'addr-line/named-content[@content-type="{field}"]'
+                            )[0]
+                        )
                     except IndexError:
-                        pass
+                        address[field] = ""
 
-                city = address['city']
-                state = address['state']
+                city = address["city"]
+                state = address["state"]
 
                 try:
-                    country_node = aff_node.xpath('country')[0]
+                    country_node = aff_node.xpath("country")[0]
                     country = aff_text(country_node)
-                    country_code = country_node.get('country', '')
+                    country_code = country_node.get("country", "")
                 except IndexError:
-                    country = ''
-                    country_code = ''
+                    country = ""
+                    country_code = ""
 
                 try:
-                    email = aff_node.xpath('email')[0].text
+                    email = aff_node.xpath("email")[0].text
                 except IndexError:
-                    email = ''
+                    email = ""
 
-                data.append({
-                    'id': affiliation_id,
-                    'label': label,
-                    'institution': [institution],
-                    'city': city,
-                    'state': state,
-                    'country': [
-                        {
-                            'code': country_code,
-                            'name': country,
-                        }
-                    ],
-                    'email': email,
-                })
-
+                data.append(
+                    {
+                        "id": affiliation_id,
+                        "label": label,
+                        "institution": [institution],
+                        "city": city,
+                        "state": state,
+                        "country": [
+                            {
+                                "code": country_code,
+                                "name": country,
+                            }
+                        ],
+                        "email": email,
+                    }
+                )
         return data
 
     def get_affiliation_dict(self, subtag):
@@ -105,19 +111,19 @@ class AffiliationExtractor:
         contrib_group_node = self.extract_contrib_group
 
         try:
-            if article_meta_node[0].xpath('aff'):
+            if article_meta_node[0].xpath("aff"):
                 list_nodes.append(article_meta_node[0])
         except IndexError:
             pass
 
         try:
-            if front_stub_node[0].xpath('aff'):
+            if front_stub_node[0].xpath("aff"):
                 list_nodes.append(front_stub_node[0])
         except IndexError:
             pass
 
         try:
-            if contrib_group_node[0].xpath('aff'):
+            if contrib_group_node[0].xpath("aff"):
                 list_nodes.append(contrib_group_node[0])
         except IndexError:
             pass
