@@ -140,7 +140,7 @@ class Affiliation:
     @property
     def affiliation_list(self):
         """
-        Retorna lista de afiliações dos autores principais
+        Retorna lista de afiliações
 
         Returns
         -------
@@ -163,7 +163,7 @@ class Affiliation:
         loc_types = ["state", "city"]
         inst_types = ["orgname", "orgdiv1", "orgdiv2", "original"]
 
-        for aff_node in self._xmltree.xpath(".//article-meta//aff"):
+        for aff_node in self._xmltree.xpath(".//aff"):
 
             affiliation_id = aff_node.get("id")
 
@@ -177,10 +177,10 @@ class Affiliation:
 
             address = {}
             for loc_type in loc_types:
-                address[loc_type] = aff_node.findtext(f"addr-line/{field}")
+                address[loc_type] = aff_node.findtext(f"addr-line/{loc_type}")
                 if not address[loc_type]:
                     address[loc_type] = aff_node.findtext(
-                        f'addr-line/named-content[@content-type="{field}"]'
+                        f'addr-line/named-content[@content-type="{loc_type}"]'
                     )
             address["country_name"] = aff_node.findtext("country")
 
@@ -197,4 +197,33 @@ class Affiliation:
             item.update(institution)
             item.update(address)
             data.append(item)
+        return data
+
+    @property
+    def affiliation_by_id(self):
+        """
+        Retorna as afiliações indexadas pelo seu id
+
+        Returns
+        -------
+        dict of dict, which key is id
+        {"aff1":
+            {
+                "id": affiliation_id or None,
+                "label": label or None,
+                "orgname": orgname or None,
+                "orgdiv1": orgdiv1 or None,
+                "orgdiv2": orgdiv2 or None,
+                "original": original or None,
+                "city": city or None,
+                "state": state or None,
+                "country_name": country_name or None,
+                "country_code": country_code or None,
+                "email": email or None,
+            }
+        }
+        """
+        data = {}
+        for item in self.affiliation_list:
+            data[item["id"]] = item
         return data
