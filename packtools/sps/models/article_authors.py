@@ -44,6 +44,7 @@ class Authors:
 
             _author['rid'] = [xref.get('rid') for xref in node.findall('.//xref')]
             _author['rid-aff'] = [xref.get('rid') for xref in node.findall('.//xref[@ref-type="aff"]')]
+            _author['aff_rids'] = _author['rid-aff']
             _author['contrib-type'] = node.attrib['contrib-type']
             _data.append(_author)
         return _data

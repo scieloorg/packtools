@@ -15,18 +15,16 @@
 </article>
 """
 
-from packtools.sps.models.article_authors import (
-    Authors,
-)
 from unittest import TestCase, skip
 
 from lxml import etree
 
+from packtools.sps.models.article_authors import Authors
+
 
 class AuthorsWithoutXrefTest(TestCase):
-
     def setUp(self):
-        xml = ("""
+        xml = """
         <article>
         <front>
             <article-meta>
@@ -43,7 +41,7 @@ class AuthorsWithoutXrefTest(TestCase):
             </article-meta>
           </front>
         </article>
-        """)
+        """
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
 
@@ -53,9 +51,8 @@ class AuthorsWithoutXrefTest(TestCase):
 
 
 class AuthorsTest(TestCase):
-
     def setUp(self):
-        xml = ("""
+        xml = """
         <article>
         <front>
             <article-meta>
@@ -82,10 +79,10 @@ class AuthorsTest(TestCase):
             </article-meta>
           </front>
         </article>
-        """)
+        """
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
-        
+
     def test_contribs(self):
         expected = [
             {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
@@ -99,10 +96,10 @@ class AuthorsTest(TestCase):
         self.assertDictEqual(expected[1], result[1])
 
     def test_collab(self):
-        self.assertIsNone(self.authors.collab) 
-  
+        self.assertIsNone(self.authors.collab)
+
     def test_role_with_role_content_type(self):
-        xml = ("""
+        xml = """
         <article>
         <front>
             <article-meta>
@@ -137,11 +134,11 @@ class AuthorsTest(TestCase):
             </article-meta>
           </front>
         </article>
-        """)
+        """
 
         data = etree.fromstring(xml)
         xmldata = Authors(data).contribs
-        
+
         expect_output = [
             {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
              "prefix": "Prof", "suffix": "Nieto",
@@ -174,11 +171,11 @@ class AuthorsTest(TestCase):
              "contrib-type": "author",
              },
         ]
-        
+
         self.assertEqual(xmldata, expect_output)
 
     def test_role_wihtout_content_type(self):
-        xml = ("""
+        xml = """
         <article>
         <front>
             <article-meta>
@@ -212,7 +209,7 @@ class AuthorsTest(TestCase):
             </article-meta>
           </front>
         </article>
-        """)
+        """
         data = etree.fromstring(xml)
         xmldata = Authors(data).contribs
 
@@ -226,15 +223,16 @@ class AuthorsTest(TestCase):
                     {'text': 'Role 4', 'content-type': None}],
                 "rid": ["aff1"],
                 "contrib-type": "author"
-
             },
             {
-                'surname': 'Higa', 'given_names': 'Vanessa M.', 'orcid': '0000-0001-5518-4853',
-                'role': [
-                    {'text': 'Conceptualization', 'content-type': None},
-                    {'text': 'Data curation', 'content-type': None},
-                    {'text': 'Formal Analysis', 'content-type': None},
-                    {'text': 'Writing – original draft', 'content-type': None}
+                "surname": "Higa",
+                "given_names": "Vanessa M.",
+                "orcid": "0000-0001-5518-4853",
+                "role": [
+                    {"text": "Conceptualization", "content-type": None},
+                    {"text": "Data curation", "content-type": None},
+                    {"text": "Formal Analysis", "content-type": None},
+                    {"text": "Writing – original draft", "content-type": None},
                 ],
                 "rid": ["aff1"],
                 "contrib-type": "author"
@@ -245,9 +243,8 @@ class AuthorsTest(TestCase):
 
 
 class AuthorsCollabTest(TestCase):
-
     def setUp(self):
-        xml = ("""
+        xml = """
         <article>
         <front>
             <article-meta>
@@ -257,7 +254,7 @@ class AuthorsCollabTest(TestCase):
             </article-meta>
           </front>
         </article>
-        """)
+        """
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
 
@@ -269,9 +266,8 @@ class AuthorsCollabTest(TestCase):
 
 
 class AuthorsWithAffTest(TestCase):
-
     def setUp(self):
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -311,46 +307,48 @@ class AuthorsWithAffTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
 
     def test_contribs(self):
         expected = [
             {
-                'surname': 'VENEGAS-MARTÍNEZ',
-                'prefix': 'Prof',
-                'suffix': 'Nieto',
-                'given_names': 'FRANCISCO',
+                "surname": "VENEGAS-MARTÍNEZ",
+                "prefix": "Prof",
+                "suffix": "Nieto",
+                "given_names": "FRANCISCO",
                 "rid": "aff2",
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
-                "affs": [{
-                    "id": "aff1",
-                    "label": "I",
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "city": "Belo Horizonte",
-                    "state": "MG",
-                    "country_code": None,
-                    "country_name": "Brasil",
-                    "email": None,
-                },
-                {
-                    "id": "aff2",
-                    "label": "II",
-                    "city": "Belo Horizonte",
-                    "state": "MG",
-                    "country_code": None,
-                    "country_name": "Brasil",
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "email": None,
-                }],
+                "affs": [
+                    {
+                        "id": "aff1",
+                        "label": "I",
+                        "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                        "orgdiv1": None,
+                        "orgdiv2": None,
+                        "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                        "city": "Belo Horizonte",
+                        "state": "MG",
+                        "country_code": None,
+                        "country_name": "Brasil",
+                        "email": None,
+                    },
+                    {
+                        "id": "aff2",
+                        "label": "II",
+                        "city": "Belo Horizonte",
+                        "state": "MG",
+                        "country_code": None,
+                        "country_name": "Brasil",
+                        "orgname": "Universidade Federal de Minas Gerais",
+                        "orgdiv1": "Faculdade de Medicina",
+                        "orgdiv2": None,
+                        "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
+                        "email": None,
+                    },
+                ],
             }
         ]
         for item in self.authors.contribs_with_affs:
@@ -359,9 +357,8 @@ class AuthorsWithAffTest(TestCase):
 
 
 class AuthorsWithAffInContribGroupTest(TestCase):
-
     def setUp(self):
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -401,46 +398,48 @@ class AuthorsWithAffInContribGroupTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
 
     def test_contribs(self):
         expected = [
             {
-                'surname': 'VENEGAS-MARTÍNEZ',
-                'prefix': 'Prof',
-                'suffix': 'Nieto',
-                'given_names': 'FRANCISCO',
+                "surname": "VENEGAS-MARTÍNEZ",
+                "prefix": "Prof",
+                "suffix": "Nieto",
+                "given_names": "FRANCISCO",
                 "rid": "aff2",
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
-                "affs": [{
-                    "id": "aff1",
-                    "label": "I",
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "city": "Belo Horizonte",
-                    "state": "MG",
-                    "country_code": None,
-                    "country_name": "Brasil",
-                    "email": None,
-                },
-                {
-                    "id": "aff2",
-                    "label": "II",
-                    "city": "Belo Horizonte",
-                    "state": "MG",
-                    "country_code": None,
-                    "country_name": "Brasil",
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "email": None,
-                }],
+                "affs": [
+                    {
+                        "id": "aff1",
+                        "label": "I",
+                        "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                        "orgdiv1": None,
+                        "orgdiv2": None,
+                        "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                        "city": "Belo Horizonte",
+                        "state": "MG",
+                        "country_code": None,
+                        "country_name": "Brasil",
+                        "email": None,
+                    },
+                    {
+                        "id": "aff2",
+                        "label": "II",
+                        "city": "Belo Horizonte",
+                        "state": "MG",
+                        "country_code": None,
+                        "country_name": "Brasil",
+                        "orgname": "Universidade Federal de Minas Gerais",
+                        "orgdiv1": "Faculdade de Medicina",
+                        "orgdiv2": None,
+                        "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
+                        "email": None,
+                    },
+                ],
             }
         ]
         for item in self.authors.contribs_with_affs:
