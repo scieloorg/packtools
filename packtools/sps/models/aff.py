@@ -131,3 +131,70 @@ class AffiliationExtractor:
         data = self.extract_affiliation_data(nodes=list_nodes, subtag=subtag)
 
         return data
+
+
+class Affiliation:
+    def __init__(self, xmltree):
+        self._xmltree = xmltree
+
+    @property
+    def affiliation_list(self):
+        """
+        Retorna lista de afiliações dos autores principais
+
+        Returns
+        -------
+        list of dict:
+            {
+                "id": affiliation_id or None,
+                "label": label or None,
+                "orgname": orgname or None,
+                "orgdiv1": orgdiv1 or None,
+                "orgdiv2": orgdiv2 or None,
+                "original": original or None,
+                "city": city or None,
+                "state": state or None,
+                "country_name": country_name or None,
+                "country_code": country_code or None,
+                "email": email or None,
+            }
+        """
+        data = []
+        loc_types = ["state", "city"]
+        inst_types = ["orgname", "orgdiv1", "orgdiv2", "original"]
+
+        for aff_node in self._xmltree.xpath(".//article-meta//aff"):
+
+            affiliation_id = aff_node.get("id")
+
+            label = aff_node.findtext("label")
+
+            institution = {}
+            for inst_type in inst_types:
+                institution[inst_type] = aff_node.findtext(
+                    f'institution[@content-type="{inst_type}"]'
+                )
+
+            address = {}
+            for loc_type in loc_types:
+                address[loc_type] = aff_node.findtext(f"addr-line/{field}")
+                if not address[loc_type]:
+                    address[loc_type] = aff_node.findtext(
+                        f'addr-line/named-content[@content-type="{field}"]'
+                    )
+            address["country_name"] = aff_node.findtext("country")
+
+            try:
+                address["country_code"] = aff_node.find("country").get("country")
+            except AttributeError:
+                pass
+            address["email"] = aff_node.findtext("email")
+
+            item = {
+                "id": affiliation_id,
+                "label": label,
+            }
+            item.update(institution)
+            item.update(address)
+            data.append(item)
+        return data
