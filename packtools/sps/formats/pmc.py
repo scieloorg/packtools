@@ -42,3 +42,8 @@ def xml_pmc_aff(xml_tree):
         aff.text = aff_intitution
 
 
+def xml_pmc_ref(xml_tree):
+    refs = xml_tree.findall(".//ref")
+    for ref in refs:
+        ref.remove(ref.find("./mixed-citation"))
+
