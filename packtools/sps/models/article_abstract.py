@@ -77,7 +77,7 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def _get_text_without_tags_by_lang(self, abstract_xpath, lang):
+    def _get_abstract_sections_without_tags_by_lang(self, abstract_xpath, lang):
         values = []
         for node in self.xmltree.xpath(f"{abstract_xpath}//sec"):
             values.append(node_text_without_tags(node.find("p")))
@@ -95,7 +95,7 @@ class Abstract:
     def main_abstract_without_tags(self):
         lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
 
-        return self._get_text_without_tags_by_lang(
+        return self._get_abstract_sections_without_tags_by_lang(
             ".//front//article-meta//abstract", lang
         )
 
@@ -141,7 +141,7 @@ class Abstract:
             "{http://www.w3.org/XML/1998/namespace}lang"
         )
 
-        return self._get_text_without_tags_by_lang(
+        return self._get_abstract_sections_without_tags_by_lang(
             ".//sub-article//front-stub//abstract", lang
         )
 
@@ -169,7 +169,7 @@ class Abstract:
             "{http://www.w3.org/XML/1998/namespace}lang"
         )
 
-        return self._get_text_without_tags_by_lang(
+        return self._get_abstract_sections_without_tags_by_lang(
             ".//front//article-meta//trans-abstract", lang
         )
 
