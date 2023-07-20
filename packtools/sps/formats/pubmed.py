@@ -15,7 +15,7 @@ def xml_pubmed_article_pipe():
     root = ET.Element("Article")
     tree = ET.ElementTree(root)
 
-    return tree
+    return root
 
 
 def xml_pubmed_journal_pipe(xml_pubmed):
@@ -219,3 +219,23 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     <Language>EN</Language>
     """
     add_langs(xml_pubmed, xml_tree)
+
+
+def pipeline_pubmed(xml_tree):
+    xml_pubmed = xml_pubmed_article_pipe()
+    xml_pubmed_journal_pipe(xml_pubmed)
+    xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_issn_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_language_pipe(xml_pubmed, xml_tree)
+
+    # TODO
+    # As demais chamadas serão incluídas a partir da incorporação do PR #429
+
+    return xml_pubmed
