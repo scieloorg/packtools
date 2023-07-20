@@ -70,6 +70,8 @@ article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lan
 </article>
 """
 
+from packtools.sps.utils.xml_utils import node_text, node_text_without_tags
+
 
 class Abstract:
     def __init__(self, xmltree):
@@ -78,14 +80,14 @@ class Abstract:
     def get_values_dict_without_tags(self, attrib, lang):
         values = []
         for node in self.xmltree.xpath(f"{attrib}//sec"):
-            values.append(node.xpath("./p")[0].text)
+            values.append(node_text_without_tags(node.find("p")))
         out = {lang: " ".join(values)}
         return out
 
     def get_values_dict_with_tags(self, attrib):
         out = dict()
         for node in self.xmltree.xpath(f"{attrib}//sec"):
-            out[node.xpath("./title")[0].text] = node.xpath("./p")[0].text
+            out[node.xpath("./title")[0].text] = node_text(node.find("p"))
 
         return out
 
