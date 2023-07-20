@@ -77,16 +77,16 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def _get_text_without_tags_by_lang(self, attrib, lang):
+    def _get_text_without_tags_by_lang(self, abstract_xpath, lang):
         values = []
-        for node in self.xmltree.xpath(f"{attrib}//sec"):
+        for node in self.xmltree.xpath(f"{abstract_xpath}//sec"):
             values.append(node_text_without_tags(node.find("p")))
         out = {lang: " ".join(values)}
         return out
 
-    def get_values_dict_with_tags(self, attrib):
+    def _get_abstract_sections_with_tags_by_title(self, abstract_xpath):
         out = dict()
-        for node in self.xmltree.xpath(f"{attrib}//sec"):
+        for node in self.xmltree.xpath(f"{abstract_xpath}//sec"):
             out[node.xpath("./title")[0].text] = node_text(node.find("p"))
 
         return out
@@ -109,7 +109,7 @@ class Abstract:
                 "title": self.xmltree.xpath(".//front//article-meta//abstract//title")[
                     0
                 ].text,
-                "sections": self.get_values_dict_with_tags(
+                "sections": self._get_abstract_sections_with_tags_by_title(
                     ".//front//article-meta//abstract"
                 ),
             }
@@ -127,7 +127,7 @@ class Abstract:
                 "title": self.xmltree.xpath(
                     ".//sub-article//front-stub//abstract//title"
                 )[0].text,
-                "sections": self.get_values_dict_with_tags(
+                "sections": self._get_abstract_sections_with_tags_by_title(
                     ".//sub-article//front-stub//abstract"
                 ),
             }
@@ -155,7 +155,7 @@ class Abstract:
                 "title": self.xmltree.xpath(
                     ".//front//article-meta//trans-abstract//title"
                 )[0].text,
-                "sections": self.get_values_dict_with_tags(
+                "sections": self._get_abstract_sections_with_tags_by_title(
                     ".//front//article-meta//trans-abstract"
                 ),
             }
