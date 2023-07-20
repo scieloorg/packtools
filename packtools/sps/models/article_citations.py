@@ -13,25 +13,7 @@ def get_source(node):
 
 
 def get_main_author(node):
-    main_author = {}
-    try:
-        main_author['surname'] = node.find('./element-citation/person-group/name/surname').text
-    except AttributeError:
-        pass
-    try:
-        main_author['given_name'] = node.find('./element-citation/person-group/name/given-names').text
-    except AttributeError:
-        pass
-    try:
-        main_author['prefix'] = node.find('./element-citation/person-group/name/prefix').text
-    except AttributeError:
-        pass
-    try:
-        main_author['suffix'] = node.find('./element-citation/person-group/name/suffix').text
-    except AttributeError:
-        pass
-
-    return main_author
+    return get_all_authors(node)[0]
 
 
 def get_all_authors(node):
@@ -92,7 +74,7 @@ def get_citation_ids(node):
     ids = {}
     for pub_id in node.xpath('.//pub-id'):
         ids[pub_id.attrib['pub-id-type']] = pub_id.text
-    return None if not ids else ids
+    return ids
 
 
 class ArticleCitations:
