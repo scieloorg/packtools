@@ -128,6 +128,46 @@ class Abstract:
                 abstract["p"] = get_text(node_p)
         return {lang: abstract}
 
+    def get_main_abstract(self, return_title=True, return_sec_title=True, return_tags=True):
+        """
+        Retorna resumo principal,
+        incluindo `title`, incluindo `sec_title`, mantendo `tags`, se True.
+
+        Returns
+        -------
+        dict
+            {
+                "lang": lang,
+                "abstract": {
+                    "title": "",
+                    "sections": [
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                    ],
+                    "p": "",
+                }
+            }
+
+        """
+        lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
+        abstract = self._get_abstract_by_lang(
+            abstract_xpath=".//article-meta/abstract",
+            lang=lang,
+            return_title=return_title,
+            return_sec_title=return_sec_title,
+            return_tags=return_tags,
+        )
+        return {
+            "lang": self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang"),
+            "abstract": abstract[lang]
+        }
+
     @property
     def main_abstract_without_tags(self):
         lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")

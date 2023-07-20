@@ -564,19 +564,6 @@ class AbstractWithSectionsTest(TestCase):
         Remove `<italic>` and `</italic>` from: `Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).`
 
         """
-        expected = {
-            'en': {
-                'title': 'Abstract',
-                'sections': [{
-                    'title': 'Objective',
-                    'p': 'To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.',
-                },
-                {
-                    'title': 'Design',
-                    'p': 'Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).',
-                }],
-            }
-        }
         obtained = Abstract(self.xmltree)._get_abstract_by_lang(
             abstract_xpath=".//front//abstract",
             lang="en",
@@ -606,3 +593,25 @@ class AbstractWithSectionsTest(TestCase):
         )
         self.assertIsNone(obtained["en"]["sections"][0].get("title"))
         self.assertIsNone(obtained["en"]["sections"][1].get("title"))
+
+    def test__get_main_abstract(self):
+        expected = {
+            'lang': 'en',
+            'abstract': {
+                'title': 'Abstract',
+                'sections': [{
+                    'title': 'Objective',
+                    'p': 'To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.',
+                },
+                {
+                    'title': 'Design',
+                    'p': 'Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).',
+                }],
+            }
+        }
+        obtained = Abstract(self.xmltree).get_main_abstract(
+            return_title=True,
+            return_sec_title=True,
+            return_tags=True,
+        )
+        self.assertDictEqual(expected, obtained)
