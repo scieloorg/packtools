@@ -20,3 +20,25 @@ def xml_pmc_authors(xml_tree):
         author.find("./xref").remove(label)
 
 
+def xml_pmc_aff(xml_tree):
+    affs = xml_tree.findall(".//aff")
+    for aff in affs:
+        aff_label = aff.find("./label").text
+        aff_intitution = aff.find("./institution[@content-type='original']").text
+
+        aff.remove(aff.find("./label"))
+
+        for institution in aff.findall(".//institution"):
+            aff.remove(institution)
+
+        aff.remove(aff.find('./addr-line'))
+
+        aff.remove(aff.find("./country"))
+
+        aff_el = ET.Element('label')
+        aff_el.text = aff_label
+        aff.insert(0, aff_el)
+
+        aff.text = aff_intitution
+
+
