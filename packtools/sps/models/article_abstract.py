@@ -1,3 +1,6 @@
+from packtools.sps.utils import xml_utils
+from lxml import etree as ET
+
 """
 <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
 article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -76,10 +79,10 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def get_values_dict_without_tags(self, attrib, lang):
+    def get_values_dict_without_tags(self, xpath, lang):
         values = []
-        for node in self.xmltree.xpath(f"{attrib}//sec"):
-            values.append(node.xpath("./p")[0].text)
+        for node in self.xmltree.xpath(f"{xpath}//sec"):
+            values.append(xml_utils.node_text(node.xpath("./p")[0]))
         out = {lang: " ".join(values)}
         return out
 
