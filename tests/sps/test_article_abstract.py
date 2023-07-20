@@ -8,6 +8,52 @@ from packtools.sps.models.article_abstract import Abstract
 class AbstractTest(TestCase):
     maxDiff = None
 
+    def test_main_abstract_with_tags_caso_1(self):
+        xml = (
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<abstract>'
+            '<title>Abstract</title>'
+            '<sec>'
+            '<title>Objective:</title>'
+            '<p>Parte 1 <bold>parte 2</bold> <italic>parte 3</italic></p>'
+            '</sec>'
+            '<sec>'
+            '<title>Method:</title>'
+            '<p>method</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Results:</title>'
+            '<p>results</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Conclusion:</title>'
+            '<p>conclusion</p>'
+            '</sec>'
+            '</abstract>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        data = ET.fromstring(xml)
+        print(data)
+        obtained = Abstract(data).main_abstract_with_tags
+
+        expected = {
+            "lang": "en",
+            "title": "Abstract",
+            "sections": {
+                "Objective:": "Parte 1 <bold>parte 2</bold> <italic>parte 3</italic>",
+                "Method:": "method",
+                "Results:": "results",
+                "Conclusion:": "conclusion"
+            }
+        }
+
+        self.assertDictEqual(obtained, expected)
+
     def test_main_abstract_with_tags(self):
         xml = (
             """
