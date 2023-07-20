@@ -531,7 +531,78 @@ class AbstractWithSectionsTest(TestCase):
             'pt': 'avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC).  Ensaio Clínico Randomizado... Módulo Old (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta. ',
         }
         obtained = Abstract(self.xmltree).trans_abstract_without_tags
-        print("")
-        print(obtained)
-        print(expected)
         self.assertEqual(obtained, expected)
+
+    def test__get_abstract_by_lang_returns_all(self):
+        expected = {
+            'en': {
+                'title': 'Abstract',
+                'sections': [{
+                    'title': 'Objective',
+                    'p': 'To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.',
+                },
+                {
+                    'title': 'Design',
+                    'p': 'Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).',
+                }],
+            }
+        }
+        obtained = Abstract(self.xmltree)._get_abstract_by_lang(
+            abstract_xpath=".//front//abstract",
+            lang="en",
+            return_title=True,
+            return_sec_title=True,
+            return_tags=True,
+        )
+        self.assertIsInstance(obtained, dict)
+        for k, v in obtained.items():
+            self.assertEqual("en", k)
+            self.assertDictEqual(v, expected["en"])
+
+    def test__get_abstract_by_lang_returns_tags_false(self):
+        """
+        Remove `<italic>` and `</italic>` from: `Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).`
+
+        """
+        expected = {
+            'en': {
+                'title': 'Abstract',
+                'sections': [{
+                    'title': 'Objective',
+                    'p': 'To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.',
+                },
+                {
+                    'title': 'Design',
+                    'p': 'Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).',
+                }],
+            }
+        }
+        obtained = Abstract(self.xmltree)._get_abstract_by_lang(
+            abstract_xpath=".//front//abstract",
+            lang="en",
+            return_title=True,
+            return_sec_title=True,
+            return_tags=False,
+        )
+        self.assertNotIn("<italic>", obtained["en"]["sections"][1]["p"])
+
+    def test__get_abstract_by_lang_does_not_returns_abstract_title(self):
+        obtained = Abstract(self.xmltree)._get_abstract_by_lang(
+            abstract_xpath=".//front//abstract",
+            lang="en",
+            return_title=False,
+            return_sec_title=True,
+            return_tags=True,
+        )
+        self.assertIsNone(obtained["en"].get("title"))
+
+    def test__get_abstract_by_lang_does_not_returns_abstract_sec_title(self):
+        obtained = Abstract(self.xmltree)._get_abstract_by_lang(
+            abstract_xpath=".//front//abstract",
+            lang="en",
+            return_title=True,
+            return_sec_title=False,
+            return_tags=True,
+        )
+        self.assertIsNone(obtained["en"]["sections"][0].get("title"))
+        self.assertIsNone(obtained["en"]["sections"][1].get("title"))
