@@ -8,15 +8,15 @@ from packtools.sps.utils import xml_utils
 
 def main():
     parser = argparse.ArgumentParser(description='Convert XML file in SciELO format to CrossRef format.')
-    parser.add_argument('-i', '--path to xml file in scielo format', action='store', dest='path_to_read', required=True,
+    parser.add_argument('-i', '--xml_scielo', action='store', dest='path_to_read', required=True,
                         help='Path for reading the SciELO XML file.')
-    parser.add_argument('-n', '--depositor name', action='store', dest='depositor_name', required=False,
+    parser.add_argument('-n', '--depositor_name', action='store', dest='depositor_name', required=False,
                         help='Value of the depositor name attribute.')
-    parser.add_argument('-e', '--depositor email address', action='store', dest='depositor_email_address', required=False,
+    parser.add_argument('-e', '--depositor_email_address', action='store', dest='depositor_email_address', required=False,
                         help='Value of the depositor email address attribute.')
     parser.add_argument('-r', '--registrant', action='store', dest='registrant', required=False,
                         help='Value of the registrant attribute.')
-    parser.add_argument('-o', '--path to xml file in crossref format', action='store', dest='path_to_write', required=True,
+    parser.add_argument('-o', '--xml_crossref', action='store', dest='path_to_write', required=True,
                         help='Path for writing the CrossRef XML file.')
     arguments = parser.parse_args()
 
