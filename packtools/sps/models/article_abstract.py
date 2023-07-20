@@ -88,6 +88,11 @@ class Abstract:
         values = []
         for node in self.xmltree.xpath(f"{abstract_xpath}//sec"):
             values.append(node_text_without_tags(node.find("p")))
+        else:
+            # não existe abstract/sec, mas existe abstract/p
+            node_p = self.xmltree.find(f"{abstract_xpath}/p")
+            if node_p is not None:
+                values.append(node_text_without_tags(node_p))
         out = {lang: " ".join(values)}
         return out
 
@@ -107,7 +112,6 @@ class Abstract:
         out = dict()
         for node in self.xmltree.xpath(f"{abstract_xpath}//sec"):
             out[node.xpath("./title")[0].text] = node_text(node.find("p"))
-
         return out
 
     def _get_abstract_by_lang(self, abstract_xpath, lang, return_title=True, return_sec_title=True, return_tags=True):
@@ -209,6 +213,13 @@ class Abstract:
                     ".//front//article-meta//abstract"
                 ),
             }
+            if not out["sections"]:
+                # remove sections
+                out.pop("sections")
+                node_p = self.xmltree.find(".//front//article-meta//abstract/p")
+                if node_p is not None:
+                    out["p"] = node_text(node_p)
+
             return out
         except AttributeError:
             pass

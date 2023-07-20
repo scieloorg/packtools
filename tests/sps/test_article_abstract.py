@@ -718,3 +718,19 @@ class AbstractWithoutSectionsTest(TestCase):
             return_tags=True,
         )
         self.assertDictEqual(expected, obtained)
+
+    def test_main_abstract_with_tags(self):
+        obtained = Abstract(self.xmltree).main_abstract_with_tags
+
+        expected = {
+            "lang": "en",
+            "title": "Abstract",
+            "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
+        }
+        self.assertDictEqual(obtained, expected)
+
+    def test_main_abstract_without_tags(self):
+        obtained = Abstract(self.xmltree).main_abstract_without_tags
+
+        expected = {"en": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."}
+        self.assertDictEqual(obtained, expected)
