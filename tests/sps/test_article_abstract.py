@@ -615,3 +615,106 @@ class AbstractWithSectionsTest(TestCase):
             return_tags=True,
         )
         self.assertDictEqual(expected, obtained)
+
+
+class AbstractWithoutSectionsTest(TestCase):
+
+    def setUp(self):
+        self.xmltree = ET.fromstring(
+            """
+            <article 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <abstract>
+                <title>Abstract</title>
+                <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+            </abstract>
+            <trans-abstract xml:lang="pt">
+                <title>Resumo</title>
+                <p>Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de idosos. Revisão sistemática de 12 <italic>estudos clínicos</italic> controlados (disponível em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente (cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente (três ensaios).</p>
+            </trans-abstract>
+            <trans-abstract xml:lang="fr">
+                <title>Resumo</title>
+                <p>Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie autonome des personnes âgées. Revue systématique de 12 <italic>essais cliniques</italic> contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins complets (trois essais).</p>
+            </trans-abstract>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="es">
+                <front-stub>
+                    <abstract>
+                        <title>Resumen</title>
+                        <p>
+                          Examinar la efectividad de la asistencia al hospital de día para prolongar la vida independiente de las personas mayores. Revisión sistemática de 12 <italic>ensayos clínicos</italic> controlados (disponibles en enero de 1997) que compararon la atención hospitalaria de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) o ninguna atención integral (tres ensayos).</p>
+                      </abstract>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="translation" xml:lang="it">
+                <front-stub>
+                    <abstract>
+                        <title>Resumen</title>
+                        <p>
+                          Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita autonoma delle persone anziane. Revisione sistematica di 12 <italic>studi clinici</italic> controllati (disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna assistenza completa (tre studi).</p>
+                      </abstract>
+                </front-stub>
+            </sub-article>
+            </article>
+            """)
+
+    def test__get_abstract_by_lang_returns_all(self):
+        expected = {
+            'en': {
+                'title': 'Abstract',
+                'p': 'To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).',
+            },
+        }
+        obtained = Abstract(self.xmltree)._get_abstract_by_lang(
+            abstract_xpath=".//front//abstract",
+            lang="en",
+            return_title=True,
+            return_sec_title=True,
+            return_tags=True,
+        )
+        self.assertIsInstance(obtained, dict)
+        for k, v in obtained.items():
+            self.assertEqual("en", k)
+            self.assertDictEqual(v, expected["en"])
+
+    def test__get_abstract_by_lang_returns_tags_false(self):
+        """
+        Remove `<italic>` and `</italic>` from: `Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).`
+
+        """
+        obtained = Abstract(self.xmltree)._get_abstract_by_lang(
+            abstract_xpath=".//front//abstract",
+            lang="en",
+            return_title=True,
+            return_sec_title=True,
+            return_tags=False,
+        )
+        self.assertNotIn("<italic>", obtained["en"]["p"])
+
+    def test__get_abstract_by_lang_does_not_returns_abstract_title(self):
+        obtained = Abstract(self.xmltree)._get_abstract_by_lang(
+            abstract_xpath=".//front//abstract",
+            lang="en",
+            return_title=False,
+            return_sec_title=True,
+            return_tags=True,
+        )
+        self.assertIsNone(obtained["en"].get("title"))
+
+    def test__get_main_abstract(self):
+        expected = {
+            'lang': 'en',
+            'abstract': {
+                'title': 'Abstract',
+                'p': 'To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).',
+            }
+        }
+        obtained = Abstract(self.xmltree).get_main_abstract(
+            return_title=True,
+            return_sec_title=True,
+            return_tags=True,
+        )
+        self.assertDictEqual(expected, obtained)
