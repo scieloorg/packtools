@@ -7,7 +7,7 @@ from packtools.sps.utils import xml_utils
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert XML file in SciELO format to PMC format.')
+    parser = argparse.ArgumentParser(description='Convert XML file from SciELO format to PMC format.')
     parser.add_argument('-i', '--xml_scielo', action='store', dest='xml_scielo', required=True,
                         help='XML file in SciELO format to be converted.')
     parser.add_argument('-o', '--xml_pmc', action='store', dest='path_to_write', required=True,

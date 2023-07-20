@@ -7,7 +7,7 @@ from packtools.sps.utils import xml_utils
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert XML file in SciELO format to CrossRef format.')
+    parser = argparse.ArgumentParser(description='Convert XML file from SciELO format to CrossRef format.')
     parser.add_argument('-i', '--xml_scielo', action='store', dest='path_to_read', required=True,
                         help='Path for reading the SciELO XML file.')
     parser.add_argument('-n', '--depositor_name', action='store', dest='depositor_name', required=False,
