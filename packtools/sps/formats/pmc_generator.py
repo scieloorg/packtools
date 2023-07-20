@@ -8,10 +8,10 @@ from packtools.sps.utils import xml_utils
 
 def main():
     parser = argparse.ArgumentParser(description='Convert XML file in SciELO format to PMC format.')
-    parser.add_argument('-i', '--path_xml_file_in_scielo_format', action='store', dest='xml_scielo', required=True,
+    parser.add_argument('-i', '--xml_scielo', action='store', dest='xml_scielo', required=True,
                         help='XML file in SciELO format to be converted.')
-    parser.add_argument('-o', '--path_xml_file_in_pubmed_format', action='store', dest='path_to_write', required=True,
-                        help='Path for writing the CrossRef XML file.')
+    parser.add_argument('-o', '--xml_pmc', action='store', dest='path_to_write', required=True,
+                        help='Path for writing the PMC XML file.')
     arguments = parser.parse_args()
 
     xml_tree = xml_utils.get_xml_tree(arguments.xml_scielo)
