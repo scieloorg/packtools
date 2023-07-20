@@ -86,10 +86,10 @@ class Abstract:
         out = {lang: " ".join(values)}
         return out
 
-    def get_values_dict_with_tags(self, attrib):
+    def get_values_dict_with_tags(self, xpath):
         out = dict()
-        for node in self.xmltree.xpath(f"{attrib}//sec"):
-            out[node.xpath("./title")[0].text] = node.xpath("./p")[0].text
+        for node in self.xmltree.xpath(f"{xpath}//sec"):
+            out[node.xpath("./title")[0].text] = xml_utils.node_text(node.xpath("./p")[0])
 
         return out
 
@@ -120,7 +120,7 @@ class Abstract:
                 'sections': self.get_values_dict_with_tags('.//sub-article//front-stub//abstract')
             }
             return out
-        except AttributeError:
+        except (AttributeError, IndexError):
             pass
 
     @property
