@@ -23,10 +23,7 @@ def xml_pmc_authors(xml_tree):
 def xml_pmc_aff(xml_tree):
     affs = xml_tree.findall(".//aff")
     for aff in affs:
-        aff_label = aff.find("./label").text
-        aff_intitution = aff.find("./institution[@content-type='original']").text
-
-        aff.remove(aff.find("./label"))
+        aff_institution = aff.find("./institution[@content-type='original']").text
 
         for institution in aff.findall(".//institution"):
             aff.remove(institution)
@@ -35,11 +32,12 @@ def xml_pmc_aff(xml_tree):
 
         aff.remove(aff.find("./country"))
 
-        aff_el = ET.Element('label')
-        aff_el.text = aff_label
-        aff.insert(0, aff_el)
+        node_label = aff.find("./label")
 
-        aff.text = aff_intitution
+        if node_label is not None:
+            node_label.tail = aff_institution
+        else:
+            aff.text = aff_institution
 
 
 def xml_pmc_ref(xml_tree):
