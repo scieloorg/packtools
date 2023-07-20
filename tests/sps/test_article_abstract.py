@@ -462,3 +462,76 @@ class AbstractTest(TestCase):
         expected = None
 
         self.assertEqual(obtained, expected)
+
+
+class AbstractWithSectionsTest(TestCase):
+
+    def setUp(self):
+        self.xmltree = ET.fromstring(
+            """
+            <article 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>Objective</title>
+                    <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.</p>
+                </sec>
+                <sec>
+                    <title>Design</title>
+                    <p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+                </sec>
+            </abstract>
+            <trans-abstract xml:lang="pt">
+                <title>Resumo</title>
+                <sec>
+                  <title>Objetivo: </title>
+                  <p>avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC). </p>
+                </sec>
+                <sec>
+                  <title>Método: </title>
+                  <p>Ensaio Clínico Randomizado... Módulo <italic>Old</italic> (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta. </p>
+                </sec>
+            </trans-abstract>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="es">
+                <front-stub>
+                    <abstract>
+                        <title>Resumen</title>
+                        <sec>
+                          <title>Objetivo: </title>
+                          <p>evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de accidentes cerebrovasculares. </p>
+                        </sec>
+                        <sec>
+                          <title>Método: </title>
+                          <p>Ensayo Clínico Aleatorizado ... <italic>World Health Organization Quality of Life Assessment</italic> (WHOQOL-BREF) y el módulo <italic>Old</italic>(WHOQOL-OLD) 1semana, 2meses y 1año después del alta. </p>
+                        </sec>
+                      </abstract>
+                </front-stub>
+            </sub-article>
+            </article>
+            """)
+
+    def test_trans_abstract_with_tags(self):
+        expected = {
+            'lang': 'pt',
+            'title': 'Resumo',
+            'sections': {
+                'Objetivo: ': 'avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC). ',
+                'Método: ': 'Ensaio Clínico Randomizado... Módulo <italic>Old</italic> (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta. ',
+        }}
+        obtained = Abstract(self.xmltree).trans_abstract_with_tags
+        self.assertEqual(obtained, expected)
+
+    def test_trans_abstract_without_tags(self):
+        expected = {
+            'pt': 'avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC).  Ensaio Clínico Randomizado... Módulo Old (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta. ',
+        }
+        obtained = Abstract(self.xmltree).trans_abstract_without_tags
+        print("")
+        print(obtained)
+        print(expected)
+        self.assertEqual(obtained, expected)
