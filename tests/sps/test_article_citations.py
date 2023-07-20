@@ -106,6 +106,8 @@ class AuthorsTest(TestCase):
                 'year': '2015',
                 'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages',
                 'citation_ids': {'pmid': '00000000', 'pmcid': '11111111'}
+                'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
+                                 'cessation in older ages'
             },
             {
                 'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
@@ -114,6 +116,7 @@ class AuthorsTest(TestCase):
                 'all_authors': [{'surname': 'BARTHES', 'given_name': 'Roland'}],
                 'year': '1987',
                 'citation_ids': {'pmid': '22222222', 'pmcid': '33333333'}
+                'year': '1987'
             }
         ]
         result = self.citations.article_citations
