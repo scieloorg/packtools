@@ -36,12 +36,12 @@ class AffiliationExtractor:
         for node in nodes:
             for aff_node in node.xpath('aff'):
 
-                affiliation_id = aff_node.get('id', '')
+                affiliation_id = aff_node.get('id')
 
                 try:
                     label = aff_node.xpath('label')[0].text
                 except IndexError:
-                    label = ''
+                    label = None
 
                 institution = {}
                 for inst in institution_aff:
@@ -56,7 +56,7 @@ class AffiliationExtractor:
                         address[field] = aff_text(
                             aff_node.xpath(f'addr-line/named-content[@content-type="{field}"]')[0])
                     except IndexError:
-                        address[field] = ''
+                        pass
 
                 city = address['city']
                 state = address['state']
