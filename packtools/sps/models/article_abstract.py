@@ -91,6 +91,43 @@ class Abstract:
 
         return out
 
+    def _get_abstract_by_lang(self, abstract_xpath, lang, return_title=True, return_sec_title=True, return_tags=True):
+        """
+        Retorna resumo selectionado por `abstract_xpath`,
+        associado com a chave `lang`,
+        incluindo `title`, incluindo `sec_title`, mantendo `tags`, se True.
+        """
+        abstract = {}
+
+        get_text = node_text if return_tags else node_text_without_tags
+
+        if return_title:
+            node_title = self.xmltree.find(f"{abstract_xpath}/title")
+            if node_title is not None:
+                abstract["title"] = get_text(node_title)
+
+        for node_sec in self.xmltree.xpath(f"{abstract_xpath}/sec"):
+            abstract.setdefault("sections", [])
+            sec = {}
+            # sec/title
+            if return_sec_title:
+                node_sec_title = node_sec.find("title")
+                if node_sec_title is not None:
+                    sec["title"] = get_text(node_sec_title)
+
+            # sec/p
+            node_sec_p = node_sec.find("p")
+            if node_sec_p is not None:
+                sec["p"] = get_text(node_sec_p)
+
+            abstract["sections"].append(sec)
+        else:
+            # no abstract/sec, but abstract/p
+            node_p = self.xmltree.find(f"{abstract_xpath}/p")
+            if node_p is not None:
+                abstract["p"] = get_text(node_p)
+        return {lang: abstract}
+
     @property
     def main_abstract_without_tags(self):
         lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
