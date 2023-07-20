@@ -1,9 +1,10 @@
 # coding: utf-8
-from lxml import etree as ET
 import re
 import uuid
 from copy import deepcopy
 from datetime import datetime
+
+from lxml import etree as ET
 
 from packtools.sps.models import (
     journal_meta,
@@ -40,10 +41,13 @@ def create_journal_title(item, citation):
 
 
 def create_author(item, citation):
-    if item.get('author') is not None:
+    try:
+        main_author = item.get('main_author')
         el = ET.Element('author')
-        el.text = item.get('author')
+        el.text = ' '.join([main_author.get('surname'), main_author.get('given_name')])
         citation.append(el)
+    except TypeError:
+        pass
 
 
 def create_volume(item, citation):
