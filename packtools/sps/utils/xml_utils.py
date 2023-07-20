@@ -117,6 +117,28 @@ def node_text(node):
     return "".join(items)
 
 
+def node_text_without_tags(node, exception_list=None):
+    """
+    Retorna todos os node.text, excluindo a subtags
+    Para <title>Text <bold>text</bold> Text</title>, retorna
+    Text text Text
+    """
+    exception_list = exception_list or []
+    items = [node.text or ""]
+    for child in node.getchildren():
+        if child in exception_list:
+            items.append(
+                etree.tostring(child, encoding="utf-8").decode("utf-8")
+            )
+        else:
+            items.append(
+                child.text
+            )
+        if child.tail:
+            items.append(child.tail)
+    return "".join(items)
+
+
 def get_year_month_day(node):
     """
     Retorna os valores respectivos dos elementos "year", "month", "day".
