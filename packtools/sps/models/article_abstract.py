@@ -77,14 +77,33 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def _get_abstract_sections_without_tags_by_lang(self, abstract_xpath, lang):
+    def _get_inline_abstract_with_lang(self, abstract_xpath, lang):
+        """
+        Retorna o resumo associado com idioma no formato "linear":
+        ```
+            {"en": "textos contidos nos elementos sec/p concatenados com um espaço"}
+        ```
+        O título do resumo, e os títulos das seções são ignorados.
+        """
         values = []
         for node in self.xmltree.xpath(f"{abstract_xpath}//sec"):
             values.append(node_text_without_tags(node.find("p")))
         out = {lang: " ".join(values)}
         return out
 
-    def _get_abstract_sections_with_tags_by_title(self, abstract_xpath):
+    def _get_structured_abstract(self, abstract_xpath):
+        """
+        Retorna um resumo no formato estruturado, cada seção associada com seu título
+
+        ```
+        {
+            "Título da seção 1": "texto da seção 1, com preservação de elementos de XML",
+            "Título da seção 2": "texto da seção 2, com preservação de elementos de XML",
+            "Título da seção 3": "texto da seção 3, com preservação de elementos de XML",
+        }
+        ```
+
+        """
         out = dict()
         for node in self.xmltree.xpath(f"{abstract_xpath}//sec"):
             out[node.xpath("./title")[0].text] = node_text(node.find("p"))
@@ -172,7 +191,7 @@ class Abstract:
     def main_abstract_without_tags(self):
         lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
 
-        return self._get_abstract_sections_without_tags_by_lang(
+        return self._get_inline_abstract_with_lang(
             ".//front//article-meta//abstract", lang
         )
 
@@ -186,7 +205,7 @@ class Abstract:
                 "title": self.xmltree.xpath(".//front//article-meta//abstract//title")[
                     0
                 ].text,
-                "sections": self._get_abstract_sections_with_tags_by_title(
+                "sections": self._get_structured_abstract(
                     ".//front//article-meta//abstract"
                 ),
             }
@@ -204,7 +223,7 @@ class Abstract:
                 "title": self.xmltree.xpath(
                     ".//sub-article//front-stub//abstract//title"
                 )[0].text,
-                "sections": self._get_abstract_sections_with_tags_by_title(
+                "sections": self._get_structured_abstract(
                     ".//sub-article//front-stub//abstract"
                 ),
             }
@@ -218,7 +237,7 @@ class Abstract:
             "{http://www.w3.org/XML/1998/namespace}lang"
         )
 
-        return self._get_abstract_sections_without_tags_by_lang(
+        return self._get_inline_abstract_with_lang(
             ".//sub-article//front-stub//abstract", lang
         )
 
@@ -232,7 +251,7 @@ class Abstract:
                 "title": self.xmltree.xpath(
                     ".//front//article-meta//trans-abstract//title"
                 )[0].text,
-                "sections": self._get_abstract_sections_with_tags_by_title(
+                "sections": self._get_structured_abstract(
                     ".//front//article-meta//trans-abstract"
                 ),
             }
@@ -246,7 +265,7 @@ class Abstract:
             "{http://www.w3.org/XML/1998/namespace}lang"
         )
 
-        return self._get_abstract_sections_without_tags_by_lang(
+        return self._get_inline_abstract_with_lang(
             ".//front//article-meta//trans-abstract", lang
         )
 
