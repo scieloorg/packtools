@@ -437,6 +437,18 @@ class AbstractWithSectionsTest(TestCase):
         result = self.abstract.sub_article_abstract_without_tags
         self.assertDictEqual(expected, result)
 
+    def test__trans_abstract_without_tags(self):
+        expected = {
+            "pt": "avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC). Ensaio Clínico Randomizado... Módulo Old (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta.",
+            "fr": "évaluer l'effet d'une intervention éducative en maison de retraite sur la qualité de vie des aidants familiaux de personnes âgées ayant survécu à un AVC. Essai clinique randomisé... Module Old (WHOQOL-OLD) à 1 semaine, 2 mois et 1 an après la sortie.",
+        }
+        result = self.abstract.trans_abstract_without_tags
+        print("")
+        print(result["fr"])
+        print(expected["fr"])
+
+        self.assertDictEqual(expected, result)
+
 
 class AbstractWithoutSectionsTest(TestCase):
 
@@ -501,4 +513,12 @@ class AbstractWithoutSectionsTest(TestCase):
             "it": "Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita autonoma delle persone anziane. Revisione sistematica di 12 studi clinici controllati (disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna assistenza completa (tre studi).",
         }
         result = self.abstract.sub_article_abstract_without_tags
+        self.assertDictEqual(expected, result)
+
+    def test__trans_abstract_without_tags(self):
+        expected = {
+            "pt": "Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de idosos. Revisão sistemática de 12 estudos clínicos controlados (disponível em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente (cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente (três ensaios).",
+            "fr": "Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie autonome des personnes âgées. Revue systématique de 12 essais cliniques contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins complets (trois essais).",
+        }
+        result = self.abstract.trans_abstract_without_tags
         self.assertDictEqual(expected, result)
