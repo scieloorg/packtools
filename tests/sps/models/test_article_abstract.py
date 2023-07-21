@@ -365,6 +365,18 @@ class AbstractWithSectionsTest(TestCase):
                   <p>Ensaio Clínico Randomizado... Módulo <italic>Old</italic> (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta. </p>
                 </sec>
             </trans-abstract>
+
+            <trans-abstract xml:lang="fr">
+                <title>Resumo</title>
+                <sec>
+                  <title>Objetivo: </title>
+                  <p>évaluer l'effet d'une intervention éducative en maison de retraite sur la qualité de vie des aidants familiaux de personnes âgées ayant survécu à un AVC.</p>
+                </sec>
+                <sec>
+                  <title>Método: </title>
+                  <p>Essai clinique randomisé... Module <italic>Old</italic> (WHOQOL-OLD) à 1 semaine, 2 mois et 1 an après la sortie.</p>
+                </sec>
+            </trans-abstract>
             </article-meta>
             </front>
             <sub-article article-type="translation" xml:lang="es">
@@ -382,16 +394,24 @@ class AbstractWithSectionsTest(TestCase):
                       </abstract>
                 </front-stub>
             </sub-article>
+            <sub-article article-type="translation" xml:lang="de">
+                <front-stub>
+                    <abstract>
+                        <title>Resumen</title>
+                        <sec>
+                          <title>Objetivo: </title>
+                          <p>Randomisierte klinische Studie... Modul <italic>Alt</italic> (WHOQOL-OLD) 1 Woche, 2 Monate und 1 Jahr nach der Entlassung.</p>
+                        </sec>
+                        <sec>
+                          <title>Método: </title>
+                          <p>Bewertung der Auswirkungen von Pflegeeinsätzen in Pflegeheimen auf die Lebensqualität von Familienbetreuern älterer Erwachsener, die zerebrovaskuläre Unfälle überlebt haben.</p>
+                        </sec>
+                      </abstract>
+                </front-stub>
+            </sub-article>
             </article>
             """)
         self.abstract = Abstract(xmltree)
-
-    def test__get_section_paragraphs(self):
-        expected = {"en": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."}
-        result = self.abstract._get_section_paragraphs(
-            ".//front//abstract", "en",
-        )
-        self.assertDictEqual(expected, result)
 
     def test__get_section_titles_and_paragraphs(self):
         expected = {
@@ -407,6 +427,14 @@ class AbstractWithSectionsTest(TestCase):
         expected = {
             "en": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."}
         result = self.abstract.main_abstract_without_tags
+        self.assertDictEqual(expected, result)
+
+    def test__sub_article_abstract_without_tags(self):
+        expected = {
+            "es": "evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de accidentes cerebrovasculares. Ensayo Clínico Aleatorizado ... World Health Organization Quality of Life Assessment (WHOQOL-BREF) y el módulo Old(WHOQOL-OLD) 1semana, 2meses y 1año después del alta.",
+            "de": "Randomisierte klinische Studie... Modul Alt (WHOQOL-OLD) 1 Woche, 2 Monate und 1 Jahr nach der Entlassung. Bewertung der Auswirkungen von Pflegeeinsätzen in Pflegeheimen auf die Lebensqualität von Familienbetreuern älterer Erwachsener, die zerebrovaskuläre Unfälle überlebt haben.",
+        }
+        result = self.abstract.sub_article_abstract_without_tags
         self.assertDictEqual(expected, result)
 
 
@@ -455,13 +483,6 @@ class AbstractWithoutSectionsTest(TestCase):
         """)
         self.abstract = Abstract(xmltree)
 
-    def test__get_section_paragraphs(self):
-        expected = {}
-        result = self.abstract._get_section_paragraphs(
-            ".//front//abstract", "en",
-        )
-        self.assertDictEqual(expected, result)
-
     def test__get_section_titles_and_paragraphs(self):
         expected = {}
         result = self.abstract._get_section_titles_and_paragraphs(
@@ -472,4 +493,12 @@ class AbstractWithoutSectionsTest(TestCase):
     def test__main_abstract_without_tags(self):
         expected = {"en": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."}
         result = self.abstract.main_abstract_without_tags
+        self.assertDictEqual(expected, result)
+
+    def test__sub_article_abstract_without_tags(self):
+        expected = {
+            "es": "Examinar la efectividad de la asistencia al hospital de día para prolongar la vida independiente de las personas mayores. Revisión sistemática de 12 ensayos clínicos controlados (disponibles en enero de 1997) que compararon la atención hospitalaria de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) o ninguna atención integral (tres ensayos).",
+            "it": "Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita autonoma delle persone anziane. Revisione sistematica di 12 studi clinici controllati (disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna assistenza completa (tre studi).",
+        }
+        result = self.abstract.sub_article_abstract_without_tags
         self.assertDictEqual(expected, result)

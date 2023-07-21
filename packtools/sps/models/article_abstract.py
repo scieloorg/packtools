@@ -150,7 +150,7 @@ class Abstract:
             # abstract/p
             node_p = abstract_node.find("p")
             if node_p is not None:
-                out["p"] = node_text(node_p)
+                out["p"] = node_text(node_p).strip()
         return out
 
     def _format_abstract(self, abstract_node, style=None):
@@ -171,7 +171,7 @@ class Abstract:
             texts = []
             for node_p in abstract_node.xpath(".//p"):
                 p_text = get_node_without_subtag(node_p)
-                texts.append(p_text)
+                texts.append(p_text.strip())
             return " ".join(texts)
 
     @property
@@ -210,12 +210,15 @@ class Abstract:
 
     @property
     def sub_article_abstract_without_tags(self):
-        lang = self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang")
-        p_text = self._format_abstract(
-            abstract_node=self.xmltree.find(".//sub-article//front-stub//abstract"),
-            style="only_p"
-        )
-        return {lang: p_text}
+        abstracts = {}
+        for sub_article in self.xmltree.xpath(".//sub-article"):
+            lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
+            p_text = self._format_abstract(
+                abstract_node=sub_article.find(".//front-stub//abstract"),
+                style="only_p"
+            )
+            abstracts[lang] = p_text
+        return abstracts
 
     @property
     def trans_abstract_with_tags(self):
@@ -231,12 +234,15 @@ class Abstract:
 
     @property
     def trans_abstract_without_tags(self):
-        lang = self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang")
-        p_text = self._format_abstract(
-            abstract_node=self.xmltree.find(".//front//article-meta//trans-abstract"),
-            style="only_p"
-        )
-        return {lang: p_text}
+        abstracts = {}
+        for trans_abstract_node in self.xmltree.xpath(".//trans-abstract"):
+            lang = trans_abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            p_text = self._format_abstract(
+                abstract_node=trans_abstract_node,
+                style="only_p"
+            )
+            abstracts[lang] = p_text
+        return abstracts
 
     @property
     def abstracts_with_tags(self):
