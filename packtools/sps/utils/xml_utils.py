@@ -141,26 +141,11 @@ def node_text(node):
     return "".join(items)
 
 
-def node_text_without_tags(node, exception_list=None):
+def get_node_without_subtag(node):
     """
-    Retorna todos os node.text, excluindo a subtags
-    Para <title>Text <bold>text</bold> Text</title>, retorna
-    Text text Text
+        Função que retorna nó sem subtags. 
     """
-    exception_list = exception_list or []
-    items = [node.text or ""]
-    for child in node.getchildren():
-        if child in exception_list:
-            items.append(
-                etree.tostring(child, encoding="utf-8").decode("utf-8")
-            )
-        else:
-            items.append(
-                child.text
-            )
-        if child.tail:
-            items.append(child.tail)
-    return "".join(items)
+    return "".join(node.xpath(".//text()"))
 
 
 def get_year_month_day(node):
