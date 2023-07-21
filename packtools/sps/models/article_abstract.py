@@ -213,6 +213,21 @@ class Abstract:
         except IndexError:
             pass
 
+    def _get_sub_article_abstracts(self, style=None):
+        """
+        Retorna gerador de resumos em sub-article
+        """
+        for sub_article in self.xmltree.xpath(".//sub-article"):
+            item = {}
+            item["lang"] = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
+            item["abstract"] = self._format_abstract(
+                abstract_node=sub_article.find(".//front-stub//abstract"),
+                style=style
+            )
+            if not style:
+                item["abstract"]["lang"] = item["lang"]
+            yield item
+
     @property
     def sub_article_abstract_with_tags(self):
         try:
@@ -237,6 +252,19 @@ class Abstract:
             abstracts[lang] = p_text
         return abstracts
 
+    def _get_trans_abstracts(self, style=None):
+        """
+        Retorna gerador de resumos trans-abstract
+        """
+        for trans_abstract in self.xmltree.xpath(".//trans-abstract"):
+            item = {}
+            item["lang"] = trans_abstract.get("{http://www.w3.org/XML/1998/namespace}lang")
+            item["abstract"] = self._format_abstract(
+                abstract_node=trans_abstract,
+                style=style
+            )
+            yield item
+
     @property
     def trans_abstract_with_tags(self):
         try:
@@ -260,6 +288,14 @@ class Abstract:
             )
             abstracts[lang] = p_text
         return abstracts
+
+    def get_abstracts(self, style=None):
+        """
+        Retorna gerador de resumos
+        """
+        yield self.get_main_abstract(style=style)
+        yield from self._get_trans_abstracts(style=style)
+        yield from self._get_sub_article_abstracts(style=style)
 
     @property
     def abstracts_with_tags(self):
