@@ -69,7 +69,7 @@ article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lan
 </sub-article>
 </article>
 """
-from packtools.sps.utils.xml_utils import node_text, node_text_without_tags
+from packtools.sps.utils.xml_utils import node_text, get_node_without_subtag
 
 
 class Abstract:
@@ -90,7 +90,7 @@ class Abstract:
             node_p = node.find("p")
             if node_p is None:
                 continue
-            values.append(node_text_without_tags(node_p))
+            values.append(get_node_without_subtag(node_p))
         if values:
             return {lang: " ".join(values)}
         return {}
@@ -122,6 +122,75 @@ class Abstract:
             out[title] = node_text(node_p)
 
         return out
+
+    def _get_structured_abstract(self, abstract_node):
+        """
+        Retorna o resumo estruturado
+
+        Returns
+        -------
+        dict : {
+            "title": "Abstract",
+            "lang": lang,
+            "sections": [
+                {
+                    "title": "",
+                    "p": "",
+                },
+                {
+                    "title": "",
+                    "p": "",
+                },
+            ],
+            "p": "",
+        }
+        """
+        out = dict()
+
+        out["title"] = abstract_node.findtext("title")
+        out["lang"] = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+
+        for node in abstract_node.xpath("sec"):
+            # node = abstract/sec
+            out.setdefault("sections", [])
+
+            p = title = None
+            node_title = node.find("title")
+            if node_title is not None:
+                title = node_text(node_title)
+
+            node_p = node.find("p")
+            if node_p is not None:
+                p = node_text(node_p)
+
+            out["sections"].append({"title": title, "p": p})
+        else:
+            # abstract/p
+            node_p = abstract_node.find("p")
+            if node_p is not None:
+                out["p"] = node_text(node_p)
+        return out
+
+    def _format_abstract(self, abstract_node, style=None):
+        if not style:
+            # xml
+            return node_text(abstract_node)
+
+        if style == "structured":
+            # retorna abstract em formato de dicionário
+            return self._get_structured_abstract(abstract_node)
+
+        if style == "inline":
+            # retorna o conteúdo do nó abstract como str
+            return get_node_without_subtag(abstract_node)
+
+        if style == "only_p":
+            # retorna somente o conteúdo dos nós abstract//p como str
+            texts = []
+            for node_p in abstract_node.xpath(".//p"):
+                p_text = get_node_without_subtag(node_p)
+                texts.append(p_text)
+            return " ".join(texts)
 
     @property
     def main_abstract_without_tags(self):
