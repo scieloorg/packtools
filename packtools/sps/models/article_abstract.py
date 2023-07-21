@@ -297,6 +297,15 @@ class Abstract:
         yield from self._get_trans_abstracts(style=style)
         yield from self._get_sub_article_abstracts(style=style)
 
+    def get_abstracts_by_lang(self, style=None):
+        """
+        Retorna dicionário cuja chave é idioma e valor o resumo no formato dado por style
+        """
+        d = {}
+        for item in self.get_abstracts(style=style):
+            d[item["lang"]] = item["abstract"]
+        return d
+
     @property
     def abstracts_with_tags(self):
         return [self.main_abstract_with_tags, self._trans_abstract_with_tags, self._sub_article_abstract_with_tags]
