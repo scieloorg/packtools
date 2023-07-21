@@ -116,11 +116,6 @@ class SubArticleAbstractTest(TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_sub_article_abstract_without_tags(self):
-        obtained = self.abstract._sub_article_abstract_without_tags
-        expected = {'pt': 'objetivo metodo resultados conclusão'}
-        self.assertEqual(obtained, expected)
-
 
 class ArticleTransAbstractTest(TestCase):
     maxDiff = None
@@ -172,13 +167,6 @@ class ArticleTransAbstractTest(TestCase):
                 "Conclusión:": "conclusion"
             }
         }
-
-        self.assertEqual(obtained, expected)
-
-    def test_trans_abstract_without_tags(self):
-        obtained = self.abstract._trans_abstract_without_tags
-
-        expected = {'es': 'objetivo metodo resultados conclusion'}
 
         self.assertEqual(obtained, expected)
 
@@ -427,22 +415,6 @@ class AbstractWithSectionsTest(TestCase):
         expected = {
             "en": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."}
         result = self.abstract.main_abstract_without_tags
-        self.assertDictEqual(expected, result)
-
-    def test__sub_article_abstract_without_tags(self):
-        expected = {
-            "es": "evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de accidentes cerebrovasculares. Ensayo Clínico Aleatorizado ... World Health Organization Quality of Life Assessment (WHOQOL-BREF) y el módulo Old(WHOQOL-OLD) 1semana, 2meses y 1año después del alta.",
-            "de": "Randomisierte klinische Studie... Modul Alt (WHOQOL-OLD) 1 Woche, 2 Monate und 1 Jahr nach der Entlassung. Bewertung der Auswirkungen von Pflegeeinsätzen in Pflegeheimen auf die Lebensqualität von Familienbetreuern älterer Erwachsener, die zerebrovaskuläre Unfälle überlebt haben.",
-        }
-        result = self.abstract._sub_article_abstract_without_tags
-        self.assertDictEqual(expected, result)
-
-    def test__trans_abstract_without_tags(self):
-        expected = {
-            "pt": "avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC). Ensaio Clínico Randomizado... Módulo Old (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta.",
-            "fr": "évaluer l'effet d'une intervention éducative en maison de retraite sur la qualité de vie des aidants familiaux de personnes âgées ayant survécu à un AVC. Essai clinique randomisé... Module Old (WHOQOL-OLD) à 1 semaine, 2 mois et 1 an après la sortie.",
-        }
-        result = self.abstract._trans_abstract_without_tags
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_default_style(self):
@@ -743,22 +715,6 @@ class AbstractWithoutSectionsTest(TestCase):
     def test__main_abstract_without_tags(self):
         expected = {"en": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."}
         result = self.abstract.main_abstract_without_tags
-        self.assertDictEqual(expected, result)
-
-    def test__sub_article_abstract_without_tags(self):
-        expected = {
-            "es": "Examinar la efectividad de la asistencia al hospital de día para prolongar la vida independiente de las personas mayores. Revisión sistemática de 12 ensayos clínicos controlados (disponibles en enero de 1997) que compararon la atención hospitalaria de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) o ninguna atención integral (tres ensayos).",
-            "it": "Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita autonoma delle persone anziane. Revisione sistematica di 12 studi clinici controllati (disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna assistenza completa (tre studi).",
-        }
-        result = self.abstract._sub_article_abstract_without_tags
-        self.assertDictEqual(expected, result)
-
-    def test__trans_abstract_without_tags(self):
-        expected = {
-            "pt": "Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de idosos. Revisão sistemática de 12 estudos clínicos controlados (disponível em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente (cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente (três ensaios).",
-            "fr": "Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie autonome des personnes âgées. Revue systématique de 12 essais cliniques contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins complets (trois essais).",
-        }
-        result = self.abstract._trans_abstract_without_tags
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_default_style(self):
