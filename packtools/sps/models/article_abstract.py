@@ -240,18 +240,6 @@ class Abstract:
         except AttributeError:
             pass
 
-    @property
-    def _sub_article_abstract_without_tags(self):
-        abstracts = {}
-        for sub_article in self.xmltree.xpath(".//sub-article"):
-            lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
-            p_text = self._format_abstract(
-                abstract_node=sub_article.find(".//front-stub//abstract"),
-                style="only_p"
-            )
-            abstracts[lang] = p_text
-        return abstracts
-
     def _get_trans_abstracts(self, style=None):
         """
         Retorna gerador de resumos trans-abstract
@@ -277,18 +265,6 @@ class Abstract:
         except AttributeError:
             pass
 
-    @property
-    def _trans_abstract_without_tags(self):
-        abstracts = {}
-        for trans_abstract_node in self.xmltree.xpath(".//trans-abstract"):
-            lang = trans_abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
-            p_text = self._format_abstract(
-                abstract_node=trans_abstract_node,
-                style="only_p"
-            )
-            abstracts[lang] = p_text
-        return abstracts
-
     def get_abstracts(self, style=None):
         """
         Retorna gerador de resumos
@@ -312,7 +288,4 @@ class Abstract:
 
     @property
     def abstracts_without_tags(self):
-        out = self.main_abstract_without_tags
-        out.update(self._trans_abstract_without_tags)
-        out.update(self._sub_article_abstract_without_tags)
-        return out
+        return self.get_abstracts_by_lang(style="only_p")
