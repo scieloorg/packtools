@@ -332,3 +332,101 @@ class ArticleAbstractsTest(TestCase):
         expected = None
 
         self.assertEqual(obtained, expected)
+
+class AbstractWithSectionsTest(TestCase):
+
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>Objective</title>
+                    <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.</p>
+                </sec>
+                <sec>
+                    <title>Design</title>
+                    <p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+                </sec>
+            </abstract>
+            <trans-abstract xml:lang="pt">
+                <title>Resumo</title>
+                <sec>
+                  <title>Objetivo: </title>
+                  <p>avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC). </p>
+                </sec>
+                <sec>
+                  <title>Método: </title>
+                  <p>Ensaio Clínico Randomizado... Módulo <italic>Old</italic> (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta. </p>
+                </sec>
+            </trans-abstract>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="es">
+                <front-stub>
+                    <abstract>
+                        <title>Resumen</title>
+                        <sec>
+                          <title>Objetivo: </title>
+                          <p>evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de accidentes cerebrovasculares. </p>
+                        </sec>
+                        <sec>
+                          <title>Método: </title>
+                          <p>Ensayo Clínico Aleatorizado ... <italic>World Health Organization Quality of Life Assessment</italic> (WHOQOL-BREF) y el módulo <italic>Old</italic>(WHOQOL-OLD) 1semana, 2meses y 1año después del alta. </p>
+                        </sec>
+                      </abstract>
+                </front-stub>
+            </sub-article>
+            </article>
+            """)
+        self.abstract = Abstract(xmltree)
+
+
+class AbstractWithoutSectionsTest(TestCase):
+
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <abstract>
+                <title>Abstract</title>
+                <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+            </abstract>
+            <trans-abstract xml:lang="pt">
+                <title>Resumo</title>
+                <p>Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de idosos. Revisão sistemática de 12 <italic>estudos clínicos</italic> controlados (disponível em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente (cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente (três ensaios).</p>
+            </trans-abstract>
+            <trans-abstract xml:lang="fr">
+                <title>Resumo</title>
+                <p>Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie autonome des personnes âgées. Revue systématique de 12 <italic>essais cliniques</italic> contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins complets (trois essais).</p>
+            </trans-abstract>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="es">
+                <front-stub>
+                    <abstract>
+                        <title>Resumen</title>
+                        <p>
+                          Examinar la efectividad de la asistencia al hospital de día para prolongar la vida independiente de las personas mayores. Revisión sistemática de 12 <italic>ensayos clínicos</italic> controlados (disponibles en enero de 1997) que compararon la atención hospitalaria de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) o ninguna atención integral (tres ensayos).</p>
+                      </abstract>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="translation" xml:lang="it">
+                <front-stub>
+                    <abstract>
+                        <title>Resumen</title>
+                        <p>
+                          Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita autonoma delle persone anziane. Revisione sistematica di 12 <italic>studi clinici</italic> controllati (disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna assistenza completa (tre studi).</p>
+                      </abstract>
+                </front-stub>
+            </sub-article>
+        </article>
+        """)
+        self.abstract = Abstract(xmltree)
