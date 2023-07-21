@@ -229,7 +229,7 @@ class Abstract:
             yield item
 
     @property
-    def sub_article_abstract_with_tags(self):
+    def _sub_article_abstract_with_tags(self):
         try:
             out = {
                 'lang': self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang"),
@@ -241,7 +241,7 @@ class Abstract:
             pass
 
     @property
-    def sub_article_abstract_without_tags(self):
+    def _sub_article_abstract_without_tags(self):
         abstracts = {}
         for sub_article in self.xmltree.xpath(".//sub-article"):
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -266,7 +266,7 @@ class Abstract:
             yield item
 
     @property
-    def trans_abstract_with_tags(self):
+    def _trans_abstract_with_tags(self):
         try:
             out = {
                 'lang': self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang"),
@@ -278,7 +278,7 @@ class Abstract:
             pass
 
     @property
-    def trans_abstract_without_tags(self):
+    def _trans_abstract_without_tags(self):
         abstracts = {}
         for trans_abstract_node in self.xmltree.xpath(".//trans-abstract"):
             lang = trans_abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -299,17 +299,11 @@ class Abstract:
 
     @property
     def abstracts_with_tags(self):
-        return [self.main_abstract_with_tags, self.trans_abstract_with_tags, self.sub_article_abstract_with_tags]
+        return [self.main_abstract_with_tags, self._trans_abstract_with_tags, self._sub_article_abstract_with_tags]
 
     @property
     def abstracts_without_tags(self):
         out = self.main_abstract_without_tags
-        try:
-            out.update(self.trans_abstract_without_tags)
-        except TypeError:
-            pass
-        try:
-            out.update(self.sub_article_abstract_without_tags)
-        except TypeError:
-            pass
+        out.update(self._trans_abstract_without_tags)
+        out.update(self._sub_article_abstract_without_tags)
         return out
