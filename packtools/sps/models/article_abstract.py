@@ -154,17 +154,13 @@ class Abstract:
         return out
 
     def _format_abstract(self, abstract_node, style=None):
-        if not style:
-            # xml
+        if style == "xml":
+            # formato xml
             return node_text(abstract_node)
-
-        if style == "structured":
-            # retorna abstract em formato de dicionário
-            return self._get_structured_abstract(abstract_node)
 
         if style == "inline":
             # retorna o conteúdo do nó abstract como str
-            return get_node_without_subtag(abstract_node)
+            return get_node_without_subtag(abstract_node, remove_extra_spaces=True)
 
         if style == "only_p":
             # retorna somente o conteúdo dos nós abstract//p como str
@@ -173,6 +169,27 @@ class Abstract:
                 p_text = get_node_without_subtag(node_p)
                 texts.append(p_text.strip())
             return " ".join(texts)
+
+        # retorna abstract em formato de dicionário
+        return self._get_structured_abstract(abstract_node)
+
+    def get_main_abstract(self, style=None):
+        """
+        Retorna o resumo principal no formato indicado.
+        Formato padrão: inline
+
+        """
+        lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
+        abstract = self._format_abstract(
+            abstract_node=self.xmltree.find(".//abstract"),
+            style=style,
+        )
+        if not style:
+            abstract["lang"] = lang
+        return {
+            "lang": lang,
+            "abstract": abstract,
+        }
 
     @property
     def main_abstract_without_tags(self):
