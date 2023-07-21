@@ -76,7 +76,7 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def get_values_dict_without_tags(self, attrib, lang):
+    def _get_section_paragraphs(self, attrib, lang):
         values = []
         try:
             for node in self.xmltree.xpath(f"{attrib}//sec"):
@@ -91,7 +91,7 @@ class Abstract:
         out = {lang: " ".join(values)}
         return out
 
-    def get_values_dict_with_tags(self, attrib):
+    def _get_section_titles_and_paragraphs(self, attrib):
         out = dict()
         for node in self.xmltree.xpath(f"{attrib}//sec"):
             out[node.xpath("./title")[0].text] = node.xpath("./p")[0].text
@@ -102,7 +102,7 @@ class Abstract:
     def main_abstract_without_tags(self):
         lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
 
-        return self.get_values_dict_without_tags('.//front//article-meta//abstract', lang)
+        return self._get_section_paragraphs('.//front//article-meta//abstract', lang)
 
     @property
     def main_abstract_with_tags(self):
@@ -110,7 +110,7 @@ class Abstract:
             out = {
                 'lang': self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang"),
                 'title': self.xmltree.xpath(".//front//article-meta//abstract//title")[0].text,
-                'sections': self.get_values_dict_with_tags('.//front//article-meta//abstract')
+                'sections': self._get_section_titles_and_paragraphs('.//front//article-meta//abstract')
             }
             return out
         except IndexError:
@@ -122,7 +122,7 @@ class Abstract:
             out = {
                 'lang': self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang"),
                 'title': self.xmltree.xpath(".//sub-article//front-stub//abstract//title")[0].text,
-                'sections': self.get_values_dict_with_tags('.//sub-article//front-stub//abstract')
+                'sections': self._get_section_titles_and_paragraphs('.//sub-article//front-stub//abstract')
             }
             return out
         except AttributeError:
@@ -133,7 +133,7 @@ class Abstract:
         try:
             lang = self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang")
 
-            return self.get_values_dict_without_tags('.//sub-article//front-stub//abstract', lang)
+            return self._get_section_paragraphs('.//sub-article//front-stub//abstract', lang)
         except AttributeError:
             pass
 
@@ -143,7 +143,7 @@ class Abstract:
             out = {
                 'lang': self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang"),
                 'title': self.xmltree.xpath(".//front//article-meta//trans-abstract//title")[0].text,
-                'sections': self.get_values_dict_with_tags('.//front//article-meta//trans-abstract')
+                'sections': self._get_section_titles_and_paragraphs('.//front//article-meta//trans-abstract')
             }
             return out
         except AttributeError:
@@ -154,7 +154,7 @@ class Abstract:
         try:
             lang = self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang")
 
-            return self.get_values_dict_without_tags('.//front//article-meta//trans-abstract', lang)
+            return self._get_section_paragraphs('.//front//article-meta//trans-abstract', lang)
         except AttributeError:
             pass
 
