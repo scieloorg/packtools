@@ -69,6 +69,7 @@ article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lan
 </sub-article>
 </article>
 """
+from packtools.sps.utils.xml_utils import node_text, node_text_without_tags
 
 
 class Abstract:
@@ -77,24 +78,48 @@ class Abstract:
         self.xmltree = xmltree
 
     def _get_section_paragraphs(self, attrib, lang):
+        """
+        Retorna os parágrafos das seções dos resumos
+
+        Returns
+        -------
+        dict : {lang: todos os abstract/sec/p concatenados por espaço}
+        """
         values = []
-        try:
-            for node in self.xmltree.xpath(f"{attrib}//sec"):
-                values.append(node.xpath("./p")[0].text)
-        except IndexError:
-            pass
-        try:
-            for node in self.xmltree.xpath(f"{attrib}"):
-                values.append(node.xpath("./p")[0].text)
-        except IndexError:
-            pass
-        out = {lang: " ".join(values)}
-        return out
+        for node in self.xmltree.xpath(f"{attrib}//sec"):
+            node_p = node.find("p")
+            if node_p is None:
+                continue
+            values.append(node_text_without_tags(node_p))
+        if values:
+            return {lang: " ".join(values)}
+        return {}
 
     def _get_section_titles_and_paragraphs(self, attrib):
+        """
+        Retorna os títulos pareados com os textos das seções do resumo
+
+        Returns
+        -------
+        dict : {
+            "Título da seção 1": "Parágrafo associado com a seção 1",
+            "Título da seção 2": "Parágrafo associado com a seção 2",
+            "Título da seção 3": "Parágrafo associado com a seção 3",
+        }
+        """
         out = dict()
         for node in self.xmltree.xpath(f"{attrib}//sec"):
-            out[node.xpath("./title")[0].text] = node.xpath("./p")[0].text
+
+            node_title = node.find("title")
+            if node_title is None:
+                continue
+
+            node_p = node.find("p")
+            if node_p is None:
+                continue
+
+            title = node_text(node_title)
+            out[title] = node_text(node_p)
 
         return out
 
