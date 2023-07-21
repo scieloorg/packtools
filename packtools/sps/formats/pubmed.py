@@ -606,7 +606,7 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
         citation.text = ref.get('mixed_citation')
         ref_el.append(citation)
         ids = ref.get('citation_ids')
-        if ids is not None:
+        if ids != {}:
             ref_el.append(add_element_citation_id(ids))
         xml.append(ref_el)
 
