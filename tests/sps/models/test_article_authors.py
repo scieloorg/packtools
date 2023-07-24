@@ -85,11 +85,21 @@ class AuthorsTest(TestCase):
 
     def test_contribs(self):
         expected = [
-            {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
-             "prefix": "Prof", "suffix": "Nieto", "rid": ["aff1", "aff2"], "contrib-type": "author"},
-            {"surname": "Higa", "given_names": "Vanessa M.",
-             "orcid": "0000-0001-5518-4853", "rid": ["aff1"], "contrib-type": "author"
-             },
+            {
+                "surname": "VENEGAS-MARTÍNEZ",
+                "given_names": "FRANCISCO",
+                "prefix": "Prof",
+                "suffix": "Nieto",
+                "rid": ["aff1", "aff2"],
+                "contrib-type": "author",
+            },
+            {
+                "surname": "Higa",
+                "given_names": "Vanessa M.",
+                "orcid": "0000-0001-5518-4853",
+                "rid": ["aff1"],
+                "contrib-type": "author",
+            },
         ]
         result = self.authors.contribs
         self.assertDictEqual(expected[0], result[0])
@@ -140,36 +150,57 @@ class AuthorsTest(TestCase):
         xmldata = Authors(data).contribs
 
         expect_output = [
-            {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
-             "prefix": "Prof", "suffix": "Nieto",
-             'role': [
-                {'text': 'Role 1',
-                    'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/'},
-                {'text': 'Role 2',
-                    'content-type': 'https://credit.niso.org/contributor-roles/data-curation/'},
-                {'text': 'Role 3',
-                    'content-type': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
-                {'text': 'Role 4',
-                    'content-type': 'https://credit.niso.org/contributor-roles/writing-original-draft/'}
-                            ],
-             "rid": ["aff1"],
-             "contrib-type": "author",
-                },
-            {"surname": "Higa", "given_names": "Vanessa M.",
-             "orcid": "0000-0001-5518-4853",
-                     'role': [
-                         {'text': 'Conceptualization',
-                  'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/'},
-                         {'text': 'Data curation',
-                  'content-type': 'https://credit.niso.org/contributor-roles/data-curation/'},
-                         {'text': 'Formal Analysis',
-                  'content-type': 'https://credit.niso.org/contributor-roles/formal-analysis/'},
-                         {'text': 'Writing – original draft',
-                  'content-type': 'https://credit.niso.org/contributor-roles/writing-original-draft/'}
-                         ],
-             "rid": ["aff1"],
-             "contrib-type": "author",
-             },
+            {
+                "surname": "VENEGAS-MARTÍNEZ",
+                "given_names": "FRANCISCO",
+                "prefix": "Prof",
+                "suffix": "Nieto",
+                "role": [
+                    {
+                        "text": "Role 1",
+                        "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    },
+                    {
+                        "text": "Role 2",
+                        "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    },
+                    {
+                        "text": "Role 3",
+                        "content-type": "https://credit.niso.org/contributor-roles/formal-analysis/",
+                    },
+                    {
+                        "text": "Role 4",
+                        "content-type": "https://credit.niso.org/contributor-roles/writing-original-draft/",
+                    },
+                ],
+                "rid": ["aff1"],
+                "contrib-type": "author",
+            },
+            {
+                "surname": "Higa",
+                "given_names": "Vanessa M.",
+                "orcid": "0000-0001-5518-4853",
+                "role": [
+                    {
+                        "text": "Conceptualization",
+                        "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    },
+                    {
+                        "text": "Data curation",
+                        "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    },
+                    {
+                        "text": "Formal Analysis",
+                        "content-type": "https://credit.niso.org/contributor-roles/formal-analysis/",
+                    },
+                    {
+                        "text": "Writing – original draft",
+                        "content-type": "https://credit.niso.org/contributor-roles/writing-original-draft/",
+                    },
+                ],
+                "rid": ["aff1"],
+                "contrib-type": "author",
+            },
         ]
 
         self.assertEqual(xmldata, expect_output)
@@ -215,14 +246,18 @@ class AuthorsTest(TestCase):
 
         expected_output = [
             {
-                'surname': 'VENEGAS-MARTÍNEZ', 'prefix': 'Prof', 'suffix': 'Nieto', 'given_names': 'FRANCISCO',
-                'role': [
-                    {'text': 'Role 1', 'content-type': None},
-                    {'text': 'Role 2', 'content-type': None},
-                    {'text': 'Role 3', 'content-type': None},
-                    {'text': 'Role 4', 'content-type': None}],
+                "surname": "VENEGAS-MARTÍNEZ",
+                "prefix": "Prof",
+                "suffix": "Nieto",
+                "given_names": "FRANCISCO",
+                "role": [
+                    {"text": "Role 1", "content-type": None},
+                    {"text": "Role 2", "content-type": None},
+                    {"text": "Role 3", "content-type": None},
+                    {"text": "Role 4", "content-type": None},
+                ],
                 "rid": ["aff1"],
-                "contrib-type": "author"
+                "contrib-type": "author",
             },
             {
                 "surname": "Higa",
@@ -235,8 +270,8 @@ class AuthorsTest(TestCase):
                     {"text": "Writing – original draft", "content-type": None},
                 ],
                 "rid": ["aff1"],
-                "contrib-type": "author"
-            }
+                "contrib-type": "author",
+            },
         ]
 
         self.assertEqual(xmldata, expected_output)
