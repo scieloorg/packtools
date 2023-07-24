@@ -648,7 +648,7 @@ class TestPipelineOaiDc(unittest.TestCase):
         expected = (
             '<metadata>'
             '<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">'
-            '<![CDATA[ Escola Paulista de Enfermagem, Universidade Federal de São Paulo ]]>'
+            'Escola Paulista de Enfermagem, Universidade Federal de São Paulo'
             '</dc:publisher>'
             '</metadata>'
 
