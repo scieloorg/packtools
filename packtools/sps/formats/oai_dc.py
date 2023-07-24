@@ -54,13 +54,10 @@ def get_issn(xml_tree):
 
 
 def add_title(xml_oai_dc, title):
-    try:
-        el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
-        el.text = ET.CDATA(f" {title.article_title.get('text')} ")
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
+    el.text = title.strip()
 
-        xml_oai_dc.append(el)
-    except TypeError:
-        pass
+    xml_oai_dc.append(el)
 
 
 def add_creator(xml_oai_dc, author_name):
