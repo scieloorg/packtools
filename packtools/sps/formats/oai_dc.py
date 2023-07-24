@@ -70,7 +70,7 @@ def add_creator(xml_oai_dc, author_name):
 def add_subject(xml_oai_dc, kw, article):
     if kw.get('lang') == article.main_lang:
         el = ET.Element('{http://purl.org/dc/elements/1.1/}subject')
-        el.text = ET.CDATA(f" {kw.get('text')} ")
+        el.text = kw.get('text').strip()
 
         xml_oai_dc.append(el)
 
