@@ -469,7 +469,7 @@ class TestPipelineOaiDc(unittest.TestCase):
         expected = (
             '<metadata>'
             '<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">'
-            '<![CDATA[ Boni,Fernanda Guarilha ]]>'
+            'Boni,Fernanda Guarilha'
             '</dc:creator>'
             '</metadata>'
         )
