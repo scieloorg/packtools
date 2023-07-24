@@ -15,6 +15,10 @@ from packtools.sps.models import (
 from datetime import date
 
 
+class AddIdentifierError(Exception):
+    ...
+
+
 def add_identifier(header, xml_tree):
     try:
         identifier = article_ids.ArticleIds(xml_tree).v2
