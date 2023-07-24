@@ -1550,6 +1550,15 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
             '<article-id pub-id-type="other">00445</article-id>'
             '<volume>56</volume>'
             '<elocation-id>e20210569</elocation-id>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<day>13</day>'
+            '<month>05</month>'
+            '<year>2022</year>'
+            '</pub-date>'
+            '<pub-date date-type="collection" publication-format="electronic">'
+            '<year>2022</year>'
+            '</pub-date>'
+            '<elocation-id>e20210569</elocation-id>'
             '</article-meta>'
             '</front>'
             '</article>'
@@ -1560,6 +1569,7 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
             '<ags:citationTitle>Revista da Escola de Enfermagem da USP</ags:citationTitle>'
             '<ags:citationIdentifier scheme="ags:ISSN">1980-220X</ags:citationIdentifier>'
             '<ags:citationNumber>56</ags:citationNumber>'
+            '<ags:citationChronology>2022-05-13</ags:citationChronology>'
             '</ags:citation>'
         )
 
@@ -1581,3 +1591,4 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
         self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, self.obtained)
+
