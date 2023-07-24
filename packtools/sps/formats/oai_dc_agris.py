@@ -478,7 +478,7 @@ def add_uri_doi(xml_oai_dc_agris, doi):
     xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
-def xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree):
+def xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree, data):
     """
     Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
         <!-- ELEMENT identifier -->
@@ -500,9 +500,8 @@ def xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree):
     # identifier = article_uri.ArticleUri(xml_tree)
     # add_uri_identifier(xml_oai_dc_agris, identifier.all_uris)
 
-    identifier = 'http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-71812021000100011&lng=en&nrm=iso'
     doi = article_ids.ArticleIds(xml_tree).doi
-    add_uri_identifier(xml_oai_dc_agris, identifier)
+    add_uri_identifier(xml_oai_dc_agris, data.get('identifier'))
     add_uri_doi(xml_oai_dc_agris, doi)
 
 
