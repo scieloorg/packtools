@@ -220,7 +220,22 @@ def xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree):
             </metadata>
         </record>
     """
-    add_title(xml_oai_dc_agris, xml_tree)
+    title = article_titles.ArticleTitles(xml_tree)
+    lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
+
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
+
+    try:
+        el.set('{http://www.w3.org/XML/1998/namespace}lang', lang.main_lang)
+    except Exception as exc:
+        raise AddLanguageError(f"Unable to add language {exc}")
+
+    try:
+        el.text = title.article_title['text'].strip()
+    except Exception as exc:
+        raise AddTitleError(f"Unable to add title {exc}")
+
+    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
 
 
 def xml_oai_dc_agris_creator_pipe(xml_oai_dc_agris, xml_tree):
