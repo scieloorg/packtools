@@ -53,6 +53,6 @@
     <xsl:variable name="CSS_PATH"><xsl:value-of select="$styles_css_path"/></xsl:variable>
     <xsl:variable name="JS_PATH"><xsl:value-of select="$js_path"/></xsl:variable>
 
-    
+    <xsl:variable name="article" select="./article"/>
 
 </xsl:stylesheet>

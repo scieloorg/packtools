@@ -4,15 +4,7 @@
 
     <xsl:template match="article" mode="data-availability">
         <xsl:if test=".//article-meta/supplementary-material or .//element-citation[@publication-type='data' or @publication-type='database']">
-            <xsl:variable name="title">
-                <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text">Data availability</xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:variable>
-            <div class="articleSection">
-                <xsl:attribute name="data-anchor"><xsl:value-of select="$title"/></xsl:attribute>
-                <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
-            </div>
+            <xsl:apply-templates select="." mode="data-availability-menu-title"/>
             <xsl:choose>
                 <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                     <!-- sub-article -->
@@ -27,7 +19,18 @@
             <xsl:apply-templates select=".//ref-list" mode="data-availability"/>
 
         </xsl:if>
+    </xsl:template>
 
+    <xsl:template match="article" mode="data-availability-menu-title">
+        <xsl:variable name="title">
+            <xsl:apply-templates select="." mode="text-labels">
+                <xsl:with-param name="text">Data availability</xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:variable>
+        <div class="articleSection">
+            <xsl:attribute name="data-anchor"><xsl:value-of select="$title"/></xsl:attribute>
+            <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
+        </div>
     </xsl:template>
 
     <xsl:template match="ref-list" mode="data-availability">

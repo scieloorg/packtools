@@ -34,16 +34,36 @@
     <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']/*/contrib-group" mode="modal-id"></xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
-        <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
         <xsl:apply-templates select="contrib[@contrib-type='author']" mode="article-meta-contrib"/>
+        <xsl:apply-templates select="." mode="about-the-contrib-group-button"/>
+    </xsl:template>
+    
+    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button">
+        <!--
+            Adiciona o botão 'About the contributor', trocando 'author',
+            pelo tipo de contribuição
+        -->
         <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
+            <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
             <a href="" class="outlineFadeLink" data-toggle="modal"
                 data-target="#ModalTutors{$id}">
-                <xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">About the author<xsl:if test="count(contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
-                </xsl:apply-templates>
+                <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
             </a>
         </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button-text">
+        <xsl:variable name="type">
+            <xsl:choose>
+                <xsl:when test="../../@article-type='reviewer-report'">reviewer</xsl:when>
+                <xsl:otherwise><xsl:value-of select="contrib[1]/@contrib-type"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="count"><xsl:value-of select="count(contrib[@contrib-type=$type])"/></xsl:variable>
+
+        <xsl:apply-templates select="." mode="interface">
+            <xsl:with-param name="text">About the <xsl:value-of select="$type"/><xsl:if test="number($count)&gt;1">s</xsl:if></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
    
     <!--xsl:template match="contrib" mode="article-meta-contrib">

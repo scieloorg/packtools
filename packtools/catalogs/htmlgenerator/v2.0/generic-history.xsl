@@ -3,77 +3,77 @@
     version="1.0">
     <xsl:variable name="related_preprint" select="//related-article[@related-article-type='preprint']"/>
 
-    <xsl:template match="article-meta | sub-article | response" mode="generic-history">
-       <xsl:if test=".//history">
-        <div class="articleSection">
-             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
-                 <xsl:with-param name="text">History</xsl:with-param>
-             </xsl:apply-templates></xsl:attribute>
-             <h1 class="articleSectionTitle"><xsl:apply-templates select="." mode="text-labels">
-                 <xsl:with-param name="text">History</xsl:with-param>
-             </xsl:apply-templates></h1>
-             <div class="row">
-                 <div class="col-md-12 col-sm-12">
-                     <ul class="articleTimeline">
-                         <xsl:apply-templates select="." mode="generic-history-history-dates"></xsl:apply-templates>
-                     </ul>
-                 </div>
-             </div>
-            <xsl:apply-templates select="." mode="preprint-link-without-date-row"/>
-         </div>
-       </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="article-meta" mode="generic-history-history-dates">
+    <xsl:template match="article-meta" mode="generic-history">
         <xsl:choose>
-            <xsl:when test="$article//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//history">
-                <xsl:apply-templates select="$article//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//history/date" mode="generic-history-list-item"/>
+            <xsl:when test="$article//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/front-stub/history">
+                <xsl:apply-templates select="$article//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/front-stub/history" mode="history-section"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="history/date" mode="generic-history-list-item"/>
+                <xsl:apply-templates select="history" mode="history-section"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="sub-article | response" mode="generic-history-history-dates">
-        <xsl:apply-templates select=".//history/date" mode="generic-history-list-item"></xsl:apply-templates>
+    <xsl:template match="sub-article | response" mode="generic-history">
+       <xsl:apply-templates select="front-stub/history | front/history" mode="history-section"/>       
     </xsl:template>
 
-    <xsl:template match="history/date" mode="generic-history-list-item">
+    <xsl:template match="history" mode="history-section">
+        <div class="articleSection">
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
+                <xsl:with-param name="text">History</xsl:with-param>
+            </xsl:apply-templates></xsl:attribute>
+            <h1 class="articleSectionTitle"><xsl:apply-templates select="." mode="text-labels">
+                <xsl:with-param name="text">History</xsl:with-param>
+            </xsl:apply-templates></h1>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <ul class="articleTimeline">
+                        <xsl:apply-templates select="date" mode="generic-history-list-item"/>
+                    </ul>
+                </div>
+            </div>
+            <xsl:apply-templates select="." mode="preprint-link-row"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="date" mode="generic-history-list-item">
         <li>
             <strong>
                 <xsl:apply-templates select="@date-type" mode="history-item-label"/>
             </strong><br/>
-            <xsl:apply-templates select="."></xsl:apply-templates>
-            <xsl:if test="@date-type='preprint' and $related_preprint">
-                <br/>
-                <xsl:apply-templates select="$related_preprint[1]" mode="article-meta-related-article-link"/>
-            </xsl:if>
+            <xsl:apply-templates select="." mode="format-date"/>
+            <xsl:apply-templates select="." mode="preprint-link"/>
         </li>
     </xsl:template>
 
-    <xsl:template match="article-meta" mode="preprint-link-without-date-row">
-        <xsl:if test="$related_preprint[1] and not(.//date[@date-type='preprint'])">
-            <div class="row">
-                 <div class="col-md-12 col-sm-12">
-                     <ul class="articleTimeline">
-                         <xsl:apply-templates select="." mode="preprint-link-without-date"/>
-                     </ul>
-                 </div>
-             </div>
+    <xsl:template match="date" mode="preprint-link">
+        <!-- do nothing, no preprint link -->
+    </xsl:template>
+
+    <xsl:template match="date[@date-type='preprint']" mode="preprint-link">
+        <xsl:if test="$related_preprint">
+            <br/>
+            <xsl:apply-templates select="$related_preprint[1]" mode="article-meta-related-article-link"/>
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="article-meta" mode="preprint-link-without-date">
+    <xsl:template match="history" mode="preprint-link-row">
         <xsl:if test="$related_preprint[1] and not(.//date[@date-type='preprint'])">
-            <li>
-                <strong>
-                    <xsl:apply-templates select="." mode="text-labels">
-                        <xsl:with-param name="text">This document has a preprint version</xsl:with-param>
-                    </xsl:apply-templates>
-                </strong><br/>
-                <xsl:apply-templates select="$related_preprint[1]" mode="article-meta-related-article-link"/>
-            </li>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <ul class="articleTimeline">
+                        <li>
+                            <strong>
+                                <xsl:apply-templates select="." mode="text-labels">
+                                    <xsl:with-param name="text">This document has a preprint version</xsl:with-param>
+                                </xsl:apply-templates>
+                            </strong><br/>
+                            <xsl:apply-templates select="$related_preprint[1]" mode="article-meta-related-article-link"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </xsl:if>
     </xsl:template>
 
@@ -89,7 +89,7 @@
         </xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="*[month or year or day or season]">
+    <xsl:template match="date | pub-date" mode="format-date">
         <xsl:apply-templates select="day"></xsl:apply-templates>
         <xsl:if test="day">&#160;</xsl:if>
         <xsl:choose>
@@ -104,5 +104,9 @@
         </xsl:choose>
         <xsl:if test="month or season">&#160;</xsl:if>
         <xsl:apply-templates select="year"></xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="date | pub-date">
+        <xsl:apply-templates select="." mode="format-date"/>
     </xsl:template>
 </xsl:stylesheet>

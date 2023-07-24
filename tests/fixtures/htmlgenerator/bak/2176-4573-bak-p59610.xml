@@ -1,0 +1,3084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+ article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+ <front>
+  <journal-meta>
+   <journal-id journal-id-type="publisher-id">bak</journal-id>
+   <journal-title-group>
+    <journal-title>Bakhtiniana: Revista de Estudos do Discurso</journal-title>
+    <abbrev-journal-title abbrev-type="publisher">Bakhtiniana, Rev. Estud.
+     Discurso</abbrev-journal-title>
+   </journal-title-group>
+   <issn pub-type="epub">2176-4573</issn>
+   <publisher>
+    <publisher-name>LAEL/PUC-SP (Programa de Estudos Pós-Graduados em Linguística Aplicada e Estudos
+     da Linguagem da Pontifícia Universidade Católica de São Paulo)</publisher-name>
+   </publisher>
+  </journal-meta>
+  <article-meta>
+   <article-id pub-id-type="doi">10.1590/2176-4573p59610</article-id>
+   <article-id pub-id-type="other">01205</article-id>
+   <article-categories>
+    <subj-group subj-group-type="heading">
+     <subject>ARTIGOS</subject>
+    </subj-group>
+   </article-categories>
+   <title-group>
+    <article-title>Racismo e a constituição de um signo ideológico de resistência</article-title>
+   </title-group>
+   <contrib-group>
+    <contrib contrib-type="author">
+     <contrib-id contrib-id-type="orcid">0000-0003-0751-3178</contrib-id>
+     <name>
+      <surname>Pistori</surname>
+      <given-names>Maria Helena Cruz</given-names>
+     </name>
+     <xref ref-type="aff" rid="aff1">*</xref>
+    </contrib>
+   </contrib-group>
+   <aff id="aff1">
+    <label>*</label>
+    <institution content-type="orgname">Pontifícia Universidade Católica de São Paulo -
+     PUC-SP</institution>
+    <addr-line>
+     <city>São Paulo</city>
+     <state>São Paulo</state>
+    </addr-line>
+    <country country="BR">Brasil</country>
+    <email>mhcpist@uol.com.br</email>
+    <institution content-type="original">Editora Associada da Bakhtiniana. Revista de Estudos do
+     Discurso, Pontifícia Universidade Católica de São Paulo - PUC-SP, São Paulo, São Paulo, Brasil;
+     Pós-doutoranda em Linguística Aplicada e Estudos da Linguagem, Pontifícia Universidade Católica
+     de São Paulo - PUC-SP, São Paulo, São Paulo, Brasil; mhcpist@uol.com.br</institution>
+   </aff>
+   <pub-date publication-format="electronic" date-type="pub">
+    <day>17</day>
+    <month>04</month>
+    <year>2023</year>
+   </pub-date>
+   <history>
+    <date date-type="received">
+     <day>16</day>
+     <month>10</month>
+     <year>2022</year>
+    </date>
+    <date date-type="accepted">
+     <day>28</day>
+     <month>12</month>
+     <year>2022</year>
+    </date>
+   </history>
+   <permissions>
+    <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/4.0/"
+     xml:lang="pt">
+     <license-p>Este é um artigo publicado em acesso aberto (Open Access) sob a licença Creative
+      Commons Attribution, que permite uso, distribuição e reprodução em qualquer meio, sem
+      restrições desde que o trabalho original seja corretamente citado.</license-p>
+    </license>
+   </permissions>
+   <abstract>
+    <title>RESUMO</title>
+    <p>Este artigo tem o objetivo de compreender a disseminação e a consolidação de um signo
+     ideológico de resistência, a partir da análise de um enunciado verbo-visual, uma
+     fotorreportagem publicada no jornal português <italic>Expresso.</italic> A matéria, por meio de
+     uma série de fotografias e um breve texto, mostra uma manifestação ocorrida em Lisboa, em junho
+     de 2020, contrária ao assassinato de George Floyd por policiais nos EUA. A Análise Dialógica do
+     Discurso, advinda da obra de Mikhail Bakhtin e o Círculo, fundamenta teórica e
+     metodologicamente o trabalho, mobilizando especialmente as noções de signo ideológico e
+     relações dialógicas. A partir de uma das fotos, referida no título da reportagem, a análise
+     levantou sentidos produzidos nos diversos diálogos axiológicos que ocorreram entre enunciados
+     espacial e temporalmente distintos, com a utilização de palavras, imagens e gestos
+     compartilhados por ocasião das manifestações de protesto. As cadeias dialógicas de enunciados
+     mostram como se constitui um discurso de resistência ao racismo e outras desigualdades sociais,
+     expresso em um signo ideológico.</p>
+   </abstract>
+   <kwd-group xml:lang="pt">
+    <title>PALAVRAS-CHAVE:</title>
+    <kwd><italic>Black Lives Matter</italic></kwd>
+    <kwd>Bakhtin e o Círculo</kwd>
+    <kwd>Relações dialógicas</kwd>
+    <kwd>Valores</kwd>
+    <kwd>Signo ideológico</kwd>
+   </kwd-group>
+  </article-meta>
+ </front>
+ <body>
+  <disp-quote>
+   <p>Todos os seres humanos nascem livres e iguais em dignidade e direitos. São dotados de razão e
+    consciência e devem agir em relação uns aos outros com espírito de fraternidade.</p>
+   <p><italic>Declaração Universal dos Direitos Humanos</italic></p>
+  </disp-quote>
+  <disp-quote>
+   <p>Em relação ao homem, o amor, a compaixão, o enternecimento e quaisquer outras emoções sempre
+    são dialógicas nesse ou naquele grau.</p>
+   <p><italic>Mikhail Bakhtin</italic></p>
+  </disp-quote>
+  <p>O racismo é uma realidade social: no Brasil, em Portugal – sede do jornal que produziu a
+   fotorreportagem a ser analisada neste artigo –, no mundo. Supõe sujeitos em polos diferentes numa
+   relação de poder e de dominação, mas também de resistência e enfrentamento. Em outras
+   palavras:</p>
+  <disp-quote>
+   <p>(...) é uma forma sistemática de discriminação que tem a raça como fundamento, e que se
+    manifesta por meio de práticas conscientes ou inconscientes que culminam em desvantagens ou
+    privilégios para indivíduos, a depender do grupo racial ao qual pertençam (<xref ref-type="bibr"
+     rid="B1">ALMEIDA, 2019</xref>, p.25).</p>
+  </disp-quote>
+  <p>Independente do modo como é definido, pois há um debate acirrado em torno da questão, a
+   violência reiterada e as tremendas injustiças que acarreta são inquestionáveis<xref ref-type="fn"
+    rid="fn1">1</xref>. Ainda que, de modo geral, seja razoavelmente percebido pelos brasileiros,
+   suas consequências profundas costumam lhes escapar. <xref ref-type="bibr" rid="B23">Oliveira e
+    Resende (2020, p.149-171)</xref> nos oferecem importantes reflexões sobre o tema num trabalho
+   realizado a partir de questionários abertos e grupo focal com estudantes de graduação da
+   Universidade Federal da Bahia (UFBA), isto é, num estado em que mais de 75% da população é negra.
+   O trabalho investigou a percepção do racismo brasileiro por discentes autodeclarados/as
+   brancos/as daquela universidade. A pesquisa é restrita a um grupo, mas algumas questões nela nos
+   chamam a atenção: em primeiro lugar, o amplo reconhecimento da existência do racismo pelos
+   discentes autodeclarados brancos; em segundo, o fato de que a reflexão (ou a quase ausência de
+   reflexão) desses alunos sobre o tema é, de modo geral, socialmente estereotipada, o que pode
+   fundamentar práticas e/ou discursos racistas; em terceiro lugar, o pouco interesse na discussão
+   do tema, levando as autoras a afirmar: “Fica-se com a impressão de que as pessoas brancas não
+   estão interessadas em ouvir o que as pessoas negras têm a dizer sobre racismo” (<xref
+    ref-type="bibr" rid="B23">OLIVEIRA; RESENDE, 2020</xref>, p.162).</p>
+  <p>Alguns acontecimentos, porém, rompem com este suposto torpor em relação ao tema, com destaque
+   para a violência policial contra o negro. Fato tristemente comum, pode gerar protestos e
+   tornar-se um mote para o debate a respeito da questão. Essa violência, no Brasil, registrada no
+   Mapa da Violência desde 1998 a partir de dados oficiais do Sistema de Informações de Mortalidade
+   do Ministério da Saúde, mostrava, em 2021, que negros têm mais do que o dobro de chance de serem
+   assassinados no país; tal grupo representava 78% das vítimas de homicídio (<xref ref-type="bibr"
+    rid="B25">PORTO, 2021</xref>). Recentes crimes contra negros, vítimas de violência, pobreza e
+   exclusão, seguem acontecendo dia após dia, no Brasil e no mundo. São noticiados, mas a
+   perplexidade diante deles muitas vezes também dá espaço à indiferença.</p>
+  <p>Em Portugal, no final de dezembro de 2021, peritos em direitos humanos da ONU denunciaram que
+   os afrodescendentes sofrem racismo sistêmico naquele país (cf. <xref ref-type="bibr" rid="B26"
+    >Redação. <italic>Veja</italic> , 2021</xref>). O relatório mostrou que, em boa parte, isso
+   acontece porque a sociedade portuguesa ainda está atrelada a seu passado colonial. A escravatura,
+   o comércio e o tráfico de africanos mal os reconhecem numa “visão alargada da identidade
+   portuguesa”, afirma Dominique Day, diretora do Grupo de Trabalho de Peritos da ONU sobre
+   Afrodescendentes na mesma matéria assinada pela Redação. O texto faz ainda referência a grandes
+   protestos antirracistas ocorridos em Portugal em 2020, como aquele que motivou a fotorreportagem:
+    <italic>Braços negros entrelaçados com braços brancos. As imagens da manifestação em
+    Lisboa,</italic> publicada em 06 de junho de 2020, às 22h48, no jornal português
+    <italic>Expresso</italic> (<xref ref-type="bibr" rid="B18">FERNANDES, 2020</xref>), apresentada
+   adiante. Quanto à violência policial, um dos aspectos mais agressivos da manifestação do racismo
+   em todo mundo, Mamadou Ba, ativista luso-senegalês, afirma: “Quando olhamos para a violência
+   policial, percebemos que há a síndrome da farda, porque a maioria das agressões físicas contra
+   pessoas negras, em Portugal, são cometidas por pessoas fardadas, sejam elas policiais ou
+   seguranças de empresas particulares” (<italic>apud</italic>
+   <xref ref-type="bibr" rid="B15">COUTINHO, 2022</xref>).</p>
+  <p>O movimento <italic>Black Lives Matter</italic> [Vidas negras importam/contam] surgiu nos
+   Estados Unidos em 2013, organizado por ativistas norte-americanas, e foi concebido como uma luta
+   de todos contra o racismo<xref ref-type="fn" rid="fn2">2</xref>. Segundo Silvana Inácio,
+   jornalista brasileira e criadora do <italic>podcast</italic> Zumbido – <italic>podcast</italic>
+   quinzenal sobre o universo negro, o “<italic>Black Lives Matter</italic> deu visibilidade, mas a
+   nossa luta é muito mais antiga, pela existência como seres humanos, pelo direito de viver e sair
+   na rua sem ser alvejado” (<italic>apud</italic>
+   <xref ref-type="bibr" rid="B3">ARRUDA, 2020</xref>).<sup>.</sup> Em 25 de maio de 2020, o
+   assassinato de George Floyd por um policial em Mineápolis, Estados Unidos (homicídio causado por
+   asfixia), foi o estopim de novas ondas de protesto contra o racismo em todo o mundo, convocadas
+   pelo movimento ou evocando-o.</p>
+  <p>A luta contra o racismo é essencial, indubitavelmente. Por isso, julgamos importante a retomada
+   daquele momento, em que a indignação e os protestos ganharam as ruas do mundo inteiro, na análise
+   da fotorreportagem publicada no jornal português <italic>Expresso</italic> logo após aquele
+   assassinato, em junho de 2020, a partir da foto que dá título ao texto. Medviédev (2019, p.48-49;
+   grifos nossos) nos ensina que</p>
+  <disp-quote>
+   <p>[a]s concepções de mundo, as crenças e mesmo os instáveis estados de espírito ideológicos
+    também não existem no interior, nas cabeças, nas “almas” das pessoas. Eles tornam-se realidade
+    ideológica somente quando realizados nas <italic>palavras, nas ações, na roupa, nas maneiras,
+     nas organizações das pessoas e dos objetos, em uma palavra, em algum material em forma de um
+     signo determinado</italic> . Por meio desse <italic>material</italic> , eles tornam-se parte da
+    realidade que circunda o homem.</p>
+  </disp-quote>
+  <p>Ao se referir às palavras, ações, roupa, maneiras, organizações das pessoas e objetos, a algum
+   material em forma de um signo determinado, Medviédev está nos levando a observar como cada um
+   desses aspectos aponta para concepções de mundo próprias, crenças e realidades ideológicas
+   específicas. Eles se constituem como <italic>signos ideológicos</italic> , apontando para valores
+   sociais de indivíduos organizados socialmente em uma determinada esfera da atividade humana.
+   Observar a <italic>multiacentuação</italic> dos signos ideológicos, a diferença e intensidade na
+   expressão de valores é observar o modo como a existência <italic>reflete</italic> e
+    <italic>refrata</italic> a realidade social, num entrecruzamento de interesses sociais:
+    “<italic>em todo signo ideológico cruzam-se ênfases multidirecionadas</italic> ” (<xref
+    ref-type="bibr" rid="B28">VOLÓCHINOV, 2017</xref>, p.113; grifo no original).</p>
+  <p>Dessa forma, ao descrever, analisar e interpretar a fotorreportagem <italic>Braços negros
+    entrelaçados com braços brancos. As imagens da manifestação em Lisboa</italic> a partir da foto
+   que recebeu o título <italic>Black Lives Matter</italic> da GESCO (Arquivo e Centro de
+   Documentação do jornal <italic>Expresso</italic> ), baseando-nos em conceitos advindos da obra de
+   Mikhail Bakhtin e o Círculo, os objetivos deste artigo são: (1) buscar sentidos possíveis da foto
+   e da fotorreportagem, explicitando as relações dialógicas (expressão de posicionamentos) que
+   encetam em tempo e espacialidades distintas; (2) a partir daí, recuperar cadeias discursivas de
+   sentido, entendendo que cada enunciado é um elo na cadeia da comunicação discursiva e responde a
+   enunciados anteriores; e (3) reconhecer as acentuações dos signos ideológicos de resistência,
+   isto é, a ênfase valorativa que os acompanha.</p>
+  <p>Na primeira seção, o artigo recupera noções bakhtinianas que serão mobilizadas na análise, em
+   termos teóricos e metodológicos; na segunda, apresenta a análise propriamente. Nas considerações
+   finais, o texto mostra como os caminhos da análise e da interpretação nos levam a reconhecer os
+   vários modos assumidos pelos discursos de enfrentamento e resistência em resposta à dominação,
+   violência e poder gerados pelo racismo e demais desigualdades e injustiças sociais.</p>
+  <sec sec-type="methods">
+   <title>1 Signo ideológico, relações dialógicas e valores. Ainda: anotações metodológicas</title>
+   <p>A <italic>Análise Dialógica do Dicurso</italic> (cf. <xref ref-type="bibr" rid="B8">BRAIT,
+     2006</xref>, <xref ref-type="bibr" rid="B9">2008</xref>), ancorada em preceitos e conceitos da
+    obra de Mikhail Bakhtin e o Círculo<xref ref-type="fn" rid="fn3">3</xref>, será nossa
+    fundamentação teóricometodológica, conforme expresso anteriormente; inclusive porque também
+    oferece subsídios para a análise de enunciados verbo-visuais, conforme Brait explicita
+    amplamente em diferentes textos (cf., entre outros, <xref ref-type="bibr" rid="B10">BRAIT,
+     2009a</xref>, <xref ref-type="bibr" rid="B11">2009b</xref>, <xref ref-type="bibr" rid="B12"
+     >2010</xref>, <xref ref-type="bibr" rid="B13">2013</xref>). Explica a autora que a obra
+    bakhtiniana apresenta uma teoria da <italic>linguagem em geral</italic> , e não somente uma
+    teoria da linguagem verbal, oral ou escrita. Por isso,</p>
+   <disp-quote>
+    <p>(...) a perspectiva semiótico-filosófica-ideológica, justamente a que vai construir o que
+     Voloshinov designa como signo ideológico, (a que) serve de fundamento para a leitura do visual,
+     da cultura visual, ainda que Voloshinov, <italic>aparentemente</italic> , não tenha se dedicado
+     à imagem (2013, p.46; grifo no original).</p>
+   </disp-quote>
+   <p>Neste item, porém, tratamos tão-somente de alguns conceitos bakhtinianos essenciais a serem
+    mobilizados na análise da fotografia intitulada <italic>Black Lives Matter</italic> e da
+    fotorreportagem da qual é parte, composta de um breve texto e 12 imagens do jornal português
+     <italic>Expresso</italic> (<xref ref-type="bibr" rid="B18">FERNANDES, 2020a</xref>). Iniciamos
+    com a noção de <italic>signo ideológico</italic> , já mencionada anteriormente. Volóchinov nos
+    apresenta esta noção na primeira parte de <italic>Marxismo e filosofia da linguagem.</italic>
+    Problemas fundamentais do método sociológico na ciência da linguagem, especialmente nos
+    capítulos 1 e 2 (2017, p.91-114), ligando-a com a ciência das ideologias (os estudos sobre a
+    ciência, a literatura, a religião, a moral etc.). Ao longo desses dois capítulos, vai nos
+    mostrando como todo signo está ligado a diferentes campos da criação/criatividade
+     ideológica<xref ref-type="fn" rid="fn4">4</xref>, pois cada um deles tem seu modo próprio de se
+    orientar socialmente na realidade e refratá-la. Adiante acrescenta que, embora a palavra seja o
+    signo ideológico por excelência, ela é, a princípio, neutra; no entanto, ela acompanha toda
+    comunicação cotidiana e toda comunicação ideológica, delas participando; assim, pode assumir
+    qualquer valor e qualquer função nas diferentes esferas científica, estética, moral,
+    religiosa... Além disso, Volóchinov lembra que os discursos verbais se acompanham de outros
+    signos, que também lhes conferem/acrescentam sentidos, como a expressão facial, a gesticulação
+    etc., questão importante de ser observada na fotografia e na fotorreportagem.</p>
+   <p>Ao apontar que um dos aspectos distintivos do signo ideológico é a “ênfase valorativa que
+    acompanha todo conteúdo” (<xref ref-type="bibr" rid="B28">VOLÓCHINOV, 2017</xref>, p.110), o
+    linguista russo explica que tal valoração está ligada ao <italic>horizonte social</italic> de
+    uma época e de um grupo social, que os acentua e enfatiza de modo próprio, expressando
+     <italic>valores</italic> ligados a cada esfera de atividade humana. Na realidade, a questão
+     <italic>axiológica</italic> , o modo como todo enunciado expressa valores por meio de sua
+     <italic>entonação</italic> , é fundamental na obra do Círculo, seja nos textos de Volóchinov,
+    Medviédev ou Bakhtin. Por exemplo, ao tratar do discurso no romance, Mikhail Bakhtin afirma:</p>
+   <disp-quote>
+    <p>A vida social viva e a formação histórica criam, no âmbito de uma língua nacional
+     abstratamente única, uma pluralidade de universos concretos, de horizontes verboideológicos
+     sociais e fechados. Os elementos fechados e abstratos da língua no interior desses diferentes
+     horizontes são completados por conteúdos semânticos e <italic>axiológicos e soam de modo
+      diferente</italic> (2015, p.63; grifos nossos).</p>
+   </disp-quote>
+   <p>Se os signos ideológicos soam de modo diferente “na pluralidade de universos concretos, de
+    horizontes verboideológicos sociais e fechados”, a produção dos <italic>sentidos</italic> dos
+    enunciados concretos – constituídos verbal, visual ou verbo-visualmente – ocorre a partir das
+     <italic>relações dialógicas</italic> com outros enunciados, já que a orientação dialógica é
+    constitutiva de qualquer discurso<xref ref-type="fn" rid="fn5">5</xref>, que sempre se encontra
+    com outros discursos em “uma interação viva e tensa” (<xref ref-type="bibr" rid="B7">BAKHTIN,
+     2015</xref>, p.51); nesse encontro entre discursos expressam-se posicionamentos e valores. Nos
+    dizeres de Faraco:</p>
+   <disp-quote>
+    <p>Vivemos e agimos, portanto, num mundo saturado de valores, no interior do qual cada um dos
+     nossos atos é um gesto axiologicamente responsivo num processo incessante e contínuo. (...) a
+     relação eu/outro e a dimensão axiológica – serão, portanto, os eixos constantes e nucleares do
+     pensamento bakhtiniano e seus pares (2009, p.22).</p>
+   </disp-quote>
+   <p>É a dialogicidade interna do discurso que leva a uma compreensão responsiva e ativa entre os
+    parceiros da comunicação discursiva: “a compreensão de um signo ocorre na relação deste com
+    outros signos já conhecidos; em outras palavras, a compreensão <italic>responde</italic> ao
+    signo e o faz também com signos” (<xref ref-type="bibr" rid="B28">VOLÓCHÍNOV, 2017</xref>, p.95;
+    grifos nossos).</p>
+   <p>Retomamos: as <italic>relações dialógicas</italic> são valorativas e extralinguísticas e podem
+    ocorrer entre textos, enunciados integrais, uma palavra isolada, ou quaisquer “fenômenos
+    expressos em qualquer matéria sígnica”, como veremos na análise da foto; elas permitem ouvir
+    nesses fenômenos a voz do outro, na medida em que expressam posicionamentos (<xref
+     ref-type="bibr" rid="B4">BAKHTIN, 2008</xref>, p.210-211). Desse modo, os variados discursos
+    mostram posições e valores do sujeito, uma voz (social) entre vozes (sociais), em diferentes
+    áreas de atividade, expressas em matéria sígnica variada.</p>
+   <p>Todas essas noções estão estreitamente ligadas: assim, se o signo ideológico participa de dada
+    esfera ou campo da atividade humana, tal esfera ideológica, como toda esfera, está ligada a um
+    uso da linguagem, isto é, a um gênero de discurso<xref ref-type="fn" rid="fn6">6</xref>: os
+    gêneros, diz <xref ref-type="bibr" rid="B5">Bakhtin (2016, p.11)</xref>, são tão “multiformes” e
+    variados quanto as próprias esferas de atividade humana. Cada um deles domina “determinados
+    aspectos da realidade, possui seus próprios princípios de seleção, determinadas formas de visão
+    e de compreensão dessa realidade, certos graus na apreensão e na profundidade de penetração
+    nela”, nas palavras de <xref ref-type="bibr" rid="B22">Medviédev (2012, p.196)</xref>.</p>
+   <p>Ao tratar dos gêneros, em sua obra <italic>O método formal nos estudos literários.</italic>
+    Introdução crítica a uma poética sociológica (2012, p.193-210), Medviédev afirma que os gêneros
+    apresentam uma dupla orientação na realidade, uma voltada para o exterior, espaço e tempo real;
+    outra para o interior, tematicamente:</p>
+   <disp-quote>
+    <p>Em primeiro lugar, a obra se orienta para os ouvintes e os receptores, e para determinadas
+     condições de realização e percepção. Em segundo lugar, a obra está orientada na vida, como se
+     diz, de dentro, por meio de seu conteúdo temático. A seu modo, cada gênero está tematicamente
+     orientado para a vida, para seus acontecimentos, problemas e assim por diante (<xref
+      ref-type="bibr" rid="B22">MEDVIÉDEV, 2012</xref>, p.195).</p>
+   </disp-quote>
+   <p>Quer dizer, a <italic>orientação externa</italic> do enunciado se refere a ouvintes, condições
+    de realização e percepção: tempo, espaço e esfera ideológica definidos, em nosso caso, o
+    contexto mais amplo da foto/fotorreportagem, cuja análise apresentamos a seguir (cf. <xref
+     ref-type="bibr" rid="B14">BRAIT, 2012</xref>, p.15); a orientação interna, de dentro do
+    enunciado, está ligada ao tema, composição e estilo (elementos linguísticos, enunciativos e
+    formais), o que pode sugerir uma metodologia de análise. No entanto, ambas as orientações estão
+     <italic>tensamente</italic> articuladas e se inter-relacionam intimamente: entre receptor e
+    autor estabelece-se uma relação própria da esfera ideológica em foco, “que envolve e constitui a
+    produção, circulação e recepção de um gênero, pontuando sua relação com a vida...” (<xref
+     ref-type="bibr" rid="B14">BRAIT, 2012</xref>, p.15).</p>
+   <p>Bem observados, esses ensinamentos dialogam com a ordem metodologicamente fundamentada para o
+    estudo da língua proposta por <xref ref-type="bibr" rid="B28">Volóchinov (2017, p.220)</xref>.
+    Diz o linguista russo que devemos partir da observação das interações dialógicas entre
+    discursos: em primeiro lugar, as interações com a ampla esfera em que se constitui o evento
+    enunciativo – seus aspectos históricos, sociais, políticos, culturais e religiosos; a seguir, as
+    interações com a esfera mais estreita, especialmente o gênero em questão – no caso deste artigo,
+    uma fotorreportagem; finalmente, a análise se detém nas formas da língua (em correlação com as
+    imagens, neste caso), em sua concepção linguística habitual. Em suma, orientações externa e
+    interna do enunciado. Essa ordem nos guiará na análise das interações tensamente articuladas e
+    intimamente ligadas temporal e espacialmente propostas pela fotorreportagem (e fotografia
+    selecionada).</p>
+  </sec>
+  <sec>
+   <title>3 Diálogos verbo-visuais. A foto Black Lives Matter</title>
+   <p>O contexto mais amplo da fotorreportagem foi brevemente apresentado no início do texto; mas
+    retornaremos a ele adiante. Iniciaremos a análise pela definição e compreensão do próprio gênero
+     <italic>fotorreportagem</italic> , do qual a foto escolhida é parte. Como parte de um todo – a
+    fotorreportagem <italic>Braços negros entrelaçados com braços brancos. As imagens da
+     manifestação em Lisboa</italic> (<xref ref-type="bibr" rid="B18">FERNANDES, 2020a</xref>) –, a
+    foto selecionada (<italic><xref ref-type="fig" rid="F1">Figura 1</xref></italic> ) é resultado
+    de um projeto discursivo único que produziu a matéria, projeto assinado por um sujeito social,
+    histórica e culturalmente contextualizado (individual ou coletivo). No caso, os produtores da
+    matéria são o fotojornalista José <xref ref-type="bibr" rid="B19">Fernandes (2020b)</xref>, que
+    a assina, mas também o próprio jornal, que a publica. Os sentidos emergem dos diálogos
+    depreendidos deste conjunto inseparável – foto selecionada/fotos da fotorreportagem/texto. Mas
+    também de diálogos outros, como veremos adiante.</p>
+   <p><fig id="F1">
+     <label>Figura 1</label>
+     <caption>
+      <title>Braços negros entrelaçados com braços brancos. As imagens da manifestação em Lisboa.
+       Foto do jornal português Expresso , de 06 de junho de 2020 (<xref ref-type="bibr" rid="B18"
+        >FERNANDES, 2020a</xref>)</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf01.tif"/>
+    </fig></p>
+   <p>Esses enunciados concretos serão analisados como <italic>discursos</italic> , que apontam para
+    o objeto a que se referem, para o contexto e também para o discurso do outro. Lembremos: as
+    relações dialógicas são a premissa da interação discursiva e, embora pertençam ao discurso, não
+    pertencem a um campo puramente linguístico; por isso, a possibilidade de observarmos tais
+    enunciados sob diferentes ângulos dialógicos que se confrontam, se complementam, concordam,
+    discordam ou não; e são propostas pelo analista, pelo leitor, pelo destinatário na observação e
+    compreensão responsiva e ativa do enunciado, buscando-lhes os sentidos.</p>
+   <p>Em termos de <italic>gênero do discurso</italic> , observamos que se trata de fotografia e
+    fotorreportagem da esfera jornalística, que seria, numa definição preliminar, o conjunto de
+    organismos especializados que têm a finalidade de informar o cidadão, destinatário dos veículos
+    de comunicação, e formar-lhe a opinião. O <italic><xref ref-type="bibr" rid="B17">Dicionário
+      on-line de português</xref></italic> define <italic>fotorreportagem</italic> como: “Reportagem
+    em que as fotografias constituem a parte principal, acompanhadas apenas de legendas ou pequeno
+    texto explicativo”<xref ref-type="fn" rid="fn7">7</xref>. É exatamente o que acontece nessa
+    matéria, cujo texto transcrevemos adiante; no entanto, não há legendas neste caso.</p>
+   <p>A fotorreportagem, fotojornalismo em série, hoje é bastante comum na apresentação de
+    reportagem na <italic>web</italic> , mas se constitui em um recurso de apresentação da notícia
+    que não cabe no jornal impresso da mesma forma. Matéria <italic>online</italic> , pode ser
+    acessada pelo leitor no ritmo e interesse que lhe forem convenientes. Assim, a foto dos braços
+    entrelaçados é a nona das doze fotos de uma série que mostra as manifestações contra o racismo e
+    a violência policial em Lisboa. É a nona, mas certamente se destaca por sua presença no título:
+     <italic>Braços negros entrelaçados com braços brancos. As imagens da manifestação em
+     Lisboa</italic> .</p>
+   <p>Como podemos verificar, a <italic>fotorreportagem</italic> domina certos aspectos da realidade
+    e dá-lhe acabamento de um modo próprio: são as formas desse enunciado, “e não da língua, que
+    desempenham o papel essencial na tomada de consciência e na compreensão da realidade” (<xref
+     ref-type="bibr" rid="B22">MEDVIÉDEV, 2012</xref>, p.198). Assim, a compreensão de cada imagem
+    só é possível considerando-a parte do todo, o enunciado concreto – texto e série de imagens. O
+    enunciado mostra o modo como o homem se orienta na realidade, como constitui seu
+     <italic>posicionamento</italic> diante dela, por meio das 12 fotos descritas brevemente adiante
+    e do texto.</p>
+   <p>Na compreensão mais aprofundada do gênero, é importante tratarmos um pouco mais das condições
+    de produção da fotorreportagem, conforme dados da <italic>web</italic> , observáveis na <xref
+     ref-type="fig" rid="F2"><italic>Figura</italic> 02</xref><xref ref-type="fn" rid="fn8"
+    >8</xref>. Numa economia de tipo liberal, a esfera de atividade jornalística adquire uma lógica
+    comercial de empresa, uma lógica de mercado. Isso lhe dá uma finalidade ambígua, na medida em
+    que o jornal visa não apenas à informação/formação do leitor, mas à captação/sedução do maior
+    número de leitores. Assim, a <italic>credibilidade</italic> do jornal se configura como uma de
+    suas coerções, e isso se observa no convite à assinatura do jornal, aliado à própria publicidade
+    do veículo, no qual se afirma: “Informação <italic>credível</italic> onde quer que esteja”
+      (<italic><xref ref-type="fig" rid="F2">Figura 2</xref></italic> ; grifo nosso); como um
+    corolário dessa afirmação, a opção de escolha do formato da assinatura: “Expresso Papel.
+    Subscrever. Receba comodamente em sua casa; Expresso Digital. Subscrever. Leia em primeira mão
+    onde quer que esteja”. A imagem dos leitores na publicidade corrobora as possibilidades de
+    leitura do jornal em qualquer lugar, em papel ou em meio digital.</p>
+   <p><fig id="F2">
+     <label>Figura 2</label>
+     <caption>
+      <title>Promoção de assinaturas. Fonte: internet.</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf02.tif"/>
+    </fig></p>
+   <p>Essa necessidade de captar/seduzir leitores leva-nos a observar a importância da fotografia,
+    um dos modos de obter a credibilidade, um “retrato” da realidade que, na verdade, assim como a
+    língua, tanto a reflete quanto a refrata, já que qualquer “produto ideológico é não apenas uma
+    parte da realidade natural e social... – [mas] reflete e refrata outra realidade que se encontra
+    fora dos seus limites” (<xref ref-type="bibr" rid="B28">VOLÓCHINOV, 2017</xref>, p.91). Desse
+    modo, por meio do que é veiculado – no caso, texto e imagem –, o jornal pretende sempre a
+    construção do <italic>efeito de sentido de verdade</italic> , que não pode ser desconsiderada na
+    análise.</p>
+   <p><fig>
+     <label>Figura 3</label>
+     <caption>
+      <title>Aplicativo. Fonte: internet.</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf03.tif"/>
+    </fig></p>
+   <p>Ainda em termos de condições de produção e circulação do enunciado, é importante conhecermos
+    um pouco mais de seu <italic>contexto mais próximo</italic> – o jornal em que a matéria se
+    insere. O <italic>Expresso</italic> é um jornal português de periodicidade semanal, publicado
+    desde janeiro de 1973, surgido pouco antes da Revolução dos Cravos, ocorrida em 25 de abril de
+    1974. Isto é, surge num momento em que Portugal está se encaminhando para a democracia, após
+    quase 30 anos de regime ditatorial – a ditadura salazarista, que se caracterizou por forte
+    repressão democrática e censura das liberdades de expressão. A conjuntura em que é inaugurado,
+    aliada a seu slogan, “Liberdade Para Pensar” (<italic><xref ref-type="fig" rid="F3">Figura
+      4</xref></italic> ), colocado logo abaixo do título no aplicativo, aponta para aspectos que
+    dificilmente podem caracterizá-lo como um jornal conservador. Destina-se a um leitor pertencente
+    às classes ABC, quadros médios e superiores, residentes em regiões urbanas, conforme informações
+    de seu site (<xref ref-type="bibr" rid="B24">Perfil do leitor. <italic>Expresso.
+     s/d</italic></xref> ). O título atribuído à foto pela GESCO, centro de documentação do jornal –
+     <italic>Black Lives Matter</italic> – aparece num cartaz em apenas uma das fotos (foto 4), mas
+    poderíamos afirmar que se constitui, nos dizeres de Bakhtin, como uma “palavra-lema” (ou
+    expressão-lema) do movimento, capaz de contagiar um amplo círculo por sua aspiração semântica e
+    expressiva, por seus tons axiológicos, em língua inglesa, e por seu alcance praticamente
+    universal (<xref ref-type="bibr" rid="B7">BAKHTIN, 2015</xref>, p.65).</p>
+   <p><fig id="F3">
+     <label>Figura 4</label>
+     <caption>
+      <title>La Pasionaria<xref ref-type="fn" rid="fn17">17</xref></title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf04.tif"/>
+    </fig></p>
+   <p>Na <italic>web</italic>
+    <xref ref-type="fn" rid="fn9">9</xref>, encontramos o modo como o texto aparece na página do
+    jornal: sob uma fotografia da manifestação – a fotografia n. 1, que não é a dos braços
+    entrelaçados (<italic><xref ref-type="fig" rid="F1">Figura 1</xref></italic> ), aparecem muitas
+    pessoas de máscaras carregando cartazes (<xref ref-type="bibr" rid="B18">FERNANDES,
+    2020a</xref>). Ainda que o foco primeiro de nossa análise seja aquela foto da <italic><xref
+      ref-type="fig" rid="F1">Figura 1</xref></italic> , antes de apresentarmos o texto, descrevemos
+    de modo sucinto as 12 fotos, nenhuma delas legendada. A análise fará algumas referências a
+     elas<xref ref-type="fn" rid="fn10">10</xref>:</p>
+   <list list-type="order">
+    <list-item>
+     <p>A foto mostra parte da manifestação, com muitos manifestantes de máscaras carregando
+      cartazes. Em primeiro plano, um negro carrega um cartaz com os dizeres “20 Educar” (Vim te
+      educar); dentro do círculo que compõe o zero, um punho fechado de luta está erguido; um pouco
+      atrás, outros cartazes: “Alma não tem cor”; “O racismo é educação”, entre outros;</p>
+    </list-item>
+    <list-item>
+     <p>A foto foi retirada da matéria;</p>
+    </list-item>
+    <list-item>
+     <p>A foto mostra uma moça negra, com um microfone na mão esquerda, o punho direito erguido e o
+      joelho esquerdo no chão, à frente de muitas faixas e cartazes. Alguns dizeres se destacam,
+      como “Fim à violência policial”;</p>
+    </list-item>
+    <list-item>
+     <p>A foto mostra uma aglomeração de pessoas, muitas delas carregando cartazes ao alto, vários
+      em inglês: “Quero sonhar com o futuro, não rece(ar)”; “Marielle Franco presente”; “Black lives
+      matter”; “Dark skin is not a crime”; “We are not our ancestors, we will fuck you up”, ...;</p>
+    </list-item>
+    <list-item>
+     <p>Na quinta foto, vemos com clareza os sobrados de azulejos azuis portugueses, que ladeiam a
+      manifestação e apenas as cabeças de novos manifestantes empunhando cartazes;</p>
+    </list-item>
+    <list-item>
+     <p>A foto foi retirada da matéria;</p>
+    </list-item>
+    <list-item>
+     <p>Em primeiro plano, os manifestantes, negros em sua maioria, empunham microfones e carregam
+      megafones, muito possivelmente gritando palavras de ordem;</p>
+    </list-item>
+    <list-item>
+     <p>A foto mostra a sacada de uma das casas: olhando abaixo a manifestação, um dos manifestantes
+      a filma com um celular, outros três a aplaudem;</p>
+    </list-item>
+    <list-item>
+     <p>A foto dos braços entrelaçados (<italic><xref ref-type="fig" rid="F1">Figura
+       1</xref></italic> );</p>
+    </list-item>
+    <list-item>
+     <p>Novos cartazes nesta foto, carregados principalmente por mulheres negras, com novos dizeres:
+      “Currículo (foto pessoal). Vês a minha cor ou o meu valor?”; “Até quando a minha cor será um
+      crime?”;</p>
+    </list-item>
+    <list-item>
+     <p>Diante de um céu nublado de azul esmaecido, o busto de um negro (de máscara e boné) levanta
+      determinado o braço direito com o punho fechado;</p>
+    </list-item>
+    <list-item>
+     <p>Em frente ao Terreiro do Paço, que tem ao fundo um antigo prédio amarelo, obra arquitetônica
+      e urbanística do século XVIII, um manifestante negro discursa diante da multidão de
+      manifestantes.</p>
+    </list-item>
+   </list>
+   <p>Abaixo da primeira das fotos, encontramos o texto que segue:</p>
+   <disp-quote>
+    <p><italic>Braços negros entrelaçados com braços brancos. As imagens da manifestação em
+      Lisboa</italic></p>
+    <p>06.06.2020 às 22h48</p>
+    <p>Cerca de cinco mil pessoas estiveram presentes na tarde deste sábado no centro de Lisboa numa
+     manifestação contra o racismo, contra a violência policial – principalmente sobre os cidadãos
+     negros, e a favor de uma maior tolerância e inclusão sociais. Houve muitas máscaras, mas o
+     distanciamento social rapidamente se revelou impossível de manter dada a quantidade de pessoas
+     que acabaram por comparecer. A morte do afroamericano George Floyd sob o joelho de um polícia
+     foi apenas a última notícia que correu mundo, mas há muitas histórias que continuam por contar.
+     A luta – em imagens.</p>
+   </disp-quote>
+   <p>Ainda que a fotorreportagem se constitua como um projeto discursivo único, na análise
+    precisamos tratar de cada aspecto de uma vez, relacionando-os sempre. Quanto ao texto, a
+    primeira observação é a constatação de que é breve e direto, como convém a uma fotorreportagem,
+    e responde ao conhecido <italic>lead</italic> jornalístico: o que, quem, quando, onde, como e
+    por quê. Verificamos, porém, que nele há a apreciação a partir “<italic>das condições reais da
+     vida</italic> , <italic>que</italic> geram <italic>o caráter partilhado das avaliações</italic>
+    ” (<xref ref-type="bibr" rid="B29">VOLÓCHINOV, 2019</xref>, p.120; grifo no original).
+    Inicialmente, constatamos que os números e a quantidade exercem um papel argumentativo no texto,
+    destacando a força representativa do protesto: “Cerca de <italic>cinco mil pessoas</italic>
+    (...)”; “Houve <italic>muitas</italic> máscaras, mas o distanciamento social rapidamente se
+    revelou impossível de manter dada a <italic>quantidade</italic> de pessoas que acabaram por
+    comparecer” (grifos nossos). As avaliações presentes no enunciado são partilhadas em torno da
+    noção de cidadania, da própria noção de humanidade, de injustiça relativa à desigualdade no
+    tratamento de negros e brancos; da condenação ao racismo e à violência policial – principalmente
+    sobre os cidadãos negros, e a favor de uma maior tolerância e inclusão sociais, como afirma o
+    texto, reiteradamente, numa réplica dialógica aos fatos que suscitaram a manifestação:
+     “<italic>contra</italic> o racismo, <italic>contra</italic> a violência policial –
+     <italic>principalmente</italic> sobre os cidadãos negros, e <italic>a favor</italic> de uma
+    maior tolerância e inclusão sociais” (grifos nossos).</p>
+   <p>O título da fotorreportagem <italic>Braços negros entrelaçados com braços brancos. As imagens
+     da manifestação em Lisboa</italic> , se inicialmente retoma a imagem da nona foto, acrescenta
+    novas imagens àquela referenciada. O termo “entrelaçados”, referindo-se à junção, ao enlaçamento
+    de braços <italic>negros</italic> e <italic>brancos</italic> , dialoga coerentemente com os
+    dizeres de Silvana Inácio, mencionados anteriormente, ao explicitar o modo como a luta acontece
+    no Brasil: “uma luta de <italic>todos</italic> contra o racismo” (<xref ref-type="bibr" rid="B3"
+     >ARRUDA, 2020</xref>; grifo nosso). O destinatário, aquele público leitor urbano das classes
+    ABC, pode ainda se juntar ao jornal e aos manifestantes ao constatar que “A morte do
+    afroamericano George Floyd sob o joelho de um polícia foi <italic>apenas</italic> a última
+    notícia que correu mundo, <italic>mas há muitas histórias que continuam por contar</italic> ”
+    (grifos nossos). Nessa frase, na primeira oração, destaca-se o <italic>apenas</italic> –
+    exclusivo, que introduz a informação de que a morte de George Floyd é uma dentre muitas: “apenas
+    a última notícia que correu mundo”, seguida coerentemente da frase que se inicia com a
+    adversativa “mas”, cujo conteúdo prevalece: “há muitas histórias que continuam por contar”. É um
+     <italic>discurso bivocal</italic> de orientação única, autor – o jornal instituição e
+    jornalistas, fotógrafos, se juntam aos personagens da manifestação, estão lado a lado (<xref
+     ref-type="bibr" rid="B4">BAKHTIN, 2008</xref>, p.228). O jornal não é neutro. “A luta – em
+    imagens” continua...</p>
+   <p>Em interação com a ampla esfera em que se constitui o evento enunciativo, esta fotorreportagem
+    se relaciona à vida, ouvintes, receptores, leitores e, de certo modo, à reação a essa
+    recepção/percepção, em seus aspectos históricos, sociais, políticos, culturais e religiosos...
+    Vejamos como: a matéria trata das manifestações que ocorreram em Lisboa, após o assassinato de
+    George Floyd por policiais, em Mineápolis, em 25 de maio de 2020. O momento é da pandemia da
+    covid-19, como atestam tanto as máscaras da foto quanto os dizeres do texto: “Houve muitas
+    máscaras, mas o distanciamento social rapidamente se revelou impossível de manter dada a
+    quantidade de pessoas que acabaram por comparecer”. Desse modo, notamos que a <italic>orientação
+     interna</italic> do enunciado se relaciona tensamente com a externa: tal como numa performance
+    dramática, os personagens da foto dos “braços entrelaçados” se harmonizam e se destacam pelas
+    cores que vestem: o negro se veste de negro – camisa e boné; o branco, de cores claras. O fundo
+    mostra uma parte das cinco mil pessoas noticiadas no texto, multidão que pode ser conferida na
+    foto de capa da notícia e também em várias outras das 12 fotos. Ética e estética se juntam não
+    apenas nos braços entrelaçados, mas também nos belos azulejos (azuis) dos sobrados da rua
+    lisboeta, mostrados com sensibilidade pelo olhar de José Fernandes.</p>
+   <p>Os jornais do mundo todo cobriram o assassinato e ainda inúmeras manifestações, o que
+    constitui ainda o contexto mais amplo da fotorreportagem. Num diálogo de intensa concordância
+    entre elas, esse amplo contexto pode ser observado em várias outras ilustrações em diferentes
+    mídias, das quais destacamos algumas abaixo, ocorridas em diferentes <italic>espaços</italic>
+    <xref ref-type="fn" rid="fn11">11</xref>:</p>
+   <list list-type="simple">
+    <list-item>
+     <p>- Primeiramente, na matéria “Protestos contra a morte de George Floyd pelo mundo nesta
+       sexta-feira”<xref ref-type="fn" rid="fn12">12</xref>, de 05 de junho de 2022, no portal
+       <italic>Globo G1 – Mundo</italic> , podemos observar protestos semelhantes que ocorreram em
+      cidades como Londres, Hamburgo, Berlim, Washington, Pretória, entre outras. Dessa reportagem,
+      destacamos duas fotos que dialogam coerentemente com os “braços negros entrelaçados com
+      brancos”, uma de Londres, outra do Paquistão. A primeira mostra o ativista Dee Ndlovu
+      discursando em Trafalgar Square, no centro de Londres, tendo ao fundo manifestantes apoiados
+      sobre um dos joelhos e com o punho direito erguido; a segunda apresenta ativistas do Partido
+      Democrata que protestam em Karachi, no Paquistão, com cartazes que levam a foto de George
+      Floyd com os dizeres <italic>Let him breathe</italic> [Deixe que ele respire] e <italic>Oxygen
+       is surplus</italic> [Oxigênio é excedente]. O ativista que está ao centro, de branco, faz o
+      gesto de luta, com o punho direito erguido; o manifestante à frente dele faz o mesmo
+      gesto.</p>
+    </list-item>
+    <list-item>
+     <p>- Em segundo lugar, podemos entrever um diálogo com a matéria da <italic>Globo G1</italic> ,
+       SP<xref ref-type="fn" rid="fn13">13</xref> , de 07 de junho de 2020, no Brasil, que faz parte
+      de uma reportagem maior cobrindo manifestações contra o racismo e também contra o governo
+      Bolsonaro no Largo da Batata, em São Paulo. A manchete geral, <italic>Manifestantes distribuem
+       flores para a polícia durante o protesto contra Bolsonaro em São Paulo</italic> , é seguida
+      de um vídeo que mostra tal ação. O texto da matéria informa que a distribuição de flores aos
+      policiais foi inspirada na Revolução dos Cravos, em Portugal (1974), e promovida por alunos de
+      três escolas privadas do município (Santa Cruz, Vera Cruz e Bandeirantes), simbolizando um
+      momento de união, sem conflito ou baderna. A seguir, a reportagem trata propriamente da
+      manifestação organizada pelos “movimentos negros, torcidas organizadas dos quatro grandes
+      clubes de São Paulo e por movimentos sociais integrantes da ‘Frente Povo Sem Medo’”. O
+      protesto não lembra apenas o assassinato de George Floyd, nos Estados Unidos, mas também o
+      assassinato do menino “João Pedro, que morreu após ser baleado durante uma operação conjunta
+      das polícias Civil e Federal, em 18-05-2020, em São Gonçalo, região metropolitana do Rio de
+      Janeiro”. Abaixo, há outra foto da manifestação, com a legenda: “Manifestantes negros ajoelham
+      no Largo da Batata, em SP, e reproduzem o gesto que está sendo reproduzido no mundo inteiro,
+      em protesto contra o assassinato de negros”. Como pode ser observado, o título da matéria, a
+      legenda da foto e as imagens mais uma vez expressam o movimento de solidariedade compartilhada
+      e repúdio ao racismo representado pelos assassinatos de Floyd e do menino João Pedro.</p>
+    </list-item>
+    <list-item>
+     <p>- Novas relações dialógicas de concordância podem ser observadas nas demais fotos da mesma
+       fotorreportagem<xref ref-type="fn" rid="fn14">14</xref> do jornal <italic>Expresso</italic>
+      destacada inicialmente. A imagem de manifestantes apoiados sobre um dos joelhos e com o punho
+      direito erguido em posição de luta, novamente mostra a solidariedade e o compartilhamento de
+      emoções (indignação) em luta contra o racismo. Importante destacar a terceira foto (3), na
+      qual, em primeiro plano, vemos uma menina apoiada em um dos joelhos, com uma das mãos
+      segurando o microfone e com a outra erguida em posição de luta no meio da rua, enquanto, ao
+      fundo, estão os manifestantes; e também a décima primeira foto (11), que dá ao leitor uma
+      ideia da determinação do manifestante ao fazer o gesto do punho erguido.</p>
+    </list-item>
+   </list>
+   <p>Num mundo globalizado, essas manifestações dialogam coerentemente, compartilhando valores
+    semelhantes de repúdio ao racismo: “A <italic>avaliação social</italic> é aquele denominador
+    comum ao qual se reduzem o conteúdo e a forma em cada elemento da construção” (<xref
+     ref-type="bibr" rid="B22">MEDVIÉDEV, 2012</xref>, p.206; grifo no original). Por meio dos
+    mesmos gestos, que se tornam <italic>signos ideológicos</italic> : ajoelhados, mas com apenas um
+    dos joelhos no chão, os manifestantes – lá e cá – simbolizam a compaixão, a solidariedade e
+    mesmo a reverência diante do outro que foi brutalmente assassinado sob os joelhos do policial,
+    expressam-se moralmente contrários ao racismo. O braço direito erguido e o punho fechado
+    tornam-se símbolos da luta contra a asfixia de uma população que não tem seu justo espaço
+    garantido na sociedade. Quer dizer, aquela manifestação noticiada no jornal português não é
+    única, é parte de um todo global, que teve destaque diverso nas diferentes mídias.</p>
+   <p>No entanto, se a foto da página inicial da matéria não é aquela que selecionei, ainda que seu
+    título – “Braços negros entrelaçados com braços brancos”, sem dúvida, remeta a ela, para
+    compreendê-la mais profundamente é importante atentar à chamada ao final do texto: “A luta – em
+    imagens”. A íntima e tensa correlação entre tempo, espaço e esfera ideológica é profunda e nos
+    diz mais a seu respeito. Os braços negros e brancos não estão apenas entrelaçados, unidos, mas
+    em posição de luta, num gesto que não se encerra nele mesmo. Sobre os gestos, Volóchinov, no
+    ensaio “A palavra na vida e a palavra na poesia”, afirma:</p>
+   <disp-quote>
+    <p>(...) <italic>a entonação e o gesto tendem a ser ativos e objetivos</italic> . Eles expressam
+     não apenas o estado emocional ou passivo do falante, mas sempre contêm uma relação viva e
+     enérgica com o mundo exterior e o meio social: os inimigos, amigos e aliados. Ao entonar e
+     gesticular, o homem ocupa uma posição social ativa em relação a determinados valores,
+     condicionada pelos próprios fundamentos da sua existência social. Justamente esse aspecto da
+     entonação e do gesto, que é objetivosociológico e não subjetivo-psicológico, deve interessar
+     aos teóricos das artes correspondentes, pois nele se encontram as forças estéticocriativas,
+     construtivas e organizadoras desses fenômenos (2019, p.127; grifos no original).</p>
+   </disp-quote>
+   <p>Observando o mesmo gesto em outras fotos de manifestações no mundo, verificamos que há um
+    diálogo não apenas espacial entre os protestos que ocorreram, mas também temporal; isto é,
+    trata-se de um signo ideológico que historicamente expressa valores de resistência. O gesto de
+    punho erguido foi popularizado durante a Guerra Civil Espanhola de 1936 a 1939, quando foi usado
+    pela facção republicana como saudação e era conhecido como “saudação da Frente Popular” ou
+    “saudação antifascista”. Esse gesto pode ser conferido em uma conhecida foto de <italic>La
+     Pasionaria</italic>
+    <xref ref-type="fn" rid="fn15">15</xref> (<italic><xref ref-type="fig" rid="F3">Figura
+     4</xref></italic> ), política e líder revolucionária comunista espanhola, que exerceu
+    importante papel na Guerra Civil Espanhola ao instigar os republicanos contra as tropas do
+    General Franco.</p>
+   <p>A saudação do punho direito se espalhou posteriormente entre esquerdistas e antifascistas em
+    toda a Europa. Numa das fotos que ilustra o verbete sobre a invasão do Iraque na
+     <italic>Wikipedia</italic> , vemos uma senhora americana branca fazendo o gesto do punho
+    erguido no meio da multidão e lemos: “Em fevereiro de 2003, ocorreu em São Francisco,
+    Califórnia, um dos maiores protestos antiguerra nos Estados Unidos. Entre 60.000 e 200.000
+    pessoas se manifestaram contra o conflito”<xref ref-type="fn" rid="fn16">16</xref>.</p>
+   <p>O mesmo gesto é repetido pelos corredores americanos John Carlos e Tommie Smith, ao receberem
+    respectivamente as medalhas de ouro e de bronze nas Olimpíadas do México, no dia 16 de outubro
+    de 1968 (<italic><xref ref-type="fig" rid="F4">Figura 5</xref></italic> )<xref ref-type="fn"
+     rid="fn20">20</xref>: durante a execução do hino americano, eles abaixam a cabeça e erguem o
+    punho, como um protesto contra a discriminação racista e ausência de direitos civis para todos
+    nos Estados Unidos, num “silêncio que se torna ensurdecedor”, diz a matéria. O gesto dos atletas
+    recuperava o gesto dos militantes do Partido dos Panteras Negras, que atuaram entre 1966 e 1982,
+    cuja pauta era a luta pelos direitos civis, denunciando toda sorte de discriminação e violência
+    policial contra os negros, e defendendo a autodeterminação dos negros norte-americanos. A foto
+    da <italic><xref ref-type="fig" rid="F5">Figura 6</xref></italic> nos mostra um aspecto
+    diferente na difusão do gesto de resistência. Trata-se de quadro em quarto de adolescente de uma
+    série televisiva de 2021 (<italic>Clickbait</italic> ); na realidade, é apenas um exemplo de
+    como o gesto se disseminou, mas sempre expressando resistência do mais fraco em relação ao poder
+    e dominação. Outros filmes e séries têm colocado o gesto como manifestação de resistência<xref
+     ref-type="fn" rid="fn21">21</xref>.</p>
+   <p><fig id="F4">
+     <label>Figura 5</label>
+     <caption>
+      <title>John Carlos e Tommie Smith, Olimpíadas do México, 1968<xref ref-type="fn" rid="fn18"
+        >18</xref>.</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf05.tif"/>
+    </fig></p>
+   <p><fig id="F5">
+     <label>Figura 6</label>
+     <caption>
+      <title>Série de TV (Clickbait )<xref ref-type="fn" rid="fn19">19</xref>.</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf06.tif"/>
+     <attrib>Fonte: Arquivo pessoal</attrib>
+    </fig></p>
+   <p>Novos exemplos podem ainda ser conferidos nas fotos das <italic><xref ref-type="fig" rid="F6"
+      >Figuras 7</xref>, <xref ref-type="fig" rid="F6">8</xref>, <xref ref-type="fig" rid="F7"
+      >9</xref></italic> e <italic><xref ref-type="fig" rid="F8">10</xref></italic> , da
+     <italic>Retrospectiva 2020</italic> realizada pela Rede Globo de Televisão<xref ref-type="fn"
+     rid="fn22">22</xref>. A partir do conhecimento desses diálogos, o gesto da foto no jornal
+     <italic>Expresso</italic> ganha novos sentidos – objetivos e sociológicos, e torna-se mais
+    rico, pois os braços que se entrelaçam mostram a união e a coerência à já longa luta em favor da
+    igualdade social; e, como afirmamos, tornam-se signos ideológicos da luta contra o racismo. O
+    eco das lutas sociais passadas, contra a exclusão social e a favor da igualdade entre todos os
+    cidadãos, a favor da paz e contra a violência é ouvido e repetido por meio dos gestos de luta: é
+    mais uma luta a ser travada, mas também é a continuidade de outras já travadas e que ainda
+    precisam ser vencidas. O gesto dos manifestantes apoiados em um dos joelhos, com a mão erguida
+    em posição de luta, torna-se o <italic>signo ideológico</italic> da luta pelos direitos iguais
+    para todos, um fenômeno ideológico dado “no movimento do corpo” (<xref ref-type="bibr" rid="B28"
+     >VOLÓCHINOV, 2017</xref>, p.94).</p>
+   <p><fig id="F6">
+     <label>Figuras 7 e 8</label>
+     <caption>
+      <title>Manifestação em New York após o assassinato de G. Floyd</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf07.tif"/>
+    </fig></p>
+   <p><fig id="F7">
+     <label>Figura 9</label>
+     <caption>
+      <title>Manifestação em New York, após o assassinato de G. Floyd</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf08.tif"/>
+    </fig></p>
+   <p><fig id="F8">
+     <label>Figura 10</label>
+     <caption>
+      <title>Manifestação diante de um supermercado em São Paulo, onde ocorreu o assassinato de um
+       negro (20-11-2020, Dia da Consciência Negra)</title>
+     </caption>
+     <graphic xlink:href="2176-4573-bak-p59610-gf09.tif"/>
+    </fig></p>
+   <p>Chamamos a atenção, ainda, para a concordância entre a foto da <italic><xref ref-type="fig"
+      rid="F7">Figura 9</xref></italic> e aquela dos braços entrelaçados (<italic><xref
+      ref-type="fig" rid="F1">Figura 1</xref></italic> ): ambas ecoam o art. 1 da <xref
+     ref-type="bibr" rid="B16">Declaração Universal dos Direitos Humanos (1948)</xref>,
+    especialmente em seu início “todos os seres humanos” e na expressão “espírito de fraternidade”.
+    Aliás, se por um lado todos os enunciados concretos que apresentamos dialogam coerentemente
+    entre si, por outro lado, são vozes sociais que dialogam de modo veemente e indignado
+    contrariamente à situação que gerou cada uma das manifestações. E isso nos evoca os dizeres de
+     <xref ref-type="bibr" rid="B5">Bakhtin (2016, p.86)</xref> no ensaio que trata do texto na
+    linguística, na filologia e em outras ciências humanas, afirmando que os sentimentos também
+    dialogam: “Em relação ao homem, o amor, a compaixão, o enternecimento e quaisquer outras emoções
+    [a indignação, acrescentamos] sempre são dialógicas nesse ou naquele grau”<xref ref-type="fn"
+     rid="fn23">23</xref>.</p>
+   <p>Enfim, a apreciação social expressa na fotorreportagem mostra o caráter partilhado das
+    avaliações, corroborado pelas cadeias discursivas que levantamos: e aqui podemos reafirmar que
+    jornal – como instituição – e manifestantes compartilham a mesma avaliação, expressa na escolha
+    do título da matéria e no próprio sentido de “luta” retratado nas doze imagens da
+    fotorreportagem. A análise poderia continuar, talvez com a proposição de novos diálogos que
+    aprofundassem a leitura deste enunciado concreto, pois respondemos às leituras com nossa
+     <italic>compreensão responsivo-ativa</italic> , posicionandonos perante o outro e perante a
+    sociedade.</p>
+  </sec>
+  <sec sec-type="conclusions">
+   <title>Considerações finais</title>
+   <p>Neste texto tivemos como objetivo descrever, analisar e interpretar a fotorreportagem cujo
+    título remete para a foto dos “braços entrelaçados” (<italic><xref ref-type="fig" rid="F1"
+      >Figura 1</xref></italic> ), do jornal português <italic>Expresso</italic> , por meio da
+    Análise Dialógica do Discurso. Noções como signo ideológico, relações dialógicas e cadeias de
+    enunciados permitiram-nos avançar na compreensão dos sentidos da foto e da fotorreportagem.
+    Partindo do modo como se organizou o gênero em suas orientações interna e externa, a análise nos
+    permitiu ampliar a percepção e compreensão de textos e imagens, tomados como discursos, que
+    apontam para relações dialógicas linguísticas e extralinguísticas relevantes; e destacar a
+    importância do contexto mais amplo e mais próximo na leitura e compreensão deste material da
+    esfera jornalística, na medida em que iluminaram o texto analisado, acrescentando-lhe novos
+    sentidos.</p>
+   <p>As valorações presentes nos enunciados – fotos e texto verbal, foram consideradas nas relações
+    dialógicas que emergem das cadeias de enunciados por eles suscitadas. Temporal e espacialmente,
+    manifestações no mundo inteiro compartilharam valores de igualdade, dignidade e respeito ao
+    outro; em diferentes tempos e espaços, o gesto do punho erguido foi compreendido como
+     <italic>signo ideológico</italic> da luta por direitos iguais para todos, e especialmente
+    contra o racismo. A análise nos mostrou, inclusive, a historicidade do gesto de resistência, um
+    signo ideológico disseminado ao redor do mundo ao menos desde a Guerra Civil Espanhola.</p>
+   <p>Em 1970, Gilberto <xref ref-type="bibr" rid="B21">Gil publicava, no <italic>Pasquim</italic>
+     de 19 a 25 de agosto de 1970</xref>, um texto que denominou “O verbo tropicalista: Recuso +
+    Aceito = Receito”, recusando um prêmio que lhe era dado pelo Museu da Imagem e do Som por sua
+    canção “Aquele abraço”. Nele afirmava, entre outras coisas:</p>
+   <disp-quote>
+    <p>E que fique claro para os que cortaram minha onda e minha barba que “Aquele Abraço” não
+     significa que eu tenha me “regenerado”, que eu tenha me tornado “bom crioulo puxador de samba”
+     como eles querem que sejam todos os negros que realmente “sabem qual é o seu lugar”. Eu não sei
+     qual é o meu e não estou em lugar nenhum; não estou mais servindo a mesa dos senhores brancos e
+     nem estou mais triste na senzala em que eles estão transformando o Brasil (<xref
+      ref-type="bibr" rid="B21">GIL, 1970</xref>).</p>
+   </disp-quote>
+   <p>Sabemos que pouco mudou em relação à “senzala” na qual os “senhores brancos” estariam (ainda
+    estão?) transformando o Brasil naquele momento. Na tese de doutorado em que analisou a
+    identidade da mulher negra brasileira, <xref ref-type="bibr" rid="B27">Rodrigues (2021,
+     p.203)</xref> atesta que “[as] relações entre esses grupos [de negros e brancos] são verticais,
+    atravessadas por discursos de dominação, violência e hostilidade”. No entanto, textos como esta
+    fotorreportagem e, sobretudo, os diálogos contrários ao racismo suscitados pelo assassinato de
+    George Floyd e mostrados na análise de cadeias discursivas mostram a constituição de um signo
+    ideológico de resistência, indicadores de que “a luta continua...”</p>
+  </sec>
+ </body>
+ <back>
+  <sec sec-type="data-availability" specific-use="data-available-upon-request">
+   <label>Declaração de disponibilidade de conteúdo</label>
+   <p>Os conteúdos subjacentes ao texto da pesquisa estão contidos no manuscrito.</p>
+  </sec>
+  <ack>
+   <title>Agradecimentos</title>
+   <p>Este artigo, um dos frutos de minha pesquisa de pós-doutorado, congrega muitas outras vozes
+    que não aparecem aqui e a quem sou muito grata. Muito especialmente, porém, quero nomear três
+    delas: Lucas Nascimento Silva, que me convidou a proferir uma palestra no Grupo Dialógicos
+    (UEFS, BA), posteriormente transformada neste texto; Beth Brait, que me instou a apresentar o
+    trabalho para suas turmas de pós-graduação, a debater e dialogar com os alunos e colegas, e a
+    redigir o artigo; finalmente, Paulo Rogério Stella, que leu e comentou o texto antes de sua
+    submissão. Finalmente, agradeço à PUC-SP, pela oportunidade do pós-doutorado. A todos, muito
+    obrigada!</p>
+  </ack>
+  <fn-group>
+   <fn fn-type="other">
+    <p><bold>Pareceres</bold></p>
+    <p>Tendo em vista o compromisso assumido por <italic>Bakhtinina.</italic> Revista de Estudos do
+     Discurso com a Ciência Aberta, a revista publica somente os pareceres autorizados por todas as
+     partes envolvidas.</p>
+   </fn>
+   <fn fn-type="other" id="fn1">
+    <label>1</label>
+    <p>Em janeiro deste ano (2022), a <italic>Folha de S. Paulo</italic> deu espaço a um debate
+     sobre racismo/racismo estrutural a partir do texto “Racismo de negros contra brancos ganha
+     força com identitarismo”, escrito pelo romancista e antropólogo Antonio Risério. Entre outros
+     artigos, cf. entrevista de Samuel Santana Vida republicada no <italic>Portal Gelèdes</italic>
+     (cf. <xref ref-type="bibr" rid="B20">Galf, 2021</xref>).</p>
+   </fn>
+   <fn fn-type="other" id="fn2">
+    <label>2</label>
+    <p>As fundadoras do movimento foram Alicia Garza, da Aliança Nacional de Trabalhadoras
+     Doméstica; Patrisse Cullors, da Coalizão contra a Violência Policial em Los Angeles; e Opal
+     Tometi, da Aliança Negra pela Imigração Justa.</p>
+   </fn>
+   <fn fn-type="other" id="fn3">
+    <label>3</label>
+    <p>Ainda que o Círculo de Bakhtin seja composto de um número maior de membros, estamos
+     utilizando apenas as obras assinadas por Mikhail Bakhtin, Valentin N. Volóchinov e Pavel N.
+     Medviédev.</p>
+   </fn>
+   <fn fn-type="other" id="fn4">
+    <label>4</label>
+    <p>Com Grillo (2008, p.133-160), estamos considerando <italic>esfera da comunicação
+      discursiva</italic> , ou da <italic>criatividade ideológica</italic> , ou da <italic>atividade
+      humana</italic> , ou da <italic>comunicação social</italic> , ou da <italic>utilização da
+      língua</italic> , ou simplesmente <italic>ideologia,</italic> termos e expressões
+     intercambiáveis na obra bakhtiniana. Segundo Grillo (2008, p.143), a noção de
+      <italic>esfera</italic> ou <italic>campo</italic> da comunicação discursiva, um conceito-chave
+     na obra do Círculo: “é compreendida como um nível específico de coerções que, sem desconsiderar
+     a influência da instância socioeconômica, constitui as produções ideológicas, segundo a lógica
+     de cada esfera/campo”. O conceito de <italic>ideologia</italic> é ainda definido por <xref
+      ref-type="bibr" rid="B29">Volóchinov (2019, p.243)</xref>: “todo o conjunto de reflexos e
+     refrações no cérebro humano da atividade social e natural, expressa e fixada pelo homem na
+     palavra, no desenho artístico e técnico ou em alguma outra forma sígnica”.</p>
+   </fn>
+   <fn fn-type="other" id="fn5">
+    <label>5</label>
+    <p>Estamos considerando “discurso” na acepção bakhtiniana expressa muito claramente no capítulo
+     “O discurso em Dostoiévski”, de <italic>Problemas da poética de Dostoiévski</italic> . Diz o
+     filósofo russo da linguagem: “Intitulamos este capítulo ‘O discurso em Dostoiévski’ porque
+     temos em vista o discurso, ou seja, a língua em sua integridade concreta e viva e não a língua
+     como objeto específico da linguística, obtido por meio de uma abstração absolutamente letítima
+     e necessária de alguns aspectos da vida concreta do discurso. Mas são justamente esses
+     aspectos, abstraídos pela linguística, os que têm importância primordial para os nossos fins”
+      (<xref ref-type="bibr" rid="B4">BAKHTIN, 2008</xref>, p.207).</p>
+   </fn>
+   <fn fn-type="other" id="fn6">
+    <label>6</label>
+    <p>A noção de gênero do discurso está presente na obra do Círculo desde seus primeiros textos,
+     da década de 1920 (cf. <xref ref-type="bibr" rid="B14">BRAIT; PISTORI, 2012</xref>, p.371-401),
+     embora o conhecido ensaio “Os gêneros do discurso” (<xref ref-type="bibr" rid="B5">BAKHTIN,
+      2016</xref>, p.11-70) tenha sido elaborado apenas entre 1952-1953 e publicado em Moscou em
+     1979, na coletânea <italic>Estética da criação verbal</italic> [<italic>Stetika soviésnovo
+      tvórtchesva</italic> ]. <ext-link ext-link-type="uri"
+      xlink:href="https://doi.org/10.1590/S1981-57942012000200002"
+      >https://doi.org/10.1590/S1981-57942012000200002</ext-link></p>
+   </fn>
+   <fn fn-type="other" id="fn7">
+    <label>7</label>
+    <p><ext-link ext-link-type="uri" xlink:href="https://www.dicio.com.br/fotorreportagem/"
+      >https://www.dicio.com.br/fotorreportagem/</ext-link></p>
+   </fn>
+   <fn fn-type="other" id="fn8">
+    <label>8</label>
+    <p><ext-link ext-link-type="uri"
+      xlink:href="https://promo.impresa.pt/data/content/binaries/custom/expresso/papeloudigital/?returnUrl=https://express o.pt/&amp;utm_source=expresso&amp;utm_medium=subscribe_button&amp;locked=false&amp;article_id=expresso.pt/&amp;au thor_id=undefined&amp;category=Home"
+      >https://promo.impresa.pt/data/content/binaries/custom/expresso/papeloudigital/?returnUrl=https://express
+      o.pt/&amp;utm_source=expresso&amp;utm_medium=subscribe_button&amp;locked=false&amp;article_id=expresso.pt/&amp;au
+      thor_id=undefined&amp;category=Home</ext-link>. Acesso em: 27 jun. 2022.</p>
+   </fn>
+   <fn fn-type="other" id="fn9">
+    <label>9</label>
+    <p><italic>Expresso</italic> , 06 de junho de 2020. <ext-link ext-link-type="uri"
+      xlink:href="https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa"
+      >https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa</ext-link>.
+     Acesso em 27 de junho de 2022.</p>
+   </fn>
+   <fn fn-type="other" id="fn10">
+    <label>10</label>
+    <p>Com certeza, o acesso ao link permite complementar a breve descrição.</p>
+   </fn>
+   <fn fn-type="other" id="fn11">
+    <label>11</label>
+    <p>As imagens selecionadas/mencionadas provêm do portal Globo G1, ligado ao Grupo Globo,
+     conglomerado de mídia e comunicação brasileiro. Nosso interesse ao tratar dessas imagens é
+     apenas mostrar o diálogo que empreendem com a fotorreportagem e foto em análise; isto é, não
+     investigamos posicionamentos mais constantes dos jornais ou do grupo ao longo dos anos.</p>
+   </fn>
+   <fn fn-type="other" id="fn12">
+    <label>12</label>
+    <p><ext-link ext-link-type="uri"
+      xlink:href="https://g1.globo.com/mundo/noticia/2020/06/05/protestos-contra-a-morte-de-george-floyd-pelo-mundo-nesta-sexta-feira-5-fotos.ghtml"
+      >https://g1.globo.com/mundo/noticia/2020/06/05/protestos-contra-a-morte-de-george-floyd-pelo-mundo-nesta-sexta-feira-5-fotos.ghtml</ext-link>.
+     Acesso em 25 de junho de 2022.</p>
+   </fn>
+   <fn fn-type="other" id="fn13">
+    <label>13</label>
+    <p>Manifestantes fazem ato contra Bolsonaro, contra o racismo e a favor da democracia em São
+     Paulo <ext-link ext-link-type="uri"
+      xlink:href="https://g1.globo.com/sp/sao-paulo/noticia/2020/06/07/manifestantes-distribuem-flores-para-a-policia-durante-protesto-contra-bolsonaro-em-sao-paulo.ghtml"
+      >https://g1.globo.com/sp/sao-paulo/noticia/2020/06/07/manifestantes-distribuem-flores-para-a-policia-durante-protesto-contra-bolsonaro-em-sao-paulo.ghtml</ext-link>.
+     Acesso em 25 de junho de 2022.</p>
+   </fn>
+   <fn fn-type="other" id="fn14">
+    <label>14</label>
+    <p>Nota de rodapé n. 9.</p>
+   </fn>
+   <fn fn-type="other" id="fn15">
+    <label>15</label>
+    <p>Dolores Ibarruri. <italic>La pasionaria <ext-link ext-link-type="uri"
+       xlink:href="https://www.marxists.org/portugues/ibarruri/index.htm"
+       >https://www.marxists.org/portugues/ibarruri/index.htm</ext-link>.</italic> Acesso em: 7 abr.
+     2022.</p>
+   </fn>
+   <fn fn-type="other" id="fn16">
+    <label>16</label>
+    <p><ext-link ext-link-type="uri"
+      xlink:href="https://pt.wikipedia.org/wiki/Invas%C3%A3o_do_Iraque_em_2003#/media/Ficheiro:Raised_Fist_at_antiwar_demo.jpg"
+      >https://pt.wikipedia.org/wiki/Invas%C3%A3o_do_Iraque_em_2003#/media/Ficheiro:Raised_Fist_at_antiwar_demo.jpg</ext-link>.
+     Acesso em: 7 abr. 2022.</p>
+   </fn>
+   <fn fn-type="other" id="fn17">
+    <label>17</label>
+    <p>Fonte: <ext-link ext-link-type="uri"
+      xlink:href="https://brasildelonge.com/tag/la-pasionaria/"
+      >https://brasildelonge.com/tag/la-pasionaria/</ext-link></p>
+   </fn>
+   <fn fn-type="other" id="fn18">
+    <label>18</label>
+    <p>Fonte: <ext-link ext-link-type="uri"
+      xlink:href="https://commons.wikimedia.org/wiki/File:John_Carlos,_Tommie_Smith,_Peter_Norman_1968cr.jpg"
+      >https://commons.wikimedia.org/wiki/File:John_Carlos,_Tommie_Smith,_Peter_Norman_1968cr.jpg</ext-link></p>
+   </fn>
+   <fn fn-type="other" id="fn19">
+    <label>19</label>
+    <p><ext-link ext-link-type="uri" xlink:href="https://www.netflix.com/br/title/80991754"
+      >https://www.netflix.com/br/title/80991754</ext-link></p>
+   </fn>
+   <fn fn-type="other" id="fn20">
+    <label>20</label>
+    <p>O gesto que se tornou um dos símbolos da luta contra o racismo nos Estados Unidos <ext-link
+      ext-link-type="uri"
+      xlink:href="https://horadopovo.com.br/o-gesto-que-se-tornou-um-dos-simbolos-da-luta-contra-o-racismo-nos-estados-unidos/"
+      >https://horadopovo.com.br/o-gesto-que-se-tornou-um-dos-simbolos-da-luta-contra-o-racismo-nos-estados-unidos/</ext-link>.
+     Acesso em: 7 abr. 2022.</p>
+   </fn>
+   <fn fn-type="other" id="fn21">
+    <label>21</label>
+    <p>Apenas mais um exemplo, o filme <italic>Samaritain</italic> , 2022 (Diretor: Julius Avery;
+     Amazon Studions, United Artists Released).</p>
+   </fn>
+   <fn fn-type="other" id="fn22">
+    <label>22</label>
+    <p>As fotos das <italic><xref ref-type="fig" rid="F6">Figuras 7</xref>, <xref ref-type="fig"
+       rid="F6">8</xref>, <xref ref-type="fig" rid="F7">9</xref></italic> e <italic><xref
+       ref-type="fig" rid="F8">10</xref></italic> são de arquivo pessoal da autora (TV).</p>
+   </fn>
+   <fn fn-type="other" id="fn23">
+    <label>23</label>
+    <p>Na realidade, a rejeição ao racismo deveria ser tão-somente racional, mas ao menos desde
+      <xref ref-type="bibr" rid="B2">Aristóteles (<italic>Retórica</italic> )</xref> sabemos que
+      <italic>ethos</italic> (o caráter do orador), <italic>pathos</italic> (as emoções) e
+      <italic>logos</italic> (o discurso pelo que ele demonstra ou parece demonstrar) – razão e
+     emoção – funcionam argumentativamente na escolha de posicionamentos e tomada de decisões. O
+     aprofundamento desta questão, no entanto, excede os limites e propósitos deste artigo.</p>
+   </fn>
+  </fn-group>
+  <ref-list>
+   <title>REFERÊNCIAS</title>
+   <ref id="B1">
+    <mixed-citation>ALMEIDA, S. <italic>Racismo estrutural.</italic> São Paulo: Sueli Carneiro;
+     Pólen, 2019.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>ALMEIDA</surname>
+       <given-names>S.</given-names>
+      </name>
+     </person-group>
+     <source>Racismo estrutural</source>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Sueli Carneiro; Pólen</publisher-name>
+     <year>2019</year>
+    </element-citation>
+   </ref>
+   <ref id="B2">
+    <mixed-citation>ARISTÓTELES. <italic>Retórica.</italic> 3ed. Trad. e introdução de Manuel
+     Alexandre Júnior. Lisboa: Imprensa Nacional / Casa da Moeda, 2006.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>ARISTÓTELES</surname>
+      </name>
+     </person-group>
+     <source>Retórica</source>
+     <edition>3</edition>
+     <person-group person-group-type="translator">
+      <name>
+       <surname>Alexandre</surname>
+       <given-names>Manuel</given-names>
+       <suffix>Júnior</suffix>
+      </name>
+     </person-group>
+     <publisher-loc>Lisboa</publisher-loc>
+     <publisher-name>Imprensa Nacional / Casa da Moeda</publisher-name>
+     <year>2006</year>
+    </element-citation>
+   </ref>
+   <ref id="B3">
+    <mixed-citation>ARRUDA, J. Black Lives Matter: entenda movimento por trás da hashtag que
+     mobiliza atos. <italic>Universa Uol</italic>. 03-06-2020. Disponível em: <ext-link
+      ext-link-type="uri"
+      xlink:href="https://www.uol.com.br/universa/noticias/redacao/2020/06/03/black-lives-matter-conheca-o-movimento-fundado-por-tres-mulheres.htm"
+      >https://www.uol.com.br/universa/noticias/redacao/2020/06/03/black-lives-matter-conheca-o-movimento-fundado-por-tres-mulheres.htm</ext-link>.
+     Acesso em: 7 mai. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>ARRUDA</surname>
+       <given-names>J.</given-names>
+      </name>
+     </person-group>
+     <article-title>Black Lives Matter: entenda movimento por trás da hashtag que mobiliza
+      atos</article-title>
+     <source>Universa Uol</source>
+     <day>03</day>
+     <month>06</month>
+     <year>2020</year>
+     <date-in-citation content-type="access-date">7 mai. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://www.uol.com.br/universa/noticias/redacao/2020/06/03/black-lives-matter-conheca-o-movimento-fundado-por-tres-mulheres.htm."
+       >https://www.uol.com.br/universa/noticias/redacao/2020/06/03/black-lives-matter-conheca-o-movimento-fundado-por-tres-mulheres.htm.</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B4">
+    <mixed-citation>BAKHTIN, M. <italic>Problemas da poética de Dostoiévski.</italic> Trad. Paulo
+     Bezerra. 4ed. Rio de Janeiro: Forense, 2008.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BAKHTIN</surname>
+       <given-names>M.</given-names>
+      </name>
+     </person-group>
+     <source>Problemas da poética de Dostoiévski</source>
+     <person-group person-group-type="translator">
+      <name>
+       <surname>Bezerra</surname>
+       <given-names>Paulo.</given-names>
+      </name>
+     </person-group>
+     <edition>4</edition>
+     <publisher-loc>Rio de Janeiro</publisher-loc>
+     <publisher-name>Forense</publisher-name>
+     <year>2008</year>
+    </element-citation>
+   </ref>
+   <ref id="B5">
+    <mixed-citation>BAKHTIN, M. Os gêneros do discurso. <italic>In:</italic> BAKHTIN, M. <italic>Os
+      gêneros do discurso</italic> Trad. Paulo Bezerra. São Paulo: Editoria 34, 2016.
+     p.11-107.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BAKHTIN</surname>
+       <given-names>M.</given-names>
+      </name>
+     </person-group>
+     <chapter-title>Os gêneros do discurso</chapter-title>
+     <person-group person-group-type="editor">
+      <name>
+       <surname>BAKHTIN</surname>
+       <given-names>M.</given-names>
+      </name>
+     </person-group>
+     <source>Os gêneros do discurso</source>
+     <person-group person-group-type="translator">
+      <name>
+       <surname>Bezerra</surname>
+       <given-names>Paulo.</given-names>
+      </name>
+     </person-group>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Editoria 34</publisher-name>
+     <year>2016</year>
+     <fpage>11</fpage>
+     <lpage>107</lpage>
+    </element-citation>
+   </ref>
+   <ref id="B6">
+    <mixed-citation>BAKHTIN, M. O texto na linguística, na filologia e em outras ciências humanas.
+      <italic>In:</italic> BAKHTIN, M. <italic>Os gêneros do discurso</italic>. Trad. Paulo Bezerra.
+     São Paulo: Ed. 34, 2016. p.71-107.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BAKHTIN</surname>
+       <given-names>M.</given-names>
+      </name>
+     </person-group>
+     <chapter-title>O texto na linguística, na filologia e em outras ciências
+      humanas</chapter-title>
+     <person-group person-group-type="editor">
+      <name>
+       <surname>BAKHTIN</surname>
+       <given-names>M.</given-names>
+      </name>
+     </person-group>
+     <source>Os gêneros do discurso</source>
+     <person-group person-group-type="translator">
+      <name>
+       <surname>Bezerra</surname>
+       <given-names>Paulo.</given-names>
+      </name>
+     </person-group>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Ed. 34</publisher-name>
+     <year>2016</year>
+     <fpage>71</fpage>
+     <lpage>107</lpage>
+    </element-citation>
+   </ref>
+   <ref id="B7">
+    <mixed-citation>BAKHTIN, M. <italic>Teoria do romance I</italic>. A estilística. Trad. Paulo
+     Bezerra. São Paulo: Editora 34, 2015.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BAKHTIN</surname>
+       <given-names>M.</given-names>
+      </name>
+     </person-group>
+     <source><italic>Teoria do romance I</italic>. A estilística</source>
+     <person-group person-group-type="translator">
+      <name>
+       <surname>Bezerra</surname>
+       <given-names>Paulo.</given-names>
+      </name>
+     </person-group>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Editora 34</publisher-name>
+     <year>2015</year>
+    </element-citation>
+   </ref>
+   <ref id="B8">
+    <mixed-citation>BRAIT, B. Uma perspectiva dialógica de teoria, método e análise.
+      <italic>Gragoatá</italic>, n. 20, p.47-62, 1. sem. 2006. Disponível em: <ext-link
+      ext-link-type="uri" xlink:href="https://periodicos.uff.br/gragoata/article/view/33238"
+      >https://periodicos.uff.br/gragoata/article/view/33238</ext-link>. Acesso em: 8 jul.
+     2021.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <article-title>Uma perspectiva dialógica de teoria, método e análise</article-title>
+     <source>Gragoatá</source>
+     <issue>20</issue>
+     <fpage>47</fpage>
+     <lpage>62</lpage>
+     <year>2006</year>
+     <date-in-citation content-type="access-date">8 jul. 2021</date-in-citation>
+     <comment>1. sem. . Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://periodicos.uff.br/gragoata/article/view/33238"
+       >https://periodicos.uff.br/gragoata/article/view/33238</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B9">
+    <mixed-citation>BRAIT, B. Análise e teoria do discurso. <italic>In</italic>: BRAIT, B. (org.)
+      <italic>Bakhtin: outros conceitoschave</italic>. 4.ed. São Paulo: Contexto, 2008.
+     p.9-31.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <chapter-title>Análise e teoria do discurso</chapter-title>
+     <person-group person-group-type="compiler">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <source>Bakhtin: outros conceitoschave</source>
+     <edition>4</edition>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Contexto</publisher-name>
+     <year>2008</year>
+     <fpage>9</fpage>
+     <lpage>31</lpage>
+    </element-citation>
+   </ref>
+   <ref id="B10">
+    <mixed-citation>BRAIT, B. A palavra mandioca do verbal ao verbo-visual. <italic>Bakhtiniana.
+      Revista de Estudos do Discurso</italic>, São Paulo, v. 1, n. 1, p.142-160, 2009a. Disponível
+     em: <ext-link ext-link-type="uri"
+      xlink:href="https://revistas.pucsp.br/index.php/bakhtiniana/article/view/3004/1935"
+      >https://revistas.pucsp.br/index.php/bakhtiniana/article/view/3004/1935</ext-link>. Acesso em:
+     23 jun. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <article-title>A palavra mandioca do verbal ao verbo-visual</article-title>
+     <source>Bakhtiniana. Revista de Estudos do Discurso</source>
+     <publisher-loc>São Paulo</publisher-loc>
+     <volume>1</volume>
+     <issue>1</issue>
+     <fpage>142</fpage>
+     <lpage>160</lpage>
+     <year>2009a</year>
+     <date-in-citation content-type="access-date">23 jun. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://revistas.pucsp.br/index.php/bakhtiniana/article/view/3004/1935"
+       >https://revistas.pucsp.br/index.php/bakhtiniana/article/view/3004/1935</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B11">
+    <mixed-citation>BRAIT, B. Dulce sabor a Brasil antiguo: perspectiva dialógica. <italic>Páginas
+      de Guarda. Revista de lenguaje, edición y cultura escrita</italic>. Buenos Aires: Editoras del
+     Calderon, p.52-66, 2009b.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <chapter-title>Dulce sabor a Brasil antiguo: perspectiva dialógica</chapter-title>
+     <source>Páginas de Guarda. Revista de lenguaje, edición y cultura escrita</source>
+     <publisher-loc>Buenos Aires</publisher-loc>
+     <publisher-name>Editoras del Calderon</publisher-name>
+     <fpage>52</fpage>
+     <lpage>66</lpage>
+     <year>2009b</year>
+    </element-citation>
+   </ref>
+   <ref id="B12">
+    <mixed-citation>BRAIT, B. Tramas verbo-visuais da linguagem. <italic>In:</italic> BRAIT, B.
+      <italic>Literatura e outras linguagens</italic>. São Paulo: Contexto, 2010.
+     p.193-228.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <chapter-title>Tramas verbo-visuais da linguagem</chapter-title>
+     <person-group person-group-type="editor">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <source>Literatura e outras linguagens</source>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Contexto</publisher-name>
+     <year>2010</year>
+     <fpage>193</fpage>
+     <lpage>228</lpage>
+    </element-citation>
+   </ref>
+   <ref id="B13">
+    <mixed-citation>BRAIT, B. Olha e ler: verbo-visualidade em perspectiva dialógica.
+      <italic>Bakhtiniana. Revista de Estudos do Discurso.</italic> São Paulo, v. 8, n. 2, p.43-66,
+     2013. Disponível em: <ext-link ext-link-type="uri"
+      xlink:href="https://www.scielo.br/j/bak/a/RjfLWT8xz63JrBKXhyw3ZRq/?format=pdf&amp;lang=pt"
+      >https://www.scielo.br/j/bak/a/RjfLWT8xz63JrBKXhyw3ZRq/?format=pdf&amp;lang=pt</ext-link>.
+     Acesso em: 23 jun. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+     </person-group>
+     <article-title>Olha e ler: verbo-visualidade em perspectiva dialógica</article-title>
+     <source>Bakhtiniana. Revista de Estudos do Discurso</source>
+     <publisher-loc>São Paulo</publisher-loc>
+     <volume>8</volume>
+     <issue>2</issue>
+     <fpage>43</fpage>
+     <lpage>66</lpage>
+     <year>2013</year>
+     <date-in-citation content-type="access-date">23 jun. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://www.scielo.br/j/bak/a/RjfLWT8xz63JrBKXhyw3ZRq/?format=pdf&amp;lang=pt"
+       >https://www.scielo.br/j/bak/a/RjfLWT8xz63JrBKXhyw3ZRq/?format=pdf&amp;lang=pt</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B14">
+    <mixed-citation>BRAIT, B.; PISTORI, M. H. C. A produtividade do conceito de gênero em Bakhtin e
+     o Círculo. <italic>Alfa: Revista de Linguística</italic>, v. 56, n. 2 p.371-401, 2012.
+     Disponível em: <ext-link ext-link-type="uri"
+      xlink:href="https://periodicos.fclar.unesp.br/alfa/article/view/5531"
+      >https://periodicos.fclar.unesp.br/alfa/article/view/5531</ext-link>. Acesso em: 23 jun.
+     2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>BRAIT</surname>
+       <given-names>B.</given-names>
+      </name>
+      <name>
+       <surname>PISTORI</surname>
+       <given-names>M. H. C.</given-names>
+      </name>
+     </person-group>
+     <article-title>A produtividade do conceito de gênero em Bakhtin e o Círculo</article-title>
+     <source>Alfa: Revista de Linguística</source>
+     <volume>56</volume>
+     <issue>2</issue>
+     <fpage>371</fpage>
+     <lpage>401</lpage>
+     <year>2012</year>
+     <date-in-citation content-type="access-date">23 jun. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://periodicos.fclar.unesp.br/alfa/article/view/5531"
+       >https://periodicos.fclar.unesp.br/alfa/article/view/5531</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B15">
+    <mixed-citation>COUTINHO, R. Mamadou Ba: ‘Portugal é um país estruturalmente racista’.
+      <italic>Carta Capital</italic>, 22 de outubruo de 2021. Disponível em: <ext-link
+      ext-link-type="uri"
+      xlink:href="https://www.cartacapital.com.br/mundo/mamadou-ba-portugal-e-um-pais-estruturalmente-racista/"
+      >https://www.cartacapital.com.br/mundo/mamadou-ba-portugal-e-um-pais-estruturalmente-racista/</ext-link>.
+     Acesso em: 20 jun. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>COUTINHO</surname>
+       <given-names>R.</given-names>
+      </name>
+     </person-group>
+     <article-title>Mamadou Ba: ‘Portugal é um país estruturalmente racista’</article-title>
+     <source>Carta Capital</source>
+     <day>22</day>
+     <month>10</month>
+     <year>2021</year>
+     <date-in-citation content-type="access-date">20 jun. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://www.cartacapital.com.br/mundo/mamadou-ba-portugal-e-um-pais-estruturalmente-racista/"
+       >https://www.cartacapital.com.br/mundo/mamadou-ba-portugal-e-um-pais-estruturalmente-racista/</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B16">
+    <mixed-citation>DECLARAÇÃO UNIVERSAL DOS DIREITOS HUMANOS. Adotada e proclamada pela Assembleia
+     Geral das Nações Unidas (resolução 217 A III) em 10 de dezembro 1948. <ext-link
+      ext-link-type="uri"
+      xlink:href="https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos"
+      >https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos</ext-link></mixed-citation>
+    <element-citation publication-type="webpage">
+     <person-group person-group-type="author">
+      <collab>DECLARAÇÃO UNIVERSAL DOS DIREITOS HUMANOS</collab>
+     </person-group>
+     <source>Adotada e proclamada pela Assembleia Geral das Nações Unidas (resolução 217 A III) em
+      10 de dezembro 1948</source>
+     <comment><ext-link ext-link-type="uri"
+       xlink:href="https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos"
+       >https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B17">
+    <mixed-citation>DICIONÁRIO on-line de português. <italic>Fotorreportagem</italic>. <ext-link
+      ext-link-type="uri" xlink:href="https://www.dicio.com.br/fotorreportagem/"
+      >https://www.dicio.com.br/fotorreportagem/</ext-link></mixed-citation>
+    <element-citation publication-type="webpage">
+     <person-group person-group-type="author">
+      <collab>DICIONÁRIO on-line de português</collab>
+     </person-group>
+     <source>Fotorreportagem</source>
+     <comment><ext-link ext-link-type="uri" xlink:href="https://www.dicio.com.br/fotorreportagem/"
+       >https://www.dicio.com.br/fotorreportagem/</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B18">
+    <mixed-citation>FERNANDES, J. Braços negros entrelaçados com braços brancos. As imagens da
+     manifestação em Lisboa. <italic>Expresso</italic>, 06 de junho de 2020. Disponível em:
+      <ext-link ext-link-type="uri"
+      xlink:href="https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa"
+      >https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa</ext-link>.
+     Acesso em: 24 ago. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>FERNANDES</surname>
+       <given-names>J.</given-names>
+      </name>
+     </person-group>
+     <article-title>Braços negros entrelaçados com braços brancos. As imagens da manifestação em
+      Lisboa</article-title>
+     <source>Expresso</source>
+     <day>06</day>
+     <month>06</month>
+     <year>2020</year>
+     <date-in-citation content-type="access-date">24 ago. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa"
+       >https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B19">
+    <mixed-citation>FERNANDES, J. Autores. <italic>Expresso</italic>. 2020b. Disponível em:
+      <ext-link ext-link-type="uri"
+      xlink:href="https://expresso.pt/autores/2019-09-26-Jose-Fernandes-67acfa97"
+      >https://expresso.pt/autores/2019-09-26-Jose-Fernandes-67acfa97</ext-link>. Acesso em: 24 ago.
+     2022.</mixed-citation>
+    <element-citation publication-type="webpage">
+     <person-group person-group-type="author">
+      <name>
+       <surname>FERNANDES</surname>
+       <given-names>J. Autores.</given-names>
+      </name>
+     </person-group>
+     <source>Expresso</source>
+     <year>2020b</year>
+     <date-in-citation content-type="access-date">24 ago. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://expresso.pt/autores/2019-09-26-Jose-Fernandes-67acfa97"
+       >https://expresso.pt/autores/2019-09-26-Jose-Fernandes-67acfa97</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B20">
+    <mixed-citation>GALF, R. Racismo estrutural virou álibi para justificar práticas individuais e
+     institucionais, diz professor. <italic>Portal Gelédes</italic>. 05 de fevereiro de 2021.
+     Disponível em: <ext-link ext-link-type="uri"
+      xlink:href="https://www.geledes.org.br/racismo-estrutural-virou-alibi-para-justificar-praticas-individuais-e-institucionais-diz-professor/"
+      >https://www.geledes.org.br/racismo-estrutural-virou-alibi-para-justificar-praticas-individuais-e-institucionais-diz-professor/</ext-link>.
+     Acesso em: 20 ago. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>GALF</surname>
+       <given-names>R.</given-names>
+      </name>
+     </person-group>
+     <article-title>Racismo estrutural virou álibi para justificar práticas individuais e
+      institucionais, diz professor</article-title>
+     <source>Portal Gelédes</source>
+     <day>05</day>
+     <month>02</month>
+     <year>2021</year>
+     <date-in-citation content-type="access-date">20 ago. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://www.geledes.org.br/racismo-estrutural-virou-alibi-para-justificar-praticas-individuais-e-institucionais-diz-professor/"
+       >https://www.geledes.org.br/racismo-estrutural-virou-alibi-para-justificar-praticas-individuais-e-institucionais-diz-professor/</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B21">
+    <mixed-citation>GIL, G. Recuso + Aceito = Receito. <italic>O Pasquim</italic>, 19 a 25 de agosto
+     de 1970. Disponível em: <ext-link ext-link-type="uri"
+      xlink:href="http://tropicalia.com.br/eubioticamente-atraidos/verbo-tropicalista/recurso-aceito-receito"
+      >http://tropicalia.com.br/eubioticamente-atraidos/verbo-tropicalista/recurso-aceito-receito</ext-link>.
+     Acesso em: 27 jun. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>GIL</surname>
+       <given-names>G.</given-names>
+      </name>
+     </person-group>
+     <article-title>Recuso + Aceito = Receito</article-title>
+     <source>O Pasquim</source>
+     <day>19 a 25</day>
+     <month>08</month>
+     <year>1970</year>
+     <date-in-citation content-type="access-date">27 jun. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="http://tropicalia.com.br/eubioticamente-atraidos/verbo-tropicalista/recurso-aceito-receito"
+       >http://tropicalia.com.br/eubioticamente-atraidos/verbo-tropicalista/recurso-aceito-receito</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B22">
+    <mixed-citation>MEDVIÉDEV, P. N. <italic>O método formal nos estudos literários</italic>.
+     Introdução crítica a uma poética sociológica. Trad. Sheila Grillo e Ekaterina Vólkova Américo.
+     São Paulo: Contexto, 2012.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>MEDVIÉDEV</surname>
+       <given-names>P. N.</given-names>
+      </name>
+     </person-group>
+     <source><italic>O método formal nos estudos literários</italic>. Introdução crítica a uma
+      poética sociológica</source>
+     <person-group person-group-type="translator">
+      <name>
+       <surname>Grillo</surname>
+       <given-names>Sheila</given-names>
+      </name>
+      <name>
+       <surname>Américo</surname>
+       <given-names>Ekaterina Vólkova.</given-names>
+      </name>
+     </person-group>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Contexto</publisher-name>
+     <year>2012</year>
+    </element-citation>
+   </ref>
+   <ref id="B23">
+    <mixed-citation>OLIVEIRA, D.; RESENDE, V. M. Branquitude, discurso e representação de mulheres
+     negras no ambiente acadêmico da UFBA. <italic>Bakhtiniana. Revista de Estudos do
+      Discurso</italic>, v. 15, n. 4, p.140-171. Disponível em: <ext-link ext-link-type="uri"
+      xlink:href="https://revistas.pucsp.br/index.php/bakhtiniana/article/view/47682/33369"
+      >https://revistas.pucsp.br/index.php/bakhtiniana/article/view/47682/33369</ext-link> . Acesso
+     em: 20 ago. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>OLIVEIRA</surname>
+       <given-names>D.</given-names>
+      </name>
+      <name>
+       <surname>RESENDE</surname>
+       <given-names>V. M.</given-names>
+      </name>
+     </person-group>
+     <article-title>Branquitude, discurso e representação de mulheres negras no ambiente acadêmico
+      da UFBA</article-title>
+     <source>Bakhtiniana. Revista de Estudos do Discurso</source>
+     <volume>15</volume>
+     <issue>4</issue>
+     <fpage>140</fpage>
+     <lpage>171</lpage>
+     <date-in-citation content-type="access-date">20 ago. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://revistas.pucsp.br/index.php/bakhtiniana/article/view/47682/33369"
+       >https://revistas.pucsp.br/index.php/bakhtiniana/article/view/47682/33369</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B24">
+    <mixed-citation>PERFIL DE LEITOR. Reader’s Profile. <italic>Expresso</italic>. Disponível em:
+      <ext-link ext-link-type="uri"
+      xlink:href="https://www.mediabooking.pt/guia-dos-media/jornais/economia-e-negocios/publicidade-expresso"
+      >https://www.mediabooking.pt/guia-dos-media/jornais/economia-e-negocios/publicidade-expresso</ext-link>.
+     Acesso em: 7 abr. 2022.</mixed-citation>
+    <element-citation publication-type="webpage">
+     <person-group person-group-type="author">
+      <collab>PERFIL DE LEITOR. Reader’s Profile</collab>
+     </person-group>
+     <source>Expresso</source>
+     <date-in-citation content-type="access-date">7 abr. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://www.mediabooking.pt/guia-dos-media/jornais/economia-e-negocios/publicidade-expresso"
+       >https://www.mediabooking.pt/guia-dos-media/jornais/economia-e-negocios/publicidade-expresso</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B25">
+    <mixed-citation>PORTO, D. Negros representam 78% das pessoas mortas por armas de fogo no Brasil.
+      <italic>CNN</italic>, São Paulo, 20 de novembro de 2021. Disponível em: <ext-link
+      ext-link-type="uri"
+      xlink:href="https://www.cnnbrasil.com.br/nacional/negros-representam-78-das-pessoas-mortas-por-armas-de-fogo-no-brasil/"
+      >https://www.cnnbrasil.com.br/nacional/negros-representam-78-das-pessoas-mortas-por-armas-de-fogo-no-brasil/</ext-link>.
+     Acesso em: 20 ago. 2022.</mixed-citation>
+    <element-citation publication-type="journal">
+     <person-group person-group-type="author">
+      <name>
+       <surname>PORTO</surname>
+       <given-names>D.</given-names>
+      </name>
+     </person-group>
+     <article-title>Negros representam 78% das pessoas mortas por armas de fogo no
+      Brasil</article-title>
+     <source>CNN</source>
+     <publisher-loc>São Paulo</publisher-loc>
+     <day>20</day>
+     <month>11</month>
+     <year>2021</year>
+     <date-in-citation content-type="access-date">20 ago. 2022</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://www.cnnbrasil.com.br/nacional/negros-representam-78-das-pessoas-mortas-por-armas-de-fogo-no-brasil/"
+       >https://www.cnnbrasil.com.br/nacional/negros-representam-78-das-pessoas-mortas-por-armas-de-fogo-no-brasil/</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B26">
+    <mixed-citation>REDAÇÃO. ONU denuncia racismo sistêmico em Portugal. <italic>Veja</italic>, 14
+     de dezembro de 2021. Disponível em: <ext-link ext-link-type="uri"
+      xlink:href="https://veja.abril.com.br/mundo/onu-denuncia-racismo-sistemico-em-portugal/"
+      >https://veja.abril.com.br/mundo/onu-denuncia-racismo-sistemico-em-portugal/</ext-link>.
+     Acesso em: 20 jun. 2020.</mixed-citation>
+    <element-citation publication-type="webpage">
+     <person-group person-group-type="author">
+      <collab>REDAÇÃO. ONU denuncia racismo sistêmico em Portugal</collab>
+     </person-group>
+     <source>Veja</source>
+     <day>14</day>
+     <month>12</month>
+     <year>2021</year>
+     <date-in-citation content-type="access-date">20 jun. 2020</date-in-citation>
+     <comment>Disponível em: <ext-link ext-link-type="uri"
+       xlink:href="https://veja.abril.com.br/mundo/onu-denuncia-racismo-sistemico-em-portugal/"
+       >https://veja.abril.com.br/mundo/onu-denuncia-racismo-sistemico-em-portugal/</ext-link></comment>
+    </element-citation>
+   </ref>
+   <ref id="B27">
+    <mixed-citation>RODRIGUES, T. R. B. <italic>Análise dialógica dos discursos de mulheres negras
+      em eventos de leitura</italic> – construção de sentidos e identidades. 2021. 230 f. Tese
+     (Doutorado em Linguística Aplicada e Estudos da Linguagem) – Pontifícia Universidade Católica
+     de São Paulo, São Paulo, 2021.</mixed-citation>
+    <element-citation publication-type="thesis">
+     <person-group person-group-type="author">
+      <name>
+       <surname>RODRIGUES</surname>
+       <given-names>T. R. B.</given-names>
+      </name>
+     </person-group>
+     <source><italic>Análise dialógica dos discursos de mulheres negras em eventos de
+       leitura</italic> – construção de sentidos e identidades</source>
+     <year>2021</year>
+     <fpage>230 f</fpage>
+     <lpage>230 f</lpage>
+     <publisher-name>Pontifícia Universidade Católica de São Paulo</publisher-name>
+     <publisher-loc>São Paulo</publisher-loc>
+     <comment>2021. Tese (Doutorado em Linguística Aplicada e Estudos da Linguagem)</comment>
+    </element-citation>
+   </ref>
+   <ref id="B28">
+    <mixed-citation>VOLÓCHINOV, V. (Círculo de Bakhtin). <italic>Marxismo e filosofia da
+      língua</italic>. Problemas fundamentais do método sociológico nas ciências da linguagem. Trad.
+     Sheila Grillo e Ekaterina Vólkova Américo. São Paulo: Editora 34, 2017.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>VOLÓCHINOV</surname>
+       <given-names>V.</given-names>
+      </name>
+     </person-group>
+     <source><italic>Marxismo e filosofia da língua</italic>. Problemas fundamentais do método
+      sociológico nas ciências da linguagem</source>
+     <person-group person-group-type="translator">
+      <name>
+       <surname>Grillo</surname>
+       <given-names>Sheila</given-names>
+      </name>
+      <name>
+       <surname>Américo</surname>
+       <given-names>Ekaterina Vólkova.</given-names>
+      </name>
+     </person-group>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Editora 34</publisher-name>
+     <year>2017</year>
+     <comment>(Círculo de Bakhtin)</comment>
+    </element-citation>
+   </ref>
+   <ref id="B29">
+    <mixed-citation>VOLÓCHINOV, V. (Círculo de Bakhtin). <italic>A palavra na vida e a palavra na
+      poesia</italic>. Ensaios, artigos, resenhas e poemas. Organização, tradução, ensaio
+     introdutório e notas Sheila Grillo e Ekaterina Vólkova Américo. São Paulo: Editora 34, 2019.
+     p.109-146.</mixed-citation>
+    <element-citation publication-type="book">
+     <person-group person-group-type="author">
+      <name>
+       <surname>VOLÓCHINOV</surname>
+       <given-names>V.</given-names>
+      </name>
+     </person-group>
+     <source><italic>A palavra na vida e a palavra na poesia</italic>. Ensaios, artigos, resenhas e
+      poemas</source>
+     <person-group person-group-type="compiler">
+      <name>
+       <surname>Grillo</surname>
+       <given-names>Sheila</given-names>
+      </name>
+      <name>
+       <surname>Américo</surname>
+       <given-names>Ekaterina Vólkova</given-names>
+      </name>
+     </person-group>
+     <publisher-loc>São Paulo</publisher-loc>
+     <publisher-name>Editora 34</publisher-name>
+     <year>2019</year>
+     <fpage>109</fpage>
+     <lpage>146</lpage>
+     <comment>(Círculo de Bakhtin)</comment>
+    </element-citation>
+   </ref>
+  </ref-list>
+ </back>
+ <sub-article article-type="reviewer-report" id="s2" xml:lang="pt">
+  <front-stub>
+   <article-categories>
+    <subj-group subj-group-type="heading">
+     <subject>Peer-Review</subject>
+    </subj-group>
+   </article-categories>
+   <title-group>
+    <article-title>Parecer I</article-title>
+   </title-group>
+   <contrib-group>
+    <contrib contrib-type="author">
+     <contrib-id contrib-id-type="orcid">0000-0001-8004-1424</contrib-id>
+     <name>
+      <surname>Amorim</surname>
+      <given-names>Marília</given-names>
+     </name>
+     <role specific-use="reviewer">Reviewer</role>
+     <xref ref-type="aff" rid="aff3"/>
+    </contrib>
+   </contrib-group>
+   <aff id="aff3">
+    <institution content-type="orgname">Université Paris VIII</institution>
+    <addr-line>
+     <city>Paris</city>
+    </addr-line>
+    <country country="FR">França</country>
+    <email>marilia66amorim@gmail.com</email>
+    <institution content-type="original">Université Paris VIII – Paris, França;
+     marilia66amorim@gmail.com</institution>
+   </aff>
+   <custom-meta-group>
+    <custom-meta>
+     <meta-name>peer-review-recommendation</meta-name>
+     <meta-value>accept</meta-value>
+    </custom-meta>
+   </custom-meta-group>
+  </front-stub>
+  <body>
+   <sec>
+    <title>Parecer I</title>
+    <p>Trabalho de qualidade no uso preciso dos conceitos e das proposições da teoria bakhtiniana e
+     do Círculo. Análise fina, adequada e enriquecedora das cadeias discursivas que constituem o
+     sentido do <italic>corpus</italic> tratado.</p>
+   </sec>
+  </body>
+ </sub-article>
+ <sub-article article-type="reviewer-report" id="s3" xml:lang="pt">
+  <front-stub>
+   <article-categories>
+    <subj-group subj-group-type="heading">
+     <subject>Peer-Review</subject>
+    </subj-group>
+   </article-categories>
+   <title-group>
+    <article-title>Parecer II</article-title>
+   </title-group>
+   <contrib-group>
+    <contrib contrib-type="author">
+     <contrib-id contrib-id-type="orcid">0000-0002-7948-150X</contrib-id>
+     <name>
+      <surname>Rodrigues</surname>
+      <given-names>Tania Regina Barreira</given-names>
+     </name>
+     <role specific-use="reviewer">Reviewer</role>
+     <xref ref-type="aff" rid="aff4"/>
+    </contrib>
+   </contrib-group>
+   <aff id="aff4">
+    <institution content-type="orgname">Faculdade de Tecnologia de São Paulo – FATEC</institution>
+    <addr-line>
+     <city>São Paulo</city>
+     <state>São Paulo</state>
+    </addr-line>
+    <country country="BR">Brasil</country>
+    <email>tania_trbr@yahoo.com.br</email>
+    <institution content-type="original">Faculdade de Tecnologia de São Paulo – FATEC, São Paulo,
+     São Paulo, Brasil; tania_trbr@yahoo.com.br</institution>
+   </aff>
+   <custom-meta-group>
+    <custom-meta>
+     <meta-name>peer-review-recommendation</meta-name>
+     <meta-value>accept</meta-value>
+    </custom-meta>
+   </custom-meta-group>
+  </front-stub>
+  <body>
+   <sec>
+    <title>Parecer II</title>
+    <p>Embora haja dois ou três erros de digitação em algumas citações e notas de rodapé, o artigo
+     está muito bem redigido e fundamentado. O autor aborda a teoria do Círculo de Bakhtin de forma
+     didática, organizada e fácil de se entender. O artigo traz uma excelente contribuição para a
+     Análise Dialógica do Discurso e estudos sobre os Signos Ideológicos a partir de enunciados
+     verbo-visuais. As investigações que têm o racismo como tema principal são efetivamente formas
+     de resistência, e a luta a favor da igualdade deve continuar.</p>
+   </sec>
+  </body>
+ </sub-article>
+ <sub-article article-type="translation" id="s1" xml:lang="en">
+  <front-stub>
+   <article-id pub-id-type="doi">10.1590/2176-4573e59610</article-id>
+   <article-categories>
+    <subj-group subj-group-type="heading">
+     <subject>ARTICLES</subject>
+    </subj-group>
+   </article-categories>
+   <title-group>
+    <article-title>Racism and the Constitution of an Ideological Sign of Resistence</article-title>
+   </title-group>
+   <contrib-group>
+    <contrib contrib-type="author">
+     <contrib-id contrib-id-type="orcid">0000-0003-0751-3178</contrib-id>
+     <name>
+      <surname>Pistori</surname>
+      <given-names>Maria Helena Cruz</given-names>
+     </name>
+     <xref ref-type="aff" rid="aff2">*</xref>
+    </contrib>
+   </contrib-group>
+   <aff id="aff2">
+    <label>*</label>
+    <institution content-type="original">Associate Editor of Bakhtiniana. Revista de Estudos do
+     Discurso, Pontifícia Universidade Católica de São Paulo - PUC-SP, São Paulo, São Paulo, Brazil;
+     Post-doctoral researcher in Linguística Aplicada e Estudos da Linguagem [Applied Linguistics
+     and Language Studies], Pontifícia Universidade Católica de São Paulo - PUC-SP, São Paulo, São
+     Paulo, Brazil; mhcpist@uol.com.br</institution>
+   </aff>
+   <abstract>
+    <title>ABSTRACT</title>
+    <p>This article aims to understand the dissemination and consolidation of an ideological sign of
+     resistance, starting with the analysis of a verbal-visual utterance, a photo reportage
+     published in the Portuguese newspaper Expresso. That reportage, through a series of photographs
+     and a brief text, shows a demonstration in Lisbon, in June 2020, against the murder of George
+     Floyd, by police officers, in the USA. The Dialogical Discourse Analysis, grounded in the work
+     of Mikhail Bakhtin and the Circle, is the theoretical and methodological basis for this
+     article, which mobilizes the notions of ideological sign and dialogic relations. Starting with
+     one of the photos referred to in the title of the reportage, the analysis raised meanings
+     produced in the various axiological dialogues among spatially and temporally distinct
+     statements, using words, images, and gestures shared during the protest demonstrations. The
+     dialogic chains of statements show how a discourse of resistance to racism and other social
+     inequalities is constituted, and expressed in an ideological sign.</p>
+   </abstract>
+   <kwd-group xml:lang="en">
+    <title>KEYWORDS:</title>
+    <kwd>Black Lives Matter</kwd>
+    <kwd>Bakhtin and the Circle</kwd>
+    <kwd>Dialogical Relations</kwd>
+    <kwd>Values</kwd>
+    <kwd>Ideological Sign</kwd>
+   </kwd-group>
+  </front-stub>
+  <body>
+   <disp-quote>
+    <p>All human beings are born free and equal in dignity and rights. They are endowed with reason
+     and conscience and should act towards one another in a spirit of brotherhood.</p>
+    <p><italic>Universal Declaration of Human Rights</italic><xref ref-type="fn" rid="fn24"
+     >1</xref></p>
+   </disp-quote>
+   <disp-quote>
+    <p>With respect to a person, love, hatred, pity, tenderness, and emotions in general are always
+     dialogic in some measure.</p>
+    <p><italic>Mikhail Bakhtin</italic><xref ref-type="fn" rid="fn25">2</xref></p>
+   </disp-quote>
+   <p>Racism is a social reality: in Brazil, in Portugal – headquarters of the newspaper that
+    produced the photo reportage to be analyzed in this article -, in the world. It supposes
+    subjects at different poles not only in a relationship of power and domination, but also in a
+    relation of resistance and confrontation. In other words:</p>
+   <disp-quote>
+    <p>(...) It is a systematic form of discrimination based on race, and which is manifested
+     through conscious or unconscious practices that culminate in disadvantages or privileges for
+     individuals, depending on the racial group to which they belong (<xref ref-type="bibr" rid="B1"
+      >Almeida, 2019</xref>, p.25).<xref ref-type="fn" rid="fn26">3</xref></p>
+   </disp-quote>
+   <p>Regardless of how it is defined, there is a heated debate around the issue of repeated
+    violence, and the tremendous injustices that they bring about are unquestionable.<xref
+     ref-type="fn" rid="fn27">4</xref> Even if, in general violence might be perceived by
+    Brazilians, its deep consequences may not be totally looked into. <xref ref-type="bibr"
+     rid="B23">Oliveira and Resende (2020, pp.149-171)</xref> offer us important reflections on the
+    theme in a work carried out based on open questionnaires and on focal groups with undergrads at
+    Federal University of Bahia (UFBA). This study was carried out in a state where more than 75% of
+    the population declare black. The research investigates the perception of racism by
+    self-declared Brazilian white students at that university. Although the research is restricted
+    to a specific group, issues come to our attention: first, the broad recognition of the existence
+    of racism by self-declared white students; second, the fact that these students’ reflection (or
+    almost no reflection) on the subject is, in general, socially stereotyped, which can be the
+    foundation of practices and/or of racist discourses; thirdly, the little interest of the group
+    in discussing the theme, making the authors state: “One gets the impression that whites are not
+    interested in hearing what blacks have to say about racism” (<xref ref-type="bibr" rid="B23"
+     >Oliveira; Resende, 2020</xref>, p.162).<xref ref-type="fn" rid="fn28">5</xref></p>
+   <p>Some events, however, cause a breach in this supposed torpor in relation to the theme,
+    highlighted by police violence against blacks. A sadly common fact that can generate protests
+    and become a motto for debate on the issue. This violence in Brazil, recorded on the
+     <italic>Mapa da Violência</italic> [Violence Map] since 1998, and based on official data from
+    the Sistema de Informações de Mortalidade do Ministério da Saúde [Mortality Information System
+    from Ministry of Health], informed that in 2021 blacks were more than twice as likely to be
+    murdered in the country; this group represented 78% of homicide victims (<xref ref-type="bibr"
+     rid="B25">Porto, 2021</xref>). Recent crimes against blacks, victims of violence, poverty and
+    exclusion, continue to happen day after day in Brazil and in the world. They are reported, and
+    the perplexity in front of them often also gives way to indifference, though.</p>
+   <p>In Portugal, at the end of December 2021, UN human rights experts denounced that
+    Afro-descendants suffer systemic racism in that country (according to <xref ref-type="bibr"
+     rid="B26"><italic>Redação</italic> [Editors]. <italic>Veja</italic>, 2021</xref>). The report
+    showed that this is largely because Portuguese society is still tied to its colonial past.
+    Slavery, trade and trafficking of Africans are barely recognized in a “broad vision of
+    Portuguese identity,”<xref ref-type="fn" rid="fn29">6</xref> says Dominique Day, head of Grupo
+    de Trabalho de Peritos da ONU sobre Afrodescendentes [UN Expert Working Group on
+    Afro-Descendants] on the same subject signed by the Editors. The text also refers to major
+    anti-racist protests that took place in Portugal in 2020, such as the one that motivated the
+    photo reportage: <italic>Braços negros entrelaçados com braços brancos. As imagens da
+     manifestação em Lisboa</italic> [<italic>Black Arms Intertwined with White Arms. The Images of
+     the Demonstration in Lisbon</italic>], published on June 06, 2020 at 10h48 pm, in the
+    Portuguese newspaper <italic>Expresso</italic> (<xref ref-type="bibr" rid="B18">Fernandes,
+     2020</xref>), presented below. As for police violence, one of the most aggressive aspects of
+    the demonstration of racism around the world, Mamadou Ba, a Portuguese-Senegalese activist,
+    says: “When we look at police violence, we realize that there is the uniform syndrome, because
+    most physical attacks against black people in Portugal are committed by people in uniform,
+    whether they are police officers or security guards of private companies”<xref ref-type="fn"
+     rid="fn30">7</xref> (according to <xref ref-type="bibr" rid="B15">Coutinho, 2022</xref>).</p>
+   <p>The <italic>Black Lives Matter</italic> movement emerged in the United States in 2013,
+    organized by American activists, and was conceived as a fight for all against racism. According
+    to Silvana Inácio, Brazilian journalist and creator of the biweekly podcast
+     <italic>Zumbido</italic> [Buzz]<xref ref-type="fn" rid="fn31">8</xref> – about the black
+    universe, “<italic>Black Lives Matter</italic> gave us visibility, but our fight is much older,
+    for existence as human beings, for the right to live and go out on the street without being
+    shot.” (<xref ref-type="bibr" rid="B3">Arruda, 2020</xref>)<xref ref-type="fn" rid="fn32"
+     >9</xref> On May 25, 2020, the murder of George Floyd by a police officer in Minneapolis,
+    United States (murder caused by asphyxia), was the trigger for new waves of protest against
+    racism around the world that were either summoned by the movement or evoked it.</p>
+   <p>The fight against racism is undoubtedly essential. Therefore, we believe it is important to
+    retake that moment, when indignation and protests took to the streets of the whole world, in the
+    analysis of the photo reportage published in the Portuguese newspaper <italic>Expresso</italic>
+    shortly after that murder, in June 2020, and especially focusing on the photo that gave title to
+    the text. Medvedev teaches us that</p>
+   <disp-quote>
+    <p>Nor do philosophical views, beliefs, or even shifting ideological moods exist within man, in
+     his head or in his “soul.” They become ideological reality only by being realized <italic>in
+      words, actions, clothing, manners, and organizations of people and things – in a word: in some
+      definite semiotic material</italic>. Though this material they become a practical part of the
+     reality surrounding man (<xref ref-type="bibr" rid="B4">Bakhtin/Medvedev, 1978</xref>, p.7;
+     emphasis added).<xref ref-type="fn" rid="fn33">10</xref></p>
+   </disp-quote>
+   <p>By referring to words, actions, clothes, manners, organizations of people and objects, to some
+    material in the form of a specific semiotic material, Medvedev is leading us to observe how each
+    of those aspects points to our own conceptions of the world, beliefs and specific ideological
+    realities. The aspects constitute themselves as <italic>ideological signs</italic>, pointing to
+    social values of individuals socially organized in a certain sphere of human activity. Observing
+    the <italic>multi-accentuation</italic> of ideological signs, the difference in expression and
+    intensity in the expression of values is to observe the way in which existence <italic>reflects
+     and refracts</italic> social reality, in an intersection of social interests: “differently
+    oriented accents intersect in every ideological sign” (<xref ref-type="bibr" rid="B28"
+     >Vološinov, 2017</xref>, p.23).<xref ref-type="fn" rid="fn34">11</xref></p>
+   <p>On describing, analyzing, and interpreting the photo reportage <italic>Braços negros
+     entrelaçados com braços brancos. As imagens da manifestação em Lisboa</italic> focusing on the
+    photo that was entitled <italic>Black Lives Matter</italic> by GESCO (Arquivo e Centro de
+    Documentação do jornal <italic>Expresso</italic> [Archive and Documentation Center of the
+     <italic>Expresso</italic> newspaper], and based on concepts coming from the work of Mikhail
+    Bakhtin and the Circle, we state the following objectives: (1) to seek possible meanings of the
+    photo and the photo reportage, explaining the dialogic relationships (expression of
+    positionings) that begin in distinct times and spatialities; (2) from there, to recover
+    discursive chains of meanings, taking into consideration that each utterance is a link in the
+    chain of discursive communication, and so responds to previous utterances; (3) and to recognize
+    the accentuations of the ideological signs of resistance, that is, the evaluative emphasis that
+    accompanies them.</p>
+   <p>In the first section, the article recovers Bakhtinian notions that will be mobilized in the
+    analysis, in theoretical and methodological terms, and, in the second, it presents the analysis
+    itself. In the final considerations, the text shows how the paths of analysis and interpretation
+    lead us to recognize the various modes assumed by the discourses of confrontation and resistance
+    in response to domination, violence and power generated by racism and other inequalities and
+    social injustices.</p>
+   <sec sec-type="methods">
+    <title>1 Ideological Sign, Dialogic Relationships and Values. Also: Methodological Notes</title>
+    <p>The Dialogical Discourse Analysis (<xref ref-type="bibr" rid="B8">Brait, 2006</xref>, <xref
+      ref-type="bibr" rid="B9">2008</xref>), anchored in precepts and concepts of the work of
+     Mikhail Bakhtin and the Circle, will be our theoretical-methodological foundation, as
+     previously expressed; besides it offers subsidies for the analysis of verbal-visual utterances,
+     as Brait amply explains in various texts (among others, <xref ref-type="bibr" rid="B10">Brait,
+      2009a</xref>, <xref ref-type="bibr" rid="B11">2009b</xref>, <xref ref-type="bibr" rid="B12"
+      >2010</xref>, <xref ref-type="bibr" rid="B13">2013</xref>). The author explains that the
+     Bakhtinian work presents a theory of language in general, and not just a theory of verbal, oral
+     or written language. Therefore,</p>
+    <disp-quote>
+     <p>(...) the semiotic-philosophical-ideological perspective, precisely the one that will build
+      what Vološinov designates as an ideological sign, (the one which) serves as a foundation for
+      the reading of the visual, of visual culture, even though Vološinov,
+       <italic>apparently</italic>, had not dedicated himself to image (2013, p.46; emphasis in
+       original).<xref ref-type="fn" rid="fn35">12</xref></p>
+    </disp-quote>
+    <p>In this item, however, we only deal with some essential Bakhtinian concepts to be mobilized
+     in the analysis of the photograph entitled <italic>Black Lives Matter</italic> and the photo
+     reportage of which it is part, composed of a brief text and 12 images from the Portuguese
+     newspaper <italic>Expresso</italic> (<xref ref-type="bibr" rid="B18">Fernandes, 2020a</xref>).
+     We start with the notion of <italic>ideological sign</italic>, already mentioned above.
+     Vološinov introduces us to this notion in the first part of <italic>Marxism and the Philosophy
+      of Language</italic>,<xref ref-type="fn" rid="fn36">13</xref> especially in chapters 1 and 2
+     of Part I (1978, pp.17-44), linking it with the science of ideologies (studies on science,
+     literature, religion, morals etc.). Throughout these two chapters, the author shows us how
+     every sign is linked to different fields of ideological creation/creativity, as each of them
+     has its own way of socially orienting itself in reality and refracting it. Later he adds that,
+     although the word is the ideological sign <italic>par excellence</italic>, it is, in principle,
+     neutral; however, it accompanies all everyday communication and all ideological communication,
+     participating in them; thus, it can assume any value and any function in the various
+     scientific, aesthetic, moral, religious spheres... Furthermore, Vološinov recalls that verbal
+     discourses are accompanied by other signs, which also give/add meanings to them, such as facial
+     expression, gesticulation, etc., an important issue to be observed in photography and photo
+     reportage.</p>
+    <p>By pointing out that one of the distinctive aspects of the ideological sign is the
+     “evaluative accentuations that accompanies all content” (1978, p.21),<xref ref-type="fn"
+      rid="fn37">14</xref> the Russian linguist explains that such valuation is linked to the social
+     horizon of an era and a social group, which accentuates and emphasizes those evaluative aspects
+     in their own way, expressing values linked to each sphere of human activity. In fact, the
+     axiological question, the way in which every utterance expresses values through its intonation,
+     is fundamental in the work of the Circle, whether in the texts of Vološinov, Medvedev or
+     Bakhtin. For example, when dealing with discourse in the novel, Mikhail Bakhtin states:</p>
+    <disp-quote>
+     <p>Actual life and historical becoming create within an abstractly unitary national language a
+      multitude of concrete worlds, a multitude of bounded verbal-ideological and social belief
+      systems; within these various systems (identical in the abstract) are elements of language
+      filled with various semantical and <italic>axiological content and each with its own different
+       sound</italic> (<xref ref-type="bibr" rid="B6">Bakhtin, 1981</xref>, p.288; emphasis
+       added).<xref ref-type="fn" rid="fn38">15</xref></p>
+    </disp-quote>
+    <p>If ideological signs sound differently in “a multitude of bounded verbal-ideological and
+     social belief systems,” the production of the meanings of concrete utterances - verbally,
+     visually or verbally-visually constituted - occurs in dialogic relations with other utterances,
+     since the dialogical orientation is constitutive of any discourse, which always meets other
+     discourses in “a living, tension-filled interaction” (<xref ref-type="bibr" rid="B6">Bakhtin,
+      1981</xref>, p.279);<xref ref-type="fn" rid="fn39">16</xref> in this encounter between
+     discourses, positions and values are expressed. In the words of Faraco (2009, p.22):</p>
+    <disp-quote>
+     <p>We live and act, therefore, in a world saturated with values, within which each of our acts
+      is an axiologically responsive gesture in an incessant and continuous process. (...) the
+      self/other relationship and the axiological dimension – will, therefore, be the constant and
+      core axes of Bakhtinian thought and his peers.<xref ref-type="fn" rid="fn40">17</xref></p>
+    </disp-quote>
+    <p>It is the internal dialogicity of the discourse that leads to a responsive and active
+     understanding between the partners of discursive communication: “the understanding of a sign
+     is, after all, an act of reference between the sign apprehended and other, already known signs;
+     in other words, understanding is a <italic>response</italic> to a sign with signs” (<xref
+      ref-type="bibr" rid="B29">Vološinov, 1978</xref>, p.11; emphasis added).<xref ref-type="fn"
+      rid="fn41">18</xref></p>
+    <p>We may also expand this concept and consider that <italic>dialogic relations</italic> are
+     extralinguistic and can occur among texts, whole utterances, an isolated words, or any
+     “phenomena, provided that these phenomena are expressed in some <italic>semiotic</italic>
+     material,” as we will see in the analysis of the photo; in these phenomena, it is possible to
+     hear the others’ voices, as they express positions (<xref ref-type="bibr" rid="B6">Bakhtin,
+      1984</xref>, pp.184-185).<xref ref-type="fn" rid="fn42">19</xref> The various discourses show
+     the positions and values of the subject, a (social) voice among (social) voices, in different
+     areas of activity, expressed in various semiotic materials.</p>
+    <p>All these notions are closely linked: if the ideological sign participates in a given sphere
+     or field of human activity, such an ideological sphere, like every sphere, is linked to a use
+     of language, that is, to a discourse genre: genres, as <xref ref-type="bibr" rid="B5">Bakhtin
+      (2016, p.11)</xref> puts it, are as “multiform” and varied as the spheres of human activity
+     themselves. Each of them dominates “certain definite aspects of reality. Each genre possesses
+     definite principles of selection, definite forms of seeing and conceptualizing reality, and a
+     definite scope and depth of penetration,” in the words of <xref ref-type="bibr" rid="B4"
+      >Bakhtin/Medvedev (1978, p.196)</xref>.<xref ref-type="fn" rid="fn43">20</xref></p>
+    <p>When dealing with genres, in the work <italic>The Formal Method in Literary Scholarship. A
+      Critical Introduction to a Sociological Poetics</italic> (1978, pp.129-141),<xref
+      ref-type="fn" rid="fn44">21</xref> Bakhtin/Medvedev state that genres have a two-fold
+     orientation in reality, an external orientation, i.e.: one facing the outside, the space and
+     real time; and an internal orientation, i.e.: another facing the interior, the thematic
+     content:</p>
+    <disp-quote>
+     <p>In the first place, the work is oriented toward the listener and perceiver, and toward the
+      definite conditions of performance and perception. In the second place, the work is oriented
+      in life, from within, one might say, by its thematic content. Every genre has its own
+      orientation in life, with reference to its events, problems, etc. (<xref ref-type="bibr"
+       rid="B4">Bakhtin/Medvedev, 1978</xref>, p.131).</p>
+    </disp-quote>
+    <p>That is, the <italic>external orientation</italic> of the utterance refers to listeners,
+     conditions of realization and perception: time, space and ideological sphere defined, which is,
+     in our case, the broader context of the photo/photo reportage, of which analysis we present
+     below (<xref ref-type="bibr" rid="B14">Brait, 2012</xref>, p.15); the internal orientation,
+     from within the utterance, is linked to the theme, composition and style (linguistic,
+     enunciative and formal elements), which may suggest a methodology of analysis. However, both
+     orientations are <italic>tensely</italic> articulated and interrelate intimately: between
+     addressee and author, a relationship proper to the ideological sphere in focus is established,
+     “which involves and constitutes the production, circulation and reception of a genre,
+     reassuring its relationship with life...” (<xref ref-type="bibr" rid="B14">Brait, 2012</xref>,
+      p.15).<xref ref-type="fn" rid="fn45">22</xref></p>
+    <p>Well observed, these teachings dialogue with the methodologically grounded order for the
+     study of language proposed by <xref ref-type="bibr" rid="B29">Vološinov (1973,
+      pp.95-96)</xref>.<xref ref-type="fn" rid="fn46">23</xref> The Russian linguist says that we
+     must start from the observation of dialogic interactions among discourses: firstly,
+     interactions with the broader sphere in which the enunciative event is constituted – its
+     historical, social, political, cultural and religious aspects; then the interactions with the
+     narrower sphere, especially the genre in question – in the case of this article, a photo
+     reportage; finally, the analysis should focus on the forms of the language (in correlation with
+     the images, in this case), in its usual linguistic conception. In short, external and internal
+     orientations of the utterance. This order will guide us in the analysis of the tensely
+     articulated and intimately linked temporally and spatially interactions proposed by the photo
+     reportage (and the selected photo).</p>
+   </sec>
+   <sec>
+    <title>3 Verbal-Visual Dialogues. The Black Lives Matter Photo</title>
+    <p>The broader context of the photo reportage was briefly presented at the beginning of the
+     text; but we will return to it later. We will start the analysis by defining and understanding
+     the photo reportage genre itself, of which the chosen photo is part. As part of a whole – the
+     photo reportage <italic>Braços negros entrelaçados com braços brancos. As imagens da
+      manifestação em Lisboa</italic> (<xref ref-type="bibr" rid="B18">Fernandes, 2020a</xref>), the
+     selected photo (<xref ref-type="fig" rid="F9">Figure 1</xref>) is the result of a unique
+     discursive project that produced the newspaper story, a project signed by a historically and
+     culturally contextualized social subject (individual or collective). In this case, the
+     producers of the article are both the photojournalist, <xref ref-type="bibr" rid="B19">José
+      Fernandes (2020b)</xref>, who signs the photo reportage, and the newspaper itself, that
+     published it. The meanings emerge not only from the dialogues that come out from this
+     inseparable set – selected photo/photos from the photo reportage/text, but also from other
+     dialogues, as we will see later.</p>
+    <p><fig id="F9">
+      <label>Figura 1</label>
+      <caption>
+       <title>Black arms intertwined with white arms. The images of the manifest in Lisbon. Photos
+        from the Portuguese paper Expresso, on June 06, 2020 (<xref ref-type="bibr" rid="B18"
+         >Fernandes, 2020a</xref>)</title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf01-en.tif"/>
+     </fig></p>
+    <p>These concrete utterances will be analyzed as discourses, which point to the object to which
+     they refer, to the context, and also to the discourse of the other. Let us remember that
+     dialogic relations are the premise of discursive interaction and, although they belong to
+     discourse, they do not belong to a purely linguistic field; hence the possibility of observing
+     such statements from different dialogical angles that confront them, complement them, agree
+     with them, and disagree with them or not. And they are proposed by the analyst, by the reader,
+     by the addressee in the observation and responsive and active understanding of the utterance,
+     in the meaning making production.</p>
+    <p>As for <italic>discourse genre</italic>, we observe that it is about photos and photo
+     reportage from the journalistic sphere. In a preliminary definition, it would be the set of
+     specialized agencies that have as their objective the citizen, addressee of the communication
+     vehicles, in order to help form opinion. The <italic><xref ref-type="bibr" rid="B17">Dicionário
+       on-line de português</xref></italic> [<italic>Online Dictionary of Portuguese</italic>]<xref
+      ref-type="fn" rid="fn47">24</xref> defines photo reportage as: “Reportage in which photographs
+     constitute the main part, followed only by captions or small explanatory texts”.<xref
+      ref-type="fn" rid="fn48">25</xref> This is exactly what happens in this matter, of which text
+     is transcribed below; however, there are no subtitles in this case.</p>
+    <p>Photo reportage, photojournalism in a series, is now quite common in the presentation of a
+     report on the web, and it constitutes a resource for presenting the news that does not fit in
+     the printed newspaper in the same way. Online material can be accessed by readers at the pace
+     and interest that is convenient for them. Thus, the photo of the arms intertwined is the ninth
+     of the twelve photos in a series that shows the demonstrations against racism and police
+     violence in Lisbon. It is the ninth, but it certainly stands out in relation to the other
+     photos as it is present in the title: <italic>Braços negros entrelaçados com braços brancos. As
+      imagens da manifestação em Lisboa</italic>.</p>
+    <p>As we can see, the <italic>photo reportage</italic> dominates certain aspects of reality
+     giving this reality a certain finalization in its own way: “It is the forms of the utterance,
+     not of the language, that play the most important role in the consciousness and the
+     comprehension of reality” (<xref ref-type="bibr" rid="B4">Bakhtin/Medvedev, 1978</xref>,
+      pp.133).<xref ref-type="fn" rid="fn49">26</xref> Thus, comprehending each image is only
+     possible by considering it as part of the whole, the concrete utterance - text and series of
+     images. The utterance shows the way in which one orients oneself in reality, how one
+     constitutes one’s position in front of this reality, considering the 12 photos, briefly
+     described below, and the text.</p>
+    <p>For a deeper understanding of the genre, it is important to discuss a little more about the
+     conditions of photo reportage production, according to web data, which can be seen in <xref
+      ref-type="fig" rid="F10">Figure 02</xref>. In a liberal economy, the sphere of journalistic
+     activity acquires a commercial logic of a company, a logic of the market. This gives it an
+     ambiguous purpose, insofar as the newspaper aims not only at the information/education of the
+     reader, but at capturing/seducing the largest number of readers as possible. For this reason,
+     the <italic>credibility</italic> of the newspaper is configured as one of the constraints, and
+     this is observed in the invitation to subscribe to the newspaper, combined with the vehicle’s
+     own advertising, in which it is stated: “Informação <italic>credível</italic> onde quer que
+     esteja” [<italic>Credible</italic> information wherever it is] (<xref ref-type="fig" rid="F10"
+      >Figure 2</xref>; emphasis added); as a corollary of this statement, the option to choose the
+     subscription format: “<italic>Expresso</italic> Paper. Subscribe. Receive it comfortably at
+     your home; <italic>Expresso</italic> Digital. Subscribe. Read it firsthand wherever you
+      are.”<xref ref-type="fn" rid="fn50">27</xref> The image of readers in the advertisement
+     corroborates the possibilities of reading the newspaper anywhere, in paper or digital
+     media.</p>
+    <p><fig id="F10">
+      <label>Figure 2</label>
+      <caption>
+       <title>Subscription ad. Source: internet.</title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf02-en.tif"/>
+     </fig></p>
+    <p><fig>
+      <label>Figure 3</label>
+      <caption>
+       <title>App. Source: internet.</title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf03-en.tif"/>
+     </fig></p>
+    <p>This necessity to capture/seduce readers leads us to observe the importance of photography,
+     one of the ways to obtain credibility, as a “portrait” of reality. In fact, like verbal
+     language, photography reflects and refracts reality, as any “ideological product is not itself
+     a part of a reality (natural and social)... – it also in contradistinction to these other
+     phenomena, reflects and refracts another reality outside itself” (<xref ref-type="bibr"
+      rid="B29">Vološinov, 1973</xref>, p.91).<xref ref-type="fn" rid="fn51">28</xref> Through what
+     is conveyed – in this case, text and image – the newspaper always intends to build the
+      <italic>effect of a sense of truth</italic>, which cannot be disregarded in the analysis.</p>
+    <p>Still in terms of the conditions of production and circulation of the utterance, it is
+     important to know a little more about its <italic>closest context</italic> - the newspaper in
+     which the article is inserted. <italic>Expresso</italic> is a Portuguese weekly newspaper, that
+     has been circulating since January 1973, appearing shortly before the Revolução dos Cravos
+     [Carnation Revolution], that took place on April 25, 1974. It appears when Portugal was on the
+     way to democracy, after almost 30 years of dictatorial regime - the Salazar dictatorship, which
+     was characterized by strong democratic repression and censorship of freedom of expression. The
+     context in which it was inaugurated, together with its slogan, <italic>Liberdade Para
+      Pensar</italic> [Freedom to Think] (<xref ref-type="fig" rid="F11">Figure 4</xref>), placed
+     just below the title of the application, points to aspects that may make it hard to be
+     characterized as a conservative newspaper. Weekly released, it is aimed at a reader belonging
+     to the ABC1 classes, middle and upper social strata, living in urban regions, according to
+     information on its website (<italic><xref ref-type="bibr" rid="B24">Perfil do leitor. Expresso.
+       s/d</xref></italic> [Reader’s Profile. <italic>Expresso</italic>. No date]). The title
+     attributed to the photo by GESCO, the newspaper’s documentation center - <italic>Black Lives
+      Matter</italic> - appears on a poster in only one of the photos (photo 4), but in Bakhtin’s
+     words, we may say that it works as a “word-slogan” (or expression-slogan) of the movement,
+     capable of infecting a wide circle for its semantic and expressive impulse, for its axiological
+     overtones and for its practically universal reach (<xref ref-type="bibr" rid="B6">Bakhtin,
+      1981</xref>, p.290).<xref ref-type="fn" rid="fn52">29</xref></p>
+    <p><fig id="F11">
+      <label>Figure 4</label>
+      <caption>
+       <title>La Pasionaria.<xref ref-type="fn" rid="fn53">51</xref></title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf04-en.tif"/>
+     </fig></p>
+    <p>On the <italic>web</italic>,<xref ref-type="fn" rid="fn54">30</xref> we find the way the text
+     appears on the newspaper page: under a photo of the demonstration – photo no. 1, which is not
+     the one with the arms intertwined (<xref ref-type="fig" rid="F9">Figure 1</xref>) – as it shows
+     many people wearing masks carrying posters (<xref ref-type="bibr" rid="B18">Fernandes,
+      2020a</xref>). Although the primary focus of our analysis is that photo in <xref
+      ref-type="fig" rid="F9"><italic>Figure</italic> 1</xref>, before presenting the text, we
+     briefly describe the 12 photos, none of which are captioned. The analysis will make some
+     references to them:</p>
+    <list list-type="order">
+     <list-item>
+      <p>The photo shows part of the demonstration, with many masked protesters carrying banners. In
+       the foreground, a black man carries a banner with the words “20 <italic>Educar</italic>”
+        (<italic>Vim te educar</italic> [I came to educate you]); within the circle that makes up
+       the zero number, a closed fist of fight is raised; a little behind, other banners:
+        “<italic>Alma não tem cor</italic>” [Soul has no color]; “<italic>O racismo é
+        educação</italic>” [Racism is education], among others;</p>
+     </list-item>
+     <list-item>
+      <p>The photo was deleted from the reportage;</p>
+     </list-item>
+     <list-item>
+      <p>The photo shows a black girl, with a microphone in her left hand, her right fist raised,
+       and her left knee on the floor, in front of many banners and posters. Some words stand out,
+       such as “<italic>Fim à violência policial</italic>” [End police violence];</p>
+     </list-item>
+     <list-item>
+      <p>The photo shows an agglomeration of people, many of them waving their banners in the air,
+       several of them in English: “<italic>Quero sonhar com o futuro, não rece(ar)”</italic> [I
+       want to dream about the future, not fear it]; “Marielle Franco present” [Marielle Franco
+       present]; “Black lives matter;” “Dark skin is not a crime;” “We are not our ancestors, we
+       will fuck you up,” ...;</p>
+     </list-item>
+     <list-item>
+      <p>In the fifth photo, we can clearly see the two-story houses of Portuguese blue tiles, which
+       flank the demonstration and only the heads of new protesters holding banners;</p>
+     </list-item>
+     <list-item>
+      <p>The photo was deleted from the reportage;</p>
+     </list-item>
+     <list-item>
+      <p>In the foreground, protesters, mostly black, grab microphones and carry megaphones, quite
+       possibly shouting slogans;</p>
+     </list-item>
+     <list-item>
+      <p>This photo shows the balcony of one of the houses: overlooking the demonstration, one of
+       the dwellers films it with a cell phone, three others applaud;</p>
+     </list-item>
+     <list-item>
+      <p>The photo of the intertwined arms (<italic><xref ref-type="fig" rid="F9">Figura
+        1</xref></italic>);</p>
+     </list-item>
+     <list-item>
+      <p>New banners in this photo carried mainly by black women, with new words: “<italic>Currículo
+        (foto pessoal). Vês a minha cor ou o meu valor?</italic>” [Resumé (personal photo). Do you
+       see my color or my value?]; “<italic>Até quando a minha cor será um crime</italic> [How long
+       will my color be a crime?];</p>
+     </list-item>
+     <list-item>
+      <p>Facing a cloudy blue sky, the bust of a black man (with a mask and cap) raises his right
+       arm with a closed fist;</p>
+     </list-item>
+     <list-item>
+      <p>In front of <italic>Terreiro do Paço</italic> [Palace Ground], which has an old yellow
+       building in the background, an architectural and urban work from the 18th century, a black
+       protester speaks before the crowd of protesters.</p>
+     </list-item>
+    </list>
+    <p>Above the photos, we find the following heading:</p>
+    <disp-quote>
+     <p><italic>Braços negros entrelaçados com braços brancos. As imagens da manifestação em
+       Lisboa</italic></p>
+     <p><italic>06.06.2020 às 22h48</italic> [Black Arms Intertwined with White Arms. Images of the
+      Demonstration in Lisbon June 06, 2020 at 10h48pm]</p>
+    </disp-quote>
+    <p>Below the photos, we find the following text:</p>
+    <disp-quote>
+     <p>About five thousand people were present this Saturday afternoon in the center of Lisbon in a
+      demonstration against racism, against police violence - mainly on black citizens, and in favor
+      of greater social tolerance and inclusion. There were many masks, but social distancing
+      quickly proved impossible to maintain given the amount of people who had been present there.
+      The death of African-American George Floyd under the knee of a policeman was just the latest
+      news to circulate around the world, but there are many stories that remain untold. The fight -
+      in images.<xref ref-type="fn" rid="fn55">31</xref></p>
+    </disp-quote>
+    <p>Even though the photo reportage may be constituted as a unique discursive project, in the
+     analysis we need to deal with each aspect at a time, relating it to the whole. As for the text,
+     the first observation is the observation that it is brief and direct, as befits a photo
+     reportage, and responds to the well-known journalistic lead: what, who, when, where, how and
+     why. We notice that the text contains possible evaluations of the fact based on “<italic>the
+      unity of the real conditions of life</italic> that generate <italic>a community of value
+      judgements</italic>” (<xref ref-type="bibr" rid="B29">Vološinov, 1976</xref>, p.100; emphasis
+     in original).<xref ref-type="fn" rid="fn56">32</xref> Initially, we may say that numbers and
+     quantity play an argumentative role in the text, highlighting the representative force of the
+     protest: “About <italic>five thousand people</italic>...”; “There were <italic>many</italic>
+     masks, but social distancing quickly proved impossible to maintain given <italic>the amount
+      of</italic> people who had been present there” (emphasis added).<xref ref-type="fn" rid="fn57"
+      >33</xref> The evaluations present in the utterance are built on the notion of citizenship, on
+     the very notion of humanity, on the injustice related to the inequality in the treatment of
+     blacks and whites, on the condemnation of racism and police violence – mainly against black
+     citizens. The evaluative aspect also points to the necessity of greater tolerance and better
+     social inclusion, as the text repeatedly states in a dialogic response to the facts that gave
+     rise to the social demonstrations: “<italic>against</italic> racism, <italic>against</italic>
+     police violence - <italic>mainly</italic> on black citizens, and <italic>in favor of</italic>
+     greater social tolerance and inclusion” (emphasis added).</p>
+    <p>The title of the photo reportage <italic>Braços negros entrelaçados com braços brancos. As
+      imagens da manifestação em Lisboa</italic>, if it initially takes up the image of the ninth
+     photo, adds new images to the referenced one. The term “intertwined,” referring to the
+     junction, to the linking of <italic>black</italic> and <italic>white</italic> arms, dialogues
+     coherently with the words of Silvana Inácio, mentioned above, when explaining the way in which
+     the fight takes place in Brazil: “a fight of <italic>all</italic> against racism” (<xref
+      ref-type="bibr" rid="B3">Arruda, 2020</xref>; no italics in the article).<xref ref-type="fn"
+      rid="fn58">34</xref> The addressee, that urban readership of the ABC classes, can still join
+     the newspaper and the protesters in noticing that “The death of African-American George Floyd
+     under the knee of a policeman was <italic>just</italic> the latest news that went around the
+     world, but <italic>there are many stories that remain untold</italic>” (emphasis added).<xref
+      ref-type="fn" rid="fn59">35</xref> In this excerpt, in the first sentence, the
+      <italic>just</italic> – meaning exclusiveness is highlighted, which introduces the information
+     that the death of George Floyd is one of many: “just the latest news to circulate around the
+      world,”<xref ref-type="fn" rid="fn60">36</xref> followed coherently by the sentence that
+     introduces the adversative “but,” of which content prevails: “but there are many stories that
+     remain untold.”<xref ref-type="fn" rid="fn61">37</xref> It is a <italic>double-voiced
+      discourse</italic> with a single orientation, author – the institution newspaper and
+     journalists, photographers, join the characters of the demonstration, they are side by side
+      (<xref ref-type="bibr" rid="B7">Bakhtin, 1984</xref>, p.199).<xref ref-type="fn" rid="fn62"
+      >38</xref> The newspaper is not neutral. “The fight – in images”<xref ref-type="fn" rid="fn63"
+      >39</xref> continues...</p>
+    <p>In interaction with the broad sphere in which the enunciative event is constituted, this
+     photo reportage relates to life, listeners, addressees, readers and, in a way, to the reaction
+     to this reception/perception, in its historical, social, political, cultural, and religious
+     aspects... Let’s see how: the article deals with the demonstrations that took place in Lisbon,
+     after the murder of George Floyd by police, in Minneapolis, on May 25, 2020. The moment is of
+     the covid-19 pandemic, as both the masks in the photo and the text say: “There were many masks,
+     but social distancing quickly proved impossible to maintain given the amount of people who had
+     been present there.”<xref ref-type="fn" rid="fn64">40</xref> In this way, we notice that the
+      <italic>internal orientation</italic> of the utterance is tensely related to the external one:
+     as in a dramatic performance, the characters in the photo of the “arms intertwined” harmonize
+     and stand out for the colors they wear: the black person dresses in black – shirt and cap;
+     white, of light colors. The background shows a part of the five thousand people reported in the
+     text, a crowd that can be seen in the cover photo of the news, and also in several others of
+     the 12 photos. Ethics and aesthetics come together not only in the intertwined arms, but also
+     in the beautiful blue tiles of the townhouses on the street of Lisbon, sensitively shown
+     through the eyes of José Fernandes.</p>
+    <p>Newspapers around the world covered the murder and numerous demonstrations, which still
+     constitute the broader context of the photo reportage. In a dialogue of intense agreement among
+     those demonstrations, this broad context can be observed in several other illustrations in
+     different media, some of which we highlight below. They occurred in different spaces: <xref
+      ref-type="fn" rid="fn65">41</xref></p>
+    <list list-type="simple">
+     <list-item>
+      <p>- Firstly, in the article “Protestos contra a morte de George Floyd pelo mundo nesta
+       sextafeira” [“Protests Against the Death of George Floyd Around the World this Friday”],<xref
+        ref-type="fn" rid="fn66">42</xref> from June 05, 2022, on the <italic>Globo G1 – Mundo
+        portal</italic> [Globo G1 – Portal World], we can observe similar protests that took place
+       in cities such as London, Hamburg, Berlin, Washington, Pretoria, among others. From this
+       report, we highlight two photos that dialogue coherently with the “black arms intertwined
+       with white,” one from London and the other from Pakistan. The first shows the activist Dee
+       Ndlovu speaking in Trafalgar Square in central London, with protesters on one knee in the
+       background with their right fist raised; the second features Democratic Party activists
+       protesting in Karachi, Pakistan, with banners bearing a photo of George Floyd with the words
+        <italic>Let him breathe</italic> and <italic>Oxygen is surplus</italic>. The activist in the
+       center, dressed in white, makes the gesture of fight, with his right fist raised; the
+       protester in front of him makes the same gesture.</p>
+     </list-item>
+     <list-item>
+      <p>- Secondly, we can stablish a dialogue with the article by Globo G1, SP, from June 07,
+        2020,<xref ref-type="fn" rid="fn67">43</xref> in Brazil, which is part of a larger report
+       covering demonstrations against racism, and also against the Bolsonaro government in
+        <italic>Largo da Batata</italic> [Potato Square], in São Paulo. The general headline
+        <italic>Manifestantes distribuem flores para a polícia durante o protesto contra Bolsonaro
+        em São Paulo</italic> [Protesters hand out flowers to police during the protest against
+       Bolsonaro in São Paulo] is followed by a video showing such action. The text of the article
+       informs that the distribution of flowers to the police was inspired by the <italic>Revolução
+        dos Cravos</italic>, in Portugal (1974), and promoted by students from three private schools
+       in the municipality (Santa Cruz, Vera Cruz and Bandeirantes), symbolizing a moment of union,
+       without conflict or riot. Next, the report deals more closely with the demonstration
+       organized by “black movements, organized supporters of the four big football clubs in São
+       Paulo, and by social movements that are part of the ‘<italic>Frente Povo Sem
+       Medo</italic>’[People without Fear Front]”.<xref ref-type="fn" rid="fn68">44</xref> The
+       protest not only recalls the murder of George Floyd, in the United States, but also the
+       murder of the boy “João Pedro, who died after being shot during a joint operation by the
+       Civil and Federal police, on May 18, 2020, in São Gonçalo, Metropolitan Region of Rio de
+        Janeiro.”<xref ref-type="fn" rid="fn69">45</xref> Below, there is another photo of the
+       demonstration, with the caption: “Black protesters kneel in <italic>Largo da Batata</italic>,
+       in SP, and reproduce the gesture that is being reproduced all over the world, in protest
+       against the murder of black people.”<xref ref-type="fn" rid="fn70">46</xref> As can be seen,
+       the title, the caption of the photo and the images once again express the movement of shared
+       solidarity and repudiation of racism represented by the murders of Floyd and the boy João
+       Pedro.</p>
+     </list-item>
+     <list-item>
+      <p>- New dialogic relations of agreement can be observed in the other photos of the same photo
+       reportage in the newspaper <italic>Expresso</italic> highlighted initially. The image of
+       protesters kneeling down one knee and with their right fist raised in a fighting position,
+       again shows solidarity and the sharing of emotions (indignation) in the fight against racism.
+       It is important to highlight the third photo (3), in which, in the foreground, we see a girl
+       kneeling on one knee, with one hand holding the microphone and with the other raised in a
+       fighting position in the middle of the street, while, in the background, there are the
+       protesters; and also the eleventh photo (11), which gives the reader an idea of the
+       protester’s determination when making the gesture of the raised fist.</p>
+     </list-item>
+    </list>
+    <p>In a globalized world, these demonstrations dialogue coherently, sharing similar values of
+     repudiation of racism: “<italic>Social evaluation</italic> is that common denominator of the
+     content and form of every element of the construction” (<xref ref-type="bibr" rid="B4"
+      >Bakhtin/Medvedev, 1978</xref>, p.140; emphasis added).<xref ref-type="fn" rid="fn71"
+      >47</xref> Through the same gestures, which become ideological signs: kneeling, but with only
+     one knee on the ground, the protesters - here and there -symbolize compassion, solidarity and
+     even reverence towards the other who was brutally murdered under the knees of the police.
+     Protesters express themselves morally against racism. The raised right arm and the closed fist
+     become symbols of the fight against the suffocation of a population that does not have their
+     rightful space guaranteed in society. In other words, that demonstration reported in the
+     Portuguese newspaper is not unique, it is part of a global whole, which had different
+     prominence in the distinct media.</p>
+    <p>The photo on the opening page of the article is not the one I selected, though. Its title -
+      <italic>Braços negros entrelaçados com braços brancos</italic> [Black Arms Intertwined with
+     White Arms], undoubtedly refers to it. To go deeper in the understanding, it is important to
+     pay attention to the final words: <italic>A luta - em imagens</italic> [The fight - in images].
+     The intimate and tense correlation among time, space and the ideological sphere runs deep, and
+     tells us more about it. The black and white arms are not only intertwined, united, but in a
+     fighting position, in a gesture that does not end in itself. About gestures, Vološinov, in the
+     essay “Discourse in Life and Discourse in Art (Concerning Sociological Poetics),”<xref
+      ref-type="fn" rid="fn72">48</xref> says:</p>
+    <disp-quote>
+     <p>(...) <italic>Intonation and gesture are active and objective by tendency.</italic> They not
+      only express the passive mental state of the speaker but also always have embedded in them a
+      living, forceful relation with the external world and with the social milieu-enemies, friends,
+      allies. When a person intones and gesticulates, he assumes an active social position with
+      respect to certain specific values, and this position is conditioned by the very bases of his
+      social being. It is precisely this objective and sociological, and not subjective and
+      psychological, aspect of intonation and gesture that should interest theorists of the various
+      relevant arts, inasmuch as it is here that reside forces in the arts that are responsible for
+      aesthetic creativity and that devise and organize artistic form (1976, p.104; emphasis in
+      original).</p>
+    </disp-quote>
+    <p>Observing the same gesture in other photos of demonstrations around the world, we see that
+     there is a kind of dialogue that is not only spatial among all those protests, but also
+     temporal; that is, it is an ideological sign that historically expresses values of resistance.
+     The raised fist gesture was popularized during the Spanish Civil War from 1936 to 1939, when it
+     was used by the Republican faction as a salute and was known as the “Popular Front Salute” or
+     “Anti-Fascist Salute.” This gesture can be seen in a well-known photo of <italic>La
+      Pasionaria</italic> (<xref ref-type="fig" rid="F11">Figure 4</xref>), a Spanish communist
+     revolutionary leader and politician, who played an important role in the Spanish Civil War by
+     inciting the Republicans against General Franco’s troops.</p>
+    <p>The right fist salute later spread among leftists and anti-fascists across Europe. In one of
+     the photos that illustrates the entry on the invasion of Iraq on Wikipedia, we see a white
+     American lady making the raised fist gesture in the middle of the crowd and we read:<xref
+      ref-type="fn" rid="fn73">49</xref> “In February 2003, one of the biggest antiwar protests took
+     place in San Francisco, California, in the United States. Between 60,000 and 200,000 people
+     demonstrated against the conflict.”<xref ref-type="fn" rid="fn74">50</xref></p>
+    <p>The same gesture is repeated by the American runners John Carlos and Tommie Smith, when
+     receiving the gold and bronze medals respectively at the Olympics in Mexico, on October 16,
+     1968 (<italic><xref ref-type="fig" rid="F12">Figure 5</xref></italic>): <xref ref-type="fn"
+      rid="fn75">54</xref> during the execution of the American anthem, they lower their heads and
+     raise their fists, as a protest against racist discrimination and the absence of civil rights
+     for all in the United States, in a “silence that becomes deafening,”<xref ref-type="fn"
+      rid="fn76">55</xref> says the article. The athletes’ gesture recalled the gesture of the Black
+     Panthers Party militants, who acted between 1966 and 1982, whose agenda was the fight for civil
+     rights, denouncing all sorts of discrimination and police violence against blacks, and
+     defending the self-determination of North American blacks. The photo in <italic><xref
+       ref-type="fig" rid="F13">figure 6</xref></italic> shows us another aspect in the
+     dissemination of the gesture of resistance. This is a scene in a teenager’s room from a 2021
+     television series (Clickbait); in reality, it is just an example of how the gesture has spread,
+     but always expressing resistance from the weakest in relation to power and domination. Other
+     films and series have placed the gesture as a demonstration of resistance.<xref ref-type="fn"
+      rid="fn77">56</xref></p>
+    <p><fig id="F12">
+      <label>Figure 5</label>
+      <caption>
+       <title>John Carlos and Tommie Smith, Mexico Olympics, 1968.<xref ref-type="fn" rid="fn78"
+         >52</xref></title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf05-en.tif"/>
+     </fig></p>
+    <p><fig id="F13">
+      <label>Figure 6</label>
+      <caption>
+       <title>TV Series (Clickbait).<xref ref-type="fn" rid="fn79">53</xref></title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf06-en.tif"/>
+      <attrib>Source: Pesonal file.</attrib>
+     </fig></p>
+    <p>Other examples can also be seen in the photos in <xref ref-type="fig" rid="F14">Figures
+      7</xref>, <xref ref-type="fig" rid="F14">8</xref>, <xref ref-type="fig" rid="F15">9</xref> and
+      <xref ref-type="fig" rid="F16">10</xref>, from the 2020 Retrospective held by <italic>Rede
+      Globo de Televisão</italic> [Globo TV Network].<xref ref-type="fn" rid="fn80">57</xref> From
+     the knowledge acquired in these dialogues, the gesture of the photo in
+      <italic>Expresso</italic> newspaper gains new shades of meanings - objective and sociological
+     - enriching itself, as the arms that intertwine show the union and coherence to the already
+     long fight in favor of social equality; and, as we have already stated, they become ideological
+     signs of the fight against racism. The echo of past social fights against social exclusion and
+     in favor of equality among all citizens; fights in favor of peace and against violence is heard
+     and repeated through the gestures of fight: it is one more fight to be fought, but it is also
+     the continuity of other fights already fought and that still need to be won. The gesture of the
+     demonstrators kneeling on one knee with their hands raised in a fighting position becomes the
+     ideological sign of the fight for equal rights for all, an ideological phenomenon given in “the
+     movements of the body.” (<xref ref-type="bibr" rid="B29">Vološinov, 1973, p.11</xref>)<xref
+      ref-type="fn" rid="fn81">58</xref></p>
+    <p><fig id="F14">
+      <label>Figures 7 and 8</label>
+      <caption>
+       <title>Manifest in New York after G. Floyd assassination.</title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf07-en.tif"/>
+     </fig></p>
+    <p><fig id="F15">
+      <label>Figure 9</label>
+      <caption>
+       <title>Manifest in New York after G. Floyd assassination.</title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf08-en.tif"/>
+     </fig></p>
+    <p><fig id="F16">
+      <label>Figure 10</label>
+      <caption>
+       <title>Demonstration in front of a supermarket in São Paulo, where a black man was
+        assassinated (Nov. 20, 2020, Dia da Consciência Negra [Black Consciousness Holiday])</title>
+      </caption>
+      <graphic xlink:href="2176-4573-bak-p59610-gf09-en.tif"/>
+     </fig></p>
+    <p>We also draw attention to the connection between the photo in <italic><xref ref-type="fig"
+       rid="F15">Figure 9</xref></italic> and that of the intertwined arms (<xref ref-type="fig"
+      rid="F9">Figure 1</xref>): both echo Article 1 of the Universal <xref ref-type="bibr"
+      rid="B16">Declaration of Human Rights (1948)</xref>, especially in its beginning, “all human
+     beings,” and in the expression “spirit of brotherhood.”<xref ref-type="fn" rid="fn82">59</xref>
+     If, on the one hand, all the concrete statements that we present coherently dialogue with each
+     other, on the other hand, they are social voices that vehemently and indignantly dialogue
+     contrary to the situation that generated each of the demonstrations. And this reminds us of
+     Bakhtin’s words in the essay that deals with the text in linguistics, philology, and other
+     human sciences, stating that feelings also dialogue: <xref ref-type="fn" rid="fn83">60</xref>
+     “With respect to a person, love, hatred, pity, tenderness, and emotions in general [the
+     indignation, we add] are always dialogic in some measure.” (1986, p.113)<xref ref-type="fn"
+      rid="fn84">61</xref></p>
+    <p>Finally, the social appreciation expressed in the photo reportage shows the shared character
+     of the evaluations, corroborated by the discursive chains that we surveyed: and here we can
+     reaffirm that the newspaper - as an institution -, and the protesters share the same
+     evaluation, expressed in the choice of the title of the article and in the actual sense of
+     “fight” portrayed in the twelve images of the photo report. The analysis could continue,
+     perhaps with the proposition of new dialogues that deepen the reading of this concrete
+     statement, as we respond to the readings with our responsive-active understanding, positioning
+     ourselves before the other, and before society.</p>
+   </sec>
+   <sec sec-type="conclusions">
+    <title>Final Remarks</title>
+    <p>In this text, we aimed to describe, analyze, and interpret the photo reportage of which title
+     refers to the photo of “arms intertwined” (<xref ref-type="fig" rid="F9">Figure 1</xref>), from
+     the Portuguese newspaper <italic>Expresso</italic>, through Dialogical Discourse Analysis.
+     Notions such as ideological signs, dialogic relationships and chains of utterances allowed us
+     to advance in understanding the meanings of the photo and the photojournalism. Starting from
+     the way in which the genre was organized in its internal and external orientations, the
+     analysis allowed us to broaden the perception and understanding of texts and images, taken as
+     discourses, which point to relevant linguistic and extralinguistic dialogic relations; and to
+     highlight the importance of the broader and closer context in reading and understanding this
+     material from the journalistic sphere, insofar as texts and images shed lights on the analyzed
+     text, adding new meanings to it.</p>
+    <p>The valuations present in the utterances - photos and verbal text, were considered in the
+     dialogical relationships that emerge from the chains of utterances raised by them. Temporally
+     and spatially, demonstrations around the world shared values of equality, dignity, and respect
+     for the other; in different times and spaces, the raised fist gesture was understood as an
+     ideological sign of the fight for equal rights for all, and especially against racism. The
+     analysis even showed us the historicity of the resistance gesture, an ideological sign
+     disseminated around the world at least since the Spanish Civil War.</p>
+    <p>In 1970, Gilberto <xref ref-type="bibr" rid="B21">Gil published, in <italic>Pasquim</italic>
+      [Baloney] from August 19 to 25, 1970</xref>, a text he called “O verbo tropicalista: Recuso +
+     Aceito = Receito” [“The tropicalist Verb: Refuse + Accept = Reject”], refusing an award given
+     to him by Museu da Imagem e do Som [Museum of Image and Sound] for his song “Aquele abraço”
+     [“Big Hug to You”]. It stated, among other things:</p>
+    <disp-quote>
+     <p>And let it be clear to those who criticize me and my beard that “Aquele Abraço” does not
+      mean that I have “regenerated,” that I have become “a good black man singing samba in Carnival
+      parades” as they want all blacks, who really “know where they belong,” to be. I don’t know
+      where I belong, and I belong nowhere; I am no longer serving the white masters’ table nor
+      mourning in the slave quarter they are turning Brazil into.<xref ref-type="fn" rid="fn85"
+       >62</xref></p>
+    </disp-quote>
+    <p>We know that little has changed in relation to the “slave quarters” in which the “white
+     masters” would be (still are?) transforming Brazil at that moment. In the doctoral thesis in
+     which <xref ref-type="bibr" rid="B27">Rodrigues (2021, p.203)</xref> analyzed the identity of
+     black Brazilian women, the authoress attests that “[the] relationships between these groups [of
+     blacks and whites] are vertical, crossed by discourses of domination, violence and
+      hostility.”<xref ref-type="fn" rid="fn86">63</xref> However, texts such as this photo
+     reportage and, above all, the dialogues against racism provoked by the murder of George Floyd
+     and demonstrated in the analysis of discursive chains show the constitution of an ideological
+     sign of resistance, indicating that “the fight continues...”</p>
+   </sec>
+  </body>
+  <back>
+   <sec sec-type="data-availability" specific-use="data-available-upon-request">
+    <label>Research Data and Other Materials Availability</label>
+    <p>The contents underlying the research text are included in the manuscript.</p>
+   </sec>
+   <ack>
+    <title>Ackhowledgement</title>
+    <p>This article, one of the fruits of my postdoctoral research, brings together many other
+     voices that do not appear here and to whom I am very grateful. In particular, however, I want
+     to name three of them: Lucas Nascimento Silva, who invited me to give a lecture at Grupo
+     Dialógicos [the Dialógicos Group] (UEFS, BA), which was later transformed into this text; Beth
+     Brait, who urged me to present the work to her post-graduate classes, to debate and dialogue
+     with students and colleagues, and to write the article; finally, Paulo Rogério Stella, who read
+     and commented on the text before submission. Finally, I thank PUC-SP for the postdoctoral
+     opportunity. Thank you all so much!</p>
+   </ack>
+   <fn-group>
+    <fn fn-type="other">
+     <p><bold>Reviews</bold></p>
+     <p>Due to the commitment assumed by <italic>Bakhtiniana.</italic> Revista de Estudos do
+      Discurso [Bakhtiniana. Journal of Discourse Studies] to Open Science, this journal only
+      publishes reviews that have been authorized by all involved.</p>
+    </fn>
+    <fn fn-type="other">
+     <p><italic>Translated</italic> by Paulo Rogério Stella – <email>prstella@gmail.com</email></p>
+    </fn>
+    <fn fn-type="other" id="fn24">
+     <label>1</label>
+     <p>Available at: &lt;<ext-link ext-link-type="uri"
+       xlink:href="https://www.ohchr.org/sites/default/files/UDHR/Documents/UDHR_Translations/eng.pdf"
+       >https://www.ohchr.org/sites/default/files/UDHR/Documents/UDHR_Translations/eng.pdf</ext-link>&gt;.
+      Access on November, 02, 2022.</p>
+    </fn>
+    <fn fn-type="other" id="fn25">
+     <label>2</label>
+     <p>BAKHTIN, M. The Problem of the Text in Linguistics, Philology and the Human Sciences: An
+      Experiment in Philosophical Analysis. In: BAKHTIN, M. <italic>Speech Genres &amp; Other Late
+       Essays</italic>. Translated by Vern W. McGee and Edited by Caryl Emerson and Michael
+      Holquist. Austin: University of Texas Press, 1986, p.113.</p>
+    </fn>
+    <fn fn-type="other" id="fn26">
+     <label>3</label>
+     <p>In Portuguese: “é uma forma sistemática de discriminação que tem a raça como fundamento, e
+      que se manifesta por meio de práticas conscientes ou inconscientes que culminam em
+      desvantagens ou privilégios para indivíduos, a depender do grupo racial ao qual
+      pertençam.”</p>
+    </fn>
+    <fn fn-type="other" id="fn27">
+     <label>4</label>
+     <p>In January of 2022, <italic>Folha de S. Paulo</italic> offered a debate space about
+      racism/structural racism based on the article “Racismo de negros contra brancos ganha força
+      com identitarismo” [“Racism of Blacks Against Whites Becomes Stronger with the
+      Identitarianism”], written by the novel writer and anthropologist Antonio Risério. Among other
+      articles, according to an interview by Samuel Santana Vida (re)published in Portal Galèdes
+      (acc. <xref ref-type="bibr" rid="B20">Galf, 2021</xref>).</p>
+    </fn>
+    <fn fn-type="other" id="fn28">
+     <label>5</label>
+     <p>In Portuguese: “Fica-se com a impressão de que as pessoas brancas não estão interessadas em
+      ouvir o que as pessoas negras têm a dizer sobre racismo.”</p>
+    </fn>
+    <fn fn-type="other" id="fn29">
+     <label>6</label>
+     <p>In Portuguese: “visão alargada da identidade portuguesa.”</p>
+    </fn>
+    <fn fn-type="other" id="fn30">
+     <label>7</label>
+     <p>In Portuguese: “Quando olhamos para a violência policial, percebemos que há a síndrome da
+      farda, porque a maioria das agressões físicas contra pessoas negras, em Portugal, são
+      cometidas por pessoas fardadas, sejam elas policiais ou seguranças de empresas
+      particulares.”</p>
+    </fn>
+    <fn fn-type="other" id="fn31">
+     <label>8</label>
+     <p>In Brazilian Portuguese <italic>Zumbido</italic> means more than the buzzing sound as it
+      contains in itself the word <italic>Zumbi</italic>, the name of a black slave who resisted
+      slavery and built a getaway place for escaping slaves. He is considered a hero in the fight
+      for freedom.</p>
+    </fn>
+    <fn fn-type="other" id="fn32">
+     <label>9</label>
+     <p>In Portuguese: “<italic>Black Lives Matter</italic> deu visibilidade, mas a nossa luta é
+      muito mais antiga, pela existência como seres humanos, pelo direito de viver e sair na rua sem
+      ser alvejado.”</p>
+    </fn>
+    <fn fn-type="other" id="fn33">
+     <label>10</label>
+     <p>BAKHTIN, M. /MEDVEDEV, P. N. <italic>The Formal Method in Literary Scholarship</italic>. A
+      Critical Introduction to Sociological Poetics. Baltimore/London: Johns Hopkins University
+      Press, 1978 [1928].</p>
+    </fn>
+    <fn fn-type="other" id="fn34">
+     <label>11</label>
+     <p>VOLOŠINOV, V. N. <italic>Marxism and the Philosophy of Language</italic>. Trad. Ladislav
+      Matejka and R. Titunik. Translator’s Preface. Cambridge: Harvard University Press, 1973.</p>
+    </fn>
+    <fn fn-type="other" id="fn35">
+     <label>12</label>
+     <p>In Portuguese: “(...) a perspectiva semiótico-filosófica-ideológica, justamente a que vai
+      construir o que Voloshinov designa como signo ideológico, (a que) serve de fundamento para a
+      leitura do visual, da cultura visual, ainda que Voloshinov, <italic>aparentemente</italic>,
+      não tenha se dedicado à imagem.”</p>
+    </fn>
+    <fn fn-type="other" id="fn36">
+     <label>13</label>
+     <p>For reference, see footnote 11.</p>
+    </fn>
+    <fn fn-type="other" id="fn37">
+     <label>14</label>
+     <p>For reference, see footnote 11.</p>
+    </fn>
+    <fn fn-type="other" id="fn38">
+     <label>15</label>
+     <p>BAKHTIN, M. M. Discourse in the Novel. In: BAKHTIN, M. <italic>The Dialogic
+       Imagination</italic>: Four Essays. Translated by Caryl Emerson and Michael Holquist. Austin:
+      University of Texas Press, 1981.</p>
+    </fn>
+    <fn fn-type="other" id="fn39">
+     <label>16</label>
+     <p>For reference, see footnote 15.</p>
+    </fn>
+    <fn fn-type="other" id="fn40">
+     <label>17</label>
+     <p>In Portuguese: “Vivemos e agimos, portanto, num mundo saturado de valores, no interior do
+      qual cada um dos nossos atos é um gesto axiologicamente responsivo num processo incessante e
+      contínuo.” “... a relação eu/outro e a dimensão axiológica – serão, portanto, os eixos
+      constantes e nucleares do pensamento bakhtiniano e seus pares.”</p>
+    </fn>
+    <fn fn-type="other" id="fn41">
+     <label>18</label>
+     <p>For reference, see footnote 11.</p>
+    </fn>
+    <fn fn-type="other" id="fn42">
+     <label>19</label>
+     <p>BAKHTIN, M. <italic>Problems of Dostoevsky’s Poetics</italic>. 8th printing. Translated by
+      Caryl Emerson. Minneapolis, MN, University of Minnesota Press, 1984.</p>
+    </fn>
+    <fn fn-type="other" id="fn43">
+     <label>20</label>
+     <p>For reference, see footnote 10.</p>
+    </fn>
+    <fn fn-type="other" id="fn44">
+     <label>21</label>
+     <p>For reference, see footnote 10.</p>
+    </fn>
+    <fn fn-type="other" id="fn45">
+     <label>22</label>
+     <p>In Portuguese: “que envolve e constitui a produção, circulação e recepção de um gênero,
+      pontuando sua relação com a vida...”</p>
+    </fn>
+    <fn fn-type="other" id="fn46">
+     <label>23</label>
+     <p>For reference, see footnote 11.</p>
+    </fn>
+    <fn fn-type="other" id="fn47">
+     <label>24</label>
+     <p><ext-link ext-link-type="uri" xlink:href="https://www.dicio.com.br/fotorreportagem/"
+       >https://www.dicio.com.br/fotorreportagem/</ext-link></p>
+    </fn>
+    <fn fn-type="other" id="fn48">
+     <label>25</label>
+     <p>In Portuguese: “Reportagem em que as fotografias constituem a parte principal, acompanhadas
+      apenas de legendas ou pequeno texto explicativo.”</p>
+    </fn>
+    <fn fn-type="other" id="fn49">
+     <label>26</label>
+     <p>For reference, see footnote 10.</p>
+    </fn>
+    <fn fn-type="other" id="fn50">
+     <label>27</label>
+     <p>In Portuguese: “Expresso Papel. Subscrever. Receba comodamente em sua casa; Expresso
+      Digital. Subscrever. Leia em primeira mão onde quer que esteja.”</p>
+    </fn>
+    <fn fn-type="other" id="fn51">
+     <label>28</label>
+     <p>For reference, see footnote 11.</p>
+    </fn>
+    <fn fn-type="other" id="fn52">
+     <label>29</label>
+     <p>For reference, see footnote 15.</p>
+    </fn>
+    <fn fn-type="other" id="fn53">
+     <label>30</label>
+     <p><italic>Expresso</italic>, June 06, 2020. <ext-link ext-link-type="uri"
+       xlink:href="https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa"
+       >https://expresso.pt/sociedade/2020-06-06-Bracos-negros-entrelacados-com-bracos-brancos.-As-imagens-da-manifestacao-em-Lisboa</ext-link></p>
+    </fn>
+    <fn fn-type="other" id="fn54">
+     <label>31</label>
+     <p>In Portuguese: “Cerca de cinco mil pessoas estiveram presentes na tarde deste sábado no
+      centro de Lisboa numa manifestação contra o racismo, contra a violência policial -
+      principalmente sobre os cidadãos negros, e a favor de uma maior tolerância e inclusão sociais.
+      Houve muitas máscaras, mas o distanciamento social rapidamente se revelou impossível de manter
+      dada a quantidade de pessoas que acabaram por comparecer. A morte do afroamericano George
+      Floyd sob o joelho de um polícia foi apenas a última notícia que correu mundo, mas há muitas
+      histórias que continuam por contar. A luta - em imagens.”</p>
+    </fn>
+    <fn fn-type="other" id="fn55">
+     <label>32</label>
+     <p>VOLOŠINOV, V. N. Discourse in Life and Discourse in Art (Concerning Sociological Poetics).
+       <italic>In</italic>: VOLOŠINOV, V. N. <italic>Freudianism.</italic> A Marxist Critique.
+      Translated by I. R. Titunik. Edited in collaboration with Neal H. Bruss. New York: Academic
+      Press, 1976 [1926].</p>
+    </fn>
+    <fn fn-type="other" id="fn56">
+     <label>33</label>
+     <p>In Portuguese: “Cerca de cinco mil pessoas estiveram presentes;” “contra o racismo, contra a
+      violência policial - principalmente sobre os cidadãos negros, e a favor de uma maior
+      tolerância e inclusão sociais.”</p>
+    </fn>
+    <fn fn-type="other" id="fn57">
+     <label>34</label>
+     <p>In Portuguese: “uma luta de todos contra o racismo”</p>
+    </fn>
+    <fn fn-type="other" id="fn58">
+     <label>35</label>
+     <p>In Portuguese: última notícia que correu mundo, mas há muitas histórias que continuam por
+      contar.”</p>
+    </fn>
+    <fn fn-type="other" id="fn59">
+     <label>36</label>
+     <p>In Portuguese: “apenas a última notícia que correu mundo.”</p>
+    </fn>
+    <fn fn-type="other" id="fn60">
+     <label>37</label>
+     <p>In Portuguese: “há muitas histórias que continuam por contar.”</p>
+    </fn>
+    <fn fn-type="other" id="fn61">
+     <label>38</label>
+     <p>For reference, see footnote 19.</p>
+    </fn>
+    <fn fn-type="other" id="fn62">
+     <label>39</label>
+     <p>In Portuguese: “A luta – em imagens.”</p>
+    </fn>
+    <fn fn-type="other" id="fn63">
+     <label>40</label>
+     <p>In Portuguese: “Houve muitas máscaras, mas o distanciamento social rapidamente se revelou
+      impossível de manter dada a quantidade de pessoas que acabaram por comparecer.”</p>
+    </fn>
+    <fn fn-type="other" id="fn64">
+     <label>41</label>
+     <p>The selected/mentioned images come from the portal <italic>Globo G1</italic>, linked to
+       <italic>Grupo Globo</italic> [Globo Group], a Brazilian media and communications holding. Our
+      interest in dealing with these images is solely do show the dialogue established with the
+      photo reportage and the photo in analysis, i.e.: we did not investigate the newspapers or
+      groups’ positionings in the years.</p>
+    </fn>
+    <fn fn-type="other" id="fn65">
+     <label>42</label>
+     <p><ext-link ext-link-type="uri"
+       xlink:href="https://g1.globo.com/mundo/noticia/2020/06/05/protestos-contra-a-morte-de-george-floyd-pelo-mundo-nesta-sexta-feira-5-fotos.ghtml"
+       >https://g1.globo.com/mundo/noticia/2020/06/05/protestos-contra-a-morte-de-george-floyd-pelo-mundo-nesta-sexta-feira-5-fotos.ghtml</ext-link>.
+      Last access: June 25, 2022.</p>
+    </fn>
+    <fn fn-type="other" id="fn66">
+     <label>43</label>
+     <p>Protesters demonstrating against Bolsonaro, racism, and in favor of democracy in São Paulo
+       <ext-link ext-link-type="uri"
+       xlink:href="https://g1.globo.com/sp/sao-paulo/noticia/2020/06/07/manifestantes-distribuem-flores-para-a-policia-durante-protesto-contra-bolsonaro-em-sao-paulo.ghtml"
+       >https://g1.globo.com/sp/sao-paulo/noticia/2020/06/07/manifestantes-distribuem-flores-para-a-policia-durante-protesto-contra-bolsonaro-em-sao-paulo.ghtml</ext-link>
+      .A. Last access: June 25, 2022.</p>
+    </fn>
+    <fn fn-type="other" id="fn67">
+     <label>44</label>
+     <p>In Portuguese: “movimentos negros, torcidas organizadas dos quatro grandes clubes de São
+      Paulo e por movimentos sociais integrantes da ‘Frente Povo Sem Medo.’”</p>
+    </fn>
+    <fn fn-type="other" id="fn68">
+     <label>45</label>
+     <p>In Portuguese: “João Pedro, que morreu após ser baleado durante uma operação conjunta das
+      polícias Civil e Federal, em 18-05-2020, em São Gonçalo, Região metropolitana do Rio de
+      Janeiro.”</p>
+    </fn>
+    <fn fn-type="other" id="fn69">
+     <label>46</label>
+     <p>In Portuguese: “Manifestantes negros ajoelham no Largo da Batata, em SP, e reproduzem o
+      gesto que está sendo reproduzido no mundo inteiro, em protesto contra o assassinato de
+      negros.”</p>
+    </fn>
+    <fn fn-type="other" id="fn70">
+     <label>47</label>
+     <p>For reference, see footnote 10.</p>
+    </fn>
+    <fn fn-type="other" id="fn71">
+     <label>48</label>
+     <p>For reference, see footnote 32.</p>
+    </fn>
+    <fn fn-type="other" id="fn72">
+     <label>49</label>
+     <p><ext-link ext-link-type="uri"
+       xlink:href="https://pt.wikipedia.org/wiki/Invas%C3%A3o_do_Iraque_em_2003#/media/Ficheiro:Raised_Fist_at_anti war_demo.jpg"
+       >https://pt.wikipedia.org/wiki/Invas%C3%A3o_do_Iraque_em_2003#/media/Ficheiro:Raised_Fist_at_anti
+       war_demo.jpg</ext-link>. Last access: April 07, 2022.</p>
+    </fn>
+    <fn fn-type="other" id="fn73">
+     <label>50</label>
+     <p>In Portuguese: “Em fevereiro de 2003, ocorreu em São Francisco, Califórnia, um dos maiores
+      protestos antiguerra nos Estados Unidos. Entre 60.000 e 200.000 pessoas se manifestaram contra
+      o conflito.”</p>
+    </fn>
+    <fn fn-type="other" id="fn74">
+     <label>51</label>
+     <p>Source: <ext-link ext-link-type="uri"
+       xlink:href="https://brasildelonge.com/tag/la-pasionaria/"
+       >https://brasildelonge.com/tag/la-pasionaria/</ext-link></p>
+    </fn>
+    <fn fn-type="other" id="fn75">
+     <label>52</label>
+     <p>Source: <ext-link ext-link-type="uri"
+       xlink:href="https://commons.wikimedia.org/wiki/File:John_Carlos,_Tommie_Smith,_Peter_Norman_1968cr.jpg"
+       >https://commons.wikimedia.org/wiki/File:John_Carlos,_Tommie_Smith,_Peter_Norman_1968cr.jpg</ext-link></p>
+    </fn>
+    <fn fn-type="other" id="fn76">
+     <label>53</label>
+     <p><ext-link ext-link-type="uri" xlink:href="https://www.netflix.com/br/title/80991754"
+       >https://www.netflix.com/br/title/80991754</ext-link></p>
+    </fn>
+    <fn fn-type="other" id="fn77">
+     <label>54</label>
+     <p>The gesture that turned out to be one of the symbols of fight against racism in the US.
+       <ext-link ext-link-type="uri"
+       xlink:href="https://horadopovo.com.br/o-gesto-que-se-tornou-um-dos-simbolos-da-luta-contra-o-racismo-nos-estados-unidos/"
+       >https://horadopovo.com.br/o-gesto-que-se-tornou-um-dos-simbolos-da-luta-contra-o-racismo-nos-estados-unidos/</ext-link>.
+      Last access: April, 2022.</p>
+    </fn>
+    <fn fn-type="other" id="fn78">
+     <label>55</label>
+     <p>In Portuguese: “silêncio que se torna ensurdecedor.”</p>
+    </fn>
+    <fn fn-type="other" id="fn79">
+     <label>56</label>
+     <p>Just another example, the movie <italic>Samaritain</italic>, 2022 (Director: Julius Avery;
+      Amazon Studios, United Artists Released).</p>
+    </fn>
+    <fn fn-type="other" id="fn80">
+     <label>57</label>
+     <p>The photos no. 7, 8, 9 e 10 belong to the personal file of the authoress (TV).</p>
+    </fn>
+    <fn fn-type="other" id="fn81">
+     <label>58</label>
+     <p>For reference, see footnote 11.</p>
+    </fn>
+    <fn fn-type="other" id="fn82">
+     <label>59</label>
+     <p>For reference, see footnote 1.</p>
+    </fn>
+    <fn fn-type="other" id="fn83">
+     <label>60</label>
+     <p>For reference, see footnote 2.</p>
+    </fn>
+    <fn fn-type="other" id="fn84">
+     <label>61</label>
+     <p>In reality, the rejection of racism should only be rational, but at least since <xref
+       ref-type="bibr" rid="B2">Aristotle (Rhetoric)</xref> we know that ethos (the character of the
+      speaker) pathos (the emotions) and logos (the speech it demonstrated or seems to demonstrate)
+      – reason and emotion - work argumentatively in choosing positions and making decisions. The
+      deepening of this issue, however, exceeds the limits and purposes of this article.</p>
+    </fn>
+    <fn fn-type="other" id="fn85">
+     <label>62</label>
+     <p>In Portuguese: E que fique claro para os que cortaram minha onda e minha barba que “Aquele
+      Abraço” não significa que eu tenha me “regenerado”, que eu tenha me tornado “bom crioulo
+      puxador de samba” como eles querem que sejam todos os negros que realmente “sabem qual é o seu
+      lugar”. Eu não sei qual é o meu e não estou em lugar nenhum; não estou mais servindo a mesa
+      dos senhores brancos e nem estou mais triste na senzala em que eles estão transformando o
+      Brasil.</p>
+    </fn>
+    <fn fn-type="other" id="fn86">
+     <label>63</label>
+     <p>In Portuguese: “[as] relações entre esses grupos [de negros e brancos] são verticais,
+      atravessadas por discursos de dominação, violência e hostilidade.”</p>
+    </fn>
+   </fn-group>
+  </back>
+  <sub-article article-type="reviewer-report" id="s4" xml:lang="en">
+   <front-stub>
+    <article-categories>
+     <subj-group subj-group-type="heading">
+      <subject>Peer-Review</subject>
+     </subj-group>
+    </article-categories>
+    <title-group>
+     <article-title>Review I</article-title>
+    </title-group>
+    <contrib-group>
+     <contrib contrib-type="author">
+      <contrib-id contrib-id-type="orcid">0000-0001-8004-1424</contrib-id>
+      <name>
+       <surname>Amorim</surname>
+       <given-names>Marília</given-names>
+      </name>
+      <role specific-use="reviewer">Reviewer</role>
+      <xref ref-type="aff" rid="aff5"/>
+     </contrib>
+    </contrib-group>
+    <aff id="aff5">
+     <institution content-type="original">Université Paris VIII – Paris, France;
+      marilia66amorim@gmail.com</institution>
+    </aff>
+    <custom-meta-group>
+     <custom-meta>
+      <meta-name>peer-review-recommendation</meta-name>
+      <meta-value>accept</meta-value>
+     </custom-meta>
+    </custom-meta-group>
+   </front-stub>
+   <body>
+    <sec>
+     <title>Review I</title>
+     <p>Quality work in the precise use of concepts and propositions from Bakhtinian theory and the
+      Circle. Fine, adequate, and enriching analysis of the discursive chains that constitute the
+      meaning of the treated <italic>corpus</italic></p>
+    </sec>
+   </body>
+  </sub-article>
+  <sub-article article-type="reviewer-report" id="s5" xml:lang="en">
+   <front-stub>
+    <article-categories>
+     <subj-group subj-group-type="heading">
+      <subject>Peer-Review</subject>
+     </subj-group>
+    </article-categories>
+    <title-group>
+     <article-title>Review II</article-title>
+    </title-group>
+    <contrib-group>
+     <contrib contrib-type="author">
+      <contrib-id contrib-id-type="orcid">0000-0002-7948-150X</contrib-id>
+      <name>
+       <surname>Rodrigues</surname>
+       <given-names>Tania Regina Barreira</given-names>
+      </name>
+      <role specific-use="reviewer">Reviewer</role>
+      <xref ref-type="aff" rid="aff6"/>
+     </contrib>
+    </contrib-group>
+    <aff id="aff6">
+     <institution content-type="original">Faculdade de Tecnologia de São Paulo – FATEC, São Paulo,
+      São Paulo, Brazil; tania_trbr@yahoo.com.br</institution>
+    </aff>
+    <custom-meta-group>
+     <custom-meta>
+      <meta-name>peer-review-recommendation</meta-name>
+      <meta-value>accept</meta-value>
+     </custom-meta>
+    </custom-meta-group>
+   </front-stub>
+   <body>
+    <sec>
+     <title>Review II</title>
+     <p>Although there are two or three spelling mistakes in some citations and footnotes, the
+      article is very well written and reasoned. The author approaches the theory of the Bakhtin
+      Circle in a didactic, organized and easy way to understand. The article makes an excellent
+      contribution to Dialogic Discourse Analysis and studies on Ideological Signs based on
+      verbal-visual utterances. Investigations that have racism as their main theme are effective
+      ways of resistance, and the fight in favor of equality must go on.</p>
+    </sec>
+   </body>
+  </sub-article>
+ </sub-article>
+</article>
