@@ -319,6 +319,7 @@ class AuthorsWithAffTest(TestCase):
                 "suffix": "Nieto",
                 "given_names": "FRANCISCO",
                 "rid": "aff2",
+                "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
                 "affs": [
@@ -410,6 +411,7 @@ class AuthorsWithAffInContribGroupTest(TestCase):
                 "suffix": "Nieto",
                 "given_names": "FRANCISCO",
                 "rid": "aff2",
+                "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
                 "affs": [
