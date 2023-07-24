@@ -97,7 +97,7 @@ def add_description(xml_oai_dc, description):
 def add_publisher(xml_oai_dc, publisher):
     try:
         el = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
-        el.text = ET.CDATA(f" {publisher.publishers_names[0]} ")
+        el.text = publisher.publishers_names[0].strip()
 
         xml_oai_dc.append(el)
     except IndexError:
