@@ -322,8 +322,8 @@ def get_date(dt, m=False, d=False):
             return '-'.join([year, month])
         else:
             return year
-    except IndexError:
-        pass
+    except Exception as exc:
+        raise GetDateError(f"Unable to get date {exc}")
 
 
 def add_date(xml_oai_dc_agris, dt_out):
