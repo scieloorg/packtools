@@ -25,8 +25,8 @@ def add_identifier(header, xml_tree):
         el = ET.Element('identifier')
         el.text = 'oai:scielo:' + identifier
         header.append(el)
-    except TypeError:
-        pass
+    except Exception as exc:
+        raise AddIdentifierError(f"Unable to add identifier {exc}")
 
 
 def get_datestamp():
