@@ -62,7 +62,7 @@ def add_title(xml_oai_dc, title):
 
 def add_creator(xml_oai_dc, author_name):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}creator')
-    el.text = ET.CDATA(author_name)
+    el.text = author_name.strip()
 
     xml_oai_dc.append(el)
 
