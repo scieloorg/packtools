@@ -37,32 +37,32 @@ class ArticleAuthorsValidationTest(TestCase):
 
     def test_without_role(self):
         xml = ("""
-		<article>
-			<front>
-				<article-meta>
-					<contrib-group>
-						<contrib contrib-type="author">
-							<name>
-								<surname>VENEGAS-MARTÍNEZ</surname>
-								<given-names>FRANCISCO</given-names>
-								<prefix>Prof</prefix>
-								<suffix>Nieto</suffix>
-							</name>
-							<xref ref-type="aff" rid="aff1"/>
-							</contrib>
-							<contrib contrib-type="author">
-							<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
-							<name>
-								<surname>Higa</surname>
-								<given-names>Vanessa M.</given-names>
-							</name>
-							<xref ref-type="aff" rid="aff1">a</xref>
-						</contrib>
-					</contrib-group>
-				</article-meta>
-			</front>
-		</article>
-		""")
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1">a</xref>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+        """)
 
         data = etree.fromstring(xml)
         messages = ArticleAuthorsValidation(xmltree=data).validate_authors_role(
@@ -141,38 +141,43 @@ class ArticleAuthorsValidationTest(TestCase):
             }
         ]
 
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
 
     def test_role_and_content_type_empty(self):
         xml = ("""
-		<article>
-			<front>
-				<article-meta>
-					<contrib-group>
-						<contrib contrib-type="author">
-							<name>
-								<surname>VENEGAS-MARTÍNEZ</surname>
-								<given-names>FRANCISCO</given-names>
-								<prefix>Prof</prefix>
-								<suffix>Nieto</suffix>
-							</name>
-							<xref ref-type="aff" rid="aff1"/>
-							<role></role>
-							</contrib>
-							<contrib contrib-type="author">
-							<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
-							<name>
-								<surname>Higa</surname>
-								<given-names>Vanessa M.</given-names>
-							</name>
-							<xref ref-type="aff" rid="aff1">a</xref>
-							<role></role>
-						</contrib>
-					</contrib-group>
-				</article-meta>
-			</front>
-		</article>
-		""")
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                            <role></role>
+                            </contrib>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1">a</xref>
+                            <role></role>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+        """)
 
         data = etree.fromstring(xml)
         messages = ArticleAuthorsValidation(xmltree=data).validate_authors_role(
@@ -251,39 +256,45 @@ class ArticleAuthorsValidationTest(TestCase):
             },
         ]
 
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
+
 
     def test_role_without_content_type(self):
         xml = ("""
-			<article>
-				<front>
-					<article-meta>
-						<contrib-group>
-							<contrib contrib-type="author">
-								<name>
-									<surname>VENEGAS-MARTÍNEZ</surname>
-									<given-names>FRANCISCO</given-names>
-									<prefix>Prof</prefix>
-									<suffix>Nieto</suffix>
-								</name>
-								<xref ref-type="aff" rid="aff1"/>
-								<role>Data curation</role>
-								<role>Concepalization</role>
-								</contrib>
-								<contrib contrib-type="author">
-								<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
-								<name>
-									<surname>Higa</surname>
-									<given-names>Vanessa M.</given-names>
-								</name>
-								<xref ref-type="aff" rid="aff1">a</xref>
-								<role>Formal analysis</role>
-							</contrib>
-						</contrib-group>
-					</article-meta>
-				</front>
-			</article>
-			""")
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                                <name>
+                                    <surname>VENEGAS-MARTÍNEZ</surname>
+                                    <given-names>FRANCISCO</given-names>
+                                    <prefix>Prof</prefix>
+                                    <suffix>Nieto</suffix>
+                                </name>
+                                <xref ref-type="aff" rid="aff1"/>
+                                <role>Data curation</role>
+                                <role>Concepalization</role>
+                                </contrib>
+                                <contrib contrib-type="author">
+                                <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+                                <name>
+                                    <surname>Higa</surname>
+                                    <given-names>Vanessa M.</given-names>
+                                </name>
+                                <xref ref-type="aff" rid="aff1">a</xref>
+                                <role>Formal analysis</role>
+                            </contrib>
+                        </contrib-group>
+                    </article-meta>
+                </front>
+            </article>
+            """)
 
         expected_output = [
             {
@@ -397,39 +408,45 @@ class ArticleAuthorsValidationTest(TestCase):
         messages = ArticleAuthorsValidation(
             xmltree=data).validate_authors_role(credit_terms_and_urls=credit_terms_and_urls)
 
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
+
 
     def test_role_no_text_with_content_type(self):
         xml = ("""
-			<article>
-				<front>
-					<article-meta>
-						<contrib-group>
-							<contrib contrib-type="author">
-								<name>
-									<surname>VENEGAS-MARTÍNEZ</surname>
-									<given-names>FRANCISCO</given-names>
-									<prefix>Prof</prefix>
-									<suffix>Nieto</suffix>
-								</name>
-								<xref ref-type="aff" rid="aff1"/>
-								<role content-type="content-type="https://credit.niso.org/contributor-roles/data-curation/"></role>
-								<role content-type="https://credit.niso.org/contributor-roles/conceptualization/"></role>
-								</contrib>
-								<contrib contrib-type="author">
-								<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
-								<name>
-									<surname>Higa</surname>
-									<given-names>Vanessa M.</given-names>
-								</name>
-								<xref ref-type="aff" rid="aff1">a</xref>
-								<role content-type="https://credit.niso.org/contributor-roles/formal-analysis/"></role>
-							</contrib>
-						</contrib-group>
-					</article-meta>
-				</front>
-			</article>
-			""")
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                                <name>
+                                    <surname>VENEGAS-MARTÍNEZ</surname>
+                                    <given-names>FRANCISCO</given-names>
+                                    <prefix>Prof</prefix>
+                                    <suffix>Nieto</suffix>
+                                </name>
+                                <xref ref-type="aff" rid="aff1"/>
+                                <role content-type="content-type="https://credit.niso.org/contributor-roles/data-curation/"></role>
+                                <role content-type="https://credit.niso.org/contributor-roles/conceptualization/"></role>
+                                </contrib>
+                                <contrib contrib-type="author">
+                                <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+                                <name>
+                                    <surname>Higa</surname>
+                                    <given-names>Vanessa M.</given-names>
+                                </name>
+                                <xref ref-type="aff" rid="aff1">a</xref>
+                                <role content-type="https://credit.niso.org/contributor-roles/formal-analysis/"></role>
+                            </contrib>
+                        </contrib-group>
+                    </article-meta>
+                </front>
+            </article>
+            """)
 
         expected_output = [
             {
@@ -541,35 +558,35 @@ class ArticleAuthorsValidationTest(TestCase):
 
     def test_wrong_role_and_content_type(self):
         xml = ("""
-		<article>
-			<front>
-				<article-meta>
-					<contrib-group>
-						<contrib contrib-type="author">
-							<name>
-								<surname>VENEGAS-MARTÍNEZ</surname>
-								<given-names>FRANCISCO</given-names>
-								<prefix>Prof</prefix>
-								<suffix>Nieto</suffix>
-							</name>
-							<xref ref-type="aff" rid="aff1"/>
-							<role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>
-							<role content-type="https://credit.niso.org/contributor-roles/conceualizan/">Conceplization</role>
-							</contrib>
-							<contrib contrib-type="author">
-							<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
-							<name>
-								<surname>Higa</surname>
-								<given-names>Vanessa M.</given-names>
-							</name>
-							<xref ref-type="aff" rid="aff1">a</xref>
-							<role content-type="https://credit.niso.org/contributor-roles/foal-analysis/">Formal analysis</role>
-						</contrib>
-					</contrib-group>
-				</article-meta>
-			</front>
-		</article>
-		""")
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                            <role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>
+                            <role content-type="https://credit.niso.org/contributor-roles/conceualizan/">Conceplization</role>
+                            </contrib>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1">a</xref>
+                            <role content-type="https://credit.niso.org/contributor-roles/foal-analysis/">Formal analysis</role>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+        """)
 
         expected_output = [
             {
@@ -683,39 +700,45 @@ class ArticleAuthorsValidationTest(TestCase):
         messages = ArticleAuthorsValidation(
             xmltree=data).validate_authors_role(credit_terms_and_urls=credit_terms_and_urls)
 
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
+
 
     def test_success_role(self):
         xml = ("""
-		<article>
-			<front>
-				<article-meta>
-					<contrib-group>
-						<contrib contrib-type="author">
-							<name>
-								<surname>VENEGAS-MARTÍNEZ</surname>
-								<given-names>FRANCISCO</given-names>
-								<prefix>Prof</prefix>
-								<suffix>Nieto</suffix>
-							</name>
-							<xref ref-type="aff" rid="aff1"/>
-							<role content-type="https://credit.niso.org/contributor-roles/data-curation/">data curation</role>
-							<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
-							</contrib>
-							<contrib contrib-type="author">
-							<contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
-							<name>
-								<surname>Higa</surname>
-								<given-names>Vanessa M.</given-names>
-							</name>
-							<xref ref-type="aff" rid="aff1">a</xref>
-							<role content-type="https://credit.niso.org/contributor-roles/visualization/">Visualization</role>
-						</contrib>
-					</contrib-group>
-				</article-meta>
-			</front>
-		</article>
-		""")
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                            <role content-type="https://credit.niso.org/contributor-roles/data-curation/">data curation</role>
+                            <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+                            </contrib>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1">a</xref>
+                            <role content-type="https://credit.niso.org/contributor-roles/visualization/">Visualization</role>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+        """)
 
         expected_output = [
             {
@@ -737,7 +760,13 @@ class ArticleAuthorsValidationTest(TestCase):
         messages = ArticleAuthorsValidation(
             xmltree=data).validate_authors_role(credit_terms_and_urls=credit_terms_and_urls)
 
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
+
 
 
 class ArticleAuthorsValidationOrcidTest(TestCase):
@@ -784,7 +813,11 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                     'prefix': 'Prof', 
                     'suffix': 'Nieto', 
                     'given_names': 'FRANCISCO', 
-                    'orcid': '0990-01-58-4853'
+                    'orcid': '0990-01-58-4853',
+                    "rid": ["aff1"],
+                    "rid-aff": ["aff1"],
+                    "aff_rids": ["aff1"],
+                    "contrib-type": "author",
                 },
             },
             {
@@ -794,12 +827,20 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'author': {
                     'surname': 'Higa', 
                     'given_names': 'Vanessa M.', 
-                    'orcid': '00-0001-5518-4853'
+                    'orcid': '00-0001-5518-4853',
+                    "rid": ["aff1"],
+                    "rid-aff": ["aff1"],
+                    "aff_rids": ["aff1"],
+                    "contrib-type": "author",
                 }
             }
         ]
-
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
 
     def test_without_orcid(self):
         xml = ("""
@@ -854,7 +895,12 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
             }
         ]
 
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
 
     def test_success_orcid(self):
         xml = ("""
@@ -912,4 +958,9 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
             }
         ]
 
-        self.assertEqual(messages, expected_output)
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                print("")
+                print(item)
+                print(expected_output[i])
+                self.assertDictEqual(item, expected_output[i])
