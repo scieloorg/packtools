@@ -369,19 +369,6 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
             '</article>'
         )
 
-        expected = (
-            '<metadata>'
-            '<ags:resources '
-            'xmlns:xsl="http://www.w3.org/1999/XSL/Transform" '
-            'xmlns:ags="http://purl.org/agmes/1.1/" '
-            'xmlns:dc="http://purl.org/dc/elements/1.1/" '
-            'xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" '
-            'xmlns:dcterms="http://purl.org/dc/terms/">'
-            '<ags:resource ags:ARN="XS2021000111"/>'
-            '</ags:resources>'
-            '</metadata>'
-        )
-
         xml_oai_dc_agris = ET.fromstring(
             '<metadata>'
             '<ags:resources '
@@ -396,11 +383,11 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
             '</metadata>'
         )
 
-        xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree)
+        with self.assertRaises(AddTitleError) as context:
+            xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree)
 
-        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(expected, self.obtained)
+        self.assertEqual(str(context.exception),
+                         "Unable to add title 'NoneType' object has no attribute 'strip'")
 
     def test_xml_oai_dc_agris_title_pipe_without_lang(self):
         xml_tree = ET.fromstring(
