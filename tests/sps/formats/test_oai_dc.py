@@ -319,7 +319,7 @@ class TestPipelineOaiDc(unittest.TestCase):
         expected = (
             '<metadata>'
             '<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">'
-            '<![CDATA[ Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study ]]>'
+            'Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study'
             '</dc:title>'
             '</metadata>'
         )
