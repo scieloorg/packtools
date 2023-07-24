@@ -136,9 +136,13 @@ class TestPipelineOaiDc(unittest.TestCase):
             '<record/>'
         )
 
-        add_identifier(xml_oai_dc, xml_tree)
+        with self.assertRaises(AddIdentifierError) as contexto:
+            add_identifier(xml_oai_dc, xml_tree)
 
-        self.assertIsNone(xml_oai_dc.find('identifier'))
+        self.assertEqual(
+            str(contexto.exception),
+            'Unable to add identifier can only concatenate str (not "NoneType") to str'
+        )
 
     def test_get_set_spec(self):
         xml_tree = ET.fromstring(
