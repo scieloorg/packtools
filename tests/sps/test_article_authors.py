@@ -68,6 +68,7 @@ class AuthorsTest(TestCase):
                     <suffix>Nieto</suffix>
                   </name>
                   <xref ref-type="aff" rid="aff1"/>
+                  <xref ref-type="aff" rid="aff2"/>
                 </contrib>
                 <contrib contrib-type="author">
                   <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
@@ -88,9 +89,9 @@ class AuthorsTest(TestCase):
     def test_contribs(self):
         expected = [
             {"surname": "VENEGAS-MARTÍNEZ", "given_names": "FRANCISCO",
-             "prefix": "Prof", "suffix": "Nieto", "rid": "aff1", "contrib-type": "author"},
+             "prefix": "Prof", "suffix": "Nieto", "rid": ["aff1", "aff2"], "contrib-type": "author"},
             {"surname": "Higa", "given_names": "Vanessa M.",
-             "orcid": "0000-0001-5518-4853", "rid": "aff1", "contrib-type": "author"
+             "orcid": "0000-0001-5518-4853", "rid": ["aff1"], "contrib-type": "author"
              },
         ]
         result = self.authors.contribs
@@ -154,7 +155,7 @@ class AuthorsTest(TestCase):
 				{'text': 'Role 4',
 					'content-type': 'https://credit.niso.org/contributor-roles/writing-original-draft/'}
                             ],
-             "rid": "aff1",
+             "rid": ["aff1"],
              "contrib-type": "author",
                 },
             {"surname": "Higa", "given_names": "Vanessa M.",
@@ -169,7 +170,7 @@ class AuthorsTest(TestCase):
                          {'text': 'Writing – original draft',
                   'content-type': 'https://credit.niso.org/contributor-roles/writing-original-draft/'}
                          ],
-             "rid": "aff1",
+             "rid": ["aff1"],
              "contrib-type": "author",
              },
         ]
@@ -223,7 +224,7 @@ class AuthorsTest(TestCase):
                     {'text': 'Role 2', 'content-type': None},
                     {'text': 'Role 3', 'content-type': None},
                     {'text': 'Role 4', 'content-type': None}],
-                "rid": "aff1",
+                "rid": ["aff1"],
                 "contrib-type": "author"
 
             },
@@ -235,7 +236,7 @@ class AuthorsTest(TestCase):
                     {'text': 'Formal Analysis', 'content-type': None},
                     {'text': 'Writing – original draft', 'content-type': None}
                 ],
-                "rid": "aff1",
+                "rid": ["aff1"],
                 "contrib-type": "author"
             }
         ]

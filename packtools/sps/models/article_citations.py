@@ -13,17 +13,7 @@ def get_source(node):
 
 
 def get_main_author(node):
-    main_author = {}
-    if node.find('./element-citation/person-group/name/surname') is not None:
-        main_author['surname'] = node.find('./element-citation/person-group/name/surname').text
-    if node.find('./element-citation/person-group/name/given-names') is not None:
-        main_author['given_name'] = node.find('./element-citation/person-group/name/given-names').text
-    if node.find('./element-citation/person-group/name/prefix') is not None:
-        main_author['prefix'] = node.find('./element-citation/person-group/name/prefix').text
-    if node.find('./element-citation/person-group/name/suffix') is not None:
-        main_author['suffix'] = node.find('./element-citation/person-group/name/suffix').text
-
-    return main_author
+    return get_all_authors(node)[0]
 
 
 def get_all_authors(node):
@@ -31,14 +21,22 @@ def get_all_authors(node):
     authors = node.xpath('./element-citation/person-group//name')
     for author in authors:
         d = {}
-        if author.find('surname') is not None:
+        try:
             d['surname'] = author.find('surname').text
-        if author.find('given-names') is not None:
+        except AttributeError:
+            pass
+        try:
             d['given_name'] = author.find('given-names').text
-        if author.find('prefix') is not None:
+        except AttributeError:
+            pass
+        try:
             d['prefix'] = author.find('prefix').text
-        if author.find('suffix') is not None:
+        except AttributeError:
+            pass
+        try:
             d['suffix'] = author.find('suffix').text
+        except AttributeError:
+            pass
         result.append(d)
 
     return result
@@ -72,6 +70,13 @@ def get_mixed_citation(node):
     return node.find('./mixed-citation')
 
 
+def get_citation_ids(node):
+    ids = {}
+    for pub_id in node.xpath('.//pub-id'):
+        ids[pub_id.attrib['pub-id-type']] = pub_id.text
+    return ids
+
+
 class ArticleCitations:
 
     def __init__(self, xmltree):
@@ -93,6 +98,7 @@ class ArticleCitations:
                 ('year', get_year(node)),
                 ('article_title', get_article_title(node)),
                 ('mixed_citation', ET.tostring(get_mixed_citation(node), encoding=str, method='text').strip()),
+                ('citation_ids', get_citation_ids(node)),
             ]
 
             d = dict()

@@ -81,6 +81,7 @@ class Abstract:
 
     def get_values_dict_without_tags(self, xpath, lang):
         values = []
+
         for node in self.xmltree.xpath(f"{xpath}//sec"):
             values.append(xml_utils.node_text(node.xpath("./p")[0]))
         out = {lang: " ".join(values)}
@@ -108,7 +109,7 @@ class Abstract:
                 'sections': self.get_values_dict_with_tags('.//front//article-meta//abstract')
             }
             return out
-        except AttributeError:
+        except IndexError:
             pass
 
     @property
@@ -125,9 +126,12 @@ class Abstract:
 
     @property
     def sub_article_abstract_without_tags(self):
-        lang = self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang")
+        try:
+            lang = self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang")
 
-        return self.get_values_dict_without_tags('.//sub-article//front-stub//abstract', lang)
+            return self.get_values_dict_without_tags('.//sub-article//front-stub//abstract', lang)
+        except AttributeError:
+            pass
 
     @property
     def trans_abstract_with_tags(self):
@@ -143,9 +147,12 @@ class Abstract:
 
     @property
     def trans_abstract_without_tags(self):
-        lang = self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang")
+        try:
+            lang = self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang")
 
-        return self.get_values_dict_without_tags('.//front//article-meta//trans-abstract', lang)
+            return self.get_values_dict_without_tags('.//front//article-meta//trans-abstract', lang)
+        except AttributeError:
+            pass
 
     @property
     def abstracts_with_tags(self):
@@ -154,6 +161,12 @@ class Abstract:
     @property
     def abstracts_without_tags(self):
         out = self.main_abstract_without_tags
-        out.update(self.trans_abstract_without_tags)
-        out.update(self.sub_article_abstract_without_tags)
+        try:
+            out.update(self.trans_abstract_without_tags)
+        except TypeError:
+            pass
+        try:
+            out.update(self.sub_article_abstract_without_tags)
+        except TypeError:
+            pass
         return out
