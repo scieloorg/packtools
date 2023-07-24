@@ -335,6 +335,55 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_without_title(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<journal-meta>'
+            '<journal-id journal-id-type="nlm-ta">Rev Esc Enferm USP</journal-id>'
+            '<journal-id journal-id-type="publisher-id">reeusp</journal-id>'
+            '<journal-title-group>'
+            '<journal-title>Revista da Escola de Enfermagem da USP</journal-title>'
+            '<abbrev-journal-title abbrev-type="publisher">Rev. esc. enferm. USP</abbrev-journal-title>'
+            '</journal-title-group>'
+            '<issn pub-type="ppub">0080-6234</issn>'
+            '<issn pub-type="epub">1980-220X</issn>'
+            '<publisher>'
+            '<publisher-name>Universidade de São Paulo, Escola de Enfermagem</publisher-name>'
+            '</publisher>'
+            '</journal-meta>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<title-group>'
+            '<trans-title-group xml:lang="es">'
+            '<trans-title>Efectos de una intervención educativa con profesionales de enfermería en el abordaje de pacientes fumadores: un estudio cuasi-experimental</trans-title>'
+            '</trans-title-group>'
+            '</title-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        expected = (
+            '<metadata/>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata/>'
+        )
+
+        xml_oai_dc_title(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, self.obtained)
+
     def test_xml_oai_dc_creator(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
