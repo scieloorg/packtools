@@ -89,7 +89,7 @@ def get_description(abstract):
 
 def add_description(xml_oai_dc, description):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}description')
-    el.text = ET.CDATA(f" {description} ")
+    el.text = description.strip()
 
     xml_oai_dc.append(el)
 
