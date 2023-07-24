@@ -106,7 +106,7 @@ def add_publisher(xml_oai_dc, publisher):
 
 def add_source(xml_oai_dc, journal):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}source')
-    el.text = ET.CDATA(f" {journal.journal_title} ")
+    el.text = journal.journal_title.strip()
 
     xml_oai_dc.append(el)
 
