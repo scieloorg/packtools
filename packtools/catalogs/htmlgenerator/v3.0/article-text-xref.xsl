@@ -117,6 +117,10 @@
         </span>
     </xsl:template>
 
+    <!--xsl:template match="*" mode="elem-texts-linked-to-xref">
+        <xsl:apply-templates select="."/>
+    </xsl:template-->
+
     <xsl:template match="xref" mode="elem-texts-linked-to-xref">
         <xsl:param name="id"/>
         <xsl:param name="text"/>
@@ -156,16 +160,16 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="*" mode="elem-texts-linked-to-xref">
-        <xsl:apply-templates select="."/>
-    </xsl:template>
-
     <xsl:template match="label" mode="elem-texts-linked-to-xref">
         <xsl:apply-templates select="."/>&#160;
     </xsl:template>
 
     <xsl:template match="*[@id]" mode="elem-texts-linked-to-xref">
         <xsl:apply-templates select="*|text()" mode="elem-texts-linked-to-xref"/>
+    </xsl:template>
+
+    <xsl:template match="ref[@id]" mode="elem-texts-linked-to-xref">
+        <xsl:apply-templates select="label | mixed-citation" mode="elem-texts-linked-to-xref"/>
     </xsl:template>
 
 </xsl:stylesheet>

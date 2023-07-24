@@ -24,6 +24,7 @@
     <xsl:template match="*|@*|text()" mode="translate">
         <xsl:param name="term"></xsl:param>
         <xsl:param name="lang"></xsl:param>
+        <xsl:param name="default_value"></xsl:param>
         <xsl:choose>
             <xsl:when test="$LABELS[name=$term]//name[@lang=$lang]">
                 <xsl:value-of select="$LABELS[name=$term]//name[@lang=$lang]"/>
@@ -34,20 +35,25 @@
             <xsl:when test="$LABELS[name=$term]">
                 <xsl:value-of select="$LABELS[name=$term]//name[1]"/>
             </xsl:when>
+            <xsl:when test="$default_value!='' and $LABELS[name=$default_value]">                <xsl:value-of select="$LABELS[name=$default_value]//name[@lang=$lang]"/>
+            </xsl:when>
             <xsl:otherwise><xsl:value-of select="$term"/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
     <xsl:template match="*|@*|text()" mode="text-labels">
         <xsl:param name="text"></xsl:param>
+        <xsl:param name="default_text"></xsl:param>
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term"><xsl:value-of select="$text"/></xsl:with-param>
+            <xsl:with-param name="default_value"><xsl:value-of select="$default_text"/></xsl:with-param>
             <xsl:with-param name="lang"><xsl:value-of select="$TEXT_LANG"/></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
     
     <xsl:template match="*|@*|text()" mode="interface">
         <xsl:param name="text"></xsl:param>
+
         <xsl:apply-templates select="." mode="translate">
             <xsl:with-param name="term"><xsl:value-of select="$text"/></xsl:with-param>
             <xsl:with-param name="lang"><xsl:value-of select="$INTERFACE_LANG"/></xsl:with-param>
