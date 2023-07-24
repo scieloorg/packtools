@@ -597,7 +597,7 @@ class TestPipelineOaiDc(unittest.TestCase):
         expected = (
             '<metadata>'
             '<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">'
-            '<![CDATA[ Abstract Objective: to assess the effects of an educational intervention '
+            'Abstract Objective: to assess the effects of an educational intervention '
             'on smoking cessation aimed at the nursing team. Method: this is a quasi-experimental '
             'study with 37 nursing professionals from a Brazilian hospital from May/2019 to '
             'December/2020. The intervention consisted of training nursing professionals on '
@@ -612,7 +612,7 @@ class TestPipelineOaiDc(unittest.TestCase):
             'tobacco cessation and relapse strategies. Conclusion: the educational intervention '
             'proved to be innovative and with a great capacity for disseminating knowledge. '
             'The post-test showed a positive effect on the frequency of actions aimed at smoking '
-            'cessation implemented by the nursing team. ]]>'
+            'cessation implemented by the nursing team.'
             '</dc:description>'
             '</metadata>'
 
