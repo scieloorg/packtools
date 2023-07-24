@@ -91,6 +91,8 @@ class AuthorsTest(TestCase):
                 "prefix": "Prof",
                 "suffix": "Nieto",
                 "rid": ["aff1", "aff2"],
+                "rid-aff": ["aff1", "aff2"],
+                "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
             },
             {
@@ -98,6 +100,8 @@ class AuthorsTest(TestCase):
                 "given_names": "Vanessa M.",
                 "orcid": "0000-0001-5518-4853",
                 "rid": ["aff1"],
+                "rid-aff": ["aff1"],
+                "aff_rids": ["aff1"],
                 "contrib-type": "author",
             },
         ]
@@ -122,7 +126,7 @@ class AuthorsTest(TestCase):
                     <suffix>Nieto</suffix>
                   </name>
                   <xref ref-type="aff" rid="aff1"/>
-                    <xref ref-type="aff" rid="aff1">a</xref>
+                    <xref ref-type="aff" rid="aff2">a</xref>
                     <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Role 1</role>
                     <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Role 2</role>
                     <role content-type="https://credit.niso.org/contributor-roles/formal-analysis/">Role 3</role>
@@ -173,7 +177,9 @@ class AuthorsTest(TestCase):
                         "content-type": "https://credit.niso.org/contributor-roles/writing-original-draft/",
                     },
                 ],
-                "rid": ["aff1"],
+                "rid": ["aff1", "aff2"],
+                "rid-aff": ["aff1", "aff2"],
+                "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
             },
             {
@@ -199,11 +205,14 @@ class AuthorsTest(TestCase):
                     },
                 ],
                 "rid": ["aff1"],
+                "rid-aff": ["aff1"],
+                "aff_rids": ["aff1"],
                 "contrib-type": "author",
             },
         ]
-
-        self.assertEqual(xmldata, expect_output)
+        for i, item in enumerate(xmldata):
+            with self.subTest(i):
+                self.assertDictEqual(expect_output[i], item)
 
     def test_role_wihtout_content_type(self):
         xml = """
@@ -257,6 +266,8 @@ class AuthorsTest(TestCase):
                     {"text": "Role 4", "content-type": None},
                 ],
                 "rid": ["aff1"],
+                "rid-aff": ["aff1"],
+                "aff_rids": ["aff1"],
                 "contrib-type": "author",
             },
             {
@@ -270,11 +281,15 @@ class AuthorsTest(TestCase):
                     {"text": "Writing – original draft", "content-type": None},
                 ],
                 "rid": ["aff1"],
+                "rid-aff": ["aff1"],
+                "aff_rids": ["aff1"],
                 "contrib-type": "author",
             },
         ]
 
-        self.assertEqual(xmldata, expected_output)
+        for i, item in enumerate(xmldata):
+            with self.subTest(i):
+                self.assertDictEqual(expected_output[i], item)
 
 
 class AuthorsCollabTest(TestCase):
@@ -353,7 +368,7 @@ class AuthorsWithAffTest(TestCase):
                 "prefix": "Prof",
                 "suffix": "Nieto",
                 "given_names": "FRANCISCO",
-                "rid": "aff2",
+                "rid": ["aff1", "aff2"],
                 "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
@@ -387,9 +402,9 @@ class AuthorsWithAffTest(TestCase):
                 ],
             }
         ]
-        for item in self.authors.contribs_with_affs:
+        for i, item in enumerate(self.authors.contribs_with_affs):
             with self.subTest(item):
-                self.assertDictEqual(expected[0], item)
+                self.assertDictEqual(expected[i], item)
 
 
 class AuthorsWithAffInContribGroupTest(TestCase):
@@ -445,7 +460,7 @@ class AuthorsWithAffInContribGroupTest(TestCase):
                 "prefix": "Prof",
                 "suffix": "Nieto",
                 "given_names": "FRANCISCO",
-                "rid": "aff2",
+                "rid": ["aff1", "aff2"],
                 "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",

@@ -229,10 +229,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
 
     def test_role_and_content_type_empty(self):
         xml = """
@@ -401,10 +398,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
 
     def test_role_without_content_type(self):
         xml = """
@@ -637,10 +631,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
 
     def test_role_no_text_with_content_type(self):
         xml = """
@@ -1097,10 +1088,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
 
     def test_success_role(self):
         xml = """
@@ -1157,10 +1145,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
 
 
 class ArticleAuthorsValidationOrcidTest(TestCase):
@@ -1230,10 +1215,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         ]
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
 
     def test_without_orcid(self):
         xml = """
@@ -1275,6 +1257,10 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                     "prefix": "Prof",
                     "suffix": "Nieto",
                     "given_names": "FRANCISCO",
+                    "rid": ["aff1"],
+                    "rid-aff": ["aff1"],
+                    "aff_rids": ["aff1"],
+                    "contrib-type": "author",
                 },
             },
             {
@@ -1284,16 +1270,17 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 "author": {
                     "surname": "Higa",
                     "given_names": "Vanessa M.",
+                    "rid": ["aff1"],
+                    "rid-aff": ["aff1"],
+                    "aff_rids": ["aff1"],
+                    "contrib-type": "author",
                 },
             },
         ]
 
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
 
     def test_success_orcid(self):
         xml = """
@@ -1338,6 +1325,10 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                     "suffix": "Nieto",
                     "given_names": "FRANCISCO",
                     "orcid": "0990-0001-0058-4853",
+                    "rid": ["aff1"],
+                    "rid-aff": ["aff1"],
+                    "aff_rids": ["aff1"],
+                    "contrib-type": "author",
                 },
             },
             {
@@ -1347,13 +1338,14 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                     "surname": "Higa",
                     "given_names": "Vanessa M.",
                     "orcid": "0000-3333-1238-6873",
+                    "rid": ["aff1"],
+                    "rid-aff": ["aff1"],
+                    "aff_rids": ["aff1"],
+                    "contrib-type": "author",
                 },
             },
         ]
 
         for i, item in enumerate(messages):
             with self.subTest(i):
-                print("")
-                print(item)
-                print(expected_output[i])
-                self.assertDictEqual(item, expected_output[i])
+                self.assertDictEqual(expected_output[i], item)
