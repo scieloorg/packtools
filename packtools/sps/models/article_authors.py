@@ -42,10 +42,26 @@ class Authors:
                 _content_type = role.get("content-type")
                 _author["role"].append({"text": _role, "content-type": _content_type})
 
-            _author['rid'] = [xref.get('rid') for xref in node.findall('.//xref')]
-            _author['rid-aff'] = [xref.get('rid') for xref in node.findall('.//xref[@ref-type="aff"]')]
-            _author['aff_rids'] = _author['rid-aff']
-            _author['contrib-type'] = node.attrib['contrib-type']
+            for xref in node.findall('.//xref'):
+                rid = xref.get("rid")
+
+                if not rid:
+                    continue
+                _author.setdefault("rid", [])
+                _author["rid"].append(rid)
+
+                reftype = xref.get("ref-type")
+                if not reftype == "aff":
+                    continue
+                _author.setdefault("rid-aff", [])
+                _author["rid-aff"].append(rid)
+
+            try:
+                _author["aff_rids"] = _author["rid-aff"]
+            except KeyError:
+                pass
+
+            _author["contrib-type"] = node.attrib["contrib-type"]
             _data.append(_author)
         return _data
 
