@@ -12,6 +12,18 @@ from packtools.sps.models import (
 )
 
 
+class GetDateError(Exception):
+    ...
+
+
+class AddLanguageError(Exception):
+    ...
+
+
+class AddTitleError(Exception):
+    ...
+
+
 def get_identifier(xml_tree):
     """
     Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
