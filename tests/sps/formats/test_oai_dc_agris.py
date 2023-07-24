@@ -914,6 +914,10 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
         self.assertEqual(expected, self.obtained)
 
     def test_xml_oai_dc_agris_identifier_pipe(self):
+        data = {
+            'identifier': 'http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-71812021000100011&lng=en&nrm=iso'
+        }
+
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -957,7 +961,7 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
 
         )
 
-        xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree)
+        xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree, data)
 
         self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
 
