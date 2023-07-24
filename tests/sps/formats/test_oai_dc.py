@@ -685,7 +685,7 @@ class TestPipelineOaiDc(unittest.TestCase):
         expected = (
             '<metadata>'
             '<dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">'
-            '<![CDATA[ Acta Paulista de Enfermagem ]]>'
+            'Acta Paulista de Enfermagem'
             '</dc:source>'
             '</metadata>'
         )
