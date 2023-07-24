@@ -24,7 +24,8 @@ from packtools.sps.formats.oai_dc import (
     xml_oai_dc_identifier,
     xml_oai_dc_language,
     xml_oai_dc_relation,
-    pipeline_xml_oai_dc
+    pipeline_xml_oai_dc,
+    AddIdentifierError,
 )
 
 
