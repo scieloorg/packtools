@@ -25,6 +25,10 @@ from packtools.sps.formats.oai_dc_agris import (
     xml_oai_dc_agris_language_pipe,
     xml_oai_dc_agris_availability_pipe,
     xml_oai_dc_agris_citation_pipe,
+    pipeline_oai_dc_agris,
+    GetDateError,
+    AddLanguageError,
+    AddTitleError,
 )
 
 
