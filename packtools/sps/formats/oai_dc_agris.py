@@ -700,3 +700,24 @@ def xml_oai_dc_agris_citation_pipe(xml_oai_dc_agris, xml_tree):
     if elements:
         add_citation_elements(citation, elements)
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(citation)
+
+
+def pipeline_oai_dc_agris(xml_tree, data):
+    xml_oai_dc_agris = xml_oai_dc_agris_record_pipe()
+    xml_oai_dc_agris_header_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_metadata_pipe(xml_oai_dc_agris)
+    xml_oai_dc_agris_resouce_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_creator_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_subject_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree, data)
+    xml_oai_dc_agris_type_pipe(xml_oai_dc_agris, data)
+    xml_oai_dc_agris_format_pipe(xml_oai_dc_agris, data)
+    xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree)
+    xml_oai_dc_agris_availability_pipe(xml_oai_dc_agris, xml_tree, data)
+    xml_oai_dc_agris_citation_pipe(xml_oai_dc_agris, xml_tree)
+
+    return xml_oai_dc_agris
