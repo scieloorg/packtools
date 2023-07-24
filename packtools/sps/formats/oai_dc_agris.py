@@ -68,7 +68,7 @@ def add_identifier(header, xml_tree):
 
 def add_set_spec(header, xml_tree):
     issn = get_issn(xml_tree)
-    if issn != '':
+    if issn:
         el = ET.Element('setSpec')
         el.text = issn
         header.append(el)
