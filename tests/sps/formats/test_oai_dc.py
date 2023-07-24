@@ -769,6 +769,8 @@ class TestPipelineOaiDc(unittest.TestCase):
             )
         )
 
+        self.assertEqual(get_date(xml_date), '2021-07-01')
+
     def test_get_date_epub_without_year(self):
         xml_date = ArticleDates(
             ET.fromstring(
