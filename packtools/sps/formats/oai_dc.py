@@ -259,8 +259,9 @@ def xml_oai_dc_title(xml_oai_dc, xml_tree):
         <![CDATA[ La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil ]]>
     </dc:title>
     """
-    title = article_titles.ArticleTitles(xml_tree)
-    add_title(xml_oai_dc, title)
+    title = article_titles.ArticleTitles(xml_tree).article_title.get('text')
+    if title is not None:
+        add_title(xml_oai_dc, title)
 
 
 def xml_oai_dc_creator(xml_oai_dc, xml_tree):
@@ -558,4 +559,3 @@ def xml_oai_dc_relation(xml_oai_dc, xml_tree):
     """
     related_article = related_articles.RelatedItems(xml_tree)
     add_relation(xml_oai_dc, related_article)
-
