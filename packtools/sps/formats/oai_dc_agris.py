@@ -24,6 +24,10 @@ class AddTitleError(Exception):
     ...
 
 
+class GetDescriptionError(Exception):
+    ...
+
+
 def get_identifier(xml_tree):
     """
     Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
