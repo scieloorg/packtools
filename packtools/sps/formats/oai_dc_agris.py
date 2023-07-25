@@ -283,9 +283,18 @@ def xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree):
             <ags:publisherName>Pontificia Universidad Católica de Chile, Facultad de Filosofía, Instituto de Estética</ags:publisherName>
         </dc:publisher>
     """
-    publisher = journal_meta.Publisher(xml_tree)
+    publishers = journal_meta.Publisher(xml_tree).publishers_names
 
-    add_publisher(xml_oai_dc_agris, publisher)
+    if publishers:
+        dc = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
+
+        for publisher in publishers:
+            ags = ET.Element('{http://purl.org/agmes/1.1/}publisherName')
+            ags.text = publisher.strip()
+            dc.append(ags)
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+
 
 
 def get_date(dt, m=False, d=False):
