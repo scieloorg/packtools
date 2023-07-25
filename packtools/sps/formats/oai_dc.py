@@ -105,9 +105,9 @@ def add_source(xml_oai_dc, journal):
 
 
 def get_date(dt):
-    year = dt.pub_dates[0].get('year')
-    month = dt.pub_dates[0].get('month')
-    day = dt.pub_dates[0].get('day')
+    year = dt.article_date.get('year')
+    month = dt.article_date.get('month')
+    day = dt.article_date.get('day')
     exceptions = [None, '', '0', '00']
 
     if year is None:
