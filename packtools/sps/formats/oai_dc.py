@@ -311,16 +311,16 @@ def xml_oai_dc_subject(xml_oai_dc, xml_tree):
 
     Example:
         dc:subject>
-            <![CDATA[ Canción popular ]]>
+            Canción popular
         </dc:subject>
         <dc:subject>
-            <![CDATA[ música popular brasileña ]]>
+            música popular brasileña
         </dc:subject>
         <dc:subject>
-            <![CDATA[ canción crítica ]]>
+            canción crítica
         </dc:subject>
         <dc:subject>
-            <![CDATA[ arte político ]]>
+            arte político
         </dc:subject>
     """
     key_words = kwd_group.KwdGroup(xml_tree)
@@ -349,7 +349,7 @@ def xml_oai_dc_description(xml_oai_dc, xml_tree):
 
     Example:
         <dc:description>
-            <![CDATA[ Resumen En el siglo xx, la música popular fue el lenguaje artístico más
+            Resumen En el siglo xx, la música popular fue el lenguaje artístico más
             contundente y una de las grandes fuerzas estéticas de Brasil. Desde los años 30, ella
             ocupó una posición importante en debates culturales y proyectos nacionalistas y, a lo
             largo de los años, expandió su alcance con el avance de los medios de comunicación.
@@ -361,7 +361,7 @@ def xml_oai_dc_description(xml_oai_dc, xml_tree):
             una conexión profunda entre la canción y un cierto horizonte de construcción nacional.
             En este trabajo, intentamos hacer un panorama del desarrollo de la música popular brasileña
             de modo de aclarar ese proceso y, tal vez, posibilitar nuevos planteamientos para pensar
-            sus posibilidades críticas desde su dimensión estética. ]]>
+            sus posibilidades críticas desde su dimensión estética.
         </dc:description>
     """
     abstract = article_abstract.Abstract(xml_tree)
@@ -390,8 +390,8 @@ def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
 
     Example:
         <dc:publisher>
-            <![CDATA[ Pontificia Universidad Católica de Chile, Facultad de Filosofía,
-            Instituto de Estética ]]>
+            Pontificia Universidad Católica de Chile, Facultad de Filosofía,
+            Instituto de Estética
         </dc:publisher>
     """
     publisher = journal_meta.Publisher(xml_tree)
@@ -418,9 +418,9 @@ def xml_oai_dc_source(xml_oai_dc, xml_tree):
                     conforming to a formal identification system.
 
     Example:
-        '<dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">'
-            '<![CDATA[ Acta Paulista de Enfermagem ]]>'
-        '</dc:source>'
+        <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">
+            Acta Paulista de Enfermagem
+        </dc:source>
     """
     journal = journal_meta.Title(xml_tree)
 
