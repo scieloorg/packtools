@@ -552,6 +552,9 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
             '<publisher-name>'
             '<![CDATA[ Pontificia Universidad Católica de Chile, Facultad de Filosofía, Instituto de Estética ]]>'
             '</publisher-name>'
+            '<publisher-name>'
+            '<![CDATA[ PUC de Chile, Filosofia ]]>'
+            '</publisher-name>'
             '</publisher>'
             '</journal-meta>'
             '</front>'
@@ -561,6 +564,7 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
         expected = (
             '<dc:publisher>'
             '<ags:publisherName>Pontificia Universidad Católica de Chile, Facultad de Filosofía, Instituto de Estética</ags:publisherName>'
+            '<ags:publisherName>PUC de Chile, Filosofia</ags:publisherName>'
             '</dc:publisher>'
         )
 
