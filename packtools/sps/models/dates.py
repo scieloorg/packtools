@@ -30,6 +30,10 @@
 class Date:
     def __init__(self, node):
         self.node = node
+        self.year = node.findtext("year")
+        self.season = node.findtext("season")
+        self.month = node.findtext("month")
+        self.day = node.findtext("day")
 
     @property
     def data(self):
