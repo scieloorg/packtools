@@ -24,6 +24,23 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
+def node_plain_text(node, remove_extra_spaces=False):
+    """
+    Função que retorna texto de nó, sem subtags.
+
+    Entrada:
+    <node><italic>Duguetia leucotricha</italic> (Annonaceae)<xref>1</xref></node>
+
+    Saída:
+    Duguetia leucotricha (Annonaceae)
+    """
+    for xref in node.findall(".//xref"):
+        for child in xref.findall(".//*"):
+            child.text = ""
+        xref.text = ""
+    return " ".join([text.strip() for text in node.xpath(".//text()") if text.strip()])
+
+
 def node_text_without_xref(node):
     """
     Retorna text com subtags, exceto `xref`
