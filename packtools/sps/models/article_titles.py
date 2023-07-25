@@ -39,6 +39,7 @@ class ArticleTitles:
             return {
                 "lang": node_with_lang["lang"],
                 "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
             }
 
     @property
@@ -53,6 +54,7 @@ class ArticleTitles:
             _title = {
                 "lang": node_with_lang["lang"],
                 "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
             }
             _titles.append(_title)
         return _titles
@@ -67,6 +69,7 @@ class ArticleTitles:
             _title = {
                 "lang": node_with_lang["lang"],
                 "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
             }
             _titles.append(_title)
         return _titles

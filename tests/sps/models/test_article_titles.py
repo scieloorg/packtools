@@ -132,7 +132,9 @@ class ArticleTitlesTest(TestCase):
             )
         },
         ]
-        self.assertEqual(expected, self.article_titles.data)
+        for i, item in enumerate(self.article_titles.data):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 class SubArticleTitlesTest(TestCase):
@@ -179,6 +181,6 @@ class SubArticleTitlesTest(TestCase):
             )
         },
         ]
-        self.assertEqual(expected, self.article_titles.data)
-    
-
+        for i, item in enumerate(self.article_titles.data):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
