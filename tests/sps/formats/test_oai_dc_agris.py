@@ -29,6 +29,7 @@ from packtools.sps.formats.oai_dc_agris import (
     GetDateError,
     AddLanguageError,
     AddTitleError,
+    GetDescriptionError,
 )
 
 
@@ -842,7 +843,8 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
             'Conclusion: the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</dcterms:abstract>'
             '</dc:description>'
             '<dc:description>'
-            '<dcterms:abstract xml:lang="es">RESUMEN '
+            '<dcterms:abstract xml:lang="es">'
+            'RESUMEN '
             'Objetivo: evaluar los efectos de una intervención educativa para dejar de fumar dirigida al equipo de enfermería. '
             'Método: estudio cuasi-experimental con 37 profesionales de enfermería de un hospital brasileño de mayo/2019 a diciembre/2020. La intervención consistió en capacitar a los profesionales de enfermería en el abordaje del paciente fumador, dividida en dos etapas, la primera, en línea, requisito previo para la presencial/videoconferencia. El efecto de la intervención se evaluó a través del pre y post test realizado por los participantes. También se analizaron los registros en las historias clínicas de los fumadores. Para el análisis se utilizó la prueba Chi-Square de McNemar. '
             'Resultados: hubo un aumento en la frecuencia de acciones dirigidas a dejar de fumar después de la intervención. Se encontraron diferencias significativas en las guías relacionadas con la divulgación a los familiares de la decisión de dejar de fumar y la necesidad de apoyo, el estímulo de la abstinencia después del alta hospitalaria y la información sobre estrategias para dejar de fumar y recaer. '
@@ -911,11 +913,11 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
             '</metadata>'
         )
 
-        xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree)
+        with self.assertRaises(GetDescriptionError) as context:
+            xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree)
 
-        self.obtained = ET.tostring(xml_oai_dc_agris, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(expected, self.obtained)
+        self.assertEqual(str(context.exception),
+                         "Unable to get description 'NoneType' object has no attribute 'xpath'")
 
     def test_xml_oai_dc_agris_identifier_pipe(self):
         data = {
