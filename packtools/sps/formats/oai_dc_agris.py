@@ -399,34 +399,6 @@ def xml_oai_dc_agris_subject_pipe(xml_oai_dc_agris, xml_tree):
         add_subject(xml_oai_dc_agris, kw)
 
 
-def get_description(abstract):
-    descriptions = []
-    for item in abstract.abstracts_with_tags:
-        if item is not None:
-            text = []
-            for i in item.get('sections').items():
-                (section, contents) = i
-                text.append(section)
-                text.append(contents)
-            text = ' '.join(text)
-            descriptions.append((item.get('lang'), item.get('title'), text))
-
-    return descriptions
-
-
-def add_description(xml_oai_dc_agris, descriptions):
-    for description in descriptions:
-        (lang, title, text) = description
-        term = ET.Element('{http://purl.org/dc/terms/}abstract')
-        term.set('{http://www.w3.org/XML/1998/namespace}lang', lang)
-        term.text = title + ' ' + text
-
-        dc = ET.Element('{http://purl.org/dc/elements/1.1/}description')
-        dc.append(term)
-
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
-
-
 def xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree):
     """
     Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
