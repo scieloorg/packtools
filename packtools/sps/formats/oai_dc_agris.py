@@ -423,9 +423,20 @@ def xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree):
         </dcterms:abstract>
         </dc:description>
     """
-    abstract = article_abstract.Abstract(xml_tree)
+    try:
+        abstracts = article_abstract.Abstract(xml_tree).get_abstracts(style="inline")
 
-    add_description(xml_oai_dc_agris, get_description(abstract))
+        for abstract in abstracts:
+            term = ET.Element('{http://purl.org/dc/terms/}abstract')
+            term.set('{http://www.w3.org/XML/1998/namespace}lang', abstract.get("lang"))
+            term.text = abstract.get("abstract")
+
+            dc = ET.Element('{http://purl.org/dc/elements/1.1/}description')
+            dc.append(term)
+
+            xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+    except Exception as exc:
+        raise GetDescriptionError(f"Unable to get description {exc}")
 
 
 def add_uri_identifier(xml_oai_dc_agris, identifier):
