@@ -53,13 +53,6 @@ def get_issn(xml_tree):
     return issns.epub or issns.ppub
 
 
-def add_title(xml_oai_dc, title):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
-    el.text = title.strip()
-
-    xml_oai_dc.append(el)
-
-
 def add_creator(xml_oai_dc, author_name):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}creator')
     el.text = author_name.strip()
@@ -256,12 +249,15 @@ def xml_oai_dc_title(xml_oai_dc, xml_tree):
 
     Example:
     <dc:title>
-        <![CDATA[ La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil ]]>
+        La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil
     </dc:title>
     """
     title = article_titles.ArticleTitles(xml_tree).article_title.get('text')
     if title is not None:
-        add_title(xml_oai_dc, title)
+        el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
+        el.text = title.strip()
+
+        xml_oai_dc.append(el)
 
 
 def xml_oai_dc_creator(xml_oai_dc, xml_tree):
@@ -283,17 +279,17 @@ def xml_oai_dc_creator(xml_oai_dc, xml_tree):
 
     Example:
     <dc:creator>
-        <![CDATA[ de-Oliveira-Gerolamo,Ismael ]]>
+        de-Oliveira-Gerolamo,Ismael
     </dc:creator>
     """
-    author = article_authors.Authors(xml_tree)
-    try:
-        surname = author.contribs[0].get('surname')
-        given_name = author.contribs[0].get('given_names')
-        author_name = f' {surname.strip()},{given_name.strip()} '
-        add_creator(xml_oai_dc, author_name)
-    except IndexError:
-        pass
+    for author in article_authors.Authors(xml_tree).contribs:
+        try:
+            surname = author.get('surname')
+            given_name = author.get('given_names')
+            author_name = f' {surname.strip()}, {given_name.strip()} '
+            add_creator(xml_oai_dc, author_name)
+        except IndexError:
+            pass
 
 
 def xml_oai_dc_subject(xml_oai_dc, xml_tree):
