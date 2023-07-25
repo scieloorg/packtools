@@ -296,7 +296,6 @@ def xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree):
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
-
 def get_date(dt, m=False, d=False):
     try:
         year = dt.pub_dates[0].get('year')
@@ -322,17 +321,6 @@ def get_date(dt, m=False, d=False):
         raise GetDateError(f"Unable to get date {exc}")
 
 
-def add_date(xml_oai_dc_agris, dt_out):
-    if dt_out is not None:
-        term = ET.Element('{http://purl.org/dc/terms/}dateIssued')
-        term.text = dt_out
-
-        dc = ET.Element('{http://purl.org/dc/elements/1.1/}date')
-        dc.append(term)
-
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
-
-
 def xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree):
     """
     Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
@@ -354,7 +342,14 @@ def xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree):
     """
     dt_out = get_date(dates.ArticleDates(xml_tree))
 
-    add_date(xml_oai_dc_agris, dt_out)
+    if dt_out is not None:
+        term = ET.Element('{http://purl.org/dc/terms/}dateIssued')
+        term.text = dt_out
+
+        dc = ET.Element('{http://purl.org/dc/elements/1.1/}date')
+        dc.append(term)
+
+        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
 def add_subject(xml_oai_dc_agris, kw):
