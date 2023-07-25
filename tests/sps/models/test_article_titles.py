@@ -121,7 +121,12 @@ class ArticleTitlesTest(TestCase):
                 "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
                 "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
-            )
+            ),
+            "plain_text": (
+                "Inmunización de Flujos Financieros con Futuros "
+                "de Tasas de Interés: un Análisis de Duración y"
+                " Convexidad con el Modelo de Nelson y Siegel"
+            ),
         },
         {
             "lang": "en",
@@ -129,10 +134,17 @@ class ArticleTitlesTest(TestCase):
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
                 "THE NELSON & SIEGEL MODEL"
-            )
+            ),
+            "plain_text": (
+                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                "THE NELSON & SIEGEL MODEL"
+            ),
         },
         ]
-        self.assertEqual(expected, self.article_titles.data)
+        for i, item in enumerate(self.article_titles.data):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 class SubArticleTitlesTest(TestCase):
@@ -168,7 +180,12 @@ class SubArticleTitlesTest(TestCase):
                 "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
                 "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
-            )
+            ),
+            "plain_text": (
+                "Inmunización de Flujos Financieros con Futuros "
+                "de Tasas de Interés: un Análisis de Duración y"
+                " Convexidad con el Modelo de Nelson y Siegel"
+            ),
         },
         {
             "lang": "en",
@@ -176,9 +193,14 @@ class SubArticleTitlesTest(TestCase):
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
                 "THE NELSON & SIEGEL MODEL"
-            )
+            ),
+            "plain_text": (
+                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                "THE NELSON & SIEGEL MODEL"
+            ),
         },
         ]
-        self.assertEqual(expected, self.article_titles.data)
-    
-
+        for i, item in enumerate(self.article_titles.data):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
