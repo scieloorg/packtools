@@ -19,6 +19,10 @@ class AddIdentifierError(Exception):
     ...
 
 
+class GetDescriptionError(Exception):
+    ...
+
+
 def add_identifier(header, xml_tree):
     try:
         identifier = article_ids.ArticleIds(xml_tree).v2
