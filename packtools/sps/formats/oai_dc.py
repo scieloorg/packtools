@@ -72,15 +72,6 @@ def add_subject(xml_oai_dc, kw, article):
         xml_oai_dc.append(el)
 
 
-def add_relation(xml_oai_dc, related_article):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}relation')
-    for relation in related_article.related_articles:
-        if relation:
-            el.text = relation.get('href')
-            xml_oai_dc.append(el)
-            break
-
-
 def pipeline_xml_oai_dc(xml_tree):
     xml_oai_dc = xml_oai_dc_record_pipe()
     xml_oai_dc_header_pipe(xml_oai_dc, xml_tree)
@@ -523,4 +514,9 @@ def xml_oai_dc_relation(xml_oai_dc, xml_tree):
         <dc:relation>10.7764/69.1</dc:relation>
     """
     related_article = related_articles.RelatedItems(xml_tree)
-    add_relation(xml_oai_dc, related_article)
+    for relation in related_article.related_articles:
+        if relation:
+            el = ET.Element('{http://purl.org/dc/elements/1.1/}relation')
+            el.text = relation.get('href')
+            xml_oai_dc.append(el)
+            break
