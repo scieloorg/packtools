@@ -826,8 +826,7 @@ class TestPipelineOaiDc(unittest.TestCase):
         self.assertEqual(expected, self.obtained)
 
     def test_get_date_epub_without_year(self):
-        xml_date = ArticleDates(
-            ET.fromstring(
+        xml_tree = ET.fromstring(
                 '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
                 'xmlns:xlink="http://www.w3.org/1999/xlink" '
                 'article-type="research-article" dtd-version="1.0" '
@@ -846,9 +845,21 @@ class TestPipelineOaiDc(unittest.TestCase):
                 '</front>'
                 '</article>'
             )
+
+        expected = (
+            '<metadata/>'
         )
 
-        self.assertIsNone(get_date(xml_date))
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_date(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(expected, self.obtained)
 
     def test_get_date_epub_without_month(self):
         xml_date = ArticleDates(
