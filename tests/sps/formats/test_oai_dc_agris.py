@@ -720,7 +720,7 @@ class TestPipelineOaiDcAgris(unittest.TestCase):
         with self.assertRaises(GetDateError) as context:
             xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree)
 
-        self.assertEqual(str(context.exception), 'Unable to get date list index out of range')
+        self.assertEqual(str(context.exception), "Unable to get date 'NoneType' object has no attribute 'get'")
 
     def test_xml_oai_dc_agris_subject_pipe(self):
         xml_tree = ET.fromstring(
