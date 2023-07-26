@@ -344,7 +344,7 @@ def xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree):
             <dcterms:dateIssued>2021</dcterms:dateIssued>
         </dc:date>
     """
-    dt_out = get_date(dates.ArticleDates(xml_tree))
+    dt_out = get_date(dates.ArticleDates(xml_tree).article_date)
 
     if dt_out is not None:
         term = ET.Element('{http://purl.org/dc/terms/}dateIssued')
