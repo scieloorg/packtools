@@ -72,12 +72,6 @@ def add_subject(xml_oai_dc, kw, article):
         xml_oai_dc.append(el)
 
 
-def add_uri_identifier(xml_oai_dc, identifier):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
-    el.text = identifier.get('sci_arttext')
-    xml_oai_dc.append(el)
-
-
 def add_lang(xml_oai_dc, lang):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
     el.text = lang.main_lang
@@ -482,7 +476,10 @@ def xml_oai_dc_identifier(xml_oai_dc, xml_tree):
         <dc:identifier>http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-71812021000100011</dc:identifier>
     """
     identifier = article_uri.ArticleUri(xml_tree)
-    add_uri_identifier(xml_oai_dc, identifier.all_uris)
+
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
+    el.text = identifier.all_uris.get('sci_arttext')
+    xml_oai_dc.append(el)
 
 
 def xml_oai_dc_language(xml_oai_dc, xml_tree):
