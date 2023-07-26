@@ -530,14 +530,6 @@ def xml_oai_dc_agris_format_pipe(xml_oai_dc_agris, data):
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
 
 
-def add_lang(xml_oai_dc_agris, lang):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
-    el.set('scheme', 'ags:ISO639-1')
-    el.text = lang.main_lang
-
-    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
-
-
 def xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree):
     """
     Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
@@ -551,8 +543,10 @@ def xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree):
         <dc:language scheme="ags:ISO639-1">es</dc:language>
     """
     lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
-    add_lang(xml_oai_dc_agris, lang)
 
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
+    el.set('scheme', 'ags:ISO639-1')
+    el.text = lang.main_lang
 
 def get_location(data):
     try:
