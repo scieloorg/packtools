@@ -640,6 +640,36 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIn(expected, self.obtained)
 
+    def test_xml_oai_dc_without_description(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        with self.assertRaises(GetDescriptionError) as contexto:
+            xml_oai_dc_description(xml_oai_dc, xml_tree)
+
+        self.assertEqual(
+            str(contexto.exception),
+            "Unable to get description 'NoneType' object has no attribute 'xpath'"
+        )
+
     def test_xml_oai_dc_publisher(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
