@@ -610,6 +610,23 @@ def get_citation_chronology(xml_tree):
 
 
 def add_citation_elements(citation, elements):
+    """
+    Procedimento para adicionar os elementos (tags) que compõem citation
+
+    Parameters
+    ----------
+    citation: elemento XML
+    elements: lista contendo tuplas (valor, nome da tag)
+
+    Example
+    -------
+    <ags:citation>
+        <ags:citationTitle>Aisthesis</ags:citationTitle>
+        <ags:citationIdentifier scheme="ags:ISSN">0718-7181</ags:citationIdentifier>
+        <ags:citationNumber> num.69</ags:citationNumber>
+        <ags:citationChronology>2021/07</ags:citationChronology>
+    </ags:citation>
+    """
     for element in elements:
         try:
             el = ET.Element('{http://purl.org/agmes/1.1/}' + element[1])
