@@ -72,25 +72,6 @@ def add_subject(xml_oai_dc, kw, article):
         xml_oai_dc.append(el)
 
 
-def get_description(abstract):
-    try:
-        description = [abstract.main_abstract_with_tags['title']]
-        for key, value in abstract.main_abstract_with_tags['sections'].items():
-            description.append(key)
-            description.append(value)
-
-        return " ".join(description)
-    except IndexError:
-        pass
-
-
-def add_description(xml_oai_dc, description):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}description')
-    el.text = description.strip()
-
-    xml_oai_dc.append(el)
-
-
 def add_publisher(xml_oai_dc, publisher):
     try:
         el = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
@@ -368,11 +349,16 @@ def xml_oai_dc_description(xml_oai_dc, xml_tree):
             sus posibilidades críticas desde su dimensión estética.
         </dc:description>
     """
-    abstract = article_abstract.Abstract(xml_tree)
+    try:
+        abstracts = article_abstract.Abstract(xml_tree).get_abstracts(style="inline")
 
-    description = get_description(abstract)
+        for abstract in abstracts:
+            el = ET.Element('{http://purl.org/dc/elements/1.1/}description')
+            el.text = abstract.get("abstract")
+            xml_oai_dc.append(el)
 
-    add_description(xml_oai_dc, description)
+    except Exception as exc:
+        raise GetDescriptionError(f"Unable to get description {exc}")
 
 
 def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
