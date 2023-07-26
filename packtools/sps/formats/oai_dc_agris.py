@@ -603,7 +603,8 @@ def get_citation_number(xml_tree):
 
 
 def get_citation_chronology(xml_tree):
-    date = get_date(dates.ArticleDates(xml_tree), d=True)
+    epub_date = dates.ArticleDates(xml_tree).article_date
+    date = get_date(epub_date, d=True)
     if date is not None:
         return date, 'citationChronology'
 
