@@ -548,28 +548,7 @@ def xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree):
     el.set('scheme', 'ags:ISO639-1')
     el.text = lang.main_lang
 
-def get_location(data):
-    try:
-        return data.get('location')
-    except AttributeError:
-        pass
-
-
-def add_location(location):
-    loc = ET.Element('{http://purl.org/agmes/1.1/}availabilityLocation')
-    loc.text = location
-    return loc
-
-
-def get_doi(xml_tree):
-    return article_ids.ArticleIds(xml_tree).doi
-
-
-def add_doi(doi):
-    number = ET.Element('{http://purl.org/agmes/1.1/}availabilityNumber')
-    number.text = doi
-
-    return number
+    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
 
 
 def xml_oai_dc_agris_availability_pipe(xml_oai_dc_agris, xml_tree, data=None):
@@ -588,15 +567,20 @@ def xml_oai_dc_agris_availability_pipe(xml_oai_dc_agris, xml_tree, data=None):
     """
     agls = ET.Element('{http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2}availability')
 
-    location = get_location(data)
-    if location is not None:
-        agls.append(add_location(location))
+    try:
+        loc = ET.Element('{http://purl.org/agmes/1.1/}availabilityLocation')
+        loc.text = data.get('location')
+        agls.append(loc)
+    except AttributeError:
+        pass
 
-    doi = get_doi(xml_tree)
-    if doi is not None:
-        agls.append(add_doi(doi))
+    doi = article_ids.ArticleIds(xml_tree).doi
+    if doi:
+        number = ET.Element('{http://purl.org/agmes/1.1/}availabilityNumber')
+        number.text = doi
+        agls.append(number)
 
-    if location is not None or doi is not None:
+    if len(agls) > 0:
         xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(agls)
 
 
