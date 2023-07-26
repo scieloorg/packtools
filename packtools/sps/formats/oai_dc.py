@@ -72,12 +72,6 @@ def add_subject(xml_oai_dc, kw, article):
         xml_oai_dc.append(el)
 
 
-def add_lang(xml_oai_dc, lang):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
-    el.text = lang.main_lang
-    xml_oai_dc.append(el)
-
-
 def add_relation(xml_oai_dc, related_article):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}relation')
     for relation in related_article.related_articles:
@@ -503,7 +497,9 @@ def xml_oai_dc_language(xml_oai_dc, xml_tree):
         <dc:language>es</dc:language>
     """
     lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
-    add_lang(xml_oai_dc, lang)
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
+    el.text = lang.main_lang
+    xml_oai_dc.append(el)
 
 
 def xml_oai_dc_relation(xml_oai_dc, xml_tree):
