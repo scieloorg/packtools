@@ -72,16 +72,6 @@ def add_subject(xml_oai_dc, kw, article):
         xml_oai_dc.append(el)
 
 
-def add_publisher(xml_oai_dc, publisher):
-    try:
-        el = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
-        el.text = publisher.publishers_names[0].strip()
-
-        xml_oai_dc.append(el)
-    except IndexError:
-        pass
-
-
 def add_source(xml_oai_dc, journal):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}source')
     el.text = journal.journal_title.strip()
@@ -364,7 +354,13 @@ def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
     """
     publisher = journal_meta.Publisher(xml_tree)
 
-    add_publisher(xml_oai_dc, publisher)
+    try:
+        el = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
+        el.text = publisher.publishers_names[0].strip()
+
+        xml_oai_dc.append(el)
+    except IndexError:
+        pass
 
 
 def xml_oai_dc_source(xml_oai_dc, xml_tree):
