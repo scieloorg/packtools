@@ -787,8 +787,7 @@ class TestPipelineOaiDc(unittest.TestCase):
         self.assertIn(expected, self.obtained)
 
     def test_get_date_epub(self):
-        xml_date = ArticleDates(
-            ET.fromstring(
+        xml_tree = ET.fromstring(
                 '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
                 'xmlns:xlink="http://www.w3.org/1999/xlink" '
                 'article-type="research-article" dtd-version="1.0" '
@@ -807,10 +806,24 @@ class TestPipelineOaiDc(unittest.TestCase):
                 '</article-meta>'
                 '</front>'
                 '</article>'
-            )
         )
 
-        self.assertEqual(get_date(xml_date), '2021-07-01')
+        expected = (
+            '<metadata>'
+            '<dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">2021-07-01</dc:date>'
+            '</metadata>'
+        )
+
+        xml_oai_dc = ET.fromstring(
+            '<metadata>'
+            '</metadata>'
+        )
+
+        xml_oai_dc_date(xml_oai_dc, xml_tree)
+
+        self.obtained = ET.tostring(xml_oai_dc, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(expected, self.obtained)
 
     def test_get_date_epub_without_year(self):
         xml_date = ArticleDates(
