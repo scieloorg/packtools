@@ -72,13 +72,6 @@ def add_subject(xml_oai_dc, kw, article):
         xml_oai_dc.append(el)
 
 
-def add_source(xml_oai_dc, journal):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}source')
-    el.text = journal.journal_title.strip()
-
-    xml_oai_dc.append(el)
-
-
 def add_uri_identifier(xml_oai_dc, identifier):
     el = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
     el.text = identifier.get('sci_arttext')
@@ -388,7 +381,10 @@ def xml_oai_dc_source(xml_oai_dc, xml_tree):
     """
     journal = journal_meta.Title(xml_tree)
 
-    add_source(xml_oai_dc, journal)
+    el = ET.Element('{http://purl.org/dc/elements/1.1/}source')
+    el.text = journal.journal_title.strip()
+
+    xml_oai_dc.append(el)
 
 
 def xml_oai_dc_date(xml_oai_dc, xml_tree):
