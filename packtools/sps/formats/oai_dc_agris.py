@@ -302,12 +302,12 @@ def xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree):
 
 def get_date(dt, m=False, d=False):
     try:
-        year = dt.pub_dates[0].get('year')
+        year = dt.get('year')
         if year is None:
             return
 
-        month = dt.pub_dates[0].get('month')
-        day = dt.pub_dates[0].get('day')
+        month = dt.get('month')
+        day = dt.get('day')
         exceptions = [None, '', '0', '00']
         if month is None and day is None:
             return year
