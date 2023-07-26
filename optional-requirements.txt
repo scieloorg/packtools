@@ -1,4 +1,4 @@
-Flask==2.2.5
+Flask==2.3.2
 Flask-WTF==1.1.0
 MarkupSafe==2.1.1
 flask-babel==3.0.0

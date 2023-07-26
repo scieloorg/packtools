@@ -3,7 +3,16 @@
     version="1.0">
     
     <xsl:template match="xref">
-        <strong><xsl:apply-templates select="*|text()"></xsl:apply-templates></strong>
+        <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
+        <span class="ref footnote">
+            <!-- asterisco pode ser inclusive inline-graphic -->
+            <sup class="xref"><xsl:apply-templates select="*|text()"/></sup>
+            <span class="refCtt closed">
+                <span class="refCttPadding">
+                    <xsl:apply-templates select="$article//*[@id=$id]" mode="xref"/>
+                </span>
+            </span>
+        </span>
     </xsl:template>
     
     <xsl:template match="xref[@ref-type='equation' or @ref-type='disp-formula']">
@@ -141,11 +150,11 @@
         <xsl:apply-templates select="*|text()" mode="xref"/>
     </xsl:template>
     
-    <xsl:template match="fn" mode="xref">
+    <xsl:template match="fn|corresp" mode="xref">
         <xsl:apply-templates select="*|text()" mode="xref"></xsl:apply-templates>
     </xsl:template>
         
-    <xsl:template match="fn/label" mode="xref">
+    <xsl:template match="fn/label|corresp/label" mode="xref">
         <strong class="fn-title"><xsl:apply-templates select="*|text()" mode="xref"/></strong>
     </xsl:template>
 

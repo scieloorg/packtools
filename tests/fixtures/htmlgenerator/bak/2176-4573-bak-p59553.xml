@@ -1,0 +1,2701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+    article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="publisher-id">bak</journal-id>
+            <journal-title-group>
+                <journal-title>Bakhtiniana: Revista de Estudos do Discurso</journal-title>
+                <abbrev-journal-title abbrev-type="publisher">Bakhtiniana, Rev. Estud.
+                    Discurso</abbrev-journal-title>
+            </journal-title-group>
+            <issn pub-type="epub">2176-4573</issn>
+            <publisher>
+                <publisher-name>LAEL/PUC-SP (Programa de Estudos Pós-Graduados em Linguística
+                    Aplicada e Estudos da Linguagem da Pontifícia Universidade Católica de São
+                    Paulo)</publisher-name>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="doi">10.1590/2176-4573p59553</article-id>
+            <article-id pub-id-type="other">01204</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>ARTIGOS</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>O corpo da dança como arena de valores e o cronotopo do teatro -
+                    exercício de análise</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0001-8004-1424</contrib-id>
+                    <name>
+                        <surname>Amorim</surname>
+                        <given-names>Marilia</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff1">*</xref>
+                    <xref ref-type="aff" rid="aff1a"/>
+                </contrib>
+            </contrib-group>
+            <aff id="aff1">
+                <label>*</label>
+                <institution content-type="orgname">Universidade Federal do Rio de
+                    Janeiro</institution>
+                <institution content-type="orgdiv1">Instituto de Psicologia</institution>
+                <institution content-type="orgdiv2">Departamento de Psicologia Social</institution>
+                <addr-line>
+                    <city>Rio de Janeiro</city>
+                    <state>Rio de Janeiro</state>
+                </addr-line>
+                <country country="BR">Brasil</country>
+                <email>marilia66amorim@gmail.com</email>
+                <institution content-type="original">Professora aposentada da Universidade Federal
+                    do Rio de Janeiro, Instituto de Psicologia, Departamento de Psicologia Social,
+                    Campus Praia Vermelha, Rio de Janeiro, Rio de Janeiro, Brasil e da Université
+                    Paris VIII, UFR de Sciences de L’Éducation, Psychanalyse et Français, Campus
+                    Saint-Denis, Saint-Denis, França; marilia66amorim@gmail.com</institution>
+            </aff>
+            <aff id="aff1a">
+                <institution content-type="orgname">Université Paris VIII</institution>
+                <addr-line>
+                    <city>Saint-Denis</city>
+                </addr-line>
+                <country country="FR">França</country>
+            </aff>
+            <pub-date publication-format="electronic" date-type="pub">
+    <day>17</day>
+    <month>04</month>
+    <year>2023</year>
+   </pub-date>
+            <history>
+                <date date-type="received">
+                    <day>08</day>
+                    <month>10</month>
+                    <year>2022</year>
+                </date>
+                <date date-type="accepted">
+                    <day>18</day>
+                    <month>01</month>
+                    <year>2023</year>
+                </date>
+            </history>
+            <permissions>
+                <license license-type="open-access"
+                    xlink:href="http://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+                    <license-p>Este é um artigo publicado em acesso aberto (Open Access) sob a
+                        licença Creative Commons Attribution, que permite uso, distribuição e
+                        reprodução em qualquer meio, sem restrições desde que o trabalho original
+                        seja corretamente citado.</license-p>
+                </license>
+            </permissions>
+            <abstract>
+                <title>RESUMO</title>
+                <p>Exercício de análise do discurso da dança de espetáculo através do conceito
+                    bakhtiniano de cronotopo. A partir do gênero do balé clássico, estabelece-se o
+                    teatro como cronotopo constitutivo que concretiza espaço-temporalmente seus
+                    valores sócioestéticos. A análise de transgressões cronotópicas permite
+                    identificar o surgimento do balé moderno com base em duas coreografias do
+                    artista russo Vaslav Nijinski.</p>
+            </abstract>
+            <kwd-group xml:lang="pt">
+                <title>PALAVRAS-CHAVE:</title>
+                <kwd>Cronotopo</kwd>
+                <kwd>Gênero discursivo</kwd>
+                <kwd>Valores</kwd>
+                <kwd>Coreografia</kwd>
+                <kwd>Teatro</kwd>
+            </kwd-group>
+        </article-meta>
+    </front>
+    <body>
+        <sec sec-type="intro">
+            <title>Introdução</title>
+            <p>O presente artigo pretende dar continuidade a um estudo anteriormente publicado no
+                qual o discurso da dança foi analisado com ajuda do conceito de gênero discursivo,
+                segundo Bakhtin e o Círculo. Será aqui perseguida a mesma abordagem metodológica,
+                qual seja a de recortar, no discurso multisemiótico da dança, apenas a dimensão
+                coreográfica. No estudo precedente, foi possível fixar enunciados típicos de
+                diferentes gêneros, como o balé clássico romântico e o hip-hop, e assim identificar
+                os valores socioestéticos afirmados em cada discurso (<xref ref-type="bibr" rid="B1"
+                    >AMORIM, 2020</xref>).</p>
+            <p>Dessa abordagem, resulta uma análise parcial que não pretende dar conta da dança em
+                sua condição de fato estético global<xref ref-type="fn" rid="fn1">1</xref>,
+                totalidade tecida por várias linguagens. Escolhe-se designá-la exercício de análise,
+                uma vez que se pretende que ela permita, ao mesmo tempo, aprofundar o entendimento
+                da produção de sentido em um dado <italic>corpus</italic> e exercitar o uso concreto
+                de um ou mais conceitos das teorias adotadas, de modo a confrontar seus limites e
+                possibilidades. Desse modo, o exercício deverá produzir contribuições para o campo
+                teórico, seja ao precisar e aprofundar os conceitos em questão, seja ao ampliar seu
+                campo de validade.</p>
+            <p>Tomar o discurso da dança como objeto implica aceitar o seu caráter verbovisual.
+                Embora permeado de componentes verbais, como os títulos das criações, por exemplo,
+                que participam ativamente da totalidade produtora de sentido, a predominância de sua
+                componente visual é incontestável. Sobre essa materialidade, <xref ref-type="bibr"
+                    rid="B7">Grillo (2012, p.241)</xref> precisa que “[...] a linguagem visual
+                funda-se sobre uma matriz indicial que comporta uma relação icônica ou de semelhança
+                com os referentes do mundo”.</p>
+            <p>Entretanto, afora a pantomima dos primeiros balés clássicos, à medida que avançamos
+                na história da dança, mais se complexifica a dimensão de iconicidade do discurso
+                visual. De fato, sem a inscrição em um universo de valores próprios de cada gênero,
+                mais difícil se tornam ler e analisar a discursividade da dança em sua coreografia.
+                A essa forma de relação de sentido com a qual o discurso visual da dança opera,
+                escolhe-se denominar <italic>iconicidade complexa.</italic> Assim, no estudo
+                precedente, ao identificar as formas recorrentes em diferentes gêneros do discurso
+                da dança foi possível demonstrar que os enunciados de cada um desses gêneros afirmam
+                e encarnam valores sociais e estéticos específicos que informam e conformam a
+                iconicidade dos gestos coreográficos.</p>
+        </sec>
+        <sec>
+            <title>1 O conceito de cronotopo</title>
+            <p>A iconicidade complexa do discurso coreográfico demanda que se convoque mais um
+                conceito bakhtiniano para a leitura, a saber, o conceito de cronotopo, uma vez que o
+                próprio Bakhtin já nos indica sua importância ao falar de cronotopo do gênero quando
+                da formulação primeira do conceito.</p>
+            <p>Para Bakhtin, esse termo, emprestado à ciência biológica e à física, designa
+                determinadas condições de indissociabilidade entre tempo e espaço no seio de uma
+                narrativa. Nas análises literárias que desenvolve, o espaço é marcado por índices
+                temporais do mesmo modo que o tempo somente se encarna naquele espaço. De acordo com
+                o gênero discursivo em questão, um espaço-tempo lhe é peculiar. Por exemplo, no
+                romance <italic>Madame Bovary</italic> de Flaubert, Bakhtin nos mostra a
+                    <italic>forma</italic> do tempo ao lhe conferir uma densidade material:</p>
+            <disp-quote>
+                <p>Essa cidadezinha é o lugar do tempo cíclico dos costumes. (...) Aqui, o tempo
+                    carece do curso progressivo da história, move-se por círculos estreitos: o
+                    círculo do dia, o círculo da semana, do mês, o círculo de toda a vida. Um dia
+                    nunca é um dia, um ano não é um ano, uma vida não é uma vida. Dia após dia
+                    repetem-se as mesmas ações cotidianas, os mesmos temas de conversa, as mesmas
+                    palavras, etc. (...) É o tempo cíclico, ordinário e cotidiano dos costumes.
+                    (...) Aqui o tempo é desprovido de acontecimentos e parece quase parado. Não
+                    ocorrem nem “encontros” nem “partidas”. É um tempo denso, viscoso, que se
+                    arrasta no espaço (<xref ref-type="bibr" rid="B2">BAKHTIN, 2018</xref>,
+                    p.223-224).</p>
+            </disp-quote>
+            <p><xref ref-type="bibr" rid="B2">Bakhtin (2018)</xref>, ao final de seu trabalho de
+                análise dos diferentes cronotopos na história do gênero discursivo do romance, nos
+                diz: “A arte e a literatura estão impregnadas de <italic>valores
+                    cronotópicos</italic> de diferentes graus e dimensões” (p.217; grifos no
+                original).</p>
+            <p>O cronotopo em Bakhtin remete igualmente à realidade empírica, extra discursiva. “O
+                cronotopo determina a unidade artística de uma obra literária em sua relação com a
+                autêntica realidade” (<xref ref-type="bibr" rid="B2">BAKHTIN, 2018</xref>,
+                p.217).</p>
+            <p>Entretanto,</p>
+            <disp-quote>
+                <p>Como dissemos, entre o mundo real que representa e o mundo representado na obra
+                    passa uma fronteira nítida e intransponível. Isso nunca se pode esquecer e -
+                    como tem sido feito e por vezes ainda se faz hoje - nem se pode confundir o
+                    mundo representado com o mundo que representa (realismo ingênuo) (...). Todas as
+                    confusões desse gênero são totalmente inadmissíveis em termos metodológicos
+                        (<xref ref-type="bibr" rid="B2">BAKHTIN, 2018</xref>, p.230-231).</p>
+            </disp-quote>
+            <p>O que não justifica a ideia de ausência de relação entre um e outro:</p>
+            <disp-quote>
+                <p>A obra e o mundo nela representado entram no mundo real e o enriquecem, e o mundo
+                    real entra na obra e no mundo representado tanto no processo de sua criação como
+                    no processo de sua vida subsequente, numa renovação permanente pela recepção
+                    criadora dos ouvintes-leitores (<xref ref-type="bibr" rid="B2">BAKHTIN,
+                        2018</xref>, p.231).</p>
+            </disp-quote>
+            <p>Vemos aí que Bakhtin refere o cronotopo também ao contexto espácio-temporal do leitor
+                e do autor enquanto unidades empíricas a inscrevê-las sempre em uma
+                discursividade:</p>
+            <disp-quote>
+                <p>Como se nos apresentam os cronotopos do autor e do ouvinte-leitor? Antes de tudo,
+                    eles nos são dados na existência material externa da obra e em sua composição
+                    puramente externa. Mas o material da obra não é morto, mas falante, significante
+                    (ou sígnico), não só o vemos e tateamos como sempre ouvimos vozes nele (ainda
+                    que numa leitura silenciosa e de si para si) (<xref ref-type="bibr" rid="B2"
+                        >BAKHTIN, 2018</xref>, p.229).</p>
+            </disp-quote>
+            <p>Se insistimos nas citações e nas nuances que traz cada uma delas, é porque
+                consideramos, como <xref ref-type="bibr" rid="B8">Holquist (2015, p.34)</xref>, que
+                “o cronotopo permanece como um nó górdio<xref ref-type="fn" rid="fn2">2</xref> de
+                ambiguidades” em suas inúmeras interpretações e utilizações. Holquist refere-se às
+                duas partes que compõem o texto “Formas do tempo e do cronotopo”: a primeira parte,
+                redigida de 1934 a 1937, e as “Observações Finais”, redigida em 1973. A primeira se
+                concebe na fase da preocupação de Bakhtin com a teoria do romance. Por exemplo, ele
+                analisa ali o modo pelo qual a visão do tempo de Goethe estrutura sua narrativa. Na
+                segunda, ele retoma seus interesses metafísicos da juventude e seu diálogo com Kant.
+                Holquist explica que Bakhtin adota a ideia kantiana de um sujeito dividido e da não
+                coincidência entre a consciência e o conhecimento e a realidade do mundo. Essa
+                concepção rompe com a ideia cartesiana de transparência do sujeito para si próprio.
+                Mas Bakhtin diverge quanto ao estatuto das categorias de espaço e tempo, que em Kant
+                são <italic>a priori</italic> e transcendentais, enquanto que, para Bakhtin, elas se
+                integram na concretude empírica e histórica.</p>
+            <p>Holquist trata então da complexidade do texto de Bakhtin e conclui dizendo que a
+                maturidade no tratamento do conceito de cronotopo, isto é, a reflexão desenvolvida e
+                redigida poucos anos antes de sua morte em 1975, delineia os limites da análise,
+                inscrevendo-a no âmbito discursivo. Para tanto, retoma a comparação com Kant.</p>
+            <disp-quote>
+                <p>Outra enorme diferença entre Kant e Bakhtin (...) é que Kant conhecidamente nunca
+                    levanta a questão do papel da linguagem na negociação da aparência. Para Bakhtin
+                    o caso é justamente o oposto: ele está focado na linguagem na mesma intensidade
+                    que Kant a desconsidera. (...) se tempo e espaço se abrigam “naturalmente” na
+                    lógica e na ciência, os cronotopos têm seu habitat natural - e único -na
+                    linguagem. Em nosso uso cotidiano dos cronotopos, a abstração tempo-espaço é
+                    domesticada quando a dispomos no discurso (<xref ref-type="bibr" rid="B8"
+                        >HOLQUIST, 2015</xref>, p.50).</p>
+            </disp-quote>
+            <p>De nossa parte, concordamos com Holquist e podemos concluir primeiramente com uma
+                citação do próprio Bakhtin, onde a unidade espaço-tempo do cronotopo é tratada
+                enquanto expressão e, portanto, dotada de forma sígnica:</p>
+            <disp-quote>
+                <p>Ademais, <italic>assimilamos</italic> de certo modo qualquer fenômeno, ou seja,
+                    incluímo-lo não só no campo da existência espaçotemporal, mas também no campo
+                    semântico. Essa assimilação compreende também um elemento de valoração. Mas as
+                    questões relativas à forma de ser desse campo e ao caráter e à forma das
+                    valorações assimilativas são questões puramente filosóficas (mas não
+                    metafísicas, é lógico) que não vamos discutir aqui. O que nos importa, pois, é o
+                    seguinte: sejam quais forem esses sentidos, para que integrem a nossa
+                    experiência (e, além disso, a experiência social), eles devem ganhar alguma
+                    expressão espaçotemporal, ou seja, uma forma sígnica que possamos ouvir e ver
+                    (um hieróglifo, uma fórmula matemática, uma expressão linguísticoverbal, um
+                    desenho, etc.) (<xref ref-type="bibr" rid="B2">BAKHTIN, 2018</xref>, p.235-236;
+                    grifo no original).</p>
+            </disp-quote>
+            <p>Em segundo lugar, do ponto de vista metodológico, parece-nos que o próprio Bakhtin
+                nos fornece “as fronteiras da análise cronotópica” e os limites da pesquisa com esse
+                conceito, quando define o objeto das ciências humanas como sendo o discurso. Assim,
+                já que não somos historiadores, nem geógrafos, nem filósofos, nem arquitetos ou
+                engenheiros, “nosso” cronotopo deve estar sempre circunscrito ao âmbito da
+                linguagem.</p>
+        </sec>
+        <sec>
+            <title>2 Os pontos de partida</title>
+            <p>Partimos da afirmação de que é possível transpor categorias e conceitos bakhtinianos
+                elaborados no âmbito da linguagem verbal e da arte literária para materialidades
+                verbo-visuais ou visuais. Assim, enfrentamos o desafio de considerar que, de uma
+                maneira geral, é possível tomar a coreografia da dança de espetáculo como um
+                discurso e que, portanto, a ele podem ser aplicados de modo pertinente os conceitos
+                de gênero discursivo e de cronotopo.</p>
+            <p>Em relação a este último, que é o objeto do presente trabalho, cabe uma ressalva. Não
+                trataremos do cronotopo das histórias representadas nos diferentes balés. <italic>A
+                    morte do cisne, O entardecer de um fauno</italic> e <italic>A sagração da
+                    primavera</italic> serão aqui abordados em suas coreografias do ponto de vista
+                do gênero e não da especificidade de cada história narrada. Até porque, a mesma
+                história, com a mesma música, pode ser representada em coreografias diferentes a
+                inscrevê-las em outros gêneros discursivos cujos valores socioestéticos mudam
+                radicalmente. Ora, sabemos que, na perspectiva bakhtiniana, uma vez alterados os
+                valores, o objeto estético não é mais o mesmo. Foi o caso do primeiro deles,
+                    <italic>A morte do cisne</italic> na versão para <italic>street dance</italic>
+                criada pelo coreógrafo e dançarino John Lennon da Silva<xref ref-type="fn" rid="fn3"
+                    >3</xref>. O mesmo ocorreu com <italic>A sagração da primavera</italic>, que foi
+                representada por diferentes coreógrafos do gênero designado como dança
+                contemporânea. O caso mais notório de transformação radical é a coreografia da alemã
+                Pina Bausch para a companhia <italic>Tanztheater Wuppertal</italic>.</p>
+            <p>Ao levar em conta o fato de que a História do balé e da dança evolui através da
+                hibridização e da invenção de gêneros, uma tarefa se impôs em nosso trabalho
+                precedente: identificar enunciados coreográficos típicos. Tais enunciados genéricos
+                aparecem como recorrentes em diferentes coreografias e constituíram o objeto de
+                nosso interesse na medida em que afirmam os mesmos valores socioestéticos. Ao
+                prosseguir nessa linha metodológica, trabalharemos aqui o conceito de cronotopo na
+                sua relação íntima com os valores do gênero ao concretizá-los na dimensão
+                espácio-temporal.</p>
+            <p>Nosso <italic>corpus</italic> é composto de três fragmentos discursivos, todos
+                extraídos de vídeos disponíveis no youtube. A análise trata do diálogo tenso entre
+                eles e o gênero convencionalmente chamado de balé clássico. Por isso, precisamos
+                partir deste último e retomar algumas de suas especificidades de modo a poder
+                analisar os demais.</p>
+            <p>O gênero balé clássico encontra seu apogeu e concretiza seus valores em enunciados
+                típicos e no cronotopo do teatro, tal como construído em vários países ocidentais no
+                século XIX e primeira metade do século XX. Concretamente iremos nos referir aos
+                seguintes teatros: <italic>Mariinsky</italic> de São Petersburgo, na Rússia, e os
+                parisienses <italic>Châtelet</italic>, <italic>Opéra Garnier</italic> e Teatro
+                    <italic>des Champs Elysées</italic>, construídos nessa sequência cronológica. Os
+                dados retirados da Wikipédia francesa encontram-se no Anexo.</p>
+            <p><fig>
+                    <label>Foto 1</label>
+                    <caption>
+                        <title>Teatro Mariinsky (1860): estilo “Renascimento Barroco”. A. Savin, 20
+                            de setembro de 2012<xref ref-type="fn" rid="fn4">4</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf01.tif"/>
+                </fig></p>
+            <p><fig>
+                    <label>Foto 2</label>
+                    <caption>
+                        <title>Théâtre Châtelet, 1862 estilo “Renascimento”. Arthur Weidmann, 03 de
+                            abril de 2022<xref ref-type="fn" rid="fn5">5</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf02.tif"/>
+                </fig></p>
+            <p><fig>
+                    <label>Foto 3</label>
+                    <caption>
+                        <title>Teatro Opéra Garnier (1875): estilo “eclético” e “historicista”.
+                            Alexander Hoernigk, 06 de abril de 2010<xref ref-type="fn" rid="fn6"
+                                >6</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf03.tif"/>
+                </fig></p>
+            <p><fig>
+                    <label>Foto 4</label>
+                    <caption>
+                        <title>Teatro des Champs Elysées (1913): estilo art déco. Coldcreation, 21
+                            de abril de 2013<xref ref-type="fn" rid="fn7">7</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf04.tif"/>
+                </fig></p>
+            <p>Embora se trate de diferentes locais, de diferentes datas e de diferentes
+                arquiteturas, nossa primeira hipótese de análise é que, no que diz respeito ao
+                gênero discursivo do balé clássico-romântico e os valores afirmados em seus
+                enunciados típicos, estamos diante do mesmo cronotopo. Vejamos suas
+                características.</p>
+            <p>A sala de espetáculos dos quatro teatros apresenta a disposição conhecida como
+                “teatro italiano” que consiste numa grande sala em forma de U e uma cena ampla e
+                elevada, permitindo ao público grande visibilidade. A fronteira absoluta entre palco
+                e plateia é assim concretamente estabelecida.</p>
+            <p><fig>
+                    <label>Foto 5</label>
+                    <caption>
+                        <title>No Teatro Châtelet. Marie Noëlle Robert, 01 de janeiro de 2009<xref
+                                ref-type="fn" rid="fn8">8</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf05.tif"/>
+                </fig></p>
+            <p><fig>
+                    <label>Foto 6</label>
+                    <caption>
+                        <title>No Teatro des Champs Elysées. Pierre Lannes, 07 de maio de 2011<xref
+                                ref-type="fn" rid="fn9">9</xref></title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf06.tif"/>
+                </fig></p>
+            <p>Outro elemento dessa concretização é a espessa cortina, geralmente de veludo, que
+                fecha o palco e impede, inclusive do ponto de vista sonoro<xref ref-type="fn"
+                    rid="fn10">10</xref>, que o público tenha acesso ao que se passa com os artistas
+                fora do espetáculo.</p>
+            <p><fig>
+                    <label>Foto 7</label>
+                    <caption>
+                        <title>Cortina do Teatro Mariinsky. Natalia Semenova, 19 de dezembro de
+                                2009<xref ref-type="fn" rid="fn11">11</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf07.tif"/>
+                </fig></p>
+            <p>As particularidades desse espaço somente ganham funcionalidade se intrinsecamente
+                relacionadas às particularidades do tempo: há um momento previsto para iniciar e
+                acabar o espetáculo; há um momento certo para o público entrar e deixar a sala; há
+                um momento previsto para o público se manifestar e aplaudir (ou não, ou vaiar etc).
+                Coordenado a esses momentos, o espaço da cena se mostra ou se esconde, se fecha ou
+                se abre. Vemos assim que esse cronotopo delineia outro importante componente do
+                gênero segundo Bakhtin: a relação com o ouvinte-espectador. Ela é aqui inteiramente
+                regulada, uma vez que o frequentador habitual conhece e adere a suas regras.</p>
+            <p>Um elemento cronotópico importante é a iluminação da sala, que instaura o
+                tempo-espaço do espetáculo: quando as luzes se apagam, a cena se revela e o
+                espetáculo começa; ao se reacenderem, o espetáculo termina ou há um intervalo na
+                discursividade do espetáculo. Devemos tratar também do espaço-tempo dos
+                    aplausos<xref ref-type="fn" rid="fn12">12</xref>, que pode, de certa maneira,
+                ser considerado como um pequeno cronotopo que se relaciona com o cronotopo geral já
+                descrito. Nele, as luzes já estão acesas, mas artistas e público permanecem
+                presentes. Embora separados espacialmente, eles dialogam diretamente: os aplausos e
+                as saudações de “bravo!” são respondidas pelos movimentos corporais codificados do
+                agradecimento e, eventualmente, algumas expressões contidas de sorriso ou de emoção
+                da parte dos artistas. O ir e o voltar à cena não significam aqui o desaparecimento
+                e a aparição, mas sim uma resposta à plateia que permanece aplaudindo. Mas o
+                    <italic>timing</italic> desse diálogo também é convencional e integrado por
+                todos: mesmo nos aplausos fervorosos e prolongados, é preciso terminar; após uma
+                série de aplausos/agradecimentos, os artistas não voltam à cena e o público deixa o
+                teatro.</p>
+            <p>A partida de um espectador durante o espetáculo não abre muita margem à interpretação
+                e podemos dizer que ela está igualmente codificada. A menos que se produza algum
+                problema, por exemplo, um caso de mal-estar súbito do espectador, a partida será
+                interpretada como um desagrado do espetáculo. Logicamente, se isso ocorre com vários
+                espectadores, a primeira hipótese será excluída e a manifestação de desagrado por
+                parte de alguns influenciará de um modo ou de outro a resposta de todos os
+                espectadores, podendo estimular aqueles que hesitavam a igualmente deixar o
+                teatro.</p>
+            <p>O que o cronotopo do teatro<xref ref-type="fn" rid="fn13">13</xref> aqui tipificado
+                permite dizer? Que valores socioestéticos do discurso do gênero balé
+                clássico-romântico nele se concretizam? Para responder, tomemos como exemplo um balé
+                exemplar do gênero, o célebre <italic>A morte do cisne,</italic> criado no Teatro
+                Mariinsky em São Petersburgo, na Rússia, centro de excelência dos profissionais
+                russos da arte do balé - dançarinos, músicos, coreógrafos, figurinistas etc. O
+                coreógrafo em questão, Mikhaïl Fokine, é considerado o grande mestre da passagem
+                para o romantismo, valorizando, além da técnica, a expressividade dramática.</p>
+            <p>Em nosso estudo precedente, vimos que toda coreografia do balé clássico afirma como
+                valor a ideia de elevação. Sua verticalidade dirigida às alturas indica uma ruptura
+                com o mundo cotidiano. Oferece imagens de uma idealidade onde a leveza de um corpo
+                quase diáfano o libera do peso e do desalinho de nossos gestos habituais. Converge
+                para isso o uso de sapatilhas de ponta que alongam o corpo e o posicionam num
+                patamar mais alto. Pernas e braços, pés e mãos dirigem-se às alturas. Do mesmo modo,
+                a leveza dos tecidos, como o tule dos <italic>tutus.</italic> A hierarquização entre
+                os dois mundos é clara visto que a elegância das formas e a delicadeza das cores
+                apontam para uma humanidade sublimada e depurada.</p>
+            <p>O corpo apresenta medidas inteiramente proporcionais e harmônicas. Nada destoa ou
+                fica fora do lugar e a linha predomina sobre o volume. Conjuga-se ao corpo um
+                figurino que enfatiza o caráter longilíneo e esguio. No caso específico do balé
+                    <italic>A morte do cisne</italic>, o caráter dramático da proximidade com a
+                morte se expressa e se intensifica pela tensão entre o alto e o baixo, o voo e a
+                imobilidade da morte.</p>
+            <p>O dispositivo do palco instaura um jogo de presença/ausência,
+                visibilidade/invisibilidade, com ajuda dos efeitos de luz e de cenografia, e pela
+                alternância de entradas e saídas do palco. O escuro, em que o artista penetra ao
+                desaparecer para o público e de onde surge sem ser visto, engendra uma teatralidade
+                da aparição e do mistério em que, mais uma vez, o valor de ruptura com o mundo
+                cotidiano é consagrado.</p>
+            <p>O palco é imenso em todas as dimensões: tanto na largura e na altura quanto na
+                profundidade, o que acentua o caráter de magia de todos os dispositivos técnicos –
+                cenários, figurinos, iluminação etc. As grandes cortinas de veludo, matéria nobre e
+                imponente, intensificam a teatralidade ao mesmo tempo em que isolam e protegem o
+                artista. A relação entre os interlocutores, artista e plateia, é assim delimitada,
+                contribuindo para tematizar a separação entre o ordinário e o extraordinário.</p>
+            <p>O acesso ao mundo da arte enquanto esfera de elevação começa com a entrada do teatro
+                e continua pelos corredores, escadarias, salões etc. luxuosamente decorados. A
+                escadaria monumental interna conduz o público aos seus lugares hierarquicamente
+                dispostos em função do poder aquisitivo e da classe. Hierarquia invertida em que o
+                nível mais alto (balcão simples) corresponde ao menor poder aquisitivo e o mais
+                baixo (plateia), ao maior.</p>
+            <p>A fachada dos prédios já é, ela própria, indicadora de que se adentra um mundo
+                especial que nada tem em comum com a realidade cotidiana e banal. No Teatro
+                    <italic>Opéra Garnier</italic> de Paris, as escadarias externas e internas
+                acentuam esse mesmo sentido de ascensão. Todos esses espaços de percurso ganham
+                significado na temporalidade que os atravessa: o tempo do antes, da espera e da
+                expectativa que avança até o grande momento em que as luzes se apagarão e a o
+                espetáculo terá início.</p>
+            <p><fig>
+                    <label>Foto 8</label>
+                    <caption>
+                        <title>Escadaria do Teatro Opéra Garnier. Benh Lieu Song, 29 de junho de
+                                2007<xref ref-type="fn" rid="fn14">14</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf08.tif"/>
+                </fig></p>
+            <p><fig>
+                    <label>Foto 9</label>
+                    <caption>
+                        <title>Salão do Teatro Opéra Garnier. Degrémont Anthony, 26 de outubro de
+                                2009<xref ref-type="fn" rid="fn15">15</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf09.tif"/>
+                </fig></p>
+            <p>Consideramos o cronotopo do teatro constitutivo do gênero discursivo balé clássico. O
+                autor o integra em seu processo de criação da coreografia, do mesmo modo que o
+                bailarino em sua interpretação. O mesmo se pode dizer do espectador: seu olhar é
+                informado e enformado pelas características desse contínuo espaço-temporal. Sobre a
+                condição cronotópica do autor e do ouvinte enquanto “homens reais”, na expressão de
+                    <xref ref-type="bibr" rid="B2">Bakhtin (2018)</xref>, este nos diz:</p>
+            <disp-quote>
+                <p>(...) se encontram num mundo histórico real uno e inacabado, que está separado do
+                    mundo <italic>representado</italic> no texto por uma nítida fronteira
+                    principial. Por isso podemos chamar esse mundo de mundo <italic>criador</italic>
+                    do texto: ora, todos os seus elementos – a realidade refletida no texto, os
+                    autores que o criam, os interpretadores do texto (se eles existem) e, por
+                    último, os ouvintes-leitores que o recriam e nessa recriação o renovam –
+                    participam igualmente da criação do mundo representado. É dos cronotopos reais
+                    desse mundo que representa que se originam os cronotopos refletidos e
+                        <italic>criados</italic> do mundo representado na obra (no texto) (p.230;
+                    grifos no original).</p>
+            </disp-quote>
+            <p>Embora referida ao romance e eventualmente ao texto ou poema dramático, a citação
+                parece valer para o balé e para a dança enquanto espetáculos teatrais.</p>
+        </sec>
+        <sec>
+            <title>3 A modernidade</title>
+            <p>O nascimento do chamado balé moderno<xref ref-type="fn" rid="fn16">16</xref> tal como
+                encenado nesses mesmos grandes teatros resulta de um verdadeiro acontecimento de
+                sentido. Na sua origem, temos um artista considerado até hoje e desde sempre como
+                genial: Nijinski<xref ref-type="fn" rid="fn17">17</xref>. Dançarino que se tornara
+                célebre em seu tempo, não apenas na Rússia, mas igualmente na Europa ocidental, era
+                aclamado por conjugar virilidade e graciosidade e, também, pela capacidade técnica e
+                atlética de realizar saltos de altura inigualável que atravessavam toda a extensão
+                do palco. Ainda como dançarino, ele vai revelar seu caráter rebelde ao resolver se
+                libertar das expectativas de seu público. Em documentos da época como em seu diário,
+                critica as coreografias que se tornaram inteiramente previsíveis, ao oferecer as
+                proezas de seus saltos como num espetáculo de circo ou o sentimentalismo de afetação
+                melosa. Decide então criar suas próprias coreografias<xref ref-type="fn" rid="fn18"
+                    >18</xref>.</p>
+            <p>Seu desejo e sua coragem têm o apoio do igualmente ousado empresário russo Serge
+                Diaghilev. Fundador da companhia chamada <italic>Os Balés Russos</italic>, realiza
+                com ela turnês na Europa ocidental a apresentar os melhores bailarinos do Teatro
+                Mariinsky. Ambos decidem pela criação de um balé baseado na composição de Debussy,
+                ela própria baseada no poema homônimo de Mallarmé, <italic>O entardecer de um
+                    fauno</italic> (<italic>L’aprèsmidi d’un faune).</italic> Juntos, visitam
+                museus, principalmente o <italic>Louvre</italic> de Paris, onde observam
+                minuciosamente os vasos e outros objetos da Antiguidade de modo a identificar
+                elementos dessa estética, à qual pertencem os mitos e a personagem do Fauno.</p>
+            <p>O próprio poema de Mallarmé parte do poeta Ovídio (43 AC) e das lendas em que o fauno
+                e a ninfa se enamoram sem poderem consumar seu idílio. Tanto no poema quanto no
+                balé, sugere-se que tudo pode não passar de um sonho do fauno, ou de sua embriaguez,
+                ou ainda de sua música produtora de magia. O Sátiro é uma encarnação dionisíaca,
+                deus da dança e da embriaguez. No balé, ele aparece a consumir cachos de uva e a
+                tocar sua flauta.</p>
+            <p>O fauno ou sátiro é um composto de homem e animal, com a parte inferior do corpo
+                semelhante a um bode. Na coreografia registrada pela escrita de Nijinski, o
+                    <italic>pas de deux</italic> coloca a animalidade na relação com a ninfa e
+                revela extrema sensualidade. Ao final, a ninfa se vai e deixa sua echarpe. O fauno
+                se vê sozinho e excita-se com a echarpe da ninfa; deita-se sobre ela numa clara
+                evocação do ato sexual e o balé termina com o fauno atingindo o clímax do gozo.</p>
+            <p><fig>
+                    <label>Foto 10</label>
+                    <caption>
+                        <title>O fauno e a ninfa. Fair use: Captura de Imagem do balé “L’Après-midi
+                            d’un faune”<xref ref-type="fn" rid="fn19">19</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf10.tif"/>
+                </fig></p>
+            <p>Apesar do caráter explícito, a estética do balé do Fauno não almeja uma representação
+                realista. Para coreografar a lenda do Fauno e sua ninfa, Nijinski reproduziu a
+                postura dos corpos tal como aparecem nos vasos egípcios: rosto, braços e mãos de
+                perfil com o tronco do corpo em posição frontal. Em vez dos gestos longilíneos e
+                contínuos do balé clássico, aqui a animalidade é acentuada pelo aspecto pesado da
+                parte inferior do fauno e pelos gestos oblíquos e entrecortados. A cena, por sua
+                vez, foi idealizada com o cenógrafo e figurinista Léon Bakst<xref ref-type="fn"
+                    rid="fn20">20</xref>, de modo a diminuir a profundidade e criar um aspecto de
+                superfície como a pintura nos objetos da arte antiga. Os dançarinos ocupam
+                praticamente o mesmo plano, sem efeitos de perspectiva e sem os efeitos de
+                verticalidade ascendente.</p>
+            <p>O que Nijinski nos mostra é uma verdadeira e concreta reflexão estética: a arte
+                remetendo à arte. Em vez de repetir e consagrar os valores da estética tradicional
+                do balé, interroga a própria noção de estética tornando-a plural.</p>
+            <p>Temos aqui um exemplo altamente significativo do princípio de alteridade que opera no
+                interior da forma estética: a arte fala (ou briga) com a arte. Isso quer dizer que
+                se trata de uma arte puramente abstrata ou, como se diz, de “arte pela arte”? De
+                modo algum. Estamos diante de uma <italic>forma tensa</italic> que atesta um embate
+                de valores socioestéticos. Em seu texto de filosofia estética, “O problema do
+                conteúdo, do material e da forma”, ao criticar o que chama de ‘estética material’,
+                    <xref ref-type="bibr" rid="B3">Bakhtin (2002)</xref> diz:</p>
+            <disp-quote>
+                <p>A forma, compreendida como forma do material somente na sua definição científica,
+                    matemática ou linguística, transforma-se de um certo modo na sua ordenação
+                    exterior, isenta de momento axiológico. O que permanece totalmente
+                    incompreensível é a <italic>tensão emocional e volitiva da forma</italic>, a sua
+                    capacidade inerente de exprimir uma relação axiológica qualquer, do autor e do
+                    espectador (...) (p.19).</p>
+            </disp-quote>
+            <p>O mesmo valor de abertura e pluralidade da discursividade de <italic>O entardecer de
+                    um fauno</italic> será confirmado na coreografia do ano seguinte, o balé
+                    <italic>A sagração da primavera</italic>, cuja música foi encomendada a
+                    Stravinsky<xref ref-type="fn" rid="fn21">21</xref>. Agora, o tema é o mito pagão
+                russo que fala do ciclo de renovação da terra e da vida pelas estações do ano, pela
+                alternância entre velhice e juventude, entre nascimento e morte. Para os leitores
+                bakhtinianos, esse tema remete imediatamente à estética popular do carnaval e, aqui,
+                de fato, os valores dessa estética aparecem na recriação de danças e ritos da Rússia
+                popular e profunda. Porém, não se encontram o riso e a irreverência da temática
+                bakhtiniana. Embora de origem popular e camponesa, estamos diante de um rito
+                religioso: escolhe-se a mais bela moça do vilarejo para ser sacrificada em oferenda
+                aos deuses através de sua morte.</p>
+            <p><fig>
+                    <label>Foto 11</label>
+                    <caption>
+                        <title>A moça escolhida. Fair use: Captura de imagem do balé “Rite of
+                                Springs”<xref ref-type="fn" rid="fn22">22</xref></title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf11.tif"/>
+                </fig></p>
+            <p>Se compararmos a morte da moça em Nijinski com a morte do cisne em Fokine, veremos o
+                choque entre as duas estéticas<xref ref-type="fn" rid="fn23">23</xref>. No
+                    <italic>Cisne</italic>, nem no momento final da morte, há descontinuidade do
+                gesto ou da linha: até a morte é harmoniosa e sublimada. Já em Nijinski, a agonia e
+                o pânico que antecedem o momento final são feitos de gestos e movimentos
+                disparatados, dissimétricos, como se o corpo da moça se desarticulasse. A repetição
+                obsessiva e extenuante, os socos no chão, as pernas que tremem, os braços que
+                balançam freneticamente, os passos largos e desajeitados como se uma das pernas não
+                mais funcionasse, tudo parece convergir para sublinhar o caráter violento da cena.
+                Uma vez que evoca um corpo em perda de controle, nada aqui pode se assemelhar ao
+                caráter melancólico, delicado e harmonioso da agonia do cisne.</p>
+            <p>Por outro lado, um detalhe interessante aparece como uma espécie de assinatura de
+                Nijinski. Vimos que o balé do Fauno termina com o espasmo do gozo e, no balé da
+                    <italic>Sagração</italic>, a última cena, marcada por um acorde musical potente,
+                é o espasmo da morte: o braço da moça sacrificada cai bruscamente e as luzes se
+                apagam. O corpo dessa estética é um corpo de espasmos, um corpo vivo que pulsa.
+                Embora nada tenha de realista, o discurso da dança aqui não visa à sublimação pelo
+                etéreo. A coreografia de Nijinski rompe inteiramente com os valores do balé clássico
+                romântico de seu tempo.</p>
+            <p>Uma das marcas notáveis dessa outra estética na <italic>Sagração da
+                    primavera</italic> é a posição dos pés, que não somente não realizam as proezas
+                de uma sapatilha de ponta, como ainda devem se movimentar, ou melhor, dançar,
+                virados para dentro. Quanto aos saltos, eles reaparecem, mas, aqui, não promovem os
+                grandes deslocamentos através do palco e se fixam compulsivamente no mesmo lugar.
+                Nenhuma suavidade ou graciosidade, e sim, movimentos vigorosos e repetitivos a
+                evocar a violência da irrupção da vida e a do rito de morte. Ao invés da
+                verticalidade ascendente, é a terra que é valorizada: muitos movimentos acontecem no
+                plano baixo e os dançarinos batem no chão com as mãos ou com os pés, acompanhados
+                pela música intensamente ritmada.</p>
+            <p>Ao invés dos movimentos longilíneos ascendentes, temos linhas cortadas na altura do
+                pulso e mãos que apontam espalmadas para baixo ou para cima. Temos pulsos cerrados
+                apontados para o alto em cenas coletivas que evocam um gesto de luta. Aparecem
+                também movimentos de dissimetria acentuada, com membros superiores e inferiores que
+                se dirigem de modo desordenado. Corpos em estado de loucura ou, se quisermos nos
+                ater à temática literal do balé, corpos possuídos pelas forças operantes no ritual
+                pagão. A marcação enfática do ritmo com os pés, marchando ou saltando, produz uma
+                sonoridade que, ao contrário do balé clássico, não esconde o peso e a força dos
+                corpos. Essas escolhas valoradas pelo artista criador apontam para uma estética
+                comumente chamada de primitivista.</p>
+            <p>A primeira coreografia de Nijinski estreou com o corpo de balé russo e o próprio
+                Nijinski no papel do Fauno. Foi em 1912 no Teatro <italic>Châtelet</italic> de
+                Paris, o mesmo onde a companhia de Diaghilev já havia apresentado as criações russas
+                de balé clássico. A segunda coreografia, <italic>A sagração da primavera</italic>,
+                estreou também em Paris, com a mesma companhia russa, no Teatro dos <italic>Champs
+                    Elysées</italic> em 1913. A estreia do balé em maio, após os concertos musicais
+                de março, marcava a inauguração do teatro recémconstruído. Como vimos anteriormente,
+                embora localizado em espaços distintos e tendo sido construído em data e arquitetura
+                distintas, é possível analisar sua cronotopicidade como sendo a mesma dos outros
+                teatros na relação que se estabelece com o discurso do gênero do balé clássico. O
+                Teatro <italic>des Champs Elysées</italic> apresenta uma arquitetura inovadora de
+                estilo marcadamente <italic>art déco</italic>, mas isso não muda a cronotopicidade
+                que permite concretizar os valores próprios do gênero até então consagrado.</p>
+            <p>Se for válida essa hipótese analítica, precisamos agora tentar compreender o efeito
+                provocado pelos dois balés, o do <italic>Fauno</italic> e o da
+                    <italic>Sagração</italic>. O primeiro provocou muitas reações negativas tanto do
+                público quanto da crítica dos jornais da época. Mas o segundo provocou um verdadeiro
+                escândalo.</p>
+            <p>Vimos que o corpo coreografado de <italic>O entardecer de um fauno</italic> dialoga
+                com outras artes e materiais que trataram do mesmo objeto anteriormente. Note-se que
+                o título do balé tem como subtítulo a menção <italic>Poema
+                    coreográfico</italic><xref ref-type="fn" rid="fn24">24</xref>. O objeto
+                discursivo <italic>fauno</italic> fala através de muitas vozes – das representações
+                nos vasos da antiguidade, do mito, do poema, da composição musical etc. Temos pelo
+                menos cinco referências de artistas que dele trataram no século XIX e início do
+                século XX: Mallarmé, Manet, Gauguin, Débussy e Nijinski. Mas tudo isso parece ter
+                ficado de fora na interpretação de grande parte do público.</p>
+            <p>Do ponto de vista dialógico, podemos ainda dizer que os dois balés, o
+                    <italic>Fauno</italic> e a <italic>Sagração</italic> respondem à estética do
+                balé clássico, ao polemizar com ela, ao colocá-la em questão. Sem as referências do
+                balé clássico, a ruptura que operam não poderia ser compreendida. Se assim é, o
+                acontecimento de sentido pode ser entendido como uma <italic>transgressão
+                    cronotópica</italic>.</p>
+            <p>Entendemos assim que, sem o cronotopo do teatro, seria difícil entender o escândalo
+                de Nijinski. Em sua celebração da natureza, Isadora Duncan dançava quase nua em
+                salões privados e isso não produziu o mesmo acontecimento de sentido. A transgressão
+                do <italic>Fauno</italic> e da <italic>Sagração</italic> refere-se aos valores
+                supostamente partilhados com os espectadores que ali se encontram. Nijinski frustra
+                seus admiradores ao negar o valor atribuído ao virtuosismo espetacular. Em vez
+                disso, no balé do <italic>Fauno</italic>, propõe gestos e movimentos de extrema
+                lentidão que servem à ideia de uma cena sonhada, de um devaneio numa tarde quente. A
+                redução da profundidade e da perspectiva do palco evoca mais a estética de pinturas
+                planas do que a teatralidade grandiosa. No balé da <italic>Sagração</italic>, a
+                violência rítmica, os corpos dissimétricos, os gestos vigorosos e a força de atração
+                do solo de onde parecem se engendrar os movimentos, tudo isso apaga qualquer imagem
+                de leveza, suavidade ou pureza de um mundo idealizado das alturas. Na ocasião do
+                espetáculo, romperam-se também as regras de interação entre os interlocutores.
+                Embora se tratando de um dispositivo teatral onde a relação palco-plateia deveria
+                obedecer às regras do gênero clássico de espetáculo, as vaias e os assobios
+                impediram os dançarinos de ouvir a música e Diaghilev, responsável pelo espetáculo,
+                foi obrigado a acender as luzes da plateia inúmeras vezes.</p>
+            <p>A transgressão aqui identificada demanda que tratemos da problemática do ouvinte ou
+                destinatário, conforme elaborada pelo Círculo Bakhtiniano. Diz-nos <xref
+                    ref-type="bibr" rid="B10">Volóchinov (2019)</xref>:</p>
+            <disp-quote>
+                <p>(...) toda a estrutura formal depende, em grau significativo, da relação entre o
+                    enunciado e o caráter compartilhado e subentendido das avaliações daquele
+                    ambiente social para o qual a palavra foi pensada. A entonação criativamente
+                    produtiva, segura e rica é possível apenas com base em um “coro de apoio”
+                    pressuposto (p.124).</p>
+            </disp-quote>
+            <p>Podemos conceber como destinatário pressuposto nos dois balés de Nijinski um
+                espectador de classe social alta, <italic>habitué</italic> dos grandes teatros e
+                iniciado nas referências do balé ou, se preferirmos, uma memória discursiva, onde as
+                várias referências estéticas que atravessam os corpos poderiam ser mobilizadas para
+                a produção de sentido. O discurso coreográfico dirige-se igualmente à vanguarda
+                intelectual e artística da época, uma vez que tanto a poesia de Mallarmé quanto a
+                música de Debussy e de Stravinsky já haviam sido, no final do século precedente,
+                identificados e adotados como precursores da modernidade. Do ponto de vista de uma
+                cronotopia ampliada<xref ref-type="fn" rid="fn25">25</xref>, estamos em Paris, no
+                teatro que inaugura o estilo <italic>art déco</italic> e os ventos da modernidade
+                sopram cada vez mais fortes nessa década inicial do século XX. Prova disso é o fato
+                de que, no mesmo ano de 1913, o retrato de Isadora Duncan havia sido gravado em alto
+                relevo no mesmo Teatro <italic>des Champs Elysées</italic>.</p>
+            <p>Teríamos aí o “coro de apoio” que parece ter participado de modo interno e inerente à
+                forma criada. Alguns intelectuais da época, como Jean Cocteau, valorizaram muito a
+                criação de Nijinski. Alguns colocaram em relação os movimentos do balé do
+                    <italic>Fauno</italic> com a pintura cubista. Mas foram poucos. Mesmo Stravinsky
+                e Debussy expressaram incompreensão a respeito das coreografias criadas por Nijinski
+                para suas composições.</p>
+            <p>O endereçamento enquanto relação de alteridade é um dos eixos da concepção de
+                linguagem de Bakhtin e o Círculo. O <italic>outro</italic> a quem se responde e que
+                se convoca participa intrinsecamente da construção discursiva e sua produção de
+                sentido. No caso em análise, a distinção entre destinatário suposto e destinatário
+                real revela-se de maneira contundente. Grande parte do público que real e
+                efetivamente assistiu aos dois balés reprovou o trabalho de Nijinski e não se
+                constituiu como “coro de apoio”.</p>
+            <p>Observamos que em sua reflexão sobre a relação do artista criador com seu ouvinte,
+                Volóchinov não deixa muito espaço para se pensar a transgressão criadora. Embora
+                admita a possibilidade de desacordo e de um tom de irritação no enunciado, não chega
+                a formular a possibilidade de uma riqueza própria à transgressão, bem ao
+                contrário:</p>
+            <disp-quote>
+                <p>Já quando esse apoio não existe, a voz perde a força, sua riqueza entonacional é
+                    reduzida, como acontece quando uma pessoa, ao rir, de repente percebe que está
+                    rindo sozinha: o seu riso cessa ou se altera, torna-se histérico, perde a
+                    segurança e a clareza, e a pessoa se torna incapaz de produzir palavras
+                    engraçadas e alegres (<xref ref-type="bibr" rid="B10">VOLÓCHINOV, 2019</xref>,
+                    p.124).</p>
+            </disp-quote>
+            <p>Parece-nos que, no caso da arte, é impossível entender a criação transgressora e
+                adiante de seu tempo sem o conceito de supradestinatário. <xref ref-type="bibr"
+                    rid="B10">Volóchinov (2019, p.125)</xref> chega a esboçar elementos para esse
+                conceito quando fala do “terceiro participante”. Mas é em Bakhtin que o conceito é
+                claramente definido.</p>
+            <disp-quote>
+                <p>O autor nunca pode deixar que ele mesmo nem o conjunto de sua obra discursiva
+                    fiquem inteiramente à mercê plena e <italic>definitiva</italic> dos
+                    destinatários presentes ou próximos (porque até os descendentes mais próximos
+                    podem equivocar-se), e sempre pressupõe (com maior ou menos consciência) alguma
+                    instância superior de compreensão responsiva que possa se deslocar em diferentes
+                    sentidos (<xref ref-type="bibr" rid="B4">BAKHTIN, 2016</xref>, p.104-105).</p>
+            </disp-quote>
+            <p>Podemos dizer que o supradestinatário liberta a obra dos limites interpretativos de
+                seu contexto, de seu horizonte avaliativo, de seus “coros de apoio”. Destina a obra
+                para além de seu tempo, como bem sintetiza <xref ref-type="bibr" rid="B5">Bezerra
+                    (2016, p.163)</xref>: “É nesse grande tempo que o supradestinatário a
+                reinterpreta à luz de novas conquistas (...)”.</p>
+            <p>A respeito do “escândalo Nijinski”, concluímos então que o discurso coreográfico
+                instaurou valores que transgrediram aqueles encarnados no cronotopo do teatro. Dessa
+                maneira, ultrapassou a unidade espaço-tempo em que se engendrava, dançou para o
+                grande tempo e endereçou sua arte ao horizonte nascente da modernidade.
+                Cronotopicidade futura? Uma coisa é certa: com Nijinski, o horizonte de valores do
+                cronotopo do teatro foi alargado de modo a se abrir para novos valores da
+                discursividade da dança. Hoje, nos Teatro <italic>des Champs Elysées</italic> e no
+                Teatro <italic>Châtelet</italic> apresentam-se espetáculos de dança contemporânea,
+                alguns extremamente radicais em sua discursividade, como do brasileiro Grupo Corpo
+                ou da já citada Pina Bausch.</p>
+        </sec>
+        <sec sec-type="conclusions">
+            <title>Conclusões</title>
+            <p>Queremos concluir com o problema da transgressão, uma vez que este foi o principal
+                elemento revelado por nossa análise. Tratamos de um exemplo histórico de
+                transgressão cronotópica produzida por um discurso coreográfico radicalmente
+                inovador, prenunciador do novo gênero que posteriormente seria conhecido como Balé
+                Moderno. Gostaríamos de finalizar com um exemplo do processo inverso, isto é, de
+                transgressão do sentido de um discurso coreográfico clássico, produzida pela mudança
+                de cronotopo.</p>
+            <p>Vejamos o contexto. Estamos em janeiro de 2020, na França das imensas manifestações
+                populares contra as reformas ultraliberais do governo Macron, em especial contra a
+                reforma do sistema de aposentadoria. Praticamente todas as categorias profissionais
+                assalariadas estão nas ruas e a greve dos transportes paralisa o país durante mais
+                de um mês. Considerando-se que a vida nas grandes cidades francesas depende
+                inteiramente dos transportes coletivos, um grande transtorno se instala no cotidiano
+                dos trabalhadores não assalariados que não estão em greve. Para irem ao trabalho,
+                precisam pedir carona, ir de bicicleta, patins ou a pé, o que, evidentemente, dobra
+                ou triplica o tempo gasto para tanto. Apesar do transtorno, 65% da população apoia
+                os grevistas. Além das passeatas, várias manifestações pontuais foram produzidas.
+                Caminhoneiros fecharam estradas, portuários fecharam portos, eletricitários cortaram
+                pontos de energia por algumas horas, advogados lançaram suas togas pretas ao chão na
+                escadaria do Palácio da Justiça, e... bailarinos do corpo de balé do Opéra Garnier
+                dançaram do lado de fora do tradicional teatro.</p>
+            <p><fig>
+                    <label>Foto 12</label>
+                    <caption>
+                        <title>Balé protesto. Fair use: Captura de imagem do vídeo “L’Opéra en
+                                greve”<xref ref-type="fn" rid="fn26">26</xref></title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf12.tif"/>
+                </fig></p>
+            <p>Podemos aqui identificar o cronotopo da praça ou da rua, central na obra bakhtiniana
+                sobre Rabelais e a cultura popular. Estamos em lugar aberto, a distância entre palco
+                e plateia se relativiza e o tempo escapa à regulação codificada dos espetáculos no
+                interior do teatro. A orquestra, também presente, traz a música do <italic>Lago dos
+                    Cisnes,</italic> composta por Tchaikovsky para o balé do mesmo nome<xref
+                    ref-type="fn" rid="fn27">27</xref> e que é o mais conhecido balé do gênero
+                clássico. Ao mesmo tempo, a rua traz suas sonoridades que escapam a qualquer
+                controle e incidem na escansão da escuta ao alterar as medidas do
+                    <italic>tempo</italic> musical: buzinas, sirenes, vozes.</p>
+            <p>A iluminação é a do dia, comum a todos, artistas e público, e não produz efeito de
+                magia ou mistério. No cinza frio de Paris, a cena é clara, transparente. Os valores
+                do cronotopo popular se impõem ao discurso do balé inserindo-o no discurso coletivo.
+                Nas imponentes arcadas do teatro, as faixas de protesto penduradas ocupam a posição
+                de novo componente verbal do discurso, substituindo os programas distribuídos antes
+                dos espetáculos: “Ópera em greve”, “A cultura em perigo”. A fachada, a entrada, as
+                arcadas, a escadaria são as mesmas, mas ganham uma nova dimensão cronotópica. As
+                arcadas imponentes com seu material nobre de pedra são barradas em sua verticalidade
+                por faixas horizontais em que o material, a disposição e o conteúdo dos dizeres
+                exibem uma origem popular com valor de luta.</p>
+            <p>Vemos aqui a dimensão política do cronotopo, uma vez que <italic>polis</italic> é o
+                espaço do viver junto e que o modo como se distribuem lugares e posições em seu
+                interior configura um regime político de partilha da sensibilidade artística. Nesse
+                “balé protesto” parisiense, há uma reconfiguração do espaço-tempo do teatro e é a
+                tensão entre os valores dos dois cronotopos que produz intensidade e densidade de
+                sentido. Podemos aqui identificar a relação do cronotopo com a realidade empírica
+                tal como indica Bakhtin.</p>
+            <p>A relação de alteridade está no cerne da produção de sentido da discursividade: é
+                porque aquele lugar remete a uma arte das alturas que o baixo da rua pode ganhar
+                voz. É na medida em que a entrada do Opéra Garnier significa convencionalmente um
+                índice dos valores da arte da elevação que se pode contrapor a diferença com o
+                cronotopo da rua e os valores dos movimentos sociais de protesto. Ao se manter a
+                coreografia, a música e o figurino do gênero clássico, a voz da arte tradicional se
+                une à voz das manifestações populares e o corpo da dança integra o corpo coletivo.
+                Aqui, o artista serve e adere à causa política. Mas é justamente a presença da forma
+                clássica e tradicional, tanto do corpo quanto do teatro, que confere força ao
+                discurso, trazendo o diálogo efetivo entre o popular e o erudito pela articulação
+                entre o ético e o estético.</p>
+            <p>Devemos concluir que toda transgressão é criadora? Não. Será necessário levar em
+                conta se ela apenas desfaz o que estava estabelecido ou se permite afirmar novos
+                valores. Em caso afirmativo, que discursividade ela supõe? De todo modo, em face de
+                valores, a discussão irá sempre ultrapassar a questão metodológica para exigir do
+                pesquisador um <italic>pensamento não-indiferente</italic> face aos novos valores
+                afirmados. A título de ilustração, a foto abaixo da fachada do Teatro Opéra Garnier
+                data da ocupação nazista de Paris. Escolhemos utilizá-la para finalizar o presente
+                texto com uma ilustração forte da problemática aqui tratada, a fim de provocar no
+                leitor a formulação de novas questões.</p>
+            <p><fig>
+                    <label>Foto 13</label>
+                    <caption>
+                        <title>Teatro Opéra Garnier sob a ocupação nazista. Autor desconhecido,
+                            março de 1941<xref ref-type="fn" rid="fn28">28</xref>.</title>
+                    </caption>
+                    <graphic xlink:href="2176-4573-bak-p59553-gf13.tif"/>
+                </fig></p>
+        </sec>
+    </body>
+    <back>
+        <sec sec-type="data-availability" specific-use="data-available-upon-request">
+            <label>Declaração de disponibilidade de conteúdo</label>
+            <p>Os conteúdos subjacentes ao texto da pesquisa estão contidos no manuscrito.</p>
+        </sec>
+        <fn-group>
+            <fn fn-type="other">
+                <p><bold>Pareceres</bold></p>
+                <p>Tendo em vista o compromisso assumido por <italic>Bakhtiniana. Revista de Estudos
+                        do Discurso</italic> com a Ciência Aberta, a revista publica somente os
+                    pareceres autorizados por todas as partes envolvidas.</p>
+            </fn>
+            <fn fn-type="other" id="fn1">
+                <label>1</label>
+                <p>Como exemplo de abordagem que contempla as múltiplas linguagens articuladas no
+                    discurso da dança, ver o excelente artigo de Irene Machado indicado na
+                    bibliografia.</p>
+            </fn>
+            <fn fn-type="other" id="fn2">
+                <label>2</label>
+                <p>Nó que é impossível desatar.</p>
+            </fn>
+            <fn fn-type="other" id="fn3">
+                <label>3</label>
+                <p>Analisado em nosso artigo precedente.</p>
+            </fn>
+            <fn fn-type="other" id="fn4">
+                <label>4</label>
+                <p>Todos os links das fotos a seguir referem-se às licenças de uso de imagem.
+                        <ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File:Spb_06-2012_MariinskyTheatre.jpg"
+                        >https://commons.wikimedia.org/wiki/File:Spb_06-2012_MariinskyTheatre.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn5">
+                <label>5</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tre_du_Ch%C3%A2telet_Fa%C3%A7ade.jpg"
+                        >https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tre_du_Ch%C3%A2telet_Fa%C3%A7ade.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn6">
+                <label>6</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File:Paris_Palais_Garnier_2010-04-06_16.55.07.jpg"
+                        >https://commons.wikimedia.org/wiki/File:Paris_Palais_Garnier_2010-04-06_16.55.07.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn7">
+                <label>7</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tre_des_Champs%C3%89lys%C3%A9es,_21_April_2013.jpg"
+                        >https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tre_des_Champs%C3%89lys%C3%A9es,_21_April_2013.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn8">
+                <label>8</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File:Salle_du_Theatre_du_Chatelet.jpg"
+                        >https://commons.wikimedia.org/wiki/File:Salle_du_Theatre_du_Chatelet.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn9">
+                <label>9</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://fr.wikipedia.org/wiki/Fichier:Theatre_Champs_Elysees_35.jpg"
+                        >https://fr.wikipedia.org/wiki/Fichier:Theatre_Champs_Elysees_35.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn10">
+                <label>10</label>
+                <p>Do ponto de vista da física acústica, o veludo é um tecido que favorece o
+                    isolamento sonoro.</p>
+            </fn>
+            <fn fn-type="other" id="fn11">
+                <label>11</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File: Главная_сцена_Мариинского_театра._Занавес_художника_А._Головина_-_эмблема_театра._-_panoramio.jpg"
+                        >https://commons.wikimedia.org/wiki/File:
+                        Главная_сцена_Мариинского_театра._Занавес_художника_А._Головина_-_эмблема_театра._-_panoramio.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn12">
+                <label>12</label>
+                <p>Uma variante do aplauso é a codificação dos balés clássicos que são compostos de
+                    quadros <italic>(ballet à tableaux):</italic> as cenas são criadas de modo que
+                    haja um solo, um duo, um trio etc. de caráter virtuosístico cujo final é marcado
+                    por uma pausa na música e na dança. A cena parada sinaliza para o público o
+                    momento de aplaudir o bailarino, mesmo com as luzes apagadas. Terminado o
+                    aplauso, a dança e o enredo retomam. Ver, por exemplo, o renomado balé <italic>O
+                        corsário,</italic> de Marius Petipa (1818-1910).</p>
+            </fn>
+            <fn fn-type="other" id="fn13">
+                <label>13</label>
+                <p>A expressão “cronotopo do teatro” será utilizada ao longo do texto sempre se
+                    referindo apenas aos grandes teatros nacionais ocidentais construídos até o
+                    início do século XX.</p>
+            </fn>
+            <fn fn-type="other" id="fn14">
+                <label>14</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File:Opera_Garnier_Grand_Escalier.jpg"
+                        >https://commons.wikimedia.org/wiki/File:Opera_Garnier_Grand_Escalier.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn15">
+                <label>15</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://commons.wikimedia.org/wiki/File:Op%C3%A9ra_Garnier_-_le_Grand_Foyer.jpg"
+                        >https://commons.wikimedia.org/wiki/File:Op%C3%A9ra_Garnier_-_le_Grand_Foyer.jpg</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn16">
+                <label>16</label>
+                <p>Importante distinguir o balé moderno da chamada dança contemporânea, que se
+                    inicia nos anos sessenta e vigora até hoje. A coreógrafa mais emblemática do
+                    gênero é a alemã Pina Bausch.</p>
+            </fn>
+            <fn fn-type="other" id="fn17">
+                <label>17</label>
+                <p>Vaslav Nijinski, bailarino e coreógrafo russo de origem ucraniana
+                    (1889-1950).</p>
+            </fn>
+            <fn fn-type="other" id="fn18">
+                <label>18</label>
+                <p>Outros artistas contribuíram para o surgimento da dança moderna. É o caso
+                    notadamente da americana Isadora Duncan (1877-1927), que se apresenta na Europa,
+                    com muito sucesso, já em 1902. Suas apresentações, porém, aconteciam em espaços
+                    privados e não eram institucionalizadas e enquadradas por companhias ou teatros
+                    estatais.</p>
+            </fn>
+            <fn fn-type="other" id="fn19">
+                <label>19</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://www.youtube.com/watch?v=fx6i7sXcRqo"
+                        >https://www.youtube.com/watch?v=fx6i7sXcRqo</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn20">
+                <label>20</label>
+                <p>Léon Bakst, pintor, decorador e figurinista russo (1866-1924).</p>
+            </fn>
+            <fn fn-type="other" id="fn21">
+                <label>21</label>
+                <p>Igor Stravinsky, compositor russo (1882-1971).</p>
+            </fn>
+            <fn fn-type="other" id="fn22">
+                <label>22</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://www.youtube.com/watch?v=C_7ndqgwxcM"
+                        >https://www.youtube.com/watch?v=C_7ndqgwxcM</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn23">
+                <label>23</label>
+                <p>Entretanto, Fokine e Nijinski eram contemporâneos e ambos integravam o
+                        <italic>Mariinsky</italic> e a companhia de Diaghiliev. Isso prova que, do
+                    ponto de vista histórico, o moderno e o clássico não são valores que se separam
+                    de modo estanque, seja cronológica, seja institucionalmente.</p>
+            </fn>
+            <fn fn-type="other" id="fn24">
+                <label>24</label>
+                <p>O título completo figurava no programa e no cartaz: <italic>L’après-midi d’un
+                        faune. Poème chorégraphique.</italic></p>
+            </fn>
+            <fn fn-type="other" id="fn25">
+                <label>25</label>
+                <p>Uma questão metodológica se coloca: para tratar dessa cronotopia ampla, seria
+                    necessário recortar a discursividade que nela se engendra para se proceder à
+                    análise. Por exemplo, poder-se-ia pesquisar os jornais da época e os artigos de
+                    crítica literária e das demais artes, o que aqui não foi empreendido.</p>
+            </fn>
+            <fn fn-type="other" id="fn26">
+                <label>26</label>
+                <p><ext-link ext-link-type="uri"
+                        xlink:href="https://www.youtube.com/watch?v=oVueDU8uw1I"
+                        >https://www.youtube.com/watch?v=oVueDU8uw1I</ext-link></p>
+            </fn>
+            <fn fn-type="other" id="fn27">
+                <label>27</label>
+                <p>Criado no Balé do Teatro Bolchoï de Moscou, em 1877, por diferentes
+                    coreógrafos.</p>
+            </fn>
+            <fn fn-type="other">
+                <p><bold>Declaração de disponibilidade de conteúdo</bold></p>
+                <p>Os conteúdos subjacentes ao texto da pesquisa estão contidos no manuscrito.</p>
+            </fn>
+        </fn-group>
+        <ref-list>
+            <title>REFERÊNCIAS</title>
+            <ref id="B1">
+                <mixed-citation>AMORIM, M. O discurso da dança e o conceito de gênero – alguns
+                    elementos de leitura. <italic>Bakhtiniana. Revista de Estudos do
+                        Discurso</italic>. São Paulo, v. 15, n. 2, p.64-96, abril/jun. 2020.
+                        <ext-link ext-link-type="uri"
+                        xlink:href="http://dx.doi.org/10.1590/2176-457342617"
+                        >http://dx.doi.org/10.1590/2176-457342617</ext-link>. Disponível em:
+                        <ext-link ext-link-type="uri"
+                        xlink:href="https://revistas.pucsp.br/index.php/bakhtiniana/article/view/42617"
+                        >https://revistas.pucsp.br/index.php/bakhtiniana/article/view/42617</ext-link>
+                    . Acesso em: 09 jan. 2023.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>AMORIM</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>O discurso da dança e o conceito de gênero – alguns elementos de
+                        leitura</article-title>
+                    <source>Bakhtiniana. Revista de Estudos do Discurso</source>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <volume>15</volume>
+                    <issue>2</issue>
+                    <fpage>64</fpage>
+                    <lpage>96</lpage>
+                    <season>abril/jun</season>
+                    <year>2020</year>
+                    <comment><ext-link ext-link-type="uri"
+                            xlink:href="http://dx.doi.org/10.1590/2176-457342617"
+                            >http://dx.doi.org/10.1590/2176-457342617</ext-link>. Disponível em:
+                            <ext-link ext-link-type="uri"
+                            xlink:href="https://revistas.pucsp.br/index.php/bakhtiniana/article/view/42617"
+                            >https://revistas.pucsp.br/index.php/bakhtiniana/article/view/42617</ext-link>
+                        .</comment>
+                    <date-in-citation content-type="access-date">09 jan. 2023</date-in-citation>
+                </element-citation>
+            </ref>
+            <ref id="B2">
+                <mixed-citation>BAKHTIN, M. <italic>Teoria do romance II</italic>. As formas do
+                    tempo e do cronotopo. Tradução de Paulo Bezerra. São Paulo: Editora 34,
+                    2018.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>BAKHTIN</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <source><italic>Teoria do romance II</italic>. As formas do tempo e do
+                        cronotopo</source>
+                    <person-group person-group-type="translator">
+                        <name>
+                            <surname>Bezerra</surname>
+                            <given-names>Paulo.</given-names>
+                        </name>
+                    </person-group>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Editora 34</publisher-name>
+                    <year>2018</year>
+                </element-citation>
+            </ref>
+            <ref id="B3">
+                <mixed-citation>BAKHTIN, M. O problema do conteúdo, do material e da forma na
+                    criação literária. <italic>In:</italic> BAKHTIN, M. <italic>Questões de
+                        literatura e de estética</italic>. Tradução de Aurora Fornoni Bernardini
+                        <italic>et al</italic>. São Paulo: Hucitec, 2002. p.13-70.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>BAKHTIN</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>O problema do conteúdo, do material e da forma na criação
+                        literária</chapter-title>
+                    <person-group person-group-type="editor">
+                        <name>
+                            <surname>BAKHTIN</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Questões de literatura e de estética</source>
+                    <person-group person-group-type="translator">
+                        <name>
+                            <surname>Bernardini</surname>
+                            <given-names>Aurora Fornoni</given-names>
+                        </name>
+                        <etal/>
+                    </person-group>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Hucitec</publisher-name>
+                    <year>2002</year>
+                    <fpage>13</fpage>
+                    <lpage>70</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B4">
+                <mixed-citation>BAKHTIN, M. O texto na linguística, na filologia e em outras
+                    ciências humanas: um experimento de análise filosófica. <italic>In:</italic>
+                    BAKHTIN, M. <italic>Os gêneros do discurso</italic>. Tradução de Paulo Bezerra.
+                    São Paulo: Editora 34, 2016. p.71-107.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>BAKHTIN</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>O texto na linguística, na filologia e em outras ciências
+                        humanas: um experimento de análise filosófica</chapter-title>
+                    <person-group person-group-type="editor">
+                        <name>
+                            <surname>BAKHTIN</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Os gêneros do discurso</source>
+                    <person-group person-group-type="translator">
+                        <name>
+                            <surname>Bezerra</surname>
+                            <given-names>Paulo.</given-names>
+                        </name>
+                    </person-group>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Editora 34</publisher-name>
+                    <year>2016</year>
+                    <fpage>71</fpage>
+                    <lpage>107</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B5">
+                <mixed-citation>BEZERRA, P. Posfácio. No limiar de várias ciências.
+                        <italic>In:</italic> BAKHTIN, M. <italic>Os gêneros do discurso</italic>.
+                    São Paulo: Editora 34, 2016. p.151-172.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>BEZERRA</surname>
+                            <given-names>P.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>Posfácio. No limiar de várias ciências</chapter-title>
+                    <person-group person-group-type="editor">
+                        <name>
+                            <surname>BAKHTIN</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Os gêneros do discurso</source>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Editora 34</publisher-name>
+                    <year>2016</year>
+                    <fpage>151</fpage>
+                    <lpage>172</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B6">
+                <mixed-citation>BRAIT, B; GONÇALVES, J. (org.). <italic>Bakhtin e as artes do
+                        corpo</italic>. São Paulo: Hucitec, 2021.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="compiler">
+                        <name>
+                            <surname>BRAIT</surname>
+                            <given-names>B</given-names>
+                        </name>
+                        <name>
+                            <surname>GONÇALVES</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Bakhtin e as artes do corpo</source>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Hucitec</publisher-name>
+                    <year>2021</year>
+                </element-citation>
+            </ref>
+            <ref id="B7">
+                <mixed-citation>GRILLO, S. V. C. Fundamentos bakhtinianos para a análise de
+                    enunciados verbovisuais. <italic>Revista de Filologia e Linguística
+                        Portuguesa</italic>, Universidade de São Paulo, v. 14, n. 2, p.235-246,
+                    2012. Disponível em: <ext-link ext-link-type="uri"
+                        xlink:href="https://www.revistas.usp.br/flp/article/%20view/59912"
+                        >https://www.revistas.usp.br/flp/article/%20view/59912</ext-link> Acesso em:
+                    09 jan. 2023.</mixed-citation>
+                <element-citation publication-type="journal">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>GRILLO</surname>
+                            <given-names>S. V. C.</given-names>
+                        </name>
+                    </person-group>
+                    <article-title>Fundamentos bakhtinianos para a análise de enunciados
+                        verbovisuais</article-title>
+                    <source>Revista de Filologia e Linguística Portuguesa</source>
+                    <publisher-loc>Universidade de São Paulo</publisher-loc>
+                    <volume>14</volume>
+                    <issue>2</issue>
+                    <fpage>235</fpage>
+                    <lpage>246</lpage>
+                    <year>2012</year>
+                    <comment>Disponível em: <ext-link ext-link-type="uri"
+                            xlink:href="https://www.revistas.usp.br/flp/article/%20view/59912"
+                            >https://www.revistas.usp.br/flp/article/%20view/59912</ext-link></comment>
+                    <date-in-citation content-type="access-date">09 jan. 2023</date-in-citation>
+                </element-citation>
+            </ref>
+            <ref id="B8">
+                <mixed-citation>HOLQUIST, M. A fuga do cronotopo. Tradução de Ivan Marcos Ribeiro e
+                    Luciana Moura Colucci de Camargo, <italic>In:</italic> BEMONG, N., BORGHART, P.;
+                    DOBBELEER, M. de; DEMOEN, K.; TEMMERMAN, K. de; KEUNEN, B. (org.).
+                        <italic>Bakhtin e o cronotopo</italic>. Reflexões aplicações perspectivas.
+                    São Paulo: Parábola Editorial, 2015. p.34-51.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>HOLQUIST</surname>
+                            <given-names>M.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>A fuga do cronotopo</chapter-title>
+                    <person-group person-group-type="translator">
+                        <name>
+                            <surname>Ribeiro</surname>
+                            <given-names>Ivan Marcos</given-names>
+                        </name>
+                        <name>
+                            <surname>Camargo</surname>
+                            <given-names>Luciana Moura Colucci de</given-names>
+                        </name>
+                    </person-group>
+                    <person-group person-group-type="compiler">
+                        <name>
+                            <surname>BEMONG</surname>
+                            <given-names>N.</given-names>
+                        </name>
+                        <name>
+                            <surname>BORGHART</surname>
+                            <given-names>P.</given-names>
+                        </name>
+                        <name>
+                            <surname>DOBBELEER</surname>
+                            <given-names>M. de</given-names>
+                        </name>
+                        <name>
+                            <surname>DEMOEN</surname>
+                            <given-names>K.</given-names>
+                        </name>
+                        <name>
+                            <surname>TEMMERMAN</surname>
+                            <given-names>K. de</given-names>
+                        </name>
+                        <name>
+                            <surname>KEUNEN</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                    </person-group>
+                    <source><italic>Bakhtin e o cronotopo</italic>. Reflexões aplicações
+                        perspectivas</source>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Parábola Editorial</publisher-name>
+                    <year>2015</year>
+                    <fpage>34</fpage>
+                    <lpage>51</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B9">
+                <mixed-citation>MACHADO, I. Corpo grotesco bem temperado: ressonâncias em ritmo de
+                    Bach, <italic>In:</italic> BRAIT, B.; GONÇALVES, J. (org.). <italic>Bakhtin e as
+                        artes do corpo</italic>. São Paulo: Hucitec, 2021.
+                    p.121-146.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>MACHADO</surname>
+                            <given-names>I.</given-names>
+                        </name>
+                    </person-group>
+                    <chapter-title>Corpo grotesco bem temperado: ressonâncias em ritmo de
+                        Bach</chapter-title>
+                    <person-group person-group-type="compiler">
+                        <name>
+                            <surname>BRAIT</surname>
+                            <given-names>B.</given-names>
+                        </name>
+                        <name>
+                            <surname>GONÇALVES</surname>
+                            <given-names>J.</given-names>
+                        </name>
+                    </person-group>
+                    <source>Bakhtin e as artes do corpo</source>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Hucitec</publisher-name>
+                    <year>2021</year>
+                    <fpage>121</fpage>
+                    <lpage>146</lpage>
+                </element-citation>
+            </ref>
+            <ref id="B10">
+                <mixed-citation>VOLÓCHINOV, V. <italic>A palavra na vida e na poesia</italic>.
+                    Ensaios, artigos, resenhas e poemas. Organização, tradução, ensaio introdutório
+                    e notas de Sheila Grillo e Ekaterina Vólkova Américo. São Paulo: Editora 34,
+                    2019.</mixed-citation>
+                <element-citation publication-type="book">
+                    <person-group person-group-type="author">
+                        <name>
+                            <surname>VOLÓCHINOV</surname>
+                            <given-names>V.</given-names>
+                        </name>
+                    </person-group>
+                    <source><italic>A palavra na vida e na poesia</italic>. Ensaios, artigos,
+                        resenhas e poemas</source>
+                    <person-group person-group-type="translator">
+                        <name>
+                            <surname>Grillo</surname>
+                            <given-names>Sheila</given-names>
+                        </name>
+                        <name>
+                            <surname>Américo</surname>
+                            <given-names>Ekaterina Vólkova</given-names>
+                        </name>
+                    </person-group>
+                    <publisher-loc>São Paulo</publisher-loc>
+                    <publisher-name>Editora 34</publisher-name>
+                    <year>2019</year>
+                </element-citation>
+            </ref>
+        </ref-list>
+    </back>
+    <sub-article article-type="reviewer-report" id="s2" xml:lang="es">
+        <front-stub>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>Peer-Review</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>Parecer I</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0003-4109-6072</contrib-id>
+                    <name>
+                        <surname>Arán</surname>
+                        <given-names>Pampa</given-names>
+                    </name>
+                    <role specific-use="reviewer">Reviewer</role>
+                    <xref ref-type="aff" rid="aff3"/>
+                </contrib>
+            </contrib-group>
+            <aff id="aff3">
+                <institution content-type="orgname">Universidad Nacional de Córdoba –
+                    UNC</institution>
+                <addr-line>
+                    <city>Córdoba</city>
+                </addr-line>
+                <country country="AR">Argentina</country>
+                <email>aranpampa@gmail.com</email>
+                <institution content-type="original">Universidad Nacional de Córdoba – UNC, Córdoba,
+                    Argentina; aranpampa@gmail.com</institution>
+            </aff>
+            <custom-meta-group>
+                <custom-meta>
+                    <meta-name>peer-review-recommendation</meta-name>
+                    <meta-value>accept</meta-value>
+                </custom-meta>
+            </custom-meta-group>
+        </front-stub>
+        <body>
+            <sec>
+                <title>Parecer I</title>
+                <p>El título se adecua al desarrollo del trabajo el cual consiste en analizar las
+                    coreografías propuestas por Nijinski como transgresoras del cronotopo del teatro
+                    clásico. Remite a la clasificación genérica de ballet clásico propuesta en un
+                    trabajo anterior y a la noción de cronotopo como matriz cronotopizada de un
+                    conjunto de valores sociales y estéticos, los cuales ilustra de modo
+                    conveniente. Analiza con cuidado la puesta escénica de dos obras de ballet
+                        <italic>La siesta del fauno</italic> y <italic>La consagración de la
+                        primavera</italic> para mostrar qué aspectos de la concepción clásica del
+                    cuerpo en movimiento son transformados y cuestionados, promoviendo la hipótesis
+                    del cambio cultural hacia la modernidad en la transgresión provocativa del
+                    bailarín ruso en las corporalidades y en otros lenguajes coreográficos. Se ocupa
+                    también de señalar las respuestas negativas del público a esta nueva
+                    interpretación del sentido en la performance de la fábula. Es evidente que se
+                    conoce y cita de modo conveniente y actualizada la teoría bajtiniana acerca del
+                    concepto teórico del cronotopo tanto en el mundo creado cuanto en la imagen
+                    creadora y receptora, en esa difícil frontera ente la realidad del autor y del
+                    público y su representación textualizada, lo cual se complejiza mucho en el
+                    texto teatral, cuestión que a mi juicio debería al menos apuntarse como
+                    conflictiva entre la conciencia creadora y ell mundo creado y entre el receptor
+                    potencial y el real. Finalmente destaco la adecuación del paper al formato y
+                    lenguaje de un trabajo científico claro en su desarrollo y riguroso en muchos de
+                    sus términos. Mi evaluación es positiva al entenderlo como intención lograda de
+                    trasladar una categoría teórica un tanto ambigua a otros discursos artísticos
+                    que son pensados dentro de una evolución diacrónica, como hace Bajtín con la
+                    novela. A manera de sugerencia propongo que no solo se presente la producción de
+                    Nijinski por referencia a la socioestética anterior sino que se la dote de una
+                    nueva denominación que atienda a sus características intrínsecas y sincrónicas,
+                    para evaluar como dice Bajtín, el modo de “asimilar” o sea de componer
+                    artísticamente su cronotopo histórico real y dar testimonio de ese tiempo
+                    espacio en el espectáculo propiamente dicho. APROVADO COM SUGESTÕES</p>
+            </sec>
+        </body>
+    </sub-article>
+    <sub-article article-type="reviewer-report" id="s3" xml:lang="pt">
+        <front-stub>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>Peer-Review</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>Parecer II</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0003-2826-3366</contrib-id>
+                    <name>
+                        <surname>Gonçalves</surname>
+                        <given-names>Jean Carlos</given-names>
+                    </name>
+                    <role specific-use="reviewer">Reviewer</role>
+                    <xref ref-type="aff" rid="aff4"/>
+                </contrib>
+            </contrib-group>
+            <aff id="aff4">
+                <institution content-type="orgname">Universidade Federal do Paraná –
+                    UFPR</institution>
+                <addr-line>
+                    <city>Curitiba</city>
+                    <state>Paraná</state>
+                </addr-line>
+                <country country="BR">Brasil</country>
+                <email>jeancarllosgoncalves@gmail.com</email>
+                <institution content-type="original">Universidade Federal do Paraná – UFPR,
+                    Curitiba, Paraná, Brasil - jeancarllosgoncalves@gmail.com</institution>
+            </aff>
+            <custom-meta-group>
+                <custom-meta>
+                    <meta-name>peer-review-recommendation</meta-name>
+                    <meta-value>accept</meta-value>
+                </custom-meta>
+            </custom-meta-group>
+        </front-stub>
+        <body>
+            <sec>
+                <title>Parecer II</title>
+                <p>O artigo apresenta uma importante e atualizada discussão sobre as artes da cena
+                    (dança e teatro) apoiada teórica e metodologicamente nos estudos de Bakhtin e o
+                    Círculo. A linguagem apresentada é científica e aborda análises e resultados que
+                    em muito contribuirão para as áreas do conhecimento com as quais o texto
+                    dialoga. O título e o resumo são adequados e se relacionam totalmente com o
+                    conteúdo do trabalho. A publicação do artigo em <italic>Bakhtiniana: Revista de
+                        Estudos do Discurso</italic> certamente reverberará possibilidades de
+                    leitura não estigmatizadas sobre o balé clássico, já que o caminho escolhido
+                    pelo autor é provocativo no sentido de mobilizar sentidos, e não de afirmá-los
+                    ou categorizá-los, simplesmente. A densidade e o rigor dedicados ao trabalho não
+                    só justificam, como incentivam a sua aprovação para publicação. Identifiquei que
+                    na última referência bibliográfica Volóchinov está escrito com “s” e não com “c”
+                    como na obra referenciada. APROVADO</p>
+            </sec>
+        </body>
+    </sub-article>
+    <sub-article article-type="translation" id="s1" xml:lang="en">
+        <front-stub>
+            <article-id pub-id-type="doi">10.1590/2176-4573e59553</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>ARTICLES</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>The Dance Body as an Arena of Values and the Chronotope of the
+                    Theater - An Exercise of Analysis</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-0001-8004-1424</contrib-id>
+                    <name>
+                        <surname>Amorim</surname>
+                        <given-names>Marilia</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff2">*</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="aff2">
+                <label>*</label>
+                <institution content-type="original">Retired professor from Universidade Federal do
+                    Rio de Janeiro, Instituto de Psicologia, Departamento de Psicologia Social,
+                    Campus Praia Vermelha, Rio de Janeiro, Rio de Janeiro, Brazil, and from the
+                    Université Paris VIII, UFR de Sciences de L’Éducation, Psychanalyse et Français,
+                    Saint-Denis Campus, Saint-Denis, France; marilia66amorim@gmail.com</institution>
+            </aff>
+            <abstract>
+                <title>ABSTRACT</title>
+                <p>The exercise of analysis of performance dance discourse is carried out grounded
+                    in Bakhtin’s concept of chronotope. On the basis of the classical ballet genre,
+                    theater is established as a constitutive chronotope that materializes its
+                    social-aesthetic values spatial-temporally. The analysis of chronotopic
+                    transgressions allows identifying the emergence of modern ballet based on two
+                    choreographies by Russian artist Vaslav Nijinski.</p>
+            </abstract>
+            <kwd-group xml:lang="en">
+                <title>KEYWORDS:</title>
+                <kwd>Chronotope</kwd>
+                <kwd>Discourse genre</kwd>
+                <kwd>Values</kwd>
+                <kwd>Choreography</kwd>
+                <kwd>Theater</kwd>
+            </kwd-group>
+        </front-stub>
+        <body>
+            <sec sec-type="intro">
+                <title>Introduction</title>
+                <p>This article aims to continue a previously published study whose analysis of
+                    dance was conducted with the assistance of the concept of discourse genre
+                    discussed by Bakhtin and the Circle. The same methodological approach will be
+                    adopted here, as we will focus, in the multisemiotic discourse of dance, on the
+                    choreographic dimension. In the previous study we were able to establish typical
+                    utterances of different genres, such as romantic classical ballet and hip-hop.
+                    We could thus identify the social-aesthetic values of each discourse (<xref
+                        ref-type="bibr" rid="B1">Amorim, 2020</xref>).</p>
+                <p>The result of this approach is a partial analysis that does not intend to cover
+                    dance in its global-aesthetic condition,<xref ref-type="fn" rid="fn28">1</xref>
+                    a totality that is woven by several languages. We have chosen to call it an
+                    exercise of analysis as we aim to allow it not only to deepen our understanding
+                    of the production of meaning from a specific <italic>corpus</italic>, but also
+                    to concretely practice using one or more concepts of the theories we have
+                    adopted so as to confront their limitations and possibilities. Therefore, this
+                    exercise should bring theoretical contributions whether by specifying and
+                    deepening the concepts used or by broadening their scope of validity.</p>
+                <p>Focusing on the discourse of dance as an object of research entails accepting its
+                    verbal-visual nature. Although permeated by verbal components, such as the
+                    titles of the performances, which actively participate in the entire production
+                    of meaning, its visual component is undoubtedly predominant. On this material
+                    component, Grillo states that “(…) language is founded on an indexical matrix
+                    that includes either an iconic relationship or a relationship of resemblance
+                    with referents of the world” (<xref ref-type="bibr" rid="B7">Grillo,
+                    2012</xref>, p.241).<xref ref-type="fn" rid="fn29">2</xref></p>
+                <p>However, as we advance in the history of dance, we learn that, apart from the
+                    pantomime of the first classical ballets, the iconic dimension of visual
+                    discourse becomes more complex. In fact, if it is not inscribed in a universe of
+                    genres that hold their own values, it becomes more difficult to read and analyze
+                    the discursiveness of dance choreography. <italic>Complex iconicity</italic> is
+                    the term we have chosen to name this form of meaning relation with which the
+                    visual discourse of dance operates. Thus, in our previous study, as we
+                    identified the recurrent forms of different dance discourse genres, we
+                    demonstrated that the utterances of each genre affirm and embody specific social
+                    and aesthetic values that inform and conform the iconicity of choreographic
+                    movements.</p>
+            </sec>
+            <sec>
+                <title>1 The Concept of Chronotope</title>
+                <p>The complex iconicity of choreographic discourse requires that we use another
+                    Bakhtinian concept, that is, the concept of chronotope. This is due to that fact
+                    that Bakhtin himself points to the importance of discussing the chronotope of
+                    the genre when the concept was first formulated.</p>
+                <p>For Bakhtin, the term chronotope, which is borrowed from biology and physics,
+                    defines certain conditions of inseparability between time and space within a
+                    narrative. In the literary analysis he carries out, space is marked by temporal
+                    indices and time is only embodied in that space; thus, a particular space-time
+                    corresponds to a specific discourse genre. For example, as Bakhtin analyzes
+                    Flaubert’s <italic>Madame Bovary</italic>, he shows the <italic>form</italic> of
+                    time as he confers to it a material density:</p>
+                <disp-quote>
+                    <p>Such towns are the locus for cyclical everyday time. (…) Time here has no
+                        advancing historical movement; it moves rather in narrow circles: the circle
+                        of the day, of the week, of the month, of a person’s entire life. A day is
+                        just a day, a year is just a year – a life is just a life. Day in, day out
+                        the same round of activities are repeated, the same topics of conversation,
+                        the same words and so forth (…) This is commonplace, philistine cyclical
+                        everyday time. (…) Time here is without event and therefore almost seems to
+                        stand still. Here there are no “meetings,” no “partings.” It is a viscous
+                        and sticky time that drags itself slowly through space (<xref
+                            ref-type="bibr" rid="B2">Bakhtin, 1981</xref>, pp.247-248).<xref
+                            ref-type="fn" rid="fn30">3</xref></p>
+                </disp-quote>
+                <p>At the end of his analysis of different chronotopes throughout the history of the
+                    discourse genre of the novel, he states that “Art and literature are shot
+                    through with <italic>chronotopic values</italic> of varying degree and scope”
+                        (<xref ref-type="bibr" rid="B2">Bakhtin, 1981</xref>, p.243; emphasis in
+                        original).<xref ref-type="fn" rid="fn31">4</xref></p>
+                <p>Bakhtin’s concept of chronotope refers to the empirical extra-discursive reality.
+                    “A literary work’s artistic unity in relationship to an actual reality is
+                    defined by its chronotope” (<xref ref-type="bibr" rid="B2">Bakhtin, 1981</xref>,
+                        p.243).<xref ref-type="fn" rid="fn32">5</xref></p>
+                <p>However,</p>
+                <disp-quote>
+                    <p>As we have already said, there is a sharp and categorical boundary line
+                        between the actual world as source of representation and the world
+                        represented in the work. We must never forget this, we must never confuse –
+                        as has been done up to now and as is still often done – the
+                            <italic>represented</italic> world with the world outside the text
+                        (naive realism) (…). All such confusions are methodologically impermissible
+                            (<xref ref-type="bibr" rid="B2">Bakhtin, 1981</xref>, p.253; emphasis in
+                            original).<xref ref-type="fn" rid="fn33">6</xref></p>
+                </disp-quote>
+                <p>This does not justify the idea that there is no relationship between them:</p>
+                <disp-quote>
+                    <p>The work and the world represented in it enter the real world and enrich it,
+                        and the real world enters the work and its world as part of the process of
+                        its creation, as well as part of its subsequent life, in a continual
+                        renewing of the work through the creative perception of listeners and
+                        readers (<xref ref-type="bibr" rid="B2">Bakhtin, 1981</xref>, p.253).<xref
+                            ref-type="fn" rid="fn34">7</xref></p>
+                </disp-quote>
+                <p>We see that Bakhtin also relates the chronotope to the author’s and the reader’s
+                    space-time context as empirical units always inscribed in discursiveness:</p>
+                <disp-quote>
+                    <p>How are the chronotopes of the author and the listener or reader presented to
+                        us? First and foremost, we experience them in the external material being of
+                        the work and in its purely external composition. But this material of the
+                        work is not dead, it is speaking, signifying (it involves signs); we not
+                        only see and perceive it but in it we can always hear voices (even while
+                        reading silently to ourselves) (<xref ref-type="bibr" rid="B2">Bakhtin,
+                            1981</xref>, p.252).<xref ref-type="fn" rid="fn35">8</xref></p>
+                </disp-quote>
+                <p>We insist on the quotations and the nuances each one brings because we
+                    understand, as <xref ref-type="bibr" rid="B8">Holquist (2010, p.19)</xref><xref
+                        ref-type="fn" rid="fn36">9</xref> puts it, that “chronotope remains a
+                        Gordian<xref ref-type="fn" rid="fn37">10</xref> knot of ambiguities” due to
+                    its countless interpretations and uses. Holquist refers to the two parts of the
+                    essay “Forms of Time and of the Chronotope:” the first one written from 1934 to
+                    1937 and the second, in 1973. The first part was written when Bakhtin was
+                    concerned about the theory of the novel. For example, he analyzes the way
+                    Goethe’s understanding of time frames his narrative. The second was written when
+                    he had returned to the metaphysical interests of his youth and his dialogue with
+                    Kant. Holquist explains that Bakhtin adopts the Kantian notions of the divided
+                    self and the non-coincidence between consciousness and knowledge and the
+                    empirical reality of the world. This understanding breaks with the Cartesian
+                    idea of the “transparent I.” Nevertheless, Bakhtin disagrees with Kant’s
+                    categories of space and time, which are <italic>a priori</italic> and
+                    transcendental. For Bakhtin, space and time integrate the empirical and
+                    historical concreteness.</p>
+                <p>Holquist thus focuses on the complexity of Bakhtin’s text and concludes that
+                    Bakhtin’s discussion on the concept of chronotope during his mature years, that
+                    is, a few years before his death in 1975, delineates the limits of his analysis
+                    and places it in the discursive dimension. He compares Bakhtin and Kant once
+                    again.</p>
+                <disp-quote>
+                    <p>Another huge difference between Kant and Bakhtin (…) [is that] Kant famously
+                        never raises the question of language’s role in negotiating appearance. For
+                        Bakhtin just the opposite is the case: he is as focused on language as Kant
+                        was dismissive of it. (…) if time and space have their “natural” home in
+                        logic and science, chronotopes have their natural – their only – home in
+                        language. In our daily use of chronotopes the abstractness of time-space is
+                        domesticated when we deploy them in speech (<xref ref-type="bibr" rid="B8"
+                            >Holquist, 2010</xref>, p.31).<xref ref-type="fn" rid="fn38"
+                        >11</xref></p>
+                </disp-quote>
+                <p>We agree with Holquist and come to a first conclusion. We use Bakhtin’s words in
+                    which the space-time unit of the chronotope is seen as expression and is endowed
+                    with the form of a sign:</p>
+                <disp-quote>
+                    <p>We somehow manage however to endow all phenomena with meaning, that is, we
+                        incorporate them not only into the sphere of spatial and temporal existence
+                        but also into a semantic sphere. This process of assigning meaning also
+                        involves some assigning of value. But questions concerning the form that
+                        existence assumes in this sphere, and the nature and form of the evaluations
+                        that give sense to existence, are purely philosophical (although not, of
+                        course, metaphysical) and we will not engage them here. For us the following
+                        is important: whatever these meanings turn out to be, in order to enter our
+                        experience (which is social experience) they must take on the <italic>form
+                            of a sign</italic> that is audible and visible for us (a hieroglyph, a
+                        mathematical formula, a verbal or linguistic expression, a sketch, etc.)
+                            (<xref ref-type="bibr" rid="B2">Bakhtin, 1981</xref>, pp.257-258;
+                        emphasis in original).<xref ref-type="fn" rid="fn39">12</xref></p>
+                </disp-quote>
+                <p>We also conclude, now from a methodological standpoint, that Bakhtin himself
+                    provides us with “the boundaries of a chronotopic analysis” and the definition
+                    of the limits of the research that uses this concept. He does it when he
+                    establishes that the object of the human sciences is discourse. Therefore, as we
+                    are not historians, geographers, philosophers, architects, or engineers, “our”
+                    chronotope must always be circumscribed to the dimension of language.</p>
+            </sec>
+            <sec>
+                <title>2 The Starting Points</title>
+                <p>We begin by stating that it is possible to use categories and concepts Bakhtin
+                    developed to discuss verbal language and literary art to analyze verbal-visual
+                    or visual materialities. Thus, we face the challenge of considering that, in
+                    general, it is possible to understand the performance of dance choreography as a
+                    discourse that can be pertinently analyzed through the concepts of discourse
+                    genre and chronotope.</p>
+                <p>As to the latter, which it the object of this study, a caveat is in order. We
+                    will not discuss the chronotopes of the represented stories of the different
+                    ballets. We approach the choreographies of <italic>The Dying Swan, The Afternoon
+                        of a Faun</italic>, and <italic>The Rite of Spring</italic> from the genre
+                    perspective and not from the specificity of each narrated story, for the same
+                    story that uses the same music can be represented in different choreographies
+                    and be inscribed in other discourse genres whose social and aesthetic values
+                    change radically. We know that, from a Bakhtinian standpoint, if values are
+                    altered, the aesthetic object is not the same anymore. This is the case of the
+                    street dance version of <italic>The Dying Swan</italic>, created by
+                    choreographer and dancer John Lennon da Silva.<xref ref-type="fn" rid="fn40"
+                        >13</xref> The same happened to <italic>The Rite of Spring</italic>, which
+                    was represented by different choreographers of the genre called contemporary
+                    dance. The most well-known radical transformation was carried out by German Pina
+                    Bausch’s choreography to the company <italic>Tanztheater Wuppertal</italic>.</p>
+                <p>We take into account that the history of ballet and dance develops through the
+                    hybridization and creation of genres. Based on that, a task was assigned in our
+                    previous study, that is, to identify typical choreographic utterances. Such
+                    generic utterances recurrently occur in different choreographies and thus became
+                    an object of our interest insofar as they affirm the same social and aesthetic
+                    values. As we continue this line of methodological inquiry, we will work on the
+                    concept of chronotope in its close relationship with the values of genre as they
+                    are materialized in the spatial-temporal dimension.</p>
+                <p>The corpus of this study is comprised of three discursive fragments from YouTube
+                    videos. We analyze the tense dialogue between them and the genre that is
+                    conventionally called classical ballet. The analysis thus starts with the latter
+                    and its specificities to carry out the analysis of the former.</p>
+                <p>The classical ballet genre reaches its pinnacle and materializes its values in
+                    typical utterances and in the chronotope of the theater, constructed in several
+                    western countries during the 19th century and the first half of the 20th
+                    century. We will specifically refer to the following theaters:
+                        <italic>Mariinsky</italic> in Saint Petersburg, Russia, and
+                        <italic>Châtelet</italic>, <italic>Opéra Garnier</italic>, <italic>Théâtre
+                        des Champs Elysées</italic> in Paris, France, constructed in this
+                    chronological sequence. The data from French Wikipedia are in the Appendix.</p>
+                <p><fig>
+                        <label>Figure 1</label>
+                        <caption>
+                            <title>Mariinsky (1860): “Baroque Renaissance” Style. A. Savin,
+                                September 20, 2012.<xref ref-type="fn" rid="fn41">14</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf01-en.tif"/>
+                    </fig></p>
+                <p><fig>
+                        <label>Figure 2</label>
+                        <caption>
+                            <title>Châtelet Theater (1862): “Renaissance” Style Arthur Weidmann,
+                                April 03, 2022.<xref ref-type="fn" rid="fn42">15</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf02-en.tif"/>
+                    </fig></p>
+                <p><fig>
+                        <label>Figure 3</label>
+                        <caption>
+                            <title>Opéra Garnier Theater (1875): “Eclectic” and “Historicist” Style.
+                                Alexander Hoernigk, April 06, 2010.<xref ref-type="fn" rid="fn43"
+                                    >16</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf03-en.tif"/>
+                    </fig></p>
+                <p><fig>
+                        <label>Figure 4</label>
+                        <caption>
+                            <title>Champs Elysées Theater (1913): “Art Déco” Style. Coldcreation,
+                                April 21, 2013.<xref ref-type="fn" rid="fn44">17</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf04-en.tif"/>
+                    </fig></p>
+                <p>Although these places are not only different, but are from different dates and
+                    have different architecture, our first analytical hypothesis is that, in terms
+                    of the classical-romantic ballet discourse genre and the values that penetrate
+                    their typical utterances, they pertain to the same chronotope. We thus should
+                    analyze their characteristics.</p>
+                <p>The layout of concert hall of the four theaters is known as “Italian theater,”
+                    which is a large U-shaped room with a wide and elevated stage. This ensures
+                    great visibility to the audience. The absolute boundary between audience and
+                    stage is concretely established.</p>
+                <p><fig>
+                        <label>Figure 5</label>
+                        <caption>
+                            <title>In Châtelet Theater. Marie Noëlle Robert, January 01, 2009.<xref
+                                    ref-type="fn" rid="fn45">18</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf05-en.tif"/>
+                    </fig></p>
+                <p><fig>
+                        <label>Figure 6</label>
+                        <caption>
+                            <title>In Champs Elysées Theater. Pierre Lannes, May 07, 2011.<xref
+                                    ref-type="fn" rid="fn46">19</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf06-en.tif"/>
+                    </fig></p>
+                <p>Another concrete element we find is the thick, usually velvet<xref ref-type="fn"
+                        rid="fn47">20</xref> curtains. They close the stage area and hinder the
+                    audience from having access, from an acoustic standpoint, to what happens to the
+                    artists when the performance ends.</p>
+                <p><fig>
+                        <label>Figure 7</label>
+                        <caption>
+                            <title>Mariinsky Theater’s Curtains. Natalia Semenova, December 19,
+                                    2009.<xref ref-type="fn" rid="fn48">21</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf07-en.tif"/>
+                    </fig></p>
+                <p>The specific characteristics of this space only work if they are intrinsically
+                    related to the specific characteristics of time: there is a scheduled time to
+                    start and end the show; there is a right time for the audience to enter and
+                    leave the room; there is a right time for the audience to applaud or otherwise
+                    to boo, etc. When the space of performance is coordinated with these moments, it
+                    is shown or hidden; it is closed or opened. Thus, we see that this chronotope
+                    outlines another important component of the genre according to Bakhtin: the
+                    relationship with the listener-spectator, which is entirely regulated as the
+                    regular audience knows the rules and adheres to them.</p>
+                <p>Another important element of the chronotope is stage lighting as it sets the
+                    timespace of the show: when the lights go down, the scene unfolds and the show
+                    starts; when the lights are turned back on, the show ends or an intermission of
+                    the show’s discursiveness occurs. We should also discuss the space-time of the
+                        applauses<xref ref-type="fn" rid="fn49">22</xref> which somehow can be
+                    understood as a small chronotope, related to the general chronotope described.
+                    In this chronotope, lights are on, but the performers and the audience are still
+                    in the theater. Although spatially separated, they establish a direct dialogue:
+                    applauses and shoutings of “bravo!” are responded with the performers’ codified
+                    body movements of gratitude and possible expressions of smile or emotion. Going
+                    to and from the scene does not mean disappearance and appearance, but a response
+                    to the audience that continues to applaud. The <italic>timing</italic> of this
+                    dialogue is also conventional and understood by the audience: even when the
+                    applause is fervent and prolonged, it has to stop; after a series of
+                    applauses/gratitude movements, the performers do not return to the stage and the
+                    audience leaves the theater.</p>
+                <p>When a spectator leaves the theater during the show, not many interpretations can
+                    be offered. It is possible to say that his/her departure is equally codified.
+                    Unless there is a problem – for example, a spectator feels sick – his/her
+                    leaving the theater may be interpreted as his/her disapproval of the show. It is
+                    logical to state that if several spectators leave, the first hypothesis is
+                    discarded. In addition, the disapproval of some may somehow influence how the
+                    others will respond, possibly stimulating hesitant spectators to leave the
+                    theater as well.</p>
+                <p>What does the chronotope of the theater<xref ref-type="fn" rid="fn50">23</xref>
+                    typified here allow us to say? What aesthetic-social values of
+                    classical-romantic ballet genre are realized in it? To answer these questions,
+                    we resort to an example of the exemplary ballet genre, namely, the famous
+                        <italic>The Dying Swan</italic>, created in the <italic>Mariinsky
+                        Theater</italic> in Saint Petersburg in Russia. The theater is a center of
+                    excellence for Russian professionals of the art of ballet: dancers, musicians,
+                    choreographers, costume designers, etc. We focus on Mikhaïl Fokine, who is
+                    considered the great master of the transition to romanticism, valuing not only
+                    technique, but also dramatic expressiveness.</p>
+                <p>In our previous study we concluded that every classic ballet choreography affirms
+                    the idea of elevation as a value. The verticality to heights indicates a schism
+                    with the daily world. It offers an image of ideality in which the lightness of a
+                    nearly diaphanous body frees it from the weight and disarray of our daily
+                    gestures. This leads to the use of pointe shoes, which elongate the body and
+                    place it at a higher level. Legs and arms, feet and hands reach for heights. The
+                    same happens with the use of light fabrics, such as the tulle of tutus. The
+                    hierarchization between both worlds is clear as the elegance of the forms and
+                    the delicacy of the colors point to a sublimated and purified humanity.</p>
+                <p>Body measurements are entirely proportional and harmonic. Nothing is off or out
+                    of place. In addition, there is a predominance of line over volume. The body is
+                    combined with a costume that highlights length and slenderness. Specifically in
+                        <italic>The Dying Swan</italic>, the dramatic nature of the proximity to
+                    death is expressed and emphasized through the tension between high and low,
+                    flight and the immobility of death.</p>
+                <p>The device of the stage establishes a play of presence/absence,
+                    visibility/invisibility, aided by light effects and scenography as well as the
+                    alternation between getting on and off the stage. The darkness, which the
+                    performer penetrates to disappear to the audience and from which he/she emerges
+                    without being seen, engenders apparition and mystery theatricality in which,
+                    once again, the value of breaking with the everyday world is consecrated.</p>
+                <p>The stage is immense in all dimensions: width, height and depth, which
+                    accentuates the magical nature of every technical device – sets, costumes,
+                    lighting, etc. The large velvet curtains, a noble and imposing fabric, not only
+                    intensify theatricality but also isolate and protect the performers. The
+                    relationship between the interlocutors, viz., the performers and the audience,
+                    is thus established, contributing to thematizing the separation between the
+                    ordinary and the extraordinary.</p>
+                <p>The access to the world of art as a sphere of elevation starts with the entrance
+                    to the theater and continues through the luxuriously decorated corridors,
+                    staircases, halls, etc. The monumental internal staircase leads the audience to
+                    their seats, which are hierarchically arranged according to their purchasing
+                    power and class. This hierarchy is inverted: the highest level (balcony)
+                    corresponds to the lowest purchasing power whereas the lowest level (orchestra),
+                    to the highest purchasing power.</p>
+                <p>The façade of the buildings itself indicates that the special world one enters
+                    has nothing in common with the everyday and banal reality. At the <italic>Opéra
+                        Garnier</italic> Theater in Paris, the external and internal staircases
+                    highlight the very sense of elevation. All these spaces to be walked through
+                    acquire meaning in the temporality that crosses them: the time before the show,
+                    the waiting time, and the expectation time that advances towards the great
+                    moment when the lights go down and the show begins.</p>
+                <p><fig>
+                        <label>Figure 8</label>
+                        <caption>
+                            <title>Staircase of the Opéra Garnier Theater. Benh Lieu Song, June 29,
+                                    2007.<xref ref-type="fn" rid="fn51">24</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf08-en.tif"/>
+                    </fig></p>
+                <p><fig>
+                        <label>Figure 9</label>
+                        <caption>
+                            <title>Hall of the Opéra Garnier Theater. Degrémont Anthony, October 26,
+                                    2009.<xref ref-type="fn" rid="fn52">25</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf09-en.tif"/>
+                    </fig></p>
+                <p>We consider the chronotope of the theater as constitutive of the classical ballet
+                    discourse genre. The author integrates it in his/her process of choreography
+                    creation similar to the dancer in his/her interpretation. The same can be stated
+                    about the spectator: his/her gaze is informed and enformed by the
+                    characteristics of this spacetime continuum. Regarding the chronotopic condition
+                    of the author and the listener as “real people,” Bakhtin states that they</p>
+                <disp-quote>
+                    <p>are all located in a real, unitary and as yet incomplete historical world set
+                        off by a sharp and categorical boundary from the
+                            <italic>represented</italic> world in the text. Therefore we may call
+                        this world the world that <italic>creates</italic> the text, for all its
+                        aspects – the reality reflected in the text, the authors creating the text,
+                        the performers of the text (if they exist) and finally the listeners or
+                        readers who recreate and in so doing renew the text – participate equally in
+                        the creation of the represented world in the text. Out of the actual
+                        chronotopes of our world (which serve as the source of representation)
+                        emerge the reflected and <italic>created</italic> chronotopes of the world
+                        represented in the work (in the text) (<xref ref-type="bibr" rid="B2"
+                            >Bakhtin, 1981, p.253</xref>; emphasis in original).<xref ref-type="fn"
+                            rid="fn53">26</xref></p>
+                </disp-quote>
+                <p>Although Bakhtin is referring to the novel and possibly to the dramatic text or
+                    poem, the quotation seems to apply to ballet and dance as theatrical shows.</p>
+            </sec>
+            <sec>
+                <title>3 Modernity</title>
+                <p>The birth of the so-called modern ballet,<xref ref-type="fn" rid="fn54">27</xref>
+                    as staged in the aforementioned great theaters, is a result of a true event of
+                    meaning. From its origin, Nijinski<xref ref-type="fn" rid="fn55">28</xref> has
+                    been considered a genius until today. A dancer who became famous not only in
+                    Russia, but also in Western Europe at his time, he was acclaimed for combining
+                    virility and grace and for his athletic and technical skills to perform
+                    unparalleled high leaps with which he crossed the whole length of the stage.
+                    Still as a dancer, he shows his rebel nature when he decides to free himself
+                    from the expectations of the audience. In documents of the time and in his
+                    diaries we find his criticism of choreographies that were totally predictable
+                    with highly skilled leaps that were performed as if in a circus show or with
+                    sentimentalism of sappy affectation. He then decides to create his own
+                        choreographies.<xref ref-type="fn" rid="fn56">29</xref></p>
+                <p>His desires and courage were supported by equally daring Russian impresario Serge
+                    Diaghilev. He founded the company <italic>Ballets Russes</italic>, with which he
+                    toured around Western Europe and presented the best ballet dancers of the
+                        <italic>Mariinsky</italic> Theater. Both decided to create a ballet based on
+                    Debussy’s composition titled <italic>Prélude à l'après-midi d'un faune</italic>
+                    [Prelude to the Afternoon of a Faun], which is based on Mallarmé’s poem
+                        <italic>L’après-midi d’un faune</italic> [<italic>The Afternoon of a
+                        Faun</italic>]. Together they visited museums – especially the
+                        <italic>Louvre</italic> in Paris, where they meticulously observed vases and
+                    other objects from Antiquity so as to identify features of the aesthetics to
+                    which myths and the character of the Faun belong.</p>
+                <p>Mallarmé’s very poem is based on poet Ovid (43 AC) and the legends in which the
+                    faun and the nymph fall in love but cannot consummate their idyll. Both the poem
+                    and the ballet suggest that everything might be the faun’s dream, or his
+                    drunkenness, or his music that conjures up magic. Satyr is an incarnation of
+                    Dionysus, the god of dance and drunkenness. He appears in the ballet, eating
+                    bunches of grapes and playing the flute.</p>
+                <p>The faun or the satyr is a combination of a man and an animal. His lower body
+                    resembles a goat. In the choreography recorded by Nijinski’s writing, the
+                        <italic>pas de deux</italic> place animality in the faun’s relationship with
+                    the nymph and reveal extreme sensuality. At the end, the nymph gets off the
+                    stage and leaves her scarf. The faun sees himself alone and gets sexually
+                    excited with the nymph’s scarf. He lies facing down on it, clearly evoking a
+                    sexual act. The ballet ends when the faun reaches an orgasm.</p>
+                <p><fig>
+                        <label>Figure 10</label>
+                        <caption>
+                            <title>The Faun and the Nymph. Fair use: A Freeze-Frame from the Ballet
+                                “L’Aprèsmidi d’un faune.”<xref ref-type="fn" rid="fn57"
+                                >30</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf10-en.tif"/>
+                    </fig></p>
+                <p>Despite its explicit nature, the aesthetics of the Faun’s ballet does not aim at
+                    a realistic representation. To choreograph the legend of the Faun and his nymph,
+                    Nijinski reproduced the body postures as they appear on Egyptian vases: side
+                    view of faces, arms, and hands, and frontal view of the torso. Instead of long
+                    and continuous gestures of classical ballet, here the animality is highlighted
+                    by the heavy aspect of the lower body of the faun and his oblique and
+                    interrupted gestures. Along with set and costume designer Léon Bakst,<xref
+                        ref-type="fn" rid="fn58">31</xref> the scene was idealized to reduce depth
+                    and create a surface aspect similar to paintings on objects of ancient art.
+                    Dancers are basically on the same plane: no effects of perspective and ascending
+                    verticality are used.</p>
+                <p>Nijinski showcases a true and concrete aesthetic reflection: art referring to
+                    art. Instead of repeating and celebrating the values of the traditional
+                    aesthetics of ballet, he questions the very notion of aesthetics, making it
+                    plural.</p>
+                <p>This is a highly meaningful example of the principle of otherness that operates
+                    within the aesthetic form: art speaks to (or fights) art. Does it mean that this
+                    is a purely abstract form of art or, as one may put it, “art for the art’s
+                    sake”? Absolutely not. This is a <italic>tension of form</italic> that attests
+                    to a clash between social-aesthetic values. In “The Problem of Content,
+                    Material, and Form in Verbal Art,” Bakhtin criticizes what he calls “material
+                    aesthetics” and states that</p>
+                <disp-quote>
+                    <p>Form, understood as the form of a given material solely in its
+                        natural-scientific (mathematical or linguistic) determinateness, becomes a
+                        sort of purely external ordering of the material, devoid of any axiological
+                        constituent. What fails to be understood is the <italic>emotional-volitional
+                            tension of form</italic>—the fact that it has the character of
+                        expressing some axiological relationship of the author and the contemplator
+                        (…) (<xref ref-type="bibr" rid="B3">Bakhtin, 1990</xref>, p.264; emphasis in
+                            original).<xref ref-type="fn" rid="fn59">32</xref></p>
+                </disp-quote>
+                <p>The value of discursive openness and plurality of <italic>The Afternoon of a
+                        Faun</italic> is confirmed in the following year’s choreography of the
+                    ballet <italic>The Rite of Spring</italic>, whose music was commissioned from
+                        Stravinsky.<xref ref-type="fn" rid="fn60">33</xref> The theme now is the
+                    pagan Russian myth about the cycle of renewal of life and the earth through the
+                    seasons of the year and the alternation between old age and youth, birth and
+                    death. Bakhtinian readers immediately refer to the popular aesthetics of the
+                    carnival, and in this ballet, in fact, this aesthetics is found in the
+                    re-creation of dances and rites of the popular and profound Russia. However, the
+                    laughter and irreverence of the Bakhtinian theme are not found. Despite its
+                    popular and peasant origin, this is a religious rite: the most beautiful young
+                    woman from the village is chosen to be sacrificed: her death is an offering to
+                    the gods.</p>
+                <p><fig>
+                        <label>Figure 11</label>
+                        <caption>
+                            <title>The Chosen Young Woman. Fair use: A Freeze-Frame from the Ballet
+                                “Rite of Springs.”<xref ref-type="fn" rid="fn61">34</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf11-en.tif"/>
+                    </fig></p>
+                <p>If we compare the young woman’s death in Nijinski to the death of the swan in
+                    Fokine, we see the clash of two aesthetics.<xref ref-type="fn" rid="fn62"
+                        >35</xref> In the <italic>Swan</italic>, there is no discontinuity of
+                    gesture or line – not even at the final moment of death: even death is
+                    harmonious and sublimed. In Nijinski, however, the agony and panic that lead up
+                    to the final moment are expressed through nonsensical and asymmetrical gestures
+                    and movements as if the young woman’s body were falling apart. Everything seems
+                    to emphasize the violent nature of the scene: obsessive and strenuous
+                    repetition; punches on the floor; trembling legs; arms that swing frantically,
+                    and long and clumsy steps as if one leg no longer moved. Since it evokes a body
+                    that is out of control, nothing resembles the melancholic, delicate, and
+                    harmonious nature of the swan’s agony.</p>
+                <p>On the other hand, an interesting detail seems to be a type of Nijinski’s
+                    signature. The <italic>Faun</italic>’s ballet ends with a spasm of joy whereas
+                    the last scene of the <italic>Rite</italic>’s ballet, marked by a powerful
+                    musical chord, is the spasm of death: the sacrificed young woman’s arm falls
+                    abruptly and the lights go out. The body of this aesthetics is a body of spasms
+                    – a living body that pulsates. Although nothing here is realistic, the dance
+                    discourse does not aim to be sublimed by the ethereal. Nijinski’s choreography
+                    totally breaks with the values of the classical romantic ballet of his time.</p>
+                <p>One of the remarkable features of this ‘other’ aesthetics in <italic>The Rite of
+                        Spring</italic> is the position of the feet as dancers have not only to wear
+                    the pointe shoes skillfully but also to move – better yet – dance inwardly. As
+                    to the leaps, although existent, they do not produce movements across the stage:
+                    they are compulsively fixed at the same point. Movements are not soft or
+                    gracious; they are vigorous and repetitive, evoking the violence of the
+                    irruption of life and the rite of death. Instead of upward verticality, it is
+                    the earth that is valued: many movements are performed low to the ground and the
+                    dancers, accompanied by intensely rhythmic music, hit the floor with their hands
+                    or feet.</p>
+                <p>Instead of long, upward movements, lines are made at wrist height and hands point
+                    flatly downwards or upwards. Clenched wrists point upwards in collective scenes,
+                    evoking fight gestures. Movements of accentuated dissymmetry are also made as
+                    upper and lower limbs move disorderly. Bodies are in a state of madness, or – if
+                    we want to cling to the literal theme of the ballet – they are possessed by the
+                    operating forces of the pagan ritual. The emphatic marking of the rhythm with
+                    marching or jumping feet produces sounds that, unlike classical ballet, do not
+                    hide the weight and strength of the bodies. These valued choices by the artist
+                    point to an aesthetics usually called primitivist.</p>
+                <p>Nijinski’s first choreography premiered with a Russian troupe of ballet dancers
+                    and the role of the Faun was played by him. The premier show was held in 1912 at
+                    the <italic>Châtelet</italic> Theater in Paris, the same theater where
+                    Diaghilev’s company had performed Russian creations of classical ballet. The
+                    second choreography, <italic>The Rite of Spring</italic>, also premiered in
+                    Paris with the same company at <italic>Champs Elysées</italic> Theater in 1913.
+                    The ballet’s premiere in May, after musical concerts in March, marked the
+                    inauguration of the newly built theater. As we have discussed before, although
+                    it is located in a different space, was built on a different date, and has a
+                    different architecture, the theater’s chronotopicity can be analyzed as being
+                    the same as that of the other theaters based on the relationship established
+                    with the discourse of classical ballet genre. The <italic>Champs
+                        Elysées</italic> Theater has innovative architecture of a markedly Art Deco
+                    style; however, this does not change the chronotopicity that makes it possible
+                    to realize the values characteristic to the hitherto established genre.</p>
+                <p>If this analytical hypothesis is plausible, we need to try to understand the
+                    effect produced by both ballets, namely, <italic>The Afternoon of a
+                        Faun</italic> and <italic>The Rite of Spring</italic>. The former provoked
+                    negative reactions by spectators and newspaper critics of the time. The latter
+                    caused a real scandal.</p>
+                <p>We have discussed that the choreographed body of <italic>The Afternoon of a
+                        Faun</italic> dialogues with other arts and material that had focused on the
+                    same object. It is noteworthy that the subtitle of the ballet is <italic>A
+                        Choreographic Poem</italic>.<xref ref-type="fn" rid="fn63">36</xref> The
+                    faun, as a discursive object, speaks through many voices – of the
+                    representations on Antiquity vases, of the myth, the poem, the musical
+                    composition, etc. There are at least five references of artists who addressed it
+                    in the 19th and the beginning of the 20th centuries, namely, Mallarmé, Manet,
+                    Gauguin, Débussy, and Nijinski. All of this, however, seems to have been
+                    disregarded in the interpretation made by most spectators.</p>
+                <p>From a dialogical perspective, we can still state that <italic>The Afternoon of a
+                        Faun</italic> and <italic>The Rite of Spring</italic> respond to the
+                    aesthetics of classical ballet by polemizing with it and questioning it. Without
+                    the reference to classical ballet, it would be impossible to understand the
+                    schisms they create. If so, the event of meaning can be understood as a
+                        <italic>chronotopic transgression</italic>.</p>
+                <p>We thus understand that without the chronotope of the theater it would be
+                    difficult to understand Nijinski’s scandal. In her celebration to nature Isadora
+                    Duncan danced almost naked in private salons and that did not produce the same
+                    event of meaning. The <italic>Faun</italic> and the <italic>Rite</italic>
+                    transgress the values supposedly shared with their spectators, and his admirers
+                    are frustrated because Nijinski denies them the value placed on spectacular
+                    virtuosity. Instead, the <italic>Faun</italic> proposes extremely slow gestures
+                    and movements that encourage the idea of a dreamed scene, a daydream in a hot
+                    afternoon. The stage’s reduced depth and perspective evoke the aesthetics of
+                    flat paintings more than grandiose theatricality. In the <italic>Rite</italic>,
+                    the rhythmic violence, asymmetrical bodies, vigorous gestures, and the
+                    attractive force of the stage floor from which the movements seem to be
+                    engendered erase any image of lightness, softness or purity that come from an
+                    idealized world of the heights. During the performance, the rules of interaction
+                    between interlocutors were also broken. Although this is a theatrical device
+                    based on which the relationship between stage and audience should follow the
+                    rules of the classical genre of performance, boos and whistles hindered dancers
+                    from hearing the music; in addition, Diaghilev, who was in charge of the show,
+                    was forced to turn on the audience lights several times.</p>
+                <p>The transgression we have identified requires that we discuss the role of the
+                    listener or addressee as it was elaborated by the <xref ref-type="bibr" rid="B4"
+                        >Bakhtin Circle. Vološinov (1983, p.14)</xref><xref ref-type="fn" rid="fn64"
+                        >37</xref> states that</p>
+                <disp-quote>
+                    <p>(...) the whole formal structure of speech depends to a significant degree
+                        upon what sort of relationship the utterance is in to the implied identity
+                        of evaluations of that social milieu to which the utterance is directed.
+                        Creatively productive, assured and rich intonation is possible only when a
+                        ‘supporting chorus’ is assumed.</p>
+                </disp-quote>
+                <p>In both of Nijinski’s ballets, the supposed addressee is understood as a
+                    spectator of a high social class and <italic>habitué</italic> to great theaters;
+                    a subject who has been introduced to ballet references, or rather, to a
+                    discursive memory in which several aesthetic references that traverse the bodies
+                    could be mobilized to produce meaning. The choreographic discourse equally
+                    addresses the intellectual and artistic vanguard of the time, once Mallarmé’s
+                    poetry and Debussy’s and Stravinsky’s music had been identified and adopted as
+                    precursors of modernity at the end of the previous century. From the perspective
+                    of an amplified scope of chronotope,<xref ref-type="fn" rid="fn65">38</xref> we
+                    are in Paris, in the theater that introduced the Art Deco style, and the winds
+                    of modernity blew stronger and stronger in the first decade of the 20th century.
+                    A proof of this change is the fact that, in 1913, the portrait of Isadora Duncan
+                    was engraved in high relief in the same <italic>Champs Elysées</italic>
+                    Theater.</p>
+                <p>We would thus have the “supporting chorus” that seems to have participated
+                    internally and inherently in the created form. Some intellectuals of the time,
+                    such as Jean Cocteau, highly valued Nijinski’s creation. Some established a
+                    relationship between the <italic>Faun</italic>’s ballet movement and Cubist
+                    painting. But they were few. Even Stravinsky and Debussy expressed their lack of
+                    understanding of the choreographies Nijinski created for their compositions.</p>
+                <p>Addressing as a relation of otherness is one of the axes of the Bakhtin Circle’s
+                    conception of language. The <italic>other</italic>, who is summoned and to whom
+                    one responds, intrinsically participates in the discursive construction and its
+                    production of meaning. In our analysis, the difference between supposed
+                    addressee and real addressee is bluntly revealed. Most of the audience that
+                    actually and effectively watched both shows disapproved of Nijinski’s work and
+                    did not become thus a “supporting chorus.”</p>
+                <p>In Vološinov’s reflection on the relationship between the artist-creator and
+                    his/her listener, we notice that he does not leave much room for the presence of
+                    creative transgression. Although he admits the possibility of a disagreement and
+                    a tone of irritation in the utterance, he does not elaborate on the possible
+                    richness proper to transgression. On the contrary,</p>
+                <disp-quote>
+                    <p>When this [supporting chorus] is absent, the voice breaks off and its wealth
+                        of intonation is reduced, as happens to the joker when he realizes that he
+                        alone is laughing. The laughter either ceases or dies away, becomes
+                        strained, loses assurance and clarity and is unable to produce any funny or
+                        jovial words (Vološinov, 1983, pp.14-15).<xref ref-type="fn" rid="fn66"
+                            >39</xref></p>
+                </disp-quote>
+                <p>We believe that in art it is impossible to understand transgressive and
+                    avantgarde creation without the concept of superaddressee. Voloshinov outlines
+                    elements to define this concept when he mentions the “third participant”
+                    (Vološinov, 1983, p.15),<xref ref-type="fn" rid="fn67">40</xref> but it is
+                    Bakhtin who clearly defines it.</p>
+                <disp-quote>
+                    <p>The author can never turn over his whole self and his speech work to the
+                        complete and <italic>final</italic> will of addressees who are on hand or
+                        nearby (after all, even the closest descendants can be mistaken), and always
+                        presupposes (with a greater or lesser degree of awareness) some higher
+                        instancing of responsive understanding that can distance itself in various
+                        directions (Bakhtin, 1986, p.126; emphasis in original).<xref ref-type="fn"
+                            rid="fn68">41</xref></p>
+                </disp-quote>
+                <p>We can say that the superaddressee frees the work from the interpretive limits of
+                    its context, its evaluative purview, its “supporting chorus,” and takes it to a
+                    time beyond its time. <xref ref-type="bibr" rid="B5">Bezerra (2016,
+                        p.163)</xref> sums it up well: “It is in the great time that the
+                    superaddressee reinterprets it in the light of new achievements (…).”<xref
+                        ref-type="fn" rid="fn69">42</xref></p>
+                <p>Regarding “Nijinski’s scandal,” we conclude that the choreographic discourse
+                    introduced values that transgressed those embodied in the chronotope of the
+                    theater. Thus, it went beyond the space-time unit in which it was engendered; it
+                    danced towards the great time and addressed its art to the emerging purview of
+                    modernity. A future chronotopicity? One thing is for certain: Nijinski broadened
+                    the purview of values of the chronotope of the theater so as to open it to new
+                    values of dance discursiveness. Today contemporary dance is performed in
+                        <italic>Champs Elysées</italic> and <italic>Châtelet</italic> Theaters –
+                    some performances are extremely radical in their discursiveness, such as the
+                    ones by the Brazilian company <italic>Grupo Corpo</italic> or by Pina
+                    Bausch.</p>
+            </sec>
+            <sec sec-type="conclusions">
+                <title>Conclusions</title>
+                <p>We want to conclude this article focusing on the issue of transgression, revealed
+                    as the main element of our analysis. We brought a historical example of
+                    chronotopic transgression produced by a radically innovative choreographic
+                    discourse, the precursor of a new genre that would later be known as Modern
+                    Ballet. We would like to end with an example of the inverse process, that is,
+                    the transgression of the meaning of a classical choreographic discourse,
+                    produced by the change of the chronotope.</p>
+                <p>We need to contextualize it first. We are in France, in January 2020, when huge
+                    popular protests took place against ultraliberal reforms of the Macron
+                    government, especially the reform of the pension system. Almost every single
+                    category of waged workers is on the streets, and a transportation strike
+                    paralyzes the country for over a month. Taking into account that in large cities
+                    of France life depends entirely on public transportation, the daily life of
+                    self-employed workers who are not on strike becomes deranged. For them to go to
+                    work, they need to ask for rides, ride bicycles, rollerblade, or walk, which
+                    doubles or triples commuting time. Despite the disturbance caused, 65% of the
+                    population supports strikers. Besides rallies, several types of protests were
+                    staged. Truck drivers closed roads; port workers shut down ports; electrical
+                    workers cut power supplies for a few hours; lawyers tossed their black robes on
+                    the steps of the Palace of Justice… and ballet dancers from the <italic>Opéra
+                        Garnier</italic>’s corps de ballet danced outside this traditional
+                    theater.</p>
+                <p><fig>
+                        <label>Figure 12</label>
+                        <caption>
+                            <title>Protest Ballet. Fair use: A Freeze-Frame from the Video “L’Opéra
+                                en greve.”<xref ref-type="fn" rid="fn70">43</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf12-en.tif"/>
+                    </fig></p>
+                <p>We can identify the chronotope of the square or the street, a central element in
+                    Bakhtin’s work on Rabelais and popular culture. We are in open space, the
+                    distance between the stage and the audience is relativized, and time breaks free
+                    from the codified regulations of performances that occur in the theater. The
+                    orchestra, which is also there, plays “Swan Lake,” composed by Tchaikovsky for
+                    the namesake ballet,<xref ref-type="fn" rid="fn71">44</xref> which is the most
+                    renowned classical ballet. At the same time, the sounds from the street break
+                    free from any control and affect the scansion of “listening” by altering the
+                    measurement of music <italic>time</italic>: horns, sirens, voices.</p>
+                <p>The source of lighting is daylight, which falls on everyone – artists and
+                    audience alike – and does not produce an effect of magic or mystery. In the gray
+                    cold of Paris, the scene is clear and transparent. The values of the popular
+                    chronotope are imposed on the ballet discourse, introducing it in the collective
+                    discourse. On the imposing arcades of the theater, protest banners are hanging.
+                    They take the role of a new component of verbal discourse, replacing the
+                    programs distributed before the shows: “Opera On Strike,” “Culture in danger.”
+                    The façade, the entrance, the arcades, and the staircase are the same, but now
+                    they have a new chronotopic dimension. The verticality of the imposing noble
+                    stone arcades is reduced by horizontal banners whose material, layout, and
+                    verbal content point to a popular origin with fighting value.</p>
+                <p>We thus see the political dimension of the chronotope, once
+                        <italic>polis</italic> is the space for living together; in addition, the
+                    way places and positions are distributed within it configures a political regime
+                    of shared artistic sensibility. In this Parisian “protest ballet,” the
+                    space-time of the theater is reconfigured, and the tension between the values of
+                    the two chronotopes is the one that produces meaning intensity and density. Here
+                    we can identify the relationship between the chronotope and the empirical
+                    reality as Bakhtin points out.</p>
+                <p>The relation of otherness is the core of discursive meaning production: it is
+                    because that place refers to an art of the “heights” that the “lowness” of the
+                    street can be given voice. It is insofar that the entrance to the <italic>Opéra
+                        Garnier</italic> conventionally means an index of the values of the art of
+                    elevation that the difference with the chronotope of the street and the values
+                    of the social movement of protest is contrasted. As the choreography, music and
+                    costumes of the classical genre are maintained, the voice of traditional art
+                    joins the voice of popular manifestations, and the dance body joins the
+                    collective body. Here the artist not only serves a political cause, but also
+                    adheres to it. It is the very presence of classical and traditional forms of the
+                    body and the theater that gives force to discourse, establishing an effective
+                    dialogue between the popular and the cultured through the articulation between
+                    the ethical and the aesthetic.</p>
+                <p>Should we conclude that every single transgression is creative? Not really. We
+                    need to consider if transgression only undoes what is established or if it
+                    allows affirming new values. In case it does, what discursiveness does it
+                    assume? In any case, because of values, this discussion will always go beyond
+                    the methodological dimension: it requires that the researcher have a
+                        <italic>non-indifferent thinking</italic> in face of the new affirmed
+                    values. To illustrate it further, the image of the façade of the <italic>Opéra
+                        Garnier</italic> Theater below dates from the Nazi occupation of Paris. We
+                    have chosen to end this article with a striking illustration of the problem we
+                    have discussed in order to prompt the reader to formulate new questions.</p>
+                <p><fig>
+                        <label>Figure 13</label>
+                        <caption>
+                            <title>Opéra Garnier Theater under Nazi occupation Unknown Author, March
+                                of 1941.<xref ref-type="fn" rid="fn72">45</xref></title>
+                        </caption>
+                        <graphic xlink:href="2176-4573-bak-p59553-gf13-en.tif"/>
+                    </fig></p>
+            </sec>
+        </body>
+        <back>
+            <sec sec-type="data-availability" specific-use="data-available-upon-request">
+                <label>Research Data and Other Materials Availability</label>
+                <p>The contents underlying the research text are included in the manuscript.</p>
+            </sec>
+            <fn-group>
+                <fn fn-type="other">
+                    <p><italic>Translated</italic> by Orison Marden Bandeira de Melo Júnior –
+                            <email>orison.junior@ufrn.br</email></p>
+                </fn>
+                <fn fn-type="other" id="fn28">
+                    <label>1</label>
+                    <p>As an example of an approach that contemplates multiple languages related to
+                        the discourse of dance, see Irene Machado’s excellent article, whose
+                        reference is on the Reference list at the end of this paper.</p>
+                </fn>
+                <fn fn-type="other" id="fn29">
+                    <label>2</label>
+                    <p>Unless otherwise indicated, the translation of quotations from Portuguese
+                        into English is ours. In the original: “[...] a linguagem visual funda-se
+                        sobre uma matriz indicial que comporta uma relação icônica ou de semelhança
+                        com os referentes do mundo.”</p>
+                </fn>
+                <fn fn-type="other" id="fn30">
+                    <label>3</label>
+                    <p>BAKHTIN, M. Forms of Time and of the Chronotope in the Novel: Notes toward a
+                        Historical Poetics. <italic>In</italic>: BAKHTIN, M. <italic>The Dialogic
+                            Imagination</italic>: Four Essays by M. M. Bakhtin. Edited by Michael
+                        Holquist; translated by Caryl Emerson and Michael Holquist. Austin, TX:
+                        University of Texas Press, 1981. pp.84-258.</p>
+                </fn>
+                <fn fn-type="other" id="fn31">
+                    <label>4</label>
+                    <p>For reference, see footnote 3.</p>
+                </fn>
+                <fn fn-type="other" id="fn32">
+                    <label>5</label>
+                    <p>For reference, see footnote 3.</p>
+                </fn>
+                <fn fn-type="other" id="fn33">
+                    <label>6</label>
+                    <p>For reference, see footnote 3.</p>
+                </fn>
+                <fn fn-type="other" id="fn34">
+                    <label>7</label>
+                    <p>For reference, see footnote 3.</p>
+                </fn>
+                <fn fn-type="other" id="fn35">
+                    <label>8</label>
+                    <p>For reference, see footnote 3.</p>
+                </fn>
+                <fn fn-type="other" id="fn36">
+                    <label>9</label>
+                    <p>HOLQUIST, M. The Fugue of Chronotope. <italic>In</italic>: BEMONG, N.
+                            <italic>et al.</italic> (ed.). <italic>Bakhtin’s Theory of the Literary
+                            Chronotope</italic>: Reflections, Applications, Perspectives. Ghent,
+                        Belgium: Academia Press, 2010. pp.19-33.</p>
+                </fn>
+                <fn fn-type="other" id="fn37">
+                    <label>10</label>
+                    <p>A knot that is impossible to untangle.</p>
+                </fn>
+                <fn fn-type="other" id="fn38">
+                    <label>11</label>
+                    <p>For reference, see footnote 9.</p>
+                </fn>
+                <fn fn-type="other" id="fn39">
+                    <label>12</label>
+                    <p>For reference, see footnote 3.</p>
+                </fn>
+                <fn fn-type="other" id="fn40">
+                    <label>13</label>
+                    <p>It was analyzed in our previous article.</p>
+                </fn>
+                <fn fn-type="other" id="fn41">
+                    <label>14</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:Spb_06-2012_MariinskyTheatre.jpg"
+                            >https://commons.wikimedia.org/wiki/File:Spb_06-2012_MariinskyTheatre.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn42">
+                    <label>15</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tre_du_Ch%C3%A2telet_Fa%C3%A7ade.jpg"
+                            >https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tre_du_Ch%C3%A2telet_Fa%C3%A7ade.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn43">
+                    <label>16</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:ParisPalais Garnier 2010-04-06 16.55.07.jpg"
+                            >https://commons.wikimedia.org/wiki/File:ParisPalais Garnier 2010-04-06
+                            16.55.07.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn44">
+                    <label>17</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tredesChamps%C3%89lys%C3%A9es,21April 2013.jpg"
+                            >https://commons.wikimedia.org/wiki/File:Th%C3%A9%C3%A2tredesChamps%C3%89lys%C3%A9es,21April2013.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn45">
+                    <label>18</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:Salle_du_Theatre_du_Chatelet.jpg"
+                            >https://commons.wikimedia.org/wiki/File:Salle_du_Theatre_du_Chatelet.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn46">
+                    <label>19</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://fr.wikipedia.org/wiki/Fichier:Theatre_Champs_Elysees_35.jpg"
+                            >https://fr.wikipedia.org/wiki/Fichier:Theatre_Champs_Elysees_35.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn47">
+                    <label>20</label>
+                    <p>From an acoustic standpoint, the velvet fabric favors sound insulation.</p>
+                </fn>
+                <fn fn-type="other" id="fn48">
+                    <label>21</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File: Главная_сцена_Мариинского_театра._Занавес_художника_А._Головина_-_эмблема_театра._-_panoramio.jpg"
+                            >https://commons.wikimedia.org/wiki/File:
+                            Главная_сцена_Мариинского_театра._Занавес_художника_А._Головина_-_эмблема_театра._-_panoramio.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn49">
+                    <label>22</label>
+                    <p>A variant of applause is the codification of classical ballets that are
+                        comprised of frames <italic>(ballet à tableaux):</italic> scenes are created
+                        to include a solo, a duo, a trio, etc. of a virtuosic nature whose end is
+                        marked by a pause in music playing or dancing. The paused scene signals to
+                        the audience that this is the right time to applaud the dancers even if the
+                        lights are down. When the applause ends, the dancing and the plot resume.
+                        See, for example, the renowned ballet <italic>Le Corsaire</italic> by Marius
+                        Petipa (1818-1910).</p>
+                </fn>
+                <fn fn-type="other" id="fn50">
+                    <label>23</label>
+                    <p>The expression “chronotope of the theater” will be used throughout the text
+                        to always refer to large western national theaters that were built until the
+                        beginning of the 20th century.</p>
+                </fn>
+                <fn fn-type="other" id="fn51">
+                    <label>24</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:Opera_Garnier_Grand_Escalier.jpg"
+                            >https://commons.wikimedia.org/wiki/File:Opera_Garnier_Grand_Escalier.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn52">
+                    <label>25</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:Op%C3%A9ra_Garnier_-_le_Grand_Foyer.jpg"
+                            >https://commons.wikimedia.org/wiki/File:Op%C3%A9ra_Garnier_-_le_Grand_Foyer.jpg</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn53">
+                    <label>26</label>
+                    <p>For reference, see footnote 3.</p>
+                </fn>
+                <fn fn-type="other" id="fn54">
+                    <label>27</label>
+                    <p>It is important to differentiate modern ballet form the so-called
+                        contemporary dance, which has been around since the 1960s. German Pina
+                        Bausch is the most representative choreographer of the genre.</p>
+                </fn>
+                <fn fn-type="other" id="fn55">
+                    <label>28</label>
+                    <p>Vaslav Nijinski was a Russian ballet dancer and choreographer of Ukrainian
+                        origin (1889-1950).</p>
+                </fn>
+                <fn fn-type="other" id="fn56">
+                    <label>29</label>
+                    <p>Other artists have contributed to the emergence of modern dance. This is
+                        surely the case of American Isadora Duncan (1877-1927), who performed in
+                        Europe with great success as early as in 1902. Her performances, however,
+                        took place in private venues and were not institutionalized or put on by
+                        state companies or theaters.</p>
+                </fn>
+                <fn fn-type="other" id="fn57">
+                    <label>30</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://www.youtube.com/watch?v=fx6i7sXcRqo"
+                            >https://www.youtube.com/watch?v=fx6i7sXcRqo</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn58">
+                    <label>31</label>
+                    <p>Léon Bakst (1866-1924) was a Russian painter, decorator and costume
+                        designer.</p>
+                </fn>
+                <fn fn-type="other" id="fn59">
+                    <label>32</label>
+                    <p>BAKHTIN, M. The Problem of Content, Material and Form in Verbal Art.
+                        Translated by Kenneth Brostrom. <italic>In</italic>: BAKHTIN, M. <italic>Art
+                            and Answerability</italic>: Early Philosophical Essays by M. M. Bakhtin.
+                        Edited by Michael Holquist and Vadim Liapunov; translated by Vadim Liapunov.
+                        Austin, TX: University of Texas Press, 1990. pp.257-325.</p>
+                </fn>
+                <fn fn-type="other" id="fn60">
+                    <label>33</label>
+                    <p>Igor Stravinsky (1882-1971) was a Russian composer.</p>
+                </fn>
+                <fn fn-type="other" id="fn61">
+                    <label>34</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://www.youtube.com/watch?v=C_7ndqgwxcM"
+                            >https://www.youtube.com/watch?v=C_7ndqgwxcM</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn62">
+                    <label>35</label>
+                    <p>Nevertheless, Fokine and Nijinski were contemporaries and members of the
+                            <italic>Mariinsky</italic> and the Diaghiliev company. This attests to
+                        the fact that, from a historical standpoint, the modern and the classical
+                        are not values that are tightly separated, whether chronologically or
+                        institutionally.</p>
+                </fn>
+                <fn fn-type="other" id="fn63">
+                    <label>36</label>
+                    <p>The complete title printed on the program and the poster was
+                            <italic>L’après-midi d’un faune. Poème chorégraphique</italic>
+                            [<italic>The Afternoon of a Faun: A Choreographic Poem</italic>].</p>
+                </fn>
+                <fn fn-type="other" id="fn64">
+                    <label>37</label>
+                    <p>VOLOŠINOV, V. N. Discourse in Life and Discourse in Poetry: Questions of
+                        Sociological Poetics. Translated by John Richmond. <italic>In</italic>:
+                        SHUKMAN, Ann (ed.). <italic>Bakhtin School Papers</italic>. Oxford: RTP
+                        Publications, 1983. pp.5-30.</p>
+                </fn>
+                <fn fn-type="other" id="fn65">
+                    <label>38</label>
+                    <p>A methodological issue arises: to discuss this broad-scope chronotope we need
+                        to focus on the discursiveness engendered in it before analyzing it. For
+                        example, we could have investigated the newspapers of the time and articles
+                        on literary criticism and other arts, but this has not been done for this
+                        study.</p>
+                </fn>
+                <fn fn-type="other" id="fn66">
+                    <label>39</label>
+                    <p>For reference, see footnote 26.</p>
+                </fn>
+                <fn fn-type="other" id="fn67">
+                    <label>40</label>
+                    <p>For reference, see footnote 26.</p>
+                </fn>
+                <fn fn-type="other" id="fn68">
+                    <label>41</label>
+                    <p>BAKHTIN, M. The Problem of the Text in Linguistics, Philology, and the Human
+                        Sciences: An Experiment in Philosophical Analysis. <italic>In</italic>:
+                        BAKHTIN, M. <italic>Speech Genres &amp; Other Late Essays</italic>.
+                        Translated by Vern W. McGee. Austin, TX: University of Texas Press, 1986.
+                        pp.103-131.</p>
+                </fn>
+                <fn fn-type="other" id="fn69">
+                    <label>42</label>
+                    <p>In the original: “É nesse grande tempo que o supradestinatário a reinterpreta
+                        à luz de novas conquistas (...).”</p>
+                </fn>
+                <fn fn-type="other" id="fn70">
+                    <label>43</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://www.youtube.com/watch?v=oVueDU8uw1I"
+                            >https://www.youtube.com/watch?v=oVueDU8uw1I</ext-link></p>
+                </fn>
+                <fn fn-type="other" id="fn71">
+                    <label>44</label>
+                    <p>It was created in the Bolshoi Theater Ballet in Moscow in 1877 by different
+                        choreographers.</p>
+                </fn>
+                <fn fn-type="other" id="fn72">
+                    <label>45</label>
+                    <p><ext-link ext-link-type="uri"
+                            xlink:href="https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1985-1216-509,_Paris,_Oper.jpg"
+                            >https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1985-1216-509,_Paris,_Oper.jpg</ext-link></p>
+                </fn>
+            </fn-group>
+        </back>
+        <sub-article article-type="reviewer-report" id="s4" xml:lang="en">
+            <front-stub>
+                <article-categories>
+                    <subj-group subj-group-type="heading">
+                        <subject>Peer-Review</subject>
+                    </subj-group>
+                </article-categories>
+                <title-group>
+                    <article-title>Review I</article-title>
+                </title-group>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                        <contrib-id contrib-id-type="orcid">0000-0003-4109-6072</contrib-id>
+                        <name>
+                            <surname>Arán</surname>
+                            <given-names>Pampa</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff5"/>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff5">
+                    <institution content-type="original">Universidad Nacional de Córdoba – UNC,
+                        Córdoba, Argentina; aranpampa@gmail.com</institution>
+                </aff>
+                <custom-meta-group>
+                    <custom-meta>
+                        <meta-name>peer-review-recommendation</meta-name>
+                        <meta-value>accept</meta-value>
+                    </custom-meta>
+                </custom-meta-group>
+            </front-stub>
+            <body>
+                <sec>
+                    <title>Review I</title>
+                    <p>The title is appropriate to the development of the article, which focuses on
+                        analyzing the choreographies created by Nijinski as transgressors of the
+                        chronotope of classical theater. It refers to the generic classification of
+                        classical ballet proposed in a previous study and to the notion of
+                        chronotope as a “chronotopized” matrix of a set of social and aesthetic
+                        values, which the author conveniently illustrates. He/She carefully analyzes
+                        the staging of two ballets, namely, <italic>The Afternoon of a Faun</italic>
+                        and <italic>The Rite of Spring</italic>, to show which aspects of the
+                        classical understanding of the body in motion are transformed and
+                        questioned. He/She thus proposes the hypothesis of a cultural change towards
+                        modernity through the Russian dancer’s provocative transgression of
+                        corporalities and other choreographic languages. The study is also concerned
+                        about pointing out the public’s negative responses to this new
+                        interpretation of meaning in the performance of the fable. It is evident
+                        that the Bakhtinian theory about the theoretical concept of chronotope is
+                        known and quoted in a convenient and updated way in relation to the created
+                        world and to the creative and receiving image on that difficult border
+                        between the reality of the author and the audience and its textualized
+                        representation. This becomes very complex in the theatrical text. In my
+                        opinion it should at least be pointed out as <italic>a conflictual
+                            issue</italic> between the creative consciousness and the created world
+                        and between the potential and the real receiver. Finally, I highlight the
+                        adequacy of the paper to the format and language of a scientific work in its
+                        development and rigor in many of its facets. My evaluation is positive as I
+                        understand it as a successful intent to transfer a somewhat ambiguous
+                        theoretical category to other artistic discourses that are thought within a
+                        diachronic development, as Bakhtin does with the novel. As a suggestion, I
+                        propose that Nijinski’s production not only be presented as a reference to
+                        previous social aesthetics, but that it be given a new name that takes into
+                        account its intrinsic and synchronous characteristics in order to evaluate,
+                        as Bakhtin puts it, the form of “assimilation,” that is, to artistically
+                        compose Nijinski’s real historical chronotope and bear witness to that
+                        space-time in the very performances. ACCEPTED WITH RECOMMENDATIONS</p>
+                </sec>
+            </body>
+        </sub-article>
+        <sub-article article-type="reviewer-report" id="s5" xml:lang="en">
+            <front-stub>
+                <article-categories>
+                    <subj-group subj-group-type="heading">
+                        <subject>Peer-Review</subject>
+                    </subj-group>
+                </article-categories>
+                <title-group>
+                    <article-title>Review II</article-title>
+                </title-group>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                        <contrib-id contrib-id-type="orcid">0000-0003-2826-3366</contrib-id>
+                        <name>
+                            <surname>Gonçalves</surname>
+                            <given-names>Jean Carlos</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff6"/>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff6">
+                    <institution content-type="original">Universidade Federal do Paraná – UFPR,
+                        Curitiba, Paraná, Brazil; jeancarlosgoncalves@gmail.com</institution>
+                </aff>
+                <custom-meta-group>
+                    <custom-meta>
+                        <meta-name>peer-review-recommendation</meta-name>
+                        <meta-value>accept</meta-value>
+                    </custom-meta>
+                </custom-meta-group>
+            </front-stub>
+            <body>
+                <sec>
+                    <title>Review II</title>
+                    <p>The article presents an important and up-to-date discussion on the performing
+                        arts (dance and theater) theoretically and methodologically grounded in the
+                        studies of the Bakhtin Circle. The language presented is scientific and its
+                        analyses and results will greatly contribute to the areas of knowledge with
+                        which the text dialogues. The title and abstract are adequate and fully
+                        relate to the content of the work. The publication of the article in
+                            <italic>Bakhtiniana: Revista de Estudos do Discurso</italic> will
+                        certainly offer possibilities of non-stigmatized readings on classical
+                        ballet, once the path chosen by the author is provocative in the sense that
+                        he/she mobilizes meanings and not simply affirms or categorizes them. The
+                        density and rigor dedicated to the work not only justify, but also encourage
+                        its approval for publication. I noticed, on the list of bibliographical
+                        references, that Voloshinov is spelled with an ‘s’ and not with a ‘c,’ as it
+                        is found in the referenced work. ACCEPTED FOR PUBLICATION</p>
+                </sec>
+            </body>
+        </sub-article>
+    </sub-article>
+</article>

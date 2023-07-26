@@ -21,16 +21,18 @@
             </xsl:if>
         </div>
     </xsl:template>
-    
-    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
-        <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
-        <xsl:apply-templates select="contrib[@contrib-type='author']" mode="article-meta-contrib"/>
+
+    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button">
+        <!--
+            Adiciona o botão 'About the contributor', trocando 'author',
+            pelo tipo de contribuição
+        -->
         <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
-            <a href="" class="btn btn-secondary btn-sm outlineFadeLink" data-bs-toggle="modal"
+            <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
+            <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
+                data-bs-toggle="modal"
                 data-bs-target="#ModalTutors{$id}">
-                <xsl:apply-templates select="." mode="interface">
-                    <xsl:with-param name="text">About the author<xsl:if test="count(contrib[@contrib-type='author'])&gt;1">s</xsl:if></xsl:with-param>
-                </xsl:apply-templates>
+                <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
             </a>
         </xsl:if>
     </xsl:template>

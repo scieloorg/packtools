@@ -10,7 +10,7 @@
         -->
         <xsl:choose>
             <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
-                <xsl:for-each select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//subject">
+                <xsl:for-each select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']/*/article-categories//subject">
                     <xsl:value-of select="text()"/>
                     <xsl:choose>
                         <xsl:when test="position() != last()">, </xsl:when>
