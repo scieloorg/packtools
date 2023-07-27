@@ -942,11 +942,30 @@ def xml_crossref_journalissue_pipe(xml_crossref):
 
 def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
     """
-    <journal_issue>
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-    </journal_issue>
+    Adiciona o elemento 'publication_date' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch>
+       <body>
+          <journal>
+             <journal_issue>
+                <publication_date media_type="online">
+                   <year>2022</year>
+                </publication_date>
+             </journal_issue>
+          </journal>
+       </body>
+    </doi_batch>
     """
     try:
         year = ET.Element('year')
@@ -957,6 +976,7 @@ def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
         publication_date.append(year)
 
         xml_crossref.find('./body/journal/journal_issue').append(publication_date)
+
     except AttributeError:
         pass
 
