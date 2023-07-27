@@ -738,6 +738,23 @@ def xml_crossref_registrant_pipe(xml_crossref, data):
 
 
 def xml_crossref_body_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'body' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            </head>
+            <body/>
+        </doi_batch>
+    """
     body = ET.Element('body')
 
     xml_crossref.append(body)
