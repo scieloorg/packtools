@@ -1076,12 +1076,27 @@ def xml_crossref_issue_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_journalarticle_pipe(xml_crossref, xml_tree):
     """
-    <body>
-        <journal>
-            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any"/>
-            <journal_article language="pt" publication_type="translation" reference_distribution_opts="any"/>
-        </journal>
-    </body>
+    Adiciona o elemento 'journal_article' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch>
+       <body>
+          <journal>
+             <journal_article language="en" publication_type="research-article" reference_distribution_opts="any" />
+             <journal_article language="pt" publication_type="translation" reference_distribution_opts="any" />
+          </journal>
+       </body>
+    </doi_batch>
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
     for article in articles:
