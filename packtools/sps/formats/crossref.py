@@ -878,12 +878,29 @@ def xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_issn_pipe(xml_crossref, xml_tree):
     """
-        <journal>
-            <journal_metadata>
-                <issn media_type="electronic">1980-220X</issn>
-                <issn media_type="print">0080-6234</issn>
-            </journal_metadata>
-        </journal>
+    Adiciona o elemento 'issn' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_metadata>
+                <issn media_type="electronic">1982-0194</issn>
+                <issn media_type="print">0103-2100</issn>
+             </journal_metadata>
+          </journal>
+       </body>
+    </doi_batch>
     """
     issns = journal_meta.ISSN(xml_tree)
 
