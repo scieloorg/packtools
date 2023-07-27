@@ -666,19 +666,33 @@ def xml_crossref_timestamp_pipe(xml_crossref):
 
 def xml_crossref_depositor_pipe(xml_crossref, data):
     """
-            data = {
-                        "depositor_name": depositor,
-                        "depositor_email_address": name@domain.com
-                    }
+    Adiciona o elemento 'depositor' ao xml_crossref.
 
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+        data = {
+                    "depositor_name": depositor,
+                    "depositor_email_address": name@domain.com
+                }
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
             <head>
                 <depositor>
                     <depositor_name>depositor</depositor_name>
                     <email_address>name@domain.com</email_address>
                 </depositor>
             </head>
-            """
-
+        </doi_batch>
+        """
     depositor = ET.Element('depositor')
     depositor_name = ET.Element('depositor_name')
     email_address = ET.Element('email_address')
