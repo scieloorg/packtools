@@ -616,11 +616,23 @@ def xml_crossref_head_pipe(xml_crossref):
 
 def xml_crossref_doibatchid_pipe(xml_crossref):
     """
-    <head>
-        <doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>
-    </head>
-    """
+    Adiciona o elemento 'doi_batch_id' ao xml_crossref.
 
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <head>
+                <doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>
+            </head>
+        </doi_batch>
+    """
     doi_batch_id = ET.Element('doi_batch_id')
     doi_batch_id.text = get_doi_batch_id()
 
