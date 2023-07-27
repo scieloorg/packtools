@@ -593,6 +593,22 @@ def setupdoibatch_pipe():
 
 
 def xml_crossref_head_pipe(xml_crossref):
+    """
+        Adiciona o elemento 'head' ao xml_crossref.
+
+        Parameters
+        ----------
+        xml_crossref : lxml.etree._Element
+            Elemento XML no padrão CrossRef em construção
+
+        Returns
+        -------
+        lxml.etree._Element
+            <?xml version="1.0" encoding="UTF-8"?>
+            <doi_batch ...>
+                <head />
+            </doi_batch>
+        """
     head = ET.Element('head')
 
     xml_crossref.append(head)
