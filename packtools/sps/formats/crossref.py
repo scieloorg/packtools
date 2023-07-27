@@ -562,11 +562,17 @@ def pipeline_crossref(xml_tree, data):
 
 def setupdoibatch_pipe():
     """
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
-    xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.crossref.org/schema/4.4.0"
-    xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd"/>
+    Cria o elemento XML inicial padronizado.
+
+    Returns
+    -------
+    lxml.etree._Element
+        <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
+        xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.crossref.org/schema/4.4.0"
+        xsi:schemaLocation="http://www.crossref.org/schema/4.4.0
+        http://www.crossref.org/schemas/crossref4.4.0.xsd"/>
     """
 
     nsmap = {
