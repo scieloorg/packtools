@@ -1159,38 +1159,83 @@ def xml_crossref_articletitles_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
     """
-    <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
-        <contributors>
-            <person_name contributor_role="author" sequence="first">
-                <given_name>Fernanda Guarilha</given_name>
-                <surname>Boni</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0003-0843-6485</ORCID>
-            </person_name>
-            <person_name contributor_role="author" sequence="additional">
-                <given_name>Yasmin Lorenz</given_name>
-                <surname>da Rosa</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0001-7364-4753</ORCID>
-            </person_name>
-        </contributors>
-    </journal_article>
-    <journal_article language="pt" publication_type="translation" reference_distribution_opts="any">
-        <contributors>
-            <person_name contributor_role="author" sequence="first">
-                <given_name>Fernanda Guarilha</given_name>
-                <surname>Boni</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0003-0843-6485</ORCID>
-            </person_name>
-            <person_name contributor_role="author" sequence="additional">
-                <given_name>Yasmin Lorenz</given_name>
-                <surname>da Rosa</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0001-7364-4753</ORCID>
-            </person_name>
-        </contributors>
-    </journal_article>
+    Adiciona o elemento 'contributors' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <contributors>
+                   <person_name contributor_role="author" sequence="first">
+                      <given_name>Josiana Araujo de</given_name>
+                      <surname>Oliveira</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ricardo Gonçalves</given_name>
+                      <surname>Cordeiro</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ronilson Gonçalves</given_name>
+                      <surname>Rocha</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Tereza Cristina Felippe</given_name>
+                      <surname>Guimarães</surname>
+                      <affiliation>Instituto Nacional de Cardiologia, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Denilson Campos de</given_name>
+                      <surname>Albuquerque</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                </contributors>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <contributors>
+                   <person_name contributor_role="author" sequence="first">
+                      <given_name>Josiana Araujo de</given_name>
+                      <surname>Oliveira</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ricardo Gonçalves</given_name>
+                      <surname>Cordeiro</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ronilson Gonçalves</given_name>
+                      <surname>Rocha</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Tereza Cristina Felippe</given_name>
+                      <surname>Guimarães</surname>
+                      <affiliation>Instituto Nacional de Cardiologia, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Denilson Campos de</given_name>
+                      <surname>Albuquerque</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                </contributors>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
     authors = article_authors.Authors(xml_tree).contribs
