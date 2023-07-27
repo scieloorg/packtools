@@ -1619,34 +1619,34 @@ def xml_crossref_doidata_pipe(xml_crossref):
 
 def xml_crossref_doi_pipe(xml_crossref, xml_tree):
     """
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569en</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=en</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=en</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569pt</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=pt</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=pt</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    </journal>
-    </body>
+    Adiciona o elemento 'doi' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data>
+                   <doi>10.1590/1982-0194201700050</doi>
+                </doi_data>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <doi_data>
+                   <doi />
+                </doi_data>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     art_lang = [lang.get('lang') for lang in article_and_subarticles.ArticleAndSubArticles(xml_tree).data]
