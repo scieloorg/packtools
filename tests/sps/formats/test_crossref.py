@@ -980,6 +980,8 @@ class PipelineCrossref(TestCase):
             '<body>'
             '<journal>'
             '<journal_article>'
+            '<publisher_item>'
+            '</publisher_item>'
             '</journal_article>'
             '</journal>'
             '</body>'
