@@ -1588,6 +1588,30 @@ def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
 
 
 def xml_crossref_doidata_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'doi_data' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data />
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <doi_data />
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
+    """
     for journal_article in xml_crossref.findall('./body/journal//journal_article'):
         doi_data = ET.Element('doi_data')
         journal_article.append(doi_data)
