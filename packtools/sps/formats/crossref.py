@@ -917,14 +917,23 @@ def xml_crossref_issn_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_journalissue_pipe(xml_crossref):
     """
-    <journal_issue>
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-        <journal_volume>
-            <volume>56</volume>
-        </journal_volume>
-    </journal_issue>
+    Adiciona o elemento 'journal_issue' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_issue />
+          </journal>
+       </body>
+    </doi_batch>
     """
     journal_issue = ET.Element('journal_issue')
 
