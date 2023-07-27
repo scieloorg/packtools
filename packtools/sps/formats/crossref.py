@@ -982,6 +982,27 @@ def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
 
 
 def xml_crossref_journalvolume_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'journal_volume' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_issue>
+                <journal_volume />
+             </journal_issue>
+          </journal>
+       </body>
+    </doi_batch>
+    """
     journal_volume = ET.Element('journal_volume')
 
     xml_crossref.find('./body/journal/journal_issue').append(journal_volume)
