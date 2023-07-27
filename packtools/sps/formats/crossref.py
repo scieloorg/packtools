@@ -1010,11 +1010,30 @@ def xml_crossref_journalvolume_pipe(xml_crossref):
 
 def xml_crossref_volume_pipe(xml_crossref, xml_tree):
     """
-    <journal_issue>
-        <journal_volume>
-            <volume>56</volume>
-        </journal_volume>
-    </journal_issue>
+    Adiciona o elemento 'volume' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_issue>
+                <journal_volume>
+                   <volume>30</volume>
+                </journal_volume>
+             </journal_issue>
+          </journal>
+       </body>
+    </doi_batch>
     """
     volume = ET.Element('volume')
     volume.text = front_articlemeta_issue.ArticleMetaIssue(xml_tree).volume
