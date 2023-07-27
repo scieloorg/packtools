@@ -1305,20 +1305,35 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree):
     """
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-    </journal_article>
+    Adiciona o elemento 'publication_date' ao xml_crossref.
 
-    todo
-    publication_type in SciELO format: research-article and translation
-    publication_type in CrossRef format: full_text
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <publication_date media_type="online">
+                   <year>2017</year>
+                </publication_date>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <publication_date media_type="online">
+                   <year>2017</year>
+                </publication_date>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
     pub_date = dates.ArticleDates(xml_tree).collection_date
