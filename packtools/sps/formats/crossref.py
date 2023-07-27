@@ -641,11 +641,23 @@ def xml_crossref_doibatchid_pipe(xml_crossref):
 
 def xml_crossref_timestamp_pipe(xml_crossref):
     """
-    <head>
-        <timestamp>20230405112328</timestamp>
-    </head>
-    """
+    Adiciona o elemento 'timestamp' ao xml_crossref.
 
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <head>
+                <timestamp>20230405112328</timestamp>
+            </head>
+        </doi_batch>
+    """
     timestamp = ET.Element('timestamp')
     timestamp.text = get_timestamp()
 
