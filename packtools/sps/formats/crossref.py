@@ -467,6 +467,35 @@ def get_affiliation(xml_tree, author):
 
 
 def get_one_contributor(xml_tree, seq, author):
+    """
+    Obtem os dados referentes a um autor de uma publicação.
+
+    Parameters
+    ----------
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO que será convertido para o padrão CrossRef
+
+    seq : int
+        Número que indica a ordem dos autores na publicação
+
+    author: dict
+        Dicionário com os dados dos autores da publicação, por exemplo:
+        {
+            "surname": "Oliveira",
+            "given_names": "Josiana Araujo de",
+            "rid": "aff1",
+            "contrib-type": "author",
+        }
+
+    Returns
+    -------
+    lxml.etree._Element
+        <person_name contributor_role="author" sequence="first">
+            <given_name>Josiana Araujo de</given_name>
+            <surname>Oliveira</surname>
+            <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+        </person_name>
+    """
     person_name = ET.Element('person_name')
     person_name.set('contributor_role', author.get('contrib-type'))
     if seq == 0:
