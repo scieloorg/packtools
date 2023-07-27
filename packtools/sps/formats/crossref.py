@@ -814,11 +814,28 @@ def xml_crossref_journalmetadata_pipe(xml_crossref):
 
 def xml_crossref_journaltitle_pipe(xml_crossref, xml_tree):
     """
-        <journal>
-            <journal_metadata>
-                <full_title>Revista da Escola de Enfermagem da USP</full_title>
-            </journal_metadata>
-        </journal>
+    Adiciona o elemento 'full_title' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            </head>
+            <body>
+                <journal>
+                    <journal_metadata/>
+                </journal>
+            </body>
+        </doi_batch>
     """
     titles = journal_meta.Title(xml_tree)
     full_title = ET.Element('full_title')
