@@ -786,6 +786,27 @@ def xml_crossref_journal_pipe(xml_crossref):
 
 
 def xml_crossref_journalmetadata_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'journal_metadata' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            </head>
+            <body>
+                <journal>
+                    <journal_metadata/>
+                </journal>
+            </body>
+        </doi_batch>
+    """
     journal_metadata = ET.Element('journal_metadata')
 
     xml_crossref.find('./body/journal').append(journal_metadata)
