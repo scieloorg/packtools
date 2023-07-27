@@ -1523,60 +1523,40 @@ def xml_crossref_permissions_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <front>
-    <article-meta>
-    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
-    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
-    <article-id pub-id-type="other">00445</article-id>
-    <title-group>
-    <article-title>
-    Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study
-    <xref ref-type="fn" rid="FN1">*</xref>
-    </article-title>
-    <trans-title-group xml:lang="es">
-    <trans-title>Efectos de una intervención educativa con profesionales de enfermería en el abordaje de pacientes fumadores: un estudio cuasi-experimental</trans-title>
-    </trans-title-group>
-    </title-group>
-    </article-meta>
-    </front>
-    <sub-article article-type="translation" id="s1" xml:lang="pt">
-    <front-stub>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
-    <title-group>
-    <article-title>
-    Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental
-    <xref ref-type="fn" rid="FN2">*</xref>
-    </article-title>
-    </title-group>
-    </front-stub>
-    </sub-article>
-    </article>
+    Adiciona o elemento 'program' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <program xmlns="http://www.crossref.org/relations.xsd">
-    <related_item>
-    <description>Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental</description>
-    <intra_work_relation relationship-type="isTranslationOf" identifier-type="doi">10.1590/1980-220x-reeusp-2021-0569pt</intra_work_relation>
-    </related_item>
-    </program>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <program xmlns="http://www.crossref.org/relations.xsd">
-    <related_item>
-    <description>Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study</description>
-    <intra_work_relation relationship-type="hasTranslation" identifier-type="doi">10.1590/1980-220x-reeusp-2021-0569en</intra_work_relation>
-    </related_item>
-    </program>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <program xmlns="http://www.crossref.org/relations.xsd">
+                   <related_item>
+                      <description>Impact of telephone monitoring on patients with heart failure: a randomized clinical trial</description>
+                      <intra_work_relation relationship-type="hasTranslation" identifier-type="doi" />
+                   </related_item>
+                </program>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <program xmlns="http://www.crossref.org/relations.xsd">
+                   <related_item>
+                      <description>Impacto do monitoramento telefônico em pacientes com insuficiência cardíaca: ensaio clínico randomizado</description>
+                      <intra_work_relation relationship-type="isTranslationOf" identifier-type="doi">10.1590/1982-0194201700050</intra_work_relation>
+                   </related_item>
+                </program>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     art_titles = article_titles.ArticleTitles(xml_tree).article_title_dict
