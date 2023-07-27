@@ -708,15 +708,29 @@ def xml_crossref_depositor_pipe(xml_crossref, data):
 
 def xml_crossref_registrant_pipe(xml_crossref, data):
     """
+    Adiciona o elemento 'registrant' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
         data = {
                     "registrant": registrant
                 }
 
-        <head>
-            <registrant>registrant</registrant>
-        </head>
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <head>
+                <registrant>registrant</registrant>
+            </head>
+        </doi_batch>
     """
-
     registrant = ET.Element('registrant')
     registrant.text = data.get('registrant')
 
