@@ -50,6 +50,8 @@ class AuthorsTest(TestCase):
             <volume>150</volume>
             <fpage>85</fpage>
             <lpage>91</lpage>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
             <comment>
             DOI:
             <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
@@ -69,6 +71,8 @@ class AuthorsTest(TestCase):
                   <publisher-loc>São Pulo</publisher-loc>
                   <publisher-name>Cultrix</publisher-name>
                   <year>1987</year>
+                  <pub-id pub-id-type="pmid">22222222</pub-id>
+                  <pub-id pub-id-type="pmcid">33333333</pub-id>
                 </element-citation>
               </ref>
             </ref-list>
@@ -100,15 +104,16 @@ class AuthorsTest(TestCase):
                 'fpage': '85',
                 'lpage': '91',
                 'year': '2015',
-                'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
-                                 'cessation in older ages'
+                'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages',
+                'citation_ids': {'pmid': '00000000', 'pmcid': '11111111'}
             },
             {
                 'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
                 'main_author': {'surname': 'BARTHES', 'given_name': 'Roland'},
                 'all_authors': [{'surname': 'BARTHES', 'given_name': 'Roland'}],
-                'year': '1987'
+                'year': '1987',
+                'citation_ids': {'pmid': '22222222', 'pmcid': '33333333'}
             }
         ]
         result = self.citations.article_citations
