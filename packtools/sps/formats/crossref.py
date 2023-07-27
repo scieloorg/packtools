@@ -131,6 +131,46 @@ def create_author(item, citation):
 
 
 def create_volume(item, citation):
+    """
+    Adiciona identificação do volume ao elemento 'citation'
+
+    Parameters
+    ----------
+    item : dict
+        Dicionário com dados de citação, como por exemplo:
+        {
+            "label": "1",
+            "source": "Drug Alcohol Depend.",
+            "main_author": {"surname": "Tran", "given_name": "B"},
+            "all_authors": [
+                {"surname": "Tran", "given_name": "B"},
+                {"surname": "Falster", "given_name": "MO"},
+                {"surname": "Douglas", "given_name": "K"},
+                {"surname": "Blyth", "given_name": "F"},
+                {"surname": "Jorm", "given_name": "LR"},
+            ],
+            "volume": "150",
+            "fpage": "85",
+            "lpage": "91",
+            "year": "2015",
+            "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages",
+            "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                               hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                               2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+        }
+
+    citation : lxml.etree._Element
+        Elemento xml, como por exemplo:
+        <citation key="ref1" />
+
+    Returns
+    -------
+    lxml.etree._Element
+        <citation key="ref1">
+            <volume>150</volume>
+        </citation>
+    """
     if item.get('volume') is not None:
         el = ET.Element('volume')
         el.text = item.get('volume')
