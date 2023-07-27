@@ -1662,51 +1662,34 @@ def xml_crossref_doi_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_resource_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <front>
-    <article-meta>
-    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
-    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
-    <article-id pub-id-type="other">00445</article-id>
-    </article-meta>
-    </front>
-    <sub-article article-type="translation" id="s1" xml:lang="pt">
-    <front-stub>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
-    </front-stub>
-    </sub-article>
-    </article>
+    Adiciona o elemento 'doi' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569en</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=en</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=en</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569pt</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=pt</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=pt</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data>
+                   <resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-21002017000400333&amp;tlng=pt</resource>
+                </doi_data>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <doi_data>
+                   <resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-21002017000400333&amp;tlng=en</resource>
+                </doi_data>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     url = 'http://www.scielo.br/scielo.php?script=sci_arttext&pid={}&tlng={}'
