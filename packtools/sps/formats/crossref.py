@@ -846,11 +846,28 @@ def xml_crossref_journaltitle_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree):
     """
-        <journal>
-            <journal_metadata>
-                <abbrev_title>Rev. esc. enferm. USP</abbrev_title>
-            </journal_metadata>
-        </journal>
+    Adiciona o elemento 'abbrev_title' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_metadata>
+                <abbrev_title>Acta Paul Enferm</abbrev_title>
+             </journal_metadata>
+          </journal>
+       </body>
+    </doi_batch>
     """
     titles = journal_meta.Title(xml_tree)
     abbrev_title = ET.Element('abbrev_title')
