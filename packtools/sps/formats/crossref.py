@@ -428,6 +428,30 @@ def get_citation(item):
 
 
 def get_affiliation(xml_tree, author):
+    """
+        Adiciona o ano de publicação do artigo ao elemento 'citation'
+
+        Parameters
+        ----------
+        xml_tree : lxml.etree._Element
+            Elemento XML no padrão SciELO que será convertido para o padrão CrossRef
+
+        author: dict
+            Dicionário com os dados dos autores da publicação, por exemplo:
+            {
+                "surname": "Oliveira",
+                "given_names": "Josiana Araujo de",
+                "rid": "aff1",
+                "contrib-type": "author",
+            }
+
+        Returns
+        -------
+        lxml.etree._Element
+            <affiliation>
+                Universidade Federal do Rio Grande do Sul, Brazil
+            </affiliation>
+        """
     affiliation = ET.Element('affiliation')
     affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
     for a in affs:
