@@ -1431,33 +1431,37 @@ def xml_crossref_pid_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-    article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
-        <front>
-            <article-meta>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
-                <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
-                <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
-                <elocation-id>e20210569</elocation-id>
-            </article-meta>
-        </front>
-    </article>
+    Adiciona o elemento 'item_number' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <publisher_item>
-        <item_number item_number_type="article_number">e20210569</item_number>
-    </publisher_item>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <publisher_item>
+                   <item_number item_number_type="article_number" />
+                </publisher_item>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     _data = front_articlemeta_issue.ArticleMetaIssue(xml_tree).data
 
-    publisher_item = ET.Element('publisher_item')
     item_number = ET.Element('item_number')
     item_number.set('item_number_type', 'article_number')
     item_number.text = _data.get('elocation_id')
-    publisher_item.append(item_number)
-    xml_crossref.find('./body/journal/journal_article').append(publisher_item)
+    xml_crossref.find('./body/journal/journal_article/publisher_item').append(item_number)
 
 
 def xml_crossref_permissions_pipe(xml_crossref, xml_tree):
