@@ -60,6 +60,30 @@ class PipelinePmc(unittest.TestCase):
             '<sup>1</sup>'
             '</xref>'
             '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<label>1</label>'
+            '<institution content-type="original">Universidade Federal do Rio Grande do Sul, Escola de Enfermagem, Programa de Pós-Graduação em Enfermagem, Porto Alegre, RS, Brazil.</institution>'
+            '<institution content-type="orgname">Universidade Federal do Rio Grande do Sul</institution>'
+            '<institution content-type="orgdiv1">Escola de Enfermagem</institution>'
+            '<institution content-type="orgdiv2">Programa de Pós-Graduação em Enfermagem</institution>'
+            '<addr-line>'
+            '<named-content content-type="city">Porto Alegre</named-content>'
+            '<named-content content-type="state">RS</named-content>'
+            '</addr-line>'
+            '<country country="BR">Brazil</country>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pmc_aff(xml_tree)
+
+        obtained = ET.tostring(xml_tree, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
             '<contrib contrib-type="author">'
             '<contrib-id contrib-id-type="orcid">0000-0001-7364-4753</contrib-id>'
             '<name>'
