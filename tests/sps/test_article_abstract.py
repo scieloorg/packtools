@@ -38,7 +38,6 @@ class AbstractTest(TestCase):
             '</article>'
         )
         data = ET.fromstring(xml)
-        print(data)
         obtained = Abstract(data).main_abstract_with_tags
 
         expected = {
