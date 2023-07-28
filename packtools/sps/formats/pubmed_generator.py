@@ -22,6 +22,7 @@ def main():
 
     with open(arguments.path_to_write, "w", encoding="utf-8") as file:
         file.write(xml_pubmed_formated)
+        print(f"Arquivo criado em: {arguments.path_to_write}")
 
 
 if __name__ == '__main__':
