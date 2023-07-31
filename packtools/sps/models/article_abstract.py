@@ -226,7 +226,8 @@ class Abstract:
                 'sections': self._get_section_titles_and_paragraphs('.//front//article-meta//abstract')
             }
             return out
-        except IndexError:
+
+        except (AttributeError, IndexError):
             pass
 
     def _get_sub_article_abstracts(self, style=None):
