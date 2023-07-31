@@ -24,6 +24,30 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
+def node_plain_text(node):
+    """
+    Função que retorna texto de nó, sem subtags e com espaços padronizados
+
+    Entrada:
+    ```xml
+    <node>
+        <italic>Duguetia leucotricha</italic> (Annonaceae)<xref>1</xref>
+    </node>
+    ```
+
+    Saída:
+    Duguetia leucotricha (Annonaceae)
+    """
+    if node is None:
+        return
+    for xref in node.findall(".//xref"):
+        for child in xref.findall(".//*"):
+            child.text = ""
+        xref.text = ""
+    text = "".join([text for text in node.xpath(".//text()") if text.strip()])
+    return " ".join(text.split())
+
+
 def node_text_without_xref(node):
     """
     Retorna text com subtags, exceto `xref`
@@ -115,6 +139,15 @@ def node_text(node):
             etree.tostring(child, encoding="utf-8").decode("utf-8")
         )
     return "".join(items)
+
+
+def get_node_without_subtag(node, remove_extra_spaces=False):
+    """
+        Função que retorna nó sem subtags. 
+    """
+    if remove_extra_spaces:
+        return " ".join([text.strip()for text in node.xpath(".//text()") if text.strip()])
+    return "".join(node.xpath(".//text()"))
 
 
 def get_year_month_day(node):

@@ -7,6 +7,7 @@ class ArticleIds:
     Torna acessível os dados representados pelos elementos `article-id`
     Permite a atualização ou criação apenas dos `previous-pid` e `scielo-v3`
 
+    <article-id>S1678-69712003000100108</article-id>
     <article-id specific-use="scielo-v3" pub-id-type="publisher-id">P3swRmPHQfy37r9xRbLCw8G</article-id>
     <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1678-69712003000100108</article-id>
     <article-id specific-use="previous-pid" pub-id-type="publisher-id">S1678-69712002005000108</article-id>
