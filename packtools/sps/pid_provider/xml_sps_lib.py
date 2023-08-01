@@ -8,9 +8,9 @@ from shutil import copyfile
 from tempfile import TemporaryDirectory
 from zipfile import BadZipFile, ZipFile
 
-import requests
 from lxml import etree
 
+from packtools.sps.libs.requester import fetch_data
 from packtools.sps.models.article_assets import (ArticleAssets,
                                                  SupplementaryMaterials)
 from packtools.sps.models.article_authors import Authors
@@ -180,7 +180,7 @@ def create_xml_zip_file(xml_sps_file_path, content):
 
 def get_xml_with_pre_from_uri(uri, timeout=30):
     try:
-        response = requests.get(uri, timeout=timeout)
+        response = fetch_data(uri, timeout=timeout)
         xml_content = response.content.decode("utf-8")
     except Exception as e:
         raise GetXmlWithPreFromURIError(_("Unable to get xml from {}").format(uri))

@@ -66,7 +66,7 @@ class CreateXmlZipFileTest(TestCase):
 
 
 class GetXmlWithPreFromUriTest(TestCase):
-    @patch("packtools.sps.pid_provider.xml_sps_lib.requests.get")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.fetch_data")
     def test_get_xml_with_pre_from_uri(self, mock_get):
         class Resp:
             def __init__(self):
@@ -76,7 +76,7 @@ class GetXmlWithPreFromUriTest(TestCase):
         result = xml_sps_lib.get_xml_with_pre_from_uri("URI")
         self.assertEqual(xml_sps_lib.XMLWithPre, type(result))
 
-    @patch("packtools.sps.pid_provider.xml_sps_lib.requests.get")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.fetch_data")
     def test_does_not_create_file(self, mock_get):
         mock_get.side_effect = HTTPError()
         with self.assertRaises(xml_sps_lib.GetXmlWithPreFromURIError) as exc:
