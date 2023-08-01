@@ -80,20 +80,6 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-<<<<<<< HEAD
-    def get_values_dict_without_tags(self, xpath, lang):
-        values = []
-
-        for node in self.xmltree.xpath(f"{xpath}//sec"):
-            values.append(xml_utils.node_text(node.xpath("./p")[0]))
-        out = {lang: " ".join(values)}
-        return out
-
-    def get_values_dict_with_tags(self, xpath):
-        out = dict()
-        for node in self.xmltree.xpath(f"{xpath}//sec"):
-            out[node.xpath("./title")[0].text] = xml_utils.node_text(node.xpath("./p")[0])
-=======
     def _get_section_titles_and_paragraphs(self, attrib):
         # TODO identificar quem usa este método e eliminar o uso e o método
         # pois não parecer fazer sentido ter como chaves de dicionário o título de seção do resumo 
@@ -123,7 +109,6 @@ class Abstract:
 
             title = node_text(node_title)
             out[title] = node_text(node_p)
->>>>>>> master
 
         return out
 
