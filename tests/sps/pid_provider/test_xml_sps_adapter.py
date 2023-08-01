@@ -44,6 +44,34 @@ class PidProviderXMLAdapterAbsentDataTest(TestCase):
         self.assertIsNone(self.xml_adapter.z_article_titles_texts)
 
 
+class PidProviderXMLAdapterAdaptQueryTest(TestCase):
+
+    def test_adapt_query_params(self):
+        params = {
+            "main_doi": "x",
+            "pkg_name": "x",
+            "elocation_id": "x",
+            "issue__volume": "x",
+            "issue__number": "x",
+            "issue__suppl": "x",
+            "fpage": "x",
+            "fpage_seq": "x",
+            "lpage": "x",
+        }
+        expected = {
+            "main_doi__iexact": "x",
+            "pkg_name__iexact": "x",
+            "elocation_id__iexact": "x",
+            "issue__volume__iexact": "x",
+            "issue__number__iexact": "x",
+            "issue__suppl__iexact": "x",
+            "fpage__iexact": "x",
+            "fpage_seq__iexact": "x",
+            "lpage__iexact": "x",
+        }
+        self.assertDictEqual(expected, PidProviderXMLAdapter.adapt_query_params(params))
+
+
 class PidProviderXMLAdapterIssnsTest(TestCase):
     def _get_xml_adapter(self, eissn=None, pissn=None):
         if eissn:
@@ -357,91 +385,41 @@ class PidProviderXMLAdapterQueryParamsTest(BasePidProviderXMLAdapterQueryParamsT
         self.assertIn("fpage_seq", keys)
         self.assertIn("lpage", keys)
 
-    def test_query_params_pub_year_is_set(self):
-        self.xml_adapter.pub_year = "2021"
-        result = self.xml_adapter.query_params()
-        self.assertIsNone(result.get("issue__pub_year"))
-
     def test_query_params_pub_year_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result.get("issue__pub_year"))
-
-    def test_query_params_volume_is_set(self):
-        self.xml_adapter.volume = "2021"
-        result = self.xml_adapter.query_params()
-        self.assertIsNone(result.get("issue__volume"))
 
     def test_query_params_volume_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result.get("issue__volume"))
 
-    def test_query_params_number_is_set(self):
-        self.xml_adapter.number = "2021"
-        result = self.xml_adapter.query_params()
-        self.assertIsNone(result.get("issue__number"))
-
     def test_query_params_number_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result.get("issue__number"))
-
-    def test_query_params_suppl_is_set(self):
-        self.xml_adapter.suppl = "2021"
-        result = self.xml_adapter.query_params()
-        self.assertIsNone(result.get("issue__suppl"))
 
     def test_query_params_suppl_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result.get("issue__suppl"))
 
-    def test_query_params_fpage_is_set(self):
-        self.xml_adapter.fpage = "2021"
-        result = self.xml_adapter.query_params()
-        self.assertIsNone(result.get("fpage"))
-
     def test_query_params_fpage_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result.get("fpage"))
-
-    def test_query_params_fpage_seq_is_set(self):
-        self.xml_adapter.fpage_seq = "2021"
-        result = self.xml_adapter.query_params()
-        self.assertIsNone(result.get("fpage_seq"))
 
     def test_query_params_fpage_seq_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result.get("fpage_seq"))
 
-    def test_query_params_lpage_is_set(self):
-        self.xml_adapter.lpage = "2021"
-        result = self.xml_adapter.query_params()
-        self.assertIsNone(result.get("lpage"))
-
     def test_query_params_lpage_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result.get("lpage"))
-
-    def test_query_params_journal_issn_electronic_is_set(self):
-        self.xml_adapter.journal_issn_electronic = "issn electronic"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("issn electronic", result["journal__issn_electronic"])
 
     def test_query_params_journal_issn_electronic_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result["journal__issn_electronic"])
 
-    def test_query_params_journal_issn_print_is_set(self):
-        self.xml_adapter.journal_issn_print = "issn print"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("issn print", result["journal__issn_print"])
-
     def test_query_params_journal_issn_print_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result["journal__issn_print"])
-
-    def test_query_params_article_pub_year_is_set(self):
-        self.xml_adapter.article_pub_year = "2020"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("2020", result["article_pub_year"])
 
     def test_query_params_article_pub_year_is_none(self):
         result = self.xml_adapter.query_params()
@@ -477,11 +455,6 @@ class PidProviderXMLAdapterQueryParamsTest(BasePidProviderXMLAdapterQueryParamsT
         result = self.xml_adapter.query_params()
         self.assertIsNone(result["z_article_titles_texts"])
 
-    def test_query_params_pkg_name_is_set(self):
-        self.xml_adapter.sps_pkg_name = "pkgName"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("pkgName", result["pkg_name"])
-
     def test_query_params_pkg_name_is_none(self):
         """
         Resultado de xml_adapter.sps_pkg_name é '',
@@ -489,41 +462,248 @@ class PidProviderXMLAdapterQueryParamsTest(BasePidProviderXMLAdapterQueryParamsT
         result = self.xml_adapter.query_params()
         self.assertEqual("", result["pkg_name"])
 
-    def test_query_params_main_doi_is_set(self):
-        self.xml_adapter.main_doi = "DOI"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("DOI", result["main_doi"])
-
     def test_query_params_main_doi_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result["main_doi"])
-
-    def test_query_params_z_links_is_set(self):
-        self.xml_adapter._links = "Links"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("Links", result["z_links"])
 
     def test_query_params_z_links_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result["z_links"])
 
-    def test_query_params_z_partial_body_is_set(self):
-        self.xml_adapter._partial_body = "Body"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("Body", result["z_partial_body"])
-
     def test_query_params_z_partial_body_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result["z_partial_body"])
 
-    def test_query_params_elocation_id_is_set(self):
-        self.xml_adapter.elocation_id = "e19347"
-        result = self.xml_adapter.query_params()
-        self.assertEqual("e19347", result["elocation_id"])
-
     def test_query_params_elocation_id_is_none(self):
         result = self.xml_adapter.query_params()
         self.assertIsNone(result["elocation_id"])
+
+
+class PidProviderXMLAdapterWithDataQueryParamsTest(TestCase):
+    def setUp(self):
+        xml = f"""
+           <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+              <front>
+                <journal-meta>
+                  <journal-id journal-id-type="publisher-id">esa</journal-id>
+                  <journal-title-group>
+                    <journal-title>Engenharia Sanitaria e Ambiental</journal-title>
+                    <abbrev-journal-title abbrev-type="publisher">Eng. Sanit. Ambient.</abbrev-journal-title>
+                  </journal-title-group>
+                  <issn pub-type="ppub">1413-4152</issn>
+                  <issn pub-type="epub">1809-4457</issn>
+                  <publisher>
+                    <publisher-name>Associação Brasileira de Engenharia Sanitária e Ambiental - ABES</publisher-name>
+                  </publisher>
+                </journal-meta>
+                <article-meta>
+                  <article-id specific-use="scielo-v3" pub-id-type="publisher-id">yH6CLqxFJsQKrHj7zXkwL3G</article-id>
+                  <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1413-41522020000400627</article-id>
+                  <article-id specific-use="previous-pid" pub-id-type="publisher-id">S1413-41522020005000111</article-id>
+                  <article-id pub-id-type="doi">10.1590/S1413-4152202020180029</article-id>
+                  <article-categories>
+                    <subj-group subj-group-type="heading">
+                      <subject>Artigo Técnico</subject>
+                    </subj-group>
+                  </article-categories>
+                  <title-group>
+                    <article-title>Aproveitamento energético dos resíduos de cascas de coco verde para produção de briquetes</article-title>
+                    <trans-title-group xml:lang="en">
+                      <trans-title>Energetic improvement of waste of green coconut shells to briquettes production</trans-title>
+                    </trans-title-group>
+                  </title-group>
+                  <contrib-group>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0003-3365-4708</contrib-id>
+                      <name>
+                        <surname>Miola</surname>
+                        <given-names>Brígida</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">
+                        <sup>1</sup>
+                      </xref>
+                      <xref ref-type="corresp" rid="c1">*</xref>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0002-5599-4335</contrib-id>
+                      <name>
+                        <surname>Frota</surname>
+                        <given-names>Maria Myrian Melo</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">
+                        <sup>1</sup>
+                      </xref>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0001-9222-9862</contrib-id>
+                      <name>
+                        <surname>Oliveira</surname>
+                        <given-names>André Gadelha de</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">
+                        <sup>1</sup>
+                      </xref>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0002-0477-755X</contrib-id>
+                      <name>
+                        <surname>Uchôa</surname>
+                        <given-names>Kênio Monteles</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">
+                        <sup>1</sup>
+                      </xref>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0001-9691-295X</contrib-id>
+                      <name>
+                        <surname>Leandro</surname>
+                        <given-names>Francisco de Assis</given-names>
+                        <suffix>Filho</suffix>
+                      </name>
+                      <xref ref-type="aff" rid="aff2">
+                        <sup>2</sup>
+                      </xref>
+                    </contrib>
+                  </contrib-group>
+                  <aff id="aff1">
+                    <label>1</label>
+                    <institution content-type="original">Centro de Ciências Tecnológicas, Universidade de Fortaleza - Fortaleza (CE), Brasil.</institution>
+                    <institution content-type="orgdiv1">Centro de Ciências Tecnológicas</institution>
+                    <institution content-type="orgname">Universidade de Fortaleza</institution>
+                    <addr-line>
+                      <city>Fortaleza</city>
+                      <state>CE</state>
+                    </addr-line>
+                    <country country="BR">Brazil</country>
+                  </aff>
+                  <aff id="aff2">
+                    <label>2</label>
+                    <institution content-type="original">Instituto Federal de Educação do Ceará - Fortaleza (CE), Brasil.</institution>
+                    <institution content-type="orgname">Instituto Federal de Educação do Ceará</institution>
+                    <addr-line>
+                      <city>Fortaleza</city>
+                      <state>CE</state>
+                    </addr-line>
+                    <country country="BR">Brazil</country>
+                  </aff>
+                  <author-notes>
+                    <corresp id="c1">
+                      <label>*</label>
+                      <bold>Autora correspondente:</bold>
+                      <email>bmiola@gmail.com</email>
+                    </corresp>
+                  </author-notes>
+                  <pub-date date-type="pub" publication-format="electronic">
+                    <day>03</day>
+                    <month>08</month>
+                    <year>2020</year>
+                  </pub-date>
+                  <pub-date date-type="collection" publication-format="electronic">
+                    <season>Jul-Aug</season>
+                    <year>2020</year>
+                  </pub-date>
+                  <volume>25</volume>
+                  <issue>04</issue>
+                  <fpage>627</fpage>
+                  <lpage>634</lpage>
+                  <elocation-id>e19347</elocation-id>
+                </article-meta>
+              </front>
+            </article>
+        """
+        self.xml_adapter = _get_xml_adapter(xml)
+
+    def test_query_params_pub_year_is_set(self):
+        """
+        Apesar de pub_year ter valor, mas filter_by_issue=False,
+        issue__pub_year não deve estar presente
+        """
+        result = self.xml_adapter.query_params(filter_by_issue=False)
+        self.assertIsNone(result.get("issue__pub_year"))
+
+    def test_query_params_volume_is_set(self):
+        """
+        Apesar de volume ter valor, mas filter_by_issue=False,
+        issue__volume não deve estar presente
+        """
+        result = self.xml_adapter.query_params(filter_by_issue=False)
+        self.assertIsNone(result.get("issue__volume"))
+
+    def test_query_params_suppl_is_set(self):
+        """
+        Apesar de suppl ter valor, mas filter_by_issue=False,
+        issue__suppl não deve estar presente
+        """
+        result = self.xml_adapter.query_params(filter_by_issue=False)
+        self.assertIsNone(result.get("issue__suppl"))
+
+    def test_query_params_number_is_set(self):
+        """
+        Apesar de number ter valor, mas filter_by_issue=False,
+        issue__number não deve estar presente
+        """
+        result = self.xml_adapter.query_params(filter_by_issue=False)
+        self.assertIsNone(result.get("issue__number"))
+
+    def test_query_params_fpage_is_set(self):
+        """
+        Apesar de fpage ter valor, mas filter_by_issue=False,
+        issue__fpage não deve estar presente
+        """
+        result = self.xml_adapter.query_params(filter_by_issue=False)
+        self.assertIsNone(result.get("fpage"))
+
+    def test_query_params_fpage_seq_is_set(self):
+        """
+        Apesar de fpage_seq ter valor, mas filter_by_issue=False,
+        issue__fpage_seq não deve estar presente
+        """
+        result = self.xml_adapter.query_params(filter_by_issue=False)
+        self.assertIsNone(result.get("fpage_seq"))
+
+    def test_query_params_journal_issn_electronic_is_set(self):
+        result = self.xml_adapter.query_params()
+        self.assertEqual("1809-4457", result["journal__issn_electronic"])
+
+    def test_query_params_journal_issn_print_is_set(self):
+        result = self.xml_adapter.query_params()
+        self.assertEqual("1413-4152", result["journal__issn_print"])
+
+    def test_query_params_article_pub_year_is_set(self):
+        result = self.xml_adapter.query_params()
+        self.assertEqual("2020", result["article_pub_year"])
+
+    def test_query_params_pkg_name_is_set(self):
+        """
+        Apesar de haver pkg_name, result não tem pkg_name,
+        pois já há dados suficientes para fazer a consulta
+        """
+        result = self.xml_adapter.query_params()
+        self.assertIsNone(result.get("pkg_name"))
+
+    def test_query_params_main_doi_is_set(self):
+        """
+        Apesar de haver DOI, result não tem main_doi,
+        pois já há dados suficientes para fazer a consulta
+        """
+        result = self.xml_adapter.query_params()
+        self.assertIsNone(result.get("main_doi"))
+
+    def test_query_params_z_links_is_set(self):
+        result = self.xml_adapter.query_params()
+        self.assertIsNone(result.get("z_links"))
+
+    def test_query_params_z_partial_body_is_set(self):
+        result = self.xml_adapter.query_params()
+        self.assertIsNone(result.get("z_partial_body"))
+
+    def test_query_params_elocation_id_is_set(self):
+        result = self.xml_adapter.query_params()
+        self.assertEqual("e19347", result["elocation_id"])
+
+    def test_for_xml_is_not_aop(self):
+        self.assertEqual(2, len(self.xml_adapter.query_list))
 
 
 class PidProviderXMLAdapterQueryListTest(TestCase):
@@ -532,7 +712,3 @@ class PidProviderXMLAdapterQueryListTest(TestCase):
 
     def test_for_xml_is_aop(self):
         self.assertEqual(1, len(self.xml_adapter.query_list))
-
-    def test_for_xml_is_not_aop(self):
-        self.xml_adapter.is_aop = False
-        self.assertEqual(2, len(self.xml_adapter.query_list))
