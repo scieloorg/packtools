@@ -4,8 +4,6 @@ from gettext import gettext as _
 
 from lxml import etree
 
-from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
-
 LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 
@@ -201,7 +199,8 @@ class PidProviderXMLAdapter:
         LOGGER.info(_params)
         return _params
 
-    def adapt_query_params(self, params):
+    @classmethod
+    def adapt_query_params(cls, params):
         """
         Adapt query parameters
 
@@ -213,10 +212,12 @@ class PidProviderXMLAdapter:
         -------
         dict
         """
+        _params = params.copy()
+        LOGGER.info(f"Adapt params input: {_params}")
         attr_names = (
             "main_doi",
             "pkg_name",
-            "elocation_id"
+            "elocation_id",
             "issue__volume",
             "issue__number",
             "issue__suppl",
@@ -226,9 +227,11 @@ class PidProviderXMLAdapter:
         )
         for attr_name in attr_names:
             try:
-                params[f"{attr_name}__iexact"] = params.pop(attr_name)
+                _params[f"{attr_name}__iexact"] = _params.pop(attr_name)
             except KeyError:
                 continue
+        LOGGER.info(f"Adapt params output: {_params}")
+        return _params
 
     @property
     def query_list(self):
