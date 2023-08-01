@@ -146,14 +146,22 @@ class PidProviderXMLAdapter:
         -------
         dict
         """
-        try:
-            params["main_doi__iexact"] = params["main_doi"]
-        except KeyError:
-            pass
-        try:
-            params["pkg_name__iexact"] = params["pkg_name"]
-        except KeyError:
-            pass
+        attr_names = (
+            "main_doi",
+            "pkg_name",
+            "elocation_id"
+            "issue__volume",
+            "issue__number",
+            "issue__suppl",
+            "fpage",
+            "fpage_seq",
+            "lpage",
+        )
+        for attr_name in attr_names:
+            try:
+                params[f"{attr_name}__iexact"] = params.pop(attr_name)
+            except KeyError:
+                continue
 
     @property
     def query_list(self):
