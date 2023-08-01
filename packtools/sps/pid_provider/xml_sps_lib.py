@@ -283,14 +283,14 @@ class XMLWithPre:
         if self.is_aop and self.main_doi:
             doi = self.main_doi
             if "/" in doi:
-                doi = doi[doi.find("/") + 1 :]
+                doi = doi[doi.rfind("/") + 1 :]
             return doi.replace(".", "-")
         if self.elocation_id:
             return self.elocation_id
         if self.fpage:
             try:
                 fpage = int(self.fpage)
-            except TypeError:
+            except (TypeError, ValueError):
                 return self.fpage
             if fpage != 0:
                 return self.fpage + (self.fpage_seq or "")
@@ -308,7 +308,7 @@ class XMLWithPre:
             suppl = self.suppl
             if suppl and int(suppl) == 0:
                 suppl = "suppl"
-        except TypeError:
+        except (TypeError, ValueError):
             pass
 
         xml_acron = Acronym(self.xmltree)
