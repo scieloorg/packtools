@@ -2,23 +2,23 @@ import os
 from datetime import date
 from tempfile import TemporaryDirectory
 from unittest.mock import MagicMock, patch
+from unittest import TestCase
 
-from django.test import TestCase
 from lxml import etree
 from requests import HTTPError
 
-from xmlsps import xml_sps_lib
+from packtools.sps.pid_provider import xml_sps_lib
 
 
 # Create your tests here.
 class GetXmlItemsTest(TestCase):
-    @patch("xmlsps.xml_sps_lib.get_xml_items_from_zip_file")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_items_from_zip_file")
     def test_zip(self, mock_get_xml_items_from_zip_file):
         result = xml_sps_lib.get_xml_items("file.zip")
         mock_get_xml_items_from_zip_file.assert_called_with("file.zip", None)
 
-    @patch("xmlsps.xml_sps_lib.get_xml_with_pre")
-    @patch("xmlsps.xml_sps_lib.open")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.open")
     def test_xml(self, mock_open, mock_get_xml_with_pre):
         mock_get_xml_with_pre.return_value = "retorno"
         result = xml_sps_lib.get_xml_items("file.xml")
@@ -42,7 +42,7 @@ class GetXmlItemsFromZipFile(TestCase):
 
     def test_good_zip_file(self):
         items = xml_sps_lib.get_xml_items_from_zip_file(
-            "xmlsps/fixtures/artigo.xml.zip"
+            "./tests/sps/pid_provider/fixtures/artigo.xml.zip"
         )
         for item in items:
             self.assertEqual("artigo.xml", item["filename"])
@@ -56,7 +56,7 @@ class CreateXmlZipFileTest(TestCase):
             result = xml_sps_lib.create_xml_zip_file(file_path, "<article/>")
             self.assertEqual(True, result)
 
-    @patch("xmlsps.xml_sps_lib.ZipFile")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.ZipFile")
     def test_does_not_create_file(self, mock_ZipFile):
         with TemporaryDirectory() as dirname:
             mock_ZipFile.side_effect = OSError()
@@ -66,7 +66,7 @@ class CreateXmlZipFileTest(TestCase):
 
 
 class GetXmlWithPreFromUriTest(TestCase):
-    @patch("xmlsps.xml_sps_lib.requests.get")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.requests.get")
     def test_get_xml_with_pre_from_uri(self, mock_get):
         class Resp:
             def __init__(self):
@@ -76,7 +76,7 @@ class GetXmlWithPreFromUriTest(TestCase):
         result = xml_sps_lib.get_xml_with_pre_from_uri("URI")
         self.assertEqual(xml_sps_lib.XMLWithPre, type(result))
 
-    @patch("xmlsps.xml_sps_lib.requests.get")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.requests.get")
     def test_does_not_create_file(self, mock_get):
         mock_get.side_effect = HTTPError()
         with self.assertRaises(xml_sps_lib.GetXmlWithPreFromURIError) as exc:

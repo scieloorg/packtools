@@ -1,12 +1,11 @@
 import logging
 from unittest.mock import patch
+from unittest import TestCase
 
-from django.test import TestCase
 from lxml import etree
 
-from pid_provider import exceptions
-from pid_provider.xml_sps_adapter import PidProviderXMLAdapter, _str_with_64_char
-from xmlsps.xml_sps_lib import XMLWithPre
+from packtools.sps.pid_provider.xml_sps_adapter import PidProviderXMLAdapter, _str_with_64_char
+from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
 
 
 def _get_xml_adapter(xml=None):

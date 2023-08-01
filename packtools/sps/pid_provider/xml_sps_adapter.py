@@ -1,10 +1,8 @@
 import hashlib
 import logging
+from gettext import gettext as _
 
-from django.utils.translation import gettext as _
 from lxml import etree
-
-from pid_provider import exceptions
 
 LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"

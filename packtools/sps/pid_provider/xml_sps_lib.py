@@ -6,7 +6,7 @@ from datetime import date, datetime
 from shutil import copyfile
 from tempfile import TemporaryDirectory
 from zipfile import BadZipFile, ZipFile
-from gettext import gettext
+from gettext import gettext as _
 
 import requests
 from lxml import etree
@@ -21,8 +21,6 @@ from packtools.sps.models.dates import ArticleDates
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
 from packtools.sps.models.journal_meta import ISSN, Acronym
 from packtools.sps.models.related_articles import RelatedItems
-
-_ = gettext.gettext
 
 LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
