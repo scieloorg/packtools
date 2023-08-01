@@ -4,6 +4,8 @@ from gettext import gettext as _
 
 from lxml import etree
 
+from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
+
 LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 
@@ -13,15 +15,80 @@ class PidProviderXMLAdapter:
         self.xml_with_pre = xml_with_pre
         self.pkg_name = pkg_name
 
-    def __getattr__(self, name):
-        logging.debug(type(self.xml_with_pre))
-        try:
-            return getattr(self.xml_with_pre, name)
-        except Exception as e:
-            logging.exception(e)
-            raise AttributeError(
-                f"Unable to get PidProviderXMLAdapter.{name} {type(e)} {e}"
-            )
+    def tostring(self):
+        return self.xml_with_pre.tostring()
+
+    @property
+    def sps_pkg_name(self):
+        return self.xml_with_pre.sps_pkg_name
+
+    @property
+    def finger_print(self):
+        return self.xml_with_pre.finger_print
+
+    @property
+    def related_items(self):
+        return self.xml_with_pre.related_items
+
+    @property
+    def journal_issn_electronic(self):
+        return self.xml_with_pre.journal_issn_electronic
+
+    @property
+    def journal_issn_print(self):
+        return self.xml_with_pre.journal_issn_print
+
+    @property
+    def v2_prefix(self):
+        return self.xml_with_pre.v2_prefix
+
+    @property
+    def volume(self):
+        return self.xml_with_pre.volume
+
+    @property
+    def number(self):
+        return self.xml_with_pre.number
+
+    @property
+    def suppl(self):
+        return self.xml_with_pre.suppl
+
+    @property
+    def pub_year(self):
+        return self.xml_with_pre.pub_year
+
+    @property
+    def article_pub_year(self):
+        return self.xml_with_pre.article_pub_year
+
+    @property
+    def main_doi(self):
+        return self.xml_with_pre.main_doi
+
+    @property
+    def main_toc_section(self):
+        return self.xml_with_pre.main_toc_section
+
+    @property
+    def is_aop(self):
+        return self.xml_with_pre.is_aop
+
+    @property
+    def elocation_id(self):
+        return self.xml_with_pre.elocation_id
+
+    @property
+    def fpage(self):
+        return self.xml_with_pre.fpage
+
+    @property
+    def fpage_seq(self):
+        return self.xml_with_pre.fpage_seq
+
+    @property
+    def lpage(self):
+        return self.xml_with_pre.lpage
 
     @property
     def v2(self):
@@ -66,7 +133,7 @@ class PidProviderXMLAdapter:
                 "|".join(
                     [
                         _standardize(person.get("surname"))
-                        for person in self.authors.get("person")
+                        for person in self.xml_with_pre.authors.get("person")
                     ]
                 )
             )
