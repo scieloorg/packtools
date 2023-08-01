@@ -3,14 +3,16 @@ import logging
 import os
 from copy import deepcopy
 from datetime import date, datetime
+from gettext import gettext as _
 from shutil import copyfile
 from tempfile import TemporaryDirectory
 from zipfile import BadZipFile, ZipFile
-from gettext import gettext as _
 
 import requests
 from lxml import etree
-from packtools.sps.models.article_assets import ArticleAssets, SupplementaryMaterials
+
+from packtools.sps.models.article_assets import (ArticleAssets,
+                                                 SupplementaryMaterials)
 from packtools.sps.models.article_authors import Authors
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.models.article_ids import ArticleIds

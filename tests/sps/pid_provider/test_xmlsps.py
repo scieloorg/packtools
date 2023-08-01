@@ -1,8 +1,8 @@
 import os
 from datetime import date
 from tempfile import TemporaryDirectory
-from unittest.mock import MagicMock, patch
 from unittest import TestCase
+from unittest.mock import MagicMock, patch
 
 from lxml import etree
 from requests import HTTPError

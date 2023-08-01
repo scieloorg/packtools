@@ -1,10 +1,11 @@
 import logging
-from unittest.mock import patch
 from unittest import TestCase
+from unittest.mock import patch
 
 from lxml import etree
 
-from packtools.sps.pid_provider.xml_sps_adapter import PidProviderXMLAdapter, _str_with_64_char
+from packtools.sps.pid_provider.xml_sps_adapter import (PidProviderXMLAdapter,
+                                                        _str_with_64_char)
 from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
 
 
