@@ -181,7 +181,7 @@ def create_xml_zip_file(xml_sps_file_path, content):
 def get_xml_with_pre_from_uri(uri, timeout=30):
     try:
         response = fetch_data(uri, timeout=timeout)
-        xml_content = response.content.decode("utf-8")
+        xml_content = response.decode("utf-8")
     except Exception as e:
         raise GetXmlWithPreFromURIError(_("Unable to get xml from {}").format(uri))
     return get_xml_with_pre(xml_content)
