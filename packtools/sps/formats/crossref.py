@@ -1,9 +1,10 @@
 # coding: utf-8
-from lxml import etree as ET
 import re
 import uuid
 from copy import deepcopy
 from datetime import datetime
+
+from lxml import etree as ET
 
 from packtools.sps.models import (
     journal_meta,
@@ -33,6 +34,46 @@ def get_doi_batch_id():
 
 
 def create_journal_title(item, citation):
+    """
+        Adiciona o título do periódico ao elemento 'citation'
+
+        Parameters
+        ----------
+        item : dict
+            Dicionário com dados de citação, como por exemplo:
+            {
+                "label": "1",
+                "source": "Drug Alcohol Depend.",
+                "main_author": {"surname": "Tran", "given_name": "B"},
+                "all_authors": [
+                    {"surname": "Tran", "given_name": "B"},
+                    {"surname": "Falster", "given_name": "MO"},
+                    {"surname": "Douglas", "given_name": "K"},
+                    {"surname": "Blyth", "given_name": "F"},
+                    {"surname": "Jorm", "given_name": "LR"},
+                ],
+                "volume": "150",
+                "fpage": "85",
+                "lpage": "91",
+                "year": "2015",
+                "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                                  older ages",
+                "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                                   hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                                   2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+            }
+
+        citation : lxml.etree._Element
+            Elemento xml, como por exemplo:
+            <citation key="ref1" />
+
+        Returns
+        -------
+        lxml.etree._Element
+            <citation key="ref1">
+                <source>Drug Alcohol Depend.</source>
+            </citation>
+        """
     if item.get('source') is not None:
         el = ET.Element('journal_title')
         el.text = item.get('source')
@@ -40,14 +81,96 @@ def create_journal_title(item, citation):
 
 
 def create_author(item, citation):
-    author = item.get('main_author')
-    if author != {}:
+    """
+    Adiciona nome de autor ao elemento 'citation'
+
+    Parameters
+    ----------
+    item : dict
+        Dicionário com dados de citação, como por exemplo:
+        {
+            "label": "1",
+            "source": "Drug Alcohol Depend.",
+            "main_author": {"surname": "Tran", "given_name": "B"},
+            "all_authors": [
+                {"surname": "Tran", "given_name": "B"},
+                {"surname": "Falster", "given_name": "MO"},
+                {"surname": "Douglas", "given_name": "K"},
+                {"surname": "Blyth", "given_name": "F"},
+                {"surname": "Jorm", "given_name": "LR"},
+            ],
+            "volume": "150",
+            "fpage": "85",
+            "lpage": "91",
+            "year": "2015",
+            "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages",
+            "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                               hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                               2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+        }
+
+    citation : lxml.etree._Element
+        Elemento xml, como por exemplo:
+        <citation key="ref1" />
+
+    Returns
+    -------
+    lxml.etree._Element
+        <citation key="ref1">
+            <author>Tran B</author>
+        </citation>
+    """
+    try:
+        main_author = item.get('main_author')
         el = ET.Element('author')
-        el.text = ' '.join([author.get('surname'), author.get('given_name')])
+        el.text = ' '.join([main_author.get('surname'), main_author.get('given_name')])
         citation.append(el)
+    except TypeError:
+        pass
 
 
 def create_volume(item, citation):
+    """
+    Adiciona identificação do volume ao elemento 'citation'
+
+    Parameters
+    ----------
+    item : dict
+        Dicionário com dados de citação, como por exemplo:
+        {
+            "label": "1",
+            "source": "Drug Alcohol Depend.",
+            "main_author": {"surname": "Tran", "given_name": "B"},
+            "all_authors": [
+                {"surname": "Tran", "given_name": "B"},
+                {"surname": "Falster", "given_name": "MO"},
+                {"surname": "Douglas", "given_name": "K"},
+                {"surname": "Blyth", "given_name": "F"},
+                {"surname": "Jorm", "given_name": "LR"},
+            ],
+            "volume": "150",
+            "fpage": "85",
+            "lpage": "91",
+            "year": "2015",
+            "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages",
+            "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                               hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                               2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+        }
+
+    citation : lxml.etree._Element
+        Elemento xml, como por exemplo:
+        <citation key="ref1" />
+
+    Returns
+    -------
+    lxml.etree._Element
+        <citation key="ref1">
+            <volume>150</volume>
+        </citation>
+    """
     if item.get('volume') is not None:
         el = ET.Element('volume')
         el.text = item.get('volume')
@@ -55,6 +178,47 @@ def create_volume(item, citation):
 
 
 def create_issue(item, citation):
+    """
+    Adiciona identificação do fascículo ao elemento 'citation'
+
+    Parameters
+    ----------
+    item : dict
+        Dicionário com dados de citação, como por exemplo:
+        {
+            "label": "1",
+            "source": "Drug Alcohol Depend.",
+            "main_author": {"surname": "Tran", "given_name": "B"},
+            "all_authors": [
+                {"surname": "Tran", "given_name": "B"},
+                {"surname": "Falster", "given_name": "MO"},
+                {"surname": "Douglas", "given_name": "K"},
+                {"surname": "Blyth", "given_name": "F"},
+                {"surname": "Jorm", "given_name": "LR"},
+            ],
+            "volume": "150",
+            "fpage": "85",
+            "lpage": "91",
+            "year": "2015",
+            "issue": "4",
+            "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages",
+            "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                               hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                               2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+        }
+
+    citation : lxml.etree._Element
+        Elemento xml, como por exemplo:
+        <citation key="ref1" />
+
+    Returns
+    -------
+    lxml.etree._Element
+        <citation key="ref1">
+            <issue>4</issue>
+        </citation>
+    """
     if item.get('issue') is not None:
         el = ET.Element('issue')
         el.text = item.get('issue')
@@ -62,6 +226,47 @@ def create_issue(item, citation):
 
 
 def create_first_page(item, citation):
+    """
+    Adiciona número da primeira página do artigo ao elemento 'citation'
+
+    Parameters
+    ----------
+    item : dict
+        Dicionário com dados de citação, como por exemplo:
+        {
+            "label": "1",
+            "source": "Drug Alcohol Depend.",
+            "main_author": {"surname": "Tran", "given_name": "B"},
+            "all_authors": [
+                {"surname": "Tran", "given_name": "B"},
+                {"surname": "Falster", "given_name": "MO"},
+                {"surname": "Douglas", "given_name": "K"},
+                {"surname": "Blyth", "given_name": "F"},
+                {"surname": "Jorm", "given_name": "LR"},
+            ],
+            "volume": "150",
+            "fpage": "85",
+            "lpage": "91",
+            "year": "2015",
+            "issue": "4",
+            "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages",
+            "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                               hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                               2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+        }
+
+    citation : lxml.etree._Element
+        Elemento xml, como por exemplo:
+        <citation key="ref1" />
+
+    Returns
+    -------
+    lxml.etree._Element
+        <citation key="ref1">
+            <first_page>85</first_page>
+        </citation>
+    """
     if item.get('fpage') is not None:
         el = ET.Element('first_page')
         el.text = item.get('fpage')
@@ -69,6 +274,47 @@ def create_first_page(item, citation):
 
 
 def create_year(item, citation):
+    """
+    Adiciona o ano de publicação do artigo ao elemento 'citation'
+
+    Parameters
+    ----------
+    item : dict
+        Dicionário com dados de citação, como por exemplo:
+        {
+            "label": "1",
+            "source": "Drug Alcohol Depend.",
+            "main_author": {"surname": "Tran", "given_name": "B"},
+            "all_authors": [
+                {"surname": "Tran", "given_name": "B"},
+                {"surname": "Falster", "given_name": "MO"},
+                {"surname": "Douglas", "given_name": "K"},
+                {"surname": "Blyth", "given_name": "F"},
+                {"surname": "Jorm", "given_name": "LR"},
+            ],
+            "volume": "150",
+            "fpage": "85",
+            "lpage": "91",
+            "year": "2015",
+            "issue": "4",
+            "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages",
+            "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                               hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                               2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+        }
+
+    citation : lxml.etree._Element
+        Elemento xml, como por exemplo:
+        <citation key="ref1" />
+
+    Returns
+    -------
+    lxml.etree._Element
+        <citation key="ref1">
+            <year>2015</year>
+        </citation>
+    """
     if item.get('year') is not None:
         el = ET.Element('cYear')
         el.text = item.get('year')
@@ -76,6 +322,48 @@ def create_year(item, citation):
 
 
 def create_article_title(item, citation):
+    """
+    Adiciona o título do artigo ao elemento 'citation'
+
+    Parameters
+    ----------
+    item : dict
+        Dicionário com dados de citação, como por exemplo:
+        {
+            "label": "1",
+            "source": "Drug Alcohol Depend.",
+            "main_author": {"surname": "Tran", "given_name": "B"},
+            "all_authors": [
+                {"surname": "Tran", "given_name": "B"},
+                {"surname": "Falster", "given_name": "MO"},
+                {"surname": "Douglas", "given_name": "K"},
+                {"surname": "Blyth", "given_name": "F"},
+                {"surname": "Jorm", "given_name": "LR"},
+            ],
+            "volume": "150",
+            "fpage": "85",
+            "lpage": "91",
+            "year": "2015",
+            "issue": "4",
+            "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages",
+            "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                               hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                               2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+        }
+
+    citation : lxml.etree._Element
+        Elemento xml, como por exemplo:
+        <citation key="ref1" />
+
+    Returns
+    -------
+    lxml.etree._Element
+        <citation key="ref1">
+            <article_title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                              older ages</article_title>
+        </citation>
+    """
     if item.get('article_title') is not None:
         el = ET.Element('article_title')
         el.text = item.get('article_title')
@@ -83,6 +371,48 @@ def create_article_title(item, citation):
 
 
 def get_citation(item):
+    """
+        Cria o elemento 'citation'.
+
+        Parameters
+        ----------
+        item : dict
+            Dicionário com dados de citação, como por exemplo:
+            {
+                "label": "1",
+                "source": "Drug Alcohol Depend.",
+                "main_author": {"surname": "Tran", "given_name": "B"},
+                "all_authors": [
+                    {"surname": "Tran", "given_name": "B"},
+                    {"surname": "Falster", "given_name": "MO"},
+                    {"surname": "Douglas", "given_name": "K"},
+                    {"surname": "Blyth", "given_name": "F"},
+                    {"surname": "Jorm", "given_name": "LR"},
+                ],
+                "volume": "150",
+                "fpage": "85",
+                "lpage": "91",
+                "year": "2015",
+                "issue": "4",
+                "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in
+                                  older ages",
+                "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable
+                                   hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend.
+                                   2015;150:85-91. DOI:\n            https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+            }
+
+        Returns
+        -------
+        lxml.etree._Element
+            <citation key="ref1">
+                <journal_title>Drug Alcohol Depend.</journal_title>
+                <author>Tran B</author>
+                <volume>150</volume>
+                <first_page>85</first_page>
+                <cYear>2015</cYear>
+                <article_title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article_title>
+            </citation>
+        """
     citation = ET.Element('citation')
     citation.set('key', 'ref' + item.get('label'))
 
@@ -98,6 +428,30 @@ def get_citation(item):
 
 
 def get_affiliation(xml_tree, author):
+    """
+        Adiciona o ano de publicação do artigo ao elemento 'citation'
+
+        Parameters
+        ----------
+        xml_tree : lxml.etree._Element
+            Elemento XML no padrão SciELO que será convertido para o padrão CrossRef
+
+        author: dict
+            Dicionário com os dados dos autores da publicação, por exemplo:
+            {
+                "surname": "Oliveira",
+                "given_names": "Josiana Araujo de",
+                "rid": "aff1",
+                "contrib-type": "author",
+            }
+
+        Returns
+        -------
+        lxml.etree._Element
+            <affiliation>
+                Universidade Federal do Rio Grande do Sul, Brazil
+            </affiliation>
+        """
     affiliation = ET.Element('affiliation')
     affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
     for a in affs:
@@ -113,6 +467,35 @@ def get_affiliation(xml_tree, author):
 
 
 def get_one_contributor(xml_tree, seq, author):
+    """
+    Obtem os dados referentes a um autor de uma publicação.
+
+    Parameters
+    ----------
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO que será convertido para o padrão CrossRef
+
+    seq : int
+        Número que indica a ordem dos autores na publicação
+
+    author: dict
+        Dicionário com os dados dos autores da publicação, por exemplo:
+        {
+            "surname": "Oliveira",
+            "given_names": "Josiana Araujo de",
+            "rid": "aff1",
+            "contrib-type": "author",
+        }
+
+    Returns
+    -------
+    lxml.etree._Element
+        <person_name contributor_role="author" sequence="first">
+            <given_name>Josiana Araujo de</given_name>
+            <surname>Oliveira</surname>
+            <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+        </person_name>
+    """
     person_name = ET.Element('person_name')
     person_name.set('contributor_role', author.get('contrib-type'))
     if seq == 0:
@@ -179,11 +562,17 @@ def pipeline_crossref(xml_tree, data):
 
 def setupdoibatch_pipe():
     """
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
-    xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.crossref.org/schema/4.4.0"
-    xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd"/>
+    Cria o elemento XML inicial padronizado.
+
+    Returns
+    -------
+    lxml.etree._Element
+        <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
+        xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.crossref.org/schema/4.4.0"
+        xsi:schemaLocation="http://www.crossref.org/schema/4.4.0
+        http://www.crossref.org/schemas/crossref4.4.0.xsd"/>
     """
 
     nsmap = {
@@ -204,6 +593,22 @@ def setupdoibatch_pipe():
 
 
 def xml_crossref_head_pipe(xml_crossref):
+    """
+        Adiciona o elemento 'head' ao xml_crossref.
+
+        Parameters
+        ----------
+        xml_crossref : lxml.etree._Element
+            Elemento XML no padrão CrossRef em construção
+
+        Returns
+        -------
+        lxml.etree._Element
+            <?xml version="1.0" encoding="UTF-8"?>
+            <doi_batch ...>
+                <head />
+            </doi_batch>
+        """
     head = ET.Element('head')
 
     xml_crossref.append(head)
@@ -211,11 +616,23 @@ def xml_crossref_head_pipe(xml_crossref):
 
 def xml_crossref_doibatchid_pipe(xml_crossref):
     """
-    <head>
-        <doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>
-    </head>
-    """
+    Adiciona o elemento 'doi_batch_id' ao xml_crossref.
 
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <head>
+                <doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>
+            </head>
+        </doi_batch>
+    """
     doi_batch_id = ET.Element('doi_batch_id')
     doi_batch_id.text = get_doi_batch_id()
 
@@ -224,11 +641,23 @@ def xml_crossref_doibatchid_pipe(xml_crossref):
 
 def xml_crossref_timestamp_pipe(xml_crossref):
     """
-    <head>
-        <timestamp>20230405112328</timestamp>
-    </head>
-    """
+    Adiciona o elemento 'timestamp' ao xml_crossref.
 
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <head>
+                <timestamp>20230405112328</timestamp>
+            </head>
+        </doi_batch>
+    """
     timestamp = ET.Element('timestamp')
     timestamp.text = get_timestamp()
 
@@ -237,19 +666,33 @@ def xml_crossref_timestamp_pipe(xml_crossref):
 
 def xml_crossref_depositor_pipe(xml_crossref, data):
     """
-            data = {
-                        "depositor_name": depositor,
-                        "depositor_email_address": name@domain.com
-                    }
+    Adiciona o elemento 'depositor' ao xml_crossref.
 
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+        data = {
+                    "depositor_name": depositor,
+                    "depositor_email_address": name@domain.com
+                }
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
             <head>
                 <depositor>
                     <depositor_name>depositor</depositor_name>
                     <email_address>name@domain.com</email_address>
                 </depositor>
             </head>
-            """
-
+        </doi_batch>
+        """
     depositor = ET.Element('depositor')
     depositor_name = ET.Element('depositor_name')
     email_address = ET.Element('email_address')
@@ -265,15 +708,29 @@ def xml_crossref_depositor_pipe(xml_crossref, data):
 
 def xml_crossref_registrant_pipe(xml_crossref, data):
     """
+    Adiciona o elemento 'registrant' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
         data = {
                     "registrant": registrant
                 }
 
-        <head>
-            <registrant>registrant</registrant>
-        </head>
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <head>
+                <registrant>registrant</registrant>
+            </head>
+        </doi_batch>
     """
-
     registrant = ET.Element('registrant')
     registrant.text = data.get('registrant')
 
@@ -281,18 +738,75 @@ def xml_crossref_registrant_pipe(xml_crossref, data):
 
 
 def xml_crossref_body_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'body' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            </head>
+            <body/>
+        </doi_batch>
+    """
     body = ET.Element('body')
 
     xml_crossref.append(body)
 
 
 def xml_crossref_journal_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'journal' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            </head>
+            <body>
+                <journal/>
+            </body>
+        </doi_batch>
+    """
     journal = ET.Element('journal')
 
     xml_crossref.find('./body').append(journal)
 
 
 def xml_crossref_journalmetadata_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'journal_metadata' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            </head>
+            <body>
+                <journal>
+                    <journal_metadata/>
+                </journal>
+            </body>
+        </doi_batch>
+    """
     journal_metadata = ET.Element('journal_metadata')
 
     xml_crossref.find('./body/journal').append(journal_metadata)
@@ -300,11 +814,28 @@ def xml_crossref_journalmetadata_pipe(xml_crossref):
 
 def xml_crossref_journaltitle_pipe(xml_crossref, xml_tree):
     """
-        <journal>
-            <journal_metadata>
-                <full_title>Revista da Escola de Enfermagem da USP</full_title>
-            </journal_metadata>
-        </journal>
+    Adiciona o elemento 'full_title' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    lxml.etree._Element
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            </head>
+            <body>
+                <journal>
+                    <journal_metadata/>
+                </journal>
+            </body>
+        </doi_batch>
     """
     titles = journal_meta.Title(xml_tree)
     full_title = ET.Element('full_title')
@@ -315,11 +846,28 @@ def xml_crossref_journaltitle_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree):
     """
-        <journal>
-            <journal_metadata>
-                <abbrev_title>Rev. esc. enferm. USP</abbrev_title>
-            </journal_metadata>
-        </journal>
+    Adiciona o elemento 'abbrev_title' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_metadata>
+                <abbrev_title>Acta Paul Enferm</abbrev_title>
+             </journal_metadata>
+          </journal>
+       </body>
+    </doi_batch>
     """
     titles = journal_meta.Title(xml_tree)
     abbrev_title = ET.Element('abbrev_title')
@@ -330,12 +878,29 @@ def xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_issn_pipe(xml_crossref, xml_tree):
     """
-        <journal>
-            <journal_metadata>
-                <issn media_type="electronic">1980-220X</issn>
-                <issn media_type="print">0080-6234</issn>
-            </journal_metadata>
-        </journal>
+    Adiciona o elemento 'issn' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_metadata>
+                <issn media_type="electronic">1982-0194</issn>
+                <issn media_type="print">0103-2100</issn>
+             </journal_metadata>
+          </journal>
+       </body>
+    </doi_batch>
     """
     issns = journal_meta.ISSN(xml_tree)
 
@@ -352,14 +917,23 @@ def xml_crossref_issn_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_journalissue_pipe(xml_crossref):
     """
-    <journal_issue>
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-        <journal_volume>
-            <volume>56</volume>
-        </journal_volume>
-    </journal_issue>
+    Adiciona o elemento 'journal_issue' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_issue />
+          </journal>
+       </body>
+    </doi_batch>
     """
     journal_issue = ET.Element('journal_issue')
 
@@ -368,11 +942,30 @@ def xml_crossref_journalissue_pipe(xml_crossref):
 
 def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
     """
-    <journal_issue>
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-    </journal_issue>
+    Adiciona o elemento 'publication_date' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch>
+       <body>
+          <journal>
+             <journal_issue>
+                <publication_date media_type="online">
+                   <year>2022</year>
+                </publication_date>
+             </journal_issue>
+          </journal>
+       </body>
+    </doi_batch>
     """
     try:
         year = ET.Element('year')
@@ -383,11 +976,33 @@ def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
         publication_date.append(year)
 
         xml_crossref.find('./body/journal/journal_issue').append(publication_date)
+
     except AttributeError:
         pass
 
 
 def xml_crossref_journalvolume_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'journal_volume' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_issue>
+                <journal_volume />
+             </journal_issue>
+          </journal>
+       </body>
+    </doi_batch>
+    """
     journal_volume = ET.Element('journal_volume')
 
     xml_crossref.find('./body/journal/journal_issue').append(journal_volume)
@@ -395,11 +1010,30 @@ def xml_crossref_journalvolume_pipe(xml_crossref):
 
 def xml_crossref_volume_pipe(xml_crossref, xml_tree):
     """
-    <journal_issue>
-        <journal_volume>
-            <volume>56</volume>
-        </journal_volume>
-    </journal_issue>
+    Adiciona o elemento 'volume' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_issue>
+                <journal_volume>
+                   <volume>30</volume>
+                </journal_volume>
+             </journal_issue>
+          </journal>
+       </body>
+    </doi_batch>
     """
     volume = ET.Element('volume')
     volume.text = front_articlemeta_issue.ArticleMetaIssue(xml_tree).volume
@@ -409,11 +1043,30 @@ def xml_crossref_volume_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_issue_pipe(xml_crossref, xml_tree):
     """
-    <journal_issue>
-        <journal_volume>
-            <issue>4</issue>
-        </journal_volume>
-    </journal_issue>
+    Adiciona o elemento 'issue' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_issue>
+                <journal_volume>
+                   <issue>4</issue>
+                </journal_volume>
+             </journal_issue>
+          </journal>
+       </body>
+    </doi_batch>
     """
     issue = ET.Element('issue')
     issue.text = front_articlemeta_issue.ArticleMetaIssue(xml_tree).issue
@@ -423,12 +1076,27 @@ def xml_crossref_issue_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_journalarticle_pipe(xml_crossref, xml_tree):
     """
-    <body>
-        <journal>
-            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any"/>
-            <journal_article language="pt" publication_type="translation" reference_distribution_opts="any"/>
-        </journal>
-    </body>
+    Adiciona o elemento 'journal_article' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch>
+       <body>
+          <journal>
+             <journal_article language="en" publication_type="research-article" reference_distribution_opts="any" />
+             <journal_article language="pt" publication_type="translation" reference_distribution_opts="any" />
+          </journal>
+       </body>
+    </doi_batch>
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
     for article in articles:
@@ -441,61 +1109,36 @@ def xml_crossref_journalarticle_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_articletitles_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <front>
-    <article-meta>
-    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
-    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
-    <article-id pub-id-type="other">00445</article-id>
-    <title-group>
-    <article-title>
-    Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study
-    <xref ref-type="fn" rid="FN1">*</xref>
-    </article-title>
-    <trans-title-group xml:lang="es">
-    <trans-title>Efectos de una intervención educativa con profesionales de enfermería en el abordaje de pacientes fumadores: un estudio cuasi-experimental</trans-title>
-    </trans-title-group>
-    </title-group>
-    </article-meta>
-    </front>
-    <sub-article article-type="translation" id="s1" xml:lang="pt">
-    <front-stub>
-    <title-group>
-    <article-title>
-    Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental
-    <xref ref-type="fn" rid="FN2">*</xref>
-    </article-title>
-    </title-group>
-    </front-stub>
-    </sub-article>
-    </article>
+    Adiciona o elemento 'titles' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <doi_batch
-    xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
-    xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0"
-    xsi:schemaLocation="http://www.crossref.org/schema/4.4.0
-    http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
-    <titles>
-    <title>Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study</title>
-    <original_language_title language="pt">Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental</original_language_title>
-    </titles>
-    </journal_article>
-    <journal_article language="pt" publication_type="translation" reference_distribution_opts="any">
-    <titles>
-    <title>Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental</title>
-    <original_language_title language="en">Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study</original_language_title>
-    </titles>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <titles>
+                   <title>Impacto do monitoramento telefônico em pacientes com insuficiência cardíaca: ensaio clínico randomizado</title>
+                   <original_language_title language="en">Impact of telephone monitoring on patients with heart failure: a randomized clinical trial</original_language_title>
+                </titles>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <titles>
+                   <title>Impact of telephone monitoring on patients with heart failure: a randomized clinical trial</title>
+                   <original_language_title language="pt">Impacto do monitoramento telefônico em pacientes com insuficiência cardíaca: ensaio clínico randomizado</original_language_title>
+                </titles>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     art_titles = article_titles.ArticleTitles(xml_tree).article_title_dict
@@ -516,38 +1159,83 @@ def xml_crossref_articletitles_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
     """
-    <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
-        <contributors>
-            <person_name contributor_role="author" sequence="first">
-                <given_name>Fernanda Guarilha</given_name>
-                <surname>Boni</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0003-0843-6485</ORCID>
-            </person_name>
-            <person_name contributor_role="author" sequence="additional">
-                <given_name>Yasmin Lorenz</given_name>
-                <surname>da Rosa</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0001-7364-4753</ORCID>
-            </person_name>
-        </contributors>
-    </journal_article>
-    <journal_article language="pt" publication_type="translation" reference_distribution_opts="any">
-        <contributors>
-            <person_name contributor_role="author" sequence="first">
-                <given_name>Fernanda Guarilha</given_name>
-                <surname>Boni</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0003-0843-6485</ORCID>
-            </person_name>
-            <person_name contributor_role="author" sequence="additional">
-                <given_name>Yasmin Lorenz</given_name>
-                <surname>da Rosa</surname>
-                <affiliation>Universidade Federal do Rio Grande do Sul, Brazil</affiliation>
-                <ORCID>http://orcid.org/0000-0001-7364-4753</ORCID>
-            </person_name>
-        </contributors>
-    </journal_article>
+    Adiciona o elemento 'contributors' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <contributors>
+                   <person_name contributor_role="author" sequence="first">
+                      <given_name>Josiana Araujo de</given_name>
+                      <surname>Oliveira</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ricardo Gonçalves</given_name>
+                      <surname>Cordeiro</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ronilson Gonçalves</given_name>
+                      <surname>Rocha</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Tereza Cristina Felippe</given_name>
+                      <surname>Guimarães</surname>
+                      <affiliation>Instituto Nacional de Cardiologia, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Denilson Campos de</given_name>
+                      <surname>Albuquerque</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                </contributors>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <contributors>
+                   <person_name contributor_role="author" sequence="first">
+                      <given_name>Josiana Araujo de</given_name>
+                      <surname>Oliveira</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ricardo Gonçalves</given_name>
+                      <surname>Cordeiro</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Ronilson Gonçalves</given_name>
+                      <surname>Rocha</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Tereza Cristina Felippe</given_name>
+                      <surname>Guimarães</surname>
+                      <affiliation>Instituto Nacional de Cardiologia, Brasil</affiliation>
+                   </person_name>
+                   <person_name contributor_role="author" sequence="additional">
+                      <given_name>Denilson Campos de</given_name>
+                      <surname>Albuquerque</surname>
+                      <affiliation>Universidade do Estado do Rio de Janeiro, Brasil</affiliation>
+                   </person_name>
+                </contributors>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
     authors = article_authors.Authors(xml_tree).contribs
@@ -562,15 +1250,41 @@ def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
     """
-    <jats:abstract xml:lang="en">
-        <jats:p>Abstract Objective: to assess the effects of an educational intervention on smoking cessation aimed at the nursing team. Method: this is a quasi-experimental study with 37 nursing professionals from a Brazilian hospital from May/2019 to December/2020. The intervention consisted of training nursing professionals on approaches to hospitalized smokers divided into two steps, the first, online, a prerequisite for the face-to-face/videoconference. The effect of the intervention was assessed through pre- and post-tests completed by participants. Smokers’ medical records were also analyzed. For analysis, McNemar’s chi-square test was used. Results: there was an increase in the frequency of actions aimed at smoking cessation after the intervention. Significant differences were found in guidelines related to disclosure to family members of their decision to quit smoking and the need for support, encouragement of abstinence after hospital discharge, and information on tobacco cessation and relapse strategies. Conclusion: the educational intervention proved to be innovative and with a great capacity for disseminating knowledge. The post-test showed a positive effect on the frequency of actions aimed at smoking cessation implemented by the nursing team.</jats:p>
-    </jats:abstract>
-    <jats:abstract xml:lang="es">
-        <jats:p>RESUMEN Objetivo: evaluar los efectos de una intervención educativa para dejar de fumar dirigida al equipo de enfermería. Método: estudio cuasi-experimental con 37 profesionales de enfermería de un hospital brasileño de mayo/2019 a diciembre/2020. La intervención consistió en capacitar a los profesionales de enfermería en el abordaje del paciente fumador, dividida en dos etapas, la primera, en línea, requisito previo para la presencial/videoconferencia. El efecto de la intervención se evaluó a través del pre y post test realizado por los participantes. También se analizaron los registros en las historias clínicas de los fumadores. Para el análisis se utilizó la prueba Chi-Square de McNemar. Resultados: hubo un aumento en la frecuencia de acciones dirigidas a dejar de fumar después de la intervención. Se encontraron diferencias significativas en las guías relacionadas con la divulgación a los familiares de la decisión de dejar de fumar y la necesidad de apoyo, el estímulo de la abstinencia después del alta hospitalaria y la información sobre estrategias para dejar de fumar y recaer. Conclusión: la intervención educativa demostró ser innovadora y con gran capacidad de diseminación del conocimiento. El post-test mostró un efecto positivo en la frecuencia de las acciones dirigidas a la deshabituación tabáquica implementadas por el equipo de enfermería.</jats:p>
-    </jats:abstract>
-    <jats:abstract xml:lang="pt">
-        <jats:p>RESUMO Objetivo: avaliar os efeitos de uma intervenção educativa sobre cessação do tabagismo direcionada à equipe de enfermagem. Método: estudo quase-experimental com 37 profissionais de enfermagem de um hospital brasileiro de maio/2019 a dezembro/2020. A intervenção consistiu em capacitar profissionais de enfermagem sobre abordagens aos pacientes tabagistas, dividida em duas etapas, a primeira, online, pré-requisito para a presencial/videoconferência. O efeito da intervenção foi avaliado por meio do pré- e pós-teste preenchido pelos participantes. Também foram analisados registros em prontuários de pacientes fumantes. Para análise, utilizou-se o Teste do Qui-Quadrado de McNemar. Resultados: houve aumento da frequência das ações visando à cessação tabágica após a intervenção. Diferenças significativas foram encontradas em orientações relacionadas à divulgação aos familiares da decisão de parar de fumar e necessidade de apoio, incentivo à abstinência após alta hospitalar e informações sobre estratégias para cessação do tabaco e recaídas. Conclusão: a intervenção educativa se mostrou inovadora e com grande capacidade de difusão do conhecimento. O pós-teste evidenciou efeito positivo na frequência das ações visando à cessação tabágica implementadas pela equipe de enfermagem.</jats:p>
-    </jats:abstract>
+    Adiciona o elemento 'abstract' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <jats:abstract xml:lang="pt">
+                   <jats:p>Resumo Objetivo Analisar o autocuidado e o conhecimento em pacientes com insuficiência cardíaca monitorados por contato telefônico e analisar a correlação do conhecimento com o autocuidado. Métodos Ensaio clínico randomizado, realizado em uma clínica especializada, no período de abril de 2015 a dezembro de 2015. Foram monitorados e randomizados 36 pacientes no Grupo Controle (17) ou no Grupo Intervenção (19). Ambos os grupos participaram do monitoramento convencional, compreendendo três atendimentos (Basal; 2° mês; 4° mês); no Grupo Intervenção houve associação do monitoramento telefônico por meio de um guia padronizado. Foram utilizados os Questionários de Conhecimento e de Autocuidado para avaliação dos desfechos primários e secundários. Resultados Houve diferença no conhecimento (12,7±1,7 vs. 10,8±2,2; p=0,009) e autocuidado (25,4±6,6 vs. 29,5±4,8; p=0,04) no 4° mês; correlação negativa entre os escores do conhecimento e autocuidado no 2° mês (r=-0,48; p=0,03). Conclusão O monitoramento convencional combinado ao monitoramento telefônico mostra-se eficaz no 4° mês com a melhoria do conhecimento e autocuidado de pacientes com insuficiência cardíaca e correlação significativa desses desfechos no 2° mês.</jats:p>
+                </jats:abstract>
+                <jats:abstract xml:lang="en">
+                   <jats:p>Abstract Objective To analyze self-care and knowledge in patients with heart failure who were monitored telephonically, and to analyze the correlation of knowledge with self-care. Methods It was a randomized clinical trial, performed in a specialized clinic from April of 2015 to December of 2015. Thirty-six patients were monitored and randomized, with 17 in the control group and 19 in the intervention group. Both groups participated in the conventional monitoring, which included three visits (initial, second and fourth month); the intervention group was associated with telephone support by means of a standardized guide. The Knowledge and Self-Care Questionnaires were used to evaluate the primary and secondary outcomes. Results Difference in knowledge (12.7±1.7 vs. 10.8±2.2, p=0.009) and self-care (25.4±6.6 vs. 29.5±4.8, p=0. 04) were identified in the fourth month; and there was a negative correlation between knowledge and self-care scores in the second month (r =-0.48; p=0.03). Conclusion The conventional management combined with telephone monitoring was effective in the 4&lt;sup xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;th&lt;/sup&gt; month with improved knowledge and self-care of patients with heart failure and a significant correlation of these outcomes in the second month.</jats:p>
+                </jats:abstract>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <jats:abstract xml:lang="pt">
+                   <jats:p>Resumo Objetivo Analisar o autocuidado e o conhecimento em pacientes com insuficiência cardíaca monitorados por contato telefônico e analisar a correlação do conhecimento com o autocuidado. Métodos Ensaio clínico randomizado, realizado em uma clínica especializada, no período de abril de 2015 a dezembro de 2015. Foram monitorados e randomizados 36 pacientes no Grupo Controle (17) ou no Grupo Intervenção (19). Ambos os grupos participaram do monitoramento convencional, compreendendo três atendimentos (Basal; 2° mês; 4° mês); no Grupo Intervenção houve associação do monitoramento telefônico por meio de um guia padronizado. Foram utilizados os Questionários de Conhecimento e de Autocuidado para avaliação dos desfechos primários e secundários. Resultados Houve diferença no conhecimento (12,7±1,7 vs. 10,8±2,2; p=0,009) e autocuidado (25,4±6,6 vs. 29,5±4,8; p=0,04) no 4° mês; correlação negativa entre os escores do conhecimento e autocuidado no 2° mês (r=-0,48; p=0,03). Conclusão O monitoramento convencional combinado ao monitoramento telefônico mostra-se eficaz no 4° mês com a melhoria do conhecimento e autocuidado de pacientes com insuficiência cardíaca e correlação significativa desses desfechos no 2° mês.</jats:p>
+                </jats:abstract>
+                <jats:abstract xml:lang="en">
+                   <jats:p>Abstract Objective To analyze self-care and knowledge in patients with heart failure who were monitored telephonically, and to analyze the correlation of knowledge with self-care. Methods It was a randomized clinical trial, performed in a specialized clinic from April of 2015 to December of 2015. Thirty-six patients were monitored and randomized, with 17 in the control group and 19 in the intervention group. Both groups participated in the conventional monitoring, which included three visits (initial, second and fourth month); the intervention group was associated with telephone support by means of a standardized guide. The Knowledge and Self-Care Questionnaires were used to evaluate the primary and secondary outcomes. Results Difference in knowledge (12.7±1.7 vs. 10.8±2.2, p=0.009) and self-care (25.4±6.6 vs. 29.5±4.8, p=0. 04) were identified in the fourth month; and there was a negative correlation between knowledge and self-care scores in the second month (r =-0.48; p=0.03). Conclusion The conventional management combined with telephone monitoring was effective in the 4&lt;sup xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;th&lt;/sup&gt; month with improved knowledge and self-care of patients with heart failure and a significant correlation of these outcomes in the second month.</jats:p>
+                </jats:abstract>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     abstracts = article_abstract.Abstract(xml_tree).abstracts_with_tags
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
@@ -592,20 +1306,35 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree):
     """
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-        <publication_date media_type="online">
-            <year>2022</year>
-        </publication_date>
-    </journal_article>
+    Adiciona o elemento 'publication_date' ao xml_crossref.
 
-    todo
-    publication_type in SciELO format: research-article and translation
-    publication_type in CrossRef format: full_text
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <publication_date media_type="online">
+                   <year>2017</year>
+                </publication_date>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <publication_date media_type="online">
+                   <year>2017</year>
+                </publication_date>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
     pub_date = dates.ArticleDates(xml_tree).collection_date
@@ -624,26 +1353,31 @@ def xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_pages_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-    article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
-        <front>
-            <article-meta>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
-                <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
-                <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
-                <fpage>333</fpage>
-                <lpage>342</lpage>
-            </article-meta>
-        </front>
-    </article>
+    Adiciona o elemento 'pages' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <pages>
-        <first_page>333</first_page>
-        <last_page>342</last_page>
-    </pages>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <pages>
+                   <first_page>333</first_page>
+                   <last_page>342</last_page>
+                </pages>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     _data = front_articlemeta_issue.ArticleMetaIssue(xml_tree).data
 
@@ -659,23 +1393,30 @@ def xml_crossref_pages_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_pid_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-    article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
-        <front>
-            <article-meta>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
-                <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
-                <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
-            </article-meta>
-        </front>
-    </article>
+    Adiciona o elemento 'publisher_item' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <publisher_item>
-        <identifier id_type="pii">S0103-21002017000400333</identifier>
-    </publisher_item>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <publisher_item>
+                   <identifier id_type="pii">S0103-21002017000400333</identifier>
+                </publisher_item>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     pid_v2 = article_ids.ArticleIds(xml_tree).v2
 
@@ -691,79 +1432,75 @@ def xml_crossref_pid_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-    article-type="research-article" dtd-version="1.0" specific-use="sps-1.6" xml:lang="pt">
-        <front>
-            <article-meta>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">XZrRmc87LzCkDtLdcXwgztp</article-id>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-21002017000400333</article-id>
-                <article-id pub-id-type="publisher-id">1982-0194201700050</article-id>
-                <article-id pub-id-type="doi">10.1590/1982-0194201700050</article-id>
-                <elocation-id>e20210569</elocation-id>
-            </article-meta>
-        </front>
-    </article>
+    Adiciona o elemento 'item_number' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <publisher_item>
-        <item_number item_number_type="article_number">e20210569</item_number>
-    </publisher_item>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <publisher_item>
+                   <item_number item_number_type="article_number" />
+                </publisher_item>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
     """
     _data = front_articlemeta_issue.ArticleMetaIssue(xml_tree).data
 
-    publisher_item = ET.Element('publisher_item')
     item_number = ET.Element('item_number')
     item_number.set('item_number_type', 'article_number')
     item_number.text = _data.get('elocation_id')
-    publisher_item.append(item_number)
-    xml_crossref.find('./body/journal/journal_article').append(publisher_item)
+    xml_crossref.find('./body/journal/journal_article/publisher_item').append(item_number)
 
 
 def xml_crossref_permissions_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-    article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <front>
-    <article-meta>
-    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
-    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
-    <article-id pub-id-type="other">00445</article-id>
-    <permissions>
-    <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
-    <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
-    </license>
-    </permissions>
-    </article-meta>
-    </front>
-    </article>
+    Adiciona o elemento 'program' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0"
-    xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <ai:program name="AccessIndicators">
-    <ai:free_to_read/>
-    <ai:license_ref applies_to="vor">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
-    <ai:license_ref applies_to="am">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
-    <ai:license_ref applies_to="tdm">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
-    </ai:program>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <ai:program name="AccessIndicators">
-    <ai:free_to_read/>
-    <ai:license_ref applies_to="vor">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
-    <ai:license_ref applies_to="am">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
-    <ai:license_ref applies_to="tdm">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
-    </ai:program>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <ai:program name="AccessIndicators">
+                   <ai:free_to_read />
+                   <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                   <ai:license_ref applies_to="am">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                   <ai:license_ref applies_to="tdm">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                </ai:program>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <ai:program name="AccessIndicators">
+                   <ai:free_to_read />
+                   <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                   <ai:license_ref applies_to="am">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                   <ai:license_ref applies_to="tdm">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                </ai:program>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     art_license = article_license.ArticleLicense(xml_tree).licenses
@@ -787,60 +1524,40 @@ def xml_crossref_permissions_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <front>
-    <article-meta>
-    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
-    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
-    <article-id pub-id-type="other">00445</article-id>
-    <title-group>
-    <article-title>
-    Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study
-    <xref ref-type="fn" rid="FN1">*</xref>
-    </article-title>
-    <trans-title-group xml:lang="es">
-    <trans-title>Efectos de una intervención educativa con profesionales de enfermería en el abordaje de pacientes fumadores: un estudio cuasi-experimental</trans-title>
-    </trans-title-group>
-    </title-group>
-    </article-meta>
-    </front>
-    <sub-article article-type="translation" id="s1" xml:lang="pt">
-    <front-stub>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
-    <title-group>
-    <article-title>
-    Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental
-    <xref ref-type="fn" rid="FN2">*</xref>
-    </article-title>
-    </title-group>
-    </front-stub>
-    </sub-article>
-    </article>
+    Adiciona o elemento 'program' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <program xmlns="http://www.crossref.org/relations.xsd">
-    <related_item>
-    <description>Efeitos de uma intervenção educativa com profissionais de enfermagem sobre abordagens ao paciente tabagista: estudo quase-experimental</description>
-    <intra_work_relation relationship-type="isTranslationOf" identifier-type="doi">10.1590/1980-220x-reeusp-2021-0569pt</intra_work_relation>
-    </related_item>
-    </program>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <program xmlns="http://www.crossref.org/relations.xsd">
-    <related_item>
-    <description>Effects of an educational intervention with nursing professionals on approaches to hospitalized smokers: a quasi-experimental study</description>
-    <intra_work_relation relationship-type="hasTranslation" identifier-type="doi">10.1590/1980-220x-reeusp-2021-0569en</intra_work_relation>
-    </related_item>
-    </program>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <program xmlns="http://www.crossref.org/relations.xsd">
+                   <related_item>
+                      <description>Impact of telephone monitoring on patients with heart failure: a randomized clinical trial</description>
+                      <intra_work_relation relationship-type="hasTranslation" identifier-type="doi" />
+                   </related_item>
+                </program>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <program xmlns="http://www.crossref.org/relations.xsd">
+                   <related_item>
+                      <description>Impacto do monitoramento telefônico em pacientes com insuficiência cardíaca: ensaio clínico randomizado</description>
+                      <intra_work_relation relationship-type="isTranslationOf" identifier-type="doi">10.1590/1982-0194201700050</intra_work_relation>
+                   </related_item>
+                </program>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     art_titles = article_titles.ArticleTitles(xml_tree).article_title_dict
@@ -872,6 +1589,30 @@ def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
 
 
 def xml_crossref_doidata_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'doi_data' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data />
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <doi_data />
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
+    """
     for journal_article in xml_crossref.findall('./body/journal//journal_article'):
         doi_data = ET.Element('doi_data')
         journal_article.append(doi_data)
@@ -879,34 +1620,34 @@ def xml_crossref_doidata_pipe(xml_crossref):
 
 def xml_crossref_doi_pipe(xml_crossref, xml_tree):
     """
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569en</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=en</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=en</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569pt</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=pt</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=pt</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    </journal>
-    </body>
+    Adiciona o elemento 'doi' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data>
+                   <doi>10.1590/1982-0194201700050</doi>
+                </doi_data>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <doi_data>
+                   <doi />
+                </doi_data>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     art_lang = [lang.get('lang') for lang in article_and_subarticles.ArticleAndSubArticles(xml_tree).data]
@@ -922,51 +1663,34 @@ def xml_crossref_doi_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_resource_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <front>
-    <article-meta>
-    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
-    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
-    <article-id pub-id-type="other">00445</article-id>
-    </article-meta>
-    </front>
-    <sub-article article-type="translation" id="s1" xml:lang="pt">
-    <front-stub>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
-    </front-stub>
-    </sub-article>
-    </article>
+    Adiciona o elemento 'doi' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569en</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=en</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=en</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569pt</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=pt</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=pt</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data>
+                   <resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-21002017000400333&amp;tlng=pt</resource>
+                </doi_data>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <doi_data>
+                   <resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-21002017000400333&amp;tlng=en</resource>
+                </doi_data>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     url = 'http://www.scielo.br/scielo.php?script=sci_arttext&pid={}&tlng={}'
@@ -982,51 +1706,42 @@ def xml_crossref_resource_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_collection_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <front>
-    <article-meta>
-    <article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>
-    <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>
-    <article-id pub-id-type="other">00445</article-id>
-    </article-meta>
-    </front>
-    <sub-article article-type="translation" id="s1" xml:lang="pt">
-    <front-stub>
-    <article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569pt</article-id>
-    </front-stub>
-    </sub-article>
-    </article>
+    Adiciona o elemento 'collection' ao xml_crossref.
 
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569en</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=en</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=en</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <doi_data>
-    <doi>10.1590/1980-220x-reeusp-2021-0569pt</doi>
-    <resource>http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0080-62342022000100445&tlng=pt</resource>
-    <collection property="crawler-based">
-    <item crawler="iParadigms">
-    <resource>http://www.scielo.br/scielo.php?script=sci_pdf&pid=S0080-62342022000100445&tlng=pt</resource>
-    </item>
-    </collection>
-    </doi_data>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data>
+                   <collection property="crawler-based">
+                      <item crawler="iParadigms">
+                         <resource>http://www.scielo.br/scielo.php?script=sci_pdf&amp;pid=S0103-21002017000400333&amp;tlng=pt</resource>
+                      </item>
+                   </collection>
+                </doi_data>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <doi_data>
+                   <collection property="crawler-based">
+                      <item crawler="iParadigms">
+                         <resource>http://www.scielo.br/scielo.php?script=sci_pdf&amp;pid=S0103-21002017000400333&amp;tlng=en</resource>
+                      </item>
+                   </collection>
+                </doi_data>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     url = 'http://www.scielo.br/scielo.php?script=sci_pdf&pid={}&tlng={}'
@@ -1055,136 +1770,68 @@ def xml_crossref_close_pipe(xml_crossref):
 
 def xml_crossref_articlecitations_pipe(xml_crossref, xml_tree):
     """
-    IN (SciELO format) ->
-    <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-    <back>
-    <ref-list>
-    <title>REFERENCES</title>
-    <ref id="B1">
-    <label>1.</label>
-    <mixed-citation>
-    1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI:
-    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
-    </mixed-citation>
-    <element-citation publication-type="journal">
-    <person-group person-group-type="author">
-    <name>
-    <surname>Tran</surname>
-    <given-names>B</given-names>
-    </name>
-    <name>
-    <surname>Falster</surname>
-    <given-names>MO</given-names>
-    </name>
-    <name>
-    <surname>Douglas</surname>
-    <given-names>K</given-names>
-    </name>
-    <name>
-    <surname>Blyth</surname>
-    <given-names>F</given-names>
-    </name>
-    <name>
-    <surname>Jorm</surname>
-    <given-names>LR</given-names>
-    </name>
-    </person-group>
-    <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
-    <source>Drug Alcohol Depend.</source>
-    <year>2015</year>
-    <volume>150</volume>
-    <fpage>85</fpage>
-    <lpage>91</lpage>
-    <comment>
-    DOI:
-    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
-    </comment>
-    </element-citation>
-    </ref>
-    <ref id="B2">
-    <label>2.</label>
-    <mixed-citation>
-    2. Kwon JA, Jeon W, Park EC, Kim JH, Kim SJ, Yoo KB, et al. Effects of disease detection on changes in smoking behavior. Yonsei Med J. 2015;56(4): 1143-9. DOI:
-    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3349/ymj.2015.56.4.1143">https://doi.org/10.3349/ymj.2015.56.4.1143</ext-link>
-    </mixed-citation>
-    <element-citation publication-type="journal">
-    <person-group person-group-type="author">
-    <name>
-    <surname>Kwon</surname>
-    <given-names>JA</given-names>
-    </name>
-    <name>
-    <surname>Jeon</surname>
-    <given-names>W</given-names>
-    </name>
-    <name>
-    <surname>Park</surname>
-    <given-names>EC</given-names>
-    </name>
-    <name>
-    <surname>Kim</surname>
-    <given-names>JH</given-names>
-    </name>
-    <name>
-    <surname>Kim</surname>
-    <given-names>SJ</given-names>
-    </name>
-    <name>
-    <surname>Yoo</surname>
-    <given-names>KB</given-names>
-    </name>
-    <etal/>
-    </person-group>
-    <article-title>Effects of disease detection on changes in smoking behavior</article-title>
-    <source>Yonsei Med J.</source>
-    <year>2015</year>
-    <volume>56</volume>
-    <issue>4</issue>
-    <fpage>1143</fpage>
-    <lpage>9</lpage>
-    <comment>
-    DOI:
-    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3349/ymj.2015.56.4.1143">https://doi.org/10.3349/ymj.2015.56.4.1143</ext-link>
-    </comment>
-    </element-citation>
-    </ref>
-    </ref-list>
-    </back>
-    </article>
-    """
+    Adiciona o elemento 'citation_list' ao xml_crossref.
 
-    """
-    OUT (CrossRef format) ->
-    <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.crossref.org/schema/4.4.0" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
-    <body>
-    <journal>
-    <journal_article language="en" publication_type="full_text" reference_distribution_opts="any">
-    <citation_list>
-    <citation key="ref1">
-    <journal_title>Drug Alcohol Depend.</journal_title>
-    <author>Tran B</author>
-    <volume>150</volume>
-    <first_page>85</first_page>
-    <cYear>2015</cYear>
-    <article_title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article_title>
-    </citation>
-    </citation_list>
-    </journal_article>
-    
-    <journal_article language="pt" publication_type="full_text" reference_distribution_opts="any">
-    <citation_list>
-    <citation key="ref1">
-    <journal_title>Drug Alcohol Depend.</journal_title>
-    <author>Tran B</author>
-    <volume>150</volume>
-    <first_page>85</first_page>
-    <cYear>2015</cYear>
-    <article_title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article_title>
-    </citation>
-    </citation_list>
-    </journal_article>
-    </journal>
-    </body>
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <citation_list>
+                   <citation key="ref">
+                      <journal_title>Circulation</journal_title>
+                      <author>Go AS</author>
+                      <volume>129</volume>
+                      <issue>3</issue>
+                      <first_page>e28</first_page>
+                      <cYear>2014</cYear>
+                      <article_title>Heart disease and stroke statistics-2014 update: a report from the American Heart Association</article_title>
+                   </citation>
+                   <citation key="ref">
+                      <journal_title>Arq Bras Cardiol</journal_title>
+                      <author>Albuquerque DC</author>
+                      <volume>104</volume>
+                      <issue>6</issue>
+                      <first_page>433</first_page>
+                      <cYear>2015</cYear>
+                      <article_title>I Brazilian Registry of Heart Failure - clinical aspects, care quality and hospitalization outcomes</article_title>
+                   </citation>
+                </citation_list>
+             </journal_article>
+             <journal_article language="en" publication_type="translation" reference_distribution_opts="any">
+                <citation_list>
+                   <citation key="ref">
+                      <journal_title>Circulation</journal_title>
+                      <author>Go AS</author>
+                      <volume>129</volume>
+                      <issue>3</issue>
+                      <first_page>e28</first_page>
+                      <cYear>2014</cYear>
+                      <article_title>Heart disease and stroke statistics-2014 update: a report from the American Heart Association</article_title>
+                   </citation>
+                   <citation key="ref">
+                      <journal_title>Arq Bras Cardiol</journal_title>
+                      <author>Albuquerque DC</author>
+                      <volume>104</volume>
+                      <issue>6</issue>
+                      <first_page>433</first_page>
+                      <cYear>2015</cYear>
+                      <article_title>I Brazilian Registry of Heart Failure - clinical aspects, care quality and hospitalization outcomes</article_title>
+                   </citation>
+                </citation_list>
+             </journal_article>
+          </journal>
+       </body>
     </doi_batch>
     """
     citations = article_citations.ArticleCitations(xml_tree).article_citations

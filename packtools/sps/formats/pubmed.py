@@ -20,7 +20,7 @@ def xml_pubmed_article_pipe():
     root = ET.Element("Article")
     tree = ET.ElementTree(root)
 
-    return tree
+    return root
 
 
 def xml_pubmed_journal_pipe(xml_pubmed):
@@ -257,6 +257,26 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     add_langs(xml_pubmed, xml_tree)
 
 
+def pipeline_pubmed(xml_tree):
+    xml_pubmed = xml_pubmed_article_pipe()
+    xml_pubmed_journal_pipe(xml_pubmed)
+    xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_issn_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_language_pipe(xml_pubmed, xml_tree)
+
+    # TODO
+    # As demais chamadas serão incluídas a partir da incorporação do PR #429
+
+    return xml_pubmed
+
+  
 def get_authors(xml_tree):
     return article_authors.Authors(xml_tree).contribs
 
@@ -691,3 +711,4 @@ def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
                 for label, text in abstract.get('text').items():
                     abstract_el.append(add_abstract_text(label, text))
             xml_pubmed.append(abstract_el)
+  

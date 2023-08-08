@@ -1499,6 +1499,8 @@ class PipelineCrossref(TestCase):
             '<body>'
             '<journal>'
             '<journal_article>'
+            '<publisher_item>'
+            '</publisher_item>'
             '</journal_article>'
             '</journal>'
             '</body>'
@@ -2106,5 +2108,9 @@ class PipelineCrossref(TestCase):
             "registrant": "registrant"
         }
         xml_crossref = pipeline_crossref(xmltree, data)
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
-        # print(ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8"))
+        xml_crossref_expected = xml_utils.get_xml_tree('tests/samples/crossref_format_example.xml')
+        expected = ET.tostring(xml_crossref_expected, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(expected, obtained)

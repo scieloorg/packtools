@@ -1,3 +1,6 @@
+from packtools.sps.utils import xml_utils
+from lxml import etree as ET
+
 """
 <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
 article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
@@ -261,7 +264,7 @@ class Abstract:
                 'sections': self._get_section_titles_and_paragraphs('.//sub-article//front-stub//abstract')
             }
             return out
-        except AttributeError:
+        except (AttributeError, IndexError):
             pass
 
     def _get_trans_abstracts(self, style=None):
