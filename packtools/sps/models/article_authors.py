@@ -61,7 +61,7 @@ class Authors:
             except KeyError:
                 pass
 
-            _author["contrib-type"] = node.attrib["contrib-type"]
+            _author["contrib-type"] = node.attrib.get("contrib-type") or 'author'
             _data.append(_author)
         return _data
 
