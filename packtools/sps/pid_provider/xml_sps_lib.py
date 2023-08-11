@@ -359,7 +359,9 @@ class XMLWithPre:
 
     @property
     def links(self):
-        return [item["href"] for item in self.related_items]
+        # Ha casos de related-article sem href
+        # <related-article id="pr03" related-article-type="press-release" specific-use="processing-only"/>
+        return [item["href"] for item in self.related_items if item.get("href")]
 
     @property
     def article_ids(self):
