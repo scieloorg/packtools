@@ -61,7 +61,10 @@ class Authors:
             except KeyError:
                 pass
 
-            _author["contrib-type"] = node.attrib.get("contrib-type") or 'author'
+            if node.attrib.get("contrib-type"):
+                # criar contrib-type somente se existir e
+                # não atribuir valor default para que a validação seja fiel
+                _author["contrib-type"] = node.attrib.get("contrib-type")
             _data.append(_author)
         return _data
 
