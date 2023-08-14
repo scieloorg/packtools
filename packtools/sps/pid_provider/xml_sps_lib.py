@@ -381,6 +381,7 @@ class XMLWithPre:
 
     @v2.setter
     def v2(self, value):
+        value = value and value.strip()
         if not value or len(value) != 23:
             raise ValueError(
                 "can't set attribute XMLWithPre.v2. "
@@ -400,6 +401,7 @@ class XMLWithPre:
 
     @v3.setter
     def v3(self, value):
+        value = value and value.strip()
         if not value or len(value) != 23:
             raise ValueError(
                 "can't set attribute XMLWithPre.v3. "
@@ -421,6 +423,7 @@ class XMLWithPre:
 
     @aop_pid.setter
     def aop_pid(self, value):
+        value = value and value.strip()
         if not value or len(value) != 23:
             raise ValueError(
                 "can't set attribute XMLWithPre.aop_pid. "
@@ -566,7 +569,10 @@ class XMLWithPre:
     def pub_year(self):
         if not hasattr(self, "_pub_year") or not self._pub_year:
             try:
-                self._pub_year = self.article_meta_issue.collection_date.get("year")
+                self._pub_year = (
+                    self.article_meta_issue.collection_date.get("year") or
+                    self.article_meta_issue.article_date.get("year")
+                )
             except AttributeError:
                 return None
         return self._pub_year
