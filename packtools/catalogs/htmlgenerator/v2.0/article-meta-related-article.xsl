@@ -19,12 +19,15 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- article -->
-                        <xsl:apply-templates select=".//article-meta//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
-                        <xsl:apply-templates select="body//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
+                        <xsl:apply-templates select="front | body | back" mode="article-meta-related-article-box-item"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </div>            
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="article/front | article/body | article/back" mode="article-meta-related-article-box-item">
+        <xsl:apply-templates select=".//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
     </xsl:template>
 
     <xsl:template match="related-article" mode="article-meta-related-article-box-item">
