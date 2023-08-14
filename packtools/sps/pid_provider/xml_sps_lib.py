@@ -566,7 +566,10 @@ class XMLWithPre:
     def pub_year(self):
         if not hasattr(self, "_pub_year") or not self._pub_year:
             try:
-                self._pub_year = self.article_meta_issue.collection_date.get("year")
+                self._pub_year = (
+                    self.article_meta_issue.collection_date.get("year") or
+                    self.article_meta_issue.article_date.get("year")
+                )
             except AttributeError:
                 return None
         return self._pub_year
