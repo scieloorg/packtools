@@ -53,8 +53,38 @@
                 </div>
             </div>
             </div>
+            <xsl:apply-templates select="." mode="modal-scimago">
+                <xsl:with-param name="id" select="$id"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
+
+    <xsl:template match="article-meta | front | front-stub" mode="modal-scimago">
+        <xsl:param name="id"/>
+        <!-- modal com as instituições scimago -->
+        <div class="modal fade ModalDefault ModalTutors" id="ModalScimago{$id}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&#xd7;</span><span class="sr-only"><xsl:apply-templates select="." mode="interface">
+                            <xsl:with-param name="text">Close</xsl:with-param>
+                        </xsl:apply-templates></span></button>
+                        <h4 class="modal-title">
+                            SCIMAGO INSTITUTIONS RANKINGS
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="info">
+                            <xsl:apply-templates select="aff | contrib-group/aff" mode="modal-scimago"/>
+                            <xsl:if test="not(aff) and not(contrib-group/aff) and ../@article-type='translation'">
+                                <xsl:apply-templates select="$article//article-meta/front/aff | $article//article-meta/front/contrib-group/aff" mode="modal-scimago"/>
+                            </xsl:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </xsl:template>
     
     <xsl:template match="contrib" mode="modal-contrib-type">
         <xsl:if test="@contrib-type!='author'">
@@ -98,8 +128,20 @@
     
     <xsl:template match="aff" mode="modal-contrib">
         <div>
-        <xsl:apply-templates select="." mode="display"/>
-        <xsl:apply-templates select="." mode="hidden-for-scimago"/>
+            <span data-aff-display="{@id}">
+                <xsl:apply-templates select="." mode="display"/>
+            </span>
+            <xsl:apply-templates select="." mode="hidden-for-scimago"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="aff" mode="modal-scimago">
+        <div>
+            <span data-aff-display="{@id}">
+                <xsl:apply-templates select="." mode="display"/>
+            </span>
+            <xsl:apply-templates select="." mode="hidden-for-scimago"/>
+        <br/>
         </div>
     </xsl:template>
 
@@ -117,51 +159,44 @@
             <xsl:apply-templates select="." mode="hidden-for-scimago-location"/>
         </span>
         <span data-aff-full="{@id}" hidden="">
-            <xsl:apply-templates select="." mode="hidden-for-scimago-orgname"/>, <xsl:apply-templates select="." mode="hidden-for-scimago-location"/>
+            <xsl:apply-templates select="." mode="display"/>
         </span>
         <a href="" class="scimago-link" data-scimago-link="{@id}"/>
     </xsl:template>
 
     <xsl:template match="aff" mode="hidden-for-scimago-orgname">
-        <xsl:variable name="text"><xsl:apply-templates select="text()"/></xsl:variable>
-        <!--
-        <xsl:comment> $text: <xsl:value-of select="$text"/> </xsl:comment>
-        <xsl:comment> text(): <xsl:apply-templates select="text()"></xsl:apply-templates></xsl:comment>
-        -->
-
         <xsl:choose>
             <xsl:when
                 test="institution[@content-type='orgname']">
-                <!--
-                <xsl:comment> $text </xsl:comment>
-                -->
                 <xsl:value-of select="institution[@content-type='orgname']"/>
             </xsl:when>
             <xsl:when test="institution[@content-type='original']">
-                <!--
-                <xsl:comment> aff original </xsl:comment>
-                -->
                 <xsl:apply-templates select="institution[@content-type='original']"/>
             </xsl:when>
-            <xsl:when
-                test="*[name()!='label']">
-                <!--
-                <xsl:comment> aff insert separator </xsl:comment>
-                -->
-                <xsl:apply-templates select="*[name()!='label']" mode="insert-separator"/>
-            </xsl:when>
             <xsl:otherwise>
-                <!--
-                <xsl:comment> $text </xsl:comment>
-                -->
-                <xsl:value-of select="$text"/>
+                <xsl:apply-templates select="institution" mode="insert-separator"/>
             </xsl:otherwise>
-        </xsl:choose>
-        
+        </xsl:choose>        
     </xsl:template>
 
     <xsl:template match="aff" mode="hidden-for-scimago-location">
-        <xsl:apply-templates select=".//city | .//*[@content-type='city']"/>, <xsl:apply-templates select=".//state | .//*[@content-type='state']"/>, <xsl:apply-templates select=".//country"/>
+        <xsl:choose>
+            <xsl:when test=".//*[@content-type='city'] and .//*[@content-type='state']">
+                <xsl:apply-templates select=".//*[@content-type='city']"/>, <xsl:apply-templates select=".//*[@content-type='state']"/><xsl:if test="country">, </xsl:if><xsl:apply-templates select=".//country"/>
+            </xsl:when>
+            <xsl:when test=".//city and .//state">
+                <xsl:apply-templates select=".//city"/>, <xsl:apply-templates select=".//state"/><xsl:if test="country">, </xsl:if><xsl:apply-templates select=".//country"/>
+            </xsl:when>
+            <xsl:when test=".//*[@content-type='city'] or .//city">
+                <xsl:apply-templates select=".//*[@content-type='city']|.//city"/><xsl:if test="country">, </xsl:if><xsl:apply-templates select=".//country"/>
+            </xsl:when>
+            <xsl:when test=".//*[@content-type='state'] or .//state">
+                <xsl:apply-templates select=".//*[@content-type='state']|.//state"/><xsl:if test="country">, </xsl:if><xsl:apply-templates select=".//country"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//country"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="contrib-id" mode="list-item">
