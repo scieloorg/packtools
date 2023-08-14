@@ -156,13 +156,15 @@
     </term>
     <term>
         <name>About the authors</name>
-        <name lang="pt">Sobre os autores</name>
-        <name lang="es">Acerca de los autores</name>
+        <name lang="en">Authorship</name>
+        <name lang="pt">Autoria</name>
+        <name lang="es">Autoría</name>
     </term>
     <term>
         <name>About the author</name>
-        <name lang="pt">Sobre o autor</name>
-        <name lang="es">Acerca del autor</name>
+        <name lang="en">Authorship</name>
+        <name lang="pt">Autoria</name>
+        <name lang="es">Autoría</name>
     </term>
     <term>
         <name>About the reviewer</name>
