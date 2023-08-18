@@ -88,7 +88,10 @@ class ArticleAssets:
     def _asset_nodes(self, node=None):
         _assets = []
 
-        source = node or self.xmltree
+        if node is None:
+            source = self.xmltree
+        else:
+            source = node
 
         for node in source.xpath(
             ArticleAssets.XPATH_FOR_IDENTIFYING_ASSETS,
