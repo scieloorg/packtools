@@ -12,16 +12,32 @@ ASSET_TAGS = (
     "supplementary-material",
     "inline-supplementary-material",
 )
-PARENTE_ASSET_TAGS = (
-    "fig",
+CHILD_ASSET_TAGS = (
+    "graphic",
+    "media",
+    "supplementary-material",
+    "inline-supplementary-material",
+)
+PARENT_ASSET_TAGS = (
     "fig-group",
+    "fig",
     "table-wrap",
     "supplementary-material",
     "disp-formula",
     "app",
 )
-PARENTE_ASSET_XPATH = " | ".join(PARENTE_ASSET_TAGS)
-ASSET_XPATH = "|".join([".//" + at + "[@xlink:href]" for at in ASSET_TAGS])
+PARENT_ASSET_XPATH = " | ".join([f".//{at}[@id]" for at in PARENT_ASSET_TAGS])
+CHILD_ASSET_XPATH = (
+    "|".join([f".//{at}[@xlink:href]" for at in CHILD_ASSET_TAGS])
+    + "|"
+    + "|".join([f".//alternatives//{at}[@xlink:href]" for at in CHILD_ASSET_TAGS])
+)
+
+ASSET_XPATH = (
+    "|".join([f".//{at}[@xlink:href]" for at in ASSET_TAGS])
+    + "|"
+    + "|".join([f".//alternatives//{at}[@xlink:href]" for at in CHILD_ASSET_TAGS])
+)
 
 
 class ArticleAssets:
@@ -31,6 +47,7 @@ class ArticleAssets:
     @property
     def items(self):
         for root in self.xmltree.findall("*"):
+            # front, body, back, sub-article
             yield from self.get_assets(root)
 
     @property
@@ -43,15 +60,21 @@ class ArticleAssets:
         if root is None:
             return
 
-        for asset in asset_parent.xpath(
+        for asset in root.xpath(
             ASSET_XPATH, namespaces={"xlink": "http://www.w3.org/1999/xlink"}
         ):
             asset.set("visited", "false")
 
-        for asset_parent in root.xpath(PARENTE_ASSET_XPATH):
+        total = len(root.xpath(".//*[@visited]"))
+
+        for asset_parent in root.xpath(PARENT_ASSET_XPATH):
             for asset in asset_parent.xpath(
-                ASSET_XPATH, namespaces={"xlink": "http://www.w3.org/1999/xlink"}
+                CHILD_ASSET_XPATH,
+                namespaces={"xlink": "http://www.w3.org/1999/xlink"}
             ):
+
+                if not asset.get("visited"):
+                    continue
                 asset.attrib.pop("visited")
                 yield Asset(asset, root, parent=asset_parent)
 
@@ -66,6 +89,19 @@ class ArticleAssets:
                 root,
                 number=str(number).zfill(zfill),
             )
+
+    @property
+    def grouped_by_id(self):
+        group = {}
+        for item in self.items:
+            ids = [
+                item.root.get("id"),
+                item.id or item.number,
+            ]
+            id_ = "".join([v for v in ids if v])
+            group.setdefault(id_, [])
+            group[id_].append(item.data)
+        return group
 
     def replace_names(self, from_to):
         """
@@ -91,13 +127,34 @@ class ArticleAssets:
 class Asset:
     def __init__(self, node, root, parent=None, number=None):
         self.node = node
-        self._parent = parent
-        self._number = number
-        self._root = root
+        self.parent = parent
+        self.number = number
+        self.root = root
+
+    @property
+    def data(self):
+        try:
+            tag = self.parent.tag
+        except AttributeError:
+            tag = self.node.tag
+        return {
+            "tag": tag,
+            "id": self.id,
+            "number": self.number,
+            "xlink_href": self.xlink_href,
+            "type": self.type,
+            "is_supplementary_material": self.is_supplementary_material,
+        }
 
     @property
     def id(self):
-        return self._parent.get("id")
+        id_ = self.node.get("id")
+        if not id_:
+            try:
+                id_ = self.parent.get("id")
+            except AttributeError:
+                pass
+        return id_
 
     @property
     def xlink_href(self):
@@ -136,7 +193,7 @@ class Asset:
         content_type = self.content_type or ""
         if content_type:
             content_type = f"-{content_type}"
-        lang = self.root.get("{http://www.w3.org/XML/1998/namespace}lang")
+        lang = self.root.get("{http://www.w3.org/XML/1998/namespace}lang") or ""
         return f"-{self.category_prefix}{id_}{content_type}{lang}"
 
     @property
@@ -167,8 +224,10 @@ class Asset:
 
     @property
     def is_supplementary_material(self):
-        if "supplementary" in self.node.tag:
-            return True
-        if "supplementary" in self.parent.tag:
-            return True
+        tags = [self.node.tag]
+        if self.parent is not None:
+            tags.append(self.parent.tag)
+        for tag in tags:
+            if tag and "supplementary" in tag:
+                return True
         return False
