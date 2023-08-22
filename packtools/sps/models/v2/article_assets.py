@@ -13,6 +13,14 @@ class ArticleAssets:
         "supplementary-material",
         "inline-supplementary-material",
     )
+    PARENTE_ASSET_TAGS = (
+        "fig",
+        "fig-group",
+        "table-wrap",
+        "supplementary-material",
+        "disp-formula",
+        "app",
+    )
 
     ASSET_EXTENDED_TAGS = ASSET_TAGS + ("disp-formula",)
 
