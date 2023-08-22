@@ -5,106 +5,38 @@ class AssetReplacementError(Exception):
     ...
 
 
+ASSET_TAGS = (
+    "graphic",
+    "media",
+    "inline-graphic",
+    "supplementary-material",
+    "inline-supplementary-material",
+)
+PARENTE_ASSET_TAGS = (
+    "fig",
+    "fig-group",
+    "table-wrap",
+    "supplementary-material",
+    "disp-formula",
+    "app",
+)
+
+ASSET_EXTENDED_TAGS = ASSET_TAGS + ("disp-formula",)
+
+PARENTE_ASSET_XPATH = " | ".join(PARENTE_ASSET_TAGS)
+XPATH_FOR_IDENTIFYING_ASSETS = "|".join(
+    [".//" + at + "[@xlink:href]" for at in ASSET_TAGS]
+)
+
+
 class ArticleAssets:
-    ASSET_TAGS = (
-        "graphic",
-        "media",
-        "inline-graphic",
-        "supplementary-material",
-        "inline-supplementary-material",
-    )
-    PARENTE_ASSET_TAGS = (
-        "fig",
-        "fig-group",
-        "table-wrap",
-        "supplementary-material",
-        "disp-formula",
-        "app",
-    )
-
-    ASSET_EXTENDED_TAGS = ASSET_TAGS + ("disp-formula",)
-
-    XPATH_FOR_IDENTIFYING_ASSETS = "|".join(
-        [".//" + at + "[@xlink:href]" for at in ASSET_TAGS]
-    )
 
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self._create_parent_map()
-        self._discover_assets()
-
-    def _create_parent_map(self):
-        self._parent_map = dict((c, p) for p in self.xmltree.iter() for c in p)
 
     @property
     def article_assets(self):
-        return self.article_assets_which_have_id + self.article_assets_which_have_no_id
-
-    @property
-    def article_assets_which_have_id(self):
-        return self._assets_which_have_id
-
-    @property
-    def article_assets_which_have_no_id(self):
-        return self._assets_which_have_no_id
-
-    def _discover_assets(self):
-        self._discover_assets_which_have_id()
-        self._discover_assets_which_have_no_id()
-
-    def _discover_assets_which_have_id(self):
-        self._assets_which_have_id = []
-        _visited_nodes = []
-
-        for node in self.xmltree.xpath(".//*[@id]"):
-            if node.tag == "sub-article":
-                continue
-
-            i = 0
-            for child_node in self._asset_nodes(node):
-                if child_node not in _visited_nodes:
-                    self._assets_which_have_id.append(
-                        Asset(
-                            node=child_node,
-                            parent_map=self._parent_map,
-                            parent_node_with_id=node,
-                            number=i,
-                        )
-                    )
-                    _visited_nodes.append(child_node)
-                    i += 1
-
-    def _discover_assets_which_have_no_id(self):
-        self._assets_which_have_no_id = []
-        _visited_nodes = []
-
-        nodes_which_have_id = [i.node for i in self._assets_which_have_id]
-
-        i = 0
-        for child_node in self._asset_nodes():
-            if child_node not in nodes_which_have_id:
-                if child_node not in _visited_nodes:
-                    self._assets_which_have_no_id.append(
-                        Asset(node=child_node, parent_map=self._parent_map, number=i)
-                    )
-                    _visited_nodes.append(child_node)
-                    i += 1
-
-    def _asset_nodes(self, node=None):
-        _assets = []
-
-        if node is None:
-            source = self.xmltree
-        else:
-            source = node
-
-        for node in source.xpath(
-            ArticleAssets.XPATH_FOR_IDENTIFYING_ASSETS,
-            namespaces={"xlink": "http://www.w3.org/1999/xlink"},
-        ):
-            _assets.append(node)
-
-        return _assets
+        pass
 
     def replace_names(self, from_to):
         """
