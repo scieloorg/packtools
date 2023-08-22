@@ -20,23 +20,52 @@ PARENTE_ASSET_TAGS = (
     "disp-formula",
     "app",
 )
-
-ASSET_EXTENDED_TAGS = ASSET_TAGS + ("disp-formula",)
-
 PARENTE_ASSET_XPATH = " | ".join(PARENTE_ASSET_TAGS)
-XPATH_FOR_IDENTIFYING_ASSETS = "|".join(
-    [".//" + at + "[@xlink:href]" for at in ASSET_TAGS]
-)
+ASSET_XPATH = "|".join([".//" + at + "[@xlink:href]" for at in ASSET_TAGS])
 
 
 class ArticleAssets:
-
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
     @property
-    def article_assets(self):
-        pass
+    def items(self):
+        for root in self.xmltree.findall("*"):
+            yield from self.get_assets(root)
+
+    @property
+    def supplementary_material_items(self):
+        for item in self.items:
+            if item.is_supplementary_material:
+                yield item
+
+    def get_assets(self, root):
+        if root is None:
+            return
+
+        for asset in asset_parent.xpath(
+            ASSET_XPATH, namespaces={"xlink": "http://www.w3.org/1999/xlink"}
+        ):
+            asset.set("visited", "false")
+
+        for asset_parent in root.xpath(PARENTE_ASSET_XPATH):
+            for asset in asset_parent.xpath(
+                ASSET_XPATH, namespaces={"xlink": "http://www.w3.org/1999/xlink"}
+            ):
+                asset.attrib.pop("visited")
+                yield Asset(asset, root, parent=asset_parent)
+
+        number = 0
+        total = len(root.xpath(".//*[@visited]"))
+        zfill = len(str(total))
+        for asset in root.xpath(".//*[@visited]"):
+            asset.attrib.pop("visited")
+            number += 1
+            yield Asset(
+                asset,
+                root,
+                number=str(number).zfill(zfill),
+            )
 
     def replace_names(self, from_to):
         """
@@ -51,124 +80,72 @@ class ArticleAssets:
         str list : not found names to replace
         """
         not_found = []
-        for asset in self.article_assets:
+        for asset in self.items:
             try:
-                asset.name = from_to[asset.name]
+                asset.xlink_href = from_to[asset.xlink_href]
             except KeyError as e:
-                not_found.append(asset.name)
+                not_found.append(asset.xlink_href)
         return not_found
 
 
 class Asset:
-    def __init__(self, node, parent_map, parent_node_with_id=None, number=None):
+    def __init__(self, node, root, parent=None, number=None):
         self.node = node
-        self._parent_map = parent_map
-        self._parent_node_with_id = parent_node_with_id
+        self._parent = parent
         self._number = number
+        self._root = root
 
     @property
     def id(self):
-        try:
-            return self.node.attrib["id"]
-        except KeyError:
-            ...
-
-        try:
-            return self._parent_node_with_id.get("id")
-        except (AttributeError, TypeError):
-            ...
-
-        return ""
+        return self._parent.get("id")
 
     @property
-    def name(self):
+    def xlink_href(self):
         return self.node.attrib["{http://www.w3.org/1999/xlink}href"]
 
-    @name.setter
-    def name(self, value):
+    @xlink_href.setter
+    def xlink_href(self, value):
         self.node.set("{http://www.w3.org/1999/xlink}href", value)
 
     @property
-    def _content_type(self):
-        ct = self.node.get("content-type")
-        if ct:
-            return f"-{ct}"
-        return ""
+    def content_type(self):
+        return self.node.get("content-type")
 
     @property
-    def tag(self):
-        if self._parent_node_with_id is not None:
-            return self._parent_node_with_id.tag
-
-        current_node = self._parent_map[self.node]
-        while current_node.tag not in ArticleAssets.ASSET_EXTENDED_TAGS:
-            try:
-                current_node = self._parent_map[current_node]
-            except KeyError:
-                return ""
-
-        return current_node.tag
-
-    @property
-    def _category_name_code(self):
+    def category_prefix(self):
         """
         -g: figure graphic
         -i: inline graphic
         -e: equation
         -s: supplementary data file
         """
-        if "disp-formula" in self.tag:
+        tags = [self.node.tag]
+        if self.parent is not None:
+            tags.append(self.parent.tag)
+        if "disp-formula" in tags:
             return "e"
-        if "supplementary" in self.tag or "app" in self.tag:
+        if "supplementary" in tags or "app" in tags:
             return "s"
-        if "inline" in self.tag:
+        if "inline" in tags:
             return "i"
         return "g"
 
     @property
-    def _suffix(self):
-        return f"-{self._category_name_code}{self._id_str}{self._number_str}{self._content_type}"
+    def suffix(self):
+        id_ = self.id or self.number
+        content_type = self.content_type or ""
+        if content_type:
+            content_type = f"-{content_type}"
+        lang = self.root.get("{http://www.w3.org/XML/1998/namespace}lang")
+        return f"-{self.category_prefix}{id_}{content_type}{lang}"
 
     @property
-    def _ext(self):
-        _, ext = os.path.splitext(self.name)
+    def ext(self):
+        _, ext = os.path.splitext(self.xlink_href)
         return ext
 
-    @property
-    def _lang(self):
-        """
-        Tenta obter lang de asset associado a sub-article, caso contrário, retorna string vazia.
-        Asset cujo lang é representado por uma string vazia possui nome canônico sem o idioma.
-        """
-        current_node = self._parent_map[self.node]
-        while current_node.tag != "sub-article":
-            try:
-                current_node = self._parent_map[current_node]
-            except KeyError:
-                return ""
-
-        return (
-            f"-{current_node.get('{http://www.w3.org/XML/1998/namespace}lang')}" or ""
-        )
-
     def name_canonical(self, package_name):
-        return f"{package_name}{self._suffix}{self._lang}{self._ext}"
-
-    @property
-    def _id_str(self):
-        digits = [i for i in self.id if i.isdigit()]
-        if len(digits) > 0:
-            return "".join(digits).zfill(2)
-        return ""
-
-    @property
-    def _number_str(self):
-        """
-        Esta propriedade é utilizada em name_canonical quando o Asset não possui um nó próximo com ID, isto é, um _parent_node_with_id.
-        """
-        if self._id_str == "":
-            return f"-n{str(self._number).zfill(2)}"
-        return ""
+        return f"{package_name}{self.suffix}{self.ext}"
 
     @property
     def type(self):
@@ -188,27 +165,10 @@ class Asset:
         else:
             return "original"
 
-
-class SupplementaryMaterials:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-        self._assets = ArticleAssets(xmltree)
-
     @property
-    def items(self):
-        return [
-            item
-            for item in self._assets.article_assets
-            if item.node.tag
-            in ("supplementary-material", "inline-supplementary-material")
-        ]
-
-    @property
-    def data(self):
-        return [
-            {
-                "id": item.id,
-                "name": item.name,
-            }
-            for item in self.items
-        ]
+    def is_supplementary_material(self):
+        if "supplementary" in self.node.tag:
+            return True
+        if "supplementary" in self.parent.tag:
+            return True
+        return False
