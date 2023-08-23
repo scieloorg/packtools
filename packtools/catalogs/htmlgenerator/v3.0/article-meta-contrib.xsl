@@ -27,14 +27,16 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="aff" mode="scimago-button">
+    <xsl:template match="front | front-stub" mode="scimago-button">
         <xsl:param name="id"/>
         <!--
             Adiciona o botão 'SCIMAGO INSTITUTIONS RANKINGS'
         -->
-        <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
-            data-bs-toggle="modal"
+        <xsl:if test=".//aff">
+            <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
+                data-bs-toggle="modal"
                 data-bs-target="#ModalScimago{$id}">SCIMAGO INSTITUTIONS RANKINGS</a>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="contrib" mode="article-meta-contrib">

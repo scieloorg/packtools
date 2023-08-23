@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+    <xsl:template match="article-meta/contrib-group" mode="sub-article-not-translation-component">
+        <xsl:apply-templates select="." mode="contrib-group">
+            <xsl:with-param name="id"><xsl:value-of select="../../../@id"/></xsl:with-param>
+        </xsl:apply-templates>
+        <xsl:if test="../aff">
+            <xsl:apply-templates select=".." mode="scimago-button">
+                <xsl:with-param name="id"><xsl:value-of select="../../../@id"/></xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="front-stub/contrib-group" mode="sub-article-not-translation-component">
+        <xsl:apply-templates select="." mode="contrib-group">
+            <xsl:with-param name="id"><xsl:value-of select="../../@id"/></xsl:with-param>
+        </xsl:apply-templates>
+        <xsl:if test="../aff">
+            <xsl:apply-templates select=".." mode="scimago-button">
+                <xsl:with-param name="id"><xsl:value-of select="../../@id"/></xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template match="article" mode="article-meta-contrib">
         <xsl:choose>
             <xsl:when
@@ -8,7 +31,7 @@
                     select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="contrib-group"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="front" mode="contrib-group"/>
+                <xsl:apply-templates select="." mode="contrib-group"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -25,7 +48,7 @@
         <xsl:apply-templates select=".//contrib-group" mode="contrib-group">
             <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
         </xsl:apply-templates>
-        <xsl:apply-templates select=".//aff" mode="scimago-button">
+        <xsl:apply-templates select="." mode="scimago-button">
             <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
         </xsl:apply-templates>
 
@@ -42,7 +65,7 @@
         <xsl:apply-templates select="contrib[@contrib-type='author']" mode="article-meta-contrib"/>
         -->
         <xsl:apply-templates select="." mode="about-the-contrib-group-button">
-            <xsl:with-param name="id"><xsl:value-of select="../@id"/></xsl:with-param>
+            <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
 
@@ -60,15 +83,17 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="aff" mode="scimago-button">
+    <xsl:template match="front | front-stub" mode="scimago-button">
         <xsl:param name="id"/>
         <!--
             Adiciona o botão 'SCIMAGO INSTITUTIONS RANKINGS'
         -->
-        <a href="" class="outlineFadeLink" data-toggle="modal"
-            data-target="#ModalScimago{$id}">
-            SCIMAGO INSTITUTIONS RANKINGS
-        </a>
+        <xsl:if test=".//aff">
+            <a href="" class="outlineFadeLink" data-toggle="modal"
+                data-target="#ModalScimago{$id}">
+                SCIMAGO INSTITUTIONS RANKINGS
+            </a>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button-text">
