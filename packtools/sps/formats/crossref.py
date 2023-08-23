@@ -427,45 +427,6 @@ def get_citation(item):
     return citation
 
 
-def get_affiliation(xml_tree, author):
-    """
-        Adiciona o ano de publicação do artigo ao elemento 'citation'
-
-        Parameters
-        ----------
-        xml_tree : lxml.etree._Element
-            Elemento XML no padrão SciELO que será convertido para o padrão CrossRef
-
-        author: dict
-            Dicionário com os dados dos autores da publicação, por exemplo:
-            {
-                "surname": "Oliveira",
-                "given_names": "Josiana Araujo de",
-                "rid": "aff1",
-                "contrib-type": "author",
-            }
-
-        Returns
-        -------
-        lxml.etree._Element
-            <affiliation>
-                Universidade Federal do Rio Grande do Sul, Brazil
-            </affiliation>
-        """
-    affiliation = ET.Element('affiliation')
-    affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
-    for a in affs:
-        if a.get('id') == author.get('rid') and a.get('id') is not None:
-            orgname = a.get('institution')[0].get('orgname')
-            name = a.get('country')[0].get('name')
-            if orgname is not None and name is not None:
-                affiliation.text = orgname + ', ' + name
-    if affiliation.text != '':
-        return affiliation
-    else:
-        return
-
-
 def get_one_contributor(xml_tree, seq, author):
     """
     Obtem os dados referentes a um autor de uma publicação.
