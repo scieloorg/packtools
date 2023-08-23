@@ -3,8 +3,7 @@
     version="1.0">
 
     <xsl:template match="front | front-stub" mode="modal-id"><xsl:value-of select="../@id"/></xsl:template>
-    <xsl:template match="article-meta | sub-article[@article-type='translation']/front | sub-article[@article-type='translation']/front-stub" mode="modal-id">    
-    </xsl:template>
+    <xsl:template match="article-meta" mode="modal-id"><xsl:value-of select="../../@id"/></xsl:template>
     
     <xsl:variable name="xref_items" select="$article//xref[@rid]"/>
     
@@ -26,6 +25,9 @@
         <xsl:apply-templates select="front/article-meta" mode="modal-contrib"/>
         <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="modal-contrib"/>
         <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
+
+        <!-- SCIMAGO -->
+        <xsl:apply-templates select="front/article-meta" mode="modal-scimago"/>
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type='translation']" mode="modal-contribs-start">
@@ -36,18 +38,27 @@
             </xsl:when>
             <xsl:otherwise>
                 <!-- tradução não contém contrib-group, usa contrib-group do principal -->
-                <xsl:apply-templates select="../front | ../front-stub" mode="modal-contrib"/>
+                <xsl:apply-templates select="../front/article-meta | ../front-stub" mode="modal-contrib"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="modal-contrib"/>
-        <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"/>        
+        <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
+        <!-- SCIMAGO -->
+        <!-- usar os dados da versão principal -->
+        <xsl:apply-templates select="../front/article-meta | ../front-stub" mode="modal-scimago"/>
     </xsl:template>
 
     <xsl:template match="sub-article[@article-type!='translation'] | response" mode="modal-contrib">
-        <xsl:apply-templates select="front | front-stub" mode="modal-contrib"></xsl:apply-templates>
+        <xsl:apply-templates select="front/article-meta | front-stub" mode="modal-contrib"/>
+        <!-- SCIMAGO -->
+        <xsl:apply-templates select="front/article-meta | front-stub" mode="modal-scimago"/>
     </xsl:template>
     
-    <xsl:template match="article-meta | front | front-stub" mode="modal-contrib">
+    <xsl:template match="front" mode="modal-contrib">
+        <xsl:apply-templates select="article-meta" mode="modal-contrib"/>
+    </xsl:template>
+    
+    <xsl:template match="article-meta | front-stub" mode="modal-contrib">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
         <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">
                 
@@ -70,13 +81,10 @@
                 </div>
             </div>
         </div>
-        <xsl:apply-templates select="." mode="modal-scimago">
-            <xsl:with-param name="id" select="$id"/>
-        </xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="article-meta | front | front-stub" mode="modal-scimago">
-        <xsl:param name="id"/>
+    <xsl:template match="article-meta | front-stub" mode="modal-scimago">
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"/></xsl:variable>
         <!-- modal com as instituições scimago -->
         <div class="modal fade ModalDefault ModalTutors" id="ModalScimago{$id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
