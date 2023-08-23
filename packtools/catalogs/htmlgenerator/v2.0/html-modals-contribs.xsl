@@ -3,33 +3,63 @@
     version="1.0">
 
     <xsl:template match="front | front-stub" mode="modal-id"><xsl:value-of select="../@id"/></xsl:template>
-    <xsl:template match="article-meta | sub-article[@article-type='translation']/front | sub-article[@article-type='translation']/front-stub" mode="modal-id">    
-    </xsl:template>
+    <xsl:template match="article-meta" mode="modal-id"><xsl:value-of select="../../@id"/></xsl:template>
     
     <xsl:variable name="xref_items" select="$article//xref[@rid]"/>
     
     <xsl:template match="article" mode="modal-contribs">
+        <!-- seleciona principal ou tradução -->
         <xsl:choose>
             <xsl:when
                 test="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
                 <xsl:apply-templates
-                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="modal-contribs-start"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="front/article-meta" mode="modal-contrib"></xsl:apply-templates>
+                <xsl:apply-templates select="." mode="modal-contribs-start"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:apply-templates select=".//sub-article[@article-type!='translation'] | .//response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"></xsl:apply-templates>            
+    </xsl:template>
+
+    <xsl:template match="article" mode="modal-contribs-start">
+        <xsl:apply-templates select="front/article-meta" mode="modal-contrib"/>
+        <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="modal-contrib"/>
+        <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
+
+        <!-- SCIMAGO -->
+        <xsl:apply-templates select="front" mode="modal-scimago"/>
     </xsl:template>
     
-    <xsl:template match="sub-article | response" mode="modal-contrib">
-        <xsl:apply-templates select="front | front-stub" mode="modal-contrib"></xsl:apply-templates>
+    <xsl:template match="sub-article[@article-type='translation']" mode="modal-contribs-start">
+        <xsl:apply-templates select="front | front-stub" mode="modal-contrib"/>
+        <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="modal-contrib"/>
+        <xsl:apply-templates select="response" mode="modal-contrib"/>
+        <!-- SCIMAGO -->
+        <!-- usar os dados da versão principal -->
+        <xsl:choose>
+            <xsl:when test="front//aff or front-stub//aff">
+                <xsl:apply-templates select="front | front-stub" mode="modal-scimago"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="../front | ../front-stub" mode="modal-scimago"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:template>
+
+    <xsl:template match="sub-article[@article-type!='translation'] | response" mode="modal-contrib">
+        <xsl:apply-templates select="front | front-stub" mode="modal-contrib"/>
+        <!-- SCIMAGO -->
+        <xsl:apply-templates select="front | front-stub" mode="modal-scimago"/>
     </xsl:template>
     
-    <xsl:template match="article-meta | front | front-stub" mode="modal-contrib">
-        <xsl:if test="contrib-group/contrib or contrib-group/author-notes">
-            <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
-            <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">
+    <xsl:template match="front" mode="modal-contrib">
+        <xsl:apply-templates select="article-meta" mode="modal-contrib"/>
+    </xsl:template>
+    
+    <xsl:template match="article-meta | front-stub" mode="modal-contrib">
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
+        <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">
                 
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -44,23 +74,20 @@
                     <div class="modal-body">
                         <div class="info">
                             <xsl:apply-templates select="contrib-group/contrib" mode="modal-contrib"></xsl:apply-templates>
-                            <xsl:if test="not(contrib-group/contrib) and ../@article-type='translation'">
-                                <xsl:apply-templates select="$article//article-meta/front/contrib-group/contrib" mode="modal-contrib"></xsl:apply-templates>
-                            </xsl:if>
                         </div>
                         <xsl:apply-templates select=".//author-notes" mode="modal-contrib"></xsl:apply-templates>
                     </div>
                 </div>
             </div>
-            </div>
-            <xsl:apply-templates select="." mode="modal-scimago">
-                <xsl:with-param name="id" select="$id"/>
-            </xsl:apply-templates>
-        </xsl:if>
+        </div>
     </xsl:template>
 
-    <xsl:template match="article-meta | front | front-stub" mode="modal-scimago">
-        <xsl:param name="id"/>
+    <xsl:template match="front" mode="modal-scimago">
+        <xsl:apply-templates select="article-meta" mode="modal-scimago"/>
+    </xsl:template>
+
+    <xsl:template match="article-meta | front-stub" mode="modal-scimago">
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"/></xsl:variable>
         <!-- modal com as instituições scimago -->
         <div class="modal fade ModalDefault ModalTutors" id="ModalScimago{$id}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
@@ -76,9 +103,6 @@
                     <div class="modal-body">
                         <div class="info">
                             <xsl:apply-templates select="aff | contrib-group/aff" mode="modal-scimago"/>
-                            <xsl:if test="not(aff) and not(contrib-group/aff) and ../@article-type='translation'">
-                                <xsl:apply-templates select="$article//article-meta/front/aff | $article//article-meta/front/contrib-group/aff" mode="modal-scimago"/>
-                            </xsl:if>
                         </div>
                     </div>
                 </div>

@@ -427,46 +427,7 @@ def get_citation(item):
     return citation
 
 
-def get_affiliation(xml_tree, author):
-    """
-        Adiciona o ano de publicação do artigo ao elemento 'citation'
-
-        Parameters
-        ----------
-        xml_tree : lxml.etree._Element
-            Elemento XML no padrão SciELO que será convertido para o padrão CrossRef
-
-        author: dict
-            Dicionário com os dados dos autores da publicação, por exemplo:
-            {
-                "surname": "Oliveira",
-                "given_names": "Josiana Araujo de",
-                "rid": "aff1",
-                "contrib-type": "author",
-            }
-
-        Returns
-        -------
-        lxml.etree._Element
-            <affiliation>
-                Universidade Federal do Rio Grande do Sul, Brazil
-            </affiliation>
-        """
-    affiliation = ET.Element('affiliation')
-    affs = aff.AffiliationExtractor(xml_tree).get_affiliation_data_from_multiple_tags(subtag=False)
-    for a in affs:
-        if a.get('id') == author.get('rid') and a.get('id') is not None:
-            orgname = a.get('institution')[0].get('orgname')
-            name = a.get('country')[0].get('name')
-            if orgname is not None and name is not None:
-                affiliation.text = orgname + ', ' + name
-    if affiliation.text != '':
-        return affiliation
-    else:
-        return
-
-
-def get_one_contributor(xml_tree, seq, author):
+def get_one_contributor(seq, author):
     """
     Obtem os dados referentes a um autor de uma publicação.
 
@@ -502,20 +463,29 @@ def get_one_contributor(xml_tree, seq, author):
         person_name.set('sequence', 'first')
     else:
         person_name.set('sequence', 'additional')
-    if author.get('given_names') is not None:
+
+    _given_name = author.get('given_names')
+    if _given_name:
         given_name = ET.Element('given_name')
         given_name.text = author.get('given_names')
         person_name.append(given_name)
-    if author.get('surname') is not None:
+
+    _surname = author.get('surname')
+    if _surname:
         surname = ET.Element('surname')
         surname.text = author.get('surname')
         person_name.append(surname)
-    if get_affiliation(xml_tree, author) is not None:
-        affiliation = get_affiliation(xml_tree, author)
+
+    _author_aff = author.get('affs')[0]
+    if _author_aff:
+        affiliation = ET.Element('affiliation')
+        affiliation.text = ', '.join([_author_aff.get('orgname'), _author_aff.get('country_name')])
         person_name.append(affiliation)
-    if author.get('orcid') is not None:
+
+    _orcid = author.get('orcid')
+    if _orcid:
         orcid = ET.Element('ORCID')
-        orcid.text = 'http://orcid.org/' + author.get('orcid')
+        orcid.text = 'http://orcid.org/' + _orcid
         person_name.append(orcid)
 
     return person_name
@@ -1238,14 +1208,15 @@ def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
     </doi_batch>
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
-    authors = article_authors.Authors(xml_tree).contribs
+    authors = article_authors.Authors(xml_tree).contribs_with_affs
+    contributors = ET.Element('contributors')
+    for seq, author in enumerate(authors):
+        person_name = get_one_contributor(seq, author)
+        contributors.append(person_name)
+
     for article in articles:
         if article.get('article_type') != 'reviewer-report':
-            contributors = ET.Element('contributors')
-            for seq, author in enumerate(authors):
-                person_name = get_one_contributor(xml_tree, seq, author)
-                contributors.append(person_name)
-            xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(contributors)
+            xml_crossref.find(f"./body/journal/journal_article[@language='{article['lang']}']").append(deepcopy(contributors))
 
 
 def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):

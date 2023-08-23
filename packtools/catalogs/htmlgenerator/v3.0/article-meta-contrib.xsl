@@ -5,35 +5,37 @@
 
     <xsl:include href="../v2.0/article-meta-contrib.xsl"/>
 
-    <xsl:template match="article" mode="contrib-group">
+    <xsl:template match="article | sub-article" mode="contrib-group">
         <div>
             <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
-            <xsl:apply-templates select="front/article-meta//contrib-group"/>
-        </div>
-    </xsl:template>
-    
-    <xsl:template match="sub-article" mode="contrib-group">
-        <div>
-            <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
-            <xsl:apply-templates select="front-stub/contrib-group | front/contrib-group"></xsl:apply-templates>
-            <xsl:if test="not(.//contrib) and ../@article-type='translation'">
-                <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
-            </xsl:if>
+            <xsl:apply-templates select="front | front-stub" mode="contrib-group"/>
         </div>
     </xsl:template>
 
-    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button">
+    <xsl:template match="contrib-group" mode="about-the-contrib-group-button">
+        <xsl:param name="id"/>
         <!--
             Adiciona o botão 'About the contributor', trocando 'author',
             pelo tipo de contribuição
         -->
         <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
-            <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
             <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalTutors{$id}">
                 <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
             </a>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="front | front-stub" mode="scimago-button">
+        <xsl:param name="id"/>
+        <!--
+            Adiciona o botão 'SCIMAGO INSTITUTIONS RANKINGS'
+        -->
+        <xsl:if test=".//aff">
+            <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
+                data-bs-toggle="modal"
+                data-bs-target="#ModalScimago{$id}">SCIMAGO INSTITUTIONS RANKINGS</a>
         </xsl:if>
     </xsl:template>
 
