@@ -27,31 +27,30 @@
         <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
 
         <!-- SCIMAGO -->
-        <xsl:apply-templates select="front/article-meta" mode="modal-scimago"/>
+        <xsl:apply-templates select="front" mode="modal-scimago"/>
     </xsl:template>
     
     <xsl:template match="sub-article[@article-type='translation']" mode="modal-contribs-start">
-        <xsl:choose>
-            <xsl:when test="front//contrib-group | front-stub//contrib-group">
-                <!-- tradução contém contrib-group -->
-                <xsl:apply-templates select="front | front-stub" mode="modal-contrib"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <!-- tradução não contém contrib-group, usa contrib-group do principal -->
-                <xsl:apply-templates select="../front/article-meta | ../front-stub" mode="modal-contrib"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="front | front-stub" mode="modal-contrib"/>
         <xsl:apply-templates select="sub-article[@article-type!='translation']" mode="modal-contrib"/>
-        <xsl:apply-templates select="response[@xml:lang=$TEXT_LANG]" mode="modal-contrib"/>
+        <xsl:apply-templates select="response" mode="modal-contrib"/>
         <!-- SCIMAGO -->
         <!-- usar os dados da versão principal -->
-        <xsl:apply-templates select="../front/article-meta | ../front-stub" mode="modal-scimago"/>
+        <xsl:choose>
+            <xsl:when test="front//aff or front-stub//aff">
+                <xsl:apply-templates select="front | front-stub" mode="modal-scimago"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="../front | ../front-stub" mode="modal-scimago"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
 
     <xsl:template match="sub-article[@article-type!='translation'] | response" mode="modal-contrib">
-        <xsl:apply-templates select="front/article-meta | front-stub" mode="modal-contrib"/>
+        <xsl:apply-templates select="front | front-stub" mode="modal-contrib"/>
         <!-- SCIMAGO -->
-        <xsl:apply-templates select="front/article-meta | front-stub" mode="modal-scimago"/>
+        <xsl:apply-templates select="front | front-stub" mode="modal-scimago"/>
     </xsl:template>
     
     <xsl:template match="front" mode="modal-contrib">
@@ -81,6 +80,10 @@
                 </div>
             </div>
         </div>
+    </xsl:template>
+
+    <xsl:template match="front" mode="modal-scimago">
+        <xsl:apply-templates select="article-meta" mode="modal-scimago"/>
     </xsl:template>
 
     <xsl:template match="article-meta | front-stub" mode="modal-scimago">

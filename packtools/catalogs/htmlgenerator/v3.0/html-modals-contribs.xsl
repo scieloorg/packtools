@@ -54,7 +54,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="info">
-                            <xsl:apply-templates select=".//aff" mode="modal-contrib"/>
+                            <xsl:apply-templates select=".//aff" mode="modal-scimago"/>
                         </div>
                     </div>
                 </div>
