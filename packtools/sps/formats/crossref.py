@@ -427,7 +427,7 @@ def get_citation(item):
     return citation
 
 
-def get_one_contributor(xml_tree, seq, author):
+def get_one_contributor(seq, author):
     """
     Obtem os dados referentes a um autor de uma publicação.
 
