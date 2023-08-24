@@ -10,7 +10,7 @@
             <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
 
             <!-- apresenta os resumos diferentes de key-points -->
-            <xsl:apply-templates select="." mode="abstract-not-highlights"/>
+            <xsl:apply-templates select="." mode="standard-abstract"/>
         </xsl:if>
         <xsl:choose>
             <xsl:when
@@ -36,27 +36,10 @@
         <xsl:apply-templates select=".//abstract[.//list]" mode="layout"/>
         <xsl:apply-templates select=".//trans-abstract[.//list]" mode="layout"/>
     </xsl:template>
-
-    <xsl:template match="article" mode="abstract-key-points">
-        <!-- apresenta os resumos do tipo key-points (highlights) -->
-        <xsl:apply-templates select=".//abstract[@abstract-type='key-points']" mode="layout"/>
-        <xsl:apply-templates select=".//trans-abstract[@abstract-type='key-points']" mode="layout"/>
-    </xsl:template>
     
-    <xsl:template match="article" mode="abstract-not-key-points">
-        <!-- apresenta os resumos diferentes de key-points -->
+    <xsl:template match="article" mode="standard-abstract">
+        <!-- apresenta os resumos padrão -->
         <xsl:apply-templates select=".//abstract[not(@abstract-type) or @abstract-type!='key-points']|.//trans-abstract[not(@abstract-type) or @abstract-type!='key-points']" mode="layout"/>
-    </xsl:template>
-
-    <xsl:template match="article" mode="abstract-highlights">
-        <!-- apresenta os resumos do tipo highlights (highlights) -->
-        <xsl:apply-templates select=".//abstract[.//list]" mode="layout"/>
-        <xsl:apply-templates select=".//trans-abstract[.//list]" mode="layout"/>
-    </xsl:template>
-
-    <xsl:template match="article" mode="abstract-not-highlights">
-        <!-- apresenta os resumos diferentes de highlights -->
-        <xsl:apply-templates select=".//abstract[not(.//list)]|.//trans-abstract[not(.//list)]" mode="layout"/>
     </xsl:template>
 
     <xsl:template match="article" mode="article-meta-no-abstract-keywords">
