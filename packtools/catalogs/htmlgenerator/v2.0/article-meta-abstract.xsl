@@ -9,10 +9,6 @@
 
             <xsl:choose>
                 <xsl:when test=".//abstract//list">
-                    <!-- é highlights mas não está usando o atributo abstract-type -->
-                    <!-- apresenta os resumos do tipo key-points (highlights) -->
-                    <xsl:apply-templates select="." mode="abstract-highlights"/>
-
                     <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
                     <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
 
@@ -20,9 +16,6 @@
                     <xsl:apply-templates select="." mode="abstract-not-highlights"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- apresenta os resumos do tipo key-points (highlights) -->
-                    <xsl:apply-templates select="." mode="abstract-key-points"/>
-
                     <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
                     <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
 
@@ -31,6 +24,29 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
+        <xsl:choose>
+            <xsl:when
+                test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates
+                    select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="key-points-block"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="key-points-block"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="article | sub-article" mode="key-points-block">
+        <xsl:apply-templates select="front/article-meta | front-stub" mode="key-points-block"/>
+    </xsl:template>
+
+    <xsl:template match="front/article-meta | front-stub" mode="key-points-block">
+        <!-- apresenta os resumos do tipo key-points (highlights) -->
+        <xsl:apply-templates select=".//abstract[@abstract-type='key-points']" mode="layout"/>
+        <xsl:apply-templates select=".//trans-abstract[@abstract-type='key-points']" mode="layout"/>
+        <!-- apresenta os resumos do tipo highlights (highlights) -->
+        <xsl:apply-templates select=".//abstract[.//list]" mode="layout"/>
+        <xsl:apply-templates select=".//trans-abstract[.//list]" mode="layout"/>
     </xsl:template>
 
     <xsl:template match="article" mode="abstract-key-points">
