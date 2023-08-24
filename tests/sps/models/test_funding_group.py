@@ -83,3 +83,12 @@ class FundingTest(TestCase):
         obtained = self.funding.financial_disclosure
         self.assertEqual(expected, obtained)
 
+    def test_funding_sources(self):
+        expected = [
+            "Natural Science Foundation of Hunan Province",
+            "Hubei Provincial Natural Science Foundation of China"
+        ]
+        obtained = self.funding.funding_sources
+        self.assertEqual(expected, obtained)
+
+
