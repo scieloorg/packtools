@@ -6,23 +6,11 @@
         <!-- apresenta todos os resumos que existir -->
         <xsl:variable name="q" select="count(.//abstract[.//text()])+count(.//trans-abstract[.//text()])"/>
         <xsl:if test="$q &gt; 0">
+            <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
+            <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
 
-            <xsl:choose>
-                <xsl:when test=".//abstract//list">
-                    <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
-                    <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
-
-                    <!-- apresenta os resumos diferentes de key-points -->
-                    <xsl:apply-templates select="." mode="abstract-not-highlights"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
-                    <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
-
-                    <!-- apresenta os resumos diferentes de key-points -->
-                    <xsl:apply-templates select="." mode="abstract-not-key-points"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <!-- apresenta os resumos diferentes de key-points -->
+            <xsl:apply-templates select="." mode="abstract-not-highlights"/>
         </xsl:if>
         <xsl:choose>
             <xsl:when
