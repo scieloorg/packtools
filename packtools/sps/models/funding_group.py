@@ -40,11 +40,10 @@ class FundingGroup:
     def award_groups(self):
         items = []
         for node in self._xmltree.xpath(".//funding-group/award-group"):
-            funding_sources = node.xpath("funding-source")
-            award_ids = node.xpath("award-id")
-            d = {}
-            d["funding-source"] = [item.text for item in funding_sources]
-            d["award-id"] = [item.text for item in award_ids]
+            d = {
+                "funding-source": [source.text for source in node.xpath("funding-source")],
+                "award-id": [id.text for id in node.xpath("award-id")]
+            }
             items.append(d)
         return items
 

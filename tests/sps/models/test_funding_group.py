@@ -83,6 +83,20 @@ class FundingTest(TestCase):
         obtained = self.funding.financial_disclosure
         self.assertEqual(expected, obtained)
 
+    def test_award_groups(self):
+        expected = [
+            {
+                "award-id": ["2019JJ40269"],
+                "funding-source": ["Natural Science Foundation of Hunan Province"]
+            },
+            {
+                "award-id": ["2020CFB547"],
+                "funding-source": ["Hubei Provincial Natural Science Foundation of China"]
+            }
+        ]
+        obtained = self.funding.award_groups
+        self.assertEqual(expected, obtained)
+
     def test_funding_sources(self):
         expected = [
             "Natural Science Foundation of Hunan Province",
