@@ -77,8 +77,8 @@
 
     <xsl:template match="front-stub | front/article-meta" mode="standard-abstract">
         <!-- apresenta os resumos padrão -->
-        <xsl:apply-templates select=".//abstract[not(@abstract-type)]" mode="layout"/>
-        <xsl:apply-templates select=".//trans-abstract[not(@abstract-type)]" mode="layout"/>
+        <xsl:apply-templates select=".//abstract[not(@abstract-type) and not(.//list)]" mode="layout"/>
+        <xsl:apply-templates select=".//trans-abstract[not(@abstract-type) and not(.//list)]" mode="layout"/>
     </xsl:template>
 
     <xsl:template match="article | sub-article" mode="graphical-abstract">
@@ -146,11 +146,12 @@
             Apresenta as palavras-chave no idioma correspondente, se aplicável
             -->
             <xsl:choose>
-                <xsl:when test="@abstract-type='key-points' or .//list">
-                    <!-- para HIGHLIGHTS não apresentar keywords -->
+                <xsl:when test="not(@abstract-type) and not(.//list)">
+                    <!-- apresenta palavras chave com o resumo padrão -->
+                    <xsl:apply-templates select="." mode="keywords"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="." mode="keywords"/>
+                    <!-- do nothing -->
                 </xsl:otherwise>
             </xsl:choose>
         </div>
