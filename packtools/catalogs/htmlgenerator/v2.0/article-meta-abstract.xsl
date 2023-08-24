@@ -13,6 +13,18 @@
             <xsl:apply-templates select="." mode="standard-abstract"/>
         </xsl:if>
 
+        <!-- graphical -->
+        <xsl:choose>
+            <xsl:when
+                test="sub-article//abstract[@abstract-type='graphical']">
+                <xsl:apply-templates
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="graphical-abstract"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front/article-meta" mode="graphical-abstract"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
         <!-- key-points -->
         <xsl:choose>
             <xsl:when
@@ -67,6 +79,14 @@
         <!-- apresenta os resumos padrão -->
         <xsl:apply-templates select=".//abstract[not(@abstract-type)]" mode="layout"/>
         <xsl:apply-templates select=".//trans-abstract[not(@abstract-type)]" mode="layout"/>
+    </xsl:template>
+
+    <xsl:template match="article | sub-article" mode="graphical-abstract">
+        <xsl:apply-templates select="front/article-meta | front-stub" mode="graphical-abstract"/>
+    </xsl:template>
+
+    <xsl:template match="front/article-meta | front-stub" mode="graphical-abstract">
+        <xsl:apply-templates select=".//abstract[@abstract-type='graphical']" mode="layout"/>
     </xsl:template>
 
     <xsl:template match="article" mode="article-meta-no-abstract-keywords">
