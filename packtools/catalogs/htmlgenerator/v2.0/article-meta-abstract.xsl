@@ -121,10 +121,17 @@
             </xsl:variable>
             
             <!-- insere a âncora e o título -->
-            <div class="articleSection" data-anchor="{$title}">
-                <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
-            </div>
+            <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title-div-h-number">
+                <xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
+            </xsl:apply-templates>
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="article" mode="create-anchor-and-title-for-abstracts-without-title-div-h-number">
+        <xsl:param name="title"/>
+        <div class="articleSection" data-anchor="{$title}">
+            <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
+        </div>
     </xsl:template>
 
     <xsl:template match="*[contains(name(),'abstract')]" mode="index">

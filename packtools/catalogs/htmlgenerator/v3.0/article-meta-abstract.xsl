@@ -5,28 +5,11 @@
 
     <xsl:include href="../v2.0/article-meta-abstract.xsl"/>
 
-    <xsl:template match="article" mode="create-anchor-and-title-for-abstracts-without-title">
-        <xsl:variable name="q_titles" select="count(.//abstract[title])+count(.//trans-abstract[title])"/>
-        <xsl:if test="$q_titles = 0">
-            <xsl:variable name="q_abstracts" select="count(.//abstract[.//text()])+count(.//trans-abstract[.//text()])"/>
-
-            <!-- obtém o título traduzido para Abstracts ou Abstract -->
-            <xsl:variable name="title">
-                <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text">
-                        <xsl:choose>
-                            <xsl:when test="$q_abstracts=1">Abstract</xsl:when>
-                            <xsl:otherwise>Abstracts</xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:variable>
-            
-            <!-- insere a âncora e o título -->
-            <div class="articleSection" data-anchor="{$title}">
-                <h3 class="articleSectionTitle"><xsl:value-of select="$title"/></h3>
-            </div>
-        </xsl:if>
+    <xsl:template match="article" mode="create-anchor-and-title-for-abstracts-without-title-div-h-number">
+        <xsl:param name="title"/>
+        <div class="articleSection" data-anchor="{$title}">
+            <h3 class="articleSectionTitle"><xsl:value-of select="$title"/></h3>
+        </div>
     </xsl:template>
 
     <xsl:template match="abstract/sec/title | trans-abstract/sec/title">
