@@ -221,15 +221,25 @@
         <!-- PÁGINA DO RESUMO -->
         <!-- APRESENTA O RESUMO NO IDIOMA CORRESPONDENTE -->
         <xsl:choose>
-            <xsl:when test="@xml:lang=$gs_abstract_lang">
-                <!-- idioma selecionado é o mesmo que o do texto completo -->
-                <xsl:apply-templates select=".//article-meta/abstract[(not(@abstract-type) or @abstract-type!='key-points') and not(.//list)]" mode="layout"/>
+            <xsl:when
+                test="@xml:lang=$gs_abstract_lang">
+                <xsl:apply-templates
+                    select="front/article-meta/abstract" mode="layout"/>
+            </xsl:when>
+            <xsl:when
+                test="sub-article[@article-type='translation' and @xml:lang=$gs_abstract_lang]">
+                <xsl:apply-templates
+                    select="sub-article[@article-type='translation' and @xml:lang=$gs_abstract_lang]/front-stub/abstract" mode="layout"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select=".//trans-abstract[@xml:lang=$gs_abstract_lang]" mode="layout"/>
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$gs_abstract_lang]//abstract[(not(@abstract-type) or @abstract-type!='key-points') and not(.//list)]" mode="layout"/>
             </xsl:otherwise>
         </xsl:choose>
+
+        <xsl:if test="sub-article and count(.//abstract[abstract-type='graphical'])=1">
+            <!-- um resumo gráfico para todas as versões -->
+            <xsl:apply-templates select=".//abstract[@abstract-type='graphical']" mode="layout"/>
+        </xsl:if>
     </xsl:template>
       
 </xsl:stylesheet>
