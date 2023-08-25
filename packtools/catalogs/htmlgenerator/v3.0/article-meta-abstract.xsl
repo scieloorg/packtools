@@ -19,11 +19,13 @@
     <xsl:template match="abstract[title] | trans-abstract[title]" mode="anchor-and-title">
         <!-- Apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
 
-        <!-- âncora -->
-        <xsl:attribute name="class">articleSection</xsl:attribute>
-        <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
-        <xsl:if test="@xml:lang='ar'">
-            <xsl:attribute name="dir">rtl</xsl:attribute>
+        <xsl:if test="not($gs_abstract_lang)">
+            <!-- âncora -->
+            <xsl:attribute name="class">articleSection</xsl:attribute>
+            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+            <xsl:if test="@xml:lang='ar'">
+                <xsl:attribute name="dir">rtl</xsl:attribute>
+            </xsl:if>
         </xsl:if>
 
         <!-- título -->
