@@ -243,7 +243,7 @@
             </xsl:otherwise>
         </xsl:choose>
 
-        <xsl:if test="sub-article and count(.//abstract[abstract-type='graphical'])=1">
+        <xsl:if test="sub-article and count(.//abstract[@abstract-type='graphical'])=1">
             <!-- um resumo gráfico para todas as versões -->
             <xsl:apply-templates select=".//abstract[@abstract-type='graphical']" mode="layout"/>
         </xsl:if>
