@@ -6,61 +6,95 @@
         <!-- apresenta todos os resumos que existir -->
         <xsl:variable name="q" select="count(.//abstract[.//text()])+count(.//trans-abstract[.//text()])"/>
         <xsl:if test="$q &gt; 0">
+            <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
+            <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
 
-            <xsl:choose>
-                <xsl:when test=".//abstract//list">
-                    <!-- é highlights mas não está usando o atributo abstract-type -->
-                    <!-- apresenta os resumos do tipo key-points (highlights) -->
-                    <xsl:apply-templates select="." mode="abstract-highlights"/>
-
-                    <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
-                    <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
-
-                    <!-- apresenta os resumos diferentes de key-points -->
-                    <xsl:apply-templates select="." mode="abstract-not-highlights"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!-- apresenta os resumos do tipo key-points (highlights) -->
-                    <xsl:apply-templates select="." mode="abstract-key-points"/>
-
-                    <!-- apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
-                    <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
-
-                    <!-- apresenta os resumos diferentes de key-points -->
-                    <xsl:apply-templates select="." mode="abstract-not-key-points"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <!-- apresenta os resumos diferentes de key-points -->
+            <xsl:apply-templates select="." mode="standard-abstract"/>
         </xsl:if>
+
+        <!-- graphical -->
+        <xsl:choose>
+            <xsl:when
+                test="sub-article//abstract[@abstract-type='graphical']">
+                <xsl:apply-templates
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="graphical-abstract"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front/article-meta" mode="graphical-abstract"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+        <!-- key-points -->
+        <xsl:choose>
+            <xsl:when
+                test="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="key-points-block"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front/article-meta" mode="key-points-block"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
 
-    <xsl:template match="article" mode="abstract-key-points">
+    <xsl:template match="article | sub-article" mode="key-points-block">
+        <xsl:apply-templates select="front/article-meta | front-stub" mode="key-points-block"/>
+    </xsl:template>
+
+    <xsl:template match="front/article-meta | front-stub" mode="key-points-block">
         <!-- apresenta os resumos do tipo key-points (highlights) -->
         <xsl:apply-templates select=".//abstract[@abstract-type='key-points']" mode="layout"/>
         <xsl:apply-templates select=".//trans-abstract[@abstract-type='key-points']" mode="layout"/>
-    </xsl:template>
-    
-    <xsl:template match="article" mode="abstract-not-key-points">
-        <!-- apresenta os resumos diferentes de key-points -->
-        <xsl:apply-templates select=".//abstract[not(@abstract-type) or @abstract-type!='key-points']|.//trans-abstract[not(@abstract-type) or @abstract-type!='key-points']" mode="layout"/>
-    </xsl:template>
-
-    <xsl:template match="article" mode="abstract-highlights">
         <!-- apresenta os resumos do tipo highlights (highlights) -->
         <xsl:apply-templates select=".//abstract[.//list]" mode="layout"/>
         <xsl:apply-templates select=".//trans-abstract[.//list]" mode="layout"/>
     </xsl:template>
+    
+    <xsl:template match="article | sub-article" mode="standard-abstract">
+        <!--
+            apresenta todos os resumos padrão
+            priorizando o resumo no idioma selecionado
+        -->
+        <xsl:choose>
+            <xsl:when
+                test="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                <xsl:apply-templates
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]/front-stub" mode="standard-abstract"/>
+                <xsl:apply-templates
+                    select="$article/front/article-meta" mode="standard-abstract"/>
+                <xsl:apply-templates
+                    select="$article/sub-article[@article-type='translation' and @xml:lang!=$TEXT_LANG]/front-stub" mode="standard-abstract"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="front-stub | front/article-meta" mode="standard-abstract"/>
+                <xsl:apply-templates
+                    select="sub-article[@article-type='translation']/front-stub" mode="standard-abstract"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
-    <xsl:template match="article" mode="abstract-not-highlights">
-        <!-- apresenta os resumos diferentes de highlights -->
-        <xsl:apply-templates select=".//abstract[not(.//list)]|.//trans-abstract[not(.//list)]" mode="layout"/>
+    <xsl:template match="front-stub | front/article-meta" mode="standard-abstract">
+        <!-- apresenta os resumos padrão -->
+        <xsl:apply-templates select=".//abstract[not(@abstract-type) and not(.//list)]" mode="layout"/>
+        <xsl:apply-templates select=".//trans-abstract[not(@abstract-type) and not(.//list)]" mode="layout"/>
+    </xsl:template>
+
+    <xsl:template match="article | sub-article" mode="graphical-abstract">
+        <xsl:apply-templates select="front/article-meta | front-stub" mode="graphical-abstract"/>
+    </xsl:template>
+
+    <xsl:template match="front/article-meta | front-stub" mode="graphical-abstract">
+        <xsl:apply-templates select=".//abstract[@abstract-type='graphical']" mode="layout"/>
     </xsl:template>
 
     <xsl:template match="article" mode="article-meta-no-abstract-keywords">
         <!-- Apresenta keywords para artigos sem resumo -->
         <xsl:if test="not(.//abstract)">
             <xsl:choose>
-                <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//kwd-group">
-                    <xsl:apply-templates select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//kwd-group" mode="keywords"/>
+                <xsl:when test="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//kwd-group">
+                    <xsl:apply-templates select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//kwd-group" mode="keywords"/>
                 </xsl:when>
                 <xsl:when test="front/article-meta//kwd-group">
                     <xsl:apply-templates select="front/article-meta//kwd-group" mode="keywords"/>
@@ -87,10 +121,17 @@
             </xsl:variable>
             
             <!-- insere a âncora e o título -->
-            <div class="articleSection" data-anchor="{$title}">
-                <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
-            </div>
+            <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title-div-h-number">
+                <xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
+            </xsl:apply-templates>
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="article" mode="create-anchor-and-title-for-abstracts-without-title-div-h-number">
+        <xsl:param name="title"/>
+        <div class="articleSection" data-anchor="{$title}">
+            <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
+        </div>
     </xsl:template>
 
     <xsl:template match="*[contains(name(),'abstract')]" mode="index">
@@ -112,11 +153,12 @@
             Apresenta as palavras-chave no idioma correspondente, se aplicável
             -->
             <xsl:choose>
-                <xsl:when test="@abstract-type='key-points' or .//list">
-                    <!-- para HIGHLIGHTS não apresentar keywords -->
+                <xsl:when test="not(@abstract-type) and not(.//list)">
+                    <!-- apresenta palavras chave com o resumo padrão -->
+                    <xsl:apply-templates select="." mode="keywords"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="." mode="keywords"/>
+                    <!-- do nothing -->
                 </xsl:otherwise>
             </xsl:choose>
         </div>
@@ -186,15 +228,25 @@
         <!-- PÁGINA DO RESUMO -->
         <!-- APRESENTA O RESUMO NO IDIOMA CORRESPONDENTE -->
         <xsl:choose>
-            <xsl:when test="@xml:lang=$gs_abstract_lang">
-                <!-- idioma selecionado é o mesmo que o do texto completo -->
-                <xsl:apply-templates select=".//article-meta/abstract[(not(@abstract-type) or @abstract-type!='key-points') and not(.//list)]" mode="layout"/>
+            <xsl:when
+                test="@xml:lang=$gs_abstract_lang">
+                <xsl:apply-templates
+                    select="front/article-meta/abstract" mode="layout"/>
+            </xsl:when>
+            <xsl:when
+                test="sub-article[@article-type='translation' and @xml:lang=$gs_abstract_lang]">
+                <xsl:apply-templates
+                    select="sub-article[@article-type='translation' and @xml:lang=$gs_abstract_lang]/front-stub/abstract" mode="layout"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select=".//trans-abstract[@xml:lang=$gs_abstract_lang]" mode="layout"/>
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$gs_abstract_lang]//abstract[(not(@abstract-type) or @abstract-type!='key-points') and not(.//list)]" mode="layout"/>
             </xsl:otherwise>
         </xsl:choose>
+
+        <xsl:if test="sub-article and count(.//abstract[@abstract-type='graphical'])=1">
+            <!-- um resumo gráfico para todas as versões -->
+            <xsl:apply-templates select=".//abstract[@abstract-type='graphical']" mode="layout"/>
+        </xsl:if>
     </xsl:template>
       
 </xsl:stylesheet>

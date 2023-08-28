@@ -1,54 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+    <xsl:template match="article-meta/contrib-group" mode="sub-article-not-translation-component">
+        <xsl:apply-templates select="." mode="contrib-group">
+            <xsl:with-param name="id"><xsl:value-of select="../../../@id"/></xsl:with-param>
+        </xsl:apply-templates>
+        <xsl:if test="..//aff">
+            <xsl:apply-templates select=".." mode="scimago-button">
+                <xsl:with-param name="id"><xsl:value-of select="../../../@id"/></xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="front-stub/contrib-group" mode="sub-article-not-translation-component">
+        <xsl:apply-templates select="." mode="contrib-group">
+            <xsl:with-param name="id"><xsl:value-of select="../../@id"/></xsl:with-param>
+        </xsl:apply-templates>
+        <xsl:if test="..//aff">
+            <xsl:apply-templates select=".." mode="scimago-button">
+                <xsl:with-param name="id"><xsl:value-of select="../../@id"/></xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template match="article" mode="article-meta-contrib">
         <xsl:choose>
             <xsl:when
-                test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]//contrib-group">
+                test="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
                 <xsl:apply-templates
-                    select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="contrib-group"/>
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="contrib-group"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="." mode="contrib-group"></xsl:apply-templates>
+                <xsl:apply-templates select="." mode="contrib-group"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="article" mode="contrib-group">
+    <xsl:template match="article | sub-article" mode="contrib-group">
         <div>
             <xsl:attribute name="class">contribGroup</xsl:attribute>
-            <xsl:apply-templates select="front/article-meta//contrib-group"/>
+            <xsl:apply-templates select="front | front-stub" mode="contrib-group"/>
         </div>
-    </xsl:template>
-    
-    <xsl:template match="sub-article" mode="contrib-group">
-        <div>
-            <xsl:attribute name="class">contribGroup</xsl:attribute>
-            <xsl:apply-templates select="front-stub/contrib-group | front/contrib-group"></xsl:apply-templates>
-            <xsl:if test="not(.//contrib) and ../@article-type='translation'">
-                <xsl:apply-templates select="$article//article-meta//contrib"></xsl:apply-templates>
-            </xsl:if>
-        </div>
-    </xsl:template>
-    
-    <xsl:template match="front/contrib-group | front-stub/contrib-group" mode="modal-id"><xsl:value-of select="../../@id"/></xsl:template>
-    <xsl:template match="article-meta/contrib-group | sub-article[@article-type='translation']/*/contrib-group" mode="modal-id"></xsl:template>
-    
-    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group">
-        <!--
-            Remove a apresentação dos autores, deixando apenas o botão "sobre os autores" e adicionando scimago
-        <xsl:apply-templates select="contrib[@contrib-type='author']" mode="article-meta-contrib"/>
-        -->
-        <xsl:apply-templates select="." mode="about-the-contrib-group-button"/>
-        <xsl:apply-templates select="." mode="scimago-button"/>
     </xsl:template>
 
-    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button">
+    <xsl:template match="front | front-stub" mode="contrib-group">
+        <xsl:variable name="id"><xsl:value-of select="../@id"/></xsl:variable>
+        <xsl:apply-templates select=".//contrib-group" mode="contrib-group">
+            <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+        </xsl:apply-templates>
+        <xsl:apply-templates select="." mode="scimago-button">
+            <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+        </xsl:apply-templates>
+
+        <xsl:if test="not(.//contrib-group) and ../@article-type='translation'">
+            <!-- obtém o front ou front-stub do parent de sub-article -->
+            <xsl:apply-templates select="../../front" mode="contrib-group"/>
+            <xsl:apply-templates select="../../front-stub" mode="contrib-group"/>
+        </xsl:if>
+    </xsl:template>
+        
+    <xsl:template match="contrib-group" mode="contrib-group">
+        <xsl:param name="id"/>
+        <!--
+            Remove a apresentação dos autores, deixando apenas o botão "sobre os autores
+        <xsl:apply-templates select="contrib[@contrib-type='author']" mode="article-meta-contrib"/>
+        -->
+        <xsl:apply-templates select="." mode="about-the-contrib-group-button">
+            <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="contrib-group" mode="about-the-contrib-group-button">
+        <xsl:param name="id"/>
         <!--
             Adiciona o botão 'About the contributor', trocando 'author',
             pelo tipo de contribuição
         -->
         <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
-            <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
             <a href="" class="outlineFadeLink" data-toggle="modal"
                 data-target="#ModalTutors{$id}">
                 <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
@@ -56,13 +84,12 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="scimago-button">
+    <xsl:template match="front | front-stub" mode="scimago-button">
+        <xsl:param name="id"/>
         <!--
-            Adiciona o botão 'About the contributor', trocando 'author',
-            pelo tipo de contribuição
+            Adiciona o botão 'SCIMAGO INSTITUTIONS RANKINGS'
         -->
-        <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
-            <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
+        <xsl:if test=".//aff">
             <a href="" class="outlineFadeLink" data-toggle="modal"
                 data-target="#ModalScimago{$id}">
                 SCIMAGO INSTITUTIONS RANKINGS
