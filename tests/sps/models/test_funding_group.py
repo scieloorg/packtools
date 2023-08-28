@@ -83,7 +83,6 @@ class FundingTest(TestCase):
             'Finance code 0001.'
         ]
         obtained = [item for item in self.funding.financial_disclosure]
-        print(obtained)
         for i, expect_output in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(expect_output, obtained[i])
@@ -108,6 +107,12 @@ class FundingTest(TestCase):
             "Hubei Provincial Natural Science Foundation of China"
         ]
         obtained = self.funding.funding_sources
+        self.assertEqual(expected, obtained)
+
+    def test_funding_statement(self):
+        expected = "Natural Science Foundation of Hunan Province Grant No. 2019JJ40269 Hubei Provincial Natural Science " \
+                   "Foundation of China Grant No. 2020CFB547"
+        obtained = self.funding.funding_statement
         self.assertEqual(expected, obtained)
 
 
