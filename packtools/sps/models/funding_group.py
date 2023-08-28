@@ -47,3 +47,7 @@ class FundingGroup:
         for node in self._xmltree.xpath(".//funding-group/award-group/funding-source"):
             items.append(node.text)
         return items
+
+    @property
+    def funding_statement(self):
+        return self._xmltree.xpath(".//funding-group/funding-statement")[0].text
