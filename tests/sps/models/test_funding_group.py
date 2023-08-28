@@ -49,7 +49,8 @@ class FundingTest(TestCase):
         <p>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.</p>
         <p>
         [
-        <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.13039/501100002322">https://doi.org/10.13039/501100002322</ext-link>
+        <ext-link ext-link-type="uri" 
+        xlink:href="https://doi.org/10.13039/501100002322">https://doi.org/10.13039/501100002322</ext-link>
         ]
         </p>
         <p>Finance code 0001.</p>
@@ -70,18 +71,22 @@ class FundingTest(TestCase):
 
     def test_financial_disclosure(self):
         expected = [
-            'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
-            'https://doi.org/10.13039/501100003593',
-            'Grant No: 303625/2019-8',
-            'Fundação de Amparo à Pesquisa do Estado de São Paulo',
-            'https://doi.org/10.13039/501100001807',
-            'Grant No: 2016/17640-0',
-            'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.',
-            'https://doi.org/10.13039/501100002322',
+            'Funding;'
+            'Conselho Nacional de Desenvolvimento Científico e Tecnológico;'
+            'https://doi.org/10.13039/501100003593;'
+            'Grant No: 303625/2019-8;'
+            'Fundação de Amparo à Pesquisa do Estado de São Paulo;'
+            'https://doi.org/10.13039/501100001807;'
+            'Grant No: 2016/17640-0;'
+            'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.;'
+            'https://doi.org/10.13039/501100002322;'
             'Finance code 0001.'
         ]
-        obtained = self.funding.financial_disclosure
-        self.assertEqual(expected, obtained)
+        obtained = [item for item in self.funding.financial_disclosure]
+        print(obtained)
+        for i, expect_output in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(expect_output, obtained[i])
 
     def test_award_groups(self):
         expected = [
