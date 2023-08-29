@@ -1401,6 +1401,33 @@ def xml_crossref_pid_pipe(xml_crossref, xml_tree):
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
 
 
+def xml_crossref_crossmark_pipe(xml_crossref):
+    """
+       Adiciona o elemento 'crossmark' ao xml_crossref.
+
+       Parameters
+       ----------
+       xml_crossref : lxml.etree._Element
+           Elemento XML no padrão CrossRef em construção
+
+       Returns
+       -------
+       <?xml version="1.0" encoding="UTF-8"?>
+       <doi_batch ...>
+          <body>
+             <journal>
+                <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                   <crossmark/>
+                </journal_article>
+             </journal>
+          </body>
+       </doi_batch>
+       """
+    crossmark = ET.Element("crossmark")
+
+    xml_crossref.find('./body/journal/journal_article').append(crossmark)
+
+
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'item_number' ao xml_crossref.
