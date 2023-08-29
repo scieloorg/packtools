@@ -4,41 +4,7 @@ from unittest.mock import patch
 from lxml import etree as ET
 
 from packtools.sps.utils import xml_utils
-from packtools.sps.formats.crossref import (
-    pipeline_crossref,
-    setupdoibatch_pipe,
-    xml_crossref_head_pipe,
-    xml_crossref_doibatchid_pipe,
-    xml_crossref_timestamp_pipe,
-    xml_crossref_depositor_pipe,
-    xml_crossref_registrant_pipe,
-    xml_crossref_body_pipe,
-    xml_crossref_journal_pipe,
-    xml_crossref_journalmetadata_pipe,
-    xml_crossref_journaltitle_pipe,
-    xml_crossref_abbreviatedjournaltitle_pipe,
-    xml_crossref_issn_pipe,
-    xml_crossref_journalissue_pipe,
-    xml_crossref_pubdate_pipe,
-    xml_crossref_journalvolume_pipe,
-    xml_crossref_volume_pipe,
-    xml_crossref_issue_pipe,
-    xml_crossref_journalarticle_pipe,
-    xml_crossref_articlecontributors_pipe,
-    xml_crossref_articleabstract_pipe,
-    xml_crossref_articlepubdate_pipe,
-    xml_crossref_pages_pipe,
-    xml_crossref_pid_pipe,
-    xml_crossref_elocation_pipe,
-    xml_crossref_permissions_pipe,
-    xml_crossref_articletitles_pipe,
-    xml_crossref_programrelateditem_pipe,
-    xml_crossref_doidata_pipe,
-    xml_crossref_doi_pipe,
-    xml_crossref_resource_pipe,
-    xml_crossref_collection_pipe,
-    xml_crossref_articlecitations_pipe,
-)
+from packtools.sps.formats.crossref import *
 
 
 class PipelineCrossref(TestCase):
