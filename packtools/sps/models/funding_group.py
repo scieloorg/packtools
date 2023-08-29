@@ -28,7 +28,7 @@ class FundingGroup:
     def financial_disclosure(self):
         # TODO separar os valores entre 'funding-source' e 'award-id'
         for node in self._xmltree.xpath(".//fn-group/fn[@fn-type='financial-disclosure']"):
-            yield ";".join([item.strip() for item in node.xpath(".//text()") if len(item.strip()) > 2])
+            yield " ".join([item.strip() for item in node.xpath(".//text()") if item.strip()])
 
     @property
     def award_groups(self):
