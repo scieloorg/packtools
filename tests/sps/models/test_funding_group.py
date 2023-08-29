@@ -71,15 +71,15 @@ class FundingTest(TestCase):
 
     def test_financial_disclosure(self):
         expected = [
-            'Funding;'
-            'Conselho Nacional de Desenvolvimento Científico e Tecnológico;'
-            'https://doi.org/10.13039/501100003593;'
-            'Grant No: 303625/2019-8;'
-            'Fundação de Amparo à Pesquisa do Estado de São Paulo;'
-            'https://doi.org/10.13039/501100001807;'
-            'Grant No: 2016/17640-0;'
-            'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.;'
-            'https://doi.org/10.13039/501100002322;'
+            'Funding '
+            'Conselho Nacional de Desenvolvimento Científico e Tecnológico '
+            '[ https://doi.org/10.13039/501100003593 ] '
+            'Grant No: 303625/2019-8 '
+            'Fundação de Amparo à Pesquisa do Estado de São Paulo '
+            '[ https://doi.org/10.13039/501100001807 ] '
+            'Grant No: 2016/17640-0 '
+            'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior. '
+            '[ https://doi.org/10.13039/501100002322 ] '
             'Finance code 0001.'
         ]
         obtained = [item for item in self.funding.financial_disclosure]
