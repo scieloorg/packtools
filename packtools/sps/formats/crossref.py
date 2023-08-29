@@ -1428,6 +1428,49 @@ def xml_crossref_crossmark_pipe(xml_crossref):
     xml_crossref.find('./body/journal/journal_article').append(crossmark)
 
 
+def xml_crossref_crossmark_policy_pipe(xml_crossref, data):
+    """
+        Adiciona o elemento 'crossmark_policy' ao xml_crossref.
+
+        Parameters
+        ----------
+        xml_crossref : lxml.etree._Element
+            Elemento XML no padrão CrossRef em construção
+
+        data : dict
+            Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+                data = {
+                    "crossmark_policy": "10.5555/crossmark_policy"
+                }
+
+        Returns
+        -------
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <body>
+                <journal>
+                    <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                        <crossmark>
+                            <crossmark_policy>10.5555/crossmark_policy</crossmark_policy>
+                        </crossmark>
+                    </journal_article>
+                </journal>
+            </body>
+        </doi_batch>
+    """
+    # TODO crossmark policy é usada para indicar a política CrossMark associada ao artigo.
+    #  A política CrossMark define como as atualizações, correções e informações sobre
+    #  o artigo serão tratadas e comunicadas aos leitores.
+    #  O valor atribuído à tag <crossmark_policy> pode variar, mas geralmente é uma URL que direciona para uma página
+    #  ou documento que descreve detalhadamente a política CrossMark aplicada ao artigo.
+    policy_value = data.get("crossmark_policy")
+    if policy_value:
+        policy_el = ET.Element("crossmark_policy")
+        policy_el.text = policy_value
+
+        xml_crossref.find('./body/journal/journal_article/crossmark').append(policy_el)
+
+
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'item_number' ao xml_crossref.

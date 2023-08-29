@@ -2094,6 +2094,42 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_crossref_crossmark_policy_pipe(self):
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<crossmark_policy>10.5555/crossmark_policy</crossmark_policy>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+            "crossmark_policy": "10.5555/crossmark_policy"
+        }
+
+        xml_crossref_crossmark_policy_pipe(xml_crossref, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
     def test_xml_pipe_line_crossref(self):
         xmltree = xml_utils.get_xml_tree('tests/samples/scielo_format_example.xml')
         data = {
