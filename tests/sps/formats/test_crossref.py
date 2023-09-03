@@ -2125,6 +2125,48 @@ class PipelineCrossref(TestCase):
         }
 
         xml_crossref_crossmark_policy_pipe(xml_crossref, data)
+    def test_xml_crossref_crossmark_domains_pipe(self):
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<crossmark_domains>'
+            '<crossmark_domain>'
+            '<domain>psychoceramics.labs.crossref.org</domain>'
+            '</crossmark_domain>'
+            '</crossmark_domains>'
+            '<crossmark_domain_exclusive>false</crossmark_domain_exclusive>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+            "crossmark_domains": ["psychoceramics.labs.crossref.org"],
+            "crossmark_domain_exclusive": "false"
+        }
+
+        crossref.xml_crossref_crossmark_domains_pipe(xml_crossref, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 

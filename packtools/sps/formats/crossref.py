@@ -1471,6 +1471,62 @@ def xml_crossref_crossmark_policy_pipe(xml_crossref, data):
         xml_crossref.find('./body/journal/journal_article/crossmark').append(policy_el)
 
 
+def xml_crossref_crossmark_domains_pipe(xml_crossref, data):
+    """
+        Adiciona o elemento 'crossmark_domains' ao xml_crossref.
+
+        Parameters
+        ----------
+        xml_crossref : lxml.etree._Element
+            Elemento XML no padrão CrossRef em construção
+
+        data : dict
+            Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+                data = {
+                    "crossmark_domains": ["psychoceramics.labs.crossref.org"],
+                    "crossmark_domain_exclusive": "false"
+                }
+
+        Returns
+        -------
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <body>
+                <journal>
+                    <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                        <crossmark>
+                            <crossmark_domains>
+                                <crossmark_domain>
+                                    <domain>psychoceramics.labs.crossref.org</domain>
+                                </crossmark_domain>
+                            </crossmark_domains>
+                            <crossmark_domain_exclusive>false</crossmark_domain_exclusive>
+                        </crossmark>
+                    </journal_article>
+                </journal>
+            </body>
+        </doi_batch>
+    """
+    crossmark_domains = data.get("crossmark_domains")
+    if crossmark_domains:
+        crossmark_domains_el = ET.Element("crossmark_domains")
+        for crossmark_domain_value in crossmark_domains:
+            crossmark_domain_el = ET.Element("crossmark_domain")
+            domain_el = ET.Element("domain")
+            domain_el.text = crossmark_domain_value
+            crossmark_domain_el.append(domain_el)
+            crossmark_domains_el.append(crossmark_domain_el)
+
+        xml_crossref.find('./body/journal/journal_article/crossmark').append(crossmark_domains_el)
+
+    crossmark_domain_exclusive = data.get("crossmark_domain_exclusive")
+    if crossmark_domain_exclusive:
+        crossmark_domain_exclusive_el = ET.Element("crossmark_domain_exclusive")
+        crossmark_domain_exclusive_el.text = crossmark_domain_exclusive
+
+        xml_crossref.find('./body/journal/journal_article/crossmark').append(crossmark_domain_exclusive_el)
+
+
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'item_number' ao xml_crossref.
