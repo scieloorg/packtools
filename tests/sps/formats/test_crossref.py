@@ -2167,6 +2167,48 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_crossref_crossmark_updates_pipe(self):
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<updates>'
+            '<update type="retraction" label="Retraction" date="2009-09-14">10.5555/12345678</update>'
+            '<update type="clarification" label="Clarification" date="2012-12-29">10.5555/666655554444</update>'
+            '</updates>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+            "updates": [
+                {"type": "retraction", "label": "Retraction", "date": "2009-09-14", "text": "10.5555/12345678"},
+                {"type": "clarification", "label": "Clarification", "date": "2012-12-29", "text": "10.5555/666655554444"}
+            ]
+        }
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
