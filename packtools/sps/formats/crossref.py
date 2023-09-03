@@ -1585,6 +1585,71 @@ def xml_crossref_crossmark_updates_pipe(xml_crossref, data):
     xml_crossref.find('./body/journal/journal_article/crossmark').append(updates_el)
 
 
+def xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, data):
+    """
+        Adiciona o elemento 'custom_metadata' ao xml_crossref.
+
+        Parameters
+        ----------
+        xml_crossref : lxml.etree._Element
+            Elemento XML no padrão CrossRef em construção
+
+        data : dict
+            Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+                data = {
+                    "assertions": [
+                        {
+                        "name": "remorse",
+                        "label": "Level of Remorse",
+                        "group_name": "publication_notes",
+                        "group_label": "Publication Notes",
+                        "text": "90%"
+                        }
+                    ]
+                }
+
+        Returns
+        -------
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doi_batch ...>
+            <body>
+                <journal>
+                    <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                        <crossmark>
+                            <custom_metadata>
+                                <assertion name="remorse" label="Level of Remorse" group_name="publication_notes" group_label="Publication Notes">90%</assertion>
+                            </custom_metadata>
+                        </crossmark>
+                    </journal_article>
+                </journal>
+            </body>
+        </doi_batch>
+    """
+    assertions = data.get("assertions")
+    if assertions:
+        custom_metadata_el = ET.Element("custom_metadata")
+        for assertion in assertions:
+            tx = assertion.get("text")
+            if tx:
+                assertion_el = ET.Element("assertion")
+                assertion_el.text = tx
+                nm = assertion.get("name")
+                if nm:
+                    assertion_el.set("name", nm)
+                lb = assertion.get("label")
+                if lb:
+                    assertion_el.set("label", lb)
+                gn = assertion.get("group_name")
+                if gn:
+                    assertion_el.set("group_name", gn)
+                gl = assertion.get("group_label")
+                if gl:
+                    assertion_el.set("group_label", gl)
+                custom_metadata_el.append(assertion_el)
+
+    xml_crossref.find('./body/journal/journal_article/crossmark').append(custom_metadata_el)
+
+
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'item_number' ao xml_crossref.

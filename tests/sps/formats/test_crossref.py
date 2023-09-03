@@ -2209,6 +2209,47 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_crossref_crossmark_custom_metadata_pipe(self):
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<custom_metadata>'
+            '<assertion name="remorse" label="Level of Remorse" group_name="publication_notes" group_label="Publication Notes">90%</assertion>'
+            '</custom_metadata>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+            "assertions": [
+                {
+                    "name": "remorse",
+                    "label": "Level of Remorse",
+                    "group_name": "publication_notes",
+                    "group_label": "Publication Notes",
+                    "text": "90%"
+                }
+            ]
+        }
+
+        crossref.xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
