@@ -2281,6 +2281,25 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_crossref_crossmark_updates_research_article_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">8sdNTpgmHMDpVKXZ4b4tn8G</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100401</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbAO263364_EN</article-id>'
+            '<article-id pub-id-type="other">00401</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.263364</article-id>'
+            '<related-article ext-link-type="doi" id="ra1" '
+            'related-article-type="corrected-article" xlink:href="10.1590/1519-6984.ER263364"/> '
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
         xml_crossref = ET.fromstring(
             '<doi_batch>'
             '<head/>'
@@ -2300,8 +2319,7 @@ class PipelineCrossref(TestCase):
             '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
             '<crossmark>'
             '<updates>'
-            '<update type="retraction" label="Retraction" date="2009-09-14">10.5555/12345678</update>'
-            '<update type="clarification" label="Clarification" date="2012-12-29">10.5555/666655554444</update>'
+            '<update type="research-article" label="Research-article">10.1590/1519-6984.ER263364</update>'
             '</updates>'
             '</crossmark>'
             '</journal_article>'
@@ -2309,14 +2327,7 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        data = {
-            "updates": [
-                {"type": "retraction", "label": "Retraction", "date": "2009-09-14", "text": "10.5555/12345678"},
-                {"type": "clarification", "label": "Clarification", "date": "2012-12-29", "text": "10.5555/666655554444"}
-            ]
-        }
-
-        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, data)
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
