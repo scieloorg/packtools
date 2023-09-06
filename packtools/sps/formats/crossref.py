@@ -1489,63 +1489,35 @@ def xml_crossref_crossmark_domains_pipe(xml_crossref, data):
         crossmark_el.append(crossmark_domain_exclusive_el)
 
 
-def xml_crossref_crossmark_updates_pipe(xml_crossref, data):
+def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree):
     """
-        Adiciona o elemento 'updates' ao xml_crossref.
+    Adiciona o elemento 'update' ao XML Crossref se houver um DOI de atualização.
 
-        Parameters
-        ----------
-        xml_crossref : lxml.etree._Element
-            Elemento XML no padrão CrossRef em construção
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
 
-        data : dict
-            Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
-                data = {
-                    "updates": [
-                        {"type": "retraction", "label": "Retraction", "date": "2009-09-14", "text": "10.5555/12345678"},
-                        {"type": "clarification", "label": "Clarification", "date": "2012-12-29", "text": "10.5555/666655554444"}
-                    ]
-                }
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados sobre atualizações
 
-        Returns
-        -------
-        <?xml version="1.0" encoding="UTF-8"?>
-        <doi_batch ...>
-            <body>
-                <journal>
-                    <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
-                        <crossmark>
-                            <updates>
-                                <update type="retraction" label="Retraction" date="2009-09-14">10.5555/12345678</update>
-                                <update type="clarification" label="Clarification" date="2012-12-29">10.5555/666655554444</update>
-                            </updates>
-                        </crossmark>
-                    </journal_article>
-                </journal>
-            </body>
-        </doi_batch>
+    Returns
+    -------
+    None
     """
-    updates = data.get("updates")
-    if updates:
-        updates_el = ET.Element("updates")
-        for update in updates:
-            tx = update.get("text")
-            if tx:
-                update_el = ET.Element("update")
-                update_el.text = tx
-                tp = update.get("type")
-                if tp:
-                    update_el.set("type", tp)
-                lb = update.get("label")
-                if lb:
-                    update_el.set("label", lb)
-                dt = update.get("date")
-                if dt:
-                    update_el.set("date", dt)
-                updates_el.append(update_el)
+    # Obter informações necessárias do XML SciELO
+    update_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
+    update_doi = [item.get('href') for item in related_articles.RelatedItems(xml_tree).related_articles][0]
 
-    xml_crossref.find('./body/journal/journal_article/crossmark').append(updates_el)
+    if update_doi:
+        update_el = ET.Element("update")
+        update_el.text = update_doi
+        update_el.set("type", update_type)
+        update_el.set("label", update_type.capitalize())
 
+        # Verificar se já existe um elemento 'updates' no XML Crossref
+        crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
+        updates_el = crossmark_el.find('updates')
 
 def xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, data):
     """
