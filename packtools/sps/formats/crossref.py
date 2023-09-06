@@ -19,6 +19,7 @@ from packtools.sps.models import (
     article_titles,
     article_doi_with_lang,
     article_citations,
+    related_articles,
 )
 
 SUPPLBEG_REGEX = re.compile(r'^0 ')
@@ -1403,29 +1404,20 @@ def xml_crossref_pid_pipe(xml_crossref, xml_tree):
 
 def xml_crossref_crossmark_pipe(xml_crossref):
     """
-       Adiciona o elemento 'crossmark' ao xml_crossref.
+    Adiciona o elemento 'crossmark' ao XML Crossref.
 
-       Parameters
-       ----------
-       xml_crossref : lxml.etree._Element
-           Elemento XML no padrão CrossRef em construção
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
 
-       Returns
-       -------
-       <?xml version="1.0" encoding="UTF-8"?>
-       <doi_batch ...>
-          <body>
-             <journal>
-                <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
-                   <crossmark/>
-                </journal_article>
-             </journal>
-          </body>
-       </doi_batch>
-       """
+    Returns
+    -------
+    None
+    """
     crossmark = ET.Element("crossmark")
-
-    xml_crossref.find('./body/journal/journal_article').append(crossmark)
+    article_el = xml_crossref.find('./body/journal/journal_article')
+    article_el.append(crossmark)
 
 
 def xml_crossref_crossmark_policy_pipe(xml_crossref, data):
