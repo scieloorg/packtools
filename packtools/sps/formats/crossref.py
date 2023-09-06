@@ -1519,69 +1519,77 @@ def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree):
         crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
         updates_el = crossmark_el.find('updates')
 
-def xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, data):
+        if updates_el is None:
+            updates_el = ET.Element("updates")
+            crossmark_el.append(updates_el)
+
+        updates_el.append(update_el)
+
+
+def xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, xml_tree, data):
     """
-        Adiciona o elemento 'custom_metadata' ao xml_crossref.
+    Adiciona o elemento 'custom_metadata' ao xml_crossref.
 
-        Parameters
-        ----------
-        xml_crossref : lxml.etree._Element
-            Elemento XML no padrão CrossRef em construção
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
 
-        data : dict
-            Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
-                data = {
-                    "assertions": [
-                        {
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados sobre atualizações
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+            data = {
+                "assertions": [
+                    {
                         "name": "remorse",
                         "label": "Level of Remorse",
                         "group_name": "publication_notes",
                         "group_label": "Publication Notes",
                         "text": "90%"
-                        }
-                    ]
-                }
+                    }
+                ]
+            }
 
-        Returns
-        -------
-        <?xml version="1.0" encoding="UTF-8"?>
-        <doi_batch ...>
-            <body>
-                <journal>
-                    <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
-                        <crossmark>
-                            <custom_metadata>
-                                <assertion name="remorse" label="Level of Remorse" group_name="publication_notes" group_label="Publication Notes">90%</assertion>
-                            </custom_metadata>
-                        </crossmark>
-                    </journal_article>
-                </journal>
-            </body>
-        </doi_batch>
+    Returns
+    -------
+    None
     """
+    history = dates.ArticleDates(xml_tree).history_dates_dict
+
+    for order, item in enumerate(history):
+        event = history[item]
+        data.get("assertions").insert(order,
+            {
+                "name": event.get("type"),
+                "label": event.get("type").capitalize(),
+                "group_name": "publication_history",
+                "group_label": "Publication History",
+                "order": str(order),
+                "text": '-'.join([event.get("year"), event.get("month"), event.get("day")])
+            }
+        )
+
     assertions = data.get("assertions")
+
     if assertions:
+        crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
         custom_metadata_el = ET.Element("custom_metadata")
+
         for assertion in assertions:
-            tx = assertion.get("text")
-            if tx:
+            text = assertion.get("text")
+            if text:
                 assertion_el = ET.Element("assertion")
-                assertion_el.text = tx
-                nm = assertion.get("name")
-                if nm:
-                    assertion_el.set("name", nm)
-                lb = assertion.get("label")
-                if lb:
-                    assertion_el.set("label", lb)
-                gn = assertion.get("group_name")
-                if gn:
-                    assertion_el.set("group_name", gn)
-                gl = assertion.get("group_label")
-                if gl:
-                    assertion_el.set("group_label", gl)
+                assertion_el.text = text
+                attributes = ["name", "label", "group_name", "group_label", "order"]
+                for attr in attributes:
+                    value = assertion.get(attr)
+                    if value:
+                        assertion_el.set(attr, value)
                 custom_metadata_el.append(assertion_el)
 
-    xml_crossref.find('./body/journal/journal_article/crossmark').append(custom_metadata_el)
+        crossmark_el.append(custom_metadata_el)
 
 
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):
