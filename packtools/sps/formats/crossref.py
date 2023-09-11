@@ -1414,6 +1414,16 @@ def xml_crossref_crossmark_pipe(xml_crossref):
     Returns
     -------
     None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark/>
+            </journal_article>
+        </journal>
+    </body>
     """
     crossmark = ET.Element("crossmark")
     article_el = xml_crossref.find('./body/journal/journal_article')
@@ -1438,6 +1448,18 @@ def xml_crossref_crossmark_policy_pipe(xml_crossref, data):
     Returns
     -------
     None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark>
+                    <crossmark_policy>10.5555/crossmark_policy</crossmark_policy>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
     """
     policy_value = data.get("crossmark_policy")
 
@@ -1467,6 +1489,23 @@ def xml_crossref_crossmark_domains_pipe(xml_crossref, data):
     Returns
     -------
     None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark>
+                    <crossmark_domains>
+                        <crossmark_domain>
+                            <domain>psychoceramics.labs.crossref.org</domain>
+                        </crossmark_domain>
+                    </crossmark_domains>
+                    <crossmark_domain_exclusive>false</crossmark_domain_exclusive>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
     """
     crossmark_domains = data.get("crossmark_domains")
     crossmark_domain_exclusive = data.get("crossmark_domain_exclusive")
@@ -1504,14 +1543,28 @@ def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree):
     Returns
     -------
     None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="correction" reference_distribution_opts="any">
+                <crossmark>
+                    <updates>
+                        <update type="correction" label="Correction">10.1590/1519-6984.263364</update>
+                    </updates>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
     """
     # Obter informações necessárias do XML SciELO
     update_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
-    update_doi = [item.get('href') for item in related_articles.RelatedItems(xml_tree).related_articles][0]
+    update_doi = [item.get('href') for item in related_articles.RelatedItems(xml_tree).related_articles]
 
     if update_doi:
         update_el = ET.Element("update")
-        update_el.text = update_doi
+        update_el.text = update_doi[0]
         update_el.set("type", update_type)
         update_el.set("label", update_type.capitalize())
 
@@ -1555,6 +1608,22 @@ def xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, xml_tree, data):
     Returns
     -------
     None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark>
+                    <custom_metadata>
+                        <assertion name="received" label="Received" group_name="publication_history" group_label="Publication History" order="0">2022-04-23</assertion>
+                        <assertion name="accepted" label="Accepted" group_name="publication_history" group_label="Publication History" order="1">2022-08-17</assertion>
+                        <assertion name="remorse" label="Level of Remorse" group_name="publication_notes" group_label="Publication Notes">90%</assertion>
+                    </custom_metadata>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
     """
     history = dates.ArticleDates(xml_tree).history_dates_dict
 
