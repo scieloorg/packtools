@@ -2224,6 +2224,52 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
+    def test_xml_crossref_crossmark_updates_article_without_related_article_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">5chbLYfpJfJVdGRbTD6krTQ</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100903</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbER263364</article-id>'
+            '<article-id pub-id-type="other">00903</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.ER263364</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
     def test_xml_crossref_crossmark_updates_correction_exists_updates_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
