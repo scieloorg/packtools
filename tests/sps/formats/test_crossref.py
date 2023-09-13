@@ -2218,7 +2218,9 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree)
+        data = {}
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2264,7 +2266,9 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree)
+        data = {}
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2321,7 +2325,14 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree)
+        data = {
+                    "related-articles": [
+                        {"related-article-type": "letter", "href": "10.1590/YYYY-YYYYY.YYYYYY", "date": "1900-01-01"},
+                        {"related-article-type": "retracted-article", "href": "10.1590/XXXX-XXXX.XXXXXX", "date": "1900-01-01"},
+                    ]
+                }
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
