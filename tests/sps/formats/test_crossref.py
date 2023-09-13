@@ -2274,7 +2274,7 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
-    def test_xml_crossref_crossmark_updates_correction_exists_updates_pipe(self):
+    def test_xml_crossref_crossmark_updates_correction_with_complementary_data_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" dtd-version="1.1" '
@@ -2299,11 +2299,7 @@ class PipelineCrossref(TestCase):
             '<body>'
             '<journal>'
             '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
-            '<crossmark>'
-            '<updates>'
-            '<update type="research-article" label="Research-article">10.1590/1519-6984.ER263364</update>'
-            '</updates>'
-            '</crossmark>'
+            '<crossmark/>'
             '</journal_article>'
             '</journal>'
             '</body>'
@@ -2316,8 +2312,9 @@ class PipelineCrossref(TestCase):
             '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
             '<crossmark>'
             '<updates>'
-            '<update type="research-article" label="Research-article">10.1590/1519-6984.ER263364</update>'
-            '<update type="correction" label="Correction">10.1590/1519-6984.263364</update>'
+            '<update type="correction">10.1590/1519-6984.263364</update>'
+            '<update type="addendum" date="1900-01-01">10.1590/YYYY-YYYYY.YYYYYY</update>'
+            '<update type="retraction" date="1900-01-01">10.1590/XXXX-XXXX.XXXXXX</update>'
             '</updates>'
             '</crossmark>'
             '</journal_article>'
@@ -2376,7 +2373,7 @@ class PipelineCrossref(TestCase):
             '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
             '<crossmark>'
             '<updates>'
-            '<update type="research-article" label="Research-article">10.1590/1519-6984.ER263364</update>'
+            '<update type="correction">10.1590/1519-6984.ER263364</update>'
             '</updates>'
             '</crossmark>'
             '</journal_article>'
@@ -2384,7 +2381,13 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree)
+        data = {}
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
