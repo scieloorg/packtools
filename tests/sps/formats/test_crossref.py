@@ -2210,7 +2210,7 @@ class PipelineCrossref(TestCase):
             '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
             '<crossmark>'
             '<updates>'
-            '<update type="correction" label="Correction">10.1590/1519-6984.263364</update>'
+            '<update type="correction">10.1590/1519-6984.263364</update>'
             '</updates>'
             '</crossmark>'
             '</journal_article>'
