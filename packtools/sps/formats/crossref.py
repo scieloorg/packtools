@@ -1578,24 +1578,25 @@ def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data):
     """
 
     # Obter informações necessárias do XML SciELO
-    update_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
-    update_doi = [item.get('href') for item in related_articles.RelatedItems(xml_tree).related_articles]
+    rel_articles = [item for item in related_articles.RelatedItems(xml_tree).related_articles]
+    rel_articles_from_data = data.get("related-articles")
 
-    if update_doi:
-        update_el = ET.Element("update")
-        update_el.text = update_doi[0]
-        update_el.set("type", update_type)
-        update_el.set("label", update_type.capitalize())
+    if rel_articles_from_data:
+        rel_articles.extend(rel_articles_from_data)
 
-        # Verificar se já existe um elemento 'updates' no XML Crossref
-        crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
-        updates_el = crossmark_el.find('updates')
+    for rel_article in rel_articles:
+        if rel_article:
+            update_el = create_update_element(rel_article)
 
-        if updates_el is None:
-            updates_el = ET.Element("updates")
-            crossmark_el.append(updates_el)
+            # Verificar se já existe um elemento 'updates' no XML Crossref
+            crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
+            updates_el = crossmark_el.find('updates')
 
-        updates_el.append(update_el)
+            if updates_el is None:
+                updates_el = ET.Element("updates")
+                crossmark_el.append(updates_el)
+
+            updates_el.append(update_el)
 
 
 def xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, xml_tree, data):
