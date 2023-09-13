@@ -1531,6 +1531,22 @@ def xml_crossref_crossmark_domains_pipe(xml_crossref, data):
 
 
 def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree):
+def create_update_element(rel_article):
+    update_el = ET.Element("update")
+    href = rel_article.get("href")
+    tp = crossmark_pub_types.get(rel_article.get("related-article-type"))
+    date = rel_article.get("date")
+
+    if href:
+        update_el.text = href
+    if tp:
+        update_el.set("type", tp)
+    if date:
+        update_el.set("date", date)
+
+    return update_el
+
+
     """
     Adiciona o elemento 'update' ao XML Crossref se houver um DOI de atualização.
 
