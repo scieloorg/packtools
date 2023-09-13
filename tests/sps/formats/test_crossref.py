@@ -2226,10 +2226,10 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
-    def test_xml_crossref_crossmark_updates_article_without_related_article_pipe(self):
+    def test_xml_crossref_crossmark_updates_correction_without_updates_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" dtd-version="1.1" '
             'specific-use="sps-1.9" xml:lang="en">'
             '<front>'
             '<article-meta>'
@@ -2248,7 +2248,7 @@ class PipelineCrossref(TestCase):
             '<head/>'
             '<body>'
             '<journal>'
-            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
             '<crossmark/>'
             '</journal_article>'
             '</journal>'
@@ -2259,7 +2259,7 @@ class PipelineCrossref(TestCase):
         expected = (
             '<body>'
             '<journal>'
-            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
             '<crossmark/>'
             '</journal_article>'
             '</journal>'
