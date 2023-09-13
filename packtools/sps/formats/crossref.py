@@ -6,6 +6,8 @@ from datetime import datetime
 
 from lxml import etree as ET
 
+from packtools.sps.formats.values import crossmark_pub_types
+
 from packtools.sps.models import (
     journal_meta,
     dates,
