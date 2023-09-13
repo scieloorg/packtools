@@ -1530,7 +1530,6 @@ def xml_crossref_crossmark_domains_pipe(xml_crossref, data):
         crossmark_el.append(crossmark_domain_exclusive_el)
 
 
-def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree):
 def create_update_element(rel_article):
     update_el = ET.Element("update")
     href = rel_article.get("href")
@@ -1547,6 +1546,7 @@ def create_update_element(rel_article):
     return update_el
 
 
+def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data):
     """
     Adiciona o elemento 'update' ao XML Crossref se houver um DOI de atualização.
 
@@ -1569,13 +1569,14 @@ def create_update_element(rel_article):
             <journal_article language="en" publication_type="correction" reference_distribution_opts="any">
                 <crossmark>
                     <updates>
-                        <update type="correction" label="Correction">10.1590/1519-6984.263364</update>
+                        <update type="correction">10.1590/1519-6984.263364</update>
                     </updates>
                 </crossmark>
             </journal_article>
         </journal>
     </body>
     """
+
     # Obter informações necessárias do XML SciELO
     update_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
     update_doi = [item.get('href') for item in related_articles.RelatedItems(xml_tree).related_articles]
