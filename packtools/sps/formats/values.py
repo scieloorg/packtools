@@ -1,18 +1,18 @@
 # As correlações abaixo precisam de validação
 
 crossmark_pub_types = {
-"addendum": "addendum",
-"commentary": "clarification",
-"commentary-article": "clarification",
-"companion": "addendum",
-"corrected-article": "correction",
-"correction-forward": "correction",
-"in-this-issue": "clarification",
-"letter": "addendum",
-"partial-retraction": "partial-retraction",
-"retracted-article": "retraction",
-"retraction-forward": "retraction"
-}
+    "addendum": "addendum",
+    "commentary": "clarification",
+    "commentary-article": "clarification",
+    "companion": "addendum",
+    "corrected-article": "correction",
+    "correction-forward": "correction",
+    "in-this-issue": "clarification",
+    "letter": "addendum",
+    "partial-retraction": "partial-retraction",
+    "retracted-article": "retraction",
+    "retraction-forward": "retraction"
+    }
 
 
 # https://jats.nlm.nih.gov/publishing/tag-library/1.0/
