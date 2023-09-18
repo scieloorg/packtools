@@ -5,7 +5,7 @@
         <xsl:apply-templates select="." mode="contrib-group">
             <xsl:with-param name="id"><xsl:value-of select="../../../@id"/></xsl:with-param>
         </xsl:apply-templates>
-        <xsl:if test="../aff">
+        <xsl:if test="..//aff">
             <xsl:apply-templates select=".." mode="scimago-button">
                 <xsl:with-param name="id"><xsl:value-of select="../../../@id"/></xsl:with-param>
             </xsl:apply-templates>
@@ -16,7 +16,7 @@
         <xsl:apply-templates select="." mode="contrib-group">
             <xsl:with-param name="id"><xsl:value-of select="../../@id"/></xsl:with-param>
         </xsl:apply-templates>
-        <xsl:if test="../aff">
+        <xsl:if test="..//aff">
             <xsl:apply-templates select=".." mode="scimago-button">
                 <xsl:with-param name="id"><xsl:value-of select="../../@id"/></xsl:with-param>
             </xsl:apply-templates>
@@ -26,9 +26,9 @@
     <xsl:template match="article" mode="article-meta-contrib">
         <xsl:choose>
             <xsl:when
-                test=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
+                test="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]">
                 <xsl:apply-templates
-                    select=".//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="contrib-group"/>
+                    select="sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]" mode="contrib-group"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="." mode="contrib-group"/>
@@ -53,6 +53,7 @@
         </xsl:apply-templates>
 
         <xsl:if test="not(.//contrib-group) and ../@article-type='translation'">
+            <!-- obtém o front ou front-stub do parent de sub-article -->
             <xsl:apply-templates select="../../front" mode="contrib-group"/>
             <xsl:apply-templates select="../../front-stub" mode="contrib-group"/>
         </xsl:if>

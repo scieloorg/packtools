@@ -1,0 +1,1618 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="other" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Epidemiol Serv Saude</journal-id>
+      <journal-id journal-id-type="publisher-id">ress</journal-id>
+      <journal-title-group>
+        <journal-title>Epidemiologia e Serviços de Saúde</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Epidemiol. Serv. Saúde</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1679-4974</issn>
+      <issn pub-type="epub">2237-9622</issn>
+      <publisher>
+        <publisher-name>Secretaria de Vigilância em Saúde e Ambiente - Ministério da Saúde do Brasil</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">FngWzPqXpsVJGyxLD5PSHPg</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S2237-96222023000200600</article-id>
+      <article-id pub-id-type="doi">10.1590/S2237-96222023000200017</article-id>
+      <article-id pub-id-type="other">00600</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>EXPERIENCE REPORT</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Technology transfer during the COVID-19 pandemic: report on the first face-to-face practical training course in Brazil</article-title>
+        <trans-title-group xml:lang="es">
+          <trans-title>Transferencia de tecnología durante la epidemia de COVID-19 en Brasil: informe de la primera formación práctica presencial</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-0088-9036</contrib-id>
+          <name>
+            <surname>Barreto</surname>
+            <given-names>Fernanda Khouri</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+          <role>conception and design</role>
+          <role> analysis and interpretation </role>
+          <role> drafting and reviewing </role>
+          <role> integrity</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-0261-3495</contrib-id>
+          <name>
+            <surname>Santos</surname>
+            <given-names>Luciane Amorim</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">
+            <sup>2</sup>
+          </xref>
+          <role>conception and design</role>
+          <role> analysis and interpretation </role>
+          <role> drafting and reviewing </role>
+          <role> integrity</role>
+          <role> planning </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-5849-7326</contrib-id>
+          <name>
+            <surname>Giovanetti</surname>
+            <given-names>Marta</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">
+            <sup>3</sup>
+          </xref>
+          <role>conception and design</role>
+          <role> analysis and interpretation </role>
+          <role> drafting and reviewing </role>
+          <role> integrity</role>
+          <role> planning </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-5521-6448</contrib-id>
+          <name>
+            <surname>Fonseca</surname>
+            <given-names>Vagner</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff4">
+            <sup>4</sup>
+          </xref>
+          <role> planning </role>
+          <role> integrity</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-1067-1882</contrib-id>
+          <name>
+            <surname>Aburjaile</surname>
+            <given-names>Flavia</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff5">
+            <sup>5</sup>
+          </xref>
+          <role> planning </role>
+          <role> integrity</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-2157-3452</contrib-id>
+          <name>
+            <surname>Silva</surname>
+            <given-names>Joscelio Aguiar</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff6">
+            <sup>6</sup>
+          </xref>
+          <role> integrity</role>
+          <role> funding and feasibility</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-9397-9777</contrib-id>
+          <name>
+            <surname>Freitas</surname>
+            <given-names>Carla</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff7">
+            <sup>7</sup>
+          </xref>
+          <role> planning </role>
+          <role> integrity</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-2184-5531</contrib-id>
+          <name>
+            <surname>Peterka</surname>
+            <given-names>Cassio Roberto Leonel</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff6">
+            <sup>6</sup>
+          </xref>
+          <role> integrity</role>
+          <role> funding and feasibility</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-8044-061X</contrib-id>
+          <name>
+            <surname>Rico</surname>
+            <given-names>Jairo Mendez</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff8">
+            <sup>8</sup>
+          </xref>
+          <role> integrity</role>
+          <role> funding and feasibility</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-0617-0679</contrib-id>
+          <name>
+            <surname>Almiron</surname>
+            <given-names>Maria</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff8">
+            <sup>8</sup>
+          </xref>
+          <role> integrity</role>
+          <role> funding and feasibility</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-0581-5535</contrib-id>
+          <name>
+            <surname>Melo</surname>
+            <given-names>Carlos Frederico Campelo de Albuquerque e</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff4">
+            <sup>4</sup>
+          </xref>
+          <role> integrity</role>
+          <role> funding and feasibility</role>
+          <role> analysis and interpretation </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6769-9931</contrib-id>
+          <name>
+            <surname>Alcântara</surname>
+            <given-names>Luiz Carlos Júnior</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">
+            <sup>3</sup>
+          </xref>
+          <role>conception and design</role>
+          <role> analysis and interpretation </role>
+          <role> drafting and reviewing </role>
+          <role> integrity</role>
+          <role> funding and feasibility</role>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>1</label>
+        <institution content-type="original">Universidade Federal da Bahia, Instituto Multidisciplinar em Saúde, Vitória da Conquista, BA, Brazil</institution>
+        <institution content-type="orgname">Universidade Federal da Bahia</institution>
+        <institution content-type="orgdiv1">Instituto Multidisciplinar em Saúde</institution>
+        <addr-line>
+          <city>Vitória da Conquista</city>
+          <state>BA</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff2">
+        <label>2</label>
+        <institution content-type="original">Escola Bahiana de Medicina e Saúde Pública, Salvador, BA, Brazil</institution>
+        <institution content-type="orgname">Escola Bahiana de Medicina e Saúde Pública</institution>
+        <addr-line>
+          <city>Salvador</city>
+          <state>BA</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff3">
+        <label>3</label>
+        <institution content-type="original">Fundação Instituto Oswaldo Cruz, Laboratório de Mosquitos Vetores - Endossimbiontes e Interação Patógeno-Vetor, Belo Horizonte, MG, Brazil</institution>
+        <institution content-type="orgname">Fundação Instituto Oswaldo Cruz</institution>
+        <institution content-type="orgdiv1">Laboratório de Mosquitos Vetores - Endossimbiontes e Interação Patógeno-Vetor</institution>
+        <addr-line>
+          <city>Belo Horizonte</city>
+          <state>MG</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff4">
+        <label>4</label>
+        <institution content-type="original">Organização Pan-Americana da Saúde, Organização Mundial da Saúde, Brasília, DF, Brazil</institution>
+        <institution content-type="orgdiv1">Organização Pan-Americana da Saúde</institution>
+        <institution content-type="orgname">Organização Mundial da Saúde</institution>
+        <addr-line>
+          <city>Brasília</city>
+          <state>DF</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff5">
+        <label>5</label>
+        <institution content-type="original">Universidade Federal de Minas Gerais, Belo Horizonte, MG, Brazil</institution>
+        <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+        <addr-line>
+          <city>Belo Horizonte</city>
+          <state>MG</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff6">
+        <label>6</label>
+        <institution content-type="original">Ministério da Saúde, Secretaria de Vigilância em Saúde e Ambiente, Coordenação-Geral das Arboviroses, Brasília, DF, Brazil</institution>
+        <institution content-type="orgname">Ministério da Saúde</institution>
+        <institution content-type="orgdiv1">Secretaria de Vigilância em Saúde e Ambiente</institution>
+        <institution content-type="orgdiv2">Coordenação-Geral das Arboviroses</institution>
+        <addr-line>
+          <city>Brasília</city>
+          <state>DF</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff7">
+        <label>7</label>
+        <institution content-type="original">Ministério da Saúde, Secretaria de Vigilância em Saúde e Ambiente, Coordenação-Geral de Laboratórios de Saúde Pública, Brasília, DF, Brazil</institution>
+        <institution content-type="orgname">Ministério da Saúde</institution>
+        <institution content-type="orgdiv1">Secretaria de Vigilância em Saúde e Ambiente</institution>
+        <institution content-type="orgdiv2">Coordenação-Geral de Laboratórios de Saúde Pública</institution>
+        <addr-line>
+          <city>Brasília</city>
+          <state>DF</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+      </aff>
+      <aff id="aff8">
+        <label>8</label>
+        <institution content-type="original">Pan American Health Organization, Health Emergencies Department, Washington, DC, United States</institution>
+        <institution content-type="orgname">Pan American Health Organization</institution>
+        <institution content-type="orgdiv1">Health Emergencies Department</institution>
+        <addr-line>
+          <city>Washington</city>
+          <state>DC</state>
+        </addr-line>
+        <country country="US">United States</country>
+      </aff>
+      <author-notes>
+        <corresp id="c1"><label>Correspondence:</label> Luiz Carlos Júnior Alcântara. <label>E-mail:</label> <email>luiz.alcantara@fiocruz.br</email> </corresp>
+        <fn fn-type="con" id="fn1">
+          <label>AUTHOR CONTRIBUTIONS</label>
+          <p> Barreto FK, Santos LA, Giovanetti M and Alcântara LCJ collaborated with the study conception and design, analysis and interpretation of the results, drafting and critical reviewing of the manuscript content. Fonseca V, Aburjaile F, Freitas C, Santos LA and Giovanetti M collaborated with the planning and implementation of the course, analysis and interpretation of the results. Silva JA, Peterka CRL, Rico JM, Almiron M, Medeiros AC, Melo CFCA and Alcântara LCJ collaborated with funding and feasibility, analysis and interpretation of the results. All authors have approved the final version of the manuscript and declared themselves to be responsible for all aspects of the work, including ensuring its accuracy and integrity.</p>
+        </fn>
+        <fn fn-type="conflict" id="fn2">
+          <label>CONFLICTS OF INTEREST</label>
+          <p> The authors declare they have no conflicts of interest.</p>
+        </fn>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>18</day>
+        <month>08</month>
+        <year>2023</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2023</year>
+      </pub-date>
+      <volume>32</volume>
+      <issue>2</issue>
+      <elocation-id>e2022614</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>18</day>
+          <month>08</month>
+          <year>2022</year>
+        </date>
+        <date date-type="accepted">
+          <day>06</day>
+          <month>06</month>
+          <year>2023</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License</license-p>
+        </license>
+      </permissions>
+      <abstract abstract-type="key-points">
+        <title>Study contributions</title>
+        <sec>
+          <title>Main results</title>
+          <p>Technology transfer can take place at large events, as long as safety protocols are strictly enforced. It is important to disseminate, at these events, the concepts of the Responsible Research and Innovation (RRI).</p>
+        </sec>
+        <sec>
+          <title>Implications for services</title>
+          <p>Face-to-face training course is fundamental for training public health professionals. Technology transfer between research institutions and health services results in updating and improving health system performance.</p>
+        </sec>
+        <sec>
+          <title>Perspectives</title>
+          <p>Based on the success of the reported technology transfer, a new module will be incorporated into the next edition of VEME (Panama 2022), entitled Virus Evolution to Public Health Policy Makers.</p>
+        </sec>
+      </abstract>
+      <abstract>
+        <title>Abstract</title>
+        <p>The objective of this report was to describe the first face-to-face course aimed at training public health professionals in performing real-time genomic surveillance during the pandemic period. Experience report on a theoretical-practical course focusing on genomic research and surveillance, including mobile sequencing technologies, bioinformatics, phylogenetics and epidemiological modeling. There were 162 participants in the event and it was the first major face-to-face training course conducted during the COVID-19 epidemic in Brazil. No cases of SARS-CoV-2 infection was detected among the participants at the end of the event, suggesting the safety and effectiveness of all safety measures adopted. The results of this experience suggest that it is possible to conduct professional training safely during pandemics, as long as all safety protocols are followed.</p>
+      </abstract>
+      <trans-abstract xml:lang="es">
+        <title>Resumen</title>
+        <p>Este estudio tuvo como objetivo describir el primer curso presencial para capacitar a los profesionales de la salud pública para llevar a cabo la vigilancia genómica en tiempo real durante los períodos de pandemia. Este es un informe de experiencia en un curso teórico-práctico centrado en la investigación y vigilancia genómica, que incluye secuenciación móvil, bioinformática, filogenética y tecnologías de modelado epidemiológico. Este evento contó con la asistencia de 162 participantes y fue la primera gran capacitación presencial realizada durante la epidemia de COVID-19 en Brasil. No se detectó infección por SARS-CoV-2 al final del evento en ningún participante, lo que sugiere la seguridad y efectividad de todas las medidas de seguridad adoptadas. Por lo tanto, los resultados del evento sugieren que es posible realizar entrenamientos profesionales de manera segura durante pandemias, siempre y cuando se sigan todos los protocolos de seguridad.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>COVID-19</kwd>
+        <kwd>Pandemic</kwd>
+        <kwd>Professional Training</kwd>
+        <kwd>Health Human Resources Development</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="es">
+        <title>Palabras-clave:</title>
+        <kwd>COVID-19</kwd>
+        <kwd>Pandemia</kwd>
+        <kwd>Capacitación Profesional</kwd>
+        <kwd>Capacitación de Recursos Humanos en Salud</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group award-type="contract">
+          <funding-source>National Council for Scientific and Technological Development/Ministry of Science, Technology and Innovations (Conselho Nacional de Desenvolvimento Científico e Tecnológico - CNPq/MCTI)</funding-source>
+          <award-id>SCON2021-00180</award-id>
+        </award-group>
+        <funding-statement>The author Luiz Carlos Júnior Alcântara received financial support from the National Council for Scientific and Technological Development/Ministry of Science, Technology and Innovations (Conselho Nacional de Desenvolvimento Científico e Tecnológico - CNPq/MCTI) (SCON2021-00180)</funding-statement>
+      </funding-group>
+      <counts>
+        <fig-count count="2"/>
+        <table-count count="2"/>
+        <equation-count count="0"/>
+        <ref-count count="21"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>INTRODUCTION</title>
+      <p>Pandemics are part of the group of natural disaster events triggered by socio-environmental phenomena and imbalances that affect populations. In this context, on January 30, 2020, the World Health Organization (WHO) characterized the outbreak of Coronavirus Disease 2019 (COVID-19). Having started in Wuhan, China, as a Public Health Emergency of International Concern,<xref ref-type="bibr" rid="B1"><sup>1</sup></xref> the disease quickly turned into a major global challenge and in March 2020, it was declared as a pandemic, requiring a rapid health response.<xref ref-type="bibr" rid="B2"><sup>2</sup></xref> </p>
+      <p>Understanding the spread of potentially pandemic viral infectious diseases is fundamental in order to support public health decisions. An important method of monitoring these diseases is genomic and epidemiological surveillance, which enables the rapid identification of these infectious agents. Since the beginning of the<xref ref-type="bibr" rid="B3"><sup>3</sup></xref> pandemic, the spread of the causative agent - Severe Acute Respiratory Syndrome Coronavirus 2 (SARS-CoV-2) - of COVID-19 has been monitored worldwide, with different surveillance strategies, by which the virus evolution can be observed and shared in real time.<xref ref-type="bibr" rid="B4"><sup>4</sup></xref> </p>
+      <p>In Brazil, each Federative Unit (UF), including the Federal District, has a Central Public Health Laboratory (<italic>Laboratório Central de Saúde Pública</italic> - LACEN), under the General Coordination of Public Health Laboratories (<italic>Coordenação-Geral de Laboratórios de Saúde Pública</italic> - CGLAB), within Health and Environment Surveillance Secretariat of the Ministry of Health. The LACENs have, as their main function, to assist the states in the areas of epidemiological, sanitary and environmental surveillance (Organic Law No. 8080).<xref ref-type="bibr" rid="B5"><sup>5</sup></xref> Consequently, these laboratories are involved in the diagnosis and monitoring of diseases of public health concern and are responsible for a significant portion of the diagnosis of emerging and re-emerging diseases, such as arboviruses and COVID-19.</p>
+      <p>During the COVID-19 pandemic, LACENs played a key role in identifying variants of concern, given that they receive samples from all regions of the country. However, in addition to the basic infrastructure, updating the bioinformatics tools necessary for data analysis is extremely important. This analysis still represents a major challenge for public health professionals, since it involves specific techniques from the area of scientific research and that are not widely used in practical experience at LACENs.</p>
+      <p>In an attempt to strengthen the action of national epidemiological surveillance through technology transfer, in September 2021, the first face-to-face training was held in Brazil, where the epidemiological and genomic data generated were analyzed by health professionals from LACENs, during the event entitled Bioinformatics Workshop on Virus Evolution and Molecular Epidemiology (VEME).</p>
+      <p>VEME is a traditional course aimed at training participants in the use of bioinformatics tools applied to epidemiology and virus evolution. It features internationally acclaimed professors who are expert on that field, and its founder and organizer is Professor Anne-Mieke Vandamme from KU Leuven, University of Leuven, Belgium. This is an annual event with more than 26 editions, each of them is held in a different city in the world.<xref ref-type="bibr" rid="B6"><sup>6</sup></xref> The event’s basic premise is the dissemination of scientific knowledge, providing quality training and capacity building, as well as technology transfer to students and professionals from all continents.</p>
+      <p>With the support of the Pan American Health Organization/World Health Organization (PAHO/WHO), the National Council for Scientific and Technological Development (<italic>Conselho Nacional de Desenvolvimento Científico e Tecnológico</italic> - CNPq) and the Health Surveillance Secretariat/Ministry of Health (SVS/MS), VEME was held in Brazil, in September 2021.<xref ref-type="bibr" rid="B6"><sup>6</sup></xref> </p>
+      <p>This experience report aims to discuss a face-to-face theoretical and practical course, conducted during the COVID-19 pandemic, for public health professionals, focusing on genomic research and surveillance. The course included topics such as mobile sequencing technologies, bioinformatics, phylogenetics and epidemiological modeling.</p>
+    </sec>
+    <sec sec-type="methods">
+      <title>METHODS</title>
+      <p>Traditionally, the previous 26 editions of VEME took place in a face-to-face format. Due to the COVID-19 pandemic in 2021, VEME had two versions: (i) COVEME, a webinar format event focused on the application of bioinformatics tools in corona virus research; and (ii) VEME light, a face-to-face event focused on training and technology transfer. The event was conducted in both formats based on the concept of Responsible Research and Innovation (RRI), which aims to strengthen the interactions between science and society.<xref ref-type="bibr" rid="B7"><sup>7</sup></xref><sup>),(</sup><xref ref-type="bibr" rid="B8"><sup>8</sup></xref> </p>
+      <p>As a didactic strategy for training and updating health professionals enrolled in the course, the most commonly used bioinformatics tools in high-impact research were selected: Genome Detective for genome assembly; MAFFT for sequence alignment; AliView for editing sequences manually; IQ-TREE, for estimating phylogenetic signal and constructing maximum likelihood trees; TempEst for estimating the temporal signal; BEAST for constructing dated trees; FigTree for visualizing generated phylogenetic trees; and R Studio for epidemiological analyses and data visualization.<xref ref-type="bibr" rid="B9"><sup>9</sup></xref><sup>)-(</sup><xref ref-type="bibr" rid="B16"><sup>16</sup></xref> </p>
+      <p>VEME light took place between September 5 and 10, 2021, at Ouro Minas Palace Hotel, Belo Horizonte, state of Minas Gerais, Brazil, according to the activity program described in <xref ref-type="table" rid="t1">Box 1</xref>. In order to ensure the safety of all participants, the event management team established the sanitary protocols to be followed.</p>
+      <p>
+        <table-wrap id="t1">
+          <label>Box 1</label>
+          <caption>
+            <title>Description of the activities performed during VEME light</title>
+          </caption>
+          <table>
+            <colgroup>
+              <col/>
+            </colgroup>
+            <thead>
+              <tr style="background: lightgrey">
+                <th align="center">Sunday, September 5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">Registration and Accreditation + sample collection for SARS-CoV-2 diagnosis</td>
+              </tr>
+              <tr>
+                <td align="left">Linux command line</td>
+              </tr>
+              <tr>
+                <td align="left">Panorama and Surveillance of COVID-19 in Brazil and Latin America Panorama and Surveillance of Arboviruses in Brazil</td>
+              </tr>
+              <tr>
+                <td align="left">Yellow Fever, Mayaro, Oropouche and Mayaro viruses in the Brazilian North and Northeast regions Zika, Dengue and Chikungunya viruses in the Brazilian Southeast and Northeast regions SARS-CoV-2 in Brazil</td>
+              </tr>
+              <tr>
+                <td align="left">Zoonoses and the Emergence of COVID-19</td>
+              </tr>
+              <tr style="background: lightgrey">
+                <td align="center">Monday, September 6</td>
+              </tr>
+              <tr>
+                <td align="left">Linux command line</td>
+              </tr>
+              <tr>
+                <td align="left">Reference-based genome assembly and error correction algorithms</td>
+              </tr>
+              <tr>
+                <td align="left">Real time genomic surveillance of SARS-CoV-2 in South Africa</td>
+              </tr>
+              <tr>
+                <td align="left">De novo genome assembly using Genome Detective software</td>
+              </tr>
+              <tr style="background: lightgrey">
+                <td align="center">Tuesday, September 7</td>
+              </tr>
+              <tr>
+                <td align="left">Constructing a proper dataset using NCBI web-based tools</td>
+              </tr>
+              <tr>
+                <td align="left">Alignment algorithms and Aliview</td>
+              </tr>
+              <tr>
+                <td align="left">COVID-19: how sharing, communication and Nextstrain have played a part in the outbreak</td>
+              </tr>
+              <tr>
+                <td align="left">IQ-TREE</td>
+              </tr>
+              <tr>
+                <td align="left">Alignment and Phylogenetic signal</td>
+              </tr>
+              <tr style="background: lightgrey">
+                <td align="center">Wednesday, September 8</td>
+              </tr>
+              <tr>
+                <td align="left">Methods for phylogenetic tree reconstruction (NJ e ML)</td>
+              </tr>
+              <tr>
+                <td align="left">TempEST</td>
+              </tr>
+              <tr>
+                <td align="left">Predicting mosquito-borne transmission using climate data</td>
+              </tr>
+              <tr>
+                <td align="left">IQ-TREE e TempEST</td>
+              </tr>
+              <tr style="background: lightgrey">
+                <td align="center">Thursday, September 9</td>
+              </tr>
+              <tr>
+                <td align="left">Molecular clocks (applications + TreeTime)</td>
+              </tr>
+              <tr>
+                <td align="left">TreeTime and BEAST</td>
+              </tr>
+              <tr style="background: lightgrey">
+                <td align="center">Friday, September 10</td>
+              </tr>
+              <tr>
+                <td align="left">Rstudio</td>
+              </tr>
+              <tr>
+                <td align="left">Sample collection for SARS-CoV-2 diagnosis</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+      </p>
+      <p>All participants, professors and organizers stayed in single rooms in the hotel where the event took place. The hotel offered a buffet service, with alcohol-based hand sanitizer available in order for all of them to use before putting on gloves (to serve themselves) and settling down in a room specially organized for the participants.</p>
+      <p>The course activities were carried out in a room named Salão Centenário, which was capable of accommodating 900 people, with tables arranged to maintain the necessary social distancing. Each student received a seat and a specific computer, for in silico practices. It was not allowed to change the equipment during the event. The seats and computers were arranged to ensure a minimum distance of 2 meters between them. The hotel cleaning staff performed daily disinfection of the computers and tables using 70% isopropyl alcohol. Water was served in an area outside the classroom in order to ensure the necessary distancing.</p>
+      <p>Students and professors were provided with face shield and an adequate supply of NK95/PFF2 masks that allowed their exchanged every five hours. The use of the personal protective equipment (PPE) was mandatory throughout the course, with a constant reminder to use 70% alcohol-based hand sanitizer.</p>
+      <p>Everyone was advised not to leave the hotel during the days of the event.</p>
+      <p>The training participants, organizing committee, professors and hotel staff were tested for SARS-CoV-2 before the start and at the end of the event. Thus, nasopharyngeal samples were collected and the polymerase chain reaction (PCR) test was performed by employees of Fundação Ezequiel Dias (LACEN/MG), in an equipped temporary room at the event venue. PCR test was performed using Allplex 2019-nCoV Assay (Seegene), aiming to detect the envelope (E), the viral RNA-dependent RNA-polymerase (RdRp) or RNA replicase and the nucleocapsid (N) gene.</p>
+    </sec>
+    <sec sec-type="results">
+      <title>RESULTS</title>
+      <p>VEME light had a total of 162 participants, including 146 students and 16 professors. Among the students, 131 came from 21 different Brazilian institutions: 64 employees of LACENs and CGLAB; and 67 came from other municipal, academic and research institutions directly involved in emerging and re-emerging infections. The remaining 15 students were from other countries: Mexico, Paraguay, Uruguay, Guatemala, the Dominican Republic and Senegal.</p>
+      <p>For the selection of students, gender equity was taken into account, in addition to the participation of two to three representatives of each of the 27 LACENs in the country. These professionals work directly with the sequencing of SARS-CoV-2 and data analysis. The training course enabled them to perform the necessary analyses for genomic surveillance (genome assembly, phylogenetic analyses, identification of viral variants) and as a result, several scientific publications authored by these professionals are currently underway.<xref ref-type="bibr" rid="B17"><sup>17</sup></xref><sup>)-(</sup><xref ref-type="bibr" rid="B20"><sup>20</sup></xref> </p>
+      <p>All 162 participants, as well as Ouro Minas Palace Hotel staff, were tested for SARS-CoV-2 before the start of the event. Only one hotel employee tested positive and was removed from his activities; among the other participants and hotel staff, no SARS-CoV-2 infection was detected, neither before nor at the end of the event, indicating the safety and effectiveness of all the measures adopted (<xref ref-type="fig" rid="f1">Figure 1</xref>).</p>
+      <p>
+        <fig id="f1">
+          <label>Figure 1</label>
+          <caption>
+            <title>VEME light flowchart with description of safety protocols</title>
+          </caption>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/2237-9622/FngWzPqXpsVJGyxLD5PSHPg/72c3ba92e9b4d12a354bb2934622f0ddb4f2232d.jpg"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/2237-9622/FngWzPqXpsVJGyxLD5PSHPg/434dc7787859cac66303e2f1f06085836fbe00ce.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+    </sec>
+    <sec sec-type="discussion">
+      <title>DISCUSSION</title>
+      <p>In recent years, at the initiative of the Ministry of Health, the LACENs have been implementing different Next-Generation Sequencing (NGS) strategies to perform genomic surveillance. This process has enabled each LACEN to generate complete genomes of emerging and re-emerging viral pathogens, circulating and co-circulating in each state. In this scenario, the need arose to train healthcare workers in the use of bioinformatics tools, enabling them to analyze genomic data generated in their laboratories in real time. This would have facilitated the rapid dissemination - among public health authorities - of the number of genotypes and subtypes of the circulating viral strains detected by each of the 27 LACENs, so that control measures could be promptly implemented. Given the demand, this training course has initiated the technology transfer process and capacity building of public health professionals in Brazil for the real-time monitoring and analysis of genomic data.</p>
+      <p>It is worth highlighting that during VEME light, concepts of Responsible Research and Innovation RRI were addressed. It is a movement that aims to restructure the way science is integrated into society.<xref ref-type="bibr" rid="B7"><sup>7</sup></xref><sup>),(</sup><xref ref-type="bibr" rid="B8"><sup>8</sup></xref> In Brazil, the RRI acronym is not widely adopted and promoted; however, many everyday practices are in line with the spirit of RRI, which seeks a more responsive, reflective, inclusive, and socially responsible science and technology.</p>
+      <p>The concept of RRI involves five key principles: Education; Open Access; Ethics; Social Engagement; Gender Equality.<xref ref-type="bibr" rid="B7"><sup>7</sup></xref><sup>),(</sup><xref ref-type="bibr" rid="B8"><sup>8</sup></xref> These principles were put into practice during the training course, with education remaining the core of VEME.</p>
+      <p>Education is the basis for technology transfer and capacity building, enabling the dissemination and application of knowledge.<xref ref-type="bibr" rid="B21"><sup>21</sup></xref> During VEME, in addition to the participation of professors who are experts on that field and internationally recognized for their work, the classes were based on a practical learning approach.</p>
+      <p>The didactic strategy used ensured that the students could apply the tools in real time and that the content covered was more suitable for the practice of each LACEN. Furthermore, in order for each student and public health professional to master the tools presented, they were granted autonomy to apply and disseminate the knowledge acquired at the face-to-face VEME, in their state.</p>
+      <p>VEME provided public health professionals from all Brazilian states with access to knowledge and tools used by leading research centers in the world. This training course has enabled faster detection and monitoring of circulating viral variants in the states, given that trained health professionals began performing real-time genomic surveillance and publishing their results in high-impact journals.<xref ref-type="bibr" rid="B17"><sup>17</sup></xref><sup>)-(</sup><xref ref-type="bibr" rid="B20"><sup>20</sup></xref> </p>
+      <p>The fact that the event organizers only advised the participants to stay at the hotel during the days of the event, without obligating them, and that there was no control over their entry and exit, is a limitation of this study. However, the spirit of collaboration of the professors and enrolled students was reflected in everyone staying at the training location, respecting the proposed safety protocols.</p>
+      <p>The implementation of technology transfer in a face-to-face course, during the COVID-19 epidemic in Brazil, was of great relevance for the training of public health professionals involved. The topics covered during the event enabled not only genomic data generation, but also their rapid analysis. This training process was fundamental for monitoring the evolution of the epidemic at the local level. Motivated by the success of this experience, a new module entitled Virus Evolution to Public Health Policy Makers will be incorporated into the next edition of VEME in Panama in 2022. This training course for health professionals in genomic data analysis represents a milestone in epidemiological surveillance, allowing Brazil not only to efficiently monitor endemic strains, but also to predict new outbreaks through active monitoring and real-time data analysis.</p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>REFERENCES</title>
+      <ref id="B1">
+        <label>1</label>
+        <mixed-citation>1. Marques RC, Silveira AJT, Pimenta DN. A pandemia de covid-19: interseções e desafios para a história da saúde e do tempo presente. In: Reis TS, Souza CM, Oliveira MP, Lyra Júnior AA, organizadores. Coleção história do tempo presente: volume 3. Boa Vista: Editora da UFRR; 2020. p. 225-49.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Marques</surname>
+              <given-names>RC</given-names>
+            </name>
+            <name>
+              <surname>Silveira</surname>
+              <given-names>AJT</given-names>
+            </name>
+            <name>
+              <surname>Pimenta</surname>
+              <given-names>DN</given-names>
+            </name>
+          </person-group>
+          <chapter-title>A pandemia de covid-19: interseções e desafios para a história da saúde e do tempo presente</chapter-title>
+          <person-group person-group-type="compiler">
+            <name>
+              <surname>Reis</surname>
+              <given-names>TS</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>CM</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>MP</given-names>
+            </name>
+            <name>
+              <surname>Lyra</surname>
+              <given-names>AA</given-names>
+              <suffix>Júnior</suffix>
+            </name>
+          </person-group>
+          <source>Coleção história do tempo presente: volume 3</source>
+          <publisher-loc>Boa Vista</publisher-loc>
+          <publisher-name>Editora da UFRR</publisher-name>
+          <year>2020</year>
+          <issue-part>225-49</issue-part>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <label>2</label>
+        <mixed-citation>2. Organização Pan-Americana da Saúde. OMS afirma que COVID-19 é agora caracterizada como pandemia [Internet]. [Washington]: Organização Pan-Americana da Saúde; 2020 [atualizado 2020 Mar 11; citado 2022 Mar 15]. Disponível em: <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.paho.org/pt/news/11-3-2020-who-characterizes-covid-19-pandemic">https://www.paho.org/pt/news/11-3-2020-who-characterizes-covid-19-pandemic</ext-link> </comment> </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>Organização Pan-Americana da Saúde</collab>
+          </person-group>
+          <source>OMS afirma que COVID-19 é agora caracterizada como pandemia</source>
+          <publisher-loc>Washington</publisher-loc>
+          <publisher-name>Organização Pan-Americana da Saúde</publisher-name>
+          <year>2020</year>
+          <comment>2020 Mar 11</comment>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-03-15">2022 Mar 15</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.paho.org/pt/news/11-3-2020-who-characterizes-covid-19-pandemic">https://www.paho.org/pt/news/11-3-2020-who-characterizes-covid-19-pandemic</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <label>3</label>
+        <mixed-citation>3. Giovanetti M, Faria NR, Lourenço J, Jesus JG, Xavier J, Claro IM, et al. Genomic and epidemiological surveillance of zika virus in the Amazon region. Cell Rep. 2020;30(7):2275-83.e7. doi: 10.1016/j.celrep.2020.01.085</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Giovanetti</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Faria</surname>
+              <given-names>NR</given-names>
+            </name>
+            <name>
+              <surname>Lourenço</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Jesus</surname>
+              <given-names>JG</given-names>
+            </name>
+            <name>
+              <surname>Xavier</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Claro</surname>
+              <given-names>IM</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Genomic and epidemiological surveillance of zika virus in the Amazon region</article-title>
+          <source>Cell Rep</source>
+          <year>2020</year>
+          <volume>30</volume>
+          <issue>7</issue>
+          <fpage>2275</fpage>
+          <lpage>2283</lpage>
+          <comment>e7</comment>
+          <pub-id pub-id-type="doi">10.1016/j.celrep.2020.01.085</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <label>4</label>
+        <mixed-citation>4. Adelino TÉR, Giovanetti M, Fonseca V, Xavier J, Abreu ÁS, Nascimento VA, et al. Field and classroom initiatives for portable sequence-based monitoring of dengue virus in Brazil. Nat Commun. 2021;12(1):2296. doi: 10.1038/s41467-021-22607-0</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Adelino</surname>
+              <given-names>TÉR</given-names>
+            </name>
+            <name>
+              <surname>Giovanetti</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Fonseca</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Xavier</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Abreu</surname>
+              <given-names>ÁS</given-names>
+            </name>
+            <name>
+              <surname>Nascimento</surname>
+              <given-names>VA</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Field and classroom initiatives for portable sequence-based monitoring of dengue virus in Brazil</article-title>
+          <source>Nat Commun</source>
+          <year>2021</year>
+          <volume>12</volume>
+          <issue>1</issue>
+          <fpage>2296</fpage>
+          <lpage>2296</lpage>
+          <pub-id pub-id-type="doi">10.1038/s41467-021-22607-0</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <label>5</label>
+        <mixed-citation>5. Brasil. Ministério da Saúde. Lei nº 8.080, de 19 de setembro de 1990. Dispõe sobre as condições para a promoção, proteção e recuperação da saúde, a organização e o funcionamento dos serviços correspondentes e dá outras providências [Internet]. Diário Oficial da União, Brasília (DF), 1990 Set 20 [citado 2022 Mar 15], Seção 1:18055. Disponível em: <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.planalto.gov.br/ccivil_03/leis/l8080.htm">http://www.planalto.gov.br/ccivil_03/leis/l8080.htm</ext-link> </comment> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <person-group person-group-type="author">
+            <collab>Brasil. Ministério da Saúde</collab>
+          </person-group>
+          <source>Lei nº 8.080, de 19 de setembro de 1990. Dispõe sobre as condições para a promoção, proteção e recuperação da saúde, a organização e o funcionamento dos serviços correspondentes e dá outras providências</source>
+          <publisher-name>Diário Oficial da União</publisher-name>
+          <publisher-loc>Brasília (DF)</publisher-loc>
+          <day>20</day>
+          <month>09</month>
+          <year>1990</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-03-15">2022 Mar 15</date-in-citation>
+          <comment>Seção 1</comment>
+          <fpage>18055</fpage>
+          <lpage>18055</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.planalto.gov.br/ccivil_03/leis/l8080.htm">http://www.planalto.gov.br/ccivil_03/leis/l8080.htm</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <label>6</label>
+        <mixed-citation>6. Bioinformatics Workshop on Virus Evolution and Molecular Epidemiology - Face-to-face Workshop (VEME Light) [Internet];2021 Sep 5-10. Belo Horizonte: KU Leuven [cited 2022 Mar 15]. Available from: <comment>Available from: <ext-link ext-link-type="uri" xlink:href="https://rega.kuleuven.be/cev/veme-workshop/2021/bioinformatics-workshop-2021">https://rega.kuleuven.be/cev/veme-workshop/2021/bioinformatics-workshop-2021</ext-link> </comment> </mixed-citation>
+        <element-citation publication-type="book">
+          <source>Bioinformatics Workshop on Virus Evolution and Molecular Epidemiology - Face-to-face Workshop</source>
+          <person-group person-group-type="author">
+            <collab>VEME Light</collab>
+          </person-group>
+          <day>10</day>
+          <season>Sep-10</season>
+          <year>2021</year>
+          <publisher-loc>Belo Horizonte</publisher-loc>
+          <publisher-name>KU Leuven</publisher-name>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-03-15">2022 Mar 15</date-in-citation>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="https://rega.kuleuven.be/cev/veme-workshop/2021/bioinformatics-workshop-2021">https://rega.kuleuven.be/cev/veme-workshop/2021/bioinformatics-workshop-2021</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <label>7</label>
+        <mixed-citation>7. Colizzi V, Mezzana D, Ovseiko PV, Caiati G, Colonnello C, Declich A, et al. Structural Transformation to Attain Responsible BIOSciences (STARBIOS2): protocol for a Horizon 2020 Funded European Multicenter Project to Promote Responsible Research and Innovation. JMIR Res Protoc. 2019;8(3):e11745. doi: 10.2196/11745</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Colizzi</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Mezzana</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Ovseiko</surname>
+              <given-names>PV</given-names>
+            </name>
+            <name>
+              <surname>Caiati</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Colonnello</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Declich</surname>
+              <given-names>A</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Structural Transformation to Attain Responsible BIOSciences (STARBIOS2): protocol for a Horizon 2020 Funded European Multicenter Project to Promote Responsible Research and Innovation</article-title>
+          <source>JMIR Res Protoc</source>
+          <year>2019</year>
+          <volume>8</volume>
+          <issue>3</issue>
+          <elocation-id>e11745</elocation-id>
+          <pub-id pub-id-type="doi">10.2196/11745</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <label>8</label>
+        <mixed-citation>8. Declich A. RRI implementation in bioscience organisations: guidelines from the STARBIOS2 project [Internet]. Uppsala: Uppsala University; 2020 [cited 2020 Aug 12]. Available from: <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://uu.diva-portal.org/smash/get/diva2:1396179/FULLTEXT01.pdf">http://uu.diva-portal.org/smash/get/diva2:1396179/FULLTEXT01.pdf</ext-link> </comment> </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Declich</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <source>RRI implementation in bioscience organisations: guidelines from the STARBIOS2 project</source>
+          <publisher-loc>Uppsala</publisher-loc>
+          <publisher-name>Uppsala University</publisher-name>
+          <year>2020</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2020-08-12">2020 Aug 12</date-in-citation>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://uu.diva-portal.org/smash/get/diva2:1396179/FULLTEXT01.pdf">http://uu.diva-portal.org/smash/get/diva2:1396179/FULLTEXT01.pdf</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <label>9</label>
+        <mixed-citation>9. Vilsker M, Moosa Y, Nooij S, Fonseca V, Ghysens Y, Dumon K, et al. Genome detective: an automated system for virus identification from high-throughput sequencing data. Bioinformatics. 2019;35(5):871-3. doi: 10.1093/bioinformatics/bty695</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vilsker</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Moosa</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Nooij</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Fonseca</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Ghysens</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Dumon</surname>
+              <given-names>K</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Genome detective: an automated system for virus identification from high-throughput sequencing data</article-title>
+          <source>Bioinformatics</source>
+          <year>2019</year>
+          <volume>35</volume>
+          <issue>5</issue>
+          <fpage>871</fpage>
+          <lpage>873</lpage>
+          <pub-id pub-id-type="doi">10.1093/bioinformatics/bty695</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <label>10</label>
+        <mixed-citation>10. Katoh K, Rozewicki J, Yamada KD. MAFFT online service: multiple sequence alignment, interactive sequence choice and visualization. Brief Bioinform. 2019;20(4):1160-6. doi: 10.1093/bib/bbx108</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Katoh</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Rozewicki</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Yamada</surname>
+              <given-names>KD</given-names>
+            </name>
+          </person-group>
+          <article-title>MAFFT online service: multiple sequence alignment, interactive sequence choice and visualization</article-title>
+          <source>Brief Bioinform</source>
+          <year>2019</year>
+          <volume>20</volume>
+          <issue>4</issue>
+          <fpage>1160</fpage>
+          <lpage>1166</lpage>
+          <pub-id pub-id-type="doi">10.1093/bib/bbx108</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <label>11</label>
+        <mixed-citation>11. Larsson A. AliView: a fast and lightweight alignment viewer and editor for large datasets. Bioinformatics. 2014;30(22):3276-8. doi: 10.1093/bioinformatics/btu531</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Larsson</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>AliView: a fast and lightweight alignment viewer and editor for large datasets</article-title>
+          <source>Bioinformatics</source>
+          <year>2014</year>
+          <volume>30</volume>
+          <issue>22</issue>
+          <fpage>3276</fpage>
+          <lpage>3278</lpage>
+          <pub-id pub-id-type="doi">10.1093/bioinformatics/btu531</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <label>12</label>
+        <mixed-citation>12. Nguyen LT, Schmidt HA, von Haeseler A, Minh BQ. IQ-TREE: a fast and effective stochastic algorithm for estimating maximum-likelihood phylogenies. Mol Biol Evol. 2015;32(1):268-74. doi: 10.1093/molbev/msu300</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nguyen</surname>
+              <given-names>LT</given-names>
+            </name>
+            <name>
+              <surname>Schmidt</surname>
+              <given-names>HA</given-names>
+            </name>
+            <name>
+              <surname>von Haeseler</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Minh</surname>
+              <given-names>BQ</given-names>
+            </name>
+          </person-group>
+          <article-title>IQ-TREE: a fast and effective stochastic algorithm for estimating maximum-likelihood phylogenies</article-title>
+          <source>Mol Biol Evol</source>
+          <year>2015</year>
+          <volume>32</volume>
+          <issue>1</issue>
+          <fpage>268</fpage>
+          <lpage>274</lpage>
+          <pub-id pub-id-type="doi">10.1093/molbev/msu300</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <label>13</label>
+        <mixed-citation>13. Rambaut A, Lam TT, Carvalho LM, Pybus OG. Exploring the temporal structure of heterochronous sequences using TempEst (formerly Path-O-Gen). Virus Evol. 2016;2(1): vew007. doi: 10.1093/ve/vew007</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rambaut</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Lam</surname>
+              <given-names>TT</given-names>
+            </name>
+            <name>
+              <surname>Carvalho</surname>
+              <given-names>LM</given-names>
+            </name>
+            <name>
+              <surname>Pybus</surname>
+              <given-names>OG</given-names>
+            </name>
+          </person-group>
+          <article-title>Exploring the temporal structure of heterochronous sequences using TempEst (formerly Path-O-Gen)</article-title>
+          <source>Virus Evol</source>
+          <year>2016</year>
+          <volume>2</volume>
+          <issue>1</issue>
+          <comment>vew007</comment>
+          <pub-id pub-id-type="doi">10.1093/ve/vew007</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <label>14</label>
+        <mixed-citation>14. Suchard MA, Lemey P, Baele G, Ayres DL, Drummond AJ, Rambaut A. Bayesian phylogenetic and phylodynamic data integration using BEAST 1.10. Virus Evol. 2018;4(1):vey016. doi: 10.1093/ve/vey016</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Suchard</surname>
+              <given-names>MA</given-names>
+            </name>
+            <name>
+              <surname>Lemey</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Baele</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Ayres</surname>
+              <given-names>DL</given-names>
+            </name>
+            <name>
+              <surname>Drummond</surname>
+              <given-names>AJ</given-names>
+            </name>
+            <name>
+              <surname>Rambaut</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Bayesian phylogenetic and phylodynamic data integration using BEAST 1.10</article-title>
+          <source>Virus Evol</source>
+          <year>2018</year>
+          <volume>4</volume>
+          <issue>1</issue>
+          <comment>vey016</comment>
+          <pub-id pub-id-type="doi">10.1093/ve/vey016</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <label>15</label>
+        <mixed-citation>15. Rambaut A. Molecular Evolution, Phylogenetics and Epidemiology [Internet]. [Edinburgh]: [Rambaut A]; c2007 [cited 2022 Aug 18]. Available from: <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://tree.bio.ed.ac.uk/">http://tree.bio.ed.ac.uk/</ext-link> </comment> </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rambaut</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <source>Molecular Evolution, Phylogenetics and Epidemiology</source>
+          <publisher-loc>Edinburgh</publisher-loc>
+          <publisher-name>Rambaut A</publisher-name>
+          <year>2007</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-08-18">2022 Aug 18</date-in-citation>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="http://tree.bio.ed.ac.uk/">http://tree.bio.ed.ac.uk/</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <label>16</label>
+        <mixed-citation>16. Chernomor O, von Haeseler A, Minh BQ. Terrace Aware Data Structure for Phylogenomic Inference from Supermatrices. Syst Biol. 2016;65(6):997-1008. doi: 10.1093/sysbio/syw037</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chernomor</surname>
+              <given-names>O</given-names>
+            </name>
+            <name>
+              <surname>von Haeseler</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Minh</surname>
+              <given-names>BQ</given-names>
+            </name>
+          </person-group>
+          <article-title>Terrace Aware Data Structure for Phylogenomic Inference from Supermatrices</article-title>
+          <source>Syst Biol</source>
+          <year>2016</year>
+          <volume>65</volume>
+          <issue>6</issue>
+          <fpage>997</fpage>
+          <lpage>1008</lpage>
+          <pub-id pub-id-type="doi">10.1093/sysbio/syw037</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <label>17</label>
+        <mixed-citation>17. Posit. RStudio: Open source &amp; professional software for data science teams [Internet]. Boston: Posit; c2022 [cited 2022 Aug 18]. Available from: <comment>Available from: <ext-link ext-link-type="uri" xlink:href="https://www.rstudio.com/">https://www.rstudio.com/</ext-link> </comment> </mixed-citation>
+        <element-citation publication-type="software">
+          <person-group person-group-type="author">
+            <collab>Posit</collab>
+          </person-group>
+          <source>RStudio: Open source &amp; professional software for data science teams</source>
+          <publisher-loc>Boston</publisher-loc>
+          <publisher-name>Posit</publisher-name>
+          <year>2022</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-08-18">2022 Aug 18</date-in-citation>
+          <comment>Available from: <ext-link ext-link-type="uri" xlink:href="https://www.rstudio.com/">https://www.rstudio.com/</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <label>18</label>
+        <mixed-citation>18. Oliveira EC, Fonseca V, Xavier J, Adelino T, Claro IM, Fabri A, et al. Short report: introduction of chikungunya virus ECSA genotype into the Brazilian midwest and its dispersion through the Americas. PLoS Negl Trop Dis. 2021;15(4):e0009290. doi: 10.1371/journal.pntd.0009290</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>EC</given-names>
+            </name>
+            <name>
+              <surname>Fonseca</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Xavier</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Adelino</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Claro</surname>
+              <given-names>IM</given-names>
+            </name>
+            <name>
+              <surname>Fabri</surname>
+              <given-names>A</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Short report: introduction of chikungunya virus ECSA genotype into the Brazilian midwest and its dispersion through the Americas</article-title>
+          <source>PLoS Negl Trop Dis</source>
+          <year>2021</year>
+          <volume>15</volume>
+          <issue>4</issue>
+          <elocation-id>e0009290</elocation-id>
+          <pub-id pub-id-type="doi">10.1371/journal.pntd.0009290</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <label>19</label>
+        <mixed-citation>19. Pereira F, Tosta S, Lima MM, Silva LRO, Nardy VB, Gómez MKA, et al. Genomic surveillance activities unveil the introduction of the SARS‐CoV‐2 B.1.525 variant of interest in Brazil: case report. J Med Virol. 2021;93(9):5523-6. doi: 10.1002/jmv.27086</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pereira</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Tosta</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>MM</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>LRO</given-names>
+            </name>
+            <name>
+              <surname>Nardy</surname>
+              <given-names>VB</given-names>
+            </name>
+            <name>
+              <surname>Gómez</surname>
+              <given-names>MKA</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Genomic surveillance activities unveil the introduction of the SARS‐CoV‐2 B.1.525 variant of interest in Brazil: case report</article-title>
+          <source>J Med Virol</source>
+          <year>2021</year>
+          <volume>93</volume>
+          <issue>9</issue>
+          <fpage>5523</fpage>
+          <lpage>5526</lpage>
+          <pub-id pub-id-type="doi">10.1002/jmv.27086</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <label>20</label>
+        <mixed-citation>20. Giovanetti M, Pereira LAP, Santiago GA, Fonseca V, Mendoza MPG, Oliveira C, et al. Emergence of dengue virus serotype 2 cosmopolitan genotype, Brazil. Emerg Infect Dis. 2022;28(8):1725-7. doi: 10.3201/eid2808.220550</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Giovanetti</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Pereira</surname>
+              <given-names>LAP</given-names>
+            </name>
+            <name>
+              <surname>Santiago</surname>
+              <given-names>GA</given-names>
+            </name>
+            <name>
+              <surname>Fonseca</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Mendoza</surname>
+              <given-names>MPG</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>C</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Emergence of dengue virus serotype 2 cosmopolitan genotype, Brazil</article-title>
+          <source>Emerg Infect Dis</source>
+          <year>2022</year>
+          <volume>28</volume>
+          <issue>8</issue>
+          <fpage>1725</fpage>
+          <lpage>1727</lpage>
+          <pub-id pub-id-type="doi">10.3201/eid2808.220550</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <label>21</label>
+        <mixed-citation>21. Giovanetti M, Alcantara LCJ, Dorea AS, Ferreira QR, Marques WA, Barros JJF, et al. Promoting Responsible Research and Innovation (RRI) during Brazilian activities of genomic and epidemiological surveillance of arboviruses. Front Public Health. 2021;9:693743. doi: 10.3389/fpubh.2021.693743</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Giovanetti</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Alcantara</surname>
+              <given-names>LCJ</given-names>
+            </name>
+            <name>
+              <surname>Dorea</surname>
+              <given-names>AS</given-names>
+            </name>
+            <name>
+              <surname>Ferreira</surname>
+              <given-names>QR</given-names>
+            </name>
+            <name>
+              <surname>Marques</surname>
+              <given-names>WA</given-names>
+            </name>
+            <name>
+              <surname>Barros</surname>
+              <given-names>JJF</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Promoting Responsible Research and Innovation (RRI) during Brazilian activities of genomic and epidemiological surveillance of arboviruses</article-title>
+          <source>Front Public Health</source>
+          <year>2021</year>
+          <volume>9</volume>
+          <issue-part>693743</issue-part>
+          <pub-id pub-id-type="doi">10.3389/fpubh.2021.693743</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn fn-type="financial-disclosure" id="fn3">
+        <label>FUNDING</label>
+        <p> The author Luiz Carlos Júnior Alcântara received financial support from the National Council for Scientific and Technological Development/Ministry of Science, Technology and Innovations (Conselho Nacional de Desenvolvimento Científico e Tecnológico - CNPq/MCTI) (SCON2021-00180).</p>
+      </fn>
+      <fn fn-type="other" id="fn4">
+        <label>ACKNOWLEDGEMENTS</label>
+        <p> The authors would like to thank the heads of the Central Public Health Laboratories for their effort in the fight against COVID-19 in Brazil; all the professors and students involved in the Bioinformatics Workshop on Virus Evolution and Molecular Epidemiology (VEME) course, for their participation, as well as the staff of Ouro Minas Palace Hotel; special thanks are extended to Dr. Anne-Mieke Vandamme from the Catholic University of Leuven, Belgium.</p>
+      </fn>
+      <fn fn-type="other" id="fn5">
+        <label>Associate editor:</label>
+        <p> Lúcia Rolim Santana de Freitas - <ext-link ext-link-type="uri" xlink:href="https://orcid.org/0000-0003-0080-2858">https://orcid.org/0000-0003-0080-2858</ext-link> </p>
+      </fn>
+    </fn-group>
+  </back>
+  <sub-article article-type="translation" id="s1" xml:lang="pt">
+    <front-stub>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>RELATO DE EXPERIÊNCIA</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Transferência tecnológica durante a pandemia de covid-19: relato do primeiro treinamento prático presencial no Brasil</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-0088-9036</contrib-id>
+          <name>
+            <surname>Barreto</surname>
+            <given-names>Fernanda Khouri</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff9">
+            <sup>1</sup>
+          </xref>
+          <role> concepção e delineamento </role>
+          <role> análise e interpretação </role>
+          <role> redação e revisão </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-0261-3495</contrib-id>
+          <name>
+            <surname>Santos</surname>
+            <given-names>Luciane Amorim</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff10">
+            <sup>2</sup>
+          </xref>
+          <role> concepção e delineamento </role>
+          <role> análise e interpretação </role>
+          <role> redação e revisão </role>
+          <role> integridade </role>
+          <role>planejamento e execução</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-5849-7326</contrib-id>
+          <name>
+            <surname>Giovanetti</surname>
+            <given-names>Marta</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff11">
+            <sup>3</sup>
+          </xref>
+          <role> concepção e delineamento </role>
+          <role> análise e interpretação </role>
+          <role> redação e revisão </role>
+          <role> integridade </role>
+          <role>planejamento e execução</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-5521-6448</contrib-id>
+          <name>
+            <surname>Fonseca</surname>
+            <given-names>Vagner</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff12">
+            <sup>4</sup>
+          </xref>
+          <role>planejamento e execução</role>
+          <role> análise e interpretação </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-1067-1882</contrib-id>
+          <name>
+            <surname>Aburjaile</surname>
+            <given-names>Flavia</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff13">
+            <sup>5</sup>
+          </xref>
+          <role>planejamento e execução</role>
+          <role> análise e interpretação </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-2157-3452</contrib-id>
+          <name>
+            <surname>Silva</surname>
+            <given-names>Joscelio Aguiar</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff14">
+            <sup>6</sup>
+          </xref>
+          <role> análise e interpretação </role>
+          <role> financiamentos e viabilidade </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-9397-9777</contrib-id>
+          <name>
+            <surname>Freitas</surname>
+            <given-names>Carla</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff15">
+            <sup>7</sup>
+          </xref>
+          <role>planejamento e execução</role>
+          <role> análise e interpretação </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-2184-5531</contrib-id>
+          <name>
+            <surname>Peterka</surname>
+            <given-names>Cassio Roberto Leonel</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff14">
+            <sup>6</sup>
+          </xref>
+          <role> análise e interpretação </role>
+          <role> financiamentos e viabilidade </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-8044-061X</contrib-id>
+          <name>
+            <surname>Rico</surname>
+            <given-names>Jairo Mendez</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff16">
+            <sup>8</sup>
+          </xref>
+          <role> análise e interpretação </role>
+          <role> financiamentos e viabilidade </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-0617-0679</contrib-id>
+          <name>
+            <surname>Almiron</surname>
+            <given-names>Maria</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff16">
+            <sup>8</sup>
+          </xref>
+          <role> análise e interpretação </role>
+          <role> financiamentos e viabilidade </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-0581-5535</contrib-id>
+          <name>
+            <surname>Melo</surname>
+            <given-names>Carlos Frederico Campelo de Albuquerque e</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff12">
+            <sup>4</sup>
+          </xref>
+          <role> análise e interpretação </role>
+          <role> financiamentos e viabilidade </role>
+          <role> integridade </role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6769-9931</contrib-id>
+          <name>
+            <surname>Alcântara</surname>
+            <given-names>Luiz Carlos Júnior</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff11">
+            <sup>3</sup>
+          </xref>
+          <role> concepção e delineamento </role>
+          <role> análise e interpretação </role>
+          <role> redação e revisão </role>
+          <role> integridade </role>
+          <role> financiamentos e viabilidade </role>
+        </contrib>
+      </contrib-group>
+      <aff id="aff9">
+        <label>1</label>
+        <institution content-type="original">Universidade Federal da Bahia, Instituto Multidisciplinar em Saúde, Vitória da Conquista, BA, Brazil</institution>
+      </aff>
+      <aff id="aff10">
+        <label>2</label>
+        <institution content-type="original">Escola Bahiana de Medicina e Saúde Pública, Salvador, BA, Brazil</institution>
+      </aff>
+      <aff id="aff11">
+        <label>3</label>
+        <institution content-type="original">Fundação Instituto Oswaldo Cruz, Laboratório de Mosquitos Vetores - Endossimbiontes e Interação Patógeno-Vetor, Belo Horizonte, MG, Brazil</institution>
+      </aff>
+      <aff id="aff12">
+        <label>4</label>
+        <institution content-type="original">Organização Pan-Americana da Saúde, Organização Mundial da Saúde, Brasília, DF, Brazil</institution>
+      </aff>
+      <aff id="aff13">
+        <label>5</label>
+        <institution content-type="original">Universidade Federal de Minas Gerais, Belo Horizonte, MG, Brazil</institution>
+      </aff>
+      <aff id="aff14">
+        <label>6</label>
+        <institution content-type="original">Ministério da Saúde, Secretaria de Vigilância em Saúde e Ambiente, Coordenação-Geral das Arboviroses, Brasília, DF, Brazil</institution>
+      </aff>
+      <aff id="aff15">
+        <label>7</label>
+        <institution content-type="original">Ministério da Saúde, Secretaria de Vigilância em Saúde e Ambiente, Coordenação-Geral de Laboratórios de Saúde Pública, Brasília, DF, Brazil</institution>
+      </aff>
+      <aff id="aff16">
+        <label>8</label>
+        <institution content-type="original">Organização Pan-americana da Saúde, Departamento de Emergências em Saúde, Washington, DC, Estados Unidos</institution>
+      </aff>
+      <author-notes>
+        <corresp id="c2"><label>Correspondência:</label> Luiz Carlos Júnior Alcântara. <label>E-mail:</label> <email>luiz.alcantara@fiocruz.br</email> </corresp>
+        <fn fn-type="con" id="fn6">
+          <label>CONTRIBUIÇÃO DOS AUTORES</label>
+          <p> Barreto FK, Santos LA, Giovanetti M e Alcântara LCJ contribuíram na concepção e delineamento do estudo, análise e interpretação dos resultados, redação e revisão crítica do conteúdo do manuscrito. Fonseca V, Aburjaile F, Freitas C, Santos LA e Giovanetti M contribuíram no planejamento e execução do curso, análise e interpretação dos resultados. Silva JA, Peterka CRL, Rico JM, Almiron M, Medeiros AC, Melo CFCA e Alcântara LCJ contribuíram com financiamentos e viabilidade, análise e interpretação dos resultados. Todos os autores aprovaram a versão final do manuscrito e são responsáveis por todos os seus aspectos, incluindo a garantia de sua precisão e integridade.</p>
+        </fn>
+        <fn fn-type="conflict" id="fn7">
+          <p>CONFLITOS DE INTERESSE Os autores declararam não haver conflitos de interesse.</p>
+        </fn>
+      </author-notes>
+      <abstract abstract-type="key-points">
+        <title>Contribuições do estudo</title>
+        <sec>
+          <title>Principais resultados</title>
+          <p>A transferência tecnológica pode acontecer em grandes eventos, desde que protocolos de segurança sejam executados rigorosamente. É importante disseminar, nesses eventos, os conceitos do movimento Responsible Research and Innovation (RRI).</p>
+        </sec>
+        <sec>
+          <title>Implicações para os serviços</title>
+          <p>Treinamentos presenciais são fundamentais para a capacitação de profissionais de saúde pública. A transferência tecnológica entre instituições de pesquisa e serviços de saúde resulta na atualização e melhora do desempenho do sistema de saúde.</p>
+        </sec>
+        <sec>
+          <title>Perspectivas</title>
+          <p>A partir do sucesso da transferência tecnológica relatada, será incorporado um novo módulo na próxima edição do VEME (Panamá, 2022), intitulado Virus Evolution to Public Health Policy Makers.</p>
+        </sec>
+      </abstract>
+      <abstract>
+        <title>Resumo</title>
+        <p>O relato descrebeu o primeiro curso presencial visando capacitar profissionais de saúde pública na realização de vigilância genômica em tempo real, durante períodos pandêmicos. Relato de experiência sobre um curso teórico-prático com foco em pesquisa e vigilância genômica, incluindo tecnologias de sequenciamento móvel, bioinformática, filogenética e modelagem epidemiológica. O evento contou com 162 participantes e foi o primeiro grande treinamento presencial realizado durante a epidemia de covid-19 no Brasil. Não foi detectada infecção pelo SARS-CoV-2 ao final do evento em nenhum participante, sugerindo a segurança e efetividade de todas as medidas de segurança adotadas. Os resultados do evento sugerem que é possível executar capacitação profissional com segurança durante pandemias, desde que seguidos todos os protocolos de segurança.</p>
+      </abstract>
+      <kwd-group xml:lang="pt">
+        <title>Palavras-chave:</title>
+        <kwd>Covid-19</kwd>
+        <kwd>Pandemia</kwd>
+        <kwd>Capacitação Profissional</kwd>
+        <kwd>Capacitação de Recursos Humanos em Saúde.</kwd>
+      </kwd-group>
+    </front-stub>
+    <body>
+      <sec sec-type="intro">
+        <title>INTRODUÇÃO</title>
+        <p>As pandemias integram o grupo de desastres de origens naturais desencadeados por fenômenos e desequilíbrios socioambientais que afetam as populações. Nesse contexto, no dia 30 de janeiro de 2020, a Organização Mundial da Saúde (OMS) caracterizou o surto de Coronavirus Disease 2019 (covid-19). Tendo-se iniciado em Wuhan, na China, como uma Emergência em Saúde Pública de Importância Internacional,<xref ref-type="bibr" rid="B1"><sup>1</sup></xref> rapidamente a doença transformou-se em um grande desafio global; e, em março de 2020, foi classificada como pandemia, exigindo uma resposta sanitária rápida.<xref ref-type="bibr" rid="B2"><sup>2</sup></xref> </p>
+        <p>Compreender a propagação de doenças infecciosas virais potencialmente capazes de desencadear um processo pandêmico é fundamental no sentido de embasar as decisões em saúde pública. Uma importante forma de acompanhamento dessas doenças é a vigilância genômica e epidemiológica, que possibilita a rápida identificação desses agentes infecciosos.<xref ref-type="bibr" rid="B3"><sup>3</sup></xref> Desde o início da pandemia, a disseminação do agente causador - Severe Acute Respiratory Syndrome Coronavirus 2 (SARS-CoV-2) - da covid-19 vem sendo acompanhada mundialmente, com diferentes estratégias de vigilância, pelas quais a evolução do vírus pode ser observada e compartilhada em tempo real.<xref ref-type="bibr" rid="B4"><sup>4</sup></xref> </p>
+        <p>No Brasil, cada Unidade da Federação (UF), incluído o Distrito Federal, conta com um Laboratório Central de Saúde Pública (LACEN), sob a Coordenação-Geral de Laboratórios de Saúde Pública (CGLAB), da Secretaria de Vigilância em Saúde e Ambiente do Ministério da Saúde. Os LACENs têm, como principal função, auxiliar os estados nas áreas de vigilância epidemiológica, sanitária e ambiental (Lei Orgânica n<sup>o</sup> 8080).<xref ref-type="bibr" rid="B5"><sup>5</sup></xref> Por conseguinte, esses laboratórios atuam no diagnóstico e monitoramento de doenças de interesse em saúde pública e são responsáveis por grande parte do diagnóstico de doenças emergentes e reemergentes, como arboviroses e a covid-19.</p>
+        <p>Durante a pandemia de covid-19, os LACENs tornaram-se fundamentais na identificação de variantes de preocupação, visto que recebem amostras provenientes de todas as regiões do país. Entretanto, ademais da infraestrutura básica, é de extrema importância a atualização das ferramentas de bioinformática necessárias à análise dos dados gerados. Essa análise ainda representa um grande desafio para os profissionais de saúde pública, visto que se trata de técnicas específicas da área da pesquisa científica e pouco utilizadas na prática nos LACENs. </p>
+        <p>Na tentativa de fortalecer a ação da vigilância epidemiológica nacional, mediante a transferência tecnológica, em setembro de 2021, realizou-se o primeiro treinamento presencial no Brasil, no qual os dados epidemiológicos e genômicos gerados foram analisados pelos profissionais de saúde dos LACEN, durante o evento intitulado Bioinformatics Workshop on Virus Evolution and Molecular Epidemiology (VEME).</p>
+        <p>O VEME é um curso tradicional, cujo objetivo é treinar para o uso de ferramentas de bioinformática aplicadas a epidemiologia e evolução viral. Ele conta com professores especialistas na área e aclamados internacionalmente, sendo sua fundadora e organizadora a Prof. Anne-Mieke Vandamme da KU Leuven, University of Leuven, Bélgica. Trata-se de um evento anual, com mais de 26 edições realizadas, cada qual em uma diferente cidade do mundo.<xref ref-type="bibr" rid="B6"><sup>6</sup></xref> O evento possui, como premissa básica, a disseminação do conhecimento científico, treinamento e capacitação de qualidade, além de transferência de tecnologia para estudantes e profissionais provenientes de todos os continentes.</p>
+        <p>Com o apoio da Organização Pan-Americana da Saúde/Organização Mundial da Saúde (OPAS/OMS), Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) e Secretaria de Vigilância em Saúde/Ministério da Saúde (SVS/MS), em setembro de 2021, o VEME foi realizado no Brasil.<xref ref-type="bibr" rid="B6"><sup>6</sup></xref> </p>
+        <p>Este relato de experiência visa discorrer sobre um curso teórico-prático, realizado presencialmente, durante a pandemia de covid-19, para profissionais da saúde pública, com foco em pesquisa e vigilância genômica, que incluiu tecnologias de sequenciamento móvel, bioinformática, filogenética e modelagem epidemiológica.</p>
+      </sec>
+      <sec sec-type="methods">
+        <title>MÉTODOS</title>
+        <p>Tradicionalmente, as 26 edições do VEME anteriores ocorreram no formato presencial. Diante da pandemia de covid-19, no ano de 2021, o VEME teve duas versões: (i) o COVEME, evento no formato de <italic>webinar</italic> e tendo como foco a aplicação de ferramentas de bioinformática para o estudo dos coronavírus; e (ii) o VEME <italic>light</italic> ou VEME <italic>face to face</italic>, um evento presencial, focado no treinamento e transferência de tecnologia. A realização do evento em ambos os formatos utilizou como base o conceito Responsible Research and Innovation (RRI), ou Pesquisa e Inovação Responsável, que busca reforçar as interações entre ciência e sociedade.<xref ref-type="bibr" rid="B7"><sup>7</sup></xref><sup>),(</sup><xref ref-type="bibr" rid="B8"><sup>8</sup></xref> </p>
+        <p>Como estratégia didática para o treinamento e atualização dos profissionais de saúde inscritos no curso, foram selecionadas as ferramentas de bioinformática mais utilizadas nas pesquisas de alto impacto: Genome Detective, para montagem de genomas; Mafft, para alinhamento de sequências; Aliview, para edição manual de sequências; Iqtree, para estimar o sinal filogenético e construir árvores de máxima verossimilhança; Tempest, para estimar o sinal temporal; Beast, para construir árvores datadas; Figtree, para visualização das árvores filogenéticas geradas; e R Studio, para análises epidemiológicas e visualização dos dados trabalhados.<xref ref-type="bibr" rid="B9"><sup>9</sup></xref><sup>)-(</sup><xref ref-type="bibr" rid="B16"><sup>16</sup></xref> </p>
+        <p>O VEME <italic>light</italic> foi realizado entre os dias 5 e 10 de setembro de 2021, no Ouro Minas Palace Hotel, Belo Horizonte, Minas Gerais, Brasil, conforme programa de atividades descrito no <xref ref-type="table" rid="t2">Quadro 1</xref>. No intuito de garantir a segurança de todos os participantes, a equipe organizadora do evento definiu os protocolos sanitários a serem cumpridos.</p>
+        <p>
+          <table-wrap id="t2">
+            <label>Quadro 1</label>
+            <caption>
+              <title>Descrição das atividades realizadas durante o VEME <italic>light</italic></title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr style="background: lightgrey">
+                  <th align="center">Domingo, 5 de setembro</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="left">Registro e credenciamento + coleta de amostras para diagnóstico de SARS-CoV-2</td>
+                </tr>
+                <tr>
+                  <td align="left">Linux por linha de comando</td>
+                </tr>
+                <tr>
+                  <td align="left">Panorama e vigilância da covid-19 no Brasil e na América Latina Panorama e vigilância de arboviroses no Brasil</td>
+                </tr>
+                <tr>
+                  <td align="left">Vírus da febre amarela, Mayaro e Oropouche nas regiões do Norte e Nordeste brasileiro Vírus da Zika, dengue e Chikungunya nas regiões do Sudeste e do Nordeste brasileiro SARS-CoV-2 no Brasil</td>
+                </tr>
+                <tr>
+                  <td align="left">Zoonoses e o surgimento da covid-19</td>
+                </tr>
+                <tr style="background: lightgrey">
+                  <td align="center">Segunda-feira, 6 de setembro</td>
+                </tr>
+                <tr>
+                  <td align="left">Linux por linha de comando</td>
+                </tr>
+                <tr>
+                  <td align="left">Montagem de genomas por referência e algoritmos de correção de erros</td>
+                </tr>
+                <tr>
+                  <td align="left">Vigilância genômica em tempo real de SARS-CoV-2 na África do Sul</td>
+                </tr>
+                <tr>
+                  <td align="left">Montagem de genomas por metodologia de novo e utilizando-se o <italic>software</italic> Genome Detective</td>
+                </tr>
+                <tr style="background: lightgrey">
+                  <td align="center">Terça-feira, 7 de setembro</td>
+                </tr>
+                <tr>
+                  <td align="left">Construindo uma base de dados apropriada, baseada na ferramenta <italic>online</italic> do NCBI</td>
+                </tr>
+                <tr>
+                  <td align="left">Algoritmos de alinhamento e Aliview</td>
+                </tr>
+                <tr>
+                  <td align="left">Covid-19: como o compartilhamento, comunicação e Nextstrain desempenharam seu papel na epidemia</td>
+                </tr>
+                <tr>
+                  <td align="left">IQ-TREE</td>
+                </tr>
+                <tr>
+                  <td align="left">Alinhamento e sinal filogenético</td>
+                </tr>
+                <tr style="background: lightgrey">
+                  <td align="center">Quarta-feira, 8 de setembro</td>
+                </tr>
+                <tr>
+                  <td align="left">Métodos para reconstrução de árvore filogenética (NJ e ML)</td>
+                </tr>
+                <tr>
+                  <td align="left">TempEST</td>
+                </tr>
+                <tr>
+                  <td align="left">Prevendo a transmissão por mosquitos com uso de dados climáticos</td>
+                </tr>
+                <tr>
+                  <td align="left">IQ-TREE e TempEST</td>
+                </tr>
+                <tr style="background: lightgrey">
+                  <td align="center">Quinta-feira, 9 de setembro</td>
+                </tr>
+                <tr>
+                  <td align="left">Relógio molecular (aplicações + TreeTime)</td>
+                </tr>
+                <tr>
+                  <td align="left">TreeTime e BEAST</td>
+                </tr>
+                <tr style="background: lightgrey">
+                  <td align="center">Sexta-feira, 10 de setembro</td>
+                </tr>
+                <tr>
+                  <td align="left">Rstudio</td>
+                </tr>
+                <tr>
+                  <td align="left">Coleta de amostras para diagnóstico de SARS-CoV-2</td>
+                </tr>
+              </tbody>
+            </table>
+          </table-wrap>
+        </p>
+        <p>Todos os participantes, professores e organizadores ficaram hospedados em quartos individuais, no hotel onde se realizou o evento. As refeições foram servidas em formato de <italic>buffet</italic>, com disponibilização de álcool em gel para higienizar as mãos antes de vesti-las com as luvas (para pegar os alimentos) e acomodar-se em um salão especialmente organizado para os participantes. </p>
+        <p>As atividades do curso foram realizadas no Salão Centenário, capacitado para acolher 900 pessoas, dispondo-se as mesas e mantendo-se o distanciamento social necessário. Cada aluno recebia um assento e computador específico, destinado à realização das práticas <italic>in silico</italic>, não sendo permitida a troca do equipamento no decorrer dos dias do evento. Os assentos e os computadores foram organizados de forma a garantir um distanciamento mínimo de 2 metros entre eles. A higienização dos computadores e mesas com álcool isopropílico 70% era realizada diariamente, pela equipe de limpeza do hotel. A água era servida em ambiente externo à sala das aulas, de forma a se respeitar o distanciamento necessário.</p>
+        <p>Alunos e professores receberam <italic>faceshield</italic> e um quantitativo de máscaras NK95/PFF2 que possibilitou sua troca a cada cinco horas. O uso desses equipamentos de proteção individual (EPIs) foi obrigatório durante todo o período do curso, sempre com a recomendação para usar álcool 70% em gel na higienização das mãos.</p>
+        <p>Todos foram aconselhados a não deixar o hotel durante os dias do evento. </p>
+        <p>Os participantes do treinamento, a comissão organizadora, professores e funcionários do hotel foram testados para detecção de SARS-CoV-2 antes do início do evento e ao seu final. Para tanto, realizou-se a coleta de amostras de nasofaringe e o teste de reação em cadeia da polimerase [<italic>Polymerase Chain Reaction</italic> (PCR)] por funcionários da Fundação Ezequiel Dias (LACEN/MG), em uma sala temporária equipada, no local do evento. A PCR foi realizada mediante ensaio Allplex 2019-nCoV (Seegene), visando à detecção do envelope (E), da RNA polimerase dependente de RNA-Replicase (RdRp) viral e do gene do nucleocapsídeo (N).</p>
+      </sec>
+      <sec sec-type="results">
+        <title>RESULTADOS</title>
+        <p>O VEME light teve um total de 162 participantes, dos quais 146 alunos e 16 professores. Entre os alunos, 131 provinham de 21 diferentes instituições brasileiras: 64 funcionários dos LACENs e CGLAB; e 67 de outras instituições municipais, acadêmicas e de pesquisa que trabalham diretamente com infecções emergentes e reemergentes. Os demais 15 discentes eram de outros países: México, Paraguai, Uruguai, Guatemala, República Dominicana e Senegal.</p>
+        <p>Para a seleção dos alunos, cumpriu-se a equidade de gênero, além da participação de dois a três representantes de cada um dos 27 LACENs da Federação. Estes profissionais trabalham diretamente com a produção de sequências do SARS-CoV-2 e análises dos dados. Com o treinamento, eles se encontravam capacitados a realizar as análises necessárias para a vigilância genômica (montagem do genoma, análises filogenéticas, identificação de variantes virais), e assim, por conseguinte, diversas publicações científicas de autoria desses profissionais estão acontecendo. <sup>(</sup><xref ref-type="bibr" rid="B17"><sup>17</sup></xref><sup>)-(</sup><xref ref-type="bibr" rid="B20"><sup>20</sup></xref> </p>
+        <p>Todos os 162 participantes, bem como os funcionários do Ouro Minas Palace Hotel, foram testados para detecção de SARS-CoV-2 antes do início do evento. Apenas um funcionário do hotel testou positivo e foi afastado de suas atividades; entre os demais, não foi detectada infecção pelo SARS-CoV-2, nem antes, nem ao final do evento, sugerindo a segurança e efetividade de todas as medidas adotadas (<xref ref-type="fig" rid="f2">Figura 1</xref>).</p>
+        <p>
+          <fig id="f2">
+            <label>Figura 1</label>
+            <caption>
+              <title>Fluxograma de realização do VEME light com descrição dos protocolos de segurança</title>
+            </caption>
+            <alternatives>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/2237-9622/FngWzPqXpsVJGyxLD5PSHPg/e44d6c3d1e464751812e4ae3a527f4e837e55e75.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/2237-9622/FngWzPqXpsVJGyxLD5PSHPg/a07364102d3ec3cd21c56467404d218c5220302b.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+      </sec>
+      <sec sec-type="discussion">
+        <title>DISCUSSÃO</title>
+        <p>Nos últimos anos, por iniciativa do Ministério da Saúde, os LACENs passaram a implementar diferentes estratégias de Sequenciamento de Nova Geração [<italic>Next-Generation Sequencing</italic> (NGS)] para realizar a vigilância genômica. Esse processo permitiu a cada LACEN estar capacitado na geração de genomas completos de patógenos virais emergentes e reemergentes, circulantes e cocirculantes em cada estado. Nesse cenário, surgiu a necessidade de treinar os agentes de saúde para a utilização de ferramentas de bioinformática, tornando-os capazes de analisar os dados genômicos gerados em seus laboratórios em tempo real. Isso teria facilitado a rápida divulgação - entre as autoridades da saúde publica - de quantos eram os genótipos e subtipos das cepas virais circulantes detectadas por cada um dos 27 LACENs, para que medidas de controle fossem prontamente atuadas. Tendo em vista a demanda, este treinamento permitiu o início do processo de transferência tecnológica e a capacitação dos profissionais de saúde pública do Brasil para o monitoramento e análise de dados genômicos em tempo real. </p>
+        <p>É importante ressaltar que, durante a realização do VEME <italic>light</italic>, foram trabalhados conceitos do RRI, movimento que visa reestruturar a forma como a ciência está inserida na sociedade.<xref ref-type="bibr" rid="B7"><sup>7</sup></xref><sup>),(</sup><xref ref-type="bibr" rid="B8"><sup>8</sup></xref> No Brasil, a sigla RRI é todavia pouco adotada e divulgada; porém, muitas práticas corriqueiras cabem dentro do espírito da RRI, de buscar uma ciência e tecnologia mais responsiva, reflexiva, inclusiva, e mais socialmente responsável. </p>
+        <p>O conceito do RRI envolve cinco princípios-chave: Educação; Acesso Aberto; Ética; Engajamento Social; Igualdade de Gênero.<xref ref-type="bibr" rid="B7"><sup>7</sup></xref><sup>),(</sup><xref ref-type="bibr" rid="B8"><sup>8</sup></xref> Estes princípios foram praticados no treinamento, mantendo-se a educação como centro do VEME. </p>
+        <p>A educação é a base para a transferência de tecnologias e capacitação, permitindo a disseminação e o exercício do conhecimento.<xref ref-type="bibr" rid="B21"><sup>21</sup></xref> Durante o VEME, além da participação de professores especialistas na área e reconhecidos internacionalmente por seus trabalhos, as aulas tiveram sua base teórica focada na prática do aprendizado.</p>
+        <p>A estratégia didática utilizada garantiu que os estudantes aplicassem, em tempo real, as ferramentas trabalhadas, e que os conteúdos abordados fossem mais adequados à prática de cada LACEN. Além disso, para que cada estudante e agente de saúde pública tivesse domínio das ferramentas apresentadas, foi-lhe garantida a autonomia para aplicar e disseminar o conhecimento por ele adquirido no VEME <italic>face to face</italic>, em seu estado.</p>
+        <p>O VEME permitiu a agentes de saúde pública de todos os estados brasileiros o acesso a conhecimento e ferramentas utilizados pelos grandes centros de pesquisas mundiais. Essa capacitação tornou a detecção - e monitoramento - das variantes virais circulantes nos estados muito mais rápida, pois os profissionais de saúde treinados passaram a realizar a vigilância genômica em tempo real e publicar seus resultados em revistas de alto impacto.<xref ref-type="bibr" rid="B17"><sup>17</sup></xref><sup>)-(</sup><xref ref-type="bibr" rid="B20"><sup>20</sup></xref> </p>
+        <p>O fato de a organização do evento apenas aconselhar os participantes a permanecerem no hotel durante os dias do evento, sem obrigá-los, e tampouco haver controle de entrada e saída dos participantes, apresentam-se como uma limitação do estudo. Entretanto, o espírito de colaboração dos professores e alunos inscritos refletiu-se na permanência de todos no local do treinamento, respeitando-se os protocolos de segurança propostos. </p>
+        <p>A realização de transferência tecnológica em um curso presencial, durante a epidemia de covid-19 no Brasil, foi de grande relevância para a capacitação dos profissionais de saúde pública envolvidos. Os tópicos abordados durante o evento possibilitaram não apenas a geração de dados genômicos, mas também sua análise rápida. Esse processo de capacitação foi fundamental para o acompanhamento da evolução da epidemia no nível local. Motivado no sucesso dessa experiência, deve ser incorporado um novo módulo à próxima edição do VEME no Panamá, em 2022, intitulado Virus Evolution to Public Health Policy Makers. Essa capacitação de agentes de saúde em análise de dados genômicos representa um marco na vigilância epidemiológica, permitindo ao Brasil não apenas monitorar de forma eficiente as cepas endêmicas, mas também prever novos surtos, por meio de um monitoramento ativo e análise de dados em tempo real. </p>
+      </sec>
+    </body>
+    <back>
+      <fn-group>
+        <fn fn-type="financial-disclosure" id="fn8">
+          <label>FINANCIAMENTO</label>
+          <p> O autor Luiz Carlos Júnior Alcântara contou com o apoio financeiro do Conselho Nacional de Desenvolvimento Científico e Tecnológico/Ministério da Ciência, Tecnoligia e Inovações (CNPq/MCTI) (SCON2021-00180).</p>
+        </fn>
+        <fn fn-type="other" id="fn9">
+          <label>AGRADECIMENTOS</label>
+          <p> Os autores agradecem aos responsáveis pelos Laboratórios Centrais em Saúde Publica, pelo esforço no combate à covid-19 no Brasil; a todos os professores e alunos envolvidos no curso Bioinformatics Workshop on Virus Evolution and Molecular Epidemiology (VEME), por sua participação, assim como aos funcionários do Ouro Minas Palace Hotel; e especialmente, à Dra. Anne-Mieke Vandamme, da Catholic University of Leuven, Bélgica.</p>
+        </fn>
+        <fn fn-type="other" id="fn10">
+          <label>Editor associado:</label>
+          <p> Lúcia Rolim Santana de Freitas - <ext-link ext-link-type="uri" xlink:href="https://orcid.org/0000-0003-0080-2858">https://orcid.org/0000-0003-0080-2858</ext-link> </p>
+        </fn>
+      </fn-group>
+    </back>
+  </sub-article>
+</article>
