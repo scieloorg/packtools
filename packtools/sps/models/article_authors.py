@@ -18,15 +18,11 @@ class Authors:
         for node in self.xmltree.xpath(".//front//contrib"):
             _author = {}
             for tag in ("surname", "prefix", "suffix"):
-                xpath = f".//{tag}"
-                try:
-                    _author[tag] = node.xpath(xpath)[0].text
-                except IndexError:
-                    pass
-            try:
-                _author["given_names"] = node.xpath(".//given-names")[0].text
-            except IndexError:
-                pass
+                data = node.findtext(f".//{tag}")
+                if data:
+                    _author[tag] = data
+            _author["given_names"] = node.findtext(".//given-names")
+
             try:
                 _author["orcid"] = node.xpath("contrib-id[@contrib-id-type='orcid']")[
                     0
@@ -34,13 +30,13 @@ class Authors:
             except IndexError:
                 pass
 
-            if node.xpath(".//role"):
-                _author["role"] = []
-
+            _author["role"] = []
             for role in node.xpath(".//role"):
-                _role = role.text
-                _content_type = role.get("content-type")
-                _author["role"].append({"text": _role, "content-type": _content_type})
+                _author["role"].append({
+                    "text": role.text,
+                    "content-type": role.get("content-type")})
+            if not _author["role"]:
+                _author.pop("role")
 
             for xref in node.findall('.//xref'):
                 rid = xref.get("rid")
@@ -56,15 +52,8 @@ class Authors:
                 _author.setdefault("rid-aff", [])
                 _author["rid-aff"].append(rid)
 
-            try:
-                _author["aff_rids"] = _author["rid-aff"]
-            except KeyError:
-                pass
-
-            if node.attrib.get("contrib-type"):
-                # criar contrib-type somente se existir e
-                # não atribuir valor default para que a validação seja fiel
-                _author["contrib-type"] = node.attrib.get("contrib-type")
+            _author["aff_rids"] = _author.get("rid-aff")
+            _author["contrib-type"] = node.attrib.get("contrib-type")
             _data.append(_author)
         return _data
 
@@ -74,7 +63,7 @@ class Authors:
         affs_by_id = affs.affiliation_by_id
 
         for item in self.contribs:
-            for rid in item["aff_rids"]:
+            for rid in item.get("aff_rids") or []:
                 item.setdefault("affs", [])
                 item["affs"].append(affs_by_id.get(rid))
             yield item
