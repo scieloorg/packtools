@@ -74,7 +74,7 @@ class Authors:
         affs_by_id = affs.affiliation_by_id
 
         for item in self.contribs:
-            for rid in item["aff_rids"]:
+            for rid in item.get("aff_rids") or []:
                 item.setdefault("affs", [])
                 item["affs"].append(affs_by_id.get(rid))
             yield item
