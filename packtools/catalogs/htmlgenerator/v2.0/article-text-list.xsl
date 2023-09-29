@@ -18,6 +18,13 @@
     <xsl:template match="list">
         <xsl:param name="position"></xsl:param>
         <xsl:choose>
+            <xsl:when test="@list-type='simple'">
+                <ul style="list-style-type: none">
+                    <xsl:apply-templates select="@*|*">
+                        <xsl:with-param name="position" select="position()"></xsl:with-param>
+                    </xsl:apply-templates>
+                </ul>
+            </xsl:when>
             <xsl:when test="@list-type='bullet'">
                 <ul>
                     <xsl:apply-templates select="@*|*">
