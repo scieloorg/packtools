@@ -1,4 +1,4 @@
-from packtools.normalizer import extract_number_and_supplment_from_issue_element
+from lib.normalizer import extract_number_and_supplment_from_issue_element
 from packtools.sps.models.sps_package import (
     SPS_Package,
     Identity,
