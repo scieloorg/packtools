@@ -1,5 +1,5 @@
 from unittest import TestCase
-from packtools.validation_report import ValidationReportXML
+from lib.validator import ValidationReportXML
 
 
 class TestReportXML(TestCase):
