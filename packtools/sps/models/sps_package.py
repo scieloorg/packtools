@@ -2,7 +2,7 @@ import logging
 import os
 
 from lxml import etree
-from packtools import normalizer
+from lib import normalizer
 from packtools.sps.utils import xml_utils
 
 
