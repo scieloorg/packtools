@@ -1,7 +1,7 @@
 import logging
 import os
 
-from lib import file_utils
+from packtools.lib import file_utils
 from zipfile import ZipFile
 
 

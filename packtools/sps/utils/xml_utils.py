@@ -4,7 +4,7 @@ import re
 from copy import deepcopy
 from lxml import etree
 from packtools.sps import exceptions
-from lib import file_utils
+from packtools.lib import file_utils
 
 logger = logging.getLogger(__name__)
 

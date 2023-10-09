@@ -1,7 +1,7 @@
 import argparse
 import logging
 
-from lib import file_utils
+from packtools.lib import file_utils
 from packtools.sps import sps_maker
 
 
