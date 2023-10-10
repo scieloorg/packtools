@@ -3,10 +3,8 @@ import re
 
 from copy import deepcopy
 from lxml import etree
-from packtools import validations
 from packtools.sps import exceptions
-from packtools import file_utils
-
+from packtools.lib import file_utils
 
 logger = logging.getLogger(__name__)
 
@@ -247,6 +245,17 @@ def parse_issue(issue):
     if s.endswith("s"):
         s += "0"
     return s
+
+
+def is_valid_value_for_pid_v2(value):
+    if len(value or "") != 23:
+        raise ValueError
+    return True
+
+
+VALIDATE_FUNCTIONS = dict((
+    ("scielo_pid_v2", is_valid_value_for_pid_v2),
+))
 
 
 def is_allowed_to_update(xml_sps, attr_name, attr_new_value):
