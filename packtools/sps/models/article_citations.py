@@ -80,6 +80,10 @@ def get_citation_ids(node):
 def get_elocation_id(node):
     return node.find('./element-citation/elocation-id')
 
+
+def get_ref_id(node):
+    return node.get('id')
+
 class ArticleCitations:
 
     def __init__(self, xmltree):
