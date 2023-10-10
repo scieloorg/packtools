@@ -50,6 +50,8 @@ class AuthorsTest(TestCase):
             <volume>150</volume>
             <fpage>85</fpage>
             <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
             <comment>
@@ -71,6 +73,8 @@ class AuthorsTest(TestCase):
                   <publisher-loc>São Pulo</publisher-loc>
                   <publisher-name>Cultrix</publisher-name>
                   <year>1987</year>
+                  <pub-id pub-id-type="doi">10.1016/B2</pub-id>
+                  <elocation-id>elocation_B2</elocation-id>
                   <pub-id pub-id-type="pmid">22222222</pub-id>
                   <pub-id pub-id-type="pmcid">33333333</pub-id>
                 </element-citation>
