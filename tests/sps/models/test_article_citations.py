@@ -90,6 +90,7 @@ class AuthorsTest(TestCase):
     def test_citations(self):
         expected = [
             {
+                'ref_id': 'B1',
                 'label': '1',
                 'mixed_citation': '1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially '
                                   'preventable hospitalisation: the benefit of smoking cessation in older ages. Drug '
@@ -107,19 +108,22 @@ class AuthorsTest(TestCase):
                 'volume': '150',
                 'fpage': '85',
                 'lpage': '91',
+                'elocation_id': 'elocation_B1',
                 'year': '2015',
                 'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages',
-                'citation_ids': {'pmid': '00000000', 'pmcid': '11111111'}
+                'citation_ids': {'pmid': '00000000', 'pmcid': '11111111', 'doi': '10.1016/B1'},
             },
             {
+                'ref_id': 'B2',
                 'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
                 'main_author': {'surname': 'BARTHES', 'given_name': 'Roland'},
                 'all_authors': [{'surname': 'BARTHES', 'given_name': 'Roland'}],
+                'elocation_id': 'elocation_B2',
                 'year': '1987',
-                'citation_ids': {'pmid': '22222222', 'pmcid': '33333333'}
+                'citation_ids': {'pmid': '22222222', 'pmcid': '33333333', 'doi': '10.1016/B2'}
             }
         ]
-        result = self.citations.article_citations
+        result = [citation for citation in self.citations.article_citations]
         self.assertDictEqual(expected[0], result[0])
         self.assertDictEqual(expected[1], result[1])
