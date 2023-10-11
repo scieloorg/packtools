@@ -124,6 +124,6 @@ class AuthorsTest(TestCase):
                 'citation_ids': {'pmid': '22222222', 'pmcid': '33333333', 'doi': '10.1016/B2'}
             }
         ]
-        result = [citation for citation in self.citations.article_citations]
-        self.assertDictEqual(expected[0], result[0])
-        self.assertDictEqual(expected[1], result[1])
+        for i, item in enumerate(self.citations.article_citations):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
