@@ -1,4 +1,6 @@
 from unittest import TestCase
+
+import self as self
 from lxml import etree
 
 from packtools.sps.validation.article_xref import ArticleXrefValidation
@@ -30,12 +32,36 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            expected_value=['aff1', 'fig1', 'table1'],
-            obtained_value=['aff1', 'fig1', 'table1'],
-            result=[],
-            message="OK: all rids have the respective ids"
-        )
+
+        expected = {
+            'validation':
+                [
+                    {
+                        'context': 'xref element rid attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'aff1',
+                        'got_value': 'aff1',
+                        'error_type': None,
+                        'message': 'rid have the respective id'
+                    },
+                    {
+                        'context': 'xref element rid attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'fig1',
+                        'got_value': 'fig1',
+                        'error_type': None,
+                        'message': 'rid have the respective id'
+                    },
+                    {
+                        'context': 'xref element rid attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'table1',
+                        'got_value': 'table1',
+                        'error_type': None,
+                        'message': 'rid have the respective id'
+                    }
+                ]
+        }
         obtained = self.article_xref.validate_rid()
         self.assertDictEqual(expected, obtained)
 
@@ -60,14 +86,36 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            expected_value=['aff1', 'fig1', 'table1'],
-            obtained_value=['aff1', 'fig1'],
-            result=['table1'],
-            message="ERROR: rids were found with the values "
-                f"{self.article_xref.validate_rid()['expected_value']} but there were "
-                "no ids with the corresponding values"
-        )
+
+        expected = {
+            'validation':
+                [
+                    {
+                        'context': 'xref element rid attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'aff1',
+                        'got_value': 'aff1',
+                        'error_type': None,
+                        'message': 'rid have the respective id'
+                    },
+                    {
+                        'context': 'xref element rid attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'fig1',
+                        'got_value': 'fig1',
+                        'error_type': None,
+                        'message': 'rid have the respective id'
+                    },
+                    {
+                        'context': 'xref element rid attribute validation',
+                        'result': 'ERROR',
+                        'expected_value': 'table1',
+                        'got_value': None,
+                        'error_type': 'no match',
+                        'message': 'rid does not have the respective id'
+                    }
+                ]
+        }
         obtained = self.article_xref.validate_rid()
         self.assertDictEqual(expected, obtained)
 
@@ -95,16 +143,41 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            obtained_value=['aff1', 'fig1', 'table1'],
-            expected_value=['aff1', 'fig1', 'table1'],
-            result=[],
-            message="OK: all ids have the respective rids"
-        )
+
+        expected = {
+            'validation':
+                [
+                    {
+                        'context': 'xref element id attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'aff1',
+                        'got_value': 'aff1',
+                        'error_type': None,
+                        'message': 'id have the respective rid'
+                    },
+                    {
+                        'context': 'xref element id attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'fig1',
+                        'got_value': 'fig1',
+                        'error_type': None,
+                        'message': 'id have the respective rid'
+                    },
+                    {
+                        'context': 'xref element id attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'table1',
+                        'got_value': 'table1',
+                        'error_type': None,
+                        'message': 'id have the respective rid'
+                    }
+                ]
+        }
         obtained = self.article_xref.validate_id()
         self.assertDictEqual(expected, obtained)
 
     def test_validate_ids_no_matches(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article>
@@ -127,13 +200,35 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            obtained_value=['aff1', 'fig1'],
-            expected_value=['aff1', 'fig1', 'table1'],
-            result=['table1'],
-            message="ERROR: ids were found with the values "
-                f"{self.article_xref.validate_id()['expected_value']} but there were "
-                "no rids with the corresponding values"
-        )
+
+        expected = {
+            'validation':
+                [
+                    {
+                        'context': 'xref element id attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'aff1',
+                        'got_value': 'aff1',
+                        'error_type': None,
+                        'message': 'id have the respective rid'
+                    },
+                    {
+                        'context': 'xref element id attribute validation',
+                        'result': 'OK',
+                        'expected_value': 'fig1',
+                        'got_value': 'fig1',
+                        'error_type': None,
+                        'message': 'id have the respective rid'
+                    },
+                    {
+                        'context': 'xref element id attribute validation',
+                        'result': 'ERROR',
+                        'expected_value': 'table1',
+                        'got_value': None,
+                        'error_type': 'no match',
+                        'message': 'id does not have the respective rid'
+                    }
+                ]
+        }
         obtained = self.article_xref.validate_id()
         self.assertDictEqual(expected, obtained)
