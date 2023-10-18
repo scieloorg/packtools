@@ -20,24 +20,49 @@ class ArticleXrefValidation:
         >>> validate_rid()
 
         {
-            'expected_value': ['aff1', 'fig1', 'table1'],
-            'obtained_value': ['aff1', 'fig1'],
-            'result': ['table1'],
-            'message': 'ERROR: the rids ['table1'] do not have the respective ids'
+            'validation':
+                [
+                    {
+                    'context': 'xref element rid attribute validation',
+                    'result': 'OK',
+                    'expected_value': 'aff1',
+                    'got_value': 'aff1',
+                    'error_type': None,
+                    'message': 'rid have the respective id'
+                    },
+                    {
+                    'context': 'xref element rid attribute validation',
+                    'result': 'OK',
+                    'expected_value': 'fig1',
+                    'got_value': 'fig1',
+                    'error_type': None,
+                    'message': 'rid have the respective id'
+                    },
+                    {
+                    'context': 'xref element rid attribute validation',
+                    'result': 'ERROR',
+                    'expected_value': 'table1',
+                    'got_value': None,
+                    'error_type': 'no match',
+                    'message': 'rid does not have the respective id'
+                    }
+                ]
         }
         """
-        diff = self.rids_without_ids
-        if diff == set():
-            message = "OK: all rids have the respective ids"
-        else:
-            message = f"ERROR: rids were found with the values {sorted(self.article_xref.all_xref_rids)}" \
-                  f" but there were no ids with the corresponding values"
-        resp = dict(
-            expected_value=sorted(self.article_xref.all_xref_rids),
-            obtained_value=sorted(self.article_xref.all_ids),
-            result=sorted(diff),
-            message=message
-        )
+        rids = sorted(self.article_xref.all_xref_rids)
+        ids = sorted(self.article_xref.all_ids)
+        resp = {'validation': []}
+        for rid in rids:
+            item = {
+                'context': 'xref element rid attribute validation'
+            }
+            validated = rid in ids
+            item['result'] = 'OK' if validated else 'ERROR'
+            item['expected_value'] = rid
+            item['got_value'] = rid if validated else None
+            item['error_type'] = None if validated else 'no match'
+            item['message'] = 'rid have the respective id' if validated else 'rid does not have the respective id'
+            resp['validation'].append(item)
         return resp
 
     def validate_id(self):
@@ -54,24 +79,49 @@ class ArticleXrefValidation:
         >>> validate_id()
 
         {
-            'obtained_value': ['aff1', 'fig1'],
-            'expected_value': ['aff1', 'fig1', 'table1'],
-            'diff': ['table1'],
-            'message': 'ERROR: the ids ['table1'] do not have the respective rids'
+            'validation':
+                [
+                    {
+                    'context': 'xref element id attribute validation',
+                    'result': 'OK',
+                    'expected_value': 'aff1',
+                    'got_value': 'aff1',
+                    'error_type': None,
+                    'message': 'rid have the respective id'
+                    },
+                    {
+                    'context': 'xref element id attribute validation',
+                    'result': 'OK',
+                    'expected_value': 'fig1',
+                    'got_value': 'fig1',
+                    'error_type': None,
+                    'message': 'rid have the respective id'
+                    },
+                    {
+                    'context': 'xref element id attribute validation',
+                    'result': 'ERROR',
+                    'expected_value': 'table1',
+                    'got_value': None,
+                    'error_type': 'no match',
+                    'message': 'rid does not have the respective id'
+                    }
+                ]
         }
         """
-        diff = self.ids_without_rids
-        if diff == set():
-            message = "OK: all ids have the respective rids"
-        else:
-            message = f"ERROR: ids were found with the values {sorted(self.article_xref.all_ids)}" \
-                  f" but there were no rids with the corresponding values"
-        resp = dict(
-            expected_value=sorted(self.article_xref.all_ids),
-            obtained_value=sorted(self.article_xref.all_xref_rids),
-            result=sorted(diff),
-            message=message
-        )
+        rids = sorted(self.article_xref.all_xref_rids)
+        ids = sorted(self.article_xref.all_ids)
+        resp = {'validation': []}
+        for id in ids:
+            item = {
+                'context': 'xref element id attribute validation'
+            }
+            validated = id in rids
+            item['result'] = 'OK' if validated else 'ERROR'
+            item['expected_value'] = id
+            item['got_value'] = id if validated else None
+            item['error_type'] = None if validated else 'no match'
+            item['message'] = 'id have the respective rid' if validated else 'id does not have the respective rid'
+            resp['validation'].append(item)
         return resp
 
     @property
