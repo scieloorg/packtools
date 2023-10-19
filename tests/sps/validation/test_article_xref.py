@@ -37,28 +37,34 @@ class ArticleXrefValidationTest(TestCase):
             'validation':
                 [
                     {
-                        'context': 'xref element rid attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element rid attribute validation',
+                        'xpath': './/xref[@rid]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'aff1',
                         'got_value': 'aff1',
-                        'error_type': None,
-                        'message': 'rid have the respective id'
+                        'message': 'rid have the respective id',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element rid attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element rid attribute validation',
+                        'xpath': './/xref[@rid]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'fig1',
                         'got_value': 'fig1',
-                        'error_type': None,
-                        'message': 'rid have the respective id'
+                        'message': 'rid have the respective id',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element rid attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element rid attribute validation',
+                        'xpath': './/xref[@rid]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'table1',
                         'got_value': 'table1',
-                        'error_type': None,
-                        'message': 'rid have the respective id'
+                        'message': 'rid have the respective id',
+                        'advice': None
                     }
                 ]
         }
@@ -91,28 +97,34 @@ class ArticleXrefValidationTest(TestCase):
             'validation':
                 [
                     {
-                        'context': 'xref element rid attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element rid attribute validation',
+                        'xpath': './/xref[@rid]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'aff1',
                         'got_value': 'aff1',
-                        'error_type': None,
-                        'message': 'rid have the respective id'
+                        'message': 'rid have the respective id',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element rid attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element rid attribute validation',
+                        'xpath': './/xref[@rid]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'fig1',
                         'got_value': 'fig1',
-                        'error_type': None,
-                        'message': 'rid have the respective id'
+                        'message': 'rid have the respective id',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element rid attribute validation',
-                        'result': 'ERROR',
+                        'title': 'xref element rid attribute validation',
+                        'xpath': './/xref[@rid]',
+                        'validation_type': 'match',
+                        'response': 'ERROR',
                         'expected_value': 'table1',
                         'got_value': None,
-                        'error_type': 'no match',
-                        'message': 'rid does not have the respective id'
+                        'message': 'rid does not have the respective id',
+                        'advice': 'add attribute id = table1 to the corresponding rid = table1'
                     }
                 ]
         }
@@ -148,28 +160,34 @@ class ArticleXrefValidationTest(TestCase):
             'validation':
                 [
                     {
-                        'context': 'xref element id attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element id attribute validation',
+                        'xpath': './/*[@id]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'aff1',
                         'got_value': 'aff1',
-                        'error_type': None,
-                        'message': 'id have the respective rid'
+                        'message': 'id have the respective rid',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element id attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element id attribute validation',
+                        'xpath': './/*[@id]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'fig1',
                         'got_value': 'fig1',
-                        'error_type': None,
-                        'message': 'id have the respective rid'
+                        'message': 'id have the respective rid',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element id attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element id attribute validation',
+                        'xpath': './/*[@id]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'table1',
                         'got_value': 'table1',
-                        'error_type': None,
-                        'message': 'id have the respective rid'
+                        'message': 'id have the respective rid',
+                        'advice': None
                     }
                 ]
         }
@@ -177,7 +195,6 @@ class ArticleXrefValidationTest(TestCase):
         self.assertDictEqual(expected, obtained)
 
     def test_validate_ids_no_matches(self):
-        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article>
@@ -205,28 +222,34 @@ class ArticleXrefValidationTest(TestCase):
             'validation':
                 [
                     {
-                        'context': 'xref element id attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element id attribute validation',
+                        'xpath': './/*[@id]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'aff1',
                         'got_value': 'aff1',
-                        'error_type': None,
-                        'message': 'id have the respective rid'
+                        'message': 'id have the respective rid',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element id attribute validation',
-                        'result': 'OK',
+                        'title': 'xref element id attribute validation',
+                        'xpath': './/*[@id]',
+                        'validation_type': 'match',
+                        'response': 'OK',
                         'expected_value': 'fig1',
                         'got_value': 'fig1',
-                        'error_type': None,
-                        'message': 'id have the respective rid'
+                        'message': 'id have the respective rid',
+                        'advice': None
                     },
                     {
-                        'context': 'xref element id attribute validation',
-                        'result': 'ERROR',
+                        'title': 'xref element id attribute validation',
+                        'xpath': './/*[@id]',
+                        'validation_type': 'match',
+                        'response': 'ERROR',
                         'expected_value': 'table1',
                         'got_value': None,
-                        'error_type': 'no match',
-                        'message': 'id does not have the respective rid'
+                        'message': 'id does not have the respective rid',
+                        'advice': 'add attribute rid = table1 to the corresponding id = table1'
                     }
                 ]
         }
