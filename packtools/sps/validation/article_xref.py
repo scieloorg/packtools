@@ -28,50 +28,50 @@ class ArticleXrefValidation:
                     'xpath': './/xref[@rid]',
                     'validation_type': 'match',
                     'response': 'OK',
-                    'expected_value': 'aff1',
-                    'got_value': 'aff1',
-                    'message': 'rid have the respective id',
-                    'advice': None
+                    'expected_value': True,
+                    'got_value': True,
+                    'message': 'Got True, expected True',
+                    'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
                     },
                     {
                     'title': 'xref element rid attribute validation',
                     'xpath': './/xref[@rid]',
                     'validation_type': 'match',
                     'response': 'OK',
-                    'expected_value': 'fig1',
-                    'got_value': 'fig1',
-                    'message': 'rid have the respective id',
-                    'advice': None
+                    'expected_value': True,
+                    'got_value': True,
+                    'message': 'Got True, expected True',
+                    'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
                     },
                     {
                     'title': 'xref element rid attribute validation',
                     'xpath': './/xref[@rid]',
                     'validation_type': 'match',
                     'response': 'ERROR',
-                    'expected_value': 'table1',
-                    'got_value': None,
-                    'message': 'rid does not have the respective id',
-                    'advice': 'add attribute id = table1 to the corresponding rid = table1'
+                    'expected_value': True,
+                    'got_value': False,
+                    'message': 'Got False, expected True',
+                    'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
                     }
                 ]
         }
         """
         rids = sorted(self.article_xref.all_xref_rids)
         ids = sorted(self.article_xref.all_ids)
-        resp = {_('validation'): []}
+        resp = {'validation': []}
         for rid in rids:
             item = {
-                _('title'): _('xref element rid attribute validation'),
-                _('xpath'): _('.//xref[@rid]'),
-                _('validation_type'): _('match'),
+                'title': _('xref element rid attribute validation'),
+                'xpath': _('.//xref[@rid]'),
+                'validation_type': _('match'),
             }
             validated = rid in ids
-            item[_('response')] = 'OK' if validated else 'ERROR'
-            item[_('expected_value')] = rid
-            item[_('got_value')] = rid if validated else None
-            item[_('message')] = _('rid have the respective id') if validated else _('rid does not have the respective id')
-            item[_('advice')] = None if validated else _(f'add attribute id = {rid} to the corresponding rid = {rid}')
-            resp[_('validation')].append(item)
+            item['response'] = 'OK' if validated else 'ERROR'
+            item['expected_value'] = True
+            item['got_value'] = validated
+            item['message'] = _('Got {}, expected True').format(validated)
+            item['advice'] = 'For each xref[@rid="{}"] must have one corresponding element which @id="{}"'.format(rid, rid)
+            resp['validation'].append(item)
         return resp
 
     def validate_id(self):
@@ -95,30 +95,30 @@ class ArticleXrefValidation:
                     'xpath': './/*[@id]',
                     'validation_type': 'match',
                     'response': 'OK',
-                    'expected_value': 'aff1',
-                    'got_value': 'aff1',
-                    'message': 'id have the respective rid',
-                    'advice': None
+                    'expected_value': True,
+                    'got_value': True,
+                    'message': 'Got True, expected True',
+                    'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
                     },
                     {
                     'title': 'xref element id attribute validation',
                     'xpath': './/*[@id]',
                     'validation_type': 'match',
                     'response': 'OK',
-                    'expected_value': 'fig1',
-                    'got_value': 'fig1',
-                    'message': 'id have the respective rid',
-                    'advice': None
+                    'expected_value': True,
+                    'got_value': True,
+                    'message': 'Got True, expected True',
+                    'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
                     },
                     {
                     'title': 'xref element id attribute validation',
                     'xpath': './/*[@id]',
                     'validation_type': 'match',
                     'response': 'ERROR',
-                    'expected_value': 'table1',
-                    'got_value': None,
-                    'message': 'id does not have the respective rid',
-                    'advice': 'add attribute rid = table1 to the corresponding id = table1'
+                    'expected_value': True,
+                    'got_value': False,
+                    'message': 'Got False, expected True',
+                    'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
                     }
                 ]
         }
@@ -128,17 +128,17 @@ class ArticleXrefValidation:
         resp = {'validation': []}
         for id in ids:
             item = {
-                _('title'): _('xref element id attribute validation'),
-                _('xpath'): _('.//*[@id]'),
-                _('validation_type'): _('match')
+                'title': _('xref element id attribute validation'),
+                'xpath': _('.//*[@id]'),
+                'validation_type': _('match')
             }
             validated = id in rids
-            item[_('response')] = 'OK' if validated else 'ERROR'
-            item[_('expected_value')] = id
-            item[_('got_value')] = id if validated else None
-            item[_('message')] = _('id have the respective rid') if validated else _('id does not have the respective rid')
-            item[_('advice')] = None if validated else _(f'add attribute rid = {id} to the corresponding id = {id}')
-            resp[_('validation')].append(item)
+            item['response'] = 'OK' if validated else 'ERROR'
+            item['expected_value'] = True
+            item['got_value'] = validated
+            item['message'] = _('Got {}, expected True').format(validated)
+            item['advice'] = 'For each @id="{}" must have one corresponding element which xref[@rid="{}"]'.format(id, id)
+            resp['validation'].append(item)
         return resp
 
     def validate(self, data):
@@ -150,10 +150,10 @@ class ArticleXrefValidation:
         
         """        
         xref_id_results = {
-            _('article_xref_id_validation'): self.validate_id()
+            'article_xref_id_validation': self.validate_id()
             }
         xref_rid_results = { 
-            _('article_xref_rid_validation'): self.validate_rid()
+            'article_xref_rid_validation': self.validate_rid()
             }
         
         xref_id_results.update(xref_rid_results)
