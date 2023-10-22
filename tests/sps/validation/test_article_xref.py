@@ -41,30 +41,30 @@ class ArticleXrefValidationTest(TestCase):
                         'xpath': './/xref[@rid]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'aff1',
-                        'got_value': 'aff1',
-                        'message': 'rid have the respective id',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
                     },
                     {
                         'title': 'xref element rid attribute validation',
                         'xpath': './/xref[@rid]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'fig1',
-                        'got_value': 'fig1',
-                        'message': 'rid have the respective id',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
                     },
                     {
                         'title': 'xref element rid attribute validation',
                         'xpath': './/xref[@rid]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'table1',
-                        'got_value': 'table1',
-                        'message': 'rid have the respective id',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
                     }
                 ]
         }
@@ -101,30 +101,30 @@ class ArticleXrefValidationTest(TestCase):
                         'xpath': './/xref[@rid]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'aff1',
-                        'got_value': 'aff1',
-                        'message': 'rid have the respective id',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
                     },
                     {
                         'title': 'xref element rid attribute validation',
                         'xpath': './/xref[@rid]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'fig1',
-                        'got_value': 'fig1',
-                        'message': 'rid have the respective id',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
                     },
                     {
                         'title': 'xref element rid attribute validation',
                         'xpath': './/xref[@rid]',
                         'validation_type': 'match',
                         'response': 'ERROR',
-                        'expected_value': 'table1',
-                        'got_value': None,
-                        'message': 'rid does not have the respective id',
-                        'advice': 'add attribute id = table1 to the corresponding rid = table1'
+                        'expected_value': True,
+                        'got_value': False,
+                        'message': 'Got False, expected True',
+                        'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
                     }
                 ]
         }
@@ -164,30 +164,30 @@ class ArticleXrefValidationTest(TestCase):
                         'xpath': './/*[@id]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'aff1',
-                        'got_value': 'aff1',
-                        'message': 'id have the respective rid',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
                     },
                     {
                         'title': 'xref element id attribute validation',
                         'xpath': './/*[@id]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'fig1',
-                        'got_value': 'fig1',
-                        'message': 'id have the respective rid',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
                     },
                     {
                         'title': 'xref element id attribute validation',
                         'xpath': './/*[@id]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'table1',
-                        'got_value': 'table1',
-                        'message': 'id have the respective rid',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
                     }
                 ]
         }
@@ -226,30 +226,30 @@ class ArticleXrefValidationTest(TestCase):
                         'xpath': './/*[@id]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'aff1',
-                        'got_value': 'aff1',
-                        'message': 'id have the respective rid',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
                     },
                     {
                         'title': 'xref element id attribute validation',
                         'xpath': './/*[@id]',
                         'validation_type': 'match',
                         'response': 'OK',
-                        'expected_value': 'fig1',
-                        'got_value': 'fig1',
-                        'message': 'id have the respective rid',
-                        'advice': None
+                        'expected_value': True,
+                        'got_value': True,
+                        'message': 'Got True, expected True',
+                        'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
                     },
                     {
                         'title': 'xref element id attribute validation',
                         'xpath': './/*[@id]',
                         'validation_type': 'match',
                         'response': 'ERROR',
-                        'expected_value': 'table1',
-                        'got_value': None,
-                        'message': 'id does not have the respective rid',
-                        'advice': 'add attribute rid = table1 to the corresponding id = table1'
+                        'expected_value': True,
+                        'got_value': False,
+                        'message': 'Got False, expected True',
+                        'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
                     }
                 ]
         }
