@@ -2,7 +2,7 @@ from packtools.sps.models.aff import Affiliation
 from packtools.translator import _
 
 
-def _get_affiliation_data(affiliation, element, attrib_label, attrib_source, xpath, default_values=None):
+def _get_affiliation_data(affiliation, element, attrib_label, attrib_source, xpath, default_values):
     value = affiliation.get(attrib_source)
     item = {
         'title': _('{} element {} attribute validation').format(element, attrib_label),
@@ -10,20 +10,16 @@ def _get_affiliation_data(affiliation, element, attrib_label, attrib_source, xpa
         'got_value': value
     }
     if default_values:
-        item['validation_type'] = _('value in list')
+        item['validation_type'] = 'value in list'
         item['response'] = 'OK' if value in default_values else 'ERROR'
-        item['expected_value'] = _('{} affiliation valid').format(attrib_label)
-        item['message'] = _('{} affiliation is valid').format(attrib_label) \
-            if value in default_values \
-            else _('{} affiliation is not valid').format(attrib_label)
+        item['expected_value'] = default_values
+        item['message'] = _('Got {}, expected {}').format(value, default_values)
         item['advice'] = None if value else _('provide a valid {} affiliation').format(attrib_label)
     else:
-        item['validation_type'] = _('exist')
+        item['validation_type'] = 'exist'
         item['response'] = 'OK' if value else 'ERROR'
         item['expected_value'] = _('{} affiliation').format(attrib_label)
-        item['message'] = _('{} affiliation exists').format(attrib_label) \
-            if value \
-            else _('{} affiliation does not exist').format(attrib_label)
+        item['message'] = _('Got {}, expected True').format(value is not None)
         item['advice'] = None if value else _('provide the {} affiliation').format(attrib_label)
 
     return item
@@ -43,21 +39,24 @@ class AffiliationValidation:
                 element='aff/institution',
                 attrib_label='original',
                 attrib_source='original',
-                xpath='.//aff/institution[@content-type="original"]'
+                xpath='.//aff/institution[@content-type="original"]',
+                default_values=None
             ))
             resp['validation'].append(_get_affiliation_data(
                 affiliation=affiliation,
                 element='aff/institution',
                 attrib_label='orgname',
                 attrib_source='orgname',
-                xpath='.//aff/institution[@content-type="orgname"]'
+                xpath='.//aff/institution[@content-type="orgname"]',
+                default_values=None
             ))
             resp['validation'].append(_get_affiliation_data(
                 affiliation=affiliation,
                 element='aff',
                 attrib_label='country',
                 attrib_source='country_name',
-                xpath='.//aff/country'
+                xpath='.//aff/country',
+                default_values=None
             ))
             resp['validation'].append(_get_affiliation_data(
                 affiliation=affiliation,
@@ -72,14 +71,16 @@ class AffiliationValidation:
                 element='aff/addr-line',
                 attrib_label='state',
                 attrib_source='state',
-                xpath='.//aff/addr-line/named-content[@content-type="state"]'
+                xpath='.//aff/addr-line/named-content[@content-type="state"]',
+                default_values=None
             ))
             resp['validation'].append(_get_affiliation_data(
                 affiliation=affiliation,
                 element='aff/addr-line',
                 attrib_label='city',
                 attrib_source='city',
-                xpath='.//aff/addr-line/named-content[@content-type="city"]'
+                xpath='.//aff/addr-line/named-content[@content-type="city"]',
+                default_values=None
             ))
         return resp
 
