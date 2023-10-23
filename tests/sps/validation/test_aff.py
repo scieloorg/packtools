@@ -50,7 +50,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'original affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'original affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -61,7 +61,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'orgname affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -72,7 +72,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'country affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -80,9 +80,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'OK',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': '@country affiliation is valid',
+                    'message': "Got BR, expected ['BR']",
                     'advice': None
                 },
                 {
@@ -92,7 +92,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'state affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -102,7 +102,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'city affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -113,7 +113,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'expected_value': 'original affiliation',
                     'got_value': 'Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
                                  'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil',
-                    'message': 'original affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -124,7 +124,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Universidade Federal de Minas Gerais',
-                    'message': 'orgname affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -135,7 +135,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'country affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -143,9 +143,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'OK',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': '@country affiliation is valid',
+                    'message': "Got BR, expected ['BR']",
                     'advice': None
                 },
                 {
@@ -155,7 +155,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'state affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -165,7 +165,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'city affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 }
             ]
@@ -205,7 +205,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'original affiliation',
                     'got_value': None,
-                    'message': 'original affiliation does not exist',
+                    'message': 'Got False, expected True',
                     'advice': 'provide the original affiliation'
 
                 },
@@ -216,7 +216,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'orgname affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -227,7 +227,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'country affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -235,9 +235,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'OK',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': '@country affiliation is valid',
+                    'message': "Got BR, expected ['BR']",
                     'advice': None
                 },
                 {
@@ -247,7 +247,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'state affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -257,7 +257,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'city affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 }
             ]
@@ -296,7 +296,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'original affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'original affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -307,7 +307,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'orgname affiliation',
                     'got_value': None,
-                    'message': 'orgname affiliation does not exist',
+                    'message': 'Got False, expected True',
                     'advice': 'provide the orgname affiliation'
 
                 },
@@ -318,7 +318,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'country affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -326,9 +326,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'OK',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': '@country affiliation is valid',
+                    'message': "Got BR, expected ['BR']",
                     'advice': None
                 },
                 {
@@ -338,7 +338,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'state affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -348,7 +348,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'city affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 }
             ]
@@ -388,7 +388,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'original affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'original affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -399,7 +399,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'orgname affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -410,7 +410,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'country affiliation',
                     'got_value': None,
-                    'message': 'country affiliation does not exist',
+                    'message': 'Got False, expected True',
                     'advice': 'provide the country affiliation'
                 },
                 {
@@ -418,9 +418,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'ERROR',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': None,
-                    'message': '@country affiliation is not valid',
+                    'message': "Got None, expected ['BR']",
                     'advice': 'provide a valid @country affiliation'
                 },
                 {
@@ -430,7 +430,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'state affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -440,7 +440,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'city affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 }
             ]
@@ -481,7 +481,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'original affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'original affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -492,7 +492,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'orgname affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -503,7 +503,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'country affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -511,9 +511,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'ERROR',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': None,
-                    'message': '@country affiliation is not valid',
+                    'message': "Got None, expected ['BR']",
                     'advice': 'provide a valid @country affiliation'
                 },
                 {
@@ -523,7 +523,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'state affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -533,7 +533,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'city affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 }
             ]
@@ -573,7 +573,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'original affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'original affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -584,7 +584,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'orgname affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -595,7 +595,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'country affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -603,9 +603,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'OK',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': '@country affiliation is valid',
+                    'message': "Got BR, expected ['BR']",
                     'advice': None
                 },
                 {
@@ -615,7 +615,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'state affiliation',
                     'got_value': None,
-                    'message': 'state affiliation does not exist',
+                    'message': 'Got False, expected True',
                     'advice': 'provide the state affiliation'
                 },
                 {
@@ -625,7 +625,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'city affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 }
             ]
@@ -665,7 +665,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'original affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'original affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -676,7 +676,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'orgname affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
 
                 },
@@ -687,7 +687,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'country affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -695,9 +695,9 @@ class ArticleAuthorsValidationTest(TestCase):
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
                     'response': 'OK',
-                    'expected_value': '@country affiliation valid',
+                    'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': '@country affiliation is valid',
+                    'message': "Got BR, expected ['BR']",
                     'advice': None
                 },
                 {
@@ -707,7 +707,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'state affiliation exists',
+                    'message': 'Got True, expected True',
                     'advice': None
                 },
                 {
@@ -717,7 +717,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'city affiliation',
                     'got_value': None,
-                    'message': 'city affiliation does not exist',
+                    'message': 'Got False, expected True',
                     'advice': 'provide the city affiliation'
                 }
             ]
