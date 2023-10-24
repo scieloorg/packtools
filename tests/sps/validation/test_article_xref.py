@@ -33,43 +33,41 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
 
-        expected = {
-            'validation':
-                [
-                    {
-                        'title': 'xref element rid attribute validation',
-                        'xpath': './/xref[@rid]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
-                    },
-                    {
-                        'title': 'xref element rid attribute validation',
-                        'xpath': './/xref[@rid]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
-                    },
-                    {
-                        'title': 'xref element rid attribute validation',
-                        'xpath': './/xref[@rid]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
-                    }
-                ]
-        }
-        obtained = self.article_xref.validate_rid()
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'table1',
+                'got_value': 'table1',
+                'message': 'Got table1, expected table1',
+                'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
+            }
+        ]
+        for i, item in enumerate(self.article_xref.validate_rid()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_rids_no_matches(self):
         self.xmltree = etree.fromstring(
@@ -93,43 +91,41 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
 
-        expected = {
-            'validation':
-                [
-                    {
-                        'title': 'xref element rid attribute validation',
-                        'xpath': './/xref[@rid]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
-                    },
-                    {
-                        'title': 'xref element rid attribute validation',
-                        'xpath': './/xref[@rid]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
-                    },
-                    {
-                        'title': 'xref element rid attribute validation',
-                        'xpath': './/xref[@rid]',
-                        'validation_type': 'match',
-                        'response': 'ERROR',
-                        'expected_value': True,
-                        'got_value': False,
-                        'message': 'Got False, expected True',
-                        'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
-                    }
-                ]
-        }
-        obtained = self.article_xref.validate_rid()
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': 'table1',
+                'got_value': None,
+                'message': 'Got None, expected table1',
+                'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
+            }
+        ]
+        for i, item in enumerate(self.article_xref.validate_rid()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_ids_matches(self):
         self.xmltree = etree.fromstring(
@@ -156,43 +152,42 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
 
-        expected = {
-            'validation':
-                [
-                    {
-                        'title': 'xref element id attribute validation',
-                        'xpath': './/*[@id]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
-                    },
-                    {
-                        'title': 'xref element id attribute validation',
-                        'xpath': './/*[@id]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
-                    },
-                    {
-                        'title': 'xref element id attribute validation',
-                        'xpath': './/*[@id]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
-                    }
-                ]
-        }
-        obtained = self.article_xref.validate_id()
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'title': '* element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
+            },
+            {
+                'title': '* element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
+            },
+            {
+                'title': '* element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'table1',
+                'got_value': 'table1',
+                'message': 'Got table1, expected table1',
+                'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
+            }
+        ]
+
+        for i, item in enumerate(self.article_xref.validate_id()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_ids_no_matches(self):
         self.xmltree = etree.fromstring(
@@ -218,40 +213,39 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
 
-        expected = {
-            'validation':
-                [
-                    {
-                        'title': 'xref element id attribute validation',
-                        'xpath': './/*[@id]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
-                    },
-                    {
-                        'title': 'xref element id attribute validation',
-                        'xpath': './/*[@id]',
-                        'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': True,
-                        'got_value': True,
-                        'message': 'Got True, expected True',
-                        'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
-                    },
-                    {
-                        'title': 'xref element id attribute validation',
-                        'xpath': './/*[@id]',
-                        'validation_type': 'match',
-                        'response': 'ERROR',
-                        'expected_value': True,
-                        'got_value': False,
-                        'message': 'Got False, expected True',
-                        'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
-                    }
-                ]
-        }
-        obtained = self.article_xref.validate_id()
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'title': '* element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
+            },
+            {
+                'title': '* element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
+            },
+            {
+                'title': '* element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': 'table1',
+                'got_value': None,
+                'message': 'Got None, expected table1',
+                'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
+            }
+        ]
+
+        for i, item in enumerate(self.article_xref.validate_id()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
