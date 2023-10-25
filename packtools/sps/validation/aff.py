@@ -17,6 +17,21 @@ def _get_affiliation_original(affiliation):
     return item
 
 
+def _get_affiliation_orgname(affiliation):
+    value = affiliation.get('orgname')
+    item = {
+        'title': 'aff/institution element orgname attribute validation',
+        'xpath': './/aff/institution[@content-type="orgname"]',
+        'validation_type': 'exist',
+        'response': 'OK' if value else 'ERROR',
+        'expected_value': _('orgname affiliation'),
+        'got_value': value,
+        'message': _('Got {}, expected orgname affiliation').format(value),
+        'advice': None if value else _('provide the orgname affiliation')
+    }
+    return item
+
+
     return item
 
 
