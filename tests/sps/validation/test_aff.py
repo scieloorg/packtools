@@ -2,7 +2,15 @@ from unittest import TestCase
 
 from lxml import etree
 
-from packtools.sps.validation.aff import AffiliationValidation
+from packtools.sps.validation.aff import (
+    AffiliationValidation,
+    _get_affiliation_original,
+    _get_affiliation_orgname,
+    _get_affiliation_country,
+    _get_affiliation_country_code,
+    _get_affiliation_state,
+    _get_affiliation_city,
+)
 
 
 class ArticleAuthorsValidationTest(TestCase):
