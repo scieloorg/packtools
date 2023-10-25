@@ -47,10 +47,9 @@ class ArticleAuthorsValidationTest(TestCase):
         """)
 
         data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(default_values=['BR'])
+        message = AffiliationValidation(data).validate_affiliation(['BR'])
 
-        expected_output = {
-            'validation': [
+        expected_output = [
                 {
                     'title': 'aff/institution element original attribute validation',
                     'xpath': './/aff/institution[@content-type="original"]',
@@ -58,7 +57,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'original affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation',
                     'advice': None
 
                 },
@@ -69,7 +68,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation',
                     'advice': None
 
                 },
@@ -80,7 +79,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Brasil, expected country affiliation',
                     'advice': None
                 },
                 {
@@ -100,7 +99,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'Got True, expected True',
+                    'message': 'Got MG, expected state affiliation',
                     'advice': None
                 },
                 {
@@ -110,7 +109,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Belo Horizonte, expected city affiliation',
                     'advice': None
                 },
                 {
@@ -121,7 +120,8 @@ class ArticleAuthorsValidationTest(TestCase):
                     'expected_value': 'original affiliation',
                     'got_value': 'Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
                                  'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
+                                 'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original affiliation',
                     'advice': None
 
                 },
@@ -132,7 +132,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'orgname affiliation',
                     'got_value': 'Universidade Federal de Minas Gerais',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Universidade Federal de Minas Gerais, expected orgname affiliation',
                     'advice': None
 
                 },
@@ -143,7 +143,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'country affiliation',
                     'got_value': 'Brasil',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Brasil, expected country affiliation',
                     'advice': None
                 },
                 {
@@ -163,7 +163,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'state affiliation',
                     'got_value': 'MG',
-                    'message': 'Got True, expected True',
+                    'message': 'Got MG, expected state affiliation',
                     'advice': None
                 },
                 {
@@ -173,11 +173,10 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': 'city affiliation',
                     'got_value': 'Belo Horizonte',
-                    'message': 'Got True, expected True',
+                    'message': 'Got Belo Horizonte, expected city affiliation',
                     'advice': None
                 }
             ]
-        }
 
         self.assertEqual(message, expected_output)
 
@@ -202,18 +201,16 @@ class ArticleAuthorsValidationTest(TestCase):
         """)
 
         data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(default_values=['BR'])
+        message = _get_affiliation_original(data)
 
         expected_output = {
-            'validation': [
-                {
                     'title': 'aff/institution element original attribute validation',
                     'xpath': './/aff/institution[@content-type="original"]',
                     'validation_type': 'exist',
                     'response': 'ERROR',
                     'expected_value': 'original affiliation',
                     'got_value': None,
-                    'message': 'Got False, expected True',
+                    'message': 'Got None, expected original affiliation',
                     'advice': 'provide the original affiliation'
 
                 },
@@ -293,7 +290,7 @@ class ArticleAuthorsValidationTest(TestCase):
         """)
 
         data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(default_values=['BR'])
+        message = _get_affiliation_orgname(data)
 
         expected_output = {
             'validation': [
@@ -315,7 +312,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'orgname affiliation',
                     'got_value': None,
-                    'message': 'Got False, expected True',
+                    'message': 'Got None, expected orgname affiliation',
                     'advice': 'provide the orgname affiliation'
 
                 },
@@ -385,7 +382,7 @@ class ArticleAuthorsValidationTest(TestCase):
         """)
 
         data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(default_values=['BR'])
+        message = _get_affiliation_country(data)
 
         expected_output = {
             'validation': [
@@ -418,7 +415,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'country affiliation',
                     'got_value': None,
-                    'message': 'Got False, expected True',
+                    'message': 'Got None, expected country affiliation',
                     'advice': 'provide the country affiliation'
                 },
                 {
@@ -478,7 +475,7 @@ class ArticleAuthorsValidationTest(TestCase):
         """)
 
         data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(default_values=['BR'])
+        message = _get_affiliation_country_code(data, ['BR'])
 
         expected_output = {
             'validation': [
@@ -570,7 +567,7 @@ class ArticleAuthorsValidationTest(TestCase):
         """)
 
         data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(default_values=['BR'])
+        message = _get_affiliation_state(data)
 
         expected_output = {
             'validation': [
@@ -623,7 +620,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'state affiliation',
                     'got_value': None,
-                    'message': 'Got False, expected True',
+                    'message': 'Got None, expected state affiliation',
                     'advice': 'provide the state affiliation'
                 },
                 {
@@ -662,7 +659,7 @@ class ArticleAuthorsValidationTest(TestCase):
         """)
 
         data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(default_values=['BR'])
+        message = _get_affiliation_city(data)
 
         expected_output = {
             'validation': [
@@ -725,7 +722,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': 'city affiliation',
                     'got_value': None,
-                    'message': 'Got False, expected True',
+                    'message': 'Got None, expected city affiliation',
                     'advice': 'provide the city affiliation'
                 }
             ]
