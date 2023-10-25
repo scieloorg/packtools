@@ -212,60 +212,6 @@ class ArticleAuthorsValidationTest(TestCase):
                     'got_value': None,
                     'message': 'Got None, expected original affiliation',
                     'advice': 'provide the original affiliation'
-
-                },
-                {
-                    'title': 'aff/institution element orgname attribute validation',
-                    'xpath': './/aff/institution[@content-type="orgname"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'orgname affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff element country attribute validation',
-                    'xpath': './/aff/country',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'country affiliation',
-                    'got_value': 'Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff element @country attribute validation',
-                    'xpath': './/aff/@country',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['BR'],
-                    'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'state affiliation',
-                    'got_value': 'MG',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'city affiliation',
-                    'got_value': 'Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                }
-            ]
         }
 
         self.assertEqual(message, expected_output)
@@ -293,19 +239,6 @@ class ArticleAuthorsValidationTest(TestCase):
         message = _get_affiliation_orgname(data)
 
         expected_output = {
-            'validation': [
-                {
-                    'title': 'aff/institution element original attribute validation',
-                    'xpath': './/aff/institution[@content-type="original"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'original affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
                     'title': 'aff/institution element orgname attribute validation',
                     'xpath': './/aff/institution[@content-type="orgname"]',
                     'validation_type': 'exist',
@@ -314,50 +247,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'got_value': None,
                     'message': 'Got None, expected orgname affiliation',
                     'advice': 'provide the orgname affiliation'
-
-                },
-                {
-                    'title': 'aff element country attribute validation',
-                    'xpath': './/aff/country',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'country affiliation',
-                    'got_value': 'Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff element @country attribute validation',
-                    'xpath': './/aff/@country',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['BR'],
-                    'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'state affiliation',
-                    'got_value': 'MG',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'city affiliation',
-                    'got_value': 'Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
                 }
-            ]
-        }
 
         self.assertEqual(message, expected_output)
 
@@ -385,30 +275,6 @@ class ArticleAuthorsValidationTest(TestCase):
         message = _get_affiliation_country(data)
 
         expected_output = {
-            'validation': [
-                {
-                    'title': 'aff/institution element original attribute validation',
-                    'xpath': './/aff/institution[@content-type="original"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'original affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff/institution element orgname attribute validation',
-                    'xpath': './/aff/institution[@content-type="orgname"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'orgname affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
                     'title': 'aff element country attribute validation',
                     'xpath': './/aff/country',
                     'validation_type': 'exist',
@@ -417,39 +283,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'got_value': None,
                     'message': 'Got None, expected country affiliation',
                     'advice': 'provide the country affiliation'
-                },
-                {
-                    'title': 'aff element @country attribute validation',
-                    'xpath': './/aff/@country',
-                    'validation_type': 'value in list',
-                    'response': 'ERROR',
-                    'expected_value': ['BR'],
-                    'got_value': None,
-                    'message': "Got None, expected ['BR']",
-                    'advice': 'provide a valid @country affiliation'
-                },
-                {
-                    'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'state affiliation',
-                    'got_value': 'MG',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'city affiliation',
-                    'got_value': 'Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
                 }
-            ]
-        }
 
         self.assertEqual(message, expected_output)
 
@@ -478,40 +312,6 @@ class ArticleAuthorsValidationTest(TestCase):
         message = _get_affiliation_country_code(data, ['BR'])
 
         expected_output = {
-            'validation': [
-                {
-                    'title': 'aff/institution element original attribute validation',
-                    'xpath': './/aff/institution[@content-type="original"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'original affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff/institution element orgname attribute validation',
-                    'xpath': './/aff/institution[@content-type="orgname"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'orgname affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff element country attribute validation',
-                    'xpath': './/aff/country',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'country affiliation',
-                    'got_value': 'Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
                     'title': 'aff element @country attribute validation',
                     'xpath': './/aff/@country',
                     'validation_type': 'value in list',
@@ -520,29 +320,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'got_value': None,
                     'message': "Got None, expected ['BR']",
                     'advice': 'provide a valid @country affiliation'
-                },
-                {
-                    'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'state affiliation',
-                    'got_value': 'MG',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'city affiliation',
-                    'got_value': 'Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
                 }
-            ]
-        }
 
         self.assertEqual(message, expected_output)
 
@@ -570,50 +348,6 @@ class ArticleAuthorsValidationTest(TestCase):
         message = _get_affiliation_state(data)
 
         expected_output = {
-            'validation': [
-                {
-                    'title': 'aff/institution element original attribute validation',
-                    'xpath': './/aff/institution[@content-type="original"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'original affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff/institution element orgname attribute validation',
-                    'xpath': './/aff/institution[@content-type="orgname"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'orgname affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff element country attribute validation',
-                    'xpath': './/aff/country',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'country affiliation',
-                    'got_value': 'Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff element @country attribute validation',
-                    'xpath': './/aff/@country',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['BR'],
-                    'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
-                    'advice': None
-                },
-                {
                     'title': 'aff/addr-line element state attribute validation',
                     'xpath': './/aff/addr-line/named-content[@content-type="state"]',
                     'validation_type': 'exist',
@@ -622,19 +356,7 @@ class ArticleAuthorsValidationTest(TestCase):
                     'got_value': None,
                     'message': 'Got None, expected state affiliation',
                     'advice': 'provide the state affiliation'
-                },
-                {
-                    'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'city affiliation',
-                    'got_value': 'Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
                 }
-            ]
-        }
 
         self.assertEqual(message, expected_output)
 
@@ -662,60 +384,6 @@ class ArticleAuthorsValidationTest(TestCase):
         message = _get_affiliation_city(data)
 
         expected_output = {
-            'validation': [
-                {
-                    'title': 'aff/institution element original attribute validation',
-                    'xpath': './/aff/institution[@content-type="original"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'original affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff/institution element orgname attribute validation',
-                    'xpath': './/aff/institution[@content-type="orgname"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'orgname affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'Got True, expected True',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff element country attribute validation',
-                    'xpath': './/aff/country',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'country affiliation',
-                    'got_value': 'Brasil',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
-                    'title': 'aff element @country attribute validation',
-                    'xpath': './/aff/@country',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['BR'],
-                    'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'state affiliation',
-                    'got_value': 'MG',
-                    'message': 'Got True, expected True',
-                    'advice': None
-                },
-                {
                     'title': 'aff/addr-line element city attribute validation',
                     'xpath': './/aff/addr-line/named-content[@content-type="city"]',
                     'validation_type': 'exist',
@@ -725,8 +393,6 @@ class ArticleAuthorsValidationTest(TestCase):
                     'message': 'Got None, expected city affiliation',
                     'advice': 'provide the city affiliation'
                 }
-            ]
-        }
 
         self.assertEqual(message, expected_output)
 
