@@ -2,25 +2,20 @@ from packtools.sps.models.aff import Affiliation
 from packtools.translator import _
 
 
-def _get_affiliation_data(affiliation, element, attrib_label, attrib_source, xpath, default_values):
-    value = affiliation.get(attrib_source)
+def _get_affiliation_original(affiliation):
+    value = affiliation.get('original')
     item = {
-        'title': _('{} element {} attribute validation').format(element, attrib_label),
-        'xpath': xpath,
-        'got_value': value
+        'title': 'aff/institution element original attribute validation',
+        'xpath': './/aff/institution[@content-type="original"]',
+        'validation_type': 'exist',
+        'response': 'OK' if value else 'ERROR',
+        'expected_value': _('original affiliation'),
+        'got_value': value,
+        'message': _('Got {}, expected original affiliation').format(value),
+        'advice': None if value else _('provide the original affiliation')
     }
-    if default_values:
-        item['validation_type'] = 'value in list'
-        item['response'] = 'OK' if value in default_values else 'ERROR'
-        item['expected_value'] = default_values
-        item['message'] = _('Got {}, expected {}').format(value, default_values)
-        item['advice'] = None if value else _('provide a valid {} affiliation').format(attrib_label)
-    else:
-        item['validation_type'] = 'exist'
-        item['response'] = 'OK' if value else 'ERROR'
-        item['expected_value'] = _('{} affiliation').format(attrib_label)
-        item['message'] = _('Got {}, expected True').format(value is not None)
-        item['advice'] = None if value else _('provide the {} affiliation').format(attrib_label)
+    return item
+
 
     return item
 
