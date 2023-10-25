@@ -98,58 +98,16 @@ class AffiliationValidation:
         self.xmltree = xmltree
         self.data = Affiliation(self.xmltree).affiliation_list
 
-    def validate_affiliation(self, default_values=None):
-        resp = {'validation': []}
+    def validate_affiliation(self, country_codes):
+        resp = []
 
         for affiliation in self.data:
-            resp['validation'].append(_get_affiliation_data(
-                affiliation=affiliation,
-                element='aff/institution',
-                attrib_label='original',
-                attrib_source='original',
-                xpath='.//aff/institution[@content-type="original"]',
-                default_values=None
-            ))
-            resp['validation'].append(_get_affiliation_data(
-                affiliation=affiliation,
-                element='aff/institution',
-                attrib_label='orgname',
-                attrib_source='orgname',
-                xpath='.//aff/institution[@content-type="orgname"]',
-                default_values=None
-            ))
-            resp['validation'].append(_get_affiliation_data(
-                affiliation=affiliation,
-                element='aff',
-                attrib_label='country',
-                attrib_source='country_name',
-                xpath='.//aff/country',
-                default_values=None
-            ))
-            resp['validation'].append(_get_affiliation_data(
-                affiliation=affiliation,
-                element='aff',
-                attrib_label='@country',
-                attrib_source='country_code',
-                xpath='.//aff/@country',
-                default_values=default_values
-            ))
-            resp['validation'].append(_get_affiliation_data(
-                affiliation=affiliation,
-                element='aff/addr-line',
-                attrib_label='state',
-                attrib_source='state',
-                xpath='.//aff/addr-line/named-content[@content-type="state"]',
-                default_values=None
-            ))
-            resp['validation'].append(_get_affiliation_data(
-                affiliation=affiliation,
-                element='aff/addr-line',
-                attrib_label='city',
-                attrib_source='city',
-                xpath='.//aff/addr-line/named-content[@content-type="city"]',
-                default_values=None
-            ))
+            resp.append(_get_affiliation_original(affiliation))
+            resp.append(_get_affiliation_orgname(affiliation))
+            resp.append(_get_affiliation_country(affiliation))
+            resp.append(_get_affiliation_country_code(affiliation, country_codes))
+            resp.append(_get_affiliation_state(affiliation))
+            resp.append(_get_affiliation_city(affiliation))
         return resp
 
     def validate(self, data):
