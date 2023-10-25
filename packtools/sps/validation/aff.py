@@ -32,6 +32,20 @@ def _get_affiliation_orgname(affiliation):
     return item
 
 
+def _get_affiliation_country(affiliation):
+    value = affiliation.get('country_name')
+    item = {
+        'title': 'aff element country attribute validation',
+        'xpath': './/aff/country',
+        'validation_type': 'exist',
+        'response': 'OK' if value else 'ERROR',
+        'expected_value': _('country affiliation'),
+        'got_value': value,
+        'message': _('Got {}, expected country affiliation').format(value),
+        'advice': None if value else _('provide the country affiliation')
+    }
+    return item
+
     return item
 
 
