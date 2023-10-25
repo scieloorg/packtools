@@ -7,7 +7,7 @@ class ArticleLangValidation:
         self.articles = ArticleAndSubArticles(self.xmltree).data
         self.main_article_type = ArticleAndSubArticles(self.xmltree).main_article_type
 
-    def validate_language(self, default_values):
+    def validate_language(self, language_codes):
         """
         Params
         ------
@@ -27,17 +27,17 @@ class ArticleLangValidation:
             'advice': 'XML research-article has en as language, expected ['en']'
         }
         """
-        if default_values:
+        if language_codes:
             for article in self.articles:
                 lang = article.get('lang')
                 item = {
                     'title': 'Article element lang attribute validation',
                     'xpath': './article/@xml:lang' if article.get('article_type') == self.main_article_type else './/sub-article/@xml:lang',
                     'validation_type': 'value in list',
-                    'response': 'OK' if lang in default_values else 'ERROR',
-                    'expected_value': default_values,
+                    'response': 'OK' if lang in language_codes else 'ERROR',
+                    'expected_value': language_codes,
                     'got_value': lang,
-                    'message': 'Got {}, expected {}'.format(lang, default_values),
-                    'advice': 'XML {} has {} as language, expected {}'.format(article.get('article_type'), lang, default_values)
+                    'message': 'Got {}, expected one item of this list: {}'.format(lang, " | ".join(language_codes)),
+                    'advice': 'XML {} has {} as language, expected one item of this list: {}'.format(article.get('article_type'), lang, " | ".join(language_codes))
                 }
                 yield item
