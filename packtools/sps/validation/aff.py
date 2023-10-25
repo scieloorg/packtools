@@ -63,6 +63,21 @@ def _get_affiliation_country_code(affiliation, country_codes):
         return item
 
 
+def _get_affiliation_state(affiliation):
+    value = affiliation.get('state')
+    item = {
+        'title': 'aff/addr-line element state attribute validation',
+        'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+        'validation_type': 'exist',
+        'response': 'OK' if value else 'ERROR',
+        'expected_value': _('state affiliation'),
+        'got_value': value,
+        'message': _('Got {}, expected state affiliation').format(value),
+        'advice': None if value else _('provide the state affiliation')
+    }
+    return item
+
+
     return item
 
 
