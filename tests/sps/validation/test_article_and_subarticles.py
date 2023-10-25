@@ -19,7 +19,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -29,8 +29,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': None,
-                'message': "Got None, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has None as language, expected ['pt', 'en', 'es']"
+                'message': "Got None, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has None as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -52,7 +52,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -62,8 +62,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has en as language, expected ['pt', 'en', 'es']"
+                'message': "Got en, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -85,7 +85,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -95,8 +95,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'e',
-                'message': "Got e, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has e as language, expected ['pt', 'en', 'es']"
+                'message': "Got e, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has e as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -108,7 +108,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xml_str = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -118,8 +118,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has en as language, expected ['pt', 'en', 'es']"
+                'message': "Got en, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -129,8 +129,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'pt',
-                'message': "Got pt, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has pt as language, expected ['pt', 'en', 'es']"
+                'message': "Got pt, expected one item of this list: pt | en | es",
+                'advice': "XML translation has pt as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -140,8 +140,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'es',
-                'message': "Got es, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has es as language, expected ['pt', 'en', 'es']"
+                'message': "Got es, expected one item of this list: pt | en | es",
+                'advice': "XML translation has es as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -160,7 +160,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -170,8 +170,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has en as language, expected ['pt', 'en', 'es']"
+                'message': "Got en, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -181,8 +181,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'pt',
-                'message': "Got pt, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has pt as language, expected ['pt', 'en', 'es']"
+                'message': "Got pt, expected one item of this list: pt | en | es",
+                'advice': "XML translation has pt as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -192,8 +192,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'es',
-                'message': "Got es, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has es as language, expected ['pt', 'en', 'es']"
+                'message': "Got es, expected one item of this list: pt | en | es",
+                'advice': "XML translation has es as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -212,7 +212,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -222,8 +222,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has en as language, expected ['pt', 'en', 'es']"
+                'message': "Got en, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -233,8 +233,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'pt',
-                'message': "Got pt, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has pt as language, expected ['pt', 'en', 'es']"
+                'message': "Got pt, expected one item of this list: pt | en | es",
+                'advice': "XML translation has pt as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -244,8 +244,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': '',
-                'message': "Got , expected ['pt', 'en', 'es']",
-                'advice': "XML translation has  as language, expected ['pt', 'en', 'es']"
+                'message': "Got , expected one item of this list: pt | en | es",
+                'advice': "XML translation has  as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -265,7 +265,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -275,8 +275,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has en as language, expected ['pt', 'en', 'es']"
+                'message': "Got en, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -286,8 +286,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': None,
-                'message': "Got None, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has None as language, expected ['pt', 'en', 'es']"
+                'message': "Got None, expected one item of this list: pt | en | es",
+                'advice': "XML translation has None as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -297,8 +297,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': '',
-                'message': "Got , expected ['pt', 'en', 'es']",
-                'advice': "XML translation has  as language, expected ['pt', 'en', 'es']"
+                'message': "Got , expected one item of this list: pt | en | es",
+                'advice': "XML translation has  as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -317,7 +317,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(default_values=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -327,8 +327,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'portugol',
-                'message': "Got portugol, expected ['pt', 'en', 'es']",
-                'advice': "XML research-article has portugol as language, expected ['pt', 'en', 'es']"
+                'message': "Got portugol, expected one item of this list: pt | en | es",
+                'advice': "XML research-article has portugol as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -338,8 +338,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has en as language, expected ['pt', 'en', 'es']"
+                'message': "Got en, expected one item of this list: pt | en | es",
+                'advice': "XML translation has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -349,8 +349,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'thisisaninvalidlanguagecode',
-                'message': "Got thisisaninvalidlanguagecode, expected ['pt', 'en', 'es']",
-                'advice': "XML translation has thisisaninvalidlanguagecode as language, expected ['pt', 'en', 'es']"
+                'message': "Got thisisaninvalidlanguagecode, expected one item of this list: pt | en | es",
+                'advice': "XML translation has thisisaninvalidlanguagecode as language, expected one item of this list: pt | en | es"
 
             }
         ]
