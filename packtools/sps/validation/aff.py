@@ -78,6 +78,18 @@ def _get_affiliation_state(affiliation):
     return item
 
 
+def _get_affiliation_city(affiliation):
+    value = affiliation.get('city')
+    item = {
+        'title': 'aff/addr-line element city attribute validation',
+        'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+        'validation_type': 'exist',
+        'response': 'OK' if value else 'ERROR',
+        'expected_value': _('city affiliation'),
+        'got_value': value,
+        'message': _('Got {}, expected city affiliation').format(value),
+        'advice': None if value else _('provide the city affiliation')
+    }
     return item
 
 
