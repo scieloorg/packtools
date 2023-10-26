@@ -26,8 +26,8 @@ class ArticleXrefValidation:
             'xpath': './/xref[@rid]',
             'validation_type': 'match',
             'response': 'OK',
-            'expected_value': True,
-            'got_value': True,
+            'expected_value': aff1,
+            'got_value': aff1,
             'message': 'Got True, expected True',
             'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
             },
@@ -36,8 +36,8 @@ class ArticleXrefValidation:
             'xpath': './/xref[@rid]',
             'validation_type': 'match',
             'response': 'OK',
-            'expected_value': True,
-            'got_value': True,
+            'expected_value': fig1,
+            'got_value': fig1,
             'message': 'Got True, expected True',
             'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
             },
@@ -46,8 +46,8 @@ class ArticleXrefValidation:
             'xpath': './/xref[@rid]',
             'validation_type': 'match',
             'response': 'ERROR',
-            'expected_value': True,
-            'got_value': False,
+            'expected_value': table1,
+            'got_value': None,
             'message': 'Got False, expected True',
             'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
             }
@@ -89,8 +89,8 @@ class ArticleXrefValidation:
             'xpath': './/*[@id]',
             'validation_type': 'match',
             'response': 'OK',
-            'expected_value': True,
-            'got_value': True,
+            'expected_value': aff1,
+            'got_value': aff1,
             'message': 'Got True, expected True',
             'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
             },
@@ -99,8 +99,8 @@ class ArticleXrefValidation:
             'xpath': './/*[@id]',
             'validation_type': 'match',
             'response': 'OK',
-            'expected_value': True,
-            'got_value': True,
+            'expected_value': fig1,
+            'got_value': fig1,
             'message': 'Got True, expected True',
             'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
             },
@@ -109,8 +109,8 @@ class ArticleXrefValidation:
             'xpath': './/*[@id]',
             'validation_type': 'match',
             'response': 'ERROR',
-            'expected_value': True,
-            'got_value': False,
+            'expected_value': table1,
+            'got_value': None,
             'message': 'Got False, expected True',
             'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
             }
