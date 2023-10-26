@@ -2,19 +2,15 @@ from unittest import TestCase
 
 from lxml import etree
 
+from packtools.sps.models.aff import Affiliation
 from packtools.sps.validation.aff import (
     AffiliationValidation,
-    _get_affiliation_original,
-    _get_affiliation_orgname,
-    _get_affiliation_country,
-    _get_affiliation_country_code,
-    _get_affiliation_state,
-    _get_affiliation_city,
+    AffiliationsListValidation,
 )
 
 
-class ArticleAuthorsValidationTest(TestCase):
-    def test_affiliations(self):
+class AffiliationValidationTest(TestCase):
+    def test_validate_affiliations_list(self):
         self.maxDiff = None
         xml = ("""
         <article>
@@ -46,8 +42,8 @@ class ArticleAuthorsValidationTest(TestCase):
         </article>
         """)
 
-        data = etree.fromstring(xml)
-        message = AffiliationValidation(data).validate_affiliation(['BR'])
+        xml_tree = etree.fromstring(xml)
+        message = AffiliationsListValidation(xml_tree, ['BR']).validade_affiliations_list()
 
         expected_output = [
                 {
@@ -180,7 +176,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
         self.assertEqual(message, expected_output)
 
-    def test_affiliations_without_original(self):
+    def test_affiliation_without_original(self):
         self.maxDiff = None
         xml = ("""
         <article>
@@ -200,8 +196,9 @@ class ArticleAuthorsValidationTest(TestCase):
         </article>
         """)
 
-        data = etree.fromstring(xml)
-        message = _get_affiliation_original(data)
+        xml_tree = etree.fromstring(xml)
+        affiliations_list = Affiliation(xml_tree).affiliation_list
+        message = AffiliationValidation(affiliations_list[0]).validate_original()
 
         expected_output = {
                     'title': 'aff/institution element original attribute validation',
@@ -235,8 +232,9 @@ class ArticleAuthorsValidationTest(TestCase):
         </article>
         """)
 
-        data = etree.fromstring(xml)
-        message = _get_affiliation_orgname(data)
+        xml_tree = etree.fromstring(xml)
+        affiliations_list = Affiliation(xml_tree).affiliation_list
+        message = AffiliationValidation(affiliations_list[0]).validate_orgname()
 
         expected_output = {
                     'title': 'aff/institution element orgname attribute validation',
@@ -271,8 +269,9 @@ class ArticleAuthorsValidationTest(TestCase):
         </article>
         """)
 
-        data = etree.fromstring(xml)
-        message = _get_affiliation_country(data)
+        xml_tree = etree.fromstring(xml)
+        affiliations_list = Affiliation(xml_tree).affiliation_list
+        message = AffiliationValidation(affiliations_list[0]).validate_country()
 
         expected_output = {
                     'title': 'aff element country attribute validation',
@@ -308,8 +307,9 @@ class ArticleAuthorsValidationTest(TestCase):
         </article>
         """)
 
-        data = etree.fromstring(xml)
-        message = _get_affiliation_country_code(data, ['BR'])
+        xml_tree = etree.fromstring(xml)
+        affiliations_list = Affiliation(xml_tree).affiliation_list
+        message = AffiliationValidation(affiliations_list[0], ['BR']).validate_country_code()
 
         expected_output = {
                     'title': 'aff element @country attribute validation',
@@ -344,8 +344,9 @@ class ArticleAuthorsValidationTest(TestCase):
         </article>
         """)
 
-        data = etree.fromstring(xml)
-        message = _get_affiliation_state(data)
+        xml_tree = etree.fromstring(xml)
+        affiliations_list = Affiliation(xml_tree).affiliation_list
+        message = AffiliationValidation(affiliations_list[0]).validate_state()
 
         expected_output = {
                     'title': 'aff/addr-line element state attribute validation',
@@ -380,8 +381,9 @@ class ArticleAuthorsValidationTest(TestCase):
         </article>
         """)
 
-        data = etree.fromstring(xml)
-        message = _get_affiliation_city(data)
+        xml_tree = etree.fromstring(xml)
+        affiliations_list = Affiliation(xml_tree).affiliation_list
+        message = AffiliationValidation(affiliations_list[0]).validate_city()
 
         expected_output = {
                     'title': 'aff/addr-line element city attribute validation',
@@ -395,68 +397,3 @@ class ArticleAuthorsValidationTest(TestCase):
                 }
 
         self.assertEqual(message, expected_output)
-
-
-    # def test_affiliations(self):
-    #     xml = ("""
-    #     <article>
-    #         <front>
-    #             <article-meta>
-    #                 <aff id="aff1">
-    #                     <label>I</label>
-    #                     <institution content-type="orgname">Secretaria Municipal de Saúde de Belo Horizonte</institution>
-    #                     <addr-line>
-    #                         <named-content content-type="city">Belo Horizonte</named-content>
-    #                         <named-content content-type="state">MG</named-content>
-    #                     </addr-line>
-    #                     <country>Brasil</country>
-    #                     <institution content-type="original">Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil</institution>
-    #                 </aff>
-    #                 <aff id="aff2">
-    #                     <label>II</label>
-    #                     <institution content-type="orgdiv1">Faculdade de Medicina</institution>
-    #                     <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
-    #                     <addr-line>
-    #                         <named-content content-type="city">Belo Horizonte</named-content>
-    #                         <named-content content-type="state">MG</named-content>
-    #                     </addr-line>
-    #                     <country>Brasil</country>
-    #                     <institution content-type="original">Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil</institution>
-    #                 </aff>
-    #             </article-meta>
-    #             <front-stub>
-    #             <aff id="aff3">
-    #                 <label>III</label>
-    #                 <institution content-type="orgdiv2">Departamento de Ciências Sociais</institution>
-    #                 <institution content-type="orgdiv1">Escola Nacional de Saúde Pública Sergio Arouca</institution>
-    #                 <institution content-type="orgname">Fundação Oswaldo Cruz</institution>
-    #                 <addr-line>
-    #                     <named-content content-type="city">Rio de Janeiro</named-content>
-    #                     <named-content content-type="state">RJ</named-content>
-    #                 </addr-line>
-    #                 <country>Brasil</country>
-    #                 <institution content-type="original">Departamento de Ciências Sociais. Escola Nacional de Saúde Pública Sergio Arouca. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil</institution>
-    #             </aff>
-    #         </front-stub>
-    #         </front>
-    #     </article>
-    #     """)
-    #     data = etree.fromstring(xml)
-    #     message = AffiliationValidation(data).validate_affiliation
-    #
-    #     expected_output = [
-    #         {
-    #             'result': 'success',
-    #             'message': 'The affiliation of id: aff1 is ok!'
-    #         },
-    #         {
-    #             'result': 'success',
-    #             'message': 'The affiliation of id: aff2 is ok!'
-    #         },
-    #         {
-    #             'result': 'success',
-    #             'message': 'The affiliation of id: aff3 is ok!'
-    #         }
-    #     ]
-    #
-    #     self.assertEqual(message, expected_output)
