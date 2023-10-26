@@ -16,30 +16,102 @@ class AffiliationsListValidation:
 
 
 class AffiliationValidation:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-        self.data = Affiliation(self.xmltree).affiliation_list
+    def __init__(self, affiliation, country_codes_list=None):
+        self.affiliation = affiliation
+        self.country_codes_list = country_codes_list
 
-    def validate_affiliation(self, country_codes):
-        resp = []
+    def validate_original(self):
+        original = self.affiliation.get('original')
+        return {
+            'title': 'aff/institution element original attribute validation',
+            'xpath': './/aff/institution[@content-type="original"]',
+            'validation_type': 'exist',
+            'response': 'OK' if original else 'ERROR',
+            'expected_value': _('original affiliation'),
+            'got_value': original,
+            'message': _('Got {}, expected original affiliation').format(original),
+            'advice': None if original else _('provide the original affiliation')
+        }
 
-        for affiliation in self.data:
-            resp.append(_get_affiliation_original(affiliation))
-            resp.append(_get_affiliation_orgname(affiliation))
-            resp.append(_get_affiliation_country(affiliation))
-            resp.append(_get_affiliation_country_code(affiliation, country_codes))
-            resp.append(_get_affiliation_state(affiliation))
-            resp.append(_get_affiliation_city(affiliation))
+    def validate_orgname(self):
+        orgname = self.affiliation.get('orgname')
+        return {
+            'title': 'aff/institution element orgname attribute validation',
+            'xpath': './/aff/institution[@content-type="orgname"]',
+            'validation_type': 'exist',
+            'response': 'OK' if orgname else 'ERROR',
+            'expected_value': _('orgname affiliation'),
+            'got_value': orgname,
+            'message': _('Got {}, expected orgname affiliation').format(orgname),
+            'advice': None if orgname else _('provide the orgname affiliation')
+        }
+
+    def validate_country(self):
+        country = self.affiliation.get('country_name')
+        return {
+            'title': 'aff element country attribute validation',
+            'xpath': './/aff/country',
+            'validation_type': 'exist',
+            'response': 'OK' if country else 'ERROR',
+            'expected_value': _('country affiliation'),
+            'got_value': country,
+            'message': _('Got {}, expected country affiliation').format(country),
+            'advice': None if country else _('provide the country affiliation')
+        }
+
+    def validate_country_code(self):
+        resp = {
+                'title': 'aff element @country attribute validation',
+                'xpath': './/aff/@country',
+                'validation_type': 'value in list'
+            }
+        if self.country_codes_list:
+            country_code = self.affiliation.get('country_code')
+            resp['response'] = 'OK' if country_code in self.country_codes_list else 'ERROR'
+            resp['expected_value'] = self.country_codes_list
+            resp['got_value'] = country_code
+            resp['message'] = _('Got {}, expected {}').format(country_code, self.country_codes_list)
+            resp['advice'] = None if country_code else _('provide a valid @country affiliation')
+        else:
+            resp['response'] = 'ERROR'
+            resp['expected_value'] = None
+            resp['got_value'] = None
+            resp['message'] = _('Country code list was not provided')
+            resp['advice'] = _('Provide a country code list')
         return resp
 
-    def validate(self, data):
-        """
-        Função que executa as validações da classe AffiliationValidation.
-
-        Returns:
-            dict: Um dicionário contendo os resultados das validações realizadas.
-        
-        """
+    def validate_state(self):
+        state = self.affiliation.get('state')
         return {
-            'affiliation_validation': self.validate_affiliation,
+            'title': 'aff/addr-line element state attribute validation',
+            'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+            'validation_type': 'exist',
+            'response': 'OK' if state else 'ERROR',
+            'expected_value': _('state affiliation'),
+            'got_value': state,
+            'message': _('Got {}, expected state affiliation').format(state),
+            'advice': None if state else _('provide the state affiliation')
         }
+
+    def validate_city(self):
+        city = self.affiliation.get('city')
+        return {
+            'title': 'aff/addr-line element city attribute validation',
+            'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+            'validation_type': 'exist',
+            'response': 'OK' if city else 'ERROR',
+            'expected_value': _('city affiliation'),
+            'got_value': city,
+            'message': _('Got {}, expected city affiliation').format(city),
+            'advice': None if city else _('provide the city affiliation')
+        }
+
+    def validate_affiliation(self):
+        return [
+            self.validate_original(),
+            self.validate_orgname(),
+            self.validate_country(),
+            self.validate_country_code(),
+            self.validate_state(),
+            self.validate_city()
+        ]
