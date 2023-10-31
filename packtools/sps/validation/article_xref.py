@@ -28,7 +28,7 @@ class ArticleXrefValidation:
             'response': 'OK',
             'expected_value': aff1,
             'got_value': aff1,
-            'message': 'Got True, expected True',
+            'message': 'Got aff1, expected aff1',
             'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
             },
             {
@@ -38,7 +38,7 @@ class ArticleXrefValidation:
             'response': 'OK',
             'expected_value': fig1,
             'got_value': fig1,
-            'message': 'Got True, expected True',
+            'message': 'Got fig1, expected fig1',
             'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
             },
             {
@@ -48,7 +48,7 @@ class ArticleXrefValidation:
             'response': 'ERROR',
             'expected_value': table1,
             'got_value': None,
-            'message': 'Got False, expected True',
+            'message': 'Got None, expected table1',
             'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
             }
         ]
@@ -91,7 +91,7 @@ class ArticleXrefValidation:
             'response': 'OK',
             'expected_value': aff1,
             'got_value': aff1,
-            'message': 'Got True, expected True',
+            'message': 'Got aff1, expected aff1',
             'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
             },
             {
@@ -101,7 +101,7 @@ class ArticleXrefValidation:
             'response': 'OK',
             'expected_value': fig1,
             'got_value': fig1,
-            'message': 'Got True, expected True',
+            'message': 'Got fig1, expected fig1',
             'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
             },
             {
@@ -111,7 +111,7 @@ class ArticleXrefValidation:
             'response': 'ERROR',
             'expected_value': table1,
             'got_value': None,
-            'message': 'Got False, expected True',
+            'message': 'Got None, expected table1',
             'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
             }
         ]
@@ -120,7 +120,7 @@ class ArticleXrefValidation:
         ids = sorted(self.article_xref.all_ids)
         for id in ids:
             item = {
-                'title': _('* element id attribute validation'),
+                'title': _('element id attribute validation'),
                 'xpath': _('.//*[@id]'),
                 'validation_type': _('match')
             }
