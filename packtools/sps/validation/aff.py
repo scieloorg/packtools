@@ -18,6 +18,14 @@ class AffiliationsListValidation:
             validations.extend(AffiliationValidation(affiliation, country_codes_list).validate_affiliation())
         return validations
 
+    def validate(self, data):
+        country_codes_list = data['country_codes_list'] or self.country_codes_list
+        if not country_codes_list:
+            raise AffiliationValidationValidateCountryCodeException("Function requires list of country codes")
+        return {
+            'affiliations_validation': self.validade_affiliations_list(country_codes_list)
+        }
+
 
 class AffiliationValidation:
     def __init__(self, affiliation, country_codes_list=None):
