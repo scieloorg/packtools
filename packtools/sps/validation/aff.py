@@ -1,4 +1,5 @@
 from packtools.sps.models.aff import Affiliation
+from packtools.sps.validation.exceptions import AffiliationValidationValidateCountryCodeException
 
 from packtools.translator import _
 
@@ -8,10 +9,13 @@ class AffiliationsListValidation:
         self.affiliations_list = Affiliation(xml_tree).affiliation_list
         self.country_codes_list = country_codes_list
 
-    def validade_affiliations_list(self):
+    def validade_affiliations_list(self, country_codes_list=None):
+        country_codes_list = country_codes_list or self.country_codes_list
+        if not country_codes_list:
+            raise AffiliationValidationValidateCountryCodeException("Function requires list of country codes")
         validations = []
         for affiliation in self.affiliations_list:
-            validations.extend(AffiliationValidation(affiliation, self.country_codes_list).validate_affiliation())
+            validations.extend(AffiliationValidation(affiliation, country_codes_list).validate_affiliation())
         return validations
 
 
