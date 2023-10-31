@@ -3,36 +3,53 @@ from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from langcodes import tag_is_valid
 
 
-def validate_language(xml):
-    """
-    Params
-    ------
-    xml: ElementTree
+class ArticleLangValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.articles = ArticleAndSubArticles(self.xmltree).data
 
-    Returns
-    -------
-        A tuple comprising the validation status and the errors list.
-    """
-    errors = []
+    def validate_language(self, language_codes=None):
+        """
+        Params
+        ------
+            xml: ElementTree
 
-    art_and_subarts = ArticleAndSubArticles(xml)
+        Returns
+        -------
+        list: dicts as:
+        {
+            'title': 'Article element lang attribute validation',
+            'xpath': './article/@xml:lang',
+            'validation_type': 'value in list',
+            'response': 'OK',
+            'expected_value': ['pt', 'en', 'es'],
+            'got_value': 'en',
+            'message': 'Got en, to research-article whose id is main, expected one item of this list: pt | en | es',
+            'advice': 'XML research-article has en as language, to research-article whose id is main, expected one item
+            of this list: pt | en | es'
+        }
+        """
 
-    for i in art_and_subarts.data:
-        _lang = i.get('lang')
-        _article_type = i.get('article_type')
+        if language_codes:
+            for article in self.articles:
+                article_lang = article.get('lang')
+                article_type = article.get('article_type')
+                article_id = article.get('article_id')
 
-        if _lang is None:
-            _message = f'XML {_article_type} has no language.'
-            errors.append(exceptions.ValidationArticleAndSubArticlesUnavailableLanguage(
-                message=_message,
-                line=i.get('line_number'),
-            ))
+                if article_id == 'main':
+                    msg = '<article article-type={} xml:lang={}>'.format(article_type, article_lang)
+                else:
+                    msg = '<sub-article article-type={} id={} xml:lang={}>'.format(article_type, article_id, article_lang)
 
-        elif not tag_is_valid(_lang):
-            _message = f'XML {_article_type} has an invalid language: {_lang}'
-            errors.append(exceptions.ValidationArticleAndSubArticlesHasInvalidLanguage(
-                message=_message,
-                line=i.get('line_number'),
-            ))
-   
-    return len(errors) == 0, errors
+                item = {
+                    'title': 'Article element lang attribute validation',
+                    'xpath': './article/@xml:lang' if article_id == 'main' else './/sub-article/@xml:lang',
+                    'validation_type': 'value in list',
+                    'response': 'OK' if article_lang in language_codes else 'ERROR',
+                    'expected_value': language_codes,
+                    'got_value': article_lang,
+                    'message': 'Got {} expected one item of this list: {}'.format(msg, " | ".join(language_codes)),
+                    'advice': '{} has {} as language, expected one item of this list: {}'.format(msg, article_lang, " | ".join(language_codes))
+                }
+                yield item
+
