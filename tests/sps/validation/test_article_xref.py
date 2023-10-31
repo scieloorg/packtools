@@ -1,6 +1,5 @@
 from unittest import TestCase
 
-import self as self
 from lxml import etree
 
 from packtools.sps.validation.article_xref import ArticleXrefValidation
@@ -154,7 +153,7 @@ class ArticleXrefValidationTest(TestCase):
 
         expected = [
             {
-                'title': '* element id attribute validation',
+                'title': 'element id attribute validation',
                 'xpath': './/*[@id]',
                 'validation_type': 'match',
                 'response': 'OK',
@@ -164,7 +163,7 @@ class ArticleXrefValidationTest(TestCase):
                 'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
             },
             {
-                'title': '* element id attribute validation',
+                'title': 'element id attribute validation',
                 'xpath': './/*[@id]',
                 'validation_type': 'match',
                 'response': 'OK',
@@ -174,7 +173,7 @@ class ArticleXrefValidationTest(TestCase):
                 'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
             },
             {
-                'title': '* element id attribute validation',
+                'title': 'element id attribute validation',
                 'xpath': './/*[@id]',
                 'validation_type': 'match',
                 'response': 'OK',
@@ -215,7 +214,7 @@ class ArticleXrefValidationTest(TestCase):
 
         expected = [
             {
-                'title': '* element id attribute validation',
+                'title': 'element id attribute validation',
                 'xpath': './/*[@id]',
                 'validation_type': 'match',
                 'response': 'OK',
@@ -225,7 +224,7 @@ class ArticleXrefValidationTest(TestCase):
                 'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
             },
             {
-                'title': '* element id attribute validation',
+                'title': 'element id attribute validation',
                 'xpath': './/*[@id]',
                 'validation_type': 'match',
                 'response': 'OK',
@@ -235,7 +234,7 @@ class ArticleXrefValidationTest(TestCase):
                 'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
             },
             {
-                'title': '* element id attribute validation',
+                'title': 'element id attribute validation',
                 'xpath': './/*[@id]',
                 'validation_type': 'match',
                 'response': 'ERROR',
