@@ -71,26 +71,23 @@ class AffiliationValidation:
             'advice': None if country else _('provide the country affiliation')
         }
 
-    def validate_country_code(self):
-        resp = {
-                'title': 'aff element @country attribute validation',
-                'xpath': './/aff/@country',
-                'validation_type': 'value in list'
-            }
-        if self.country_codes_list:
-            country_code = self.affiliation.get('country_code')
-            resp['response'] = 'OK' if country_code in self.country_codes_list else 'ERROR'
-            resp['expected_value'] = self.country_codes_list
-            resp['got_value'] = country_code
-            resp['message'] = _('Got {}, expected {}').format(country_code, self.country_codes_list)
-            resp['advice'] = None if country_code else _('provide a valid @country affiliation')
-        else:
-            resp['response'] = 'ERROR'
-            resp['expected_value'] = None
-            resp['got_value'] = None
-            resp['message'] = _('Country code list was not provided')
-            resp['advice'] = _('Provide a country code list')
-        return resp
+    def validate_country_code(self, country_codes_list=None):
+        country_codes_list = country_codes_list or self.country_codes_list
+        if not country_codes_list:
+            raise AffiliationValidationValidateCountryCodeException(
+                "Function requires list of country codes"
+            )
+        country_code = self.affiliation.get('country_code')
+        return {
+            'title': 'aff element @country attribute validation',
+            'xpath': './/aff/@country',
+            'validation_type': 'value in list',
+            'response': 'OK' if country_code in country_codes_list else 'ERROR',
+            'expected_value': self.country_codes_list,
+            'got_value': country_code,
+            'message': _('Got {}, expected {}').format(country_code, country_codes_list),
+            'advice': None if country_code else _('provide a valid @country affiliation')
+        }
 
     def validate_state(self):
         state = self.affiliation.get('state')
