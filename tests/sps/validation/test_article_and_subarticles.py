@@ -1,11 +1,12 @@
 from unittest import TestCase
 
 from packtools.sps.utils.xml_utils import get_xml_tree
-from packtools.sps.validation.article_and_subarticles import validate_language
+from packtools.sps.validation.article_and_subarticles import ArticleLangValidation
 
 
 class ArticleAndSubarticlesTest(TestCase):
     def test_article_has_no_language_attribute(self):
+        self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
             <front>
@@ -19,17 +20,27 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        result, errors = validate_language(xml_tree)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
-        self.assertFalse(result)
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': None,
+                'message': 'Got <article article-type=research-article xml:lang=None> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=None> has None as language, expected one item of this list: pt | en | es"
 
-        self.assertListEqual(
-            ['XML research-article has no language.'],
-            [e.message for e in errors]
-        )
-
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_has_valid_language(self):
+        self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
             <front>
@@ -43,9 +54,24 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        result, _ = validate_language(xml_tree)
-        self.assertTrue(result)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'en',
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_has_invalid_language(self):
         xml_str = """
@@ -61,33 +87,73 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        result, errors = validate_language(xml_tree)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
-        # Assegura que um problema de idioma foi identificado
-        self.assertFalse(result)
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'e',
+                'message': 'Got <article article-type=research-article xml:lang=e> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=e> has e as language, expected one item of this list: pt | en | es"
 
-        # Assegura que a mensagem relacionada ao problema identicado é a esperada
-        self.assertListEqual(
-            ['XML research-article has an invalid language: e'],
-            [e.message for e in errors]
-        )
-
-        # Assegura que a linha em que o problema foi identicado é a esperada
-        self.assertListEqual(
-            [2],
-            [e.line for e in errors]
-        )
-
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_have_valid_languages(self):
+        self.maxDiff = None
         data = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
         xml_tree = get_xml_tree(data)
 
-        result, _ = validate_language(xml_tree)
-        self.assertTrue(result)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'en',
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
+
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'pt',
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
+
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'es',
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=es> has es as language, expected one item of this list: pt | en | es"
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_three_valid_languages(self):
+        self.maxDiff = None
         xml_str = """
         <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1" xml:lang="pt">
@@ -97,12 +163,49 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
-        result, _ = validate_language(xml_tree)
-        self.assertTrue(result)
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'en',
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'pt',
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
+
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'es',
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=es> has es as language, expected one item of this list: pt | en | es"
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_two_valid_languages_and_one_invalid(self):
+        self.maxDiff = None
         xml_str = """
         <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1" xml:lang="pt">
@@ -112,21 +215,49 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        result, errors = validate_language(xml_tree)
-        
-        self.assertFalse(result)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
-        self.assertListEqual(
-            ['XML translation has an invalid language: '],
-            [e.message for e in errors]
-        )
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'en',
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
-        self.assertListEqual(
-            [5],
-            [e.line for e in errors]
-        )
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'pt',
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
+
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': '',
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es"
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_one_valid_language_one_empty_and_one_invalid(self):
+        self.maxDiff = None
         xml_str = """
         <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1">
@@ -136,22 +267,49 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        result, errors = validate_language(xml_tree)
-        
-        self.assertFalse(result)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
-        self.assertListEqual(
-            ['XML translation has no language.', 'XML translation has an invalid language: '],
-            [e.message for e in errors]
-        )
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'en',
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
-        self.assertListEqual(
-            [3, 5],
-            [e.line for e in errors]
-        )
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': None,
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=None> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=None> has None as language, expected one item of this list: pt | en | es"
 
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': '',
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es"
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_two_invalid_languages(self):
+        self.maxDiff = None
         xml_str = """
         <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1" xml:lang="en">
@@ -161,19 +319,44 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        result, errors = validate_language(xml_tree)
 
-        self.assertFalse(result)
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
-        self.assertListEqual(
-            [
-                'XML research-article has an invalid language: portugol',
-                'XML translation has an invalid language: thisisaninvalidlanguagecode'
-            ],
-            [e.message for e in errors]
-        )
+        expected = [
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'portugol',
+                'message': 'Got <article article-type=research-article xml:lang=portugol> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=portugol> has portugol as language, expected one item of this list: pt | en | es"
 
-        self.assertListEqual(
-            [2, 5],
-            [e.line for e in errors]
-        )
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'en',
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=en> has en as language, expected one item of this list: pt | en | es"
+
+            },
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'thisisaninvalidlanguagecode',
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> has thisisaninvalidlanguagecode as language, expected one item of this list: pt | en | es"
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
