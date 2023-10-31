@@ -397,3 +397,174 @@ class AffiliationValidationTest(TestCase):
                 }
 
         self.assertEqual(message, expected_output)
+
+    def test_validate(self):
+        self.maxDiff = None
+        xml = ("""
+        <article>
+            <front>
+                <article-meta>
+                    <aff id="aff1">
+                        <label>I</label>
+                        <institution content-type="orgname">Secretaria Municipal de Saúde de Belo Horizonte</institution>
+                        <addr-line>
+                            <named-content content-type="city">Belo Horizonte</named-content>
+                            <named-content content-type="state">MG</named-content>
+                        </addr-line>
+                        <country country="BR">Brasil</country>
+                        <institution content-type="original">Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil</institution>
+                    </aff>
+                    <aff id="aff2">
+                        <label>II</label>
+                        <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                        <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+                        <addr-line>
+                            <named-content content-type="city">Belo Horizonte</named-content>
+                            <named-content content-type="state">MG</named-content>
+                        </addr-line>
+                        <country country="BR">Brasil</country>
+                        <institution content-type="original">Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil</institution>
+                    </aff>
+                </article-meta>
+            </front>
+        </article>
+        """)
+
+        xml_tree = etree.fromstring(xml)
+        data = {
+            'country_codes_list':  ['BR']
+        }
+        message = AffiliationsListValidation(xml_tree).validate(data)
+
+        expected_output = {
+            'affiliations_validation': [
+                {
+                    'title': 'aff/institution element original attribute validation',
+                    'xpath': './/aff/institution[@content-type="original"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'original affiliation',
+                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
+                    'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation',
+                    'advice': None
+
+                },
+                {
+                    'title': 'aff/institution element orgname attribute validation',
+                    'xpath': './/aff/institution[@content-type="orgname"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'orgname affiliation',
+                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
+                    'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation',
+                    'advice': None
+
+                },
+                {
+                    'title': 'aff element country attribute validation',
+                    'xpath': './/aff/country',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'country affiliation',
+                    'got_value': 'Brasil',
+                    'message': 'Got Brasil, expected country affiliation',
+                    'advice': None
+                },
+                {
+                    'title': 'aff element @country attribute validation',
+                    'xpath': './/aff/@country',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['BR'],
+                    'got_value': 'BR',
+                    'message': "Got BR, expected ['BR']",
+                    'advice': None
+                },
+                {
+                    'title': 'aff/addr-line element state attribute validation',
+                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'state affiliation',
+                    'got_value': 'MG',
+                    'message': 'Got MG, expected state affiliation',
+                    'advice': None
+                },
+                {
+                    'title': 'aff/addr-line element city attribute validation',
+                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'city affiliation',
+                    'got_value': 'Belo Horizonte',
+                    'message': 'Got Belo Horizonte, expected city affiliation',
+                    'advice': None
+                },
+                {
+                    'title': 'aff/institution element original attribute validation',
+                    'xpath': './/aff/institution[@content-type="original"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'original affiliation',
+                    'got_value': 'Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
+                                 'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil',
+                    'message': 'Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
+                                 'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original affiliation',
+                    'advice': None
+
+                },
+                {
+                    'title': 'aff/institution element orgname attribute validation',
+                    'xpath': './/aff/institution[@content-type="orgname"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'orgname affiliation',
+                    'got_value': 'Universidade Federal de Minas Gerais',
+                    'message': 'Got Universidade Federal de Minas Gerais, expected orgname affiliation',
+                    'advice': None
+
+                },
+                {
+                    'title': 'aff element country attribute validation',
+                    'xpath': './/aff/country',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'country affiliation',
+                    'got_value': 'Brasil',
+                    'message': 'Got Brasil, expected country affiliation',
+                    'advice': None
+                },
+                {
+                    'title': 'aff element @country attribute validation',
+                    'xpath': './/aff/@country',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['BR'],
+                    'got_value': 'BR',
+                    'message': "Got BR, expected ['BR']",
+                    'advice': None
+                },
+                {
+                    'title': 'aff/addr-line element state attribute validation',
+                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'state affiliation',
+                    'got_value': 'MG',
+                    'message': 'Got MG, expected state affiliation',
+                    'advice': None
+                },
+                {
+                    'title': 'aff/addr-line element city attribute validation',
+                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'city affiliation',
+                    'got_value': 'Belo Horizonte',
+                    'message': 'Got Belo Horizonte, expected city affiliation',
+                    'advice': None
+                }
+            ]
+        }
+
+        self.assertEqual(message, expected_output)
