@@ -1,38 +1,43 @@
-from packtools.sps.validation import exceptions
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from langcodes import tag_is_valid
 
 
-def validate_language(xml):
-    """
-    Params
-    ------
-    xml: ElementTree
+class ArticleLangValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.articles = ArticleAndSubArticles(self.xmltree).data
+        self.main_article_type = ArticleAndSubArticles(self.xmltree).main_article_type
 
-    Returns
-    -------
-        A tuple comprising the validation status and the errors list.
-    """
-    errors = []
+    def validate_language(self, language_codes):
+        """
+        Params
+        ------
+        list: Default values to languages
 
-    art_and_subarts = ArticleAndSubArticles(xml)
-
-    for i in art_and_subarts.data:
-        _lang = i.get('lang')
-        _article_type = i.get('article_type')
-
-        if _lang is None:
-            _message = f'XML {_article_type} has no language.'
-            errors.append(exceptions.ValidationArticleAndSubArticlesUnavailableLanguage(
-                message=_message,
-                line=i.get('line_number'),
-            ))
-
-        elif not tag_is_valid(_lang):
-            _message = f'XML {_article_type} has an invalid language: {_lang}'
-            errors.append(exceptions.ValidationArticleAndSubArticlesHasInvalidLanguage(
-                message=_message,
-                line=i.get('line_number'),
-            ))
-   
-    return len(errors) == 0, errors
+        Returns
+        -------
+        list: dicts as:
+        {
+            'title': 'Article element lang attribute validation',
+            'xpath': './article/@xml:lang',
+            'validation_type': 'value in list',
+            'response': 'OK',
+            'expected_value': ['en'],
+            'got_value': 'en',
+            'message': 'Got en, expected ['en']',
+            'advice': 'XML research-article has en as language, expected ['en']'
+        }
+        """
+        if language_codes:
+            for article in self.articles:
+                lang = article.get('lang')
+                item = {
+                    'title': 'Article element lang attribute validation',
+                    'xpath': './article/@xml:lang' if article.get('article_type') == self.main_article_type else './/sub-article/@xml:lang',
+                    'validation_type': 'value in list',
+                    'response': 'OK' if lang in language_codes else 'ERROR',
+                    'expected_value': language_codes,
+                    'got_value': lang,
+                    'message': 'Got {}, expected one item of this list: {}'.format(lang, " | ".join(language_codes)),
+                    'advice': 'XML {} has {} as language, expected one item of this list: {}'.format(article.get('article_type'), lang, " | ".join(language_codes))
+                }
+                yield item
