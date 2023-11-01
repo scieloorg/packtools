@@ -18,10 +18,21 @@ class ArticleAndSubArticles:
     def data(self):
         _data = []
         if self.main_article_type:
-            _data.append({"lang": self.main_lang, "article_type": self.main_article_type, "line_number": self.main_line_number})
+            _data.append({
+                "lang": self.main_lang,
+                "article_type": self.main_article_type,
+                "article_id": "main",
+                "line_number": self.main_line_number
+            })
 
         for sub_article in self.xmltree.xpath(".//sub-article"):
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
             article_type = sub_article.get('article-type')
-            _data.append({"lang": lang, "article_type": article_type, "line_number": sub_article.sourceline})
+            article_id = sub_article.get('id')
+            _data.append({
+                "lang": lang,
+                "article_type": article_type,
+                "article_id": article_id,
+                "line_number": sub_article.sourceline
+            })
         return _data

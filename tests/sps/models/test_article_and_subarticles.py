@@ -44,3 +44,49 @@ class ArticleAndSubarticlesTest(TestCase):
         obtained = [d['article_type'] for d in ArticleAndSubArticles(xmltree).data]
 
         self.assertListEqual(expected, obtained)
+
+    def test_elements_order(self):
+        data = open('tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml').read()
+        xmltree = xml_utils.get_xml_tree(data)
+
+        expected = [
+            {
+                'article_id': 'main',
+                'article_type': 'research-article',
+                'lang': 'pt',
+                'line_number': 2
+            },
+            {
+                'article_id': 's2',
+                'article_type': 'reviewer-report',
+                'lang': 'pt',
+                'line_number': 93
+            },
+            {
+                'article_id': 's3',
+                'article_type': 'reviewer-report',
+                'lang': 'pt',
+                'line_number': 141
+            },
+            {
+                'article_id': 's1',
+                'article_type': 'translation',
+                'lang': 'en',
+                'line_number': 189
+            },
+            {
+                'article_id': 's5',
+                'article_type': 'reviewer-report',
+                'lang': 'en',
+                'line_number': 233
+            },
+            {
+                'article_id': 's6',
+                'article_type': 'reviewer-report',
+                'lang': 'en',
+                'line_number': 271
+            }
+        ]
+        obtained = [d for d in ArticleAndSubArticles(xmltree).data]
+
+        self.assertListEqual(expected, obtained)

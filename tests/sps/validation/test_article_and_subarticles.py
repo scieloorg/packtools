@@ -6,6 +6,7 @@ from packtools.sps.validation.article_and_subarticles import ArticleLangValidati
 
 class ArticleAndSubarticlesTest(TestCase):
     def test_article_has_no_language_attribute(self):
+        self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
             <front>
@@ -29,8 +30,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': None,
-                'message': "Got None, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has None as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=None> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=None> has None as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -39,6 +40,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 self.assertDictEqual(expected[i], item)
 
     def test_article_has_valid_language(self):
+        self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
             <front>
@@ -62,8 +64,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -95,8 +97,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'e',
-                'message': "Got e, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has e as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=e> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=e> has e as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -105,8 +107,9 @@ class ArticleAndSubarticlesTest(TestCase):
                 self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_have_valid_languages(self):
-        xml_str = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
-        xml_tree = get_xml_tree(xml_str)
+        self.maxDiff = None
+        data = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
+        xml_tree = get_xml_tree(data)
 
         obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
@@ -118,8 +121,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -129,8 +132,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'pt',
-                'message': "Got pt, expected one item of this list: pt | en | es",
-                'advice': "XML translation has pt as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -140,8 +143,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'es',
-                'message': "Got es, expected one item of this list: pt | en | es",
-                'advice': "XML translation has es as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=es> has es as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -150,6 +153,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_three_valid_languages(self):
+        self.maxDiff = None
         xml_str = """
         <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1" xml:lang="pt">
@@ -159,7 +163,6 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-
         obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
@@ -170,8 +173,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -181,8 +184,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'pt',
-                'message': "Got pt, expected one item of this list: pt | en | es",
-                'advice': "XML translation has pt as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -192,8 +195,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'es',
-                'message': "Got es, expected one item of this list: pt | en | es",
-                'advice': "XML translation has es as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=es> has es as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -202,6 +205,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_two_valid_languages_and_one_invalid(self):
+        self.maxDiff = None
         xml_str = """
         <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1" xml:lang="pt">
@@ -211,7 +215,6 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-
         obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
@@ -222,8 +225,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -233,8 +236,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'pt',
-                'message': "Got pt, expected one item of this list: pt | en | es",
-                'advice': "XML translation has pt as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -244,8 +247,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': '',
-                'message': "Got , expected one item of this list: pt | en | es",
-                'advice': "XML translation has  as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -264,7 +267,6 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-
         obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
         expected = [
@@ -275,8 +277,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has en as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -286,8 +288,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': None,
-                'message': "Got None, expected one item of this list: pt | en | es",
-                'advice': "XML translation has None as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=None> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=None> has None as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -297,8 +299,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': '',
-                'message': "Got , expected one item of this list: pt | en | es",
-                'advice': "XML translation has  as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es"
 
             }
         ]
@@ -307,6 +309,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_two_invalid_languages(self):
+        self.maxDiff = None
         xml_str = """
         <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1" xml:lang="en">
@@ -327,8 +330,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'portugol',
-                'message': "Got portugol, expected one item of this list: pt | en | es",
-                'advice': "XML research-article has portugol as language, expected one item of this list: pt | en | es"
+                'message': 'Got <article article-type=research-article xml:lang=portugol> expected one item of this list: pt | en | es',
+                'advice': "<article article-type=research-article xml:lang=portugol> has portugol as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -338,8 +341,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'en',
-                'message': "Got en, expected one item of this list: pt | en | es",
-                'advice': "XML translation has en as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=en> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s1 xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
             },
             {
@@ -349,8 +352,8 @@ class ArticleAndSubarticlesTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['pt', 'en', 'es'],
                 'got_value': 'thisisaninvalidlanguagecode',
-                'message': "Got thisisaninvalidlanguagecode, expected one item of this list: pt | en | es",
-                'advice': "XML translation has thisisaninvalidlanguagecode as language, expected one item of this list: pt | en | es"
+                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> expected one item of this list: pt | en | es',
+                'advice': "<sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> has thisisaninvalidlanguagecode as language, expected one item of this list: pt | en | es"
 
             }
         ]
