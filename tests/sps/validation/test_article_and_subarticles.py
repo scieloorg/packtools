@@ -108,49 +108,49 @@ class ArticleAndSubarticlesTest(TestCase):
 
     def test_article_and_subarticles_have_valid_languages(self):
         self.maxDiff = None
-        data = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
-        xml_tree = get_xml_tree(data)
+        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml') as data:
+            xml_tree = get_xml_tree(data.read())
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
+            obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
-        expected = [
-            {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
-                'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
+            expected = [
+                {
+                    'title': 'Article element lang attribute validation',
+                    'xpath': './article/@xml:lang',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['pt', 'en', 'es'],
+                    'got_value': 'en',
+                    'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
+                    'advice': "<article article-type=research-article xml:lang=en> has en as language, expected one item of this list: pt | en | es"
 
-            },
-            {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'pt',
-                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
-                'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
+                },
+                {
+                    'title': 'Article element lang attribute validation',
+                    'xpath': './/sub-article/@xml:lang',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['pt', 'en', 'es'],
+                    'got_value': 'pt',
+                    'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
+                    'advice': "<sub-article article-type=translation id=s1 xml:lang=pt> has pt as language, expected one item of this list: pt | en | es"
 
-            },
-            {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'es',
-                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
-                'advice': "<sub-article article-type=translation id=s2 xml:lang=es> has es as language, expected one item of this list: pt | en | es"
+                },
+                {
+                    'title': 'Article element lang attribute validation',
+                    'xpath': './/sub-article/@xml:lang',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['pt', 'en', 'es'],
+                    'got_value': 'es',
+                    'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
+                    'advice': "<sub-article article-type=translation id=s2 xml:lang=es> has es as language, expected one item of this list: pt | en | es"
 
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                }
+            ]
+            for i, item in enumerate(obtained):
+                with self.subTest(i):
+                    self.assertDictEqual(expected[i], item)
 
     def test_article_and_subarticles_with_three_valid_languages(self):
         self.maxDiff = None
