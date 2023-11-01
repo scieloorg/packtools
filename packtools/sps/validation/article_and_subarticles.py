@@ -1,6 +1,4 @@
-from packtools.sps.validation import exceptions
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from langcodes import tag_is_valid
 
 
 class ArticleLangValidation:
@@ -52,4 +50,3 @@ class ArticleLangValidation:
                     'advice': '{} has {} as language, expected one item of this list: {}'.format(msg, article_lang, " | ".join(language_codes))
                 }
                 yield item
-
