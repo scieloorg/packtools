@@ -85,7 +85,7 @@ class AffiliationValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
+                    'message': "Got BR, expected one item of this list: ['BR']",
                     'advice': None
                 },
                 {
@@ -149,7 +149,7 @@ class AffiliationValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
+                    'message': "Got BR, expected one item of this list: ['BR']",
                     'advice': None
                 },
                 {
@@ -318,7 +318,7 @@ class AffiliationValidationTest(TestCase):
                     'response': 'ERROR',
                     'expected_value': ['BR'],
                     'got_value': None,
-                    'message': "Got None, expected ['BR']",
+                    'message': "Got None, expected one item of this list: ['BR']",
                     'advice': 'provide a valid @country affiliation'
                 }
 
@@ -477,7 +477,7 @@ class AffiliationValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
+                    'message': "Got BR, expected one item of this list: ['BR']",
                     'advice': None
                 },
                 {
@@ -541,7 +541,7 @@ class AffiliationValidationTest(TestCase):
                     'response': 'OK',
                     'expected_value': ['BR'],
                     'got_value': 'BR',
-                    'message': "Got BR, expected ['BR']",
+                    'message': "Got BR, expected one item of this list: ['BR']",
                     'advice': None
                 },
                 {
