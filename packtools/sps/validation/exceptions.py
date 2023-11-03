@@ -17,3 +17,7 @@ class ValidationArticleAndSubArticlesHasInvalidLanguage(ValidationArticleDataErr
 
 class AffiliationValidationValidateCountryCodeException(Exception):
     ...
+
+
+class AffiliationValidationValidateLanguageCodeException(Exception):
+    ...
