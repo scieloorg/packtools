@@ -30,25 +30,40 @@ class ArticleLangValidation:
         }
         """
 
-        if language_codes:
-            for article in self.articles:
-                article_lang = article.get('lang')
-                article_type = article.get('article_type')
-                article_id = article.get('article_id')
+        language_codes_list = language_codes_list or self.language_codes_list
+        if not language_codes_list:
+            raise AffiliationValidationValidateLanguageCodeException("Function requires list of language codes")
+        for article in self.articles:
+            article_lang = article.get('lang')
+            article_type = article.get('article_type')
+            article_id = article.get('article_id')
+            validated = article_lang in language_codes_list
 
-                if article_id == 'main':
-                    msg = '<article article-type={} xml:lang={}>'.format(article_type, article_lang)
-                else:
-                    msg = '<sub-article article-type={} id={} xml:lang={}>'.format(article_type, article_id, article_lang)
+            if article_id == 'main':
+                msg = '<article article-type={} xml:lang={}>'.format(article_type, article_lang)
+            else:
+                msg = '<sub-article article-type={} id={} xml:lang={}>'.format(article_type, article_id, article_lang)
 
-                item = {
-                    'title': 'Article element lang attribute validation',
-                    'xpath': './article/@xml:lang' if article_id == 'main' else './/sub-article/@xml:lang',
-                    'validation_type': 'value in list',
-                    'response': 'OK' if article_lang in language_codes else 'ERROR',
-                    'expected_value': language_codes,
-                    'got_value': article_lang,
-                    'message': 'Got {} expected one item of this list: {}'.format(msg, " | ".join(language_codes)),
-                    'advice': '{} has {} as language, expected one item of this list: {}'.format(msg, article_lang, " | ".join(language_codes))
-                }
-                yield item
+            item = {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang' if article_id == 'main' else './/sub-article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK' if validated else 'ERROR',
+                'expected_value': language_codes_list,
+                'got_value': article_lang,
+                'message': 'Got {} expected one item of this list: {}'.format(msg, " | ".join(language_codes_list)),
+                'advice': None if validated else '{} has {} as language, expected one item of this list: {}'.format(msg, article_lang, " | ".join(language_codes_list))
+            }
+            yield item
+
+    def validate(self, data):
+        """
+        Função que executa as validações da classe ArticleLangValidation.
+
+        Returns:
+            dict: Um dicionário contendo os resultados das validações realizadas.
+
+        """
+        return {
+            'article_lang_validation': self.validate_language(data['language_codes_list'])
+        }
