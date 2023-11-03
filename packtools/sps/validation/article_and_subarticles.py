@@ -1,12 +1,14 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.validation.exceptions import AffiliationValidationValidateLanguageCodeException
 
 
 class ArticleLangValidation:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, language_codes_list=None):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree).data
+        self.language_codes_list = language_codes_list
 
-    def validate_language(self, language_codes=None):
+    def validate_language(self, language_codes_list=None):
         """
         Params
         ------
