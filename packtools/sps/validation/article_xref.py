@@ -67,7 +67,7 @@ class ArticleXrefValidation:
             item['expected_value'] = rid
             item['got_value'] = rid if validated else None
             item['message'] = _('Got {}, expected {}').format(item['got_value'], rid)
-            item['advice'] = 'For each xref[@rid="{}"] must have one corresponding element which @id="{}"'.format(rid, rid)
+            item['advice'] = None if validated else 'For each xref[@rid="{}"] must have one corresponding element which @id="{}"'.format(rid, rid)
             yield item
 
     def validate_id(self):
@@ -129,7 +129,7 @@ class ArticleXrefValidation:
             item['expected_value'] = id
             item['got_value'] = id if validated else None
             item['message'] = _('Got {}, expected {}').format(item['got_value'], id)
-            item['advice'] = 'For each @id="{}" must have one corresponding element which xref[@rid="{}"]'.format(id, id)
+            item['advice'] = None if validated else 'For each @id="{}" must have one corresponding element which xref[@rid="{}"]'.format(id, id)
             yield item
 
     def validate(self, data):
