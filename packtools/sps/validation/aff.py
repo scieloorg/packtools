@@ -93,7 +93,7 @@ class AffiliationValidation:
         state = self.affiliation.get('state')
         return {
             'title': 'aff/addr-line element state attribute validation',
-            'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+            'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
             'validation_type': 'exist',
             'response': 'OK' if state else 'ERROR',
             'expected_value': _('state affiliation'),
@@ -106,7 +106,7 @@ class AffiliationValidation:
         city = self.affiliation.get('city')
         return {
             'title': 'aff/addr-line element city attribute validation',
-            'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+            'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
             'validation_type': 'exist',
             'response': 'OK' if city else 'ERROR',
             'expected_value': _('city affiliation'),

@@ -119,7 +119,7 @@ class ArticleXrefValidationTest(TestCase):
                 'expected_value': 'table1',
                 'got_value': None,
                 'message': 'Got None, expected table1',
-                'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
+                'advice': 'For each xref[@rid="table1"] must have at least one corresponding element which @id="table1"'
             }
         ]
         for i, item in enumerate(self.article_xref.validate_rid()):
@@ -241,7 +241,7 @@ class ArticleXrefValidationTest(TestCase):
                 'expected_value': 'table1',
                 'got_value': None,
                 'message': 'Got None, expected table1',
-                'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
+                'advice': 'For each @id="table1" must have at least one corresponding element which xref[@rid="table1"]'
             }
         ]
 

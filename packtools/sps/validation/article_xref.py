@@ -29,7 +29,7 @@ class ArticleXrefValidation:
             'expected_value': aff1,
             'got_value': aff1,
             'message': 'Got aff1, expected aff1',
-            'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
+            'advice': 'For each xref[@rid="aff1"] must have at least one corresponding element which @id="aff1"'
             },
             {
             'title': 'xref element rid attribute validation',
@@ -39,7 +39,7 @@ class ArticleXrefValidation:
             'expected_value': fig1,
             'got_value': fig1,
             'message': 'Got fig1, expected fig1',
-            'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
+            'advice': 'For each xref[@rid="fig1"] must have at least one corresponding element which @id="fig1"'
             },
             {
             'title': 'xref element rid attribute validation',
@@ -49,7 +49,7 @@ class ArticleXrefValidation:
             'expected_value': table1,
             'got_value': None,
             'message': 'Got None, expected table1',
-            'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
+            'advice': 'For each xref[@rid="table1"] must have at least one corresponding element which @id="table1"'
             }
         ]
 
@@ -92,7 +92,7 @@ class ArticleXrefValidation:
             'expected_value': aff1,
             'got_value': aff1,
             'message': 'Got aff1, expected aff1',
-            'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
+            'advice': 'For each @id="aff1" must have at least one corresponding element which xref[@rid="aff1"]'
             },
             {
             'title': 'xref element id attribute validation',
@@ -102,7 +102,7 @@ class ArticleXrefValidation:
             'expected_value': fig1,
             'got_value': fig1,
             'message': 'Got fig1, expected fig1',
-            'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
+            'advice': 'For each @id="fig1" must have at least one corresponding element which xref[@rid="fig1"]'
             },
             {
             'title': 'xref element id attribute validation',
@@ -112,7 +112,7 @@ class ArticleXrefValidation:
             'expected_value': table1,
             'got_value': None,
             'message': 'Got None, expected table1',
-            'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
+            'advice': 'For each @id="table1" must have at least one corresponding element which xref[@rid="table1"]'
             }
         ]
         """

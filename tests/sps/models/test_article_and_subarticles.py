@@ -15,16 +15,14 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertEqual(expected, obtained)
 
-
     def test_all_lang(self):
-        data = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
-        xmltree = xml_utils.get_xml_tree(data)
+        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+            xmltree = xml_utils.get_xml_tree(data.read())
 
         expected = ['en', 'pt', 'es']
         obtained = [d['lang'] for d in ArticleAndSubArticles(xmltree).data]
 
         self.assertListEqual(expected, obtained)
-
 
     def test_main_article_type(self):
         data = """<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en"></article>"""
@@ -35,10 +33,9 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertEqual(expected, obtained)
 
-
     def test_all_article_type(self):
-        data = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
-        xmltree = xml_utils.get_xml_tree(data)
+        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+            xmltree = xml_utils.get_xml_tree(data.read())
 
         expected = ['research-article', 'translation', 'translation']
         obtained = [d['article_type'] for d in ArticleAndSubArticles(xmltree).data]
@@ -46,8 +43,8 @@ class ArticleAndSubarticlesTest(TestCase):
         self.assertListEqual(expected, obtained)
 
     def test_elements_order(self):
-        data = open('tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml').read()
-        xmltree = xml_utils.get_xml_tree(data)
+        with open('tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml', 'r') as data:
+            xmltree = xml_utils.get_xml_tree(data.read())
 
         expected = [
             {

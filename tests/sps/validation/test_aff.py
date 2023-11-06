@@ -90,7 +90,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'state affiliation',
@@ -100,7 +100,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'city affiliation',
@@ -154,7 +154,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'state affiliation',
@@ -164,7 +164,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'city affiliation',
@@ -350,7 +350,7 @@ class AffiliationValidationTest(TestCase):
 
         expected_output = {
                     'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
                     'validation_type': 'exist',
                     'response': 'ERROR',
                     'expected_value': 'state affiliation',
@@ -387,7 +387,7 @@ class AffiliationValidationTest(TestCase):
 
         expected_output = {
                     'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
                     'validation_type': 'exist',
                     'response': 'ERROR',
                     'expected_value': 'city affiliation',
@@ -482,7 +482,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'state affiliation',
@@ -492,7 +492,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'city affiliation',
@@ -546,7 +546,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'state affiliation',
@@ -556,7 +556,7 @@ class AffiliationValidationTest(TestCase):
                 },
                 {
                     'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"]',
+                    'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'city affiliation',
