@@ -85,8 +85,8 @@ class AffiliationValidation:
             'response': 'OK' if country_code in country_codes_list else 'ERROR',
             'expected_value': self.country_codes_list,
             'got_value': country_code,
-            'message': _('Got {}, expected {}').format(country_code, country_codes_list),
-            'advice': None if country_code else _('provide a valid @country affiliation')
+            'message': _('Got {}, expected one item of this list: {}').format(country_code, country_codes_list),
+            'advice': None if country_code in country_codes_list else _('provide a valid @country affiliation')
         }
 
     def validate_state(self):
