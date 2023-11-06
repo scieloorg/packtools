@@ -108,8 +108,8 @@ class ArticleAndSubarticlesTest(TestCase):
 
     def test_article_and_subarticles_have_valid_languages(self):
         self.maxDiff = None
-        data = open('tests/samples/article-abstract-en-sub-articles-pt-es.xml').read()
-        xml_tree = get_xml_tree(data)
+        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml') as data:
+            xml_tree = get_xml_tree(data.read())
 
         obtained = ArticleLangValidation(xml_tree).validate_language(language_codes=['pt', 'en', 'es'])
 
