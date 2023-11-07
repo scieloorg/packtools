@@ -21,3 +21,10 @@ class AffiliationValidationValidateCountryCodeException(Exception):
 
 class AffiliationValidationValidateLanguageCodeException(Exception):
     ...
+
+
+class ArticleValidationValidateSpecificUseException(Exception):
+    ...
+
+class ArticleValidationValidateDtdVersionException(Exception):
+    ...
