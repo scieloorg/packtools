@@ -95,3 +95,14 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertListEqual(expected, obtained)
 
+    def test_main_specific_use(self):
+        data = """<article xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" 
+        dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"></article>"""
+        xmltree = xml_utils.get_xml_tree(data)
+
+        expected = 'sps-1.9'
+        obtained = ArticleAndSubArticles(xmltree).main_specific_use
+
+        self.assertEqual(expected, obtained)
+
