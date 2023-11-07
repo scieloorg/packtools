@@ -415,3 +415,30 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertDictEqual(obtained, expected)
 
+    def test_article_and_subarticles_dtd_version(self):
+        self.maxDiff = None
+        xml_str = """
+        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <sub-article article-type="translation" id="s1" xml:lang="en">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
+            </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        obtained = ArticleValidation(xml_tree).validate_dtd_version(dtd_version_list=['1.1', '1.2', '1.3'])
+
+        expected = {
+            'title': 'Article element dtd-version attribute validation',
+            'xpath': './article/dtd-version',
+            'validation_type': 'value in list',
+            'response': 'OK',
+            'expected_value': ['1.1', '1.2', '1.3'],
+            'got_value': '1.1',
+            'message': 'Got 1.1 expected one item of this list: 1.1 | 1.2 | 1.3',
+            'advice': None
+        }
+
+        self.assertDictEqual(obtained, expected)
+
