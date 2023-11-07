@@ -126,3 +126,13 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertEqual(expected, obtained)
 
+    def test_all_article_subject(self):
+        self.maxDiff = None
+        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+            xmltree = xml_utils.get_xml_tree(data.read())
+
+        expected = ['Original Article', 'Artigo Original', 'Artículo Original']
+        obtained = [d['subject'] for d in ArticleAndSubArticles(xmltree).data]
+
+        self.assertListEqual(expected, obtained)
+
