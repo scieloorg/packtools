@@ -2,7 +2,7 @@ import csv
 import argparse
 from packtools.sps.utils import xml_utils
 from packtools.sps.validation.aff import AffiliationsListValidation
-from packtools.sps.validation.article_and_subarticles import ArticleLangValidation
+from packtools.sps.validation.article_and_subarticles import ArticleValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 
 
@@ -15,7 +15,7 @@ def validate_xml_tree(xml_tree, validation_params):
     data = AffiliationsListValidation(xml_tree).validate(validation_params)['affiliations_validation']
 
     validators = [
-        ArticleLangValidation(xml_tree),
+        ArticleValidation(xml_tree),
         ArticleXrefValidation(xml_tree)
     ]
 
