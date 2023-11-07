@@ -15,7 +15,7 @@ def validate_xml_tree(xml_tree, validation_params):
     data = AffiliationsListValidation(xml_tree).validate(validation_params)['affiliations_validation']
 
     validators = [
-        ArticleLangValidation(xml_tree),
+        ArticleValidation(xml_tree),
         ArticleXrefValidation(xml_tree)
     ]
 
