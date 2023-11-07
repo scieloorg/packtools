@@ -6,8 +6,8 @@ from packtools.sps.validation.exceptions import (
 )
 
 
-class ArticleLangValidation:
-    def __init__(self, xmltree, language_codes_list=None):
+class ArticleValidation:
+    def __init__(self, xmltree, language_codes_list=None, specific_use_list=None, dtd_version_list=None):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree).data
         self.language_codes_list = language_codes_list
