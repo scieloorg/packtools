@@ -1,5 +1,9 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.validation.exceptions import AffiliationValidationValidateLanguageCodeException
+from packtools.sps.validation.exceptions import (
+    AffiliationValidationValidateLanguageCodeException,
+    ArticleValidationValidateSpecificUseException,
+    ArticleValidationValidateDtdVersionException,
+)
 
 
 class ArticleLangValidation:
