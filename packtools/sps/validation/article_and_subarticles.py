@@ -9,8 +9,10 @@ from packtools.sps.validation.exceptions import (
 class ArticleValidation:
     def __init__(self, xmltree, language_codes_list=None, specific_use_list=None, dtd_version_list=None):
         self.xmltree = xmltree
-        self.articles = ArticleAndSubArticles(self.xmltree).data
+        self.articles = ArticleAndSubArticles(self.xmltree)
         self.language_codes_list = language_codes_list
+        self.specific_use_list = specific_use_list
+        self.dtd_version_list = dtd_version_list
 
     def validate_language(self, language_codes_list=None):
         """
