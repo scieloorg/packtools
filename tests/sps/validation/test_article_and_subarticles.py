@@ -361,3 +361,30 @@ class ArticleAndSubarticlesTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_article_and_subarticles_specific_use(self):
+        self.maxDiff = None
+        xml_str = """
+        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <sub-article article-type="translation" id="s1" xml:lang="en">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
+            </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        obtained = ArticleValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue'])
+
+        expected = {
+            'title': 'Article element specific-use attribute validation',
+            'xpath': './article/specific-use',
+            'validation_type': 'value in list',
+            'response': 'OK',
+            'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
+            'got_value': 'sps-1.9',
+            'message': 'Got sps-1.9 expected one item of this list: sps-1.9 | preprint | special-issue',
+            'advice': None
+        }
+
+        self.assertDictEqual(obtained, expected)
+
