@@ -117,3 +117,12 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertEqual(expected, obtained)
 
+    def test_main_article_subject(self):
+        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+            xmltree = xml_utils.get_xml_tree(data.read())
+
+        expected = 'Original Article'
+        obtained = ArticleAndSubArticles(xmltree).main_subject
+
+        self.assertEqual(expected, obtained)
+
