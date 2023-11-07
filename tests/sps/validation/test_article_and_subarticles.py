@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from packtools.sps.utils.xml_utils import get_xml_tree
-from packtools.sps.validation.article_and_subarticles import ArticleLangValidation
+from packtools.sps.validation.article_and_subarticles import ArticleValidation
 
 
 class ArticleAndSubarticlesTest(TestCase):
@@ -20,7 +20,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -54,7 +54,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -87,7 +87,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -111,7 +111,7 @@ class ArticleAndSubarticlesTest(TestCase):
         with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml') as data:
             xml_tree = get_xml_tree(data.read())
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -163,7 +163,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -215,7 +215,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -267,7 +267,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -320,7 +320,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -360,3 +360,4 @@ class ArticleAndSubarticlesTest(TestCase):
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
+
