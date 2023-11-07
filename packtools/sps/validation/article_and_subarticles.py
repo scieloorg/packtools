@@ -39,7 +39,7 @@ class ArticleValidation:
         language_codes_list = language_codes_list or self.language_codes_list
         if not language_codes_list:
             raise AffiliationValidationValidateLanguageCodeException("Function requires list of language codes")
-        for article in self.articles:
+        for article in self.articles.data:
             article_lang = article.get('lang')
             article_type = article.get('article_type')
             article_id = article.get('article_id')
