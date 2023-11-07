@@ -62,6 +62,47 @@ class ArticleValidation:
             }
             yield item
 
+    def validate_specific_use(self, specific_use_list=None):
+        """
+        Params
+        ------
+            xml: ElementTree
+
+        Returns
+        -------
+        list: dicts as:
+        {
+            'title': 'Article element specific-use attribute validation',
+            'xpath': './article/specific-use',
+            'validation_type': 'value in list',
+            'response': 'OK',
+            'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
+            'got_value': 'sps-1.9',
+            'message': 'Got sps-1.9 expected one item of this list: sps-1.9 | preprint | special-issue',
+            'advice': 'XML research-article has None as specific-use expected one item of this list: sps-1.9 | preprint | special-issue'
+        }
+        """
+
+        specific_use_list = specific_use_list or self.specific_use_list
+        if not specific_use_list:
+            raise ArticleValidationValidateSpecificUseException("Function requires list of specific uses")
+
+        article_specific_use = self.articles.main_specific_use
+        validated = article_specific_use in specific_use_list
+
+        return {
+            'title': 'Article element specific-use attribute validation',
+            'xpath': './article/specific-use',
+            'validation_type': 'value in list',
+            'response': 'OK' if validated else 'ERROR',
+            'expected_value': specific_use_list,
+            'got_value': article_specific_use,
+            'message': 'Got {} expected one item of this list: {}'.format(article_specific_use, " | "
+                                                                          .join(specific_use_list)),
+            'advice': None if validated else 'XML {} has {} as specific-use, expected one item of this list: {}'
+            .format(self.articles.main_article_type, article_specific_use, " | ".join(specific_use_list))
+        }
+
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleLangValidation.
