@@ -2,7 +2,7 @@ import csv
 import argparse
 from packtools.sps.utils import xml_utils
 from packtools.sps.validation.aff import AffiliationsListValidation
-from packtools.sps.validation.article_and_subarticles import ArticleLangValidation
+from packtools.sps.validation.article_and_subarticles import ArticleValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 
 
