@@ -146,12 +146,13 @@ class ArticleValidation:
 
     def validate(self, data):
         """
-        Função que executa as validações da classe ArticleLangValidation.
+        Função que executa as validações da classe ArticleValidation.
 
         Returns:
             dict: Um dicionário contendo os resultados das validações realizadas.
 
         """
         return {
-            'article_lang_validation': self.validate_language(data['language_codes_list'])
+            'article_lang_validation': self.validate_language(data['language_codes_list']),
+            'article_specific_use_validation': self.validate_specific_use(data['specific_use_list'])
         }
