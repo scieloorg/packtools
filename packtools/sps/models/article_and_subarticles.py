@@ -15,6 +15,18 @@ class ArticleAndSubArticles:
         return self.xmltree.find(".").sourceline
 
     @property
+    def main_specific_use(self):
+        return self.xmltree.find(".").get("specific-use")
+
+    @property
+    def main_dtd_version(self):
+        return self.xmltree.find(".").get("dtd-version")
+
+    @property
+    def main_subject(self):
+        return self.xmltree.find('.//subject').text
+
+    @property
     def data(self):
         _data = []
         if self.main_article_type:
@@ -22,17 +34,18 @@ class ArticleAndSubArticles:
                 "lang": self.main_lang,
                 "article_type": self.main_article_type,
                 "article_id": "main",
-                "line_number": self.main_line_number
+                "line_number": self.main_line_number,
+                "subject": self.main_subject,
             })
 
         for sub_article in self.xmltree.xpath(".//sub-article"):
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
-            article_type = sub_article.get('article-type')
-            article_id = sub_article.get('id')
+
             _data.append({
                 "lang": lang,
-                "article_type": article_type,
-                "article_id": article_id,
-                "line_number": sub_article.sourceline
+                "article_type": sub_article.get('article-type'),
+                "article_id": sub_article.get('id'),
+                "line_number": sub_article.sourceline,
+                "subject": sub_article.find('.//subject').text
             })
         return _data
