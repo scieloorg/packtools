@@ -106,3 +106,14 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertEqual(expected, obtained)
 
+    def test_main_dtd_version(self):
+        data = """<article xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" 
+        dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"></article>"""
+        xmltree = xml_utils.get_xml_tree(data)
+
+        expected = '1.1'
+        obtained = ArticleAndSubArticles(xmltree).main_dtd_version
+
+        self.assertEqual(expected, obtained)
+
