@@ -3,7 +3,7 @@
     version="1.0">
 
     <xsl:template match="article" mode="data-availability">
-        <xsl:if test=".//article-meta/supplementary-material or .//element-citation[@publication-type='data' or @publication-type='database']">
+        <xsl:if test=".//*[@fn-type='data-availability'] or .//article-meta/supplementary-material or .//element-citation[@publication-type='data' or @publication-type='database']">
             <xsl:apply-templates select="." mode="data-availability-menu-title"/>
             <xsl:choose>
                 <xsl:when test="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -25,7 +25,7 @@
     </xsl:template>
 
     <xsl:template match="body | back" mode="data-availability">
-        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="data-availability"/>
+        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material'] | .//*[@fn-type='data-availability']" mode="data-availability"/>
     </xsl:template>
 
     <xsl:template match="article" mode="data-availability-menu-title">
