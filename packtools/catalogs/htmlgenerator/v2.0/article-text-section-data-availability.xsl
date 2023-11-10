@@ -8,17 +8,24 @@
             <xsl:choose>
                 <xsl:when test="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
                     <!-- sub-article -->
-                    <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//sec[@sec-type='supplementary-material']" mode="data-availability"/>
+                    <xsl:apply-templates select="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']" mode="doc-version-data-availability"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- article -->
-                    <xsl:apply-templates select="body/sec[@sec-type='supplementary-material']" mode="data-availability"/>
+                    <xsl:apply-templates select="." mode="doc-version-data-availability"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select=".//article-meta/supplementary-material" mode="data-availability"/>
             <xsl:apply-templates select="back//ref-list" mode="data-availability"/>
-
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="article | sub-article" mode="doc-version-data-availability">
+        <xsl:apply-templates select="body | back" mode="data-availability"/>
+    </xsl:template>
+
+    <xsl:template match="body | back" mode="data-availability">
+        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="data-availability"/>
     </xsl:template>
 
     <xsl:template match="article" mode="data-availability-menu-title">
