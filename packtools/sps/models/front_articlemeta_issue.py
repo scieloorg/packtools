@@ -111,9 +111,10 @@ class ArticleMetaIssue:
 
     @property
     def suppl(self):
-        _suppl = self.xmltree.findtext(".//front/article-meta/supplement")
-        if _suppl:
-            return _suppl
+        _suppl = self.xmltree.find(".//front/article-meta/supplement")
+        if _suppl is not None:
+            # valor de supplement pode ser 0 (ou string vazia?)
+            return _suppl.text
         _issue = self.issue
         if _issue:
             n, s = _extract_number_and_supplment_from_issue_element(_issue)

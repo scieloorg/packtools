@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from lxml import etree
 
 from packtools.sps.validation.article_xref import ArticleXrefValidation
@@ -30,14 +31,42 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            expected_value=['aff1', 'fig1', 'table1'],
-            obtained_value=['aff1', 'fig1', 'table1'],
-            result=[],
-            message="OK: all rids have the respective ids"
-        )
-        obtained = self.article_xref.validate_rid()
-        self.assertDictEqual(expected, obtained)
+
+        expected = [
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': None
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': None
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'table1',
+                'got_value': 'table1',
+                'message': 'Got table1, expected table1',
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(self.article_xref.validate_rid()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_rids_no_matches(self):
         self.xmltree = etree.fromstring(
@@ -60,16 +89,42 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            expected_value=['aff1', 'fig1', 'table1'],
-            obtained_value=['aff1', 'fig1'],
-            result=['table1'],
-            message="ERROR: rids were found with the values "
-                f"{self.article_xref.validate_rid()['expected_value']} but there were "
-                "no ids with the corresponding values"
-        )
-        obtained = self.article_xref.validate_rid()
-        self.assertDictEqual(expected, obtained)
+
+        expected = [
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': None
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': None
+            },
+            {
+                'title': 'xref element rid attribute validation',
+                'xpath': './/xref[@rid]',
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': 'table1',
+                'got_value': None,
+                'message': 'Got None, expected table1',
+                'advice': 'For each xref[@rid="table1"] must have at least one corresponding element which @id="table1"'
+            }
+        ]
+        for i, item in enumerate(self.article_xref.validate_rid()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_ids_matches(self):
         self.xmltree = etree.fromstring(
@@ -95,14 +150,43 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            obtained_value=['aff1', 'fig1', 'table1'],
-            expected_value=['aff1', 'fig1', 'table1'],
-            result=[],
-            message="OK: all ids have the respective rids"
-        )
-        obtained = self.article_xref.validate_id()
-        self.assertDictEqual(expected, obtained)
+
+        expected = [
+            {
+                'title': 'element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': None
+            },
+            {
+                'title': 'element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': None
+            },
+            {
+                'title': 'element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'table1',
+                'got_value': 'table1',
+                'message': 'Got table1, expected table1',
+                'advice': None
+            }
+        ]
+
+        for i, item in enumerate(self.article_xref.validate_id()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_ids_no_matches(self):
         self.xmltree = etree.fromstring(
@@ -127,13 +211,40 @@ class ArticleXrefValidationTest(TestCase):
             """
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
-        expected = dict(
-            obtained_value=['aff1', 'fig1'],
-            expected_value=['aff1', 'fig1', 'table1'],
-            result=['table1'],
-            message="ERROR: ids were found with the values "
-                f"{self.article_xref.validate_id()['expected_value']} but there were "
-                "no rids with the corresponding values"
-        )
-        obtained = self.article_xref.validate_id()
-        self.assertDictEqual(expected, obtained)
+
+        expected = [
+            {
+                'title': 'element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'aff1',
+                'got_value': 'aff1',
+                'message': 'Got aff1, expected aff1',
+                'advice': None
+            },
+            {
+                'title': 'element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'fig1',
+                'got_value': 'fig1',
+                'message': 'Got fig1, expected fig1',
+                'advice': None
+            },
+            {
+                'title': 'element id attribute validation',
+                'xpath': './/*[@id]',
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': 'table1',
+                'got_value': None,
+                'message': 'Got None, expected table1',
+                'advice': 'For each @id="table1" must have at least one corresponding element which xref[@rid="table1"]'
+            }
+        ]
+
+        for i, item in enumerate(self.article_xref.validate_id()):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)

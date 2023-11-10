@@ -13,3 +13,18 @@ class ValidationArticleAndSubArticlesUnavailableLanguage(ValidationArticleDataEr
 
 class ValidationArticleAndSubArticlesHasInvalidLanguage(ValidationArticleDataError):
     ...
+
+
+class AffiliationValidationValidateCountryCodeException(Exception):
+    ...
+
+
+class AffiliationValidationValidateLanguageCodeException(Exception):
+    ...
+
+
+class ArticleValidationValidateSpecificUseException(Exception):
+    ...
+
+class ArticleValidationValidateDtdVersionException(Exception):
+    ...
