@@ -1,0 +1,1338 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">rdbci</journal-id>
+      <journal-title-group>
+        <journal-title>RDBCI: Revista Digital de Biblioteconomia e Ciência da Informação</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">RDBCI : Rev. Digit. Bibl. e Cienc. Inf.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">1678-765X</issn>
+      <publisher>
+        <publisher-name>Universidade Estadual de Campinas</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">skq7h8xjdNPvWzykLBVLJwz</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1678-765X2023000100300</article-id>
+      <article-id pub-id-type="doi">10.20396/rdbci.v21i00.8670044</article-id>
+      <article-id pub-id-type="other">00300</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Artigo</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Inovação, trabalho remoto e bibliotecas educativas públicas: caminhos para a transformação digital no mundo do trabalho pós-pandemia</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-4146-5747</contrib-id>
+          <name>
+            <surname>Brandão</surname>
+            <given-names>Jobson Louis Almeida</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+          <role content-type="http://credit.niso.org/contributor-roles/conceptualization/">Conceitualização</role>
+          <role content-type="http://credit.niso.org/contributor-roles/investigation/">Investigação</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Metodologia</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Administração do projeto</role>
+          <role content-type="http://credit.niso.org/contributor-roles/visualization/">Visualização</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-original-draft/">Escrita - rascunho original</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Escrita - revisão &amp; edição</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Metodologia</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Administração do projeto</role>
+          <role content-type="http://credit.niso.org/contributor-roles/supervision/">Supervisão</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Escrita - revisão &amp; edição</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-4892-3990</contrib-id>
+          <name>
+            <surname>Perucchi</surname>
+            <given-names>Valmira</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">
+            <sup>2</sup>
+          </xref>
+          <role content-type="http://credit.niso.org/contributor-roles/conceptualization/">Conceitualização</role>
+          <role content-type="http://credit.niso.org/contributor-roles/investigation/">Investigação</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Metodologia</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Administração do projeto</role>
+          <role content-type="http://credit.niso.org/contributor-roles/visualization/">Visualização</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-original-draft/">Escrita - rascunho original</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Escrita - revisão &amp; edição</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Metodologia</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Administração do projeto</role>
+          <role content-type="http://credit.niso.org/contributor-roles/supervision/">Supervisão</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Escrita - revisão &amp; edição</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-9296-2340</contrib-id>
+          <name>
+            <surname>Freire</surname>
+            <given-names>Gustavo Henrique de Araújo</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">
+            <sup>3</sup>
+          </xref>
+          <role content-type="http://credit.niso.org/contributor-roles/conceptualization/">Conceitualização</role>
+          <role content-type="http://credit.niso.org/contributor-roles/investigation/">Investigação</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Metodologia</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Administração do projeto</role>
+          <role content-type="http://credit.niso.org/contributor-roles/visualization/">Visualização</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-original-draft/">Escrita - rascunho original</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Escrita - revisão &amp; edição</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Metodologia</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Administração do projeto</role>
+          <role content-type="http://credit.niso.org/contributor-roles/supervision/">Supervisão</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Escrita - revisão &amp; edição</role>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>1</label>
+        <institution content-type="original">Instituto Federal da Paraíba. João pessoa, PB - Brasil. e-mail: jobsonlouis@gmail.com</institution>
+        <institution content-type="orgname">Instituto Federal da Paraíba</institution>
+        <addr-line>
+          <city>João pessoa</city>
+          <state>PB</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <email>jobsonlouis@gmail.com</email>
+      </aff>
+      <aff id="aff2">
+        <label>2</label>
+        <institution content-type="original">Instituto Federal da Paraíba. João pessoa, PB - Brasil. e-mail: vperucchi2@yahoo.com.br</institution>
+        <institution content-type="orgname">Instituto Federal da Paraíba</institution>
+        <addr-line>
+          <city>João pessoa</city>
+          <state>PB</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <email>vperucchi2@yahoo.com.br</email>
+      </aff>
+      <aff id="aff3">
+        <label>3</label>
+        <institution content-type="original">Universidade Federal do Rio de Janeiro. Rio de Janeiro, RJ - Brasil. e-mail: ghafreire@gmail.com</institution>
+        <institution content-type="orgname">Universidade Federal do Rio de Janeiro</institution>
+        <addr-line>
+          <city>Rio de Janeiro</city>
+          <state>RJ</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <email>ghafreire@gmail.com</email>
+      </aff>
+      <author-notes>
+        <fn fn-type="conflict" id="fn3">
+          <label>Conflitos de interesse:</label>
+          <p>Os autores certificam que não têm interesse comercial ou associativo que represente um conflito de interesses em relação ao manuscrito.</p>
+        </fn>
+        <fn fn-type="edited-by" id="fn8">
+          <label>Editor:</label>
+          <p>Gildenir Carolino Santos</p>
+        </fn>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>07</day>
+        <month>04</month>
+        <year>2023</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2023</year>
+      </pub-date>
+      <volume>21</volume>
+      <elocation-id>e023001</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>07</day>
+          <month>06</month>
+          <year>2022</year>
+        </date>
+        <date date-type="accepted">
+          <day>07</day>
+          <month>12</month>
+          <year>2022</year>
+        </date>
+        <date date-type="pub">
+          <day>20</day>
+          <month>12</month>
+          <year>2022</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+          <license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>RESUMO</title>
+        <sec>
+          <title>Introdução:</title>
+          <p>O desenvolvimento de políticas públicas mais assertivas em bibliotecas, de acordo com as dinâmicas de teletrabalho que estão a se constituir, é um debate imprescindível ao campo da Ciência da Informação. </p>
+        </sec>
+        <sec>
+          <title>Objetivo:</title>
+          <p>O presente artigo discute a evolução das bibliotecas educativas públicas em espaços de trabalho remoto, para servir a uma comunidade de profissionais que trabalham e se comunicam em rede. </p>
+        </sec>
+        <sec>
+          <title>Metodologia:</title>
+          <p>Metodologicamente, a pesquisa é de nível exploratório, abordagem qualitativa, desenvolvida por meio de pesquisa bibliográfica, a partir dos dados de uma pesquisa de doutorado que utiliza o método Ciência-Ação. </p>
+        </sec>
+        <sec>
+          <title>Resultados:</title>
+          <p>Os resultados destacam a possibilidade de inovação por meio do trabalho remoto no serviço público federal, sobretudo com o advento do Decreto 11.072, de 17 de maio de 2022; a oportunidade de inovar no setor público com um serviço promissor desempenhado pelas bibliotecas educativas públicas em institutos federais; e a indissociabilidade entre agendas de trabalho e de pesquisa, tanto quanto entre o desenvolvimento social e a transformação digital. </p>
+        </sec>
+        <sec>
+          <title>Conclusão:</title>
+          <p>Conclui-se que os caminhos para a transformação digital no mundo do trabalho podem se tornar ainda mais produtivos, inovadores, rentáveis e sustentáveis, quando se busca o investimento contínuo e adequado em infraestrutura de bibliotecas que cumprem função educativa e são de natureza pública; e em políticas que assegurem a atuação do bibliotecário como agente de inovação em institutos federais.</p>
+        </sec>
+      </abstract>
+      <kwd-group xml:lang="pt">
+        <title>PALAVRAS-CHAVE:</title>
+        <kwd>Bibliotecas educativas públicas</kwd>
+        <kwd>Inovação</kwd>
+        <kwd>Teletrabalho</kwd>
+        <kwd>Trabalho</kwd>
+        <kwd>Transformação digital</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="0"/>
+        <table-count count="6"/>
+        <equation-count count="0"/>
+        <ref-count count="18"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>1 INTRODUÇÃO</title>
+      <p>Promover desenvolvimento social a partir da transformação digital no mundo do trabalho em uma conjuntura pós-pandemia é algo tão desafiador, quanto promissor. Afinal, é comum as oportunidades surgirem em momentos imprevisíveis de crise e, consequentemente, mudanças inesperadas. As bibliotecas públicas estão no centro dessas mudanças e oportunidades no século da informação em rede. O fenômeno tem requerido dos profissionais da informação uma postura proativa para percorrer os caminhos da inovação. </p>
+      <p>A inovação é abrangente e transversal, dessa forma adotamos como concepção de inovação o desenvolvimento de novos produtos e serviços, com métodos e ações inovadoras, como, por exemplo, laboratórios cidadãos, incubadoras de ideias, ambientes virtuais de aprendizagem, espaços criativos e ambientes participativos possibilitando o acesso ao acervo <italic>online</italic> e à informação digital. Inovações essas, que colocadas em prática trazem melhoria para um serviço, produto ou processo existente em uma biblioteca contribuindo para tornar mais fácil a vida das pessoas que utilizam os produtos e serviços oferecidos pela mesma. </p>
+      <p>O mapeamento da literatura científica para identificar a evolução do tema Inovação no campo da Ciência da Informação realizado por Gabriel Júnior, Sousa e Silva (2020, p. 5-6) discorre que:</p>
+      <disp-quote>
+        <p>[...] é muito difícil ter uma definição de inovação que atenda todas as áreas e contextos. Na área da CI, a inovação caracteriza-se muito como um processo de melhoria ou de transformação de processos e serviços. [...] Na CI, o conceito de inovação como desenvolvimento ou aprimoramento de processos e serviços, ocorre, principalmente, com a inserção ou atualização de novas tecnologias e também transformações e modificações em processos de gestão. Esse tipo de inovação em processos já existentes é sempre pensado de maneira a atender demandas de um grupo específico de usuários de serviços informacionais. Para algumas tipologias de instituições que oferecem serviços informacionais a inovação em serviços e produtos oferecidos se torna um processo mais difícil pelos já referidos custos necessários para a implementação efetiva de novos serviços. </p>
+      </disp-quote>
+      <p>Gabriel Júnior, Sousa e Silva (2020) discorre sobre dois tipos de bibliotecas muito comum no Brasil: a biblioteca pública e a biblioteca universitária. Sobre a primeira, os autores afirmam que ela possui enorme potencial de inovação a partir das Tecnologias de Informação e Comunicação (TICs), devido possibilitarem melhor interação entre usuários, produtos e serviços, favorecendo a autonomia em tarefas relacionadas aos serviços oferecidos pela biblioteca, contudo é apontado como principal desafio a captação de recursos para o adequado investimento nessas tecnologias, dada a realidade das bibliotecas públicas no país, notoriamente conhecida como precárias do ponto de vista do investimento econômico a partir de políticas públicas. Com relação a segunda, os autores apontam como barreira, o desconhecimento, por parte dos seus mantenedores, da importância da inovação para geração de valor, devido estes a perceberem como um espaço convencional. Gabriel Júnior, Sousa e Silva (2020) destacam que:</p>
+      <disp-quote>
+        <p>O conceito de inovação em uma biblioteca universitária também deve estar associado ao desenvolvimento e aprimoramento de produtos e serviços relacionados a comunicação científica, uma vez que grande parte do seu público é composto por pesquisadores e alunos que necessitam de informação científica para realizar suas atividades e desenvolver suas pesquisas.</p>
+      </disp-quote>
+      <p>Importante mencionar que tanto no estudo de Gabriel Júnior, Sousa e Silva (2020), o mais atualizado mapeamento científico sobre a temática (Inovação) no campo da CI, quanto em toda a literatura científica investigada a partir da pesquisa que originou o presente artigo, não há abordagem sobre a inovação em bibliotecas de institutos federais, que atualmente no Brasil, desempenham função educativa no setor público de forma mais abrangente que as bibliotecas universitárias, por atender usuários vinculados ao nível médio/técnico e superior, e por estarem presentes de forma amplamente distribuída em todo o território nacional. Essa lacuna começa a ser preenchida a partir do presente artigo, o primeiro de uma série de publicações que pretende abordar a temática com o intento de desenvolvê-la no campo científico e profissional com o olhar tanto para a biblioteca educativa pública, quanto para a atuação dos bibliotecários para além da biblioteca, em outros espaços cabíveis de sua atuação nos ecossistemas de inovação. </p>
+      <p>Durante o período pandêmico entre os anos de 2020 e 2021, profissionais de diversas áreas aprenderam novas lições sobre os mais diversos assuntos que interferem nos estilos e nas formas de vida como os conhecemos. Este fato consistiu em um marco de mudanças significativas, nas quais se incluem as mudanças no mundo do trabalho e emprego. Entre várias, interessou ao presente estudo a questão das mudanças na forma de vida no trabalho, em especial, o futuro do trabalho remoto e o papel das bibliotecas educativas públicas neste contexto dinâmico no Brasil.</p>
+      <p>Durante o ENANCIB 2021, os autores do presente artigo propuseram que essas são bibliotecas que apoiam com ações infoeducativas as práticas de ensino, pesquisa e extensão desenvolvidas por instituições públicas de ensino, cuja função é <bold>educativa</bold> e sua natureza é <bold>pública</bold>. Conceitualmente, na perspectiva de sua identidade organizacional, as bibliotecas educativas públicas foram definidas como: unidades de informação, com finalidade prioritariamente educativa e de natureza pública, que atendem às necessidades informacionais tanto do público acadêmico, em todos os níveis de ensino, de necessidades e de competências, quanto ao público técnico-administrativo e a comunidade em geral, por meio de ações infoeducacionais. O acervo de tais instituições pode ser constituído por obras pluricurriculares, extracurriculares, e que possuam vínculo com o processo de aprendizagem ao longo da vida, abrangendo todas as faixas etárias, sem distinção. Constituem exemplo no Brasil de unidades de informação desse tipo as bibliotecas dos institutos federais. Contudo, isso não exclui outras bibliotecas de se identificarem nessa identidade organizacional, sendo necessário aprofundamento do tema em próximos estudos. </p>
+      <p>Dois pontos constituem o ponto de partida que inspirou a presente pesquisa. Primeiramente, a observação das recentes transformações ocorridas nos ambientes de trabalho das comunidades as quais os autores desse artigo estão vinculados, realizada durante uma pesquisa de doutorado. Segundo a contemporânea reflexão tecida por um experiente professor norte-americano acerca da inovação que surgiu ao longo do tempo nas bibliotecas públicas. Autor de muitos livros e artigos sobre o processo de formulação de políticas e sobre como melhorar a gestão de organizações públicas, Steve Kelman, Professor de Administração Pública da Universidade de Harvard, publicou em 02 de agosto de 2021 no tradicional e renomado blog norte-americano sobre administração pública federal, o <italic>FCW (Federal Computer Week)</italic>, um artigo intitulado em sua tradução de “<bold>Bibliotecas públicas e inovação governamental”</bold>. Tal artigo é ponto fulcral na reflexão que originou a presente pesquisa e discussão.</p>
+      <p>É habitual que no cerne das discussões sobre políticas públicas de informação, no campo da Ciência da Informação (CI) no Brasil, busque-se, de forma interdisciplinar, uma convergência entre o que é dito na literatura científica do campo da Administração (e Administração Pública) com a literatura da própria CI (e da Biblioteconomia em muitos casos). No entanto, nos últimos anos, o debate sobre desenvolvimento sustentável, infraestrutura urbana e cidades inteligentes tem ganhado notoriedade e ampliado o leque interdisciplinar das questões investigadas neste campo científico. Isto ocorre devido a evidenciação da urgência em resolver e lidar com as questões climáticas para a sobrevivência humana no planeta Terra, e seus desdobramentos, que incluem repensar a qualidade de vida no trabalho e a necessidade de presencialidade em situações e ambientes diversos. </p>
+      <p>Tem se constituído uma tendência, portanto, que profissionais e pesquisadores de outras áreas de conhecimento, com destaque nessa discussão para o campo da Arquitetura e Urbanismo, se interessem pelas bibliotecas públicas e sua função social nos espaços urbanos. Historicamente, nota-se uma evolução na valorização das bibliotecas como espaços cívicos, para além da ideia de espaços exclusivos de promoção da leitura e do livro, defendida ao longo do século XX como locais prioritariamente para estudo e pesquisa. </p>
+      <p><xref ref-type="bibr" rid="B10">Kelman (2021</xref>) menciona em seu artigo a sua própria satisfação em recentemente ter encontrado o artigo de Liz McCormick, uma bolsista urbana de verão da <italic>New Urban Mechanics</italic>, em Boston, nos Estados Unidos da América, que trabalha com inovações de gestão para a cidade. O artigo, intitulado em sua tradução de <bold>“O potencial radical das bibliotecas”</bold>, menciona novas formas de uso da biblioteca na esteira da pandemia, e foi publicado no blog institucional da Prefeitura de Boston, especificamente na página do Gabinete de Nova Mecânica Urbana do Prefeito, que consiste em um tipo de laboratório de pesquisa e desenvolvimento de Boston, servindo também como incubadora cívica de ideias no âmbito do poder municipal. </p>
+      <p>Na Europa, tem se falado bastante sobre a implementação de Laboratórios Cidadãos Distribuídos em bibliotecas públicas. Iniciativas como a recente oferta do curso <italic>Laboratorios Ciudadanos Distribuidos</italic><xref ref-type="fn" rid="fn1"><sup>1</sup></xref> para bibliotecários e profissionais também do Brasil, na modalidade a distância, promovido pelo Ministério da Cultura e Esporte, da Espanha, por meio da Direção Geral do Livro e Fomento da Leitura, demonstra a importância da temática e da inserção das bibliotecas no contexto da inovação cidadã. Diego Garcia, coordenador do projeto Laboratórios Bibliotecários, do mencionado ministério espanhol, destacou no início do curso por meio de fala veiculada na plataforma <italic>YouTube</italic>, em 30 de abril de 2021, a importância de se reforçar o papel das bibliotecas como espaços de encontro e aprendizagem colaborativa, onde se garante, inclusive, a promoção de valores democráticos.</p>
+      <p>Laboratórios Cidadãos Distribuídos, conceitualmente, podem ser compreendidos de forma mais ampla e completa a partir da perspectiva da pesquisadora social Lorena <xref ref-type="bibr" rid="B15">Ruiz (2021</xref>, p. 1-3), difundido no âmbito do primeiro módulo do curso promovido pelo Ministério da Cultura e Esporte da Espanha, dividida em seis aspectos, a saber:</p>
+      <p>
+        <xref ref-type="table" rid="t1a"/>
+        <table-wrap id="t1a">
+          <label>Quadro 1</label>
+          <caption>
+            <title>Laboratórios cidadãos distribuídos definidos em 6 aspectos</title>
+          </caption>
+          <table>
+            <colgroup>
+              <col/>
+              <col/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="justify">ASPECTO</th>
+                <th align="center">PERSPECTIVA CONCEITUAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">1. </td>
+                <td align="justify">Em primeiro lugar, o laboratório cidadão é uma nova forma de instituição, em que predominam a abertura, a acessibilidade e a possibilidade de reapropriação. [...] em um laboratório cidadão as pessoas podem fazer propostas e, assim, tornar-se produtores (de suas próprias ideias ou de outras pessoas) em vez de consumidores (de algo predeterminado pela instituição).</td>
+              </tr>
+              <tr>
+                <td align="left">2. </td>
+                <td align="justify">Em segundo lugar, um laboratório cidadão é um espaço de encontro de diferentes atores que colaboram no desenvolvimento de uma ideia compartilhada.</td>
+              </tr>
+              <tr>
+                <td align="left">3. </td>
+                <td align="justify">Em terceiro [...]a participação em um laboratório cidadão é sua conexão com seu ambiente mais próximo. Em relação a este aspecto, trata-se de valorizar a cultura de proximidade, priorizando o encontro e a cooperação entre diferentes atores vinculados a um mesmo contexto (um bairro, uma cidade, uma organização etc.). O laboratório é, portanto, uma ferramenta para ouvir e observar o que acontece nesses contextos, tentando identificar as necessidades, desejos, recursos e forças da comunidade que podem ser colocados em ação para desenvolver ideias coletivas.</td>
+              </tr>
+              <tr>
+                <td align="left">4. </td>
+                <td align="justify">Em quarto lugar, [...] o laboratório trabalha de forma específica, a partir da lógica da experimentação e da prototipagem. Esse é um dos traços mais característicos e relevantes da proposta de um laboratório cidadão, pois implica priorizar o processo sobre o resultado, aceitar a incerteza e sustentá-la coletivamente e relacionar-se diretamente com o erro, entendendo-o como mais um recurso de aprendizagem. A experimentação, pelo seu caráter aberto, provisório e até lúdico, permite reunir os diversos saberes de todos os participantes e, assim, favorecer a cooperação e a criação de vínculos, nomeadamente de confiança e reciprocidade.</td>
+              </tr>
+              <tr>
+                <td align="left">5. </td>
+                <td align="justify">Quinto, a articulação de diversos atores em torno do desenvolvimento de uma ideia comum gera um grande volume de conhecimento. Um laboratório cidadão não é apenas um espaço no qual essa produção de conhecimento é possível, mas também uma ferramenta para que o conhecimento gerado continue a circular depois de concluído o laboratório e possa ser útil em outros contextos. Para isso, trabalhamos a partir dos princípios da cultura livre (liberdade de copiar, distribuir, modificar e melhorar as criações de outras pessoas), documentando o trabalho realizado no desenvolvimento de cada ideia.</td>
+              </tr>
+              <tr>
+                <td align="left">6. </td>
+                <td align="justify">Em sexto e último lugar, o posicionamento conceitual e as principais características que indicamos respondem ao propósito fundamental de um laboratório cidadão: criar comunidades de aprendizagem e prática. Essas comunidades pretendem ser espaços para testar coletivamente formas de autogestão, produção de conhecimento e convivência, pois em um laboratório participam pessoas que, em sua maioria, não se conhecem e não optaram por trabalhar juntas e, portanto, é necessário estabelecer uma relação de aprendizagem com os outros. Tudo isso com o objetivo de melhorar as condições de convivência em nossos bairros, nossas cidades ou nossas instituições; em suma, naqueles lugares próximos e significativos para aqueles que os habitam.</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN1">
+              <p> Fonte: Quadro organizado com base na perspectiva conceitual de Lorena <xref ref-type="bibr" rid="B15">Ruiz (2021</xref>, p. 1-3).</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>O propósito dos laboratórios cidadãos distribuídos, conforme a perspectiva de <xref ref-type="bibr" rid="B15">Ruiz (2021</xref>), evidenciado no sexto aspecto, combina com o método ciência-ação (<xref ref-type="bibr" rid="B1">ALMEIDA; PERUCCHI; FREIRE, 2020</xref>), em que se usa a criação de comunidades de aprendizagem, chamadas de comunidade de investigação no contexto de aplicação do método científico; sendo esta muito importante para obtenção de resultados. </p>
+      <p>Pensando na possibilidade de convergência entre uma agenda de trabalho na biblioteca e uma agenda de pesquisa com um grupo de pesquisadores ligados à biblioteca para a inovação, infere-se que a implementação e/ou o desenvolvimento de laboratórios cidadãos distribuídos em bibliotecas pode fazer parte da estratégia metodológica para: socialização da informação, fomento a geração de novos conhecimentos, desenvolvimento de ações para competência em informação e para competências digitais; em consonância com o pressuposto da responsabilidade social da Ciência da Informação.</p>
+      <p>De acordo com McCormick (2021) as bibliotecas têm servido, desde o período da revolução industrial, como um ponto de acolhimento para os imigrantes recém-chegados aprenderem, se engajarem e obterem apoio na busca pela cidadania norte-americana. Outras possibilidades são constatadas por <xref ref-type="bibr" rid="B10">Kelman (2021</xref>) a partir de outros relatos, a saber: o uso recreativo da biblioteca por adolescentes após o horário escolar; uso de computador e da internet na biblioteca para resolver assuntos jurídicos; e uso da biblioteca para entreter as crianças com contação de histórias.</p>
+      <p>Historicamente, no Brasil, os espaços das bibliotecas sempre foram utilizados de diversas formas recreativas e formativas, para além da armazenagem do acervo bibliográfico. Durante a pandemia, esses espaços foram fisicamente limitados, não sendo possível a presença de pessoas para participarem de exposições, palestras, treinamentos, aulas, e demais atividades culturais e educativas que sempre foram possíveis nos ambientes da biblioteca.</p>
+      <p>Os serviços de informação e educação migraram para ambientes virtuais de aprendizagem. Com isso, hábitos e práticas de leitura e comunicação, incluindo as formas de aprender, foram - mesmo que temporariamente - modificadas, para que houvesse adaptação às restrições do período pandêmico e a devida continuidade das atividades.</p>
+      <p>O período de pandemia não foi o primeiro momento histórico que demandou inovação por parte das bibliotecas. Enquanto nos Estados Unidos da América, as bibliotecas foram importantes na acolhida de imigrantes desde a revolução industrial, no Brasil, as bibliotecas foram e continuam sendo locais de acolhimento para pessoas em condição de vulnerabilidade social e econômica.</p>
+      <p>No contexto pós-pandêmico, sem restrições de presença física no ambiente da biblioteca, ela poderá voltar a sua normalidade de atuação, mas, provavelmente, tendo que inovar diante das alterações no comportamento informacional das pessoas, que sofreu influência do período pandêmico. Certamente, novas demandas irão emergir no tocante à oferta de produtos e serviços dentro da hibridez dos tempos atuais. </p>
+      <p>Diante dessa constatação, <xref ref-type="bibr" rid="B10">Kelman (2021</xref>), questiona “O que acontecerá depois que as bibliotecas forem reabertas em um mundo mais seguro e vacinado?”. McCormick (2021) também se preocupa com esse futuro da biblioteca no contexto pós-pandemia e relata o desenvolvimento de um trabalho entre seu gabinete, a Biblioteca Pública de Boston e o Departamento de Meio Ambiente da cidade, em que estão experimentando o desenvolvimento de duas ideias sobrepostas, a saber: “Como as bibliotecas podem evoluir para espaços de trabalho remoto e servir a comunidade desempenhando um papel crítico na resiliência ao calor conforme Boston fica mais quente?”. Tal questão emerge após um ano de fechamento do acesso físico às bibliotecas durante o período pandêmico. O trabalho desenvolvido por McCormick (2021) possibilita notar que a resiliência climática urbana é uma das questões ambientais contemporâneas em que a biblioteca pode efetivamente contribuir, conforme veremos na discussão apresentada nesse artigo a partir da segunda seção. Diante do exposto, a nossa questão de pesquisa tomou, portanto, o seguinte contorno: Como as bibliotecas educativas públicas no Brasil podem evoluir para espaços de trabalho remoto e servir às diversas comunidades de profissionais que trabalham e se comunicam em rede? O objetivo do presente artigo consistiu em discutir a evolução das bibliotecas educativas públicas em espaços de trabalho remoto, para servir a uma comunidade de profissionais que trabalham e se comunicam em rede. Um dos pontos mais relevantes que interessaram a pesquisa foi conhecer as possibilidades de inovação no setor público por meio do trabalho remoto e o papel das bibliotecas educativas públicas neste contexto, sob a perspectiva da Ciência da Informação.</p>
+    </sec>
+    <sec sec-type="methods">
+      <title>2 PROCEDIMENTOS METODOLÓGICOS DA PESQUISA</title>
+      <p>Metodologicamente, a pesquisa é caracterizada como exploratória, de abordagem qualitativa, desenvolvida por meio de pesquisa bibliográfica e elaborada a partir de uma pesquisa de doutorado em andamento, que faz uso do método Ciência-Ação. Como técnica, a pesquisa utiliza-se da reflexão em ação para obter evidências científicas e analisar dados que culminem na formulação de propostas pertinentes ao contexto científico e profissional. Foram comparados os dados da realidade de bibliotecas públicas norte-americanas obtidos por coleta bibliográfica, tomando por base, os relatos de pesquisadores e bibliotecários atuantes neste contexto, com a realidade brasileira. Essa comparação resultou na produção de uma reflexão com foco na atuação das bibliotecas dos Institutos Federais, classificadas pelos autores desse estudo como bibliotecas educativas públicas.</p>
+      <p>De forma pioneira no campo da Ciência da Informação no Brasil, aplica-se a teoria do encantamento de Clhóe Valdary como estratégia de abordagem metodológica para produzir uma reflexão crítica sobre a inovação no setor público, dando ênfase à subjetividade inerente das relações humanas no trabalho. Foram consultados, ainda, dados estatísticos oriundos de pesquisas recentes do Instituto de Pesquisa Econômica Aplicada (IPEA) e do Instituto Brasileiro de Geografia e Estatística (IBGE), para embasar com evidências o presente estudo reflexivo. </p>
+      <p>A reflexão apresentada ao longo das próximas seções foi estruturada em três partes, que abordam a tríade inovação, trabalho remoto e bibliotecas educativas públicas, em correlação teórica com as possibilidades de ação científica e profissional, fundamentadas no propósito de evidenciar um debate necessário ao campo da Ciência da Informação no século XXI. Especificamente, tal debate subsidia a evolução dos estudos sobre políticas públicas de informação em bibliotecas e suas implicações sociais no Brasil.</p>
+      <p>O presente estudo foi realizado com apoio de dois grupos de pesquisa, fruto de uma parceria interinstitucional entre o Grupo de Pesquisa sobre Gestão de Projetos em Educação, Ciência, Informação e Tecnologia (PROJECIT), do Instituto Federal da Paraíba (IFPB), e o Grupo de Pesquisa Comunicação, Redes e Políticas de Informação, da Universidade Federal do Rio de Janeiro (UFRJ). Parte dos dados obtidos na presente investigação são fruto, ainda, de pesquisa de doutorado em andamento no Programa de Pós-Graduação em Ciência da Informação (PPGCI), da Universidade Federal da Paraíba (UFPB). O presente artigo, portanto, é resultado de um trabalho colaborativo e integrativo na comunidade científica.</p>
+    </sec>
+    <sec>
+      <title>3 POR ONDE COMEÇAR A PENSAR EM INOVAÇÃO POR MEIO DE TRABALHO REMOTO?</title>
+      <p>Almejando chegar à resposta da questão que intitula essa seção, partimos da percepção de <xref ref-type="bibr" rid="B10">Kelman (2021</xref>, tradução nossa) sobre a inovação em bibliotecas públicas americanas, ao discorrer especificamente sobre as contribuições da biblioteca pública na resiliência climática urbana de Boston, a partir do trabalho desenvolvido por McCormick (2021, <italic>n.p</italic>), destacando que durante a pandemia: </p>
+      <disp-quote>
+        <p>O sistema de biblioteca implementou espaços de WiFi gratuito ao ar livre em 14 locais, enquanto as filiais foram fechadas, fornecendo acesso seguro à Internet ao ar livre. As bibliotecas criaram seis áreas de trabalho sombreadas para tornar o WiFi gratuito mais fácil de acessar e mais divertido de usar. Eles montaram mesas de piquenique, um café ao ar livre e barracas de neblina fora das bibliotecas também, algumas das quais já foram montadas como locais para aliviar a solicitação de empréstimo.</p>
+      </disp-quote>
+      <p>Apesar de <xref ref-type="bibr" rid="B10">Kelman (2021</xref>) não ter certeza sobre o motivo que fez surgir tanta inovação ao longo do tempo nas bibliotecas públicas norte-americanas, enquanto algumas outras organizações do próprio governo permanecem atreladas às práticas convencionais, ele aponta que seja devido à ausência geral de controvérsia política em torno das bibliotecas públicas. O pesquisador constata que geralmente a inovação governamental surge a partir de crises e ameaças, mas que com as bibliotecas é diferente. O que impulsiona a inovação em bibliotecas é a sua segurança organizacional, que favorece a confiança e a autoconfiança dos inovadores. Esse pode ser um fator favorável e preponderante para que os inovadores encontrem na biblioteca um espaço favorável à criatividade e à inovação não somente nos Estados Unidos, mas também no Brasil. </p>
+      <p>Esse ponto não difere da realidade brasileira, conforme observamos nas últimas décadas. Contudo, quando se fala em inovação em bibliotecas públicas, não é bem assim, pois consiste em uma questão complexa. Corroborando com <xref ref-type="bibr" rid="B10">Kelman (2021</xref>), inferimos que a realidade dessas unidades de informação sugere que mais segurança organizacional favorece a criação de espaço para os inovadores abordarem a mudança com confiança e autoconfiança, tanto nos Estados Unidos, quanto no que podemos estimar no Brasil, a partir das evidências coletadas.</p>
+      <p><xref ref-type="bibr" rid="B11">McCormick (2021)</xref> nos faz refletir que em tempos de instabilidade em todo o mundo, em que a confiança nas instituições públicas diminuiu e segue ameaçada, as bibliotecas públicas continuam sendo entidades públicas altamente confiáveis. Ela correlaciona essa confiabilidade dada a biblioteca à um público de todos os bairros, de várias faixas etárias e, em geral, por um público diverso. Ela concluiu seu artigo mencionando que apesar da substituição gradual dos registros físicos do conhecimento pelo mundo da informação digital, o papel das bibliotecas continua mais importante do que nunca. Esse posicionamento vindo de uma profissional de outra área, fora do campo da Biblioteconomia e da Ciência da Informação, é muito importante para validar e legitimar o discurso dos bibliotecários que lutam por mais investimento e melhores condições de trabalho para oferecer novos e melhores serviços, e que muitas vezes têm sido descredibilizado por gestores públicos.</p>
+      <p>Em uma das recentes publicações do Conselho Federal de Biblioteconomia, <xref ref-type="bibr" rid="B9">Herrera (2015</xref>, p. 188), bibliotecário da biblioteca pública da cidade de São Francisco, nos Estados Unidos, justifica a relevância da inovação em bibliotecas, destacando que:</p>
+      <disp-quote>
+        <p>Hoje e no futuro, as bibliotecas precisam se reinventar constantemente. Podemos permanecer, ainda, leais à nossa missão fundamental ao permitir o acesso à informação e promover a leitura. Todavia, precisamos reexaminar o modelo tradicional para alterar mais o foco ao levar a biblioteca até as pessoas. Isso significa que temos de reformular os modelos de serviço para um mais proativo no alcance comunitário e para oferecer serviços que tenham como meta o usuário. Precisamos, igualmente, tornar as nossas bibliotecas mais acessíveis como espaços comunitários para educação e compromisso cívico. Agora é a hora de reinventar a maneira como fazemos o nosso trabalho. Os bibliotecários têm notáveis conjuntos de habilidades para ajudar a construir a comunidade, ensinar os novos conhecimentos e redefinir as nossas bibliotecas públicas como centros de aprendizado e conhecimentos do século 21 que irão ajudar a solidificar as informações da divisão digital e social.</p>
+      </disp-quote>
+      <p>Dados de 2015 do levantamento realizado pelo Sistema Nacional de Bibliotecas Públicas apontam que há 6.057 bibliotecas públicas em todo o território brasileiro, considerando a soma de bibliotecas municipais, distritais, estaduais e federais; o que ofereceria uma média aproximada de uma biblioteca pública para cada 33 mil habitantes (<xref ref-type="bibr" rid="B17">SNBP, 2021</xref>). Não há divulgação de dados em separado entre os níveis de governo. </p>
+      <p>Apesar disso, o Instituto Brasileiro de Geografia e Estatística (IBGE), divulgou em 2019 os dados da Pesquisa de Informações Básicas Municipais (MUNIC), que apontou uma redução no número de municípios com bibliotecas públicas em 10% em intervalo de quatro anos, no período de 2014 a 2018. Presume-se, portanto, a partir dos relatos e dos dados observados, que há possibilidade de maior estabilidade no âmbito das bibliotecas estaduais e federais, em comparação com a realidade municipal. Isto pode variar de acordo com as condições econômicas de cada município, afinal, há exceções, e o caso de São Paulo é um deles, considerado um dos municípios que mais se destacam na valorização e na qualidade das bibliotecas públicas, a exemplo da Biblioteca Mário de Andrade, que é municipal, e da premiada Biblioteca Parque Villa-Lobos, que é estadual.</p>
+      <p>No Brasil, dados do Instituto Brasileiro de Geografia e Estatística (IBGE), de 2018, já apontavam número recorde de trabalho remoto no formato <italic>home office</italic> antes mesmo da pandemia de covid-19. O número chegou a 3,8 milhões de brasileiros trabalhando nesta condição no mencionado ano. O IBGE aponta que na época o regime de trabalho em <italic>home office</italic> se tornou uma alternativa para driblar o desemprego. Divulgando os dados, <xref ref-type="bibr" rid="B16">Silveira (2019</xref> , n.p) destaca que</p>
+      <disp-quote>
+        <p>De acordo com o IBGE, o home office correspondia a 5,2% do total de trabalhadores ocupados no país, excluídos da conta os empregados no setor público e os trabalhadores domésticos. Na comparação com 2012, quando teve início a série histórica da pesquisa, esse contingente teve alta de 44,4%. O home office, destacou o IBGE, teve queda de 2,1% entre 2012 e 2014, cresceu 7,3% em 2015, e voltou a ter queda de 2,2% em 2016. Já entre 2017 e 2018, cresceu em 21,1%.</p>
+      </disp-quote>
+      <p><xref ref-type="bibr" rid="B8">Góes, Martins e Nascimento (2021</xref>) publicaram por meio do Instituto de Pesquisa Econômica Aplicada (IPEA), uma carta de conjuntura no primeiro semestre de 2021, que apresenta dados estatísticos oficiais do governo sobre o trabalho remoto no Brasil, com base no ano 2020. Tais dados também foram veiculados pela Agência Brasil, uma agência pública de notícias do governo federal, o que confirma a relevância deles para os processos decisórios governamentais no Brasil, servindo de base, também, para compor as evidências dos estudos e pesquisas científicas sobre o assunto. Essa pesquisa apontou que ocorreu diminuição do número de trabalhadores em <italic>home office</italic> no mês de novembro de 2020, entretanto, o número permanece muito superior aos 3,8 milhões apontados pelo IBGE em 2018, sendo registrados aproximadamente 7,3 milhões no recente levantamento do IPEA (<xref ref-type="bibr" rid="B4">BRASIL, 2021</xref>). </p>
+      <p>A queda registrada é natural, levando-se em consideração a proximidade do controle da pandemia, observada a partir do avanço nos protocolos de segurança e vacinação, e gradual volta à normalidade. O que está provocando questionamentos na atualidade, sobretudo no campo das Políticas Públicas, que interessa também à Ciência da Informação no tocante às políticas de informação, é a permanência e/ou transferência de atividades presenciais para o formato de trabalho remoto exclusivamente ou em caráter híbrido; as vantagens e desvantagens dessa migração; e as condições de viabilidade e permanência desse modelo de trabalho. </p>
+      <p>O fato mais recente, no contexto brasileiro pós-pandêmico, que colabora com a inovação no serviço público é a publicação do Decreto 11.072, de 17 de maio de 2022, que regulamenta o teletrabalho e o controle da produtividade no serviço público federal no âmbito do Poder Executivo. A maior inovação proporcionada pelo decreto consiste na autonomia para os dirigentes máximos das entidades da Administração Pública Federal indireta, que abrange autarquias e fundações públicas federais, autorizarem a implementação do Programa de Gestão e Desempenho (PGD); que antes era restrita aos ministros de Estado. A desvinculação favorece a redução da burocracia na implementação do programa. O ato normativo aprimora tanto a gestão de resultados dos órgãos e agentes públicos, quanto as regras relacionadas ao teletrabalho. Com isso, o teletrabalho passará a ser possível em tempo parcial ou integral nos institutos e nas universidades federais. Essa inovação governamental no Brasil foi possível devido a experiência exitosa com o trabalho remoto durante a pandemia de Covid-19. Em uma realidade cada vez mais digital, ficou evidente para os gestores públicos a viabilidade do teletrabalho no setor público. A medida pode contribuir para a redução de custos da máquina pública, pode favorecer a mudança cultural do controle de ponto por controle de resultados e da qualidade dos serviços públicos, e ainda pode resultar em maior qualidade de vida para os servidores públicos federais, melhor produtividade, e servir de exemplo para que os Governos em nível municipal e estadual, repensem a forma de trabalho adotada, sem comprometer a eficiência do poder público, e estimulando a atuação profissional de acordo com os objetivos do desenvolvimento sustentável. </p>
+      <p>Os indícios de inovação por meio do trabalho remoto e a correlação com as bibliotecas vêm sendo percebidos nos trabalhos científicos do campo da Ciência da Informação. Destacam-se as abordagens crescentes sobre <italic>coworking</italic> e demais espaços inovadores (<xref ref-type="table" rid="t2a">Quadro 2</xref>). Nos moldes da presente pesquisa, estruturada a partir de uma pesquisa bibliográfica e com uma abordagem qualitativa, o estudo de <xref ref-type="bibr" rid="B12">Moyses, Mont’Alvão e Zattar (2019</xref>) é um dos exemplos de publicação científica recente que aponta esses espaços inovadores em bibliotecas. Os espaços assinalados na pesquisa são os <italic>makerspaces</italic>, os <italic>learning commons</italic> e os espaços de <italic>coworking</italic>, que, segundo as pesquisadoras “tornam a biblioteca mais ativa, colaborativa, criativa e inovadora, o que difere dos modelos tradicionais, que enfatizam o consumo de conhecimento.” (<xref ref-type="bibr" rid="B12">MOYSES; MONT’ALVÃO; ZATTAR, 2019</xref>, p. 5). </p>
+      <p>
+        <table-wrap id="t2a">
+          <label>Quadro 2</label>
+          <caption>
+            <title>Espaços inovadores em bibliotecas</title>
+          </caption>
+          <table>
+            <colgroup>
+              <col/>
+              <col/>
+            </colgroup>
+            <tbody>
+              <tr>
+                <td align="center">Makerspaces</td>
+                <td align="justify">São espaços habilitados para funcionar como incubadoras de ideias, nas mais diversas áreas, que favorecem a criatividade, a experimentação e o empreendedorismo. Neles, o espírito de comunidade e a colaboração são estimulados; e há disponibilização de tecnologias e ferramentas para criar projetos individuais e coletivos.</td>
+              </tr>
+              <tr>
+                <td align="center">Learning commons</td>
+                <td align="justify">São os espaços propícios à aprendizagem colaborativa. Consistem em um espaço de reunião e encontro, para discutir projetos e realizar reuniões. São criados como alternativa às salas de aula, ambientes de aprendizagem informais.</td>
+              </tr>
+              <tr>
+                <td align="center">Coworking</td>
+                <td align="justify">São espaços que têm como objetivo o compartilhamento de estrutura física, mobiliário, custos de locação, de um endereço comercial, o que permite um ambiente propício à troca de experiências, o compartilhamento de conhecimentos, a participação de eventos e a programas de capacitação.</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN2">
+              <p> Fonte: Quadro organizado com base na pesquisa de <xref ref-type="bibr" rid="B12">Moyses, Mont’Alvão e Zattar (2019</xref>, p.13-18).</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>Com relação a exemplificação desses espaços, temos que os makerspaces no Brasil, conforme mencionado por <xref ref-type="bibr" rid="B12">Moyses, Mont’Alvão e Zattar (2019</xref>, p. 15) se faz presente em bibliotecas escolares e, também, em bibliotecas públicas, a exemplo das </p>
+      <disp-quote>
+        <p>iniciativas como na Biblioteca Parque Villa-Lobos (BVL) que realizam oficinas maker que ensinam diferentes atividades, como por exemplo: produção de livros, robótica, manutenção residencial com foco em diferentes perfis de usuários. [...] dispõe também de um ambiente inclusivo e acessível [...], com diversos aparelhos de tecnologia assistiva, como: folheador de páginas, mesa ergonômica, leitora autônoma, reprodutor de áudio, régua raile, teclado e mouse adaptados, computadores com leitor de tela, mouse e teclado adaptados. [...] já foi indicada como uma das melhores do mundo por seu ambiente iluminado, amplo e democrático do espaço. Também foi classificada como uma biblioteca ativa, cuja própria arquitetura favorece a experiência do leitor, além de estimular e facilitar a realização de atividades de múltiplas naturezas.</p>
+      </disp-quote>
+      <p><xref ref-type="bibr" rid="B12">Moyses, Mont’Alvão e Zattar (2019</xref>, p. 17) citam a Biblioteca de São Paulo, uma outra biblioteca pública estadual, como um exemplo de <italic>learning commons</italic>. </p>
+      <disp-quote>
+        <p>Foi concebida para ser um espaço arrojado e oferecer conforto, autonomia e atenção aos usuários, vistos como elementos centrais da biblioteca. Ocupa uma área de 4.257 metros quadrados para atender a diferentes perfis de usuários. Conta com recursos tecnológicos e disponibiliza microcomputadores, e de wireless e terminal de autoatendimento. Foi inspirada na Biblioteca de Santiago, no Chile, e foi indicada, em 2018, como uma das melhores do mundo. </p>
+      </disp-quote>
+      <p>Os conceitos são muito similares dentro de uma proposta de espaço colaborativo. Podemos afirmar que em algumas bibliotecas, há a presença de dois ou mais desses espaços. Na pesquisa de <xref ref-type="bibr" rid="B12">Moyses, Mont’Alvão e Zattar (2019</xref>, p. 17), as pesquisadoras apontam novamente a Biblioteca Parque Villa-Lobos (BVL), do Estado de São Paulo (SP), dessa vez para fazer menção ao espaço de <italic>coworking</italic> que ela contém. </p>
+      <disp-quote>
+        <p>Em 2018, a BVL inaugurou no segundo piso da biblioteca um espaço de coworking [...], o qual corresponde a uma sala de trabalho compartilhada com infraestrutura e rede wi-fi para uso de micro e pequenas empresas, startups ou pessoas com projetos ou empreendimentos em desenvolvimento. Os projetos selecionados, por meio de edital, podem utilizar a sala gratuitamente por dez meses. Em contrapartida, é necessário oferecer workshops ou seminários na temática da especialidade do projeto em prol do público em geral. </p>
+      </disp-quote>
+      <p>Todos esses espaços inovadores convergem para a ideia de uma biblioteca que almeja ser “centro de socialização e de convivência” (<xref ref-type="bibr" rid="B12">MOYSES; MONT’ALVÃO; ZATTAR, 2019</xref>, p. 20). As bibliotecas do século XXI caminham para serem espaços com maior interatividade, intensa colaboração e relacionamentos mais profícuos e complexos. Esse espírito de acolhimento e inclusão que sempre esteve presente nas bibliotecas, se acentua conforme a dinâmica social de transformação digital que vivenciamos na contemporaneidade ganha novos contornos e evolui. </p>
+      <p>Com o trabalho remoto sendo mais frequente na vida de diversos profissionais, por exemplo, a comunicação em rede requer que maior atenção seja concedida à gestão da emoção e à compreensão das dimensões da solicitude organizacional (confiança mútua, acesso à ajuda, empatia ativa, leniência nos julgamentos e coragem) (<xref ref-type="bibr" rid="B18">VON KROGH; ICHIJO; NONAKA, 2001</xref>). Ambas são importantes na viabilização dos processos de facilitação de criação de conhecimento e, porque não, também de inovação organizacional.</p>
+      <p>Uma das teorias que tem se destacado internacionalmente na contemporaneidade é a teoria do encantamento, sobretudo em tempos de trabalho remoto. Em recente publicação no <italic>Instagram</italic>, a Escola Nacional de Administração Pública (ENAP), vinculada ao Ministério da Economia do <xref ref-type="bibr" rid="B4">Brasil, postou em seu perfil oficial, no dia 05 de agosto de 2021</xref>, a seguinte questão: Por que é importante criar e manter rituais para gerar conexões com seus colegas de trabalho? Na postagem, a ENAP menciona a ativista e escritora norte-americana Chloé Simone Valdary, que aplica a Teoria do Encantamento na formação de lideranças e no combate compassivo ao racismo. Conforme afirmado pela ENAP (2021, <italic>n.p.</italic>) a teoria é inovadora devido combinar “educação socioemocional, desenvolvimento do caráter e crescimento interpessoal como ferramenta para o desenvolvimento de lideranças”. Na abordagem da teoria, Valdary mescla elementos da cultura pop para facilitar a disseminação e a compreensão das dimensões e dos princípios da teoria. Disseminada entre alunos, escolas, empresas e governos de vários países, entre eles Estados Unidos, África do Sul, Holanda, Alemanha e Israel, a teoria foi apresentada pela primeira vez para uma audiência brasileira, durante uma transmissão online (<italic>live</italic>) da ENAP, em 28 de abril de 2021. </p>
+      <p>Chloé Valdary conversou com Diogo Costa, o Presidente da ENAP, e destacou a importância da aplicação dos três princípios fundamentais da teoria no desenvolvimento do ser humano, a saber:</p>
+      <p>
+        <list list-type="order">
+          <list-item>
+            <p>Tratar pessoas como seres humanos e não como distrações políticas;</p>
+          </list-item>
+          <list-item>
+            <p>Ao criticar, elevar e empoderar, nunca com o intuito de derrubar ou destruir;</p>
+          </list-item>
+          <list-item>
+            <p>Fazer tudo com amor e compaixão. Amor no sentido do termo grego ágape, não baseado em condições. (<xref ref-type="bibr" rid="B5">ENAP, 2021</xref>, n.p) </p>
+          </list-item>
+        </list>
+      </p>
+      <p>Nesta discussão evidenciamos a inovação no contexto das organizações públicas e percebemos a relevância da liderança, da educação socioemocional e da teoria do encantamento. Falamos, ainda, da convergência interdisciplinar entre Administração e Ciência da Informação, e devido a isso, é possível transpor da literatura sobre os rituais familiares, no contexto da Psicologia, a distinção conceitual entre ritual e rotina para o cerne organizacional. Tomando por base a questão levantada pela ENAP (Por que é importante criar e manter rituais para gerar conexões com seus colegas de trabalho?), ao propor pensarmos o encantamento em tempos de trabalho remoto, buscamos na explicação de <xref ref-type="bibr" rid="B2">Azevedo (2018</xref>, p. 8), sob a perspectiva cunhada por <xref ref-type="bibr" rid="B6">Fiese <italic>et al</italic>. (2002</xref>), a diferença entre rotina e ritual, detalhada em três dimensões, a saber:</p>
+      <disp-quote>
+        <p>comunicação, investimento e continuidade. No que concerne às rotinas, a primeira dimensão remete para o ato instrumental - “isto é o que precisa de ser feito”; a segunda dimensão remete para o caráter temporário e pouca consistência após a realização da rotina; a terceira dimensão diz-nos que é diretamente observável e detectável por <italic>outsiders</italic>, e o comportamento repete-se ao longo do tempo. Contrastando com os rituais, a primeira dimensão remete para o ato simbólico - “isto é quem nós somos”; a segunda dimensão diz-nos que os rituais são duradouros e afetivos, e a experiência pode ser repetida na memória; a terceira dimensão remete para a extensão do significado através de gerações, sendo este interpretado pelos <italic>insiders</italic>. (<xref ref-type="bibr" rid="B2">AZEVEDO, 2018</xref>, p. 8).</p>
+      </disp-quote>
+      <p>Transpondo tais conhecimentos para o ambiente organizacional, podemos compreender que as rotinas organizam os processos de trabalho, e a sua repetição ao longo do tempo pode transformá-las em rituais, por meio da antecipação e investimento emocional. Contudo, um ritual pode se tornar rotina, se começar a ser sentido como uma obrigação. Podemos considerar que rotinas e rituais possibilitam às organizações lidar com as adversidades que emergem da sua atuação, seja ela pública ou privada. </p>
+      <p>Podemos considerar, ainda, que não podemos dissociar o estudo e a pesquisa sobre inovação e trabalho remoto das questões socioemocionais envolvendo pessoas de diversas gerações. Em especial, no contexto das bibliotecas educativas públicas, essa indissociabilidade é ainda mais evidente, por se tratar de espaço onde há o encontro dessas diversas gerações e a busca por atender as necessidades informacionais e outros tipos de necessidades, que vão desde o entretenimento infantil até ser um ponto de apoio para adolescentes após as aulas, para imigrantes refugiados buscarem informação para conseguir sua cidadania, entre outras. </p>
+      <p>Até então, nosso caminho reflexivo nos oportunizou perceber que começar a pensar em inovação por meio de trabalho remoto, inserindo as bibliotecas educativas públicas, constitui um amplo debate com vários desafios. Além do exposto, é preciso pensar também sobre as políticas de informação em bibliotecas e a necessidade de educação socioemocional de jovens e adultos. Não é possível pensar em inovação neste contexto, sem buscarmos compreender as questões que fazem sentido para as novas gerações, a exemplo das gerações y, z e alpha, que são o público mais desafiador do momento para as bibliotecas. </p>
+      <p>Como aplicar uma gestão de biblioteca eficiente para promover o desenvolvimento das gerações? É uma das implicações do debate, que nos leva a começar a pensar na Gestão das Gerações. Desenvolver ações de informação que potencializem o melhor de cada uma delas pode ser um ponto de partida de uma agenda de trabalho e pesquisa para bibliotecários pesquisadores. </p>
+      <p>No contexto dos Institutos Federais, as bibliotecas educativas públicas têm o compromisso em atender e satisfazer, por meio de seus produtos e serviços, as gerações empregadas, as desempregadas, e as que estão em processo de formação para muito em breve acessarem o mundo do trabalho e emprego. O desafio é ainda maior neste contexto.</p>
+      <p>Pensar a contribuição inovadora da biblioteca educativa pública na questão do trabalho remoto, portanto, vai requerer pensar que a sua gestão estratégica poderá incluir desde a análise de relatórios até a avaliação de indicadores quantitativos e qualitativos sobre a diversidade de gerações. É preciso pensar o que pode possibilitar a realização de ações mais assertivas, a exemplo do desenvolvimento de programas de incentivos para produtividade; da promoção de maior envolvimento dos atores sociais nos processos decisórios; maior presença e engajamento digital de jovens e adultos; e demais ações, até mesmo de cunho motivacional, com foco também na gestão das emoções no ambiente de trabalho, assunto que tem recebido mais notoriedade e relevância atualmente. </p>
+      <p>O contexto pandêmico e pós-pandêmico, em todo o mundo, tem nos inspirado a sermos criativos, inovadores e adaptativos. Aprendemos pela necessidade no momento da pandemia e estamos aplicando ao novo momento a trabalhar bem de forma remota, caminhando para modelos híbridos (atividades remotas e presenciais), mais flexíveis e adaptáveis a dinâmica social em rede. Estamos diante de crises e oportunidades. </p>
+      <p>Um serviço promissor está a ser demandado, e as bibliotecas educativas públicas estão no centro da problemática e da solução. Dela, poderão emergir soluções que contribuem com a inovação por meio do trabalho remoto, se possível, agregando a importância das três dimensões: comunicação, investimento e continuidade; defendidas pela teoria do encantamento, juntamente com seus três princípios, que colaboram no enfrentamento e na quebra de paradigmas que interferem na produtividade e na cultura organizacional no setor público. </p>
+    </sec>
+    <sec>
+      <title>4 UM SERVIÇO PROMISSOR DESEMPENHADO POR BIBLIOTECAS EDUCATIVAS PÚBLICAS BRASILEIRAS</title>
+      <p>É importante destacar que a inovação em serviços de informação é basilar na evolução das bibliotecas. As bibliotecas educativas públicas têm evoluído e se tornado espaços de trabalho remoto, com o propósito de servir às comunidades de profissionais que trabalham e se comunicam em rede. </p>
+      <p>Podemos afirmar que a criação de espaços ou zonas de trabalho remoto em bibliotecas educativas é uma iniciativa realmente promissora e viável? Talvez a resposta a esse questionamento só seja possível com a implementação de políticas públicas que garantam o fomento e, portanto, o investimento adequado em infraestrutura e para além desse quesito. A experimentação pode ser a melhor alternativa para que essas bibliotecas se tornem laboratórios cidadãos, e efetivamente cumpram sua função educativa, com serviços inovadores pautados na ideia de bibliotecas aprendentes, orientadas pelas cinco disciplinas de Peter Senge: domínio pessoal, modelos mentais, aprendizagem em equipe, visão compartilhada e pensamento sistêmico.</p>
+      <p>Outros questionamentos emergem dessa conjuntura, a saber: Como definir a diversidade de profissionais em regime de trabalho remoto que procurariam a biblioteca como espaço de trabalho remoto? Possivelmente a implementação e a gestão de laboratórios cidadãos distribuídos podem contribuir com esse conhecimento de público e de suas necessidades. É a ação e a reflexão em ação que pautará a avaliação e a agenda de inovações que se pretende no trabalho remoto e nas bibliotecas.</p>
+      <p>A própria missão social dos institutos federais no contexto da educação profissional e tecnológica no Brasil, com destaque para a importância da oferta do serviço de apoio ao trabalho remoto em bibliotecas educativas públicas, justifica os investimentos nesse segmento de atuação profissional dos bibliotecários.</p>
+      <p>O que podemos refletir nesta seção para começar a pensar na construção de uma agenda de trabalho e de pesquisa? A busca por caminhos que contribuam com o sucesso da transformação digital no mundo do trabalho, que abrange maior investimento público em bibliotecas, é desafiador. A transformação digital é um processo e não um ponto de chegada ou destino.</p>
+      <p>No intento de contribuir com a formação e o desenvolvimento de uma agenda de pesquisa sobre inovação no campo científico da Ciência da Informação e no campo profissional dos institutos federais no Brasil, há que se congregar pesquisadores, especialmente bibliotecários pesquisadores, vinculados à essas instituições, em atuação no país. <xref ref-type="bibr" rid="B7">Gabriel Júnior, Sousa e Silva (2020)</xref>, em seu mapeamento da literatura científica sobre os autores mais produtivos na temática da Inovação indexada na BRAPCI no período de 1978 a 2019, identificou que a única pesquisadora vinculada a um instituto federal consiste na Bibliotecária e Doutora em Ciência da Informação, Valmira Perucchi, do Instituto Federal da Paraíba (IFPB). A partir do presente estudo, observa-se mudança neste cenário, com o início de uma agenda de pesquisa que pode preencher essa lacuna e superar a incipiente produção científica sobre a temática, a partir de uma série de publicações, conforme o presente artigo que é fruto, também, de uma pesquisa de doutorado.</p>
+      <p>Em relação a agenda de trabalho, a função das bibliotecas públicas educativas é de contribuir com os Institutos Federais em sua missão de promover ensino, pesquisa e extensão por meio da educação profissional, científica e tecnológica com a união da informação, da educação e da tecnologia para garantir o desenvolvimento sustentável local, regional e nacional. Inclusive diante do contexto do qual nos encontramos em que é um desafio construir de modo <italic>online</italic> as relações e estruturas de uma instituição educacional, como no caso dos Institutos Federais e de suas bibliotecas educativas públicas. As bibliotecas para <xref ref-type="bibr" rid="B13">Paula, Silva e Woida (2020</xref>, p. 3) são a base da educação</p>
+      <disp-quote>
+        <p>servindo de apoio para o ensino, à pesquisa e a extensão, e por isso, estão se reinventando no cenário atual ao ofertarem serviços e produtos informacionais como empréstimos de livros de forma delivery, treinamentos, oficinas, <italic>lives</italic> de competência em informação de como utilizar as fontes informacionais de forma segura para pesquisa, normatização de trabalhos acadêmicos, escrita científica dentre outros. </p>
+      </disp-quote>
+      <p>Com a necessidade dos serviços prestados pelas bibliotecas educativas públicas terem que se adequar durante a pandemia ao distanciamento e isolamento social, os profissionais que nelas atuam tiveram que se adequar a uma nova realidade, o trabalho remoto. Desse modo tiveram que rever os serviços e ações para continuar com a importância que sempre tiveram no contexto educacional sem deixar de atender as necessidades de informação de seus usuários de maneira ao menos satisfatória, rápida da melhor forma possível, eficiente e eficaz como é costumeiro. </p>
+      <p>Tendências estão sendo realidade em nosso dia a dia. Há que se compreender, também, que elas tiveram que se reinventar na oferta e disponibilização de produtos e serviços informacionais <italic>online</italic>, para que fossem acessíveis e de fácil manejo dos usuários. A experiência de usuários é ponto fulcral nesta forma de vida.</p>
+      <p>Para trabalhar com a realidade emergente, as bibliotecas públicas educativas ampliaram o uso dos serviços ofertados nas redes sociais como o <italic>Instagram</italic>, <italic>Twiter</italic> e <italic>Facebook</italic> e os canais de atendimento utilizando o <italic>WhatsApp</italic> e os formulários eletrônicos, além de disponibilizar e auxiliar no uso das bases de dados de acesso livre que possibilitam o acesso dos usuários aos <italic>e-books</italic> e artigos científicos. Dessa forma, as bibliotecas </p>
+      <disp-quote>
+        <p>têm se engajado a aprimorar seus serviços e produtos informacionais, ao disponibilizar informações através dos websites, das redes e mídias sociais, como <italic>Instagram</italic>, <italic>Twitter</italic>, <italic>Facebook</italic> e outros meios de comunicação. Esses meios de comunicação são grandes disseminadores de informação e onde vários sujeitos estão conectados diariamente, fazendo com que as informações circulem em maior velocidade, pois esses canais informacionais permitem que bibliotecários e usuários não somente busquem a interação, mas também que façam compartilhamento de informações. (<xref ref-type="bibr" rid="B13">PAULA, SILVA; WOIDA, 2020</xref>. p. 8).</p>
+      </disp-quote>
+      <p>A pandemia exigiu o processo de união entre a tecnologia e a educação, nos obrigando a utilizar, de forma sistemática e geral, os meios digitais para o compartilhamento de informações, prestação de serviços, e outras atividades. É necessário pensar e se programar para esse contexto pós-pandêmico, com a oferta e criação de espaços inovadores, com serviços que assegurem segurança e saúde de todos os envolvidos nas bibliotecas. Processo este que pode ser pautado por uma agenda orientada ao desenvolvimento social, conforme a transformação digital pauta a vida contemporânea, em todos os processos e fluxos informacionais. </p>
+    </sec>
+    <sec>
+      <title>5 AGENDA PARA O DESENVOLVIMENTO SOCIAL E A TRANSFORMAÇÃO DIGITAL</title>
+      <p>Elaborar uma agenda de trabalho paralelamente à elaboração de uma agenda de pesquisa é não somente possível, como necessário nos dias atuais. Há uma evidente indissociabilidade entre agenda de trabalho e agenda de pesquisa, tanto quanto há para o desenvolvimento social e a transformação digital, deste século em diante.</p>
+      <p>De forma experimental, nesta seção abordaremos uma proposta de agenda de trabalho que pode ser aplicada em bibliotecas educativas públicas, por meio de uma agenda de pesquisa que está a se constituir no âmbito do Grupo de Pesquisa sobre Gestão de Projetos em Educação, Ciência, Informação e Tecnologia (PROJECIT), vinculado ao IFPB Campus João Pessoa e cadastrado no Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) desde 2014.</p>
+      <p>Algumas questões podem ser aplicadas via e-mail aos bibliotecários responsáveis pelas bibliotecas do sistema, para termos uma amostra local da percepção desses gestores sobre esse assunto; e, posteriormente, expandidas para estudos comparados. Essa é uma proposta de aplicação em estudos futuros. Não houve necessidade de aplicação de questionário neste momento da pesquisa, pois estamos em uma etapa de reflexão. Essas questões poderão ser desenvolvidas com base em um pequeno grupo de questões norteadoras, a saber: </p>
+      <p>
+        <list list-type="simple">
+          <list-item>
+            <p>a) Durante a pandemia, o que você fez de diferente em suas atividades remotas que não fazia antes da pandemia e que pode ter gerado inovação?</p>
+          </list-item>
+          <list-item>
+            <p>b) Na biblioteca, inovação por meio de trabalho remoto é possível? </p>
+          </list-item>
+          <list-item>
+            <p>c) Tradicionalmente a biblioteca é um espaço de estudo e pesquisa para estudantes. Você considera que a biblioteca pode se tornar um espaço de trabalho remoto para profissionais? Quais condições precisaria para viabilizar a prestação desse serviço?</p>
+          </list-item>
+        </list>
+      </p>
+      <p><xref ref-type="bibr" rid="B15">Ruiz (2021</xref>, p. 3, tradução nossa) afirma que: “Todos os seres vivos compartilham a vulnerabilidade, não como fraqueza, mas como aquela que, ao precisarmos uns dos outros, nos permite nos vincularmos, nos aliarmos e nos apoiarmos.” A pesquisadora destaca que essa vulnerabilidade ficou muito mais evidente com a crise social e de saúde oriunda da pandemia de COVID-19. Conforme defendido por Ruiz (2021), temos o potencial para criar redes de colaboração em pesquisa e no ambiente de trabalho, mas precisamos de recursos e infraestrutura adequada para tal. Esses recursos e a infraestrutura necessários podem ser obtidos com a formulação de políticas públicas específicas para a atividade no setor público. Contudo, é preciso primeiramente difundir entre bibliotecários, pesquisadores, gestores públicos e demais profissionais pertinentes à questão nas organizações públicas, a potencialidade da biblioteca educativa pública no propósito de gerar inovação a partir do trabalho remoto. Neste intento, se faz necessário elaborar uma agenda de pesquisa que fundamente uma agenda de trabalho, para que políticas de informação sejam assertivamente desenvolvidas, recursos sejam destinados, e o fomento seja efetivamente realizado nestes ambientes do setor público que carecem de inovação.</p>
+      <p>A definição de temas que poderiam dar início a essa agenda de pesquisa (<xref ref-type="table" rid="t3a">Quadro 3</xref>) é um processo de construção coletiva, mas apresentamos alguns que podem atuar como temas/questões iniciais geradoras, que possibilitem a ampliação das questões e do debate. Para a questão que estamos refletindo nesse artigo, o nosso olhar tem que ser direcionado para os caminhos que possibilitam a transformação digital no mundo do trabalho, ao passo que contribuem para uma pesquisa de doutorado em andamento com foco no desenvolvimento de um modelo teórico-pragmático para políticas de informação em bibliotecas.</p>
+      <p>
+        <table-wrap id="t3a">
+          <label>Quadro 3</label>
+          <caption>
+            <title>Primeiros temas da agenda de pesquisa</title>
+          </caption>
+          <table>
+            <colgroup>
+              <col/>
+              <col/>
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="center">TEMA</th>
+                <th align="center">DESCRIÇÃO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">1</td>
+                <td align="justify">Identidade organizacional de bibliotecas em institutos federais</td>
+              </tr>
+              <tr>
+                <td align="center">2</td>
+                <td align="justify">Inovação, trabalho remoto e infraestrutura de bibliotecas educativas</td>
+              </tr>
+              <tr>
+                <td align="center">3</td>
+                <td align="justify">Transformação digital e inovação em serviços informacionais por meio de projetos</td>
+              </tr>
+              <tr>
+                <td align="center">4</td>
+                <td align="justify">Comunidades de aprendizagem e de prática em bibliotecas e grupos de pesquisa</td>
+              </tr>
+              <tr>
+                <td align="center">5</td>
+                <td align="justify">Necessidade e experiência de usuário em redes virtuais de aprendizagem</td>
+              </tr>
+              <tr>
+                <td align="center">6</td>
+                <td align="justify">Estratégias de marketing em mídias sociais para bibliotecas educativas</td>
+              </tr>
+              <tr>
+                <td align="center">7</td>
+                <td align="justify">Políticas públicas de combate à pobreza de informação intergeracional</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn id="TFN3">
+              <p> Fonte: Os autores (2022).</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>Os sete temas apontados acima não esgotam ou limitam a agenda de pesquisa que está a se constituir. São o ponto de partida para um trabalho de investigação baseado no método Ciência-Ação no contexto da Ciência da Informação, constituindo uma proposta inédita de intervenção no campo científico, trazendo contribuições teóricas para um campo científico que se alinha e se aproxima cada vez mais das práticas dos profissionais da informação e das necessidades das atuais e futuras gerações de usuários e produtores de informação em uma sociedade em rede.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>6 CONSIDERAÇÕES FINAIS</title>
+      <p>Os resultados destacam a possibilidade de inovação por meio do trabalho remoto no serviço público federal. Estamos diante de uma oportunidade de inovar no setor público com um serviço promissor que pode vir a ser desempenhado pelas bibliotecas educativas públicas em institutos federais no Brasil: a infraestrutura adequada para espaços de trabalho remoto.</p>
+      <p>Observou-se, ainda, indissociabilidade entre agenda de trabalho e agenda de pesquisa, tanto quanto entre o desenvolvimento social e a transformação digital, deste século em diante, no tocante à essas bibliotecas educativas. </p>
+      <p>O estudo almeja contribuir com o desenvolvimento de políticas públicas mais assertivas para este tipo de biblioteca, seu público e suas novas dinâmicas de trabalho que estão a se constituir. É possível que soluções para problemas reais enfrentados no cotidiano dos profissionais da informação sejam propostas a partir da agenda de pesquisa que vem sendo desenvolvida em âmbito interinstitucional. O profícuo caminho que a Ciência-Ação tem construído na Ciência da Informação no Brasil, com estudos que aproximam as teorias em uso no contexto profissional das teorias proclamadas pelo campo científico evidenciam as possibilidades de inovação que estão por vir.</p>
+      <p>O alinhamento de estudos sobre infraestrutura de bibliotecas educativas com o desenvolvimento das cidades inteligentes no contexto da economia criativa, do empreendedorismo e da transformação digital, há de revelar novas possibilidades e soluções no cerne do campo da Ciência da Informação para atendar às demandas emergentes da sociedade em rede. Consiste, portanto, em temática promissora para que possamos começar a pensar na construção de uma Agenda Digital Brasileira a partir das contribuições deste campo científico.</p>
+      <p>Conclui-se que os caminhos para a transformação digital no mundo do trabalho podem se tornar ainda mais produtivos, inovadores, rentáveis e sustentáveis, quando se busca o investimento contínuo e adequado em infraestrutura e inovação de bibliotecas que cumprem função educativa e são de natureza pública, acompanhando o alto nível de relevância social dos institutos federais no contexto de inclusão a partir da educação profissional, científica e tecnológica no Brasil. </p>
+      <p>Faz-se necessário, ainda, investimento contínuo na formulação de políticas públicas, especialmente políticas de informação, que assegurem a atuação do bibliotecário como agente de inovação em institutos federais. Como próximo passo dos autores da presente investigação, considerado fruto da pesquisa, será comunicado um artigo científico sobre como a política de informação se correlaciona com a política de inovação nos institutos federais, abrangendo em sua discussão o modelo teórico-pragmático para o desenvolvimento de políticas de informação de <xref ref-type="bibr" rid="B3">Brandão (2022</xref>), e os desafios oriundos do cenário pós-pandemia a partir da Agenda Digital eLAC 2022 e as recentes ações ocorridas no Brasil que favorecem o desenvolvimento da Sociedade Digital. </p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>REFERÊNCIAS</title>
+      <ref id="B1">
+        <mixed-citation>ALMEIDA, J. L. S. de; PERUCCHI, V.; FREIRE, G. H. de A. Ciência-Ação em Ciência da Informação: um método qualitativo em análise. Encontros Bibli, Florianópolis, v. 25, p. 01-24, 2020. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://periodicos.ufsc.br/index.php/eb/article/view/1518-2924.2020.e66993/41947">https://periodicos.ufsc.br/index.php/eb/article/view/1518-2924.2020.e66993/41947</ext-link>. Acesso em: 13 ago. 2021.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ALMEIDA</surname>
+              <given-names>J. L. S. de</given-names>
+            </name>
+            <name>
+              <surname>PERUCCHI</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>FREIRE</surname>
+              <given-names>G. H. de A</given-names>
+            </name>
+          </person-group>
+          <article-title>Ciência-Ação em Ciência da Informação: um método qualitativo em análise</article-title>
+          <source>Encontros Bibli</source>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <volume>25</volume>
+          <fpage>01</fpage>
+          <lpage>24</lpage>
+          <year>2020</year>
+          <ext-link ext-link-type="uri" xlink:href="https://periodicos.ufsc.br/index.php/eb/article/view/1518-2924.2020.e66993/41947">https://periodicos.ufsc.br/index.php/eb/article/view/1518-2924.2020.e66993/41947</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>AZEVEDO, T. M. L. Os arquitetos da família: rituais familiares, coesão familiar e satisfação conjugal em casais portugueses. 2018. Dissertação (Mestrado Integrado em Psicologia) - Faculdade de Psicologia, Universidade de Lisboa, Lisboa, 2018. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://repositorio.ul.pt/bitstream/10451/37110/1/ulfpie053197_tm.pdf">https://repositorio.ul.pt/bitstream/10451/37110/1/ulfpie053197_tm.pdf</ext-link>. Acesso em: 13 ago.2021.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>AZEVEDO</surname>
+              <given-names>T. M. L</given-names>
+            </name>
+          </person-group>
+          <source>Os arquitetos da família: rituais familiares, coesão familiar e satisfação conjugal em casais portugueses</source>
+          <year>2018</year>
+          <comment content-type="degree">Mestrado Integrado em Psicologia</comment>
+          <publisher-name>Faculdade de Psicologia, Universidade de Lisboa</publisher-name>
+          <publisher-loc>Lisboa</publisher-loc>
+          <ext-link ext-link-type="uri" xlink:href="https://repositorio.ul.pt/bitstream/10451/37110/1/ulfpie053197_tm.pdf">https://repositorio.ul.pt/bitstream/10451/37110/1/ulfpie053197_tm.pdf</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>BRANDÃO, J. L. A. Modelo teórico-pragmático para políticas de informação em bibliotecas. 2022. Tese (Doutorado em Ciência da Informação) - Programa de Pós-Graduação em Ciência da Informação, Universidade Federal da Paraíba, João Pessoa, 2022. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufpb.br/jspui/handle/123456789/24924">https://repositorio.ufpb.br/jspui/handle/123456789/24924</ext-link>. Acesso em 15 dez. 2022.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BRANDÃO</surname>
+              <given-names>J. L. A</given-names>
+            </name>
+          </person-group>
+          <source>Modelo teórico-pragmático para políticas de informação em bibliotecas</source>
+          <year>2022</year>
+          <comment content-type="degree">Doutorado em Ciência da Informação</comment>
+          <publisher-name>Programa de Pós-Graduação em Ciência da Informação, Universidade Federal da Paraíba</publisher-name>
+          <publisher-loc>João Pessoa</publisher-loc>
+          <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufpb.br/jspui/handle/123456789/24924">https://repositorio.ufpb.br/jspui/handle/123456789/24924</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>BRASIL, C. I. do. Número de trabalhadores em home office diminui em novembro de 2020. Rio de Janeiro: Agência Brasil, 2021. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://bit.ly/3CejM3Z">https://bit.ly/3CejM3Z</ext-link>. Acesso em: 12 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>BRASIL</surname>
+              <given-names>C. I. do</given-names>
+            </name>
+          </person-group>
+          <source>Número de trabalhadores em home office diminui em novembro de 2020</source>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <publisher-name>Agência Brasil</publisher-name>
+          <year>2021</year>
+          <ext-link ext-link-type="uri" xlink:href="https://bit.ly/3CejM3Z">https://bit.ly/3CejM3Z</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>ESCOLA NACIONAL DE ADMINISTRAÇÃO PÚBLICA. ENAP. Escritora americana explica como a teoria do encantamento pode fortalecer lideranças. 2021. Disponível: <ext-link ext-link-type="uri" xlink:href="https://bit.ly/3G7VElA">https://bit.ly/3G7VElA</ext-link>. Acesso em: 13 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>ESCOLA NACIONAL DE ADMINISTRAÇÃO PÚBLICA. ENAP</collab>
+          </person-group>
+          <source>Escritora americana explica como a teoria do encantamento pode fortalecer lideranças</source>
+          <year>2021</year>
+          <ext-link ext-link-type="uri" xlink:href="https://bit.ly/3G7VElA">https://bit.ly/3G7VElA</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>FIESE, B. H. et al. A review of 50 years of research on naturally occurring family routines and rituals: Cause for celebration? Journal of Family Psychology, [S.l.], v. 16, n. 4, p. 381-390, 2002. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.apa.org/pubs/journals/releases/fam-164381.pdf">https://www.apa.org/pubs/journals/releases/fam-164381.pdf</ext-link>. Acesso em: 13 ago. 2021.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>FIESE</surname>
+              <given-names>B. H.</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>A review of 50 years of research on naturally occurring family routines and rituals: Cause for celebration</article-title>
+          <source>Journal of Family Psychology</source>
+          <volume>16</volume>
+          <issue>4</issue>
+          <fpage>381</fpage>
+          <lpage>390</lpage>
+          <year>2002</year>
+          <ext-link ext-link-type="uri" xlink:href="https://www.apa.org/pubs/journals/releases/fam-164381.pdf">https://www.apa.org/pubs/journals/releases/fam-164381.pdf</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>GABRIEL JÚNIOR, R. F.; SOUSA, A. T. de; SILVA, M. C. da. Inovação na Ciência da Informação: análise da produção científica na BRAPCI. Revista Comunicação e Informação, Goiânia, v. 23, p. 1-18, 2020. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://brapci.inf.br/index.php/res/v/150006">https://brapci.inf.br/index.php/res/v/150006</ext-link>. Acesso em 15 dez. 2022.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GABRIEL</surname>
+              <given-names>R. F.</given-names>
+              <suffix>JÚNIOR</suffix>
+            </name>
+            <name>
+              <surname>SOUSA</surname>
+              <given-names>A. T. de</given-names>
+            </name>
+            <name>
+              <surname>SILVA</surname>
+              <given-names>M. C. da</given-names>
+            </name>
+          </person-group>
+          <article-title>Inovação na Ciência da Informação: análise da produção científica na BRAPCI</article-title>
+          <source>Revista Comunicação e Informação</source>
+          <publisher-loc>Goiânia</publisher-loc>
+          <volume>23</volume>
+          <fpage>1</fpage>
+          <lpage>18</lpage>
+          <year>2020</year>
+          <ext-link ext-link-type="uri" xlink:href="https://brapci.inf.br/index.php/res/v/150006">https://brapci.inf.br/index.php/res/v/150006</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>GÓES, G. S.; MARTINS, F. dos S.; NASCIMENTO, J. A. S. O trabalho remoto e a pandemia: o que a PNAD Covid-19 nos mostrou. Brasília: Instituto de Pesquisa Econômica Aplicada, 2021. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://bit.ly/3BMqk9p">https://bit.ly/3BMqk9p</ext-link>. Acesso em: 11 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GÓES</surname>
+              <given-names>G. S.</given-names>
+            </name>
+            <name>
+              <surname>MARTINS</surname>
+              <given-names>F. dos S.</given-names>
+            </name>
+            <name>
+              <surname>NASCIMENTO</surname>
+              <given-names>J. A. S</given-names>
+            </name>
+          </person-group>
+          <source>O trabalho remoto e a pandemia: o que a PNAD Covid-19 nos mostrou</source>
+          <publisher-loc>Brasília</publisher-loc>
+          <publisher-name>Instituto de Pesquisa Econômica Aplicada</publisher-name>
+          <year>2021</year>
+          <ext-link ext-link-type="uri" xlink:href="https://bit.ly/3BMqk9p">https://bit.ly/3BMqk9p</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>HERRERA, L. Biblioteca Pública de São Francisco: elemento de ligação ao conhecimento e à educação. 2015. In: MORO, Eliane Lourdes da Silva et al. Contextos formativos e operacionais das bibliotecas escolares e públicas brasileiras. Brasília: Conselho Federal de Biblioteconomia, 2015.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HERRERA</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Biblioteca Pública de São Francisco: elemento de ligação ao conhecimento e à educação</chapter-title>
+          <year>2015</year>
+          <person-group person-group-type="author">
+            <name>
+              <surname>MORO</surname>
+              <given-names>Eliane Lourdes da Silva</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <source>Contextos formativos e operacionais das bibliotecas escolares e públicas brasileiras</source>
+          <publisher-loc>Brasília</publisher-loc>
+          <publisher-name>Conselho Federal de Biblioteconomia</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>KELMAN, S. Public libraries and government innovation. 2021. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://fcw.com/blogs/lectern/2021/08/kelman-innovation-libararies.aspx?m=1">https://fcw.com/blogs/lectern/2021/08/kelman-innovation-libararies.aspx?m=1</ext-link>. Acesso em: 09 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>KELMAN</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <source>Public libraries and government innovation</source>
+          <year>2021</year>
+          <ext-link ext-link-type="uri" xlink:href="https://fcw.com/blogs/lectern/2021/08/kelman-innovation-libararies.aspx?m=1">https://fcw.com/blogs/lectern/2021/08/kelman-innovation-libararies.aspx?m=1</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>MCCORMICK, L. The radical potential of libraries. 2021. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://newurbanmechanics.medium.com/the-radical-potential-of-libraries-586cb0216351">https://newurbanmechanics.medium.com/the-radical-potential-of-libraries-586cb0216351</ext-link>. Acesso em: 09 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MCCORMICK</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <source>The radical potential of libraries</source>
+          <year>2021</year>
+          <ext-link ext-link-type="uri" xlink:href="https://newurbanmechanics.medium.com/the-radical-potential-of-libraries-586cb0216351">https://newurbanmechanics.medium.com/the-radical-potential-of-libraries-586cb0216351</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>MOYSES, M. F.; MONT’ALVÃO, C. R.; ZATTAR, M. A biblioteca pública como ambiente de aprendizagem: casos de marketspaces, learning commons e co-working. Conhecimento em ação, Rio de Janeiro, v. 4, n. 2, jul./dez. 2019. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://revistas.ufrj.br/index.php/rca/article/view/30981">https://revistas.ufrj.br/index.php/rca/article/view/30981</ext-link>. Acesso em: 12 ago. 2021.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MOYSES</surname>
+              <given-names>M. F.</given-names>
+            </name>
+            <name>
+              <surname>MONT’ALVÃO</surname>
+              <given-names>C. R.</given-names>
+            </name>
+            <name>
+              <surname>ZATTAR</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <article-title>A biblioteca pública como ambiente de aprendizagem: casos de marketspaces, learning commons e co-working</article-title>
+          <source>Conhecimento em ação</source>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <volume>4</volume>
+          <issue>2</issue>
+          <year>2019</year>
+          <ext-link ext-link-type="uri" xlink:href="https://revistas.ufrj.br/index.php/rca/article/view/30981">https://revistas.ufrj.br/index.php/rca/article/view/30981</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>PAULA, R. S. de L.; SILVA, E. da; WOIDA, L. M. A inovação nas bibliotecas universitárias em tempo de pandemia da região norte do Brasil. RDBCI, Campinas, SP, v. 18, p. 1-17, 2020. DOI: 10.20396/rdbci.v18i00.8661184. Disponível em: <ext-link ext-link-type="uri" xlink:href="https://periodicos.sbu.unicamp.br/ojs/index.php/rdbci/article/view/8661184">https://periodicos.sbu.unicamp.br/ojs/index.php/rdbci/article/view/8661184</ext-link>. Acesso em: 6 set. 2021.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>PAULA</surname>
+              <given-names>R. S. de L.</given-names>
+            </name>
+            <name>
+              <surname>SILVA</surname>
+              <given-names>E. da</given-names>
+            </name>
+            <name>
+              <surname>WOIDA</surname>
+              <given-names>L. M</given-names>
+            </name>
+          </person-group>
+          <article-title>A inovação nas bibliotecas universitárias em tempo de pandemia da região norte do Brasil</article-title>
+          <source>RDBCI</source>
+          <publisher-loc>Campinas, SP</publisher-loc>
+          <volume>18</volume>
+          <fpage>1</fpage>
+          <lpage>17</lpage>
+          <year>2020</year>
+          <pub-id pub-id-type="doi">10.20396/rdbci.v18i00.8661184</pub-id>
+          <ext-link ext-link-type="uri" xlink:href="https://periodicos.sbu.unicamp.br/ojs/index.php/rdbci/article/view/8661184">https://periodicos.sbu.unicamp.br/ojs/index.php/rdbci/article/view/8661184</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>PORTAL G1. Número de municípios com bibliotecas públicas cai quase 10% em quatro anos, diz IBGE. 2019. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://glo.bo/3jdNCi9">http://glo.bo/3jdNCi9</ext-link>. Acesso em: 12 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>PORTAL G1</collab>
+          </person-group>
+          <source>Número de municípios com bibliotecas públicas cai quase 10% em quatro anos, diz IBGE</source>
+          <year>2019</year>
+          <ext-link ext-link-type="uri" xlink:href="http://glo.bo/3jdNCi9">http://glo.bo/3jdNCi9</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>RUIZ, L. ¿Que és un laboratorio ciudadano? ¿por qué en bibliotecas y en otras instituciones en este momento?. Madrid: Ministerio de Cultura y Esporte; Medialab Prado: 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>RUIZ</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <source>¿Que és un laboratorio ciudadano? ¿por qué en bibliotecas y en otras instituciones en este momento</source>
+          <publisher-loc>Madrid</publisher-loc>
+          <publisher-name>Ministerio de Cultura y Esporte; Medialab Prado</publisher-name>
+          <year>2021</year>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>SILVEIRA, D. Home office bateu recorde no Brasil em 2018, diz IBGE. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://glo.bo/3v4pO2P">http://glo.bo/3v4pO2P</ext-link>. Acesso em: 12 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SILVEIRA</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <source>Home office bateu recorde no Brasil em 2018, diz IBGE</source>
+          <year>2018</year>
+          <ext-link ext-link-type="uri" xlink:href="http://glo.bo/3v4pO2P">http://glo.bo/3v4pO2P</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>SISTEMA NACIONAL DE BIBLIOTECAS PÚBLICAS. SNBP. Informações das bibliotecas públicas. 2021. Disponível em: <ext-link ext-link-type="uri" xlink:href="http://snbp.cultura.gov.br/bibliotecaspublicas">http://snbp.cultura.gov.br/bibliotecaspublicas</ext-link>/. Acesso em: 12 ago. 2021.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>SISTEMA NACIONAL DE BIBLIOTECAS PÚBLICAS. SNBP</collab>
+          </person-group>
+          <source>Informações das bibliotecas públicas</source>
+          <year>2021</year>
+          <ext-link ext-link-type="uri" xlink:href="http://snbp.cultura.gov.br/bibliotecaspublicas">http://snbp.cultura.gov.br/bibliotecaspublicas</ext-link>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>VON KROGH, G.; ICHIJO, K.; NONAKA, I. Facilitando a criação de conhecimento: reinventando a empresa com o poder da inovação contínua. Rio de Janeiro, Campus, 2001.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>VON KROGH</surname>
+              <given-names>G.</given-names>
+            </name>
+            <name>
+              <surname>ICHIJO</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name>
+              <surname>NONAKA</surname>
+              <given-names>I</given-names>
+            </name>
+          </person-group>
+          <source>Facilitando a criação de conhecimento: reinventando a empresa com o poder da inovação contínua</source>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <publisher-name>Campus</publisher-name>
+          <year>2001</year>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn fn-type="other" id="fn1a">
+        <label>Reconhecimentos:</label>
+        <p>Não aplicável.</p>
+      </fn>
+    </fn-group>
+    <fn-group>
+      <fn fn-type="other" id="fn1">
+        <label>1</label>
+        <p>Disponível em: https://curso2021.labsbibliotecarios.es/</p>
+      </fn>
+    </fn-group>
+    <fn-group>
+      <fn fn-type="supported-by" id="fn2">
+        <label>Financiamento:</label>
+        <p>Não aplicável.</p>
+      </fn>
+      <fn fn-type="other" id="fn4">
+        <label>Aprovação ética:</label>
+        <p>Não aplicável.</p>
+      </fn>
+      <fn fn-type="data-availability" specific-use="uninformed" id="fn5">
+        <label>Disponibilidade de dados e material:</label>
+        <p>Não aplicável.</p>
+      </fn>
+      <fn fn-type="other" id="fn6">
+        <label>JITA:</label>
+        <p>DC. Public libraries.</p>
+      </fn>
+      <fn fn-type="other" id="fn7">
+        <label>7</label>
+        <p>Artigo submetido ao sistema de similaridade</p>
+      </fn>
+    </fn-group>
+  </back>
+  <sub-article article-type="translation" id="s1" xml:lang="en">
+    <front-stub>
+      <article-id pub-id-type="doi">10.20396/rdbci.v21i00.8670044/30794</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Innovation, telecommuting and public educational libraries: ways to digital transformation in the post-pandemic world of work</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-4146-5747</contrib-id>
+          <name>
+            <surname>Brandão</surname>
+            <given-names>Jobson Louis Almeida</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1n">
+            <sup>1</sup>
+          </xref>
+          <role content-type="http://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+          <role content-type="http://credit.niso.org/contributor-roles/investigation/">Research</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Methodology</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Project Administration</role>
+          <role content-type="http://credit.niso.org/contributor-roles/visualization/">Visualization</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-original-draft/">Writing - original draft</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Writing - review &amp; editing</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Methodology</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Project Administration</role>
+          <role content-type="http://credit.niso.org/contributor-roles/supervision/">Supervision</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Writing - review &amp; editing</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-4892-3990</contrib-id>
+          <name>
+            <surname>Perucchi</surname>
+            <given-names>Valmira</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2n">
+            <sup>2</sup>
+          </xref>
+          <role content-type="http://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+          <role content-type="http://credit.niso.org/contributor-roles/investigation/">Research</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Methodology</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Project Administration</role>
+          <role content-type="http://credit.niso.org/contributor-roles/visualization/">Visualization</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-original-draft/">Writing - original draft</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Writing - review &amp; editing</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Methodology</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Project Administration</role>
+          <role content-type="http://credit.niso.org/contributor-roles/supervision/">Supervision</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Writing - review &amp; editing</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-9296-2340</contrib-id>
+          <name>
+            <surname>Freire</surname>
+            <given-names>Gustavo Henrique de Araújo</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3n">
+            <sup>3</sup>
+          </xref>
+          <role content-type="http://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+          <role content-type="http://credit.niso.org/contributor-roles/investigation/">Research</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Methodology</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Project Administration</role>
+          <role content-type="http://credit.niso.org/contributor-roles/visualization/">Visualization</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-original-draft/">Writing - original draft</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Writing - review &amp; editing</role>
+          <role content-type="http://credit.niso.org/contributor-roles/methodology/">Methodology</role>
+          <role content-type="http://credit.niso.org/contributor-roles/project-administration/">Project Administration</role>
+          <role content-type="http://credit.niso.org/contributor-roles/supervision/">Supervision</role>
+          <role content-type="http://credit.niso.org/contributor-roles/writing-review-editing/">Writing - review &amp; editing</role>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1n">
+        <label>1</label>
+        <institution content-type="original">Instituto Federal da Paraíba. João pessoa, PB - Brazil. e-mail: jobsonlouis@gmail.com</institution>
+      </aff>
+      <aff id="aff2n">
+        <label>2</label>
+        <institution content-type="original">Instituto Federal da Paraíba. João pessoa, PB - Brazil. e-mail: vperucchi2@yahoo.com.br</institution>
+      </aff>
+      <aff id="aff3n">
+        <label>3</label>
+        <institution content-type="original">Universidade Federal do Rio de Janeiro. Rio de Janeiro, RJ - Brazil. e-mail: ghafreire@gmail.com</institution>
+      </aff>
+      <author-notes>
+        <fn fn-type="conflict" id="fn3n">
+          <label>Conflicts of interest:</label>
+          <p>Authors certify that they have no commercial or associative interest that represents a conflict of interest in relation to the manuscript.</p>
+        </fn>
+        <fn fn-type="edited-by" id="fn8n">
+          <label>Editor:</label>
+          <p>Gildenir Carolino Santos</p>
+        </fn>
+      </author-notes>
+      <abstract>
+        <title>ABSTRACT</title>
+        <sec>
+          <title>Introduction:</title>
+          <p>The development of more assertive public policies in libraries, in accordance with the dynamics of telecommuting that are being created, is an essential debate in the field of Information Science. </p>
+        </sec>
+        <sec>
+          <title>Objective:</title>
+          <p>This article discusses the evolution of public educational libraries in telecommuting to serve a community of professionals who work and communicate in a network. </p>
+        </sec>
+        <sec>
+          <title>Methodology:</title>
+          <p>Methodologically, the research has an exploratory level, a qualitative approach, developed through bibliographical research and elaborated from the data of a doctoral research that uses the action science method. </p>
+        </sec>
+        <sec>
+          <title>Results:</title>
+          <p>The results highlight the possibility of innovation through remote work in the federal public service, especially with the advent of Decree 11,072, of May 17, 2022; the opportunity to innovate in the public sector with a promising service performed by public educational libraries at federal institutes; and the inseparability between work and research agendas, as well as between social development and digital transformation. </p>
+        </sec>
+        <sec>
+          <title>Conclusion:</title>
+          <p>It is concluded that the paths for the digital transformation in the world of work can become even more productive, innovative, profitable and sustainable, when the continuous and adequate investment in library infrastructure that fulfills an educational function and is of a public nature is sought; and in policies that ensure the performance of librarians as agents of innovation in federal institutes.</p>
+        </sec>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>KEYWORDS:</title>
+        <kwd>Public educational libraries</kwd>
+        <kwd>Innovation</kwd>
+        <kwd>Telecommuting</kwd>
+        <kwd>Work</kwd>
+        <kwd>Digital transformation</kwd>
+      </kwd-group>
+    </front-stub>
+    <body>
+      <sec sec-type="intro">
+        <title>1 INTRODUCTION</title>
+        <p>Promoting social development through digital transformation in the world of work in a post-pandemic environment is as challenging as it is promising. After all, opportunities often arise in unpredictable moments of crisis and, consequently, unexpected changes. Public libraries are at the center of these changes and opportunities in the networked information century. This phenomenon has required information professionals to take a proactive approach to innovation. </p>
+        <p>Innovation is comprehensive and transversal, so we adopt as conception of innovation the development of new products and services, with innovative methods and actions, such as, for example, citizen labs, ideas incubators, virtual learning environments, creative spaces and participatory environments enabling access to online collections and digital information. </p>
+        <p>These innovations, which when put into practice bring improvement to a service, product, or process existing in a library, contributing to make the lives of people who use the products and services offered by it easier. </p>
+        <p>The mapping of scientific literature to identify the evolution of the theme Innovation in the field of Information Science carried out by Gabriel Júnior, Sousa and Silva (2020, p. 5-6) states that</p>
+        <disp-quote>
+          <p>[...] it is very difficult to have a definition of innovation that meets all areas and contexts. In the IC area, innovation is very much characterized as a process of improvement or transformation of processes and services. [In CI, the concept of innovation as a development or improvement of processes and services occurs mainly with the insertion or updating of new technologies and also transformations and modifications in management processes. This type of innovation in existing processes is always thought of to meet the demands of a specific group of users of information services. For some types of institutions that offer information services, innovation in services and products offered becomes a more difficult process due to the aforementioned costs necessary for the effective implementation of new services. </p>
+        </disp-quote>
+        <p>Gabriel Junior, Sousa, and Silva (2020) discuss two types of libraries very common in Brazil: the public library and the university library. About the first, the authors state that it has enormous potential for innovation as from the Information and Communication Technologies (ICTs) because they enable better interaction between users, products and services, favoring autonomy in tasks related to the services offered by the library, however, it is pointed out as the main challenge the fundraising for the appropriate investment in these technologies, given the reality of public libraries in the country, notoriously known as precarious from the point of view of economic investment from public policies. In relation to the second, the authors point out as a barrier the lack of knowledge, for the library's maintainers, of the importance of innovation to generate value because they perceive it as a conventional space. Gabriel Junior, Sousa, and Silva (2020) point out that:</p>
+        <disp-quote>
+          <p>The concept of innovation in a university library should also be associated with the development and improvement of products and services related to scientific communication, since a large part of its public is made up of researchers and students who need scientific information to carry out their activities and develop their research.</p>
+        </disp-quote>
+        <p>It is important to mention that both in the study by Gabriel Júnior, Sousa and Silva (2020), the most updated scientific mapping on the theme (Innovation) in the IC field, and in all the scientific literature investigated as from the research that originated the present article, there is no approach on innovation in libraries of federal institutes, which currently in Brazil, play an educational role in the public sector in a more comprehensive way than university libraries, for serving users linked to the secondary/technical and higher education level, and for being present in a widely distributed manner throughout the national territory. This gap begins to be filled with this article, the first of a series of publications that intends to address the issue with the intent of developing it in the scientific and professional field with a view to both the public educational library and the librarians' work beyond the library, in other spaces suitable for their work in innovation ecosystems. </p>
+        <p>During the pandemic period between the years 2020 and 2021, professionals from various fields learned new lessons about the most diverse issues that interfere with lifestyles and ways of life as we know them. This was a landmark of significant changes, including changes in the world of work and employment. Among several, the issue of changes in the way of life at work, especially the future of remote work and the role of public educational libraries in this dynamic context in Brazil, interested the present study.</p>
+        <p>During ENANCIB 2021, the authors of the present article proposed that these are libraries that support with info educational actions the teaching, research and extension practices developed by public educational institutions, whose function is <bold>educational</bold>, and their nature is public. Conceptually, from the perspective of their organizational identity, public educational libraries were defined as: information units, with a priority educational purpose and of <bold>public</bold> nature, which meet the information needs of both the academic public, at all levels of teaching, needs and skills, and the technical-administrative public and the community in general, through info educational actions. The collection of such institutions can be made up of works that are multicultural, extracurricular, and linked to the lifelong learning process, covering all age groups, without distinction. The libraries of the federal institutes are an example of this type of information unit in Brazil. However, this does not exclude other libraries to identify themselves in this organizational identity, being necessary to deepen the theme in future studies.</p>
+        <p>Two points constitute the starting point that inspired this research. First, the observation of the recent transformations that have occurred in the working environments of the communities to which the authors of this article are linked, carried out during doctoral research. Second, the contemporary reflection woven by an experienced North American professor about the innovation that has emerged over time in public libraries. Author of many books and articles about the policymaking process and how to improve the management of public organizations, Steve <xref ref-type="bibr" rid="B10">Kelman, Professor of Public Administration at Harvard University, published on August 2, 2021</xref>, in the traditional and renowned American blog about federal public administration, FCW (Federal Computer Week), an article entitled in its translation “<bold>Public Libraries and Government Innovation</bold>”. This article is the focal point of the reflection that originated the present research and discussion.</p>
+        <p>It is usual that at the core of discussions on public information policies, in the field of Information Science (IC) in Brazil, a convergence is sought, in an interdisciplinary way, between what is said in the scientific literature of the Administration field (and Public Administration) with the IC literature itself (and Librarianship in numerous instances). However, recently, the debate on sustainable development, urban infrastructure and smart cities has gained notoriety and broadened the interdisciplinary range of issues investigated in this scientific field. This occurs due to the evidencing of the urgency in solving and dealing with climate issues for human survival on planet Earth, and its unfolding, which include rethinking the quality of life at work and the need for presence in diverse situations and environments.</p>
+        <p>It has been a trend, therefore, that professionals and researchers from other fields of knowledge, with emphasis in this discussion on the field of Architecture and Urbanism, become interested in public libraries and their social function in urban spaces. Historically, there is an evolution in the appreciation of libraries as civic spaces, beyond the idea of exclusive spaces for the promotion of reading and books, defended throughout the 20th century as places primarily for study and research. </p>
+        <p><xref ref-type="bibr" rid="B10">Kelman (2021</xref>) mentions in his article his satisfaction in recently coming across the article by Liz McCormick, a summer urban scholar at New Urban Mechanics in Boston, USA, who works on management innovations for the city. The article, titled in translation “<bold>The Radical Potential of Libraries</bold>,” mentions new ways of library use following the pandemic, and was published on the City of Boston's institutional blog, specifically on the page of the Mayor's Office of New Urban Mechanics, which is a kind of research and development laboratory in Boston, and also serves as a civic incubator for ideas within the city government.</p>
+        <p>In Europe, there has been a lot of talk about the implementation of Distributed Citizen Labs in public libraries. Initiatives such as the recent offer of the course <italic>Laboratorios Ciudadanos Distribuidos</italic> (available at: https://curso2021.labsbibliotecarios.es/) for librarians and professionals from Brazil, in the distance learning modality, promoted by the Ministry of Culture and Sports of Spain, through the General Direction of Books and Reading Promotion, demonstrates the importance of the theme and of the insertion of libraries in the context of citizen innovation. Diego Garcia, coordinator of the Libraries Laboratories project, of the mentioned Spanish ministry, highlighted at the beginning of the course, through a speech broadcast on the YouTube platform on April 30th, 2021, the importance of reinforcing the role of libraries as meeting and collaborative learning spaces, where the promotion of democratic values is guaranteed.</p>
+        <p>Distributed Citizen Labs, conceptually, can be understood in a broader and more complete way from the perspective of social researcher Lorena <xref ref-type="bibr" rid="B15">Ruiz (2021</xref>, p. 1-3), disseminated within the first module of the course promoted by the Ministry of Culture and Sport of Spain, divided into six aspects, namely:</p>
+        <p>
+          <xref ref-type="table" rid="t1an"/>
+          <table-wrap id="t1an">
+            <label>Chart 1</label>
+            <caption>
+              <title>Distributed citizen labs defined in 6 aspects</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="justify">ASPECT</th>
+                  <th align="center">CONCEPTUAL PERSPECTIVE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="left">1. </td>
+                  <td align="justify">First, the citizen lab is a new form of institution, one in which openness, accessibility, and re-appropriability predominate. [...] in a citizen lab, people can make proposals and thus become producers (of their own or other people's ideas) rather than consumers (of something predetermined by the institution).</td>
+                </tr>
+                <tr>
+                  <td align="left">2. </td>
+                  <td align="justify">Second, a citizen lab is a meeting space for different actors to collaborate on the development of a shared idea.</td>
+                </tr>
+                <tr>
+                  <td align="left">3. </td>
+                  <td align="justify">Third [...] participation in a citizen lab is its connection to its closest environment. Regarding this aspect, it is about valuing the culture of proximity, prioritizing the meeting and cooperation between different actors linked to the same context (a neighborhood, a city, an organization, etc.). The laboratory is therefore a tool for listening and observing what happens in these contexts, trying to identify the community's needs, desires, resources, and strengths that can be put into action to develop collective ideas.</td>
+                </tr>
+                <tr>
+                  <td align="left">4. </td>
+                  <td align="justify">Fourth, [...] the laboratory works in a specific way, from the logic of experimentation and prototyping. This is one of the most characteristic and relevant features of the proposal of a citizen laboratory because it implies prioritizing the process over the result, accepting uncertainty, and supporting it collectively, and relating directly with error, understanding it as another learning resource. Experimentation, due to its open, provisional, and even playful nature, allows the diverse knowledge of all participants to be brought together, and thus promotes cooperation and the creation of bonds, particularly of trust and reciprocity.</td>
+                </tr>
+                <tr>
+                  <td align="left">5. </td>
+                  <td align="justify">Fifth, the articulation of diverse actors around the development of a common idea generates a large volume of knowledge. A citizen lab is not only a space in which this production of knowledge is possible, but also a tool so that the knowledge generated continues to circulate after the lab is over and can be useful in other contexts. To achieve this, we work from the principles of free culture (freedom to copy, distribute, modify, and improve other people's creations), documenting the work done in the development of each idea.</td>
+                </tr>
+                <tr>
+                  <td align="left">6. </td>
+                  <td align="justify">Sixth and last, the conceptual positioning and the main characteristics we have indicated respond to the fundamental purpose of a citizen lab: to create communities of learning and practice. These communities are intended to be spaces to collectively test forms of self-management, knowledge production, and coexistence because in a laboratory people participate who, for the most part, do not know each other and have not chosen to work together, and therefore it is necessary to establish a learning relationship with others. All this with the aim of improving the conditions of coexistence in our neighborhoods, our cities, or our institutions; in short, in those places that are close and meaningful to those who inhabit them.</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN4">
+                <p> Source: Chart organized based on the conceptual perspective of Lorena <xref ref-type="bibr" rid="B15">Ruiz (2021</xref>, p. 1-3).</p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <p>The purpose of the distributed citizen labs, according to <xref ref-type="bibr" rid="B15">Ruiz' perspective (2021</xref>), evidenced in the sixth aspect, matches the action-science method (<xref ref-type="bibr" rid="B1">ALMEIDA; PERUCCHI; FREIRE, 2020</xref>), in which it is used the creation of learning communities, called research community in the context of application of the scientific method; being this critical for obtaining results. </p>
+        <p>Thinking about the possibility of convergence between a work agenda in the library and a research agenda with a group of researchers linked to the library for innovation, it is inferred that the implementation and/or the development of citizen labs distributed in libraries can be part of the methodological strategy for socialization of information, fostering the generation of new knowledge, development of actions for information competence and for digital competencies; in line with the assumption of the social responsibility of Information Science.</p>
+        <p>According to McCormick (2021) libraries have served, since the period of the industrial revolution, as a welcoming point for newly arrived immigrants to learn, engage, and gain support in their quest for American citizenship. Other possibilities are noted by <xref ref-type="bibr" rid="B10">Kelman (2021</xref>) from other reports, namely: recreational use of the library by teenagers after school hours; use of computers and the Internet in the library to resolve legal matters; and use of the library to entertain children with storytelling.</p>
+        <p>Historically, in Brazil, the library spaces have always been used in various recreational and formative ways, beyond the storage of the bibliographic collection. During the pandemic, these spaces were physically limited, making it impossible for people to attend exhibitions, lectures, training sessions, classes, and other cultural and educational activities that have always been possible in library environments.</p>
+        <p>Information and education services have migrated to virtual learning environments. With this, reading and communication habits and practices, including the ways of learning, were - even if temporarily - modified, to adapt to the restrictions of the pandemic period and the proper continuity of the activities.</p>
+        <p>The pandemic period was not the first historical moment that demanded innovation from libraries. While in the United States of America, libraries were important in welcoming immigrants since the industrial revolution, in Brazil, libraries were and still are welcoming places for people in conditions of social and economic vulnerability.</p>
+        <p>In the post-pandemic context, without restrictions of physical presence in the library environment, it may return to its normal performance, but, probably, having to innovate before the changes in the informational behavior of people, which was influenced by the pandemic period. Certainly, new demands will emerge regarding the offer of products and services within the hybridism of current times.</p>
+        <p>Given this observation, <xref ref-type="bibr" rid="B10">Kelman (2021</xref>), asks “What will happen after libraries are reopened in a safer, more vaccinated world?” McCormick (2021) is also concerned about this future of the library in the post-pandemic context and reports on the development of work between his office, the Boston Public Library, and the city's Department of the Environment in which they are experimenting with developing two overlapping ideas, namely, “How can libraries evolve into remote workspaces and serve the community by playing a critical role in heat resilience as Boston gets hotter?”</p>
+        <p>Such a question emerges after a year of closing physical access to libraries during the pandemic period. The work developed by McCormick (2021) makes it possible to note that urban climate resilience is one of the contemporary environmental issues where the library can effectively contribute, as we will see in the discussion presented in this paper starting in the second section. Given the above, our research question took, therefore, the following contour: How can public educational libraries in Brazil evolve into remote workspaces and serve the diverse communities of professionals who work and communicate in networks? The objective of this article was to discuss the evolution of public educational libraries into remote workspaces to serve a community of professionals who work and communicate in a network. One of the most relevant points that interested the research was to know the possibilities of innovation in the public sector through remote work and the role of public educational libraries in this context, from the perspective of Information Science.</p>
+      </sec>
+      <sec sec-type="methods">
+        <title>2 METHODOLOGICAL PROCEDURES OF THE RESEARCH</title>
+        <p> Methodologically, the research is characterized as exploratory, of qualitative approach, developed through bibliographic research and elaborated from ongoing doctoral research, which makes use of the Science-Action method. As a technique, the research uses reflection in action to obtain scientific evidence and analyze data that culminates in the formulation of proposals relevant to the scientific and professional context. We compared the data on the reality of North American public libraries obtained by bibliographic collection, based on the reports of researchers and librarians working in this context, with the Brazilian reality. This comparison resulted in the production of a reflection focused on the performance of the libraries of the Federal Institutes, classified by the authors of this study as public educational libraries.</p>
+        <p>In a pioneering way in the field of Information Science in Brazil, Chloé Valdary's enchantment theory is applied as a strategy of methodological approach to produce a critical reflection about innovation in the public sector, emphasizing the subjectivity inherent to human relations at work. Statistical data from recent surveys by the Institute for Applied Economic Research (IPEA) and the Brazilian Institute of Geography and Statistics (IBGE) were also consulted to support this reflective study with evidence.</p>
+        <p>The reflection presented in the following sections was structured in three parts, which address the triad innovation, remote work, and public educational libraries, in theoretical correlation with the possibilities of scientific and professional action, based on the purpose of highlighting a necessary debate in the field of Information Science in the 21st century. Specifically, such debate subsidizes the evolution of studies on public information policies in libraries and their social implications in Brazil.</p>
+        <p>The present study was carried out with the support of two research groups, the result of an inter-institutional partnership between the Research Group on Project Management in Education, Science, Information and Technology (PROJECIT), from the Instituto Federal da Paraíba (IFPB), and the Research Group Communication, Networks and Information Policies, from the Universidade Federal do Rio de Janeiro (UFRJ). Part of the data obtained in the present investigation is also the result of doctoral research in progress at the Graduate Program in Information Science (PPGCI), at the Federal University of Paraíba (UFPB). The present article, therefore, is the result of collaborative and integrative work in the scientific community.</p>
+      </sec>
+      <sec>
+        <title>3 WHERE TO START THINKING ABOUT INNOVATION THROUGH REMOTE WORK?</title>
+        <p>To get to the answer to the question that gives this section its title, we start from <xref ref-type="bibr" rid="B10">Kelman's (2021</xref>, n.p.) perception of innovation in American public libraries, when discussing specifically the public library's contributions to urban climate resilience in Boston, based on the work developed by McCormick (2021, n.p.), highlighting that during the pandemic:</p>
+        <disp-quote>
+          <p>The library system implemented free outdoor Wi-Fi spaces at 14 locations, while branches were closed, providing secure outdoor Internet access. The libraries created six shaded work areas to make the free Wi-Fi easier to access and more fun to use. They have set up picnic tables, an outdoor café, and misting tents outside the libraries as well, some of which have already been set up as places to alleviate borrowing requests.</p>
+        </disp-quote>
+        <p>Although <xref ref-type="bibr" rid="B10">Kelman (2021</xref>) is not sure why so much innovation has emerged over time in American public libraries, while some other government organizations themselves remain tied to conventional practices, he points to it being due to the general lack of political controversy surrounding public libraries. The researcher notes that usually government innovation arises from crises and threats, but that it is different with libraries. What drives innovation in libraries is their organizational security, which fosters the confidence and self-confidence of innovators. This may be a favorable and preponderant factor for innovators to find in the library a favorable space for creativity and innovation not only in the United States, but also in Brazil. </p>
+        <p>This point is no different from the Brazilian reality, as we have observed in recent decades. However, when it comes to innovation in public libraries, it is not quite like that, for it is a complex issue. Corroborating with <xref ref-type="bibr" rid="B10">Kelman (2021</xref>), we infer that the reality of these information units suggests that more organizational security favors the creation of space for innovators to approach change with confidence and self-confidence, both in the United States and in what we can estimate in Brazil, from the evidence collected.</p>
+        <p>McCormick (2021) makes us reflect that in times of instability around the world, where trust in public institutions has diminished and continues to be threatened, public libraries remain highly trusted public entities. She correlates this trustworthiness given to the library to a public from all neighborhoods, various age groups, and generally by a diverse audience. She concludes her article by mentioning that despite the gradual replacement of physical records of knowledge by the world of digital information, the role of libraries remains more important than ever. This position coming from a professional from another area, outside the field of Librarianship and Information Science, is critical to validate and legitimize the discourse of librarians who fight for more investment and better working conditions to offer new and better services, and that has often been discredited by public managers.</p>
+        <p>In one of the recent publications of the Federal Council of Librarianship, <xref ref-type="bibr" rid="B9">Herrera (2015</xref>, p. 188), librarian of the public library of the city of San Francisco, in the United States, justifies the relevance of innovation in libraries, highlighting that:</p>
+        <disp-quote>
+          <p>Today and in the future, libraries must constantly reinvent themselves. We can remain loyal to our core mission of providing access to information and promoting reading. However, we need to re-examine the traditional model to shift the focus more toward bringing the library to the people. This means that we need to reshape service models to one that is more proactive in community outreach and to offer services that target the user. We also need to make our libraries more accessible as community spaces for education and civic engagement. Now is the time to reinvent the way we do our work. Librarians have remarkable skill sets to help build community, teach the new knowledge, and redefine our public libraries as learning and knowledge centers of the 21st century that will help solidify the information digital and social divide.</p>
+        </disp-quote>
+        <p>Data from the 2015 survey conducted by the National System of Public Libraries indicate that there are 6,057 public libraries throughout the Brazilian territory, considering the sum of municipal, district, state, and federal libraries, which would offer an approximate average of one public library for every 33,000 inhabitants (<xref ref-type="bibr" rid="B17">SNBP, 2021</xref>). There is no disclosure of separate data between levels of government. </p>
+        <p>Despite this, the Brazilian Institute of Geography and Statistics (IBGE), released in 2019 data from the Municipal Basic Information Survey (MUNIC), which pointed to a reduction in the number of municipalities with public libraries by 10% over a four-year interval, in the period from 2014 to 2018. It is assumed, therefore, from the reports and the observed data, that there is a possibility of greater stability within state and federal libraries, compared to the municipal reality. This may vary according to the economic conditions of each municipality, after all, there are exceptions, and the case of São Paulo is one of them, considered one of the municipalities that stand out in the valorization and quality of public libraries, such as the Mário de Andrade Library, which is municipal, and the award-winning Villa-Lobos Park Library, which is statewide.</p>
+        <p>In Brazil, data from the Brazilian Institute of Geography and Statistics (IBGE) in 2018 already pointed out record numbers of remote work in the home office format even before the COVID-19 pandemic. The number reached 3.8 million Brazilians working in this condition in the mentioned year. IBGE points out that at the time, the home office work regime became an alternative to circumvent unemployment. Disclosing the data, Silveira (2019, n.p) highlights that</p>
+        <disp-quote>
+          <p>According to IBGE, the home office corresponded to 5.2% of all employed workers in the country, excluding public sector employees and domestic workers. Compared to 2012, when the historical series of the survey began, this contingent increased by 44.4%. The home office, highlighted the IBGE, fell 2.1% between 2012 and 2014, grew 7.3% in 2015, and fell again by 2.2% in 2016. Between 2017 and 2018, it grew by 21.1%.</p>
+        </disp-quote>
+        <p><xref ref-type="bibr" rid="B8">Góes, Martins and Nascimento (2021</xref>) published through the Institute for Applied Economic Research (IPEA), a conjuncture letter in the first half of 2021, which presents official government statistical data on remote work in Brazil, based on the year 2020. Such data was also published by Agência Brasil, a public news agency of the federal government, which confirms its relevance for governmental decision-making processes in Brazil, serving as a basis, also, to compose the evidence of studies and scientific research on the subject. This survey pointed out that there was a decrease in the number of home office workers in the month of November 2020; however, the number remains much higher than the 3.8 million pointed out by the IBGE in 2018, being registered approximately 7.3 million in the recent IPEA survey (<xref ref-type="bibr" rid="B4">BRASIL, 2021</xref>).</p>
+        <p>The recorded drop is natural, considering the proximity of the pandemic control, observed from the advancement in safety protocols and vaccination, and gradual return to normality. What is currently raising questions, especially in the field of Public Policies, which also interests Information Science in terms of information policies, is the permanence and/or transfer of in-person activities to the remote work format, exclusively or as a hybrid; the advantages and disadvantages of this migration; and the conditions of viability and permanence of this work model.</p>
+        <p>The most recent fact, in the post-pandemic Brazilian context, which contributes to innovation in the public service is the publication of Decree 11,072, of May 17, 2022, which regulates telework and productivity control in the federal public service under the Executive Branch. The greatest innovation provided by the decree consists in the autonomy for the top directors of the entities of the indirect Federal Public Administration, which includes federal public autarchies and foundations, to authorize the implementation of the Management and Performance Program (PGD); which was previously restricted to the Ministers of State. The untying favors the reduction of bureaucracy in the implementation of the program. The normative act improves both the management of results of public agencies and agents, and the rules related to telework. With this, telework will now be possible on a part-time or full-time basis in federal institutes and universities. This government innovation in Brazil was possible due to the successful experience with remote work during the Covid-19 pandemic. In an increasingly digital reality, it has become evident to public managers the viability of telecommuting in the public sector. The measure can contribute to the reduction of costs of the public machine, can favor the cultural change of time and attendance control by controlling results and the quality of public services, and can also result in higher quality of life for federal civil servants, better productivity, and serve as an example for governments at the municipal and state levels to rethink the form of work adopted, without compromising the efficiency of public power, and encouraging professional performance in accordance with the objectives of sustainable development.</p>
+        <p>The evidence of innovation through remote work and the correlation with libraries have been noticed in scientific works in the field of Information Science. We highlight the increasing approaches about coworking and other innovative spaces (<xref ref-type="table" rid="t2an">Chart 2</xref>). In the molds of the present research, structured from bibliographic research and with a qualitative approach, the study by <xref ref-type="bibr" rid="B12">Moyses, Mont'Alvão, and Zattar (2019</xref>) is one of the examples of a recent scientific publication that points out these innovative spaces in libraries. The spaces noted in the research are maker spaces, learning commons, and coworking spaces, which, according to the researchers, “make the library more active, collaborative, creative, and innovative, which differs from traditional models that emphasize the consumption of knowledge.” (<xref ref-type="bibr" rid="B12">MOYSES; MONT'ALVÃO; ZATTAR, 2019</xref>, p. 5).</p>
+        <p>
+          <table-wrap id="t2an">
+            <label>Chart 2</label>
+            <caption>
+              <title>Innovative library spaces</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <td align="center">Makerspaces</td>
+                  <td align="justify">These are spaces qualified to function as incubators of ideas, in the most diverse areas, which favor creativity, experimentation, and entrepreneurship. In them, community spirit and collaboration are stimulated, and technologies and tools are made available to create individual and collective projects.</td>
+                </tr>
+                <tr>
+                  <td align="center">Learning commons</td>
+                  <td align="justify">These are spaces that are conducive to collaborative learning. They consist of a meeting space to discuss projects and hold meetings. They are created as an alternative to classrooms, informal learning environments.</td>
+                </tr>
+                <tr>
+                  <td align="center">Coworking</td>
+                  <td align="justify">These are spaces that have the objective of sharing the physical structure, furniture, rental costs, and a commercial address, which allows an environment conducive to the exchange of experiences, the sharing of knowledge, the participation in events, and training programs.</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN5">
+                <p> Source: Chart organized based on research by <xref ref-type="bibr" rid="B12">Moyses, Mont'Alvão, and Zattar (2019</xref>, p.13-18).</p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <p>Regarding the exemplification of these spaces, we have that maker spaces in Brazil, as mentioned by <xref ref-type="bibr" rid="B12">Moyses, Mont'Alvão and Zattar (2019</xref>, p. 15) are present in school libraries and, also, in public libraries, the example of </p>
+        <disp-quote>
+          <p>initiatives such as in the Villa-Lobos Park Library (BVL) that hold maker workshops that teach different activities, such as book production, robotics, home maintenance with a focus on different user profiles. [...] also has an inclusive and accessible environment [...], with several assistive technology devices, such as page flipper, ergonomic table, autonomous reader, audio player, ruler rail, adapted keyboard and mouse, computers with screen reader, adapted mouse and keyboard. [...] has already been indicated as one of the best in the world for its illuminated environment, spaciousness, and democratic space. It has also been classified as an active library, whose architecture itself favors the reader's experience, besides stimulating and facilitating activities of multiple natures.</p>
+        </disp-quote>
+        <p><xref ref-type="bibr" rid="B12">Moyses, Mont'Alvão, and Zattar (2019</xref>, p. 17) cite the São Paulo Library, another state public library, as an example of learning commons.</p>
+        <disp-quote>
+          <p>It was conceived to be a bold space and offer comfort, autonomy, and attention to users, seen as central elements of the library. It occupies an area of 4,257 square meters to meet the needs of different user profiles. It has technological resources and makes microcomputers, wireless and self-service terminals available. It was inspired by the Santiago Library, in Chile, and was nominated in 2018 as one of the best in the world. </p>
+        </disp-quote>
+        <p>The concepts are very similar within a collaborative space proposal. We can affirm that in some libraries, there is the presence of two or more of these spaces. In the research by <xref ref-type="bibr" rid="B12">Moyses, Mont'Alvão, and Zattar (2019</xref>, p. 17), the researchers again point to the Parque Villa-Lobos Library (BVL), of the State of São Paulo (SP), this time to make mention of the coworking space it contains. </p>
+        <disp-quote>
+          <p>In 2018, BVL opened a coworking space on the second floor of the library [...], which corresponds to a shared workroom with infrastructure and Wi-Fi network for use by micro and small companies, startups, or people with projects or ventures in development. The projects selected, through a public notice, can use the room free of charge for ten months. In return, they must offer workshops or seminars in the project's specialty for of the public. </p>
+        </disp-quote>
+        <p>All these innovative spaces converge towards the idea of a library that aims to be a “center of socialization and conviviality” (<xref ref-type="bibr" rid="B12">MOYSES; MONT'ALVÃO; ZATTAR, 2019</xref>, p. 20). Libraries in the 21st century are moving toward being spaces with greater interactivity, intense collaboration, and more fruitful and complex relationships. This spirit of welcoming and inclusion that has always been present in libraries is accentuated as the social dynamics of digital transformation we experience in contemporary times takes on new contours and evolves. </p>
+        <p>With remote work being more frequent in the lives of several professionals, for example, network communication requires that more attention be paid to managing emotion and understanding the dimensions of organizational solicitude (mutual trust, access to help, active empathy, leniency in judgments, and courage) (<xref ref-type="bibr" rid="B18">VON KROGH; ICHIJO; NONAKA, 2001</xref>). Both are important in enabling the processes of facilitating knowledge creation and, why not, also organizational innovation.</p>
+        <p>One of the theories that has stood out internationally in contemporary times is the theory of enchantment, especially in times of remote work. In a recent publication on Instagram, the National School of Public Administration (ENAP), linked to the Ministry of Economy of Brazil, posted on its official profile, on August 05, 2021, the following question: Why is it important to create and maintain rituals to generate connections with your co-workers?; In the post, ENAP mentions the American activist and writer Chloé Simone Valdary, who applies the Enchantment Theory in leadership training and in the compassionate fight against racism. As stated by ENAP (2021, n.p) the theory is innovative due to combining “social-emotional education, character development, and interpersonal growth as a tool for leadership development.” In the theory's approach, Valdary blends elements of pop culture to facilitate the dissemination and understanding of the dimensions and principles of the theory. Disseminated among students, schools, companies, and governments in several countries, including the United States, South Africa, the Netherlands, Germany, and Israel, the theory was presented for the first time to a Brazilian audience during a live online broadcast from ENAP on April 28, 2021.</p>
+        <p>Chloé Valdary spoke with Diogo Costa, the President of ENAP, and highlighted the importance of applying the three fundamental principles of the theory in the development of human beings, namely:</p>
+        <p>
+          <list list-type="order">
+            <list-item>
+              <p>treat people as human beings and not as political distractions;</p>
+            </list-item>
+            <list-item>
+              <p>When criticizing, elevate and empower, never with the intent to tear down or destroy;</p>
+            </list-item>
+            <list-item>
+              <p>Doing everything with love and compassion. Love in the sense of the Greek term agape, not based on conditions. (ENAP, 2021, n.p) </p>
+            </list-item>
+          </list>
+        </p>
+        <p>In this discussion, we highlight innovation in the context of public organizations and realize the relevance of leadership, social-emotional education, and the theory of enchantment. We also discuss the interdisciplinary convergence between Administration and Information Science, and as a result, it is possible to transpose from the literature on family rituals, in the context of Psychology, the conceptual distinction between ritual and routine to the organizational core. Taking as a basis the question raised by ENAP (Why is it important to create and maintain rituals to generate connections with your co-workers?), when proposing to think about enchantment in times of remote work, we sought in <xref ref-type="bibr" rid="B2">Azevedo's (2018</xref>, p. 8) explanation, under the perspective coined by <xref ref-type="bibr" rid="B6">Fiese et al. (2002</xref>), the difference between routine and ritual, detailed in three dimensions, namely:</p>
+        <disp-quote>
+          <p>communication, investment, and continuity. Regarding routines, the first dimension refers to the instrumental act - "this is what needs to be done;” the second dimension refers to the temporary character and little consistency after the routine is performed; the third dimension tells us that it is directly observable and detectable by outsiders, and the behavior repeats itself over time. In contrast to rituals, the first dimension refers to the symbolic act - "this is who we are;” the second dimension tells us that rituals are enduring and affective, and the experience can be repeated in memory; the third dimension refers to the extension of meaning across generations, and this is interpreted by insiders. (<xref ref-type="bibr" rid="B2">AZEVEDO, 2018</xref>, p. 8).</p>
+        </disp-quote>
+        <p>Transposing such knowledge to the organizational environment, we can understand that routines organize work processes, and their repetition over time can transform them into rituals, through anticipation and emotional investment. However, a ritual can become routine if it starts to be felt as an obligation. We can consider that routines and rituals enable organizations to deal with the adversities that emerge from their performance, whether public or private.</p>
+        <p>We can also consider that we cannot dissociate the study and research on innovation and remote work from socioemotional issues involving people of different generations. Especially in the context of public educational libraries, this inseparability is even more evident, since it is a space where these several generations meet and seek to meet information needs and other types of needs, ranging from children's entertainment to being a support point for teenagers after school, for refugee immigrants seeking information to achieve their citizenship, among others.</p>
+        <p>So far, our reflective path has allowed us to realize that starting to think about innovation through remote work, inserting public educational libraries, constitutes a broad debate with several challenges. Besides the above, it is also necessary to think about information policies in libraries and the need for social and emotional education of young people and adults. It is not possible to think about innovation in this context without trying to understand the issues that make sense for new generations, such as the y, z, and alpha generations, which are the most challenging audience for libraries at the moment.</p>
+        <p>How to apply efficient library management to promote the development of the generations? This is one of the implications of the debate, which leads us to start thinking about Generations Management. Developing information actions that leverage the best of each one of them can be a starting point of a work and research agenda for research librarians. </p>
+        <p>In the context of the Federal Institutes, public educational libraries have the commitment to attend and satisfy, through their products and services, the employed generations, the unemployed ones, and those who are in the process of training to access the world of work and employment very soon. The challenge is even greater in this context.</p>
+        <p>Thinking about the innovative contribution of the public educational library to the issue of remote work, therefore, will require thinking that its strategic management may include everything from the analysis of reports to the evaluation of quantitative and qualitative indicators on the diversity of generations. It is necessary to think what can enable more assertive actions, such as the development of incentive programs for productivity; the promotion of greater involvement of social actors in decision-making processes; greater digital presence and engagement of young people and adults; and other actions, even motivational ones, also focusing on the management of emotions in the workplace, a subject that has received more notoriety and relevance nowadays.</p>
+        <p>The pandemic and post-pandemic context, worldwide, has inspired us to be creative, innovative, and adaptive. We have learned by necessity at the time of the pandemic and are applying to the new moment to work well remotely, moving towards hybrid models (remote and face-to-face activities), more flexible and adaptable to networked social dynamics. We are facing crises and opportunities. </p>
+        <p>A promising service is in demand, and public educational libraries are at the center of the problem and the solution. From it, solutions may emerge that contribute to innovation through remote work, if possible, adding the importance of the three dimensions: communication, investment, and continuity; defended by the enchantment theory, along with its three principles, which collaborate in facing and breaking paradigms that interfere with productivity and organizational culture in the public sector. </p>
+      </sec>
+      <sec>
+        <title>4 A PROMISING SERVICE PERFORMED BY BRAZILIAN PUBLIC EDUCATIONAL LIBRARIES</title>
+        <p>Importantly, innovation in information services is central to the evolution of libraries. Public educational libraries have evolved to become remote workspaces, with the purpose of serving communities of professionals who work and communicate online.</p>
+        <p>Is the creation of remote workspaces or zones in educational libraries a really promising and viable initiative? Perhaps the answer to this question is only possible with the implementation of public policies that guarantee the promotion and, therefore, the adequate investment in infrastructure and beyond. Experimentation may be the best alternative for these libraries to become citizen laboratories, and effectively fulfill their educational function, with innovative services based on the idea of learning libraries, guided by the five disciplines of Peter Senge: personal mastery, mental models, team learning, shared vision, and systemic thinking.</p>
+        <p>Other questions emerge from this conjuncture, namely: How to define the diversity of remote working professionals who would seek the library as a remote workspace? Possibly, the implementation and management of distributed citizen labs can contribute to this knowledge of the public and their needs. It is action and reflection in action that will guide the evaluation and innovation agenda that is sought in remote work and libraries.</p>
+        <p>The very social mission of the federal institutes in the context of professional and technological education in Brazil, with emphasis on the importance of offering remote work support service in public educational libraries, justifies the investments in this segment of professional performance of librarians.</p>
+        <p>What can we reflect on in this section to start thinking about the construction of a work and research agenda? The search for ways to contribute to the success of digital transformation in the world of work, which encompasses greater public investment in libraries, is challenging. Digital transformation is a process, not an arrival point or a destination.</p>
+        <p>In order to contribute to the formation and development of a research agenda on innovation in the scientific field of Information Science and in the professional field of federal institutes in Brazil, it is necessary to bring together researchers, especially research librarians, linked to these institutions, working in the country. Gabriel Junior, Sousa, and Silva (2020), in their mapping of the scientific literature on the most productive authors in the subject of Innovation indexed in BRAPCI in the period 1978 to 2019, identified that the only researcher linked to a federal institute is the Librarian and PhD in Information Science, Valmira Perucchi, from the Federal Institute of Paraíba (FIPB). From this study, it is observed a change in this scenario, with the beginning of a research agenda that can fill this gap and overcome the incipient scientific production on the theme, from a series of publications, according to this article that is also the result of a doctoral research.</p>
+        <p>Regarding the work agenda, the function of the public educational libraries is to contribute to the Federal Institutes in their mission to promote teaching, research, and extension through professional, scientific, and technological education with the union of information, education, and technology to ensure sustainable local, regional and national development. Even in the face of the context in which we find ourselves, in which it is a challenge to build online the relations and structures of an educational institution, as in the case of the Federal Institutes and their public educational libraries. According to <xref ref-type="bibr" rid="B13">Paula, Silva and Woida (2020</xref>, p. 3), libraries are the basis of education</p>
+        <disp-quote>
+          <p>serving as a support for teaching, research, and extension, and for this reason, they are reinventing themselves in the current scenario by offering services and informational products such as book loans in delivery, training, workshops, lives of information competence on how to use information sources safely for research, standardization of academic papers, scientific writing, among others.</p>
+        </disp-quote>
+        <p>With the need for the services provided by public educational libraries having to adapt during the pandemic to the social isolation and distance, the professionals who work in them had to adapt to a new reality, the remote work. Thus, they have had to review their services and actions to continue with the importance they have always had in the educational context while still meeting the information needs of their users in a satisfactory manner, as quickly, efficiently, and effectively as possible, as is customary.</p>
+        <p>Trends are becoming reality in our day-to-day lives. It must also be understood that they have had to reinvent themselves in offering and making online information products and services accessible and easy to handle for users. The user experience is central to this way of life.</p>
+        <p>To work with the emerging reality, public educational libraries have expanded the use of services offered on social networks such as Instagram, Twitter, and Facebook, as well as service channels using WhatsApp and electronic forms, and have made available and assisted in the use of open access databases that enable users to access e-books and scientific articles. In this way, the libraries</p>
+        <disp-quote>
+          <p>have been engaged in improving their information services and products by making information available through websites, social media, and networks such as Instagram, Twitter, Facebook, and other media. These communication means are great disseminates of information and where several subjects are connected daily, causing information to circulate at greater speed because these informational channels allow librarians and users not only to seek interaction, but also to make information sharing (<xref ref-type="bibr" rid="B13">PAULA, SILVA; WOIDA, 2020</xref>. p. 8).</p>
+        </disp-quote>
+        <p>The pandemic required the process of joining technology and education, forcing us to use, in a systematic and general way, digital media for sharing information, providing services, and other activities. It is necessary to think and plan for this post-pandemic context, with the offer and creation of innovative spaces, with services that ensure the safety and health of everyone involved in the libraries. This process can be guided by an agenda oriented to social development, as the digital transformation guides contemporary life, in all processes and information flows.</p>
+      </sec>
+      <sec>
+        <title>5 AGENDA FOR SOCIAL DEVELOPMENT AND DIGITAL TRANSFORMATION</title>
+        <p>Drawing up a work agenda in parallel to drawing up a research agenda is not only possible, but necessary these days. There is a clear inextricability between the work agenda and the research agenda, as much as there is for social development and digital transformation from this century onwards.</p>
+        <p>In an experimental way, in this section we will address a proposal for a work agenda that can be applied in public educational libraries, through a research agenda that is being constituted in the scope of the Research Group on Project Management in Education, Science, Information and Technology (PROJECIT), linked to the IFPB Campus João Pessoa and registered with the National Council for Scientific and Technological Development (CNPq) since 2014.</p>
+        <p>Some questions can be applied via e-mail to the librarians responsible for the libraries in the system, to have a local sample of the perception of these managers on this subject; and, later, expanded for comparative studies. This is a proposal for application in future studies. There was no need to apply a questionnaire at this point in the research because we are in a stage of reflection. These questions could be developed based on a small group of guiding questions, namely: </p>
+        <p>
+          <list list-type="simple">
+            <list-item>
+              <p>a) During the pandemic, what did you do differently in your remote activities that you did not do before the pandemic and that may have generated innovation?</p>
+            </list-item>
+            <list-item>
+              <p>b) In the library is innovation through remote work possible? </p>
+            </list-item>
+            <list-item>
+              <p>c) Traditionally, the library is a study and research space for students. do you think the library can become a remote workspace for professionals? What conditions would you need to make this service viable?</p>
+            </list-item>
+          </list>
+        </p>
+        <p><xref ref-type="bibr" rid="B15">Ruiz (2021</xref>, p. 3, our translation) states that: “All living beings share vulnerability, not as weakness, but as that which, in needing each other, allows us to link, ally, and support each other.” The researcher points out that this vulnerability became much more evident with the social and health crisis stemming from the COVID-19 pandemic. As argued by Ruiz (2021), we have the potential to create collaborative networks in research and the workplace, but we need the resources and proper infrastructure to do so. These resources and the necessary infrastructure can be obtained by formulating activity-specific public policies in the public sector.</p>
+        <p>However, it is first necessary to spread among librarians, researchers, public managers, and other professionals relevant to the issue in public organizations, the potential of the public educational library in order to generate innovation from remote work. In this sense, it is necessary to develop a research agenda that supports a work agenda, so that information policies are assertively developed, resources are allocated, and the promotion is effectively carried out in these public sector environments that lack innovation.</p>
+        <p>
+          <xref ref-type="table" rid="t3an"/>
+          <table-wrap id="t3an">
+            <label>Chart 3</label>
+            <caption>
+              <title>First topics on the research agenda</title>
+            </caption>
+            <table>
+              <colgroup>
+                <col/>
+                <col/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th align="center">TOPIC</th>
+                  <th align="center">DESCRIPTION</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">1</td>
+                  <td align="justify">Organizational identity of libraries in federal institutes</td>
+                </tr>
+                <tr>
+                  <td align="center">2</td>
+                  <td align="justify">Innovation, remote working, and infrastructure of educational libraries</td>
+                </tr>
+                <tr>
+                  <td align="center">3</td>
+                  <td align="justify">Digital transformation and innovation in information services through projects</td>
+                </tr>
+                <tr>
+                  <td align="center">4</td>
+                  <td align="justify">Learning and practice communities in libraries and research groups</td>
+                </tr>
+                <tr>
+                  <td align="center">5</td>
+                  <td align="justify">Users need and experience in virtual learning networks</td>
+                </tr>
+                <tr>
+                  <td align="center">6</td>
+                  <td align="justify">Social media marketing strategies for educational libraries</td>
+                </tr>
+                <tr>
+                  <td align="center">7</td>
+                  <td align="justify">Public policies to combat intergenerational information poverty</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TFN6">
+                <p> Source: Authors (2022).</p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+        </p>
+        <p>The seven themes pointed out above do not exhaust or limit the research agenda that is being constituted. They are the starting point for a research work based on the Science-Action method in the context of Information Science, constituting an unprecedented proposal for intervention in the scientific field, bringing theoretical contributions to a scientific field that is increasingly aligned and closer to the practices of information professionals and the needs of current and future generations of information users and producers in a networked society.</p>
+      </sec>
+      <sec sec-type="conclusions">
+        <title>6 FINAL CONSIDERATIONS</title>
+        <p>The results highlight the possibility of innovation through remote work in the federal public service. We are facing an opportunity to innovate in the public sector with a promising service that can be performed by public educational libraries in federal institutes in Brazil: the appropriate infrastructure for remote workspaces.</p>
+        <p>We also observed an inseparability between the work agenda and the research agenda, as well as between social development and digital transformation, from this century on, as far as these educational libraries are concerned.</p>
+        <p>The study aims to contribute to the development of more assertive public policies for this type of library, its public and its new work dynamics that are being constituted. It is possible that solutions to real problems faced in the daily life of information professionals will be proposed based on the research agenda that is being developed at the inter-institutional level. The fruitful path that Science-Action has been building in Information Science in Brazil, with studies that bring together the theories in use in the professional context with the theories proclaimed by the scientific field, shows the possibilities of innovation that are to come.</p>
+        <p>The alignment of studies on educational library infrastructure with the development of smart cities in the context of creative economy, entrepreneurship and digital transformation will reveal new possibilities and solutions in the core of the field of Information Science to meet the emerging demands of the network society. It is, therefore, a promising theme for us to start thinking about the construction of a Brazilian Digital Agenda based on the contributions of this scientific field.</p>
+        <p>We conclude that the paths to digital transformation in the world of work can become even more productive, innovative, profitable, and sustainable when we seek continuous and adequate investment in infrastructure and innovation of libraries that fulfill an educational function and are of a public nature, following the high level of social relevance of the federal institutes in the context of inclusion through professional, scientific, and technological education in Brazil.</p>
+        <p>It is necessary, still, continuous investment in the formulation of public policies, especially information policies, to ensure the role of the librarian as an agent of innovation in federal institutes. As the next step of the authors of this research, considered as a fruit of the research, a scientific article will be communicated on how the information policy correlates with the innovation policy in federal institutes, covering in its discussion the theoretical-pragmatic model for the development of information policies of <xref ref-type="bibr" rid="B3">Brandão (2022</xref>), and the challenges arising from the post-pandemic scenario from the Digital Agenda eLAC 2022 and the recent actions occurred in Brazil that favor the development of the Digital Society. </p>
+      </sec>
+    </body>
+    <back>
+      <fn-group>
+        <fn fn-type="other" id="fn1n">
+          <label>Recognitions:</label>
+          <p>Not applicable.</p>
+        </fn>
+        <fn fn-type="supported-by" id="fn2n">
+          <label>Funding:</label>
+          <p>Not applicable.</p>
+        </fn>
+        <fn fn-type="other" id="fn4n">
+          <label>Ethical approval:</label>
+          <p>Not applicable.</p>
+        </fn>
+        <fn fn-type="data-availability" specific-use="uninformed" id="fn5n">
+          <label>Availability of data and material:</label>
+          <p>Not applicable.</p>
+        </fn>
+        <fn fn-type="other" id="fn6n">
+          <label>JITA:</label>
+          <p>DC. Public libraries.</p>
+        </fn>
+        <fn fn-type="other" id="fn7n">
+          <label>7</label>
+          <p>Article submitted to the similarity system</p>
+        </fn>
+      </fn-group>
+    </back>
+  </sub-article>
+</article>
