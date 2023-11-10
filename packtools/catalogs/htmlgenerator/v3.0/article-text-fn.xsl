@@ -44,11 +44,18 @@
                 </xsl:apply-templates>
             </h3>
         </xsl:if>
-    
     </xsl:template>
 
     <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-content">
-        <xsl:apply-templates select="*[name()!='title' and name()!='label'] | text()"/>
+        <xsl:apply-templates select="p"/>
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by']/label | fn[@fn-type='data-availability']/label" mode="back-section-content">
+        <!-- nao apresentar -->
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by']/p | fn[@fn-type='data-availability']/p" mode="back-section-content">
+        <p><xsl:apply-templates select="*|text()"/></p>
     </xsl:template>
 
 </xsl:stylesheet>

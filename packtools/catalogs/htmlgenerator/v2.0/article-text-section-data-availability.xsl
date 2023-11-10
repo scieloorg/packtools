@@ -25,7 +25,8 @@
     </xsl:template>
 
     <xsl:template match="body | back" mode="data-availability">
-        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material'] | .//*[@fn-type='data-availability']" mode="data-availability"/>
+        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="data-availability"/>
+        <xsl:apply-templates select=".//*[@fn-type='data-availability']" mode="data-availability"/>
     </xsl:template>
 
     <xsl:template match="article" mode="data-availability-menu-title">
@@ -71,6 +72,20 @@
 
     <xsl:template match="sec[@sec-type='supplementary-material']" mode="data-availability">
         <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="fn" mode="data-availability">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <xsl:apply-templates select="p" mode="data-availability"/>
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="fn/*" mode="data-availability">
+        <p>
+            <xsl:apply-templates select="*|text()"/>
+        </p>
     </xsl:template>
 
 </xsl:stylesheet>
