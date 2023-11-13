@@ -30,26 +30,11 @@
         <!--
         Apresenta uma lista de fn encontrados em body, exceto os de table-wrap
         -->
-        <xsl:apply-templates select="." mode="choose-format"/>
+        <xsl:apply-templates select="." mode="div-fn-list-item"/>
     </xsl:template>
 
     <xsl:template match="table-wrap-foot//fn" mode="text-fn">
         <!-- do nothing for table-wrap-foot/fn -->
-    </xsl:template>
-
-    <xsl:template match="fn" mode="choose-format">
-        <!--
-        Dependendo do tipo de fn, apresenta em formato de
-        back-section ou item de lista
-        -->
-        <xsl:choose>
-            <xsl:when test="@fn-type='edited-by' or @fn-type='data-availability'">
-                <xsl:apply-templates select="." mode="back-section"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="." mode="div-fn-list-item"/>
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="fn/p | corresp/p">
@@ -95,10 +80,6 @@
         <h2><xsl:apply-templates select="*|text()"/></h2>
     </xsl:template>
 
-    <xsl:template match="fn[@fn-type='edited-by']/label | fn[@fn-type='data-availability']/label | fn[@fn-type='edited-by']/title | fn[@fn-type='data-availability']/title" mode="div-fn-list-item">
-        <!-- do nothing for fn edited-by or data-availability -->
-    </xsl:template>
-        
     <xsl:template match="body//fn | back/fn | author-notes/* | back/fn-group" mode="back-section-content">
         <div class="ref-list">
             <ul class="refList footnote">
@@ -131,10 +112,10 @@
 
     <xsl:template match="author-notes" mode="author-notes-as-sections">
         <!-- apresenta as notas de autores que indicam Ciência Aberta -->
-        <xsl:apply-templates select="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="back-section"/>
+        <xsl:apply-templates select="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section"/>
     </xsl:template>
 
-    <xsl:template match="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="back-section-menu">
+    <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-menu">
         <xsl:variable name="name" select="@fn-type"/>
         <!--
         Evita que no menu apareça o mesmo título mais de uma vez 
@@ -148,23 +129,30 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="back-section-h">
+    <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-h">
         <!--
             Apresenta o título da seção no texto completo
         -->
         <xsl:variable name="name" select="@fn-type"/>
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
             <h1 class="articleSectionTitle">
-                <xsl:apply-templates select="label"/>
-                <xsl:if test="label and title">&#160;</xsl:if>
-                <xsl:apply-templates select="title"/>
-                <xsl:if test="not(label) and not(title)">
-                    <xsl:apply-templates select="." mode="text-labels">
-                        <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
-                    </xsl:apply-templates>
-                </xsl:if>
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
+                </xsl:apply-templates>
             </h1>
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-content">
+        <xsl:apply-templates select="p"/>
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by']/label | fn[@fn-type='data-availability']/label" mode="back-section-content">
+        <!-- nao apresentar -->
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by']/p | fn[@fn-type='data-availability']/p" mode="back-section-content">
+        <p><xsl:apply-templates select="*|text()"/></p>
     </xsl:template>
 
 </xsl:stylesheet>
